@@ -30,10 +30,10 @@ import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
 
-/** 
+/**
  * Instantiiert eine Klasse, die das TcContentWorker-Interface direkt unterstützt.
- * 
- * 
+ *
+ *
  * @see TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -45,10 +45,10 @@ public class DirectWorkerFactory implements SpecialWorkerFactory {
 
     /**
      * Läd die als ImplementationSource angegebene Klasse und gibt sie gecastet TcContentWorker zurück.
-     * 
+     *
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
-    public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration) 
+    public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration)
         throws WorkerCreationException {
         try {
             logger.debug(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(), workerDeclaration.getImplementationSource()));

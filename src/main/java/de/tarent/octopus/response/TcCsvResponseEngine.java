@@ -40,89 +40,89 @@ import de.tarent.octopus.request.TcResponse;
 public class TcCsvResponseEngine implements TcResponseEngine
 {
     public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc, TcRequest tcRequest)
-        	throws ResponseProcessingException 
+		throws ResponseProcessingException
     {
-        tcResponse.setContentType("text/plain");
-        
-        // Daten fuer die Ausgabe holen
-        Object data = tcContent.get(desc.getDescName());
+	tcResponse.setContentType("text/plain");
 
-        // OutputStream holen
-        OutputStream os = tcResponse.getOutputStream();
-        
-        try
-        {
-            if (data instanceof Object[])
-                generateCSV(os, Arrays.asList(((Object[])data)));
-            else if (data instanceof List)
-                generateCSV(os, (List)data);
-            else
-                throw new ResponseProcessingException("Given data in response field " + desc.getDescName() + " has to be either List or Array.");
+	// Daten fuer die Ausgabe holen
+	Object data = tcContent.get(desc.getDescName());
 
-            os.close();
-        }
-        catch (IOException e)
-        {
-            throw new ResponseProcessingException("Error processing CSV output.", e);
-        }
+	// OutputStream holen
+	OutputStream os = tcResponse.getOutputStream();
+
+	try
+	{
+	    if (data instanceof Object[])
+		generateCSV(os, Arrays.asList(((Object[])data)));
+	    else if (data instanceof List)
+		generateCSV(os, (List)data);
+	    else
+		throw new ResponseProcessingException("Given data in response field " + desc.getDescName() + " has to be either List or Array.");
+
+	    os.close();
+	}
+	catch (IOException e)
+	{
+	    throw new ResponseProcessingException("Error processing CSV output.", e);
+	}
     }
-    
+
     private void generateCSV(OutputStream os, List processMe) throws ResponseProcessingException, IOException
     {
-        // generate header
-        Object firstEntry = processMe.get(0);
-        if (firstEntry instanceof Map)
-            generateHeaderLine(os, (Map)firstEntry);
-        
-        for (int i=0; i<processMe.size(); i++)
-            generateCSVLine(os, processMe.get(i));
+	// generate header
+	Object firstEntry = processMe.get(0);
+	if (firstEntry instanceof Map)
+	    generateHeaderLine(os, (Map)firstEntry);
+
+	for (int i=0; i<processMe.size(); i++)
+	    generateCSVLine(os, processMe.get(i));
     }
 
     private void generateHeaderLine(OutputStream os, Map input) throws IOException
     {
-        Iterator iter = input.keySet().iterator();
-        while (iter.hasNext())
-        {
-            String thisValue = (String)iter.next();
-            thisValue = thisValue.replaceAll("\"", "\"\"");
-            os.write("\"".getBytes());
-            os.write(thisValue.getBytes());
-            os.write("\"".getBytes());
-            if (iter.hasNext())
-                os.write(";".getBytes());            
-        }
-        
-        os.write("\r\n".getBytes());        
+	Iterator iter = input.keySet().iterator();
+	while (iter.hasNext())
+	{
+	    String thisValue = (String)iter.next();
+	    thisValue = thisValue.replaceAll("\"", "\"\"");
+	    os.write("\"".getBytes());
+	    os.write(thisValue.getBytes());
+	    os.write("\"".getBytes());
+	    if (iter.hasNext())
+		os.write(";".getBytes());
+	}
+
+	os.write("\r\n".getBytes());
     }
 
     private void generateCSVLine(OutputStream os, Object input) throws ResponseProcessingException, IOException
     {
-        if (input instanceof Map)
-            generateCSVLine(os, new ArrayList(((Map)input).values()));
-        else if (input instanceof Object[])
-            generateCSVLine(os, Arrays.asList((Object[])input));
-        else if (input instanceof List)
-            generateCSVLine(os, (List)input);
-        else
-            throw new ResponseProcessingException("Given second level data in response field has to be either List, Map or Array.");
+	if (input instanceof Map)
+	    generateCSVLine(os, new ArrayList(((Map)input).values()));
+	else if (input instanceof Object[])
+	    generateCSVLine(os, Arrays.asList((Object[])input));
+	else if (input instanceof List)
+	    generateCSVLine(os, (List)input);
+	else
+	    throw new ResponseProcessingException("Given second level data in response field has to be either List, Map or Array.");
     }
-    
+
     private void generateCSVLine(OutputStream os, List input) throws IOException
     {
-        for (int i=0; i<input.size(); i++)
-        {
-            String thisValue = input.get(i)!=null ? input.get(i).toString() : "";
-            thisValue = thisValue.replaceAll("\"", "\"\"");
-            os.write("\"".getBytes());
-            os.write(thisValue.getBytes());
-            os.write("\"".getBytes());
-            if (i<input.size()-1)
-                os.write(";".getBytes());
-        }
-        
-        os.write("\r\n".getBytes());
+	for (int i=0; i<input.size(); i++)
+	{
+	    String thisValue = input.get(i)!=null ? input.get(i).toString() : "";
+	    thisValue = thisValue.replaceAll("\"", "\"\"");
+	    os.write("\"".getBytes());
+	    os.write(thisValue.getBytes());
+	    os.write("\"".getBytes());
+	    if (i<input.size()-1)
+		os.write(";".getBytes());
+	}
+
+	os.write("\r\n".getBytes());
     }
-    
+
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig)
     {
     }

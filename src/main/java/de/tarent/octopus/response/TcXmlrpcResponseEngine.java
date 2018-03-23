@@ -43,7 +43,7 @@ import de.tarent.octopus.xmlrpc.XmlRpcBuffer;
  * Diese Klasse dient der Ausgabe von XML-RPC-Rückgaben.
  *
  * TODO: Test der XmlRpc-Fähigkeiten
- * 
+ *
  * @author mikel
  */
 public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEngine {
@@ -59,7 +59,6 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
         String contentType = theContent.getAsString("responseParams.ContentType");
         if (contentType == null)
             tcResponse.setContentType("text/xml");
-
 
         // Geänder um auch ein Mapping der Parameternamen zu ermöglichen.
         //         Object outputFieldsObject = theContent.getAsObject(RPC_RESPONSE_OUTPUT_FIELDS);
@@ -84,9 +83,8 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
             String fieldNameOutput = (String)iter.next();
             String fieldNameContent = (String)outputFields.get(fieldNameOutput);
             Object fieldData = theContent.getAsObject(fieldNameContent);
-            resultList.add(fieldData != null ? fieldData : "");            
+            resultList.add(fieldData != null ? fieldData : "");
         }
-        
 
         // TODO Auto-generated method stub
 
@@ -121,6 +119,4 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
         // TODO Auto-generated method stub
     }
-    
-
 }

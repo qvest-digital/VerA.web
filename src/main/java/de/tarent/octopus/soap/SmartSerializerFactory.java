@@ -38,11 +38,11 @@ public class SmartSerializerFactory implements SerializerFactory {
         mechanisms = new ArrayList(1);
         mechanisms.add(Constants.AXIS_SAX);
     }
-    
+
     public Serializer getSerializerAs(String mechanismType) {
         return new SmartSerializer();
     }
-    
+
     public Iterator getSupportedMechanismTypes() {
         return mechanisms.iterator();
     }

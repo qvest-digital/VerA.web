@@ -32,12 +32,12 @@ import java.util.List;
  * <b>Postfix:</b>
  * Postfix ist eine Möglichkeit einen Ausdrucksbaum, wie in einer flachen Liste eindeutig zu speichern, ohne Klammerung zu benötigen.
  * <br>Der Ausdruck ((name = 'Sebastian') and (id = '2'))  sieht in Postfix z.B. so aus: name 'Sebastian' = id '2' "=" "AND"
- * Dieses Modell bietet die Möglichkeit Suchausdrücke in einer flachen Struktur zu speichern und ihre logische Struktur dabei zu erhalten. 
+ * Dieses Modell bietet die Möglichkeit Suchausdrücke in einer flachen Struktur zu speichern und ihre logische Struktur dabei zu erhalten.
  * Letzteres wäre bei der Repräsentation in einem String nicht der Fall.
  *
  * <br><br>
  * Die Klassen erkennen SQL-Schlüsselwörter in der Token Liste:
- * <br>Zwei Operanden: "=", "and", "in", "like", "or" 
+ * <br>Zwei Operanden: "=", "and", "in", "like", "or"
  * <br>Ein Operand: "not"
  *
  * @see TarWhereNode
@@ -47,7 +47,7 @@ public class TarWhereClause {
 
     /**
      * Initialisaierung mit einer Liste von Tokens in Postfix Reihenfolge.
-     * 
+     *
      * Wenn sich aus der Liste kein gültiger Baum aufbauen lässt,
      * wirde eine Exception geworfen.
      */
@@ -67,7 +67,7 @@ public class TarWhereClause {
     }
 
     /**
-     * Liefert einen String mit einem SQL Ausdruck zurück.     
+     * Liefert einen String mit einem SQL Ausdruck zurück.
      */
     public String toString() {
         return inOrderTraverse(rootNode).toString();

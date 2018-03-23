@@ -26,16 +26,16 @@ import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.request.TcRequest;
 
-/** 
+/**
  * Jeglicher Zugriff auf Daten erfolgt über diese TcContentWorker.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public interface TcContentWorker {
     /**
      * Diese Methode wird nach Erzeugung des Workers aufgerufen, so dass dieser
      * sich im Kontext seines Moduls konfigurieren kann.
-     * 
+     *
      * @param config Modulkonfiguration.
      */
     public void init(TcModuleConfig config);
@@ -57,14 +57,14 @@ public interface TcContentWorker {
     /**
      * Liefert eine Beschreibgung der Actions und deren Eingabeparameter,
      * die von diesem Worker bereit gestellt werden.
-     * 
-     * @return Eine Abstrakte Beschreibung der Methoden und Parameter 
+     *
+     * @return Eine Abstrakte Beschreibung der Methoden und Parameter
      */
     public TcPortDefinition getWorkerDefinition();
 
     /**
      * Diese Methode liefert einen Versionseintrag.
-     * 
+     *
      * @return Version des Workers.
      */
     public String getVersion();

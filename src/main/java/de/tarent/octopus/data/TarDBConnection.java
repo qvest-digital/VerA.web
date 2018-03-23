@@ -24,9 +24,9 @@ package de.tarent.octopus.data;
  */
 import java.util.Map;
 
-/** 
+/**
  * Enthält die Verbindungsinformationen zu einer Datenquelle
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TarDBConnection {

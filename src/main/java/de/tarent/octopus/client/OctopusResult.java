@@ -27,7 +27,7 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
-/** 
+/**
  * Aufruf eines Task des Octopus.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -39,7 +39,6 @@ public interface OctopusResult {
     public String getContentType();
     public void writeContent(OutputStream to)
         throws IOException;
-
 
     public boolean hasMoreData();
     public Iterator getDataKeys();

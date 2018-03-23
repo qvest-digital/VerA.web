@@ -5,7 +5,7 @@
 			<item name="Status" href="status.html" />
 			<item name="Roadmap" href="status.html#roadmap" />
 		</menu>
-		
+
 		<menu name="Project Management">
 			<item name="Common" href="resources/pm/" />
 			<item name="Specs" href="resources/specs/" />
@@ -14,7 +14,7 @@
 			<item name="Tests" href="resources/pm/qm/" />
 			<item name="Templates" href="resources/templates/" />
 		</menu>
-		
+
 		<menu name="User Documentation">
 			<item name="Logging configuration" href="loggingconfiguration.html" />
 			<item name="Task definition" href="taskdefinition.html" />

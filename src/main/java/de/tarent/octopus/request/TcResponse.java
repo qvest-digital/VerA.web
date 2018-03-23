@@ -29,7 +29,7 @@ import java.util.Map;
 
 import de.tarent.octopus.soap.TcSOAPEngine;
 
-/** 
+/**
  * Stellt Funktionen zur Ausgabe an den Client bereit.
  * Diese werden an die HttpServletResponse weiter geleitet.
  * <br><br>
@@ -40,7 +40,7 @@ import de.tarent.octopus.soap.TcSOAPEngine;
  * wo sie dem Namen nach hin gehört. Das macht aber so Sinn, da sie wie auch TcRequestProxy und TcRequest
  * die Schnittstelle zum Client kapselt und somit protokollspezifisches Verhalten hat, vondem in
  * allen anderen Packages völlig abstrahiert wird.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public interface TcResponse {
@@ -63,7 +63,7 @@ public interface TcResponse {
 	 * Das muss passiert sein, bevor etwas ausgegeben wurde.
 	 */
 	public void setStatus(int code);
-	
+
 	/**
 	 * Setzt das Ausgabe-Level für geworfene Fehlermeldungen.
 	 */
@@ -76,46 +76,46 @@ public interface TcResponse {
     public void setHeader(String key, String value);
 
     /**
-     * Diese Methode setzt die maximale Verweildauer der Antwort in einem Cache. 
-     * 
+     * Diese Methode setzt die maximale Verweildauer der Antwort in einem Cache.
+     *
      * @param millis maximale Caching-Dauer in Millisekunden. Negative Werte verbieten ein Caching.
      */
     public void setCachingTime(int millis);
 
     /**
-     * Diese Methode setzt die maximale Verweildauer der Antwort in einem Cache. 
-     * 
+     * Diese Methode setzt die maximale Verweildauer der Antwort in einem Cache.
+     *
      * @param millis maximale Caching-Dauer in Millisekunden. Negative Werte verbieten ein Caching.
      * @param param Zusätzliche Caching Paramater. Null entspricht default verhalten.
      */
     public void setCachingTime(int millis, String param);
-    
+
     /**
      * Diese Methode liefert die maximale Verweildauer der Antwort in einem Cache
-     * 
+     *
      * @return maximale Caching-Dauer in Millisekunden. Negative Werte verbieten ein Caching.
      */
     public int getCachingTime();
-    
+
     /**
      * Adds a cookie to the response.
      * Default cookie setting can be set in the config.
      * See {@link de.tarent.octopus.content.CookieMap} for detailed settings.
-     * 
+     *
      * @param name
      * @param value
-     * @param settings 
+     * @param settings
      */
     public void addCookie(String name, String value, Map settings);
-    
+
     /**
      * Adds a cookie to the response.
-     * 
-     * Because the dispatched classes in the octopus-core 
+     *
+     * Because the dispatched classes in the octopus-core
      * does not know the Servlet-API and the Cookie-Object
      * this method accepts an Object as parameter and
      * adds this to cookies in case it is a Cookie-Object.
-     * 
+     *
      * @param cookie
      */
     public void addCookie(Object cookie);
@@ -142,7 +142,6 @@ public interface TcResponse {
      */
     public OutputStream getOutputStream();
 
-
     // REMOVED: der OutputStream sollte nur auf konkrete art in einer
     //          Implementierung gesetzt werden dürfen.
     //     /**
@@ -150,7 +149,7 @@ public interface TcResponse {
     //      * @param outputStream The outputStream to set
     //      */
     //     public void setOutputStream(OutputStream outputStream);
-    
+
     /**
      * Gibt einen String auf den Weiter aus.
      */
@@ -162,22 +161,22 @@ public interface TcResponse {
     public void println(String responseString);
 
     /**
-     * Diese Methode sendet gepufferte Ausgaben. 
+     * Diese Methode sendet gepufferte Ausgaben.
      */
     public void flush()
         throws IOException;
 
     /**
-     * Diese Methode schließt die Ausgabe ab. 
+     * Diese Methode schließt die Ausgabe ab.
      */
     public void close()
         throws IOException;
 
     /**
-     * Diese Methode gibt einen Fehlerstatus aus. 
-     * Je nach übergebenen Typ und aufrufer geschieht dies in 
+     * Diese Methode gibt einen Fehlerstatus aus.
+     * Je nach übergebenen Typ und aufrufer geschieht dies in
      * HTML-, SOAP- oder sonstiger form.
-     *  
+     *
      * @param responseType Antwortart, vergleiche HttpHelper im OctopusWebapp-Projekt.
      * @param requestID die ID der Anfrage
      * @param header eine Überschrift (nur für HTML benutzt)
@@ -185,13 +184,11 @@ public interface TcResponse {
      */
     public void sendError(int responseType, String requestID, String header, Exception e);
 
-
     /**
      * Teilt der Response mit, dass ein Login oder eine andere Authorisierung für
      * die gewünschte Aktion erforderlich wäre.
-     * 
+     *
      * @param authorisationAction Vorschlag, wie die Autentifizierung erfolgen soll.
      */
     public void setAuthorisationRequired(String authorisationAction);
-
 }

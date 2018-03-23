@@ -30,8 +30,6 @@ package de.tarent.octopus.server;
  * @version 1.0
  */
 public interface InOutParam {
-	
 	public Object get();
 	public void set(Object newData);
-	
 }

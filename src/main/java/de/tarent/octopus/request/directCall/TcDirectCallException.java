@@ -48,9 +48,8 @@ package de.tarent.octopus.request.directCall;
 
 import de.tarent.octopus.util.RootCauseException;
 
-
-/** 
- * Exception, die geworfen werden soll, wenn 
+/**
+ * Exception, die geworfen werden soll, wenn
  * Probleme, beim direkten Aufruf des Octopus durch OctopusStarter auftreten.
  * Sie kapseln die eigentliche Exceptiopn.
  *

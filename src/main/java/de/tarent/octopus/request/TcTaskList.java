@@ -33,7 +33,7 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
-/** 
+/**
  * Klasse zur Repräsentation einer Sammlung von Tasks
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

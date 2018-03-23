@@ -24,7 +24,7 @@ package de.tarent.octopus.response;
  */
 import de.tarent.octopus.util.RootCauseException;
 
-/** 
+/**
  * Für Fehler, die wärend der Ausgabeverarbeitung auf treten.
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, tarent GmbH
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, tarent GmbH

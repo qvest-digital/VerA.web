@@ -22,10 +22,10 @@ package de.tarent.octopus.content;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-/** 
+/**
  * Diese klasse kapselt Fehlermeldungen, die wärend
  * der Verarbeitung des Contents auf treten.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcContentProzessException extends Exception {

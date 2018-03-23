@@ -39,8 +39,8 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.soap.TcSOAPException;
 
 /**
- * Diese Klasse dient dem Auslesen von XmlRpc-Anfragen. 
- * 
+ * Diese Klasse dient dem Auslesen von XmlRpc-Anfragen.
+ *
  * @author mikel
  */
 public class XmlRpcEngine {
@@ -48,10 +48,9 @@ public class XmlRpcEngine {
     /** Logger für diese Klasse */
     private static Log logger = LogFactory.getLog(XmlRpcEngine.class);
 
-
     /**
      * Diese Methode analysiert eine XML-RPC-Anfrage.
-     * 
+     *
      * @param inStream die XmlRPC-Anfrage
      * @param requestType der Anfragetyp
      * @param requestID die Anfrage-ID
@@ -69,7 +68,7 @@ public class XmlRpcEngine {
         } catch (Exception e) {
             throw new TcSOAPException(e);
         }
-        
+
         Map params = new HashMap();
         List paramList = xmlRpcRequest.getParameters();
         if (paramList != null && paramList.size() > 0) {
@@ -80,7 +79,7 @@ public class XmlRpcEngine {
 
         Pattern pattern = Pattern.compile("[{]([^}]*)[}](.*)");
         Matcher matcher = pattern.matcher(xmlRpcRequest.getMethodName());
-        
+
         String method = null;
         String module = null;
         if (matcher.matches()) {
@@ -88,7 +87,7 @@ public class XmlRpcEngine {
             method = matcher.group(2);
         } else
             method = xmlRpcRequest.getMethodName();
-        
+
         TcRequest octRequest = new TcRequest(requestID);
         octRequest.setRequestType(requestType);
         octRequest.setRequestParameters(params);

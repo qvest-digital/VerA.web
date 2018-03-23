@@ -27,7 +27,7 @@ import de.tarent.octopus.config.*;
 import de.tarent.octopus.security.*;
 import java.util.Iterator;
 
-/** 
+/**
  * Schnittstelle zur Bereitstellung von Informationen und Einstellungen eines Benutzers.
  * Eine PersonalConfig ist an eine Session des Benutzers an einem Octopus Modul gebunden.
  * PersonalConfigs werden von LoginManagern verwaltet. Es kann unterschiedliche
@@ -41,7 +41,7 @@ import java.util.Iterator;
  * Ein Benutzer kann in verschiedenen Bereichen Zugehörigkeiten zu Gruppen haben.
  * Ein Bereich wird über einen String-Bezeichner angegeben. Er schließt all die Bereiche (Unterbereiche) ein,
  * von deren Bezeichner er Prefix ist.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public interface PersonalConfig {
@@ -49,7 +49,7 @@ public interface PersonalConfig {
     /**
      * Teilt der PersonalConfig mit, wenn sich ein Benutzer authentifiziert hat.
      * Diese kann damit abhängig von ihrer Implementierung die Benutzerdaten laden.
-     * 
+     *
      */
     public void userLoggedIn(String userName);
 
@@ -58,12 +58,11 @@ public interface PersonalConfig {
      */
     public void userLoggedOut();
 
-
     /**
      * Gruppe für Administratoren eines Moduls
      */
     public static final String GROUP_ADMINISTRATOR = "Administrator";
-    
+
     /**
      * Std. Gruppe für gewöhnliche User
      */
@@ -79,8 +78,6 @@ public interface PersonalConfig {
      * sich aber ausgeloggt hat.
      */
     public static final String GROUP_LOGGED_OUT = "LoggedOut";
-
-
 
     /**
      * Speichert einen Wert innrhalb der aktuellen Session
@@ -101,9 +98,9 @@ public interface PersonalConfig {
      * Gets the user preference by key
      */
     public String getUserPreference(String key);
-    
+
     /**
-     * Sets the user preference key to the given value 
+     * Sets the user preference key to the given value
      */
     public void setUserPreference(String key, String value);
 
@@ -119,10 +116,9 @@ public interface PersonalConfig {
      */
     public Integer getUserID();
     public void setUserID(Integer id);
-  
 
     /**
-     * Liefert eine Liste aller Gruppen, die einem Benutzer 
+     * Liefert eine Liste aller Gruppen, die einem Benutzer
      * für den Moludweit globalen Bereich zugeordnet sind.
      */
     public String[] getUserGroups();
@@ -142,7 +138,7 @@ public interface PersonalConfig {
     public boolean isUserInGroup(String group);
 
     /**
-     * Liefert eine Liste aller Gruppen, die einem Benutzer 
+     * Liefert eine Liste aller Gruppen, die einem Benutzer
      * für den Bereich area zugeordnet sind.
      *
      * @param area Ein Bezeichner eines Zugriffsbereiches
@@ -155,7 +151,6 @@ public interface PersonalConfig {
      */
     public void setUserGroups(String[] newGroups, String area);
 
-
     /**
      * Testet, ob ein User für den Bereich area
      * in einer Gruppe ist.
@@ -165,7 +160,6 @@ public interface PersonalConfig {
      */
     public boolean isUserInGroup(String group, String area);
 
-
     /**
      * Testet, ob der User das gewollte Task ausführen darf.
      * Wenn kein Zugriff gewäht wird muss eine TcSecurityException geworfen werden.
@@ -173,37 +167,32 @@ public interface PersonalConfig {
     public void testTaskAccess(TcCommonConfig config, TcRequest tcRequest)
         throws TcSecurityException;
 
-
     /**
      * @return Returns the email.
      */
     public String getUserEmail();
     public void setUserEmail(String mail);
 
-
-    /**                                         
+    /**
      * Liefert den Nachnamen des Users
      */
     public String getUserLastName();
     public void setUserLastName(String lastName);
-
 
     /**
      * Liefert den Vornamen
      */
     public String getUserGivenName();
 
-    /**                                        
+    /**
      * Liefert den vollständigen Namen des Users
      */
     public String getUserName();
 
-
-    /**                                        
+    /**
      * Setzt den vollständigen Namen des Users
      */
     public void setUserName(String name);
-    
 
     public void setUserGivenName(String givenName);
 }

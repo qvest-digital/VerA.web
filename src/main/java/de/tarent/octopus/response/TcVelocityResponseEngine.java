@@ -49,7 +49,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * This class merge the octopus content with a velocity script.
- * 
+ *
  * @author <a href="mailto:h.helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public class TcVelocityResponseEngine implements TcResponseEngine {
@@ -91,11 +91,11 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 			properties.setProperty("velocimacro.permissions.allow.inline.to.replace.global", commonConfig.getConfigData("velocity.macro.permissions.allow.inline.to.replace.global"));
 			properties.setProperty("velocimacro.permissions.allow.inline.local.scope", commonConfig.getConfigData("velocity.macro.permissions.allow.inline.local.scope"));
 			properties.setProperty("velocimacro.context.localscope", commonConfig.getConfigData("velocity.macro.context.localscope"));
-			
+
 			String loggerClass = commonConfig.getConfigData("velocity.log.system.class");
 			if (loggerClass != null && loggerClass.trim().length() > 0)
 				properties.setProperty("runtime.log.logsystem.class", loggerClass);
-			
+
 			engine.init(properties);
 		} catch (Exception e) {
 			logger.error("Fehler beim Init der Velocity Engine.", e);
@@ -107,9 +107,9 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 	 */
 	public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc, TcRequest tcRequest)
 			throws ResponseProcessingException {
-		
+
 		// adding cookies (e.g. set by PersonalConfig)
-		Map cookiesSettings = new HashMap(1); 
+		Map cookiesSettings = new HashMap(1);
 		cookiesSettings.put(CookieMap.CONFIG_MAXAGE, tcConfig.getModuleConfig().getParam(CookieMap.PREFIX_CONFIG_MAP + "." + CookieMap.CONFIG_MAXAGE));
 		Map cookiesMap = (Map) tcContent.getAsObject(CookieMap.PREFIX_COOKIE_MAP);
 		if (cookiesMap != null) {
@@ -122,16 +122,16 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 				else
 					tcResponse.addCookie(key, (String) cookieMap.get(CookieMap.COOKIE_MAP_FIELD_VALUE), cookiesSettings);
 			}
-		}	
-		
+		}
+
 		String template = desc.getDescName() + FILE_SUFFIX;
 		if (!(new File(rootPath, template)).exists())
 			throw new ResponseProcessingException("Template '" + template + "' not found.");
-		
+
 		String encoding = (String)tcContent.getAsObject("responseParams.encoding");
 		if (encoding == null || encoding.length() == 0)
 			encoding = tcConfig.getDefaultEncoding();
-		
+
 		Writer writer;
 		boolean doClose = true;
 		try {
@@ -142,10 +142,10 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 			writer = tcResponse.getWriter();
 			doClose = false;
 		}
-		
+
 		try {
 			VelocityContext context = new VelocityContext();
-			
+
 			String key;
 			for (Iterator it = tcContent.getKeys(); it.hasNext(); ) {
 				key = (String)it.next();
@@ -154,13 +154,13 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 			tcContent.setField(OCTOPUS_RESPONSEENGINE, this);
 			tcContent.setField(OCTOPUS_RESPONSESTREAM, writer);
 			tcContent.setField(OCTOPUS_RESPONSECONTEXT, context);
-			
+
 			context.put(PARAM_NAME_CONFIG, tcConfig);
 			context.put(PARAM_NAME_REQUEST, tcRequest);
 			context.put(PARAM_NAME_RESPONSE, tcResponse);
-			
+
 			engine.mergeTemplate(template, tcConfig.getDefaultEncoding(), context, writer);
-			
+
 			if (doClose)
 				writer.close();
 		} catch (Exception e) {
@@ -171,7 +171,7 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
 
 	/**
 	 * Allow additional template merge with a reader.
-	 * 
+	 *
 	 * @param cntx
 	 * @param reader
 	 * @throws Exception

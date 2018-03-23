@@ -22,8 +22,8 @@ package de.tarent.octopus.request;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-/** 
- * Exception, die geworfen werden soll, wenn 
+/**
+ * Exception, die geworfen werden soll, wenn
  * Probleme, wie z.B. fehlende Attribute und Anweidsungen wärend der
  * Taskabarbeitung im ActionManager auftreten.
  *

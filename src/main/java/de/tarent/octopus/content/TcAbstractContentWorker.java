@@ -32,7 +32,7 @@ import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 
-/** 
+/**
  * Worker zur bequemeren Bedienung aller Content-Worker. Ruft automatisch über Reflection
  * die mit der Action gleichnamige Mathode auf.
  *

@@ -25,12 +25,12 @@ package de.tarent.octopus.server;
 import java.util.LinkedList;
 
 /**
- * This class gives a static access to the OctopusContext Object associated with the 
- * request of the current Thread. At the begin of the octopus request processing 
+ * This class gives a static access to the OctopusContext Object associated with the
+ * request of the current Thread. At the begin of the octopus request processing
  * the context is set by an ThreadLocal Variable. So it can be obtained at later time.
  * Without passing a reference to it.
- * 
- * During the processing of an Octopus request the active OctpusContext may change 
+ *
+ * During the processing of an Octopus request the active OctpusContext may change
  * depending on the current executed scope.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

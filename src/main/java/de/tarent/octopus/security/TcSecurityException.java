@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 /**
  * Kapselt Fehlermeldungen, die auftreten, wenn ein User etwas ausführt, wofür er nicht autorisiert ist. <br>
  * Wird auch benutzt, wenn ein User versucht sich mit falscher Benutzername/Password kombination ein zu loggen.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke </a>, <b>tarent GmbH </b>
  */
 public class TcSecurityException extends Exception {
@@ -46,20 +46,20 @@ public class TcSecurityException extends Exception {
 	public static final int		ERROR_INCOMPLETE_USER_DATA	= 4;
 
 	public static final int		ERROR_SERVER_AUTH_ERROR		= 5;
-	
+
 	public static final int		ERROR_SERVER_USERMANAGEMENT_ERROR = 6;
 
 	public static final String	uri							= "http://schemas.tarent.de/octopus";
 
-	public static final QName[]	soapFaultCodes				= { 
+	public static final QName[]	soapFaultCodes				= {
         new QName(uri, "Client.authentication.unknownError"),
         new QName(uri, "Client.authentication.needLogin"),
         new QName(uri, "Client.authentication.authenticationFailed"),
         new QName(uri, "Client.authentication.notEnoughRights"),
         new QName(uri, "Client.authentication.incompleteUserData"),
-        new QName(uri, "Server.authentication.serviceFailed") 
+        new QName(uri, "Server.authentication.serviceFailed")
     };
-    
+
 	int							errorCode					= 0;
 
 	String						message;

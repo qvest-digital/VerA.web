@@ -41,7 +41,7 @@ import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.logging.LogFactory;
 
-/** 
+/**
  * Zugriffsschicht zur Datenbank.
  * Mit allgemeinen Mehtoden.
  *
@@ -49,7 +49,7 @@ import de.tarent.octopus.logging.LogFactory;
  * <br>
  * <br>Im Moment sind ein paar Funktionen da, die das Cachen von Anfragen ermöglichen sollen.
  * Sie funktionieren aber noch nicht wirklich (also eher experimentell).
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcGenericDataAccessWrapper {
@@ -70,10 +70,10 @@ public class TcGenericDataAccessWrapper {
     protected static List allDataAccessWrappers = Collections.synchronizedList(new ArrayList());
 
     protected String schema = null;
-    
+
     protected long creationTimeMillis = 0;
     protected final static long MAX_TIME_MILLIS = 600000;
-    
+
     /** Hier werden die aktuellen Benutzungslocks gezählt */
     private int useCount = 0;
     /** Mutex für das Erzeugen der {@link #jdbcConnection Datenbankverbindung} */
@@ -146,17 +146,17 @@ public class TcGenericDataAccessWrapper {
     /**
      * Diese Methode liefert, ob der Wrapper 'alt', also älter als
      * {@link #MAX_TIME_MILLIS} ist.
-     * 
+     *
      * @return <code>true</code>, falls der Wrapper alt ist.
      */
     public boolean isOld() {
         return System.currentTimeMillis() - creationTimeMillis > MAX_TIME_MILLIS;
     }
-    
+
     /**
      * Diese Methode sichert zu, dass in diesem Objekt eine gültige
      * {@link #getJdbcConnection() Datenbankverbindung} vorliegt.
-     * 
+     *
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -176,8 +176,8 @@ public class TcGenericDataAccessWrapper {
 
     /**
      * Diese Methode meldet einen Disconnect der Verbindung zur nächsten Gelegenheit
-     * (d.h. dann, wenn der Benutzungszähler auf 0 absinkt) an. 
-     * 
+     * (d.h. dann, wenn der Benutzungszähler auf 0 absinkt) an.
+     *
      * @throws SQLException
      */
     public void disconnect() throws SQLException {
@@ -186,7 +186,7 @@ public class TcGenericDataAccessWrapper {
         logger.debug("Requesting disconnect");
         unUse();
     }
-    
+
     /**
      * Diese Methode erhöht den Benutzungszähler. Hierdurch wird ein Schließen der
      * zugrunde liegenden {@link #getJdbcConnection() Verbindung} mindestens bis
@@ -213,8 +213,8 @@ public class TcGenericDataAccessWrapper {
     /**
      * Diese Methode verringert den Benutzungszähler und führt gegebenenfalls ein verzögertes
      * Freigeben der Verbindung aus. Zur Benutzung siehe {@link #use()}.
-     * 
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     public void unUse() throws SQLException {
         synchronized (useMutex) {
@@ -226,7 +226,7 @@ public class TcGenericDataAccessWrapper {
             }
         }
     }
-    
+
     /**
      * Setzt ein Flagg um an zu zeigen, wenn sich die Daten in einem Bereich geändert haben
      * und z.B. ein neues Resultset erzeugt werden soll.
@@ -235,7 +235,7 @@ public class TcGenericDataAccessWrapper {
      *        solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
      */
     public void setDirtyDataSection(String section) {
-        // Irgend einen Wert != null rein setzen 
+        // Irgend einen Wert != null rein setzen
         if (section != null)
             dirtyDataSections.put(section, "X");
     }
@@ -286,10 +286,10 @@ public class TcGenericDataAccessWrapper {
     /**
      * Liefert eine Map mit einem Datensatz.
      * Der Datensatz ist der erste eines Selects.
-     * 
+     *
      * @param tableName Tabelle, die selektiert werden soll.
      * @param whereClause String mit einer where Bedingung.
-     * 
+     *
      * @return Einen Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
      */
     protected Map getFirstRowFromSelect(String tableName, String whereClause) throws TcDataAccessException {
@@ -332,11 +332,11 @@ public class TcGenericDataAccessWrapper {
     /**
      * Liefert eine Map mit einem Datensatz.
      * Der Datensatz ist der in offset angegebene, beginnend mit 1
-     * 
+     *
      * @param tableName Tabelle, die selektiert werden soll.
      * @param whereClause String mit einer where Bedingung.
      * @param offset Position des gewünschten Datensatzes
-     * 
+     *
      * @return Einen Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
      */
     protected Map getOneRowFromSelect(String tableName, String whereClause, int offset) throws TcDataAccessException {
@@ -386,7 +386,7 @@ public class TcGenericDataAccessWrapper {
      * @param cmd SQL Commando, muss für gleiche Resultsets auch gleich sein.
      * @param cache Soll das Resultset gecacht werden`
      * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein Dirty-Flag ab zu fragen.
-     *                    Kann null sein, wenn aktualität egal ist.     
+     *                    Kann null sein, wenn aktualität egal ist.
      *
      * @return ResultSet der Ergebnissmenge
      */
@@ -448,12 +448,12 @@ public class TcGenericDataAccessWrapper {
 
     /**
      * Aktualisiert eine Auswahl auf einer Tabelle
-     * 
+     *
      * @param tableName Tabelle, die selektiert werden soll.
      * @param whereClause String mit einer where Bedingung.
      * @param reccord Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
-     * 
-     * @return Anzahl geänderter Datensätze 
+     *
+     * @return Anzahl geänderter Datensätze
      */
    protected int doUpdate(String tableName, String whereClause, Map reccord) throws TcDataAccessException {
        try {
@@ -491,7 +491,7 @@ public class TcGenericDataAccessWrapper {
     *
     * @param sql Das SQL Kommando
     * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein Dirty-Flag ab zu fragen.
-    *                    Kann null sein, wenn aktualität egal ist.     
+    *                    Kann null sein, wenn aktualität egal ist.
     * @return Ergebnis der Aktion, wenn diese eines zurück liefert
     */
    protected int doSql(String sql, String dataSection) throws SQLException, ClassNotFoundException {
@@ -516,7 +516,7 @@ public class TcGenericDataAccessWrapper {
     /**
      * Liefert die Felder eines Resultsets, also die Spaltennamen zurück.
      *
-     * Diese werden im Moment noch für jede Anfrage neu ausgewertet, kommen 
+     * Diese werden im Moment noch für jede Anfrage neu ausgewertet, kommen
      * später aber aus eimem Puffer. Um dies zu realisieren muss ein Key
      * mit übergeben werden, der für diese Anordnung von Feldnamen eindeutig ist.
      *
@@ -552,11 +552,11 @@ public class TcGenericDataAccessWrapper {
         } catch(ConcurrentModificationException cme) {
         }
     }
-    
+
     /**
      * Diese Methode führt den eigentlichen Disconnect der {@link #jdbcConnection Verbindung}
-     * zur Datenbank aus. 
-     * 
+     * zur Datenbank aus.
+     *
      * @throws SQLException
      */
     private void doDisconnect() throws SQLException {
@@ -568,5 +568,5 @@ public class TcGenericDataAccessWrapper {
                 jdbcConnection = null;
             }
         }
-    }    
+    }
 }

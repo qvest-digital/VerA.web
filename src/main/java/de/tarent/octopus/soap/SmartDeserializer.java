@@ -35,7 +35,7 @@ import org.apache.axis.message.SOAPHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-/** 
+/**
  * Simple Serializer for List and Map Structures
  */
 public class SmartDeserializer extends DeserializerImpl {
@@ -46,22 +46,21 @@ public class SmartDeserializer extends DeserializerImpl {
 	Object containerObject = null;
 
     int childIndex;
-        
 
      public void setChildValue(Object value, Object hint) throws SAXException {
-         if (isMapType()) {
-             ((Map)containerObject).put(hint, value);
-         } else {
-             if (containerObject instanceof List) {
-                 int pos = ((Integer)hint).intValue();
-                 List containerList = (List)containerObject;
-                 while (containerList.size() <= pos)
-                     containerList.add(null);
-                 containerList.set(pos, value);
-             }
-             else
-                 throw new SAXException("Unsupported type for SmartDeserializer: "+containerObject.getClass().getName());
-         }
+	 if (isMapType()) {
+	     ((Map)containerObject).put(hint, value);
+	 } else {
+	     if (containerObject instanceof List) {
+		 int pos = ((Integer)hint).intValue();
+		 List containerList = (List)containerObject;
+		 while (containerList.size() <= pos)
+		     containerList.add(null);
+		 containerList.set(pos, value);
+	     }
+	     else
+		 throw new SAXException("Unsupported type for SmartDeserializer: "+containerObject.getClass().getName());
+	 }
      }
 
     /**
@@ -76,32 +75,32 @@ public class SmartDeserializer extends DeserializerImpl {
      * @param context is the DeserializationContext
      */
     public void onStartElement(String namespace, String localName,
-                               String prefix, Attributes attributes,
-                               DeserializationContext context)
-        throws SAXException
+			       String prefix, Attributes attributes,
+			       DeserializationContext context)
+	throws SAXException
     {
-        QName type = getDefaultType();
-        if (type == null)
-    		type = context.getTypeFromAttributes(namespace, localName, attributes);
-        
-        Class clazz = context.getTypeMapping().getClassForQName(type);
-        if (clazz == null)
-            throw new SAXException("no java type configured for '"+type+"'");
-        try {
-            value = containerObject = clazz.newInstance();
-        } catch (InstantiationException ie) {
-            throw new SAXException(ie);
-        } catch (IllegalAccessException iae) {
-            throw new SAXException(iae);
-        }
-        //context.getDeserializerForType(type);        
+	QName type = getDefaultType();
+	if (type == null)
+		type = context.getTypeFromAttributes(namespace, localName, attributes);
+
+	Class clazz = context.getTypeMapping().getClassForQName(type);
+	if (clazz == null)
+	    throw new SAXException("no java type configured for '"+type+"'");
+	try {
+	    value = containerObject = clazz.newInstance();
+	} catch (InstantiationException ie) {
+	    throw new SAXException(ie);
+	} catch (IllegalAccessException iae) {
+	    throw new SAXException(iae);
+	}
+	//context.getDeserializerForType(type);
     }
-    
+
     /**
      * onStartChild is called on each child element.
      * The default behavior supplied by DeserializationImpl is to do nothing.
-     * A specific deserializer may perform other tasks.  For example a 
-     * BeanDeserializer will construct a deserializer for the indicated 
+     * A specific deserializer may perform other tasks.  For example a
+     * BeanDeserializer will construct a deserializer for the indicated
      * property and return it.
      * @param namespace is the namespace of the child element
      * @param localName is the local name of the child element
@@ -113,36 +112,35 @@ public class SmartDeserializer extends DeserializerImpl {
      * be performed.
      */
     public SOAPHandler onStartChild(String namespace, String localName,
-                                    String prefix, Attributes attributes,
-                                    DeserializationContext context)
-        throws SAXException
+				    String prefix, Attributes attributes,
+				    DeserializationContext context)
+	throws SAXException
     {
-        QName itemType = context.getTypeFromAttributes(namespace, localName, attributes);
+	QName itemType = context.getTypeFromAttributes(namespace, localName, attributes);
 
-        if (itemType == null)
-            throw new SAXException("cant get item type for: "+ namespace +":"+localName);
-        
-        Deserializer dSer = context.getDeserializerForType(itemType);
+	if (itemType == null)
+	    throw new SAXException("cant get item type for: "+ namespace +":"+localName);
 
-        Object hint = null;
-        if (isMapType())
-            hint = localName;
-        else
-            hint = new Integer(childIndex++);
-        
-        dSer.registerValueTarget(new DeserializerTarget(this, hint));
-        
-        // The framework handles knowing when the value is complete, as
-        // long as we tell it about each child we're waiting on...
-        addChildDeserializer(dSer);
+	Deserializer dSer = context.getDeserializerForType(itemType);
 
+	Object hint = null;
+	if (isMapType())
+	    hint = localName;
+	else
+	    hint = new Integer(childIndex++);
 
-        // it seems save to cast here
-        // since this is done in axis to
-        return (SOAPHandler)dSer;
+	dSer.registerValueTarget(new DeserializerTarget(this, hint));
+
+	// The framework handles knowing when the value is complete, as
+	// long as we tell it about each child we're waiting on...
+	addChildDeserializer(dSer);
+
+	// it seems save to cast here
+	// since this is done in axis to
+	return (SOAPHandler)dSer;
     }
-    
+
     protected boolean isMapType() {
-        return (containerObject instanceof Map);
-    }     
+	return (containerObject instanceof Map);
+    }
 }

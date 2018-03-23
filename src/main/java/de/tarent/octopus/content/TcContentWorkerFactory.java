@@ -34,9 +34,9 @@ import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
 
-/** 
+/**
  * Factory Klasse mit statischen Methoden zur Lieferung von WorkerInstanzen
- * 
+ *
  * @see TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -58,22 +58,22 @@ public class TcContentWorkerFactory {
      *
      * Da der Worker dynamisch nach seinem Namen geladen wird kann eine
      * Exception auftreten, die nach obern weiter gegeben wird.
-     * 
+     *
      * @return Einen Worker mit dem entsprechenden Namen
      */
     public static TcContentWorker getContentWorker(TcModuleConfig config, String workerName, String requestID)
         throws WorkerCreationException {
-        
+
         ContentWorkerDeclaration workerDeclaration = config.getContentWorkerDeclaration(workerName);
         if (null == workerDeclaration) {
             logger.error(Resources.getInstance().get("WORKERFACTORY_LOG_UNDECLARED_WORKER", requestID, workerName, config.getName()));
             throw new WorkerCreationException(Resources.getInstance().get("WORKERFACTORY_EXC_UNDECLARED_WORKER", workerName, config.getName()));
         }
 
-        // Bei einem Singleton cachen wir die Instanz, 
+        // Bei einem Singleton cachen wir die Instanz,
         if (workerDeclaration.isSingletonInstantiation()) {
 
-            // Da jedes Modul einen eigenen Classloader besitzt müssen die 
+            // Da jedes Modul einen eigenen Classloader besitzt müssen die
             // Worker unter diesem Classloader im Cache verwendet werden.
             ClassLoader moduleLoader = config.getClassLoader();
             Map moduleWorkers = (Map)workers.get(moduleLoader);
@@ -84,20 +84,20 @@ public class TcContentWorkerFactory {
 
             if (!moduleWorkers.containsKey(workerName)) {
                 TcContentWorker worker = getNewWorkerInstance(config, workerDeclaration);
-                moduleWorkers.put(workerName, worker);                
+                moduleWorkers.put(workerName, worker);
             }
             return (TcContentWorker) moduleWorkers.get(workerName);
         }
-        // sonst erzeugen wir jedes mal eine neue.        
+        // sonst erzeugen wir jedes mal eine neue.
         else {
             return getNewWorkerInstance(config, workerDeclaration);
         }
     }
 
-    protected static TcContentWorker getNewWorkerInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration) 
+    protected static TcContentWorker getNewWorkerInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration)
         throws WorkerCreationException {
 
-        // Da jedes Modul einen eigenen Classloader besitzt müssen 
+        // Da jedes Modul einen eigenen Classloader besitzt müssen
         // auch die Factorys mit diesem Classloader geladen werden.
         // Nur so ist es möglich einem Modul eine eigene Factory hinzu zu fügen.
         ClassLoader moduleLoader = config.getClassLoader();
@@ -106,8 +106,8 @@ public class TcContentWorkerFactory {
         if (null == moduleFactorys) {
             moduleFactorys = new HashMap();
             factorys.put(moduleLoader, moduleFactorys);
-        }        
-        
+        }
+
         SpecialWorkerFactory factory = (SpecialWorkerFactory)moduleFactorys.get(workerDeclaration.getFactory());
         if (null == factory) {
             try {

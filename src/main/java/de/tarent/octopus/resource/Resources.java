@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 /**
  * Diese Klasse liefert Resourcen.
- * 
+ *
  * @author mikel
  */
 public class Resources {
@@ -41,7 +41,7 @@ public class Resources {
     public final static Resources getInstance() {
         return instance;
     }
-    
+
     /*
      * Konstruktoren
      */
@@ -82,7 +82,7 @@ public class Resources {
      */
     /**
      * Diese Methode liefert den Wert zu einem Schlüssel.
-     * 
+     *
      * @param key Schlüssel
      * @return Wert
      */
@@ -98,7 +98,7 @@ public class Resources {
      * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
      * ihn als Message, in die die übergebenen Parameter eingesetzt
      * werden, und gibt die ausgefüllte Message zurück.
-     *  
+     *
      * @param key Schlüssel
      * @param params Parameter
      * @return ausgefüllte Message
@@ -111,7 +111,7 @@ public class Resources {
      * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
      * ihn als Message, in die der übergebene Parameter eingesetzt
      * wird, und gibt die ausgefüllte Message zurück.
-     *  
+     *
      * @param key Schlüssel
      * @param param Parameter
      * @return ausgefüllte Message
@@ -125,7 +125,7 @@ public class Resources {
      * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
      * ihn als Message, in die die übergebene Parameter eingesetzt
      * werden, und gibt die ausgefüllte Message zurück.
-     *  
+     *
      * @param key Schlüssel
      * @param param1 Parameter
      * @param param2 Parameter
@@ -140,7 +140,7 @@ public class Resources {
      * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
      * ihn als Message, in die die übergebene Parameter eingesetzt
      * werden, und gibt die ausgefüllte Message zurück.
-     *  
+     *
      * @param key Schlüssel
      * @param param1 Parameter
      * @param param2 Parameter

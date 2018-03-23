@@ -41,7 +41,6 @@ import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.commons.logging.impl.SimpleLog;
 import org.apache.log4j.xml.DOMConfigurator;
 
-
 /**
  * A simple factory which should be used to get a log instance in tarent projects.
  * This implementations use an on small configuration in a ressource properties file /tarent-logging.properties
@@ -68,18 +67,18 @@ public class LogFactory {
     protected static final int LOG4J_LOGGER = 2;
     protected static final int COMMONS_LOGGER = 3;
     protected static final int SIMPLE_LOGGER = 4;
-    
+
     static int logger = JDK14_LOGGER;
 
     private static Logger baseLogger = null;
     private static FileHandler fileLogHandler = null;
     private static SocketHandler portLogHandler = null;
 
-	static {		
-		loadProperties();		
+	static {
+		loadProperties();
 	}
-	
-	public static Log getLog(Class clazz) {        
+
+	public static Log getLog(Class clazz) {
 		if (useJdkLogger())
 			return new Jdk14Logger(clazz.getName());
 		else if (useLog4jLogger())
@@ -90,12 +89,12 @@ public class LogFactory {
 			return new SimpleLog(clazz.getName());
 		else
 			return org.apache.commons.logging.LogFactory.getLog(clazz);
-    }	
-    
+    }
+
 	public static void loadProperties() {
-        InputStream in = LogFactory.class.getResourceAsStream(TARENT_LOGGING_PROPERTIES);		
+        InputStream in = LogFactory.class.getResourceAsStream(TARENT_LOGGING_PROPERTIES);
         if (in != null) {
-            Properties properties = new Properties();            
+            Properties properties = new Properties();
             try {
                 properties.load(in);
                 Object value = properties.get(LOGGING_API);
@@ -115,7 +114,7 @@ public class LogFactory {
 
     /**
      * Init. the logging.
-     * 
+     *
      * @throws IOException
      */
 	public static void initOctopusLogging(TcEnv env) throws IOException {
@@ -124,7 +123,7 @@ public class LogFactory {
         else if (useLog4jLogger())
             initLog4jOctopusLogging(env);
     }
-    
+
     public static void initLog4jOctopusLogging(TcEnv env) {
         String rootPath = env.getValueAsString(TcEnv.KEY_PATHS_ROOT);
         File f = new File(rootPath, "log4j_properties.xml");
@@ -132,7 +131,7 @@ public class LogFactory {
             log("WARNING: log4j configuration file '"+f.getAbsolutePath()+"' does not exist", null);
         else
             DOMConfigurator.configure(f.getAbsolutePath());
-    }    
+    }
 
     public static void initJdkOctopusLogging(TcEnv env) throws IOException {
         if (baseLogger != null)
@@ -143,10 +142,9 @@ public class LogFactory {
             baseLoggerPackage = env.getValueAsString(TcEnv.KEY_LOGGING_BASELOGGER);
         baseLogger = Logger.getLogger(baseLoggerPackage);
         baseLogger.setLevel(Level.ALL);
-        
 
 		String pattern = env.getValueAsString(TcEnv.KEY_LOGGING_PATTERN);
-		
+
 		// Get absolut pattern file.
 		if (pattern == null || pattern.trim().length() == 0) {
 			// if no pattern defined, fallback to default filename.
@@ -176,7 +174,7 @@ public class LogFactory {
 			}
 		}
 		log(Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING_TO", pattern), null);
-		
+
 		// Get maximum size of logging file.
 		int loggingLimit = 4 * 1024 * 1024; // default 4 MB
 		try {
@@ -189,7 +187,7 @@ public class LogFactory {
 		} catch (NumberFormatException e) {
 			log(Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "4 MB"), e);
 		}
-		
+
 		// Get maximum logfile count.
 		int loggingCount = 10; // default 10 files
 		try {
@@ -202,13 +200,13 @@ public class LogFactory {
 		} catch (NumberFormatException e) {
 			log(Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "10"), e);
 		}
-		
+
 		// Init. FileHandle
 		fileLogHandler = new FileHandler(pattern, loggingLimit, loggingCount, true);
 		fileLogHandler.setEncoding("UTF-8");
 		fileLogHandler.setFormatter(new SimpleFormatter());
 		baseLogger.addHandler(fileLogHandler);
-		
+
 		// Append optional socket logger.
 		int loggingPort = -1;
 		try {
@@ -268,7 +266,7 @@ public class LogFactory {
 		}
 
 		baseLogger.info(Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING"));
-		
+
 		// Set logging.level
 		String loggingLevel = env.getValueAsString(TcEnv.KEY_LOGGING_LEVEL);
 		try {
@@ -286,11 +284,11 @@ public class LogFactory {
         else if (useLog4jLogger())
             deInitLog4jOctopusLogging();
     }
-    
+
 	public static void deInitLog4jOctopusLogging()  {
         org.apache.log4j.LogManager.shutdown();
     }
-    
+
 	public static void deInitJdkOctopusLogging() {
         if (baseLogger != null)
             baseLogger.removeHandler(fileLogHandler);
@@ -307,11 +305,11 @@ public class LogFactory {
 	static boolean useLog4jLogger() {
 		return (LOG4J_LOGGER  == logger);
 	}
-    
+
 	static boolean useCommonsLogger() {
 		return (COMMONS_LOGGER  == logger);
 	}
-	
+
 	static boolean useSimpleLog() {
 		return (SIMPLE_LOGGER  == logger);
 	}
@@ -321,7 +319,6 @@ public class LogFactory {
         if (e != null)
             e.printStackTrace(System.err);
     }
-	
 
     /**
      * Replaces all Variables ${key} with the corresponding system property
@@ -331,7 +328,7 @@ public class LogFactory {
         if (startPos == -1)
             return string;
 
-        StringBuffer sb = new StringBuffer(string); 
+        StringBuffer sb = new StringBuffer(string);
         while (-1 != startPos) {
             int endPos = sb.indexOf("}", startPos);
             String propertyName = sb.substring(startPos+2, endPos);
@@ -341,5 +338,4 @@ public class LogFactory {
         }
         return sb.toString();
     }
-
 }

@@ -79,14 +79,14 @@ class ServletModuleLookup implements TcModuleLookup {
 				parameters = (Map)modules.get("*");
 				if (parameters == null) {
 					logger.warn(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_PARAMETERS_NOT_FOUND", module, parameters));
-					return null;					
+					return null;
 				} else {
 					logger.info(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_USE_DEFAULT_PARAMETERS", module, parameters));
 				}
 			} else {
 				logger.info(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_PARAMETERS_FOUND", module, parameters));
 			}
-			
+
 			String source = (String)parameters.get(TcEnv.KEY_MODULE_SOURCE);
 			if (source == null || source.length() == 0) {
 				logger.warn(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_NO_SOURCE_PARAMETER", module));
@@ -94,7 +94,7 @@ class ServletModuleLookup implements TcModuleLookup {
 			} else {
 				source = source.replaceAll("\\*", module);
 			}
-			
+
 			logger.info(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_USE_SOURCE", module, source));
 			if (source.startsWith(TcEnv.VALUE_MODULE_SOURCE_SERVLET_PREFIX)) {
 				return getModuleByServletContext(source.substring(TcEnv.VALUE_MODULE_SOURCE_SERVLET_PREFIX.length()));
@@ -127,18 +127,18 @@ class ServletModuleLookup implements TcModuleLookup {
 		else {
 			moduleContext = servletContext.getContext(module);
 		}
-		
+
 		if (moduleContext == null) {
 			logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_NO_MODULE_CONTEXT", module));
 			return null;
 		}
-		
+
 		String realPath = moduleContext.getRealPath("/OCTOPUS/");
 		if (realPath == null || realPath.length() == 0) {
 			logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_NO_MODULE_CONTEXT", module));
 			return null;
 		}
-		
+
 		return new File(realPath);
 	}
 }

@@ -35,7 +35,7 @@ public class TcActionInvocationException extends TcContentProzessException {
     public TcActionInvocationException(String msg) {
         super(msg);
     }
-	
+
     public TcActionInvocationException(Throwable t) {
         super(t);
     }

@@ -27,20 +27,20 @@ import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
 
-/** 
+/**
  * Instantiiert eine Groovy-Klasse, die nach dem ReflectedWorkerWrapper Prinzip arbeitet
- * 
- * 
+ *
+ *
  * @see TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class GroovyWorkerFactory implements SpecialWorkerFactory {
     /**
      * Läd die als ImplementationSource angegebene Klasse und gibt sie gecastet TcContentWorker zurück.
-     * 
+     *
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
-    public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration) 
+    public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration)
         throws WorkerCreationException {
         try {
             //GroovyClassLoader loader = new GroovyClassLoader(config.getClassLoader());

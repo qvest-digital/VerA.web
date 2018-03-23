@@ -24,13 +24,13 @@ package de.tarent.octopus.util;
  */
 /**
  * Utility-Funktionen für den Umgang mit CVS
- * 
+ *
  * @author mikel
  */
 public class CVS {
     public static String getContent(String keyPhrase) {
         String result = null;
-        
+
         if (keyPhrase != null) {
             int index = keyPhrase.indexOf(':');
             if (index >= 0) {
@@ -40,7 +40,7 @@ public class CVS {
                     result = keyPhrase.substring(0, index).trim();
             }
         }
-        
+
         return result;
     }
 

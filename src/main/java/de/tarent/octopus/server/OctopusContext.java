@@ -38,25 +38,24 @@ import de.tarent.octopus.client.OctopusTask;
 /**
  * Kontext, in dem ein Worker im Octopus existiert.
  * Über diesen Kontext kann ein Worker Request-, Content- Config- und Sessiondaten abfragen sowie setzen.
- * 
+ *
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @version 1.0
  */
 public interface OctopusContext {
-	
+
     public static final String CONTENT_FIELD_PREFIX = "CONTENT:";
     public static final String REQUEST_FIELD_PREFIX = "REQUEST:";
     public static final String SESSION_FIELD_PREFIX = "SESSION:";
     public static final String CONFIG_FIELD_PREFIX = "CONFIG:";
 
-
-    /** 
+    /**
      * Key for a list of objects to clean up after the execution of a task.
      * The objects in this list have be of the type Runnable or Cleanable.
      */
     public static final String CLEANUP_OBJECT_LIST = "octopus.cleanup.objects";
-    
+
     /**
      * Liefert den Inhalt eines Feldes aus einem der Contextbereiche Request, Content, Session oder Config
      * Aus welchem Bereich das Feld Stammt wird über das Prefix entschieden.
@@ -69,25 +68,25 @@ public interface OctopusContext {
     /**
      * Setzt ein Feld in einem der Contextbereiche Content, Session, abhängig vom Verwendeten Prefix des fieldNames.
      * Ohne Prefix wird das Feld im Content gesetzt.
-     * Das Setzen von Feldern im Request und in der Config ist verboten.     
+     * Das Setzen von Feldern im Request und in der Config ist verboten.
      */
     public void setContextField(String fieldName, Object value);
 
 	public TcContent getContentObject();
 
 	public TcConfig getConfigObject();
-	
+
 	public TcRequest getRequestObject();
 
-    /** 
+    /**
      * Returns an OctopusTask instance to the supplied task in the current module over the OctopusClient API.
-     * A call to this task uses the same session an therefore the same authentication. 
-     * On the other hand, the request and content are fresh. 
+     * A call to this task uses the same session an therefore the same authentication.
+     * On the other hand, the request and content are fresh.
      * @param taskName The name of the target task in this module
      * @return A callable task for the target task in the current module
      */
     public OctopusTask getTask(String taskName);
-        
+
     /**
      * Adds the supplied object to the List of Cleanup-Objects in the Content.
      * After the processing of the request, the octopus will call the close() method for each of these objects.
@@ -102,41 +101,40 @@ public interface OctopusContext {
      */
     public void addCleanupCode(Runnable runnable);
 
-
 	//===>  C O N T E N T  <===//
-	
+
     public boolean contentContains(String key);
-	
+
     public Iterator contentKeys();
-	
+
     public String contentAsString(String key);
-	
+
 	public Object contentAsObject(String key);
-	
+
 	public void setContent(String key, Integer value);
-	
+
 	public void setContent(String key, List value);
-	
+
 	public void setContent(String key, Map value);
-	
+
 	public void setContent(String key, String value);
-	
+
 	public void setContent(String key, Object value);
-	
+
 	public void setContentError(Exception e);
-	
+
 	public void setContentError(String message);
-	
+
 	public void setContentStatus(String status);
-	
+
 	//===>  R E Q U E S T  <===//
-	
+
 	public int requestType();
-	
+
 	public String requestTypeName();
-	
+
 	public boolean requestContains(String key);
-	
+
 	public Object requestAsObject(String key);
 
 	public String requestAsString(String key);
@@ -144,44 +142,44 @@ public interface OctopusContext {
 	public Integer requestAsInteger(String key);
 
 	public Boolean requestAsBoolean(String key);
-	
+
 	//===>  C O N F I G  <===//
-	
+
 	public TcCommonConfig commonConfig();
-	
+
 	public TcPersonalConfig personalConfig();
-	
+
 	public TcModuleConfig moduleConfig();
-	
+
 	public File moduleRootPath();
-	
+
 	public String getModuleName();
-	
+
 	public String getTaskName();
-	
+
 	//===>  S E S S I O N  <===//
-	
+
 	public Object sessionAsObject(String key);
-	
+
 	public String sessionAsString(String key);
-	
+
 	public void setSession(String key, Object value);
-	
+
 	//===>  S T A T U S  <===//
-	
+
 	public void setStatus(String status);
-	
+
 	public String getStatus();
-	
+
 	public void setError(Exception e);
-	
+
 	public void setError(String message);
-	
+
 	//===>  C L O N E  <===//
-	
+
 	/**
 	 * Return a new octopus context with an empty request an empty content.
-	 * 
+	 *
 	 * @see #cloneContext(boolean, boolean)
 	 */
 	public OctopusContext cloneContext();
@@ -193,7 +191,7 @@ public interface OctopusContext {
 	 * If the parameter <code>newContent</code> is <code>true</code> a new
 	 * empty content will be created. Otherwise the current {@link TcContent}
 	 * will be used.
-	 * 
+	 *
 	 * @param newRequest
 	 * @param newContent
 	 * @return ?

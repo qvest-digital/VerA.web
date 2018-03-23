@@ -89,11 +89,11 @@ public class Octopus {
      * @param env Eine Sammlung diverser Parameter.
      */
     public void init(TcEnv env) throws TcConfigException, ClassCastException {
-    	commonConfig = new TcCommonConfig(env, this);
-        dispatcher = new TcRequestDispatcher(commonConfig);
+	commonConfig = new TcCommonConfig(env, this);
+	dispatcher = new TcRequestDispatcher(commonConfig);
 
-        new OctopusInstanceJndiFactory().bind();
-        new OctopusContextJndiFactory().bind();
+	new OctopusInstanceJndiFactory().bind();
+	new OctopusContextJndiFactory().bind();
     }
 
     /**
@@ -104,40 +104,40 @@ public class Octopus {
      * @param moduleLookup Lookup context for modules.
      */
     public void init(TcModuleLookup moduleLookup) throws ClassCastException {
-    	this.moduleLookup = moduleLookup;
-    	commonConfig.setModuleLookup(moduleLookup);
+	this.moduleLookup = moduleLookup;
+	commonConfig.setModuleLookup(moduleLookup);
 
-        preloadModules(commonConfig);
+	preloadModules(commonConfig);
 
-        // Initalizing the optional JMX subsystem
-        String jmxEnabledString = commonConfig.getConfigData(TcEnv.KEY_JMX_ENABLED);
-        if (Boolean.valueOf(jmxEnabledString).booleanValue())
-        {
-            logger.info("Enabling optional JMX subsystem.");
+	// Initalizing the optional JMX subsystem
+	String jmxEnabledString = commonConfig.getConfigData(TcEnv.KEY_JMX_ENABLED);
+	if (Boolean.valueOf(jmxEnabledString).booleanValue())
+	{
+	    logger.info("Enabling optional JMX subsystem.");
 
-            Map params = new HashMap();
-            params.put("octopus", this);
-            params.put("config", commonConfig);
+	    Map params = new HashMap();
+	    params.put("octopus", this);
+	    params.put("config", commonConfig);
 
-            jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement", params);
-        }
-        else
-        {
-        	logger.info("Optional JMX subsystem is disabled.");
-        }
+	    jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement", params);
+	}
+	else
+	{
+		logger.info("Optional JMX subsystem is disabled.");
+	}
 
-        // Initalizing the optional rpc tunnel subsystem
-        String rpcTunnelEnabledString = commonConfig.getConfigData(TcEnv.KEY_RPCTUNNEL_ENABLED);
-        if (Boolean.valueOf(rpcTunnelEnabledString).booleanValue())
-        {
-            logger.info("Enabling optional RPC-tunnel.");
+	// Initalizing the optional rpc tunnel subsystem
+	String rpcTunnelEnabledString = commonConfig.getConfigData(TcEnv.KEY_RPCTUNNEL_ENABLED);
+	if (Boolean.valueOf(rpcTunnelEnabledString).booleanValue())
+	{
+	    logger.info("Enabling optional RPC-tunnel.");
 
-            OctopusRPCTunnel.createInstance(this, commonConfig);
-        }
-        else
-        {
-        	logger.info("Optional RPC-tunnel is disabled.");
-        }
+	    OctopusRPCTunnel.createInstance(this, commonConfig);
+	}
+	else
+	{
+		logger.info("Optional RPC-tunnel is disabled.");
+	}
     }
 
     /**
@@ -153,17 +153,17 @@ public class Octopus {
      * @throws TcConfigException
      */
     public void deInit()
-        throws
-            ClassCastException,
-            TcTaskProzessingException,
-            TcContentProzessException,
-            TcConfigException {
+	throws
+	    ClassCastException,
+	    TcTaskProzessingException,
+	    TcContentProzessException,
+	    TcConfigException {
 
-            // shutting down the JMX subsystem
-            if (jmxManagementServer!=null)
-                jmxManagementServer.stop();
+	    // shutting down the JMX subsystem
+	    if (jmxManagementServer!=null)
+		jmxManagementServer.stop();
 
-            cleanupModules(dispatcher);
+	    cleanupModules(dispatcher);
     }
 
     /**
@@ -175,10 +175,10 @@ public class Octopus {
      * @throws ResponseProcessingException
      */
     public void dispatch(TcRequest tcRequest, TcResponse tcResponse, TcSession theSession)
-        throws ResponseProcessingException {
-        logger.trace(getClass().getName() +" dispatch " + new Object[] {tcRequest, tcResponse, theSession});
-        dispatcher.dispatch(tcRequest, tcResponse, theSession);
-        logger.trace(getClass().getName() + " dispatch");
+	throws ResponseProcessingException {
+	logger.trace(getClass().getName() +" dispatch " + new Object[] {tcRequest, tcResponse, theSession});
+	dispatcher.dispatch(tcRequest, tcResponse, theSession);
+	logger.trace(getClass().getName() + " dispatch");
     }
 
 	/*
@@ -205,28 +205,28 @@ public class Octopus {
 	}
 
     private void callTask(String modulename, TcCommonConfig config, String taskname) throws TcContentProzessException, TcTaskProzessingException, TcConfigException {
-        TcRequest tcRequest = new TcRequest(TcRequest.createRequestID());
-        tcRequest.setRequestParameters(new HashMap());
-        tcRequest.setModule(modulename);
-        tcRequest.setTask(taskname);
+	TcRequest tcRequest = new TcRequest(TcRequest.createRequestID());
+	tcRequest.setRequestParameters(new HashMap());
+	tcRequest.setModule(modulename);
+	tcRequest.setTask(taskname);
 
-        OctopusContext context = new TcAll(
-        		tcRequest,
-                new TcContent(),
-                new TcConfig(config, config.createNewPersonalConfig(modulename), modulename));
+	OctopusContext context = new TcAll(
+			tcRequest,
+		new TcContent(),
+		new TcConfig(config, config.createNewPersonalConfig(modulename), modulename));
 
-        try {
-            Context.addActive(context);
+	try {
+	    Context.addActive(context);
 
-            TcTaskManager taskmanager = new TcTaskManager(context);
-            taskmanager.start(modulename, taskname, false);
+	    TcTaskManager taskmanager = new TcTaskManager(context);
+	    taskmanager.start(modulename, taskname, false);
 
-            while (taskmanager.doNextStep()) { /* Do nothing here */ }
+	    while (taskmanager.doNextStep()) { /* Do nothing here */ }
 
-        } finally {
-            TcRequestDispatcher.processCleanupCode(tcRequest.getRequestID(), context.getContentObject());
-        	Context.clear();
-        }
+	} finally {
+	    TcRequestDispatcher.processCleanupCode(tcRequest.getRequestID(), context.getContentObject());
+		Context.clear();
+	}
     }
 
     /**
@@ -234,33 +234,32 @@ public class Octopus {
      * @param commonConfig die Config
      */
     public void doAutostart(String modulename, TcCommonConfig commonConfig)
-        throws
-            TcTaskProzessingException,
-            TcContentProzessException,
-            TcConfigException {
-        TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
-        TcTaskList tasklist = moduleconfig.getTaskList();
-        TcTask task = tasklist.getTask(TASKNAME_AUTOSTART);
-        if (task != null) {
-            logger.debug(Resources.getInstance().get("OCTOPUS_LOG_AUTOSTART_MODULE", modulename));
-            callTask(modulename, commonConfig, TASKNAME_AUTOSTART);
-        }
+	throws
+	    TcTaskProzessingException,
+	    TcContentProzessException,
+	    TcConfigException {
+	TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
+	TcTaskList tasklist = moduleconfig.getTaskList();
+	TcTask task = tasklist.getTask(TASKNAME_AUTOSTART);
+	if (task != null) {
+	    logger.debug(Resources.getInstance().get("OCTOPUS_LOG_AUTOSTART_MODULE", modulename));
+	    callTask(modulename, commonConfig, TASKNAME_AUTOSTART);
+	}
     }
 
-
     protected void cleanupModules(TcRequestDispatcher dispatcher)
-        throws
-            ClassCastException,
-            TcTaskProzessingException,
-            TcContentProzessException,
-            TcConfigException {
-        TcCommonConfig commonConfig = dispatcher.getCommonConfig();
-        Iterator it = commonConfig.getExistingModuleNames();
-        //Durchlaufe alle Module
-        while (it.hasNext()) {
-            String modulename = it.next().toString();
-            doCleanup(modulename, commonConfig);
-        }
+	throws
+	    ClassCastException,
+	    TcTaskProzessingException,
+	    TcContentProzessException,
+	    TcConfigException {
+	TcCommonConfig commonConfig = dispatcher.getCommonConfig();
+	Iterator it = commonConfig.getExistingModuleNames();
+	//Durchlaufe alle Module
+	while (it.hasNext()) {
+	    String modulename = it.next().toString();
+	    doCleanup(modulename, commonConfig);
+	}
     }
 
     /**
@@ -268,25 +267,25 @@ public class Octopus {
      * @param commonConfig
      */
     public void doCleanup(String modulename, TcCommonConfig commonConfig)
-        throws
-            TcTaskProzessingException,
-            ClassCastException,
-            TcContentProzessException,
-            TcConfigException {
-        TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
-        TcTaskList tasklist = moduleconfig.getTaskList();
-        TcTask task = tasklist.getTask(TASKNAME_CLEANUP);
-        if (task != null) {
-            logger.debug(Resources.getInstance().get("OCTOPUS_LOG_CLEANUP_MODULE", modulename));
-            callTask(modulename, commonConfig, TASKNAME_CLEANUP);
-        }
+	throws
+	    TcTaskProzessingException,
+	    ClassCastException,
+	    TcContentProzessException,
+	    TcConfigException {
+	TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
+	TcTaskList tasklist = moduleconfig.getTaskList();
+	TcTask task = tasklist.getTask(TASKNAME_CLEANUP);
+	if (task != null) {
+	    logger.debug(Resources.getInstance().get("OCTOPUS_LOG_CLEANUP_MODULE", modulename));
+	    callTask(modulename, commonConfig, TASKNAME_CLEANUP);
+	}
     }
 
     public TcModuleLookup getModuleLookup() {
-    	return moduleLookup;
+	return moduleLookup;
     }
 
     public TcCommonConfig getCommonConfig() {
-    	return commonConfig;
+	return commonConfig;
     }
 }

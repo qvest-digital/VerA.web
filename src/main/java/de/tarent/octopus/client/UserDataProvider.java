@@ -23,11 +23,10 @@ package de.tarent.octopus.client;
  * THE SOFTWARE.
  */
 /**
- * Liefert auf Nachfrage die Benutzerdaten, 
+ * Liefert auf Nachfrage die Benutzerdaten,
  * die z.B. über einen Dialog angefordert werden können.
  */
 public interface UserDataProvider {
-
 
     /**
      * Fordert die Benutzerdaten an (z.B. über einen Login-Dialog);
@@ -39,7 +38,7 @@ public interface UserDataProvider {
     public boolean requestUserData(String message, String usernamePreselection);
 
     /**
-     * @return Liefert den bereit gestellten Benutzernamen 
+     * @return Liefert den bereit gestellten Benutzernamen
      */
     public String getUsername();
 
@@ -47,5 +46,4 @@ public interface UserDataProvider {
      * @return Liefert das bereit gestellte Passwort
      */
     public String getPassword();
-
 }

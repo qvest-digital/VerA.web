@@ -24,9 +24,9 @@ package de.tarent.octopus.response;
  */
 import de.tarent.octopus.config.TcConfig;
 
-/** 
+/**
  * Enthält Informationen und Parameter, die für alle Templates gleich sind.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcTemplateSystemParams {

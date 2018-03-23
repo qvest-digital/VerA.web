@@ -37,7 +37,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
 
-/** 
+/**
  *  Diese Klasse arbeitet als direkte Ausgabe Engine.
  *
  *  @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>

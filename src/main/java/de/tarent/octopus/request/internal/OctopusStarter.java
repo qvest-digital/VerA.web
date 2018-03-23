@@ -27,16 +27,16 @@ import java.util.Map;
 import de.tarent.octopus.request.directCall.OctopusDirectCallResult;
 import de.tarent.octopus.request.directCall.TcDirectCallException;
 
-/** 
+/**
  * Kapselt das Ansprechen des Octopus
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public interface OctopusStarter {
 
     /**
      * Startet die Abarbeitung einer Anfrage
-     * @throws TcDirectCallException 
+     * @throws TcDirectCallException
      */
     public OctopusDirectCallResult request(Map requestParams) throws TcDirectCallException;
 }

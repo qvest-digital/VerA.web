@@ -35,15 +35,15 @@ public class TcVelocityResponseLogger implements LogSystem {
 	public TcVelocityResponseLogger () {
 		// do Nothing
 	}
-	
+
 	public void init (RuntimeServices rsvc) {
 		// do Nothing
 	}
-	
+
 	public void logVelocityMessage(int level, String message) {
 		switch (level) {
 			case 1:
-  				logger.trace(message);
+				logger.trace(message);
 				break;
 			case 2:
 				logger.debug(message);

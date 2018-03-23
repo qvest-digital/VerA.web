@@ -22,9 +22,9 @@ package de.tarent.octopus.config;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-/** 
+/**
  * Klasse zur Kapselung der Informaionen zu einem ContentWorker.
- * 
+ *
  * @see de.tarent.octopus.content.TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -34,7 +34,6 @@ public class ContentWorkerDeclaration {
     String implementationSource;
     String factory;
     boolean singletonInstantiation = true;
-
 
     /**
      * Gibt an ob von dem Worker immer neue Instanzen erzeugt werden sollen,
@@ -48,7 +47,6 @@ public class ContentWorkerDeclaration {
         this.singletonInstantiation = newSingletonInstantiation;
     }
 
-
     /**
      * Liefert die Factory, von der dieser Worker erzeugt werden kann.
      * @return Voll qualifizierter Klassenname der Factory
@@ -61,8 +59,7 @@ public class ContentWorkerDeclaration {
         this.factory = newFactory;
     }
 
-
-    /** 
+    /**
      * Liefert die Factoryspezifische Quelle des Workers.
      * Dies kann z.B. der Klassenname oder Scriptname des Workers sein.
      */
@@ -74,8 +71,6 @@ public class ContentWorkerDeclaration {
         this.implementationSource = newImplementationSource;
     }
 
-
-
     /**
      * Eindeutiger Bezeichner, unter dem den Worker in dem Modul verfügbar ist.
      */
@@ -86,5 +81,4 @@ public class ContentWorkerDeclaration {
     public void setWorkerName(final String newWorkerName) {
         this.workerName = newWorkerName;
     }
-    
 }

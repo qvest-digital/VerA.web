@@ -42,10 +42,10 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.PersonalConfig;
 
-/** 
+/**
  * Implementierung eines LoginManagers, über eine XML Datei
  * <br><br>
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class LoginManagerXML extends AbstractLoginManager {
@@ -54,18 +54,18 @@ public class LoginManagerXML extends AbstractLoginManager {
 
     public static final String KEY_USER_FILE = "userFile";
     public static final String DEFAULT_USER_FILE_NAME = "user.xml";
-    
-    protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) 
+
+    protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
         throws TcSecurityException {
-        
+
         File userFile = null;
         File base = commonConfig.getModuleConfig(tcRequest.getModule()).getRealPath();
         if (getConfigurationString(KEY_USER_FILE) != null) {
             userFile = new File(base,getConfigurationString(KEY_USER_FILE));
         } else {
             userFile = new File(base,DEFAULT_USER_FILE_NAME);
-        }        
-               
+        }
+
         String fileUrl = Resources.getInstance().get("LOGINMANAGERXML_URL_USER_FILE", userFile.getAbsolutePath());
         MyContentHandler ch = new MyContentHandler();
         try {
@@ -92,18 +92,16 @@ public class LoginManagerXML extends AbstractLoginManager {
         pConfig.setUserGroups((String[])ch.getGroupmap().get(pwdAuth.getUserName()));
         pConfig.userLoggedIn(pwdAuth.getUserName());
     }
-    
+
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
         throws TcSecurityException {
         pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
         pConfig.userLoggedOut();
     }
 
-
     private class MyContentHandler extends DefaultHandler {
         private Map usermap = new HashMap();
         private Map groupmap = new HashMap();
-        
 
         public void setDocumentLocator(Locator arg0) {
         }

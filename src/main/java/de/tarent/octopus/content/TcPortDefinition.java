@@ -68,7 +68,7 @@ import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
  * <br><br>
  * <ul>
  * <b>Die Beschreibung ist folgendermaßen gegliedert:</b>
- *  <li>Ein Port ist z.B. ein TcContentWorker oder eine Ansammlung von Tasks. 
+ *  <li>Ein Port ist z.B. ein TcContentWorker oder eine Ansammlung von Tasks.
  *    Er benötigt genau eine TcPortDefinition.</li>
  *  <li>Die Actions eines Workers, bzw. die Tasks einer Tasksammlung sind die Operationen. Sie werden von TcOperationDefinition Objekten repräsentiert.
  *    Ein Port hat in der Regel viele Operationen, die er zur Verfügung stellt.</li>
@@ -176,7 +176,7 @@ public class TcPortDefinition {
     /**
      * Diese Methode liefert ein Definition-Objekt, aus dem mittels WSDL4J
      * einfach eine WSDL-Darstellung erstellbar ist.
-     * 
+     *
      * @param includeCredentials <code>true</code>, falls jeder Operation,
      *  die nicht anonym ist, Benutzername und Passwort als Pflichtparameter
      *  hinzugefügt werden sollen.
@@ -210,12 +210,12 @@ public class TcPortDefinition {
         PortType portType = createPortType(def, tns, prefix);
         binding.setPortType(portType);
         def.addPortType(portType);
-        
+
         // Operationen
         Iterator itOperations = getOperations().values().iterator();
         while (itOperations.hasNext()) {
             TcOperationDefinition octopusOperation = (TcOperationDefinition) itOperations.next();
-            
+
             Message inputMessage = createInputMessage(def, tns, octopusOperation.getName(), octopusOperation.getInputMessage(), includeCredentials);
             def.addMessage(inputMessage);
             Message outputMessage = createOutputMessage(def, tns, octopusOperation.getName(), octopusOperation.getOutputMessage());
@@ -223,7 +223,7 @@ public class TcPortDefinition {
 
             Input input = createInput(def, inputMessage);
             Output output = createOutput(def, outputMessage);
-            
+
             Operation operation = createOperation(def, octopusOperation.getName(), input, output);
             portType.addOperation(operation);
 
@@ -346,7 +346,7 @@ public class TcPortDefinition {
         soapBodyInput.setEncodingStyles(Collections.singletonList(ENCODING_STYLE_URI_SOAP));
         soapBodyInput.setNamespaceURI(namespaceURI);
         bindingInput.addExtensibilityElement(soapBodyInput);
-        
+
         BindingOutput bindingOutput = def.createBindingOutput();
         bindingOutput.setName(output.getName());
         SOAPBody soapBodyOutput = new SOAPBodyImpl();
@@ -354,7 +354,7 @@ public class TcPortDefinition {
         soapBodyOutput.setEncodingStyles(Collections.singletonList(ENCODING_STYLE_URI_SOAP));
         soapBodyOutput.setNamespaceURI(namespaceURI);
         bindingOutput.addExtensibilityElement(soapBodyOutput);
-        
+
         bindingOperation.setOperation(operation);
         bindingOperation.setName(operation.getName());
         bindingOperation.setBindingInput(bindingInput);
@@ -367,7 +367,6 @@ public class TcPortDefinition {
         return bindingOperation;
     }
 
-    
     /**
      * Liefert eine Darstellung der gesamten PortDefinition mit Operationen und Messages als XML-DOM Tree
      * @return Ein XML-Dom Tree

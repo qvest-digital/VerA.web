@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Beschreibgung einer Operation eines Ports.
  * Diese OperationDefinition enthält Input-, Output- und FaultMessages
- * 
+ *
  * Eine Ausführlichere Beschreibung ist in TcPortDefinition
  * @see TcPortDefinition
  */

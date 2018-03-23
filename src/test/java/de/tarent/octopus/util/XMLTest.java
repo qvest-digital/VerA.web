@@ -47,15 +47,15 @@ public class XMLTest
 
     }
 
-    public void testNestedValues() 
+    public void testNestedValues()
         throws Exception {
 
-        String doc = 
+        String doc =
             "<param name=\"nix\" type=\"list\">\n"
             +"     <value>Hallo</value>\n"
             +"     <value>Ballo</value>\n"
             +"</param>\n";
-        
+
         DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = parser.parse(new ByteArrayInputStream(doc.getBytes()));
         List l = (List)Xml.getParamValue(document.getDocumentElement());
@@ -65,10 +65,10 @@ public class XMLTest
         assertEquals("List Element", "Ballo", l.get(1));
     }
 
-    public void testNestedParams() 
+    public void testNestedParams()
         throws Exception {
 
-        String doc = 
+        String doc =
             "<param name=\"nix\" type=\"list\">\n"
             +"     <param value=\"Hallo\"/>\n"
             +"     <param value=\"Ballo\"/>\n"

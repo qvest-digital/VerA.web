@@ -36,13 +36,12 @@ import de.tarent.octopus.request.directCall.TcDirectCallResponse;
 import de.tarent.octopus.request.directCall.TcDirectCallSession;
 import de.tarent.octopus.resource.Resources;
 
-/** 
+/**
  * Kapselt das Ansprechen des Octopus
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class OctopusInternalStarter implements OctopusStarter {
-
 
     private static Log logger = LogFactory.getLog(OctopusStarter.class);
 
@@ -65,7 +64,7 @@ public class OctopusInternalStarter implements OctopusStarter {
         this.octopus = octopus;
         this.tcSession = session;
     }
-    
+
     /**
      * Startet die Abarbeitung einer Anfrage
      */
@@ -78,23 +77,22 @@ public class OctopusInternalStarter implements OctopusStarter {
             TcDirectCallResponse response = new TcDirectCallResponse();
             logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED"));
             //response.setSoapEngine(soapEngine);
-                        
+
             logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_SESSION_OBJECT_CREATED"));
-            
+
             TcRequest request = new TcRequest();
             request.setRequestParameters(requestParams);
             request.setParam(TcRequest.PARAM_SESSION_ID, tcSession.getId());
             logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_OBJECT_CREATED"));
-            
+
             octopus.dispatch(request, response, tcSession);
-            
+
             response.flush();
             return new OctopusDirectCallResult(response);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
             throw new TcDirectCallException(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
         }
-        
-    }
 
+    }
 }

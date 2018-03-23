@@ -41,7 +41,7 @@ import de.tarent.octopus.util.Xml;
 /**
  * Diese Klasse kapselt einen StringBuffer, in dem eine XML-RPC-Antwort erstellt
  * wird.
- * 
+ *
  * @author mikel
  */
 public class XmlRpcBuffer {
@@ -68,7 +68,7 @@ public class XmlRpcBuffer {
 
     /**
      * Diese Methode fügt eine vollständige XML-RPC-Antwort an.
-     * 
+     *
      * @param result
      *            Antwortparameter; wenn dieser null ist, ist die Antwort leer.
      * @throws IllegalArgumentException
@@ -91,7 +91,7 @@ public class XmlRpcBuffer {
 
     /**
      * Diese Methode fügt eine XML-RPC-Beschreibung eines Java-Objekts ein.
-     * 
+     *
      * @param object
      *            Das einzufügende Objekt.
      * @throws IllegalArgumentException
@@ -129,7 +129,7 @@ public class XmlRpcBuffer {
 
     /**
      * Diese Methode fügt eine XML-RPC-Fehlermeldung ein.
-     * 
+     *
      * @param code
      *            Fehlercode
      * @param message
@@ -149,7 +149,7 @@ public class XmlRpcBuffer {
     /**
      * Diese Methode startet ein Element. Dieses muss mit
      * {@link #endElement(String)}beendet werden.
-     * 
+     *
      * @param element
      *            Name des Elements
      */
@@ -160,7 +160,7 @@ public class XmlRpcBuffer {
     /**
      * Diese Methode beendet ein Element. Dieses muss mit
      * {@link #startElement(String)}gestartet worden sein.
-     * 
+     *
      * @param element
      *            Name des Elements
      */
@@ -174,7 +174,7 @@ public class XmlRpcBuffer {
     /**
      * Diese Methode fügt ein einfaches Datenelement ein. Diese Methode führt
      * kein XML-Escaping durch!
-     * 
+     *
      * @param type
      *            Typenstring
      * @param object
@@ -190,7 +190,7 @@ public class XmlRpcBuffer {
 
     /**
      * Diese Methode fügt eine Collection als XML-RPC-Array an.
-     * 
+     *
      * @param collection
      *            Kollektion, die einzufügen ist.
      */
@@ -207,7 +207,7 @@ public class XmlRpcBuffer {
 
     /**
      * Diese Methode fügt eine Map als XML-RPC-Struct an.
-     * 
+     *
      * @param map
      *            Map, die einzufügen ist.
      */

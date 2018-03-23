@@ -50,9 +50,9 @@ import de.tarent.octopus.request.TcSession;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-/** 
+/**
  * Stellt ein Sessionobjekt eines direkten Aufrufes dar.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcDirectCallSession implements TcSession {
@@ -60,10 +60,10 @@ public class TcDirectCallSession implements TcSession {
     Hashtable attributes = new Hashtable();
     long creationTime;
     String id;
-    
-    public TcDirectCallSession(){        
+
+    public TcDirectCallSession(){
         this.creationTime = System.currentTimeMillis();
-        this.id = (new StringBuffer(Long.toHexString(System.currentTimeMillis())).reverse()).toString();        
+        this.id = (new StringBuffer(Long.toHexString(System.currentTimeMillis())).reverse()).toString();
     }
 
     public Object getAttribute(String name) {
@@ -81,7 +81,6 @@ public class TcDirectCallSession implements TcSession {
     public void setAttribute(String name, Object value) {
         attributes.put(name,value);
     }
-
 
     public long getCreationTime() {
         return creationTime;
@@ -104,9 +103,9 @@ public class TcDirectCallSession implements TcSession {
     }
 
     public boolean isNew() {
-        return false;        
+        return false;
     }
-    
+
     public void setMaxInactiveInterval(int interval) {
         // do nothing
     }

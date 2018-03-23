@@ -79,11 +79,11 @@ public class Xml {
     public static String toString(Document doc) {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            
+
             DOMSource source = new DOMSource(doc.getDocumentElement());
             StreamResult result = new StreamResult(out);
             TransformerFactory.newInstance().newTransformer().transform(source, result);
-            
+
             String se = out.toString();
             return se;
         } catch (Exception h) {
@@ -121,13 +121,13 @@ public class Xml {
      * @param parentNode Dom Knoten, der 'param' Elemente mit den 'name' und 'value' Attributen als Kinder hat.
      *                   Das 'value' Attribut kann alternativ auch als nested 'value' Element angegeben werden.
      * 					 <ul>
-     *                   <li>Wenn das Attribut type=array ist, kann es auch eine Liste von 'value' Kindern haben, 
+     *                   <li>Wenn das Attribut type=array ist, kann es auch eine Liste von 'value' Kindern haben,
      * 			 	           die dann in einem Vector abgelegt werden.</li>
      *
-     * 					   <li>Wenn das Attribut type=map ist, können wieder Param-Elemente 
+     * 					   <li>Wenn das Attribut type=map ist, können wieder Param-Elemente
      *                       darin enthalten sein, die dann als Map zurück geliefert werden.</li>
      *
-     * 					   <li>Anstatt des value Attributes kann es auch ein refvalue haben, dass dann in 
+     * 					   <li>Anstatt des value Attributes kann es auch ein refvalue haben, dass dann in
      *                         dem entsprechenden Kontext aufzulösen ist.</li>
      *                 </ul>
      *
@@ -164,9 +164,9 @@ public class Xml {
      * Liefert Wert eines Param Elementes
      */
     public static Object getParamValue(Element paramElement) throws DataFormatException {
-        
-        String type = paramElement.getAttribute("type");        
-        
+
+        String type = paramElement.getAttribute("type");
+
         //Ganze Liste drinn
         if (type != null && (type.toLowerCase().equals("array") || type.toLowerCase().equals("list"))) {
             NodeList paramChilds = paramElement.getChildNodes();
@@ -178,30 +178,30 @@ public class Xml {
                     if ("value".equals(valueChildElement.getTagName())) {
                         String value = valueChild.getFirstChild().getNodeValue();
                         values.add(value);
-                    } 
+                    }
                     else if ("param".equals(valueChildElement.getTagName())) {
                         values.add(getParamValue(valueChildElement));
-                    }                    
+                    }
                 }
             }
             return values;
-        } 
+        }
         // Map
         else if (type != null && type.toLowerCase().equals("map")) {
             return getParamMap(paramElement);
         }
         // Nur ein value oder refvalue
         else {
-                    
+
             String refvalue = paramElement.getAttribute("refvalue");
             if (refvalue == null || "".equals(refvalue)) {
-                        
+
                 try {
                     String value = null;
                     Attr valueAttr = paramElement.getAttributeNode("value");
                     if (valueAttr != null) {
                         value = valueAttr.getValue();
-                    } 
+                    }
                     // No attribute specified
                     else {
                         NodeList paramChilds = paramElement.getElementsByTagName("value");

@@ -55,7 +55,7 @@ import java.util.Iterator;
 
 import de.tarent.octopus.client.OctopusResult;
 
-/** 
+/**
  * Kapselung der Antwort auf eine Octopus Anfrage
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -66,7 +66,6 @@ public class OctopusDirectCallResult implements OctopusResult {
     public OctopusDirectCallResult(TcDirectCallResponse response) {
         this.response = response;
     }
-
 
     public boolean errorWhileProcessing() {
         return response.errorWhileProcessing();
@@ -80,11 +79,10 @@ public class OctopusDirectCallResult implements OctopusResult {
         return response.getErrorException();
     }
 
-
     public String getContentType() {
         return response.getContentType();
     }
-    
+
     public boolean hasStreamContent() {
         return ((ByteArrayOutputStream)response.getOutputStream()).size() > 0;
     }
@@ -93,14 +91,11 @@ public class OctopusDirectCallResult implements OctopusResult {
         return new ByteArrayInputStream(((ByteArrayOutputStream)response.getOutputStream()).toByteArray());
     }
 
-    public void writeContent(OutputStream to) 
+    public void writeContent(OutputStream to)
         throws IOException {
         ((ByteArrayOutputStream)response.getOutputStream()).writeTo(to);
         to.flush();
     }
-
-
-    
 
     public boolean hasMoreData() {
         return response.hasMoreResponseObjects();
@@ -119,7 +114,7 @@ public class OctopusDirectCallResult implements OctopusResult {
     public Object getData(String key) {
         return response.getResponseObject(key);
     }
-    
+
     public Object nextDataAs(Class type) {
         if (!hasMoreData())
             return null;
@@ -128,7 +123,7 @@ public class OctopusDirectCallResult implements OctopusResult {
             throw new ClassCastException("Can not cast <"+o.getClass().getName()+"> to <"+type.getClass().getName()+">.");
         return o;
     }
-    
+
     public String nextDataAsString() {
         return (String)nextData();
     }
@@ -139,7 +134,7 @@ public class OctopusDirectCallResult implements OctopusResult {
         Object o = response.readNextResponseObject();
         if (o instanceof Integer)
             return ((Integer)o).intValue();
-        
+
         try {
             return Integer.parseInt(""+o);
         } catch (NumberFormatException e) {
@@ -153,14 +148,14 @@ public class OctopusDirectCallResult implements OctopusResult {
         Object o = response.readNextResponseObject();
         if (o instanceof Float)
             return ((Float)o).floatValue();
-        
+
         try {
             return Float.parseFloat(""+o);
         } catch (NumberFormatException e) {
             throw new ClassCastException("Can not parse float from <"+o+">.");
         }
     }
-    
+
     public byte[] nextDataAsByteArray() {
         return (byte[])nextData();
     }

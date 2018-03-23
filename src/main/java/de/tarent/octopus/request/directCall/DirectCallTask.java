@@ -55,51 +55,51 @@ import de.tarent.octopus.client.OctopusResult;
 import de.tarent.octopus.client.OctopusTask;
 import de.tarent.octopus.request.internal.OctopusStarter;
 
-/** 
+/**
  * Aufruf eines Task des Octopus.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class DirectCallTask implements OctopusTask {
-    
+
     OctopusStarter octopusStarter;
     String moduleName;
     Map params;
 
     public DirectCallTask(OctopusStarter octopusStarter) {
-        this.octopusStarter = octopusStarter;
-        params = new HashMap();
-    }    
-
-    public OctopusTask add(String paramName, Object paramValue) {
-    	Object param = params.get(paramName);
-    	if (param == null) {
-    		params.put(paramName, paramValue);
-    	} else {
-    		if (param instanceof List) {
-    			((List)param).addLast(paramValue);
-    		} else {
-    			List list = new List();
-    			list.add(param);
-    			list.addLast(paramValue);
-    			params.put(paramName, list);
-    		}
-    	}
-        return this;
+	this.octopusStarter = octopusStarter;
+	params = new HashMap();
     }
 
-    public OctopusResult invoke() 
-        throws OctopusCallException {
+    public OctopusTask add(String paramName, Object paramValue) {
+	Object param = params.get(paramName);
+	if (param == null) {
+		params.put(paramName, paramValue);
+	} else {
+		if (param instanceof List) {
+			((List)param).addLast(paramValue);
+		} else {
+			List list = new List();
+			list.add(param);
+			list.addLast(paramValue);
+			params.put(paramName, list);
+		}
+	}
+	return this;
+    }
 
-        OctopusDirectCallResult res = null;
-        try {
-            res = octopusStarter.request(params);
-        } catch (Exception e) {
-            throw new OctopusCallException("Error while calling octopus directly", e);
-        }
-        if (res.errorWhileProcessing())
-            throw new OctopusCallException(res.getErrorMessage(), res.getErrorException());
-        return res;
+    public OctopusResult invoke()
+	throws OctopusCallException {
+
+	OctopusDirectCallResult res = null;
+	try {
+	    res = octopusStarter.request(params);
+	} catch (Exception e) {
+	    throw new OctopusCallException("Error while calling octopus directly", e);
+	}
+	if (res.errorWhileProcessing())
+	    throw new OctopusCallException(res.getErrorMessage(), res.getErrorException());
+	return res;
     }
 
 	/* (non-Javadoc)
@@ -107,7 +107,7 @@ public class DirectCallTask implements OctopusTask {
 	 */
 	public void setConnectionTracking(boolean contrack) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/* (non-Javadoc)

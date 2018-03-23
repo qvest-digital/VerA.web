@@ -46,7 +46,7 @@ public class SmartSerializer implements Serializer {
 
 	private static final Log logger = LogFactory.getLog(SmartSerializer.class);
 
-    public void serialize(QName proposedName, Attributes attributes, Object value, SerializationContext context) 
+    public void serialize(QName proposedName, Attributes attributes, Object value, SerializationContext context)
         throws IOException {
 
         context.startElement(proposedName, null);
@@ -76,7 +76,7 @@ public class SmartSerializer implements Serializer {
             context.endElement();
         }
     }
-    
+
     public Element writeSchema(Class javaType, Types types) throws Exception {
         throw new RuntimeException("writeSchema not supported");
     }

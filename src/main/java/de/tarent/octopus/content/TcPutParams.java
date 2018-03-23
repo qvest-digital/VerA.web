@@ -31,9 +31,9 @@ import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.util.CVS;
 
-/** 
+/**
  * Worker, der die Felder des Requests in den Content schieben kann
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcPutParams implements TcContentWorker {
@@ -42,7 +42,7 @@ public class TcPutParams implements TcContentWorker {
     /**
      * Diese Methode wird nach Erzeugung des Workers aufgerufen, so dass dieser
      * sich im Kontext seines Moduls konfigurieren kann.
-     * 
+     *
      * @param config Modulkonfiguration.
      * @see de.tarent.octopus.content.TcContentWorker#init(de.tarent.octopus.config.TcModuleConfig)
      */
@@ -111,7 +111,7 @@ public class TcPutParams implements TcContentWorker {
 
     /**
      * Diese Methode liefert einen Versionseintrag.
-     * 
+     *
      * @return Version des Workers.
      * @see de.tarent.octopus.content.TcContentWorker#getVersion()
      */

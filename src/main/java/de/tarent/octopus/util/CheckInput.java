@@ -38,24 +38,24 @@ public class CheckInput {
      * InputRegexp beinhaltet die Definitionen für Eingabefelder
      * verschiedener Eingabetypen als:
      * Key:
-     * type  String : z.B. EMail, PLZ usw  
-     * Value: eine HashMap mit 
+     * type  String : z.B. EMail, PLZ usw
+     * Value: eine HashMap mit
      *             Key:
      *             Vorkompilierter Regulärer Ausdruck vom typ Pattern und
      *             Value:
      *                 Ein String mit der Beschreibung der Eingabe für den Benutzer
-     *                  z.B. 
+     *                  z.B.
      *                 Eine gültige Eingabe für das Datums-format ist folgende:
      *                TT.MM.JJJJ
-     * 
+     *
      * Bem: diese HashMap dient dem Worker CheckInput als Basis
      *  zur überprüfung von Eingaben aus einem Velocity (HTML)
      * kontext.
-     * 
+     *
      * Die Werte für diese Map werden in der Funktion InitInputRegexp
-     * einmal initialisiert. Sie sollten dann statisch für alle instanzen dieser 
+     * einmal initialisiert. Sie sollten dann statisch für alle instanzen dieser
      * Klasse vorliegen.
-     * 
+     *
      */
     private static HashMap InputRegexp = new HashMap();
     private static HashMap InputDesc = new HashMap();
@@ -65,7 +65,7 @@ public class CheckInput {
      * IT = InputType
      * ID = InputDescription
      * IP = InputPattern
-     * 
+     *
      * */
 
     /* EMail */
@@ -93,7 +93,7 @@ public class CheckInput {
     /**
      * Dient zur Registrierung der Elemente (IT,ID,IP)
      * in den HashMaps.
-     * 
+     *
      * Wird von der Funktion InitStatic aufgerufen.
      * @param IT
      * @param ID
@@ -105,7 +105,7 @@ public class CheckInput {
     }
 
     /**
-     * Dient zur Initialisierung der der Statischen Elemente 
+     * Dient zur Initialisierung der der Statischen Elemente
      * Diese Funktion wird im Konstruktor aufgerufen.
     * @author Heiko Ferger
      */
@@ -119,9 +119,9 @@ public class CheckInput {
     }
 
     /**
-     * Gibt eine Liste von verfügbaren Eingabetypen 
+     * Gibt eine Liste von verfügbaren Eingabetypen
      * zurück.
-     * 
+     *
      * @return ein Stringarray von verfügbaren EigabeTypen
      */
     public String getInputTypes() {

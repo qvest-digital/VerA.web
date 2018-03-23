@@ -23,7 +23,7 @@ package de.tarent.octopus.content;
  * THE SOFTWARE.
  */
 /**
- * Ein TcMessageDefinitionPart ist ein Parameter einer TcMessageDefinition 
+ * Ein TcMessageDefinitionPart ist ein Parameter einer TcMessageDefinition
  *
  * @see TcMessageDefinition
  * @see TcPortDefinition

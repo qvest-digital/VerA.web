@@ -24,13 +24,12 @@ package de.tarent.octopus.client;
  */
 import javax.xml.namespace.QName;
 
-/** 
+/**
  * Konstanten, die ein Octopus Client benötigen kann.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public interface OctopusConstants {
-
 
 	public static final String OCTOPUS_NAMESPACE = "http://schemas.tarent.de/octopus";
 
@@ -47,5 +46,4 @@ public interface OctopusConstants {
 	public static final QName SOAPF_AUTHENTICATION_NEED_LOGIN = new QName( OCTOPUS_NAMESPACE, AUTHENTICATION_NEED_LOGIN );
 	public static final QName SOAPF_AUTHENTICATION_NOT_ENOUGH_RIGHTS = new QName( OCTOPUS_NAMESPACE, AUTHENTICATION_NOT_ENOUGH_RIGHTS );
     public static final QName SOAPF_AXIS_HTTP_ERROR = new QName("http://xml.apache.org/axis/", "HTTP");
-    
 }

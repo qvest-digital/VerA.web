@@ -126,7 +126,7 @@ public class TcMessageDefinition {
 
     /**
      * Liefert die den TcMessageDefinitionPart mit dem entsprechenden Namen.
-     * @return TcMessageDefinitionPart mit dem Namen oder NULL, 
+     * @return TcMessageDefinitionPart mit dem Namen oder NULL,
      *        wenn es keinen solchen gibt.
      */
     public TcMessageDefinitionPart getPartByName(String partName) {
@@ -137,7 +137,6 @@ public class TcMessageDefinition {
         }
         return null;
     }
-
 
     public String toString() {
         return parts.toString();

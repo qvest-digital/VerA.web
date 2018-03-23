@@ -48,7 +48,7 @@ import de.tarent.octopus.util.RootCauseException;
 import de.tarent.octopus.util.Xml;
 import de.tarent.octopus.security.TcSecurityException;
 
-/** 
+/**
  * Stellt Funktionen zur Ausgabe an den Client bereit.
  * Diese werden an die HttpServletResponse weiter geleitet.
  * <br><br>
@@ -59,7 +59,7 @@ import de.tarent.octopus.security.TcSecurityException;
  * wo sie dem Namen nach hin gehört. Das macht aber so Sinn, da sie wie auch TcRequestProxy und TcRequest
  * die Schnittstelle zum Client kapselt und somit protokollspezifisches Verhalten hat, vondem in
  * allen anderen Packages völlig abstrahiert wird.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcServletResponse implements TcResponse {
@@ -82,13 +82,13 @@ public class TcServletResponse implements TcResponse {
 
     /**
      * Initialisierung mit den Servletparametern.
-     * 
+     *
      * @param response Die Response des Servletkontainers,
      */
     public TcServletResponse(HttpServletResponse response) throws IOException {
-        this.response = response;
-        outputStream = response.getOutputStream();
-        writer = new PrintWriter(outputStream, true);
+	this.response = response;
+	outputStream = response.getOutputStream();
+	writer = new PrintWriter(outputStream, true);
     }
 
     /**
@@ -97,7 +97,7 @@ public class TcServletResponse implements TcResponse {
      * Bevor etwas ausgegeben werden kann, muss der ContentType gesetzt werden.
      */
     public PrintWriter getWriter() {
-        return writer;
+	return writer;
     }
 
     /**
@@ -105,8 +105,8 @@ public class TcServletResponse implements TcResponse {
      * Das muss passiert sein, bevor etwas ausgegeben wurde.
      */
     public void setContentType(String contentType) {
-        response.setContentType(contentType);
-        logger.trace("Habe ContentType: '" + contentType + "' gesetzt.");
+	response.setContentType(contentType);
+	logger.trace("Habe ContentType: '" + contentType + "' gesetzt.");
     }
 
 	/**
@@ -123,33 +123,33 @@ public class TcServletResponse implements TcResponse {
      * Das muss passiert sein, bevor etwas ausgegeben wurde.
      */
     public void setHeader(String key, String value) {
-        response.setHeader(key, value);
-        if (logger.isTraceEnabled())
-            logger.trace("Habe Header-Info '" + key + "' auf '" + value + "' gesetzt.");
+	response.setHeader(key, value);
+	if (logger.isTraceEnabled())
+	    logger.trace("Habe Header-Info '" + key + "' auf '" + value + "' gesetzt.");
     }
 
     public void setSoapEngine(TcSOAPEngine soapEngine) {
-        this.soapEngine = soapEngine;
+	this.soapEngine = soapEngine;
     }
 
     public TcSOAPEngine getSoapEngine() {
-        return soapEngine;
+	return soapEngine;
     }
 
     public void setTaskName(String taskName) {
-        this.taskName = taskName;
+	this.taskName = taskName;
     }
 
     public String getTaskName() {
-        return taskName;
+	return taskName;
     }
 
     public void setModuleName(String moduleName) {
-        this.moduleName = moduleName;
+	this.moduleName = moduleName;
     }
 
     public String getModuleName() {
-        return moduleName;
+	return moduleName;
     }
 
     /**
@@ -157,7 +157,7 @@ public class TcServletResponse implements TcResponse {
      * @return OutputStream
      */
     public OutputStream getOutputStream() {
-        return outputStream;
+	return outputStream;
     }
 
     /**
@@ -165,162 +165,161 @@ public class TcServletResponse implements TcResponse {
      * @param outputStream The outputStream to set
      */
     public void setOutputStream(OutputStream outputStream) {
-        this.outputStream = outputStream;
+	this.outputStream = outputStream;
     }
 
     /**
      * Gibt einen String auf den Weiter aus.
      */
     public void print(String responseString) {
-        writer.print(responseString);
+	writer.print(responseString);
     }
 
     /**
      * Gibt einen String + "\n" auf den Weiter aus.
      */
     public void println(String responseString) {
-        writer.println(responseString);
+	writer.println(responseString);
     }
 
     /**
-     * Diese Methode sendet gepufferte Ausgaben. 
+     * Diese Methode sendet gepufferte Ausgaben.
      */
     public void flush() throws IOException {
-    	response.flushBuffer();
-    	outputStream.flush();
-        writer.flush();
+	response.flushBuffer();
+	outputStream.flush();
+	writer.flush();
     }
 
     /**
-     * Diese Methode schließt die Ausgaben ab. 
+     * Diese Methode schließt die Ausgaben ab.
      */
     public void close() throws IOException {
-    	outputStream.close();
-        writer.close();
+	outputStream.close();
+	writer.close();
     }
 
     public void setAuthorisationRequired(String authorisationAction) {
-        if (WWW_AUTHENTICATE.equalsIgnoreCase(authorisationAction)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setHeader("WWW-Authenticate", "Basic realm=\"" + getModuleName() + "\"");
-        }
+	if (WWW_AUTHENTICATE.equalsIgnoreCase(authorisationAction)) {
+	    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	    response.setHeader("WWW-Authenticate", "Basic realm=\"" + getModuleName() + "\"");
+	}
     }
-
 
     /**
      * Diese Methode gibt eine einfache Fehlermeldung aus. Je nach übergebenen
      * Typ geschieht dies in HTML- oder in SOAP-Form.
-     *  
+     *
      * @param responseType Antwortart, vergleiche {@link HttpHelper}.
      * @param requestID die ID der Anfrage
      * @param header eine Überschrift (nur für HTML benutzt)
      * @param e eine Exception
      */
     public void sendError(int responseType, String requestID, String header, Exception e) {
-    	setCachingTime(0);
-        if (TcRequest.isWebType(responseType)) {
-        	// HTML Ausgabe
-            logger.debug(Resources.getInstance().get("RESPONSE_LOG_HTML_FAULT_BEGIN", requestID));
-            printHtmlError(requestID, header, e);
-            logger.debug(Resources.getInstance().get("RESPONSE_LOG_HTML_FAULT_FINISH", requestID));
-        } else {
-            //SOAP Ausgabe
-            logger.debug(Resources.getInstance().get("RESPONSE_LOG_FAULT_BEGIN", requestID));
-        	printSoapException(requestID, e);
-            logger.debug(Resources.getInstance().get("RESPONSE_LOG_FAULT_FINISH", requestID));
-        }
-        // TODO: Type auch auf SOAP testen, ansonsten Default-Weg nehmen
+	setCachingTime(0);
+	if (TcRequest.isWebType(responseType)) {
+		// HTML Ausgabe
+	    logger.debug(Resources.getInstance().get("RESPONSE_LOG_HTML_FAULT_BEGIN", requestID));
+	    printHtmlError(requestID, header, e);
+	    logger.debug(Resources.getInstance().get("RESPONSE_LOG_HTML_FAULT_FINISH", requestID));
+	} else {
+	    //SOAP Ausgabe
+	    logger.debug(Resources.getInstance().get("RESPONSE_LOG_FAULT_BEGIN", requestID));
+		printSoapException(requestID, e);
+	    logger.debug(Resources.getInstance().get("RESPONSE_LOG_FAULT_FINISH", requestID));
+	}
+	// TODO: Type auch auf SOAP testen, ansonsten Default-Weg nehmen
     }
-    
+
     /**
      * Diese Methode gibt eine einfache HTML-Fehlermeldung zurück.
-     * 
+     *
      * @param requestID die ID der Anfrage
      * @param header eine Überschrift
      * @param e eine Exception
      */
     public void printHtmlError(String requestID, String header, Exception e) {
-        response.setContentType(HttpHelper.CONTENT_TYPE_HTML);
+	response.setContentType(HttpHelper.CONTENT_TYPE_HTML);
 
-        if (isErrorLevelRelease())
-            println(Resources.getInstance().get("RESPONSE_OUT_ERROR_HEAD", header, Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR")));
-        else {
-            println(Resources.getInstance().get("RESPONSE_OUT_ERROR_HEAD", header, e));
-            e.printStackTrace(writer);
-            if (e instanceof RootCauseException) {
-                Throwable rootCause = ((RootCauseException) e).getRootCause();
-                if (rootCause != null) {
-                    println(Resources.getInstance().get("RESPONSE_OUT_ERROR_ROOT", rootCause));
-                    rootCause.printStackTrace(writer);
-                }
-            }
-        }
-        println(Resources.getInstance().get("RESPONSE_OUT_ERROR_TAIL", requestID));
+	if (isErrorLevelRelease())
+	    println(Resources.getInstance().get("RESPONSE_OUT_ERROR_HEAD", header, Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR")));
+	else {
+	    println(Resources.getInstance().get("RESPONSE_OUT_ERROR_HEAD", header, e));
+	    e.printStackTrace(writer);
+	    if (e instanceof RootCauseException) {
+		Throwable rootCause = ((RootCauseException) e).getRootCause();
+		if (rootCause != null) {
+		    println(Resources.getInstance().get("RESPONSE_OUT_ERROR_ROOT", rootCause));
+		    rootCause.printStackTrace(writer);
+		}
+	    }
+	}
+	println(Resources.getInstance().get("RESPONSE_OUT_ERROR_TAIL", requestID));
     }
 
     /**
      * Diese Methode gibt eine Ausnahme als SOAP-Fault zurück.
-     * 
+     *
      * @param requestID die ID der Anfrage
      * @param e eine Exception
      */
     private void printSoapException(String requestID, Exception e) {
-        TcSOAPException soapException;
+	TcSOAPException soapException;
 
-        if (e instanceof ResponseProcessingException &&
-                ((ResponseProcessingException) e).getRootCause() instanceof Exception)
-            e = (Exception)((ResponseProcessingException) e).getRootCause();
-        else if (e instanceof TcContentProzessException &&
-                ((TcContentProzessException) e).getCause() instanceof Exception)
-            e = (Exception)((TcContentProzessException) e).getCause();
-        
-        // TcSOAPException and TcSecurityException may pass in each case
-        // other exceptions should only come out, if we are not in release-mode
-        if (e instanceof TcSOAPException)
-            soapException = (TcSOAPException) e;
-        else if (e instanceof TcSecurityException)
-            soapException = new TcSOAPException(e);
-        else {
-            if (isErrorLevelRelease())
-                soapException = new TcSOAPException(Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"));
-            else 
-                soapException = new TcSOAPException(e);
-        }
-        
-        response.setContentType(HttpHelper.CONTENT_TYPE_XML);
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        
-        try {
-            soapException.writeTo(outputStream);
-        } catch (Exception e2) {
-            logger.error(Resources.getInstance().get("RESPONSE_LOG_FAULT_OUT_EXCEPTION", requestID), e2);
-            printSimpleSOAPFault(requestID, e2);
-        }
+	if (e instanceof ResponseProcessingException &&
+		((ResponseProcessingException) e).getRootCause() instanceof Exception)
+	    e = (Exception)((ResponseProcessingException) e).getRootCause();
+	else if (e instanceof TcContentProzessException &&
+		((TcContentProzessException) e).getCause() instanceof Exception)
+	    e = (Exception)((TcContentProzessException) e).getCause();
+
+	// TcSOAPException and TcSecurityException may pass in each case
+	// other exceptions should only come out, if we are not in release-mode
+	if (e instanceof TcSOAPException)
+	    soapException = (TcSOAPException) e;
+	else if (e instanceof TcSecurityException)
+	    soapException = new TcSOAPException(e);
+	else {
+	    if (isErrorLevelRelease())
+		soapException = new TcSOAPException(Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"));
+	    else
+		soapException = new TcSOAPException(e);
+	}
+
+	response.setContentType(HttpHelper.CONTENT_TYPE_XML);
+	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+	try {
+	    soapException.writeTo(outputStream);
+	} catch (Exception e2) {
+	    logger.error(Resources.getInstance().get("RESPONSE_LOG_FAULT_OUT_EXCEPTION", requestID), e2);
+	    printSimpleSOAPFault(requestID, e2);
+	}
     }
 
     /**
      * Diese Methode gibt eine einfache SOAP-Fehlermeldung zurück.
-     * 
+     *
      * @param requestID die ID der Anfrage
      * @param e eine Exception
      */
     private void printSimpleSOAPFault(String requestID, Exception e) {
-        response.setContentType(HttpHelper.CONTENT_TYPE_XML);
+	response.setContentType(HttpHelper.CONTENT_TYPE_XML);
 
-        if (isErrorLevelRelease()) {
-            println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_HEAD", Xml.escape(Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"))));
-        } else {
-            println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_HEAD", Xml.escape(e.toString())));
-            e.printStackTrace(writer);
-            if (e instanceof RootCauseException) {
-                Throwable rootCause = ((RootCauseException) e).getRootCause();
-                if (rootCause != null) {
-                    println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_ROOT", Xml.escape(rootCause.toString())));
-                    rootCause.printStackTrace(writer);
-                }
-            }
-        }
-        println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_TAIL", requestID));
+	if (isErrorLevelRelease()) {
+	    println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_HEAD", Xml.escape(Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"))));
+	} else {
+	    println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_HEAD", Xml.escape(e.toString())));
+	    e.printStackTrace(writer);
+	    if (e instanceof RootCauseException) {
+		Throwable rootCause = ((RootCauseException) e).getRootCause();
+		if (rootCause != null) {
+		    println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_ROOT", Xml.escape(rootCause.toString())));
+		    rootCause.printStackTrace(writer);
+		}
+	    }
+	}
+	println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_TAIL", requestID));
     }
 
     /**
@@ -328,88 +327,88 @@ public class TcServletResponse implements TcResponse {
      * TODO: SOAP-spezifische Variante implementieren.
      *
      * @deprecated Use logging API for Debug outputs
-     * 
+     *
      * @param responseType Antwortart, vergleiche {@link HttpHelper}.
      * @param octRequest auszugebene Anfrage
      * @param env Umgebung
      */
     public void printDebug(int responseType, TcRequest octRequest, TcEnv env) {
-        println(Resources.getInstance().get("RESPONSE_OUT_DEBUG_INFO", octRequest, env));
+	println(Resources.getInstance().get("RESPONSE_OUT_DEBUG_INFO", octRequest, env));
     }
 
     public void setCachingTime(int millis) {
-    	setCachingTime(millis, null);
+	setCachingTime(millis, null);
     }
 
     public void setCachingTime(int millis, String param) {
-        cachingTime = millis;
-        cachingParam = param != null ? Arrays.asList(param.split(",")) : null;
-        long now = System.currentTimeMillis();
-        if (cachingTime <= 0) {
-        	if (cachingParam == null || cachingParam.indexOf("nocachecontrol") == -1) {
-	            response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-	            response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-        	}
-            response.setDateHeader("Expires", 0);
-            response.setDateHeader("Last-Modified", now);
-            if (cachingParam == null || cachingParam.indexOf("nopragma") == -1) {
-            	response.setHeader("Pragma", "no-cache");
-            }
-        } else if (cachingTime < Integer.MAX_VALUE) {
-        	if (cachingParam == null || cachingParam.indexOf("nocachecontrol") == -1) {
-        		response.setHeader("Cache-Control", "max-age="+(cachingTime/1000));
-        	}
-            response.setDateHeader("Expires", now + cachingTime);
-            response.setDateHeader("Last-Modified", now - now%cachingTime);
-            response.setHeader("Pragma", "");
-        } else {
-        	if (cachingParam == null || cachingParam.indexOf("nocachecontrol") == -1) {
-        		response.setHeader("Cache-Control", "");
-        	}
-            response.setDateHeader("Expires", now + MILLISECONDS_PER_YEAR);
-            response.setDateHeader("Last-Modified", 0);
-            response.setHeader("Pragma", "");
-        }
+	cachingTime = millis;
+	cachingParam = param != null ? Arrays.asList(param.split(",")) : null;
+	long now = System.currentTimeMillis();
+	if (cachingTime <= 0) {
+		if (cachingParam == null || cachingParam.indexOf("nocachecontrol") == -1) {
+		    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+		    response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+		}
+	    response.setDateHeader("Expires", 0);
+	    response.setDateHeader("Last-Modified", now);
+	    if (cachingParam == null || cachingParam.indexOf("nopragma") == -1) {
+		response.setHeader("Pragma", "no-cache");
+	    }
+	} else if (cachingTime < Integer.MAX_VALUE) {
+		if (cachingParam == null || cachingParam.indexOf("nocachecontrol") == -1) {
+			response.setHeader("Cache-Control", "max-age="+(cachingTime/1000));
+		}
+	    response.setDateHeader("Expires", now + cachingTime);
+	    response.setDateHeader("Last-Modified", now - now%cachingTime);
+	    response.setHeader("Pragma", "");
+	} else {
+		if (cachingParam == null || cachingParam.indexOf("nocachecontrol") == -1) {
+			response.setHeader("Cache-Control", "");
+		}
+	    response.setDateHeader("Expires", now + MILLISECONDS_PER_YEAR);
+	    response.setDateHeader("Last-Modified", 0);
+	    response.setHeader("Pragma", "");
+	}
     }
 
     /* (non-Javadoc)
      * @see de.tarent.octopus.request.TcResponse#getCachingTime()
      */
     public int getCachingTime() {
-        return cachingTime;
+	return cachingTime;
     }
 
     /**
      * Adds a cookie to the response.
      * Default cookie setting can be set in the config.
      * See {@link de.tarent.octopus.content.CookieMap} for detailed settings.
-     * 
+     *
      * @param name
      * @param value
-     * @param settings 
+     * @param settings
      */
     public void addCookie(String name, String value, Map settings) {
-    	Cookie cookie = new Cookie(name, value);
-    	if (settings.get(CookieMap.CONFIG_MAXAGE) != null) 
-    		cookie.setMaxAge(Integer.valueOf((String) settings.get(CookieMap.CONFIG_MAXAGE)).intValue());
-    	response.addCookie(cookie);
+	Cookie cookie = new Cookie(name, value);
+	if (settings.get(CookieMap.CONFIG_MAXAGE) != null)
+		cookie.setMaxAge(Integer.valueOf((String) settings.get(CookieMap.CONFIG_MAXAGE)).intValue());
+	response.addCookie(cookie);
     }
-    
+
     /**
      * Adds a cookie to the response.
-     * 
-     * Because the dispatched classes in the octopus-core 
+     *
+     * Because the dispatched classes in the octopus-core
      * does not know the Servlet-API and the Cookie-Object
      * this method accepts an Object as parameter and
      * adds this to cookies in case it is a Cookie-Object.
-     * 
+     *
      * @param cookie
      */
     public void addCookie(Object cookie) {
-    	if (cookie instanceof Cookie)
-    		response.addCookie((Cookie) cookie);
+	if (cookie instanceof Cookie)
+		response.addCookie((Cookie) cookie);
     }
-    
+
     /**
 	 * Set output level for errors.
 	 */
@@ -419,6 +418,6 @@ public class TcServletResponse implements TcResponse {
 	}
 
     public boolean isErrorLevelRelease() {
-        return errorLevel.equals(TcEnv.VALUE_RESPONSE_ERROR_LEVEL_RELEASE);
+	return errorLevel.equals(TcEnv.VALUE_RESPONSE_ERROR_LEVEL_RELEASE);
     }
 }

@@ -22,7 +22,7 @@ package de.tarent.octopus.client;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-/** 
+/**
  * Aufruf eines Task des Octopus.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
@@ -34,5 +34,4 @@ public interface OctopusTask {
         throws OctopusCallException;
     public void setConnectionTracking(boolean contrack);
     public boolean isConnectionTracking();
-
 }

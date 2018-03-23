@@ -45,9 +45,9 @@ import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.util.Xml;
 
-/** 
+/**
  * Verarbeitung mit XSLT.
- * 
+ *
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public class TcXsltResponseEngine implements TcResponseEngine {

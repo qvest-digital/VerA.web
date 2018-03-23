@@ -27,7 +27,7 @@ import java.util.Arrays;
 /**
  * Ein Knoten mit einem Token eines SQL-Ausdruckes.
  *
- * Wird mit einem String initialisiert. 
+ * Wird mit einem String initialisiert.
  * Dieser wird als Schlüsselwort erkannt, wenn er in den Arrays DOUBLE_OPERATORS oder SINGLE_OPERATORS enthalten ist.
  *
  * @see TarWhereClause
@@ -35,13 +35,13 @@ import java.util.Arrays;
 public class TarWhereNode {
     /**
      * Operatoren, die sich auf zwei Operanden beziehen.
-     * Muss sortiert sein, da mit einer Binary Search darin gesucht wird.    
+     * Muss sortiert sein, da mit einer Binary Search darin gesucht wird.
      */
     protected static String[] DOUBLE_OPERATORS = new String[] { "=", "and", "in", "like", "or" };
 
     /**
      * Operatoren, die sich auf einen Operanden beziehen.
-     * Muss sortiert sein, da mit einer Binary Search darin gesucht wird.    
+     * Muss sortiert sein, da mit einer Binary Search darin gesucht wird.
      */
     protected static String[] SINGLE_OPERATORS = new String[] { "not" };
 
@@ -89,8 +89,8 @@ public class TarWhereNode {
     }
 
     /**
-     * Gibt an, ob dieses Knoten ein Operator ist, 
-     * der sich auf einen Operand bezieht, 
+     * Gibt an, ob dieses Knoten ein Operator ist,
+     * der sich auf einen Operand bezieht,
      * also ob es in dem entsprechenden Array enthalten ist.
      */
     public boolean isSingleOperator() {
@@ -98,8 +98,8 @@ public class TarWhereNode {
     }
 
     /**
-     * Gibt an, ob dieses Knoten ein Operator ist, 
-     * der sich auf zwei Operanden bezieht, 
+     * Gibt an, ob dieses Knoten ein Operator ist,
+     * der sich auf zwei Operanden bezieht,
      * also ob es in dem entsprechenden Array enthalten ist.
      */
     public boolean isDoubleOperator() {

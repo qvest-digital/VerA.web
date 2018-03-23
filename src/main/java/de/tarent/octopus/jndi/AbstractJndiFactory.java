@@ -53,7 +53,7 @@ public abstract class AbstractJndiFactory implements ObjectFactory {
 	 * as JNDI context provider. See
 	 * <code>http://tomcat.apache.org/tomcat-5.5-doc/jndi-resources-howto.html</code>
 	 * for more informations about this configuration.
-	 * 
+	 *
 	 * @return naming context
 	 */
 	protected Context getContext() {
@@ -64,12 +64,12 @@ public abstract class AbstractJndiFactory implements ObjectFactory {
 			return null;
 		}
 	}
-	
+
 	public boolean bind() {
 		Context context = getContext();
 		if (context == null)
 			return false;
-		
+
 		try {
 			context.addToEnvironment(Context.OBJECT_FACTORIES, getClass().getName());
 		} catch (NamingException e) {
@@ -77,7 +77,7 @@ public abstract class AbstractJndiFactory implements ObjectFactory {
 					"Can not add current class '" + getClass().getName() + "' " +
 					"to the object factory list.");
 		}
-		
+
 		try {
 			Object object = context.lookup(getLookupPath());
 			if (object != null && object.getClass().getName().equals(getClass().getName())) {
@@ -101,7 +101,7 @@ public abstract class AbstractJndiFactory implements ObjectFactory {
 					"Exception '" + e.getLocalizedMessage() + "' while lookup " +
 					"context '" + getLookupPath() + "' catched, will rebind it now.");
 		}
-		
+
 		try {
 			context.rebind(getLookupPath(), this);
 			logger.info("JNDI context '" + getLookupPath() + "' successful binded.");
@@ -116,7 +116,7 @@ public abstract class AbstractJndiFactory implements ObjectFactory {
 		Context context = getContext();
 		if (context == null)
 			return false;
-		
+
 		try {
 			context.unbind(getLookupPath());
 			logger.info("JNDI context '" + getLookupPath() + "' successful unbinded.");

@@ -37,14 +37,14 @@ import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.logging.LogFactory;
 
-/** 
+/**
  * Klasse, die Logs zur Remotekommunikation anlegt...
- * 
+ *
  * @author Philipp Kirchner, tarent GmbH
  */
 public class OctopusRemoteLog {
 	private Log logger = LogFactory.getLog(this.getClass());
-	
+
 	private String taskName;
 	private Date taskStart;
 	private Date taskEnd;
@@ -54,7 +54,7 @@ public class OctopusRemoteLog {
 	private PrintWriter condumplog;
 
 	private OctopusRemoteTask task;
-	
+
 	public OctopusRemoteLog(String taskName, int requestSize, List params){
 		this.taskName = taskName;
 		this.taskStart = new Date();
@@ -67,7 +67,7 @@ public class OctopusRemoteLog {
 			logger.warn("Fehler beim Dateizugriff!", e);
 		}
 	}
-	
+
 	/**
 	 * @param task
 	 */
@@ -75,7 +75,7 @@ public class OctopusRemoteLog {
 		this(task.getTaskName(), 0, task.params);
 		this.task = task;
 	}
-	
+
 	public void startLogEntry(OctopusRemoteTask task){
 		this.task = task;
 		long size = -1;
@@ -95,14 +95,14 @@ public class OctopusRemoteLog {
 		assert task != null;
 		startLogEntry(task.getTaskName(), size, task.params);
 	}
-	
+
 	public void startLogEntry(String taskName, long size, List params){
 		this.taskName = taskName;
 		this.taskStart = new Date();
 		taskDataTransfer = size;
-		taskParams = params;		
+		taskParams = params;
 	}
-	
+
 	public void commitLogEntry(long resultSize){
 		taskEnd = new Date();
 		taskDataTransfer += resultSize;
@@ -127,7 +127,7 @@ public class OctopusRemoteLog {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void commitLogEntry() {
 		long size = -1;

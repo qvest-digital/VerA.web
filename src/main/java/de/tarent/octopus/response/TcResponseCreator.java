@@ -35,14 +35,14 @@ import java.util.*;
 
 import org.apache.commons.logging.Log;
 
-/** 
+/**
  * View Komponente, die die Ausgabe steuert.
  * <br><br>
  * Abhängig von einer TcResponseDescription wird eine
  * Engine gestartet, die für den entsprechenden ResponseType zuständig ist.
  * Dieser ResponseType kann über die TcResponseDescription abgefragt werden.
  *
- * Der Content-Type der Ausgabe wird hier auf 
+ * Der Content-Type der Ausgabe wird hier auf
  *  theContent.get( "responseParams.ContentType" ) oder auf config.getDefaultContentType()
  * gesetzt, kann aber von der benutzten Engine später überschrieben werden.
  *
@@ -55,15 +55,15 @@ import org.apache.commons.logging.Log;
  * <br>- xslt
  *
  * <br><br>
- * Was die einzelnen Ausgabe Engines als Parameter erwarten und wie sie funktionieren muss im einzelnen 
+ * Was die einzelnen Ausgabe Engines als Parameter erwarten und wie sie funktionieren muss im einzelnen
  * nachgelesen werden.
- * 
+ *
  * @see TcVelocityResponseEngine
  * @see TcRawResponseEngine
  * @see TcSoapResponseEngine
  * @see TcXsltResponseEngine
  * @see TcSimpleResponseEngine
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
@@ -81,7 +81,7 @@ public class TcResponseCreator {
     /**
      * Erstellen der Response.
      * <br><br>
-     * Abhängig vom Rückgabewert der Methode TcResponseDescription.getResponseType() 
+     * Abhängig vom Rückgabewert der Methode TcResponseDescription.getResponseType()
      * wird über Reflaction eine entsprechende Engine geladen und die Ausgabe erzeugt.
      *
      * @param config Konfiguration
@@ -134,7 +134,7 @@ public class TcResponseCreator {
 				tcResponse.setCachingTime(Integer.parseInt(cacheTime), cacheParam);
 			}
 		}
-		
+
 		if (engine instanceof TcRPCResponseEngine && tcResponse instanceof TcDirectCallResponse) {
 			pushRPCOutputParams(config, (TcDirectCallResponse) tcResponse, theContent, desc);
 		} else {
@@ -143,27 +143,25 @@ public class TcResponseCreator {
 	}
 
     public void pushRPCOutputParams(TcConfig config, TcDirectCallResponse response, TcContent theContent, TcResponseDescription desc) {
-        // Wenn ein ContentType angegeben wurde, 
+        // Wenn ein ContentType angegeben wurde,
         // wurde dieser bereits im TcRequestCreator gesetzt.
         String contentType = theContent.getAsString("responseParams.ContentType");
         if (contentType == null)
             response.setContentType("NONE:DirectCall");
-        
 
         Map outputFields = refineOutputFields(theContent.getAsObject(TcRPCResponseEngine.RPC_RESPONSE_OUTPUT_FIELDS));
         for (Iterator iter = outputFields.keySet().iterator(); iter.hasNext();) {
             String fieldNameOutput = (String)iter.next();
             String fieldNameContent = (String)outputFields.get(fieldNameOutput);
             response.addResponseObject(fieldNameOutput, theContent.getAsObject(fieldNameContent));
-        } 
-        
+        }
+
         logger.debug("Gebe Daten per DirectCall zurück. Antwort auf Methode");
     }
-    
 
     /**
      */
-    public static Map refineOutputFields(Object fieldsObject) {        
+    public static Map refineOutputFields(Object fieldsObject) {
         if (fieldsObject instanceof Map) {
             return (Map) fieldsObject;
         } else if (fieldsObject instanceof List) {
@@ -171,14 +169,13 @@ public class TcResponseCreator {
             for (Iterator iter = ((List)fieldsObject).iterator(); iter.hasNext();) {
                 Object field = iter.next();
                 map.put(field, field);
-            }             
-            return map;            
+            }
+            return map;
         } else {
             LinkedHashMap map = new LinkedHashMap();
             if (fieldsObject != null && fieldsObject.toString().length() != 0)
                 map.put(fieldsObject.toString(), fieldsObject.toString());
-            return map;            
+            return map;
         }
     }
-
 }

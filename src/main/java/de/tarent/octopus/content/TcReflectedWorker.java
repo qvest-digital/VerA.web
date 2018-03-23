@@ -42,53 +42,53 @@ import de.tarent.octopus.request.TcRequest;
 
 /**
  * Refection Worker
- * 
+ *
  * Deprecated: Die Worker sollen seit Octopus Version 1.2.0 den TcReflectedWorkerWrapper verwenden,
  *            der normale Java-Klassen als Worker ansprechen kann.
- * @author Wolfgang Klein 
+ * @author Wolfgang Klein
  */
 abstract public class TcReflectedWorker implements TcContentWorker {
 	// TODO Logging verbessern und evtl. mit Octopus auf Log4J umstellen
 	// TODO Initalisieren der Aktions in die init-Funktion verschieben?
-	
+
 	// Konstanten
-	private final static Class[] PREPOST_PARAMETER = { TcAll.class, String.class }; 
-	
+	private final static Class[] PREPOST_PARAMETER = { TcAll.class, String.class };
+
 	/**
 	 * Sammlung der zur Verfügung stehenden Aktions.
-	 * 
+	 *
 	 * Key = Methodenname
 	 * Value = WorkerAction bzw. TcActionDeclarationException
 	 */
 	private final Map _serviceActions = new HashMap();
 	private Method pre = null;
 	private Method post = null;
-	
+
 	/**
 	 * Initalisiert die Aktionen des Workers.
 	 */
 	public TcReflectedWorker() {
 		Log logger = LogFactory.getLog(getClass());
-		
+
 		try {
 			pre = getClass().getMethod("pre", PREPOST_PARAMETER);
 		} catch (SecurityException e) {
 			logger.error(e.getMessage(), e);
 		} catch (NoSuchMethodException e) {
 		}
-		
+
 		try {
 			post = getClass().getMethod("post", PREPOST_PARAMETER);
 		} catch (SecurityException e) {
 			logger.error(e.getMessage(), e);
 		} catch (NoSuchMethodException e) {
 		}
-		
+
 		Method[] methods = getClass().getMethods();
 		for (int i = 0; i < methods.length; i++) {
 			Method method = methods[i];
-			// Method.Modifier 17 = public final 
-			// Method.Modifier 25 = public static final 
+			// Method.Modifier 17 = public final
+			// Method.Modifier 25 = public static final
 			if (method.getModifiers() == 25) {
 				String methodname = method.getName().toUpperCase();
 				Class[] paramTypes;
@@ -132,16 +132,16 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 			}
 		}
 	}
-	
+
 	public void init(TcModuleConfig config) {
 	}
-	
+
 	/**
 	 * Führt impl. die Aktion aus.
-	 * 
+	 *
 	 * Fehler werden als <code>TcContentProzessException</code>
 	 * an den Octopus weiter gereicht und NICHT geloggt.
-	 * 
+	 *
 	 * @return Content-Status
 	 * @throws TcContentProzessException
 	 */
@@ -149,23 +149,23 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 		try {
 			WorkerAction action = getAction(actionName);
 			TcAll all = new TcAll(tcRequest, tcContent, tcConfig);
-			
+
 			// pre
 			if (pre != null) {
 				pre.invoke(null, new Object[] { all, action._actionName });
 			}
-			
+
 			// action
 			tcContent.setField(action.getOutputField(), action.invoke(all));
-            
+
 			// post
 			if (post != null) {
 				post.invoke(null, new Object[] { all, action._actionName });
 			}
-			
+
 			// return Content-Status
 			return all.getStatus();
-            
+
 		} catch (TcActionDeclarationException e) { // WorkerAction#getAction
 			throw new TcContentProzessException(e);
 		} catch (TcActionInvocationException e) { // WorkerAction#getAction
@@ -189,12 +189,12 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 		    }
 		}
 	}
-	
+
 	public final TcPortDefinition getWorkerDefinition() {
 		TcPortDefinition definition = new TcPortDefinition(getClass().getName(), "n/a");
 		TcOperationDefinition operation;
 		TcMessageDefinition message;
-		
+
 		Iterator k = _serviceActions.keySet().iterator();
 		Iterator v = _serviceActions.values().iterator();
 		while (k.hasNext() && v.hasNext()) {
@@ -204,7 +204,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 				// Worker-Action-Definition
 				WorkerAction action = (WorkerAction)value;
 				operation = new TcOperationDefinition(key, "n/a");
-				
+
 				// Input-Definition
 				if (action._paramNames.length != 0) {
 					message = new TcMessageDefinition();
@@ -213,14 +213,14 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 					}
 					operation.setInputMessage(message);
 				}
-				
+
 				// Output-Definition
 				if (action._output != null) {
 					message = new TcMessageDefinition();
 					message.addPart(action._output, action._method.getReturnType().getName(), "n/a");
 					operation.setOutputMessage(message);
 				}
-				
+
 				definition.addOperation(operation);
 			} else if (value instanceof TcActionDeclarationException) {
 				operation = new TcOperationDefinition(key, ((TcActionDeclarationException)value).getMessage());
@@ -229,11 +229,11 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 		}
 		return definition;
 	}
-	
+
 	public String getVersion() {
 		return null;
 	}
-	
+
 	private final WorkerAction getAction(String actionName) throws TcActionDeclarationException, TcActionInvocationException {
 		Object action = _serviceActions.get(actionName);
 		if (action instanceof WorkerAction) {
@@ -244,7 +244,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 			throw new TcActionInvocationException("Anfragefehler: Die angegebene Action '" + actionName + "' ist im Worker '" + getClass().getName() + "' nicht definiert.");
 		}
 	}
-	
+
 	static private final class WorkerAction {
 		private final Method _method;
 		private final String _actionName;
@@ -252,7 +252,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 		private final Class[] _paramTypes;
 		private final boolean[] _mandatory;
 		private final String _output;
-		
+
 		private WorkerAction(Method method, String actionName, String[] paramNames, Class[] paramTypes, boolean[] mandatory, String output) {
 			_method = method;
 			_actionName = actionName;
@@ -261,7 +261,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 			_mandatory = mandatory;
 			_output = output;
 		}
-		
+
 		private Object invoke(TcAll all) throws TcActionInvocationException, TcContentProzessException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 			int requestType = all.requestType();
 			List params = new ArrayList(_paramTypes.length);
@@ -274,11 +274,11 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 				if (param == null) {
 					param = all.requestAsObject(_paramNames[i]);
 				}
-				
+
 				switch (requestType) {
 					/**
 					 * RequestType 'WEB'
-					 * 
+					 *
 					 * - Boolean wird bei null explizit false.
 					 * - Parameter muss wenn 'mandatory' wahr ist angegeben sein.
 					 * - Wenn der Parameter null ist wird null übergeben.
@@ -333,7 +333,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 						break;
 					/**
 					 * RequestType 'default'
-					 * 
+					 *
 					 * - Datentyp und Parametertyp müssen übereinstimmen.
 					 * - Object-Arrays werden, wenn das Ziel eine Liste ist
 					 *   automatisch umgewandelt (z.B. bei Vectoren)
@@ -354,19 +354,18 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 						break;
 				}
 			}
-			
+
 			return _method.invoke(null, params.toArray());
 		}
-		
+
 		private String getOutputField() {
 			return _output;
 		}
 	}
 
-
     // Diese Exceptions sollen eigentlich entfernt werden.
     // Sind aber aus kompatibilitätsgründen zu alten Workern noch drinn.
-    
+
     /**
      * @deprecated Die nicht eingebetteten Varianten dieser Exceptions sollen verwendet werden.
      */
@@ -379,12 +378,12 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 		public TcActionDeclarationException(String msg) {
             super(msg);
         }
-        
+
         public TcActionDeclarationException(Throwable t) {
             super(t);
         }
     }
-    
+
     /**
      * @deprecated Die nicht eingebetteten Varianten dieser Exceptions sollen verwendet werden.
      */
@@ -397,11 +396,9 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 		public TcActionInvocationException(String msg) {
             super(msg);
         }
-        
+
         public TcActionInvocationException(Throwable t) {
             super(t);
         }
     }
-    
-	
 }

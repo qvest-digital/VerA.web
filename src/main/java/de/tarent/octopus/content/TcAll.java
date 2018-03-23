@@ -39,8 +39,7 @@ import de.tarent.octopus.server.Closeable;
 import java.util.ArrayList;
 import de.tarent.octopus.client.OctopusTask;
 
-
-/** 
+/**
  * Kontainer zur Speicherung von TcContent, TcRequest und TcConfig.
  */
 public class TcAll
@@ -49,10 +48,10 @@ public class TcAll
 	private TcContent content;
 	private TcConfig config;
 	private TcRequest request;
-	
+
 	/**
 	 * Erzeugt ein TcAll Object.
-	 * 
+	 *
 	 * @param tcRequest
 	 * @param tcContent
 	 * @param tcConfig
@@ -62,10 +61,10 @@ public class TcAll
 		this.content = tcContent;
 		this.config = tcConfig;
 	}
-	
+
 	/**
 	 * Erzeugt ein TcAll Object mit dem übergebenem Request und einem neuen (leeren) Content.
-	 * 
+	 *
 	 * @param requestmap
 	 * @param requesttype siehe de.tarent.octopus.request.HttpHelper.REQUEST_TYPE_*
 	 */
@@ -76,7 +75,6 @@ public class TcAll
 		this.content = new TcContent();
 		this.config = new TcConfig_Clone();
 	}
-
 
     public Object getContextField(String fieldName) {
         // Aus dem Content
@@ -93,14 +91,14 @@ public class TcAll
         else if (fieldName.startsWith(SESSION_FIELD_PREFIX)) {
             return sessionAsObject(fieldName.substring(SESSION_FIELD_PREFIX.length()));
         }
-        
+
         // Aus der Config
         else if (fieldName.startsWith(CONFIG_FIELD_PREFIX)) {
             return moduleConfig().getParamAsObject(fieldName.substring(CONFIG_FIELD_PREFIX.length()));
         }
 
-        // DEFAULT, ohne Prefix: 
-        // Wenn vorhanden aus dem Content, sonst aus dem Request oder der Session.        
+        // DEFAULT, ohne Prefix:
+        // Wenn vorhanden aus dem Content, sonst aus dem Request oder der Session.
         if (null != contentAsObject(fieldName))
             return contentAsObject(fieldName);
         else if (null != requestAsObject(fieldName))
@@ -130,17 +128,17 @@ public class TcAll
             throw new RuntimeException("Anfragefehler: Setzen von Parametern der Config ist nicht erlaubt.");
         }
 
-        // DEFAULT, ohne Prefix: 
+        // DEFAULT, ohne Prefix:
         // In den Content
         else {
             setContent(fieldName, value);
         }
     }
-    
+
     public OctopusTask getTask(String taskName) {
         return request.getTask(taskName);
     }
-    
+
     public void addCleanupCode(Closeable closeable) {
         addCleanupCodeInternal(closeable);
     }
@@ -171,78 +169,78 @@ public class TcAll
 	public TcConfig getConfigObject() {
 		return config;
 	}
-	
+
 	/**
 	 * @return TcRequest-Object
 	 */
 	public TcRequest getRequestObject() {
 		return request;
 	}
-	
+
 	//===>  C O N T E N T  <===//
-	
+
 	public boolean contentContains(String key) {
 		return content.getAsObject(key) != null;
 	}
-	
+
 	public Iterator contentKeys() {
 		return content.getKeys();
 	}
-	
+
 	public String contentAsString(String key) {
 		return content.getAsString(key);
 	}
-	
+
 	public Object contentAsObject(String key) {
 		return content.getAsObject(key);
 	}
-	
+
 	public void setContent(String key, Integer value) {
 		content.setField(key, value);
 	}
-	
+
 	public void setContent(String key, List value) {
 		content.setField(key, value);
 	}
-	
+
 	public void setContent(String key, Map value) {
 		content.setField(key, value);
 	}
-	
+
 	public void setContent(String key, String value) {
 		content.setField(key, value);
 	}
-	
+
 	public void setContent(String key, Object value) {
 		content.setField(key, value);
 	}
-	
+
 	public void setContentError(Exception e) {
 		content.setError(e);
 	}
-	
+
 	public void setContentError(String message) {
 		content.setError(message);
 	}
-	
+
 	public void setContentStatus(String status) {
 		content.setStatus(status);
 	}
-	
+
 	//===>  R E Q U E S T  <===//
-	
+
 	public int requestType() {
 		return request.getRequestType();
 	}
-	
+
 	public String requestTypeName() {
 		return TcRequest.getRequestTypeName(request.getRequestType());
 	}
-	
+
 	public boolean requestContains(String key) {
 		return request.containsParam(key);
 	}
-	
+
 	public Object requestAsObject(String key) {
 		return request.getParam(key);
 	}
@@ -258,83 +256,83 @@ public class TcAll
 	public Boolean requestAsBoolean(String key) {
 		return Boolean.valueOf(request.getParameterAsBoolean(key));
 	}
-	
+
 	//===>  C O N F I G  <===//
-	
+
 	public TcCommonConfig commonConfig() {
 		return config.getCommonConfig();
 	}
-	
+
 	public TcPersonalConfig personalConfig() {
 		return (TcPersonalConfig)config.getPersonalConfig();
 	}
-	
+
 	public TcModuleConfig moduleConfig() {
 		return config.getModuleConfig();
 	}
-	
+
 	public File moduleRootPath() {
 		return config.getModuleRootPath();
 	}
-	
+
 	public String getModuleName() {
 		return request.getModule();
 	}
-	
+
 	public String getTaskName() {
 		return request.getTask();
 	}
-	
+
 	//===>  S E S S I O N  <===//
-	
+
 	public Object sessionAsObject(String key) {
 		return config.getSessionValueAsObject(key);
 	}
-	
+
 	public String sessionAsString(String key) {
 		return config.getSessionValue(key);
 	}
-	
+
 	public void setSession(String key, Object value) {
 		config.setSessionValue(key, value);
 	}
-	
+
 	//===>  S T A T U S  <===//
-	
+
 	public void setStatus(String status) {
 		content.setStatus(status);
 	}
-	
+
 	public String getStatus() {
 		return content.getStatus();
 	}
-	
+
 	public void setError(Exception e) {
 		content.setError(e);
 	}
-	
+
 	public void setError(String message) {
 		content.setError(message);
 	}
-	
+
 	private class TcConfig_Clone extends TcConfig {
 		Map session = new HashMap();
-		
+
 		public TcConfig_Clone() {
 			super(null, null, null);
 		}
-		
+
 		public void setSessionValue(String key, Object value) {
 			session.put(key, value);
 		}
-		
+
 		public String getSessionValue(String key) {
 			if (session.containsKey(key))
 				return session.get(key).toString();
 			else
 				return null;
 		}
-		
+
 		public Object getSessionValueAsObject(String key) {
 			return session.get(key);
 		}

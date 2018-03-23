@@ -52,13 +52,13 @@ import de.tarent.octopus.security.TcSecurityException;
 /**
  *
  * Diese Klasse regelt den Zugriff auf eine LDAP-Resource
- * 
+ *
  * @author philipp
  * @deprecated functionality moved into LDAPLib, will be removed as soon as 2005-06-01
  */
 public class TcSecurityLDAPManager
 {
-	
+
 	//Hashtable mit Zugriffsdaten
 	private Hashtable env;
 	private InitialLdapContext lctx;
@@ -99,7 +99,7 @@ public class TcSecurityLDAPManager
 		String authType)
 		throws TcSecurityException
 	{
-	    
+
 	    //At first, search for uid
 	    logger.debug("Doing login with userid " + username);
 		String security_principal = username;
@@ -111,7 +111,7 @@ public class TcSecurityLDAPManager
 		env.put(Context.SECURITY_AUTHENTICATION, authType);
 		env.put(Context.SECURITY_PRINCIPAL, security_principal);
 		env.put(Context.SECURITY_CREDENTIALS, passwort);
-        
+
 		try
 		{
 			//Versuche, LDAP-Verbindung herzustellen
@@ -126,24 +126,23 @@ public class TcSecurityLDAPManager
 		} catch (AuthenticationException e)
 		{
 			//Falls die Authentification nicht stimmt
-            if (logger.isInfoEnabled())
-                logger.info("Fehlerhafte Authenifizierung über LDAP.");
-            if (logger.isDebugEnabled())
-                logger.debug("Fehlerhafte Authenifizierung über LDAP.", e);
+	    if (logger.isInfoEnabled())
+		logger.info("Fehlerhafte Authenifizierung über LDAP.");
+	    if (logger.isDebugEnabled())
+		logger.debug("Fehlerhafte Authenifizierung über LDAP.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
 
 		} catch (CommunicationException e)
 		{
 			//Falls LDAP-Server nicht erreichbar
-            logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
+	    logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		} catch (NamingException e)
 		{
-            logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
+	    logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		}
 	}
-
 
 	/**
 	 * Anonymer Login
@@ -156,22 +155,22 @@ public class TcSecurityLDAPManager
 		try
 		{
 			//Versuche, LDAP-Verbindung herzustellen
-            lctx = new InitialLdapContext(env, null);
-        } catch (CommunicationException e)
+	    lctx = new InitialLdapContext(env, null);
+	} catch (CommunicationException e)
 		{
 			//Falls LDAP-Server nicht erreichbar
-            logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
+	    logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		} catch (NamingException e)
 		{
-            logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
+	    logger.error("Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie es später noch einmal.", e);
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
 		}
 	}
 
 	/**
 	 * Methode, um einen User im LDAP anzulegen
-	 * 
+	 *
 	 * @param userid	BenutzerID
 	 * @param vorname	Vorname
 	 * @param nachname  Nachname
@@ -236,8 +235,7 @@ public class TcSecurityLDAPManager
 	 */
 	public void modifyContactUser(String userid, String vorname, String nachname, String passwort, String gruppe) throws TcSecurityException{
 		gruppe = sortGroup(gruppe);
-		
-		
+
 		logger.debug("Modifiziere LDAP-User: " + userid);
 		Vector mods = new Vector();
 		String password = "";
@@ -258,10 +256,10 @@ public class TcSecurityLDAPManager
 		} catch (NamingException e1) {
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e1);
 		}
-		
+
 		//Checke Objectclass
 		boolean modified = false;
-		if(!this.checkAttribute(userid, "objectClass", "top")){objectClass.add("top");modified=true;} 
+		if(!this.checkAttribute(userid, "objectClass", "top")){objectClass.add("top");modified=true;}
 		if(!this.checkAttribute(userid, "objectClass", "simpleSecurityObject")){objectClass.add("simpleSecurityObject");modified=true;}
 		if(!this.checkAttribute(userid, "objectClass", "person")){objectClass.add("person");modified=true;}
 		if(!this.checkAttribute(userid, "objectClass", "TarentContact")){objectClass.add("TarentContact");modified=true;}
@@ -293,7 +291,7 @@ public class TcSecurityLDAPManager
 			throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e2);
 		}
 	}
-	
+
 	/**
 	 * Modfiziert des Attribute attribut des Users userid
 	 * @param userid UserId des Users
@@ -303,12 +301,12 @@ public class TcSecurityLDAPManager
 	 */
 	public void modifyContactUserAttribute(String userid, String attribute, String value) throws TcSecurityException{
 		logger.debug("Modifiziere Attribut " + attribute + " von: " + userid + " nach " + value);
-		
+
 		//Checke Attribute
 		Vector mods = new Vector();
 		if(!this.checkAttribute(userid, attribute)){mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute(attribute, value)));		}
 		else if(!this.checkAttribute(userid, attribute, value)){mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute(attribute, value)));}
-		
+
 		//try to modify user...
 		if(!mods.isEmpty()){
 			try {
@@ -367,7 +365,7 @@ public class TcSecurityLDAPManager
 		}
 		return vorhanden;
 	}
-	
+
 	/**
 	 * Methode, die testet, ob Objekt name im LDAP das bestimmte Attribut
 	 * mit dem bestimmten Wert hat.
@@ -386,31 +384,31 @@ public class TcSecurityLDAPManager
 			}
 		}
 		Attributes attributes;
-        try {
-            logger.debug(">>>>>>>>>>>>> Checke Attribut " + attribute + " von Object " + name + " auf Werrt " + wert);
-            attributes = lctx.getAttributes(getUserDN(name)+relative+baseDN);
-            try {
-                Attribute test = attributes.get(attribute);
-	            if(test!=null) {
-	                NamingEnumeration liste = test.getAll();
+	try {
+	    logger.debug(">>>>>>>>>>>>> Checke Attribut " + attribute + " von Object " + name + " auf Werrt " + wert);
+	    attributes = lctx.getAttributes(getUserDN(name)+relative+baseDN);
+	    try {
+		Attribute test = attributes.get(attribute);
+		    if(test!=null) {
+			NamingEnumeration liste = test.getAll();
 					while(liste.hasMore()){
 						String testwert = (String) liste.next();
 						if(testwert.equals(wert)){
-							vorhanden = true; 
+							vorhanden = true;
 						}
 					}
-	            }
+		    }
 			} catch (NamingException e) {
-	            vorhanden = false;
+		    vorhanden = false;
 			}
-        } catch (TcSecurityException e1) {
-            vorhanden = false;
+	} catch (TcSecurityException e1) {
+	    vorhanden = false;
 		} catch (NamingException e) {
-            vorhanden = false;
+	    vorhanden = false;
 		}
 		return vorhanden;
 	}
-	
+
 	/**
 	 * Testet, ob userid im LDAP vorhanden
 	 * @param userid	UserID, die getestet werden soll
@@ -513,7 +511,7 @@ public class TcSecurityLDAPManager
 	}
 	/**
 	 * This array is a lookup table that translates 6-bit positive integer
-	 * index values into their "Base64 Alphabet" equivalents as specified 
+	 * index values into their "Base64 Alphabet" equivalents as specified
 	 * in Table 1 of RFC 2045.
 	 */
 	private final char intToBase64[] =
@@ -656,7 +654,7 @@ public class TcSecurityLDAPManager
 			'9',
 			'+',
 			'?' };
-			
+
 			public void deleteContactUser(String uid) throws TcSecurityException{
 				//Wenn keine Verbindung besteht, abbruch
 				if(lctx==null){ throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);}
@@ -669,7 +667,7 @@ public class TcSecurityLDAPManager
 					throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
 				}
 			}
-			
+
 	/**
 	 * Kleiner Helper, der aufpasst, das bei relative am Anfang und am Ende ein Komma ist
 	 * @param relative
@@ -678,36 +676,36 @@ public class TcSecurityLDAPManager
 	private String cleanup_relative(String relative) {
 		//testen, ob am Anfang kein Komma, sonst hinzufügen
 		if(relative.equals(" ")){relative = "";} //$NON-NLS-1$ //$NON-NLS-2$
-		
+
 		if(!relative.startsWith(",")){relative=","+relative;} //$NON-NLS-1$ //$NON-NLS-2$
 		//das ganze nochmal am Ende
 		if(!relative.endsWith(",")){relative=relative+",";} //$NON-NLS-1$ //$NON-NLS-2$
 		return relative;
 	}
-	
+
 	public String getUserDN(String uid) throws TcSecurityException {
 	    if(lctx==null) try {
-            login();
-        } catch (TcSecurityException e1) {
-            throw e1;
-        }
+	    login();
+	} catch (TcSecurityException e1) {
+	    throw e1;
+	}
 	    String dn = null;
 	    Attributes attr = new BasicAttributes();
 	    attr.put("uid", uid);
 	    attr.put("objectclass", "tarentContact");
 	    try {
-            NamingEnumeration ne = lctx.search(relative.substring(1) + baseDN, attr);
-            if(!ne.hasMore()) {
-                throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, "Der User ist im LDAP nicht vorhanden!");
-            }
-            SearchResult search = (SearchResult) ne.next();
-            dn = search.getName();
-            if(ne.hasMore()) {
-                throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, "Der User ist nicht eindeutig, bitte wählen sie einen anderen Usernamen");
-            }
-        } catch (NamingException e) {
-            	throw new TcSecurityException("Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. Bitte versuchen Sie es später noch einmal.");
-        }
+	    NamingEnumeration ne = lctx.search(relative.substring(1) + baseDN, attr);
+	    if(!ne.hasMore()) {
+		throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, "Der User ist im LDAP nicht vorhanden!");
+	    }
+	    SearchResult search = (SearchResult) ne.next();
+	    dn = search.getName();
+	    if(ne.hasMore()) {
+		throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, "Der User ist nicht eindeutig, bitte wählen sie einen anderen Usernamen");
+	    }
+	} catch (NamingException e) {
+		throw new TcSecurityException("Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. Bitte versuchen Sie es später noch einmal.");
+	}
 	    return dn;
 	}
 
@@ -715,33 +713,30 @@ public class TcSecurityLDAPManager
      * @param userName
      */
     public Map getUserData(String userName) throws TcSecurityException {
-        Map userdata = new HashMap();
-        String dn = getUserDN(userName);
-        try {
-            Attributes attr = lctx.getAttributes(dn+relative+baseDN);
-            Attribute vorname = null, nachname = null, name = null, mail=null;
-            Attribute adminflag = null;
-            if(attr.get("givenname")!=null) {vorname = attr.get("givenname");}
-            if(attr.get("gn")!=null) {vorname = attr.get("gn");}
-            if(attr.get("surname")!=null) {nachname = attr.get("sn");}
-            if(attr.get("sn")!=null) {nachname = attr.get("sn");}
-            if(attr.get("commonname")!=null) {name = attr.get("commonname");}
-            if(attr.get("cn")!=null) {name = attr.get("cn");}
-            if(attr.get("mail")!=null) {mail = attr.get("mail");}
-            if(attr.get("adminflag")!=null){adminflag = attr.get("adminflag");}
-            
-            if(vorname!=null)userdata.put("vorname", vorname.get());
-            if(nachname!=null)userdata.put("nachname", nachname.get());
-            if(name!=null)userdata.put("name", name.get());
-            if(mail!=null)userdata.put("mail", mail.get());
-            if(adminflag!=null)userdata.put("adminflag", adminflag.get());
-        } catch (NamingException e) {
-            throw new TcSecurityException("Es ist ein Fehler beim Holen der Userdaten aufgetreten! ", e);
-        }
-        logger.debug(userdata.toString());
-        return userdata;
+	Map userdata = new HashMap();
+	String dn = getUserDN(userName);
+	try {
+	    Attributes attr = lctx.getAttributes(dn+relative+baseDN);
+	    Attribute vorname = null, nachname = null, name = null, mail=null;
+	    Attribute adminflag = null;
+	    if(attr.get("givenname")!=null) {vorname = attr.get("givenname");}
+	    if(attr.get("gn")!=null) {vorname = attr.get("gn");}
+	    if(attr.get("surname")!=null) {nachname = attr.get("sn");}
+	    if(attr.get("sn")!=null) {nachname = attr.get("sn");}
+	    if(attr.get("commonname")!=null) {name = attr.get("commonname");}
+	    if(attr.get("cn")!=null) {name = attr.get("cn");}
+	    if(attr.get("mail")!=null) {mail = attr.get("mail");}
+	    if(attr.get("adminflag")!=null){adminflag = attr.get("adminflag");}
+
+	    if(vorname!=null)userdata.put("vorname", vorname.get());
+	    if(nachname!=null)userdata.put("nachname", nachname.get());
+	    if(name!=null)userdata.put("name", name.get());
+	    if(mail!=null)userdata.put("mail", mail.get());
+	    if(adminflag!=null)userdata.put("adminflag", adminflag.get());
+	} catch (NamingException e) {
+	    throw new TcSecurityException("Es ist ein Fehler beim Holen der Userdaten aufgetreten! ", e);
+	}
+	logger.debug(userdata.toString());
+	return userdata;
     }
-
 }
-
-

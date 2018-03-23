@@ -32,11 +32,10 @@ import org.apache.axis.message.RPCElement;
 import org.apache.axis.message.RPCParam;
 import org.apache.axis.message.SOAPEnvelope;
 
-
-/** 
+/**
  * Bereitstellung und Kapselung von SOAP Funktionalität
  * für die Erstellung einer Antwort auf einen RPC Aufruf.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class RPCResponse {

@@ -33,20 +33,20 @@ import de.tarent.octopus.request.Octopus;
 
 /** Wrapper singleton class for class <code>de.tarent.octopus.rpctunnel.RPCTunnel</code> which
  * is part of a different library and must not be available.
- * 
+ *
  * @author hendrik
  *
  */
-public class OctopusRPCTunnel 
-{	
+public class OctopusRPCTunnel
+{
 	private OctopusRPCListener listener = null;
 
     public static final String ROLE_OCTOPUS = "octopus";
-	
+
 	private static OctopusRPCTunnel octTunnel = null;
-	
+
     private static Log logger = LogFactory.getLog(OctopusRPCTunnel.class);
-	
+
 	private OctopusRPCTunnel(Octopus octopus, TcCommonConfig commonconfig) throws RPCTunnelUnavailableException
 	{
 		try
@@ -59,7 +59,7 @@ public class OctopusRPCTunnel
 				//The class RPCTunnel may not be available so it's necessary to use reflection.
 				//The call RPCTunnel.registerListener(listener, OCTOPUS_ROLE)
 				//wouldn't allow to catch exeptions inside this class.
-				
+
 				Class tunnelc = Class.forName("de.tarent.octopus.rpctunnel.RPCTunnel");
 				Class listc = Class.forName("de.tarent.octopus.rpctunnel.RPCListener");
 				Method reg = tunnelc.getMethod("registerListener", new Class[] {listc, String.class});
@@ -71,19 +71,19 @@ public class OctopusRPCTunnel
 			throw new RPCTunnelUnavailableException();
 		}
 	}
-	
+
 	/**
 	 * If class RPCTunnel is not in the classpath or this method was called before
-	 * then nothing is done. 
-	 * 
+	 * then nothing is done.
+	 *
 	 * @param octopus
 	 * @param commonconfig
 	 */
 	public static void createInstance(Octopus octopus, TcCommonConfig commonconfig)
 	{
-		if (!isAvailable()) 
+		if (!isAvailable())
 		{
-			try 
+			try
 			{ //Try to create an instance of OctopusRPCTunnel
 				octTunnel = new OctopusRPCTunnel(octopus, commonconfig);
 			} catch (RPCTunnelUnavailableException e) {
@@ -92,7 +92,7 @@ public class OctopusRPCTunnel
 			}
 		}
 	}
-	
+
 	public static OctopusRPCTunnel getInstance()
 	{
 		return octTunnel;
@@ -103,34 +103,33 @@ public class OctopusRPCTunnel
 		//At this point it is ensured that class RPCTunnel is in the classpath
 		return RPCTunnel.execute(myRole, partnerRole, module, task, parameters);
 	}
-	
+
 	public static boolean isAvailable() {
 		return octTunnel != null;
 	}
 }
 
-
-class RPCTunnelUnavailableException extends Exception 
+class RPCTunnelUnavailableException extends Exception
 {
 	/** serialVersionUID */
 	private static final long serialVersionUID = -2463482051282677136L;
 
-	public RPCTunnelUnavailableException() 
+	public RPCTunnelUnavailableException()
 	{
 		super();
 	}
 
-	public RPCTunnelUnavailableException(String message) 
+	public RPCTunnelUnavailableException(String message)
 	{
 		super(message);
 	}
 
-	public RPCTunnelUnavailableException(Throwable cause) 
+	public RPCTunnelUnavailableException(Throwable cause)
 	{
 		super(cause);
 	}
 
-	public RPCTunnelUnavailableException(String message, Throwable cause) 
+	public RPCTunnelUnavailableException(String message, Throwable cause)
 	{
 		super(message, cause);
 	}

@@ -38,11 +38,11 @@ import de.tarent.octopus.logging.LogFactory;
 public class OctopusExtensionLoader
 {
     private static Log logger = LogFactory.getLog(OctopusExtensionLoader.class);
-    
+
     /**
      * Loads, initializes and starts the extension given by classname.
      * On initialization, the given parameter is used.
-     * 
+     *
      * @param classname Extension class to be initialized and started.
      * @param param Parameter passed to the extension's initialize method.
      * @return Extension instance or null if the extension loading failed.

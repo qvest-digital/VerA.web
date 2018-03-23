@@ -27,13 +27,13 @@ import java.util.Enumeration;
 import de.tarent.octopus.request.TcSession;
 import javax.servlet.http.HttpSession;
 
-/** 
+/**
  * Kapselt das Sessionobjekt des Servletkontainers
- * um eine eventuelle spätere Umstellung leichter zu machen und eine 
+ * um eine eventuelle spätere Umstellung leichter zu machen und eine
  * Unabhängigkeit von der Umgebung zu ereichen.
  * <br><br>
  * Zur Zeit werden keine weiteren Methoden als die der javax.servlet.http.HttpSession bereit gestellt.
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcServletSession implements TcSession {

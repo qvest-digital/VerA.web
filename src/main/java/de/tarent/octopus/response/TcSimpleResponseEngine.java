@@ -229,7 +229,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
  */
 class TarParsedTemplate {
     /**
-     * Felder des Templates. Abwechselnd Stings mit beliebigem Inhalt und 
+     * Felder des Templates. Abwechselnd Stings mit beliebigem Inhalt und
      * Direktiven. Direktiven können wieder Vectoren oder Strings mit Anweisungen sein.
      */
     private List template = null;
@@ -296,7 +296,7 @@ class TarParsedTemplate {
     }
 
     /**
-     * Diese Methode holt das Template 
+     * Diese Methode holt das Template
      */
     private InputStream getTemplate(String name) throws ResponseProcessingException {
         StringBuffer sb = new StringBuffer();

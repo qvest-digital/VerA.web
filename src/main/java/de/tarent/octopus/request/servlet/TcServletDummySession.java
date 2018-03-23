@@ -27,16 +27,16 @@ import java.util.Hashtable;
 
 import de.tarent.octopus.request.TcSession;
 
-/** 
+/**
  * Implementierung einer Session als Dummy ohne Session-Funktionalität
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcServletDummySession implements TcSession {
-    
+
     private Hashtable dummyData = new Hashtable();
-                    
-    public Object getAttribute(String name) {  
+
+    public Object getAttribute(String name) {
         return dummyData.get(name);
     }
     public Enumeration getAttributeNames() {
@@ -50,7 +50,7 @@ public class TcServletDummySession implements TcSession {
     }
     public long getLastAccessedTime() {
         return -1;
-    }                    
+    }
     public int getMaxInactiveInterval() {
         return -1;
     }
@@ -64,5 +64,5 @@ public class TcServletDummySession implements TcSession {
     public void setAttribute(String name, Object value) {
         dummyData.put(name, value);
     }
-    public void setMaxInactiveInterval(int interval) {}                    
+    public void setMaxInactiveInterval(int interval) {}
 }

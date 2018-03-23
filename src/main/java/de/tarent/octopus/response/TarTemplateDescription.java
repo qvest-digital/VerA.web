@@ -30,26 +30,26 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-/** 
+/**
  * Beschreibung eines Template Modules
  * Mit Name und Anordnung der Kinder
- * 
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TarTemplateDescription {
-    /** 
+    /**
      * Feldbezeichner im übergeordneten Template,
      * in das dieses Template eingesetzt werden will
      */
     private String position;
 
-    /** 
+    /**
      * Name des Template Moduls, der dazu benutzt werden kann
      * Das Template in einer Datenbank oder im Dateisystem zu finden
      */
     private String name;
 
-    /** 
+    /**
      * Die TarTemplateDescription der untergeordneten Templates.
      * Wobei die positionen als Keys dienen.
      */
@@ -85,7 +85,7 @@ public class TarTemplateDescription {
         return position;
     }
 
-    /** 
+    /**
      * Name des Template Moduls, der dazu benutzt werden kann
      * Das Template in einer Datenbank oder im Dateisystem zu finden
      */
@@ -93,7 +93,7 @@ public class TarTemplateDescription {
         return name;
     }
 
-    /** 
+    /**
      * Die TarTemplateDescription der untergeordneten Templates.
      * Wobei die positionen als Keys dienen.
      *

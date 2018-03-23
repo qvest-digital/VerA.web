@@ -32,7 +32,7 @@ import de.tarent.octopus.request.TcResponse;
 /**
  * Diese Schnittstelle ist von allen Response-Maschinen im Octopus zu
  * implementieren.
- * 
+ *
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public interface TcResponseEngine {

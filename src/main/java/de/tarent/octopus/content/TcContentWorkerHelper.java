@@ -30,14 +30,14 @@ import java.util.List;
 
 /**
  * Diese Klasse enthält Hilfsmethoden für ContentWorker.
- * 
+ *
  * @author mikel
  */
 public class TcContentWorkerHelper {
     /**
      * Diese Methode liefert einen Parameter zurück, wobei zunächst im
      * Content, dann im Request gesucht wird.
-     * 
+     *
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
      * @param key Schlüssel des gesuchten Parameters
@@ -51,7 +51,7 @@ public class TcContentWorkerHelper {
     /**
      * Diese Methode liefert einen Parameter als Liste, wobei zunächst im
      * Content, dann im Request gesucht wird.
-     * 
+     *
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
      * @param key Schlüssel des gesuchten Parameters
@@ -77,7 +77,7 @@ public class TcContentWorkerHelper {
     /**
      * Diese Methode liefert einen Parameter als String, wobei zunächst im
      * Content, dann im Request gesucht wird.
-     * 
+     *
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
      * @param key Schlüssel des gesuchten Parameters
@@ -91,7 +91,7 @@ public class TcContentWorkerHelper {
     /**
      * Diese Methode liefert einen Parameter als int, wobei zunächst im
      * Content, dann im Request gesucht wird.
-     * 
+     *
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
      * @param key Schlüssel des gesuchten Parameters
@@ -111,7 +111,7 @@ public class TcContentWorkerHelper {
     /**
      * Diese Methode liefert einen Parameter als boolean, wobei zunächst im
      * Content, dann im Request gesucht wird.
-     * 
+     *
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
      * @param key Schlüssel des gesuchten Parameters

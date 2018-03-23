@@ -29,8 +29,8 @@ import de.tarent.octopus.util.CVS;
 
 /**
  * Dieser Worker stellt einige Systemfunktionen zur Verfügung, etwa das Neuladen eines Moduls,
- * was dem Neueinlesen der Konfiguration entspricht. 
- * 
+ * was dem Neueinlesen der Konfiguration entspricht.
+ *
  * @author mikel
  */
 public class SystemWorker implements TcContentWorker {
@@ -40,7 +40,7 @@ public class SystemWorker implements TcContentWorker {
     /**
      * Diese Methode wird nach Erzeugung des Workers aufgerufen, so dass dieser
      * sich im Kontext seines Moduls konfigurieren kann.
-     * 
+     *
      * @param config Modulkonfiguration.
      * @see de.tarent.octopus.content.TcContentWorker#init(de.tarent.octopus.config.TcModuleConfig)
      */
@@ -65,7 +65,7 @@ public class SystemWorker implements TcContentWorker {
         if (ACTION_RELOAD_MODULE.equals(actionName)) {
             String moduleName = tcConfig.getModuleConfig().getName();
             tcConfig.getCommonConfig().deregisterModule(moduleName);
-            
+
             TcModuleConfig moduleConfig = tcConfig.getCommonConfig().getModuleConfig(moduleName);
             return moduleConfig != null ? RESULT_ok : RESULT_error;
         } else {
@@ -77,8 +77,8 @@ public class SystemWorker implements TcContentWorker {
     /**
      * Liefert eine Beschreibgung der Actions und deren Eingabeparameter,
      * die von diesem Worker bereit gestellt werden.
-     * 
-     * @return Eine Abstrakte Beschreibung der Methoden und Parameter 
+     *
+     * @return Eine Abstrakte Beschreibung der Methoden und Parameter
      * @see de.tarent.octopus.content.TcContentWorker#getWorkerDefinition()
      */
     public TcPortDefinition getWorkerDefinition() {
@@ -99,7 +99,7 @@ public class SystemWorker implements TcContentWorker {
 
     /**
      * Diese Methode liefert einen Versionseintrag.
-     * 
+     *
      * @return Version des Workers.
      * @see de.tarent.octopus.content.TcContentWorker#getVersion()
      */

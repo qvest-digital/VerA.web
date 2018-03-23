@@ -37,8 +37,8 @@ import de.tarent.octopus.response.TcResponseDescription;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Diese Klasse verwaltet den Ablauf der Verarbeitung eines Tasks. 
- * 
+ * Diese Klasse verwaltet den Ablauf der Verarbeitung eines Tasks.
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>,
  *         <b>tarent GmbH</b>
  * @author Michael Klink
@@ -75,21 +75,18 @@ public class TcTaskManager {
 	/** Dieser String enthält die Aktion, die im Fehlerfall ausgeführt werden soll */
 	private String onErrorAction = null;
 
-
     // Status der letzten aktion
     private String status;
-    
 
-    /** Vom letzten ResponseNode erzeugte ResponseDescription 
+    /** Vom letzten ResponseNode erzeugte ResponseDescription
      */
     TcResponseDescription responseDescription;
 
-	
 	public TcTaskManager(OctopusContext context) {
-        this.context = context;
-        this.config = context.getConfigObject();
-        this.tcRequest = context.getRequestObject();
-        this.theContent = context.getContentObject();
+	this.context = context;
+	this.config = context.getConfigObject();
+	this.tcRequest = context.getRequestObject();
+	this.theContent = context.getContentObject();
 	}
 
 	/**
@@ -100,62 +97,62 @@ public class TcTaskManager {
 	public void start(String moduleName, String taskName, boolean testAccess)
 		throws TcTaskProzessingException {
 
-        taskList = config.getTaskList(moduleName);
-        if (taskList == null)
-            throw new TcTaskProzessingException(Resources.getInstance().get("TASK_MANAGER_STRING_NO_TASK_LIST", moduleName));
+	taskList = config.getTaskList(moduleName);
+	if (taskList == null)
+	    throw new TcTaskProzessingException(Resources.getInstance().get("TASK_MANAGER_STRING_NO_TASK_LIST", moduleName));
 		TcTask task = taskList.getTask(taskName);
-        if (task == null)
-            throw new TcTaskProzessingException(Resources.getInstance().get("TASK_MANAGER_STRING_NO_TASK", taskName, moduleName));
+	if (task == null)
+	    throw new TcTaskProzessingException(Resources.getInstance().get("TASK_MANAGER_STRING_NO_TASK", taskName, moduleName));
 		position = task.rootNode;
 		onErrorAction = config.getModuleConfig().getParam("onErrorAction");
-        status = TcContentWorker.RESULT_ok;
-        
+	status = TcContentWorker.RESULT_ok;
+
 		if (testAccess && (!"public".equals(((TcTask.TaskNode) position).access)))
 			throw new TcTaskProzessingException(Resources.getInstance().get("TASK_MANAGER_STRING_TASK_NOT_PUBLIC", taskName));
 	}
 
-    public boolean doNextStep() 
-        throws TcTaskProzessingException, TcContentProzessException {
+    public boolean doNextStep()
+	throws TcTaskProzessingException, TcContentProzessException {
 
-        if (position instanceof TcTask.ResponseNode) {
-            // createResponseDescription
-            TcTask.ResponseNode respNode = (TcTask.ResponseNode)position;
-            responseDescription = new TcResponseDescription(respNode.name, respNode.type);
-        }
-        
-        try {
-        	position.perform(this, context);
-            return next();
-        } catch (TcContentProzessException cpe) {
-            if (ON_ERROR_ACTION_RESUME_NEXT.equalsIgnoreCase(getCurrentOnErrorAction())) {
-                logger.warn(Resources.getInstance().get("TASK_MANAGER_LOG_ERROR_RESUME", tcRequest.getRequestID()), cpe);
-                status = TcContentWorker.RESULT_error;
-                theContent.setError(cpe);
-                return next();
-            } else {
-                throw cpe;
-            }
-        }
+	if (position instanceof TcTask.ResponseNode) {
+	    // createResponseDescription
+	    TcTask.ResponseNode respNode = (TcTask.ResponseNode)position;
+	    responseDescription = new TcResponseDescription(respNode.name, respNode.type);
+	}
+
+	try {
+		position.perform(this, context);
+	    return next();
+	} catch (TcContentProzessException cpe) {
+	    if (ON_ERROR_ACTION_RESUME_NEXT.equalsIgnoreCase(getCurrentOnErrorAction())) {
+		logger.warn(Resources.getInstance().get("TASK_MANAGER_LOG_ERROR_RESUME", tcRequest.getRequestID()), cpe);
+		status = TcContentWorker.RESULT_error;
+		theContent.setError(cpe);
+		return next();
+	    } else {
+		throw cpe;
+	    }
+	}
     }
 
 	/**
-	 * Setzt die Position auf die nächste Action, eines Task. oder ausgabeseite, 
+	 * Setzt die Position auf die nächste Action, eines Task. oder ausgabeseite,
      * abhängig vonm status.
-	 * 
+	 *
 	 * @return gibt true zurück, wenn die die neue Pointerposition auf eine
 	 *         Action zeigt, also als nächstes eine Action abgearbeitet werden
 	 *         soll. Wenn als nächstes die Response generiert werden soll wird
 	 *         false zurück gegeben.
-	 * @throws TcTaskProzessingException 
+	 * @throws TcTaskProzessingException
 	 */
 	protected boolean next() throws TcTaskProzessingException {
 		logger.debug("Next called with '" + status + "' at " + position);
 		if (position == null)
 			throw new TcTaskProzessingException("Position steht nicht auf einem Node Objekt. Das verarbeiten der Tasks muss mit start() beginnen.");
 
-        // end processing if it is a response node
-        if (position instanceof TcTask.ResponseNode)            
-            return false;
+	// end processing if it is a response node
+	if (position instanceof TcTask.ResponseNode)
+	    return false;
 
 		TcTask.TNode next = null;
 
@@ -179,8 +176,8 @@ public class TcTaskManager {
 					parent = parent.getParent();
 				} else if (trace != null && trace.size() > 0) {
 					position = (TcTask.TNode) trace.remove(trace.size() - 1);
-                    // ATTENTION: the perform in a TNode is called twice,
-                    // because here we move the position pointer to the tnode again.
+		    // ATTENTION: the perform in a TNode is called twice,
+		    // because here we move the position pointer to the tnode again.
 					return true;
 				} else {
 					throw new TcTaskProzessingException(
@@ -191,7 +188,7 @@ public class TcTaskManager {
 
 		// Jetzt sollte next auf dem nächsten Element stehen.
 		// Dieses kann also nun ausgewertet werden
-        if (next instanceof TcTask.DoTaskNode) {
+	if (next instanceof TcTask.DoTaskNode) {
 			TcTask.DoTaskNode doTaskNode = (TcTask.DoTaskNode) next;
 			String callStatus = doTaskNode.doStatus;
 			if (callStatus == null || callStatus.length() == 0)
@@ -210,8 +207,8 @@ public class TcTaskManager {
 			return true;
 		} else {
 			position = next;
-            return true;
-        }
+	    return true;
+	}
 
 	}
 
@@ -251,24 +248,22 @@ public class TcTaskManager {
 	 * Liefert die aktuelle ResponseDescription
 	 */
 	public TcResponseDescription getCurrentResponseDescription() {
-        return responseDescription;
+	return responseDescription;
 	}
-	
+
 	public String getCurrentOnErrorAction() {
 		return onErrorAction;
 	}
 
 	public void setOnErrorAction(String newOnErrorAction) {
-        onErrorAction = newOnErrorAction;
+	onErrorAction = newOnErrorAction;
 	}
 
-
     public String getStatus() {
-        return status;
+	return status;
     }
 
     public void setStatus(String newStatus) {
-        this.status = newStatus;
+	this.status = newStatus;
     }
-
 }
