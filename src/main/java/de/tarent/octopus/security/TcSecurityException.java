@@ -35,7 +35,7 @@ import javax.xml.namespace.QName;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke </a>, <b>tarent GmbH </b>
  */
 public class TcSecurityException extends Exception {
-	private static final long serialVersionUID = 5948930966578170159L;
+	private static final long serialVersionUID = -5494704136570910471L;
 
 	public static final int ERROR_NO_VALID_SESSION = 1;
 	public static final int ERROR_AUTH_ERROR = 2;
@@ -44,9 +44,9 @@ public class TcSecurityException extends Exception {
 	public static final int ERROR_SERVER_AUTH_ERROR = 5;
 	public static final int ERROR_SERVER_USERMANAGEMENT_ERROR = 6;
 
-	public static final String uri = "http://schemas.tarent.de/octopus";
+	private static final String uri = "http://schemas.tarent.de/octopus";
 
-	public static final QName[] soapFaultCodes = {
+	private static final QName[] soapFaultCodes = {
 	    new QName(uri, "Client.authentication.unknownError"),
 	    new QName(uri, "Client.authentication.needLogin"),
 	    new QName(uri, "Client.authentication.authenticationFailed"),
