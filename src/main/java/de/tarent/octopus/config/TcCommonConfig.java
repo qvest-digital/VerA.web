@@ -77,10 +77,6 @@ public class TcCommonConfig {
 	 * Autorisierungstyp: gegen XML-Datei prüfen
 	 */
 	public static final String AUTH_TYPE_XML = "XML";
-	/**
-	 * Autorisierungstyp: gegen LDAP prüfen
-	 */
-	public static final String AUTH_TYPE_LDAP = "LDAP";
 
 	/**
 	 * Der Logger
@@ -673,9 +669,7 @@ public class TcCommonConfig {
 				//Hier der Fallback-Teil für die alte Konfiguration...
 				String authType = env.get(TcEnv.KEY_AUTHENTICATION_TYPE);
 				logger.debug("LoginManager: Fallback auf Octopus 1.1 Variante: " + authType);
-				if (AUTH_TYPE_LDAP.equalsIgnoreCase(authType)) {
-					loginManager = new LoginManagerLDAP();
-				} else if (AUTH_TYPE_XML.equalsIgnoreCase(authType)) {
+				if (AUTH_TYPE_XML.equalsIgnoreCase(authType)) {
 					loginManager = new LoginManagerXML();
 				} else if (AUTH_TYPE_FILTER.equalsIgnoreCase(authType)) {
 					loginManager = new LoginManagerFilter();
