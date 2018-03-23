@@ -65,8 +65,6 @@ package de.tarent.veraweb.proxy;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.octopus.server.PersonalConfig;
 import org.apache.http.HttpEntityEnclosingRequest;
-import org.apache.http.HttpException;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
@@ -78,7 +76,6 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HttpContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -137,13 +134,10 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
 
     @Override
     protected HttpClient createHttpClient(final HttpParams hcParams) {
-        final HttpRequestInterceptor itcp = new HttpRequestInterceptor() {
-
-            public void process(final HttpRequest request, final HttpContext context) throws HttpException, IOException {
-                if (request instanceof HttpEntityEnclosingRequest) {
-                    final HttpEntityEnclosingRequest eeRequest = (HttpEntityEnclosingRequest) request;
-                    eeRequest.setEntity(new BufferedHttpEntity(eeRequest.getEntity()));
-                }
+        final HttpRequestInterceptor itcp = (request, context) -> {
+            if (request instanceof HttpEntityEnclosingRequest) {
+                final HttpEntityEnclosingRequest eeRequest = (HttpEntityEnclosingRequest) request;
+                eeRequest.setEntity(new BufferedHttpEntity(eeRequest.getEntity()));
             }
         };
         final HttpClientBuilder builder = HttpClientBuilder.create().disableAutomaticRetries().addInterceptorLast(itcp).disableRedirectHandling();
@@ -168,7 +162,7 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
         }
     }
 
-    protected boolean hasGroup(final HttpSession session, final String requiredGroup) {
+    private boolean hasGroup(final HttpSession session, final String requiredGroup) {
         if ("ANY".equals(requiredGroup)) {
             return true;
         }
