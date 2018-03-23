@@ -49,7 +49,7 @@ import java.util.Map;
 
 /**
  * Eintrittspunkt der Anfrage und Starter des Systems,
- * bei Verwendeung des Octopus in einem Servlet.
+ * bei Verwendung des Octopus in einem Servlet.
  *
  * 1. Dieses Servlet startet das System indem es in seiner init() Methode
  * die dauerhaft bestehenden Komponenten aufbaut und initialisiert.
