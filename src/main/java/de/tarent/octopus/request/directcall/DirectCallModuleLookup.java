@@ -22,38 +22,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.tarent.octopus.request.directCall;
+package de.tarent.octopus.request.directcall;
 
-import de.tarent.octopus.util.RootCauseException;
+import java.io.File;
+
+import de.tarent.octopus.config.TcModuleLookup;
+import de.tarent.octopus.request.TcEnv;
 
 /**
- * Exception, die geworfen werden soll, wenn
- * Probleme, beim direkten Aufruf des Octopus durch OctopusStarter auftreten.
- * Sie kapseln die eigentliche Exceptiopn.
- *
- * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
+ * Diese Klasse liefert dem Octopus notwendige Daten.
  */
-public class TcDirectCallException extends Exception implements RootCauseException {
-    /**
-	 * serialVersionUID = -6041356605333756206L
-	 */
-	private static final long serialVersionUID = -6041356605333756206L;
+class DirectCallModuleLookup implements TcModuleLookup {
+	/** DirectCallModuleLookup */
+	private final OctopusDirectCallStarter octopusDirectCallStarter;
 
 	/**
-     * Expection, die der eigentliche Grund ist.
-     */
-    Throwable rootCause;
+	 * @param starter
+	 */
+	DirectCallModuleLookup(OctopusDirectCallStarter starter) {
+		octopusDirectCallStarter = starter;
+	}
 
-    public TcDirectCallException(String message) {
-        super(message);
-    }
+	public File getModulePath(String module) {
+		String realPath = octopusDirectCallStarter.getEnv().getValue(
+				TcEnv.KEY_PATHS_ROOT) + "modules/" + module + "/";
 
-    public TcDirectCallException(String message, Throwable rootCause) {
-        super(message,rootCause);
-        this.rootCause = rootCause;
-    }
-
-    public Throwable getRootCause() {
-        return rootCause;
-    }
+		if (realPath != null && realPath.length() != 0) {
+			if (new File(realPath).exists())
+				return new File(realPath);
+		}
+		return null;
+	}
 }

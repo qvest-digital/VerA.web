@@ -28,7 +28,7 @@ import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusConnectionFactory;
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.*;
-import de.tarent.octopus.request.directCall.OctopusDirectCallConnection;
+import de.tarent.octopus.request.directcall.OctopusDirectCallConnection;
 import de.tarent.octopus.request.internal.OctopusInternalStarter;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.TcSOAPEngine;

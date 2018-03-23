@@ -25,8 +25,8 @@ package de.tarent.octopus.request.internal;
  */
 import java.util.Map;
 
-import de.tarent.octopus.request.directCall.OctopusDirectCallResult;
-import de.tarent.octopus.request.directCall.TcDirectCallException;
+import de.tarent.octopus.request.directcall.OctopusDirectCallResult;
+import de.tarent.octopus.request.directcall.TcDirectCallException;
 
 /**
  * Kapselt das Ansprechen des Octopus

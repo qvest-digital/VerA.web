@@ -31,10 +31,10 @@ import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcSession;
-import de.tarent.octopus.request.directCall.OctopusDirectCallResult;
-import de.tarent.octopus.request.directCall.TcDirectCallException;
-import de.tarent.octopus.request.directCall.TcDirectCallResponse;
-import de.tarent.octopus.request.directCall.TcDirectCallSession;
+import de.tarent.octopus.request.directcall.OctopusDirectCallResult;
+import de.tarent.octopus.request.directcall.TcDirectCallException;
+import de.tarent.octopus.request.directcall.TcDirectCallResponse;
+import de.tarent.octopus.request.directcall.TcDirectCallSession;
 import de.tarent.octopus.resource.Resources;
 
 /**

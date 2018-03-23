@@ -35,8 +35,8 @@ import org.apache.commons.logging.Log;
 import de.tarent.octopus.client.remote.OctopusRemoteConnection;
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
-import de.tarent.octopus.request.directCall.OctopusDirectCallConnection;
-import de.tarent.octopus.request.directCall.OctopusDirectCallStarter;
+import de.tarent.octopus.request.directcall.OctopusDirectCallConnection;
+import de.tarent.octopus.request.directcall.OctopusDirectCallStarter;
 import de.tarent.octopus.request.internal.OctopusInternalStarter;
 import de.tarent.octopus.request.internal.OctopusStarter;
 

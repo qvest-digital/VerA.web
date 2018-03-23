@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.tarent.octopus.request.directCall;
+package de.tarent.octopus.request.directcall;
 
 import de.tarent.octopus.client.*;
 import de.tarent.octopus.request.internal.OctopusStarter;

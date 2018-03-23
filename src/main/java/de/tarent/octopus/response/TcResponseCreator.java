@@ -24,7 +24,7 @@ package de.tarent.octopus.response;
  * THE SOFTWARE.
  */
 import de.tarent.octopus.logging.LogFactory;
-import de.tarent.octopus.request.directCall.TcDirectCallResponse;
+import de.tarent.octopus.request.directcall.TcDirectCallResponse;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContent;

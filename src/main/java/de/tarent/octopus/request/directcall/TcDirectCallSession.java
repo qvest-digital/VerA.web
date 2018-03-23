@@ -1,4 +1,4 @@
-package de.tarent.octopus.request.directCall;
+package de.tarent.octopus.request.directcall;
 
 /*-
  * tarent-octopus, Webservice Data Integrator and Application Server
