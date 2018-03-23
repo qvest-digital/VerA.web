@@ -389,8 +389,9 @@ public class TcServletResponse implements TcResponse {
 	 */
 	public void addCookie(String name, String value, Map settings) {
 		Cookie cookie = new Cookie(name, value);
+		cookie.setSecure(true);
 		if (settings.get(CookieMap.CONFIG_MAXAGE) != null)
-			cookie.setMaxAge(Integer.valueOf((String)settings.get(CookieMap.CONFIG_MAXAGE)).intValue());
+			cookie.setMaxAge(Integer.valueOf((String)settings.get(CookieMap.CONFIG_MAXAGE)));
 		response.addCookie(cookie);
 	}
 
