@@ -125,7 +125,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
 				baseLogger.setUseParentHandlers(false);
 			}
 
-			env = createEnvObject(configParams);
+			createEnvObject(configParams);
 
 			//TODO: Warum wird das als System Property gesetzt?
 			System.setProperty(TcEnv.KEY_PATHS_ROOT, env.getValueAsString(TcEnv.KEY_PATHS_ROOT));
@@ -225,9 +225,9 @@ public class OctopusDirectCallStarter implements OctopusStarter {
 	 * @param overrideSettings Parameter, die die Konfigurationen überschreiben,
 	 *                         darf null sein
 	 */
-	protected TcEnv createEnvObject(Map overrideSettings) {
+	protected void createEnvObject(Map overrideSettings) {
 		// Env Objekt mit Umgebungsvariablen und Einstellungsparametern
-		TcEnv env = new TcEnv();
+		env = new TcEnv();
 
 		//env.setValue(TcEnv.KEY_PATHS_ROOT, "." + System.getProperty("file.separator"));
 		env.setValue(TcEnv.KEY_PATHS_ROOT, System.getProperty("user.dir") + "/OCTOPUS/");
@@ -243,8 +243,6 @@ public class OctopusDirectCallStarter implements OctopusStarter {
 				String key = "" + iter.next();
 				env.setValue(key, "" + overrideSettings.get(key));
 			}
-
-		return env;
 	}
 
 	public TcEnv getEnv() {
