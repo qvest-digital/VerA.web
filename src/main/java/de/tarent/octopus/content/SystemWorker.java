@@ -27,7 +27,7 @@ package de.tarent.octopus.content;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.util.CVS;
+import de.tarent.octopus.resource.Resources;
 
 /**
  * Dieser Worker stellt einige Systemfunktionen zur Verfügung, etwa das Neuladen eines Moduls,
@@ -114,8 +114,7 @@ public class SystemWorker implements TcContentWorker {
 	 * @see de.tarent.octopus.content.TcContentWorker#getVersion()
 	 */
 	public String getVersion() {
-		return CVS.getContent("$Revision: 1.1.1.1 $") + " (" + CVS.getContent("$Date: 2005/11/21 13:33:37 $") +
-		    ')';
+		return Resources.getInstance().get("OCTOPUS_CORE_VERSION");
 	}
 
 	//

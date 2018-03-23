@@ -28,7 +28,7 @@ import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.util.CVS;
+import de.tarent.octopus.resource.Resources;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -124,6 +124,6 @@ public class TcPutParams implements TcContentWorker {
 	 * @see de.tarent.octopus.content.TcContentWorker#getVersion()
 	 */
 	public String getVersion() {
-		return CVS.getContent("$Revision: 1.3 $") + " (" + CVS.getContent("$Date: 2006/02/23 15:07:57 $") + ')';
+		return Resources.getInstance().get("OCTOPUS_CORE_VERSION");
 	}
 }
