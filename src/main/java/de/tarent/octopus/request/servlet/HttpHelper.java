@@ -2,7 +2,8 @@ package de.tarent.octopus.request.servlet;
 
 /*-
  * tarent-octopus, Webservice Data Integrator and Application Server
- * Copyright © 2002–2017 tarent solutions GmbH and its contributors
+ * Copyright © 2002–2018 tarent solutions GmbH and its contributors
+ * Copyright © 2015, 2017, 2018 mirabilos (t.glaser@tarent.de)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
