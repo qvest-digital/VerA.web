@@ -44,11 +44,13 @@ import java.util.Map;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcPersonalConfig implements PersonalConfig {
-	Map sessionData = new HashMap();
+	private static final long serialVersionUID = 5206246870556882418L;
+
+	HashMap sessionData = new HashMap();
 	String userLogin;
 	Integer userID;
 	// Areas als String Keys, Listen mit Gruppen als Values
-	Map areaGroups = new HashMap();
+	HashMap areaGroups = new HashMap();
 	// Groups der globalen Area
 	String[] globalGroups;
 	String userEmail;
