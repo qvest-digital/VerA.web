@@ -102,7 +102,7 @@
 		<servlet-class>de.tarent.veraweb.proxy.ProxyServlet</servlet-class>
 		<init-param>
 			<param-name>targetPath</param-name>
-			<param-value>/doc</param-value>
+			<param-value>/doc/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>requiredGroup</param-name>
