@@ -75,7 +75,10 @@ public class LogFactory {
 	private static FileHandler fileLogHandler = null;
 	private static SocketHandler portLogHandler = null;
 
+	private static final String CONFIG = "CONFIG";
 	private static final String ERROR = "ERROR";
+	private static final String FATAL = "FATAL";
+	private static final String WARNING = "WARNING";
 
 	static {
 		loadProperties();
@@ -110,7 +113,7 @@ public class LogFactory {
 				else if (LOGGING_API_SIMPLE.equals(value))
 					CHOSEN_LOGGER = SIMPLE_LOGGER;
 			} catch (IOException e) {
-				log("FATAL", "Error while reading logging configuration from resource: " +
+				log(FATAL, "Error while reading logging configuration from resource: " +
 				    TARENT_LOGGING_PROPERTIES, e);
 			}
 		}
@@ -130,7 +133,7 @@ public class LogFactory {
 		String rootPath = env.getValueAsString(TcEnv.KEY_PATHS_ROOT);
 		File f = new File(rootPath, "log4j_properties.xml");
 		if (!f.exists())
-			log("WARNING", "log4j configuration file '" + f.getAbsolutePath() + "' does not exist", null);
+			log(WARNING, "log4j configuration file '" + f.getAbsolutePath() + "' does not exist", null);
 		else
 			DOMConfigurator.configure(f.getAbsolutePath());
 	}
@@ -175,7 +178,7 @@ public class LogFactory {
 					pattern = new File(new File(rootPath, logPath), pattern).getAbsolutePath();
 			}
 		}
-		log("NOTICE", Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING_TO", pattern), null);
+		log(CONFIG, Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING_TO", pattern), null);
 
 		// get maximum size of logging file
 		int loggingLimit = 4 * 1024 * 1024; // default 4 MiB
@@ -335,7 +338,7 @@ public class LogFactory {
 	private static void log(String level, String message, Exception e) {
 		final Date dat = new Date();
 
-		System.err.println(String.format("%1$tF %1$tT.%1$tL %2$7s (LogFactory) [OCTOPUS] %3$s",
+		System.err.println(String.format("%1$tF %1$tT.%1$tL %2$7s (de.tarent.octopus.logging.LogFactory) [OCTOPUS] %3$s",
 		    dat, level, message));
 		if (e != null)
 			e.printStackTrace(System.err);
