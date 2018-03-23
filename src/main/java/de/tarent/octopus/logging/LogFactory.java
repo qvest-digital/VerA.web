@@ -93,24 +93,24 @@ public class LogFactory {
     }
 
 	public static void loadProperties() {
-        InputStream in = LogFactory.class.getResourceAsStream(TARENT_LOGGING_PROPERTIES);
-        if (in != null) {
-            Properties properties = new Properties();
-            try {
-                properties.load(in);
-                Object value = properties.get(LOGGING_API);
-                if (LOGGING_API_JDK14.equals(value))
-                    logger = JDK14_LOGGER;
-                else if (LOGGING_API_LOG4J.equals(value))
-                    logger = LOG4J_LOGGER;
-                else if (LOGGING_API_COMMONS.equals(value))
-                    logger = COMMONS_LOGGER;
-                else if (LOGGING_API_SIMPLE.equals(value))
-                    logger = SIMPLE_LOGGER;
-            } catch (IOException e) {
-                log("FATAL: Error while reading logging configuration from ressource: "+TARENT_LOGGING_PROPERTIES, e);
-            }
-        }
+	InputStream in = LogFactory.class.getResourceAsStream(TARENT_LOGGING_PROPERTIES);
+	if (in != null) {
+	    Properties properties = new Properties();
+	    try {
+		properties.load(in);
+		Object value = properties.get(LOGGING_API);
+		if (LOGGING_API_JDK14.equals(value))
+		    logger = JDK14_LOGGER;
+		else if (LOGGING_API_LOG4J.equals(value))
+		    logger = LOG4J_LOGGER;
+		else if (LOGGING_API_COMMONS.equals(value))
+		    logger = COMMONS_LOGGER;
+		else if (LOGGING_API_SIMPLE.equals(value))
+		    logger = SIMPLE_LOGGER;
+	    } catch (IOException e) {
+		log("FATAL: Error while reading logging configuration from ressource: "+TARENT_LOGGING_PROPERTIES, e);
+	    }
+	}
     }
 
     /**
@@ -119,30 +119,30 @@ public class LogFactory {
      * @throws IOException
      */
 	public static void initOctopusLogging(TcEnv env) throws IOException {
-        if (useJdkLogger())
-            initJdkOctopusLogging(env);
-        else if (useLog4jLogger())
-            initLog4jOctopusLogging(env);
+	if (useJdkLogger())
+	    initJdkOctopusLogging(env);
+	else if (useLog4jLogger())
+	    initLog4jOctopusLogging(env);
     }
 
     public static void initLog4jOctopusLogging(TcEnv env) {
-        String rootPath = env.getValueAsString(TcEnv.KEY_PATHS_ROOT);
-        File f = new File(rootPath, "log4j_properties.xml");
-        if (!f.exists())
-            log("WARNING: log4j configuration file '"+f.getAbsolutePath()+"' does not exist", null);
-        else
-            DOMConfigurator.configure(f.getAbsolutePath());
+	String rootPath = env.getValueAsString(TcEnv.KEY_PATHS_ROOT);
+	File f = new File(rootPath, "log4j_properties.xml");
+	if (!f.exists())
+	    log("WARNING: log4j configuration file '"+f.getAbsolutePath()+"' does not exist", null);
+	else
+	    DOMConfigurator.configure(f.getAbsolutePath());
     }
 
     public static void initJdkOctopusLogging(TcEnv env) throws IOException {
-        if (baseLogger != null)
-            return;
+	if (baseLogger != null)
+	    return;
 
-        String baseLoggerPackage = "de.tarent.octopus";
-        if (env.getValue(TcEnv.KEY_LOGGING_BASELOGGER) != null)
-            baseLoggerPackage = env.getValueAsString(TcEnv.KEY_LOGGING_BASELOGGER);
-        baseLogger = Logger.getLogger(baseLoggerPackage);
-        baseLogger.setLevel(Level.ALL);
+	String baseLoggerPackage = "de.tarent.octopus";
+	if (env.getValue(TcEnv.KEY_LOGGING_BASELOGGER) != null)
+	    baseLoggerPackage = env.getValueAsString(TcEnv.KEY_LOGGING_BASELOGGER);
+	baseLogger = Logger.getLogger(baseLoggerPackage);
+	baseLogger.setLevel(Level.ALL);
 
 		String pattern = env.getValueAsString(TcEnv.KEY_LOGGING_PATTERN);
 
@@ -154,11 +154,11 @@ public class LogFactory {
 			if (logPath == null || logPath.trim().length() == 0) {
 				pattern = new File(rootPath, "log/octopus-%g_%u.log").getAbsolutePath();
 			} else {
-                logPath = expandSystemProperties(logPath);
-                if (new File(logPath).isAbsolute())
-                    pattern = new File(logPath).getAbsolutePath();
-                else
-                    pattern = new File(rootPath, logPath).getAbsolutePath();
+		logPath = expandSystemProperties(logPath);
+		if (new File(logPath).isAbsolute())
+		    pattern = new File(logPath).getAbsolutePath();
+		else
+		    pattern = new File(rootPath, logPath).getAbsolutePath();
 			}
 		} else {
 			// if pattern defined use this with root and log path (optional).
@@ -167,11 +167,11 @@ public class LogFactory {
 			if (logPath == null || logPath.trim().length() == 0) {
 				pattern = new File(rootPath, pattern).getAbsolutePath();
 			} else {
-                logPath = expandSystemProperties(logPath);
-                if (new File(logPath).isAbsolute())
-                    pattern = new File(logPath, pattern).getAbsolutePath();
-                else
-                    pattern = new File(new File(rootPath, logPath), pattern).getAbsolutePath();
+		logPath = expandSystemProperties(logPath);
+		if (new File(logPath).isAbsolute())
+		    pattern = new File(logPath, pattern).getAbsolutePath();
+		else
+		    pattern = new File(new File(rootPath, logPath), pattern).getAbsolutePath();
 			}
 		}
 		log(Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING_TO", pattern), null);
@@ -216,8 +216,8 @@ public class LogFactory {
 				loggingPort = Integer.decode(param).intValue();
 			}
 		} catch (NumberFormatException e) {
-            log("Fehler beim Parsen des Log-Ports; benutze Default-Wert", e);
-            loggingPort = 0;
+	    log("Fehler beim Parsen des Log-Ports; benutze Default-Wert", e);
+	    loggingPort = 0;
 		}
 		if (loggingPort >= 0) {
 			try {
@@ -280,23 +280,23 @@ public class LogFactory {
 	}
 
 	public static void deInitOctopusLogging()  {
-        if (useJdkLogger())
-            deInitJdkOctopusLogging();
-        else if (useLog4jLogger())
-            deInitLog4jOctopusLogging();
+	if (useJdkLogger())
+	    deInitJdkOctopusLogging();
+	else if (useLog4jLogger())
+	    deInitLog4jOctopusLogging();
     }
 
 	public static void deInitLog4jOctopusLogging()  {
-        org.apache.log4j.LogManager.shutdown();
+	org.apache.log4j.LogManager.shutdown();
     }
 
 	public static void deInitJdkOctopusLogging() {
-        if (baseLogger != null)
-            baseLogger.removeHandler(fileLogHandler);
-        if (portLogHandler != null)
-            baseLogger.removeHandler(portLogHandler);
-        if (fileLogHandler != null)
-            fileLogHandler.close();
+	if (baseLogger != null)
+	    baseLogger.removeHandler(fileLogHandler);
+	if (portLogHandler != null)
+	    baseLogger.removeHandler(portLogHandler);
+	if (fileLogHandler != null)
+	    fileLogHandler.close();
     }
 
 	static boolean useJdkLogger() {
@@ -315,28 +315,28 @@ public class LogFactory {
 		return (SIMPLE_LOGGER  == logger);
 	}
 
-    public static void log(String message, Exception e) {
-        System.err.println(message);
-        if (e != null)
-            e.printStackTrace(System.err);
-    }
+	public static void log(String message, Exception e) {
+		System.err.println(message);
+		if (e != null)
+			e.printStackTrace(System.err);
+	}
 
-    /**
-     * Replaces all Variables ${key} with the corresponding system property
-     */
-    protected static String expandSystemProperties(String string) {
-        int startPos = string.indexOf("${");
-        if (startPos == -1)
-            return string;
+	/**
+	 * Replaces all Variables ${key} with the corresponding system property
+	 */
+	protected static String expandSystemProperties(String string) {
+		int startPos = string.indexOf("${");
+		if (startPos == -1)
+			return string;
 
-        StringBuffer sb = new StringBuffer(string);
-        while (-1 != startPos) {
-            int endPos = sb.indexOf("}", startPos);
-            String propertyName = sb.substring(startPos+2, endPos);
-            if (System.getProperty(propertyName) != null)
-                sb.replace(startPos, endPos+1, System.getProperty(propertyName));
-            startPos = sb.indexOf("${", endPos);
-        }
-        return sb.toString();
-    }
+		StringBuffer sb = new StringBuffer(string);
+		while (-1 != startPos) {
+			int endPos = sb.indexOf("}", startPos);
+			String propertyName = sb.substring(startPos+2, endPos);
+			if (System.getProperty(propertyName) != null)
+				sb.replace(startPos, endPos+1, System.getProperty(propertyName));
+			startPos = sb.indexOf("${", endPos);
+		}
+		return sb.toString();
+	}
 }
