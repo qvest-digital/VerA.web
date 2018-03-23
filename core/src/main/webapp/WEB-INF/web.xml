@@ -38,7 +38,7 @@
 		<!-- systemweites Logging -->
 		<!-- init-param>
 			<param-name>paths.logfile</param-name>
-			<param-value>/var/log/tomcat7/veraweb.%u.log</param-value>
+			<param-value>/var/log/tomcat8/veraweb.%u.log</param-value>
 		</init-param -->
 		<!-- Logging parameter for OCTOPUS
 		     Allowed parameters are logging.level (see java.util.logging.Level),
