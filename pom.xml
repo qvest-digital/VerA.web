@@ -39,7 +39,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT
 	-->
-	<version>1.6.2verawebpl8-SNAPSHOT</version>
+	<version>1.6.5-SNAPSHOT</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,7 +87,7 @@
 						<manifestEntries>
 							<Implementation-Title>${project.artifactId}</Implementation-Title>
 							<version_description>${project.description}</version_description>
-							<version_copyright>Copyright (c) 2003-2017 tarent solutions GmbH</version_copyright>
+							<version_copyright>Copyright (c) 2003-2018 tarent and contributors</version_copyright>
 							<Implementation-Vendor>tarent solutions GmbH (www.tarent.de)</Implementation-Vendor>
 							<Implementation-Version>${project.version}</Implementation-Version>
 						</manifestEntries>
