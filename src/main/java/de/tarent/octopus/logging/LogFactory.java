@@ -55,7 +55,6 @@ import java.util.logging.*;
  * commons (apache commons default behavior), simple (apache commons simple logger)
  */
 public class LogFactory {
-
 	private static final String TARENT_LOGGING_PROPERTIES = "/tarent-logging.properties";
 
 	private static final String LOGGING_API = "logging.api";
