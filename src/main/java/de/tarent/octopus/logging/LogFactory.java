@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.*;
 
@@ -330,8 +331,11 @@ public class LogFactory {
 		return (SIMPLE_LOGGER == CHOSEN_LOGGER);
 	}
 
-	public static void log(String message, Exception e) {
-		System.err.println(message);
+	private static void log(String message, Exception e) {
+		final Date dat = new Date();
+
+		System.err.println(String.format("%1$tF %1$tT.%1$tL %4$7s (%2$s) [%3$s] %5$s",
+		    dat, "LogFactory", "OCTOPUS", "LOG", message));
 		if (e != null)
 			e.printStackTrace(System.err);
 	}
