@@ -23,13 +23,15 @@ package de.tarent.octopus.config;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * This interface return the absolute path for the given octopus
  * module, dependent of the surrounded container.
  */
-public interface TcModuleLookup {
+public interface TcModuleLookup extends Serializable {
 	public final static String PREF_NAME_REAL_PATH = "realPath";
 
 	public File getModulePath(String module);

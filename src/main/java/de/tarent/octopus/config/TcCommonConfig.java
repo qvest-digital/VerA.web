@@ -81,7 +81,7 @@ public class TcCommonConfig {
 	/**
 	 * Der Logger
 	 */
-	private static Log logger = LogFactory.getLog(TcCommonConfig.class);
+	private static final Log logger = LogFactory.getLog(TcCommonConfig.class);
 
 	/**
 	 * Die Daten aus der Haupt Konfigurationsdatei

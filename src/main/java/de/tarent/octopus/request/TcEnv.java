@@ -23,35 +23,30 @@ package de.tarent.octopus.request;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+import de.tarent.octopus.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.prefs.BackingStoreException;
-
-import org.apache.commons.logging.Log;
-
-import de.tarent.octopus.logging.LogFactory;
 
 /**
  * Ein key=value Container für Einstellungswerte.
  *
- * Die Keys sollten ein Prefix besitzen, das bezeichet, für welches Modul oder Package diese Einstellungen relevant sind.
- * <br>z.B. "tcResponse.templatePath"
- * <br><br>
+ * Die Keys sollten ein Prefix besitzen, das bezeichet, für welches Modul oder Package
+ * diese Einstellungen relevant sind, z.B. "tcResponse.templatePath"
+ *
  * Wenn eine Einstellung für mehrere Module ist, soll das prefix "global" benutzt werden
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcEnv extends HashMap {
-	//
-    // private statische Variablen
-    //
-    /** Logger für diese Klasse */
-    private static Log logger = LogFactory.getLog(TcEnv.class);
-    /**
-	 * serialVersionUID = -3477717156564940686L
+	private static final long serialVersionUID = 1608152979959890490L;
+
+	/**
+	 * Logger für diese Klasse
 	 */
-	private static final long serialVersionUID = -3477717156564940686L;
+	private static Log logger = LogFactory.getLog(TcEnv.class);
 
 	public TcEnv() {
 
