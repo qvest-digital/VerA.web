@@ -38,7 +38,6 @@ import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.logging.Log;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -50,7 +49,8 @@ import java.util.List;
  *
  * @author mikel
  */
-public class Octopus implements Serializable {
+public class Octopus /*implements Serializable*/ {
+	//XXX TODO: TcModuleLookup is not serialisable
 	private static final long serialVersionUID = 8501961300295813799L;
 
 	/*

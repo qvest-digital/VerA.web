@@ -47,7 +47,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXParseException;
 
 import java.io.File;
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -65,7 +64,8 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-public class TcCommonConfig implements Serializable {
+public class TcCommonConfig /*implements Serializable*/ {
+	//XXX TODO: TcModuleLookup is not serialisable
 	private static final long serialVersionUID = -7304052591685293777L;
 
 	private static final Log logger = LogFactory.getLog(TcCommonConfig.class);
