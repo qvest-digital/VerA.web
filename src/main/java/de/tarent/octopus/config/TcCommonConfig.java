@@ -47,6 +47,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXParseException;
 
 import java.io.File;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -64,7 +65,11 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-public class TcCommonConfig {
+public class TcCommonConfig implements Serializable {
+	private static final long serialVersionUID = -2210694758595033602L;
+
+	private static final Log logger = LogFactory.getLog(TcCommonConfig.class);
+
 	/**
 	 * Autorisierungstyp: beliebiges Akzeptieren
 	 */
@@ -77,11 +82,6 @@ public class TcCommonConfig {
 	 * Autorisierungstyp: gegen XML-Datei prüfen
 	 */
 	public static final String AUTH_TYPE_XML = "XML";
-
-	/**
-	 * Der Logger
-	 */
-	private static final Log logger = LogFactory.getLog(TcCommonConfig.class);
 
 	/**
 	 * Die Daten aus der Haupt Konfigurationsdatei
@@ -105,12 +105,12 @@ public class TcCommonConfig {
 	 * Die Konfigurationen der einzelnen Module,
 	 * mit ihren Namen (String) als Keys und TcModuleConfig Objekten als Values.
 	 */
-	private Map moduleConfigs;
+	private HashMap moduleConfigs;
 
 	/**
 	 * Map mit Einträgen der LoginManager-Konfiguration
 	 */
-	private Map configLoginManager = new HashMap();
+	private HashMap configLoginManager = new HashMap();
 
 	/**
 	 * Die ModuleConfig, die benutzt wird, wenn nichts anderes angegeben ist.
