@@ -109,7 +109,7 @@ public class LogFactory {
 				else if (LOGGING_API_SIMPLE.equals(value))
 					CHOSEN_LOGGER = SIMPLE_LOGGER;
 			} catch (IOException e) {
-				log("FATAL: Error while reading logging configuration from resource: " +
+				log("FATAL", "Error while reading logging configuration from resource: " +
 				    TARENT_LOGGING_PROPERTIES, e);
 			}
 		}
@@ -129,7 +129,7 @@ public class LogFactory {
 		String rootPath = env.getValueAsString(TcEnv.KEY_PATHS_ROOT);
 		File f = new File(rootPath, "log4j_properties.xml");
 		if (!f.exists())
-			log("WARNING: log4j configuration file '" + f.getAbsolutePath() + "' does not exist", null);
+			log("WARNING", "log4j configuration file '" + f.getAbsolutePath() + "' does not exist", null);
 		else
 			DOMConfigurator.configure(f.getAbsolutePath());
 	}
@@ -174,7 +174,7 @@ public class LogFactory {
 					pattern = new File(new File(rootPath, logPath), pattern).getAbsolutePath();
 			}
 		}
-		log(Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING_TO", pattern), null);
+		log("NOTICE", Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING_TO", pattern), null);
 
 		// get maximum size of logging file
 		int loggingLimit = 4 * 1024 * 1024; // default 4 MiB
@@ -186,7 +186,7 @@ public class LogFactory {
 				loggingLimit = Integer.parseInt(param.trim());
 			}
 		} catch (NumberFormatException e) {
-			log(Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "4 MiB"), e);
+			log("ERROR", Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "4 MiB"), e);
 		}
 
 		// get maximum logfile count
@@ -199,7 +199,7 @@ public class LogFactory {
 				loggingCount = Integer.parseInt(param.trim());
 			}
 		} catch (NumberFormatException e) {
-			log(Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "10"), e);
+			log("ERROR", Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "10"), e);
 		}
 
 		// initialise FileHandle
@@ -216,7 +216,7 @@ public class LogFactory {
 				loggingPort = Integer.decode(param);
 			}
 		} catch (NumberFormatException e) {
-			log("Fehler beim Parsen des Log-Ports; benutze Default-Wert", e);
+			log("ERROR", "Fehler beim Parsen des Log-Ports; benutze Default-Wert", e);
 			loggingPort = 0;
 		}
 		if (loggingPort >= 0) {
@@ -227,7 +227,7 @@ public class LogFactory {
 				    new SocketHandler("aeon", loggingPort);
 				baseLogger.addHandler(portLogHandler);
 			} catch (Exception e) {
-				log("Konnte SocketHandler nicht initialisieren", e);
+				log("ERROR", "Konnte SocketHandler nicht initialisieren", e);
 			}
 		}
 
@@ -331,11 +331,11 @@ public class LogFactory {
 		return (SIMPLE_LOGGER == CHOSEN_LOGGER);
 	}
 
-	private static void log(String message, Exception e) {
+	private static void log(String level, String message, Exception e) {
 		final Date dat = new Date();
 
 		System.err.println(String.format("%1$tF %1$tT.%1$tL %4$7s (%2$s) [%3$s] %5$s",
-		    dat, "LogFactory", "OCTOPUS", "LOG", message));
+		    dat, "LogFactory", "OCTOPUS", level, message));
 		if (e != null)
 			e.printStackTrace(System.err);
 	}
