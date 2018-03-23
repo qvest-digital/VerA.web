@@ -691,7 +691,7 @@ public class TcModuleConfig {
 	private void appendClasses(Set urlSet, File classesDir) {
 		if (classesDir.exists()) {
 			try {
-				urlSet.add(classesDir.toURL());
+				urlSet.add(classesDir.toURI().toURL());
 			} catch (MalformedURLException e) {
 				logger.warn("Fehler beim Wandeln des Modul-classes-Pfads '" +
 				    classesDir + "' in eine URL.");
@@ -706,7 +706,7 @@ public class TcModuleConfig {
 				for (int i = 0; i < libs.length; i++)
 					try {
 						if (libs[i].getName().endsWith(".jar"))
-							urlSet.add(libs[i].toURL());
+							urlSet.add(libs[i].toURI().toURL());
 					} catch (MalformedURLException e) {
 						logger.warn("Fehler beim Wandeln des Modul-lib-Pfads '" + libs[i] +
 						    "' in eine URL.");
