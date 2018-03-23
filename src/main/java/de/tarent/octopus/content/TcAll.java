@@ -63,7 +63,7 @@ public class TcAll implements OctopusContext {
 		this.request.setRequestParameters(requestmap);
 		this.request.setRequestType(requesttype);
 		this.content = new TcContent();
-		this.config = new TcConfig_Clone();
+		this.config = new TcConfigClone();
 	}
 
 	public Object getContextField(String fieldName) {
@@ -293,10 +293,10 @@ public class TcAll implements OctopusContext {
 		content.setError(message);
 	}
 
-	private class TcConfig_Clone extends TcConfig {
+	private class TcConfigClone extends TcConfig {
 		Map session = new HashMap();
 
-		TcConfig_Clone() {
+		TcConfigClone() {
 			super(null, null, null);
 		}
 
