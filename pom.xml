@@ -825,7 +825,7 @@
 			<dependency>
 				<groupId>de.tarent.octopus</groupId>
 				<artifactId>octopus-core</artifactId>
-				<version>1.6.2verawebpl7</version>
+				<version>1.6.5</version>
 				<exclusions>
 					<exclusion>
 						<groupId>log4j</groupId>
