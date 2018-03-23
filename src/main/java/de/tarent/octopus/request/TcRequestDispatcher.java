@@ -39,7 +39,6 @@ import de.tarent.octopus.soap.TcSOAPException;
 import de.tarent.octopus.util.Threads;
 import org.apache.commons.logging.Log;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -54,7 +53,8 @@ import java.util.Map;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @author Michael Klink, tarent GmbH
  */
-public class TcRequestDispatcher implements Serializable {
+public class TcRequestDispatcher /*implements Serializable*/ {
+	//XXX TODO: TcCommonConfig is not serialisable
 	private static final long serialVersionUID = -777103062849130446L;
 	private static final Log logger = LogFactory.getLog(TcRequestDispatcher.class);
 
