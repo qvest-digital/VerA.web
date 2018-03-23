@@ -98,6 +98,10 @@
 		<load-on-startup>20</load-on-startup>
 	</servlet>
 	<servlet>
+		<servlet-name>AddTrailingSlash</servlet-name>
+		<servlet-class>de.tarent.veraweb.proxy.AddTrailingSlashServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>Docs</servlet-name>
 		<servlet-class>de.tarent.veraweb.proxy.ProxyServlet</servlet-class>
 		<init-param>
@@ -172,6 +176,10 @@
 	<servlet-mapping>
 		<servlet-name>Forwarder</servlet-name>
 		<url-pattern>/do/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddTrailingSlash</servlet-name>
+		<url-pattern>/doc</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Docs</servlet-name>
