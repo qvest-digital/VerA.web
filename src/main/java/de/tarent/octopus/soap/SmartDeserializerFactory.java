@@ -23,30 +23,32 @@ package de.tarent.octopus.soap;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-import java.util.*;
-import org.apache.axis.encoding.DeserializerFactory;
-import javax.xml.rpc.encoding.Deserializer;
+
 import org.apache.axis.Constants;
+import org.apache.axis.encoding.DeserializerFactory;
+
+import javax.xml.rpc.encoding.Deserializer;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Simple Serializer Factory
  */
 public class SmartDeserializerFactory implements DeserializerFactory {
+	private static final long serialVersionUID = 836471028156815505L;
 
-    /** serialVersionUID */
-	private static final long serialVersionUID = -5887479778012020482L;
-	List mechanisms;
+	ArrayList mechanisms;
 
-    public SmartDeserializerFactory() {
-        mechanisms = new ArrayList(1);
-        mechanisms.add(Constants.AXIS_SAX);
-    }
+	public SmartDeserializerFactory() {
+		mechanisms = new ArrayList(1);
+		mechanisms.add(Constants.AXIS_SAX);
+	}
 
-    public Deserializer getDeserializerAs(java.lang.String mechanismType) {
-        return new SmartDeserializer();
-    }
+	public Deserializer getDeserializerAs(java.lang.String mechanismType) {
+		return new SmartDeserializer();
+	}
 
-    public Iterator getSupportedMechanismTypes() {
-        return mechanisms.iterator();
-    }
+	public Iterator getSupportedMechanismTypes() {
+		return mechanisms.iterator();
+	}
 }
