@@ -61,7 +61,7 @@ import java.util.*;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcModuleConfig implements Serializable {
-	private static final long serialVersionUID = -7292886011030570627L;
+	private static final long serialVersionUID = -1093607087679735966L;
 
 	private static final Log logger = LogFactory.getLog(TcModuleConfig.class);
 
@@ -87,7 +87,7 @@ public class TcModuleConfig implements Serializable {
 	protected String description = "";
 	private transient ClassLoader classLoader = null;
 	protected LoginManager loginManager = null;
-	protected Constructor personalConfigConstructor = null;
+	private transient Constructor personalConfigConstructor = null;
 
 	/*
 	 * Config Parameter
