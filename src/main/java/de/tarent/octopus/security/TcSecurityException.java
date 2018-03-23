@@ -23,49 +23,43 @@ package de.tarent.octopus.security;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 import de.tarent.octopus.resource.Resources;
+
 import javax.xml.namespace.QName;
 
 /**
- * Kapselt Fehlermeldungen, die auftreten, wenn ein User etwas ausführt, wofür er nicht autorisiert ist. <br>
- * Wird auch benutzt, wenn ein User versucht sich mit falscher Benutzername/Password kombination ein zu loggen.
+ * Kapselt Fehlermeldungen, die auftreten, wenn ein User etwas ausführt, wofür er nicht autorisiert ist.
+ * Wird auch benutzt, wenn ein User versucht sich mit falscher Benutzername/Paßword-Kombination einzuloggen.
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke </a>, <b>tarent GmbH </b>
  */
 public class TcSecurityException extends Exception {
-	/**
-	 * serialVersionUID = 5948930966578170159L
-	 */
 	private static final long serialVersionUID = 5948930966578170159L;
 
-	public static final int		ERROR_NO_VALID_SESSION		= 1;
+	public static final int ERROR_NO_VALID_SESSION = 1;
+	public static final int ERROR_AUTH_ERROR = 2;
+	public static final int ERROR_WRONG_GROUP_FOR_TASK = 3;
+	public static final int ERROR_INCOMPLETE_USER_DATA = 4;
+	public static final int ERROR_SERVER_AUTH_ERROR = 5;
+	public static final int ERROR_SERVER_USERMANAGEMENT_ERROR = 6;
 
-	public static final int		ERROR_AUTH_ERROR			= 2;
+	public static final String uri = "http://schemas.tarent.de/octopus";
 
-	public static final int		ERROR_WRONG_GROUP_FOR_TASK	= 3;
+	public static final QName[] soapFaultCodes = {
+	    new QName(uri, "Client.authentication.unknownError"),
+	    new QName(uri, "Client.authentication.needLogin"),
+	    new QName(uri, "Client.authentication.authenticationFailed"),
+	    new QName(uri, "Client.authentication.notEnoughRights"),
+	    new QName(uri, "Client.authentication.incompleteUserData"),
+	    new QName(uri, "Server.authentication.serviceFailed")
+	};
 
-	public static final int		ERROR_INCOMPLETE_USER_DATA	= 4;
+	int errorCode = 0;
 
-	public static final int		ERROR_SERVER_AUTH_ERROR		= 5;
+	String message;
 
-	public static final int		ERROR_SERVER_USERMANAGEMENT_ERROR = 6;
-
-	public static final String	uri							= "http://schemas.tarent.de/octopus";
-
-	public static final QName[]	soapFaultCodes				= {
-        new QName(uri, "Client.authentication.unknownError"),
-        new QName(uri, "Client.authentication.needLogin"),
-        new QName(uri, "Client.authentication.authenticationFailed"),
-        new QName(uri, "Client.authentication.notEnoughRights"),
-        new QName(uri, "Client.authentication.incompleteUserData"),
-        new QName(uri, "Server.authentication.serviceFailed")
-    };
-
-	int							errorCode					= 0;
-
-	String						message;
-
-	String						detailMessage;
+	String detailMessage;
 
 	public TcSecurityException(int errorCode) {
 		super();
@@ -133,8 +127,7 @@ public class TcSecurityException extends Exception {
 	}
 
 	/**
-	 * @param detailMessage
-	 *            The detailMessage to set.
+	 * @param detailMessage The detailMessage to set.
 	 */
 	public void setDetailMessage(String detailMessage) {
 		this.detailMessage = detailMessage;
