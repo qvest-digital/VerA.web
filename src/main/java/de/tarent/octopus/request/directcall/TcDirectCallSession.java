@@ -26,6 +26,7 @@ package de.tarent.octopus.request.directcall;
 
 import de.tarent.octopus.request.TcSession;
 
+import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -56,7 +57,7 @@ public class TcDirectCallSession implements TcSession {
 		attributes.remove(name);
 	}
 
-	public void setAttribute(String name, Object value) {
+	public void setAttribute(String name, Serializable value) {
 		attributes.put(name, value);
 	}
 
