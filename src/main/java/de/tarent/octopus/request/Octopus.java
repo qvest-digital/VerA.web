@@ -136,7 +136,7 @@ public class Octopus implements Serializable {
 	 * damit Cleanup-Tasks abgearbeitet werden.
 	 */
 	public void deInit()
-	throws
+	    throws
 	    ClassCastException,
 	    TcTaskProzessingException,
 	    TcContentProzessException,
@@ -153,7 +153,7 @@ public class Octopus implements Serializable {
 	 * Diese Methode führt einen Request aus.
 	 */
 	public void dispatch(TcRequest tcRequest, TcResponse tcResponse, TcSession theSession)
-	throws ResponseProcessingException {
+	    throws ResponseProcessingException {
 		logger.trace(getClass().getName() + " dispatch " + new Object[] { tcRequest, tcResponse, theSession });
 		dispatcher.dispatch(tcRequest, tcResponse, theSession);
 		logger.trace(getClass().getName() + " dispatch");
@@ -183,7 +183,7 @@ public class Octopus implements Serializable {
 	}
 
 	private void callTask(String modulename, TcCommonConfig config, String taskname)
-	throws TcContentProzessException, TcTaskProzessingException, TcConfigException {
+	    throws TcContentProzessException, TcTaskProzessingException, TcConfigException {
 		TcRequest tcRequest = new TcRequest(TcRequest.createRequestID());
 		tcRequest.setRequestParameters(new HashMap());
 		tcRequest.setModule(modulename);
@@ -213,7 +213,7 @@ public class Octopus implements Serializable {
 	 * @param commonConfig die Config
 	 */
 	public void doAutostart(String modulename, TcCommonConfig commonConfig)
-	throws
+	    throws
 	    TcTaskProzessingException,
 	    TcContentProzessException,
 	    TcConfigException {
@@ -227,7 +227,7 @@ public class Octopus implements Serializable {
 	}
 
 	protected void cleanupModules(TcRequestDispatcher dispatcher)
-	throws
+	    throws
 	    ClassCastException,
 	    TcTaskProzessingException,
 	    TcContentProzessException,
@@ -246,7 +246,7 @@ public class Octopus implements Serializable {
 	 * @param commonConfig
 	 */
 	public void doCleanup(String modulename, TcCommonConfig commonConfig)
-	throws
+	    throws
 	    TcTaskProzessingException,
 	    ClassCastException,
 	    TcContentProzessException,
