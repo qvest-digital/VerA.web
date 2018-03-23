@@ -76,6 +76,8 @@ import java.io.PrintWriter;
  * @author mirabilos (t.glaser@tarent.de)
  */
 public class AddTrailingSlashServlet extends HttpServlet {
+    private static final long serialVersionUID = 4780970710684579625L;
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         final String tgt = req.getRequestURI() + "/";
