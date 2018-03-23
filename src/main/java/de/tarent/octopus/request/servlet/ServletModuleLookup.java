@@ -39,9 +39,6 @@ import java.util.Map;
  * Diese Klasse liefert dem Octopus notwendige Daten.
  */
 class ServletModuleLookup implements TcModuleLookup {
-	//XXX TODO: ServletContext not serialisable
-	private static final long serialVersionUID = -5665955961634938117L;
-
 	private static final Log logger = LogFactory.getLog(ServletModuleLookup.class);
 
 	/**
