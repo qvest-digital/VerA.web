@@ -61,6 +61,7 @@ package de.tarent.veraweb.proxy;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.octopus.server.PersonalConfig;
 import org.apache.http.HttpEntityEnclosingRequest;
@@ -168,15 +169,16 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
     }
 
     protected boolean hasGroup(final HttpSession session, final String requiredGroup) {
-	if (requiredGroup.equals("ANY"))
-		return true;
+        if (requiredGroup.equals("ANY")) {
+            return true;
+        }
 
         final PersonalConfig pc = (PersonalConfig) session.getAttribute(PERSONAL_CONFIG_VERAWEB);
         if (pc != null) {
             final String[] requiredGroups = requiredGroup.split(",");
             final String[] userGroups = pc.getUserGroups();
             for (final String group : userGroups) {
-                for(final String reqGroup : requiredGroups){
+                for (final String reqGroup : requiredGroups) {
                     if (group.equalsIgnoreCase(reqGroup)) {
                         return true;
                     }
