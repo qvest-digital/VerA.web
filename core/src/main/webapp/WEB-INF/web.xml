@@ -64,7 +64,7 @@
 		<!-- path is relativ to '/WEB-INF/' directory and must terminate with a '/' -->
 		<init-param>
 			<param-name>paths.logPath</param-name>
-			<param-value>log</param-value>
+			<param-value>log/</param-value>
 		</init-param>
 		<!-- response error level "development" or "release" -->
 		<init-param>
