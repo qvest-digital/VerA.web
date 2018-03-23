@@ -33,6 +33,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import javax.xml.namespace.QName;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ import java.util.Map;
 public class SmartDeserializer extends DeserializerImpl {
 	private static final long serialVersionUID = 7492736949191767385L;
 
-	Object containerObject = null;
+	Serializable containerObject = null;
 
 	int childIndex;
 
@@ -85,8 +86,11 @@ public class SmartDeserializer extends DeserializerImpl {
 		Class clazz = context.getTypeMapping().getClassForQName(type);
 		if (clazz == null)
 			throw new SAXException("no java type configured for '" + type + "'");
+		if (!Serializable.class.isAssignableFrom(clazz))
+			throw new SAXException("configured java type '" +
+			    clazz.getName() + "' for '" + type + "' not serialisable");
 		try {
-			value = containerObject = clazz.newInstance();
+			value = containerObject = (Serializable)clazz.newInstance();
 		} catch (InstantiationException ie) {
 			throw new SAXException(ie);
 		} catch (IllegalAccessException iae) {

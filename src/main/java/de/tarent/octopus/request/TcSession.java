@@ -24,6 +24,7 @@ package de.tarent.octopus.request;
  * THE SOFTWARE.
  */
 
+import java.io.Serializable;
 import java.util.Enumeration;
 
 /**
@@ -51,7 +52,7 @@ public interface TcSession {
 
 	public void removeAttribute(java.lang.String name);
 
-	public void setAttribute(String name, Object value);
+	public void setAttribute(String name, Serializable value);
 
 	public void setMaxInactiveInterval(int interval);
 }

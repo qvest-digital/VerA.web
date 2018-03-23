@@ -27,6 +27,7 @@ package de.tarent.octopus.request.servlet;
 import de.tarent.octopus.request.TcSession;
 
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 import java.util.Enumeration;
 
 /**
@@ -84,7 +85,7 @@ public class TcServletSession implements TcSession {
 		session.removeAttribute(name);
 	}
 
-	public void setAttribute(String name, Object value) {
+	public void setAttribute(String name, Serializable value) {
 		session.setAttribute(name, value);
 	}
 
