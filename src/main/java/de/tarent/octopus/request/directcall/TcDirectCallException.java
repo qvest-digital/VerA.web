@@ -1,3 +1,4 @@
+package de.tarent.octopus.request.directcall;
 
 /*-
  * tarent-octopus, Webservice Data Integrator and Application Server
@@ -22,7 +23,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.tarent.octopus.request.directcall;
 
 import de.tarent.octopus.util.RootCauseException;
 
@@ -34,26 +34,23 @@ import de.tarent.octopus.util.RootCauseException;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcDirectCallException extends Exception implements RootCauseException {
-    /**
-	 * serialVersionUID = -6041356605333756206L
-	 */
-	private static final long serialVersionUID = -6041356605333756206L;
+	private static final long serialVersionUID = -1238002490264696356L;
 
 	/**
-     * Expection, die der eigentliche Grund ist.
-     */
-    Throwable rootCause;
+	 * Expection, die der eigentliche Grund ist.
+	 */
+	Throwable rootCause;
 
-    public TcDirectCallException(String message) {
-        super(message);
-    }
+	public TcDirectCallException(String message) {
+		super(message);
+	}
 
-    public TcDirectCallException(String message, Throwable rootCause) {
-        super(message,rootCause);
-        this.rootCause = rootCause;
-    }
+	public TcDirectCallException(String message, Throwable rootCause) {
+		super(message, rootCause);
+		this.rootCause = rootCause;
+	}
 
-    public Throwable getRootCause() {
-        return rootCause;
-    }
+	public Throwable getRootCause() {
+		return rootCause;
+	}
 }

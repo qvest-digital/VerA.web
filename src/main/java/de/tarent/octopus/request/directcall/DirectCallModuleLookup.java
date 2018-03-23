@@ -1,3 +1,4 @@
+package de.tarent.octopus.request.directcall;
 
 /*-
  * tarent-octopus, Webservice Data Integrator and Application Server
@@ -22,18 +23,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.tarent.octopus.request.directcall;
-
-import java.io.File;
 
 import de.tarent.octopus.config.TcModuleLookup;
 import de.tarent.octopus.request.TcEnv;
+
+import java.io.File;
 
 /**
  * Diese Klasse liefert dem Octopus notwendige Daten.
  */
 class DirectCallModuleLookup implements TcModuleLookup {
-	/** DirectCallModuleLookup */
+	/**
+	 * DirectCallModuleLookup
+	 */
 	private final OctopusDirectCallStarter octopusDirectCallStarter;
 
 	/**
@@ -45,7 +47,7 @@ class DirectCallModuleLookup implements TcModuleLookup {
 
 	public File getModulePath(String module) {
 		String realPath = octopusDirectCallStarter.getEnv().getValue(
-				TcEnv.KEY_PATHS_ROOT) + "modules/" + module + "/";
+		    TcEnv.KEY_PATHS_ROOT) + "modules/" + module + "/";
 
 		if (realPath != null && realPath.length() != 0) {
 			if (new File(realPath).exists())
