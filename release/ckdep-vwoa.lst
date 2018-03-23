@@ -100,8 +100,4 @@ org.jboss:jandex 2.0.3.Final ok
 org.osiam:connector4java 1.7 ok
 org.osiam:scim-schema 1.5 ok
 org.projectlombok:lombok 1.14.4 ok
-org.slf4j:jcl-over-slf4j 1.7.12 ok
-org.slf4j:jul-to-slf4j 1.7.12 ok
-org.slf4j:log4j-over-slf4j 1.7.12 ok
-org.slf4j:slf4j-api 1.7.12 ok
 org.yaml:snakeyaml 1.15 ok
