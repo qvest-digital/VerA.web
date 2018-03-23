@@ -74,7 +74,6 @@ import javax.ws.rs.core.MediaType;
 public class InfoResource extends AbstractResource{
 
     @GET
-    @Path("/")
     public String getInfo() {
         return getClass().getPackage().getImplementationVersion();
     }

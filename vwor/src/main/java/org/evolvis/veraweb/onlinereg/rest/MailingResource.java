@@ -100,7 +100,6 @@ public class MailingResource extends FormDataResource {
     private EmailConfiguration emailConfiguration;
 
     @POST
-    @Path("/")
     @Consumes({MediaType.MULTIPART_FORM_DATA})
     public Response uploadFile(final FormDataMultiPart formData) {
         final String subject = formData.getField(PARAM_MAIL_SUBJECT).getEntityAs(String.class);

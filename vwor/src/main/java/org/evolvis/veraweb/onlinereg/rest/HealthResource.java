@@ -75,7 +75,6 @@ import javax.ws.rs.Path;
 public class HealthResource extends AbstractResource {
 
     @GET
-    @Path("/")
     public  String health() {
         Session session = openSession();
         try {

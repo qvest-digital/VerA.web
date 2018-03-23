@@ -100,7 +100,6 @@ public class PersonResource extends AbstractResource {
      * @return The created person.
      */
     @POST
-    @Path("/")
     public Person createPerson(@FormParam(PARAM_USERNAME) String username,
                                                    @FormParam("firstname") String firstName,
                                @FormParam("lastname") String lastname,

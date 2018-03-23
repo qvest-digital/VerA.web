@@ -89,7 +89,6 @@ public class EventResource extends AbstractResource {
      *
      * @return List of events
      */
-    @Path("/")
     @GET
     public List<Event> listEvents() {
         final Session session = openSession();

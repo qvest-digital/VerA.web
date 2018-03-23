@@ -80,7 +80,6 @@ import javax.ws.rs.core.Response;
 public class MailTemplateResource extends AbstractResource {
 
     @GET
-    @Path("/")
     public Response getMailTemplate(@QueryParam("templateId") Integer templateId, @QueryParam("mandantId") Integer mandantId) {
         if(templateId == null || mandantId == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
