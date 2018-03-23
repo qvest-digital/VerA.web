@@ -23,6 +23,7 @@ package de.tarent.octopus.request;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 import java.util.Enumeration;
 
 /**
@@ -32,26 +33,25 @@ import java.util.Enumeration;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public interface TcSession {
+	public Object getAttribute(String name);
 
-    public Object getAttribute(String name);
+	public Enumeration getAttributeNames();
 
-    public Enumeration getAttributeNames();
+	public long getCreationTime();
 
-    public long getCreationTime();
+	public String getId();
 
-    public String getId();
+	public long getLastAccessedTime();
 
-    public long getLastAccessedTime();
+	public int getMaxInactiveInterval();
 
-    public int getMaxInactiveInterval();
+	public void invalidate();
 
-    public void invalidate();
+	public boolean isNew();
 
-    public boolean isNew();
+	public void removeAttribute(java.lang.String name);
 
-    public void removeAttribute(java.lang.String name);
+	public void setAttribute(String name, Object value);
 
-    public void setAttribute(String name, Object value);
-
-    public void setMaxInactiveInterval(int interval);
+	public void setMaxInactiveInterval(int interval);
 }
