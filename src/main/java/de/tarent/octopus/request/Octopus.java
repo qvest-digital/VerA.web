@@ -40,6 +40,7 @@ import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.logging.Log;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -48,7 +49,9 @@ import java.util.*;
  *
  * @author mikel
  */
-public class Octopus {
+public class Octopus implements Serializable {
+	private static final long serialVersionUID = 8501961300295813799L;
+
 	/*
 	 * geschützte Member-Variablen
 	 */
