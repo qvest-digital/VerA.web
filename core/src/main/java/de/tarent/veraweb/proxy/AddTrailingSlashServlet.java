@@ -62,6 +62,8 @@ package de.tarent.veraweb.proxy;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,7 +78,22 @@ import java.io.PrintWriter;
 public class AddTrailingSlashServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        PrintWriter out = resp.getWriter();
-        out.println("Hi");
+        final String tgt = req.getRequestURI() + "/";
+        final String tgtHTML = StringUtils.replaceEach(tgt,
+                /* only those four! cf. https://stackoverflow.com/a/2083770/2171120 */
+                new String[] { "&", "\"", "<", ">" },
+                new String[] { "&amp;", "&quot;", "&lt;", "&gt;" });
+
+        resp.setStatus(301);
+        resp.setContentType("text/html");
+        resp.setHeader("Location", tgt);
+        resp.setHeader("Refresh", "0; url=" + tgt);
+
+        final PrintWriter out = resp.getWriter();
+        out.println("<html><head><title>VerA.web redirection</title></head><body>");
+        out.println("<h1>Redirect</h1>");
+        out.println("<p>Please go <a href=\"" + tgtHTML + "\">here</a>.</p>");
+        out.println("</body></html>");
+        out.close();
     }
 }
