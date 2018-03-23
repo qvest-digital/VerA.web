@@ -189,11 +189,6 @@ public class TcPersonalConfig implements PersonalConfig {
      * @param group Bezeichner der Gruppe, auf die getestet wird
      */
     public boolean isUserInGroup(String group) {
-//         System.out.println("isUserInGoup "+group+" ?");
-//         System.out.print("groups:  ");
-//         for (int i = 0; i < globalGroups.length; i++)
-//             System.out.println(globalGroups[i]+" " );
-//         System.out.println();
 	return arrayContains(globalGroups, group);
     }
 

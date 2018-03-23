@@ -75,9 +75,6 @@ public class OctopusRemoteResult implements OctopusResult {
     }
 
     public void addData(String key, Object dataObject) {
-
-        //System.out.println("ADD: "+ key +"=>" +dataObject);
-
         dataMap.put(key, dataObject);
         dataKeys.add(key);
     }

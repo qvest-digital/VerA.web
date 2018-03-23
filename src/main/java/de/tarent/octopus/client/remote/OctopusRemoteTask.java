@@ -141,7 +141,6 @@ public class OctopusRemoteTask implements OctopusTask {
 	throws OctopusCallException {
 
 	axisSoapCall.setTargetEndpointAddress(connection.getServiceURL());
-//         System.out.println("axis: "+axisSoapCall.getTargetEndpointAddress());
 
 	axisSoapCall.setOperationName(new QName("http://schemas.tarent.de/"
 						+ getModuleName(), getTaskName()));
@@ -194,7 +193,6 @@ public class OctopusRemoteTask implements OctopusTask {
 	}
 
 	Map returnParams = axisSoapCall.getOutputParams();
-	//System.out.println("returnParams: "+returnParams);
 	OctopusRemoteResult oResult = new OctopusRemoteResult();
 
 	for (Iterator iter = returnParams.keySet().iterator(); iter.hasNext();) {
