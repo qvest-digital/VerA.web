@@ -75,6 +75,8 @@ public class LogFactory {
 	private static FileHandler fileLogHandler = null;
 	private static SocketHandler portLogHandler = null;
 
+	private static final String ERROR = "ERROR";
+
 	static {
 		loadProperties();
 	}
@@ -185,7 +187,7 @@ public class LogFactory {
 				loggingLimit = Integer.parseInt(param.trim());
 			}
 		} catch (NumberFormatException e) {
-			log("ERROR", Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "4 MiB"), e);
+			log(ERROR, Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "4 MiB"), e);
 		}
 
 		// get maximum logfile count
@@ -198,7 +200,7 @@ public class LogFactory {
 				loggingCount = Integer.parseInt(param.trim());
 			}
 		} catch (NumberFormatException e) {
-			log("ERROR", Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "10"), e);
+			log(ERROR, Resources.getInstance().get("REQUESTPROXY_LOG_PARSEERROR_LIMIT", "10"), e);
 		}
 
 		// initialise FileHandle
@@ -215,7 +217,7 @@ public class LogFactory {
 				loggingPort = Integer.decode(param);
 			}
 		} catch (NumberFormatException e) {
-			log("ERROR", "Fehler beim Parsen des Log-Ports; benutze Default-Wert", e);
+			log(ERROR, "Fehler beim Parsen des Log-Ports; benutze Default-Wert", e);
 			loggingPort = 0;
 		}
 		if (loggingPort >= 0) {
@@ -226,7 +228,7 @@ public class LogFactory {
 				    new SocketHandler("aeon", loggingPort);
 				baseLogger.addHandler(portLogHandler);
 			} catch (Exception e) {
-				log("ERROR", "Konnte SocketHandler nicht initialisieren", e);
+				log(ERROR, "Konnte SocketHandler nicht initialisieren", e);
 			}
 		}
 
