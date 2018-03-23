@@ -121,5 +121,5 @@ public class SystemWorker implements TcContentWorker {
 	//
 	// Konstanten
 	//
-	final static String ACTION_RELOAD_MODULE = "reloadModule";
+	private static final String ACTION_RELOAD_MODULE = "reloadModule";
 }
