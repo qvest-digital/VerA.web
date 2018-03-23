@@ -88,7 +88,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
-    private static final long serialVersionUID = 6744389006703790750L;
+    private static final long serialVersionUID = -7334393942401621163L;
 
     private static final String PERSONAL_CONFIG_VERAWEB = "personalConfig-veraweb";
     private static final String VWOR_AUTH_PASSWORD = "vwor.auth.password";
@@ -169,7 +169,7 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
     }
 
     protected boolean hasGroup(final HttpSession session, final String requiredGroup) {
-        if (requiredGroup.equals("ANY")) {
+        if ("ANY".equals(requiredGroup)) {
             return true;
         }
 
