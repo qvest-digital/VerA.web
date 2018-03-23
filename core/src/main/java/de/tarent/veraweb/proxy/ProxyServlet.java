@@ -133,6 +133,7 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
     }
 
     @Override
+    @SuppressWarnings({ "deprecation" })
     protected HttpClient createHttpClient(final HttpParams hcParams) {
         final HttpRequestInterceptor itcp = (request, context) -> {
             if (request instanceof HttpEntityEnclosingRequest) {
