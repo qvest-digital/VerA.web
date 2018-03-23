@@ -66,6 +66,7 @@ import java.util.Map;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcCommonConfig implements Serializable {
+	//XXX TODO: LoginManager is not serialisable
 	private static final long serialVersionUID = -3195150294272736648L;
 
 	private static final Log logger = LogFactory.getLog(TcCommonConfig.class);
