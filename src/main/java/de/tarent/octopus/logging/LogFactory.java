@@ -333,8 +333,8 @@ public class LogFactory {
 	private static void log(String level, String message, Exception e) {
 		final Date dat = new Date();
 
-		System.err.println(String.format("%1$tF %1$tT.%1$tL %4$7s (%2$s) [%3$s] %5$s",
-		    dat, "LogFactory", "OCTOPUS", level, message));
+		System.err.println(String.format("%1$tF %1$tT.%1$tL %2$7s (LogFactory) [OCTOPUS] %3$s",
+		    dat, level, message));
 		if (e != null)
 			e.printStackTrace(System.err);
 	}
