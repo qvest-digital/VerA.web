@@ -23,10 +23,6 @@ package de.tarent.octopus.security;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-import java.net.PasswordAuthentication;
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.logging.LogFactory;
@@ -34,65 +30,70 @@ import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.ldap.TcSecurityLDAPManager;
 import de.tarent.octopus.server.PersonalConfig;
+import org.apache.commons.logging.Log;
+
+import java.net.PasswordAuthentication;
+import java.util.Map;
 
 /**
  * Implementierung eines LoginManagers, über LDAP
- * <br><br>
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
- *
  * @deprecated moved to LDAPLib, will be deleted as soon as 2005-06-01
  */
 public class LoginManagerLDAP extends AbstractLoginManager {
-	Log logger = LogFactory.getLog(this.getClass());
-    protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-	throws TcSecurityException {
-	logger.warn("Die Klasse " + this.getClass().getName() + " soll nicht mehr verwendet werden, sie wird nicht mehr gepflegt! Stattdessen muss das Jar LDAPLib.jar im Classpath liegen, dann kann die Klasse de.tarent.ldap.LoginManagerLDAP genutzt werden.");
-	// TODO:
-	// Eigentlich soll die Cofiguration
-	// dieses Loginmanagers aus der ModuleConfig kommen
-	//         TcSecurityLDAPManager tcslm =
-	//             new TcSecurityLDAPManager(
-	//                                       getConfigurationString(TcEnv.KEY_LDAP_URL),
-	//                                       getConfigurationString(TcEnv.KEY_LDAP_BASE_DN),
-	//                                       getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
+	private Log logger = LogFactory.getLog(this.getClass());
 
-	TcSecurityLDAPManager tcslm =
-	    new TcSecurityLDAPManager(
-				      commonConfig.getConfigData(TcEnv.KEY_LDAP_URL),
-				      commonConfig.getConfigData(TcEnv.KEY_LDAP_BASE_DN),
-				      commonConfig.getConfigData(TcEnv.KEY_LDAP_RELATIVE));
+	protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
+	    throws TcSecurityException {
+		logger.warn("Die Klasse " + this.getClass().getName() +
+		    " soll nicht mehr verwendet werden, sie wird nicht mehr gepflegt! Stattdessen muss das Jar LDAPLib.jar im Classpath liegen, dann kann die Klasse de.tarent.ldap.LoginManagerLDAP genutzt werden.");
+		// TODO:
+		// Eigentlich soll die Cofiguration
+		// dieses Loginmanagers aus der ModuleConfig kommen
+		//         TcSecurityLDAPManager tcslm =
+		//             new TcSecurityLDAPManager(
+		//                                       getConfigurationString(TcEnv.KEY_LDAP_URL),
+		//                                       getConfigurationString(TcEnv.KEY_LDAP_BASE_DN),
+		//                                       getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
 
-	PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
-	if (pwdAuth == null)
-	    throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
-	// TODO
-	// Eigentlich soll die Cofiguration
-	// dieses Loginmanagers aus der ModuleConfig kommen
-	//tcslm.login(userName, true, tcRequest.get(PARAM_PASSWORD), getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION));
-	tcslm.login(pwdAuth.getUserName(), true, new String(pwdAuth.getPassword()), commonConfig.getConfigData(TcEnv.KEY_LDAP_AUTHORIZATION));
-	if (!tcslm.checkuid(pwdAuth.getUserName())) {
-	    throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
+		TcSecurityLDAPManager tcslm =
+		    new TcSecurityLDAPManager(
+			commonConfig.getConfigData(TcEnv.KEY_LDAP_URL),
+			commonConfig.getConfigData(TcEnv.KEY_LDAP_BASE_DN),
+			commonConfig.getConfigData(TcEnv.KEY_LDAP_RELATIVE));
+
+		PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
+		if (pwdAuth == null)
+			throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
+		// TODO
+		// Eigentlich soll die Cofiguration
+		// dieses Loginmanagers aus der ModuleConfig kommen
+		//tcslm.login(userName, true, tcRequest.get(PARAM_PASSWORD), getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION));
+		tcslm.login(pwdAuth.getUserName(), true, new String(pwdAuth.getPassword()),
+		    commonConfig.getConfigData(TcEnv.KEY_LDAP_AUTHORIZATION));
+		if (!tcslm.checkuid(pwdAuth.getUserName())) {
+			throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
+		}
+		Map userdata = tcslm.getUserData(pwdAuth.getUserName());
+
+		pConfig.setUserLastName((String)userdata.get("nachname"));
+		pConfig.setUserGivenName((String)userdata.get("vorname"));
+		pConfig.setUserEmail((String)userdata.get("mail"));
+
+		// TODO: Erweiterung der LDAP Daten auf Groups
+		String adminflag = (String)userdata.get("adminflag");
+		if (adminflag == "TRUE")
+			pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_ADMINISTRATOR });
+		else
+			pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_USER });
+
+		pConfig.userLoggedIn(pwdAuth.getUserName());
 	}
-	Map userdata = tcslm.getUserData(pwdAuth.getUserName());
 
-	pConfig.setUserLastName((String) userdata.get("nachname"));
-	pConfig.setUserGivenName((String) userdata.get("vorname"));
-	pConfig.setUserEmail((String) userdata.get("mail"));
-
-	// TODO: Erweiterung der LDAP Daten auf Groups
-	String adminflag = (String) userdata.get("adminflag");
-	if(adminflag=="TRUE")
-	    pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_ADMINISTRATOR});
-	else
-	    pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER});
-
-	pConfig.userLoggedIn(pwdAuth.getUserName());
-    }
-
-    protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-	throws TcSecurityException {
-	pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
-	pConfig.userLoggedOut();
-    }
+	protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
+	    throws TcSecurityException {
+		pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
+		pConfig.userLoggedOut();
+	}
 }
