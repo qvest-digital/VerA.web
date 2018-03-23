@@ -53,7 +53,7 @@ de.tarent.dfg-commons:background-jobs 1.15 TODO
 de.tarent.extract:extract-tool 1.4 TODO
 de.tarent.libraries:tarent-commons 1.3.2.1 TODO
 de.tarent.libraries:tarent-database 1.5.4verawebpl3 TODO
-de.tarent.octopus:octopus-core 1.6.2verawebpl7 TODO
+de.tarent.octopus:octopus-core 1.6.5 TODO
 de.tarent.octopus:octopus-ext-annotation 1.90.4 TODO
 de.tarent.octopus:octopus-ext-beans 1.6.2verawebpl5 TODO
 de.tarent.octopus:octopus-ext-commons 1.90.4 TODO
@@ -100,7 +100,6 @@ javax.ws.rs:jsr311-api 1.1.1 TODO
 jfree:jcommon 1.0.15 TODO
 jfree:jfreechart 1.0.12 TODO
 joda-time:joda-time 2.9 TODO
-log4j:log4j 1.2.17 TODO
 net.jodah:expiringmap 0.5.7 TODO
 net.sourceforge.argparse4j:argparse4j 0.4.3 TODO
 npm::angular 1.6.9 TODO
@@ -176,6 +175,10 @@ org.osiam:connector4java 1.7 TODO
 org.osiam:scim-schema 1.5 TODO
 org.postgresql:postgresql 42.2.1 TODO
 org.projectlombok:lombok 1.14.4 TODO
+org.slf4j:jcl-over-slf4j 1.7.6 TODO
+org.slf4j:jul-to-slf4j 1.7.6 TODO
+org.slf4j:log4j-over-slf4j 1.7.6 TODO
+org.slf4j:slf4j-api 1.7.12 TODO
 org.springframework:spring-aop 4.2.6.RELEASE TODO
 org.springframework:spring-beans 4.2.6.RELEASE TODO
 org.springframework:spring-context 4.2.6.RELEASE TODO
