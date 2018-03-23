@@ -89,16 +89,16 @@ public class OctopusDirectCallStarter implements OctopusStarter {
 			starter.request(params);
 		} catch (TcDirectCallException re) {
 			Throwable rc = re.getRootCause();
-			System.out.println("Fehler während der Octopus-Anfragebearbeitung: " + rc);
+			System.err.println("Fehler während der Octopus-Anfragebearbeitung: " + rc);
 			rc.printStackTrace();
 		} catch (Exception e) {
-			System.out.println("Fehler während der Octopus-Anfragebearbeitung: " + e);
+			System.err.println("Fehler während der Octopus-Anfragebearbeitung: " + e);
 			e.printStackTrace();
 		}
 	}
 
 	protected static void dieError() {
-		System.out.println("Usage: octopusStarter [-Ppropname=value ..] [key value ..]");
+		System.err.println("Usage: octopusStarter [-Ppropname=value ..] [key value ..]");
 		System.exit(1);
 	}
 
