@@ -825,7 +825,7 @@
 			<dependency>
 				<groupId>de.tarent.octopus</groupId>
 				<artifactId>octopus-core</artifactId>
-				<version>1.6.5</version>
+				<version>1.6.6</version>
 				<exclusions>
 					<exclusion>
 						<groupId>log4j</groupId>
