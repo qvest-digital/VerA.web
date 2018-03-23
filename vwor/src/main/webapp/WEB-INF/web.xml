@@ -35,6 +35,10 @@
 			<param-name>listings</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<init-param>
+			<param-name>localXsltFile</param-name>
+			<param-value>.tomcat-dir.xslt</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DirectoryListing</servlet-name>
