@@ -34,10 +34,8 @@ import de.tarent.octopus.request.directcall.TcDirectCallResponse;
 import de.tarent.octopus.util.ConsistentMap;
 import org.apache.commons.logging.Log;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * View-Komponente, die die Ausgabe steuert.
@@ -68,9 +66,11 @@ import java.util.Map;
  * @see TcXsltResponseEngine
  * @see TcSimpleResponseEngine
  */
-public class TcResponseCreator {
+public class TcResponseCreator implements Serializable {
+	private static final long serialVersionUID = -7351394970690540789L;
+
 	private static final Log logger = LogFactory.getLog(TcResponseCreator.class);
-	private Map responseEngines;
+	private HashMap responseEngines;
 
 	/**
 	 * Initialisierung mit Logger
@@ -81,7 +81,7 @@ public class TcResponseCreator {
 
 	/**
 	 * Erstellen der Response.
-	 * <br><br>
+	 *
 	 * Abhängig vom Rückgabewert der Methode TcResponseDescription.getResponseType()
 	 * wird über Reflaction eine entsprechende Engine geladen und die Ausgabe erzeugt.
 	 *
