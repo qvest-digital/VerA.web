@@ -288,6 +288,7 @@ public class TcServletResponse implements TcResponse {
         }
         
         response.setContentType(HttpHelper.CONTENT_TYPE_XML);
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         
         try {
             soapException.writeTo(outputStream);
