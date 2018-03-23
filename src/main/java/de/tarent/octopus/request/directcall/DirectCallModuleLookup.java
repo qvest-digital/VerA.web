@@ -33,6 +33,9 @@ import java.io.File;
  * Diese Klasse liefert dem Octopus notwendige Daten.
  */
 class DirectCallModuleLookup implements TcModuleLookup {
+	//XXX TODO: OctopusDirectCallStarter not serialisable
+	private static final long serialVersionUID = 8651398654773763247L;
+
 	/**
 	 * DirectCallModuleLookup
 	 */

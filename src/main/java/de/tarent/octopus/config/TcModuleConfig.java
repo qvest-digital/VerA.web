@@ -60,12 +60,16 @@ import java.util.*;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-public class TcModuleConfig {
+public class TcModuleConfig implements Serializable {
+	private static final long serialVersionUID = 1024472529440283893L;
+
+	private static final Log logger = LogFactory.getLog(TcModuleConfig.class);
+
 	//
 	// Konstanten
 	//
-	public final static String PREFS_DATA_ACCESS = "dataAccess";
-	public final static String PREFS_PARAMS = "params";
+	public static final String PREFS_DATA_ACCESS = "dataAccess";
+	public static final String PREFS_PARAMS = "params";
 	public static final String CONFIG_PARAM_ON_UNAUTHORIZED = "onUnauthorized";
 	public static final String CONFIG_PARAM_PERSONAL_CONFIG_CLASS = "personalConfigClass";
 
@@ -85,34 +89,29 @@ public class TcModuleConfig {
 	protected LoginManager loginManager = null;
 	protected Constructor personalConfigConstructor = null;
 
-	/**
-	 * Der Logger
-	 */
-	private static Log logger = LogFactory.getLog(TcModuleConfig.class);
-
 	/*
 	 * Config Parameter
 	 */
-	protected Map configParams;
-	private Map rawConfigParams = new HashMap();
+	protected HashMap configParams;
+	private HashMap rawConfigParams = new HashMap();
 
 	/**
 	 * Map mit den Einstellungen für den LoginManager.
 	 */
-	protected Map loginManagerParams = new HashMap();
+	protected HashMap loginManagerParams = new HashMap();
 
 	/**
 	 * Map mit den verfügbaren Datenquellen.
-	 * <br>Eine Map, in der unter den Namen der Datenquellen wieder
+	 * Eine Map, in der unter den Namen der Datenquellen wieder
 	 * Maps mit String Keys und String Values abgelegt sind.
 	 */
-	protected Map dataAccess = new HashMap();
+	protected HashMap dataAccess = new HashMap();
 
 	/**
 	 * Map mit den deklarierten Workern.
 	 * Eindeutige Namen als String Keys ContentWorkerDeclatarion-Objekte als Values.
 	 */
-	protected Map contentWorkersDeclarations;
+	protected HashMap contentWorkersDeclarations;
 
 	/**
 	 * Verfügbare Tasks
@@ -120,7 +119,7 @@ public class TcModuleConfig {
 	protected TcTaskList taskList;
 	protected Definition wsdlDefinition;
 
-	private Map otherNodes = new HashMap();
+	private HashMap otherNodes = new HashMap();
 
 	/**
 	 * Initialisiert diese Config mit einem geparsten Document.
@@ -347,7 +346,7 @@ public class TcModuleConfig {
 	 * Protected empty Contructor,
 	 * only for creation of MockUps
 	 */
-	protected TcModuleConfig(String basedir, Map rawConfigParams) {
+	protected TcModuleConfig(String basedir, HashMap rawConfigParams) {
 		this.name = "mockup-module";
 		this.realPath = new File(basedir);
 		this.rawConfigParams = rawConfigParams;
@@ -359,7 +358,7 @@ public class TcModuleConfig {
 	 *
 	 * @param rawConfigParams the config parameters
 	 */
-	public static TcModuleConfig createMockupModuleConfig(String basedir, Map rawConfigParams) {
+	public static TcModuleConfig createMockupModuleConfig(String basedir, HashMap rawConfigParams) {
 		return new TcModuleConfig(basedir, rawConfigParams);
 	}
 

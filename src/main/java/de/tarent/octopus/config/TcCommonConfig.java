@@ -66,7 +66,7 @@ import java.util.Map;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcCommonConfig implements Serializable {
-	private static final long serialVersionUID = -2210694758595033602L;
+	private static final long serialVersionUID = -3195150294272736648L;
 
 	private static final Log logger = LogFactory.getLog(TcCommonConfig.class);
 
@@ -123,7 +123,7 @@ public class TcCommonConfig implements Serializable {
 	 * ModulName der Name des Modules ist, in dem die Datenquelle deklariert wurde.
 	 * Die Values sind Objekte vom Typ TcGenericDataAccessWrapper oder Spezialisierungen davon.
 	 */
-	protected Map bufferedDataAccessWrappers;
+	protected HashMap bufferedDataAccessWrappers;
 
 	/**
 	 * Initialisierung:

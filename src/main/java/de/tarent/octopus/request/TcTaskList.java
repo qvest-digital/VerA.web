@@ -29,6 +29,7 @@ import de.tarent.octopus.content.TcPortDefinition;
 import de.tarent.octopus.util.Xml;
 import org.w3c.dom.Element;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -39,9 +40,11 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-public class TcTaskList {
+public class TcTaskList implements Serializable {
+	private static final long serialVersionUID = 8732899088703240707L;
+
 	protected String nameSpace;
-	protected Map tasks = new HashMap();
+	protected HashMap tasks = new HashMap();
 	protected String description;
 
 	public TcTaskList() {
