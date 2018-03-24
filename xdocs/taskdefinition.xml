@@ -6,9 +6,9 @@
 	<body>
 		<section href="intro" name="The task definition">
 			<p>
-				Tasks will be defined in the <code>config.xml</code> of your octopus module,
+				Tasks will be defined in the <code>config.xml</code> of your OCTOPUS module,
 				e.g. under <code>src/main/webapp/OCTOPUS/config.xml</code>
-				in your octopus webapplication.
+				in your OCTOPUS webapplication.
 				Decisive is the <code>tcModuleConfig.tasks</code> section.
 			</p>
 		</section>
@@ -84,19 +84,19 @@
 					<td>ContentType</td>
 					<td>MimeType, e.g. <code>text/html;charset=UTF-8</code>. If not present, the ContentType will be used from the module-wide or server-wide parameter <code>defaultContentType</code>.</td>
 					<td>ALL</td>
-					<td>octopus 1.2</td>
+					<td>OCTOPUS 1.2</td>
 				</tr>
 				<tr>
 					<td>encoding</td>
 					<td>The used encoding for the writer, e.g. <code>UTF-8</code>. If not present, the encoding will be used from the module-wide or server-wide parameter <code>defaultEncoding</code>.</td>
 					<td>velocity,raw</td>
-					<td>octopus 1.2</td>
+					<td>OCTOPUS 1.2</td>
 				</tr>
 				<tr>
 					<td>CachingTime</td>
 					<td>Time in milliseconds, default is zero (no caching allowed).</td>
 					<td>ALL</td>
-					<td>octopus 1.3.3</td>
+					<td>OCTOPUS 1.3.3</td>
 				</tr>
 				<tr>
 					<td>CachingParam</td>
@@ -108,23 +108,23 @@
 					<td></td>
 					<td><code>nocachecontrol</code> disable the
 						<code>Cache-Control</code>-Header in the HTTP-Response.<br/>
-						Note: Use this in your all your &quot;download tasks&quot;,
+						Note: Use this in your all your "download tasks",
 						this fix some problems with the MSIE 6 which was specified in
 						<a href="http://support.microsoft.com/kb/812935/EN-US/">KB 812935</a> and
 						<a href="http://support.microsoft.com/kb/316431/EN-US/">KB 316431</a>.</td>
 					<td>ALL</td>
-					<td>octopus 1.3.3</td>
+					<td>OCTOPUS 1.3.3</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td><code>nopragma</code> disable the
 						<code>Pragma</code>-Header in the HTTP-Response.<br/>
-						Note: Use this in your all your &quot;download tasks&quot;,
+						Note: Use this in your all your "download tasks",
 						this fix some problems with the MSIE 6 which was specified in
 						<a href="http://support.microsoft.com/kb/812935/EN-US/">KB 812935</a> and
 						<a href="http://support.microsoft.com/kb/316431/EN-US/">KB 316431</a>.</td>
 					<td>ALL</td>
-					<td>octopus 1.3.5</td>
+					<td>OCTOPUS 1.3.5</td>
 				</tr>
 			</table>
 		</section>
@@ -168,7 +168,7 @@
 				This response engine use the <code>name</code> attribute of the task tag
 				+ the extension <code>.vm</code> for the filename and parse this
 				<a href="http://jakarta.apache.org/velocity/">velocity</a>
-				file with the whole octopus-content.
+				file with the whole OCTOPUS content.
 			</p>
 		</section>
 	</body>
