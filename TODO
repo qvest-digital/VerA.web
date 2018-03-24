@@ -23,3 +23,16 @@
 • consider OCTOPUS monorepo (and dependency versions!)
 
 Status: kann alles getestet werden, löpt
+
+Release: Bug:
+(ci-busyapps)++ vsn=
+(ci-busyapps)++ test xtrue '=' xtrue
+(ci-busyapps)++ <pom.xml
+(ci-busyapps)++ xmlstarlet sel -N 'pom=http://maven.apache.org/POM/4.0.0' -T -t -c /pom:project/pom:version
+(ci-busyapps)++ vsn=1.8.58-SNAPSHOT
+(ci-busyapps)++ >&2
+(ci-busyapps)++ echo 'W: not tagging snapshot'
+W: not tagging snapshot
+(ci-busyapps)++ vsn=
+⇒ sollte vsn=1.8.57 gewesen sein
+(vielleicht aus core/target/maven-archiver/pom.properties holen?)
