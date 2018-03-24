@@ -90,7 +90,7 @@
   <triggers>
     <hudson.triggers.SCMTrigger>
       <spec># alle 5 min
-#H/5 * * * *</spec>
+H/5 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
   </triggers>
@@ -232,7 +232,7 @@ else
 	    &quot;
 	: finished installing to a proper system
 fi
-git gc
+#git gc # rsync time of packs is rather high, so best to do this only rarely
 rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/monorepo/
 vsn=
 if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
