@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.tarent.octopus</groupId>
 	<artifactId>octopus-core</artifactId>
-	<version>1.6.7</version>
+	<version>1.6.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OCTOPUS core</name>
 	<description>tarent OCTOPUS application framework, base library</description>
@@ -25,7 +25,7 @@
 	</properties>
 	<scm>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/octopus-veraweb.git</developerConnection>
-		<tag>octopus-core/1.6.7</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
