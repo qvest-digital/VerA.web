@@ -70,7 +70,7 @@ Unsere Usecases sind wie folgt:
 ⑤ Ops triggert docker-install
   ⇒ genau wie [GOTO 5] dadrunter
 
-2 ist normale Entwicklung (ggfs. nicht alle 5 Minuten?), 1 auch.
+2 ist normale Entwicklung, 1 auch.
 3 ist normales Release.
 
 4 ist, wenn Images c.p. neugebaut werden müssen (Security-Fix

@@ -89,8 +89,8 @@
   <jdk>(Inherit From Job)</jdk>
   <triggers>
     <hudson.triggers.SCMTrigger>
-      <spec># alle 5 min
-H/5 * * * *</spec>
+      <spec># alle Viertelstunde
+H/15 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
   </triggers>
