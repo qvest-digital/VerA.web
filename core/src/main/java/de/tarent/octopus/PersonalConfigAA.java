@@ -64,7 +64,9 @@ package de.tarent.octopus;
 import de.tarent.aa.veraweb.beans.Grants;
 import de.tarent.octopus.config.TcPersonalConfig;
 
+import java.io.Serializable;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -203,7 +205,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
      *
      * @return AA-Rollen der Anmeldung
      */
-    public List getRoles() {
+    public ArrayList getRoles() {
         return roles;
     }
 
@@ -212,7 +214,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
      *
      * @param roles AA-Rollen der Anmeldung
      */
-    public void setRoles(List roles) {
+    public void setRoles(ArrayList roles) {
         this.roles = roles;
     }
 
@@ -245,7 +247,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
      * Diese Klasse implementiert {@link Grants} auf Basis der in der persönlichen
      * Konfiguration gehaltenen Octopus-Benutzergruppen.
      */
-    class AAGrants implements Grants {
+    class AAGrants implements Grants, Serializable {
         //
         // Implementierung von Grants
         //
@@ -308,7 +310,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     Integer orgUnitId = null;
     Integer verawebId = null;
     String proxy = null;
-    List roles = null;
+    ArrayList roles = null;
     Grants grants = null;
 
     final static MessageFormat roleAndProxyFormat = new MessageFormat("{0} (i.V. {1})");
