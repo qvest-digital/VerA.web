@@ -454,12 +454,12 @@
 			<dependency>
 				<groupId>org.evolvis.veraweb</groupId>
 				<artifactId>rest-api-common</artifactId>
-				<version>${releaseVersion}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.veraweb</groupId>
 				<artifactId>veraweb-export</artifactId>
-				<version>${releaseVersion}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.vaadin.external.google</groupId>
