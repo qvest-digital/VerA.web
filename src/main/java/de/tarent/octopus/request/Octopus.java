@@ -28,6 +28,8 @@ import de.tarent.octopus.config.*;
 import de.tarent.octopus.content.TcAll;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
+import de.tarent.octopus.extensions.OctopusExtension;
+import de.tarent.octopus.extensions.OctopusExtensionLoader;
 import de.tarent.octopus.jndi.OctopusContextJndiFactory;
 import de.tarent.octopus.jndi.OctopusInstanceJndiFactory;
 import de.tarent.octopus.logging.LogFactory;
@@ -38,10 +40,8 @@ import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.logging.Log;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * Diese Klasse dient als Wrapper für Octopus-Funktionalitäten,
@@ -51,6 +51,7 @@ import java.util.List;
  */
 public class Octopus /*implements Serializable*/ {
 	//XXX TODO: TcModuleLookup is not serialisable
+	//XXX TODO: OctopusExtension is not serialisable
 	private static final long serialVersionUID = 8501961300295813799L;
 
 	/*
@@ -64,6 +65,9 @@ public class Octopus /*implements Serializable*/ {
 
 	public static final String TASKNAME_CLEANUP = "cleanup";
 	public static final String TASKNAME_AUTOSTART = "autostart";
+
+	// optional JMX extension
+	private OctopusExtension jmxManagementServer = null;
 
 	/*
 	 * Konstruktoren
@@ -103,6 +107,21 @@ public class Octopus /*implements Serializable*/ {
 
 		preloadModules(commonConfig);
 
+		// Initalizing the optional JMX subsystem
+		String jmxEnabledString = commonConfig.getConfigData(TcEnv.KEY_JMX_ENABLED);
+		if (Boolean.valueOf(jmxEnabledString).booleanValue()) {
+			logger.info("Enabling optional JMX subsystem.");
+
+			Map params = new HashMap();
+			params.put("octopus", this);
+			params.put("config", commonConfig);
+
+			jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement",
+			    params);
+		} else {
+			logger.info("Optional JMX subsystem is disabled.");
+		}
+
 		// Initalizing the optional rpc tunnel subsystem
 		String rpcTunnelEnabledString = commonConfig.getConfigData(TcEnv.KEY_RPCTUNNEL_ENABLED);
 		if (Boolean.valueOf(rpcTunnelEnabledString).booleanValue()) {
@@ -124,6 +143,11 @@ public class Octopus /*implements Serializable*/ {
 	    TcTaskProzessingException,
 	    TcContentProzessException,
 	    TcConfigException {
+
+		// shutting down the JMX subsystem
+		if (jmxManagementServer != null)
+			jmxManagementServer.stop();
+
 		cleanupModules(dispatcher);
 	}
 
