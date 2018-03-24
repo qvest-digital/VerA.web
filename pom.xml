@@ -76,7 +76,7 @@
 							<Build-Time>${maven.build.timestamp}</Build-Time>
 							<version_name>${project.name}</version_name>
 							<version_description>${project.description}</version_description>
-							<version_copyright>Copyright (c) 2003-2018 tarent and contributors</version_copyright>
+							<version_copyright>Copyright (c) 2002-2018 tarent and contributors</version_copyright>
 							<version_vendor>${project.organization.name}</version_vendor>
 							<version_version>${project.version}</version_version>
 							<Implementation-Title>${project.artifactId}</Implementation-Title>
