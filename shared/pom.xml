@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>veraweb-parent</artifactId>
-		<version>1.8.57</version>
+		<version>1.8.58-SNAPSHOT</version>
 	</parent>
 	<artifactId>rest-api-common</artifactId>
 	<packaging>jar</packaging>
