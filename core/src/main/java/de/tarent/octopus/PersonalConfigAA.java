@@ -61,13 +61,13 @@ package de.tarent.octopus;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Grants;
 import de.tarent.octopus.config.TcPersonalConfig;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Diese Klasse stellt die Implementierung von {@link de.tarent.octopus.server.PersonalConfig}
@@ -80,27 +80,29 @@ public class PersonalConfigAA extends TcPersonalConfig {
     // Konstanten
     //
     /** Gruppe der Benutzer, die als Vertreter angemeldet sind */
-    public final static String GROUP_BY_PROXY = "ByProxy";
+    public static final String GROUP_BY_PROXY = "ByProxy";
     /** Gruppe der Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind */
-    public final static String GROUP_IN_PERSON = "InPerson";
+    public static final String GROUP_IN_PERSON = "InPerson";
     /** Gruppe der Benutzer, deren AA-Rolle nach Login nicht klar ist */
-    public final static String GROUP_UNCLEAR_ROLE = "Unclear";
+    public static final String GROUP_UNCLEAR_ROLE = "Unclear";
     /** Gruppe der Benutzer, deren (gewählte) Rollen nicht autorisiert sind */
-    public final static String GROUP_UNAUTHORIZED = "Unauthorized";
+    public static final String GROUP_UNAUTHORIZED = "Unauthorized";
     /** Gruppe der Benutzer, die die Standardfelder lesen dürfen */
-    public final static String GROUP_READ_STANDARD = "StandardFieldsReader";
+    public static final String GROUP_READ_STANDARD = "StandardFieldsReader";
     /** Gruppe der Benutzer, die die limitierten Bemerkungsfelder lesen dürfen */
-    public final static String GROUP_READ_REMARKS = "RemarkFieldsReader";
+    public static final String GROUP_READ_REMARKS = "RemarkFieldsReader";
     /** Gruppe der Benutzer, die exportieren dürfen */
-    public final static String GROUP_EXPORT = "Exporter";
+    public static final String GROUP_EXPORT = "Exporter";
     /** Gruppe der Benutzer, die schreiben dürfen, abhängig von ihren Leserechten. */
-    public final static String GROUP_WRITE = "Writer";
+    public static final String GROUP_WRITE = "Writer";
     /** Gruppe der Teiladministratoren */
-    public final static String GROUP_PARTIAL_ADMIN = "PartialAdmin";
+    public static final String GROUP_PARTIAL_ADMIN = "PartialAdmin";
     /** Gruppe der Volladministratoren */
-    public final static String GROUP_ADMIN = GROUP_ADMINISTRATOR;
+    public static final String GROUP_ADMIN = GROUP_ADMINISTRATOR;
     /** Gruppe der Systemuser */
-    public final static String GROUP_SYSTEM_USER = "SystemUser";
+    public static final String GROUP_SYSTEM_USER = "SystemUser";
+
+    static final MessageFormat roleAndProxyFormat = new MessageFormat("{0} (i.V. {1})");
 
     //
     // überschreibungen von TcPersonalConfig
@@ -311,7 +313,5 @@ public class PersonalConfigAA extends TcPersonalConfig {
     Integer verawebId = null;
     String proxy = null;
     ArrayList roles = null;
-    Grants grants = null;
-
-    final static MessageFormat roleAndProxyFormat = new MessageFormat("{0} (i.V. {1})");
+    AAGrants grants = null;
 }
