@@ -36,3 +36,48 @@ W: not tagging snapshot
 (ci-busyapps)++ vsn=
 ⇒ sollte vsn=1.8.57 gewesen sein
 (vielleicht aus core/target/maven-archiver/pom.properties holen?)
+
+Jenkins-Jobs, vielleicht drei wie folgt:
+• build-install
+  PARM: normal-stage, docker-stage
+• docker-build
+  PARM: docker-stage, version
+• docker-install
+  PARM: docker-stage, version
+
+Unsere Usecases sind wie folgt:
+① Dev triggert build-install, um HEAD zu bauen:
+  ‣ baut HEAD und installiert -SNAPSHOT im lokalen .m2
+  ‣ installiert Artefakte auf mit/ohne/po/… Stage
+  ‣ kopiert Artefakte auf Seite
+  ‣ triggert docker-build mit version=latest
+  ⇒ baut Docker :latest aus auf Seite geschobenen Artefakten
+  ‣ triggert docker-install
+  ⇒ installiert :latest auf dev/ref/test-{full,min}
+② git push triggert build-install
+  ⇒ genau wie 1, nur mit vorgegebenen Hostnamen
+③ Dev triggert build-install als Release-Job
+  ‣ taggt, baut, installiert Release im lokalen .m2 und auf Nexus
+  ‣ installiert Artefakte auf mit/ohne/po/… Stage
+  ‣ kopiert Artefakte auf Seite (unnötig)
+  ‣ triggert docker-build mit version=1.X.YY
+  ⇒ baut Docker :1.X.YY aus Artefakten vom Nexus [COMEFROM 4]
+  ‣ erzeugt *.img.gz
+  ‣ triggert docker-install [COMEFROM 5]
+  ⇒ installiert :1.X.YY (aus Registry?) auf dev/ref/test-{full,min}
+④ Ops triggert docker-build
+  ⇒ genau wie [GOTO 4] ab dort
+⑤ Ops triggert docker-install
+  ⇒ genau wie [GOTO 5] dadrunter
+
+2 ist normale Entwicklung (ggfs. nicht alle 5 Minuten?), 1 auch.
+3 ist normales Release.
+
+4 ist, wenn Images c.p. neugebaut werden müssen (Security-Fix
+im Basiscontainer oder so); 5, wenn schon gebaute Images auf
+(weitere?) Stages installiert werden sollen.
+
+Probleme:
+• Versionsliste bei 4 und 5 (ggfs. einfach Textfeld?)
+  (oder Verzeichnislisting von v-tools parsen)
+• Offline-Install ist anders
