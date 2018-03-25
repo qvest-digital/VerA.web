@@ -114,6 +114,7 @@
 								<resource>
 									<filtering>true</filtering>
 									<directory>src/main/webapp/doc</directory>
+									<targetPath>doc</targetPath>
 									<includes>
 										<include>.tomcat-dir.xslt</include>
 									</includes>
