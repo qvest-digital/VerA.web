@@ -112,6 +112,13 @@
 						<configuration>
 							<webResources>
 								<resource>
+									<filtering>true</filtering>
+									<directory>src/main/webapp/doc</directory>
+									<includes>
+										<include>.tomcat-dir.xslt</include>
+									</includes>
+								</resource>
+								<resource>
 									<filtering>false</filtering>
 									<directory>../target/mksrc</directory>
 									<targetPath>doc</targetPath>
