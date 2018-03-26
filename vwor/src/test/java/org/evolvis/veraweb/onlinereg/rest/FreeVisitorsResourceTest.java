@@ -62,14 +62,14 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
 
@@ -141,6 +141,5 @@ public class FreeVisitorsResourceTest {
     private void prepareSession() {
         when(freeVisitorsResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
-        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
     }
 }

@@ -66,15 +66,15 @@ import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.container.ResourceContext;
@@ -187,8 +187,6 @@ public class DelegationResourceTest {
         ResourceContext resourceContext = mock(ResourceContext.class);
         OptionalFieldResource optionalFieldResource = mock(OptionalFieldResource.class);
         delegationResource.setResourceContext(resourceContext);
-        when(mockitoSession.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID)).thenReturn(findByEventIdQuery);
-        when(findByEventIdQuery.list()).thenReturn(getDummyOptionalFields());
 
         Query findByGuestIdQuery = mock(Query.class);
         when(mockitoSession.getNamedQuery("Delegation.findByGuestId")).thenReturn(findByGuestIdQuery);

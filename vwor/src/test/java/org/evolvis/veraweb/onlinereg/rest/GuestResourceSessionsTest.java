@@ -63,20 +63,19 @@ package org.evolvis.veraweb.onlinereg.rest;
  */
 
 import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
 import java.math.BigInteger;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -463,7 +462,6 @@ public class GuestResourceSessionsTest {
         Guest guest = mock(Guest.class);
         when(session.getNamedQuery("Guest.getGuestById")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(guest);
-        doNothing().when(guest).setImage_uuid(String.valueOf(any(String.class)));
 
         // WHEN
         guestResource.updateGuestEntity(2, "delegationUUID");

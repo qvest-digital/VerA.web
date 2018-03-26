@@ -64,15 +64,15 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Event;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
 import java.util.Calendar;
@@ -165,7 +165,6 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
     private void prepareSession() {
         when(eventResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
-        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
     }
 
     private static Date getFutureDate() {
