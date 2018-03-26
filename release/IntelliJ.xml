@@ -56,7 +56,7 @@
     </indentOptions>
   </codeStyleSettings>
   <codeStyleSettings language="JAVA">
-    <option name="RIGHT_MARGIN" value="149" />
+    <option name="RIGHT_MARGIN" value="130" />
     <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
     <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
     <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
@@ -91,6 +91,7 @@
     <option name="PARAMETER_ANNOTATION_WRAP" value="1" />
     <option name="VARIABLE_ANNOTATION_WRAP" value="1" />
     <option name="ENUM_CONSTANTS_WRAP" value="2" />
+    <option name="SOFT_MARGINS" value="90,110" />
     <indentOptions>
       <option name="LABEL_INDENT_SIZE" value="1" />
       <option name="LABEL_INDENT_ABSOLUTE" value="true" />
