@@ -69,8 +69,8 @@ import org.evolvis.veraweb.onlinereg.mail.MailDispatchMonitor;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
 import javax.mail.MessagingException;
@@ -154,8 +154,8 @@ public class MailingResource extends FormDataResource {
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
             try {
-                final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(), subject,
-                        substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
+                final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(),
+                        subject, substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
                 sb.append(monitor.toString());
             } catch (AddressException e) {
                 LOGGER.error("Email-Adress is not valid" + recipient.getAddress(), e);
@@ -174,7 +174,6 @@ public class MailingResource extends FormDataResource {
     }
 
     private String getFrom(PersonMailinglist recipient) {
-
         return emailConfiguration.getFrom(recipient.getPerson().getFk_orgunit());
     }
 

@@ -67,9 +67,10 @@ import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -80,7 +81,6 @@ import static org.mockito.Mockito.verify;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class EmailResourceTest {
-
     private EmailResource emailResource;
 
     @Before
@@ -95,17 +95,15 @@ public class EmailResourceTest {
         final EmailConfiguration emailConfiguration = mock(EmailConfiguration.class);
         emailResource.setMailDispatcher(mailDispatcher);
         emailResource.setEmailConfiguration(emailConfiguration);
-        doNothing().when(mailDispatcher)
-                .sendVerificationEmail(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class),
-                        any(String.class));
+        doNothing().when(mailDispatcher).sendVerificationEmail(isNull(), any(String.class),
+                isNull(), isNull(), any(String.class), isNull());
 
         // WHEN
         emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token", "de_DE", false);
 
         // THEN
-        verify(mailDispatcher, times(1))
-                .sendVerificationEmail(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class),
-                        any(String.class));
+        verify(mailDispatcher, times(1)).sendVerificationEmail(isNull(), any(String.class),
+                isNull(), isNull(), any(String.class), isNull());
         verify(emailConfiguration, times(1)).getSubject();
         verify(emailConfiguration, times(1)).getContent();
     }

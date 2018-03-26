@@ -71,17 +71,17 @@ import org.glassfish.jersey.media.multipart.BodyPartEntity;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
@@ -91,12 +91,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -104,9 +105,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * FIXME: Write an integration test with JerseyTest, see
- * https://blog.codecentric
- * .de/en/2012/05/writing-lightweight-rest-integration-tests
- * -with-the-jersey-test-framework/
+ * https://blog.codecentric.de/en/2012/05/writing-lightweight-rest-integration-tests-with-the-jersey-test-framework/
  */
 @RunWith(MockitoJUnitRunner.class)
 public class MailingResourceTest {
@@ -200,8 +199,8 @@ public class MailingResourceTest {
         when(entity1.getInputStream()).thenReturn(new ByteArrayInputStream("file1".getBytes(StandardCharsets.UTF_8)));
         when(entity2.getInputStream()).thenReturn(new ByteArrayInputStream("file2".getBytes(StandardCharsets.UTF_8)));
         when(session.getNamedQuery("PersonMailinglist.findByMailinglist")).thenReturn(query);
-        when(mailDispatcher.sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class),
-                any(String.class))).thenReturn(mailDispatchMonitor);
+        when(mailDispatcher.sendEmailWithAttachments(isNull(), any(String.class),
+                any(String.class), any(String.class), anyMap(), isNull())).thenReturn(mailDispatchMonitor);
         when(query.list()).thenReturn(ids);
 
         // WHEN
@@ -210,14 +209,12 @@ public class MailingResourceTest {
         // THEN
         verify(sessionFactory, times(1)).openSession();
         verify(session, times(1)).close();
-        verify(mailDispatcher, times(1))
-                .sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class),
-                        any(String.class));
+        verify(mailDispatcher, times(1)).sendEmailWithAttachments(isNull(), any(String.class),
+                any(String.class), any(String.class), anyMap(), isNull());
     }
 
     private void prepareSession() {
         when(objectToTest.context.getAttribute("SessionFactory")).thenReturn(sessionFactory);
         when(sessionFactory.openSession()).thenReturn(session);
-        when(session.getTransaction()).thenReturn(mockitoTransaction);
     }
 }
