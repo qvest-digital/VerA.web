@@ -151,8 +151,7 @@ public class EventTaskDetailWorkerTest { //extends TestCase {
         doReturn(endtime).when(cntx).requestAsObject("task-endtime");
     }
 
-    class TaskArgumentMatcher extends ArgumentMatcher<Bean> {
-
+    class TaskArgumentMatcher implements ArgumentMatcher<Bean> {
         private final Task task;
 
         public TaskArgumentMatcher(Task task) {
@@ -160,7 +159,7 @@ public class EventTaskDetailWorkerTest { //extends TestCase {
         }
 
         @Override
-        public boolean matches(Object taskObj) {
+        public boolean matches(Bean taskObj) {
             if (!(taskObj instanceof Task)) {
                 return false;
             }
@@ -180,5 +179,4 @@ public class EventTaskDetailWorkerTest { //extends TestCase {
             return equal;
         }
     }
-
 }
