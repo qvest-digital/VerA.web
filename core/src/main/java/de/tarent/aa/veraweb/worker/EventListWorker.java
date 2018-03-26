@@ -291,7 +291,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
     }
 
     private void extendWhereClauseByEndDate(WhereList where) {
-        final String dateClause = "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
+        final String dateClause =
+                "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
         where.addAnd(new RawClause(dateClause));
     }
 
@@ -377,7 +378,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
      * Löscht Veranstaltungen inkl. der zugehörigen Aufgaben, zusätzliche Felder und der zugeordneten Gäste.
      */
     @Override
-    protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+    protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
+            throws BeanException, IOException {
         final Event event = (Event) bean;
         try {
             return isEventDeletionSuccessfull(octopusContext, transactionContext, event);
@@ -397,7 +399,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
         return deleteLogEntriesForEvent(octopusContext, transactionContext, event);
     }
 
-    private void deleteOptionalFields(TransactionContext transactionContext, Database database, OptionalFieldsWorker optionalFieldsWorker,
+    private void deleteOptionalFields(TransactionContext transactionContext, Database database,
+            OptionalFieldsWorker optionalFieldsWorker,
             Event event) throws BeanException, SQLException {
         final List<OptionalField> optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(event.id);
         for (OptionalField optionalField : optionalFields) {
@@ -431,7 +434,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
         );
     }
 
-    private void executeOptionalFieldsDeletion(TransactionContext transactionContext, Database database, OptionalField optionalField)
+    private void executeOptionalFieldsDeletion(TransactionContext transactionContext, Database database,
+            OptionalField optionalField)
             throws BeanException {
         transactionContext.execute(
                 SQL.Delete(database)

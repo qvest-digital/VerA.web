@@ -229,7 +229,8 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
             Integer personId, Database database,
             TransactionContext transactionContext, boolean save)
             throws BeanException, IOException {
-        Categorie category = (Categorie) database.getBean("Categorie", categoryId, transactionContext == null ? database : transactionContext);
+        Categorie category =
+                (Categorie) database.getBean("Categorie", categoryId, transactionContext == null ? database : transactionContext);
         if (category != null) {
             Select select = database.getCount("PersonCategorie");
             select.where(Expr.equal("fk_person", personId));
@@ -271,7 +272,8 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
     public void removeCategoryAssignment(OctopusContext octopusContext, Integer categoryId, Integer personId,
             Database database, TransactionContext transactionContext)
             throws BeanException, IOException {
-        Categorie category = (Categorie) database.getBean("Categorie", categoryId, transactionContext == null ? database : transactionContext);
+        Categorie category =
+                (Categorie) database.getBean("Categorie", categoryId, transactionContext == null ? database : transactionContext);
         if (category != null) {
             Select select = database.getSelect("PersonCategorie");
             select.where(Expr.equal("fk_person", personId));

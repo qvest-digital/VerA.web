@@ -102,8 +102,10 @@ public class UserResourceTest {
         //Benutzer wird durch Test angelegt, aber nicht mehr gelöscht -> Erneutes Ausführen des Tests schlägt fehl
         long zeit = Calendar.getInstance().getTimeInMillis();
 
-        String result = ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit, "email" + zeit,
-                "language");
+        String result =
+                ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit,
+                        "email" + zeit,
+                        "language");
         assertEquals(StatusConverter.convertStatus("OK"), result);
     }
 

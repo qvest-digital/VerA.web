@@ -141,7 +141,8 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
                 eeRequest.setEntity(new BufferedHttpEntity(eeRequest.getEntity()));
             }
         };
-        final HttpClientBuilder builder = HttpClientBuilder.create().disableAutomaticRetries().addInterceptorLast(itcp).disableRedirectHandling();
+        final HttpClientBuilder builder =
+                HttpClientBuilder.create().disableAutomaticRetries().addInterceptorLast(itcp).disableRedirectHandling();
 
         final String username = getConfigParam(P_USER);
         final String password = getConfigParam(P_PASSWORD);

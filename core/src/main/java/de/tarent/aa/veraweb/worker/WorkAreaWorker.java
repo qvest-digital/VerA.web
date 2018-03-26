@@ -101,7 +101,8 @@ public class WorkAreaWorker extends StammdatenWorker {
     }
 
     @Override
-    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) throws BeanException, IOException {
+    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context)
+            throws BeanException, IOException {
         WorkArea workArea = (WorkArea) bean;
         if (workArea.orgunit == null) {
             workArea.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
@@ -146,7 +147,8 @@ public class WorkAreaWorker extends StammdatenWorker {
      *
      * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
      */
-    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext)
+            throws BeanException, IOException {
         Database database = transactionContext.getDatabase();
         // first remove all workArea assignments from all persons
         PersonListWorker.unassignWorkArea(transactionContext, ((WorkArea) bean).id, null);
@@ -160,10 +162,12 @@ public class WorkAreaWorker extends StammdatenWorker {
     /*
      * 2009-05-12 cklein
      *
-     * introduced as part of fix for issue #1530 - deletion of orgunits and automatic deletion of associated work areas. will not commit itself.
+     * introduced as part of fix for issue #1530 - deletion of orgunits and automatic deletion of associated work areas. will
+     * not commit itself.
      */
     @SuppressWarnings("unchecked")
-    public static void removeAllWorkAreasFromOrgUnit(TransactionContext transactionContext, Integer orgUnitId) throws BeanException, IOException {
+    public static void removeAllWorkAreasFromOrgUnit(TransactionContext transactionContext, Integer orgUnitId)
+            throws BeanException, IOException {
         Select stmt = transactionContext.getDatabase().getSelect("WorkArea");
         stmt.select("pk");
         stmt.where(Expr.equal("fk_orgunit", orgUnitId));

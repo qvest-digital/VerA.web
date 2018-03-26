@@ -213,7 +213,8 @@ public class StatistikWorker {
      * @param end       Zeitrahmen-Ende
      * @param id        Abhängig vom Statistiknamen
      */
-    public void getStatistik(OctopusContext cntx, String statistik, String begin, String end, Integer id) throws BeanException, IOException {
+    public void getStatistik(OctopusContext cntx, String statistik, String begin, String end, Integer id)
+            throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(cntx);
 
         try {

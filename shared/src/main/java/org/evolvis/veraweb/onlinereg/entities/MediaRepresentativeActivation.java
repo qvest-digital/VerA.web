@@ -89,7 +89,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "MediaRepresentativeActivation.getEntryByEmailAndEventId",
-                query = "SELECT count(m.*) FROM veraweb.tmedia_representative_activation m where m.email=:email AND m.fk_event=:fk_event"
+                query = "SELECT count(m.*) FROM veraweb.tmedia_representative_activation m where m.email=:email AND m" +
+                 ".fk_event=:fk_event"
         )
 })
 public class MediaRepresentativeActivation {

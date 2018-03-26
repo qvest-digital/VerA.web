@@ -460,7 +460,8 @@ public class PersonReplaceWorker extends PersonListWorker {
             where.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
             where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 
-            transactionContext.execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
+            transactionContext
+                    .execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
             transactionContext.commit();
         }
     }
@@ -503,7 +504,8 @@ public class PersonReplaceWorker extends PersonListWorker {
             where.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
             where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 
-            transactionContext.execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
+            transactionContext
+                    .execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
             transactionContext.commit();
         }
     }
@@ -576,7 +578,8 @@ public class PersonReplaceWorker extends PersonListWorker {
      * @param replace FIXME
      * @return Update
      */
-    protected Update getReplaceUpdate(Database db, List fields, String search, String replace, boolean wildcardPre, boolean wildcardPost) {
+    protected Update getReplaceUpdate(Database db, List fields, String search, String replace, boolean wildcardPre,
+            boolean wildcardPost) {
         Update update = SQL.Update(db).table("veraweb.tperson");
         for (int i = 0; i < fields.size(); i++) {
             String field = (String) fields.get(i);

@@ -134,8 +134,9 @@ public class DelegationResource {
     };
     private static final TypeReference<List<String>> FUNCTION_LIST = new TypeReference<List<String>>() {
     };
-    private static final TypeReference<List<OptionalFieldTypeContent>> TYPE_CONTENT_LIST = new TypeReference<List<OptionalFieldTypeContent>>() {
-    };
+    private static final TypeReference<List<OptionalFieldTypeContent>> TYPE_CONTENT_LIST =
+            new TypeReference<List<OptionalFieldTypeContent>>() {
+            };
 
     /**
      * Jackson Object Mapper
@@ -254,7 +255,8 @@ public class DelegationResource {
      */
     @GET
     @Path("/load/fields/{uuid}/{personId}")
-    public List<OptionalFieldValue> getExtraDataFieldsPerson(@PathParam("uuid") String uuid, @PathParam("personId") Integer personId)
+    public List<OptionalFieldValue> getExtraDataFieldsPerson(@PathParam("uuid") String uuid,
+            @PathParam("personId") Integer personId)
             throws IOException {
         checkAuthorization(uuid);
         return getEventLabelsPerson(uuid, personId);
@@ -278,7 +280,8 @@ public class DelegationResource {
 
     @GET
     @Path("/load/category/{uuid}/{personId}")
-    public String loadDelegateCategory(@PathParam("uuid") String uuid, @PathParam("personId") String personId) throws IOException {
+    public String loadDelegateCategory(@PathParam("uuid") String uuid, @PathParam("personId") String personId)
+            throws IOException {
         // REST Method to get the category literal
         // Category category = readResource(path("category","catname", uuid,
         // personId), CATEGORY_OBJECT);
@@ -309,7 +312,8 @@ public class DelegationResource {
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(@PathParam("uuid") String uuid, @FormParam("lastname") String lastname,
             @FormParam("firstname") String firstname, @FormParam("gender") String gender, @FormParam("category") String category,
-            @FormParam("functionDescription") String function, @FormParam("fields") String fields, @FormParam("personId") Integer personId,
+            @FormParam("functionDescription") String function, @FormParam("fields") String fields,
+            @FormParam("personId") Integer personId,
             @FormParam("hasTempImage") Boolean hasTempImage) throws IOException {
         checkAuthorization(uuid);
 
@@ -344,7 +348,8 @@ public class DelegationResource {
      */
     @POST
     @Path("/{uuid}/fields/save")
-    public void saveOptionalFields(@PathParam("uuid") String uuid, @FormParam("fields") String fields, @FormParam("personId") Integer personId)
+    public void saveOptionalFields(@PathParam("uuid") String uuid, @FormParam("fields") String fields,
+            @FormParam("personId") Integer personId)
             throws IOException {
         checkAuthorization(uuid);
 
@@ -408,8 +413,9 @@ public class DelegationResource {
     private List<OptionalFieldValue> getEventLabels(String uuid) throws IOException {
         try {
             final Guest guest = getEventIdFromDelegationUuid(uuid);
-            final List<OptionalFieldValue> fields = readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()),
-                    FIELDS_LIST);
+            final List<OptionalFieldValue> fields =
+                    readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()),
+                            FIELDS_LIST);
 
             final List<OptionalFieldValue> fieldLabelsAndContent = new ArrayList<>();
             for (OptionalFieldValue field : fields) {
@@ -441,8 +447,9 @@ public class DelegationResource {
     private List<OptionalFieldValue> getEventLabelsPerson(String uuid, Integer personId) throws IOException {
         try {
             final Guest guest = getEventIdFromUuid(uuid, personId);
-            final List<OptionalFieldValue> fields = readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()),
-                    FIELDS_LIST);
+            final List<OptionalFieldValue> fields =
+                    readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()),
+                            FIELDS_LIST);
 
             final List<OptionalFieldValue> filteredList = new ArrayList<>();
             for (OptionalFieldValue field : fields) {
@@ -460,7 +467,8 @@ public class DelegationResource {
         return readResource(path("guest", "exist", uuid), BOOLEAN);
     }
 
-    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function, String category,
+    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function,
+            String category,
             String fields,
             Boolean hasTempImage) throws IOException {
 
@@ -521,7 +529,8 @@ public class DelegationResource {
     }
 
     // TODO We can use Person entity...
-    private String updateDelegateMainData(Integer personId, String lastname, String firstname, String gender, String function, String fields,
+    private String updateDelegateMainData(Integer personId, String lastname, String firstname, String gender, String function,
+            String fields,
             String delegationUUID, Boolean hasTempImage) throws IOException {
         updatePerson(personId, firstname, lastname, gender, function);
         updateOptionalFields(delegationUUID, fields, personId);
@@ -563,10 +572,12 @@ public class DelegationResource {
      * @param firstname   First name
      * @param gender      Gender of the person
      */
-    private Integer createPerson(String companyName, Integer eventId, String lastname, String firstname, String gender, String username,
+    private Integer createPerson(String companyName, Integer eventId, String lastname, String firstname, String gender,
+            String username,
             String function) {
         final WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
-        final Form postBody = createDelegatePostBodyContent(companyName, eventId, firstname, lastname, gender, username, function);
+        final Form postBody =
+                createDelegatePostBodyContent(companyName, eventId, firstname, lastname, gender, username, function);
         final Person person = personResource.post(Person.class, postBody);
 
         return person.getPk();
@@ -605,7 +616,8 @@ public class DelegationResource {
         return categoryId;
     }
 
-    private Guest persistGuest(String uuid, String eventId, Integer personId, String gender, String username, Integer categoryId) {
+    private Guest persistGuest(String uuid, String eventId, Integer personId, String gender, String username,
+            Integer categoryId) {
         final WebResource resource = client.resource(path("guest", uuid, "register"));
         final Form postBody = createGuestPostBodyContent(eventId, personId, gender, username, categoryId);
 
@@ -619,7 +631,8 @@ public class DelegationResource {
         resource.post(Delegation.class, postBody);
     }
 
-    private Form createDelegatePostBodyContent(String companyName, Integer eventId, String firstname, String lastname, String gender,
+    private Form createDelegatePostBodyContent(String companyName, Integer eventId, String firstname, String lastname,
+            String gender,
             String username,
             String function) {
         Form postBody = new Form();
@@ -635,7 +648,8 @@ public class DelegationResource {
         return postBody;
     }
 
-    private Form createGuestPostBodyContent(String eventId, Integer personId, String gender, String username, Integer categoryId) {
+    private Form createGuestPostBodyContent(String eventId, Integer personId, String gender, String username,
+            Integer categoryId) {
         final Form postBody = new Form();
 
         postBody.add("userId", personId);
@@ -662,7 +676,8 @@ public class DelegationResource {
         return postBody;
     }
 
-    private Form updatePersonPostBodyContent(Integer personId, String firstname, String lastname, String gender, String function) {
+    private Form updatePersonPostBodyContent(Integer personId, String firstname, String lastname, String gender,
+            String function) {
         final Form postBody = new Form();
 
         postBody.add("firstname", firstname);
@@ -726,7 +741,8 @@ public class DelegationResource {
 
     @GET
     @Path("/image/{delegationUUID}/{personId}")
-    public String getImageUUIDByUser(@PathParam("delegationUUID") String delegationUUID, @PathParam("personId") Integer personId) {
+    public String getImageUUIDByUser(@PathParam("delegationUUID") String delegationUUID,
+            @PathParam("personId") Integer personId) {
         checkAuthorization(delegationUUID);
 
         WebResource resource = client.resource(path("guest", "image", delegationUUID, personId));

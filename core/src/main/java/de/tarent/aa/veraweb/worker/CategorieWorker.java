@@ -222,7 +222,8 @@ public class CategorieWorker extends StammdatenWorker {
     private void buildSelectForPerson(OctopusContext cntx, Select select, Person person, Event event) throws BeanException {
         Clause clause = Where.and(
                 Expr.isNull("fk_event"),
-                new RawClause("pk NOT IN (SELECT fk_categorie FROM veraweb.tperson_categorie WHERE fk_person = " + person.id + ")"));
+                new RawClause(
+                        "pk NOT IN (SELECT fk_categorie FROM veraweb.tperson_categorie WHERE fk_person = " + person.id + ")"));
 
         Integer eventId = cntx.requestAsInteger("eventId");
         if (eventId.intValue() == 0) {
@@ -288,7 +289,8 @@ public class CategorieWorker extends StammdatenWorker {
     }
 
     @Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
+            throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
             if (bean instanceof Categorie) {
@@ -303,7 +305,8 @@ public class CategorieWorker extends StammdatenWorker {
                 Integer exist = database.getCount(database.getCount(bean).where(sameCategorie), context);
 
                 List groups = Arrays.asList(cntx.personalConfig().getUserGroups());
-                boolean admin = groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
+                boolean admin =
+                        groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
 
                 if (exist.intValue() != 0) {
 
@@ -311,7 +314,8 @@ public class CategorieWorker extends StammdatenWorker {
                     LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 
                     cntx.getContentObject().setField("beanToAdd", bean);
-                    errors.add(languageProvider.getProperty("CATEGORY_DETAIL_ALREADY_EXISTS").toString() + bean.getField("name") + "'.");
+                    errors.add(languageProvider.getProperty("CATEGORY_DETAIL_ALREADY_EXISTS").toString() + bean.getField("name") +
+                            "'.");
                 } else if (admin && !cntx.requestAsBoolean("questionConfirmed").booleanValue()) {
                     cntx.getContentObject().setField("beanToAdd", bean);
                     cntx.getContentObject().setField("resortQuestion", true);
@@ -335,7 +339,8 @@ public class CategorieWorker extends StammdatenWorker {
      * @param bean {@link Categorie}
      * @throws BeanException
      */
-    protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext transactionContext) throws BeanException {
+    protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext transactionContext)
+            throws BeanException {
         assert bean != null;
         assert cntx != null;
 

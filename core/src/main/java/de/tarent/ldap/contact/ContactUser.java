@@ -165,7 +165,8 @@ public class ContactUser {
 
     @Override
     public String toString() {
-        return "Vorname: " + vorname + ", Nachname: " + nachname + ", Name: " + name + ", EMail: " + email + ", admin: " + admin.toString();
+        return "Vorname: " + vorname + ", Nachname: " + nachname + ", Name: " + name + ", EMail: " + email + ", admin: " +
+                admin.toString();
     }
 
     /**

@@ -231,12 +231,14 @@ public class DataExchangeWorker {
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ungültigen Parameterwerten.
      */
-    public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter, final Integer event,
+    public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter,
+            final Integer event,
             final Integer category, final String domain) throws TcContentProzessException, IOException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
-        final ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
+        final ExchangeFormat format =
+                getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null) {
             throw new TcContentProzessException("Unbekannter Exportformatschlüssel '" + formatKey + "'.");
         }
@@ -307,7 +309,8 @@ public class DataExchangeWorker {
                         categoryId = category;
                     }
 
-                    //Den Exporter auf Mandant und Kategorie einschränken. Ist für den CSV-Exporter notwendig, damit keine überflüssigen
+                    //Den Exporter auf Mandant und Kategorie einschränken. Ist für den CSV-Exporter notwendig, damit keine
+                    // überflüssigen
                     // überschriften erzeugt werden.
                     exporter.setOrgUnitId(orgUnit);
                     exporter.setCategoryId(categoryId);
@@ -354,7 +357,8 @@ public class DataExchangeWorker {
     public static final String[] INPUT_importToTransit =
             { "importfile", "format", "filenc", "importSource", "orgUnit", "targetOrgUnit", "CONFIG:importProperties" };
     /**
-     * Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
+     * Octopus-Eingabe-Parameter-Pflicht für
+     * {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
      */
     public static final boolean[] MANDATORY_importToTransit = { false, false, true, false, false, false, false };
     /**
@@ -404,7 +408,8 @@ public class DataExchangeWorker {
             TcModuleConfig moduleConfig = octopusContext.moduleConfig();
             assert moduleConfig != null;
             // Zunächst mal die benötigten Objekte erstellen
-            ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, octopusContext.getRequestObject().getRequestParameters());
+            ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey,
+                    octopusContext.getRequestObject().getRequestParameters());
             if (format == null) {
                 throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" + formatKey + "'.");
             }
@@ -528,7 +533,9 @@ public class DataExchangeWorker {
                         ics = StandardCharsets.UTF_16LE;
                     } else if (!Charset.isSupported("cp1252")) {
                         // default to closest thing to cp1252
-                        LOGGER.error("JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters will be lost!");
+                        LOGGER.error(
+                                "JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters " +
+                                 "will be lost!");
                         ics = StandardCharsets.ISO_8859_1;
                     } else {
                         // default to cp1252
@@ -549,7 +556,8 @@ public class DataExchangeWorker {
 
                 Importer importer = createImporter(format, transactionContext, istream, ics);
                 Import importInstance = createImport(transactionContext, formatKey, importSource, mandantId);
-                VerawebDigester digester = new VerawebDigester(octopusContext, transactionContext, importProperties, importSource, importInstance);
+                VerawebDigester digester =
+                        new VerawebDigester(octopusContext, transactionContext, importProperties, importSource, importInstance);
 
                 importer.importAll(digester, transactionContext);
 
@@ -707,7 +715,8 @@ public class DataExchangeWorker {
      * @return ein passender {@link Exporter}
      * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
      */
-    static Exporter createExporter(ExchangeFormat format, Database database, OutputStream os, Charset cs) throws TcContentProzessException {
+    static Exporter createExporter(ExchangeFormat format, Database database, OutputStream os, Charset cs)
+            throws TcContentProzessException {
         assert format != null;
         assert database != null;
         try {
@@ -795,7 +804,8 @@ public class DataExchangeWorker {
      * @param exporter zu benutzender {@link Exporter}
      * @param orgUnit  Mandanten-ID, wenn danach gefiltert werden soll
      */
-    void exportCategory(Database database, Integer category, Exporter exporter, Integer orgUnit) throws BeanException, IOException {
+    void exportCategory(Database database, Integer category, Exporter exporter, Integer orgUnit)
+            throws BeanException, IOException {
         assert database != null;
         assert exporter != null;
         Bean samplePerson = database.createBean("Person");
@@ -900,7 +910,8 @@ public class DataExchangeWorker {
      * @return neue {@link Import}-Instanz zu den angegebenen Daten
      * @throws TcContentProzessException FIXME
      */
-    static Import createImport(TransactionContext context, String formatKey, String importSource, Integer orgunit) throws TcContentProzessException {
+    static Import createImport(TransactionContext context, String formatKey, String importSource, Integer orgunit)
+            throws TcContentProzessException {
         try {
             Database database = context.getDatabase();
             Import importInstance = (Import) database.createBean("Import");

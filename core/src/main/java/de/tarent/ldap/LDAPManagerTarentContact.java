@@ -339,7 +339,8 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         //alten Contact aus dem LDAP holen
         Attributes contact = null;
         try {
-            contact = lctx.getAttributes("uid=" + ldc.getUserid() + ",ou=" + vertgrp + relative + baseDN); //$NON-NLS-1$ //$NON-NLS-2$
+            contact = lctx.getAttributes(
+                    "uid=" + ldc.getUserid() + ",ou=" + vertgrp + relative + baseDN); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (NamingException e1) {
             throw new LDAPException(Messages.getString("LDAPManager.Contact_01") + ldc.getUserid()
                     + Messages.getString("LDAPManager._existiert_gar_nicht_01") + e1.getMessage(), e1); //$NON-NLS-1$
@@ -558,7 +559,8 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      * @param passwort Passwort
      * @throws LDAPException
      */
-    public void modifyContactUserRawPassword(String userid, String vorname, String nachname, String passwort) throws LDAPException {
+    public void modifyContactUserRawPassword(String userid, String vorname, String nachname, String passwort)
+            throws LDAPException {
         logger.log(Level.FINE, "Modifiziere LDAP-User: " + userid);
         Vector mods = new Vector();
 
@@ -704,7 +706,8 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     }
 
     /* (non-Javadoc)
-     * @see de.tarent.octopus.server.UserManager#modifyUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * @see de.tarent.octopus.server.UserManager#modifyUser(java.lang.String, java.lang.String, java.lang.String, java.lang
+     * .String)
      */
     public void modifyUser(String userID, String firstName, String lastName, String password) throws TcSecurityException {
         try {

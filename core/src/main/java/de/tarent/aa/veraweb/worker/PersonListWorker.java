@@ -281,8 +281,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             final Select eventSelect = SQL.SelectDistinct(database).from("veraweb.tperson").selectAs("tperson.pk", "id")
                     .selectAs("tevent.dateend", "eventenddate").selectAs("event2.dateend", "taskeventenddate")
                     .selectAs("tevent.datebegin", "eventbegindate").selectAs("event2.datebegin", "taskeventbegindate")
-                    .joinOuter("veraweb.tguest", "tguest.fk_person", "tperson.pk").joinOuter("veraweb.tevent", "tevent.pk", "tguest.fk_event")
-                    .joinOuter("veraweb.ttask", "ttask.fk_person", "tperson.pk").joinOuter("veraweb.tevent event2", "event2.pk", "ttask.fk_event")
+                    .joinOuter("veraweb.tguest", "tguest.fk_person", "tperson.pk")
+                    .joinOuter("veraweb.tevent", "tevent.pk", "tguest.fk_event")
+                    .joinOuter("veraweb.ttask", "ttask.fk_person", "tperson.pk")
+                    .joinOuter("veraweb.tevent event2", "event2.pk", "ttask.fk_event")
                     .where(Expr.equal("tperson.pk", personId));
 
             Timestamp eventBeginDate = null;
@@ -363,8 +365,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                 // Integer personId = (Integer) iter.next();
                 final Integer personId = (Integer) id;
                 if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
-                    final PersonCategorie category = personCategoryWorker.addCategoryAssignment(octopusContext, categoryId, personId, database,
-                            transactionContext, false);
+                    final PersonCategorie category =
+                            personCategoryWorker.addCategoryAssignment(octopusContext, categoryId, personId, database,
+                                    transactionContext, false);
                     if (category != null) {
                         database.saveBean(category, transactionContext, false);
                     }
@@ -372,7 +375,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                     if (categoryId.intValue() == 0) {
                         personCategoryWorker.removeAllCategoryAssignments(octopusContext, personId, database, transactionContext);
                     } else {
-                        personCategoryWorker.removeCategoryAssignment(octopusContext, categoryId, personId, database, transactionContext);
+                        personCategoryWorker
+                                .removeCategoryAssignment(octopusContext, categoryId, personId, database, transactionContext);
                     }
                 }
                 // iter.remove();
@@ -420,7 +424,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws IOException
      */
-    public void unassignWorkArea(final OctopusContext cntx, final List<Integer> personIds, final Integer workAreaId) throws BeanException,
+    public void unassignWorkArea(final OctopusContext cntx, final List<Integer> personIds, final Integer workAreaId)
+            throws BeanException,
             IOException {
         final Database database = getDatabase(cntx);
         final TransactionContext transactionContext = database.getTransactionContext();
@@ -432,7 +437,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private void handleUnassignWorkarea(final List<Integer> personIds, final Integer workAreaId, final TransactionContext transactionContext)
+    private void handleUnassignWorkarea(final List<Integer> personIds, final Integer workAreaId,
+            final TransactionContext transactionContext)
             throws BeanException, IOException {
         if (workAreaId > 0) {
             unassignWorkArea(transactionContext, workAreaId, personIds);
@@ -450,7 +456,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws IOException
      */
-    public void assignWorkArea(final OctopusContext octopusContext, final List<Integer> personIds, final Integer workAreaId) throws BeanException,
+    public void assignWorkArea(final OctopusContext octopusContext, final List<Integer> personIds, final Integer workAreaId)
+            throws BeanException,
             IOException {
         final Database database = getDatabase(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
@@ -469,7 +476,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * unassigns from all persons the given workArea. Will not commit the query
      * as this is left to the caller.
      */
-    public static void unassignWorkArea(final TransactionContext transactionContext, final Integer workAreaId, final List<Integer> personIds)
+    public static void unassignWorkArea(final TransactionContext transactionContext, final Integer workAreaId,
+            final List<Integer> personIds)
             throws BeanException, IOException {
         final Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
         updateStatement.update("tperson.fk_workarea", 0);
@@ -481,7 +489,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         transactionContext.commit();
     }
 
-    private static void unassignAllWorkAreas(final TransactionContext transactionContext, final List<Integer> personIds) throws IOException,
+    private static void unassignAllWorkAreas(final TransactionContext transactionContext, final List<Integer> personIds)
+            throws IOException,
             BeanException {
         final Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
         updateStatement.update("tperson.fk_workarea", 0);
@@ -492,7 +501,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         transactionContext.commit();
     }
 
-    public static void assignWorkArea(final TransactionContext transactionContext, final Integer workAreaId, final List<Integer> personIds)
+    public static void assignWorkArea(final TransactionContext transactionContext, final Integer workAreaId,
+            final List<Integer> personIds)
             throws BeanException, IOException {
         final Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
         updateStatement.update("tperson.fk_workarea", workAreaId);
@@ -504,7 +514,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         transactionContext.commit();
     }
 
-    public Select prepareShowList(final OctopusContext octopusContext, final Database database) throws BeanException, IOException {
+    public Select prepareShowList(final OctopusContext octopusContext, final Database database)
+            throws BeanException, IOException {
         final Select select = getSelect(getSearch(octopusContext), database);
         extendColumns(octopusContext, select);
         extendWhere(octopusContext, select);
@@ -533,7 +544,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
          * all List can use it for sortation
          */
         if (personSearch.sortList) {
-            if (personSearch.sort == null || personSearch.lastlistorder == null || !personSearch.lastlistorder.equals(personSearch.listorder)) {
+            if (personSearch.sort == null || personSearch.lastlistorder == null ||
+                    !personSearch.lastlistorder.equals(personSearch.listorder)) {
                 personSearch.sort = "ASC";
             } else if ("ASC".equals(personSearch.sort)) {
                 personSearch.sort = "DESC";
@@ -590,7 +602,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @param personSearch   FIXME
      * @param select         FIXME
      */
-    protected void extendSelectByMultipleCategorySearch(final OctopusContext octopusContext, final PersonSearch personSearch, final Select select) {
+    protected void extendSelectByMultipleCategorySearch(final OctopusContext octopusContext, final PersonSearch personSearch,
+            final Select select) {
         if ((personSearch.categoriesSelection != null) && (personSearch.categoriesSelection.size() >= 1)
                 && (personSearch.categoriesSelection.get(0).toString().length() > 0) // workaround
             // for
@@ -662,8 +675,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             select = SQL.SelectDistinct(database);
         }
 
-        return select.from("veraweb.tperson").selectAs("tperson.pk", "id").select("firstname_a_e1").select("lastname_a_e1").select("firstname_b_e1")
-                .select("lastname_b_e1").select("function_a_e1").select("company_a_e1").select("street_a_e1").select("zipcode_a_e1")
+        return select.from("veraweb.tperson").selectAs("tperson.pk", "id").select("firstname_a_e1").select("lastname_a_e1")
+                .select("firstname_b_e1")
+                .select("lastname_b_e1").select("function_a_e1").select("company_a_e1").select("street_a_e1")
+                .select("zipcode_a_e1")
                 .select("state_a_e1").select("city_a_e1").select("iscompany");
     }
 
@@ -697,7 +712,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
         final List groups = Arrays.asList(octopusContext.personalConfig().getUserGroups());
         boolean user = groups.contains(PersonalConfigAA.GROUP_WRITE);
-        final boolean admin = groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
+        final boolean admin =
+                groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
         if (admin) {
             user = false;
         }
@@ -733,7 +749,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                 final List personExpireInFuture = database.getBeanList(
                         "Person",
                         database.getSelect("Person").where(
-                                new RawClause("dateexpire >= " + Format.format(new Date()) + " AND pk IN " + new StatementList(subList))));
+                                new RawClause("dateexpire >= " + Format.format(new Date()) + " AND pk IN " +
+                                        new StatementList(subList))));
                 for (final Object singlePerson : personExpireInFuture) {
                     // for (Iterator it = personExpireInFuture.iterator();
                     // it.hasNext(); ) {
@@ -901,7 +918,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     // geschützte Hilfsmethoden
     //
     private boolean getContextAsBoolean(final OctopusContext octopusContext, final String key) {
-        return Boolean.valueOf(octopusContext.contentAsString(key)).booleanValue() || octopusContext.requestAsBoolean(key).booleanValue();
+        return Boolean.valueOf(octopusContext.contentAsString(key)).booleanValue() ||
+                octopusContext.requestAsBoolean(key).booleanValue();
     }
 
     /**
@@ -921,7 +939,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             addPersonListFilterSimple(searchFiled, list, status);
         }
 
-        final Where orgunitFilter = Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId());
+        final Where orgunitFilter =
+                Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId());
         if (list.size() == 0) {
             return orgunitFilter;
         } else {
@@ -992,7 +1011,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                 list.addAnd(Expr.greaterOrEqual("dateexpire", personSearch.validdate));
                 break;
             case 3:
-                list.addAnd(Where.and(Expr.greaterOrEqual("dateexpire", personSearch.validdate), Expr.lessOrEqual("dateexpire", end)));
+                list.addAnd(Where.and(Expr.greaterOrEqual("dateexpire", personSearch.validdate),
+                        Expr.lessOrEqual("dateexpire", end)));
                 break;
             }
         }
@@ -1016,8 +1036,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
     private Clause getStateFilter(final PersonSearch personSearch) {
         final String value = personSearch.state;
-        final String[] columns = { "state_a_e1", "state_a_e2", "state_a_e3", "state_b_e1", "state_b_e2", "state_b_e3", "state_c_e1", "state_c_e2",
-                "state_c_e3" };
+        final String[] columns =
+                { "state_a_e1", "state_a_e2", "state_a_e3", "state_b_e1", "state_b_e2", "state_b_e3", "state_c_e1", "state_c_e2",
+                        "state_c_e3" };
         return DatabaseHelper.getWhere(value, columns);
     }
 
@@ -1026,43 +1047,51 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     }
 
     private Clause getZipCodeFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.zipcode, new String[] { "zipcode_a_e1", "zipcode_a_e2", "zipcode_a_e3", "zipcode_b_e1",
-                "zipcode_b_e2", "zipcode_b_e3", "zipcode_c_e1", "zipcode_c_e2", "zipcode_c_e3" });
+        return DatabaseHelper
+                .getWhere(personSearch.zipcode, new String[] { "zipcode_a_e1", "zipcode_a_e2", "zipcode_a_e3", "zipcode_b_e1",
+                        "zipcode_b_e2", "zipcode_b_e3", "zipcode_c_e1", "zipcode_c_e2", "zipcode_c_e3" });
     }
 
     private Clause getStreetFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.street, new String[] { "street_a_e1", "street_a_e2", "street_a_e3", "street_b_e1", "street_b_e2",
-                "street_b_e3", "street_c_e1", "street_c_e2", "street_c_e3" });
+        return DatabaseHelper.getWhere(personSearch.street,
+                new String[] { "street_a_e1", "street_a_e2", "street_a_e3", "street_b_e1", "street_b_e2",
+                        "street_b_e3", "street_c_e1", "street_c_e2", "street_c_e3" });
     }
 
     private Clause getLastnameFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.lastname, new String[] { "lastname_a_e1", "lastname_a_e2", "lastname_a_e3", "lastname_b_e1",
-                "lastname_b_e2", "lastname_b_e3" });
+        return DatabaseHelper.getWhere(personSearch.lastname,
+                new String[] { "lastname_a_e1", "lastname_a_e2", "lastname_a_e3", "lastname_b_e1",
+                        "lastname_b_e2", "lastname_b_e3" });
     }
 
     private Clause getFunctionFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.function, new String[] { "function_a_e1", "function_a_e2", "function_a_e3", "function_b_e1",
-                "function_b_e2", "function_b_e3", "function_c_e1", "function_c_e2", "function_c_e3" });
+        return DatabaseHelper.getWhere(personSearch.function,
+                new String[] { "function_a_e1", "function_a_e2", "function_a_e3", "function_b_e1",
+                        "function_b_e2", "function_b_e3", "function_c_e1", "function_c_e2", "function_c_e3" });
     }
 
     private Clause getFirstnameFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.firstname, new String[] { "firstname_a_e1", "firstname_a_e2", "firstname_a_e3", "firstname_b_e1",
-                "firstname_b_e2", "firstname_b_e3" });
+        return DatabaseHelper.getWhere(personSearch.firstname,
+                new String[] { "firstname_a_e1", "firstname_a_e2", "firstname_a_e3", "firstname_b_e1",
+                        "firstname_b_e2", "firstname_b_e3" });
     }
 
     private Clause getCompanyFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.company, new String[] { "company_a_e1", "company_a_e2", "company_a_e3", "company_b_e1",
-                "company_b_e2", "company_b_e3", "company_c_e1", "company_c_e2", "company_c_e3" });
+        return DatabaseHelper
+                .getWhere(personSearch.company, new String[] { "company_a_e1", "company_a_e2", "company_a_e3", "company_b_e1",
+                        "company_b_e2", "company_b_e3", "company_c_e1", "company_c_e2", "company_c_e3" });
     }
 
     private Clause getCountryFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.country, new String[] { "country_a_e1", "country_a_e2", "country_a_e3", "country_b_e1",
-                "country_b_e2", "country_b_e3", "country_c_e1", "country_c_e2", "country_c_e3" });
+        return DatabaseHelper
+                .getWhere(personSearch.country, new String[] { "country_a_e1", "country_a_e2", "country_a_e3", "country_b_e1",
+                        "country_b_e2", "country_b_e3", "country_c_e1", "country_c_e2", "country_c_e3" });
     }
 
     private Clause getCityFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.city, new String[] { "city_a_e1", "city_a_e2", "city_a_e3", "city_b_e1", "city_b_e2",
-                "city_b_e3", "city_c_e1", "city_c_e2", "city_c_e3" });
+        return DatabaseHelper
+                .getWhere(personSearch.city, new String[] { "city_a_e1", "city_a_e2", "city_a_e3", "city_b_e1", "city_b_e2",
+                        "city_b_e3", "city_c_e1", "city_c_e2", "city_c_e3" });
     }
 
     /**
@@ -1072,7 +1101,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @param searchField FIXME
      * @throws BeanException
      */
-    private void addPersonListFilterSimple(final String searchField, final WhereList list2, final boolean status) throws BeanException {
+    private void addPersonListFilterSimple(final String searchField, final WhereList list2, final boolean status)
+            throws BeanException {
 
         /*
          * modified to support search for individual workareas as per change
@@ -1081,26 +1111,33 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
         final WhereList list = new WhereList();
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "firstname_a_e1", "firstname_a_e2", "firstname_a_e3", "firstname_b_e1",
-                "firstname_b_e2", "firstname_b_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "firstname_a_e1", "firstname_a_e2", "firstname_a_e3", "firstname_b_e1",
+                        "firstname_b_e2", "firstname_b_e3" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "lastname_a_e1", "lastname_a_e2", "lastname_a_e3", "lastname_b_e1",
-                "lastname_b_e2", "lastname_b_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "lastname_a_e1", "lastname_a_e2", "lastname_a_e3", "lastname_b_e1",
+                        "lastname_b_e2", "lastname_b_e3" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "company_a_e1", "company_a_e2", "company_a_e3", "company_b_e1",
-                "company_b_e2", "company_b_e3", "company_c_e1", "company_c_e2", "company_c_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "company_a_e1", "company_a_e2", "company_a_e3", "company_b_e1",
+                        "company_b_e2", "company_b_e3", "company_c_e1", "company_c_e2", "company_c_e3" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "fon_a_e1", "fon_a_e2", "fon_a_e3", "fon_b_e1", "fon_b_e2", "fon_b_e3",
-                "fon_c_e1", "fon_c_e2", "fon_c_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "fon_a_e1", "fon_a_e2", "fon_a_e3", "fon_b_e1", "fon_b_e2", "fon_b_e3",
+                        "fon_c_e1", "fon_c_e2", "fon_c_e3" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "fax_a_e1", "fax_a_e2", "fax_a_e3", "fax_b_e1", "fax_b_e2", "fax_b_e3",
-                "fax_c_e1", "fax_c_e2", "fax_c_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "fax_a_e1", "fax_a_e2", "fax_a_e3", "fax_b_e1", "fax_b_e2", "fax_b_e3",
+                        "fax_c_e1", "fax_c_e2", "fax_c_e3" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "mobil_a_e1", "mobil_a_e2", "mobil_a_e3", "mobil_b_e1", "mobil_b_e2",
-                "mobil_b_e3", "mobil_c_e1", "mobil_c_e2", "mobil_c_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "mobil_a_e1", "mobil_a_e2", "mobil_a_e3", "mobil_b_e1", "mobil_b_e2",
+                        "mobil_b_e3", "mobil_c_e1", "mobil_c_e2", "mobil_c_e3" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "mail_a_e1", "mail_a_e2", "mail_a_e3", "mail_b_e1", "mail_b_e2", "mail_b_e3",
-                "mail_c_e1", "mail_c_e2", "mail_c_e3" }));
+        list.addOr(DatabaseHelper.getWhere(searchField,
+                new String[] { "mail_a_e1", "mail_a_e2", "mail_a_e3", "mail_b_e1", "mail_b_e2", "mail_b_e3",
+                        "mail_c_e1", "mail_c_e2", "mail_c_e3" }));
 
         list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "tcategorie.catname" }));
 
@@ -1108,19 +1145,23 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "tworkarea.name" }));
         }
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "function_a_e1", "function_a_e2", "function_a_e3", "function_b_e1",
-                "function_b_e2", "function_b_e3", "function_c_e1", "function_c_e2", "function_c_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "function_a_e1", "function_a_e2", "function_a_e3", "function_b_e1",
+                        "function_b_e2", "function_b_e3", "function_c_e1", "function_c_e2", "function_c_e3" }));
 
         list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "note_a_e1", "note_b_e1" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "city_a_e1", "city_a_e2", "city_a_e3", "city_b_e1", "city_b_e2", "city_b_e3",
-                "city_c_e1", "city_c_e2", "city_c_e3" }));
+        list.addOr(DatabaseHelper.getWhere(searchField,
+                new String[] { "city_a_e1", "city_a_e2", "city_a_e3", "city_b_e1", "city_b_e2", "city_b_e3",
+                        "city_c_e1", "city_c_e2", "city_c_e3" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "street_a_e1", "street_a_e2", "street_a_e3", "street_b_e1", "street_b_e2",
-                "street_b_e3", "street_c_e1", "street_c_e2", "street_c_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "street_a_e1", "street_a_e2", "street_a_e3", "street_b_e1", "street_b_e2",
+                        "street_b_e3", "street_c_e1", "street_c_e2", "street_c_e3" }));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[] { "zipcode_a_e1", "zipcode_a_e2", "zipcode_a_e3", "zipcode_b_e1",
-                "zipcode_b_e2", "zipcode_b_e3", "zipcode_c_e1", "zipcode_c_e2", "zipcode_c_e3" }));
+        list.addOr(DatabaseHelper
+                .getWhere(searchField, new String[] { "zipcode_a_e1", "zipcode_a_e2", "zipcode_a_e3", "zipcode_b_e1",
+                        "zipcode_b_e2", "zipcode_b_e3", "zipcode_c_e1", "zipcode_c_e2", "zipcode_c_e3" }));
 
         list2.addAnd(Where.and(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE), list));
 

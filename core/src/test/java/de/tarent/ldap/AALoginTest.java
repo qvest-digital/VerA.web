@@ -116,8 +116,9 @@ public class AALoginTest extends TestCase {
         SearchControls cons = new SearchControls();
         cons.setSearchScope(SearchControls.ONELEVEL_SCOPE);
         String filterTemplate =
-                "(&(|(person=uid={0}@auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}," +
-                 "ou=Personen,dc=aa))(objectclass=AARole))";
+                "(&(|(person=uid={0}@auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen," +
+                 "dc=aa)(person=uid={0}," +
+                        "ou=Personen,dc=aa))(objectclass=AARole))";
         String filter = MessageFormat.format(filterTemplate, new Object[] { "dietmar.hilbrich" });
         NamingEnumeration ergebnis = manager.lctx.search("ou=Users,ou=testav01,dc=aa", filter, cons);
         while (ergebnis.hasMore()) {

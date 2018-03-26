@@ -165,7 +165,8 @@ public class MailinglistWorker {
         return 0;
     }
 
-    private int countSavedAddressesOnPersonSearch(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype, Integer locale,
+    private int countSavedAddressesOnPersonSearch(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype,
+            Integer locale,
             List selection) throws BeanException, IOException {
         final Clause clause = Expr.in("tperson.pk", selection);
         return addMailinglistFromPerson(octopusContext, mailinglist, addresstype, locale, clause);
@@ -188,7 +189,8 @@ public class MailinglistWorker {
      * @throws IOException
      */
 
-    private int createMailinglistBySelectAllOption(OctopusContext octopusContext, Mailinglist mailinglist) throws BeanException, IOException {
+    private int createMailinglistBySelectAllOption(OctopusContext octopusContext, Mailinglist mailinglist)
+            throws BeanException, IOException {
 
         if (octopusContext.contentAsObject("search") instanceof GuestSearch) {
             final GuestSearch search = (GuestSearch) octopusContext.contentAsObject("search");
@@ -220,7 +222,8 @@ public class MailinglistWorker {
      * @throws BeanException
      * @throws IOException
      */
-    protected int addMailinglistFromPerson(OctopusContext cntx, Mailinglist mailinglist, Integer addresstype, Integer locale, Clause clause)
+    protected int addMailinglistFromPerson(OctopusContext cntx, Mailinglist mailinglist, Integer addresstype, Integer locale,
+            Clause clause)
             throws BeanException, IOException {
         final Database database = new DatabaseVeraWeb(cntx);
         final String personMail = getMailColumn(addresstype, locale);
@@ -262,7 +265,8 @@ public class MailinglistWorker {
      * @throws BeanException
      * @throws IOException
      */
-    protected int addMailinglistFromGuest(OctopusContext octopusContext, Mailinglist mailinglist, Clause clause) throws BeanException, IOException {
+    protected int addMailinglistFromGuest(OctopusContext octopusContext, Mailinglist mailinglist, Clause clause)
+            throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
         Select select = SQL.Select(database).setDistinct(true).
                 from("veraweb.tguest").
@@ -286,7 +290,8 @@ public class MailinglistWorker {
      * und
      * addMailinglistFromGuest
      */
-    protected int addMailinglist(OctopusContext octopusContext, Mailinglist mailinglist, Select select) throws BeanException, IOException {
+    protected int addMailinglist(OctopusContext octopusContext, Mailinglist mailinglist, Select select)
+            throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
         int savedAddresses = 0;
 
@@ -392,7 +397,8 @@ public class MailinglistWorker {
      * @param address     FIXME
      * @return True wenn ein entsprechender Eintrag gespeichert wurde.
      */
-    protected boolean savePerson(Database database, Integer mailinglist, Integer person, String address) throws BeanException, IOException {
+    protected boolean savePerson(Database database, Integer mailinglist, Integer person, String address)
+            throws BeanException, IOException {
         final MailinglistAddress mailinglistAddress = new MailinglistAddress();
         mailinglistAddress.mailinglist = mailinglist;
         mailinglistAddress.person = person;

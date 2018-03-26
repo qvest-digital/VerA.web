@@ -216,7 +216,8 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         // WHEN
-        personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city",
+        personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
+                "63123", "city",
                 "country");
 
         // THEN
@@ -241,7 +242,8 @@ public class PersonResourceSessionsTest {
 
         // WHEN
         Person personPress = personResource
-                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city",
+                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
+                        "63123", "city",
                         "country");
 
         // THEN
@@ -265,7 +267,8 @@ public class PersonResourceSessionsTest {
 
         // WHEN
         Person result = personResource
-                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city",
+                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
+                        "63123", "city",
                         "country");
 
         // THEN
@@ -289,7 +292,8 @@ public class PersonResourceSessionsTest {
 
         // WHEN
         Person result = personResource
-                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city",
+                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
+                        "63123", "city",
                         "country");
 
         // THEN
@@ -473,7 +477,8 @@ public class PersonResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(person);
 
         // WHEN
-        personResource.updatePersonCoreData("username", "salutation", 1, "title", "firstname", "lastname", 1L, "de", "de", "gender");
+        personResource
+                .updatePersonCoreData("username", "salutation", 1, "title", "firstname", "lastname", 1L, "de", "de", "gender");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();

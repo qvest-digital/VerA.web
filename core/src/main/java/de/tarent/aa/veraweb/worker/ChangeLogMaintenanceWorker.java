@@ -139,8 +139,10 @@ public class ChangeLogMaintenanceWorker implements Runnable {
         if (this.retentionPolicy.toString().equals("P0")) {
             // log invalid setting and use 1yr. default
             this.logger
-                    .warn("changeLogRetentionPolicy Konfigurationseinstellung ist fehlerhaft. Die Einstellung muss einer g\u00fcltigen " +
-                     "Zeitdauerangabe im Format P[0-9]+Y[0-9]+M[0-9]+D entsprechen. Stattdessen wird die Vorgabe P1Y (1 Jahr) verwendet.");
+                    .warn("changeLogRetentionPolicy Konfigurationseinstellung ist fehlerhaft. Die Einstellung muss einer " +
+                     "g\u00fcltigen " +
+                            "Zeitdauerangabe im Format P[0-9]+Y[0-9]+M[0-9]+D entsprechen. Stattdessen wird die Vorgabe P1Y (1 " +
+                             "Jahr) verwendet.");
             this.retentionPolicy.years = 1;
         }
 

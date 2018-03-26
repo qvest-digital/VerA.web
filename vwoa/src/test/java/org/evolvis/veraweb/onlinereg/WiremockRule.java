@@ -97,11 +97,13 @@ public class WiremockRule implements TestRule {
             return;
         }
 
-        String wiremockJarPath = System.getenv("HOME") + "/.m2/repository/com/github/tomakehurst/wiremock/1.58/wiremock-1.58-standalone.jar";
+        String wiremockJarPath =
+                System.getenv("HOME") + "/.m2/repository/com/github/tomakehurst/wiremock/1.58/wiremock-1.58-standalone.jar";
         String wiremockDir = this.getClass().getResource("/wiremock").getPath();
         System.out.println("Using WireMock JAR: " + wiremockJarPath);
         System.out.println("Starting WireMock in directory: " + wiremockDir);
-        wiremock = Runtime.getRuntime().exec(new String[] { "java", "-jar", wiremockJarPath, "--port", "8091" }, null, new File(wiremockDir));
+        wiremock = Runtime.getRuntime()
+                .exec(new String[] { "java", "-jar", wiremockJarPath, "--port", "8091" }, null, new File(wiremockDir));
 /*
         new Thread() {
             public void run() {

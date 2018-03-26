@@ -251,7 +251,8 @@ public class UserConfigWorker {
         octopusContext.setContent("saveSuccess", true);
     }
 
-    protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key) throws BeanException, IOException {
+    protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key)
+            throws BeanException, IOException {
         String old = (String) userConfig.get(key);
         if (old != null) {
 
@@ -266,7 +267,8 @@ public class UserConfigWorker {
         }
     }
 
-    protected void setUserSetting(Database database, Integer userId, Map userConfig, String key, String value) throws BeanException, IOException {
+    protected void setUserSetting(Database database, Integer userId, Map userConfig, String key, String value)
+            throws BeanException, IOException {
         String old = (String) userConfig.get(key);
         if (value == null) {
             removeUserSetting(database, userId, userConfig, key);

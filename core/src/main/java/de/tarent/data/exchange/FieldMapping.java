@@ -355,7 +355,8 @@ public class FieldMapping {
             Integer[] lengths = (Integer[]) targetsByPrefixLength.keySet().toArray(new Integer[targetsByPrefixLength.size()]);
             Arrays.sort(lengths);
             for (int index = lengths.length - 1; index >= 0; index--) {
-                for (Iterator itMappingTargets = ((Collection) targetsByPrefixLength.get(lengths[index])).iterator(); itMappingTargets.hasNext(); ) {
+                for (Iterator itMappingTargets = ((Collection) targetsByPrefixLength.get(lengths[index])).iterator();
+                        itMappingTargets.hasNext(); ) {
                     String targetKey = itMappingTargets.next().toString();
                     String format = mappingDescription.get(targetKey).toString();
                     String jokerReferencePrefix = getJokerReferencePrefix(format);
@@ -455,7 +456,9 @@ public class FieldMapping {
                 targetPattern = targetPattern.replaceAll("\\*", source);
                 Object former = resolvedMappings.put(targetPattern, buffer.toString());
                 if (former != null) {
-                    logger.warning("Ersetze altes Format '" + former + "' für '" + targetPattern + "' durch '" + buffer.toString() + "'.");
+                    logger.warning(
+                            "Ersetze altes Format '" + former + "' für '" + targetPattern + "' durch '" + buffer.toString() +
+                                    "'.");
                 }
                 return;
             }

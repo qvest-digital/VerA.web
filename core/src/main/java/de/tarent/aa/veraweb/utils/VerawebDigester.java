@@ -111,7 +111,8 @@ public class VerawebDigester implements ImportDigester {
      * @param importProperties FIXME
      * @param importSource     FIXME
      */
-    public VerawebDigester(OctopusContext cntx, ExecutionContext context, Map importProperties, String importSource, Import importInstance) {
+    public VerawebDigester(OctopusContext cntx, ExecutionContext context, Map importProperties, String importSource,
+            Import importInstance) {
         assert context != null;
         this.cntx = cntx;
         this.importSource = importSource;
@@ -140,7 +141,8 @@ public class VerawebDigester implements ImportDigester {
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
     public Map getImportStats() {
-        return DataExchangeWorker.createImportStats(incorrectCount, personCount, duplicateCount, importableCount, importInstance.id);
+        return DataExchangeWorker
+                .createImportStats(incorrectCount, personCount, duplicateCount, importableCount, importInstance.id);
     }
 
     //

@@ -236,7 +236,8 @@ public class DelegationResource extends AbstractResource {
         return newOptionalFieldValue;
     }
 
-    private void markOptionsAsSelected(final List<Delegation> delegationContents, final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+    private void markOptionsAsSelected(final List<Delegation> delegationContents,
+            final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
         for (Delegation delegationContent : delegationContents) {
             for (int i = 0; i < typeContentsFacade.size(); i++) {
                 if (delegationContent.getValue().equals(typeContentsFacade.get(i).getContent())) {

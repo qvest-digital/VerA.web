@@ -85,7 +85,8 @@ import java.util.Date;
         @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByUsername",
                 query = "SELECT oua FROM OsiamUserActivation oua where username=:username"),
         @NamedQuery(name = "OsiamUserActivation.refreshOsiamUserActivationByUsername",
-                query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, expiration_date=:expiration_date " +
+                query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, " +
+                 "expiration_date=:expiration_date " +
                         "WHERE username=:username")
 })
 public class OsiamUserActivation {

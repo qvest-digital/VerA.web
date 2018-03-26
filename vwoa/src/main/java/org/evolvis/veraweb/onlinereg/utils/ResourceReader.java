@@ -136,7 +136,8 @@ public class ResourceReader {
         }
 
         try {
-            return new URI(base.getScheme(), base.getUserInfo(), base.getHost(), base.getPort(), sb.toString(), base.getQuery(), base.getFragment())
+            return new URI(base.getScheme(), base.getUserInfo(), base.getHost(), base.getPort(), sb.toString(), base.getQuery(),
+                    base.getFragment())
                     .toASCIIString();
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);

@@ -95,12 +95,14 @@ import java.util.Date;
 })
 @NamedNativeQueries(value = {
         @NamedNativeQuery(name = "Person.getDelegatesByUUID",
-                query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson" +
-                 ".iscompany='f'",
+                query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid " +
+                 "AND tperson" +
+                        ".iscompany='f'",
                 resultClass = Person.class),
         @NamedNativeQuery(name = "Person.getCompanyByUUID",
-                query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson" +
-                 ".iscompany='t'",
+                query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid " +
+                 "AND tperson" +
+                        ".iscompany='t'",
                 resultClass = Person.class),
         @NamedNativeQuery(name = "Person.getPersonNamesByUsername", query = "SELECT CASE WHEN iscompany='t' THEN company_a_e1 " +
                 "WHEN iscompany='f' THEN firstname_a_e1 || ' ' || lastname_a_e1 END " +

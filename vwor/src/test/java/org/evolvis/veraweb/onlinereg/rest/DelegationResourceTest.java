@@ -209,7 +209,8 @@ public class DelegationResourceTest {
     public void testGetLabelId() {
         prepareSession();
         Query findByEventAndLabelQuery = mock(Query.class);
-        when(mockitoSession.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL)).thenReturn(findByEventAndLabelQuery);
+        when(mockitoSession.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL))
+                .thenReturn(findByEventAndLabelQuery);
         when(findByEventAndLabelQuery.uniqueResult()).thenReturn(1);
 
         Integer labelId = delegationResource.getLabelIdfromEventAndLabel(1, "Label 1");

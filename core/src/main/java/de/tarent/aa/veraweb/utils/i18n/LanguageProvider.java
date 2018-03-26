@@ -167,7 +167,8 @@ public class LanguageProvider {
         try {
             if (request.getField("languageSelector") != null) {
                 octopusContext.setSession("sessionLanguage", request.getField("languageSelector"));
-            } else if (request.getField("languageSelector") == null && octopusContext.sessionAsString("sessionLanguage") == null) {
+            } else if (request.getField("languageSelector") == null &&
+                    octopusContext.sessionAsString("sessionLanguage") == null) {
                 octopusContext.setSession("sessionLanguage", "de_DE");
             }
         } catch (BeanException e) {
@@ -288,7 +289,8 @@ public class LanguageProvider {
      * @return list of file names
      */
     private List<String> getLanguageFileNames(OctopusContext octopusContext) {
-        final List<String> localeNames = (List<String>) octopusContext.getConfigObject().getModuleConfig().getParams().get("availableTranslations");
+        final List<String> localeNames =
+                (List<String>) octopusContext.getConfigObject().getModuleConfig().getParams().get("availableTranslations");
         final List<String> languageFileNames = new ArrayList<String>();
         for (String localeName : localeNames) {
             languageFileNames.add(localeName + ".resource");

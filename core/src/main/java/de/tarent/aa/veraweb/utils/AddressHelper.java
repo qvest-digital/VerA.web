@@ -127,7 +127,8 @@ public class AddressHelper implements PersonConstants {
      * @throws IOException   FIXME
      * @throws BeanException FIXME
      */
-    public static void checkPersonSalutation(Person person, Database database, ExecutionContext context) throws BeanException, IOException {
+    public static void checkPersonSalutation(Person person, Database database, ExecutionContext context)
+            throws BeanException, IOException {
         new AddressHelper().updateSalutation(person.getMainLatin(), database, context);
         new AddressHelper().updateSalutation(person.getMainExtra1(), database, context);
         new AddressHelper().updateSalutation(person.getMainExtra2(), database, context);
@@ -136,7 +137,8 @@ public class AddressHelper implements PersonConstants {
         new AddressHelper().updateSalutation(person.getPartnerExtra2(), database, context);
     }
 
-    void updateSalutation(PersonMemberFacade facade, Database database, ExecutionContext context) throws BeanException, IOException {
+    void updateSalutation(PersonMemberFacade facade, Database database, ExecutionContext context)
+            throws BeanException, IOException {
         try {
             facade.setSalutationFK(new Integer(facade.getSalutation()));
             facade.setSalutation(((Salutation) database.getBean("Salutation", facade.getSalutationFK(), context)).name);
@@ -237,24 +239,34 @@ public class AddressHelper implements PersonConstants {
             copyAddressData(otherLatin, person.getOtherExtra1(), forceCopy, l2eAddress, l2eAddress, l2eContact);
             copyAddressData(otherLatin, person.getOtherExtra2(), forceCopy, l2eAddress, l2eAddress, l2eContact);
         } else {
-            copyAddressData(person.getMainLatin(), person.getMainExtra1(), personOld.getMainLatin(), personOld.getMainExtra1(), forceCopy, l2eName);
-            copyAddressData(person.getMainLatin(), person.getMainExtra2(), personOld.getMainLatin(), personOld.getMainExtra2(), forceCopy, l2eName);
-            copyAddressData(person.getPartnerLatin(), person.getPartnerExtra1(), personOld.getPartnerLatin(), personOld.getPartnerExtra1(),
+            copyAddressData(person.getMainLatin(), person.getMainExtra1(), personOld.getMainLatin(), personOld.getMainExtra1(),
                     forceCopy, l2eName);
-            copyAddressData(person.getPartnerLatin(), person.getPartnerExtra2(), personOld.getPartnerLatin(), personOld.getPartnerExtra2(),
+            copyAddressData(person.getMainLatin(), person.getMainExtra2(), personOld.getMainLatin(), personOld.getMainExtra2(),
+                    forceCopy, l2eName);
+            copyAddressData(person.getPartnerLatin(), person.getPartnerExtra1(), personOld.getPartnerLatin(),
+                    personOld.getPartnerExtra1(),
+                    forceCopy, l2eName);
+            copyAddressData(person.getPartnerLatin(), person.getPartnerExtra2(), personOld.getPartnerLatin(),
+                    personOld.getPartnerExtra2(),
                     forceCopy, l2eName);
 
-            copyAddressData(businessLatin, person.getBusinessExtra1(), personOld.getBusinessLatin(), personOld.getBusinessExtra1(), forceCopy,
+            copyAddressData(businessLatin, person.getBusinessExtra1(), personOld.getBusinessLatin(),
+                    personOld.getBusinessExtra1(), forceCopy,
                     l2eAddress, l2eAddress, l2eContact);
-            copyAddressData(businessLatin, person.getBusinessExtra2(), personOld.getBusinessLatin(), personOld.getBusinessExtra2(), forceCopy,
+            copyAddressData(businessLatin, person.getBusinessExtra2(), personOld.getBusinessLatin(),
+                    personOld.getBusinessExtra2(), forceCopy,
                     l2eAddress, l2eAddress, l2eContact);
-            copyAddressData(privateLatin, person.getPrivateExtra1(), personOld.getPrivateLatin(), personOld.getPrivateExtra1(), forceCopy,
+            copyAddressData(privateLatin, person.getPrivateExtra1(), personOld.getPrivateLatin(), personOld.getPrivateExtra1(),
+                    forceCopy,
                     l2eAddress, l2eAddress, l2eContact);
-            copyAddressData(privateLatin, person.getPrivateExtra2(), personOld.getPrivateLatin(), personOld.getPrivateExtra2(), forceCopy,
+            copyAddressData(privateLatin, person.getPrivateExtra2(), personOld.getPrivateLatin(), personOld.getPrivateExtra2(),
+                    forceCopy,
                     l2eAddress, l2eAddress, l2eContact);
-            copyAddressData(otherLatin, person.getOtherExtra1(), personOld.getOtherLatin(), personOld.getOtherExtra1(), forceCopy, l2eAddress,
+            copyAddressData(otherLatin, person.getOtherExtra1(), personOld.getOtherLatin(), personOld.getOtherExtra1(), forceCopy,
+                    l2eAddress,
                     l2eAddress, l2eContact);
-            copyAddressData(otherLatin, person.getOtherExtra2(), personOld.getOtherLatin(), personOld.getOtherExtra2(), forceCopy, l2eAddress,
+            copyAddressData(otherLatin, person.getOtherExtra2(), personOld.getOtherLatin(), personOld.getOtherExtra2(), forceCopy,
+                    l2eAddress,
                     l2eAddress, l2eContact);
         }
     }
@@ -269,7 +281,8 @@ public class AddressHelper implements PersonConstants {
      * @param forceCopy Erzwingt das kopieren.
      * @param copyName  Kopiert Namensdaten.
      */
-    public static void copyAddressData(PersonMemberFacade source, PersonMemberFacade target, boolean forceCopy, boolean copyName) {
+    public static void copyAddressData(PersonMemberFacade source, PersonMemberFacade target, boolean forceCopy,
+            boolean copyName) {
         assert source != null && target != null;
 
         if (copyName) {
@@ -306,17 +319,21 @@ public class AddressHelper implements PersonConstants {
         assert source != null && target != null && sourceOld != null && targetOld != null;
 
         if (copyName) {
-            if (forceCopy || (equal(sourceOld.getFirstname(), targetOld.getFirstname()) && equal(target.getFirstname(), targetOld.getFirstname()))) {
+            if (forceCopy || (equal(sourceOld.getFirstname(), targetOld.getFirstname()) &&
+                    equal(target.getFirstname(), targetOld.getFirstname()))) {
                 target.setFirstname(source.getFirstname());
             }
-            if (forceCopy || (equal(sourceOld.getLastname(), targetOld.getLastname()) && equal(target.getLastname(), targetOld.getLastname()))) {
+            if (forceCopy || (equal(sourceOld.getLastname(), targetOld.getLastname()) &&
+                    equal(target.getLastname(), targetOld.getLastname()))) {
                 target.setLastname(source.getLastname());
             }
-            if (forceCopy || (equal(sourceOld.getTitle(), targetOld.getTitle()) && equal(target.getTitle(), targetOld.getTitle()))) {
+            if (forceCopy ||
+                    (equal(sourceOld.getTitle(), targetOld.getTitle()) && equal(target.getTitle(), targetOld.getTitle()))) {
                 target.setTitle(source.getTitle());
             }
             if (forceCopy ||
-                    (equal(sourceOld.getSalutation(), targetOld.getSalutation()) && equal(target.getSalutation(), targetOld.getSalutation()))) {
+                    (equal(sourceOld.getSalutation(), targetOld.getSalutation()) &&
+                            equal(target.getSalutation(), targetOld.getSalutation()))) {
                 target.setSalutation(source.getSalutation());
                 target.setSalutationFK(source.getSalutationFK());
             }
@@ -334,7 +351,8 @@ public class AddressHelper implements PersonConstants {
      * @param copyAddress Kopiert wenn wahr entsprechende Adressdaten.
      * @param copyContact Kopiert wenn wahr entsprechende Kommunikationsdaten.
      */
-    public static void copyAddressData(PersonAddressFacade source, PersonAddressFacade target, boolean forceCopy, boolean copyCompany,
+    public static void copyAddressData(PersonAddressFacade source, PersonAddressFacade target, boolean forceCopy,
+            boolean copyCompany,
             boolean copyAddress, boolean copyContact) {
         assert source != null && target != null;
 
@@ -410,51 +428,62 @@ public class AddressHelper implements PersonConstants {
         assert source != null && target != null && sourceOld != null && targetOld != null;
 
         if (copyCompany) {
-            if (forceCopy || (equal(sourceOld.getCompany(), targetOld.getCompany()) && equal(target.getCompany(), targetOld.getCompany()))) {
+            if (forceCopy || (equal(sourceOld.getCompany(), targetOld.getCompany()) &&
+                    equal(target.getCompany(), targetOld.getCompany()))) {
                 target.setCompany(source.getCompany());
             }
         }
         if (copyAddress) {
-            if (forceCopy || (equal(sourceOld.getStreet(), targetOld.getStreet()) && equal(target.getStreet(), targetOld.getStreet()))) {
+            if (forceCopy ||
+                    (equal(sourceOld.getStreet(), targetOld.getStreet()) && equal(target.getStreet(), targetOld.getStreet()))) {
                 target.setStreet(source.getStreet());
             }
-            if (forceCopy || (equal(sourceOld.getZipCode(), targetOld.getZipCode()) && equal(target.getZipCode(), targetOld.getZipCode()))) {
+            if (forceCopy || (equal(sourceOld.getZipCode(), targetOld.getZipCode()) &&
+                    equal(target.getZipCode(), targetOld.getZipCode()))) {
                 target.setZipCode(source.getZipCode());
             }
-            if (forceCopy || (equal(sourceOld.getState(), targetOld.getState()) && equal(target.getState(), targetOld.getState()))) {
+            if (forceCopy ||
+                    (equal(sourceOld.getState(), targetOld.getState()) && equal(target.getState(), targetOld.getState()))) {
                 target.setState(source.getState());
             }
             if (forceCopy || (equal(sourceOld.getCity(), targetOld.getCity()) && equal(target.getCity(), targetOld.getCity()))) {
                 target.setCity(source.getCity());
             }
-            if (forceCopy || (equal(sourceOld.getCountry(), targetOld.getCountry()) && equal(target.getCountry(), targetOld.getCountry()))) {
+            if (forceCopy || (equal(sourceOld.getCountry(), targetOld.getCountry()) &&
+                    equal(target.getCountry(), targetOld.getCountry()))) {
                 target.setCountry(source.getCountry());
             }
             if (forceCopy || (equal(sourceOld.getPOBoxZipCode(), targetOld.getPOBoxZipCode()) &&
                     equal(target.getPOBoxZipCode(), targetOld.getPOBoxZipCode()))) {
                 target.setPOBoxZipCode(source.getPOBoxZipCode());
             }
-            if (forceCopy || (equal(sourceOld.getPOBox(), targetOld.getPOBox()) && equal(target.getPOBox(), targetOld.getPOBox()))) {
+            if (forceCopy ||
+                    (equal(sourceOld.getPOBox(), targetOld.getPOBox()) && equal(target.getPOBox(), targetOld.getPOBox()))) {
                 target.setPOBox(source.getPOBox());
             }
-            if (forceCopy || (equal(sourceOld.getSuffix1(), targetOld.getSuffix1()) && equal(target.getSuffix1(), targetOld.getSuffix1()))) {
+            if (forceCopy || (equal(sourceOld.getSuffix1(), targetOld.getSuffix1()) &&
+                    equal(target.getSuffix1(), targetOld.getSuffix1()))) {
                 target.setSuffix1(source.getSuffix1());
             }
-            if (forceCopy || (equal(sourceOld.getSuffix2(), targetOld.getSuffix2()) && equal(target.getSuffix2(), targetOld.getSuffix2()))) {
+            if (forceCopy || (equal(sourceOld.getSuffix2(), targetOld.getSuffix2()) &&
+                    equal(target.getSuffix2(), targetOld.getSuffix2()))) {
                 target.setSuffix2(source.getSuffix2());
             }
         }
         if (copyContact) {
-            if (forceCopy || (equal(sourceOld.getPhone(), targetOld.getPhone()) && equal(target.getPhone(), targetOld.getPhone()))) {
+            if (forceCopy ||
+                    (equal(sourceOld.getPhone(), targetOld.getPhone()) && equal(target.getPhone(), targetOld.getPhone()))) {
                 target.setPhone(source.getPhone());
             }
             if (forceCopy || (equal(sourceOld.getFax(), targetOld.getFax()) && equal(target.getFax(), targetOld.getFax()))) {
                 target.setFax(source.getFax());
             }
-            if (forceCopy || (equal(sourceOld.getMobile(), targetOld.getMobile()) && equal(target.getMobile(), targetOld.getMobile()))) {
+            if (forceCopy ||
+                    (equal(sourceOld.getMobile(), targetOld.getMobile()) && equal(target.getMobile(), targetOld.getMobile()))) {
                 target.setMobile(source.getMobile());
             }
-            if (forceCopy || (equal(sourceOld.getEMail(), targetOld.getEMail()) && equal(target.getEMail(), targetOld.getEMail()))) {
+            if (forceCopy ||
+                    (equal(sourceOld.getEMail(), targetOld.getEMail()) && equal(target.getEMail(), targetOld.getEMail()))) {
                 target.setEMail(source.getEMail());
             }
             if (forceCopy || (equal(sourceOld.getUrl(), targetOld.getUrl()) && equal(target.getUrl(), targetOld.getUrl()))) {
@@ -514,7 +543,8 @@ public class AddressHelper implements PersonConstants {
     }
 
     private static boolean equal(String s1, String s2) {
-        return s1 == null ? (s2 == null || s2.length() == 0) : (s1.length() == 0 && (s2 == null || s2.length() == 0)) || s1.equals(s2);
+        return s1 == null ? (s2 == null || s2.length() == 0) :
+                (s1.length() == 0 && (s2 == null || s2.length() == 0)) || s1.equals(s2);
     }
 
     public static boolean empty(String s) {

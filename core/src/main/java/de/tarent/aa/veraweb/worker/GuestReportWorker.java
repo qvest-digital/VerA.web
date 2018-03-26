@@ -210,7 +210,8 @@ public class GuestReportWorker {
         Boolean orderByWorkArea = cntx.requestAsBoolean("orderByWorkArea");
         if (orderByWorkArea.booleanValue()) {
             select.joinLeftOuter("veraweb.tworkarea", "tperson.fk_workarea", "tworkarea.pk");
-            select.selectAs("CASE WHEN tworkarea.name <> 'Kein' THEN tworkarea.name ELSE 'Kein Arbeitsbereich' END", "workarea_name");
+            select.selectAs("CASE WHEN tworkarea.name <> 'Kein' THEN tworkarea.name ELSE 'Kein Arbeitsbereich' END",
+                    "workarea_name");
         }
         cntx.setContent("orderByWorkArea", orderByWorkArea);
 

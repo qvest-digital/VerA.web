@@ -128,7 +128,8 @@ public class EventDetailWorker {
      * @param id             ID der zu ladenden Veranstaltung; falls <code>null</code> oder ungültig,
      *                       so wird nichts geliefert
      */
-    public void showDetail(OctopusContext octopusContext, Integer id, Task task, Integer eventId) throws BeanException, IOException {
+    public void showDetail(OctopusContext octopusContext, Integer id, Task task, Integer eventId)
+            throws BeanException, IOException {
         if (eventId == null && !octopusContext.getRequestObject().get("id").toString().equals("")) {
             eventId = Integer.valueOf(octopusContext.getRequestObject().get("id").toString());
         }
@@ -140,7 +141,8 @@ public class EventDetailWorker {
             octopusContext.setContent("event", event);
             // OR Control
             if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
-                final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
+                final MediaRepresentativesUtilities mediaRepresentativesUtilities =
+                        new MediaRepresentativesUtilities(octopusContext, event);
                 mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
                 final EventURLHandler eventURLHandler = new EventURLHandler();
                 eventURLHandler.setEventUrl(octopusContext, event.hash);
@@ -231,7 +233,8 @@ public class EventDetailWorker {
                 if (event.host == null) {
                     // Alte Veranstaltung -> Gastgeber entfernen
                     removeHost = database.getCount(
-                            database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1)))))
+                            database.getCount("Guest")
+                                    .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1)))))
                             .intValue() != 0;
                     updateHost = false;
                     createHost = false;
@@ -243,7 +246,8 @@ public class EventDetailWorker {
                                             Expr.equal("ishost",
                                                     new Integer(1))))).intValue() != 0;
                     updateHost = database.getCount(
-                            database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))))
+                            database.getCount("Guest")
+                                    .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))))
                             .intValue() != 0;
                     createHost = !updateHost;
                 }
@@ -311,11 +315,13 @@ public class EventDetailWorker {
                 if (createHost) {
                     Boolean reserve = Boolean.FALSE;
                     WorkerFactory.getGuestWorker(octopusContext)
-                            .addGuest(octopusContext, database, transactionContext, event, event.host, null, reserve, invitationtype,
+                            .addGuest(octopusContext, database, transactionContext, event, event.host, null, reserve,
+                                    invitationtype,
                                     Boolean.TRUE);
                 } else if (updateHost) {
                     transactionContext.execute(
-                            SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
+                            SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1))
+                                    .update("invitationtype", invitationtype)
                                     .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
                     transactionContext.commit();
 
@@ -324,8 +330,9 @@ public class EventDetailWorker {
                 }
 
                 if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype)) {
-                    transactionContext.execute(SQL.Update(database).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
-                            Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
+                    transactionContext.execute(
+                            SQL.Update(database).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
+                                    Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
                     transactionContext.commit();
 
                     // TODO also modifies tevent, full change logging requires
@@ -343,7 +350,8 @@ public class EventDetailWorker {
             if (isOnlineregActive) {
                 final EventURLHandler eventURLHandler = new EventURLHandler();
                 eventURLHandler.setEventUrl(octopusContext, event.hash);
-                final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
+                final MediaRepresentativesUtilities mediaRepresentativesUtilities =
+                        new MediaRepresentativesUtilities(octopusContext, event);
                 mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
             }
             octopusContext.setContent("event", event);
@@ -388,7 +396,8 @@ public class EventDetailWorker {
 
     private void initOptionalFields(Database database, TransactionContext transactionContext, Event event) throws BeanException {
         for (int i = 0; i < NUMBER_OPTIONAL_FIELDS; i++) {
-            transactionContext.execute(SQL.Insert(database).table("veraweb.toptional_fields").insert("fk_event", event.id).insert("label", ""));
+            transactionContext.execute(
+                    SQL.Insert(database).table("veraweb.toptional_fields").insert("fk_event", event.id).insert("label", ""));
             transactionContext.commit();
         }
     }
@@ -447,15 +456,18 @@ public class EventDetailWorker {
         }
     }
 
-    private void getHostPersonDetails(Database database, TransactionContext context, Event event) throws BeanException, IOException {
-        Person person = (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
+    private void getHostPersonDetails(Database database, TransactionContext context, Event event)
+            throws BeanException, IOException {
+        Person person =
+                (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
         if (person != null) {
             event.hostname = person.getMainLatin().getSaveAs();
             event.setModified(true);
         }
     }
 
-    private void checkForDuplicateEvents(OctopusContext cntx, Database database, Event event, Map questions) throws BeanException, IOException {
+    private void checkForDuplicateEvents(OctopusContext cntx, Database database, Event event, Map questions)
+            throws BeanException, IOException {
         // Test ob bereits eine Veranstaltung mit diesem Namen existiert.
         if (event.shortname != null && event.shortname.length() != 0) {
             WhereList where = new WhereList();

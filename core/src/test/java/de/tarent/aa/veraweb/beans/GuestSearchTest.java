@@ -84,7 +84,8 @@ public class GuestSearchTest {
 
         // THEN
         assertEquals(
-                "(tguest.fk_event=42 AND tguest.keywords LIKE '%gröfatz%' AND tguest.keywords LIKE '%knørßt%' AND tguest.keywords LIKE '%baz%')",
+                "(tguest.fk_event=42 AND tguest.keywords LIKE '%gröfatz%' AND tguest.keywords LIKE '%knørßt%' AND tguest" +
+                 ".keywords LIKE '%baz%')",
                 where.clauseToString());
     }
 }

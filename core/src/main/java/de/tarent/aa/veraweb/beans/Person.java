@@ -665,9 +665,11 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
                         ((p.getLastname() != null || !p.getLastname().equals("")) && (p.getLastname().length() > 0))
                                 || ((p.getFirstname() != null || !p.getFirstname().equals("")) && (p.getFirstname().length() > 0))
                                 || ((p1.getLastname() != null || !p1.getLastname().equals("")) && (p1.getLastname().length() > 0))
-                                || ((p1.getFirstname() != null || !p1.getFirstname().equals("")) && (p1.getFirstname().length() > 0))
+                                ||
+                                ((p1.getFirstname() != null || !p1.getFirstname().equals("")) && (p1.getFirstname().length() > 0))
                                 || ((p2.getLastname() != null || !p2.getLastname().equals("")) && (p2.getLastname().length() > 0))
-                                || ((p2.getFirstname() != null || !p2.getFirstname().equals("")) && (p2.getFirstname().length() > 0))
+                                ||
+                                ((p2.getFirstname() != null || !p2.getFirstname().equals("")) && (p2.getFirstname().length() > 0))
                 );
     }
 

@@ -113,7 +113,8 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.SalutationAlternative.class);
             LOGGER.info("Hibernate Configuration created successfully");
 
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+            ServiceRegistry serviceRegistry =
+                    new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             LOGGER.info("ServiceRegistry created successfully");
             SessionFactory sessionFactory = configuration
                     .buildSessionFactory(serviceRegistry);

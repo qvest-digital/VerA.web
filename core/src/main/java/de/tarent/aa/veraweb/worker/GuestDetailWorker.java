@@ -268,7 +268,8 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private void updateGenericData(OctopusContext octopusContext, Database database, Map<String, Object> allRequestParams, Guest guest) {
+    private void updateGenericData(OctopusContext octopusContext, Database database, Map<String, Object> allRequestParams,
+            Guest guest) {
         setGuestRankType(octopusContext, database, guest);
         setGuestCategory(allRequestParams, guest);
         setGuestReserve(allRequestParams, guest);
@@ -314,7 +315,8 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private void setGuestContentForOctopusContext(OctopusContext octopusContext, Integer freitextfeld) throws IOException, BeanException {
+    private void setGuestContentForOctopusContext(OctopusContext octopusContext, Integer freitextfeld)
+            throws IOException, BeanException {
         if (freitextfeld == null) {
             //Kopfdaten der Gaesteliste: Anzeige der Stammdaten oder Kopien fuer Gaesteliste
             octopusContext.setContent("showGuestListData", new Boolean(false));
@@ -424,11 +426,13 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setDomesticStatus(Map<String, Object> allRequestParams, Guest guest, boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-domestic_a") != null && allRequestParams.get("guest-domestic_a") != guest.domestic_a) {
+            if (allRequestParams.get("guest-domestic_a") != null &&
+                    allRequestParams.get("guest-domestic_a") != guest.domestic_a) {
                 guest.domestic_a = allRequestParams.get("guest-domestic_a").toString();
             }
         } else {
-            if (allRequestParams.get("guest-domestic_b") != null && allRequestParams.get("guest-domestic_b") != guest.domestic_b) {
+            if (allRequestParams.get("guest-domestic_b") != null &&
+                    allRequestParams.get("guest-domestic_b") != guest.domestic_b) {
                 guest.domestic_b = allRequestParams.get("guest-domestic_b").toString();
             }
         }
@@ -436,11 +440,13 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setNoteToHost(Map<String, Object> allRequestParams, Guest guest, boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-notehost_a") != null && allRequestParams.get("guest-notehost_a") != guest.notehost_a) {
+            if (allRequestParams.get("guest-notehost_a") != null &&
+                    allRequestParams.get("guest-notehost_a") != guest.notehost_a) {
                 guest.notehost_a = allRequestParams.get("guest-notehost_a").toString();
             }
         } else {
-            if (allRequestParams.get("guest-notehost_b") != null && allRequestParams.get("guest-notehost_b") != guest.notehost_b) {
+            if (allRequestParams.get("guest-notehost_b") != null &&
+                    allRequestParams.get("guest-notehost_b") != guest.notehost_b) {
                 guest.notehost_b = allRequestParams.get("guest-notehost_b").toString();
             }
         }
@@ -448,11 +454,13 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setNoteToOrgaTeam(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-noteorga_a") != null && allRequestParams.get("guest-noteorga_a") != guest.noteorga_a) {
+            if (allRequestParams.get("guest-noteorga_a") != null &&
+                    allRequestParams.get("guest-noteorga_a") != guest.noteorga_a) {
                 guest.noteorga_a = allRequestParams.get("guest-noteorga_a").toString();
             }
         } else {
-            if (allRequestParams.get("guest-noteorga_b") != null && allRequestParams.get("guest-noteorga_b") != guest.noteorga_b) {
+            if (allRequestParams.get("guest-noteorga_b") != null &&
+                    allRequestParams.get("guest-noteorga_b") != guest.noteorga_b) {
                 guest.noteorga_b = allRequestParams.get("guest-noteorga_b").toString();
             }
         }
@@ -460,11 +468,13 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setPartnerNationality(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-nationality_a") != null && allRequestParams.get("guest-nationality_a") != guest.nationality_a) {
+            if (allRequestParams.get("guest-nationality_a") != null &&
+                    allRequestParams.get("guest-nationality_a") != guest.nationality_a) {
                 guest.nationality_a = allRequestParams.get("guest-nationality_a").toString();
             }
         } else {
-            if (allRequestParams.get("guest-nationality_b") != null && allRequestParams.get("guest-nationality_b") != guest.nationality_b) {
+            if (allRequestParams.get("guest-nationality_b") != null &&
+                    allRequestParams.get("guest-nationality_b") != guest.nationality_b) {
                 guest.nationality_b = allRequestParams.get("guest-nationality_b").toString();
             }
         }
@@ -472,11 +482,13 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setLanguage(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-language_a") != null && allRequestParams.get("guest-language_a") != guest.language_a) {
+            if (allRequestParams.get("guest-language_a") != null &&
+                    allRequestParams.get("guest-language_a") != guest.language_a) {
                 guest.language_a = allRequestParams.get("guest-language_a").toString();
             }
         } else {
-            if (allRequestParams.get("guest-language_b") != null && allRequestParams.get("guest-language_b") != guest.language_b) {
+            if (allRequestParams.get("guest-language_b") != null &&
+                    allRequestParams.get("guest-language_b") != guest.language_b) {
                 guest.language_b = allRequestParams.get("guest-language_b").toString();
             }
         }
@@ -639,7 +651,8 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setKeywords(Map<String, Object> allRequestParams, Guest guest) {
-        if (allRequestParams.get("guest-keywords") != null && !allRequestParams.get("guest-keywords").toString().equals(guest.keywords)) {
+        if (allRequestParams.get("guest-keywords") != null &&
+                !allRequestParams.get("guest-keywords").toString().equals(guest.keywords)) {
             guest.keywords = VerawebUtils.clearCommaSeparatedString(allRequestParams.get("guest-keywords").toString());
         }
     }
@@ -651,7 +664,8 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setGuestInvitationType(Map<String, Object> allRequestParams, Guest guest) {
-        if (allRequestParams.get("guest-invitationtype") != null && allRequestParams.get("guest-invitationtype") != guest.invitationtype) {
+        if (allRequestParams.get("guest-invitationtype") != null &&
+                allRequestParams.get("guest-invitationtype") != guest.invitationtype) {
             guest.invitationtype = Integer.parseInt(allRequestParams.get("guest-invitationtype").toString());
         }
     }

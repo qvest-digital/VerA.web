@@ -105,7 +105,8 @@ public class GuestSearch extends AbstractBean {
 
         if (this.category != null && !this.category.trim().equals("")) {
             where.addAnd(
-                    new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" + Escaper.escape(this.category) + "')"));
+                    new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" +
+                            Escaper.escape(this.category) + "')"));
         }
 
         if (this.reserve != null) {

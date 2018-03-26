@@ -254,7 +254,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * 2008-02-27
      */
     @SuppressWarnings("unchecked")
-    private void saveValue(OctopusContext octopusContext, String key, String value) throws BeanException, IOException, SQLException {
+    private void saveValue(OctopusContext octopusContext, String key, String value)
+            throws BeanException, IOException, SQLException {
         // wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
         boolean found = false;
         for (int i = 0; i < defaultTarget.length; i++) {
@@ -312,7 +313,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private void deleteConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
+    private void deleteConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
+            throws BeanException {
         LOGGER.debug(" -----------------------> BEGIN DELETE CONFIG " + key + "/" + value + " <----------------------- ");
         Delete delete = SQL.Delete(database);
         delete.from("veraweb.tconfig");
@@ -322,7 +324,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         LOGGER.debug(" -----------------------> DONE DELETE CONFIG " + key + "/" + value + " <----------------------- ");
     }
 
-    private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
+    private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
+            throws BeanException {
         LOGGER.debug("-----------------------> BEGIN UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
         Update update = SQL.Update(database);
         update.table("veraweb.tconfig");
@@ -333,7 +336,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         LOGGER.debug(" -----------------------> DONE UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
     }
 
-    private void insertConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
+    private void insertConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
+            throws BeanException {
         LOGGER.debug(" -----------------------> BEGIN INSERT CONFIG " + key + "/" + value + " <----------------------- ");
         Insert insert = SQL.Insert(database);
         insert.table("veraweb.tconfig");

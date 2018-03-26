@@ -96,7 +96,8 @@ public class OsiamUserActivationResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Date expirationDate = getExpirationDate();
-            final OsiamUserActivation osiamUserActivationEntry = new OsiamUserActivation(username, expirationDate, activationToken);
+            final OsiamUserActivation osiamUserActivationEntry =
+                    new OsiamUserActivation(username, expirationDate, activationToken);
             session.persist(osiamUserActivationEntry);
             session.flush();
             session.getTransaction().commit();

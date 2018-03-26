@@ -136,7 +136,8 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
     }
 
     @Override
-    protected int insertBean(OctopusContext octopusContext, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
+    protected int insertBean(OctopusContext octopusContext, List errors, Bean bean, TransactionContext context)
+            throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
             if (bean instanceof WorkArea) {
@@ -151,7 +152,8 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
                         database.getProperty(bean, "name"),
                         bean.getField("name"));
                 if (orgunit != null) {
-                    clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()), clause);
+                    clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()),
+                            clause);
                 }
 
                 Integer exist =
@@ -175,7 +177,8 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
         return count;
     }
 
-    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
+    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context)
+            throws BeanException, IOException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             Bean bean = (Bean) it.next();

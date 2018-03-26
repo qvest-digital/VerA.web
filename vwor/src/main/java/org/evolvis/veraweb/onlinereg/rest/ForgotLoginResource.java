@@ -85,7 +85,8 @@ public class ForgotLoginResource extends AbstractResource {
 
     @POST
     @Path("/resend/login")
-    public void resendLogin(@FormParam("mail") String mail, @FormParam("currentLanguageKey") String currentLanguageKey) throws MessagingException {
+    public void resendLogin(@FormParam("mail") String mail, @FormParam("currentLanguageKey") String currentLanguageKey)
+            throws MessagingException {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -102,7 +103,8 @@ public class ForgotLoginResource extends AbstractResource {
         }
     }
 
-    private void sendLoginDataEmail(String toEmail, List<Person> personList, String currentLanguageKey) throws MessagingException {
+    private void sendLoginDataEmail(String toEmail, List<Person> personList, String currentLanguageKey)
+            throws MessagingException {
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration(currentLanguageKey);
         }

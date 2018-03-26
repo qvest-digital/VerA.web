@@ -157,7 +157,8 @@ public class LDAPManagerAA extends LDAPManager {
      * eingetragen wird.<br>
      * Zum Beispiel sucht folgender Filter die AARole-Knoten, in denen das login in
      * sinnvoller Weise im person-Attribut steht:<br>
-     * (&amp;(|(person=uid={0}&#64;auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0},
+     * (&amp;(|(person=uid={0}&#64;auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)
+     * (person=uid={0},
      * ou=Personen,dc=aa))(objectclass=AARole))
      *
      * @param login Login, zu dem mögliche Rollen gesucht werden sollen
@@ -187,7 +188,8 @@ public class LDAPManagerAA extends LDAPManager {
             NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
             while (ergebnis.hasMore()) {
                 Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
-                // TODO: hier wird einer der uid-Einträge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
+                // TODO: hier wird einer der uid-Einträge genommen, nicht alle. Nach Anpassung andere getPossibleRoles
+                // entsprechend anpassen
                 roleUids.add(result.get("uid").get());
             }
             return roleUids;

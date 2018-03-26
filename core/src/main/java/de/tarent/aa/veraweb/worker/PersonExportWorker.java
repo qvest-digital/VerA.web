@@ -140,7 +140,8 @@ public class PersonExportWorker extends PersonListWorker {
      * @return Standard-Dateinamenerweiterung
      */
     public String exportFormat(OctopusContext cntx) throws BeanException, IOException {
-        return ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT).getFileExtension());
+        return ExportHelper
+                .getExtension(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT).getFileExtension());
     }
 
     /**
@@ -160,10 +161,12 @@ public class PersonExportWorker extends PersonListWorker {
      * @return eine Map mit Einträgen "type", "filename", "mimetype" und "stream" für die
      * {@link TcBinaryResponseEngine}
      */
-    public Map export(final OctopusContext cntx) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
+    public Map export(final OctopusContext cntx)
+            throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
         final Database database = getDatabase(cntx);
         final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT);
-        final String filename = OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(), "export." + spreadSheet.getFileExtension());
+        final String filename =
+                OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(), "export." + spreadSheet.getFileExtension());
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
 
@@ -211,7 +214,8 @@ public class PersonExportWorker extends PersonListWorker {
                      * cklein 2008-03-26
                      */
                     exportSelect(
-                            spreadSheet, database, ((PersonalConfigAA) cntx.personalConfig()).getGrants(), select, memberAEx, memberBEx, addressEx);
+                            spreadSheet, database, ((PersonalConfigAA) cntx.personalConfig()).getGrants(), select, memberAEx,
+                            memberBEx, addressEx);
 
                     // Tabelle schließen
                     spreadSheet.closeTable();
@@ -311,7 +315,8 @@ public class PersonExportWorker extends PersonListWorker {
      * @param memberBEx   Attributschlüsselsuffix der Partnerperson
      * @param addressEx   Attributschlüsselsuffix der Adressdaten
      */
-    protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Select select, String memberAEx, String memberBEx,
+    protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Select select, String memberAEx,
+            String memberBEx,
             String addressEx) throws BeanException {
         try {
             for (Iterator it = (new ResultList(select.executeSelect(database).resultSet())).iterator(); it.hasNext(); ) {
@@ -360,7 +365,8 @@ public class PersonExportWorker extends PersonListWorker {
      * @param spreadSheet In das geschrieben werden soll.
      * @param person      Map mit den Gastdaten.
      */
-    protected void exportBothInOneLine(SpreadSheet spreadSheet, boolean showA, boolean showB, boolean showRemarks, Map person, String memberAEx,
+    protected void exportBothInOneLine(SpreadSheet spreadSheet, boolean showA, boolean showB, boolean showRemarks, Map person,
+            String memberAEx,
             String memberBEx, String addressEx) {
 
         spreadSheet.addCell(ExportHelper.getAddresstype((Integer) person.get("addresstype")));
@@ -460,7 +466,8 @@ public class PersonExportWorker extends PersonListWorker {
      * @param spreadSheet In das geschrieben werden soll.
      * @param person      Map mit den Gastdaten.
      */
-    protected void exportOnlyPerson(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberAEx, String addressEx) {
+    protected void exportOnlyPerson(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberAEx,
+            String addressEx) {
 
         spreadSheet.addCell(ExportHelper.getAddresstype((Integer) person.get("addresstype")));
         spreadSheet.addCell(ExportHelper.getLocale((Integer) person.get("locale")));
@@ -521,7 +528,8 @@ public class PersonExportWorker extends PersonListWorker {
      * @param spreadSheet In das geschrieben werden soll.
      * @param person      Map mit den Personendaten.
      */
-    protected void exportOnlyPartner(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberBEx, String addressEx) {
+    protected void exportOnlyPartner(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberBEx,
+            String addressEx) {
         spreadSheet.addCell(ExportHelper.getAddresstype((Integer) person.get("addresstype")));
         spreadSheet.addCell(ExportHelper.getLocale((Integer) person.get("locale")));
 

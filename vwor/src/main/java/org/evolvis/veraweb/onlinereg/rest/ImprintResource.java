@@ -109,7 +109,8 @@ public class ImprintResource extends AbstractResource {
         return collapseMaps(mapHeading, mapContent, keyList);
     }
 
-    private Map<String, Imprint> collapseMaps(Map<String, String> mapHeading, Map<String, String> mapContent, List<String> keyList) {
+    private Map<String, Imprint> collapseMaps(Map<String, String> mapHeading, Map<String, String> mapContent,
+            List<String> keyList) {
         final Map<String, Imprint> map = new HashMap<>();
 
         for (String key : keyList) {

@@ -188,7 +188,8 @@ public class OptionalFieldsDelegationWorker {
 
     private void convertToSingleMultipleChoiceField(final List<OptionalDelegationField> optionalFieldsWithTypeContents)
             throws BeanException {
-        final List<OptionalDelegationField> optionalFieldsAltList = new ArrayList<OptionalDelegationField>(optionalFieldsWithTypeContents);
+        final List<OptionalDelegationField> optionalFieldsAltList =
+                new ArrayList<OptionalDelegationField>(optionalFieldsWithTypeContents);
 
         for (final Iterator<OptionalDelegationField> iterator = optionalFieldsWithTypeContents.iterator(); iterator.hasNext(); ) {
             final OptionalDelegationField optionalDelegationField = iterator.next();
@@ -260,7 +261,8 @@ public class OptionalFieldsDelegationWorker {
         final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
         final ResultList resultListWithTypeContents = getFieldsAndTypeContentsFromDB(optionalDelegationField);
 
-        final List<OptionalFieldTypeContent> typeContents = getFieldsWithTypeContentsAsList(resultListWithTypeContents, optionalDelegationField);
+        final List<OptionalFieldTypeContent> typeContents =
+                getFieldsWithTypeContentsAsList(resultListWithTypeContents, optionalDelegationField);
 
         optionalDelegationField.setOptionalFieldTypeContents(typeContents);
         optionalDelegationFields.add(optionalDelegationField);
@@ -292,7 +294,8 @@ public class OptionalFieldsDelegationWorker {
         }
     }
 
-    private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField) throws BeanException {
+    private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField)
+            throws BeanException {
         final Clause clauseToEmptyContent = Expr.notLike("toptional_field_type_content.content", "");
         final Clause clauseNotNullContent = Expr.isNotNull("toptional_field_type_content.content");
 
@@ -350,8 +353,9 @@ public class OptionalFieldsDelegationWorker {
 
     private String getStatementSelectOptionalDelegationField(int guestId, int eventId) {
         return "WITH w_vorhandene_labels AS ( " +
-                "SELECT DISTINCT dc.fk_guest as fk_guest, dc.fk_delegation_field as fk_delegation_field, f.fk_type as fk_type, dc.value as value, " +
-                 "f.label as label " +
+                "SELECT DISTINCT dc.fk_guest as fk_guest, dc.fk_delegation_field as fk_delegation_field, f.fk_type as fk_type, " +
+                 "dc.value as value, " +
+                "f.label as label " +
                 "FROM veraweb.toptional_fields_delegation_content dc " +
                 "RIGHT OUTER JOIN veraweb.toptional_fields f ON (dc.fk_delegation_field = f.pk) " +
                 "LEFT OUTER JOIN veraweb.toptional_field_type t ON (t.pk = f.fk_type) " +
@@ -360,7 +364,8 @@ public class OptionalFieldsDelegationWorker {
                 ") " +
                 "SELECT * FROM w_vorhandene_labels wl " +
                 "UNION " +
-                "SELECT DISTINCT " + guestId + " as fk_guest, f.pk as fk_delegation_field, f.fk_type as fk_type, '' as value, f.label as label " +
+                "SELECT DISTINCT " + guestId +
+                " as fk_guest, f.pk as fk_delegation_field, f.fk_type as fk_type, '' as value, f.label as label " +
                 "FROM veraweb.toptional_fields f " +
                 "WHERE f.fk_event = " + eventId +
                 "AND label != '' " +

@@ -218,7 +218,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     @Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
+            throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
             if (bean instanceof User) {
@@ -279,7 +280,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @see #removeBean(OctopusContext, Bean, TransactionContext)
      */
     @Override
-    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext)
+            throws BeanException, IOException {
         if (bean != null && ((User) bean).id != null) {
             Integer userId = ((User) bean).id;
 

@@ -115,7 +115,8 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
 
     @GET
     @Path("/exists/{encodedAddress}/{eventId}")
-    public Boolean existEventIdByDelegation(@PathParam("encodedAddress") String encodedAddress, @PathParam("eventId") String eventId) {
+    public Boolean existEventIdByDelegation(@PathParam("encodedAddress") String encodedAddress,
+            @PathParam("eventId") String eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId");

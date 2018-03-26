@@ -222,7 +222,8 @@ public class PersonResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Integer mandantId = getOrgUnitId(session, eventId);
-            final Person person = initPersonPress(mandantId, username, firstName, lastname, gender, email, address, zipCode, city, country);
+            final Person person =
+                    initPersonPress(mandantId, username, firstName, lastname, gender, email, address, zipCode, city, country);
             return handleCreatePersonPress(person, session);
         } finally {
             session.getTransaction().commit();//XXX?

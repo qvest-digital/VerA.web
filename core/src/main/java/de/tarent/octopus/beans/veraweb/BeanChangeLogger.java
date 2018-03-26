@@ -177,8 +177,9 @@ public class BeanChangeLogger {
 
         // are there any differences from o to n?
         if (changedAttributes.length() > 0) {
-            ChangeLogEntry entry = this.createNewChangeLogEntryInstance("update", username, determineObjectName(o), o.getClass().getName(),
-                    (Integer) o.getField("id"), changedAttributes.toString());
+            ChangeLogEntry entry =
+                    this.createNewChangeLogEntryInstance("update", username, determineObjectName(o), o.getClass().getName(),
+                            (Integer) o.getField("id"), changedAttributes.toString());
             this.insertLogEntry(entry);
         }
     }
@@ -196,7 +197,8 @@ public class BeanChangeLogger {
             return;
         }
         ChangeLogEntry entry =
-                this.createNewChangeLogEntryInstance("insert", username, determineObjectName(o), o.getClass().getName(), (Integer) o.getField("id"),
+                this.createNewChangeLogEntryInstance("insert", username, determineObjectName(o), o.getClass().getName(),
+                        (Integer) o.getField("id"),
                         "*");
         this.insertLogEntry(entry);
     }
@@ -214,7 +216,8 @@ public class BeanChangeLogger {
             return;
         }
         ChangeLogEntry entry =
-                this.createNewChangeLogEntryInstance("delete", username, determineObjectName(o), o.getClass().getName(), (Integer) o.getField("id"),
+                this.createNewChangeLogEntryInstance("delete", username, determineObjectName(o), o.getClass().getName(),
+                        (Integer) o.getField("id"),
                         "*");
         this.insertLogEntry(entry);
     }
@@ -265,7 +268,8 @@ public class BeanChangeLogger {
         }
     }
 
-    private ChangeLogEntry createNewChangeLogEntryInstance(String op, String username, String oname, String otype, Integer oid, String attributes)
+    private ChangeLogEntry createNewChangeLogEntryInstance(String op, String username, String oname, String otype, Integer oid,
+            String attributes)
             throws BeanException, IOException {
         ChangeLogEntry result = new ChangeLogEntry();
         result.username = username;

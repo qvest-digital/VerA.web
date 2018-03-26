@@ -78,8 +78,9 @@ public class PlaceholderSubstitutionTest {
         //GIVEN
         Person person = createPerson();
         PlaceholderSubstitution subst = new PlaceholderSubstitution(person);
-        final List<String> words = Arrays.asList("firstname", "lastname", "salutation", "title", "function", "company", "street", "zipcode", "city",
-                "country", "poboxzipcode", "pobox", "suffix1", "suffix2", "phone", "fax", "mobile", "email", "url");
+        final List<String> words =
+                Arrays.asList("firstname", "lastname", "salutation", "title", "function", "company", "street", "zipcode", "city",
+                        "country", "poboxzipcode", "pobox", "suffix1", "suffix2", "phone", "fax", "mobile", "email", "url");
 
         final String template = createTemplate(words);
         final String expectedOutput = createExpectedOutput(words);

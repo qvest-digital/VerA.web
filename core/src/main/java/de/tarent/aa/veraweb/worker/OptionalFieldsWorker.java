@@ -158,7 +158,8 @@ public class OptionalFieldsWorker {
         context.commit();
     }
 
-    private void createOptionalFieldTypeContents(OptionalField optionalField, TransactionContext context) throws SQLException, BeanException {
+    private void createOptionalFieldTypeContents(OptionalField optionalField, TransactionContext context)
+            throws SQLException, BeanException {
         final Boolean selectStatement = getStatementCheckOptionalFieldTypeContentExists(optionalField);
 
         if ((optionalField.getFkType() == OptionalFieldTypeFacade.simple_combobox.getValue()

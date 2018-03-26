@@ -234,7 +234,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @param pConfig      persönliche Konfiguration des einzuloggenden Benutzers
      * @param tcRequest    Benutzeranfrage mit Authentisierungsdaten
      * @throws TcSecurityException bei fehlgeschlagener Authorisierung
-     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de
+     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server
+     * .PersonalConfig, de
      * .tarent.octopus.request.TcRequest)
      */
     @Override
@@ -297,7 +298,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 Iterator itRoles = authorizedRoles.isEmpty() ? possibleRoles.iterator() : authorizedRoles.iterator();
                 while (itRoles.hasNext()) {
                     try {
-                        PasswordAuthentication newAuth = new PasswordAuthentication(itRoles.next().toString(), origAuth.getPassword());
+                        PasswordAuthentication newAuth =
+                                new PasswordAuthentication(itRoles.next().toString(), origAuth.getPassword());
                         tcRequest.setPasswordAuthentication(newAuth);
                         super.doLogin(commonConfig, pConfig, tcRequest);
                         pConfig.setUserLogin(origAuth.getUserName());
@@ -318,13 +320,15 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                                     aaConfig.setRole(newAuth.getUserName());
                                 }
                                 aaConfig.setRoles(null);
-                                logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle = " + aaConfig.getRole() +
-                                        ", Rollen nicht ermittelt");
+                                logger.fine(
+                                        "Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle = " + aaConfig.getRole() +
+                                                ", Rollen nicht ermittelt");
                                 break;
                             default:
                                 aaConfig.setRole(null);
                                 aaConfig.setRoles(new ArrayList(authorizedRoles));
-                                logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle nicht ermittelt, Rollen = " +
+                                logger.fine("Login mittelbar: Login = " + origAuth.getUserName() +
+                                        ", Rolle nicht ermittelt, Rollen = " +
                                         aaConfig.getRoles());
                             }
                             fillInUserGroups(commonConfig, aaConfig, tcRequest);
@@ -370,7 +374,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @param commonConfig Konfigurationsdaten des Octopus
      * @param pConfig      persönliche Konfiguration des auszuloggenden Benutzers
      * @param tcRequest    Benutzeranfrage
-     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de
+     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server
+     * .PersonalConfig, de
      * .tarent.octopus.request.TcRequest)
      */
     @Override

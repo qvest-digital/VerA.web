@@ -278,7 +278,8 @@ public class EventTaskDetailWorker {
         return savetask;
     }
 
-    private void createOrUpdateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task, Task oldTask)
+    private void createOrUpdateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext,
+            Task task, Task oldTask)
             throws BeanException, IOException {
         BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
         if (task.getId() == null) {
@@ -307,7 +308,8 @@ public class EventTaskDetailWorker {
         clogger.logInsert(octopusContext.personalConfig().getLoginname(), task);
     }
 
-    private void updateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task, Task existingTask,
+    private void updateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task,
+            Task existingTask,
             BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countUpdate", Integer.valueOf(1));
         final Update update = database.getUpdate(task);

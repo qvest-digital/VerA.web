@@ -235,7 +235,8 @@ public class ImportPersonsWorker {
     /**
      * Octopus-Eingabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)}
      */
-    public static final String[] INPUT_finalise = { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
+    public static final String[] INPUT_finalise =
+            { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
     /**
      * Octopus-Eingabe-Parameter-Pflicht für {@link #finalise(OctopusContext, Integer, List, Map)}
      */
@@ -331,12 +332,14 @@ public class ImportPersonsWorker {
                     createPersonCategories(database, transactionContext, (Integer) importPerson.get("id"), person);
 
                     if (importPerson.get("category") != null && ((String) importPerson.get("category")).length() != 0) {
-                        createPersonCategories(database, transactionContext, ((String) importPerson.get("category")).split("\n"), person,
+                        createPersonCategories(database, transactionContext, ((String) importPerson.get("category")).split("\n"),
+                                person,
                                 new Integer(Categorie.FLAG_DEFAULT));
                     }
 
                     if (importPerson.get("occasion") != null && ((String) importPerson.get("occasion")).length() != 0) {
-                        createPersonCategories(database, transactionContext, ((String) importPerson.get("occasion")).split("\n"), person,
+                        createPersonCategories(database, transactionContext, ((String) importPerson.get("occasion")).split("\n"),
+                                person,
                                 new Integer(Categorie.FLAG_EVENT));
                     }
 

@@ -163,7 +163,8 @@ public class CSVFileWriter extends CSVFile {
                 fieldString.indexOf('\n') >= 0 ||
                 fieldString.indexOf('\r') >= 0 ||
                 fieldString.indexOf(textQualifier) == 0) {
-            return textQualifier + fieldString.replaceAll(String.valueOf(textQualifier), new String(new char[] { textQualifier, textQualifier })) +
+            return textQualifier + fieldString
+                    .replaceAll(String.valueOf(textQualifier), new String(new char[] { textQualifier, textQualifier })) +
                     textQualifier;
         }
         return fieldString;

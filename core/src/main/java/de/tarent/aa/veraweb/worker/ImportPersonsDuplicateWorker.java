@@ -115,7 +115,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 
         final Map importDuplicatesProperties = (Map) octopusContext.moduleConfig().getParams().get("importDuplicatesProperties");
         if (importDuplicatesProperties == null) {
-            ImportPersonsWorker.LOGGER.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
+            ImportPersonsWorker.LOGGER
+                    .warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
         }
         if (octopusContext.sessionAsObject("limit" + BEANNAME) == null) {
             octopusContext.setSession("limit" + BEANNAME, Integer.parseInt((String) importDuplicatesProperties.get("dsCount")));
@@ -213,7 +214,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private void setDuplicateFlag(Database database, TransactionContext transactionContext, ImportPerson sample, Where whereClause, List selection)
+    private void setDuplicateFlag(Database database, TransactionContext transactionContext, ImportPerson sample,
+            Where whereClause, List selection)
             throws IOException, BeanException {
         // Markierungen wieder setzten.
         final Update update = SQL.Update(transactionContext);
@@ -224,7 +226,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
         transactionContext.commit();
     }
 
-    private void clearDuplicateFlags(Database database, TransactionContext transactionContext, ImportPerson sample, Where whereClause)
+    private void clearDuplicateFlags(Database database, TransactionContext transactionContext, ImportPerson sample,
+            Where whereClause)
             throws IOException, BeanException {
         // Entfernt alle markierungen in der Datenbank.
         final Update update = SQL.Update(transactionContext);

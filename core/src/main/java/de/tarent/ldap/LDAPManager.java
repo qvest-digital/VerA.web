@@ -154,7 +154,8 @@ public class LDAPManager {
      *                 "simple" ausprobiert &amp; supported)
      * @throws LDAPException wenn etwas schiefläuft
      */
-    public static LDAPManager login(Class managerClass, String ldapurl, Map params, String username, String passwort, String authType)
+    public static LDAPManager login(Class managerClass, String ldapurl, Map params, String username, String passwort,
+            String authType)
             throws LDAPException {
         Hashtable env = createEnvironment(ldapurl); //Hashtable mit Zugriffsdaten
         env.put(Context.SECURITY_AUTHENTICATION, authType);
@@ -190,7 +191,8 @@ public class LDAPManager {
             result = (LDAPManager) constructor.newInstance(lctx, params);
             LDAPManager.ldapEnvironment = env;
         } catch (Exception e) {
-            throw new LDAPException("Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verf\u00fcgbar.");
+            throw new LDAPException(
+                    "Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verf\u00fcgbar.");
         }
         return result;
     }
@@ -288,7 +290,8 @@ public class LDAPManager {
             attr.put(objectclass);
             lctx.createSubcontext(ou + relative + baseDN, attr);
         } catch (Exception e) {
-            throw new LDAPException(Messages.getString("LDAPManager.Konnte_OU_nicht_anlegen_01") + e.getMessage(), e); //$NON-NLS-1$
+            throw new LDAPException(Messages.getString("LDAPManager.Konnte_OU_nicht_anlegen_01") + e.getMessage(),
+                    e); //$NON-NLS-1$
         }
     }
 
@@ -642,7 +645,8 @@ public class LDAPManager {
         String[] objectClassList = { "top", "groupOfNames" }; //$NON-NLS-1$ //$NON-NLS-2$
         try {
             String[] objectClassA = { "objectclass" }; //$NON-NLS-1$
-            objectclass = lctx.getAttributes("ou=" + value + relative + baseDN, objectClassA).get("objectClass"); //$NON-NLS-1$ //$NON-NLS-2$
+            objectclass = lctx.getAttributes("ou=" + value + relative + baseDN, objectClassA)
+                    .get("objectClass"); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (NamingException e) {
             throw new LDAPException(Messages.getString("LDAPManager.Konnte_objectClass_nicht_sichern_01")
                     + e.getMessage(), e);
@@ -704,7 +708,8 @@ public class LDAPManager {
     }
 
     protected void initializeSearchControls(SearchControls cons) {
-        int scope = Boolean.parseBoolean((String) params.get(KEY_RECURSIVE_LOOKUPS)) ? SearchControls.SUBTREE_SCOPE : SearchControls.ONELEVEL_SCOPE;
+        int scope = Boolean.parseBoolean((String) params.get(KEY_RECURSIVE_LOOKUPS)) ? SearchControls.SUBTREE_SCOPE :
+                SearchControls.ONELEVEL_SCOPE;
         cons.setSearchScope(scope);
     }
 

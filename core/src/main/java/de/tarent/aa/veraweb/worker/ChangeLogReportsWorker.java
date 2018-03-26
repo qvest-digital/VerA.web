@@ -167,7 +167,8 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb {
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 
-            cntx.setContent("noLogDataAvailableMessage", languageProvider.getProperty("CHANGELOG_NO_PROTOCOL_AVAILABLE").toString());
+            cntx.setContent("noLogDataAvailableMessage",
+                    languageProvider.getProperty("CHANGELOG_NO_PROTOCOL_AVAILABLE").toString());
         }
     }
 

@@ -137,11 +137,14 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     private final static String DELETE_ALL_STALE_GUESTS = "DELETE FROM tguest WHERE pk IN ({0})";
     private final static MessageFormat DELETE_ALL_STALE_GUESTS_FORMAT = new MessageFormat(DELETE_ALL_STALE_GUESTS);
 
-    private final static String BULK_INSERT_CHANGELOG_ENTRIES = "INSERT INTO tchangelog (username, objname, objtype, objid, op, attributes, date) "
-            + "SELECT DISTINCT " + "''{0}'' AS username, p.lastname_a_e1 || CASE WHEN p.firstname_a_e1 IS NOT NULL "
-            + "THEN '', '' || p.firstname_a_e1 ELSE '''' END AS objname, " + "''de.tarent.aa.veraweb.beans.Guest'' AS objtype, g.pk AS objid, "
-            + "''delete'' AS op, ''*'' AS attributes, NOW() AS date " + "FROM tperson p LEFT JOIN tguest g ON g.fk_person = p.pk "
-            + "WHERE g.pk IN ({1})";
+    private final static String BULK_INSERT_CHANGELOG_ENTRIES =
+            "INSERT INTO tchangelog (username, objname, objtype, objid, op, attributes, date) "
+                    + "SELECT DISTINCT " + "''{0}'' AS username, p.lastname_a_e1 || CASE WHEN p.firstname_a_e1 IS NOT NULL "
+                    + "THEN '', '' || p.firstname_a_e1 ELSE '''' END AS objname, " +
+                    "''de.tarent.aa.veraweb.beans.Guest'' AS objtype, g.pk AS objid, "
+                    + "''delete'' AS op, ''*'' AS attributes, NOW() AS date " +
+                    "FROM tperson p LEFT JOIN tguest g ON g.fk_person = p.pk "
+                    + "WHERE g.pk IN ({1})";
     private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat(BULK_INSERT_CHANGELOG_ENTRIES);
 
     private final static Logger logger = LogManager.getLogger(GuestListWorker.class);
@@ -190,7 +193,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             @SuppressWarnings("unchecked") final List<Integer> selection =
                     this.getSelection(octopusContext, this.getCount(octopusContext, database));
             final Clause whereClause;
-            if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
+            if (octopusContext.requestAsString("select-all") != null &&
+                    octopusContext.requestAsString("select-all").equals("on")) {
                 whereClause = getCurrenGuestFilter(octopusContext);
             } else {
                 whereClause = new RawClause("pk in (" + commaSeparated(selection) + ")");
@@ -356,7 +360,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     private void buildGuestSelect(Select select) {
         select.joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk");
         select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
-        select.selectAs("CASE WHEN tguest.orderno IS NOT NULL THEN NULLIF(tguest.orderno, 0) " + "ELSE NULLIF(tguest.orderno_p, 0) END",
+        select.selectAs(
+                "CASE WHEN tguest.orderno IS NOT NULL THEN NULLIF(tguest.orderno, 0) " + "ELSE NULLIF(tguest.orderno_p, 0) END",
                 "someorderno");
         select.selectAs("tcategorie.rank", "catrank");
         select.select("firstname_a_e1");
@@ -414,10 +419,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     protected Select getSelect(Database database) throws BeanException, IOException {
-        return SQL.SelectDistinct(database).from("veraweb.tguest").selectAs("tguest.pk", "id").selectAs("tguest.rank", "rank").select("deleted")
+        return SQL.SelectDistinct(database).from("veraweb.tguest").selectAs("tguest.pk", "id").selectAs("tguest.rank", "rank")
+                .select("deleted")
                 .select("delegation").select("ishost").select("iscompany").select("invitationtype")
                 .selectAs("invitationstatus", "invitationstatus_a")
-                .selectAs("invitationstatus_p", "invitationstatus_b").selectAs("reserve", "reserve").selectAs("orderno", "orderno_a")
+                .selectAs("invitationstatus_p", "invitationstatus_b").selectAs("reserve", "reserve")
+                .selectAs("orderno", "orderno_a")
                 .selectAs("orderno_p", "orderno_b");
     }
 
@@ -438,11 +445,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /**
      * Remove guests from the guest list.
      */
-    protected int removeSelection(OctopusContext octopusContext, List errors, List selection, TransactionContext transactionContext)
+    protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
+            TransactionContext transactionContext)
             throws BeanException, IOException {
         int count = 0;
         try {
-            if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
+            if (octopusContext.requestAsString("select-all") != null &&
+                    octopusContext.requestAsString("select-all").equals("on")) {
                 count = deleteAllFilteredGuests(octopusContext, transactionContext);
             } else {
                 count = deleteSelectedGuests(octopusContext, selection, transactionContext);
@@ -459,12 +468,14 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return count;
     }
 
-    private Integer deleteSelectedGuests(OctopusContext octopusContext, List selection, TransactionContext transactionContext) throws SQLException {
+    private Integer deleteSelectedGuests(OctopusContext octopusContext, List selection, TransactionContext transactionContext)
+            throws SQLException {
         final String ids = DatabaseHelper.listsToIdListString(new List[] { selection });
         DB.insert(transactionContext, DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST.format(new Object[] { ids }));
         DB.insert(transactionContext, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[] { ids }));
         DB.insert(transactionContext,
-                BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[] { octopusContext.personalConfig().getLoginname(), ids }));
+                BULK_INSERT_CHANGELOG_ENTRIES_FORMAT
+                        .format(new Object[] { octopusContext.personalConfig().getLoginname(), ids }));
 
         return selection.size();
     }
@@ -487,7 +498,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return whereList;
     }
 
-    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
+            throws BeanException, IOException {
         final Database database = transactionContext.getDatabase();
         final Guest guest = (Guest) bean;
         guest.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
@@ -511,7 +523,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     private Update createGuestUpdateStatement(final Database database, final Guest guest) {
         final Update update = SQL.Update(database).table("veraweb.tguest").update("invitationstatus", guest.invitationstatus_a)
-                .update("invitationstatus_p", guest.invitationstatus_b).update("created", guest.created).update("createdby", guest.createdby)
+                .update("invitationstatus_p", guest.invitationstatus_b).update("created", guest.created)
+                .update("createdby", guest.createdby)
                 .update("changed", guest.changed).update("changedby", guest.changedby).update("fk_category", guest.category)
                 .where(Expr.equal("pk", guest.id));
 
@@ -536,7 +549,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return update;
     }
 
-    protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+    protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
+            throws BeanException, IOException {
         final Database database = transactionContext.getDatabase();
         /*
          * modified to support change logging cklein 2008-02-12
@@ -648,7 +662,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             octopusContext.setStatus("noevent");
         }
 
-        final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
+        final MediaRepresentativesUtilities mediaRepresentativesUtilities =
+                new MediaRepresentativesUtilities(octopusContext, event);
         mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
 
         return event;
@@ -715,7 +730,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param selection   FIXME
      * @throws BeanException
      */
-    protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection) throws BeanException {
+    protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection)
+            throws BeanException {
         final Select select = buildAndCountListFromGuests(database, guestSearch, selection);
 
         final Map result = (Map) database.getList(select, database).iterator().next();

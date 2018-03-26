@@ -155,7 +155,8 @@ public class LoginResource {
      */
     @POST
     @Path("/login/{username}")
-    public Response login(@PathParam("username") String userName, @FormParam("password") String password, @FormParam("delegation") String delegation)
+    public Response login(@PathParam("username") String userName, @FormParam("password") String password,
+            @FormParam("delegation") String delegation)
             throws IOException {
         if (userName == null || password == null) {
             return null;
@@ -289,8 +290,9 @@ public class LoginResource {
 
     private OsiamUserActivation getOsiamUserActivationByUsername(String username) throws IOException {
 
-        final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", "byusername",
-                username);
+        final String osiamUserActivationPath =
+                resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", "byusername",
+                        username);
         return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
 

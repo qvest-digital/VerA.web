@@ -128,7 +128,8 @@ public class GuestWorker {
                     + "(select count(*) from tguest g left join tperson p on g.fk_person = p.pk "
                     + "where g.fk_event = {0} and (g.fk_person in ({1}) or (g.fk_person in ({1})"
                     + "and p.deleted=''f''))) as notinvited;";
-    protected static final MessageFormat COUNT_INVITED_NOT_INVITED_2_FORMAT = new MessageFormat(COUNT_INVITED_NOT_INVITED_2_PATTERN);
+    protected static final MessageFormat COUNT_INVITED_NOT_INVITED_2_FORMAT =
+            new MessageFormat(COUNT_INVITED_NOT_INVITED_2_PATTERN);
 
     protected static final String ADD_PERSONS_TO_GUESTLIST_PATTERN =
             "insert into tguest ( fk_person, fk_event, fk_category, invitationtype, invitationstatus, "
@@ -137,11 +138,16 @@ public class GuestWorker {
                     + "noteorga_p, language_p, gender_p, nationality_p, domestic_b, createdby, created, osiam_login ) "
                     + "select p.pk as fk_person, {0} as fk_event, 0 as fk_category, "
                     +
-                    "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as reserve, 0 as " +
-                     "delegation, "
-                    + "p.notehost_a_e1 as notehost, p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
+                    "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as " +
+                     "reserve, 0 as " +
+                    "delegation, "
+                    +
+                    "p.notehost_a_e1 as notehost, p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as " +
+                     "gender, "
                     + "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
-                    + "invitationstatus_p, p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
+                    +
+                    "invitationstatus_p, p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as " +
+                     "language_p, "
                     + "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
                     + "''{1}'' as createdby, current_timestamp as created, p.username as osiam_login from tperson p "
                     + "where p.pk in ({2}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
@@ -152,7 +158,8 @@ public class GuestWorker {
             "update tguest set fk_category={0}, invitationtype={1}, delegation={3},"
                     + "rank=(select rank from tperson_categorie where pk={0}), reserve={2}"
                     + "where fk_person={4} and fk_event={5};";
-    protected static final MessageFormat UPDATE_PERSON_TO_GUEST_LIST_FORMAT = new MessageFormat(UPDATE_PERSON_TO_GUEST_LIST_PATTERN);
+    protected static final MessageFormat UPDATE_PERSON_TO_GUEST_LIST_FORMAT =
+            new MessageFormat(UPDATE_PERSON_TO_GUEST_LIST_PATTERN);
 
     public void addGuestList(OctopusContext cntx) throws BeanException, IOException {
         final Database database = new DatabaseVeraWeb(cntx);
@@ -169,7 +176,8 @@ public class GuestWorker {
                 invitecategory = new HashMap();
             }
 
-            final String personIds = DatabaseHelper.listsToIdListString(new List[] { invitemain, invitepartner, selectreserve, selectdelegation });
+            final String personIds =
+                    DatabaseHelper.listsToIdListString(new List[] { invitemain, invitepartner, selectreserve, selectdelegation });
 
             setInvitationStatistics(cntx, context, event, personIds);
 
@@ -194,7 +202,8 @@ public class GuestWorker {
                         updateGuestStatement.append(UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format(new Object[] {
                                 fk_category != null ? fk_category.toString() : null,
                                 new Integer(
-                                        invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER),
+                                        invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER :
+                                                EventConstants.TYPE_OHNEPARTNER),
                                 (selectreserve.indexOf(person.id) != -1) ? 1 : 0,
                                 (selectdelegation.indexOf(person.id) != -1) ? "'" + UUID.randomUUID() + "'" : null,
                                 person.id.toString(), event.id.toString()
@@ -287,7 +296,8 @@ public class GuestWorker {
         return selectStatement;
     }
 
-    private void updateGuestByNoLoginRequiredUUID(TransactionContext transactionContext, String personId, Integer eventId) throws BeanException {
+    private void updateGuestByNoLoginRequiredUUID(TransactionContext transactionContext, String personId, Integer eventId)
+            throws BeanException {
         final Update updateStatement = SQL.Update(transactionContext);
         updateStatement.table("veraweb.tguest");
         updateStatement.update("veraweb.tguest.login_required_uuid", UUID.randomUUID().toString());
@@ -351,10 +361,11 @@ public class GuestWorker {
                     + "gender, nationality, domestic_a, invitationstatus_p, tableno_p, seatno_p, orderno_p, notehost_p, "
                     +
                     "noteorga_p, language_p, gender_p, nationality_p, domestic_b, createdby, created, delegation, osiam_login, " +
-                     "login_required_uuid, image_uuid, image_uuid_p, keywords) "
+                    "login_required_uuid, image_uuid, image_uuid_p, keywords) "
                     + "select p.pk as fk_person, {0} as fk_event, g.fk_category as fk_category,"
                     +
-                    " CASE WHEN {1} <> g.invitationtype AND {1} <> {2} THEN g.invitationtype ELSE {1} END as invitationtype, 0 as invitationstatus, "
+                    " CASE WHEN {1} <> g.invitationtype AND {1} <> {2} THEN g.invitationtype ELSE {1} END as invitationtype, 0 " +
+                     "as invitationstatus, "
                     + "0 as ishost, p.diplodate_a_e1 as diplodate, g.rank as rank, g.reserve as reserve, "
                     + "g.tableno as tableno, g.seatno as seatno, g.orderno as orderno, p.notehost_a_e1 as notehost, "
                     + "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
@@ -363,9 +374,11 @@ public class GuestWorker {
                     + "p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
                     + "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
                     +
-                    "''{3}'' as createdby, current_timestamp as created, g.delegation as delegation, g.osiam_login as osiam_login, g" +
-                     ".login_required_uuid as login_required_uuid, g.image_uuid as image_uuid, g.image_uuid_p as image_uuid_p, g.keywords as " +
-                      "keywords from tperson p "
+                    "''{3}'' as createdby, current_timestamp as created, g.delegation as delegation, g.osiam_login as " +
+                     "osiam_login, g" +
+                    ".login_required_uuid as login_required_uuid, g.image_uuid as image_uuid, g.image_uuid_p as image_uuid_p, g" +
+                     ".keywords as " +
+                    "keywords from tperson p "
                     + "left join tguest g on p.pk = g.fk_person and g.fk_event = {4} "
                     + "where p.pk in (select g.fk_person from tguest g "
                     + "where g.fk_event = {4}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
@@ -405,8 +418,9 @@ public class GuestWorker {
                 System.gc();
             }
 
-            sql = ADD_FROM_EVENT_FORMAT.format(new Object[] { event.id.toString(), event.invitationtype, EventConstants.TYPE_OHNEPARTNER,
-                    ((PersonalConfigAA) cntx.personalConfig()).getRoleWithProxy(), eventId.toString() });
+            sql = ADD_FROM_EVENT_FORMAT
+                    .format(new Object[] { event.id.toString(), event.invitationtype, EventConstants.TYPE_OHNEPARTNER,
+                            ((PersonalConfigAA) cntx.personalConfig()).getRoleWithProxy(), eventId.toString() });
             DB.insert(context, sql);
             context.commit();
             // TODO bulk log guest create event
@@ -440,7 +454,8 @@ public class GuestWorker {
             boolean invite;
 
             if (event != null && person != null) {
-                // Falls der Person nur eine einzige Kategorie zugeordnet ist, wird diese mit in die Veranstaltung uebernommen (Bug 1593)
+                // Falls der Person nur eine einzige Kategorie zugeordnet ist, wird diese mit in die Veranstaltung uebernommen
+                // (Bug 1593)
                 Integer catId = null;
                 try {
                     Select select = database.getSelect("PersonCategorie")
@@ -454,7 +469,8 @@ public class GuestWorker {
                     logger.warn("addPerson: Konnte fuer Person: " + person + " beim Hinzufügen zur Veranstaltung: " + event
                             + " keine PersonCategorie ermitteln", e);
                 }
-                invite = addGuest(cntx, database, context, event, person.id, catId, Boolean.FALSE, event.invitationtype, Boolean.FALSE);
+                invite = addGuest(cntx, database, context, event, person.id, catId, Boolean.FALSE, event.invitationtype,
+                        Boolean.FALSE);
                 if (invite) {
                     invited++;
                 } else {
@@ -584,7 +600,8 @@ public class GuestWorker {
      *
      * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
      */
-    boolean addGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer personId, Integer categoryId,
+    boolean addGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer personId,
+            Integer categoryId,
             Boolean reserve, Integer invitationtype, Boolean ishost) throws BeanException, IOException {
         return saveGuest(cntx, database, context, event, null, personId, categoryId, reserve, invitationtype, ishost);
     }
@@ -656,7 +673,8 @@ public class GuestWorker {
         Person person = getPersonById(database, executionContext, personId);
 
         if (person == null) {
-            logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id + " nicht hinzugefügt werden.");
+            logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id +
+                    " nicht hinzugefügt werden.");
             return false;
         }
 
@@ -761,7 +779,8 @@ public class GuestWorker {
         }
     }
 
-    private Person getPersonById(Database database, ExecutionContext context, Integer personId) throws BeanException, IOException {
+    private Person getPersonById(Database database, ExecutionContext context, Integer personId)
+            throws BeanException, IOException {
         // Vollständige Personendaten laden.
         return (Person)
                 database.getBean("Person",
@@ -789,7 +808,8 @@ public class GuestWorker {
      * @throws BeanException FIXME
      * @throws IOException   FIXME
      */
-    private int getNumberOfGuests(Database database, ExecutionContext context, Event event, Integer personId) throws BeanException, IOException {
+    private int getNumberOfGuests(Database database, ExecutionContext context, Event event, Integer personId)
+            throws BeanException, IOException {
         return database.getCount(database.getCount("Guest").where(Where.and(
                 Expr.equal("fk_event", event.id),
                 Expr.equal("fk_person", personId))), context);

@@ -123,7 +123,8 @@ public class MailDispatcher {
         transport = session.getTransport("smtp");
     }
 
-    public void sendVerificationEmail(final String from, final String to, final String subject, final String text, final String link,
+    public void sendVerificationEmail(final String from, final String to, final String subject, final String text,
+            final String link,
             final String contentType) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
         final Message message;
@@ -186,7 +187,8 @@ public class MailDispatcher {
         return message;
     }
 
-    private MimeMessage initMessage(final Object text, final String contentType, final Session session) throws MessagingException {
+    private MimeMessage initMessage(final Object text, final String contentType, final Session session)
+            throws MessagingException {
         final MimeMessage message = new MimeMessage(session);
         message.setContent(text, contentType);
         return message;

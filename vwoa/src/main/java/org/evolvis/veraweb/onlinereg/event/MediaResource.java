@@ -196,7 +196,8 @@ public class MediaResource {
     @GET
     @Path("/activation/confirm/{pressUserActivationToken}")
     public String activateMediaUser(@PathParam("pressUserActivationToken") String expectedActivationToken) throws IOException {
-        final MediaRepresentativeActivation mediaRepresentativeActivation = getPressUserByActivationToken(expectedActivationToken);
+        final MediaRepresentativeActivation mediaRepresentativeActivation =
+                getPressUserByActivationToken(expectedActivationToken);
         if (mediaRepresentativeActivation != null &&
                 mediaRepresentativeActivation.getActivated().equals(VerawebConstants.MEDIA_REPRESENTATIVE_INACTIVE)) {
             setMediaUserAsActive(mediaRepresentativeActivation.getEmail(), mediaRepresentativeActivation.getFk_event());
