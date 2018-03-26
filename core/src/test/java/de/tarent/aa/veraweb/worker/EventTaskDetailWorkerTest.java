@@ -125,7 +125,7 @@ public class EventTaskDetailWorkerTest { //extends TestCase {
     //
     //		// verify that exact one insert of the task has been executed
     //		verify(context).execute(insert);
-    //		verify(dbv).getInsert(argThat(new TaskArgumentMarcher(t)));
+    //		verify(dbv).getInsert(argThat(new TaskArgumentMatcher(t)));
     //	}
 
     private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
@@ -151,11 +151,11 @@ public class EventTaskDetailWorkerTest { //extends TestCase {
         doReturn(endtime).when(cntx).requestAsObject("task-endtime");
     }
 
-    class TaskArgumentMarcher extends ArgumentMatcher<Bean> {
+    class TaskArgumentMatcher extends ArgumentMatcher<Bean> {
 
         private final Task task;
 
-        public TaskArgumentMarcher(Task task) {
+        public TaskArgumentMatcher(Task task) {
             this.task = task;
         }
 
