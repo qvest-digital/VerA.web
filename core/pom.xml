@@ -178,16 +178,6 @@
 											<type>pdf</type>
 											<classifier>installationsanleitung-full</classifier>
 										</artifact>
-										<artifact>
-											<file>target/latex/upgradeanleitung-core/upgradeanleitung-core.pdf</file>
-											<type>pdf</type>
-											<classifier>upgradeanleitung-core</classifier>
-										</artifact>
-										<artifact>
-											<file>target/latex/upgradeanleitung-full/upgradeanleitung-full.pdf</file>
-											<type>pdf</type>
-											<classifier>upgradeanleitung-full</classifier>
-										</artifact>
 									</artifacts>
 								</configuration>
 							</execution>

@@ -38,19 +38,11 @@
 % TODO:
 % - Unterkapitel "Securing OSIAM", mit den Berlinern zusammen, nach der Schnellinstallation
 
-\ifupgradeanleitung
- \ifoa
-  \newcommand{\vwianame}{Upgradeanleitung VerA.web-full}
- \else% ifupgradeanleitung !ifoa
-  \newcommand{\vwianame}{Upgradeanleitung VerA.web-core}
- \fi% ifupgradeanleitung !ifoa
-\else% !ifupgradeanleitung
  \ifoa
   \newcommand{\vwianame}{Installationsanleitung VerA.web-full}
- \else% !ifupgradeanleitung !ifoa
+ \else% !ifoa
   \newcommand{\vwianame}{Installationsanleitung VerA.web-core}
- \fi% !ifupgradeanleitung !ifoa
-\fi% !ifupgradeanleitung
+ \fi% !ifoa
 
 \tarentanleitung{\vwianame}{\vwiaverssw}
  {\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
@@ -233,7 +225,6 @@ erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
 \fi% oa
 
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
-\ifupgradeanleitung\label{manual:restpw}\fi% upgradeanleitung
 
 Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
 (Maschinen‑)Benutzernamen und Paßwort gesichert, welche bei den aufrufenden
@@ -489,9 +480,7 @@ Falls Sie während des Aufsetzens von VerA.web eine eigene Installation
 von OSIAM einrichten möchten benötigen Sie hierfür auf dem System, auf
 dem OSIAM installiert werden soll, Internetzugang, da die notwendigen
 Installationspakete (vgl. Kapitel
-\ifupgradeanleitung\else% !ifupgradeanleitung
 \ref{subsubsec:setup-osiam-download} und
-\fi% !ifupgradeanleitung
 \ref{sec:upgrade-osiam}) „live“ über HTTPS heruntergeladen werden. Nach
 erfolgtem Download der Installationspakete während einer Erstinstallation
 oder eines Upgrades von OSIAM ist dieser Zugriff selbstverständlich nicht
@@ -718,9 +707,7 @@ Für eine kleine Site ist es möglich, den LDAP-Server (Debian-Pakete
 einfach bedienbare Oberfläche, \texttt{ldap-account-manager}) auf
 demselben Server wie die interne Veranstaltungs- und Adreßverwaltung
 laufenzulassen; dies erhöht die Systemvoraussetzungen nicht nennenswert.
-\ifupgradeanleitung\else% !upgradeanleitung
 Alle Informationen hierzu finden Sie in Kapitel \ref{sec:setup-lam}.
-\fi
 
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
@@ -794,8 +781,6 @@ Laufzeitumgebung, allerdings keinen Tomcat-Applikationsserver, da
 die Online-Anmeldung als sogenannter Microservice implementiert wurde.
 
 \fi% oa
-
-\ifupgradeanleitung\else% !upgradeanleitung
 
 \subsection{Bevor Sie beginnen}\label{subsec:req-prereq}
 
@@ -1632,11 +1617,7 @@ hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 \begin{minipage}{\linewidth}
 Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat8/context.xml} vor
 das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
- \ifupgradeanleitung
-  Datenbank VerA.web-core
- \else% !upgradeanleitung
   \nameref{subsec:setup-core-db}
- \fi% !upgradeanleitung
 für die REST-API verfügbar zu machen:
 
 \begin{lstdump}[language=XML]{Tomcat VWOR JDBC}
@@ -1647,11 +1628,7 @@ für die REST-API verfügbar zu machen:
 
 Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
 Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
- \ifupgradeanleitung
-  im Datenbankkapitel
- \else% !upgradeanleitung
   in Kapitel \ref{subsec:setup-core-db}
- \fi% !upgradeanleitung
 abgewichen sind.
 \end{minipage}
 
@@ -1665,7 +1642,7 @@ aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 <role rolename="veraweb" />
 <user roles="veraweb" username="veraweb" password="veraweb" />
 \end{lstdump}
-\ifupgradeanleitung\else\label{manual:restpw}\fi% !upgradeanleitung
+\label{manual:restpw}
 \end{minipage}
 
 Nun starten Sie den Anwendungsserver neu, um die geänderten
@@ -2010,8 +1987,6 @@ Sie können nun im Kapitel \nameref{sec:test} fortfahren.
 % Seitenumbruch zwischen Installation und Upgrade forçieren
 \newpage
 
-\fi% !ifupgradeanleitung
-
 \ifoa
 
 \section{Upgrade OSIAM-System}\label{sec:upgrade-osiam}
@@ -2063,12 +2038,8 @@ Resource-Server; der Auth-Server bietet aktuell keine einfache Prüfmethode an}.
 Im folgenden wird beschrieben, wie Sie die Installation von
 VerA.web-core auf den neuesten Stand bringen.
 Hierbei wird davon ausgegangen, daß VerA.web gemäß
- \ifupgradeanleitung
-  unserer Installationsanleitung
- \else% !upgradeanleitung
   dem Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung,
   oder einer ähnlich aufgebauten Anleitung einer Vorgängerversion,
- \fi% !upgradeanleitung
 auf einem Debian 8 „jessie“-System eingerichtet
 wurde. Installationen gemäß früherer Anleitungen der tarent solutions,
 die abweichende Verfahren z.B. in der Webserverkonfiguration benutzten,
@@ -2078,11 +2049,10 @@ Falls Sie weitergehende Anpassungen, z.B. an den Velocity-Templates
 für die Webseiten, vorgenommen haben müssen Sie die Änderungen
 manuell nachpflegen.
 
-\ifvwconfigsinetcalready\else% !vwconfigsinetcalready
-Upgrades von VerA.web 1.3.15 und neuer werden unterstützt. Bei einem
-Upgrade von einer älteren Version als 1.5 (also 1.3.15 und 1.4) ist
-generell mehr Vorsicht walten zu lassen.
-\fi% !ifvwconfigsinetcalready
+Diese Anleitung behandelt Upgrades von VerA.web 1.5.1.4 und neuer;
+falls Sie eine ältere Version (mindestens jedoch 1.3.15) installiert
+haben wenden Sie sich bitte an unseren Support \dash siehe Kapitel
+\nameref{sec:outro} und den folgenden Absatz.
 
 Für weitergehenden Installationssupport, insbesondere bei Systemen,
 die nicht nach dieser oder einer ähnlichen Anleitung installiert
@@ -2157,56 +2127,6 @@ eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
 verweigern während Sie sie bearbeiten, da sie später Paßwörter
 enthalten werden.
 
-\ifvwconfigsinetcalready
-Diese Fassung der Upgradeanleitung geht davon aus, daß Sie die
-Konfigurationsdateien bereits in \texttt{/etc/veraweb} haben
-(VerA.web 1.4.3.5 oder 1.5.1.4 und neuer).
-\else% !ifvwconfigsinetcalready
-
-\subsection{Upgrade von Versionen vor 1.5.1.4}\label{subsec:upgrade-1514}
-
-Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien noch
-nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie dort
-zunächst (nur) die gegenüber den in der alten Version der \texttt{veraweb.war}
-ausgelieferten Dateien angepaßten Konfigurationen aus dem Verzeichnis
-\texttt{/var/lib/tomcat8/webapps/veraweb/OCTOPUS/config\_*.xml}
-Ihrer alten Installation hinkopieren.
-
-Das neue Konfigurationsschema wurde mit VerA.web 1.5.1.4 eingeführt,
-war jedoch bereits in VerA.web 1.4.3.5 (und \emph{nur} dieser Version
-aus dem 1.4-Zweig) verfügbar.
-
-Je nach Datei gibt es hierbei einige Besonderheiten zu beachten:\keinumbruch
-
-\begin{itemize}
- \item{\texttt{config.xml}: kann nicht in \texttt{/etc/veraweb}
-  überschrieben werden; Änderungen früherer Versionen müssen nun
-  in \texttt{config\_logging.xml} und \texttt{config\_main.xml}
-  vollzogen werden}
- \item{\texttt{config\_override.xml}: standardmäßig leer, erlaubt
-  eigene Anpassungen, ohne daß gleich die ganze andere config\_*.xml
-  kopiert werden muß}
- \item{\texttt{config\_worker\_tasks.xml}: ändert sich mit jeder
-  VerA.web-Version; Anpassungen müssen übernommen werden}
-\end{itemize}
-
-Die anderen Dateien erhalten generell wenig Anpassungen, allerdings
-wurde vor VerA.web 1.5 das Encoding auf UTF-8 geändert. Es wird
-empfohlen, an diesen Dateien \dash außer \texttt{config\_ldap\_access.xml}
-und ggfs. \texttt{config\_database\_pools.xml} \dash nichts zu ändern,
-sondern \texttt{config\_override.xml} anzupassen, wenn möglich.
-
-\emph{Tip:} Entpacken Sie (mit \texttt{unzip}) \texttt{veraweb.war}
-aus Ihrer vor dem Upgrade installierten Version und vergleichen Sie
-die Dateien aus dem Archiv mit den installierten Dateien, z.B. mit
-\texttt{diff -u} oder einem graphischen Tool, um festzustellen, ob
-Sie überhaupt Änderungen durchführen müssen, und wenn ja, welche.
-
-Die Datei \texttt{config\_ldap\_access.xml} wurde in manchen
-Versionen als \texttt{config\_ldap\_access.xml.dist} und/oder
-als separater Download angeboten.
-\fi% !ifvwconfigsinetcalready
-
 \subsection{Upgrade von Versionen vor 1.6.32}\label{subsec:upgrade-1632}
 
 Die neu hinzugekommene Komponente REST-API muß konfiguriert werden.
@@ -2224,11 +2144,7 @@ Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
 des OSIAM- bzw. des Online-Anmeldungssystems. Schließlich
 tragen Sie für \texttt{osiam.client.secret} denselben Wert
 ein, den Sie bei der
- \ifupgradeanleitung
-  Registrierung von VerA.web mit OSIAM
- \else% !upgradeanleitung
   \nameref{subsec:setup-osiam-register}
- \fi% !upgradeanleitung
 als \texttt{vwsecret} gesetzt hatten.
 \fi% oa
 
@@ -2337,11 +2253,7 @@ REST-API vorgenommen werden.
 \begin{minipage}{\linewidth}
 Fügen Sie bitte am Ende der Datei\texttt{/etc/tomcat8/context.xml} vor
 das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
- \ifupgradeanleitung
-  Datenbank VerA.web-core
- \else% !upgradeanleitung
   \nameref{subsec:setup-core-db}
- \fi% !upgradeanleitung
 für die REST-API verfügbar zu machen:
 
 \begin{lstdump}[language=XML]{Tomcat VWOR JDBC}
@@ -2352,11 +2264,7 @@ für die REST-API verfügbar zu machen:
 
 Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
 Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
- \ifupgradeanleitung
-  im Datenbankkapitel
- \else% !upgradeanleitung
   in Kapitel \ref{subsec:setup-core-db}
- \fi% !upgradeanleitung
 abgewichen sind.
 \end{minipage}
 
@@ -2448,7 +2356,7 @@ betrachten.
 Außerdem müssen die WARs nach \texttt{/var/lib/tomcat8/webapps/}
 umgezogen werden, während die Tomcat-Applikationsserver nicht laufen.
 
-\ifoa\ifupgradeanleitung\else% oa !upgradeanleitung
+\ifoa% oa
 
 \subsection{Ausbau einer bestehenden Basisinstallation um die Online-Anmeldung}
 
@@ -2481,7 +2389,7 @@ sudo install -c -o 0 -g tomcat8 -m 640 veraweb.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
 
-\fi\fi% oa !upgradeanleitung
+\fi% oa
 
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 
@@ -2544,12 +2452,8 @@ VerA.web-core.
 Im folgenden wird beschrieben, wie Sie die Installation der
 VerA.web-Online-Anmeldung auf den neuesten Stand bringen.
 Hierbei wird davon ausgegangen, daß diese gemäß
- \ifupgradeanleitung
-  unserer Installationsanleitung ab Version 1.7.4
- \else% !upgradeanleitung
   dem Abschnitt \nameref{sec:setup-oa} der vorliegenden Anleitung,
   mindestens Version 1.7.4,
- \fi% !upgradeanleitung
 auf einem Debian 8 „jessie“-System eingerichtet wurde.
 Falls Sie eine ältere Installation der Online-Anmeldung besitzen
 empfehlen wir Ihnen stattdessen eine Neuinstallation, da die
@@ -2972,8 +2876,6 @@ auch im \texttt{tomcat8}, und bekannte Stellen sind hier:\keinumbruch
 \end{itemize}
 
 \fi% oa
-
-\ifupgradeanleitung\else% !upgradeanleitung
 
 \section{Anhang: Referenzkonfigurationen}\label{sec:refcfg}
 
@@ -4135,5 +4037,3 @@ mail.content.de_DE=「Bitte best\u00E4tigen Sie Ihre Registrierung bei VerA.web 
 mail.subject.en_EN=「VerA.web: Please confirm registration」
 mail.content.en_EN=「Please use the link ${link} to confirm your registration with VerA.web.」
 \end{lstdump}
-
-\fi% !upgradeanleitung

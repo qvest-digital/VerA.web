@@ -31,14 +31,6 @@
 			<outputDirectory/>
 		</file>
 		<file>
-			<source>target/latex/upgradeanleitung-core/upgradeanleitung-core.lst</source>
-			<outputDirectory/>
-		</file>
-		<file>
-			<source>target/latex/upgradeanleitung-full/upgradeanleitung-full.lst</source>
-			<outputDirectory/>
-		</file>
-		<file>
 			<source>${settings.localRepository}/org/postgresql/postgresql/${postgresql.version}/postgresql-${postgresql.version}.jar</source>
 			<outputDirectory/>
 			<destName>postgresql-jdbc4.jar</destName>
