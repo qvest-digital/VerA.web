@@ -165,8 +165,8 @@ public class PersonExportWorker extends PersonListWorker {
             throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
         final Database database = getDatabase(cntx);
         final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT);
-        final String filename =
-                OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(), "export." + spreadSheet.getFileExtension());
+        final String filename = OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(),
+                "export." + spreadSheet.getFileExtension());
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
 
@@ -213,9 +213,8 @@ public class PersonExportWorker extends PersonListWorker {
                      * from the thread local map of this thread which is not an octopus controlled thread
                      * cklein 2008-03-26
                      */
-                    exportSelect(
-                            spreadSheet, database, ((PersonalConfigAA) cntx.personalConfig()).getGrants(), select, memberAEx,
-                            memberBEx, addressEx);
+                    exportSelect(spreadSheet, database, ((PersonalConfigAA) cntx.personalConfig()).getGrants(),
+                            select, memberAEx, memberBEx, addressEx);
 
                     // Tabelle schließen
                     spreadSheet.closeTable();

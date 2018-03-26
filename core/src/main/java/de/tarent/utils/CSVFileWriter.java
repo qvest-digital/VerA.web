@@ -157,15 +157,14 @@ public class CSVFileWriter extends CSVFile {
     //
     // geschützte Hilfsmethoden
     //
-    String prepareField(Object field) {
+    private String prepareField(Object field) {
         String fieldString = (field != null) ? field.toString() : "";
         if (fieldString.indexOf(fieldSeparator) >= 0 ||
                 fieldString.indexOf('\n') >= 0 ||
                 fieldString.indexOf('\r') >= 0 ||
                 fieldString.indexOf(textQualifier) == 0) {
-            return textQualifier + fieldString
-                    .replaceAll(String.valueOf(textQualifier), new String(new char[] { textQualifier, textQualifier })) +
-                    textQualifier;
+            return textQualifier + fieldString.replaceAll(String.valueOf(textQualifier),
+                    new String(new char[] { textQualifier, textQualifier })) + textQualifier;
         }
         return fieldString;
     }

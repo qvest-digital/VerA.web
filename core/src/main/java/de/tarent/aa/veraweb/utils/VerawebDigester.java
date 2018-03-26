@@ -83,7 +83,6 @@ import java.util.Map;
  * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}.
  */
 public class VerawebDigester implements ImportDigester {
-
     int personCount = 0;
     int importableCount = 0;
     int incorrectCount = 0;
@@ -141,8 +140,8 @@ public class VerawebDigester implements ImportDigester {
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
     public Map getImportStats() {
-        return DataExchangeWorker
-                .createImportStats(incorrectCount, personCount, duplicateCount, importableCount, importInstance.id);
+        return DataExchangeWorker.createImportStats(incorrectCount, personCount,
+                duplicateCount, importableCount, importInstance.id);
     }
 
     //

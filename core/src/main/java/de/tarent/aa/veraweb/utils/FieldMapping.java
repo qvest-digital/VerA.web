@@ -146,8 +146,8 @@ public class FieldMapping {
                         }
                     } catch (NumberFormatException nfe) {
                     }
-                    logger.warn(
-                            "Ungültiger Index " + info[1] + " im Mapping von " + sourceField + "; Indexangabe wird ignoriert");
+                    logger.warn("Ungültiger Index " + info[1] + " im Mapping von " +
+                            sourceField + "; Indexangabe wird ignoriert");
                 }
                 unorderedSources.add(sourceField);
             }

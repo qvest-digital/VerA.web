@@ -74,7 +74,6 @@ import java.io.IOException;
  * WireMock must be started outside JVM, because of dependency collisions
  */
 public class WiremockRule implements TestRule {
-
     private Process wiremock;
 
     @Override
@@ -97,8 +96,8 @@ public class WiremockRule implements TestRule {
             return;
         }
 
-        String wiremockJarPath =
-                System.getenv("HOME") + "/.m2/repository/com/github/tomakehurst/wiremock/1.58/wiremock-1.58-standalone.jar";
+        String wiremockJarPath = System.getenv("HOME") +
+                "/.m2/repository/com/github/tomakehurst/wiremock/1.58/wiremock-1.58-standalone.jar";
         String wiremockDir = this.getClass().getResource("/wiremock").getPath();
         System.out.println("Using WireMock JAR: " + wiremockJarPath);
         System.out.println("Starting WireMock in directory: " + wiremockDir);
@@ -124,8 +123,8 @@ public class WiremockRule implements TestRule {
                 } catch (IOException e) {
                 }
             }
-        }.start();*/
-
+        }.start();
+*/
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 if (wiremock != null) {
@@ -147,6 +146,5 @@ public class WiremockRule implements TestRule {
             wiremock.waitFor();
             wiremock = null;
         }
-
     }
 }

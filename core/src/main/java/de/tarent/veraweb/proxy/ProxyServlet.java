@@ -104,8 +104,8 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
         final PropertiesReader reader = new PropertiesReader();
         verawebProperties = reader.getProperties();
 
-        implicitProperties.setProperty(P_TARGET_URI, verawebProperties.getProperty(VWOR_ENDPOINT)
-                + getServletConfig().getInitParameter(P_TARGET_PATH));
+        implicitProperties.setProperty(P_TARGET_URI,
+                verawebProperties.getProperty(VWOR_ENDPOINT) + getServletConfig().getInitParameter(P_TARGET_PATH));
         implicitProperties.setProperty(P_USER, verawebProperties.getProperty(VWOR_AUTH_USER));
         implicitProperties.setProperty(P_PASSWORD, verawebProperties.getProperty(VWOR_AUTH_PASSWORD));
         implicitProperties.setProperty(P_REQUIRED_GROUP, PersonalConfig.GROUP_ADMINISTRATOR);
