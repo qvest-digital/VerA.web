@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -72,20 +73,31 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class ImportPersonCategorie extends AbstractBean implements ImportPersonExtra {
-    /** ID: pk serial NOT NULL */
+    /**
+     * ID: pk serial NOT NULL
+     */
     public Integer id;
-    /** Import-Person: fk_importperson int4 NOT NULL */
+    /**
+     * Import-Person: fk_importperson int4 NOT NULL
+     */
     public Integer importperson;
-    /** Kategoriename: catname varchar(200) NOT NULL */
+    /**
+     * Kategoriename: catname varchar(200) NOT NULL
+     */
     public String name;
-    /** Rang: rank int4 DEFAULT 0 */
+    /**
+     * Rang: rank int4 DEFAULT 0
+     */
     public Integer rank;
-    /** Flags: flags int4 DEFAULT 0 */
+    /**
+     * Flags: flags int4 DEFAULT 0
+     */
     public Integer flags;
 
     //
     // Oberklasse AbstractBean
     //
+
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
@@ -117,6 +129,7 @@ public class ImportPersonCategorie extends AbstractBean implements ImportPersonE
     //
     // Schnittstelle ImportPersonExtra
     //
+
     /**
      * Diese Methode assoziiert diese Importpersonenergänzung mit ihrer Importperson;
      * dies bedeutet insbesondere die Übernahme deren ID als Fremdschlüssel auf sie.

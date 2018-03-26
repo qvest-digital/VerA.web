@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
@@ -83,29 +84,31 @@ public class LDAPManagerAA extends LDAPManager {
     // Konstanten
     //
     /** LDAP-Objektklasse fuer AA-Rollen */
-    /** Parameter-Schluessel fuer den AA-Rollen-Filter */
+    /**
+     * Parameter-Schluessel fuer den AA-Rollen-Filter
+     */
     public final static String KEY_ROLE_FILTER = "role-filter";
 
     //
     // Konstruktor
     //
+
     /**
      * Dieser Konstruktor reicht die übergebenen Parameter durch und setzt die
      * Vorgabe-Objektklassen.
      *
-     * @param lctx initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
+     * @param lctx   initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
      * @param params LDAP-Manager-Parameter, vergleiche
-     *  {@link LDAPManager#LDAPManager(InitialLdapContext, Map)}
+     *               {@link LDAPManager#LDAPManager(InitialLdapContext, Map)}
      */
     public LDAPManagerAA(InitialLdapContext lctx, Map params) {
         super(lctx, params);
         String roleFilter = (String) params.get(KEY_ROLE_FILTER);
         // setup a valid filter template, by default we only search for the uid
         String objFilter = "(uid={0})";
-        if ( this.defaultUserObjectClass != null && this.defaultUserObjectClass.length() > 0 )
-        {
-                // if set, we extend the default search filter template by the defined user object class
-                objFilter = "(&(objectclass=" + this.defaultUserObjectClass + ")" + objFilter + ")";
+        if (this.defaultUserObjectClass != null && this.defaultUserObjectClass.length() > 0) {
+            // if set, we extend the default search filter template by the defined user object class
+            objFilter = "(&(objectclass=" + this.defaultUserObjectClass + ")" + objFilter + ")";
         }
         filterTemplate = new MessageFormat(roleFilter != null ? roleFilter : objFilter);
     }
@@ -113,6 +116,7 @@ public class LDAPManagerAA extends LDAPManager {
     //
     // Öffentliche AA-spezifische Methoden
     //
+
     /**
      * Diese Methode erzeugt zu einem Benutzer eine {@link Map} seiner Attribute und
      * Attributswerte. Wenn ein Attribut mehrere Werte hat, so wird in der {@link Map}
@@ -125,7 +129,7 @@ public class LDAPManagerAA extends LDAPManager {
     public Map getUserData(String userName) throws LDAPException {
         try {
             String dn = fullUserDN(userName);
-                return LDAPUtil.toMap(lctx.getAttributes(dn));
+            return LDAPUtil.toMap(lctx.getAttributes(dn));
         } catch (NamingException e) {
             throw new LDAPException("Es ist ein Fehler beim Holen der Userdaten aufgetreten!", e);
         }
@@ -138,9 +142,9 @@ public class LDAPManagerAA extends LDAPManager {
      * @throws NamingException
      */
     public Set getPossibleRoles() throws NamingException {
-                SearchControls cons = new SearchControls();
-                this.initializeSearchControls( cons );
-                Set roleUids = getPossibleRoles("(objectclass=" + this.defaultUserObjectClass + ")", cons);
+        SearchControls cons = new SearchControls();
+        this.initializeSearchControls(cons);
+        Set roleUids = getPossibleRoles("(objectclass=" + this.defaultUserObjectClass + ")", cons);
         logger.fine("Alle verfügbaren Rollen: " + roleUids);
         return roleUids;
     }
@@ -153,7 +157,8 @@ public class LDAPManagerAA extends LDAPManager {
      * eingetragen wird.<br>
      * Zum Beispiel sucht folgender Filter die AARole-Knoten, in denen das login in
      * sinnvoller Weise im person-Attribut steht:<br>
-     * (&amp;(|(person=uid={0}&#64;auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0},ou=Personen,dc=aa))(objectclass=AARole))
+     * (&amp;(|(person=uid={0}&#64;auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0},
+     * ou=Personen,dc=aa))(objectclass=AARole))
      *
      * @param login Login, zu dem mögliche Rollen gesucht werden sollen
      * @return Sammlung möglicher Rollen zu dem Login
@@ -161,8 +166,8 @@ public class LDAPManagerAA extends LDAPManager {
      */
     public Set getPossibleRoles(String login) throws NamingException {
         SearchControls cons = new SearchControls();
-        this.initializeSearchControls( cons );
-        Set roleUids = getPossibleRoles(filterTemplate.format(new Object[]{login}), cons);
+        this.initializeSearchControls(cons);
+        Set roleUids = getPossibleRoles(filterTemplate.format(new Object[] { login }), cons);
         logger.fine("Rollen für " + login + ": " + roleUids);
         return roleUids;
     }
@@ -171,26 +176,23 @@ public class LDAPManagerAA extends LDAPManager {
      * Diese Methode ermittelt die verfügbaren Rollen zu einem Filter.
      *
      * @param filter JNDI-Suchfilter
-     * @param cons SearchControls
+     * @param cons   SearchControls
      * @return Sammlung möglicher Rollen zu dem Filter
      * @throws NamingException
      */
     public Set getPossibleRoles(String filter, SearchControls cons) throws NamingException {
         Set roleUids = new HashSet();
-        try
-        {
-                this.recreateInitialContext();
-                NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
-                while (ergebnis.hasMore()) {
-                    Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
-                    // TODO: hier wird einer der uid-Einträge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
-                    roleUids.add(result.get("uid").get());
-                }
-                return roleUids;
-        }
-        catch( LDAPException e )
-        {
-                throw new NamingException( "Die Verbindung zum LDAP Server wurde geschlossen." );
+        try {
+            this.recreateInitialContext();
+            NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
+            while (ergebnis.hasMore()) {
+                Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
+                // TODO: hier wird einer der uid-Einträge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
+                roleUids.add(result.get("uid").get());
+            }
+            return roleUids;
+        } catch (LDAPException e) {
+            throw new NamingException("Die Verbindung zum LDAP Server wurde geschlossen.");
         }
     }
 
@@ -198,6 +200,8 @@ public class LDAPManagerAA extends LDAPManager {
     // Members
     //
 
-    /** eigener statischer Logger */
+    /**
+     * eigener statischer Logger
+     */
     private static Logger logger = Logger.getLogger(LDAPManagerAA.class.getName());
 }

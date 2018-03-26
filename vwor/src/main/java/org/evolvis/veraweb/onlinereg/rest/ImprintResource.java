@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Imprint;
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
@@ -79,7 +80,7 @@ import java.util.HashMap;
  */
 @Path("/imprint")
 @Produces(MediaType.APPLICATION_JSON)
-public class ImprintResource extends AbstractResource{
+public class ImprintResource extends AbstractResource {
 
     private VworPropertiesReader vworPropertiesReader;
 
@@ -87,7 +88,7 @@ public class ImprintResource extends AbstractResource{
     @Path("/{language}")
     public Map<String, Imprint> getImprintList(@PathParam("language") String languageKey) {
 
-        if(languageKey == null || languageKey.equals("")) {
+        if (languageKey == null || languageKey.equals("")) {
             return null;
         }
 
@@ -97,10 +98,10 @@ public class ImprintResource extends AbstractResource{
         final Map<String, String> mapContent = new HashMap<>();
         final List<String> keyList = new ArrayList<>();
 
-        for(String key : propertiesReader.getProperties().stringPropertyNames()){
-            if(key.startsWith("imprint." + languageKey + ".heading.")){
+        for (String key : propertiesReader.getProperties().stringPropertyNames()) {
+            if (key.startsWith("imprint." + languageKey + ".heading.")) {
                 mapHeading.put(getSubKey(keyList, key), propertiesReader.getProperty(key));
-            } else if (key.startsWith("imprint." + languageKey + ".content.")){
+            } else if (key.startsWith("imprint." + languageKey + ".content.")) {
                 mapContent.put(getSubKey(keyList, key), propertiesReader.getProperty(key));
             }
         }
@@ -111,14 +112,14 @@ public class ImprintResource extends AbstractResource{
     private Map<String, Imprint> collapseMaps(Map<String, String> mapHeading, Map<String, String> mapContent, List<String> keyList) {
         final Map<String, Imprint> map = new HashMap<>();
 
-        for(String key : keyList){
+        for (String key : keyList) {
             map.put(key, new Imprint(mapHeading.get(key), mapContent.get(key)));
         }
 
         return map;
     }
 
-    private String getSubKey(List keyList, String key){
+    private String getSubKey(List keyList, String key) {
         String subKey = key.substring(22);
         keyList.add(subKey);
         return subKey;

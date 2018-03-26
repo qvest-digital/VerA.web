@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.AcroFields;
@@ -108,7 +109,8 @@ import java.util.UUID;
 @Produces(MediaType.APPLICATION_JSON)
 public class PdfTemplateResource extends FormDataResource {
     private final String currentExportFileName = "pdfexport-" + new Date().getTime() + ".pdf";
-    private final String OUTPUT_FILENAME = FileUtils.getTempDirectoryPath() + File.separator + UUID.randomUUID().toString() + "_" + currentExportFileName;
+    private final String OUTPUT_FILENAME =
+            FileUtils.getTempDirectoryPath() + File.separator + UUID.randomUUID().toString() + "_" + currentExportFileName;
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
     private final Integer DAYS_BACK = 1;
     private final long PURGE_TIME = System.currentTimeMillis() - (DAYS_BACK * 24 * 60 * 60 * 1000);
@@ -116,7 +118,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     @POST
     @Path("/edit")
-    @Consumes({MediaType.MULTIPART_FORM_DATA})
+    @Consumes({ MediaType.MULTIPART_FORM_DATA })
     public Response editPdfTemplateWithFile(FormDataMultiPart data) {
         Integer id = null;
         if (!data.getField("pdftemplate-id").getValue().isEmpty()) {
@@ -149,9 +151,10 @@ public class PdfTemplateResource extends FormDataResource {
 
     @POST
     @Path("/edit")
-    public Response editPdfTemplateWithoutFile(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+    public Response editPdfTemplateWithoutFile(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name,
+            @FormParam("pdftemplate-orgunit") Integer mandantId) {
         //catch when id is null (create new template) and content is null(which is implicit because of @consumes)
-        if(id == null) {
+        if (id == null) {
             //create: without content
             return Response.status(VworConstants.HTTP_POLICY_NOT_FULFILLED).build();
         }
@@ -201,8 +204,9 @@ public class PdfTemplateResource extends FormDataResource {
 
     @GET
     @Path("/export")
-    @Produces({VworConstants.APPLICATION_PDF_CONTENT_TYPE})
-    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId) throws IOException, DocumentException {
+    @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
+    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId)
+            throws IOException, DocumentException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
@@ -311,7 +315,8 @@ public class PdfTemplateResource extends FormDataResource {
 
     private String writePersonalOutputFile(String pdfTemplateFilename, Person person, UUID uuid) throws IOException, DocumentException {
         final PdfReader pdfReader = new PdfReader(pdfTemplateFilename);
-        final String path = FileUtils.getTempDirectoryPath() + File.separator + uuid.toString() + "-personal-pdf-file-" + person.getPk() + "-" + new Date().getTime() + ".pdf";
+        final String path = FileUtils.getTempDirectoryPath() + File.separator + uuid.toString() + "-personal-pdf-file-" + person.getPk() + "-" +
+                new Date().getTime() + ".pdf";
         final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
 
         final HashMap<String, String> substitutions = getSubstitutions(person);
@@ -331,7 +336,7 @@ public class PdfTemplateResource extends FormDataResource {
     /**
      * Rename fields to avoid global changes of the fields.
      *
-     * @param personId The personal ID
+     * @param personId   The personal ID
      * @param acroFields All fields in the template
      * @param fieldsList Temp list with fieldnames to avoid ConcurrentModificationException
      */

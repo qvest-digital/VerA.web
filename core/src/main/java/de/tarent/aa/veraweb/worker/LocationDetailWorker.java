@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Update;
@@ -85,8 +86,8 @@ public class LocationDetailWorker {
     private static final String PARAM_LOCATION = "location";
     private static final String PARAM_LOCATION_ID = "id";
 
-    public static final String[] INPUT_showDetail = {PARAM_LOCATION_ID};
-    public static final boolean[] MANDATORY_showDetail = {false};
+    public static final String[] INPUT_showDetail = { PARAM_LOCATION_ID };
+    public static final boolean[] MANDATORY_showDetail = { false };
     public static final String OUTPUT_showDetail = PARAM_LOCATION;
 
     private final DatabaseVeraWebFactory databaseVeraWebFactory;
@@ -94,6 +95,7 @@ public class LocationDetailWorker {
     //
     // Konstruktoren
     //
+
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
@@ -102,35 +104,35 @@ public class LocationDetailWorker {
         this(new DatabaseVeraWebFactory());
     }
 
-	public LocationDetailWorker(DatabaseVeraWebFactory databaseVeraWebFactory) {
-	    this.databaseVeraWebFactory = databaseVeraWebFactory;
-	}
+    public LocationDetailWorker(DatabaseVeraWebFactory databaseVeraWebFactory) {
+        this.databaseVeraWebFactory = databaseVeraWebFactory;
+    }
 
-	public Location showDetail(OctopusContext context, Integer id) throws BeanException, IOException{
-	    if(id == null){
-	        return null;
-	    }
-	    Location location = getLocation(context, id);
+    public Location showDetail(OctopusContext context, Integer id) throws BeanException, IOException {
+        if (id == null) {
+            return null;
+        }
+        Location location = getLocation(context, id);
 
-	    return location;
-	}
+        return location;
+    }
 
-	static public Location getLocation(OctopusContext context, Integer id) throws BeanException, IOException {
+    static public Location getLocation(OctopusContext context, Integer id) throws BeanException, IOException {
 
-	    if(id == null) {
-	        return null;
-	    }
+        if (id == null) {
+            return null;
+        }
 
-	    Database database = new DatabaseVeraWeb(context);
-	    Location location = (Location) database.getBean("Location", id);
+        Database database = new DatabaseVeraWeb(context);
+        Location location = (Location) database.getBean("Location", id);
 
-	    return location;
-	}
+        return location;
+    }
 
-	public static final String INPUT_saveDetail[] = { "savelocation" };
-	public static final boolean MANDATORY_saveDetail[] = { false };
+    public static final String INPUT_saveDetail[] = { "savelocation" };
+    public static final boolean MANDATORY_saveDetail[] = { false };
 
-	public void saveDetail(final OctopusContext octopusContext, Boolean savelocation)
+    public void saveDetail(final OctopusContext octopusContext, Boolean savelocation)
             throws BeanException, IOException {
         if (savelocation == null || !savelocation.booleanValue()) {
             return;
@@ -149,9 +151,9 @@ public class LocationDetailWorker {
 
             location.verify(octopusContext);
 
-            Location oldlocation = (Location) database.getBean("Location", location.getId(),transactionContext);
+            Location oldlocation = (Location) database.getBean("Location", location.getId(), transactionContext);
 
-            if(location.id == null || location.compareTo(oldlocation)!=0) {
+            if (location.id == null || location.compareTo(oldlocation) != 0) {
                 location.setModified(true);
             }
 

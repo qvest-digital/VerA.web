@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -77,35 +78,51 @@ public class Proxy extends AbstractHistoryBean {
     //
     // tproxy
     //
-    /** tproxy.pk serial NOT NULL */
+    /**
+     * tproxy.pk serial NOT NULL
+     */
     public Integer id;
 
-    /** tproxy.fk_user int4 NOT NULL */
+    /**
+     * tproxy.fk_user int4 NOT NULL
+     */
     public Integer user;
 
-    /** tproxy.proxy varchar(100) NOT NULL */
+    /**
+     * tproxy.proxy varchar(100) NOT NULL
+     */
     public String proxy;
 
-    /** tproxy.validfrom timestamptz */
+    /**
+     * tproxy.validfrom timestamptz
+     */
     public Timestamp validFrom;
 
-    /** tproxy.validtill timestamptz */
+    /**
+     * tproxy.validtill timestamptz
+     */
     public Timestamp validTill;
 
     //
     // tuser
     //
-    /** tuser.username varchar(100) NOT NULL */
+    /**
+     * tuser.username varchar(100) NOT NULL
+     */
     public String userRole;
 
-    /** tuser.fk_orgunit: int4 DEFAULT 0 */
+    /**
+     * tuser.fk_orgunit: int4 DEFAULT 0
+     */
     public Integer orgunit;
 
     //
     // Klasse AbstractBean
     //
+
     /**
      * Der Benutzer und Stellvertreterrolle müssen angegeben sein.
+     *
      * @param octopusContext The {@link OctopusContext}
      */
     public void verify(OctopusContext octopusContext) {
@@ -120,7 +137,7 @@ public class Proxy extends AbstractHistoryBean {
         }
 
         if (validFrom != null && validTill != null && validFrom.after(validTill)) {
-                addError(messages.getMessageProxyRepresentativeBeginBeforeEnd());
+            addError(messages.getMessageProxyRepresentativeBeginBeforeEnd());
         }
     }
 
@@ -129,11 +146,9 @@ public class Proxy extends AbstractHistoryBean {
      * darf.<br>
      * Test ist leer.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
-     * @throws BeanException
-     *             Wenn im angegebenen Kontext diese Bohne nicht gelesen werden
-     *             darf.
+     * @param octopusContext Octopus-Kontext
+     * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden
+     *                       darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override

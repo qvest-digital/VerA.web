@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -81,21 +82,21 @@ import lombok.Data;
 @Table(name = "toptional_field_type")
 public class OptionalFieldType {
 
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int pk;
+    private int pk;
 
-        private String description;
+    private String description;
 
-        public int getPk() {
-                return pk;
-        }
+    public int getPk() {
+        return pk;
+    }
 
-        public String getDescription() {
-                return description;
-        }
+    public String getDescription() {
+        return description;
+    }
 
-        public void setDescription(String description) {
-                this.description = description;
-        }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

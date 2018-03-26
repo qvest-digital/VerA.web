@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Person;
@@ -165,7 +166,7 @@ public class CategorieWorker extends StammdatenWorker {
             cntx.setContent("count", count);
         }
 
-//        super.getAll(octopusContext);
+        //        super.getAll(octopusContext);
         getAllAvailableEventCategories(cntx);
     }
 
@@ -255,10 +256,11 @@ public class CategorieWorker extends StammdatenWorker {
             String domain = cntx.contentAsString(PARAM_DOMAIN);
             if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))) {
                 Integer orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
-                if (orgunit == null)
+                if (orgunit == null) {
                     return Expr.isNull("tcategorie.fk_orgunit");
-                else
+                } else {
                     return Expr.equal("tcategorie.fk_orgunit", aaConfig.getOrgUnitId());
+                }
             }
             return null;
         } else {
@@ -358,7 +360,8 @@ public class CategorieWorker extends StammdatenWorker {
     }
 
     @Override
-    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext transactionContext) throws BeanException, IOException {
+    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext transactionContext)
+            throws BeanException, IOException {
         int count = super.removeSelection(cntx, errors, selection, transactionContext);
 
         // now remove all stale person category assignments

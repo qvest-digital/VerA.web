@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
@@ -83,37 +84,38 @@ public class MailinglistListWorker extends ListWorkerVeraWeb {
     //
     // Konstruktoren
     //
+
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
-	public MailinglistListWorker() {
-		super("Mailinglist");
-	}
+    public MailinglistListWorker() {
+        super("Mailinglist");
+    }
 
     //
     // Oberklasse BeanListWorker
     //
-	@Override
+    @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
-		select.where(Expr.equal("tmailinglist.fk_orgunit", ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()));
-	}
+        select.where(Expr.equal("tmailinglist.fk_orgunit", ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId()));
+    }
 
-	@Override
+    @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-		select.where(Expr.equal("tmailinglist.fk_orgunit", ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()));
-	}
+        select.where(Expr.equal("tmailinglist.fk_orgunit", ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId()));
+    }
 
-	@Override
+    @Override
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
-		select.joinLeftOuter("veraweb.tuser", "tmailinglist.fk_user", "tuser.pk");
-		select.joinLeftOuter("veraweb.tevent", "tmailinglist.fk_vera", "tevent.pk");
-		select.selectAs("tuser.username", "username");
-		select.selectAs("tevent.shortname", "eventname");
-	}
+        select.joinLeftOuter("veraweb.tuser", "tmailinglist.fk_user", "tuser.pk");
+        select.joinLeftOuter("veraweb.tevent", "tmailinglist.fk_vera", "tevent.pk");
+        select.selectAs("tuser.username", "username");
+        select.selectAs("tevent.shortname", "eventname");
+    }
 
-	@Override
+    @Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
-		((Mailinglist)bean).orgunit = ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId();
-		super.saveBean(cntx, bean, context);
-	}
+        ((Mailinglist) bean).orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
+        super.saveBean(cntx, bean, context);
+    }
 }

@@ -61,8 +61,10 @@ package org.evolvis.veraweb.export;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -87,7 +89,7 @@ public class LinkExtractorTest {
         properties.setProperty("prefix", "http://blabla.foo.de/bar/baz");
         when(rs.getString(43)).thenReturn("gnaaahahahaha");
         Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
-        assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha",extractedValue);
+        assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha", extractedValue);
     }
 
     @Test
@@ -96,7 +98,7 @@ public class LinkExtractorTest {
         properties.setProperty("prefix", "http://blabla.foo.de/bar/baz/");
         when(rs.getString(43)).thenReturn("gnaaahahahaha");
         Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
-        assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha",extractedValue);
+        assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha", extractedValue);
     }
 
     @Test
@@ -115,6 +117,6 @@ public class LinkExtractorTest {
         properties.setProperty("prefixPropertyName", "oa.path.delegation");
         when(rs.getString(43)).thenReturn("gnaaahahahaha");
         Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
-        assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha",extractedValue);
+        assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha", extractedValue);
     }
 }

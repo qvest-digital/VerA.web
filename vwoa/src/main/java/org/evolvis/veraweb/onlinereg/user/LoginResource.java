@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.user;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -147,12 +148,10 @@ public class LoginResource {
     /**
      * Logs a user in.
      *
-     * @param userName
-     *            user name or user email
-     * @param password
-     *            password
+     * @param userName user name or user email
+     * @param password password
      * @return true if login was successful, fals if username or password are
-     *         not vaild
+     * not vaild
      */
     @POST
     @Path("/login/{username}")
@@ -247,7 +246,7 @@ public class LoginResource {
      * Test if user is logged in.
      *
      * @return true if user is logged in, which means username and valid access
-     *         token are stored in the session context.
+     * token are stored in the session context.
      */
     @GET
     @Path("/login")
@@ -299,8 +298,7 @@ public class LoginResource {
      * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path
      * fragmensts.
      *
-     * @param path
-     *            path fragments
+     * @param path path fragments
      * @return complete path as string
      */
     private String path(Object... path) {
@@ -312,7 +310,7 @@ public class LoginResource {
      *
      * @param path path
      * @param type TypeReference of requested entity
-     * @param <T> Type of requested entity
+     * @param <T>  Type of requested entity
      * @return requested resource
      * @throws IOException FIXME
      */

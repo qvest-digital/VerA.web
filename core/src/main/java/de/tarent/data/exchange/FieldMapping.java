@@ -61,6 +61,7 @@ package de.tarent.data.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -84,6 +85,7 @@ public class FieldMapping {
     //
     // Konstruktor
     //
+
     /**
      * Dieser Konstruktor bekommt die Menge der verfügbaren Quellfelder und
      * eine Abbildung Zielfeldname &rarr; Formatstring mit Quellfeldreferenzen
@@ -105,10 +107,10 @@ public class FieldMapping {
      * wird.<br>
      * Im Falle konkurrierender Zuordnungen erhält die speziellere den Vorrang.
      *
-     * @param availableSources verfügbare Quellen
+     * @param availableSources   verfügbare Quellen
      * @param mappingDescription Abbildung Zielfeldnamen auf Formatstrings mit
-     *  Quellfeldreferenzen
-     * @throws MappingException bei Problemen beim Auflösen der Mapping-Beschreibung
+     *                           Quellfeldreferenzen
+     * @throws MappingException     bei Problemen beim Auflösen der Mapping-Beschreibung
      * @throws NullPointerException falls ein Parameter <code>null</code> ist.
      */
     public FieldMapping(Set availableSources, Map mappingDescription) throws MappingException {
@@ -122,13 +124,14 @@ public class FieldMapping {
      *
      * @param availableSources verfügbare Quellen
      * @param availableTargets verfügbare Ziele
-     * @param resolvedMapping aufgelöstes (Joker-freies) Mapping
+     * @param resolvedMapping  aufgelöstes (Joker-freies) Mapping
      */
     private FieldMapping(Set availableSources, Set availableTargets, Map resolvedMapping, Map mappingDescription) {
-        if (availableTargets == null)
+        if (availableTargets == null) {
             availableTargets = resolvedMapping.keySet();
-        else
+        } else {
             assert resolvedMapping.keySet().containsAll(availableTargets);
+        }
         this.availableSources = new HashSet(availableSources);
         this.resolvedMappings = new HashMap(resolvedMapping);
         this.availableTargets = new HashSet(availableTargets);
@@ -138,12 +141,17 @@ public class FieldMapping {
     //
     // Getter
     //
-    /** verfügbare Quellfelder */
+
+    /**
+     * verfügbare Quellfelder
+     */
     public Set getSources() {
         return availableSources;
     }
 
-    /** verfügbare Zielfelder */
+    /**
+     * verfügbare Zielfelder
+     */
     public Set getTargets() {
         return availableTargets;
     }
@@ -151,6 +159,7 @@ public class FieldMapping {
     //
     // Öffentliche Interfaces
     //
+
     /**
      * Diese Schnittstelle stellt Quellentitäten dar, aus deren Inhalten
      * {@link FieldMapping#resolve(String, Entity)} Zielfeldwerte erzeugt.
@@ -170,28 +179,31 @@ public class FieldMapping {
     //
     // Öffentliche Methoden
     //
+
     /**
      * Diese Methode ermittelt den Wert eines Zielfelds basierend auf
      * den Werten einer Entität.
      *
      * @param targetKey Zielfeldbezeichner
-     * @param entity Entität, der die Quellfeldwerte zu entnehmen sind
+     * @param entity    Entität, der die Quellfeldwerte zu entnehmen sind
      * @return ermittelter Zielfeldwert
      */
     public String resolve(String targetKey, Entity entity) {
-        if (targetKey == null || entity == null || !resolvedMappings.containsKey(targetKey))
+        if (targetKey == null || entity == null || !resolvedMappings.containsKey(targetKey)) {
             return null;
+        }
         String format = resolvedMappings.get(targetKey).toString();
         Matcher matcher = refPattern.matcher(format);
         StringBuffer buffer = new StringBuffer();
         int from = 0;
         while (matcher.find()) {
             buffer.append(format.substring(from, matcher.start()))
-                  .append(entity.get(matcher.group(1)));
+                    .append(entity.get(matcher.group(1)));
             from = matcher.end();
         }
-        if (from < format.length())
+        if (from < format.length()) {
             buffer.append(format.substring(from));
+        }
         return buffer.toString();
     }
 
@@ -204,19 +216,21 @@ public class FieldMapping {
      * <code>mapping</code> matchet.
      *
      * @param mapping FIXME
-     * @param value FIXME
+     * @param value   FIXME
      * @return FIXME
      */
     public String resolve(String mapping, String value) {
         int starlet = mapping.indexOf("*");
-        if (starlet == -1 || mapping.indexOf("*", starlet + 1) != -1)
-                return null;
+        if (starlet == -1 || mapping.indexOf("*", starlet + 1) != -1) {
+            return null;
+        }
 
         String pre = mapping.substring(0, starlet);
         String suf = mapping.substring(starlet + 1);
 
-        if (!(value.startsWith(pre) && value.endsWith(suf)))
-                return null;
+        if (!(value.startsWith(pre) && value.endsWith(suf))) {
+            return null;
+        }
 
         return value.substring(starlet, value.length() - suf.length());
     }
@@ -237,8 +251,9 @@ public class FieldMapping {
         for (Iterator itMappings = resolvedMappings.entrySet().iterator(); itMappings.hasNext(); ) {
             Map.Entry mapping = (Entry) itMappings.next();
             Matcher matcher = refPattern.matcher(mapping.getValue().toString());
-            if (matcher.find())
+            if (matcher.find()) {
                 invertedMapping.put(matcher.group(1), "{" + mapping.getKey() + '}');
+            }
         }
         return new FieldMapping(availableTargets, invertedMapping.keySet(), invertedMapping, mappingDescription);
     }
@@ -248,57 +263,63 @@ public class FieldMapping {
      * Header übergeben wurde, aber noch nicht in der Datenbank vorhanden sind
      * und deswegen nicht in den {@link #availableSources} verfügbar waren.
      */
-        public void extendCategoryImport(List extensions) {
-                assert mappingDescription != null && resolvedMappings != null;
+    public void extendCategoryImport(List extensions) {
+        assert mappingDescription != null && resolvedMappings != null;
 
         // Map der aufgelösten Mappings
         Map finalMappings = new HashMap();
         finalMappings.putAll(resolvedMappings);
 
-                for (Iterator it = mappingDescription.entrySet().iterator(); it.hasNext(); ) {
-                        Map.Entry entry = (Map.Entry)it.next();
-                        String mappingMarker = entry.getKey().toString();
-                        String mappingTarget = entry.getValue().toString();
+        for (Iterator it = mappingDescription.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry entry = (Map.Entry) it.next();
+            String mappingMarker = entry.getKey().toString();
+            String mappingTarget = entry.getValue().toString();
 
-                        if (mappingTarget == null || mappingMarker == null)
-                                continue;
-                        if (mappingTarget.startsWith("{") || mappingTarget.startsWith("}"))
-                                mappingTarget = mappingTarget.substring(1, mappingTarget.length() - 1);
-                        if (!(
-                                        mappingTarget.startsWith("CAT:") ||
-                                        mappingTarget.startsWith("EVE:") ||
-                                        mappingTarget.startsWith("COR:")))
-                                continue;
+            if (mappingTarget == null || mappingMarker == null) {
+                continue;
+            }
+            if (mappingTarget.startsWith("{") || mappingTarget.startsWith("}")) {
+                mappingTarget = mappingTarget.substring(1, mappingTarget.length() - 1);
+            }
+            if (!(
+                    mappingTarget.startsWith("CAT:") ||
+                            mappingTarget.startsWith("EVE:") ||
+                            mappingTarget.startsWith("COR:"))) {
+                continue;
+            }
 
-                        for (Iterator it2 = extensions.iterator(); it2.hasNext(); ) {
-                                String extension = it2.next().toString();
-                                String cleaned = resolve(mappingMarker, extension);
-                                if (cleaned == null) continue;
-                                String resolved = mappingTarget.replaceAll("\\*", cleaned);
-                                if (resolved == null) continue;
-
-                                finalMappings.put(resolved, "{" + extension + "}");
-                        }
+            for (Iterator it2 = extensions.iterator(); it2.hasNext(); ) {
+                String extension = it2.next().toString();
+                String cleaned = resolve(mappingMarker, extension);
+                if (cleaned == null) {
+                    continue;
+                }
+                String resolved = mappingTarget.replaceAll("\\*", cleaned);
+                if (resolved == null) {
+                    continue;
                 }
 
-                resolvedMappings = Collections.unmodifiableMap(finalMappings);
-                availableTargets = finalMappings.keySet();
+                finalMappings.put(resolved, "{" + extension + "}");
+            }
         }
 
-        //
+        resolvedMappings = Collections.unmodifiableMap(finalMappings);
+        availableTargets = finalMappings.keySet();
+    }
+
+    //
     // geschützte Hilfsmethoden
     //
+
     /**
-         * Diese Methode ermittelt mittels der verfügbaren Quellfelder und der
-         * allgemeinen Abbildungsbeschreibung (die im Konstruktor
-         * {@link #FieldMapping(Set, Map)} übergeben wurden) die aufgelösten simplen
-         * Abbildungen und die verfügbaren Zielfelder.
-         *
-         * @param mappingDescription
-         *            die zu parsende Abbildungsbeschreibung
-         * @throws MappingException
-         *             bei Problemen beim Auflösen der Mapping-Beschreibung
-         */
+     * Diese Methode ermittelt mittels der verfügbaren Quellfelder und der
+     * allgemeinen Abbildungsbeschreibung (die im Konstruktor
+     * {@link #FieldMapping(Set, Map)} übergeben wurden) die aufgelösten simplen
+     * Abbildungen und die verfügbaren Zielfelder.
+     *
+     * @param mappingDescription die zu parsende Abbildungsbeschreibung
+     * @throws MappingException bei Problemen beim Auflösen der Mapping-Beschreibung
+     */
     void parseDescription(Map mappingDescription) throws MappingException {
         assert availableSources != null;
         assert mappingDescription != null;
@@ -313,15 +334,17 @@ public class FieldMapping {
             int jokerIndex = removeReferences(unusedSources, entry.getValue().toString());
             Integer prefixLength = new Integer(jokerIndex);
             Collection theseTargets = (Collection) targetsByPrefixLength.get(prefixLength);
-            if (theseTargets == null)
+            if (theseTargets == null) {
                 targetsByPrefixLength.put(prefixLength, theseTargets = new HashSet());
+            }
             theseTargets.add(targetFieldKey);
         }
         // Map der aufgelösten Mappings
         Map finalMappings = new HashMap();
         // Einfache (Joker-freie) Mappings übertragen
         if (targetsByPrefixLength.containsKey(MINUS_ONE)) {
-            for (Iterator itSimpleMappingTargets = ((Collection)targetsByPrefixLength.get(MINUS_ONE)).iterator(); itSimpleMappingTargets.hasNext(); ) {
+            for (Iterator itSimpleMappingTargets = ((Collection) targetsByPrefixLength.get(MINUS_ONE)).iterator();
+                    itSimpleMappingTargets.hasNext(); ) {
                 String targetKey = itSimpleMappingTargets.next().toString();
                 finalMappings.put(targetKey, mappingDescription.get(targetKey));
             }
@@ -332,7 +355,7 @@ public class FieldMapping {
             Integer[] lengths = (Integer[]) targetsByPrefixLength.keySet().toArray(new Integer[targetsByPrefixLength.size()]);
             Arrays.sort(lengths);
             for (int index = lengths.length - 1; index >= 0; index--) {
-                for (Iterator itMappingTargets = ((Collection)targetsByPrefixLength.get(lengths[index])).iterator(); itMappingTargets.hasNext(); ) {
+                for (Iterator itMappingTargets = ((Collection) targetsByPrefixLength.get(lengths[index])).iterator(); itMappingTargets.hasNext(); ) {
                     String targetKey = itMappingTargets.next().toString();
                     String format = mappingDescription.get(targetKey).toString();
                     String jokerReferencePrefix = getJokerReferencePrefix(format);
@@ -346,8 +369,9 @@ public class FieldMapping {
                     }
                     unusedSources.removeAll(toRemove);
                 }
-                if (unusedSources.isEmpty())
+                if (unusedSources.isEmpty()) {
                     break;
+                }
             }
         }
         resolvedMappings = Collections.unmodifiableMap(finalMappings);
@@ -367,8 +391,9 @@ public class FieldMapping {
         while (matcher.find()) {
             String ref = matcher.group(1);
             int jokerIndex = ref.indexOf('*');
-            if (jokerIndex >= 0)
+            if (jokerIndex >= 0) {
                 return ref.substring(0, jokerIndex);
+            }
         }
         return null;
     }
@@ -380,7 +405,7 @@ public class FieldMapping {
      * gegebenenfalls vorhandenen Joker-behafteten Referenz zurück.
      *
      * @param unusedReferences Sammlung bisher nicht benutzter verfügbarere Referenzen
-     * @param format zu behandelnder Formatstring
+     * @param format           zu behandelnder Formatstring
      * @return Joker-Position in der vorhandenen Joker-behafteten Referenz, sonst <code>-1</code>.
      * @throws MappingException bei Problemen beim Auflösen der Mapping-Beschreibung
      */
@@ -390,14 +415,15 @@ public class FieldMapping {
         while (matcher.find()) {
             String ref = matcher.group(1);
             int jokerIndex = ref.indexOf('*');
-            if (jokerIndex < 0)
+            if (jokerIndex < 0) {
                 unusedReferences.remove(ref);
-            else if (jokerIndex != ref.length() - 1)
+            } else if (jokerIndex != ref.length() - 1) {
                 throw new MappingException("es werden nur endständige Joker im Formatstring unterstützt");
-            else if (jokerPrefixLength < 0)
+            } else if (jokerPrefixLength < 0) {
                 jokerPrefixLength = jokerIndex;
-            else
+            } else {
                 throw new MappingException("nur eine Referenz in einem Formatstring darf Joker enthalten");
+            }
         }
         return jokerPrefixLength;
     }
@@ -407,9 +433,9 @@ public class FieldMapping {
      * Joker behafteten nach Ersetzung mittels der übergebenen Quelle entspricht.
      *
      * @param resolvedMappings {@link Map} der aufgelösten einfachen Mappings
-     * @param targetPattern Zielreferenz mit Joker
-     * @param formatPattern Formatstring mit Joker-behafteter Quellreferenz
-     * @param source Quellfeld zur Auflösung der Joker.
+     * @param targetPattern    Zielreferenz mit Joker
+     * @param formatPattern    Formatstring mit Joker-behafteter Quellreferenz
+     * @param source           Quellfeld zur Auflösung der Joker.
      */
     private static void addResolvedMapping(Map resolvedMappings, String targetPattern, String formatPattern, String source) {
         assert formatPattern != null;
@@ -420,15 +446,17 @@ public class FieldMapping {
             if (jokerIndex >= 0) {
                 StringBuffer buffer = new StringBuffer();
                 buffer.append(formatPattern.substring(0, matcher.start(1)))
-                      .append(source)
-                      .append(formatPattern.substring(matcher.end(1)));
+                        .append(source)
+                        .append(formatPattern.substring(matcher.end(1)));
                 int colonIndex = source.indexOf(':');
-                if (colonIndex >= 0)
+                if (colonIndex >= 0) {
                     source = source.substring(colonIndex + 1);
+                }
                 targetPattern = targetPattern.replaceAll("\\*", source);
                 Object former = resolvedMappings.put(targetPattern, buffer.toString());
-                if (former != null)
+                if (former != null) {
                     logger.warning("Ersetze altes Format '" + former + "' für '" + targetPattern + "' durch '" + buffer.toString() + "'.");
+                }
                 return;
             }
         }

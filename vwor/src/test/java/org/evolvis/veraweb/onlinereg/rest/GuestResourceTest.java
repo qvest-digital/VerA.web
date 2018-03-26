@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.Session;
@@ -72,7 +73,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by mley on 02.09.14.
  */
-public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
+public class GuestResourceTest extends AbstractResourceTest<GuestResource> {
 
     public GuestResourceTest() {
         super(GuestResource.class);
@@ -84,7 +85,7 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
         session.beginTransaction();
 
         Guest guest = new Guest();
-//        guest.setPk(1);
+        //        guest.setPk(1);
         guest.setFk_event(1);
         guest.setFk_person(1);
         guest.setNotehost("note");

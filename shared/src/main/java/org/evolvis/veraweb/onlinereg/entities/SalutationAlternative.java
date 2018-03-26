@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.ColumnResult;
@@ -100,10 +101,11 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = SalutationAlternative.DELETE_SALUTATION_ALTERNATIVE_BY_ID,
                 query = "DELETE FROM SalutationAlternative sa WHERE sa.pk =:" + SalutationAlternative.PARAM_PK)
 })
-@NamedNativeQueries(value={
+@NamedNativeQueries(value = {
         @NamedNativeQuery(name = SalutationAlternative.GET_SALUTATION_ALTERNATIVE_FACADE_BY_PDF_ID,
-                query = "SELECT sa.pk, sa.salutation_id, sa.pdftemplate_id, sa.content as salutation_alternative, s.salutation as salutation_default FROM salutation_alternative sa LEFT JOIN tsalutation s on s.pk = sa.salutation_id " +
-                        "WHERE sa.pdftemplate_id =:" + SalutationAlternative.PARAM_PDFTEMPLATE_ID, resultSetMapping="salutationMapping")
+                query = "SELECT sa.pk, sa.salutation_id, sa.pdftemplate_id, sa.content as salutation_alternative, s.salutation as " +
+                 "salutation_default FROM salutation_alternative sa LEFT JOIN tsalutation s on s.pk = sa.salutation_id " +
+                        "WHERE sa.pdftemplate_id =:" + SalutationAlternative.PARAM_PDFTEMPLATE_ID, resultSetMapping = "salutationMapping")
 })
 public class SalutationAlternative {
 

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.junit.Test;
 
@@ -94,16 +95,16 @@ public class PlaceholderSubstitutionTest {
         final StringBuilder sb2 = new StringBuilder();
         for (String word : words) {
             String expectedValue = word;
-            if(word.equals("phone") ){
+            if (word.equals("phone")) {
                 expectedValue = "fon";
             }
-            if(word.equals("email") ){
+            if (word.equals("email")) {
                 expectedValue = "mail";
             }
-            if(word.equals("mobile") ){
+            if (word.equals("mobile")) {
                 expectedValue = "mobil";
             }
-            sb2.append(word+": '"+expectedValue+"_a_e1'\n");
+            sb2.append(word + ": '" + expectedValue + "_a_e1'\n");
         }
 
         final String expectedOutput = sb2.toString();
@@ -113,7 +114,7 @@ public class PlaceholderSubstitutionTest {
     private String createTemplate(final List<String> words) {
         final StringBuilder sb1 = new StringBuilder();
         for (String word : words) {
-            sb1.append(word+": '&lt;"+word+"&gt;'\n");
+            sb1.append(word + ": '&lt;" + word + "&gt;'\n");
         }
         final String template = sb1.toString();
         return template;
@@ -125,11 +126,11 @@ public class PlaceholderSubstitutionTest {
         final Field[] fields = Person.class.getDeclaredFields();
         for (Field field : fields) {
             field.setAccessible(true);
-            if(field.getType().isAssignableFrom(String.class)){
+            if (field.getType().isAssignableFrom(String.class)) {
                 //for now, all the fields that we care about *are* strings.
                 //We put the field name in there, just to have some values we can
                 //examine.
-                field.set(person,field.getName());
+                field.set(person, field.getName());
             }
         }
         return person;

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
@@ -76,9 +77,13 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class OrgUnit extends AbstractBean {
-    /** Primärschlüssel */
+    /**
+     * Primärschlüssel
+     */
     public Integer id;
-    /** Mandantenname */
+    /**
+     * Mandantenname
+     */
     public String name;
 
     public void verify(final OctopusContext octopusContext) throws BeanException {
@@ -112,8 +117,7 @@ public class OrgUnit extends AbstractBean {
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkWrite(OctopusContext octopusContext) throws BeanException
-    {
+    public void checkWrite(OctopusContext octopusContext) throws BeanException {
         checkGroups(octopusContext, PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER);
     }
 }

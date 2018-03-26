@@ -61,19 +61,26 @@ package org.evolvis.veraweb.onlinereg.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
  */
 public class VworConstants {
-    /**Responses from File upload mechanismus */
+    /**
+     * Responses from File upload mechanismus
+     */
     public static final String UPLOAD_OK = "OK";
     public static final String UPLOAD_ERROR = "FILE_UPLOAD_ERROR";
 
-    /** File upload data types*/
+    /**
+     * File upload data types
+     */
     public static final String JPEG = "data:image/jpeg";
     public static final String JPG = "data:image/jpg";
     public static final String PNG = "data:image/png";
-    /** File upload extensions */
+    /**
+     * File upload extensions
+     */
     public static final String EXTENSION_JPEG = "jpeg";
     public static final String EXTENSION_JPG = "jpg";
     public static final String EXTENSION_PNG = "png";

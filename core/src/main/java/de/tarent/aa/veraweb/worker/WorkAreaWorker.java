@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -88,8 +89,8 @@ import java.util.List;
  * bean.
  *
  * @author cklein
- * @since 1.2.0
  * @see de.tarent.aa.veraweb.beans.WorkArea
+ * @since 1.2.0
  */
 public class WorkAreaWorker extends StammdatenWorker {
     /**
@@ -141,10 +142,10 @@ public class WorkAreaWorker extends StammdatenWorker {
 
     @Override
     /*
-	 * 2009-05-12 cklein
-	 *
-	 * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
-	 */
+     * 2009-05-12 cklein
+     *
+     * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
+     */
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
         Database database = transactionContext.getDatabase();
         // first remove all workArea assignments from all persons
@@ -221,7 +222,8 @@ public class WorkAreaWorker extends StammdatenWorker {
 
     private String getErrorMessageMissingOrgunit(OctopusContext octopusContext, WorkArea workArea) {
         final LanguageProvider languageProvider = initLanguageProvider(octopusContext);
-        return languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_ONE") + workArea.name + languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_TWO");
+        return languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_ONE") + workArea.name +
+                languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_TWO");
     }
 
     private LanguageProvider initLanguageProvider(OctopusContext octopusContext) {

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -82,10 +83,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tfunction")
 @NamedNativeQueries({
-	@NamedNativeQuery(name = "Function.getFunctions",
-			query = "SELECT functionname " +
-					"FROM tfunction"
-	)
+        @NamedNativeQuery(name = "Function.getFunctions",
+                query = "SELECT functionname " +
+                        "FROM tfunction"
+        )
 })
 public class Function {
     @Id
@@ -93,16 +94,19 @@ public class Function {
     private int pk;
     private String functionname;
 
-	public int getPk() {
-		return pk;
-	}
-	public void setPk(int pk) {
-		this.pk = pk;
-	}
-	public String getFunctionname() {
-		return functionname;
-	}
-	public void setFunctionname(String functionname) {
-		this.functionname = functionname;
-	}
+    public int getPk() {
+        return pk;
+    }
+
+    public void setPk(int pk) {
+        this.pk = pk;
+    }
+
+    public String getFunctionname() {
+        return functionname;
+    }
+
+    public void setFunctionname(String functionname) {
+        this.functionname = functionname;
+    }
 }

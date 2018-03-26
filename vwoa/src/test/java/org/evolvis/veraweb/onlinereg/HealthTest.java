@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.codahale.metrics.health.HealthCheck;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -72,7 +73,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class HealthTest {
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testHealth() {
         Main main = TestSuite.DROPWIZARD.getApplication();
         Health h = main.getHealth();

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
@@ -97,11 +98,11 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     private static final String defaultSource[] = {
             "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
             "LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
-            "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY"};
+            "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY" };
     private static final String defaultTarget[] = {
             "private", "business", "other",
             "latin", "extra1", "extra2",
-            "suffix1", "suffix2", "changeLogRetentionPolicy"};
+            "suffix1", "suffix2", "changeLogRetentionPolicy" };
     private static final ResourceBundle defaultBundle =
             ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
 
@@ -125,7 +126,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-    /** Input-Parameter der Octopus-Aktion {@link #init(OctopusContext)} */
+    /**
+     * Input-Parameter der Octopus-Aktion {@link #init(OctopusContext)}
+     */
     static public final String INPUT_init[] = {};
 
     /**
@@ -163,7 +166,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         loaded = true;
     }
 
-    /** Input-Parameter der Octopus-Aktion {@link #load(OctopusContext)} */
+    /**
+     * Input-Parameter der Octopus-Aktion {@link #load(OctopusContext)}
+     */
     static public final String INPUT_load[] = {};
 
     /**
@@ -174,7 +179,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      *
      * @param cntx Octopus-Kontext
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      */
     public void load(OctopusContext cntx) throws BeanException, IOException {
         if (!loaded) {
@@ -186,7 +191,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         cntx.setContent("url", new URLGenerator(propertiesReader.getProperties()));
     }
 
-    /** Input-Parameter der Octopus-Aktion {@link #clean(OctopusContext)} */
+    /**
+     * Input-Parameter der Octopus-Aktion {@link #clean(OctopusContext)}
+     */
     static public final String INPUT_clean[] = {};
 
     /**
@@ -200,7 +207,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         loaded = false;
     }
 
-    /** Input-Parameter der Octopus-Aktion {@link #save(OctopusContext)} */
+    /**
+     * Input-Parameter der Octopus-Aktion {@link #save(OctopusContext)}
+     */
     static public final String INPUT_save[] = {};
 
     /**
@@ -209,8 +218,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      *
      * @param cntx Octopus-Kontext
      * @throws BeanException FIXME
-     * @throws IOException FIXME
-     * @throws SQLException FIXME
+     * @throws IOException   FIXME
+     * @throws SQLException  FIXME
      */
     public void save(OctopusContext cntx) throws BeanException, IOException, SQLException {
         if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN) || !cntx.requestContains("save")) {
@@ -254,7 +263,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
                 if ("CHANGE_LOG_RETENTION_POLICY".compareTo(defaultSource[i]) == 0) {
                     Duration dnew = Duration.fromString(value);
                     Duration dold = Duration.fromString(defaultBundle.getString(defaultSource[i]));
-                    if((dold.toString().compareTo(dnew.toString()) == 0) || (dnew.toString().compareTo("P0") == 0)) {
+                    if ((dold.toString().compareTo(dnew.toString()) == 0) || (dnew.toString().compareTo("P0") == 0)) {
                         value = null;
                         config.put(defaultTarget[i], Duration.fromString(defaultBundle.getString(defaultSource[i])));
                     } else {
@@ -290,7 +299,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         final TransactionContext transactionContext = database.getTransactionContext();
         if (value != null && value.length() != 0) {
             Integer count = database.getCount(
-                database.getCount("Config").where(Expr.equal("cname", key))
+                    database.getCount("Config").where(Expr.equal("cname", key))
             );
 
             if (count == 0) {
@@ -304,7 +313,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void deleteConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
-        LOGGER.debug(" -----------------------> BEGIN DELETE CONFIG "+ key + "/" + value + " <----------------------- ");
+        LOGGER.debug(" -----------------------> BEGIN DELETE CONFIG " + key + "/" + value + " <----------------------- ");
         Delete delete = SQL.Delete(database);
         delete.from("veraweb.tconfig");
         delete.where(Expr.equal("cname", key));
@@ -314,32 +323,32 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
-        LOGGER.debug("-----------------------> BEGIN UPDATE CONFIG "+ key + "/" + value + " <----------------------- ");
+        LOGGER.debug("-----------------------> BEGIN UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
         Update update = SQL.Update(database);
         update.table("veraweb.tconfig");
         update.update("cvalue", value);
         update.where(Expr.equal("cname", key));
         transactionContext.execute(update);
         transactionContext.commit();
-        LOGGER.debug(" -----------------------> DONE UPDATE CONFIG "+ key + "/" + value + " <----------------------- ");
+        LOGGER.debug(" -----------------------> DONE UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
     }
 
     private void insertConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
-        LOGGER.debug(" -----------------------> BEGIN INSERT CONFIG "+ key + "/" + value + " <----------------------- ");
+        LOGGER.debug(" -----------------------> BEGIN INSERT CONFIG " + key + "/" + value + " <----------------------- ");
         Insert insert = SQL.Insert(database);
         insert.table("veraweb.tconfig");
         insert.insert("cname", key);
         insert.insert("cvalue", value);
         transactionContext.execute(insert);
         transactionContext.commit();
-        LOGGER.debug(" -----------------------> DONE INSERT CONFIG "+ key + "/" + value + " <----------------------- ");
+        LOGGER.debug(" -----------------------> DONE INSERT CONFIG " + key + "/" + value + " <----------------------- ");
     }
 
     /**
      * Gibt eine Config-Einstellung zurück.
      *
      * @param cntx Octopus-Kontext
-     * @param key Name hinter dem die Einstellung hinterlegt sein soll.
+     * @param key  Name hinter dem die Einstellung hinterlegt sein soll.
      * @return Der Wert der Einstellung oder null.
      */
     public static String getString(OctopusContext cntx, String key) {
@@ -351,7 +360,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * Zahl transformiert werden kann wird null zurückgegeben.
      *
      * @param cntx Octopus-Kontext
-     * @param key Name hinter dem die Einstellung hinterlegt sein soll.
+     * @param key  Name hinter dem die Einstellung hinterlegt sein soll.
      * @return Der Wert der Einstellung oder null.
      */
     public static Integer getInteger(OctopusContext cntx, String key) {

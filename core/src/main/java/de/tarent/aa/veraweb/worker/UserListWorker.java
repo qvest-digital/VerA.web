@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.aa.veraweb.beans.User;
@@ -95,21 +96,32 @@ public class UserListWorker extends ListWorkerVeraWeb {
     //
     // Öffentliche Konstanten
     //
-    /** Parameter: Wer alles? */
+    /**
+     * Parameter: Wer alles?
+     */
     public final static String PARAM_DOMAIN = "domain";
-    /** Parameter: Sortierreihenfolge */
+    /**
+     * Parameter: Sortierreihenfolge
+     */
     public final static String PARAM_ORDER = "order";
 
-    /** Parameterwert: beliebige Benutzer */
+    /**
+     * Parameterwert: beliebige Benutzer
+     */
     public final static String PARAM_DOMAIN_VALUE_ALL = "all";
-    /** Parameterwert: Benutzer des gleichen Mandanten */
+    /**
+     * Parameterwert: Benutzer des gleichen Mandanten
+     */
     public final static String PARAM_DOMAIN_VALUE_OU = "ou";
-    /** Parameterwert: angemeldeter Benutzer */
+    /**
+     * Parameterwert: angemeldeter Benutzer
+     */
     public final static String PARAM_DOMAIN_VALUE_SELF = "self";
 
     //
     // Konstruktoren
     //
+
     /**
      * Dieser Konstruktor bestimmt den Basis-Bean-Typ des Workers.
      */
@@ -118,57 +130,48 @@ public class UserListWorker extends ListWorkerVeraWeb {
     }
 
     //
-        // BeanListWorker
-        //
-        /**
-         * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
-         * Hier wird eine Sortierung eingefügt.
-         *
-         * @param cntx
-         *          Octopus-Context
-         * @param select
-         *          Select-Statement
-         * @see de.tarent.octopus.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext,
-         *      de.tarent.dblayer.sql.statement.Select)
-         */
-        @Override
-    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException
-        {
-                String order = cntx.contentAsString(PARAM_ORDER);
-                if (order != null)
-                {
-                        Database database = getDatabase(cntx);
-                        // Bug 1599 orgunit (Mandant) nach Name, nicht nach Schluessel sortieren
-                        if ("orgunit".equals(order))
-                        {
-                                select.select("torgunit.unitname");
-                                select.joinLeftOuter("torgunit", "torgunit.pk", "tuser.fk_orgunit");
-                                select.orderBy(Order.asc("torgunit.unitname").andAsc("tuser.username"));
-                        }
-                        else
-                        {
-                                order = database.getProperty(new User(), order);
-                                if (order != null)
-                                {
-                                        select.orderBy(Order.asc(order).andAsc("tuser.username"));
-                                }
-                        }
-                }
-        }
+    // BeanListWorker
+    //
 
     /**
-                 * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
-                 * Hier wird der Parameter {@link #PARAM_DOMAIN "domain"} ausgewertet.<br>
-                 * {@link #PARAM_DOMAIN "domain"} kann neben einer Rollenbezeichnung die Werte {@link #PARAM_DOMAIN_VALUE_ALL "all"},
-                 * {@link #PARAM_DOMAIN_VALUE_OU "ou"} und {@link #PARAM_DOMAIN_VALUE_SELF "self"} haben.
-                 *
-                 * @param cntx
-                 *          Octopus-Context
-                 * @param select
-                 *          Select-Statement
-                 * @see de.tarent.octopus.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext,
-                 *      de.tarent.dblayer.sql.statement.Select)
-                 */
+     * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
+     * Hier wird eine Sortierung eingefügt.
+     *
+     * @param cntx   Octopus-Context
+     * @param select Select-Statement
+     * @see de.tarent.octopus.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext,
+     * de.tarent.dblayer.sql.statement.Select)
+     */
+    @Override
+    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
+        String order = cntx.contentAsString(PARAM_ORDER);
+        if (order != null) {
+            Database database = getDatabase(cntx);
+            // Bug 1599 orgunit (Mandant) nach Name, nicht nach Schluessel sortieren
+            if ("orgunit".equals(order)) {
+                select.select("torgunit.unitname");
+                select.joinLeftOuter("torgunit", "torgunit.pk", "tuser.fk_orgunit");
+                select.orderBy(Order.asc("torgunit.unitname").andAsc("tuser.username"));
+            } else {
+                order = database.getProperty(new User(), order);
+                if (order != null) {
+                    select.orderBy(Order.asc(order).andAsc("tuser.username"));
+                }
+            }
+        }
+    }
+
+    /**
+     * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
+     * Hier wird der Parameter {@link #PARAM_DOMAIN "domain"} ausgewertet.<br>
+     * {@link #PARAM_DOMAIN "domain"} kann neben einer Rollenbezeichnung die Werte {@link #PARAM_DOMAIN_VALUE_ALL "all"},
+     * {@link #PARAM_DOMAIN_VALUE_OU "ou"} und {@link #PARAM_DOMAIN_VALUE_SELF "self"} haben.
+     *
+     * @param cntx   Octopus-Context
+     * @param select Select-Statement
+     * @see de.tarent.octopus.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext,
+     * de.tarent.dblayer.sql.statement.Select)
+     */
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
         PersonalConfigAA pCfg = (PersonalConfigAA) cntx.personalConfig();
@@ -181,21 +184,24 @@ public class UserListWorker extends ListWorkerVeraWeb {
         if (PARAM_DOMAIN_VALUE_ALL.equals(domain)) {
             // alle Benutzer, keine Einschränkung
         } else if (PARAM_DOMAIN_VALUE_OU.equals(domain)) {
-            if (pCfg == null || pCfg.getOrgUnitId() == null)
+            if (pCfg == null || pCfg.getOrgUnitId() == null) {
                 list.addAnd(Expr.isNull("fk_orgunit"));
-            else
+            } else {
                 list.addAnd(Expr.equal("fk_orgunit", pCfg.getOrgUnitId()));
+            }
         } else if (PARAM_DOMAIN_VALUE_SELF.equals(domain)) {
-            if (pCfg == null || (pCfg.getRole() == null && pCfg.getRoles() == null))
+            if (pCfg == null || (pCfg.getRole() == null && pCfg.getRoles() == null)) {
                 list.addAnd(Expr.isNull("username"));
-            else if (pCfg.getRole() != null)
+            } else if (pCfg.getRole() != null) {
                 list.addAnd(Expr.equal("username", pCfg.getRole()));
-            else
+            } else {
                 list.addAnd(Expr.in("username", pCfg.getRoles()));
-        } else if (domain == null)
+            }
+        } else if (domain == null) {
             list.addAnd(Expr.isNull("username"));
-        else
+        } else {
             list.addAnd(Expr.equal("username", domain));
+        }
 
         select.where(list);
     }
@@ -204,16 +210,15 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
      *
-     * @see #saveBean(OctopusContext, Bean, TransactionContext)
-     *
-     * @param cntx Octopus-Kontext
+     * @param cntx   Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param bean einzufügendes Bean
+     * @param bean   einzufügendes Bean
      * @throws BeanException
      * @throws IOException
+     * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     @Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context ) throws BeanException, IOException {
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
             if (bean instanceof User) {
@@ -231,13 +236,13 @@ public class UserListWorker extends ListWorkerVeraWeb {
                     Database database = new DatabaseVeraWeb(cntx);
                     User dupBean = (User) database.getBean("User",
                             database.getSelect("User").
-                            where(Expr.equal("username", userBean.name)), context);
+                                    where(Expr.equal("username", userBean.name)), context);
                     if (dupBean != null) {
                         OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
                         if (ou != null) {
                             errors.add(languageProvider.getProperty("USER_LIST_WARN_MANDANT_ONE") +
-                                      ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) +
-                                      languageProvider.getProperty("USER_LIST_WARN_MANDANT_TWO"));
+                                    ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) +
+                                    languageProvider.getProperty("USER_LIST_WARN_MANDANT_TWO"));
                         } else {
                             errors.add(languageProvider.getProperty("USER_LIST_WARN_ALREADY_USER"));
                         }
@@ -267,28 +272,27 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#removeSelection(OctopusContext, List, List, TransactionContext)}
      * aufgerufen und soll das übergebene Bean löschen.
      *
-     * @see #removeBean(OctopusContext, Bean, TransactionContext)
-     *
      * @param cntx Octopus-Kontext
      * @param bean zu löschende Bean
      * @throws BeanException
      * @throws IOException
+     * @see #removeBean(OctopusContext, Bean, TransactionContext)
      */
-   @Override
-   protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
-            if (bean != null && ((User)bean).id != null) {
-                Integer userId = ((User)bean).id;
+    @Override
+    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+        if (bean != null && ((User) bean).id != null) {
+            Integer userId = ((User) bean).id;
 
-                /* delete related proxy configurations */
-                    Proxy proxy = new Proxy();
-                    proxy.user = userId;
-                    Database database = transactionContext.getDatabase();
-                transactionContext.execute(database.getDelete("Proxy").where(database.getWhere(proxy)));
+            /* delete related proxy configurations */
+            Proxy proxy = new Proxy();
+            proxy.user = userId;
+            Database database = transactionContext.getDatabase();
+            transactionContext.execute(database.getDelete("Proxy").where(database.getWhere(proxy)));
 
-                /* delete related user configurations */
-                transactionContext.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
+            /* delete related user configurations */
+            transactionContext.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
             transactionContext.commit();
-            }
+        }
         return super.removeBean(cntx, bean, transactionContext);
     }
 }

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.MapBean;
@@ -74,29 +75,29 @@ import de.tarent.octopus.server.PersonalConfig;
  * @author christoph
  */
 public abstract class AbstractBean extends MapBean {
-	/**
-	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
-	 * darf.<br>
+    /**
+     * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
+     * darf.<br>
      * Default-Test ist, ob der Benutzer Administrator ist.
-	 *
-	 * @param octopusContext Octopus-Kontext
-	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
-	 */
-	public void checkRead(OctopusContext octopusContext) throws BeanException {
-		checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN);
-	}
+     *
+     * @param octopusContext Octopus-Kontext
+     * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
+     */
+    public void checkRead(OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN);
+    }
 
-	/**
-	 * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
-	 * werden darf.<br>
+    /**
+     * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben
+     * werden darf.<br>
      * Default-Test ist, ob der Benutzer Administrator ist.
-	 *
-	 * @param octopusContext Octopus-Kontext
-	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
-	 */
-	public void checkWrite(OctopusContext octopusContext) throws BeanException {
-		checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN);
-	}
+     *
+     * @param octopusContext Octopus-Kontext
+     * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
+     */
+    public void checkWrite(OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN);
+    }
 
     /**
      * Diese Methode leert beschränkte Felder.<br>
@@ -110,49 +111,45 @@ public abstract class AbstractBean extends MapBean {
     public void clearRestrictedFields(OctopusContext octopusContext) throws BeanException {
     }
 
-	/**
-	 * Diese Methode testet, ob im aktuellen Kontext der User der übergebenen
-	 * Gruppe zugeordenet ist.
-	 *
-	 * @param octopusContext FIXME
-	 * @param group FIXME
-	 * @throws BeanException FIXME
-	 */
-	protected void checkGroup(OctopusContext octopusContext, String group) throws BeanException {
-		PersonalConfig personalConfig = octopusContext != null ? octopusContext.personalConfig() : null;
-		if (personalConfig == null)
-			throw new BeanException("No personal config");
-		if (!personalConfig.isUserInGroup(group))
-			throw new BeanException("Only group " + group + " may write " + getClass().getName());
-	}
+    /**
+     * Diese Methode testet, ob im aktuellen Kontext der User der übergebenen
+     * Gruppe zugeordenet ist.
+     *
+     * @param octopusContext FIXME
+     * @param group          FIXME
+     * @throws BeanException FIXME
+     */
+    protected void checkGroup(OctopusContext octopusContext, String group) throws BeanException {
+        PersonalConfig personalConfig = octopusContext != null ? octopusContext.personalConfig() : null;
+        if (personalConfig == null) {
+            throw new BeanException("No personal config");
+        }
+        if (!personalConfig.isUserInGroup(group)) {
+            throw new BeanException("Only group " + group + " may write " + getClass().getName());
+        }
+    }
 
-	/**
-	 * Checks whether the user is a member of either of the specified groups.
-	 *
-	 * @param octopusContext FIXME
-	 * @param groups FIXME
-	 *
-	 * @throws BeanException FIXME
-	 */
-	protected void checkGroups(OctopusContext octopusContext, String... groups) throws BeanException
-	{
-		PersonalConfig personalConfig = ( octopusContext != null ) ? octopusContext.personalConfig() : null;
-		if ( personalConfig == null )
-		{
-			throw new BeanException( "No personal config" );
-		}
-		Boolean found = Boolean.FALSE;
-		for ( String group : groups )
-		{
-			found = personalConfig.isUserInGroup( group );
-			if ( found )
-			{
-				break;
-			}
-		}
-		if ( ! found )
-		{
-			throw new BeanException( "Only groups " + groups.toString() + " may write " + getClass().getName() );
-		}
-	}
+    /**
+     * Checks whether the user is a member of either of the specified groups.
+     *
+     * @param octopusContext FIXME
+     * @param groups         FIXME
+     * @throws BeanException FIXME
+     */
+    protected void checkGroups(OctopusContext octopusContext, String... groups) throws BeanException {
+        PersonalConfig personalConfig = (octopusContext != null) ? octopusContext.personalConfig() : null;
+        if (personalConfig == null) {
+            throw new BeanException("No personal config");
+        }
+        Boolean found = Boolean.FALSE;
+        for (String group : groups) {
+            found = personalConfig.isUserInGroup(group);
+            if (found) {
+                break;
+            }
+        }
+        if (!found) {
+            throw new BeanException("Only groups " + groups.toString() + " may write " + getClass().getName());
+        }
+    }
 }

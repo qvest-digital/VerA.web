@@ -61,6 +61,7 @@ package de.tarent.octopus;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
@@ -78,10 +79,10 @@ public interface LoginManagerAA {
      * Diese Methode ändert die persönliche Konfiguration so ab, dass sie
      * in Vertretung der angegebenen Rolle handelt.
      *
-     * @param octx anzupassender Octopus-Kontext der Sitzung des Vertreters
+     * @param octx             anzupassender Octopus-Kontext der Sitzung des Vertreters
      * @param proxyDescription Beschreibungs-Bean der Vertretung
      * @throws TcSecurityException Wenn keine authentisierte persönliche Konfiguration
-     *  vorliegt oder schon als Vertreter agiert wird.
+     *                             vorliegt oder schon als Vertreter agiert wird.
      */
     void setProxy(OctopusContext octx, Proxy proxyDescription) throws TcSecurityException;
 

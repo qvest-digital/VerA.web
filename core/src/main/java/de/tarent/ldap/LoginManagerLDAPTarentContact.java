@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
@@ -79,17 +80,18 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
     //
     // LoginManagerLDAPGeneric überschreibungen
     //
+
     /**
      * Diese Methode setzt nach einem erfolgreichen Login in der PersonalConfig in
      * eigener Weise Attribute.
      *
-     * @param pConfig PersonalConfig des neu eingelogten Benutzers
+     * @param pConfig  PersonalConfig des neu eingelogten Benutzers
      * @param userName Benutzer-ID des neu eingeloggten Benutzers
      * @throws LDAPException
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initPersonalConfig(de.tarent.octopus.server.PersonalConfig, java.lang.String)
      */
-	@Override
+    @Override
     protected void initPersonalConfig(PersonalConfig pConfig, String userName) throws LDAPException {
         if (ldapManager instanceof LDAPManagerTarentContact) {
             Map userdata = ((LDAPManagerTarentContact) ldapManager).getUserData(userName);
@@ -98,19 +100,20 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
             pConfig.setUserEmail((String) userdata.get("mail"));
 
             // TODO: Erweiterung der LDAP Daten auf Groups
-//            String adminflag = (String) userdata.get("adminflag");
-//            if("TRUE".equalsIgnoreCase(adminflag))
-//                pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER, PersonalConfig.GROUP_ADMINISTRATOR});
-//            else
-                pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER});
-        } else
+            //            String adminflag = (String) userdata.get("adminflag");
+            //            if("TRUE".equalsIgnoreCase(adminflag))
+            //                pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER, PersonalConfig.GROUP_ADMINISTRATOR});
+            //            else
+            pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_USER });
+        } else {
             super.initPersonalConfig(pConfig, userName);
-	}
+        }
+    }
 
     /**
      * Diese Methode erzeugt den zu verwendenden LDAPManager.
-     * @throws LDAPException
      *
+     * @throws LDAPException
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      * @see LoginManagerLDAPGeneric#initLDAPManager()
      */
@@ -127,19 +130,20 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
                 LDAPManagerTarentContact.class,
                 getConfigurationString(TcEnv.KEY_LDAP_URL),
                 params
-                );
+        );
     }
 
     //
     // LoginManager - AbstractLoginManager überschreibungen
     //
-	/**
+
+    /**
      * Liefert den zuständigen UserManager zurück.
      *
      * @return UserManager oder <code>null</code>, falls Konfigurationsprobleme bestehen.
-	 * @see de.tarent.octopus.server.LoginManager#getUserManager()
-	 */
-	@Override
+     * @see de.tarent.octopus.server.LoginManager#getUserManager()
+     */
+    @Override
     public UserManager getUserManager() {
         try {
             Map params = new HashMap();
@@ -153,21 +157,21 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
                     getConfigurationString(TcEnv.KEY_LDAP_USER),
                     getConfigurationString(TcEnv.KEY_LDAP_PWD),
                     getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION)
-                    );
+            );
         } catch (LDAPException e) {
             LOGGER.warning(e.getLocalizedMessage());
             return null;
         }
-	}
+    }
 
-	/**
+    /**
      * Stellt fest, ob der LoginManager auch selber die Userverwaltung übernehmen kann.
      *
      * @return <code>true</code> falls Userverwaltung möglich, <code>false</code> sonst.
-	 * @see de.tarent.octopus.server.LoginManager#isUserManagementSupported()
-	 */
-	@Override
+     * @see de.tarent.octopus.server.LoginManager#isUserManagementSupported()
+     */
+    @Override
     public boolean isUserManagementSupported() {
-		return true;
-	}
+        return true;
+    }
 }

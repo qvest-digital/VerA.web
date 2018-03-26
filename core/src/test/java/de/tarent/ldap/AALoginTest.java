@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import junit.framework.TestCase;
 
 import javax.naming.CommunicationException;
@@ -75,7 +76,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AALoginTest extends TestCase {
-        private boolean TEST_ENABLED = false;
+    private boolean TEST_ENABLED = false;
 
     private LDAPManagerAA manager = null;
 
@@ -83,19 +84,21 @@ public class AALoginTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        if (!TEST_ENABLED)
-                return;
+        if (!TEST_ENABLED) {
+            return;
+        }
 
         Map params = new HashMap();
         params.put(LDAPManager.KEY_BASE_DN, "ou=testav01,dc=aa");
         params.put(LDAPManager.KEY_RELATIVE, "ou=Users");
         params.put(LDAPManager.KEY_RELATIVE_USER, "ou=Users");
         try {
-                manager = (LDAPManagerAA) LDAPManager.login(LDAPManagerAA.class, "ldap://192.168.250.128:3890/", params);
+            manager = (LDAPManagerAA) LDAPManager.login(LDAPManagerAA.class, "ldap://192.168.250.128:3890/", params);
         } catch (LDAPException e) {
-                // Catch CommunicationException for offline building.
-                if (!(e.getCause() instanceof CommunicationException))
-                        throw e;
+            // Catch CommunicationException for offline building.
+            if (!(e.getCause() instanceof CommunicationException)) {
+                throw e;
+            }
         }
     }
 
@@ -106,13 +109,16 @@ public class AALoginTest extends TestCase {
     }
 
     public void testFindRolesForAddress() throws NamingException {
-        if (!TEST_ENABLED || manager == null)
-                return;
+        if (!TEST_ENABLED || manager == null) {
+            return;
+        }
 
         SearchControls cons = new SearchControls();
         cons.setSearchScope(SearchControls.ONELEVEL_SCOPE);
-        String filterTemplate = "(&(|(person=uid={0}@auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0},ou=Personen,dc=aa))(objectclass=AARole))";
-        String filter = MessageFormat.format(filterTemplate, new Object[]{"dietmar.hilbrich"});
+        String filterTemplate =
+                "(&(|(person=uid={0}@auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}," +
+                 "ou=Personen,dc=aa))(objectclass=AARole))";
+        String filter = MessageFormat.format(filterTemplate, new Object[] { "dietmar.hilbrich" });
         NamingEnumeration ergebnis = manager.lctx.search("ou=Users,ou=testav01,dc=aa", filter, cons);
         while (ergebnis.hasMore()) {
             Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
@@ -125,8 +131,9 @@ public class AALoginTest extends TestCase {
     }
 
     public void testGetUserData() throws LDAPException {
-        if (!TEST_ENABLED || manager == null)
-                return;
+        if (!TEST_ENABLED || manager == null) {
+            return;
+        }
 
         System.out.println(manager.getUserData("pol-2"));
     }

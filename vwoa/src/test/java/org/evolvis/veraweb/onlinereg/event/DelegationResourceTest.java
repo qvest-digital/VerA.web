@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
@@ -84,7 +85,8 @@ public class DelegationResourceTest {
         delegationResource = main.getDelegationResource();
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testGetDelegates() throws Exception {
         List<Person> delegates = delegationResource.getDelegates(uuid);
         assertEquals(3, delegates.size());
@@ -92,7 +94,8 @@ public class DelegationResourceTest {
         assertEquals("MyCompany GmbH", delegates.get(2).getCompany_a_e1());
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testGetExtraFields() throws IOException {
         List<OptionalFieldValue> extraDataFields = delegationResource.getExtraDataFields(uuid);
         assertEquals(9, extraDataFields.size());

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Salutation;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
@@ -111,7 +112,6 @@ public class SalutationAlternativeResource extends AbstractResource {
      * Get the list with salutations witout alternative content.
      *
      * @param pdftemplateId Pdf template id
-     *
      * @return List with salutations
      */
     @GET
@@ -133,12 +133,11 @@ public class SalutationAlternativeResource extends AbstractResource {
      * Delete alternative salutation.
      *
      * @param salutationId Alternative salutation ID
-     *
      * @return {@link Response}
      */
     @DELETE
     @Path("delete/{salutationId}")
-    public Response deleteAlternativeSalutation(@PathParam("salutationId") Integer salutationId){
+    public Response deleteAlternativeSalutation(@PathParam("salutationId") Integer salutationId) {
         final Session session = openSession();
         session.beginTransaction();
 
@@ -160,20 +159,19 @@ public class SalutationAlternativeResource extends AbstractResource {
      * Save alternative salutation.
      *
      * @param pdftemplateId Pdf template id
-     * @param salutationId Salutation id
-     * @param content Alternative salutation
-     *
+     * @param salutationId  Salutation id
+     * @param content       Alternative salutation
      * @return {@link Response}
      */
     @POST
     @Path("/save/{pdftemplateId}/")
     public Response saveAlternativeSalutation(@PathParam("pdftemplateId") Integer pdftemplateId,
-                                              @FormParam("salutationId") Integer salutationId,
-                                              @FormParam("content") String content) {
+            @FormParam("salutationId") Integer salutationId,
+            @FormParam("content") String content) {
 
         if (pdftemplateId == null || salutationId == null || "".equals(content)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
-        } else if (content.length() > MAX_SALUTATION_LENGTH){
+        } else if (content.length() > MAX_SALUTATION_LENGTH) {
             return Response.status(VworConstants.HTTP_POLICY_NOT_FULFILLED).build();
         }
 
@@ -192,7 +190,7 @@ public class SalutationAlternativeResource extends AbstractResource {
         }
     }
 
-    private SalutationAlternative initSalutationAlternative(Integer pdftemplateId, Integer salutationId, String content){
+    private SalutationAlternative initSalutationAlternative(Integer pdftemplateId, Integer salutationId, String content) {
         SalutationAlternative salutationAlternative = new SalutationAlternative();
         salutationAlternative.setPdftemplate_id(pdftemplateId);
         salutationAlternative.setSalutation_id(salutationId);

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.util;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -71,6 +72,7 @@ public class DelegationPasswordGenerator {
     public String generatePassword(String eventName, Date eventBegin, String companyName) {
         return generateDelegationPassword(eventName, eventBegin, companyName);
     }
+
     private static String generateDelegationPassword(final String shortName, final Date begin, String companyName) {
         final StringBuilder passwordBuilder = new StringBuilder();
         final SimpleDateFormat dateFormat = DATE_FORMAT;

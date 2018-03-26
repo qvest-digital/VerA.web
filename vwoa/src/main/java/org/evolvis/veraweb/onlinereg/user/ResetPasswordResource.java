@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.user;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -96,19 +97,29 @@ import java.io.IOException;
 @Log
 public class ResetPasswordResource {
 
-        /** Returned types from REST */
-    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
-    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
+    /**
+     * Returned types from REST
+     */
+    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
+    };
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
+    };
 
     private static final String BASE_RESOURCE = "/rest";
 
-    /** Jersey client */
+    /**
+     * Jersey client
+     */
     private Client client;
 
-    /** Configuration */
+    /**
+     * Configuration
+     */
     private Config config;
 
-    /** Jackson Object Mapper */
+    /**
+     * Jackson Object Mapper
+     */
     private ObjectMapper mapper = new ObjectMapper();
 
     private final ResourceReader resourceReader;
@@ -129,12 +140,10 @@ public class ResetPasswordResource {
     /**
      * Show view for password reset.
      *
-     * @param uuid The UUID of the person for which the password will be reset.
+     * @param uuid     The UUID of the person for which the password will be reset.
      * @param password The password
-     *
-     * @throws IOException If one of the database actions fails
-     *
      * @return OK if successfull.
+     * @throws IOException If one of the database actions fails
      */
     @POST
     @Path("/{uuid}")
@@ -142,7 +151,7 @@ public class ResetPasswordResource {
             throws IOException {
 
         final Integer userId = getUserId(uuid);
-        if(userId == null) {
+        if (userId == null) {
             return StatusConverter.convertStatus("WRONG_LINK");
         }
         final Person person = getPerson(userId);
@@ -151,7 +160,7 @@ public class ResetPasswordResource {
         return updateOsiamUser(username, password, userId);
     }
 
-    private String updateOsiamUser(String username, String password, Integer personId){
+    private String updateOsiamUser(String username, String password, Integer personId) {
         final OsiamClient osiamClient = config.getOsiam().getClient(client);
         final OsiamConnector osiamConnector = osiamClient.getConnector();
         final AccessToken accessToken = osiamConnector.retrieveAccessToken(Scope.ALL);

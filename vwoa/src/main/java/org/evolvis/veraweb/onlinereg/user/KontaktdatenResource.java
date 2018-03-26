@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.user;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -90,7 +91,9 @@ public class KontaktdatenResource {
      */
     public static final String BASE_RESOURCE = "/rest";
 
-    /** List of Salutations with attributes */
+    /**
+     * List of Salutations with attributes
+     */
     private static final TypeReference<List<Salutation>> SALUTATION_LIST = new TypeReference<List<Salutation>>() {
     };
 
@@ -114,10 +117,8 @@ public class KontaktdatenResource {
     /**
      * Creates a new KontaktdatenResource with configuration and Jersey client
      *
-     * @param client
-     *            jersey client
-     * @param config
-     *            configuration
+     * @param client jersey client
+     * @param config configuration
      */
     public KontaktdatenResource(Config config, Client client) {
         this.client = client;
@@ -129,8 +130,7 @@ public class KontaktdatenResource {
      * Get all salutations
      *
      * @return List of all salutations, if salutations exists
-     * @throws IOException
-     *             TODO
+     * @throws IOException TODO
      */
     @GET
     @Path("/getallsalutations")

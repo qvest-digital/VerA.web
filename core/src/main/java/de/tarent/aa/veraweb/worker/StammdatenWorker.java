@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -90,6 +91,7 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
     //
     // Konstruktoren
     //
+
     /**
      * Dieser Konstruktor gibt den Namen der zugrunde liegenden Bean weiter.
      */
@@ -100,83 +102,83 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
     //
     // Hilfsmethoden
     //
-	@Override
+    @Override
     protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
+        Database database = getDatabase(cntx);
 
-		Clause clause = getWhere(cntx);
+        Clause clause = getWhere(cntx);
 
-		StringBuffer buffer = new StringBuffer();
-		if (clause != null && clause.clauseToString().length() != 0) {
-			buffer.append("(");
-			buffer.append(clause.clauseToString());
-			buffer.append(") AND ");
-		}
-		buffer.append(getAlphaStartColumn(database));
-		buffer.append(" < '");
+        StringBuffer buffer = new StringBuffer();
+        if (clause != null && clause.clauseToString().length() != 0) {
+            buffer.append("(");
+            buffer.append(clause.clauseToString());
+            buffer.append(") AND ");
+        }
+        buffer.append(getAlphaStartColumn(database));
+        buffer.append(" < '");
 
-		Escaper.escape(buffer, start);
-		buffer.append("'");
+        Escaper.escape(buffer, start);
+        buffer.append("'");
 
-		Select select = database.getCount(BEANNAME);
-		select.where(new RawClause(buffer));
+        Select select = database.getCount(BEANNAME);
+        select.where(new RawClause(buffer));
 
-		Integer i = database.getCount(select);
-		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
-	}
+        Integer i = database.getCount(select);
+        return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
+    }
 
-	protected String getAlphaStartColumn(Database database) throws BeanException, IOException {
-		return database.getProperty(database.createBean(BEANNAME), "name");
-	}
+    protected String getAlphaStartColumn(Database database) throws BeanException, IOException {
+        return database.getProperty(database.createBean(BEANNAME), "name");
+    }
 
-	protected Clause getWhere(OctopusContext cntx) throws BeanException {
-		return null;
-	}
+    protected Clause getWhere(OctopusContext cntx) throws BeanException {
+        return null;
+    }
 
-	@Override
+    @Override
     protected int insertBean(OctopusContext octopusContext, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
-		int count = 0;
-		if (bean.isModified()) {
-			if (bean instanceof WorkArea) {
-				((WorkArea) bean).verify(octopusContext);
-			}
+        int count = 0;
+        if (bean.isModified()) {
+            if (bean instanceof WorkArea) {
+                ((WorkArea) bean).verify(octopusContext);
+            }
 
-		    if (bean.isCorrect()) {
-		        Database database = context.getDatabase();
+            if (bean.isCorrect()) {
+                Database database = context.getDatabase();
 
-	            String orgunit = database.getProperty(bean, "orgunit");
-	            Clause clause = Expr.equal(
-	                    database.getProperty(bean, "name"),
-	                    bean.getField("name"));
-	            if (orgunit != null) {
-	                clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA)(octopusContext.personalConfig())).getOrgUnitId()), clause);
-	            }
+                String orgunit = database.getProperty(bean, "orgunit");
+                Clause clause = Expr.equal(
+                        database.getProperty(bean, "name"),
+                        bean.getField("name"));
+                if (orgunit != null) {
+                    clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()), clause);
+                }
 
-	            Integer exist =
-	                    database.getCount(
-	                    database.getCount(bean).
-	                    where(clause),context);
-	            if (exist.intValue() != 0) {
-					LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-					LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+                Integer exist =
+                        database.getCount(
+                                database.getCount(bean).
+                                        where(clause), context);
+                if (exist.intValue() != 0) {
+                    LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+                    LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
-	                errors.add(languageProvider.getProperty("MAIN_DATA_WARN_ALREADY_EXISTS") +
-									" '" + bean.getField("name") + "'.");
-	            } else {
-	                count += super.insertBean(octopusContext, errors, bean, context);
-	            }
-		    } else {
-		        errors.addAll(bean.getErrors());
-		    }
-		}
+                    errors.add(languageProvider.getProperty("MAIN_DATA_WARN_ALREADY_EXISTS") +
+                            " '" + bean.getField("name") + "'.");
+                } else {
+                    count += super.insertBean(octopusContext, errors, bean, context);
+                }
+            } else {
+                errors.addAll(bean.getErrors());
+            }
+        }
 
-		return count;
-	}
+        return count;
+    }
 
-	protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
+    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
-            Bean bean = (Bean)it.next();
+            Bean bean = (Bean) it.next();
             if (bean.isModified()) {
                 if (bean.isCorrect()) {
                     saveBean(cntx, bean, context);

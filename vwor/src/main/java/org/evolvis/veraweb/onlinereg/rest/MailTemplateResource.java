@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.MailTemplate;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -81,7 +82,7 @@ public class MailTemplateResource extends AbstractResource {
 
     @GET
     public Response getMailTemplate(@QueryParam("templateId") Integer templateId, @QueryParam("mandantId") Integer mandantId) {
-        if(templateId == null || mandantId == null){
+        if (templateId == null || mandantId == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

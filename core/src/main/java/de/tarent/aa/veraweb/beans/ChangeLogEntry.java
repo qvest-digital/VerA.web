@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -80,55 +81,47 @@ import java.util.Date;
  * For now, changelogging is enabled for the following
  * entities {see Person}, {see Guest}, and {see Event}.
  *
- * @see de.tarent.octopus.beans.veraweb.BeanChangeLogger
- *
  * @author cklein
+ * @see de.tarent.octopus.beans.veraweb.BeanChangeLogger
  * @since 1.2.0
  */
-public class ChangeLogEntry extends AbstractBean
-{
-	public Integer	id;
-	public String	username;
-	public String	objectname;
-	public String	objecttype;
-	public Integer	objectid;
-	public String	op;
-	public String	attributes;
-	public Date		created;
+public class ChangeLogEntry extends AbstractBean {
+    public Integer id;
+    public String username;
+    public String objectname;
+    public String objecttype;
+    public Integer objectid;
+    public String op;
+    public String attributes;
+    public Date created;
 
-	/**
-	 * Creates a new instance of this.
-	 */
-	public ChangeLogEntry()
-	{
-		super();
-	}
+    /**
+     * Creates a new instance of this.
+     */
+    public ChangeLogEntry() {
+        super();
+    }
 
-	/**
-	 * Only admins may read the entity beans from the table.
-	 */
-	@Override
-    public void checkRead( OctopusContext octopusContext) throws BeanException
-	{
-		checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN );
-	}
+    /**
+     * Only admins may read the entity beans from the table.
+     */
+    @Override
+    public void checkRead(OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN);
+    }
 
-	/**
-	 * Anonymous user group requires write access to the
-	 * entity bean, since a background service will be responsible
-	 * for purging old entries from change log. The service runs
-	 * with the priviledge of the anonymous user group.
-	 */
-	@Override
-    public void checkWrite( OctopusContext octopusContext) throws BeanException
-	{
-		try
-		{
-			checkGroup(octopusContext, PersonalConfig.GROUP_ANONYMOUS );
-		}
-		catch( BeanException e )
-		{
-			checkGroup(octopusContext, PersonalConfig.GROUP_USER );
-		}
-	}
+    /**
+     * Anonymous user group requires write access to the
+     * entity bean, since a background service will be responsible
+     * for purging old entries from change log. The service runs
+     * with the priviledge of the anonymous user group.
+     */
+    @Override
+    public void checkWrite(OctopusContext octopusContext) throws BeanException {
+        try {
+            checkGroup(octopusContext, PersonalConfig.GROUP_ANONYMOUS);
+        } catch (BeanException e) {
+            checkGroup(octopusContext, PersonalConfig.GROUP_USER);
+        }
+    }
 }

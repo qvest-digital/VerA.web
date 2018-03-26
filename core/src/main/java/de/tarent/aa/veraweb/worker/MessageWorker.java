@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.LocaleMessage;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -78,18 +79,24 @@ public class MessageWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter für die Aktion {@link #init()} */
-	public final static String INPUT_init[] = {};
+    /**
+     * Octopus-Eingabeparameter für die Aktion {@link #init()}
+     */
+    public final static String INPUT_init[] = {};
+
     /**
      * Diese Octopus-Aktion initialisiert die Member dieses Workers.
      */
-	public void init() {
-		message = new LocaleMessage(Locale.getDefault());
+    public void init() {
+        message = new LocaleMessage(Locale.getDefault());
         properties = ResourceBundle.getBundle("de.tarent.aa.veraweb.veraweb", Locale.getDefault());
-	}
+    }
 
-    /** Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)} */
-	public final static String INPUT_load[] = {};
+    /**
+     * Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)}
+     */
+    public final static String INPUT_load[] = {};
+
     /**
      * Diese Octopus-Aktion legt gebündelte lokalisierte Mitteilungen als "message"
      * und gebündelte Versions- und Buildinformationen als "properties" in den
@@ -97,12 +104,12 @@ public class MessageWorker {
      *
      * @param cntx Octopus-Kontext
      */
-	public void load(OctopusContext cntx) {
-		cntx.setContent("message", message);
+    public void load(OctopusContext cntx) {
+        cntx.setContent("message", message);
         cntx.setContent("properties", properties);
-	}
+    }
 
-	//
+    //
     // Member-Variablen
     //
     LocaleMessage message;

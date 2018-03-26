@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
@@ -112,16 +113,16 @@ public class ForgotLoginResource extends AbstractResource {
         String usernameList = buildLink(personList);
 
         mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(),
-                                            toEmail,
-                                            emailConfiguration.getSubjectResendLogin(),
-                                            emailConfiguration.getContentResendLogin(),
-                                            usernameList,
-                                            emailConfiguration.getContentType());
+                toEmail,
+                emailConfiguration.getSubjectResendLogin(),
+                emailConfiguration.getContentResendLogin(),
+                usernameList,
+                emailConfiguration.getContentType());
     }
 
-    private String buildLink(List<Person> personList){
+    private String buildLink(List<Person> personList) {
         String usernameList = "";
-        for (Person person: personList){
+        for (Person person : personList) {
             usernameList += "\n" + person.getUsername();
         }
         return usernameList;

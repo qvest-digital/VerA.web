@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -82,11 +83,10 @@ public class EventURLHandler {
      * URL Associated directly to the event
      *
      * @param event The {@link de.tarent.aa.veraweb.beans.Event}
-     *
      * @return The url
      */
     public String generateEventUrl(Event event) {
-        if(propertiesReader.propertiesAreAvailable() && event.getHash() != null) {
+        if (propertiesReader.propertiesAreAvailable() && event.getHash() != null) {
             final URLGenerator urlGenerator = getUrlGenerator();
             return urlGenerator.getUrlForFreeVisitors() + event.getHash();
         } else {
@@ -94,21 +94,21 @@ public class EventURLHandler {
         }
     }
 
-	/**
+    /**
      * URL Associated directly to the event.
      *
      * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
-     * @param uuid The uuid to build URL for the free visitors.
+     * @param uuid           The uuid to build URL for the free visitors.
      */
     public void setEventUrl(OctopusContext octopusContext, String uuid) {
-        if(propertiesReader.propertiesAreAvailable() && uuid != null) {
+        if (propertiesReader.propertiesAreAvailable() && uuid != null) {
             final URLGenerator urlGenerator = getUrlGenerator();
-	        octopusContext.setContent("eventUrl", urlGenerator.getUrlForFreeVisitors() + uuid);
+            octopusContext.setContent("eventUrl", urlGenerator.getUrlForFreeVisitors() + uuid);
         } else {
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
-	        octopusContext.setContent("eventUrl", languageProvider.getProperty("GENERIC_NOT_AVAILABLE"));
+            octopusContext.setContent("eventUrl", languageProvider.getProperty("GENERIC_NOT_AVAILABLE"));
         }
     }
 

@@ -61,79 +61,124 @@ package de.tarent.aa.veraweb.beans.facade;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * Definiert eine Member-Facade für einen Gast
  *
  * @author Michael Klink, Christoph Jerolimov
  */
 public interface GuestMemberFacade extends EventConstants {
-	/** @return Einladungstyp */
-	Integer getInvitationType();
+    /**
+     * @return Einladungstyp
+     */
+    Integer getInvitationType();
 
-	/** @return Einlatungsstatus */
-	Integer getInvitationStatus();
+    /**
+     * @return Einlatungsstatus
+     */
+    Integer getInvitationStatus();
 
-	/** @return Tisch-Nummer */
-	Integer getTableNo();
+    /**
+     * @return Tisch-Nummer
+     */
+    Integer getTableNo();
 
-	/** @return Sitz-Nummer */
-	Integer getSeatNo();
+    /**
+     * @return Sitz-Nummer
+     */
+    Integer getSeatNo();
 
-	/** @return Laufende Nummer */
-	Integer getOrderNo();
+    /**
+     * @return Laufende Nummer
+     */
+    Integer getOrderNo();
 
-	/** @return Bemerkung für die Orga */
-	String getNoteOrga();
+    /**
+     * @return Bemerkung für die Orga
+     */
+    String getNoteOrga();
 
-	/** @return Bemerkung für den Gastgeber */
-	String getNoteHost();
+    /**
+     * @return Bemerkung für den Gastgeber
+     */
+    String getNoteHost();
 
-	/** @return Sprachen */
-	String getLanguages();
+    /**
+     * @return Sprachen
+     */
+    String getLanguages();
 
-	/** @return Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
-	String getSex();
+    /**
+     * @return Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich}
+     */
+    String getSex();
 
-	/** @return Nationalität */
-	String getNationality();
+    /**
+     * @return Nationalität
+     */
+    String getNationality();
 
-	/** @return Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
-	String getDomestic();
+    /**
+     * @return Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland}
+     */
+    String getDomestic();
 
-	/** Ändert Einladungstyp */
-	void setInvitationType(Integer value);
+    /**
+     * Ändert Einladungstyp
+     */
+    void setInvitationType(Integer value);
 
-	/** Ändert Einlatungsstatus */
-	void setInvitationStatus(Integer value);
+    /**
+     * Ändert Einlatungsstatus
+     */
+    void setInvitationStatus(Integer value);
 
-	/** Ändert Tisch-Nummer */
-	void setTableNo(Integer value);
+    /**
+     * Ändert Tisch-Nummer
+     */
+    void setTableNo(Integer value);
 
-	/** Ändert Sitz-Nummer */
-	void setSeatNo(Integer value);
+    /**
+     * Ändert Sitz-Nummer
+     */
+    void setSeatNo(Integer value);
 
-	/** Ändert Laufende Nummer */
-	void setOrderNo(Integer value);
+    /**
+     * Ändert Laufende Nummer
+     */
+    void setOrderNo(Integer value);
 
-	/** Ändert Bemerkung für die Orga */
-	void setNoteOrga(String value);
+    /**
+     * Ändert Bemerkung für die Orga
+     */
+    void setNoteOrga(String value);
 
-	/** Ändert Bemerkung für den Gastgeber */
-	void setNoteHost(String value);
+    /**
+     * Ändert Bemerkung für den Gastgeber
+     */
+    void setNoteHost(String value);
 
-	/** Ändert Sprachen */
-	void setLanguages(String value);
+    /**
+     * Ändert Sprachen
+     */
+    void setLanguages(String value);
 
-	/** Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich} */
-	void setSex(String value);
+    /**
+     * Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich}
+     */
+    void setSex(String value);
 
-	/** Ändert Nationalität */
-	void setNationality(String value);
+    /**
+     * Ändert Nationalität
+     */
+    void setNationality(String value);
 
-	/** Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
-	void setDomestic(String value);
+    /**
+     * Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland}
+     */
+    void setDomestic(String value);
 
-	String getImageUuid();
+    String getImageUuid();
 
-	void setImageUuid(String value);
+    void setImageUuid(String value);
 }

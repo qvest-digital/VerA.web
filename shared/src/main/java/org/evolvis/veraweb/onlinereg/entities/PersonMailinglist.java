@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -79,7 +80,8 @@ import lombok.Data;
 @XmlRootElement
 @Entity
 @Table(name = "tperson_mailinglist")
-@NamedQueries(value = { @NamedQuery(name = "PersonMailinglist.findByMailinglist", query = "SELECT p FROM PersonMailinglist p where mailinglistId = :listId"), })
+@NamedQueries(value = {
+        @NamedQuery(name = "PersonMailinglist.findByMailinglist", query = "SELECT p FROM PersonMailinglist p where mailinglistId = :listId"), })
 public class PersonMailinglist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

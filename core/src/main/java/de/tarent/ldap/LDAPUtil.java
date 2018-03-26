@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
@@ -85,14 +86,15 @@ public class LDAPUtil {
      * @throws NamingException
      */
     public static Map toMap(Attributes attribs) throws NamingException {
-        if (attribs == null)
+        if (attribs == null) {
             return null;
+        }
         Map result = new HashMap();
         NamingEnumeration enumAttribs = attribs.getAll();
         while (enumAttribs.hasMore()) {
             Attribute attrib = (Attribute) enumAttribs.next();
             if (attrib != null) {
-                switch(attrib.size()) {
+                switch (attrib.size()) {
                 case 0:
                     break;
                 case 1:

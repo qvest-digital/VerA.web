@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.worker.ActionWorker;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.lang.StringUtils;
@@ -79,14 +80,15 @@ public class OnlineRegistrationHelper {
     private static final String VWOR_PARAM = "online-registration.activated";
     private static final String VWOR_VALUE_TRUE = "true";
 
-    /** Logger für diese Klasse */
+    /**
+     * Logger für diese Klasse
+     */
     private final static Logger logger = LogManager.getLogger(OnlineRegistrationHelper.class);
 
     /**
      * Check for enabled online registration module.
      *
-     * @param octopusContext
-     *            The context
+     * @param octopusContext The context
      * @return true if online registration is enabled, otherwise false
      */
     public static Boolean isOnlineregActive(final OctopusContext octopusContext) {

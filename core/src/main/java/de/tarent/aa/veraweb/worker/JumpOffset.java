@@ -84,11 +84,11 @@ public class JumpOffset {
         return offset;
     }
 
-    public Integer getTargetPageOffset(){
+    public Integer getTargetPageOffset() {
         return targetPageOffset;
     }
 
-    public boolean isTargetOnCurrentPage(){
+    public boolean isTargetOnCurrentPage() {
         return targetPageOffset == currentPageOffset;
     }
 }

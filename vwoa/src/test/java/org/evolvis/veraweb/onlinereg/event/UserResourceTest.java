@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
@@ -91,38 +92,41 @@ public class UserResourceTest {
     public UserResourceTest() {
         Main main = TestSuite.DROPWIZARD.getApplication();
         ur = main.getUserResource();
-        client=ur.getClient();
-        config=ur.getConfig();
+        client = ur.getClient();
+        config = ur.getConfig();
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testRegisterUser() throws IOException {
         //Benutzer wird durch Test angelegt, aber nicht mehr gelöscht -> Erneutes Ausführen des Tests schlägt fehl
         long zeit = Calendar.getInstance().getTimeInMillis();
 
-        String result = ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit, "email" + zeit, "language");
+        String result = ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit, "email" + zeit,
+                "language");
         assertEquals(StatusConverter.convertStatus("OK"), result);
     }
 
     //testet, ob post() nach Veraweb eine Person-Instanz zurückliefert
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testVerawebPerson() throws IOException {
 
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
         r = r.queryParam("username", "newuserTwo").queryParam("firstname", "firstnameTwo").queryParam("lastname", "lastnameTwo");
 
-       try {
-                Person person = r.post(Person.class);
-                assertTrue(person instanceof Person);
+        try {
+            Person person = r.post(Person.class);
+            assertTrue(person instanceof Person);
 
-            } catch (UniformInterfaceException uie) {
-                ClientResponse response = uie.getResponse();
-                if (response.getStatus() == 404) {
-                        System.out.println("404");
-                } else {
-                    throw uie;
-                }
+        } catch (UniformInterfaceException uie) {
+            ClientResponse response = uie.getResponse();
+            if (response.getStatus() == 404) {
+                System.out.println("404");
+            } else {
+                throw uie;
             }
+        }
     }
 
     @Test
@@ -131,7 +135,8 @@ public class UserResourceTest {
         assertEquals(StatusConverter.convertStatus("INVALID_USERNAME"), result);
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testRegisterExistingUser() throws IOException {
         String result = ur.registerUser("existing", "firstname", "secondname", "password", "email", "language");
         assertEquals(StatusConverter.convertStatus("USER_EXISTS"), result);

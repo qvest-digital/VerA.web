@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.content.TcContentWorker;
 import de.tarent.octopus.content.TcContentWorkerFactory;
 import de.tarent.octopus.content.TcReflectedWorkerWrapper;
@@ -75,8 +76,8 @@ import de.tarent.octopus.server.WorkerCreationException;
  * @author Christoph
  */
 public class WorkerFactory {
-	private WorkerFactory() {
-	}
+    private WorkerFactory() {
+    }
 
     /**
      * Diese Methode liefert den Worker namens "PersonCategorieWorker".
@@ -84,39 +85,39 @@ public class WorkerFactory {
      * @param cntx Octopus-Kontext
      * @return {@link PersonCategorieWorker}-Instanz des Moduls
      */
-	static public PersonCategorieWorker getPersonCategorieWorker(OctopusContext cntx) {
-		return (PersonCategorieWorker)getWorker(cntx, "PersonCategorieWorker");
-	}
+    static public PersonCategorieWorker getPersonCategorieWorker(OctopusContext cntx) {
+        return (PersonCategorieWorker) getWorker(cntx, "PersonCategorieWorker");
+    }
 
-	/**
+    /**
      * Diese Methode liefert den Worker namens "PersonDetailWorker".
      *
      * @param cntx Octopus-Kontext
      * @return {@link PersonDetailWorker}-Instanz des Moduls
      */
-	static public PersonDetailWorker getPersonDetailWorker(OctopusContext cntx) {
-		return (PersonDetailWorker)getWorker(cntx, "PersonDetailWorker");
-	}
+    static public PersonDetailWorker getPersonDetailWorker(OctopusContext cntx) {
+        return (PersonDetailWorker) getWorker(cntx, "PersonDetailWorker");
+    }
 
-	/**
+    /**
      * Diese Methode liefert den Worker namens "PersonDuplicateSearchWorker".
      *
      * @param cntx Octopus-Kontext
      * @return {@link PersonDuplicateSearchWorker}-Instanz des Moduls
      */
-	static public PersonDuplicateSearchWorker getPersonDuplicateSearchWorker(OctopusContext cntx) {
-		return (PersonDuplicateSearchWorker)getWorker(cntx, "PersonDuplicateSearchWorker");
-	}
+    static public PersonDuplicateSearchWorker getPersonDuplicateSearchWorker(OctopusContext cntx) {
+        return (PersonDuplicateSearchWorker) getWorker(cntx, "PersonDuplicateSearchWorker");
+    }
 
-	/**
+    /**
      * Diese Methode liefert den Worker namens "PersonListWorker".
      *
      * @param cntx Octopus-Kontext
      * @return {@link PersonListWorker}-Instanz des Moduls
      */
-	static public PersonListWorker getPersonListWorker(OctopusContext cntx) {
-		return (PersonListWorker)getWorker(cntx, "PersonListWorker");
-	}
+    static public PersonListWorker getPersonListWorker(OctopusContext cntx) {
+        return (PersonListWorker) getWorker(cntx, "PersonListWorker");
+    }
 
     /**
      * Diese Methode liefert den Worker namens "ImportPersonsWorker".
@@ -125,7 +126,7 @@ public class WorkerFactory {
      * @return {@link ImportPersonsWorker}-Instanz des Moduls
      */
     static public ImportPersonsWorker getImportPersonsWorker(OctopusContext cntx) {
-        return (ImportPersonsWorker)getWorker(cntx, "ImportPersonsWorker");
+        return (ImportPersonsWorker) getWorker(cntx, "ImportPersonsWorker");
     }
 
     /**
@@ -135,81 +136,79 @@ public class WorkerFactory {
      * @return {@link DataExchangeWorker}-Instanz des Moduls
      */
     static public DataExchangeWorker getDataExchangeWorker(OctopusContext cntx) {
-        return (DataExchangeWorker)getWorker(cntx, "DataExchangeWorker");
+        return (DataExchangeWorker) getWorker(cntx, "DataExchangeWorker");
     }
 
-	/**
-	 * Diese Methode liefert den Worker namens "ConfigWorker".
-	 *
-	 * @param cntx Octopus-Kontext
-	 * @return {@link ConfigWorker}-Instanz des Moduls
-	 */
-	static public ConfigWorker getConfigWorker(OctopusContext cntx) {
-		return (ConfigWorker)getWorker(cntx, "ConfigWorker");
-	}
+    /**
+     * Diese Methode liefert den Worker namens "ConfigWorker".
+     *
+     * @param cntx Octopus-Kontext
+     * @return {@link ConfigWorker}-Instanz des Moduls
+     */
+    static public ConfigWorker getConfigWorker(OctopusContext cntx) {
+        return (ConfigWorker) getWorker(cntx, "ConfigWorker");
+    }
 
-	/**
-	 * Diese Methode liefert den Worker namens "VerifyWorker".
-	 *
-	 * @param cntx Octopus-Kontext
-	 * @return {@link VerifyWorker}-Instanz des Moduls
-	 */
-	static public VerifyWorker getVerifyWorker(OctopusContext cntx) {
-		return (VerifyWorker)getWorker(cntx, "VerifyWorker");
-	}
+    /**
+     * Diese Methode liefert den Worker namens "VerifyWorker".
+     *
+     * @param cntx Octopus-Kontext
+     * @return {@link VerifyWorker}-Instanz des Moduls
+     */
+    static public VerifyWorker getVerifyWorker(OctopusContext cntx) {
+        return (VerifyWorker) getWorker(cntx, "VerifyWorker");
+    }
 
-	/**
-	 * Gets a new instance of the {@link GuestDetailWorker}.
-	 *
-	 * @param cntx the current octopus context
-	 * @return instance of {@link GuestDetailWorker}
-	 * @since 1.2.0
-	 */
-	static public GuestDetailWorker getGuestDetailWorker( OctopusContext cntx )
-	{
-		return ( GuestDetailWorker ) getWorker( cntx, "GuestDetailWorker" );
-	}
+    /**
+     * Gets a new instance of the {@link GuestDetailWorker}.
+     *
+     * @param cntx the current octopus context
+     * @return instance of {@link GuestDetailWorker}
+     * @since 1.2.0
+     */
+    static public GuestDetailWorker getGuestDetailWorker(OctopusContext cntx) {
+        return (GuestDetailWorker) getWorker(cntx, "GuestDetailWorker");
+    }
 
-	/**
-	 * Diese Methode liefert den Worker namens "GuestListWorker".
-	 *
-	 * @param cntx Octopus-Kontext
-	 * @return {@link GuestListWorker}-Instanz des Moduls
-	 */
-	static public GuestListWorker getGuestListWorker(OctopusContext cntx) {
-		return (GuestListWorker)getWorker(cntx, "GuestListWorker");
-	}
+    /**
+     * Diese Methode liefert den Worker namens "GuestListWorker".
+     *
+     * @param cntx Octopus-Kontext
+     * @return {@link GuestListWorker}-Instanz des Moduls
+     */
+    static public GuestListWorker getGuestListWorker(OctopusContext cntx) {
+        return (GuestListWorker) getWorker(cntx, "GuestListWorker");
+    }
 
-	/**
-	 * Diese Methode liefert den Worker namens "GuestWorker".
-	 *
-	 * @param cntx Octopus-Kontext
-	 * @return {@link GuestWorker}-Instanz des Moduls
-	 */
-	static public GuestWorker getGuestWorker(OctopusContext cntx) {
-		return (GuestWorker)getWorker(cntx, "GuestWorker");
-	}
+    /**
+     * Diese Methode liefert den Worker namens "GuestWorker".
+     *
+     * @param cntx Octopus-Kontext
+     * @return {@link GuestWorker}-Instanz des Moduls
+     */
+    static public GuestWorker getGuestWorker(OctopusContext cntx) {
+        return (GuestWorker) getWorker(cntx, "GuestWorker");
+    }
 
-	/**
-	 * Diese Methode liefert den Worker namens "LocationListWorker".
-	 *
-	 * @param cntx Octopus-Kontext
-	 * @return {@link LocationListWorker}-Instanz des Moduls
-	 */
-	static public LocationListWorker getLocationListWorker(OctopusContext cntx) {
-		return (LocationListWorker)getWorker(cntx, "LocationListWorker");
-	}
+    /**
+     * Diese Methode liefert den Worker namens "LocationListWorker".
+     *
+     * @param cntx Octopus-Kontext
+     * @return {@link LocationListWorker}-Instanz des Moduls
+     */
+    static public LocationListWorker getLocationListWorker(OctopusContext cntx) {
+        return (LocationListWorker) getWorker(cntx, "LocationListWorker");
+    }
 
-	/**
-	 * Diese Methode liefert den Worker namens "LocationWorker".
-	 *
-	 * @param cntx Octopus-Kontext
-	 * @return {@link WorkAreaWorker}-Instanz des Moduls
-	 */
-	static public WorkAreaWorker getWorkAreaWorker( OctopusContext cntx )
-	{
-		return ( WorkAreaWorker ) getWorker( cntx, "WorkAreaWorker" );
-	}
+    /**
+     * Diese Methode liefert den Worker namens "LocationWorker".
+     *
+     * @param cntx Octopus-Kontext
+     * @return {@link WorkAreaWorker}-Instanz des Moduls
+     */
+    static public WorkAreaWorker getWorkAreaWorker(OctopusContext cntx) {
+        return (WorkAreaWorker) getWorker(cntx, "WorkAreaWorker");
+    }
 
     /**
      * Diese statische Methode holt mittels des Octopus-Kontexts einen Worker.
@@ -218,15 +217,15 @@ public class WorkerFactory {
      * @param name Worker-Name
      * @return Worker-Instanz
      */
-	static private Object getWorker(OctopusContext cntx, String name) {
-		try {
+    static private Object getWorker(OctopusContext cntx, String name) {
+        try {
             TcContentWorker worker = TcContentWorkerFactory.getContentWorker(
                     cntx.moduleConfig(), name,
                     cntx.getRequestObject().getRequestID());
             return (worker instanceof TcReflectedWorkerWrapper) ?
-                 ((TcReflectedWorkerWrapper)worker).getWorkerDelegate() : worker;
-		} catch (WorkerCreationException e) {
-		}
+                    ((TcReflectedWorkerWrapper) worker).getWorkerDelegate() : worker;
+        } catch (WorkerCreationException e) {
+        }
         return null;
-	}
+    }
 }

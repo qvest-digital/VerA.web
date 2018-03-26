@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
@@ -74,25 +75,43 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class Categorie extends AbstractBean implements OrgUnitDependent {
-    /** {@link #flags}-Eintrag: normale Kategorie */
-	static public final int FLAG_DEFAULT = 0;
-    /** {@link #flags}-Eintrag: Ereignis */
-	static public final int FLAG_EVENT = 1;
-    /** {@link #flags}-Eintrag: diplomatisches Korp */
-	static public final int FLAG_DIPLO_CORPS = 99;
+    /**
+     * {@link #flags}-Eintrag: normale Kategorie
+     */
+    static public final int FLAG_DEFAULT = 0;
+    /**
+     * {@link #flags}-Eintrag: Ereignis
+     */
+    static public final int FLAG_EVENT = 1;
+    /**
+     * {@link #flags}-Eintrag: diplomatisches Korp
+     */
+    static public final int FLAG_DIPLO_CORPS = 99;
 
-    /** pk serial NOT NULL: Primärschlüssel */
-	public Integer id;
-    /** fk_orgunit int4 DEFAULT 0: Mandant */
-	public Integer orgunit;
-    /** fk_event int4 DEFAULT 0: Veranstaltung */
-	public Integer event;
-    /** catname varchar(200) NOT NULL: Name der Kategorie */
-	public String name;
-    /** flags int4 DEFAULT 0: Flags, vergleiche <code>FLAG_*</code> */
-	public Integer flags;
-    /** ank int4 DEFAULT 0: Kategorienrang */
-	public Integer rank;
+    /**
+     * pk serial NOT NULL: Primärschlüssel
+     */
+    public Integer id;
+    /**
+     * fk_orgunit int4 DEFAULT 0: Mandant
+     */
+    public Integer orgunit;
+    /**
+     * fk_event int4 DEFAULT 0: Veranstaltung
+     */
+    public Integer event;
+    /**
+     * catname varchar(200) NOT NULL: Name der Kategorie
+     */
+    public String name;
+    /**
+     * flags int4 DEFAULT 0: Flags, vergleiche <code>FLAG_*</code>
+     */
+    public Integer flags;
+    /**
+     * ank int4 DEFAULT 0: Kategorienrang
+     */
+    public Integer rank;
 
     /**
      * Überprüft das Bean auf innere Vollständigkeit.
@@ -103,10 +122,10 @@ public class Categorie extends AbstractBean implements OrgUnitDependent {
      */
     public void verify(OctopusContext octopusContext) throws BeanException {
         final VerawebMessages messages = new VerawebMessages(octopusContext);
-		if (name == null || name.trim().length() == 0) {
+        if (name == null || name.trim().length() == 0) {
             addError(messages.getMessageGenericMissingDescription());
         }
-	}
+    }
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden

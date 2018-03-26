@@ -61,41 +61,42 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * Kapselt Exceptions aus dem LDAP
  *
  * @author philipp
  */
 public class LDAPException extends Exception {
-	private static final long serialVersionUID = -13354750513745321L;
+    private static final long serialVersionUID = -13354750513745321L;
 
-	/**
-	 *
-	 */
-	public LDAPException() {
-		super();
-	}
+    /**
+     *
+     */
+    public LDAPException() {
+        super();
+    }
 
-	/**
-	 * @param arg0 FIXME
-	 */
-	public LDAPException(String arg0) {
-		super(arg0);
-	}
+    /**
+     * @param arg0 FIXME
+     */
+    public LDAPException(String arg0) {
+        super(arg0);
+    }
 
-	/**
-	 * @param arg0 FIXME
-	 * @param arg1 FIXME
-	 */
-	public LDAPException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-	}
+    /**
+     * @param arg0 FIXME
+     * @param arg1 FIXME
+     */
+    public LDAPException(String arg0, Throwable arg1) {
+        super(arg0, arg1);
+    }
 
-	/**
-	 * @param arg0 FIXME
-	 */
-	public LDAPException(Throwable arg0) {
-		super(arg0);
-	}
+    /**
+     * @param arg0 FIXME
+     */
+    public LDAPException(Throwable arg0) {
+        super(arg0);
+    }
 
 }

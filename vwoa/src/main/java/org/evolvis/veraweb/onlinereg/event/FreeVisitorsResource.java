@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -93,14 +94,14 @@ public class FreeVisitorsResource {
     private final ObjectMapper mapper = new ObjectMapper();
 
     private final Config config;
-        private final Client client;
+    private final Client client;
     private final ResourceReader resourceReader;
 
     public FreeVisitorsResource(Config config, Client client) {
-                this.config = config;
-                this.client = client;
-                this.resourceReader = new ResourceReader(client, mapper, config);
-        }
+        this.config = config;
+        this.client = client;
+        this.resourceReader = new ResourceReader(client, mapper, config);
+    }
 
     /**
      * Get

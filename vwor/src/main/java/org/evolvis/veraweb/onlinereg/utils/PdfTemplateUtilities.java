@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.apache.commons.lang3.StringUtils;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 
@@ -73,12 +74,12 @@ import java.util.List;
  * - salutationCompleteOne = salutation + " " + title + " " + first name + " " + last name
  * - salutationCompleteTwo = salutationCompleteOne + ", " + suffix1_a_e1
  * - envelopeOne =
- *      function + "\n" +
- *      salutation_complete + "\n" +
- *      suffix1_a_e1 + "\n" +
- *      street + "\n" +
- *      plz + " " + city + "\n" +
- *      country
+ * function + "\n" +
+ * salutation_complete + "\n" +
+ * suffix1_a_e1 + "\n" +
+ * street + "\n" +
+ * plz + " " + city + "\n" +
+ * country
  *
  * @author Atanas Alexandrov, tarent solutions GmbH
  */

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.util.Properties;
 
 /**
@@ -87,15 +88,15 @@ public class URLGenerator {
         return urlPrefix + "/#/media/";
     }
 
-    public String getUrlForDelegation(){
+    public String getUrlForDelegation() {
         return urlPrefix + "/#/delegation/";
     }
 
-    public String getUrlForFreeVisitors(){
+    public String getUrlForFreeVisitors() {
         return urlPrefix + "/#/freevisitors/";
     }
 
-    public String getUrlForPasswordReset(){
+    public String getUrlForPasswordReset() {
         return urlPrefix + "/#/reset/password/";
     }
 }

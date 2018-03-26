@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
@@ -146,7 +147,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
             octopusContext.setContent("noChangesMessage", false);
             octopusContext.setContent("entityOverwrite", entity);
 
-            if("PERSON".equals(entity)) {
+            if ("PERSON".equals(entity)) {
                 octopusContext.setContextField("countInsert", null);
                 octopusContext.setContextField("countUpdate", countInsert);
             }
@@ -176,10 +177,9 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
      * Handle request parameter conform with the pattern bean.id-select. The bean.id is the category id from the table
      * tperson_category.
      *
-     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
+     * @param octopusContext    The {@link de.tarent.octopus.server.OctopusContext}
      * @param requestParameters All request parameters
-     * @param requestParameter The current request parameter, which is inspected and potentially used for deletion
-     *
+     * @param requestParameter  The current request parameter, which is inspected and potentially used for deletion
      * @throws BeanException
      */
     private void deleteCategoryFromGuest(OctopusContext octopusContext, Map requestParameters, Object requestParameter)
@@ -220,14 +220,14 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
     }
 
     public void addCategoryAssignment(OctopusContext octopusContext, Integer categoryId, Integer personId,
-                                      Database database, TransactionContext transactionContext)
+            Database database, TransactionContext transactionContext)
             throws BeanException, IOException {
         addCategoryAssignment(octopusContext, categoryId, personId, database, transactionContext, true);
     }
 
     public PersonCategorie addCategoryAssignment(final OctopusContext octopusContext, Integer categoryId,
-                                                 Integer personId, Database database,
-                                                 TransactionContext transactionContext, boolean save)
+            Integer personId, Database database,
+            TransactionContext transactionContext, boolean save)
             throws BeanException, IOException {
         Categorie category = (Categorie) database.getBean("Categorie", categoryId, transactionContext == null ? database : transactionContext);
         if (category != null) {
@@ -245,8 +245,9 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
                 personCategory.verify(octopusContext);
 
                 if (personCategory.isCorrect()) {
-                    if (save)
+                    if (save) {
                         this.saveBean(octopusContext, personCategory, transactionContext);
+                    }
                     return personCategory;
                 }
             }
@@ -256,7 +257,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
     }
 
     public void removeAllCategoryAssignments(OctopusContext octopusContext, Integer personId, Database database,
-                                             TransactionContext transactionContext) throws BeanException, IOException {
+            TransactionContext transactionContext) throws BeanException, IOException {
         try {
             transactionContext.execute(
                     SQL.Delete(database).from("veraweb.tperson_categorie").where(Expr.equal("fk_person", personId))
@@ -268,7 +269,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
     }
 
     public void removeCategoryAssignment(OctopusContext octopusContext, Integer categoryId, Integer personId,
-                                         Database database, TransactionContext transactionContext)
+            Database database, TransactionContext transactionContext)
             throws BeanException, IOException {
         Categorie category = (Categorie) database.getBean("Categorie", categoryId, transactionContext == null ? database : transactionContext);
         if (category != null) {

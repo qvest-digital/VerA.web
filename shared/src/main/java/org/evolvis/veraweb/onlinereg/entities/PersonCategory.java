@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -81,76 +82,77 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tperson_categorie")
 @NamedQueries(value = {
-        @NamedQuery(name = "PersonCategory.personCategoryExists", query = "SELECT pc FROM PersonCategory pc where fk_person=:personId and fk_categorie=:categoryId")
+        @NamedQuery(name = "PersonCategory.personCategoryExists",
+                query = "SELECT pc FROM PersonCategory pc where fk_person=:personId and fk_categorie=:categoryId")
 })
 public class PersonCategory {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int pk;
-        private Integer fk_person;
-        private Integer fk_categorie;
-        private Integer rank;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int pk;
+    private Integer fk_person;
+    private Integer fk_categorie;
+    private Integer rank;
 
-        /**
-         * Empty constructor MUST
-         */
-        public PersonCategory() {
-        }
+    /**
+     * Empty constructor MUST
+     */
+    public PersonCategory() {
+    }
 
-        /**
-         * Constructor with custom set of fields.
-         *
-         * @param fk_person Person id
-         * @param fk_categorie Category id
-         */
-        public PersonCategory(Integer fk_person, Integer fk_categorie) {
-                this.fk_person = fk_person;
-                this.fk_categorie = fk_categorie;
-        }
+    /**
+     * Constructor with custom set of fields.
+     *
+     * @param fk_person    Person id
+     * @param fk_categorie Category id
+     */
+    public PersonCategory(Integer fk_person, Integer fk_categorie) {
+        this.fk_person = fk_person;
+        this.fk_categorie = fk_categorie;
+    }
 
-        /**
-         * Constructor with all fields.
-         *
-         * @param fk_person Person id
-         * @param fk_categorie Category id
-         * @param rank Rank
-         */
-        public PersonCategory(Integer fk_person, Integer fk_categorie, Integer rank) {
-                this.fk_person = fk_person;
-                this.fk_categorie = fk_categorie;
-                this.rank = rank;
-        }
+    /**
+     * Constructor with all fields.
+     *
+     * @param fk_person    Person id
+     * @param fk_categorie Category id
+     * @param rank         Rank
+     */
+    public PersonCategory(Integer fk_person, Integer fk_categorie, Integer rank) {
+        this.fk_person = fk_person;
+        this.fk_categorie = fk_categorie;
+        this.rank = rank;
+    }
 
-        public int getPk() {
-                return pk;
-        }
+    public int getPk() {
+        return pk;
+    }
 
-        public void setPk(int pk) {
-                this.pk = pk;
-        }
+    public void setPk(int pk) {
+        this.pk = pk;
+    }
 
-        public Integer getFk_person() {
-                return fk_person;
-        }
+    public Integer getFk_person() {
+        return fk_person;
+    }
 
-        public void setFk_person(Integer fk_person) {
-                this.fk_person = fk_person;
-        }
+    public void setFk_person(Integer fk_person) {
+        this.fk_person = fk_person;
+    }
 
-        public Integer getFk_categorie() {
-                return fk_categorie;
-        }
+    public Integer getFk_categorie() {
+        return fk_categorie;
+    }
 
-        public void setFk_categorie(Integer fk_categorie) {
-                this.fk_categorie = fk_categorie;
-        }
+    public void setFk_categorie(Integer fk_categorie) {
+        this.fk_categorie = fk_categorie;
+    }
 
-        public Integer getRank() {
-                return rank;
-        }
+    public Integer getRank() {
+        return rank;
+    }
 
-        public void setRank(Integer rank) {
-                this.rank = rank;
-        }
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
 }

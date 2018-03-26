@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Grants;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.server.OctopusContext;
@@ -75,10 +76,15 @@ public class SecurityWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Input-Parameter von {@link #load(OctopusContext)} */
-	public static final String INPUT_load[] = {};
-    /** Octopus-Output-Parameter von {@link #load(OctopusContext)} */
-	public static final String OUTPUT_load = "grants";
+    /**
+     * Octopus-Input-Parameter von {@link #load(OctopusContext)}
+     */
+    public static final String INPUT_load[] = {};
+    /**
+     * Octopus-Output-Parameter von {@link #load(OctopusContext)}
+     */
+    public static final String OUTPUT_load = "grants";
+
     /**
      * Diese Octopus-Aktion liefert ein {@link Grants}-Objekt, das die globale
      * Benutzerrolle darstellt
@@ -86,13 +92,14 @@ public class SecurityWorker {
      * @param cntx der aktuelle {@link OctopusContext}.
      * @return {@link Grants} des eingeloggten Benutzers
      */
-	public Grants load(OctopusContext cntx) {
-		return getGrants(cntx);
-	}
+    public Grants load(OctopusContext cntx) {
+        return getGrants(cntx);
+    }
 
     //
     // geschützte Hilfsmethoden
     //
+
     /**
      * Diese Methode holt die Grants aus der Session oder der persönlichen
      * Konfiguration.
@@ -100,13 +107,13 @@ public class SecurityWorker {
      * @param cntx Octopus-Kontext
      * @return {@link Grants}-Instanz zum angemeldeten Benutzer
      */
-	protected Grants getGrants(OctopusContext cntx) {
-		Grants grants = null;
+    protected Grants getGrants(OctopusContext cntx) {
+        Grants grants = null;
         PersonalConfig config = cntx.personalConfig();
         if (config instanceof PersonalConfigAA) {
-            grants = ((PersonalConfigAA)config).getGrants();
+            grants = ((PersonalConfigAA) config).getGrants();
             cntx.setSession("grants", grants);
         }
-		return grants;
-	}
+        return grants;
+    }
 }

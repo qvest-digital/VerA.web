@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
@@ -134,12 +135,9 @@ public class DelegationResource extends AbstractResource {
     /**
      * Get label id by event id and label.
      *
-     * @param eventId
-     *            The event id
-     * @param label
-     *            The label (for example: firstname, lastname, email etc), not
-     *            the content for this label
-     *
+     * @param eventId The event id
+     * @param label   The label (for example: firstname, lastname, email etc), not
+     *                the content for this label
      * @return The label id
      */
     @GET
@@ -160,13 +158,9 @@ public class DelegationResource extends AbstractResource {
     /**
      * Save the field content.
      *
-     * @param guestId
-     *            Guest id
-     * @param fieldId
-     *            Field id
-     * @param fieldContent
-     *            Field content
-     *
+     * @param guestId      Guest id
+     * @param fieldId      Field id
+     * @param fieldContent Field content
      * @return {@link Delegation}
      */
     @POST

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.mail;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.jboss.logging.Logger;
 
 import javax.mail.Address;
@@ -91,24 +92,24 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
             break;
         }
         sb.append(":\n");
-        appendAddresses(sb,"invalid",e.getInvalidAddresses());
-        appendAddresses(sb,"valid/sent",e.getValidSentAddresses());
-        appendAddresses(sb,"valid/unsent",e.getValidUnsentAddresses());
+        appendAddresses(sb, "invalid", e.getInvalidAddresses());
+        appendAddresses(sb, "valid/sent", e.getValidSentAddresses());
+        appendAddresses(sb, "valid/unsent", e.getValidUnsentAddresses());
         sb.append("\n");
         return sb.toString();
     }
 
-    private static void appendAddresses(StringBuilder sb,String label, Address[] addresses) {
-        if(addresses!=null && addresses.length>0){
+    private static void appendAddresses(StringBuilder sb, String label, Address[] addresses) {
+        if (addresses != null && addresses.length > 0) {
             sb.append(label);
             sb.append(": ");
             boolean first = true;
-            for(Address address : addresses){
+            for (Address address : addresses) {
                 sb.append(address.toString());
-                if(!first){
+                if (!first) {
                     sb.append(", ");
                 }
-                first=false;
+                first = false;
             }
             sb.append("\n");
         }
@@ -118,9 +119,11 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
     private void debug(ConnectionEvent e) {
         LOGGER.debug(e);
     }
+
     private void info(TransportEvent e) {
         sb.append(message(e));
     }
+
     private void warn(TransportEvent e) {
         LOGGER.warn(message(e));
         sb.append(message(e));

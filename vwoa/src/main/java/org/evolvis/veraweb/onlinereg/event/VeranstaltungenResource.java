@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -82,7 +83,7 @@ import java.util.List;
 @Log
 public class VeranstaltungenResource {
 
-         /**
+    /**
      * base path of all resource
      */
     public static final String BASE_RESOURCE = "/rest";
@@ -90,17 +91,20 @@ public class VeranstaltungenResource {
     /**
      * Event type
      */
-    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
+    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
+    };
 
     /**
      * List of Events type
      */
-    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {};
+    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {
+    };
 
     /**
      * Guest type
      */
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
+    };
 
     /**
      * Jersey client
@@ -146,6 +150,7 @@ public class VeranstaltungenResource {
     private String path(Object... path) {
         return resourceReader.constructPath(BASE_RESOURCE, path);
     }
+
     private <T> T readResource(String path, TypeReference<T> type) throws IOException {
         return resourceReader.readStringResource(path, type);
     }

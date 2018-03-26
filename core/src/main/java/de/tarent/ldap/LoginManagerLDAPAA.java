@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -101,35 +102,44 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
     //
     // Konstanten
     //
-    /** Schlüssel des Konfigurationseintrags für den Rollenfilter */
+    /**
+     * Schlüssel des Konfigurationseintrags für den Rollenfilter
+     */
     public final static String KEY_ROLE_FILTER = "aarolefilter";
 
-    /** Schlüssel des Konfigurationseintrags für den Superadmin-Login */
+    /**
+     * Schlüssel des Konfigurationseintrags für den Superadmin-Login
+     */
     public final static String KEY_SYSTEM_ADMIN_LOGIN = "systemlogin";
 
-    /** Schlüssel des Konfigurationseintrags für das Superadmin-Passwort */
+    /**
+     * Schlüssel des Konfigurationseintrags für das Superadmin-Passwort
+     */
     public final static String KEY_SYSTEM_ADMIN_PASSWORD = "systempassword";
 
     //
     // Schnittstelle LoginManagerAA
     //
+
     /**
      * Diese Methode ändert die persönliche Konfiguration so ab, dass sie
      * in Vertretung der angegebenen Rolle handelt.<br>
      * TODO: Ablauf der Gültigkeit mitaufnehmen und bei Ablauf ungültig werden.
      *
-     * @param octx anzupassender Octopus-Kontext der Sitzung des Vertreters
+     * @param octx             anzupassender Octopus-Kontext der Sitzung des Vertreters
      * @param proxyDescription Beschreibungs-Bean der Vertretung
      * @throws TcSecurityException Wenn keine authentisierte persönliche Konfiguration
-     *  vorliegt oder schon als Vertreter agiert wird.
+     *                             vorliegt oder schon als Vertreter agiert wird.
      * @see LoginManagerAA#setProxy(OctopusContext, Proxy)
      */
     public void setProxy(OctopusContext octx, Proxy proxyDescription) throws TcSecurityException {
         PersonalConfigAA pConfig = (PersonalConfigAA) octx.personalConfig();
-        if (pConfig == null || !pConfig.getGrants().isAuthenticated())
+        if (pConfig == null || !pConfig.getGrants().isAuthenticated()) {
             throw new TcSecurityException("Missing personal config for proxying.");
-        if (pConfig.getProxy() != null)
+        }
+        if (pConfig.getProxy() != null) {
             throw new TcSecurityException("Proxying is not transitive.");
+        }
         pConfig.setUserGroups(new String[0]);
         pConfig.setProxy(proxyDescription.proxy);
         pConfig.setRole(proxyDescription.userRole);
@@ -145,24 +155,26 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @see LoginManagerAA#getAARoles()
      */
     public Set getAARoles() throws TcSecurityException {
-        if (ldapManager instanceof LDAPManagerAA)
+        if (ldapManager instanceof LDAPManagerAA) {
             try {
-                return ((LDAPManagerAA)ldapManager).getPossibleRoles();
+                return ((LDAPManagerAA) ldapManager).getPossibleRoles();
             } catch (NamingException e) {
                 throw new TcSecurityException("Rollen konnten nicht bezogen werden", e);
             }
-        else
+        } else {
             return null;
+        }
     }
 
     //
     // LoginManagerLDAPGeneric überschreibungen
     //
+
     /**
      * Diese Methode setzt nach einem erfolgreichen Login in der PersonalConfig in
      * eigener Weise Attribute.
      *
-     * @param pConfig PersonalConfig des neu eingelogten Benutzers
+     * @param pConfig  PersonalConfig des neu eingelogten Benutzers
      * @param userName Benutzer-ID des neu eingeloggten Benutzers
      * @throws LDAPException
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
@@ -181,8 +193,9 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
                 aaConfig.setRole(safeFirstToString(userdata.get("uid")));
             }
-        } else
+        } else {
             super.initPersonalConfig(pConfig, userName);
+        }
     }
 
     /**
@@ -205,7 +218,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 LDAPManagerAA.class,
                 getConfigurationString(TcEnv.KEY_LDAP_URL),
                 params
-                );
+        );
     }
 
     /**
@@ -218,47 +231,46 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * LDAP-Authentisierung anzumelden
      *
      * @param commonConfig Konfigurationsdaten des Octopus
-     * @param pConfig persönliche Konfiguration des einzuloggenden Benutzers
-     * @param tcRequest Benutzeranfrage mit Authentisierungsdaten
+     * @param pConfig      persönliche Konfiguration des einzuloggenden Benutzers
+     * @param tcRequest    Benutzeranfrage mit Authentisierungsdaten
      * @throws TcSecurityException bei fehlgeschlagener Authorisierung
-     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
+     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de
+     * .tarent.octopus.request.TcRequest)
      */
     @Override
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) throws TcSecurityException {
         PasswordAuthentication origAuth = tcRequest.getPasswordAuthentication();
         // http://www.ietf.org/internet-drafts/draft-ietf-ldapbis-authmeth-18.txt
         // Clients SHOULD disallow an empty password input to a Name/Password Authentication user interface.
-        if (origAuth != null && (origAuth.getPassword() == null || origAuth.getPassword().length == 0))
+        if (origAuth != null && (origAuth.getPassword() == null || origAuth.getPassword().length == 0)) {
             throw new TcSecurityException("Leere Passw\u00f6rter sind nicht zul\u00e4ssig.");
+        }
         try {
-                /* the password authentication returned by TcRequest contains the fully
-                 * qualified username. This will break with the current implementation
-                 * of the LoginManagerLDAPGeneric.
-                 * Therefore we will simply rewrite the username request paramter in
-                 * tcRequest.
-                 *
-                 * Change Request 2.11 for the next release version 1.2.0
-                     * requires that users may now use qualified names when logging in
-                     * (i.e. users may specify their at-domain, e.g. username@domain.tld)
-                     * instead of just their ldap name.
-                     *
-                     * cklein
-                 * 2008-02-14
-                 *
-                 * we will try the login twice, if the first try fails, then we
-                 * will retry using the username without the appended at domain
-                 */
-                try
-                {
-                        super.doLogin( commonConfig, pConfig, tcRequest );
-                }
-                catch( TcSecurityException se )
-                {
-                        String username = ( String ) tcRequest.getParam( "username" );
-                        String[] parts = username.split( "@" );
-                        tcRequest.setParam( "username", parts[ 0 ] );
-                        super.doLogin( commonConfig, pConfig, tcRequest );
-                }
+            /* the password authentication returned by TcRequest contains the fully
+             * qualified username. This will break with the current implementation
+             * of the LoginManagerLDAPGeneric.
+             * Therefore we will simply rewrite the username request paramter in
+             * tcRequest.
+             *
+             * Change Request 2.11 for the next release version 1.2.0
+             * requires that users may now use qualified names when logging in
+             * (i.e. users may specify their at-domain, e.g. username@domain.tld)
+             * instead of just their ldap name.
+             *
+             * cklein
+             * 2008-02-14
+             *
+             * we will try the login twice, if the first try fails, then we
+             * will retry using the username without the appended at domain
+             */
+            try {
+                super.doLogin(commonConfig, pConfig, tcRequest);
+            } catch (TcSecurityException se) {
+                String username = (String) tcRequest.getParam("username");
+                String[] parts = username.split("@");
+                tcRequest.setParam("username", parts[0]);
+                super.doLogin(commonConfig, pConfig, tcRequest);
+            }
 
             if (pConfig instanceof PersonalConfigAA) {
                 PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
@@ -283,39 +295,43 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 }
                 Collection authorizedRoles = authorized(commonConfig, pConfig, tcRequest, possibleRoles);
                 Iterator itRoles = authorizedRoles.isEmpty() ? possibleRoles.iterator() : authorizedRoles.iterator();
-                while (itRoles.hasNext()) try {
-                    PasswordAuthentication newAuth = new PasswordAuthentication(itRoles.next().toString(), origAuth.getPassword());
-                    tcRequest.setPasswordAuthentication(newAuth);
-                    super.doLogin(commonConfig, pConfig, tcRequest);
-                    pConfig.setUserLogin(origAuth.getUserName());
-                    if (pConfig instanceof PersonalConfigAA) {
-                        PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
-                        switch(authorizedRoles.size()) {
-                        case 0:
-                            aaConfig.setRole(null);
-                            aaConfig.setRoles(null);
-                            logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", keine Rolle, keine Rollen");
-                            break;
-                        case 1:
-                            // In doLogin wird initPersonalConfig aufgerufen, und dabei sollte die Rolle
-                            // bereits korrekt auf die erste vom LDAP gelieferte uid gesetzt sein, also
-                            // auf die uid, die auch von getAARoles zur Bearbeitung geliefert wird.
-                            if (aaConfig.getRole() == null) {
-                                logger.warning("Rolle nicht aus uid gesetzt, Pr\u00fcfrolle wird genutzt.");
-                                aaConfig.setRole(newAuth.getUserName());
+                while (itRoles.hasNext()) {
+                    try {
+                        PasswordAuthentication newAuth = new PasswordAuthentication(itRoles.next().toString(), origAuth.getPassword());
+                        tcRequest.setPasswordAuthentication(newAuth);
+                        super.doLogin(commonConfig, pConfig, tcRequest);
+                        pConfig.setUserLogin(origAuth.getUserName());
+                        if (pConfig instanceof PersonalConfigAA) {
+                            PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
+                            switch (authorizedRoles.size()) {
+                            case 0:
+                                aaConfig.setRole(null);
+                                aaConfig.setRoles(null);
+                                logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", keine Rolle, keine Rollen");
+                                break;
+                            case 1:
+                                // In doLogin wird initPersonalConfig aufgerufen, und dabei sollte die Rolle
+                                // bereits korrekt auf die erste vom LDAP gelieferte uid gesetzt sein, also
+                                // auf die uid, die auch von getAARoles zur Bearbeitung geliefert wird.
+                                if (aaConfig.getRole() == null) {
+                                    logger.warning("Rolle nicht aus uid gesetzt, Pr\u00fcfrolle wird genutzt.");
+                                    aaConfig.setRole(newAuth.getUserName());
+                                }
+                                aaConfig.setRoles(null);
+                                logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle = " + aaConfig.getRole() +
+                                        ", Rollen nicht ermittelt");
+                                break;
+                            default:
+                                aaConfig.setRole(null);
+                                aaConfig.setRoles(new ArrayList(authorizedRoles));
+                                logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle nicht ermittelt, Rollen = " +
+                                        aaConfig.getRoles());
                             }
-                            aaConfig.setRoles(null);
-                            logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle = " + aaConfig.getRole() + ", Rollen nicht ermittelt");
-                            break;
-                        default:
-                            aaConfig.setRole(null);
-                            aaConfig.setRoles(new ArrayList(authorizedRoles));
-                            logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle nicht ermittelt, Rollen = " + aaConfig.getRoles());
+                            fillInUserGroups(commonConfig, aaConfig, tcRequest);
                         }
-                        fillInUserGroups(commonConfig, aaConfig, tcRequest);
+                        return;
+                    } catch (TcSecurityException se2) {
                     }
-                    return;
-                } catch(TcSecurityException se2) {
                 }
             }
             tcRequest.setPasswordAuthentication(origAuth);
@@ -327,7 +343,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 pConfig.setUserID(new Integer(-1));
                 pConfig.setUserLastName("Manager");
                 pConfig.setUserName("System Manager");
-                pConfig.setUserGroups(new String[]{PersonalConfigAA.GROUP_SYSTEM_USER});
+                pConfig.setUserGroups(new String[] { PersonalConfigAA.GROUP_SYSTEM_USER });
                 /*
                 pConfig.setUserGroups(new String[]{PersonalConfigAA.GROUP_ADMIN,
                         PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_WRITE,
@@ -352,9 +368,10 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * Hier werden die speziellen Rollen- und Stellvertreterfelder geleert.
      *
      * @param commonConfig Konfigurationsdaten des Octopus
-     * @param pConfig persönliche Konfiguration des auszuloggenden Benutzers
-     * @param tcRequest Benutzeranfrage
-     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
+     * @param pConfig      persönliche Konfiguration des auszuloggenden Benutzers
+     * @param tcRequest    Benutzeranfrage
+     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server.PersonalConfig, de
+     * .tarent.octopus.request.TcRequest)
      */
     @Override
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) {
@@ -377,8 +394,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         String systemLogin = getConfigurationString(KEY_SYSTEM_ADMIN_LOGIN);
         String systemPassword = getConfigurationString(KEY_SYSTEM_ADMIN_PASSWORD);
         return pwdAuth != null &&
-            systemLogin != null && systemLogin.equals(pwdAuth.getUserName()) &&
-            pwdAuth.getPassword() != null && new String(pwdAuth.getPassword()).equals(systemPassword);
+                systemLogin != null && systemLogin.equals(pwdAuth.getUserName()) &&
+                pwdAuth.getPassword() != null && new String(pwdAuth.getPassword()).equals(systemPassword);
     }
 
     /**
@@ -386,26 +403,28 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * die im VerA.web-Kontext autorisiert sind.
      *
      * @param commonConfig aktuelle allgemeine Konfiguration
-     * @param pConfig aktuelle persönliche Konfiguration
-     * @param tcRequest aktueller Request
-     * @param roles Sammlung von AA-Rollen
+     * @param pConfig      aktuelle persönliche Konfiguration
+     * @param tcRequest    aktueller Request
+     * @param roles        Sammlung von AA-Rollen
      * @return Sammlung der AA-Rollen aus <code>roles</code>, die VerA.web-autorisiert sind.
      */
     Collection authorized(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest, Collection roles) {
-        if (roles == null || roles.size() == 0)
+        if (roles == null || roles.size() == 0) {
             return roles;
+        }
         Collection result = new ArrayList(roles.size());
         OctopusContext cntx = new TcAll(tcRequest, new TcContent(),
                 new TcConfig(commonConfig, pConfig, tcRequest.getModule()));
         Database database = new DatabaseVeraWeb(cntx);
         Iterator itRoles = roles.iterator();
-        while(itRoles.hasNext()) {
+        while (itRoles.hasNext()) {
             String role = safeFirstToString(itRoles.next());
             try {
-                User user = (User)database.getBean("User",
+                User user = (User) database.getBean("User",
                         database.getSelect("User").where(Expr.equal("username", role)));
-                if (user != null)
+                if (user != null) {
                     result.add(role);
+                }
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Fehler beim Einlesen von Benutzerdaten zu " + role, e);
             }
@@ -420,9 +439,9 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * Konfiguration.
      *
      * @param commonConfig aktuelle allgemeine Konfiguration
-     * @param pConfig aktuelle persönliche Konfiguration, der Octopus-Benutzergruppen
-     *  zugeordnet werden.
-     * @param tcRequest aktueller Request
+     * @param pConfig      aktuelle persönliche Konfiguration, der Octopus-Benutzergruppen
+     *                     zugeordnet werden.
+     * @param tcRequest    aktueller Request
      */
     void fillInUserGroups(TcCommonConfig commonConfig, PersonalConfigAA pConfig, TcRequest tcRequest) {
         pConfig.setVerawebId(null);
@@ -431,19 +450,19 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             List aaRoles = pConfig.getRoles();
             String group = (aaRoles != null && aaRoles.size() > 0) ?
                     PersonalConfigAA.GROUP_UNCLEAR_ROLE : PersonalConfigAA.GROUP_UNAUTHORIZED;
-            pConfig.setUserGroups(new String[]{ group });
+            pConfig.setUserGroups(new String[] { group });
         } else {
             OctopusContext cntx = new TcAll(tcRequest, new TcContent(),
                     new TcConfig(commonConfig, pConfig, tcRequest.getModule()));
             Database database = new DatabaseVeraWeb(cntx);
             List groups = new ArrayList();
             try {
-                User user = (User)database.getBean("User",
+                User user = (User) database.getBean("User",
                         database.getSelect("User").where(Expr.equal("username", pConfig.getRole())));
                 if (user != null) {
                     pConfig.setVerawebId(user.id);
                     pConfig.setOrgUnitId(user.orgunit != null ? user.orgunit : new Integer(-1));
-                    switch(user.role.intValue()) {
+                    switch (user.role.intValue()) {
                     case User.ROLE_READ_RESTRICTED:
                         groups.add(PersonalConfig.GROUP_USER);
                         groups.add(PersonalConfigAA.GROUP_READ_STANDARD);
@@ -491,8 +510,9 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Fehler beim Einlesen von Benutzerdaten zu " + pConfig.getRole(), e);
             }
-            if (groups.size() == 0)
+            if (groups.size() == 0) {
                 groups.add(PersonalConfigAA.GROUP_UNAUTHORIZED);
+            }
             pConfig.setUserGroups((String[]) groups.toArray(new String[groups.size()]));
             logger.fine("Ermittelte Benutzergruppen: " + groups);
         }
@@ -527,13 +547,15 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             List l = (List) o;
             o = l.isEmpty() ? null : l.get(0);
         }
-        if (o == null)
+        if (o == null) {
             return null;
-        if (o instanceof Integer)
+        }
+        if (o instanceof Integer) {
             return (Integer) o;
+        }
         try {
             return Integer.decode(o.toString());
-        } catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             return null;
         }
     }

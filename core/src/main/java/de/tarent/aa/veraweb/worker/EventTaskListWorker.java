@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.dblayer.sql.SQL;
@@ -93,13 +94,15 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
     private final static String TASK_TABLE_NAME = "veraweb.ttask";
 
     /**
-	 * Load and return all tasks of the event with the given id.
-	 *
-	 * @param oc
-	 * @param eventId
-	 * @return
-	 */
-    /** Default-Kontruktor der den Beannamen festlegt. */
+     * Load and return all tasks of the event with the given id.
+     *
+     * @param oc
+     * @param eventId
+     * @return
+     */
+    /**
+     * Default-Kontruktor der den Beannamen festlegt.
+     */
     public EventTaskListWorker() {
         super("Task");
     }
@@ -143,7 +146,7 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
 
     private List<Task> getTasksAsList(ResultSet resultSet) throws SQLException {
         final List<Task> result = new ArrayList<Task>();
-        while(resultSet.next()) {
+        while (resultSet.next()) {
             final Task task = new Task(resultSet);
             result.add(task);
         }
@@ -155,10 +158,10 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
         final WhereList whereCriterias = new WhereList();
         whereCriterias.addAnd(new Where("fk_event", eventId, "="));
         final Select select = SQL.Select(database).
-        select("*").
-        from(TASK_TABLE_NAME).
-        where(whereCriterias).
-        orderBy(Order.asc("pk"));
+                select("*").
+                from(TASK_TABLE_NAME).
+                where(whereCriterias).
+                orderBy(Order.asc("pk"));
 
         return select;
     }
@@ -189,7 +192,7 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
-                                  TransactionContext transactionContext) throws BeanException, IOException {
+            TransactionContext transactionContext) throws BeanException, IOException {
 
         int count = 0;
         if (selection == null || selection.size() == 0) {

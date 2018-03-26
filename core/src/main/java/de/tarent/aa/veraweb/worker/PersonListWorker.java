@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
@@ -115,6 +116,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     //
     // Konstruktoren
     //
+
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
@@ -140,13 +142,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Lenkt hier die entsprechende getSelect - Anfrage an eine spezialisierte
      * Form.
      *
-     * @see #getSelection(OctopusContext, Integer)
-     *
-     * @param octopusContext
-     *            Octopus-Context
+     * @param octopusContext Octopus-Context
      * @return Liste mit Beans, nie null.
      * @throws BeanException
      * @throws IOException
+     * @see #getSelection(OctopusContext, Integer)
      */
     @Override
     public List showList(final OctopusContext octopusContext) throws BeanException, IOException {
@@ -215,6 +215,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Octopus-Ausgabe-Parameter für {@link #countRecipients(OctopusContext)}
      */
     public static final String OUTPUT_countRecipients = "mailinglistParams";
+
     public Map countRecipients(OctopusContext octopusContext) throws IOException, BeanException {
         Map result = (Map) octopusContext.contentAsObject("mailinglistParams");
         if (result == null) {
@@ -238,7 +239,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     @Override
     protected String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException {
         final String col = getSearch(octopusContext).listorder;
-        if(Arrays.asList("lastname_a_e1","firstname_a_e1","mail_a_e1").contains(col)){
+        if (Arrays.asList("lastname_a_e1", "firstname_a_e1", "mail_a_e1").contains(col)) {
             return col;
         }
         return null;
@@ -392,7 +393,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private void handleWorkareaActions(final OctopusContext octopusContext, final String workareaAssignmentAction) throws BeanException, IOException {
+    private void handleWorkareaActions(final OctopusContext octopusContext, final String workareaAssignmentAction)
+            throws BeanException, IOException {
         final Database database = getDatabase(octopusContext);
         final List<Integer> selection = getSelection(octopusContext, getCount(octopusContext, database));
         if (!selection.isEmpty()) {
@@ -411,13 +413,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Entfernt die Zuordnungen von Arbeitsbereichen der übergebenen Personen
      * (IDs).
      *
-     * @param cntx
-     *            Octopus-Context
-     * @param personIds
-     *            Liste von Personen IDs für die das entfernen der Zuordnung
-     *            gilt
-     * @param workAreaId
-     *            ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
+     * @param cntx       Octopus-Context
+     * @param personIds  Liste von Personen IDs für die das entfernen der Zuordnung
+     *                   gilt
+     * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
      * @throws BeanException
      * @throws IOException
      */
@@ -445,12 +444,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     /**
      * Ordnet den übergebenen Arbeitsbereich der Liste von Personen hinzu.
      *
-     * @param octopusContext
-     *            OctopusContext
-     * @param personIds
-     *            Liste von Personen IDs für die die neue Zuordnung gilt
-     * @param workAreaId
-     *            ID des Arbeitsbereiches der zugeordnet werden soll
+     * @param octopusContext OctopusContext
+     * @param personIds      Liste von Personen IDs für die die neue Zuordnung gilt
+     * @param workAreaId     ID des Arbeitsbereiches der zugeordnet werden soll
      * @throws BeanException
      * @throws IOException
      */
@@ -591,16 +587,16 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * categories at once using either AND or OR.
      *
      * @param octopusContext The {@link OctopusContext}
-     * @param personSearch FIXME
-     * @param select FIXME
+     * @param personSearch   FIXME
+     * @param select         FIXME
      */
     protected void extendSelectByMultipleCategorySearch(final OctopusContext octopusContext, final PersonSearch personSearch, final Select select) {
         if ((personSearch.categoriesSelection != null) && (personSearch.categoriesSelection.size() >= 1)
                 && (personSearch.categoriesSelection.get(0).toString().length() > 0) // workaround
-        // for
-        // octopus
-        // behaviour
-        ) {
+            // for
+            // octopus
+            // behaviour
+                ) {
             if (((Integer) personSearch.categoriesSelection.get(0)).intValue() != 0) {
                 // FUTURE extension for supporting OR a/o AND
                 boolean isOr = false;
@@ -825,9 +821,13 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter für {@link #getSearch(OctopusContext)} */
+    /**
+     * Octopus-Eingabeparameter für {@link #getSearch(OctopusContext)}
+     */
     public static final String INPUT_getSearch[] = {};
-    /** Octopus-Ausgabeparameter für {@link #getSearch(OctopusContext)} */
+    /**
+     * Octopus-Ausgabeparameter für {@link #getSearch(OctopusContext)}
+     */
     public static final String OUTPUT_getSearch = "search";
 
     /**
@@ -837,8 +837,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * zurück gegeben. Ausgewichen wird dann auf ein entsprechendes
      * Session-Objekt. Das Ergebnis wird in der Session gesetzt.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException
      */
     public PersonSearch getSearch(final OctopusContext octopusContext) throws BeanException {
@@ -935,7 +934,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * WhereList ist danach <strong>niemals</strong> leer.
      *
      * @param octopusContext The {@link OctopusContext}
-     * @param list FIXME
+     * @param list           FIXME
      * @throws BeanException
      */
     private void addPersonListFilter(final OctopusContext octopusContext, final WhereList list) throws BeanException {
@@ -1023,7 +1022,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     }
 
     private Clause getInternalIdFilter(PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.internal_id, new String[] { "internal_id"});
+        return DatabaseHelper.getWhere(personSearch.internal_id, new String[] { "internal_id" });
     }
 
     private Clause getZipCodeFilter(final PersonSearch personSearch) {

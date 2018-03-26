@@ -61,6 +61,7 @@ package org.evolvis.veraweb.export;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -90,16 +91,16 @@ public class CsvExporter {
     private final CsvIo io;
     private final ExtractorQueryBuilder template;
 
-	public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties) throws UnsupportedEncodingException {
-		extractor = new Extractor(new JdbcTemplate(source));
-		io = new CsvIo(reader, writer, properties);
+    public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties) throws UnsupportedEncodingException {
+        extractor = new Extractor(new JdbcTemplate(source));
+        io = new CsvIo(reader, writer, properties);
         template = new ExtractorQueryBuilder(loadQuery(io));
-	}
+    }
 
-	public void export(Map<String, String> substitutions) {
-	    final ExtractorQuery query = template.replace(substitutions).build();
-		extractor.run(io, query);
-	}
+    public void export(Map<String, String> substitutions) {
+        final ExtractorQuery query = template.replace(substitutions).build();
+        extractor.run(io, query);
+    }
 
     private ObjectMapper mapper() {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());

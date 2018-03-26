@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * Diese Bohne stellt die Berechtigungen eines Nutzers dar
  *
@@ -68,24 +69,24 @@ package de.tarent.aa.veraweb.beans;
  * @author mikel
  */
 public interface Grants {
-	/**
+    /**
      * Dieses Attribut gibt an, ob der Benutzer authentisiert ist, wenn
      * er sich also gegenüber dem LDAP-Server anmelden konnte. Dies impliziert
      * noch keine Rechte im VerA.web-Kontext.
      *
-	 * @return <code>true</code> wenn der Benutzer angemeldet ist.
-	 */
-	boolean isAuthenticated();
+     * @return <code>true</code> wenn der Benutzer angemeldet ist.
+     */
+    boolean isAuthenticated();
 
-	/**
+    /**
      * Dieses Attribut gibt an, ob der Benutzer ein VerA.web-User ist, wenn
      * es zu seiner Anmeldungsrolle also einen VerA.web-Benutzereintrag gibt.
      * Dies impliziert noch keine Rechte auf Personen, Veranstaltungen,
      * Stamm- oder Konfigurationsdaten.
      *
-	 * @return <code>true</code> wenn der Benutzer VerA.web-User ist.
-	 */
-	boolean isUser();
+     * @return <code>true</code> wenn der Benutzer VerA.web-User ist.
+     */
+    boolean isUser();
 
     /**
      * Dieses Attribut gibt an, ob der Benutzer die nicht beschränkten
@@ -129,21 +130,21 @@ public interface Grants {
      */
     boolean isPartialAdmin();
 
-	/**
+    /**
      * Dieses Attribut gibt an, ob der Benutzer Volladmin ist, ob er also global
      * konfigurieren darf.
      *
-	 * @return <code>true</code>, wenn der Benutzer Volladmin ist.
-	 */
-	boolean isAdmin();
+     * @return <code>true</code>, wenn der Benutzer Volladmin ist.
+     */
+    boolean isAdmin();
 
-	/**
+    /**
      * Dieses Attribut gibt an, ob der Benutzer dem SystemUser entspricht.
      * Dieser Nutzer hat nur eingeschränkten Zugriff auf die Applikation und ist
      * in erster Linie dafür verantwortlich, während einer VerA.web Installation
      * die Benutzer für die Applikation einzurichten.
      *
-	 * @return <code>true</code>, wenn der Benutzer der SystemUser ist.
-	 */
-	boolean isSystemUser();
+     * @return <code>true</code>, wenn der Benutzer der SystemUser ist.
+     */
+    boolean isSystemUser();
 }

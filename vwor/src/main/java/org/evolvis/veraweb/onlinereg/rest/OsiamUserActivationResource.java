@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -89,7 +90,8 @@ public class OsiamUserActivationResource extends AbstractResource {
 
     @POST
     @Path("/create")
-    public OsiamUserActivation addOsiamUserActivationEntry(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
+    public OsiamUserActivation addOsiamUserActivationEntry(@FormParam("username") String username,
+            @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -153,7 +155,7 @@ public class OsiamUserActivationResource extends AbstractResource {
         return new OsiamUserActivation();
     }
 
-    private Date getExpirationDate(){
+    private Date getExpirationDate() {
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, LINK_VALIDITY_PERIOD_IN_DAYS);
@@ -175,7 +177,7 @@ public class OsiamUserActivationResource extends AbstractResource {
             final Query query = session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername");
             query.setString("username", username);
             query.setString("activation_token", activationToken);
-            query.setDate("expiration_date",getExpirationDate());
+            query.setDate("expiration_date", getExpirationDate());
             query.executeUpdate();
             session.getTransaction().commit();
 

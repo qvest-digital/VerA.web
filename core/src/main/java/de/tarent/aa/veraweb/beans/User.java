@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
@@ -72,13 +73,21 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class User extends AbstractBean implements OrgUnitDependent {
-    /** tuser.pk: serial NOT NULL */
+    /**
+     * tuser.pk: serial NOT NULL
+     */
     public Integer id;
-    /** tuser.fk_orgunit: int4 DEFAULT 0 */
+    /**
+     * tuser.fk_orgunit: int4 DEFAULT 0
+     */
     public Integer orgunit;
-    /** tuser.username: varchar(100) NOT NULL */
+    /**
+     * tuser.username: varchar(100) NOT NULL
+     */
     public String name;
-    /** tuser.role: int4 */
+    /**
+     * tuser.role: int4
+     */
     public Integer role;
 
     /**
@@ -116,24 +125,35 @@ public class User extends AbstractBean implements OrgUnitDependent {
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      */
     @Override
-    public void checkWrite(OctopusContext octopusContext) throws BeanException
-    {
-		checkGroups(octopusContext, PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER);
+    public void checkWrite(OctopusContext octopusContext) throws BeanException {
+        checkGroups(octopusContext, PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER);
     }
 
     //
     // Konstanten
     //
-    /** Rolle: Restriktiv lesen und exportieren, d.h. gewisse Bemerkungsfelder werden nicht angezeigt */
+    /**
+     * Rolle: Restriktiv lesen und exportieren, d.h. gewisse Bemerkungsfelder werden nicht angezeigt
+     */
     public final static int ROLE_READ_RESTRICTED = 1;
-    /** Rolle: Lesen und exportieren */
+    /**
+     * Rolle: Lesen und exportieren
+     */
     public final static int ROLE_READ_FULL = 2;
-    /** Rolle: Restriktiv lesen, schreiben und exportieren, d.h. gewisse Bemerkungsfelder werden nicht angezeigt */
+    /**
+     * Rolle: Restriktiv lesen, schreiben und exportieren, d.h. gewisse Bemerkungsfelder werden nicht angezeigt
+     */
     public final static int ROLE_READ_WRITE_RESTRICTED = 6;
-    /** Rolle: Lesen, schreiben und exportieren */
+    /**
+     * Rolle: Lesen, schreiben und exportieren
+     */
     public final static int ROLE_READ_WRITE_FULL = 3;
-    /** Rolle: Administrator innerhalb eines Mandanten */
+    /**
+     * Rolle: Administrator innerhalb eines Mandanten
+     */
     public final static int ROLE_PARTIAL_ADMIN = 4;
-    /** Rolle: globaler Veraweb-Administrator */
+    /**
+     * Rolle: globaler Veraweb-Administrator
+     */
     public final static int ROLE_GLOBAL_ADMIN = 5;
 }

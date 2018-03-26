@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -90,13 +91,16 @@ import java.util.Map;
  * @version $Revision: 1.1 $
  */
 public class MailinglistDetailWorker extends ListWorkerVeraWeb {
-    /** Logger dieser Klasse */
+    /**
+     * Logger dieser Klasse
+     */
     public static Logger logger = LogManager.getLogger(MailinglistDetailWorker.class.getName());
     private Integer MAX_MAIL_TO_LENGTH = -1;
 
     //
     // Konstruktoren
     //
+
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
@@ -129,7 +133,9 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
-    /** Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext)}
+     */
     public static final String INPUT_showDetail[] = {};
 
     /**
@@ -137,8 +143,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * Octopus-Request unter dem Schlüssel "id" angegebenen Primärschlüssel
      * unter "mailinglist" in Octopus-Content und -Session.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      */
     public void showDetail(final OctopusContext octopusContext) throws BeanException, IOException {
         final Database database = getDatabase(octopusContext);
@@ -147,8 +152,8 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
         Mailinglist mailinglist = (Mailinglist) database.getBean(
                 "Mailinglist",
                 database.getSelect("Mailinglist").selectAs("tuser.username", "username").selectAs("tevent.shortname", "eventname")
-                .joinLeftOuter("veraweb.tuser", "tmailinglist.fk_user", "tuser.pk")
-                .joinLeftOuter("veraweb.tevent", "tmailinglist.fk_vera", "tevent.pk").where(Expr.equal("tmailinglist.pk", id)));
+                        .joinLeftOuter("veraweb.tuser", "tmailinglist.fk_user", "tuser.pk")
+                        .joinLeftOuter("veraweb.tevent", "tmailinglist.fk_vera", "tevent.pk").where(Expr.equal("tmailinglist.pk", id)));
         if (mailinglist == null) {
             mailinglist = (Mailinglist) octopusContext.sessionAsObject("mailinglist");
         }
@@ -157,7 +162,9 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
         octopusContext.setSession("mailinglist", mailinglist);
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)}
+     */
     public static final String INPUT_saveDetail[] = {};
 
     /**
@@ -166,8 +173,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * ab und testet sie auf Korrektheit. Falls sie korrekt ist, wird sie in der
      * Datenbank gespeichert, ansonsten wird der Status "error" gesetzt.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      */
     public void saveDetail(final OctopusContext octopusContext) throws Exception {
         final Database database = getDatabase(octopusContext);
@@ -214,16 +220,14 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * zusammengenommen alle Einträge der Mailinglist mit E-Mail-Adresse
      * adressiert.
      *
-     * @param cntx
-     *            Octopus-Kontext
-     * @param mailinglist
-     *            Mailingliste
+     * @param cntx        Octopus-Kontext
+     * @param mailinglist Mailingliste
      * @return Liste mit mailto-URLs zu der Mailingliste
      * @throws BeanException
      * @throws IOException
      */
     public List getAddressList(final OctopusContext cntx, final Mailinglist mailinglist) throws BeanException,
-    IOException {
+            IOException {
         final Database database = getDatabase(cntx);
 
         final Select select = database.getSelect(BEANNAME);
@@ -236,7 +240,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
         StringBuffer addresses = new StringBuffer();
         boolean first = true;
 
-        for (final Iterator it = database.getList(select, database).iterator(); it.hasNext();) {
+        for (final Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
             final Map data = (Map) it.next();
             final String str = (String) (data).get("address");
 

@@ -61,18 +61,19 @@ package de.tarent.octopus.beans.veraweb;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.server.OctopusContext;
 
 public class DatabaseVeraWebFactoryMock extends DatabaseVeraWebFactory {
 
-	private final DatabaseVeraWeb mock;
+    private final DatabaseVeraWeb mock;
 
-	public DatabaseVeraWebFactoryMock(DatabaseVeraWeb mock) {
-		this.mock = mock;
-	}
+    public DatabaseVeraWebFactoryMock(DatabaseVeraWeb mock) {
+        this.mock = mock;
+    }
 
-	public DatabaseVeraWeb createDatabaseVeraWeb(OctopusContext cntx) {
+    public DatabaseVeraWeb createDatabaseVeraWeb(OctopusContext cntx) {
         return mock;
-	}
+    }
 
 }

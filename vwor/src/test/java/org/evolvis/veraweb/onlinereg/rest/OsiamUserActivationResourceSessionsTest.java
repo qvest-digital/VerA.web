@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -182,7 +183,8 @@ public class OsiamUserActivationResourceSessionsTest {
         osiamUserActivationResource.setEmailResource(emailResource);
         Query query = mock(Query.class);
         when(session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername")).thenReturn(query);
-        doNothing().when(emailResource).sendEmailVerification(any(String.class), any(String.class), any(String.class), any(String.class), any(Boolean.class));
+        doNothing().when(emailResource)
+                .sendEmailVerification(any(String.class), any(String.class), any(String.class), any(String.class), any(Boolean.class));
 
         // WHEN
         osiamUserActivationResource.refreshActivationdataByUsername("email", "username", "token", "endpoint", "de_DE");

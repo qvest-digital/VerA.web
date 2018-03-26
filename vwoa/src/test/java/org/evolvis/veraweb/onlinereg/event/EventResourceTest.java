@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.TestSuite;
@@ -91,7 +92,8 @@ public class EventResourceTest {
         er = main.getEventResource();
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testListEvents() throws IOException {
         List<Event> events = new ArrayList<Event>();
         assertEquals(3, events.size());
@@ -100,21 +102,24 @@ public class EventResourceTest {
         assertEquals("Kamin", (events.get(2).getLocation().toString().replaceAll(".*locationname=", "").replace(")", "")));
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testGetEvent() throws IOException {
         Event e = er.getEvent(1);
         assertEquals("My first event", e.getShortname());
         assertEquals("242eb535-ef8d-40a1-b27b-086f7eb58bd5", e.getHash());
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testGetRegistration() throws IOException {
         Guest g = er.getRegistration(1, 2);
         assertEquals(1, g.getInvitationstatus().intValue());
         assertEquals("Notiz", g.getNotehost());
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testSaveRegistration() throws IOException {
         String returnedValue = er.register("1", "2", VerawebConstants.GUEST_LIST_OK);
         assertEquals("OK", returnedValue);

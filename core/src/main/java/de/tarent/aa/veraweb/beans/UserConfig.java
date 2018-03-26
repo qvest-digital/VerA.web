@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -69,26 +70,34 @@ import de.tarent.octopus.server.OctopusContext;
  * @version $Revision: 1.1 $
  */
 public class UserConfig extends AbstractBean {
-	/** ID */
-	public Integer id;
-	/** FK auf User */
-	public Integer user;
-	/** Key */
-	public String key;
-	/** Value */
-	public String value;
+    /**
+     * ID
+     */
+    public Integer id;
+    /**
+     * FK auf User
+     */
+    public Integer user;
+    /**
+     * Key
+     */
+    public String key;
+    /**
+     * Value
+     */
+    public String value;
 
-	/**
-	 * Hebt den Leseschutz für die User-Config auf.
-	 */
-	@Override
+    /**
+     * Hebt den Leseschutz für die User-Config auf.
+     */
+    @Override
     public void checkRead(OctopusContext octopusContext) throws BeanException {
-	}
+    }
 
-	/**
-	 * Hebt den Schreibschutz für die User-Config auf.
-	 */
-	@Override
+    /**
+     * Hebt den Schreibschutz für die User-Config auf.
+     */
+    @Override
     public void checkWrite(OctopusContext octopusContext) throws BeanException {
-	}
+    }
 }

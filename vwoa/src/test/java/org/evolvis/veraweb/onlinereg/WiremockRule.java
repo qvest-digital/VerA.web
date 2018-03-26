@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -92,15 +93,15 @@ public class WiremockRule implements TestRule {
     }
 
     private void startIfRequired() throws IOException {
-        if(wiremock != null) {
+        if (wiremock != null) {
             return;
         }
 
-        String wiremockJarPath = System.getenv("HOME")+"/.m2/repository/com/github/tomakehurst/wiremock/1.58/wiremock-1.58-standalone.jar";
+        String wiremockJarPath = System.getenv("HOME") + "/.m2/repository/com/github/tomakehurst/wiremock/1.58/wiremock-1.58-standalone.jar";
         String wiremockDir = this.getClass().getResource("/wiremock").getPath();
-        System.out.println("Using WireMock JAR: "+wiremockJarPath);
+        System.out.println("Using WireMock JAR: " + wiremockJarPath);
         System.out.println("Starting WireMock in directory: " + wiremockDir);
-        wiremock = Runtime.getRuntime().exec(new String[]{"java", "-jar",wiremockJarPath, "--port", "8091"}, null, new File(wiremockDir));
+        wiremock = Runtime.getRuntime().exec(new String[] { "java", "-jar", wiremockJarPath, "--port", "8091" }, null, new File(wiremockDir));
 /*
         new Thread() {
             public void run() {
@@ -125,7 +126,7 @@ public class WiremockRule implements TestRule {
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
-                if(wiremock != null) {
+                if (wiremock != null) {
                     wiremock.destroy();
                     try {
                         wiremock.waitFor();

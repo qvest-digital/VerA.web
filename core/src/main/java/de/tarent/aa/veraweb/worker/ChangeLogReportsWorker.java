@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.ChangeLogEntry;
 import de.tarent.aa.veraweb.beans.ChangeLogReport;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
@@ -93,162 +94,140 @@ import java.util.Map;
  * entity bean.
  *
  * @author cklein
- * @since 1.2.0
  * @see de.tarent.aa.veraweb.beans.ChangeLogReport
+ * @since 1.2.0
  */
-public class ChangeLogReportsWorker extends ListWorkerVeraWeb
-{
-	/**
-	 * Constructs a new instance of this.
-	 */
-	public ChangeLogReportsWorker()
-	{
-		super( "ChangeLogEntry" );
-	}
+public class ChangeLogReportsWorker extends ListWorkerVeraWeb {
+    /**
+     * Constructs a new instance of this.
+     */
+    public ChangeLogReportsWorker() {
+        super("ChangeLogEntry");
+    }
 
-	/**
-	 * Input parameters for action {@link #loadConfig( OctopusContext, String, String ) }
-	 */
-	public static final String INPUT_loadConfig[] = { "begin", "end" };
-	/**
-	 * Input parameter configuration for action {@link #loadReport( OctopusContext, String, String ) }
-	 */
-	public static final boolean MANDATORY_loadConfig[] = { false, false };
+    /**
+     * Input parameters for action {@link #loadConfig(OctopusContext, String, String) }
+     */
+    public static final String INPUT_loadConfig[] = { "begin", "end" };
+    /**
+     * Input parameter configuration for action {@link #loadReport(OctopusContext, String, String) }
+     */
+    public static final boolean MANDATORY_loadConfig[] = { false, false };
 
-	/**
-	 * Stores and loads the report configuration in / from the session.
-	 *
-	 * @param cntx {@link OctopusContext}
-	 * @param begin FIXME
-	 * @param end FIXME
-	 * @throws BeanException FIXME
-	 * @throws IOException FIXME
-	 */
-	@SuppressWarnings( "unchecked" )
-	public void loadConfig( OctopusContext cntx, String begin, String end ) throws BeanException, IOException
-	{
-		Map< String, Object > map = ( Map< String, Object > ) cntx.sessionAsObject( "changeLogReportSettings" );
-		if ( map == null )
-		{
-			map = new HashMap< String, Object >();
-			cntx.setSession( "changeLogReportSettings", map );
-		}
-
-		// fetch begin and end dates or sane defaults
-		Date bd = ( Date ) BeanFactory.transform( begin, Date.class );
-		if ( bd == null )
-		{
-			bd = ( Date ) map.get( "begin" );
-			if ( bd == null )
-			{
-				bd = ( Date ) BeanFactory.transform( "01.01." + Calendar.getInstance().get( Calendar.YEAR ), Date.class );
-			}
-		}
-
-		Date ed = ( Date ) BeanFactory.transform( end, Date.class );
-		if ( ed == null )
-		{
-			ed = ( Date ) map.get( "end" );
-			if ( ed == null )
-			{
-				ed = new Date( System.currentTimeMillis() );
-			}
-		}
-
-		// make sure that end is always after begin
-		if ( ed.after( bd ) )
-		{
-			map.put( "begin", bd );
-			map.put( "end", ed );
-		}
-		else
-		{
-			map.put( "begin", ed );
-			map.put( "end", bd );
-		}
-
-		DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("de","DE"));
-		cntx.setContent( "begin", format.format( map.get( "begin" ) ) );
-		cntx.setContent( "end", format.format( map.get( "end" ) ) );
-
-		Database database = getDatabase(cntx);
-		Integer count = getCount( cntx, database );
-		if ( count.intValue() == 0 )
-		{
-			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
-
-			cntx.setContent( "noLogDataAvailableMessage", languageProvider.getProperty("CHANGELOG_NO_PROTOCOL_AVAILABLE").toString());
-		}
-	}
-
-	@Override
-    public List showList(OctopusContext cntx) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-		Select select = getSelect( database );
-		extendColumns( cntx, select );
-		extendWhere( cntx, select );
-		return getResultList( database, select );
-	}
-
-	@Override
+    /**
+     * Stores and loads the report configuration in / from the session.
+     *
+     * @param cntx  {@link OctopusContext}
+     * @param begin FIXME
+     * @param end   FIXME
+     * @throws BeanException FIXME
+     * @throws IOException   FIXME
+     */
     @SuppressWarnings("unchecked")
-	protected void extendWhere( OctopusContext cntx, Select select )
-		throws BeanException, IOException
-	{
-		Map< String, Object > map = ( Map< String, Object > ) cntx.sessionAsObject( "changeLogReportSettings" );
-		Date begin = ( Date ) map.get( "begin" );
-		Date end = ( Date ) map.get( "end" );
-		Calendar calendar = Calendar.getInstance();
-		// end date must point to day.month.year 23:59:59 in order to find todays change log entries
-		calendar.setTime( end );
-		calendar.add( Calendar.DAY_OF_MONTH, 1 );
-		calendar.add( Calendar.SECOND, -1 );
-		select.where( Expr.greaterOrEqual( "date", begin ) );
-		select.whereAnd( Expr.lessOrEqual( "date", calendar.getTime() ) );
-	}
+    public void loadConfig(OctopusContext cntx, String begin, String end) throws BeanException, IOException {
+        Map<String, Object> map = (Map<String, Object>) cntx.sessionAsObject("changeLogReportSettings");
+        if (map == null) {
+            map = new HashMap<String, Object>();
+            cntx.setSession("changeLogReportSettings", map);
+        }
 
-	@Override
-    protected void extendColumns( OctopusContext cntx, Select select )
-		throws BeanException, IOException
-	{
-		if ( cntx.requestContains( "order" ) )
-		{
-			String order = cntx.requestAsString( "order" );
-			if ( "name".equals( order ) )
-			{
-				select.orderBy( Order.asc( order ) );
-				cntx.setContent( "order", order );
-			}
-			else if ( "flags".equals( order ) )
-			{
-				select.orderBy( Order.asc( order ).andAsc( "name" ) );
-				cntx.setContent( "order", order );
-			}
-		}
-	}
+        // fetch begin and end dates or sane defaults
+        Date bd = (Date) BeanFactory.transform(begin, Date.class);
+        if (bd == null) {
+            bd = (Date) map.get("begin");
+            if (bd == null) {
+                bd = (Date) BeanFactory.transform("01.01." + Calendar.getInstance().get(Calendar.YEAR), Date.class);
+            }
+        }
 
-	@Override
-    protected void extendAll( OctopusContext cntx, Select select )
-		throws BeanException, IOException
-	{
-		Clause clause = getWhere();
-		if ( clause != null )
-		{
-			select.where( clause );
-		}
-	}
+        Date ed = (Date) BeanFactory.transform(end, Date.class);
+        if (ed == null) {
+            ed = (Date) map.get("end");
+            if (ed == null) {
+                ed = new Date(System.currentTimeMillis());
+            }
+        }
 
-	protected Clause getWhere()
-		throws BeanException
-	{
-		Clause clause = null;
-		return clause;
-	}
+        // make sure that end is always after begin
+        if (ed.after(bd)) {
+            map.put("begin", bd);
+            map.put("end", ed);
+        } else {
+            map.put("begin", ed);
+            map.put("end", bd);
+        }
 
-	@Override
-    protected void saveBean( OctopusContext cntx, Bean bean, TransactionContext context ) throws BeanException, IOException
-	{
-		throw new RuntimeException( "Change log entries cannot be modified. Not implemented." );
-	}
+        DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("de", "DE"));
+        cntx.setContent("begin", format.format(map.get("begin")));
+        cntx.setContent("end", format.format(map.get("end")));
+
+        Database database = getDatabase(cntx);
+        Integer count = getCount(cntx, database);
+        if (count.intValue() == 0) {
+            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+            cntx.setContent("noLogDataAvailableMessage", languageProvider.getProperty("CHANGELOG_NO_PROTOCOL_AVAILABLE").toString());
+        }
+    }
+
+    @Override
+    public List showList(OctopusContext cntx) throws BeanException, IOException {
+        Database database = getDatabase(cntx);
+        Select select = getSelect(database);
+        extendColumns(cntx, select);
+        extendWhere(cntx, select);
+        return getResultList(database, select);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected void extendWhere(OctopusContext cntx, Select select)
+            throws BeanException, IOException {
+        Map<String, Object> map = (Map<String, Object>) cntx.sessionAsObject("changeLogReportSettings");
+        Date begin = (Date) map.get("begin");
+        Date end = (Date) map.get("end");
+        Calendar calendar = Calendar.getInstance();
+        // end date must point to day.month.year 23:59:59 in order to find todays change log entries
+        calendar.setTime(end);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.SECOND, -1);
+        select.where(Expr.greaterOrEqual("date", begin));
+        select.whereAnd(Expr.lessOrEqual("date", calendar.getTime()));
+    }
+
+    @Override
+    protected void extendColumns(OctopusContext cntx, Select select)
+            throws BeanException, IOException {
+        if (cntx.requestContains("order")) {
+            String order = cntx.requestAsString("order");
+            if ("name".equals(order)) {
+                select.orderBy(Order.asc(order));
+                cntx.setContent("order", order);
+            } else if ("flags".equals(order)) {
+                select.orderBy(Order.asc(order).andAsc("name"));
+                cntx.setContent("order", order);
+            }
+        }
+    }
+
+    @Override
+    protected void extendAll(OctopusContext cntx, Select select)
+            throws BeanException, IOException {
+        Clause clause = getWhere();
+        if (clause != null) {
+            select.where(clause);
+        }
+    }
+
+    protected Clause getWhere()
+            throws BeanException {
+        Clause clause = null;
+        return clause;
+    }
+
+    @Override
+    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+        throw new RuntimeException("Change log entries cannot be modified. Not implemented.");
+    }
 }

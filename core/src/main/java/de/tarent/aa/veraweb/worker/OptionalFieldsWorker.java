@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.DB;
@@ -93,8 +94,8 @@ import java.util.List;
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 public class OptionalFieldsWorker {
-        private static final String DELEGATON_FIELD_TABLE_NAME = "veraweb.toptional_fields";
-        private static final String DELEGATON_FIELD_VALUE_TABLE_NAME = "veraweb.toptional_fields_delegation_content";
+    private static final String DELEGATON_FIELD_TABLE_NAME = "veraweb.toptional_fields";
+    private static final String DELEGATON_FIELD_VALUE_TABLE_NAME = "veraweb.toptional_fields_delegation_content";
     private static final String OPTIONAL_FIELD_TYPE_CONTENT = "veraweb.toptional_field_type_content";
 
     private Database database;
@@ -104,67 +105,64 @@ public class OptionalFieldsWorker {
      *
      * @param cntx The {@link OctopusContext}
      */
-        public OptionalFieldsWorker(OctopusContext cntx) {
-                this.database = new DatabaseVeraWeb(cntx);
-        }
-
-        /**
-         * Create ot update optional field.
-     *
-         * @param optionalField The {@link OptionalField}
-     *
-     * @throws SQLException TODO
-     * @throws BeanException TODO
-         */
-        public void createOrUpdateOptionalField(OptionalField optionalField) throws SQLException, BeanException {
-                if(this.checkOptionFieldExists(optionalField)) {
-                        this.updateOptionalField(optionalField);
-                } else {
-                        this.createOptionalField(optionalField);
-                }
-        }
-
-        /**
-         * Create optional field.
-     *
-         * @param optionalField The {@link OptionalField}
-         *
-     * @throws SQLException TODO
-     * @throws BeanException TODO
-         */
-        public void createOptionalField(OptionalField optionalField) throws SQLException, BeanException {
-                final TransactionContext transactionContext = this.database.getTransactionContext();
-        final Insert insert = getStatementInsertOptionalField(optionalField);
-
-                DB.insert(transactionContext, insert.statementToString());
-        transactionContext.commit();
-        }
+    public OptionalFieldsWorker(OctopusContext cntx) {
+        this.database = new DatabaseVeraWeb(cntx);
+    }
 
     /**
-         * Update optional field.
+     * Create ot update optional field.
      *
-         * @param optionalField The {@link OptionalField}
-         *
-         * @throws SQLException TODO
-         * @throws BeanException TODO
-         */
-        public void updateOptionalField(OptionalField optionalField) throws SQLException, BeanException {
+     * @param optionalField The {@link OptionalField}
+     * @throws SQLException  TODO
+     * @throws BeanException TODO
+     */
+    public void createOrUpdateOptionalField(OptionalField optionalField) throws SQLException, BeanException {
+        if (this.checkOptionFieldExists(optionalField)) {
+            this.updateOptionalField(optionalField);
+        } else {
+            this.createOptionalField(optionalField);
+        }
+    }
+
+    /**
+     * Create optional field.
+     *
+     * @param optionalField The {@link OptionalField}
+     * @throws SQLException  TODO
+     * @throws BeanException TODO
+     */
+    public void createOptionalField(OptionalField optionalField) throws SQLException, BeanException {
+        final TransactionContext transactionContext = this.database.getTransactionContext();
+        final Insert insert = getStatementInsertOptionalField(optionalField);
+
+        DB.insert(transactionContext, insert.statementToString());
+        transactionContext.commit();
+    }
+
+    /**
+     * Update optional field.
+     *
+     * @param optionalField The {@link OptionalField}
+     * @throws SQLException  TODO
+     * @throws BeanException TODO
+     */
+    public void updateOptionalField(OptionalField optionalField) throws SQLException, BeanException {
         final TransactionContext context = this.database.getTransactionContext();
         final Update updateStatement = getStatementUpdateOptionalField(optionalField);
-                DB.update(context, updateStatement.statementToString());
+        DB.update(context, updateStatement.statementToString());
 
         // check if field already has type contents
 
         createOptionalFieldTypeContents(optionalField, context);
 
         context.commit();
-        }
+    }
 
     private void createOptionalFieldTypeContents(OptionalField optionalField, TransactionContext context) throws SQLException, BeanException {
         final Boolean selectStatement = getStatementCheckOptionalFieldTypeContentExists(optionalField);
 
         if ((optionalField.getFkType() == OptionalFieldTypeFacade.simple_combobox.getValue()
-                ||  optionalField.getFkType() == OptionalFieldTypeFacade.multiple_combobox.getValue())
+                || optionalField.getFkType() == OptionalFieldTypeFacade.multiple_combobox.getValue())
                 && !selectStatement) {
             initTypeContents(optionalField, context);
         }
@@ -182,61 +180,56 @@ public class OptionalFieldsWorker {
     }
 
     /**
-         * Get all optional fields by event id.
+     * Get all optional fields by event id.
      *
-         * @param eventId Event id
-     *
-         * @return List with labels for the optional fields.
-     *
-     * @throws SQLException TODO
+     * @param eventId Event id
+     * @return List with labels for the optional fields.
+     * @throws SQLException  TODO
      * @throws BeanException TODO
-         */
-        public List<OptionalField> getOptionalFieldsByEvent(Integer eventId) throws BeanException, SQLException {
+     */
+    public List<OptionalField> getOptionalFieldsByEvent(Integer eventId) throws BeanException, SQLException {
         final Select select = getStatementSelectOptionalField(eventId);
         final ResultSet resultSet = database.result(select);
 
         return getOptionalFieldsAsList(resultSet);
-        }
+    }
 
     /**
-         * Check if the given {@link OptionalField} exist.
-         *
+     * Check if the given {@link OptionalField} exist.
+     *
      * @param optionalField The {@link OptionalField}
-     *
-         * @return True if the field exists, otherwise false.
-     *
-     * @throws SQLException TODO
+     * @return True if the field exists, otherwise false.
+     * @throws SQLException  TODO
      * @throws BeanException TODO
-         */
-        public boolean checkOptionFieldExists(OptionalField optionalField) throws BeanException, SQLException {
+     */
+    public boolean checkOptionFieldExists(OptionalField optionalField) throws BeanException, SQLException {
         final Select select = getStatementCheckOptionalFieldExists(optionalField);
         final ResultSet resultSet = database.result(select);
 
-                return resultSet.next();
-        }
+        return resultSet.next();
+    }
 
     /**
      * Delete optional field.
      *
      * @param optionalField The {@link OptionalField}
-     *
-     * @throws SQLException TODO
+     * @throws SQLException  TODO
      * @throws BeanException TODO
      */
-        public void removeOptionalField(OptionalField optionalField) throws SQLException, BeanException {
-                final TransactionContext context = this.database.getTransactionContext();
-                deleteOptionalFieldDependencies(context, optionalField);
+    public void removeOptionalField(OptionalField optionalField) throws SQLException, BeanException {
+        final TransactionContext context = this.database.getTransactionContext();
+        deleteOptionalFieldDependencies(context, optionalField);
         deleteOptionalFieldFromDB(optionalField, context);
-        }
+    }
 
     private void deleteOptionalFieldDependencies(TransactionContext context,
-                                                 OptionalField optionalField) throws BeanException, SQLException {
-         final Delete deleteStatement = getDeleteDependenciesStatement(optionalField);
-         deleteStatement.executeDelete(context);
-         context.commit();
-        }
+            OptionalField optionalField) throws BeanException, SQLException {
+        final Delete deleteStatement = getDeleteDependenciesStatement(optionalField);
+        deleteStatement.executeDelete(context);
+        context.commit();
+    }
 
-        private Delete getDeleteDependenciesStatement(OptionalField optionalField) {
+    private Delete getDeleteDependenciesStatement(OptionalField optionalField) {
         final Delete deleteStatement = SQL.Delete(this.database);
         final WhereList whereCriterias = new WhereList();
 
@@ -245,9 +238,9 @@ public class OptionalFieldsWorker {
         deleteStatement.from(DELEGATON_FIELD_VALUE_TABLE_NAME);
         deleteStatement.where(whereCriterias);
         return deleteStatement;
-        }
+    }
 
-        private void deleteOptionalFieldFromDB(OptionalField optionalField, TransactionContext context)
+    private void deleteOptionalFieldFromDB(OptionalField optionalField, TransactionContext context)
             throws SQLException, BeanException {
         final Delete deleteStatement = getDeleteStatement(optionalField);
         deleteStatement.executeDelete(context);
@@ -265,7 +258,7 @@ public class OptionalFieldsWorker {
 
     private WhereList getWhereCriterialsForOptionalField(OptionalField optionalField) {
         final WhereList whereCriterias = new WhereList();
-        if(optionalField.getId() == -1) {
+        if (optionalField.getId() == -1) {
             whereCriterias.addAnd(new Where("label", optionalField.getLabel(), "="));
             whereCriterias.addAnd(new Where("fk_event", optionalField.getLabel(), "="));
         } else {
@@ -276,7 +269,7 @@ public class OptionalFieldsWorker {
 
     private List<OptionalField> getOptionalFieldsAsList(ResultSet resultSet) throws SQLException {
         final List<OptionalField> result = new ArrayList<OptionalField>();
-        while(resultSet.next()) {
+        while (resultSet.next()) {
             final OptionalField delegation = new OptionalField(resultSet);
             result.add(delegation);
         }
@@ -336,7 +329,7 @@ public class OptionalFieldsWorker {
         final Update updateStatement = SQL.Update(this.database);
         updateStatement.table(DELEGATON_FIELD_TABLE_NAME);
         updateStatement.where(whereCriterias);
-        if(optionalField.getFkEvent() != -1) {
+        if (optionalField.getFkEvent() != -1) {
             updateStatement.update("fk_event", optionalField.getFkEvent());
         }
         updateStatement.update("label", optionalField.getLabel());
@@ -356,7 +349,7 @@ public class OptionalFieldsWorker {
 
     public Boolean isFieldRegisterForTheEvent(final Integer eventId, final Integer fieldId)
             throws IOException, BeanException {
-        Clause labelNotNullClause = Expr.notEqual("label","");
+        Clause labelNotNullClause = Expr.notEqual("label", "");
 
         Integer counter = this.database.getCount(this.database.getCount("OptionalField").
                 whereAndEq("fk_event", eventId).

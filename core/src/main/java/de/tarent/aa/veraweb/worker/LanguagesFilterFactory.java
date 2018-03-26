@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -74,7 +75,7 @@ public class LanguagesFilterFactory {
         final String[] values = personSearch.languages.split("\\W+");
         final String[] columns = {
                 "languages_a_e1",
-                "languages_b_e1"};
+                "languages_b_e1" };
         Clause clause = null;
         for (String currentLanguage : values) {
             final Clause currentWhere = DatabaseHelper.getWhere("*" + currentLanguage + "*", columns);

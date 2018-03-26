@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -140,8 +141,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
     /**
      * Conversion to manipulate dinamic lists
      *
-     * @param resultList
-     *            List result list
+     * @param resultList List result list
      * @return ArrayList<Map>
      */
     public ArrayList<Map> convertFromResultListToArrayList(final List resultList) {
@@ -163,8 +163,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
      * Giving correct order to the duplicates list - THE DUPLICATES MUST GO
      * TOGETHER
      *
-     * @param initList
-     *            ArrayList<Map>
+     * @param initList ArrayList<Map>
      * @return ArrayList<Map>
      */
     public ArrayList<Map> getListWithOrdering(final ArrayList<Map> initList) {
@@ -195,10 +194,8 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
     /**
      * Checking duplicates result between duplicates
      *
-     * @param tmp
-     *            Map
-     * @param tmp2
-     *            Map
+     * @param tmp  Map
+     * @param tmp2 Map
      * @return Boolean
      */
     public Boolean checkDuplicateNames(final Map tmp, final Map tmp2) {
@@ -256,31 +253,24 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
     /**
      * Extend the subselect statement.
      *
-     * @param cntx
-     *            Context
-     * @param subselect
-     *            Given statement
+     * @param cntx      Context
+     * @param subselect Given statement
      */
     protected void extendSubselect(final OctopusContext cntx, final Select subselect) {
         subselect.from("veraweb.TPERSON_NORMALIZED person2");
 
         subselect.whereAnd(getClauseForOrgunit(cntx)).whereAnd(getClausePersonNotDeleted()).whereAnd(getClausePkIsDifferentOrgunitIsSame())
-        .whereAnd(Where.or(getClauseFirstnameAndLastnameEquals(), getClauseFirstAndLastnameSwapped()))
-        .whereAnd(getClauseFirstOrLastnameNotEmpty());
+                .whereAnd(Where.or(getClauseFirstnameAndLastnameEquals(), getClauseFirstAndLastnameSwapped()))
+                .whereAnd(getClauseFirstOrLastnameNotEmpty());
     }
 
     /**
      * Set the limit for the result list.
      *
-     * @param cntx
-     *            Context
-     * @param select
-     *            Select
-     *
-     * @throws BeanException
-     *             TODO
-     * @throws IOException
-     *             TODO
+     * @param cntx   Context
+     * @param select Select
+     * @throws BeanException TODO
+     * @throws IOException   TODO
      */
     protected void extendLimit(final OctopusContext cntx, final Select select) throws BeanException, IOException {
         final Integer start = getStart(cntx);

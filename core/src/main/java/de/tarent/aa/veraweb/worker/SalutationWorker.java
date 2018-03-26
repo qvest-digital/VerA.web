@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * DieseOctopus-Worker bearbeitet Anreden-Listen.
  */
@@ -68,10 +69,11 @@ public class SalutationWorker extends StammdatenWorker {
     //
     // Konstruktoren
     //
+
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
-	public SalutationWorker() {
-		super("Salutation");
-	}
+    public SalutationWorker() {
+        super("Salutation");
+    }
 }

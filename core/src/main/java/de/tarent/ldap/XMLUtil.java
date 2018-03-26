@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -93,40 +94,40 @@ public class XMLUtil {
         return getDocumentBuilder().parse(inputsource);
     }
 
-	public static Node getObjectClass( Element mapping ){
-		Node objectclass = null;
-		if(mapping.hasChildNodes()){
-			NodeList testing = mapping.getChildNodes();
-			for(int i = 0; i< testing.getLength(); i++){
-				//System.out.println("getObjectClass: "+ testing.item(i).getNodeName());
-				if(testing.item(i).getNodeName().equals("objectclass")){
-					objectclass = testing.item(i);
-					//System.out.println("getObjectClass: found");
-				}
-			}
-		}
-		return objectclass;
-	}
+    public static Node getObjectClass(Element mapping) {
+        Node objectclass = null;
+        if (mapping.hasChildNodes()) {
+            NodeList testing = mapping.getChildNodes();
+            for (int i = 0; i < testing.getLength(); i++) {
+                //System.out.println("getObjectClass: "+ testing.item(i).getNodeName());
+                if (testing.item(i).getNodeName().equals("objectclass")) {
+                    objectclass = testing.item(i);
+                    //System.out.println("getObjectClass: found");
+                }
+            }
+        }
+        return objectclass;
+    }
 
-	public static Node getUserList( Element mapping ){
-		Node userlist = null;
-		if(mapping.hasChildNodes()){
-			NodeList testing = mapping.getChildNodes();
-			for(int i = 0; i< testing.getLength(); i++){
-				//System.out.println("getObjectClass: "+ testing.item(i).getNodeName());
-				if(testing.item(i).getNodeName().equals("UserList")){
-					userlist = testing.item(i);
-					//System.out.println("getObjectClass: found");
-				}
-			}
-		}
-		return userlist;
-	}
+    public static Node getUserList(Element mapping) {
+        Node userlist = null;
+        if (mapping.hasChildNodes()) {
+            NodeList testing = mapping.getChildNodes();
+            for (int i = 0; i < testing.getLength(); i++) {
+                //System.out.println("getObjectClass: "+ testing.item(i).getNodeName());
+                if (testing.item(i).getNodeName().equals("UserList")) {
+                    userlist = testing.item(i);
+                    //System.out.println("getObjectClass: found");
+                }
+            }
+        }
+        return userlist;
+    }
 
-	public static NodeList getRelevantChildren( Node parent ){
-		Node parent2 = parent.cloneNode(true);
-		Node objectclass = getObjectClass((Element) parent2);
-		parent2.removeChild(objectclass);
-		return parent2.getChildNodes();
-	}
+    public static NodeList getRelevantChildren(Node parent) {
+        Node parent2 = parent.cloneNode(true);
+        Node objectclass = getObjectClass((Element) parent2);
+        parent2.removeChild(objectclass);
+        return parent2.getChildNodes();
+    }
 }

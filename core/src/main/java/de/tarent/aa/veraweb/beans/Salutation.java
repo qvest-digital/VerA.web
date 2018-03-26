@@ -61,26 +61,32 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 public class Salutation extends AbstractBean {
-	/** PK */
-	public Integer id;
-	/** Grundform der Anrede */
-	public String name;
-	/**
-	 * Automatisch mit dieser Anrede verbundenes Geschlecht.<br>
-	 * NULL = Keins, 'M' = Männlich, 'F' = Weiblich
-	 */
-	public String gender;
+    /**
+     * PK
+     */
+    public Integer id;
+    /**
+     * Grundform der Anrede
+     */
+    public String name;
+    /**
+     * Automatisch mit dieser Anrede verbundenes Geschlecht.<br>
+     * NULL = Keins, 'M' = Männlich, 'F' = Weiblich
+     */
+    public String gender;
 
-	@Override
+    @Override
     public void verify() throws BeanException {
-		if (name == null || name.trim().length() == 0)
-			addError("Sie m\u00fcssen einen Namen eingeben.");
-	}
+        if (name == null || name.trim().length() == 0) {
+            addError("Sie m\u00fcssen einen Namen eingeben.");
+        }
+    }
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden

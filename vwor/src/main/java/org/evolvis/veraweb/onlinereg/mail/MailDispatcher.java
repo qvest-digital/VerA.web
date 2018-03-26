@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.mail;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -123,7 +124,7 @@ public class MailDispatcher {
     }
 
     public void sendVerificationEmail(final String from, final String to, final String subject, final String text, final String link,
-                                      final String contentType) throws MessagingException {
+            final String contentType) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
         final Message message;
         if (TYPE_HTML.equalsIgnoreCase(contentType)) {
@@ -137,11 +138,11 @@ public class MailDispatcher {
     }
 
     public MailDispatchMonitor sendEmailWithAttachments(final String from,
-                                                        final String to,
-                                                        final String subject,
-                                                        final String emailContent,
-                                                        final Map<String, File> attachments,
-                                                        String contentType) throws MessagingException {
+            final String to,
+            final String subject,
+            final String emailContent,
+            final Map<String, File> attachments,
+            String contentType) throws MessagingException {
         final Multipart multipart = new MimeMultipart();
         final MimeBodyPart messageBodyPart = getMessageBody(emailContent, contentType);
         multipart.addBodyPart(messageBodyPart);
@@ -175,7 +176,7 @@ public class MailDispatcher {
     }
 
     private Message getMessage(final Session session, final String from, final String to, final String subject, final Object text,
-                               final String contentType) throws MessagingException {
+            final String contentType) throws MessagingException {
         final MimeMessage message = initMessage(text, contentType, session);
         message.setFrom(new InternetAddress(from));
         message.addRecipient(RecipientType.TO, new InternetAddress(to));

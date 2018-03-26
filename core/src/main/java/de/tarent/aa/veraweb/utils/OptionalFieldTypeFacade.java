@@ -61,13 +61,16 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * Types for an optional field.
  *
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 public enum OptionalFieldTypeFacade {
-    inputfield("Eingabefeld", 1), simple_combobox("Einfaches Auswahlfeld", 2), multiple_combobox("Mehrfaches Auswahlfeld", 3);
+    inputfield("Eingabefeld", 1),
+    simple_combobox("Einfaches Auswahlfeld", 2),
+    multiple_combobox("Mehrfaches Auswahlfeld", 3);
 
     private String text;
 

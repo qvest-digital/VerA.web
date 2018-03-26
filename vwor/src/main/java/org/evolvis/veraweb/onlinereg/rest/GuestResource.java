@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -83,7 +84,7 @@ import java.math.BigInteger;
  */
 @Path("/guest")
 @Produces(MediaType.APPLICATION_JSON)
-public class GuestResource extends AbstractResource{
+public class GuestResource extends AbstractResource {
     private static final String PARAM_DELEGATION_UUID = "delegationUUID";
     private static final String PARAM_GUEST_ID = "guestId";
     private static final String PARAM_NO_LOGIN_REQUIRED_UUID = "noLoginRequiredUUID";
@@ -98,7 +99,7 @@ public class GuestResource extends AbstractResource{
      * Get guest
      *
      * @param eventId Event id
-     * @param userId User id
+     * @param userId  User id
      * @return Guest
      */
     @GET
@@ -120,7 +121,7 @@ public class GuestResource extends AbstractResource{
      * Get guest id by event id and user id.
      *
      * @param eventId Event id
-     * @param userId User id
+     * @param userId  User id
      * @return Guest
      */
     @GET
@@ -141,13 +142,13 @@ public class GuestResource extends AbstractResource{
      * Get the image UUID of a guest
      *
      * @param delegationUUID UUID of delegation
-     * @param userId ID of user
+     * @param userId         ID of user
      * @return image UUID
      */
     @GET
     @Path("/image/{delegationUUID}/{personId}")
     public String getGuestImageUUID(@PathParam(PARAM_DELEGATION_UUID) String delegationUUID,
-                                    @PathParam("personId") int userId) {
+            @PathParam("personId") int userId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findImageByDelegationAndUser");
@@ -164,20 +165,20 @@ public class GuestResource extends AbstractResource{
      * TODO We dont need this method. Next method with the same behaviour...
      * Save guest.
      *
-     * @param eventId Event id
-     * @param userId User id
+     * @param eventId          Event id
+     * @param userId           User id
      * @param invitationstatus invitation status
-     * @param notehost note text for host
-     * @param reserve 0 = not on reserve, 1 = on reserve
+     * @param notehost         note text for host
+     * @param reserve          0 = not on reserve, 1 = on reserve
      * @return The guest
      */
     @POST
     @Path("/{eventId}/{userId}")
     public Guest saveGuest(@PathParam(PARAM_EVENT_ID) int eventId,
-                           @PathParam(PARAM_USER_ID) int userId,
-                           @QueryParam("invitationstatus") int invitationstatus,
-                           @QueryParam("notehost") String notehost,
-                           @QueryParam("reserve") int reserve) {
+            @PathParam(PARAM_USER_ID) int userId,
+            @QueryParam("invitationstatus") int invitationstatus,
+            @QueryParam("notehost") String notehost,
+            @QueryParam("reserve") int reserve) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -188,10 +189,9 @@ public class GuestResource extends AbstractResource{
             final Guest guest = (Guest) query.uniqueResult();
             guest.setNotehost(notehost);
             guest.setReserve(reserve);
-            if (reserve == 1 ) {
+            if (reserve == 1) {
                 guest.setInvitationstatus(0);
-            }
-            else {
+            } else {
                 guest.setInvitationstatus(invitationstatus);
             }
 
@@ -205,7 +205,6 @@ public class GuestResource extends AbstractResource{
     }
 
     /**
-     *
      * @param guestId ID of guest
      * @param imgUUID UUID of image
      */
@@ -231,17 +230,17 @@ public class GuestResource extends AbstractResource{
     /**
      * Save guest.
      *
-     * @param eventId ID of event
-     * @param userId ID of user
+     * @param eventId          ID of event
+     * @param userId           ID of user
      * @param invitationstatus 0 = Offen, 1 = Zusage, 2 = Absage
-     * @param notehost note text for host
+     * @param notehost         note text for host
      */
     @POST
     @Path("/update/{eventId}/{userId}")
     public void updateGuest(@PathParam(PARAM_EVENT_ID) int eventId,
-                           @PathParam(PARAM_USER_ID) int userId,
-                           @FormParam("invitationstatus") int invitationstatus,
-                           @FormParam("notehost") String notehost) {
+            @PathParam(PARAM_USER_ID) int userId,
+            @FormParam("invitationstatus") int invitationstatus,
+            @FormParam("notehost") String notehost) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -259,7 +258,7 @@ public class GuestResource extends AbstractResource{
             guest.setNotehost(notehost);
 
             //Remove guest from reserve, if maxguests are not greater as guest count
-            if(maxGuestLimit.longValue() == 0) {
+            if (maxGuestLimit.longValue() == 0) {
                 guest.setReserve(0);
             }
 
@@ -272,17 +271,16 @@ public class GuestResource extends AbstractResource{
     }
 
     /**
-     *
      * @param noLoginRequiredUUID UUID of users without logindata
-     * @param invitationstatus 0 = Offen, 1 = Zusage, 2 = Absage
-     * @param notehost note text for host
+     * @param invitationstatus    0 = Offen, 1 = Zusage, 2 = Absage
+     * @param notehost            note text for host
      */
     @POST
     @Path("/update/nologin/{noLoginRequiredUUID}")
     public void updateGuestWithoutLogin(
-                            @PathParam(PARAM_NO_LOGIN_REQUIRED_UUID) String noLoginRequiredUUID,
-                            @FormParam("invitationstatus") int invitationstatus,
-                            @FormParam("notehost") String notehost) {
+            @PathParam(PARAM_NO_LOGIN_REQUIRED_UUID) String noLoginRequiredUUID,
+            @FormParam("invitationstatus") int invitationstatus,
+            @FormParam("notehost") String notehost) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -324,9 +322,8 @@ public class GuestResource extends AbstractResource{
     /**
      * Find guest by delegation and person id.
      *
-     * @param uuid UUID of delegation
+     * @param uuid   UUID of delegation
      * @param userId ID of person
-     *
      * @return Guest
      */
     @GET
@@ -343,11 +340,11 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
+
     /**
      * Find guest by delegation and person id.
      *
      * @param uuid UUID of delegation
-     *
      * @return Guest
      */
     @GET
@@ -379,7 +376,7 @@ public class GuestResource extends AbstractResource{
             query.setString(PARAM_UUID, uuid);
 
             final BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
-            if(numberFoundDelegations.intValue() == 1) {
+            if (numberFoundDelegations.intValue() == 1) {
                 return true;
             }
             return false;
@@ -391,15 +388,14 @@ public class GuestResource extends AbstractResource{
     /**
      * Find whether guest is registered for the event delegation
      *
-     * @param username OSIAM username
+     * @param username   OSIAM username
      * @param delegation UUID of delegation
-     *
      * @return true if guest count over 0
      */
     @GET
     @Path("/registered/delegation/{username}/{delegation}")
     public Boolean isUserRegisteredintoEventByDelegation(@PathParam(PARAM_USERNAME) String username,
-                                                         @PathParam(PARAM_DELEGATION) String delegation) {
+            @PathParam(PARAM_DELEGATION) String delegation) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.isGuestForEvent");
@@ -407,7 +403,7 @@ public class GuestResource extends AbstractResource{
             query.setString(PARAM_DELEGATION, delegation);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
-            if(numberOfGuestsFound.intValue() > 0) {
+            if (numberOfGuestsFound.intValue() > 0) {
                 return true;
             }
             return false;
@@ -420,13 +416,13 @@ public class GuestResource extends AbstractResource{
      * Checking if the current user is already registered for the current event
      *
      * @param username OSIAM username
-     * @param eventId ID of event
+     * @param eventId  ID of event
      * @return true if guest count over 0
      */
     @GET
     @Path("/registered/{username}/{eventId}")
     public Boolean isUserRegisteredintoEvent(@PathParam(PARAM_USERNAME) String username,
-                                             @PathParam(PARAM_EVENT_ID) Integer eventId) {
+            @PathParam(PARAM_EVENT_ID) Integer eventId) {
         return isUserRegistered(username, eventId, "Guest.checkUserRegistration");
     }
 
@@ -434,21 +430,21 @@ public class GuestResource extends AbstractResource{
      * Checking if the current user is already registered for the current event
      *
      * @param username OSIAM username
-     * @param eventId ID of event
+     * @param eventId  ID of event
      * @return true if guest count over 0
      */
     @GET
     @Path("/registered/accept/{username}/{eventId}")
     public Boolean isUserRegisteredintoEventToAccept(@PathParam(PARAM_USERNAME) String username,
-                                                     @PathParam(PARAM_EVENT_ID) Integer eventId) {
+            @PathParam(PARAM_EVENT_ID) Integer eventId) {
         return isUserRegistered(username, eventId, "Guest.checkUserRegistrationToAccept");
     }
 
     /**
      * Generalized method for isUserRegisteredintoEvent and isUserRegisteredintoEventToAccept.
      *
-     * @param username Username
-     * @param eventId Event id
+     * @param username   Username
+     * @param eventId    Event id
      * @param namedQuery Query
      * @return FIXME
      */
@@ -460,7 +456,7 @@ public class GuestResource extends AbstractResource{
             query.setInteger(PARAM_EVENT_ID, eventId);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
-            if(numberOfGuestsFound.intValue() > 0) {
+            if (numberOfGuestsFound.intValue() > 0) {
                 return true;
             }
             return false;
@@ -473,13 +469,13 @@ public class GuestResource extends AbstractResource{
      * Checking if the current user is registered into the event
      *
      * @param noLoginRequiredUUID UUID of users without logindata
-     * @param eventId ID of event
+     * @param eventId             ID of event
      * @return the person id to allow updating
      */
     @GET
     @Path("/registered/nologin/{noLoginRequiredUUID}/{eventId}")
     public Boolean isUserRegisteredintoEventByUUID(@PathParam(PARAM_NO_LOGIN_REQUIRED_UUID) String noLoginRequiredUUID,
-                                                   @PathParam(PARAM_EVENT_ID) Integer eventId) {
+            @PathParam(PARAM_EVENT_ID) Integer eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.checkUserRegistrationWithoutLogin");
@@ -487,7 +483,7 @@ public class GuestResource extends AbstractResource{
             query.setInteger(PARAM_EVENT_ID, eventId);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
-            if(numberOfGuestsFound.intValue() > 0) {
+            if (numberOfGuestsFound.intValue() > 0) {
                 return true;
             }
             return false;
@@ -499,36 +495,33 @@ public class GuestResource extends AbstractResource{
     /**
      * Add guest to event.
      *
-     * @param uuid UUID of guest
-     * @param eventId ID of event
-     * @param userId ID of user
-     * @param invitationstatus
-     *      0 = Offen,
-     *      1 = Zusage,
-     *      2 = Absage
-     * @param invitationtype
-     *      0 = main person and partner invited,
-     *      1 = main person and partner invited,
-     *      2 = only main person invited,
-     *      3 = only partner invited
-     * @param gender m = male, f = female
-     * @param category Category
-     * @param hostNode Note text for host
-     * @param username Username
-     *
+     * @param uuid             UUID of guest
+     * @param eventId          ID of event
+     * @param userId           ID of user
+     * @param invitationstatus 0 = Offen,
+     *                         1 = Zusage,
+     *                         2 = Absage
+     * @param invitationtype   0 = main person and partner invited,
+     *                         1 = main person and partner invited,
+     *                         2 = only main person invited,
+     *                         3 = only partner invited
+     * @param gender           m = male, f = female
+     * @param category         Category
+     * @param hostNode         Note text for host
+     * @param username         Username
      * @return Guest
      */
     @POST
     @Path("/{uuid}/register")
     public Guest addGuestToEvent(@PathParam(PARAM_UUID) String uuid,
-                                @FormParam(PARAM_EVENT_ID) Integer eventId,
-                                @FormParam(PARAM_USER_ID) Integer userId,
-                                @FormParam("invitationstatus") Integer invitationstatus,
-                                @FormParam("invitationtype") Integer invitationtype,
-                                @FormParam("gender") String gender,
-                                @FormParam("category") Integer category,
-                                @FormParam("hostNode") String hostNode,
-                                @FormParam(PARAM_USERNAME) String username) {
+            @FormParam(PARAM_EVENT_ID) Integer eventId,
+            @FormParam(PARAM_USER_ID) Integer userId,
+            @FormParam("invitationstatus") Integer invitationstatus,
+            @FormParam("invitationtype") Integer invitationtype,
+            @FormParam("gender") String gender,
+            @FormParam("category") Integer category,
+            @FormParam("hostNode") String hostNode,
+            @FormParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -549,37 +542,34 @@ public class GuestResource extends AbstractResource{
     /**
      * Add guest to event.
      *
-     * @param eventId ID of event
-     * @param userId ID of user
-     * @param invitationstatus
-     *      0 = Offen,
-     *      1 = Zusage,
-     *      2 = Absage
-     * @param invitationtype
-     *      0 = main person and partner invited,
-     *      1 = main person and partner invited,
-     *      2 = only main person invited,
-     *      3 = only partner invited
-     * @param gender m = male, f = female
-     * @param category Category
-     * @param username Username
-     * @param reserve 0 = not on reserve, 1 = on reserve
-     * @param nodeHost Node text for host
-     *
+     * @param eventId          ID of event
+     * @param userId           ID of user
+     * @param invitationstatus 0 = Offen,
+     *                         1 = Zusage,
+     *                         2 = Absage
+     * @param invitationtype   0 = main person and partner invited,
+     *                         1 = main person and partner invited,
+     *                         2 = only main person invited,
+     *                         3 = only partner invited
+     * @param gender           m = male, f = female
+     * @param category         Category
+     * @param username         Username
+     * @param reserve          0 = not on reserve, 1 = on reserve
+     * @param nodeHost         Node text for host
      * @return Guest
      */
     @POST
     @Path("/register")
     public Guest addGuestToEvent(
-                                @FormParam(PARAM_EVENT_ID) Integer eventId,
-                                @FormParam(PARAM_USER_ID) Integer userId,
-                                @FormParam("invitationstatus") Integer invitationstatus,
-                                @FormParam("invitationtype") Integer invitationtype,
-                                @FormParam("gender") String gender,
-                                @FormParam("category") Integer category,
-                                @FormParam(PARAM_USERNAME) String username,
-                                @FormParam("hostNode") String nodeHost,
-                                @FormParam("reserve") Integer reserve) {
+            @FormParam(PARAM_EVENT_ID) Integer eventId,
+            @FormParam(PARAM_USER_ID) Integer userId,
+            @FormParam("invitationstatus") Integer invitationstatus,
+            @FormParam("invitationtype") Integer invitationtype,
+            @FormParam("gender") String gender,
+            @FormParam("category") Integer category,
+            @FormParam(PARAM_USERNAME) String username,
+            @FormParam("hostNode") String nodeHost,
+            @FormParam("reserve") Integer reserve) {
         final Session session = openSession();
         session.beginTransaction();
 
@@ -608,15 +598,14 @@ public class GuestResource extends AbstractResource{
     /**
      * Checking if the guest is a reserve or not
      *
-     * @param eventId the event ID
+     * @param eventId  the event ID
      * @param username the username - osiam_login
-     *
      * @return FIXME
      */
     @GET
     @Path("/isreserve/{eventId}/{username}")
     public Boolean isReserve(@PathParam(PARAM_EVENT_ID) final Integer eventId,
-                             @PathParam(PARAM_USERNAME) final String username) {
+            @PathParam(PARAM_USERNAME) final String username) {
 
         final Session session = openSession();
         try {
@@ -639,8 +628,8 @@ public class GuestResource extends AbstractResource{
      * Initialize guest with event information
      */
     private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus,
-                            Integer invitationtype, String gender, Integer category, String username,
-                            String hostNode, Integer reserve) {
+            Integer invitationtype, String gender, Integer category, String username,
+            String hostNode, Integer reserve) {
         final Guest guest = new Guest();
         guest.setDelegation(uuid);
         guest.setFk_person(userId);

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -107,11 +108,15 @@ import java.util.UUID;
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
-    /** Person type */
+    /**
+     * Person type
+     */
     private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
     };
 
-    /** Servlet context */
+    /**
+     * Servlet context
+     */
     @javax.ws.rs.core.Context
     private HttpServletRequest request;
 
@@ -120,17 +125,17 @@ public class UserResource {
     private Client client;
     private ObjectMapper mapper = new ObjectMapper();
     private static final String BASE_RESOURCE = "/rest";
-    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {};
-    private static final TypeReference<List<LinkUUID>> LINK_UUID_TYPE_REFERENCE = new TypeReference<List<LinkUUID>>() {};
+    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {
+    };
+    private static final TypeReference<List<LinkUUID>> LINK_UUID_TYPE_REFERENCE = new TypeReference<List<LinkUUID>>() {
+    };
     private OsiamClient osiamClient;
 
     /**
      * Creates new UserResource
      *
-     * @param config
-     *            configuration
-     * @param client
-     *            jersey client
+     * @param config configuration
+     * @param client jersey client
      */
     public UserResource(Config config, Client client) {
         this.config = config;
@@ -141,11 +146,10 @@ public class UserResource {
     /**
      * FIXME
      *
-     * @param email Email
+     * @param email              Email
      * @param currentLanguageKey Current language in frontend
-     *
-     * @throws IOException FIXME
      * @return FIXME
+     * @throws IOException FIXME
      */
     @POST
     @Path("/request/resend-login")
@@ -158,19 +162,19 @@ public class UserResource {
 
         return StatusConverter.convertStatus("OK");
     }
+
     /**
      * FIXME
      *
-     * @param username Username
+     * @param username           Username
      * @param currentLanguageKey Current language in frontend
-     *
-     * @throws IOException FIXME
-     *
      * @return FIXME
+     * @throws IOException FIXME
      */
     @POST
     @Path("/request/reset-password-link")
-    public String resetPassword(@FormParam("username") String username, @FormParam("current_language") String currentLanguageKey) throws IOException {
+    public String resetPassword(@FormParam("username") String username, @FormParam("current_language") String currentLanguageKey)
+            throws IOException {
         final Person person = getUserData(username);
         if (person == null) {
             //send OK to not show if username was correct
@@ -196,8 +200,7 @@ public class UserResource {
      * Get Person object by username
      *
      * @return Person, if person exists
-     * @throws IOException
-     *             TODO
+     * @throws IOException TODO
      */
     @GET
     @Path("/userdata")
@@ -215,14 +218,14 @@ public class UserResource {
     /**
      * Creates a new user
      *
-     * @param osiam_username user name
-     * @param osiam_firstname first name
-     * @param osiam_secondname family name
-     * @param osiam_password1 password
+     * @param osiam_username     user name
+     * @param osiam_firstname    first name
+     * @param osiam_secondname   family name
+     * @param osiam_password1    password
      * @param currentLanguageKey current language in frontend
-     * @param email email
+     * @param email              email
      * @return result of creation. Values can be "OK", "INVALID_USERNAME" or
-     *         "USER_EXISTS"
+     * "USER_EXISTS"
      * @throws IOException FIXME
      */
     @POST
@@ -276,7 +279,7 @@ public class UserResource {
      *
      * @param activationToken Activation token
      * @return result of activation. Values can be "OK", "LINK_INVALID" or
-     *         "LINK_EXPIRED"
+     * "LINK_EXPIRED"
      * @throws IOException FIXME
      */
     @GET
@@ -299,8 +302,7 @@ public class UserResource {
      * activation_token
      *
      * @param oldActivationToken The old activation token
-     * @param currentLanguageKey
-     *            For the language, the E-Mail will be send
+     * @param currentLanguageKey For the language, the E-Mail will be send
      * @return result of post. Value can be "OK"
      * @throws IOException FIXME
      */
@@ -358,18 +360,17 @@ public class UserResource {
      * Updates the core data of a user
      *
      * @param fk_salutation Salutation id
-     * @param salutation
-     *            (salutation and fk_salutation are in the tperson table
-     *            present)
-     * @param title Title
-     * @param firstName First name
-     * @param lastName Last name
-     * @param birthday Birthday
-     * @param nationality Nationality
-     * @param languages Languages
-     * @param gender Gender
+     * @param salutation    (salutation and fk_salutation are in the tperson table
+     *                      present)
+     * @param title         Title
+     * @param firstName     First name
+     * @param lastName      Last name
+     * @param birthday      Birthday
+     * @param nationality   Nationality
+     * @param languages     Languages
+     * @param gender        Gender
      * @return result of update. Values can be "OK" and
-     *         "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE"
+     * "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE"
      * @throws IOException FIXME
      */
     @POST
@@ -378,7 +379,7 @@ public class UserResource {
             @FormParam("person_title") String title, @FormParam("person_firstName") String firstName, @FormParam("person_lastName") String lastName,
             @FormParam("person_birthday") Date birthday, @FormParam("person_nationality") String nationality,
             @FormParam("person_languages") String languages, @FormParam("person_gender") Integer gender) throws IOException {
-        if(! isAssociatedWithEvent()){
+        if (!isAssociatedWithEvent()) {
             return StatusConverter.convertStatus("USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE");
         }
         final String username = (String) request.getAttribute(LoginResource.USERNAME);
@@ -397,11 +398,9 @@ public class UserResource {
     /**
      * Get Person instance from one username
      *
-     * @param username
-     *            Username
+     * @param username Username
      * @return Person
-     * @throws IOException
-     *             TODO
+     * @throws IOException TODO
      */
     private Person getUserData(String username) throws IOException {
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);

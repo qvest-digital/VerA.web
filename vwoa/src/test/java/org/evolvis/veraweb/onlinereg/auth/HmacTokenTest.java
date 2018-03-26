@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.auth;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.sun.jersey.core.util.Base64;
 import org.junit.Test;
 
@@ -74,17 +75,17 @@ public class HmacTokenTest {
 
         long now = System.currentTimeMillis();
         String base64String = new HmacToken("fooBarBaz", now).toString();
-        assertEquals(now,new HmacToken(base64String).getTimestamp());
-        assertEquals("fooBarBaz",new HmacToken(base64String).getOsiamAccessToken());
-        assertEquals(base64String,new HmacToken(base64String).toString());
+        assertEquals(now, new HmacToken(base64String).getTimestamp());
+        assertEquals("fooBarBaz", new HmacToken(base64String).getOsiamAccessToken());
+        assertEquals(base64String, new HmacToken(base64String).toString());
     }
 
     @Test
     public void detectTempering() {
-        byte[] token  = Base64.decode(new HmacToken("foo", 42l).toString());
-        token[token.length-3] = 'b';
-        token[token.length-2] = 'a';
-        token[token.length-1] = 'r';
+        byte[] token = Base64.decode(new HmacToken("foo", 42l).toString());
+        token[token.length - 3] = 'b';
+        token[token.length - 2] = 'a';
+        token[token.length - 1] = 'r';
         try {
             new HmacToken(token);
             fail("should detect tempered token");
@@ -94,18 +95,18 @@ public class HmacTokenTest {
     }
 
     @Test
-    public void checkMinLength(){
+    public void checkMinLength() {
         // MAC + Timestamp are exactly 28 bytes.
         // Both should fail early since the message (the osiam access token) cannot be empty.
-        try{
+        try {
             new HmacToken(new byte[28]);
-        } catch(InvalidTokenException e){
+        } catch (InvalidTokenException e) {
             ;
         }
 
-        try{
+        try {
             new HmacToken(new byte[27]);
-        } catch(InvalidTokenException e){
+        } catch (InvalidTokenException e) {
             ;
         }
     }

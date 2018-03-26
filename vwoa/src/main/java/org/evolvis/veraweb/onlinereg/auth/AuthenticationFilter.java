@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.auth;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.sun.jersey.api.client.Client;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
@@ -116,16 +117,16 @@ public class AuthenticationFilter implements Filter {
         if (path.startsWith("/api/user/request/reset-password-link")) {
             return false;
         }
-        if (path.startsWith("/api/media")){
+        if (path.startsWith("/api/media")) {
             return false;
         }
-        if (path.startsWith("/api/event/list")){
+        if (path.startsWith("/api/event/list")) {
             return false;
         }
-        if (path.startsWith("/api/freevisitors")){
+        if (path.startsWith("/api/freevisitors")) {
             return false;
         }
-        if (path.startsWith("/api/imprint/")){
+        if (path.startsWith("/api/imprint/")) {
             return false;
         }
         return true;

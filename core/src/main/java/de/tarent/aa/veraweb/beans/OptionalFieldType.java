@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * Entity to represent the table <code>veraweb.toptional_field_type</code>
  *
@@ -68,37 +69,37 @@ package de.tarent.aa.veraweb.beans;
  */
 public class OptionalFieldType extends AbstractHistoryBean {
 
-	/* pk */
-	private Integer id;
-	/* description */
-	private String description;
+    /* pk */
+    private Integer id;
+    /* description */
+    private String description;
 
-	public OptionalFieldType() {
-	}
+    public OptionalFieldType() {
+    }
 
-	public OptionalFieldType(String description) {
-		this.description = description;
-	}
+    public OptionalFieldType(String description) {
+        this.description = description;
+    }
 
-	public OptionalFieldType(Integer id, String description) {
-		super();
-		this.id = id;
-		this.description = description;
-	}
+    public OptionalFieldType(Integer id, String description) {
+        super();
+        this.id = id;
+        this.description = description;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

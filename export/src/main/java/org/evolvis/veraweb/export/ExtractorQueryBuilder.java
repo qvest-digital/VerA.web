@@ -61,6 +61,7 @@ package org.evolvis.veraweb.export;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -108,7 +109,7 @@ public class ExtractorQueryBuilder {
 
     private void executeReplacement(Map<String, ColumnMapping> mappings, Map.Entry<String, ColumnMapping> entry) {
         final String mapTo = entry.getValue().getMapTo();
-        final String group = mapTo.substring(2,mapTo.length()-1);
+        final String group = mapTo.substring(2, mapTo.length() - 1);
         final ColumnMapping replacement = new ColumnMapping(lookupSubstitution(group));
         mappings.put(entry.getKey(), replacement);
     }

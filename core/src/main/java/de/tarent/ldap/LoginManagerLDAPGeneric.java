@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
@@ -86,10 +87,8 @@ import java.util.logging.Logger;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @author Michael Klink
- *
  */
-public class LoginManagerLDAPGeneric extends AbstractLoginManager
-{
+public class LoginManagerLDAPGeneric extends AbstractLoginManager {
     protected static final Logger LOGGER = Logger.getLogger(LoginManagerLDAPGeneric.class.getName());
 
     /**
@@ -111,34 +110,37 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
             .expirationPolicy(ExpirationPolicy.CREATED)
             .build();
 
-    /** LDAP-Konnektor */
+    /**
+     * LDAP-Konnektor
+     */
     protected LDAPManager ldapManager = null;
 
     //
     // zu überschreibende Methoden
     //
-	/**
-	 * Diese Methode soll von LoginManager-Klassen, die von dieser abgeleitet werden,
-	 * genutzt werden, um nach einem erfolgreichen Login in der PersonalConfig in
-	 * eigener Weise Attribute zu setzen.
-	 *
-	 * @param pConfig PersonalConfig des neu eingelogten Benutzers
-	 * @param userName Benutzer-ID des neu eingeloggten Benutzers
-	 * @throws LDAPException
-	 * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
-	 */
-	protected void initPersonalConfig(PersonalConfig pConfig, String userName) throws LDAPException {
-	    pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER});
-	}
 
-	/**
-	 * Diese Methode soll von LoginManager-Klassen, die von dieser abgeleitet werden,
-	 * genutzt werden, um den zu verwendenden LDAPManager zu erzeugen.
-	 * @throws LDAPException
-	 *
-	 * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
-	 */
-	protected void initLDAPManager() throws LDAPException {
+    /**
+     * Diese Methode soll von LoginManager-Klassen, die von dieser abgeleitet werden,
+     * genutzt werden, um nach einem erfolgreichen Login in der PersonalConfig in
+     * eigener Weise Attribute zu setzen.
+     *
+     * @param pConfig  PersonalConfig des neu eingelogten Benutzers
+     * @param userName Benutzer-ID des neu eingeloggten Benutzers
+     * @throws LDAPException
+     * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
+     */
+    protected void initPersonalConfig(PersonalConfig pConfig, String userName) throws LDAPException {
+        pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_USER });
+    }
+
+    /**
+     * Diese Methode soll von LoginManager-Klassen, die von dieser abgeleitet werden,
+     * genutzt werden, um den zu verwendenden LDAPManager zu erzeugen.
+     *
+     * @throws LDAPException
+     * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
+     */
+    protected void initLDAPManager() throws LDAPException {
         Map params = new HashMap();
         params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
         params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
@@ -149,27 +151,29 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
                 LDAPManager.class,
                 getConfigurationString(TcEnv.KEY_LDAP_URL),
                 params
-                );
+        );
     }
 
-	//
-	// überschreibungen von AbstractLoginManager
-	//
-	/**
-	 * Diese Methode Überprüft die Credentials im Request und setzt im Erfolgsfall die
-	 * entsprechenden Daten in der übergebenen PersonalConfig.
-	 *
-	 * @param commonConfig Konfigurationsdaten des Octopus
-	 * @param pConfig persönliche Konfiguration des einzuloggenden Benutzers
-	 * @param tcRequest Benutzeranfrage mit Authentisierungsdaten
-	 * @throws TcSecurityException bei fehlgeschlagener Authorisierung
-	 */
+    //
+    // überschreibungen von AbstractLoginManager
+    //
+
+    /**
+     * Diese Methode Überprüft die Credentials im Request und setzt im Erfolgsfall die
+     * entsprechenden Daten in der übergebenen PersonalConfig.
+     *
+     * @param commonConfig Konfigurationsdaten des Octopus
+     * @param pConfig      persönliche Konfiguration des einzuloggenden Benutzers
+     * @param tcRequest    Benutzeranfrage mit Authentisierungsdaten
+     * @throws TcSecurityException bei fehlgeschlagener Authorisierung
+     */
     @Override
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException {
+            throws TcSecurityException {
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
-        if (pwdAuth == null)
+        if (pwdAuth == null) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
+        }
         doLogin(pwdAuth, pConfig, true);
     }
 
@@ -180,7 +184,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
      *
      * @param pwdAuth Passwort-Authentifizierung
      * @param pConfig persönliche Konfiguration des einzuloggenden Benutzers
-     * @param repeat Flag: Soll bei Server-Problemen ein zweiter Login versucht werden
+     * @param repeat  Flag: Soll bei Server-Problemen ein zweiter Login versucht werden
      * @throws TcSecurityException bei fehlgeschlagener Authorisierung
      */
     private void doLogin(PasswordAuthentication pwdAuth, PersonalConfig pConfig, boolean repeat) throws TcSecurityException {
@@ -223,9 +227,9 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
     }
 
     private void handleLoginErrors(PasswordAuthentication pwdAuth,
-                                   PersonalConfig pConfig,
-                                   boolean repeat,
-                                   LDAPException e) throws TcSecurityException {
+            PersonalConfig pConfig,
+            boolean repeat,
+            LDAPException e) throws TcSecurityException {
         LOGGER.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
         if (e.getCause() instanceof AuthenticationException) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR, e);
@@ -245,14 +249,14 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
     /**
      * Diese Methode führt ein Ausloggen des Benutzers durch. Insbesondere werden
      * entsprechende Markierungen in seiner persönlichen Konfiguration gesetzt.
-	 *
-	 * @param commonConfig Konfigurationsdaten des Octopus
-	 * @param pConfig persönliche Konfiguration des auszuloggenden Benutzers
-	 * @param tcRequest Benutzeranfrage
+     *
+     * @param commonConfig Konfigurationsdaten des Octopus
+     * @param pConfig      persönliche Konfiguration des auszuloggenden Benutzers
+     * @param tcRequest    Benutzeranfrage
      */
     @Override
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) {
-        pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
+        pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
         pConfig.userLoggedOut();
     }
 }

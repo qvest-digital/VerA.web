@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
@@ -110,17 +111,18 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * 2015-03-13 - We have one Press category for every Mandant.
      *
      * @param octopusContext Octopus-Kontext
-     * @param errors kummulierte Fehlerliste
-     * @param bean einzufügendes Bean
+     * @param errors         kummulierte Fehlerliste
+     * @param bean           einzufügendes Bean
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      */
     @Override
     @SuppressWarnings("unchecked")
-    protected int insertBean(OctopusContext octopusContext, List errors, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+    protected int insertBean(OctopusContext octopusContext, List errors, Bean bean, TransactionContext transactionContext)
+            throws BeanException, IOException {
         int count = 0;
         boolean savedSuccessfully = updateOrgUnit(octopusContext, errors, transactionContext, bean, false);
-        if (savedSuccessfully){
+        if (savedSuccessfully) {
             count++;
         }
         return count;
@@ -131,27 +133,29 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * aufgerufen und soll die übergebene Liste von Beans aktualisieren.
      *
      * @param octopusContext Octopus-Kontext
-     * @param errors kummulierte Fehlerliste
-     * @param orgUnitList Liste von zu aktualisierenden Beans
+     * @param errors         kummulierte Fehlerliste
+     * @param orgUnitList    Liste von zu aktualisierenden Beans
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      */
     @Override
     @SuppressWarnings("unchecked")
-    protected int updateBeanList(OctopusContext octopusContext, List errors, List orgUnitList, TransactionContext transactionContext) throws IOException, BeanException {
+    protected int updateBeanList(OctopusContext octopusContext, List errors, List orgUnitList, TransactionContext transactionContext)
+            throws IOException, BeanException {
         int count = 0;
         for (Object obj : orgUnitList) {
             final Bean bean = (Bean) obj;
 
             boolean savedSuccessfully = updateOrgUnit(octopusContext, errors, transactionContext, bean, true);
-            if (savedSuccessfully){
+            if (savedSuccessfully) {
                 count++;
             }
         }
         return count;
     }
 
-    private boolean updateOrgUnit(OctopusContext octopusContext, List errors, TransactionContext transactionContext, Bean bean, boolean isUpdate) throws BeanException, IOException {
+    private boolean updateOrgUnit(OctopusContext octopusContext, List errors, TransactionContext transactionContext, Bean bean, boolean isUpdate)
+            throws BeanException, IOException {
         if (bean.isModified()) {
             if (bean.isCorrect()) {
                 if (bean instanceof OrgUnit) {
@@ -169,7 +173,8 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
         return false;
     }
 
-    private boolean executeAdditionalChecks(OctopusContext octopusContext, OrgUnit orgUnit, TransactionContext transactionContext, List errors, boolean isUpdate) throws BeanException, IOException {
+    private boolean executeAdditionalChecks(OctopusContext octopusContext, OrgUnit orgUnit, TransactionContext transactionContext, List errors,
+            boolean isUpdate) throws BeanException, IOException {
         final LanguageProvider languageProvider = initLanguageProvider(octopusContext);
         Boolean isValid = true;
 
@@ -194,7 +199,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
         return isValid;
     }
 
-    private OrgUnit getExistingBean(boolean isUpdate, TransactionContext transactionContext, OrgUnit orgUnit) throws BeanException, IOException{
+    private OrgUnit getExistingBean(boolean isUpdate, TransactionContext transactionContext, OrgUnit orgUnit) throws BeanException, IOException {
         final Database database = transactionContext.getDatabase();
         if (!isUpdate) {
             return getOrgUnitByName(transactionContext, orgUnit, database);
@@ -252,29 +257,37 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                 languageProvider.getProperty("ORG_UNIT_MANDANT_EXISTS_TWO");
     }
 
-    private OrgUnit getOrgUnitByName(TransactionContext transactionContext, OrgUnit orgunitBean, Database database) throws BeanException, IOException {
+    private OrgUnit getOrgUnitByName(TransactionContext transactionContext, OrgUnit orgunitBean, Database database)
+            throws BeanException, IOException {
         return (OrgUnit) database.getBean("OrgUnit",
                 database.getSelect("OrgUnit").
                         where(Expr.equal("unitname", orgunitBean.name)), transactionContext);
     }
 
-    private OrgUnit getOrgUnitByNameAndId(TransactionContext transactionContext, OrgUnit orgunitBean, Database database) throws BeanException, IOException {
+    private OrgUnit getOrgUnitByNameAndId(TransactionContext transactionContext, OrgUnit orgunitBean, Database database)
+            throws BeanException, IOException {
         return (OrgUnit) database.getBean("OrgUnit",
-                                    database.getSelect("OrgUnit").
-                                            where(Where.and(
-                                                    Expr.equal("unitname", orgunitBean.name),
-                                                    Expr.notEqual("pk", orgunitBean.id))), transactionContext);
+                database.getSelect("OrgUnit").
+                        where(Where.and(
+                                Expr.equal("unitname", orgunitBean.name),
+                                Expr.notEqual("pk", orgunitBean.id))), transactionContext);
     }
 
     //
     // weitere Octopus-Aktionen
     //
 
-    /** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
-    public static final String INPUT_cleanupDatabase[] = {"orgunit"};
-    /** Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
-    public static final boolean MANDATORY_cleanupDatabase[] = {false};
-    /** Octopus-Ausgabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)}
+     */
+    public static final String INPUT_cleanupDatabase[] = { "orgunit" };
+    /**
+     * Octopus-Eingabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)}
+     */
+    public static final boolean MANDATORY_cleanupDatabase[] = { false };
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #cleanupDatabase(OctopusContext, Integer)}
+     */
     public static final String OUTPUT_cleanupDatabase = "missingorgunit";
 
     /**
@@ -283,9 +296,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * alle Datensätze ohne gültigen Mandanten diesem zugeordnet.
      *
      * @param octopusContext Octopus-Context-Instanz
-     * @param orgunit Neue Orgunit-ID
+     * @param orgunit        Neue Orgunit-ID
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      */
     @SuppressWarnings("unchecked")
     public Map cleanupDatabase(OctopusContext octopusContext, Integer orgunit) throws BeanException, IOException {
@@ -362,9 +375,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * Delete press category linked to the deleted mandant
      *
      * @param transactionContext TransactionContext
-     * @param orgUnitId Integer
+     * @param orgUnitId          Integer
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      */
     private void deletePressCategoryByOrgUnit(TransactionContext transactionContext, Integer orgUnitId) throws BeanException, IOException {
 
@@ -383,10 +396,10 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * der #removeBean(OctopusContext, Bean, TransactionContext) Methode
      * die Fehlerliste zum Auffüllen zur Verfügung.
      *
-     * @param cntx        OctopusContext
+     * @param cntx      OctopusContext
      * @param errors    kumulierte Fehlerliste
-     * @param selection    zu löschende Auswahl
-     * @param context    TransactionContext
+     * @param selection zu löschende Auswahl
+     * @param context   TransactionContext
      * @return Anzahl erfolgreich gelöschter Beans
      * @throws BeanException
      * @throws IOException

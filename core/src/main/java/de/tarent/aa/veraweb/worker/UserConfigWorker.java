@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.aa.veraweb.beans.UserConfig;
@@ -90,189 +91,203 @@ import java.util.Map;
  * @version $Revision: 1.1 $
  */
 public class UserConfigWorker {
-	public static final String PARAMS_STRING[] = {
-		"personTab", "personMemberTab",
-		"personAddresstypeTab", "personLocaleTab" };
-	private static final String PARAMS_BOOLEAN[] = {
-		"guestListFunction", "guestListCity", "guestListPhone", "personListState" };
+    public static final String PARAMS_STRING[] = {
+            "personTab", "personMemberTab",
+            "personAddresstypeTab", "personLocaleTab" };
+    private static final String PARAMS_BOOLEAN[] = {
+            "guestListFunction", "guestListCity", "guestListPhone", "personListState" };
 
-	/** Octopus-Eingabe-Parameter für {@link #init(OctopusContext)} */
-	public static final String INPUT_init[] = {};
-	/** Octopus-Ausgabe-Parameter für {@link #init(OctopusContext)} */
-	public static final String OUTPUT_init = "userConfig";
-	/**
-	 * Lädt die Konfiguration aus der Datenbank in die Session.
-	 *
-	 * @param octopusContext The {@link OctopusContext}
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	public Map init(OctopusContext octopusContext) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(octopusContext);
-		Integer userId = ((PersonalConfigAA)octopusContext.personalConfig()).getVerawebId();
-		if (userId == null) return null;
+    /**
+     * Octopus-Eingabe-Parameter für {@link #init(OctopusContext)}
+     */
+    public static final String INPUT_init[] = {};
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #init(OctopusContext)}
+     */
+    public static final String OUTPUT_init = "userConfig";
 
-		Select select = database.getSelect("UserConfig");
-		select.where(Expr.equal("fk_user", userId));
+    /**
+     * Lädt die Konfiguration aus der Datenbank in die Session.
+     *
+     * @param octopusContext The {@link OctopusContext}
+     * @throws BeanException
+     * @throws IOException
+     */
+    public Map init(OctopusContext octopusContext) throws BeanException, IOException {
+        Database database = new DatabaseVeraWeb(octopusContext);
+        Integer userId = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
+        if (userId == null) {
+            return null;
+        }
 
-		Map result = new HashMap();
-		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
-			Map data = (Map)it.next();
-			result.put(data.get("key"), data.get("value"));
-		}
+        Select select = database.getSelect("UserConfig");
+        select.where(Expr.equal("fk_user", userId));
 
-		/* check if REST API is available and what version it reports to be */
-		VworUtils vworUtils = new VworUtils();
-		String vworAvailable;
-		try {
-			vworAvailable = vworUtils.readResource(vworUtils.path(VworConstants.AVAILABLE));
-			String vworVersion = null;
-			if ("OK".equals(vworAvailable)) {
-				try {
-					vworVersion = vworUtils.readResource(vworUtils.path(VworConstants.INFO));
-				} catch (Exception e) {
-					vworVersion = null;
-				}
-			}
-			if (vworVersion != null) {
-				vworAvailable = vworAvailable + " (" + vworVersion + ")";
-			}
-			vworAvailable = LocaleMessage.formatTextToHtmlString(vworAvailable);
-		} catch (Exception e) {
-			StringBuilder sb = new StringBuilder();
-			final String emsg = e.getMessage();
-			final String elmsg = e.getLocalizedMessage();
+        Map result = new HashMap();
+        for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+            Map data = (Map) it.next();
+            result.put(data.get("key"), data.get("value"));
+        }
 
-			if (emsg != null && !emsg.equals(elmsg)) {
-				sb.append(LocaleMessage.formatTextToHtmlString(e.toString() + " (" + emsg + ")"));
-			} else {
-				sb.append(LocaleMessage.formatTextToHtmlString(e.toString()));
-			}
+        /* check if REST API is available and what version it reports to be */
+        VworUtils vworUtils = new VworUtils();
+        String vworAvailable;
+        try {
+            vworAvailable = vworUtils.readResource(vworUtils.path(VworConstants.AVAILABLE));
+            String vworVersion = null;
+            if ("OK".equals(vworAvailable)) {
+                try {
+                    vworVersion = vworUtils.readResource(vworUtils.path(VworConstants.INFO));
+                } catch (Exception e) {
+                    vworVersion = null;
+                }
+            }
+            if (vworVersion != null) {
+                vworAvailable = vworAvailable + " (" + vworVersion + ")";
+            }
+            vworAvailable = LocaleMessage.formatTextToHtmlString(vworAvailable);
+        } catch (Exception e) {
+            StringBuilder sb = new StringBuilder();
+            final String emsg = e.getMessage();
+            final String elmsg = e.getLocalizedMessage();
 
-			for (StackTraceElement element : e.getStackTrace()) {
-				sb.append("<br />");
-				sb.append(LocaleMessage.formatTextToHtmlString(element.toString()));
-			}
-			vworAvailable = sb.toString();
-		}
-		result.put("restApiAvail", vworAvailable);
+            if (emsg != null && !emsg.equals(elmsg)) {
+                sb.append(LocaleMessage.formatTextToHtmlString(e.toString() + " (" + emsg + ")"));
+            } else {
+                sb.append(LocaleMessage.formatTextToHtmlString(e.toString()));
+            }
 
-		/*
-		 * modified to support display of orgunit as per change request for version 1.2.0
-		 *
-		 * cklein
-		 * 2008-02-15
-		 */
-		User user = ( User ) database.getBean( "User", userId );
-		OrgUnit orgUnit = new OrgUnit();
+            for (StackTraceElement element : e.getStackTrace()) {
+                sb.append("<br />");
+                sb.append(LocaleMessage.formatTextToHtmlString(element.toString()));
+            }
+            vworAvailable = sb.toString();
+        }
+        result.put("restApiAvail", vworAvailable);
 
-		if ( user != null && user.orgunit != null && user.orgunit.intValue() != 0 )
-		{
-			orgUnit = ( OrgUnit ) database.getBean( "OrgUnit", user.orgunit );
-		}
+        /*
+         * modified to support display of orgunit as per change request for version 1.2.0
+         *
+         * cklein
+         * 2008-02-15
+         */
+        User user = (User) database.getBean("User", userId);
+        OrgUnit orgUnit = new OrgUnit();
 
-		octopusContext.setContent( "orgUnit", orgUnit );
-		octopusContext.setSession("userConfig", result);
-		return result;
-	}
+        if (user != null && user.orgunit != null && user.orgunit.intValue() != 0) {
+            orgUnit = (OrgUnit) database.getBean("OrgUnit", user.orgunit);
+        }
 
-	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
-	public static final String INPUT_load[] = {};
-	/** Octopus-Ausgabe-Parameter für {@link #load(OctopusContext)} */
-	public static final String OUTPUT_load = "userConfig";
-	/**
-	 * Lädt die Konfiguration aus der Session in den Content.
-	 *
-	 * @param octopusContext The {@link OctopusContext}
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	public Map load(OctopusContext octopusContext) throws BeanException, IOException {
-		Map result = (Map)octopusContext.sessionAsObject("userConfig");
-		if (result == null) {
-			return init(octopusContext);
-		}
-		return result;
-	}
+        octopusContext.setContent("orgUnit", orgUnit);
+        octopusContext.setSession("userConfig", result);
+        return result;
+    }
 
-	/** Octopus-Eingabe-Parameter für {@link #save(OctopusContext)} */
-	public static final String INPUT_save[] = {};
-	/**
-	 * Speichert die Benutzer Einstellungen in der Datenbank.
-	 *
-	 * @param octopusContext The {@link OctopusContext}
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	public void save(OctopusContext octopusContext) throws BeanException, IOException {
-		if (!octopusContext.requestContains("save")) {
-			return;
-		}
+    /**
+     * Octopus-Eingabe-Parameter für {@link #load(OctopusContext)}
+     */
+    public static final String INPUT_load[] = {};
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #load(OctopusContext)}
+     */
+    public static final String OUTPUT_load = "userConfig";
 
-		Database database = new DatabaseVeraWeb(octopusContext);
-		Integer userId = ((PersonalConfigAA)octopusContext.personalConfig()).getVerawebId();
-		Map userConfig = (Map)octopusContext.contentAsObject("userConfig");
+    /**
+     * Lädt die Konfiguration aus der Session in den Content.
+     *
+     * @param octopusContext The {@link OctopusContext}
+     * @throws BeanException
+     * @throws IOException
+     */
+    public Map load(OctopusContext octopusContext) throws BeanException, IOException {
+        Map result = (Map) octopusContext.sessionAsObject("userConfig");
+        if (result == null) {
+            return init(octopusContext);
+        }
+        return result;
+    }
 
-		for (int i = 0; i < PARAMS_STRING.length; i++) {
-			String key = PARAMS_STRING[i];
-			String value = octopusContext.requestAsString(key);
+    /**
+     * Octopus-Eingabe-Parameter für {@link #save(OctopusContext)}
+     */
+    public static final String INPUT_save[] = {};
 
-			if (value == null) {
-			    continue;
-			}
-			setUserSetting(database, userId, userConfig, key, value);
-		}
+    /**
+     * Speichert die Benutzer Einstellungen in der Datenbank.
+     *
+     * @param octopusContext The {@link OctopusContext}
+     * @throws BeanException
+     * @throws IOException
+     */
+    public void save(OctopusContext octopusContext) throws BeanException, IOException {
+        if (!octopusContext.requestContains("save")) {
+            return;
+        }
 
-		for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
-			String key = PARAMS_BOOLEAN[i];
-			boolean value = octopusContext.requestAsBoolean(key).booleanValue();
-			if (value) {
-				setUserSetting(database, userId, userConfig, key, "true");
-			} else {
-				removeUserSetting(database, userId, userConfig, key);
-			}
-		}
+        Database database = new DatabaseVeraWeb(octopusContext);
+        Integer userId = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
+        Map userConfig = (Map) octopusContext.contentAsObject("userConfig");
 
-		octopusContext.setContent("saveSuccess", true);
-	}
+        for (int i = 0; i < PARAMS_STRING.length; i++) {
+            String key = PARAMS_STRING[i];
+            String value = octopusContext.requestAsString(key);
 
-	protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key) throws BeanException, IOException {
-		String old = (String)userConfig.get(key);
-		if (old != null) {
+            if (value == null) {
+                continue;
+            }
+            setUserSetting(database, userId, userConfig, key, value);
+        }
 
-			final TransactionContext transactionContext = database.getTransactionContext();
-			transactionContext.execute(database.getDelete("UserConfig").
-					where(Where.and(
-							Expr.equal("fk_user", userId),
-							Expr.equal("name", key))));
-			transactionContext.commit();
+        for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
+            String key = PARAMS_BOOLEAN[i];
+            boolean value = octopusContext.requestAsBoolean(key).booleanValue();
+            if (value) {
+                setUserSetting(database, userId, userConfig, key, "true");
+            } else {
+                removeUserSetting(database, userId, userConfig, key);
+            }
+        }
 
-			userConfig.remove(key);
-		}
-	}
+        octopusContext.setContent("saveSuccess", true);
+    }
 
-	protected void setUserSetting(Database database, Integer userId, Map userConfig, String key, String value) throws BeanException, IOException {
-		String old = (String)userConfig.get(key);
-		if (value == null) {
-			removeUserSetting(database, userId, userConfig, key);
-		} else if (old == null) {
-			UserConfig config = new UserConfig();
-			config.user = userId;
-			config.key = key;
-			config.value = value;
-			database.saveBean(config);
-			userConfig.put(key, value);
-		} else if (!value.equals(old)) {
+    protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key) throws BeanException, IOException {
+        String old = (String) userConfig.get(key);
+        if (old != null) {
 
-			final TransactionContext transactionContext = database.getTransactionContext();
-			transactionContext.execute(database.getUpdate("UserConfig").
-					update("value", value).
-					where(Where.and(
-							Expr.equal("fk_user", userId),
-							Expr.equal("name", key))));
-			transactionContext.commit();
+            final TransactionContext transactionContext = database.getTransactionContext();
+            transactionContext.execute(database.getDelete("UserConfig").
+                    where(Where.and(
+                            Expr.equal("fk_user", userId),
+                            Expr.equal("name", key))));
+            transactionContext.commit();
 
-			userConfig.put(key, value);
-		}
-	}
+            userConfig.remove(key);
+        }
+    }
+
+    protected void setUserSetting(Database database, Integer userId, Map userConfig, String key, String value) throws BeanException, IOException {
+        String old = (String) userConfig.get(key);
+        if (value == null) {
+            removeUserSetting(database, userId, userConfig, key);
+        } else if (old == null) {
+            UserConfig config = new UserConfig();
+            config.user = userId;
+            config.key = key;
+            config.value = value;
+            database.saveBean(config);
+            userConfig.put(key, value);
+        } else if (!value.equals(old)) {
+
+            final TransactionContext transactionContext = database.getTransactionContext();
+            transactionContext.execute(database.getUpdate("UserConfig").
+                    update("value", value).
+                    where(Where.and(
+                            Expr.equal("fk_user", userId),
+                            Expr.equal("name", key))));
+            transactionContext.commit();
+
+            userConfig.put(key, value);
+        }
+    }
 }

@@ -61,18 +61,19 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 public class PersonCategorie extends AbstractBean {
-        public Integer id;
-        public Integer person;
-        public Integer categorie;
-        public String name;
-        public Integer rank;
-        public Integer flags;
+    public Integer id;
+    public Integer person;
+    public Integer categorie;
+    public String name;
+    public Integer rank;
+    public Integer flags;
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden

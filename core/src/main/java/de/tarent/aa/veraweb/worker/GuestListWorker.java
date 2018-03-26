@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
@@ -129,8 +130,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     public static final String INPUT_getAllCategories[] = {};
 
-    private final static String DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT = "DELETE FROM toptional_fields_delegation_content WHERE fk_guest IN ({0})";
-    private final static MessageFormat DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST = new MessageFormat(DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT);
+    private final static String DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT =
+            "DELETE FROM toptional_fields_delegation_content WHERE fk_guest IN ({0})";
+    private final static MessageFormat DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST =
+            new MessageFormat(DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT);
     private final static String DELETE_ALL_STALE_GUESTS = "DELETE FROM tguest WHERE pk IN ({0})";
     private final static MessageFormat DELETE_ALL_STALE_GUESTS_FORMAT = new MessageFormat(DELETE_ALL_STALE_GUESTS);
 
@@ -184,8 +187,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             final TransactionContext context = database.getTransactionContext();
             final Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
 
-            @SuppressWarnings("unchecked")
-            final List<Integer> selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
+            @SuppressWarnings("unchecked") final List<Integer> selection =
+                    this.getSelection(octopusContext, this.getCount(octopusContext, database));
             final Clause whereClause;
             if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
                 whereClause = getCurrenGuestFilter(octopusContext);
@@ -223,8 +226,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * Schätzt, wie groß der neue Verteiler werden wird, und erweitert die Map
      * <code>mailinglistParam</code> im Content um den Key <code>count</code>.
      *
-     * @param octopusContext
-     *            Octopus-Context
+     * @param octopusContext Octopus-Context
      * @return Map mit dem Key <code>count</code>
      * @throws BeanException
      * @throws IOException
@@ -332,6 +334,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     public String[] INPUT_setupSortDirection = {};
+
     public void setupSortDirection(OctopusContext octopusContext) throws BeanException {
         final GuestSearch search = getSearch(octopusContext);
         if (search.sortList) {
@@ -412,7 +415,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     protected Select getSelect(Database database) throws BeanException, IOException {
         return SQL.SelectDistinct(database).from("veraweb.tguest").selectAs("tguest.pk", "id").selectAs("tguest.rank", "rank").select("deleted")
-                .select("delegation").select("ishost").select("iscompany").select("invitationtype").selectAs("invitationstatus", "invitationstatus_a")
+                .select("delegation").select("ishost").select("iscompany").select("invitationtype")
+                .selectAs("invitationstatus", "invitationstatus_a")
                 .selectAs("invitationstatus_p", "invitationstatus_b").selectAs("reserve", "reserve").selectAs("orderno", "orderno_a")
                 .selectAs("orderno_p", "orderno_b");
     }
@@ -456,10 +460,11 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     private Integer deleteSelectedGuests(OctopusContext octopusContext, List selection, TransactionContext transactionContext) throws SQLException {
-        final String ids = DatabaseHelper.listsToIdListString(new List[]{selection});
-        DB.insert(transactionContext, DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST.format(new Object[]{ids}));
-        DB.insert(transactionContext, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[]{ids}));
-        DB.insert(transactionContext, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[]{octopusContext.personalConfig().getLoginname(), ids}));
+        final String ids = DatabaseHelper.listsToIdListString(new List[] { selection });
+        DB.insert(transactionContext, DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST.format(new Object[] { ids }));
+        DB.insert(transactionContext, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[] { ids }));
+        DB.insert(transactionContext,
+                BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[] { octopusContext.personalConfig().getLoginname(), ids }));
 
         return selection.size();
     }
@@ -553,10 +558,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /**
      * Diese Octopus-Aktion liefert die Gesamtzahlen der aktuellen Gästeliste.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @return {@link Map} mit Gesamtzahlen unter den Schlüsseln "platz",
-     *         "reserve", "all", "offen", "zusagen" und "absagen".
+     * "reserve", "all", "offen", "zusagen" und "absagen".
      */
     public Map getSums(OctopusContext octopusContext) throws BeanException {
         final Database database = new DatabaseVeraWeb(octopusContext);
@@ -573,8 +577,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * Octopus-Session (unter "searchGuest"). Vor der Rückgabe wird die Instanz
      * unter "searchGuest" in die Octopus-Session gestellt.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @return {@link GuestSearch}-Instanz zur aktuellen Gästesuche
      * @throws BeanException
      */
@@ -629,8 +632,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen Gästesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @return eine {@link Event}-Instanz oder <code>null</code>.
      * @throws BeanException
      * @throws IOException
@@ -655,9 +657,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /**
      * // TODO
      *
-     * @param octopusContext
-     *            The {@link de.tarent.octopus.server.OctopusContext}
-     *
+     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
      * @throws BeanException
      */
     public void getAllCategories(OctopusContext octopusContext) throws BeanException {
@@ -695,8 +695,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * -Instanz in einer WHERE-Statement-Liste.
      *
      * @deprecated Use
-     *             {@link GuestSearch#addGuestListFilter(GuestSearch, WhereList)}
-     *             instead
+     * {@link GuestSearch#addGuestListFilter(GuestSearch, WhereList)}
+     * instead
      */
     public static void addGuestListFilter(GuestSearch guestSearch, WhereList where) {
         guestSearch.addGuestListFilter(where);
@@ -709,10 +709,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * berechnet, die aktuelle Umsetzung zählt diese pro eingeladenen Member.
      * (Vgl. Bug 1480)
      *
-     * @param database The {@link Database}
-     * @param data FIXME
+     * @param database    The {@link Database}
+     * @param data        FIXME
      * @param guestSearch The {@link GuestSearch}
-     * @param selection FIXME
+     * @param selection   FIXME
      * @throws BeanException
      */
     protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection) throws BeanException {
@@ -785,7 +785,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     @Override
     protected String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException {
         final String col = getSearch(octopusContext).listorder;
-        if(Arrays.asList("lastname_a_e1","firstname_a_e1","mail_a_e1").contains(col)){
+        if (Arrays.asList("lastname_a_e1", "firstname_a_e1", "mail_a_e1").contains(col)) {
             return col;
         }
         return null;

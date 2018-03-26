@@ -61,6 +61,7 @@ package de.tarent.octopus.beans.veraweb;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.dblayer.engine.DB;
 import de.tarent.octopus.server.Closeable;
 
@@ -70,20 +71,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBConnectionCloser implements Closeable {
-	private static final Logger logger = Logger.getLogger(DBConnectionCloser.class.getName());
-	private Connection con;
+    private static final Logger logger = Logger.getLogger(DBConnectionCloser.class.getName());
+    private Connection con;
 
-	protected DBConnectionCloser(Connection con){
-		this.con = con;
-	}
+    protected DBConnectionCloser(Connection con) {
+        this.con = con;
+    }
 
-	public void close() {
-		try {
-			if(con!=null&&!con.isClosed()){
-				DB.close(con);
-			}
-		} catch (SQLException e) {
-			logger.log(Level.WARNING, e.getLocalizedMessage(), e);
-		}
-	}
+    public void close() {
+        try {
+            if (con != null && !con.isClosed()) {
+                DB.close(con);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, e.getLocalizedMessage(), e);
+        }
+    }
 }

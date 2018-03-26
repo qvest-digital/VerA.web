@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.fileupload;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -83,29 +84,40 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
 /**
- * @author  by Jon Nuñez, tarent solutions GmbH on 29.06.15.
+ * @author by Jon Nuñez, tarent solutions GmbH on 29.06.15.
  */
 @Path("/fileupload")
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class FileUploadResource {
 
-    /** Jersey client */
+    /**
+     * Jersey client
+     */
     private final Client client;
 
-    /** Configuration */
+    /**
+     * Configuration
+     */
     private final Config config;
 
-        /** Jackson Object Mapper */
-        private final ObjectMapper mapper = new ObjectMapper();
+    /**
+     * Jackson Object Mapper
+     */
+    private final ObjectMapper mapper = new ObjectMapper();
 
     private final ResourceReader resourceReader;
 
-    /** Base path of all resources. */
+    /**
+     * Base path of all resources.
+     */
     private static final String BASE_RESOURCE = "/rest";
 
-        /** Return types */
-        private static final TypeReference<String> STRING = new TypeReference<String>() {};
+    /**
+     * Return types
+     */
+    private static final TypeReference<String> STRING = new TypeReference<String>() {
+    };
 
     public FileUploadResource(Config config, Client client) {
         this.client = client;
@@ -113,76 +125,78 @@ public class FileUploadResource {
         this.resourceReader = new ResourceReader(client, mapper, config);
     }
 
-        @POST
-        @Path("/save")
-        public String saveTempImage(@FormParam("file") String imageString,
-                                                                @FormParam("imgUUID") String imgUUID) throws IOException {
+    @POST
+    @Path("/save")
+    public String saveTempImage(@FormParam("file") String imageString,
+            @FormParam("imgUUID") String imgUUID) throws IOException {
 
-                String extension = getImageType(imageString);
-                String imageStringData = removeHeaderFromImage(imageString);
+        String extension = getImageType(imageString);
+        String imageStringData = removeHeaderFromImage(imageString);
 
-                uploadImage(imageStringData, extension, imgUUID);
+        uploadImage(imageStringData, extension, imgUUID);
 
-                return StatusConverter.convertStatus("OK");
+        return StatusConverter.convertStatus("OK");
+    }
+
+    @GET
+    @Path("/download/{imgUUID}")
+    public String downloadGuestImage(@PathParam("imgUUID") String imgUUID) throws IOException {
+
+        WebResource resource = client.resource(config.getVerawebEndpoint() + BASE_RESOURCE +
+                "/fileupload/download/" + imgUUID);
+
+        String encodedImage;
+        try {
+            encodedImage = resource.get(String.class);
+        } catch (UniformInterfaceException e) {
+            int statusCode = e.getResponse().getStatus();
+            if (statusCode == 204) {
+                return null;
+            }
+
+            return null;
         }
 
-        @GET
-        @Path("/download/{imgUUID}")
-        public String downloadGuestImage(@PathParam("imgUUID") String imgUUID) throws IOException {
+        return StatusConverter.convertStatus(encodedImage);
+    }
 
-                WebResource resource = client.resource(config.getVerawebEndpoint() + BASE_RESOURCE +
-                                "/fileupload/download/" + imgUUID);
+    public void uploadImage(String imageStringData, String extension, String imgUUID) {
+        final WebResource resource = client.resource(path("fileupload", "save"));
 
-                String encodedImage;
-                try {
-                        encodedImage = resource.get(String.class);
-                } catch (UniformInterfaceException e) {
-                        int statusCode = e.getResponse().getStatus();
-                        if (statusCode == 204) {
-                                return null;
-                        }
+        final Form postBody = new Form();
 
-                        return null;
-                }
+        postBody.add("imageStringData", imageStringData);
+        postBody.add("extension", extension);
+        postBody.add("imageUUID", imgUUID);
 
-                return StatusConverter.convertStatus(encodedImage);
+        resource.post(postBody);
+    }
+
+    private String removeHeaderFromImage(String imageString) {
+        if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPG) ||
+                getImageType(imageString).equals(VerawebConstants.EXTENSION_PNG)) {
+            return imageString.substring(22);
+        }
+        if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPEG)) {
+            return imageString.substring(23);
         }
 
-        public void uploadImage(String imageStringData, String extension, String imgUUID) {
-                final WebResource resource = client.resource(path("fileupload", "save"));
+        return "ERROR REMOVING HEADER FROM IMAGE";
+    }
 
-                final Form postBody = new Form();
-
-                postBody.add("imageStringData", imageStringData);
-                postBody.add("extension", extension);
-                postBody.add("imageUUID", imgUUID);
-
-                resource.post(postBody);
+    private String getImageType(String imageString) {
+        String imageHeader = imageString.substring(0, 15);
+        if (imageHeader.contains(VerawebConstants.JPG)) {
+            return VerawebConstants.EXTENSION_JPG;
+        } else if (imageHeader.contains(VerawebConstants.JPEG)) {
+            return VerawebConstants.EXTENSION_JPEG;
+        } else if (imageHeader.contains(VerawebConstants.PNG)) {
+            return VerawebConstants.EXTENSION_PNG;
         }
+        return "ERROR_PARSING_IMAGE_TYPE";
+    }
 
-        private String removeHeaderFromImage(String imageString) {
-                if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPG) ||
-                                getImageType(imageString).equals(VerawebConstants.EXTENSION_PNG))
-                        return imageString.substring(22);
-                if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPEG))
-                        return imageString.substring(23);
-
-                return "ERROR REMOVING HEADER FROM IMAGE";
-        }
-
-        private String getImageType(String imageString) {
-                String imageHeader = imageString.substring(0, 15);
-                if (imageHeader.contains(VerawebConstants.JPG)) {
-                        return VerawebConstants.EXTENSION_JPG;
-                } else if (imageHeader.contains(VerawebConstants.JPEG)) {
-                        return VerawebConstants.EXTENSION_JPEG;
-                } else if (imageHeader.contains(VerawebConstants.PNG)) {
-                        return VerawebConstants.EXTENSION_PNG;
-                }
-                return "ERROR_PARSING_IMAGE_TYPE";
-        }
-
-        private String path(Object... path) {
+    private String path(Object... path) {
         return resourceReader.constructPath(BASE_RESOURCE, path);
     }
 }

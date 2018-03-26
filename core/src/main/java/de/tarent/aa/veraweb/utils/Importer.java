@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
 
@@ -77,10 +78,10 @@ public interface Importer {
      * importierenden Personendatensätze und Zusätze nacheinander dem übergebenen
      * {@link ImportDigester} übergeben.
      *
-     * @param digester der {@link ImportDigester}, der die Datensätze weiter
-     *  verarbeitet.
+     * @param digester           der {@link ImportDigester}, der die Datensätze weiter
+     *                           verarbeitet.
      * @param transactionContext FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      * @throws BeanException FIXME
      */
     void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException;

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -72,12 +73,18 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class Config extends AbstractBean {
-    /** pk serial NOT NULL: Primärschlüssel */
-	public Integer id;
-    /** cname varchar(100) NOT NULL: Schlüssel des Konfigurationseintrags */
-	public String key;
-    /** cvalue varchar(300) NOT NULL: Wert des Konfigurationseintrags */
-	public String value;
+    /**
+     * pk serial NOT NULL: Primärschlüssel
+     */
+    public Integer id;
+    /**
+     * cname varchar(100) NOT NULL: Schlüssel des Konfigurationseintrags
+     */
+    public String key;
+    /**
+     * cvalue varchar(300) NOT NULL: Wert des Konfigurationseintrags
+     */
+    public String value;
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
@@ -88,7 +95,7 @@ public class Config extends AbstractBean {
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
-	@Override
+    @Override
     public void checkRead(OctopusContext octopusContext) throws BeanException {
-	}
+    }
 }

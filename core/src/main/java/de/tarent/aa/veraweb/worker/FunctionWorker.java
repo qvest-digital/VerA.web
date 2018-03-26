@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Function;
 import de.tarent.dblayer.sql.clause.RawClause;
@@ -103,10 +104,10 @@ public class FunctionWorker extends StammdatenWorker {
     @Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
         final Function function = (Function) bean;
-        if(!function.equals("")){
-                super.saveBean(cntx, bean, context);
+        if (!function.equals("")) {
+            super.saveBean(cntx, bean, context);
         } else {
-                return ;
+            return;
         }
     }
 

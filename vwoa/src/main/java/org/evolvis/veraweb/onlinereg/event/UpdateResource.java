@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -90,14 +91,15 @@ import java.io.IOException;
  * message to an event
  *
  * @author jnunez
- *
  */
 @Path("/update")
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class UpdateResource {
 
-    /** base path of all resource */
+    /**
+     * base path of all resource
+     */
     public static final String BASE_RESOURCE = "/rest";
 
     /* Context data */
@@ -125,17 +127,17 @@ public class UpdateResource {
     private final Client client;
     private final ResourceReader resourceReader;
 
-    /** Servlet context */
+    /**
+     * Servlet context
+     */
     @javax.ws.rs.core.Context
     private HttpServletRequest request;
 
     /**
      * Creates a new EventResource
      *
-     * @param client
-     *            jersey client
-     * @param config
-     *            configuration
+     * @param client jersey client
+     * @param config configuration
      */
     public UpdateResource(Config config, Client client) {
         this.client = client;
@@ -163,13 +165,11 @@ public class UpdateResource {
     /**
      * Save the registration to an event
      *
-     * @param eventId event id
-     * @param notehost note to host
+     * @param eventId          event id
+     * @param notehost         note to host
      * @param invitationstatus status of user
-
-     * @throws IOException FIXME
-
      * @return updated Guest object
+     * @throws IOException FIXME
      */
     @POST
     @Path("/{eventId}/update")
@@ -196,10 +196,8 @@ public class UpdateResource {
      * Checking if the guest is a reserve or not
      *
      * @param eventId the event ID
-     *
-     * @throws IOException FIXME
-     *
      * @return FIXME
+     * @throws IOException FIXME
      */
     @GET
     @Path("/isreserve/{eventId}")
@@ -211,14 +209,10 @@ public class UpdateResource {
     /**
      * Update guest
      *
-     * @param eventId
-     *            int
-     * @param userId
-     *            int
-     * @param invitationstatus
-     *            String
-     * @param notehost
-     *            String
+     * @param eventId          int
+     * @param userId           int
+     * @param invitationstatus String
+     * @param notehost         String
      */
     private void updateGuest(String eventId, int userId, String invitationstatus, String notehost) {
         WebResource resource = client.resource(path("guest", "update", eventId, userId));
@@ -233,13 +227,10 @@ public class UpdateResource {
     /**
      * Checking if the user is registered
      *
-     * @param username
-     *            String
-     * @param eventId
-     *            String
+     * @param username String
+     * @param eventId  String
      * @return Boolean
-     * @throws IOException
-     *             the exception
+     * @throws IOException the exception
      */
     private Boolean isUserRegistered(String username, String eventId) throws IOException {
         return readResource(path("guest", "registered", username, eventId), BOOLEAN);
@@ -252,10 +243,8 @@ public class UpdateResource {
     /**
      * Getting the transporter to show data according to the layout
      *
-     * @param eventId
-     *            int
-     * @param username
-     *            String
+     * @param eventId  int
+     * @param username String
      * @return EventTransporter
      * @throws IOException
      */
@@ -272,10 +261,8 @@ public class UpdateResource {
     /**
      * Converting Event-Guest to EventTransporter to show data into the layout
      *
-     * @param guest
-     *            Guest
-     * @param event
-     *            Event
+     * @param guest Guest
+     * @param event Event
      * @return EventTransporter
      */
     private EventTransporter createEventTransporter(Guest guest, Event event) {

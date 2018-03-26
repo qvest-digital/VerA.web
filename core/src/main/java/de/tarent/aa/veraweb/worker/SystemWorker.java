@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.dblayer.engine.DB;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -81,53 +82,61 @@ public class SystemWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabe-Parameter der Octopus-Aktion {@link #openPool(OctopusContext)} */
-	public final static String INPUT_openPool[] = {};
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #openPool(OctopusContext)}
+     */
+    public final static String INPUT_openPool[] = {};
+
     /**
      * Diese Octopus-Aktion initialisiert den dblayer-DB-Pool dieses Moduls.
      *
      * @param cntx Octopus-Kontext
      */
-	public void openPool(OctopusContext cntx) throws IOException {
-		File file = new File(
-				cntx.moduleConfig().getRealPath(),
-				cntx.moduleConfig().getParam("dblayer"));
+    public void openPool(OctopusContext cntx) throws IOException {
+        File file = new File(
+                cntx.moduleConfig().getRealPath(),
+                cntx.moduleConfig().getParam("dblayer"));
 
-		Properties properties = new Properties();
-		properties.load(new FileInputStream(file));
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(file));
 
-		DB.openPool(cntx.getModuleName(), new HashMap(properties));
-	}
+        DB.openPool(cntx.getModuleName(), new HashMap(properties));
+    }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #closePool(OctopusContext)} */
-	public final static String INPUT_closePool[] = {};
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #closePool(OctopusContext)}
+     */
+    public final static String INPUT_closePool[] = {};
+
     /**
      * Diese Octopus-Aktion schließt den dblayer-DB-Pool dieses Moduls.
      *
      * @param cntx Octopus-Kontext
      */
-	public void closePool(OctopusContext cntx) {
-		DB.closePool(cntx.getModuleName());
-	}
+    public void closePool(OctopusContext cntx) {
+        DB.closePool(cntx.getModuleName());
+    }
 
-    /** Eingabe-Parameter der Octopus-Aktion */
-	public final static String INPUT_initLogging[] = {};
+    /**
+     * Eingabe-Parameter der Octopus-Aktion
+     */
+    public final static String INPUT_initLogging[] = {};
     /**
      * Diese Octopus-Aktion initialisiert das Log4J-Logging dieses Moduls.
      *
      * @param cntx Octopus-Kontext
      */
-//	public void initLogging(OctopusContext cntx) {
-//		DOMConfigurator.configure(cntx.moduleConfig().getOtherNode("log4j:configuration"));
-//
-//		String path = cntx.moduleConfig().getRealPath() + "/log/";
-//		new File(path).mkdirs();
-//		changeLogDir(Category.getInstance("SQL"), path);
-//		changeLogDir(Category.getInstance("WORKER"), path);
-//		changeLogDir(Category.getInstance("ERROR"), path);
-//		changeLogDir(Category.getInstance("de.tarent.dblayer"), path);
-//		changeLogDir(Category.getInstance("de.tarent.aa.veraweb"), path);
-//	}
+    //	public void initLogging(OctopusContext cntx) {
+    //		DOMConfigurator.configure(cntx.moduleConfig().getOtherNode("log4j:configuration"));
+    //
+    //		String path = cntx.moduleConfig().getRealPath() + "/log/";
+    //		new File(path).mkdirs();
+    //		changeLogDir(Category.getInstance("SQL"), path);
+    //		changeLogDir(Category.getInstance("WORKER"), path);
+    //		changeLogDir(Category.getInstance("ERROR"), path);
+    //		changeLogDir(Category.getInstance("de.tarent.dblayer"), path);
+    //		changeLogDir(Category.getInstance("de.tarent.aa.veraweb"), path);
+    //	}
 
     //
     // Hilfsmethoden
@@ -140,17 +149,17 @@ public class SystemWorker {
      * @param category abzuändernde Log4J-Kategorie
      * @param path zu benutzender Dateipfad
      */
-//	protected void changeLogDir(Category category, String path) {
-//		if (category == null) return;
-//		for (Enumeration e = category.getAllAppenders(); e.hasMoreElements(); ) {
-//			Object o = e.nextElement();
-//			if (o != null && o instanceof FileAppender) {
-//				FileAppender a = (FileAppender)o;
-//				if (a.getFile() != null && a.getFile().indexOf('/') == -1 && a.getFile().indexOf('\\') == -1) {
-//					a.setFile(path + a.getFile());
-//					a.activateOptions();
-//				}
-//			}
-//		}
-//	}
+    //	protected void changeLogDir(Category category, String path) {
+    //		if (category == null) return;
+    //		for (Enumeration e = category.getAllAppenders(); e.hasMoreElements(); ) {
+    //			Object o = e.nextElement();
+    //			if (o != null && o instanceof FileAppender) {
+    //				FileAppender a = (FileAppender)o;
+    //				if (a.getFile() != null && a.getFile().indexOf('/') == -1 && a.getFile().indexOf('\\') == -1) {
+    //					a.setFile(path + a.getFile());
+    //					a.activateOptions();
+    //				}
+    //			}
+    //		}
+    //	}
 }

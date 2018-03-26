@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
@@ -89,7 +90,7 @@ import java.util.Map;
 
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
 @Path("/mailing")
-@Consumes({MediaType.MULTIPART_FORM_DATA})
+@Consumes({ MediaType.MULTIPART_FORM_DATA })
 public class MailingResource extends FormDataResource {
     private static final Logger LOGGER = Logger.getLogger(MailingResource.class);
     public static final String PARAM_MAILINGLIST_ID = "mailinglist-id";
@@ -100,7 +101,7 @@ public class MailingResource extends FormDataResource {
     private EmailConfiguration emailConfiguration;
 
     @POST
-    @Consumes({MediaType.MULTIPART_FORM_DATA})
+    @Consumes({ MediaType.MULTIPART_FORM_DATA })
     public Response uploadFile(final FormDataMultiPart formData) {
         final String subject = formData.getField(PARAM_MAIL_SUBJECT).getEntityAs(String.class);
         final String text = formData.getField(PARAM_MAIL_TEXT).getEntityAs(String.class);
@@ -115,10 +116,10 @@ public class MailingResource extends FormDataResource {
             msg = sendEmails(recipients, subject, text, files);
         } catch (AddressException e) {
             LOGGER.error("Email-Adress is not valid", e);
-            return  Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+            return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
         } catch (final MessagingException e) {
             LOGGER.error("Sending email failed", e);
-            return  Response.status(Status.BAD_GATEWAY).build();
+            return Response.status(Status.BAD_GATEWAY).build();
         } finally {
             removeAttachmentsFromFilesystem(files);
         }
@@ -139,7 +140,7 @@ public class MailingResource extends FormDataResource {
     }
 
     private String sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text,
-                              final Map<String, File> files) throws MessagingException {
+            final Map<String, File> files) throws MessagingException {
         final StringBuilder sb = new StringBuilder();
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration("de_DE");
@@ -160,7 +161,7 @@ public class MailingResource extends FormDataResource {
                 LOGGER.error("Email-Adress is not valid" + recipient.getAddress(), e);
                 // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
                 // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
-                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress()+"\n\n");
+                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress() + "\n\n");
                 thrownAddressException = true;
             }
         }

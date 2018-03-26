@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Person;
@@ -113,7 +114,9 @@ public class GuestWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabe-Parameter für {@link #addGuestList(OctopusContext)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #addGuestList(OctopusContext)}
+     */
     public static final String[] INPUT_addGuestList = {};
     /**
      * Diese Octopus-Aktion fügt eine Reihe von Gästen einer
@@ -133,7 +136,9 @@ public class GuestWorker {
                     + "gender, nationality, domestic_a, invitationstatus_p, notehost_p, "
                     + "noteorga_p, language_p, gender_p, nationality_p, domestic_b, createdby, created, osiam_login ) "
                     + "select p.pk as fk_person, {0} as fk_event, 0 as fk_category, "
-                    + "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as reserve, 0 as delegation, "
+                    +
+                    "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as reserve, 0 as " +
+                     "delegation, "
                     + "p.notehost_a_e1 as notehost, p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
                     + "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
                     + "invitationstatus_p, p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
@@ -164,7 +169,7 @@ public class GuestWorker {
                 invitecategory = new HashMap();
             }
 
-            final String personIds = DatabaseHelper.listsToIdListString(new List[]{invitemain, invitepartner, selectreserve, selectdelegation});
+            final String personIds = DatabaseHelper.listsToIdListString(new List[] { invitemain, invitepartner, selectreserve, selectdelegation });
 
             setInvitationStatistics(cntx, context, event, personIds);
 
@@ -186,9 +191,10 @@ public class GuestWorker {
                             fk_category = null;
                         }
 
-                        updateGuestStatement.append(UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format(new Object[]{
+                        updateGuestStatement.append(UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format(new Object[] {
                                 fk_category != null ? fk_category.toString() : null,
-                                new Integer(invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER),
+                                new Integer(
+                                        invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER),
                                 (selectreserve.indexOf(person.id) != -1) ? 1 : 0,
                                 (selectdelegation.indexOf(person.id) != -1) ? "'" + UUID.randomUUID() + "'" : null,
                                 person.id.toString(), event.id.toString()
@@ -231,7 +237,8 @@ public class GuestWorker {
         }
     }
 
-    private void addGuests(OctopusContext cntx, Database database, TransactionContext context, Event event, String personIds, StringBuffer updateGuestStatement) throws SQLException, BeanException {
+    private void addGuests(OctopusContext cntx, Database database, TransactionContext context, Event event, String personIds,
+            StringBuffer updateGuestStatement) throws SQLException, BeanException {
         addGuestsInitial(cntx, context, event, personIds);
         if (!event.login_required) {
             addLoginUUIDtoGuests(database, context, event.id, personIds);
@@ -244,9 +251,9 @@ public class GuestWorker {
     }
 
     private void addLoginUUIDtoGuests(Database database,
-                                      TransactionContext transactionContext,
-                                      Integer eventId,
-                                      String personIds) throws BeanException, SQLException {
+            TransactionContext transactionContext,
+            Integer eventId,
+            String personIds) throws BeanException, SQLException {
         String[] personIdsAsList = personIds.split(",");
 
         for (String aPersonIdsAsList : personIdsAsList) {
@@ -294,7 +301,7 @@ public class GuestWorker {
     private void addGuestsInitial(OctopusContext cntx, TransactionContext context, Event event, String personIds)
             throws SQLException, BeanException {
         // second step, create guest tupels
-        final String sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format(new Object[]{
+        final String sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format(new Object[] {
                         event.id.toString(),
                         ((PersonalConfigAA) cntx.personalConfig()).getRoleWithProxy(),
                         personIds
@@ -306,7 +313,7 @@ public class GuestWorker {
 
     private void setInvitationStatistics(OctopusContext oc, TransactionContext context, Event event, String personIds)
             throws SQLException {
-        final String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format(new Object[]{event.id.toString(), personIds});
+        final String sql = COUNT_INVITED_NOT_INVITED_2_FORMAT.format(new Object[] { event.id.toString(), personIds });
         final Result result = DB.result(context, sql);
 
         final ResultSet rs = result.resultSet();
@@ -321,8 +328,10 @@ public class GuestWorker {
         rs.close();
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #addEvent(OctopusContext, Integer)} */
-    public static final String INPUT_addEvent[] = {"id"};
+    /**
+     * Octopus-Eingabe-Parameter für {@link #addEvent(OctopusContext, Integer)}
+     */
+    public static final String INPUT_addEvent[] = { "id" };
     /**
      * Fügt die Gäste einer Veranstaltung einer anderen Veranstaltung hinzu.
      */
@@ -340,9 +349,12 @@ public class GuestWorker {
             "insert into tguest ( fk_person, fk_event, fk_category, invitationtype, invitationstatus, "
                     + "ishost, diplodate, rank, reserve, tableno, seatno, orderno, notehost, noteorga, \"language\", "
                     + "gender, nationality, domestic_a, invitationstatus_p, tableno_p, seatno_p, orderno_p, notehost_p, "
-                    + "noteorga_p, language_p, gender_p, nationality_p, domestic_b, createdby, created, delegation, osiam_login, login_required_uuid, image_uuid, image_uuid_p, keywords) "
+                    +
+                    "noteorga_p, language_p, gender_p, nationality_p, domestic_b, createdby, created, delegation, osiam_login, " +
+                     "login_required_uuid, image_uuid, image_uuid_p, keywords) "
                     + "select p.pk as fk_person, {0} as fk_event, g.fk_category as fk_category,"
-                    + " CASE WHEN {1} <> g.invitationtype AND {1} <> {2} THEN g.invitationtype ELSE {1} END as invitationtype, 0 as invitationstatus, "
+                    +
+                    " CASE WHEN {1} <> g.invitationtype AND {1} <> {2} THEN g.invitationtype ELSE {1} END as invitationtype, 0 as invitationstatus, "
                     + "0 as ishost, p.diplodate_a_e1 as diplodate, g.rank as rank, g.reserve as reserve, "
                     + "g.tableno as tableno, g.seatno as seatno, g.orderno as orderno, p.notehost_a_e1 as notehost, "
                     + "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
@@ -350,7 +362,10 @@ public class GuestWorker {
                     + "invitationstatus_p, g.tableno_p as tableno_p, g.seatno_p as seatno_p, g.orderno_p as orderno_p, "
                     + "p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as language_p, "
                     + "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
-                    + "''{3}'' as createdby, current_timestamp as created, g.delegation as delegation, g.osiam_login as osiam_login, g.login_required_uuid as login_required_uuid, g.image_uuid as image_uuid, g.image_uuid_p as image_uuid_p, g.keywords as keywords from tperson p "
+                    +
+                    "''{3}'' as createdby, current_timestamp as created, g.delegation as delegation, g.osiam_login as osiam_login, g" +
+                     ".login_required_uuid as login_required_uuid, g.image_uuid as image_uuid, g.image_uuid_p as image_uuid_p, g.keywords as " +
+                      "keywords from tperson p "
                     + "left join tguest g on p.pk = g.fk_person and g.fk_event = {4} "
                     + "where p.pk in (select g.fk_person from tguest g "
                     + "where g.fk_event = {4}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
@@ -363,7 +378,7 @@ public class GuestWorker {
         try {
             Event event = (Event) cntx.contentAsObject("event");
             logger.debug("F\u00fcge G\u00e4ste der Veranstaltung #" + eventId + " der Verstanstaltung #" + event.id + " hinzu.");
-            String sql = COUNT_INVITED_NOT_INVITED_FORMAT.format(new Object[]{event.id.toString(), eventId.toString()});
+            String sql = COUNT_INVITED_NOT_INVITED_FORMAT.format(new Object[] { event.id.toString(), eventId.toString() });
             Result res = DB.result(context, sql);
 
             ResultSet rs = res.resultSet();
@@ -390,7 +405,8 @@ public class GuestWorker {
                 System.gc();
             }
 
-            sql = ADD_FROM_EVENT_FORMAT.format(new Object[]{event.id.toString(), event.invitationtype, EventConstants.TYPE_OHNEPARTNER, ((PersonalConfigAA) cntx.personalConfig()).getRoleWithProxy(), eventId.toString()});
+            sql = ADD_FROM_EVENT_FORMAT.format(new Object[] { event.id.toString(), event.invitationtype, EventConstants.TYPE_OHNEPARTNER,
+                    ((PersonalConfigAA) cntx.personalConfig()).getRoleWithProxy(), eventId.toString() });
             DB.insert(context, sql);
             context.commit();
             // TODO bulk log guest create event
@@ -400,8 +416,10 @@ public class GuestWorker {
         }
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #addPerson(OctopusContext, Integer)} */
-    public static final String[] INPUT_addPerson = {"event-id"};
+    /**
+     * Octopus-Eingabe-Parameter für {@link #addPerson(OctopusContext, Integer)}
+     */
+    public static final String[] INPUT_addPerson = { "event-id" };
 
     /**
      * Fügt eine Person aus dem Content zu einer Veranstaltung hinzu.
@@ -437,10 +455,11 @@ public class GuestWorker {
                             + " keine PersonCategorie ermitteln", e);
                 }
                 invite = addGuest(cntx, database, context, event, person.id, catId, Boolean.FALSE, event.invitationtype, Boolean.FALSE);
-                if (invite)
+                if (invite) {
                     invited++;
-                else
+                } else {
                     notInvited++;
+                }
             } else {
                 logger.error("addPerson: Konnte Person: " + person + " der Veranstaltung: " + event + " nicht hinzufügen.");
             }
@@ -456,8 +475,10 @@ public class GuestWorker {
         }
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #reloadData(OctopusContext, Integer)} */
-    public static final String INPUT_reloadData[] = {"guest-id"};
+    /**
+     * Octopus-Eingabe-Parameter für {@link #reloadData(OctopusContext, Integer)}
+     */
+    public static final String INPUT_reloadData[] = { "guest-id" };
 
     /**
      * Diese Octopus-Aktion aktualisiert die Daten eines Gastes
@@ -515,7 +536,9 @@ public class GuestWorker {
         }
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #calcSerialNumber(OctopusContext)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #calcSerialNumber(OctopusContext)}
+     */
     public static final String INPUT_calcSerialNumber[] = {};
 
     /**
@@ -523,7 +546,7 @@ public class GuestWorker {
      *
      * @param cntx The {@link OctopusContext}
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      */
     public void calcSerialNumber(OctopusContext cntx) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(cntx);
@@ -561,7 +584,8 @@ public class GuestWorker {
      *
      * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
      */
-    boolean addGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer personId, Integer categoryId, Boolean reserve, Integer invitationtype, Boolean ishost) throws BeanException, IOException {
+    boolean addGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer personId, Integer categoryId,
+            Boolean reserve, Integer invitationtype, Boolean ishost) throws BeanException, IOException {
         return saveGuest(cntx, database, context, event, null, personId, categoryId, reserve, invitationtype, ishost);
     }
 
@@ -570,8 +594,11 @@ public class GuestWorker {
      *
      * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
      */
-    boolean updateGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer guestId) throws BeanException, IOException {
-        if (guestId == null) return false;
+    boolean updateGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event, Integer guestId)
+            throws BeanException, IOException {
+        if (guestId == null) {
+            return false;
+        }
         return saveGuest(cntx, database, context, event, guestId, null, null, null, null, null);
     }
 
@@ -582,24 +609,24 @@ public class GuestWorker {
      * Gast angelegt wenn dieser noch nicht dieser Veranstaltung zugeordnet
      * war. Wenn die Gast-ID übergeben wird, wird dieser Gast aktuallisiert!
      *
-     * @param cntx Octopus-Context
-     * @param database Datenbank
-     * @param event Veranstaltung
-     * @param guestId Gast der bearbeitet werden soll, null zum hinzufügen.
-     * @param personId Person mit dessen Daten der Gast gefüllt werden soll.
-     * @param categoryId Kategorie nach der gefiltert wurde.
-     * @param reserve Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
+     * @param cntx           Octopus-Context
+     * @param database       Datenbank
+     * @param event          Veranstaltung
+     * @param guestId        Gast der bearbeitet werden soll, null zum hinzufügen.
+     * @param personId       Person mit dessen Daten der Gast gefüllt werden soll.
+     * @param categoryId     Kategorie nach der gefiltert wurde.
+     * @param reserve        Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
      * @param invitationtype Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
-     * @param ishost Gibt an ob dieser Gast gleichzeitig Gastgeber ist.
+     * @param ishost         Gibt an ob dieser Gast gleichzeitig Gastgeber ist.
      */
     /*
-	 * 2009-05-12 cklein
-	 *
-	 * fixed as part of issue #1531 - personCategorie was always null due to malformed query
-	 */
+     * 2009-05-12 cklein
+     *
+     * fixed as part of issue #1531 - personCategorie was always null due to malformed query
+     */
     protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext executionContext, Event event,
-                                Integer guestId, Integer personId, Integer categoryId, Boolean reserve,
-                                Integer invitationtype, Boolean ishost) throws BeanException, IOException {
+            Integer guestId, Integer personId, Integer categoryId, Boolean reserve,
+            Integer invitationtype, Boolean ishost) throws BeanException, IOException {
         if (event == null) {
             return false;
         }
@@ -688,11 +715,11 @@ public class GuestWorker {
         guest.verify();
         if (guest.isCorrect()) {
 
-			/*
-			 * modified for change logging support
-			 * cklein
-			 * 2008-02-12
-			 */
+            /*
+             * modified for change logging support
+             * cklein
+             * 2008-02-12
+             */
             BeanChangeLogger clogger = new BeanChangeLogger(database);
             if (guest.id == null) {
                 database.getNextPk(guest, executionContext);
@@ -755,14 +782,12 @@ public class GuestWorker {
      * Get the number of guests by event id and person id.
      *
      * @param database The database
-     * @param context TODO
-     * @param event The event
+     * @param context  TODO
+     * @param event    The event
      * @param personId Person id
-     *
      * @return Total number of the guests
-     *
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      */
     private int getNumberOfGuests(Database database, ExecutionContext context, Event event, Integer personId) throws BeanException, IOException {
         return database.getCount(database.getCount("Guest").where(Where.and(
@@ -773,6 +798,8 @@ public class GuestWorker {
     //
     // Variablen
     //
-    /** Logger für diese Klasse */
+    /**
+     * Logger für diese Klasse
+     */
     private final static Logger logger = LogManager.getLogger(GuestWorker.class);
 }

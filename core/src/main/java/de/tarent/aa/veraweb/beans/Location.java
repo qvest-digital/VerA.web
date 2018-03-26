@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
@@ -75,74 +76,74 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
     /**
      * PK.
      */
-	public Integer id;
+    public Integer id;
 
-	 /**
+    /**
      * Organisation unit.
      */
-	public Integer orgunit;
+    public Integer orgunit;
 
-	 /**
+    /**
      * Name of location.
      */
-	public String name;
+    public String name;
 
-	 /**
+    /**
      * Contact person.
      */
-	public String contactperson;
+    public String contactperson;
 
-	 /**
+    /**
      * address.
      */
-	public String address;
+    public String address;
 
     /**
      * zip code.
      */
     public String zip;
 
-     /**
+    /**
      * location.
      */
     public String location;
 
-	 /**
+    /**
      * Call number.
      */
-	public String callnumber;
+    public String callnumber;
 
-	 /**
+    /**
      * Fax number.
      */
-	public String faxnumber;
+    public String faxnumber;
 
-	 /**
+    /**
      * E-Mail address.
      */
-	public String email;
+    public String email;
 
-	 /**
+    /**
      * Comment.
      */
-	public String comment;
+    public String comment;
 
-	 /**
+    /**
      * URL.
      */
-	public String url;
+    public String url;
 
-	 /**
+    /**
      * GPS data.
      */
-	public String gpsdata;
+    public String gpsdata;
 
-	 /**
+    /**
      * Room number.
      */
-	public String roomnumber;
+    public String roomnumber;
 
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -257,14 +258,14 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
     public void verify(final OctopusContext octopusContext) throws BeanException {
         final VerawebMessages messages = new VerawebMessages(octopusContext);
 
-		if (name == null || name.trim().length() == 0) {
+        if (name == null || name.trim().length() == 0) {
             addError(messages.getMessageLocationTitleEmpty());
         }
 
-		if(comment != null && comment.length() > 1000) {
-		    addError(messages.getMessageLocationMaxRemarkReached());
-		}
-	}
+        if (comment != null && comment.length() > 1000) {
+            addError(messages.getMessageLocationMaxRemarkReached());
+        }
+    }
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
@@ -304,7 +305,8 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
         comparedList.add(collator.compare(this.address == null ? "" : this.address, location.address == null ? "" : location.address));
         comparedList.add(collator.compare(this.callnumber == null ? "" : this.callnumber, location.callnumber == null ? "" : location.callnumber));
         comparedList.add(collator.compare(this.comment == null ? "" : this.comment, location.comment == null ? "" : location.comment));
-        comparedList.add(collator.compare(this.contactperson == null ? "" : this.contactperson, location.contactperson == null ? "" : location.contactperson));
+        comparedList.add(collator
+                .compare(this.contactperson == null ? "" : this.contactperson, location.contactperson == null ? "" : location.contactperson));
         comparedList.add(collator.compare(this.email == null ? "" : this.email, location.email == null ? "" : location.email));
         comparedList.add(collator.compare(this.faxnumber == null ? "" : this.faxnumber, location.faxnumber == null ? "" : location.faxnumber));
         comparedList.add(collator.compare(this.gpsdata == null ? "" : this.gpsdata, location.gpsdata == null ? "" : location.gpsdata));
@@ -315,7 +317,7 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
         comparedList.add(collator.compare(this.url == null ? "" : this.url, location.url == null ? "" : location.url));
         comparedList.add(collator.compare(this.zip == null ? "" : this.zip, location.zip == null ? "" : location.zip));
 
-        if(comparedList.contains(1) || comparedList.contains(-1)) { //It contains 1 or -1 so it is not equal
+        if (comparedList.contains(1) || comparedList.contains(-1)) { //It contains 1 or -1 so it is not equal
             return 1; //For this implementation it does not matter what value returns. Can be changed for future reasons.
         }
 

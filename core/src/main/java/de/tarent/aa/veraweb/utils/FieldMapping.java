@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -85,6 +86,7 @@ public class FieldMapping {
     //
     // Konstruktoren
     //
+
     /**
      * Dieser Konstruktor bekommt ein simples Mapping übergeben. Hierbei wird
      * ein Quellfeld auf ein Zielfeld erweitert um Reihenfolgen- und Optionsangaben
@@ -105,14 +107,16 @@ public class FieldMapping {
             String[] info = (mapping.getValue() != null ? mapping.getValue().toString() : "").split(":");
             String targetField = info[0];
             if (targetField.length() == 0) {
-                if (logger.isInfoEnabled())
+                if (logger.isInfoEnabled()) {
                     logger.info("Leeres Mapping " + mapping);
+                }
                 continue;
             }
             info[0] = mapping.getKey().toString();
             List target = (List) targets.get(targetField);
-            if (target == null)
+            if (target == null) {
                 targets.put(targetField, target = new ArrayList());
+            }
             target.add(info);
         }
         // Quellfeldliste und Formate für Zielfelder erstellen
@@ -134,12 +138,13 @@ public class FieldMapping {
                     try {
                         int index = Integer.parseInt(info[1]);
                         if (index >= 0) {
-                            while (index >= orderedSources.size())
+                            while (index >= orderedSources.size()) {
                                 orderedSources.add(null);
+                            }
                             orderedSources.set(index, sourceField);
                             continue;
                         }
-                    } catch(NumberFormatException nfe) {
+                    } catch (NumberFormatException nfe) {
                     }
                     logger.warn("Ungültiger Index " + info[1] + " im Mapping von " + sourceField + "; Indexangabe wird ignoriert");
                 }
@@ -153,13 +158,15 @@ public class FieldMapping {
             String primeSource = null;
             while (itSources.hasNext()) {
                 String source = (String) itSources.next();
-                if (source == null || source.length() == 0)
+                if (source == null || source.length() == 0) {
                     continue;
-                if (format.length() > 0)
+                }
+                if (format.length() > 0) {
                     format.append(' ');
-                if (source.charAt(0) == ':')
+                }
+                if (source.charAt(0) == ':') {
                     format.append(source.substring(1));
-                else {
+                } else {
                     int index = sourceFields.indexOf(source);
                     if (index < 0) {
                         index = sourceFields.size();
@@ -167,14 +174,16 @@ public class FieldMapping {
                     }
                     format.append('{').append(index).append('}');
                     requiredFields.add(source);
-                    if (primeSource == null)
+                    if (primeSource == null) {
                         primeSource = source;
+                    }
                 }
             }
             targetRequiredFields.put(targetField, requiredFields);
             targetFormats.put(targetField, new MessageFormat(format.toString()));
-            if (primeSource != null)
+            if (primeSource != null) {
                 sourcePrimeTargets.put(primeSource, targetField);
+            }
         }
         // Zielfeldliste erzeugen
         targetFields.addAll(targetFormats.keySet());
@@ -183,15 +192,17 @@ public class FieldMapping {
     //
     // Öffentliche Methoden
     //
+
     /**
      * Diese Methode setzt die Namen der Spalten der einkommenden Zeilen.
      *
      * @param incomingSourceFields Spaltennamen der einkommenden Zeilen in
-     *  der einkommenden Reihenfolge.
+     *                             der einkommenden Reihenfolge.
      */
     public void setIncomingSourceFields(List incomingSourceFields) {
-        if (incomingSourceFields == null)
+        if (incomingSourceFields == null) {
             incomingSourceFields = Collections.EMPTY_LIST;
+        }
         formatToIncomingIndex = new int[sourceFields.size()];
         for (int i = 0; i < formatToIncomingIndex.length; i++) {
             formatToIncomingIndex[i] = incomingSourceFields.indexOf(sourceFields.get(i));
@@ -202,22 +213,26 @@ public class FieldMapping {
      * Diese Methode setzt die aktuelle Zeile.
      *
      * @param rowFields Felder der aktuellen Zeile in der mit {@link #setIncomingSourceFields(List)}
-     *  festgelegten Reihenfolge.
+     *                  festgelegten Reihenfolge.
      */
     public void setRow(List rowFields) {
-        if (formatToIncomingIndex == null)
+        if (formatToIncomingIndex == null) {
             setIncomingSourceFields(null);
-        if (rowFields == null)
+        }
+        if (rowFields == null) {
             rowFields = Collections.EMPTY_LIST;
+        }
         row = new Object[formatToIncomingIndex.length];
         for (int i = 0; i < row.length; i++) {
             int incomingIndex = formatToIncomingIndex[i];
-            if (incomingIndex < 0 || incomingIndex > rowFields.size())
+            if (incomingIndex < 0 || incomingIndex > rowFields.size()) {
                 row[i] = null;
-            else
+            } else {
                 row[i] = rowFields.get(incomingIndex);
-            if (row[i] == null)
+            }
+            if (row[i] == null) {
                 row[i] = "";
+            }
         }
     }
 
@@ -225,12 +240,13 @@ public class FieldMapping {
      * Diese Methode liefert den Wert zu einem Zielfeld aus der aktuellen Zeile.
      *
      * @param targetField Spaltenname des Zielfelds, das aus der aktuellen
-     *  Zeile ausgelesen werden soll
+     *                    Zeile ausgelesen werden soll
      * @return Wert des Zielfelds aus der aktuellen Zeile berechnet
      */
     public String getValue(String targetField) {
-        if (targetField == null || !targetFields.contains(targetField) || row == null)
+        if (targetField == null || !targetFields.contains(targetField) || row == null) {
             return null;
+        }
         MessageFormat format = (MessageFormat) targetFormats.get(targetField);
         return format.format(row).trim();
     }
@@ -259,17 +275,19 @@ public class FieldMapping {
      *
      * @param targets Sammlung von Spaltennamen der betrachteten Zielfelder
      * @return Menge der Spaltennamen der für die betrachteten Zielfelder
-     *  benötigten Quellfelder
+     * benötigten Quellfelder
      */
     public Set getRequiredSources(Collection targets) {
-        if (targets == null || targets.isEmpty())
+        if (targets == null || targets.isEmpty()) {
             return Collections.EMPTY_SET;
+        }
         Set result = new HashSet();
         Iterator itTargets = targets.iterator();
         while (itTargets.hasNext()) {
             Object target = itTargets.next();
-            if (targetRequiredFields.containsKey(target))
+            if (targetRequiredFields.containsKey(target)) {
                 result.addAll((Collection) targetRequiredFields.get(target));
+            }
         }
         return result;
     }
@@ -279,9 +297,9 @@ public class FieldMapping {
      * Hauptquelle ist, d.h. das erste Feld im Format.
      *
      * @param sourceField Spaltenname des Quellfelds, zu dem das Primärzielfeld
-     *  gesucht wird
+     *                    gesucht wird
      * @return Spaltenname des Zielfelds, in dem das angegebene Quellfeld primär
-     *  ist, oder <code>null</code>.
+     * ist, oder <code>null</code>.
      */
     public String getPrimeTarget(String sourceField) {
         return (String) sourcePrimeTargets.get(sourceField);
@@ -300,20 +318,36 @@ public class FieldMapping {
     //
     // geschützte Member
     //
-    /** aktuelle Zeile in der Sortierung von {@link #sourceFields} */
+    /**
+     * aktuelle Zeile in der Sortierung von {@link #sourceFields}
+     */
     private Object[] row = null;
-    /** Abbildung Formatindex auf einkommender Index */
+    /**
+     * Abbildung Formatindex auf einkommender Index
+     */
     private int[] formatToIncomingIndex = null;
-    /** Liste der verwendeten Quellfelder in der Reihenfolge, die in den Formaten gefordert ist */
+    /**
+     * Liste der verwendeten Quellfelder in der Reihenfolge, die in den Formaten gefordert ist
+     */
     private List sourceFields = new ArrayList();
-    /** Liste der verfügbaren Zielfelder */
+    /**
+     * Liste der verfügbaren Zielfelder
+     */
     private List targetFields = new ArrayList();
-    /** Sets benötigter Quellfelder zu den verfügbaren Zielfeldern */
+    /**
+     * Sets benötigter Quellfelder zu den verfügbaren Zielfeldern
+     */
     private Map targetRequiredFields = new HashMap();
-    /** MessageFormat-Instanzen zu den verfügbaren Zielfeldern */
+    /**
+     * MessageFormat-Instanzen zu den verfügbaren Zielfeldern
+     */
     private Map targetFormats = new HashMap();
-    /** Zielfeld zu den verfügbaren Quellfeldern, in dem diese führend sind */
+    /**
+     * Zielfeld zu den verfügbaren Quellfeldern, in dem diese führend sind
+     */
     private Map sourcePrimeTargets = new HashMap();
-    /** Logger für diese Klasse */
+    /**
+     * Logger für diese Klasse
+     */
     private final static Logger logger = LogManager.getLogger(FieldMapping.class);
 }

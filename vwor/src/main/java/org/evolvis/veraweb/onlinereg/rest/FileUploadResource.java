@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 import org.jboss.logging.Logger;
@@ -96,15 +97,15 @@ public class FileUploadResource extends AbstractResource {
      * Storing incomming image into file system.
      *
      * @param imageStringData Image as String
-     * @param extension Png or jpg
-     * @param imgUUID Image UUID
+     * @param extension       Png or jpg
+     * @param imgUUID         Image UUID
      * @throws IOException FIXME
      */
     @POST
     @Path("/save")
     public void saveImageIntoDataSystem(@FormParam("imageStringData") String imageStringData,
-                                        @FormParam("extension") String extension,
-                                        @FormParam("imageUUID") String imgUUID) throws IOException {
+            @FormParam("extension") String extension,
+            @FormParam("imageUUID") String imgUUID) throws IOException {
 
         if (vworPropertiesReader == null) {
             vworPropertiesReader = new VworPropertiesReader();
@@ -128,6 +129,7 @@ public class FileUploadResource extends AbstractResource {
 
     /**
      * Getting the picture by image UUID
+     *
      * @param imgUUID image uuid
      * @return Base64 data
      */

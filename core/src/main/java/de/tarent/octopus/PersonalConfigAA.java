@@ -79,27 +79,49 @@ public class PersonalConfigAA extends TcPersonalConfig {
     //
     // Konstanten
     //
-    /** Gruppe der Benutzer, die als Vertreter angemeldet sind */
+    /**
+     * Gruppe der Benutzer, die als Vertreter angemeldet sind
+     */
     public static final String GROUP_BY_PROXY = "ByProxy";
-    /** Gruppe der Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind */
+    /**
+     * Gruppe der Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind
+     */
     public static final String GROUP_IN_PERSON = "InPerson";
-    /** Gruppe der Benutzer, deren AA-Rolle nach Login nicht klar ist */
+    /**
+     * Gruppe der Benutzer, deren AA-Rolle nach Login nicht klar ist
+     */
     public static final String GROUP_UNCLEAR_ROLE = "Unclear";
-    /** Gruppe der Benutzer, deren (gewählte) Rollen nicht autorisiert sind */
+    /**
+     * Gruppe der Benutzer, deren (gewählte) Rollen nicht autorisiert sind
+     */
     public static final String GROUP_UNAUTHORIZED = "Unauthorized";
-    /** Gruppe der Benutzer, die die Standardfelder lesen dürfen */
+    /**
+     * Gruppe der Benutzer, die die Standardfelder lesen dürfen
+     */
     public static final String GROUP_READ_STANDARD = "StandardFieldsReader";
-    /** Gruppe der Benutzer, die die limitierten Bemerkungsfelder lesen dürfen */
+    /**
+     * Gruppe der Benutzer, die die limitierten Bemerkungsfelder lesen dürfen
+     */
     public static final String GROUP_READ_REMARKS = "RemarkFieldsReader";
-    /** Gruppe der Benutzer, die exportieren dürfen */
+    /**
+     * Gruppe der Benutzer, die exportieren dürfen
+     */
     public static final String GROUP_EXPORT = "Exporter";
-    /** Gruppe der Benutzer, die schreiben dürfen, abhängig von ihren Leserechten. */
+    /**
+     * Gruppe der Benutzer, die schreiben dürfen, abhängig von ihren Leserechten.
+     */
     public static final String GROUP_WRITE = "Writer";
-    /** Gruppe der Teiladministratoren */
+    /**
+     * Gruppe der Teiladministratoren
+     */
     public static final String GROUP_PARTIAL_ADMIN = "PartialAdmin";
-    /** Gruppe der Volladministratoren */
+    /**
+     * Gruppe der Volladministratoren
+     */
     public static final String GROUP_ADMIN = GROUP_ADMINISTRATOR;
-    /** Gruppe der Systemuser */
+    /**
+     * Gruppe der Systemuser
+     */
     public static final String GROUP_SYSTEM_USER = "SystemUser";
 
     static final MessageFormat roleAndProxyFormat = new MessageFormat("{0} (i.V. {1})");
@@ -107,6 +129,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     //
     // überschreibungen von TcPersonalConfig
     //
+
     /**
      * @see de.tarent.octopus.config.TcPersonalConfig#setUserGroups(java.lang.String[], java.lang.String)
      */
@@ -128,6 +151,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
     //
     // Getter und Setter
     //
+
     /**
      * Dieses Attribut stellt die Mandanten-Id des Angemeldeten dar.
      *
@@ -168,7 +192,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
      * Dieses Attribut stellt die AA-Rolle des handelnden Stellvertreters dar.
      *
      * @return AA-Rolle des Stellvertreters; <code>null</code>, wenn
-     *  nicht in Vertretung gearbeitet wird.
+     * nicht in Vertretung gearbeitet wird.
      */
     public String getProxy() {
         return proxy;
@@ -178,7 +202,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
      * Dieses Attribut stellt die AA-Rolle des handelnden Stellvertreters dar.
      *
      * @param proxy AA-Rolle des Stellvertreters; <code>null</code>, wenn
-     *  nicht in Vertretung gearbeitet wird.
+     *              nicht in Vertretung gearbeitet wird.
      */
     public void setProxy(String proxy) {
         this.proxy = proxy;
@@ -227,7 +251,7 @@ public class PersonalConfigAA extends TcPersonalConfig {
      * @return "Rolle" oder "Rolle (i.V. Vertreter)"
      */
     public String getRoleWithProxy() {
-        return proxy != null ? roleAndProxyFormat.format(new String[]{role, proxy}) : role;
+        return proxy != null ? roleAndProxyFormat.format(new String[] { role, proxy }) : role;
     }
 
     /**
@@ -237,14 +261,16 @@ public class PersonalConfigAA extends TcPersonalConfig {
      * @return {@link Grants} des Benutzers
      */
     public Grants getGrants() {
-        if (grants == null)
+        if (grants == null) {
             grants = new AAGrants();
+        }
         return grants;
     }
 
     //
     // innere Klassen
     //
+
     /**
      * Diese Klasse implementiert {@link Grants} auf Basis der in der persönlichen
      * Konfiguration gehaltenen Octopus-Benutzergruppen.
@@ -253,28 +279,74 @@ public class PersonalConfigAA extends TcPersonalConfig {
         //
         // Implementierung von Grants
         //
-        /** @see Grants#isAuthenticated() */
-        public boolean isAuthenticated()        { return authenticated; }
-        /** @see Grants#isUser() */
-        public boolean isUser()                 { return user; }
-        /** @see Grants#mayReadStandardFields() */
-        public boolean mayReadStandardFields()  { return readStandardFields; }
-        /** @see Grants#mayReadRemarkFields() */
-        public boolean mayReadRemarkFields()    { return readRemarkFields; }
-        /** @see Grants#mayExport() */
-        public boolean mayExport()              { return export; }
-        /** @see Grants#mayWrite() */
-        public boolean mayWrite()               { return write; }
-        /** @see Grants#isPartialAdmin() */
-        public boolean isPartialAdmin()         { return partialAdmin; }
-        /** @see Grants#isAdmin() */
-        public boolean isAdmin()                { return admin; }
-        /** @see Grants#isSystemUser() */
-        public boolean isSystemUser()           { return systemUser; }
+
+        /**
+         * @see Grants#isAuthenticated()
+         */
+        public boolean isAuthenticated() {
+            return authenticated;
+        }
+
+        /**
+         * @see Grants#isUser()
+         */
+        public boolean isUser() {
+            return user;
+        }
+
+        /**
+         * @see Grants#mayReadStandardFields()
+         */
+        public boolean mayReadStandardFields() {
+            return readStandardFields;
+        }
+
+        /**
+         * @see Grants#mayReadRemarkFields()
+         */
+        public boolean mayReadRemarkFields() {
+            return readRemarkFields;
+        }
+
+        /**
+         * @see Grants#mayExport()
+         */
+        public boolean mayExport() {
+            return export;
+        }
+
+        /**
+         * @see Grants#mayWrite()
+         */
+        public boolean mayWrite() {
+            return write;
+        }
+
+        /**
+         * @see Grants#isPartialAdmin()
+         */
+        public boolean isPartialAdmin() {
+            return partialAdmin;
+        }
+
+        /**
+         * @see Grants#isAdmin()
+         */
+        public boolean isAdmin() {
+            return admin;
+        }
+
+        /**
+         * @see Grants#isSystemUser()
+         */
+        public boolean isSystemUser() {
+            return systemUser;
+        }
 
         //
         // Konstruktor
         //
+
         /**
          * Der Konstruktor ermittelt die gehaltenen Flag-Werte aus den
          * Gruppenmitgliedschaften des Benutzers.

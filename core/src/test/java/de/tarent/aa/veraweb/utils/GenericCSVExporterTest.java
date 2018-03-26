@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Database;
@@ -93,14 +94,17 @@ public class GenericCSVExporterTest extends TestCase {
     //
     // Tests
     //
+
     /**
      * Diese Testmethode testet einen gemischten Export.
+     *
      * @throws TcConfigException
      */
     public void testMixedExportPositive() throws IOException, TcConfigException {
         // disabled currently
-        if (true)
-                return;
+        if (true) {
+            return;
+        }
         ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
         GenericCSVExporter exporter = new GenericCSVExporter();
         exporter.setDatabase(createDatabase());

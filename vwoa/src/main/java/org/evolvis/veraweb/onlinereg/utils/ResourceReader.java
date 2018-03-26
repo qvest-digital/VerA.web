@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -87,7 +88,9 @@ public class ResourceReader {
 
     private ObjectMapper mapper;
 
-    /** Configuration */
+    /**
+     * Configuration
+     */
     private Config config;
 
     /**
@@ -133,7 +136,8 @@ public class ResourceReader {
         }
 
         try {
-            return new URI(base.getScheme(),base.getUserInfo(),base.getHost(),base.getPort(),sb.toString(),base.getQuery(),base.getFragment()).toASCIIString();
+            return new URI(base.getScheme(), base.getUserInfo(), base.getHost(), base.getPort(), sb.toString(), base.getQuery(), base.getFragment())
+                    .toASCIIString();
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
@@ -142,15 +146,11 @@ public class ResourceReader {
     /**
      * Reads the resource at given path and returns the entity.
      *
-     * @param path
-     *            path
-     * @param type
-     *            TypeReference of requested entity
-     * @param <T>
-     *            Type of requested entity
+     * @param path path
+     * @param type TypeReference of requested entity
+     * @param <T>  Type of requested entity
      * @return requested resource
-     * @throws java.io.IOException
-     *             TODO
+     * @throws java.io.IOException TODO
      */
     public <T> T readStringResource(String path, TypeReference<T> type) throws IOException {
         WebResource resource;
@@ -162,7 +162,7 @@ public class ResourceReader {
                 // generate errors
                 // log.warning("Retrying request to " + path + " once because of
                 // SocketTimeoutException");
-               return readResource_(path, type);
+                return readResource_(path, type);
             } else {
                 throw che;
             }
@@ -177,10 +177,10 @@ public class ResourceReader {
         WebResource resource;
         resource = client.resource(path);
         final ClientResponse cr = resource.get(ClientResponse.class);
-        if(204 == cr.getStatus()){
+        if (204 == cr.getStatus()) {
             return null;
         }
-        if(cr.getStatus() >= 300){
+        if (cr.getStatus() >= 300) {
             throw new WebApplicationException(cr.getStatus());
         }
         final String json = cr.getEntity(String.class);

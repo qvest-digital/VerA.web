@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.LinkType;
 import org.evolvis.veraweb.onlinereg.entities.LinkUUID;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -89,7 +90,8 @@ public class ForgotPasswordResource extends AbstractResource {
 
     @POST
     @Path("/request/reset-password-link")
-    public void requestResetPasswordLink(@FormParam("username") String username, @FormParam("currentLanguageKey") String currentLanguageKey, @FormParam("oaEndpoint") String oaEndpoint) throws MessagingException {
+    public void requestResetPasswordLink(@FormParam("username") String username, @FormParam("currentLanguageKey") String currentLanguageKey,
+            @FormParam("oaEndpoint") String oaEndpoint) throws MessagingException {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -145,7 +147,8 @@ public class ForgotPasswordResource extends AbstractResource {
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
         String link = buildLink(oaEndpoint, uuid);
-        mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubjectResetPassword(), emailConfiguration.getContentResetPassword(), link, emailConfiguration.getContentType());
+        mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubjectResetPassword(),
+                emailConfiguration.getContentResetPassword(), link, emailConfiguration.getContentType());
     }
 
     private String buildLink(String oaEndpoint, String uuid) {

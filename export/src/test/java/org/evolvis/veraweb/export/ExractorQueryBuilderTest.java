@@ -61,6 +61,7 @@ package org.evolvis.veraweb.export;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -73,6 +74,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import de.tarent.extract.ExtractorQuery;
+
 public class ExractorQueryBuilderTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
@@ -84,15 +86,15 @@ public class ExractorQueryBuilderTest {
     public void canSubstituteSingleValues() {
         when(extractorQuery.getSql()).thenReturn("fnarz ${foo} fnarz ${bar}");
         ExtractorQueryBuilder queryTemplate = new ExtractorQueryBuilder(extractorQuery);
-        ExtractorQuery query = queryTemplate.replace("foo",42).replace("bar","bang").build();
+        ExtractorQuery query = queryTemplate.replace("foo", 42).replace("bar", "bang").build();
         assertEquals("fnarz 42 fnarz bang", query.getSql());
     }
 
     @Test
-    public void canApplyASetOfSubstitutions(){
+    public void canApplyASetOfSubstitutions() {
         when(extractorQuery.getSql()).thenReturn("fnarz ${foo} fnarz ${bar}");
         ExtractorQueryBuilder queryTemplate = new ExtractorQueryBuilder(extractorQuery);
-        HashMap<String, String> substitutions = new HashMap<String,String>();
+        HashMap<String, String> substitutions = new HashMap<String, String>();
         substitutions.put("foo", "42");
         substitutions.put("bar", "bang");
 

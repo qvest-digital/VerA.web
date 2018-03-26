@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Function;
@@ -91,33 +92,38 @@ public class ProxyWorker {
     //
     // Octopus-Aktionen
     //
-    /** Eingabeparameter für Aktion {@link #select(OctopusContext, String)} */
-    public static final String[] INPUT_select = {"proxyFor"};
-    /** Eingabeparameterzwang für Aktion {@link #select(OctopusContext, String)} */
-    public static final boolean[] MANDATORY_select = {false};
+    /**
+     * Eingabeparameter für Aktion {@link #select(OctopusContext, String)}
+     */
+    public static final String[] INPUT_select = { "proxyFor" };
+    /**
+     * Eingabeparameterzwang für Aktion {@link #select(OctopusContext, String)}
+     */
+    public static final boolean[] MANDATORY_select = { false };
+
     /**
      * Diese Aktion setzt den aktuellen Benutzer als Stellvertreter der aktuellen
      * Rolle ein.<br>
      * Je nach Ablauf wird als Status "noRole", "noProxy", "noGrant", "noGrantNow"
      * oder RESULT_OK gesetzt.
      *
-     * @param octx Octopus-Kontext
+     * @param octx     Octopus-Kontext
      * @param proxyFor (optional) Rolle, die vertreten werden soll
      */
     public void select(OctopusContext octx, String proxyFor) {
         PersonalConfigAA pConfig = (PersonalConfigAA) octx.personalConfig();
-        if (pConfig == null || !pConfig.getGrants().isAuthenticated())
+        if (pConfig == null || !pConfig.getGrants().isAuthenticated()) {
             octx.setStatus("noProxy");
-        else if (proxyFor == null || proxyFor.length() == 0)
+        } else if (proxyFor == null || proxyFor.length() == 0) {
             octx.setStatus("noRole");
-        else {
+        } else {
             try {
                 Proxy proxy = getApplicableProxyEntry(octx, proxyFor);
-                if (proxy == null)
+                if (proxy == null) {
                     octx.setStatus("noRole");
-                else {
+                } else {
                     // PersonalConfigAA an die Stellvertretung anpassen
-                    ((LoginManagerAA)(octx.moduleConfig().getLoginManager())).setProxy(octx, proxy);
+                    ((LoginManagerAA) (octx.moduleConfig().getLoginManager())).setProxy(octx, proxy);
                     octx.setStatus(TcContentWorker.RESULT_ok);
                 }
             } catch (TcSecurityException e) {
@@ -140,14 +146,15 @@ public class ProxyWorker {
         PersonalConfigAA pConfig = (PersonalConfigAA) octx.personalConfig();
         // Vertretungen einsammeln
         WhereList whereClause = new WhereList();
-        if (pConfig == null)
+        if (pConfig == null) {
             return null; // keine persönliche Konfiguration -> keine Stellvertretung
-        else if (pConfig.getRole() != null)
+        } else if (pConfig.getRole() != null) {
             whereClause.addAnd(Expr.equal("proxy", pConfig.getRole()));
-        else if (pConfig.getRoles() != null)
+        } else if (pConfig.getRoles() != null) {
             whereClause.addAnd(Expr.in("proxy", pConfig.getRoles()));
-        else
+        } else {
             return null; // keine erkennbare Rolle -> keine Stellvertretung
+        }
         whereClause.addAnd(Expr.equal("username", proxyFor));
         whereClause.addAnd(Where.or(Expr.isNull("validtill"), Expr.greaterOrEqual("validtill", new Function("now"))));
         whereClause.addAnd(Where.or(Expr.isNull("validfrom"), Expr.lessOrEqual("validfrom", new Function("now"))));
@@ -156,11 +163,12 @@ public class ProxyWorker {
         select.where(whereClause);
         List proxies = database.getBeanList("Proxy", select);
         Proxy resultProxy = null;
-        for(Iterator itProxies = proxies.iterator(); itProxies.hasNext(); ) {
+        for (Iterator itProxies = proxies.iterator(); itProxies.hasNext(); ) {
             Proxy proxy = (Proxy) itProxies.next();
-            if (resultProxy == null || ( resultProxy.validTill != null &&
-                    (proxy.validTill == null || proxy.validTill.after(resultProxy.validTill))))
+            if (resultProxy == null || (resultProxy.validTill != null &&
+                    (proxy.validTill == null || proxy.validTill.after(resultProxy.validTill)))) {
                 resultProxy = proxy;
+            }
         }
         return resultProxy;
     }

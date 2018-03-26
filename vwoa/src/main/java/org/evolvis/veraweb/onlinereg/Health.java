@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.codahale.metrics.health.HealthCheck;
 import com.sun.jersey.api.client.Client;
 
@@ -68,6 +69,7 @@ public class Health extends HealthCheck {
 
     private final Client client;
     private final String resource;
+
     public Health(Client client, String verawebEndpoint) {
         this.resource = verawebEndpoint + "/rest/available";
         this.client = client;
@@ -78,11 +80,11 @@ public class Health extends HealthCheck {
         String result = null;
         try {
             result = client.resource(resource).get(String.class);
-        } catch(Exception e) {
-            return Result.unhealthy("Error checking VerA.web availability: "+e.getMessage());
+        } catch (Exception e) {
+            return Result.unhealthy("Error checking VerA.web availability: " + e.getMessage());
         }
 
-        return "OK".equals(result) ? Result.healthy() : Result.unhealthy("VerA.web has problems: "+result);
+        return "OK".equals(result) ? Result.healthy() : Result.unhealthy("VerA.web has problems: " + result);
     }
 
 }

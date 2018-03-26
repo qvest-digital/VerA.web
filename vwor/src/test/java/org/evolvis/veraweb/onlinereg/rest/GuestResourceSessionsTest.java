@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -199,7 +200,7 @@ public class GuestResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(1);
 
         // WHEN
-        guestResource.getGuestId(1,1);
+        guestResource.getGuestId(1, 1);
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
@@ -301,7 +302,7 @@ public class GuestResourceSessionsTest {
         prepareSession();
 
         // WHEN
-        guestResource.addGuestToEvent(uuid,1,1,1,1,"m",1,"","testusername");
+        guestResource.addGuestToEvent(uuid, 1, 1, 1, 1, "m", 1, "", "testusername");
 
         // THEN
         verify(sessionFactory, times(1)).openSession();

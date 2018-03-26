@@ -61,13 +61,14 @@ package org.evolvis.veraweb.export;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
 import de.tarent.extract.ResultSetValueExtractor;
 
-public class LinkExtractor implements ResultSetValueExtractor{
+public class LinkExtractor implements ResultSetValueExtractor {
 
     private final String prefix;
 
@@ -77,14 +78,14 @@ public class LinkExtractor implements ResultSetValueExtractor{
     }
 
     public Object extractValue(ResultSet rs, int col) throws SQLException {
-        final String value = rs.getString(col+1);
-        if(value==null){
+        final String value = rs.getString(col + 1);
+        if (value == null) {
             return null;
         }
-        if(prefix.endsWith("/")){
-            return prefix+value;
+        if (prefix.endsWith("/")) {
+            return prefix + value;
         }
-        return prefix+"/"+value;
+        return prefix + "/" + value;
     }
 
 }

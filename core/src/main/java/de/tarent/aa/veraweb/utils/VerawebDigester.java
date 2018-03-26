@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonExtra;
@@ -104,11 +105,11 @@ public class VerawebDigester implements ImportDigester {
     /**
      * Dieser Konstruktor initialisiert die finalen Member.
      *
-     * @param cntx FIXME
-     * @param context FIXME
-     * @param importInstance FIXME
+     * @param cntx             FIXME
+     * @param context          FIXME
+     * @param importInstance   FIXME
      * @param importProperties FIXME
-     * @param importSource FIXME
+     * @param importSource     FIXME
      */
     public VerawebDigester(OctopusContext cntx, ExecutionContext context, Map importProperties, String importSource, Import importInstance) {
         assert context != null;
@@ -129,13 +130,14 @@ public class VerawebDigester implements ImportDigester {
     //
     // Öffentliche Methoden
     //
+
     /**
      * Diese Methode liefert den aktuellen Stand dieses Imports in Form einer
      * {@link Map} mit speziellen Inhalten.
      *
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
     public Map getImportStats() {
         return DataExchangeWorker.createImportStats(incorrectCount, personCount, duplicateCount, importableCount, importInstance.id);
@@ -144,11 +146,16 @@ public class VerawebDigester implements ImportDigester {
     //
     // Schnittstelle ImportDigester
     //
-    /** Diese Methode wird zu Beginn eines Imports aufgerufen. */
+
+    /**
+     * Diese Methode wird zu Beginn eines Imports aufgerufen.
+     */
     public void startImport() throws BeanException {
     }
 
-    /** Diese Methode wird zum Ende eines Imports aufgerufen. */
+    /**
+     * Diese Methode wird zum Ende eines Imports aufgerufen.
+     */
     public void endImport() throws BeanException {
         try {
             duplicateCount = duplicateCheckHelper.getDuplicatesCount(cntx);
@@ -167,9 +174,9 @@ public class VerawebDigester implements ImportDigester {
      *
      * @param person eine {@link ImportPerson}-Instanz
      * @param extras eine Liste mit Beans, die Zusätze zur Person darstellen; es
-     *  werden nur solche akzeptiert, die {@link ImportPersonExtra} implementieren.
+     *               werden nur solche akzeptiert, die {@link ImportPersonExtra} implementieren.
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      * @see ImportDigester#importPerson(ImportPerson, List)
      */
     public void importPerson(ImportPerson person, List extras) throws BeanException, IOException {
@@ -192,8 +199,9 @@ public class VerawebDigester implements ImportDigester {
         // Verwaltungsdaten: nicht gelöscht
         person.deleted = PersonConstants.DELETED_FALSE;
         // Verwaltungsdaten: istFirma-Flag
-        if (!PersonConstants.ISCOMPANY_TRUE.equals(person.iscompany))
+        if (!PersonConstants.ISCOMPANY_TRUE.equals(person.iscompany)) {
             person.iscompany = PersonConstants.ISCOMPANY_FALSE;
+        }
         AddressHelper.checkPersonSalutation(person, db, context);
 
         /*
@@ -221,8 +229,9 @@ public class VerawebDigester implements ImportDigester {
                     Object extraObject = itExtras.next();
                     if (extraObject instanceof ImportPersonExtra) {
                         ((ImportPersonExtra) extraObject).associateWith(person);
-                        if (extraObject instanceof Bean)
+                        if (extraObject instanceof Bean) {
                             db.saveBean((Bean) extraObject, context, false);
+                        }
                     }
                 }
             }

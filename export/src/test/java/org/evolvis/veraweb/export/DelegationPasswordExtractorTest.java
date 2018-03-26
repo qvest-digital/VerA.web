@@ -61,6 +61,7 @@ package org.evolvis.veraweb.export;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -94,7 +95,7 @@ public class DelegationPasswordExtractorTest {
     private String eventName;
 
     @Before
-    public void setup(){
+    public void setup() {
 
         final Calendar cal = Calendar.getInstance();
         cal.set(1978, 0, 9);
@@ -117,20 +118,20 @@ public class DelegationPasswordExtractorTest {
     }
 
     @Test
-    public void returnsNullIfColumnValueIsNull() throws SQLException{
+    public void returnsNullIfColumnValueIsNull() throws SQLException {
         Properties properties = new Properties();
         properties.setProperty("event.shortname", eventName);
         properties.setProperty("event.begin", String.valueOf(eventBegin.getTime()));
 
         when(rs.getString(43)).thenReturn(null);
         Object extractedValue = new DelegationPasswordExtractor(properties, generator).extractValue(rs, 42);
-        verify(generator,times(0)).generatePassword(eventName, eventBegin, companyName);
+        verify(generator, times(0)).generatePassword(eventName, eventBegin, companyName);
         assertNull(extractedValue);
 
     }
 
     @Test
-    public void canReadEventBeginAndEventNameFromCustomProperties() throws SQLException{
+    public void canReadEventBeginAndEventNameFromCustomProperties() throws SQLException {
         Properties properties = new Properties();
         properties.setProperty("eventNamePropertyName", "custom.shortname");
         properties.setProperty("eventBeginPropertyName", "custom.begin");

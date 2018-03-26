@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.auth;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
@@ -72,16 +73,16 @@ import lombok.Getter;
 @Getter
 public class AuthConfig {
 
-        @JsonProperty
-        private String username;
-        @JsonProperty
-        private String password;
+    @JsonProperty
+    private String username;
+    @JsonProperty
+    private String password;
 
-        public String getUsername() {
-                return username;
-        }
+    public String getUsername() {
+        return username;
+    }
 
-        public String getPassword() {
-                return password;
-        }
+    public String getPassword() {
+        return password;
+    }
 }

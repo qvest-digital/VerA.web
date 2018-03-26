@@ -61,6 +61,7 @@ package org.evolvis.veraweb.export;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
@@ -90,7 +91,7 @@ public class CsvExporterTest {
     private InputStreamReader reader;
     private Properties properties;
 
-    public static class MyColumn implements ResultSetValueExtractor{
+    public static class MyColumn implements ResultSetValueExtractor {
 
         final private Properties props;
 
@@ -99,7 +100,7 @@ public class CsvExporterTest {
         }
 
         public Object extractValue(ResultSet rs, int col) throws SQLException {
-            return getBaseUrl()+"?id="+rs.getInt(col + 1);
+            return getBaseUrl() + "?id=" + rs.getInt(col + 1);
         }
 
         private Object getBaseUrl() {
@@ -118,7 +119,7 @@ public class CsvExporterTest {
         reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream("test-query.jsn"), "utf-8");
         properties = new Properties();
         properties.setProperty("baseUrl", "http://fnord-west.eu/api");
-        csvExporter = new CsvExporter(reader, writer, dataSource,properties);
+        csvExporter = new CsvExporter(reader, writer, dataSource, properties);
 
     }
 

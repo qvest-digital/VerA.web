@@ -61,21 +61,22 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 public class Function extends AbstractBean {
-	public Integer id;
-	public String name;
+    public Integer id;
+    public String name;
 
     public void verify(final OctopusContext octopusContext) throws BeanException {
         final VerawebMessages messages = new VerawebMessages(octopusContext);
-		if (name == null || name.trim().length() == 0) {
+        if (name == null || name.trim().length() == 0) {
             addError(messages.getMessageFunctionMissingName());
         }
-	}
+    }
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden

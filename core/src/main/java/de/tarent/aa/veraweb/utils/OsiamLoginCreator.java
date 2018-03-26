@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.beans.Database;
 import org.apache.commons.lang.RandomStringUtils;
 import org.osiam.client.OsiamConnector;
@@ -107,14 +108,13 @@ public class OsiamLoginCreator {
      * Generate username by given first and lastname.
      *
      * @param firstname The firstname of the person
-     * @param lastname The lastname of the person
+     * @param lastname  The lastname of the person
      * @param connector The {@link org.osiam.client.OsiamConnector}
-     *
      * @return String username
      */
     public String generatePersonUsername(final String firstname,
-                                         final String lastname,
-                                         final OsiamConnector connector) {
+            final String lastname,
+            final OsiamConnector connector) {
 
         final String username = generateShortPersonUsername(firstname, lastname);
         return getResultList(username, connector);
@@ -124,12 +124,11 @@ public class OsiamLoginCreator {
      * Generate username by given company name.
      *
      * @param companyname The companyName of the person
-     * @param connector The {@link org.osiam.client.OsiamConnector}
-     *
+     * @param connector   The {@link org.osiam.client.OsiamConnector}
      * @return String username
      */
     public String generateCompanyUsername(final String companyname,
-                                          final OsiamConnector connector) {
+            final OsiamConnector connector) {
 
         final String username = generateShortCompanyUsername(companyname);
         return getResultList(username, connector);
@@ -155,9 +154,9 @@ public class OsiamLoginCreator {
      * Create osiam user.
      *
      * @param accessToken The {@link org.osiam.client.oauth.AccessToken}
-     * @param username The username
-     * @param password The password
-     * @param connector The {@link org.osiam.client.OsiamConnector} client
+     * @param username    The username
+     * @param password    The password
+     * @param connector   The {@link org.osiam.client.OsiamConnector} client
      */
     public void createOsiamUser(AccessToken accessToken, String username, String password, OsiamConnector connector) {
         final User delegationUser = new User.Builder(username).setActive(true).setPassword(password).build();
@@ -171,8 +170,7 @@ public class OsiamLoginCreator {
      * Example: Karin Schneider -> kschne
      *
      * @param firstname String
-     * @param lastname String
-     *
+     * @param lastname  String
      * @return String
      */
     private String generateShortPersonUsername(final String firstname, final String lastname) {
@@ -204,7 +202,6 @@ public class OsiamLoginCreator {
      * Example: tarent solutions GmbH -> tarentsolu
      *
      * @param companyname String
-     *
      * @return String
      */
     private String generateShortCompanyUsername(final String companyname) {

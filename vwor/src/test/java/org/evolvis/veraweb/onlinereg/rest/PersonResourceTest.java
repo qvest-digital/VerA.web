@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Session;
@@ -74,7 +75,7 @@ import static org.junit.Assert.assertNull;
 /**
  * Created by mley on 02.09.14.
  */
-public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
+public class PersonResourceTest extends AbstractResourceTest<PersonResource> {
 
     public PersonResourceTest() {
         super(PersonResource.class);

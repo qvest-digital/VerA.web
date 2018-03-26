@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.evolvis.veraweb.onlinereg.event.DelegationResourceTest;
 import org.evolvis.veraweb.onlinereg.event.EventResourceTest;
@@ -79,7 +80,7 @@ import org.junit.runners.Suite;
         HealthTest.class,
         DelegationResourceTest.class
 })
-public class TestSuite{
+public class TestSuite {
 
     @ClassRule
     public static final DropwizardAppRule<Config> DROPWIZARD =

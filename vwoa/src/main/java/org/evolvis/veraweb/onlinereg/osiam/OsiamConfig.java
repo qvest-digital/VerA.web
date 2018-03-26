@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.osiam;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.jersey.api.client.Client;
 import lombok.Getter;
@@ -82,6 +83,7 @@ public class OsiamConfig {
 
     /**
      * Creates a new OSIAM client
+     *
      * @param client jersey client
      * @return OsiamClient object
      */
@@ -93,11 +95,11 @@ public class OsiamConfig {
         return this.endpoint;
     }
 
-        public String getClientId() {
-                return this.clientId;
-        }
+    public String getClientId() {
+        return this.clientId;
+    }
 
-        public String getClientSecret() {
-                return this.clientSecret;
-        }
+    public String getClientSecret() {
+        return this.clientSecret;
+    }
 }

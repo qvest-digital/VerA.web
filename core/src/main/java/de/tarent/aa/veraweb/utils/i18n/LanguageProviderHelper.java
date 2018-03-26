@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils.i18n;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -78,7 +79,7 @@ public class LanguageProviderHelper {
      */
     public LanguageProvider enableTranslation(OctopusContext octopusContext) {
         final String language = octopusContext.sessionAsObject("sessionLanguage").toString();
-//        final String language = octopusContext.getContentObject().get("language").toString();
+        //        final String language = octopusContext.getContentObject().get("language").toString();
         final LanguageProvider languageProvider = new LanguageProvider();
 
         languageProvider.setLastSelectedLanguage(language + ".resource");

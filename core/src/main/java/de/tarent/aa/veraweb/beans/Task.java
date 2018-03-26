@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
@@ -150,12 +151,12 @@ public class Task extends AbstractHistoryBean {
     public Timestamp changed;
 
     /**
-     *  Begin time. This bean properties is not mapped to database field.
+     * Begin time. This bean properties is not mapped to database field.
      */
     public String starttime;
 
     /**
-     *  End time. This bean properties is not mapped to database field.
+     * End time. This bean properties is not mapped to database field.
      */
     public String endtime;
 
@@ -212,10 +213,8 @@ public class Task extends AbstractHistoryBean {
      * Checks whether logged in user in current context is allowed to read this bean.<br>
      * Group {@link PersonalConfigAA#GROUP_READ_STANDARD} is required.
      *
-     * @param octopusContext
-     *            Octopus context
-     * @throws BeanException
-     *             thrown exception if user is prohibited from reading this bean
+     * @param octopusContext Octopus context
+     * @throws BeanException thrown exception if user is prohibited from reading this bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override
@@ -227,10 +226,8 @@ public class Task extends AbstractHistoryBean {
      * Checks whether logged in user in current context is allowed to read this bean.<br>
      * Group {@link PersonalConfigAA#GROUP_WRITE} is required.
      *
-     * @param octopusContext
-     *            Octopus context
-     * @throws BeanException
-     *             thrown exception if user is prohibited from writing this bean
+     * @param octopusContext Octopus context
+     * @throws BeanException thrown exception if user is prohibited from writing this bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
     @Override
@@ -250,8 +247,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set id.
      *
-     * @param id
-     *            the id to set
+     * @param id the id to set
      */
     public void setId(final Integer id) {
         this.id = id;
@@ -270,7 +266,6 @@ public class Task extends AbstractHistoryBean {
      * Set fk_event
      *
      * @param eventId fk_event
-     *
      */
     public void setEventId(final Integer eventId) {
         this.eventId = eventId;
@@ -288,8 +283,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set title.
      *
-     * @param title
-     *            the title to set
+     * @param title the title to set
      */
     public void setTitle(final String title) {
         this.title = title;
@@ -307,8 +301,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set description.
      *
-     * @param description
-     *            the description to set
+     * @param description the description to set
      */
     public void setDescription(final String description) {
         this.description = description;
@@ -326,8 +319,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set start date.
      *
-     * @param startdate
-     *            the startdate to set
+     * @param startdate the startdate to set
      */
     public void setStartdate(final Timestamp startdate) {
         this.startdate = startdate;
@@ -345,8 +337,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set end date.
      *
-     * @param enddate
-     *            the enddate to set
+     * @param enddate the enddate to set
      */
     public void setEnddate(final Timestamp enddate) {
         this.enddate = enddate;
@@ -364,8 +355,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set degree of completion.
      *
-     * @param degreeofcompletion
-     *            the degreeofcompletion to set
+     * @param degreeofcompletion the degreeofcompletion to set
      */
     public void setDegreeofcompletion(final Integer degreeofcompletion) {
         this.degreeofcompletion = degreeofcompletion;
@@ -419,8 +409,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set priority.
      *
-     * @param priority
-     *            the priority to set
+     * @param priority the priority to set
      */
     public void setPriority(final Integer priority) {
         this.priority = priority;
@@ -438,8 +427,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set created by.
      *
-     * @param createdby
-     *            the createdby to set
+     * @param createdby the createdby to set
      */
     public void setCreatedby(final String createdby) {
         this.createdby = createdby;
@@ -457,8 +445,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set changed by.
      *
-     * @param changedby
-     *            the changedby to set
+     * @param changedby the changedby to set
      */
     public void setChangedby(final String changedby) {
         this.changedby = changedby;
@@ -476,8 +463,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set created.
      *
-     * @param created
-     *            the created to set
+     * @param created the created to set
      */
     public void setCreated(final Timestamp created) {
         this.created = created;
@@ -495,8 +481,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set changed.
      *
-     * @param changed
-     *            the changed to set
+     * @param changed the changed to set
      */
     public void setChanged(final Timestamp changed) {
         this.changed = changed;
@@ -514,8 +499,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set start time.
      *
-     * @param starttime
-     *            the start time to set
+     * @param starttime the start time to set
      */
     public void setStarttime(final String starttime) {
         this.starttime = starttime;
@@ -533,8 +517,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set end time.
      *
-     * @param endtime
-     *            the end time to set
+     * @param endtime the end time to set
      */
     public void setEndtime(final String endtime) {
         this.endtime = endtime;

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -103,10 +104,15 @@ public class MediaResource {
      */
     private static final String BASE_RESOURCE = "/rest";
 
-    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
-    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
-    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
-    private static final TypeReference<MediaRepresentativeActivation> MEDIA_REPRESENTATIVE_ACTIVATION = new TypeReference<MediaRepresentativeActivation>() {};
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
+    };
+    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
+    };
+    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
+    };
+    private static final TypeReference<MediaRepresentativeActivation> MEDIA_REPRESENTATIVE_ACTIVATION =
+            new TypeReference<MediaRepresentativeActivation>() {
+            };
     private static final String INVITATION_TYPE = "2";
 
     /**
@@ -123,29 +129,27 @@ public class MediaResource {
      * @param config The configuration
      * @param client Client
      */
-	public MediaResource(Config config, Client client) {
-		this.config = config;
-		this.client = client;
-		this.resourceReader= new ResourceReader(client, mapper, config);
-	}
+    public MediaResource(Config config, Client client) {
+        this.config = config;
+        this.client = client;
+        this.resourceReader = new ResourceReader(client, mapper, config);
+    }
 
     /**
      * Adds delegate to event
      *
-     * @param uuid     Event uuid
-     * @param nachname family name
-     * @param vorname  first name
-     * @param gender   gender
-     * @param email    E-Mail Address
-     * @param address  address
-     * @param plz      zip code
-     * @param city     city
-     * @param country  country
+     * @param uuid               Event uuid
+     * @param nachname           family name
+     * @param vorname            first name
+     * @param gender             gender
+     * @param email              E-Mail Address
+     * @param address            address
+     * @param plz                zip code
+     * @param city               city
+     * @param country            country
      * @param currentLanguageKey current language in frontend
-     *
-     * @throws java.io.IOException If creating person and saving it as guest fails.
-     *
      * @return result of delegation. Values can be "WRONG_EVENT"
+     * @throws java.io.IOException If creating person and saving it as guest fails.
      */
     @POST
     @Path("/{uuid}/register")
@@ -163,7 +167,7 @@ public class MediaResource {
 
         final Boolean emailValid = EmailValidator.isValidEmailAddress(email);
 
-        if(emailValid) {
+        if (emailValid) {
             final Boolean mediaRepresentationIsFound = checkForExistingPressEvent(uuid);
 
             if (mediaRepresentationIsFound) {
@@ -193,7 +197,8 @@ public class MediaResource {
     @Path("/activation/confirm/{pressUserActivationToken}")
     public String activateMediaUser(@PathParam("pressUserActivationToken") String expectedActivationToken) throws IOException {
         final MediaRepresentativeActivation mediaRepresentativeActivation = getPressUserByActivationToken(expectedActivationToken);
-        if (mediaRepresentativeActivation != null && mediaRepresentativeActivation.getActivated().equals(VerawebConstants.MEDIA_REPRESENTATIVE_INACTIVE)) {
+        if (mediaRepresentativeActivation != null &&
+                mediaRepresentativeActivation.getActivated().equals(VerawebConstants.MEDIA_REPRESENTATIVE_INACTIVE)) {
             setMediaUserAsActive(mediaRepresentativeActivation.getEmail(), mediaRepresentativeActivation.getFk_event());
             final Event event = getEvent(mediaRepresentativeActivation.getFk_event());
             final PressTransporter transporter = initPressTransporter(mediaRepresentativeActivation, event);
@@ -214,16 +219,16 @@ public class MediaResource {
 
     private PressTransporter initPressTransporter(MediaRepresentativeActivation mediaRepresentativeActivation, Event event) {
         return new PressTransporter(
-            event.getMediarepresentatives(),
-            mediaRepresentativeActivation.getLastname(),
-            mediaRepresentativeActivation.getFirstname(),
-            mediaRepresentativeActivation.getGender(),
-            mediaRepresentativeActivation.getEmail(),
-            mediaRepresentativeActivation.getAddress(),
-            mediaRepresentativeActivation.getZip().toString(),
-            mediaRepresentativeActivation.getCity(),
-            mediaRepresentativeActivation.getCountry(),
-            usernameGenerator()
+                event.getMediarepresentatives(),
+                mediaRepresentativeActivation.getLastname(),
+                mediaRepresentativeActivation.getFirstname(),
+                mediaRepresentativeActivation.getGender(),
+                mediaRepresentativeActivation.getEmail(),
+                mediaRepresentativeActivation.getAddress(),
+                mediaRepresentativeActivation.getZip().toString(),
+                mediaRepresentativeActivation.getCity(),
+                mediaRepresentativeActivation.getCountry(),
+                usernameGenerator()
         );
     }
 
@@ -264,7 +269,7 @@ public class MediaResource {
         postBody.add("address", address);
         postBody.add("city", city);
         postBody.add("country", country);
-        postBody.add("email",email);
+        postBody.add("email", email);
         postBody.add("eventId", eventId);
         postBody.add("firstname", firstname);
         postBody.add("gender", gender);
@@ -298,10 +303,10 @@ public class MediaResource {
     /**
      * Includes a new guest in the database - Table "tguest"
      *
-     * @param uuid FIXME
+     * @param uuid    FIXME
      * @param eventId Event id
-     * @param userId User id
-     * @param gender gender
+     * @param userId  User id
+     * @param gender  gender
      * @throws IOException
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String username)
@@ -349,10 +354,10 @@ public class MediaResource {
     /**
      * Includes a new person in the database - Table "tperson"
      *
-     * @param eventId   event ID
+     * @param eventId     event ID
      * @param transporter transporter
      *
-     * return primary key for a person
+     *                    return primary key for a person
      */
     private Integer createPerson(Integer eventId, PressTransporter transporter) {
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");

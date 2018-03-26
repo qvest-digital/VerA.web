@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -94,6 +95,7 @@ import java.util.List;
 
 /**
  * Created by mley on 29.07.14.
+ *
  * @author jnunez
  */
 @Path("/event")
@@ -101,42 +103,70 @@ import java.util.List;
 @Log
 public class EventResource {
 
-    /** base path of all resource */
+    /**
+     * base path of all resource
+     */
     public static final String BASE_RESOURCE = "/rest";
 
     public static final String USERNAME = "USERNAME";
 
-    /** Event type */
-    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
+    /**
+     * Event type
+     */
+    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
+    };
 
-    /** List of Events type */
-    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {};
+    /**
+     * List of Events type
+     */
+    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {
+    };
 
-    /** Person type */
-    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
+    /**
+     * Person type
+     */
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
+    };
 
-    /** Guest type */
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+    /**
+     * Guest type
+     */
+    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
+    };
 
-    /** Guest type */
-    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
+    /**
+     * Guest type
+     */
+    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
+    };
 
-    /** Guest type */
-    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
+    /**
+     * Guest type
+     */
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
+    };
 
     private static final Integer INVITATIONSTATUS_OPEN = 0;
     private static final Integer INVITATIONSTATUS_COMMITMENT = 1;
 
-    /** Jersey client */
+    /**
+     * Jersey client
+     */
     private Client client;
 
-    /** Configuration */
+    /**
+     * Configuration
+     */
     private Config config;
 
-    /** Jackson Object Mapper */
+    /**
+     * Jackson Object Mapper
+     */
     private ObjectMapper mapper = new ObjectMapper();
 
-    /** Servlet context */
+    /**
+     * Servlet context
+     */
     @javax.ws.rs.core.Context
     @Getter
     private HttpServletRequest request;
@@ -168,10 +198,10 @@ public class EventResource {
         final List<Event> listEvents = readResource(path("event"), EVENT_LIST);
         final List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
 
-        for (final Iterator<Event> iterator = listEvents.iterator(); iterator.hasNext();) {
+        for (final Iterator<Event> iterator = listEvents.iterator(); iterator.hasNext(); ) {
             final EventTransporter eventTransporter = createEventTransporter(username, iterator);
-                        listTransporters.add(eventTransporter);
-                }
+            listTransporters.add(eventTransporter);
+        }
 
         return listTransporters;
     }
@@ -195,40 +225,37 @@ public class EventResource {
      * @param eventId event id
      * @param userId  user id
      * @return Guest object
-     *
      * @throws IOException TODO
      */
     @GET
     @Path("/{eventId}/register/{userId}")
     public Guest getRegistration(
-                @PathParam("eventId") int eventId,
-                @PathParam("userId") int userId) throws IOException {
+            @PathParam("eventId") int eventId,
+            @PathParam("userId") int userId) throws IOException {
         return readResource(path("guest", eventId, userId), GUEST);
     }
 
     /**
      * Save the registration to an event
      *
-     * @param eventId event id
-     * @param notehost note to host
+     * @param eventId     event id
+     * @param notehost    note to host
      * @param guestStatus Guest status
-     *
      * @return updated Guest object
-     *
      * @throws IOException TODO
      */
     @POST
     @Path("/{eventId}/register")
     public String register(
-                @PathParam("eventId") String eventId,
-                @FormParam("notehost") String notehost,
+            @PathParam("eventId") String eventId,
+            @FormParam("notehost") String notehost,
             @FormParam("guestStatus") String guestStatus) throws IOException {
         final String username = (String) request.getAttribute(USERNAME);
 
         // checking if the user is registered on the event
         if (!isUserRegistered(username, eventId)) {
             registerUserAsGuestForEvent(eventId, notehost, guestStatus, username);
-                return StatusConverter.convertStatus("OK");
+            return StatusConverter.convertStatus("OK");
         }
 
         return StatusConverter.convertStatus("REGISTERED");
@@ -237,12 +264,10 @@ public class EventResource {
     /**
      * Update guest status to "zusage"
      *
-     * @param eventId Event id
-     * @param notehost Note for the hoster
+     * @param eventId             Event id
+     * @param notehost            Note for the hoster
      * @param noLoginRequiredUUID UUID
-     *
      * @return updated status string
-     *
      * @throws IOException ФИѝМЕ
      */
     @POST
@@ -264,7 +289,6 @@ public class EventResource {
      * Get user's subscribed events.
      *
      * @return Users' events list
-     *
      * @throws IOException TODO
      */
     @GET
@@ -289,13 +313,11 @@ public class EventResource {
 
         if (!isGuestListFull) {
             return StatusConverter.convertStatus(VerawebConstants.GUEST_LIST_OK);
-        }
-        else {
+        } else {
             Boolean isReserveListFull = readResource(path("event", "reservelist", "status", eventId), BOOLEAN);
             if (!isReserveListFull) {
                 return StatusConverter.convertStatus(VerawebConstants.WAITING_LIST_OK);
-            }
-            else {
+            } else {
                 return StatusConverter.convertStatus(VerawebConstants.WAITING_LIST_FULL);
             }
         }
@@ -305,13 +327,13 @@ public class EventResource {
      * Checking if the user is already registered for the event
      *
      * @param eventId the event ID
-     * @throws IOException FIXME
      * @return FIXME
+     * @throws IOException FIXME
      */
     @GET
     @Path("/registered/{eventId}")
     public Boolean isUserRegisteredIntoEvent(
-                                             @PathParam("eventId") final Integer eventId) throws IOException {
+            @PathParam("eventId") final Integer eventId) throws IOException {
         final String username = (String) request.getAttribute(LoginResource.USERNAME);
         return readResource(path("guest", "registered", username, eventId), BOOLEAN);
     }
@@ -335,8 +357,8 @@ public class EventResource {
     }
 
     private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID,
-                                               final Integer invitationstatus,
-                                               final String notehost) {
+            final Integer invitationstatus,
+            final String notehost) {
         final Form postBodyForUpdate = new Form();
         postBodyForUpdate.add("invitationstatus", invitationstatus);
         postBodyForUpdate.add("notehost", notehost);
@@ -361,18 +383,18 @@ public class EventResource {
      * Includes a new guest in the database - Table "tguest".
      *
      * @param eventId Event id
-     * @param userId User id
-     * @param gender Gender of the person
+     * @param userId  User id
+     * @param gender  Gender of the person
      * @throws IOException
      */
     private Guest addGuestToEvent(String eventId,
-                                  String userId,
-                                  String gender,
-                                  String lastName,
-                                  String firstName,
-                                  String username,
-                                  String nodeHost,
-                                  Integer reserve) throws IOException {
+            String userId,
+            String gender,
+            String lastName,
+            String firstName,
+            String username,
+            String nodeHost,
+            Integer reserve) throws IOException {
         final WebResource resource = client.resource(path("guest", "register"));
         final Form postBody = new Form();
 
@@ -413,7 +435,7 @@ public class EventResource {
     }
 
     private Boolean isUserRegistered(String username, String eventId) throws IOException {
-        if(username==null){
+        if (username == null) {
             return false;
         }
         return readResource(path("guest", "registered", "accept", username, eventId), BOOLEAN);

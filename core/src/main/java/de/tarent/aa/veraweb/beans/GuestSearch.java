@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -103,7 +104,8 @@ public class GuestSearch extends AbstractBean {
         where.addAnd(Expr.equal("tguest.fk_event", this.event));
 
         if (this.category != null && !this.category.trim().equals("")) {
-            where.addAnd(new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" + Escaper.escape(this.category) + "')"));
+            where.addAnd(
+                    new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" + Escaper.escape(this.category) + "')"));
         }
 
         if (this.reserve != null) {
@@ -162,10 +164,10 @@ public class GuestSearch extends AbstractBean {
                 break;
             }
         }
-        if(this.keywords!=null && !this.keywords.trim().isEmpty()){
+        if (this.keywords != null && !this.keywords.trim().isEmpty()) {
             final String[] words = VerawebUtils.splitKeywords(keywords);
             for (String word : words) {
-                where.addAnd(Expr.like("tguest.keywords", "%"+word+"%"));
+                where.addAnd(Expr.like("tguest.keywords", "%" + word + "%"));
             }
         }
 

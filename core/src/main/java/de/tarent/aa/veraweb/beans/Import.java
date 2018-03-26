@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -74,26 +75,43 @@ import java.sql.Timestamp;
  * @author mikel
  */
 public class Import extends AbstractHistoryBean {
-    /** ID: pk serial NOT NULL */
+    /**
+     * ID: pk serial NOT NULL
+     */
     public Integer id;
-    /** ID der Mandanten-Einheit: fk_orgunit int4 */
+    /**
+     * ID der Mandanten-Einheit: fk_orgunit int4
+     */
     public Integer orgunit;
-    /** Erstellt am: created timestamptz */
+    /**
+     * Erstellt am: created timestamptz
+     */
     public Timestamp created;
-    /** Erstellt von: createdby varchar(100) */
+    /**
+     * Erstellt von: createdby varchar(100)
+     */
     public String createdby;
-    /** Geändert am: changed timestamptz */
+    /**
+     * Geändert am: changed timestamptz
+     */
     public Timestamp changed;
-    /** Geändert von: changedby varchar(100) */
+    /**
+     * Geändert von: changedby varchar(100)
+     */
     public String changedby;
-    /** Datenherkunft: importsource varchar(250) */
+    /**
+     * Datenherkunft: importsource varchar(250)
+     */
     public String importsource;
-    /** Importformatbezeichner: importformat varchar(250) */
+    /**
+     * Importformatbezeichner: importformat varchar(250)
+     */
     public String importformat;
 
     //
     // Oberklasse AbstractBean
     //
+
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>

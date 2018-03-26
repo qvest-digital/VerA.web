@@ -61,15 +61,16 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 public class MailinglistAddress extends AbstractBean {
-	public Integer id;
-	public Integer person;
-	public Integer mailinglist;
-	public String address;
+    public Integer id;
+    public Integer person;
+    public Integer mailinglist;
+    public String address;
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden

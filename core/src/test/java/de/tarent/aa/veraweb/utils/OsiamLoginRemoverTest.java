@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -134,6 +135,6 @@ public class OsiamLoginRemoverTest {
         List<User> users = new ArrayList<User>();
         users.add(user);
 
-        return  users;
+        return users;
     }
 }

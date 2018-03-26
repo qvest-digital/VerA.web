@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.util.Properties;
 
 /**
@@ -76,11 +77,10 @@ public class PersonURLHandler {
      * URL Associated directly to the event
      *
      * @param uuid The uuid of the person who will reset own password.
-     *
      * @return URL to reset password
      */
     public String generateResetPasswordUrl(String uuid) {
-        if(propertiesReader.propertiesAreAvailable() && uuid != null) {
+        if (propertiesReader.propertiesAreAvailable() && uuid != null) {
             final URLGenerator urlGenerator = getUrlGenerator();
             return urlGenerator.getUrlForPasswordReset() + uuid;
         } else {

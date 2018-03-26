@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.query.Query;
@@ -90,7 +91,7 @@ public class OsiamLoginRemover {
      * Delete osiam user by username.
      *
      * @param accessToken The {@link org.osiam.client.oauth.AccessToken}
-     * @param username The username
+     * @param username    The username
      */
     public void deleteOsiamUser(AccessToken accessToken, String username) {
         if (username != null) {
@@ -105,8 +106,7 @@ public class OsiamLoginRemover {
      * Get id for osiam user by Username.
      *
      * @param accessToken The {@link org.osiam.client.oauth.AccessToken}
-     * @param username The username
-     *
+     * @param username    The username
      * @return User id
      */
     private String getUserId(AccessToken accessToken, String username) {
@@ -124,7 +124,6 @@ public class OsiamLoginRemover {
      * Build query which returns the user id by given username.
      *
      * @param username The username
-     *
      * @return The {@link org.osiam.client.query.Query}
      */
     private Query buildQuery(String username) {

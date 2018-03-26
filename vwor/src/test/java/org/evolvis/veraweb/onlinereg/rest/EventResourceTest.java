@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.hibernate.query.Query;
@@ -136,7 +137,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         Event event = eventResource.getEventByUUId(uuid);
 
         // THEN
-        assertEquals(event,eventMocked);
+        assertEquals(event, eventMocked);
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }

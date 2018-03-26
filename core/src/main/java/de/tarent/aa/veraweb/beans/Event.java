@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
@@ -71,13 +72,21 @@ import de.tarent.octopus.server.PersonalConfig;
 import java.sql.Timestamp;
 
 public class Event extends AbstractHistoryBean implements OrgUnitDependent {
-    /** PK */
+    /**
+     * PK
+     */
     public Integer id;
-    /** Orgunit */
+    /**
+     * Orgunit
+     */
     public Integer orgunit;
-    /** Einladungsart, siehe TYPE_* */
+    /**
+     * Einladungsart, siehe TYPE_*
+     */
     public Integer invitationtype;
-    /** FK auf veraweb.tperson.pk */
+    /**
+     * FK auf veraweb.tperson.pk
+     */
     public Integer host;
     public String shortname;
     public String eventname;
@@ -101,9 +110,9 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
     public void verify(OctopusContext octopusContext) throws BeanException {
         addErrors(octopusContext);
         /*
-		 * 2009-05-17 cklein
-		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
-		 */
+         * 2009-05-17 cklein
+         * temporarily fixes issue #1529 until i gain access to the old octopus repository
+         */
         DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors(), octopusContext);
     }
 

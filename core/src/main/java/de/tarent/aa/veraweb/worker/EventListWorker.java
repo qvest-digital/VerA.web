@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
@@ -104,28 +105,35 @@ import java.util.Map;
  * Verwendet als Filter der Veranstaltungen ein Event-Object
  * das in der Session gehalten wird, siehe getSearch.
  *
+ * @author Christoph Jerolimov
  * @see #extendWhere(OctopusContext, Select)
  * @see #getSearch(OctopusContext)
- *
- * @author Christoph Jerolimov
  */
 public class EventListWorker extends ListWorkerVeraWeb {
     //
     // Öffentliche Konstanten
     //
-    /** Parameter: Wessen Ereignisse? */
+    /**
+     * Parameter: Wessen Ereignisse?
+     */
     private final static String PARAM_DOMAIN = "domain";
 
-    /** Parameterwert: beliebige Ereignisse */
+    /**
+     * Parameterwert: beliebige Ereignisse
+     */
     private final static String PARAM_DOMAIN_VALUE_ALL = "all";
-    /** Parameterwert: Ereignisse des gleichen Mandanten */
+    /**
+     * Parameterwert: Ereignisse des gleichen Mandanten
+     */
     private final static String PARAM_DOMAIN_VALUE_OU = "ou";
 
     //
     // Konstruktoren
     //
 
-    /** Default-Kontruktor der den Beannamen festlegt. */
+    /**
+     * Default-Kontruktor der den Beannamen festlegt.
+     */
     public EventListWorker() {
         super("Event");
     }
@@ -139,7 +147,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
      * aktuelle Benutzer nicht Superadmin ist.
      *
      * @param octopusContext Octopus-Kontext
-     * @param select Event-Select
+     * @param select         Event-Select
      * @throws BeanException wenn keine testbaren Benutzerinformationen vorliegen.
      * @see BeanListWorker#getAll(OctopusContext)
      * @see BeanListWorker#extendAll(OctopusContext, Select)
@@ -151,10 +159,12 @@ public class EventListWorker extends ListWorkerVeraWeb {
         if (pConfig instanceof PersonalConfigAA) {
             PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
             String domain = octopusContext.contentAsString(PARAM_DOMAIN);
-            if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
+            if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))) {
                 select.where(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
-        } else
+            }
+        } else {
             throw new BeanException("Missing user information");
+        }
 
         // Dreht die Sortierung beim Export von Personen-Daten
         // um, um erst die "ältesten" Veranstaltungen zu sehen,
@@ -260,17 +270,17 @@ public class EventListWorker extends ListWorkerVeraWeb {
     }
 
     private void extendWhereClauseByEventName(Event search, WhereList where) {
-        where.addAnd(DatabaseHelper.getWhere(search.eventname, new String[]{
-                "eventname"}));
+        where.addAnd(DatabaseHelper.getWhere(search.eventname, new String[] {
+                "eventname" }));
     }
 
     private void extendWhereClauseByShortname(Event search, WhereList where) {
-        where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[]{
-                "shortname"}));
+        where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[] {
+                "shortname" }));
     }
 
     private void extendWhereClauseByHostname(Event search, WhereList where) {
-        where.addAnd(DatabaseHelper.getWhere(search.hostname, new String[]{"hostname"}));
+        where.addAnd(DatabaseHelper.getWhere(search.hostname, new String[] { "hostname" }));
     }
 
     private void extendWhereClauseByBeginDate(Event search, WhereList where) {
@@ -289,9 +299,12 @@ public class EventListWorker extends ListWorkerVeraWeb {
      * Überprüft ob es noch laufende oder zukünftige Veranstaltungen und fragt ggf. ob diese trotzdem gelöscht werden sollen.
      */
     @Override
-    protected int removeSelection(OctopusContext octopusContext, List errors, List selectionList, TransactionContext context) throws BeanException, IOException {
+    protected int removeSelection(OctopusContext octopusContext, List errors, List selectionList, TransactionContext context)
+            throws BeanException, IOException {
         int count = 0;
-        if (selectionList == null || selectionList.size() == 0) return count;
+        if (selectionList == null || selectionList.size() == 0) {
+            return count;
+        }
         Database database = context.getDatabase();
         Map questions = new HashMap();
         Map questions2 = new HashMap();
@@ -334,9 +347,9 @@ public class EventListWorker extends ListWorkerVeraWeb {
             return -1;
         }
 
-		/*
-		 * remove events
-		 */
+        /*
+         * remove events
+         */
         Event event = (Event) database.createBean("Event");
 
         for (Object selection : selectionList) {
@@ -373,7 +386,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private boolean isEventDeletionSuccessfull(OctopusContext octopusContext, TransactionContext transactionContext, Event event) throws BeanException, SQLException, IOException {
+    private boolean isEventDeletionSuccessfull(OctopusContext octopusContext, TransactionContext transactionContext, Event event)
+            throws BeanException, SQLException, IOException {
         final Database database = transactionContext.getDatabase();
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
         deleteOptionalFields(transactionContext, database, optionalFieldsWorker, event);
@@ -383,14 +397,16 @@ public class EventListWorker extends ListWorkerVeraWeb {
         return deleteLogEntriesForEvent(octopusContext, transactionContext, event);
     }
 
-    private void deleteOptionalFields(TransactionContext transactionContext, Database database, OptionalFieldsWorker optionalFieldsWorker, Event event) throws BeanException, SQLException {
+    private void deleteOptionalFields(TransactionContext transactionContext, Database database, OptionalFieldsWorker optionalFieldsWorker,
+            Event event) throws BeanException, SQLException {
         final List<OptionalField> optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(event.id);
         for (OptionalField optionalField : optionalFields) {
             executeOptionalFieldsDeletion(transactionContext, database, optionalField);
         }
     }
 
-    private boolean deleteLogEntriesForEvent(OctopusContext octopusContext, TransactionContext transactionContext, Event event) throws BeanException, IOException {
+    private boolean deleteLogEntriesForEvent(OctopusContext octopusContext, TransactionContext transactionContext, Event event)
+            throws BeanException, IOException {
         boolean result = super.removeBean(octopusContext, event, transactionContext);
         if (result) {
             final Database database = transactionContext.getDatabase();
@@ -415,7 +431,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
         );
     }
 
-    private void executeOptionalFieldsDeletion(TransactionContext transactionContext, Database database, OptionalField optionalField) throws BeanException {
+    private void executeOptionalFieldsDeletion(TransactionContext transactionContext, Database database, OptionalField optionalField)
+            throws BeanException {
         transactionContext.execute(
                 SQL.Delete(database)
                         .from("veraweb.toptional_fields_delegation_content")
@@ -429,9 +446,13 @@ public class EventListWorker extends ListWorkerVeraWeb {
         );
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #getSearch(OctopusContext)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #getSearch(OctopusContext)}
+     */
     public static final String INPUT_getSearch[] = {};
-    /** Octopus-Ausgabe-Parameter für {@link #getSearch(OctopusContext)} */
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #getSearch(OctopusContext)}
+     */
     public static final String OUTPUT_getSearch = "search";
 
     /**

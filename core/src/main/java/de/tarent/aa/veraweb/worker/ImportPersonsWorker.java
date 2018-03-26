@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
@@ -99,7 +100,9 @@ import java.util.Map;
  */
 public class ImportPersonsWorker {
 
-    /** Logger dieser Klasse */
+    /**
+     * Logger dieser Klasse
+     */
     public static final Logger LOGGER = LogManager.getLogger(ImportPersonsWorker.class.getName());
 
     //
@@ -110,11 +113,17 @@ public class ImportPersonsWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
-    public static final String[] INPUT_importStoredRecord = {"REQUEST:importId"};
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #importStoredRecord(OctopusContext, Integer)} */
-    public static final boolean[] MANDATORY_importStoredRecord = {false};
-    /** Octopus-Ausgabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)}
+     */
+    public static final String[] INPUT_importStoredRecord = { "REQUEST:importId" };
+    /**
+     * Octopus-Eingabe-Parameter-Pflicht für {@link #importStoredRecord(OctopusContext, Integer)}
+     */
+    public static final boolean[] MANDATORY_importStoredRecord = { false };
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)}
+     */
     public static final String OUTPUT_importStoredRecord = "importStatus";
 
     /**
@@ -122,10 +131,10 @@ public class ImportPersonsWorker {
      * Import-Statistik-Daten
      *
      * @param octopusContext Octopus-Kontext
-     * @param importId Import-ID
+     * @param importId       Import-ID
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException
      * @throws IOException
      */
@@ -223,11 +232,17 @@ public class ImportPersonsWorker {
         return DataExchangeWorker.createImportStats(dsCount.intValue(), dupCount.intValue(), saveCount.intValue(), importId);
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
-    public static final String[] INPUT_finalise = {"REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping"};
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #finalise(OctopusContext, Integer, List, Map)} */
-    public static final boolean[] MANDATORY_finalise = {false, true, true};
-    /** Octopus-Ausgabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)}
+     */
+    public static final String[] INPUT_finalise = { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
+    /**
+     * Octopus-Eingabe-Parameter-Pflicht für {@link #finalise(OctopusContext, Integer, List, Map)}
+     */
+    public static final boolean[] MANDATORY_finalise = { false, true, true };
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)}
+     */
     public static final String OUTPUT_finalise = "importStatus";
 
     /**
@@ -235,17 +250,18 @@ public class ImportPersonsWorker {
      * den Content unter dem Schlüssel {@link #FIELD_IMPORTED_COUNT "imported"} die Anzahl
      * der tatsächlich importierten Datensätze eingetragen.
      *
-     * @param octopusContext Octopus-Kontext
-     * @param importId ID eines früheren Imports
-     * @param ignorePersonFields FIXME
+     * @param octopusContext         Octopus-Kontext
+     * @param importId               ID eines früheren Imports
+     * @param ignorePersonFields     FIXME
      * @param importTextfieldMapping Map für das Mapping der Adressfreitextfelder
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException
      * @throws IOException
      */
-    public Map finalise(OctopusContext octopusContext, Integer importId, List ignorePersonFields, Map importTextfieldMapping) throws BeanException, IOException {
+    public Map finalise(OctopusContext octopusContext, Integer importId, List ignorePersonFields, Map importTextfieldMapping)
+            throws BeanException, IOException {
         //Initialisiere Datenbank und lese die ID für den Importvorgang
         if (importId == null) {
             importId = getImportIdFromSession(octopusContext);
@@ -286,16 +302,17 @@ public class ImportPersonsWorker {
                 Person person = new Person();
                 for (Iterator fieldIt = person.getFields().iterator(); fieldIt.hasNext(); ) {
                     String key = (String) fieldIt.next();
-                    if (!ignorePersonFields.contains(key))
+                    if (!ignorePersonFields.contains(key)) {
                         person.setField(key, importPerson.get(key));
+                    }
                 }
                 AddressHelper.copyAddressData(octopusContext, person, null);
 
-				/* assign default workarea = 0 in case that person.workarea is null
+                /* assign default workarea = 0 in case that person.workarea is null
                  *
-				 * modified as per change request for version 1.2.0
-				 * cklein 2008-03-27
-				 */
+                 * modified as per change request for version 1.2.0
+                 * cklein 2008-03-27
+                 */
                 if (person.workarea == null) {
                     person.workarea = new Integer(0);
                 }
@@ -314,11 +331,13 @@ public class ImportPersonsWorker {
                     createPersonCategories(database, transactionContext, (Integer) importPerson.get("id"), person);
 
                     if (importPerson.get("category") != null && ((String) importPerson.get("category")).length() != 0) {
-                        createPersonCategories(database, transactionContext, ((String) importPerson.get("category")).split("\n"), person, new Integer(Categorie.FLAG_DEFAULT));
+                        createPersonCategories(database, transactionContext, ((String) importPerson.get("category")).split("\n"), person,
+                                new Integer(Categorie.FLAG_DEFAULT));
                     }
 
                     if (importPerson.get("occasion") != null && ((String) importPerson.get("occasion")).length() != 0) {
-                        createPersonCategories(database, transactionContext, ((String) importPerson.get("occasion")).split("\n"), person, new Integer(Categorie.FLAG_EVENT));
+                        createPersonCategories(database, transactionContext, ((String) importPerson.get("occasion")).split("\n"), person,
+                                new Integer(Categorie.FLAG_EVENT));
                     }
 
                     // Datensatz als festgeschrieben markieren
@@ -370,13 +389,13 @@ public class ImportPersonsWorker {
      * passende {@link PersonCategorie}-Instanzen. Gegebenenfalls werden hierbei
      * die Kategorien erst noch erzeugt.
      *
-     * @param database die Datenbank, in der agiert werden soll
+     * @param database      die Datenbank, in der agiert werden soll
      * @param categoryNames ein Array aus Kategoriennamen
-     * @param person Person
-     * @param flags Art der gesuchten und gegebenenfalls erzeugten Kategorie
+     * @param person        Person
+     * @param flags         Art der gesuchten und gegebenenfalls erzeugten Kategorie
      */
     private static void createPersonCategories(Database database, ExecutionContext executionContext,
-                                               String[] categoryNames, Person person, Integer flags)
+            String[] categoryNames, Person person, Integer flags)
             throws BeanException, IOException {
         final TransactionContext transactionContext = executionContext.getDatabase().getTransactionContext();
         for (int i = 0; i < categoryNames.length; i++) {
@@ -409,12 +428,12 @@ public class ImportPersonsWorker {
      * passende {@link PersonCategorie}-Instanzen. Gegebenenfalls werden hierbei
      * die Kategorien erst noch erzeugt.
      *
-     * @param database die Datenbank, in der agiert werden soll
+     * @param database       die Datenbank, in der agiert werden soll
      * @param importPersonId ID einer ImportPerson
-     * @param person Person, als die die ImportPerson importiert wird
+     * @param person         Person, als die die ImportPerson importiert wird
      */
     private static void createPersonCategories(Database database, ExecutionContext executionContext,
-                                               Integer importPersonId, Person person)
+            Integer importPersonId, Person person)
             throws BeanException, IOException {
         ImportPersonCategorie sample = new ImportPersonCategorie();
         Select select = database.getSelect(sample);
@@ -423,7 +442,7 @@ public class ImportPersonsWorker {
         final TransactionContext transactionContext = executionContext.getDatabase().getTransactionContext();
 
         List importPersonCategories = database.getBeanList("ImportPersonCategorie", select, executionContext);
-              for (Iterator itImportPersonCategories = importPersonCategories.iterator(); itImportPersonCategories.hasNext(); ) {
+        for (Iterator itImportPersonCategories = importPersonCategories.iterator(); itImportPersonCategories.hasNext(); ) {
             ImportPersonCategorie importPersonCategorie = (ImportPersonCategorie) itImportPersonCategories.next();
             if (importPersonCategorie.name != null) {
                 Categorie category = (Categorie) database.getBean("Categorie",
@@ -449,6 +468,8 @@ public class ImportPersonsWorker {
         }
     }
 
-    /** Logger dieser Klasse */
+    /**
+     * Logger dieser Klasse
+     */
     static Logger logger = LogManager.getLogger(ImportPersonsWorker.class.getName());
 }

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.util;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import static org.junit.Assert.*;
 
 import java.util.Calendar;
@@ -77,7 +78,7 @@ public class DelegationPasswordGeneratorTest {
         final Calendar cal = Calendar.getInstance();
         cal.set(1978, 0, 9);
         final Date eventBegin = cal.getTime();
-        final String password = new DelegationPasswordGenerator().generatePassword(eventName,eventBegin,companyName);
+        final String password = new DelegationPasswordGenerator().generatePassword(eventName, eventBegin, companyName);
         assertEquals("3. tar1978-01-09", password);
     }
 

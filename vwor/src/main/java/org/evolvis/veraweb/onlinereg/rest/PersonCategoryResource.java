@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
 import org.hibernate.Session;
 
@@ -77,31 +78,31 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonCategoryResource extends AbstractResource {
 
-	@POST
-	@Path("/add")
-	public PersonCategory createPersonCategory(@FormParam("personId") Integer personId,
-											   @FormParam("categoryId") Integer categoryId) {
+    @POST
+    @Path("/add")
+    public PersonCategory createPersonCategory(@FormParam("personId") Integer personId,
+            @FormParam("categoryId") Integer categoryId) {
 
-		final Session session = openSession();
+        final Session session = openSession();
         session.beginTransaction();
 
-		try {
-			final PersonCategory personCategory = handleCreatePersonCategory(personId, categoryId);
-			session.save(personCategory);
-			session.flush();
+        try {
+            final PersonCategory personCategory = handleCreatePersonCategory(personId, categoryId);
+            session.save(personCategory);
+            session.flush();
             session.getTransaction().commit();
 
-			return personCategory;
-		} finally {
-			session.close();
-		}
-	}
+            return personCategory;
+        } finally {
+            session.close();
+        }
+    }
 
-	private PersonCategory handleCreatePersonCategory(Integer personId, Integer categoryId) {
-		final PersonCategory personCategory = new PersonCategory();
-		personCategory.setFk_person(personId);
-		personCategory.setFk_categorie(categoryId);
+    private PersonCategory handleCreatePersonCategory(Integer personId, Integer categoryId) {
+        final PersonCategory personCategory = new PersonCategory();
+        personCategory.setFk_person(personId);
+        personCategory.setFk_categorie(categoryId);
 
-		return personCategory;
-	}
+        return personCategory;
+    }
 }

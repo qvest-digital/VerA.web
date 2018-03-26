@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
@@ -118,19 +119,20 @@ public class VerawebUtils {
         } else if (status.intValue() == EventConstants.STATUS_REFUSE) {
             return "Absage";
         } else { // status == 3
-			/*
-			 * modified to support forth invitation state as per change request for version 1.2.0
-			 * cklein
-			 * 2008-02-26
-			 */
+            /*
+             * modified to support forth invitation state as per change request for version 1.2.0
+             * cklein
+             * 2008-02-26
+             */
             return "Teilnahme";
         }
     }
 
     /**
      * Diese Methode liefert eine String-Darstellung eines Veranstaltungstyps
-     * @param type  FIXME
-     * @return  FIXME
+     *
+     * @param type FIXME
+     * @return FIXME
      */
     public static String getType(Integer type) {
         if (type == null || type.intValue() == EventConstants.TYPE_MITPARTNER) {

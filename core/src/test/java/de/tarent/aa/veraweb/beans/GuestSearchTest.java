@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.dblayer.sql.clause.WhereList;
 import org.junit.Test;
 
@@ -74,14 +75,16 @@ public class GuestSearchTest {
     public void test() {
         // GIVEN
         search = new GuestSearch();
-        search.event=42;
-        search.keywords="gröfatz, knørßt   , baz , ";
+        search.event = 42;
+        search.keywords = "gröfatz, knørßt   , baz , ";
         WhereList where = new WhereList();
 
         // WHEN
         search.addGuestListFilter(where);
 
         // THEN
-        assertEquals("(tguest.fk_event=42 AND tguest.keywords LIKE '%gröfatz%' AND tguest.keywords LIKE '%knørßt%' AND tguest.keywords LIKE '%baz%')",where.clauseToString());
+        assertEquals(
+                "(tguest.fk_event=42 AND tguest.keywords LIKE '%gröfatz%' AND tguest.keywords LIKE '%knørßt%' AND tguest.keywords LIKE '%baz%')",
+                where.clauseToString());
     }
 }

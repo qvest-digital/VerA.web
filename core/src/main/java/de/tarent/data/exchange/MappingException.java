@@ -61,6 +61,7 @@ package de.tarent.data.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * Diese Klasse stellt Ausnahmen beim Mapping von Feldern dar.
  *
@@ -70,6 +71,7 @@ public class MappingException extends Exception {
     //
     // Konstruktoren
     //
+
     /**
      * Der leere Konstruktor
      */
@@ -99,7 +101,7 @@ public class MappingException extends Exception {
      * Dieser Konstruktor erhält einen Fehlertext und einen geschachtelten {@link Throwable}.
      *
      * @param message Fehlertext
-     * @param cause geschachtelter {@link Throwable}
+     * @param cause   geschachtelter {@link Throwable}
      */
     public MappingException(String message, Throwable cause) {
         super(message, cause);
@@ -108,6 +110,8 @@ public class MappingException extends Exception {
     //
     // geschützt Member
     //
-    /** Serialisierungs-ID (um Eclipse glücklich zu machen) */
+    /**
+     * Serialisierungs-ID (um Eclipse glücklich zu machen)
+     */
     private static final long serialVersionUID = 974345013719043419L;
 }

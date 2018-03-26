@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
@@ -88,452 +89,478 @@ import java.util.Set;
  * @author Mikel
  */
 public class Person extends AbstractHistoryBean implements PersonConstants, OrgUnitDependent {
-    /** ID */
+    /**
+     * ID
+     */
     public Integer id;
-    @Size(max=45)
+    @Size(max = 45)
     public String internal_id;
-    /** ID der Mandanten-Einheit */
+    /**
+     * ID der Mandanten-Einheit
+     */
     public Integer orgunit;
-    /** Erstellt am */
+    /**
+     * Erstellt am
+     */
     public Timestamp created;
-    /** Erstellt von */
+    /**
+     * Erstellt von
+     */
     public String createdby;
-    /** Geändert am */
+    /**
+     * Geändert am
+     */
     public Timestamp changed;
-    /** Geändert von */
+    /**
+     * Geändert von
+     */
     public String changedby;
-    /** Als gelöscht markiert */
+    /**
+     * Als gelöscht markiert
+     */
     public String deleted;
-    /** Gültigkeit lauft ab am */
+    /**
+     * Gültigkeit lauft ab am
+     */
     public Timestamp expire;
-    /** Flag ob diese Person eine Firma ist */
+    /**
+     * Flag ob diese Person eine Firma ist
+     */
     public String iscompany;
-    /** Datenherkunft */
+    /**
+     * Datenherkunft
+     */
     public String importsource;
-    /** Workarea */
+    /**
+     * Workarea
+     */
     public Integer workarea;
-    /** Workarea Name for display purposes only */
+    /**
+     * Workarea Name for display purposes only
+     */
     public String workarea_name;
-    /** Username */
+    /**
+     * Username
+     */
     public String username;
 
     // Hauptperson, Latein
-    @Size(max=100)
+    @Size(max = 100)
     public String salutation_a_e1;
     public Integer fk_salutation_a_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String title_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String firstname_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String lastname_a_e1;
     public String domestic_a_e1;
     public String sex_a_e1;
     public Timestamp birthday_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String birthplace_a_e1;
     public Timestamp diplodate_a_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String languages_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String nationality_a_e1;
-    @Size(max=2000)
+    @Size(max = 2000)
     public String note_a_e1;
-    @Size(max=2000)
+    @Size(max = 2000)
     public String noteorga_a_e1;
-    @Size(max=2000)
+    @Size(max = 2000)
     public String notehost_a_e1;
 
     // Hauptperson, Zeichensatz 1
-    @Size(max=100)
+    @Size(max = 100)
     public String salutation_a_e2;
     public Integer fk_salutation_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String birthplace_a_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String title_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String firstname_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String lastname_a_e2;
 
     // Hauptperson, Zeichensatz 2
-    @Size(max=100)
+    @Size(max = 100)
     public String salutation_a_e3;
     public Integer fk_salutation_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String birthplace_a_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String title_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String firstname_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String lastname_a_e3;
 
     // Partner, Latein
-    @Size(max=100)
+    @Size(max = 100)
     public String salutation_b_e1;
     public Integer fk_salutation_b_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String title_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String firstname_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String lastname_b_e1;
     public String domestic_b_e1;
     public String sex_b_e1;
     public Timestamp birthday_b_e1;
     //public String birthplace_b_e1;
     public Timestamp diplodate_b_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String languages_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String nationality_b_e1;
-    @Size(max=2000)
+    @Size(max = 2000)
     public String note_b_e1;
-    @Size(max=2000)
+    @Size(max = 2000)
     public String noteorga_b_e1;
-    @Size(max=2000)
+    @Size(max = 2000)
     public String notehost_b_e1;
 
     // Partner, Zeichensatz 1
-    @Size(max=100)
+    @Size(max = 100)
     public String salutation_b_e2;
     public Integer fk_salutation_b_e2;
     //public String birthplace_b_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String title_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String firstname_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String lastname_b_e2;
 
     // Partner, Zeichensatz 2
-    @Size(max=100)
+    @Size(max = 100)
     public String salutation_b_e3;
     public Integer fk_salutation_b_e3;
     //public String birthplace_b_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String title_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String firstname_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String lastname_b_e3;
 
     // Adressdaten Geschäftlich, Latein
-    @Size(max=250)
+    @Size(max = 250)
     public String function_a_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_a_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_a_e1;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_a_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_a_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_a_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_a_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_a_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_a_e1;
 
     // Adressdaten Geschäftlich, Zeichensatz 1
-    @Size(max=250)
+    @Size(max = 250)
     public String function_a_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_a_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_a_e2;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_a_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_a_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_a_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_a_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_a_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_a_e2;
 
     // Adressdaten Geschäftlich, Zeichensatz 2
-    @Size(max=250)
+    @Size(max = 250)
     public String function_a_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_a_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_a_e3;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_a_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_a_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_a_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_a_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_a_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_a_e3;
 
     // Adressdaten Privat, Latein
-    @Size(max=250)
+    @Size(max = 250)
     public String function_b_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_b_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_b_e1;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_b_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_b_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_b_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_b_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_b_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_b_e1;
 
     // Adressdaten Privat, Zeichensatz 1
-    @Size(max=250)
+    @Size(max = 250)
     public String function_b_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_b_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_b_e2;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_b_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_b_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_b_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_b_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_b_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_b_e2;
 
     // Adressdaten Privat, Zeichensatz 2
-    @Size(max=250)
+    @Size(max = 250)
     public String function_b_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_b_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_b_e3;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_b_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_b_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_b_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_b_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_b_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_b_e3;
 
     // Adressdaten Weitere, Latein
-    @Size(max=250)
+    @Size(max = 250)
     public String function_c_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_c_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_c_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_c_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_c_e1;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_c_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_c_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_c_e1;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_c_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_c_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_c_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_c_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_c_e1;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_c_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_c_e1;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_c_e1;
 
     // Adressdaten Weitere, Zeichensatz 1
-    @Size(max=250)
+    @Size(max = 250)
     public String function_c_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_c_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_c_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_c_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_c_e2;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_c_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_c_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_c_e2;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_c_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_c_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_c_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_c_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_c_e2;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_c_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_c_e2;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_c_e2;
 
     // Adressdaten Weitere, Zeichensatz 2
-    @Size(max=250)
+    @Size(max = 250)
     public String function_c_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String company_c_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String street_c_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String zipcode_c_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String state_c_e3;
-    @Size(max=300)
+    @Size(max = 300)
     public String city_c_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String country_c_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String pobox_c_e3;
-    @Size(max=50)
+    @Size(max = 50)
     public String poboxzipcode_c_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix1_c_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String suffix2_c_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String fon_c_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String fax_c_e3;
-    @Size(max=100)
+    @Size(max = 100)
     public String mobil_c_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String mail_c_e3;
-    @Size(max=250)
+    @Size(max = 250)
     public String url_c_e3;
 
     public void verify(final OctopusContext octopusContext) {
         AddressHelper.checkPerson(this);
         final VerawebMessages messages = new VerawebMessages(octopusContext);
-//              solveXSS(); TODO Get a better solution
+        //              solveXSS(); TODO Get a better solution
 
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final Set<ConstraintViolation<Person>> constraintViolations = validator.validate(this);
-        for (ConstraintViolation<Person> violation : constraintViolations ) {
+        for (ConstraintViolation<Person> violation : constraintViolations) {
             final String column = violation.getPropertyPath().toString();
             addError(messages.getPersonMessageField(column));
         }
@@ -543,9 +570,9 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
                 addError(messages.getMessagePersonNoCompanyName());
             }
         } else if (
-            (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
-            (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)
-        ) {
+                (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
+                        (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)
+                ) {
             addError(messages.getMessageBothNameFieldsAreEmpty());
         } else if (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) {
             addError(messages.getMessageNameFieldEmpty());
@@ -553,10 +580,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
             addError(messages.getMessageLastnameFieldEmptry());
         }
 
-                /*
+        /*
          * 2009-05-17 cklein
-                 * temporarily fixes issue #1529 until i gain access to the old octopus repository
-                 */
+         * temporarily fixes issue #1529 until i gain access to the old octopus repository
+         */
         DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors(), octopusContext);
     }
 
@@ -675,30 +702,31 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         int l = locale != null ? locale : LOCALE_LATIN;
 
         switch (a * 3 + l) {
-            case 4:
-                return getBusinessLatin();
-            case 5:
-                return getBusinessExtra1();
-            case 6:
-                return getBusinessExtra2();
-            case 7:
-                return getPrivateLatin();
-            case 8:
-                return getPrivateExtra1();
-            case 9:
-                return getPrivateExtra2();
-            case 10:
-                return getOtherLatin();
-            case 11:
-                return getOtherExtra1();
-            case 12:
-                return getOtherExtra2();
+        case 4:
+            return getBusinessLatin();
+        case 5:
+            return getBusinessExtra1();
+        case 6:
+            return getBusinessExtra2();
+        case 7:
+            return getPrivateLatin();
+        case 8:
+            return getPrivateExtra1();
+        case 9:
+            return getPrivateExtra2();
+        case 10:
+            return getOtherLatin();
+        case 11:
+            return getOtherExtra1();
+        case 12:
+            return getOtherExtra2();
         }
         return getBusinessLatin();
     }
 
     /**
      * Diese Methode liefert eine Facade für die Hauptperson-Daten im Latin-Zeichensatz.
+     *
      * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getMainLatin() {
@@ -707,6 +735,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Hauptperson-Daten im Zusatzzeichensatz 1.
+     *
      * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getMainExtra1() {
@@ -715,6 +744,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Hauptperson-Daten im Zusatzzeichensatz 2.
+     *
      * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getMainExtra2() {
@@ -723,6 +753,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Partner-Daten im Latin-Zeichensatz.
+     *
      * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getPartnerLatin() {
@@ -731,6 +762,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Partner-Daten im Zusatzzeichensatz 1.
+     *
      * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getPartnerExtra1() {
@@ -739,6 +771,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Partner-Daten im Zusatzzeichensatz 2.
+     *
      * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getPartnerExtra2() {
@@ -747,6 +780,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Dienst-Adresse im Latin-Zeichensatz.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getBusinessLatin() {
@@ -755,6 +789,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Dienst-Adresse im Zusatzzeichensatz 1.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getBusinessExtra1() {
@@ -763,6 +798,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Dienst-Adresse im Zusatzzeichensatz 2.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getBusinessExtra2() {
@@ -771,6 +807,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Privat-Adresse im Latin-Zeichensatz.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getPrivateLatin() {
@@ -779,6 +816,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Privat-Adresse im Zusatzzeichensatz 1.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getPrivateExtra1() {
@@ -787,6 +825,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Privat-Adresse im Zusatzzeichensatz 2.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getPrivateExtra2() {
@@ -795,6 +834,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Zusatz-Adresse im Latin-Zeichensatz.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getOtherLatin() {
@@ -803,6 +843,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Zusatz-Adresse im Zusatzzeichensatz 1.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getOtherExtra1() {
@@ -811,6 +852,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Klasse liefert eine Facade für die Zusatz-Adresse im Zusatzzeichensatz 2.
+     *
      * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getOtherExtra2() {

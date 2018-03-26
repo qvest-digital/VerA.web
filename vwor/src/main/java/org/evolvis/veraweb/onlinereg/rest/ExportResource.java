@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.export.CsvExporter;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
@@ -104,7 +105,7 @@ import java.util.Properties;
  */
 @Path("/export")
 @Produces(VworConstants.TEXT_CSV_CONTENT_TYPE)
-public class ExportResource extends AbstractResource{
+public class ExportResource extends AbstractResource {
 
     @javax.ws.rs.core.Context
     ResourceContext resourceContext;
@@ -128,28 +129,29 @@ public class ExportResource extends AbstractResource{
 
     @GET
     @Path("/guestList/{eventId}")
-    public Response getGuestList(@PathParam("eventId") final int eventId, @javax.ws.rs.core.Context UriInfo ui) throws NamingException, UnsupportedEncodingException {
+    public Response getGuestList(@PathParam("eventId") final int eventId, @javax.ws.rs.core.Context UriInfo ui)
+            throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
             initContext = new InitialContext();
         }
-        final Context namingContext  = (Context) initContext.lookup("java:comp/env");
+        final Context namingContext = (Context) initContext.lookup("java:comp/env");
         final DataSource dataSource = (DataSource) namingContext.lookup("jdbc/vwonlinereg");
 
         final Properties properties = new Properties();
         properties.setProperty("event.shortname", event.getShortname());
-        properties.setProperty("event.begin",  String.valueOf(event.getDatebegin().getTime()));
+        properties.setProperty("event.begin", String.valueOf(event.getDatebegin().getTime()));
 
         final InputStream configFileAsStream = getConfigFileAsStream(ui);
         final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
-        final Map<String, String> substitutions=new HashMap<String,String>();
+        final Map<String, String> substitutions = new HashMap<String, String>();
         substitutions.put(CONFIG_PLACEHOLDER, String.valueOf(eventId));
 
         addOptionalFieldsSubstitutions(eventId, substitutions);
 
         final MultivaluedMap<String, String> params = ui.getQueryParameters();
-        for(String key:params.keySet()){
+        for (String key : params.keySet()) {
             properties.setProperty(key, params.getFirst(key));
         }
 
@@ -157,7 +159,7 @@ public class ExportResource extends AbstractResource{
             @Override
             public void write(OutputStream os) throws IOException {
                 final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
-                final CsvExporter csvExporter = new CsvExporter(reader,new KeepOpenWriter(writer), dataSource, properties);
+                final CsvExporter csvExporter = new CsvExporter(reader, new KeepOpenWriter(writer), dataSource, properties);
 
                 csvExporter.export(substitutions);
 

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -80,12 +81,12 @@ import java.util.Date;
 @Table(name = "tosiam_user_activation")
 @NamedQueries({
         @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByToken",
-                    query = "SELECT oua FROM OsiamUserActivation oua where activation_token=:activation_token"),
+                query = "SELECT oua FROM OsiamUserActivation oua where activation_token=:activation_token"),
         @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByUsername",
                 query = "SELECT oua FROM OsiamUserActivation oua where username=:username"),
         @NamedQuery(name = "OsiamUserActivation.refreshOsiamUserActivationByUsername",
-                    query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, expiration_date=:expiration_date " +
-                            "WHERE username=:username")
+                query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, expiration_date=:expiration_date " +
+                        "WHERE username=:username")
 })
 public class OsiamUserActivation {
     @Id
@@ -97,9 +98,9 @@ public class OsiamUserActivation {
     }
 
     public OsiamUserActivation(String username, Date expiration_date, String activation_token) {
-        this.username=username;
-        this.expiration_date=expiration_date;
-        this.activation_token=activation_token;
+        this.username = username;
+        this.expiration_date = expiration_date;
+        this.activation_token = activation_token;
     }
 
     public String getActivation_token() {

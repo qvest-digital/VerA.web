@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
@@ -118,11 +119,11 @@ public class GuestDetailWorker extends GuestListWorker {
     /**
      * Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)}
      */
-    public static final String INPUT_showDetail[] = {"id", "offset"};
+    public static final String INPUT_showDetail[] = { "id", "offset" };
     /**
      * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)}
      */
-    public static final boolean MANDATORY_showDetail[] = {false, false};
+    public static final boolean MANDATORY_showDetail[] = { false, false };
 
     /**
      * Diese Octopus-Aktion lädt Details zu einem Gast, der über ID oder über Position in der Ergebnisliste zu einer
@@ -185,7 +186,7 @@ public class GuestDetailWorker extends GuestListWorker {
      * (with empty or 0 table) or table and seat is alreadyreserved by another guest or its partner.
      *
      * @param database The {@link Database}
-     * @param guest The {@link Guest}
+     * @param guest    The {@link Guest}
      * @return Returns list of error messages in case duplicate reservation were found
      * @throws BeanException
      * @throws IOException
@@ -298,7 +299,8 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private String downloadGuestImage(String imageUUID) throws IOException {
-        final TypeReference<String> stringType = new TypeReference<String>() {};
+        final TypeReference<String> stringType = new TypeReference<String>() {
+        };
         final VworUtils vworUtils = new VworUtils();
         final String URI = vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
         try {
@@ -320,7 +322,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setGeneralContentForOctopusContext(OctopusContext octopusContext, Guest guest, Person person,
-                                                    Integer addresstype, Integer locale, Categorie category) {
+            Integer addresstype, Integer locale, Categorie category) {
         octopusContext.setContent("guest", guest);
         octopusContext.setContent("person", person);
         octopusContext.setContent("main", person.getMemberFacade(true, locale));
@@ -482,11 +484,13 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setSeatNumber(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-seatno_a") != null && Integer.parseInt(allRequestParams.get("guest-seatno_a").toString()) != guest.seatno_a) {
+            if (allRequestParams.get("guest-seatno_a") != null &&
+                    Integer.parseInt(allRequestParams.get("guest-seatno_a").toString()) != guest.seatno_a) {
                 guest.seatno_a = Integer.parseInt(allRequestParams.get("guest-seatno_a").toString());
             }
         } else {
-            if (allRequestParams.get("guest-seatno_b") != null && Integer.parseInt(allRequestParams.get("guest-seatno_b").toString()) != guest.seatno_b) {
+            if (allRequestParams.get("guest-seatno_b") != null &&
+                    Integer.parseInt(allRequestParams.get("guest-seatno_b").toString()) != guest.seatno_b) {
                 guest.seatno_b = Integer.parseInt(allRequestParams.get("guest-seatno_b").toString());
             }
         }
@@ -494,11 +498,13 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setTableNumber(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-tableno_a") != null && Integer.parseInt(allRequestParams.get("guest-tableno_a").toString()) != guest.tableno_a) {
+            if (allRequestParams.get("guest-tableno_a") != null &&
+                    Integer.parseInt(allRequestParams.get("guest-tableno_a").toString()) != guest.tableno_a) {
                 guest.tableno_a = Integer.parseInt(allRequestParams.get("guest-tableno_a").toString());
             }
         } else {
-            if (allRequestParams.get("guest-tableno_b") != null && Integer.parseInt(allRequestParams.get("guest-tableno_b").toString()) != guest.tableno_b) {
+            if (allRequestParams.get("guest-tableno_b") != null &&
+                    Integer.parseInt(allRequestParams.get("guest-tableno_b").toString()) != guest.tableno_b) {
                 guest.tableno_b = Integer.parseInt(allRequestParams.get("guest-tableno_b").toString());
             }
         }
@@ -506,11 +512,13 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setInvitationStatus(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-invitationstatus_a") != null && Integer.parseInt(allRequestParams.get("guest-invitationstatus_a").toString()) != guest.invitationstatus_a) {
+            if (allRequestParams.get("guest-invitationstatus_a") != null &&
+                    Integer.parseInt(allRequestParams.get("guest-invitationstatus_a").toString()) != guest.invitationstatus_a) {
                 guest.invitationstatus_a = Integer.parseInt(allRequestParams.get("guest-invitationstatus_a").toString());
             }
         } else {
-            if (allRequestParams.get("guest-invitationstatus_b") != null && Integer.parseInt(allRequestParams.get("guest-invitationstatus_b").toString()) != guest.invitationstatus_b) {
+            if (allRequestParams.get("guest-invitationstatus_b") != null &&
+                    Integer.parseInt(allRequestParams.get("guest-invitationstatus_b").toString()) != guest.invitationstatus_b) {
                 guest.invitationstatus_b = Integer.parseInt(allRequestParams.get("guest-invitationstatus_b").toString());
             }
         }
@@ -631,7 +639,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setKeywords(Map<String, Object> allRequestParams, Guest guest) {
-        if (allRequestParams.get("guest-keywords") !=null && !allRequestParams.get("guest-keywords").toString().equals(guest.keywords)) {
+        if (allRequestParams.get("guest-keywords") != null && !allRequestParams.get("guest-keywords").toString().equals(guest.keywords)) {
             guest.keywords = VerawebUtils.clearCommaSeparatedString(allRequestParams.get("guest-keywords").toString());
         }
     }
@@ -701,7 +709,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void updateDelegationFields(TransactionContext transactionContext, Map<String, Object> allRequestParams,
-                                        Integer guestId) throws BeanException {
+            Integer guestId) throws BeanException {
         // TODO Implement update the right way!!!
         // delete contents by guestId id from toptional_field_delegation_content
         deleteExistingDelegationFieldContent(transactionContext, guestId);
@@ -745,9 +753,9 @@ public class GuestDetailWorker extends GuestListWorker {
      * @throws BeanException TODO
      */
     private void handleSingleValueEntry(final TransactionContext transactionContext,
-                                        final Map<String, Object> allRequestParams,
-                                        final Integer guestId,
-                                        final Map.Entry<String, Object> entry) throws BeanException {
+            final Map<String, Object> allRequestParams,
+            final Integer guestId,
+            final Map.Entry<String, Object> entry) throws BeanException {
         final String[] keyParts = entry.getKey().split("-");
         final Integer fieldId = new Integer(keyParts[3]);
         final String fieldContent = (String) allRequestParams.get(entry.getKey());
@@ -756,24 +764,24 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void insertNewDelegationContent(TransactionContext transactionContext, Integer guestId, Integer fieldId,
-                                            String fieldContent) throws BeanException {
+            String fieldContent) throws BeanException {
         final Insert insert = SQL.Insert(transactionContext);
         insert.table("veraweb.toptional_fields_delegation_content");
         insert.
-            insert("toptional_fields_delegation_content.fk_guest", guestId).
-            insert("toptional_fields_delegation_content.fk_delegation_field", fieldId).
-            insert("toptional_fields_delegation_content.value", fieldContent);
+                insert("toptional_fields_delegation_content.fk_guest", guestId).
+                insert("toptional_fields_delegation_content.fk_delegation_field", fieldId).
+                insert("toptional_fields_delegation_content.value", fieldContent);
 
         transactionContext.execute(insert);
         transactionContext.commit();
     }
 
     private void deleteExistingDelegationFieldContent(final TransactionContext transactionContext,
-                                                      final Integer guestId) throws BeanException {
+            final Integer guestId) throws BeanException {
         final Delete deleteStatement = SQL.Delete(transactionContext);
         deleteStatement.
-            from("toptional_fields_delegation_content").
-            whereAndEq("toptional_fields_delegation_content.fk_guest", guestId);
+                from("toptional_fields_delegation_content").
+                whereAndEq("toptional_fields_delegation_content.fk_guest", guestId);
         transactionContext.execute(deleteStatement);
         transactionContext.commit();
     }
@@ -841,41 +849,41 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void selectGuestAddPartnerDuplicateList(Database database, Guest guest, List<String> duplicateErrorList,
-                                                    final LanguageProvider languageProvider)
+            final LanguageProvider languageProvider)
             throws BeanException, IOException {
         if (guest.seatno_b != null && guest.seatno_b > 0) {
             if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
                 final Select select = database.getSelect("Guest")
-                    .whereOr(Expr.isNull("tableno"))
-                    .whereOr(Expr.equal("tableno", 0))
-                    .whereAnd(Expr.equal("seatno", guest.seatno_b))
-                    .whereAnd(Expr.equal("fk_event", guest.event))
-                    .whereAnd(Expr.notEqual("fk_person", guest.person));
+                        .whereOr(Expr.isNull("tableno"))
+                        .whereOr(Expr.equal("tableno", 0))
+                        .whereAnd(Expr.equal("seatno", guest.seatno_b))
+                        .whereAnd(Expr.equal("fk_event", guest.event))
+                        .whereAnd(Expr.notEqual("fk_person", guest.person));
                 final Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
                 if (duplicatePerson != null) {
                     duplicateErrorList.add(
-                        getDuplicateSeatErrorMessage(duplicatePerson,
-                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                            languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
-                            languageProvider)
+                            getDuplicateSeatErrorMessage(duplicatePerson,
+                                    languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                                    languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
+                                    languageProvider)
                     );
                 }
             } else {
                 final Select select = database.getSelect("Guest")
-                    .whereAnd(Expr.equal("tableno", guest.tableno_b))
-                    .whereAnd(Expr.equal("seatno", guest.seatno_b))
-                    .whereAnd(Expr.equal("fk_event", guest.event))
-                    .whereAnd(Expr.notEqual("fk_person", guest.person)
-                    );
+                        .whereAnd(Expr.equal("tableno", guest.tableno_b))
+                        .whereAnd(Expr.equal("seatno", guest.seatno_b))
+                        .whereAnd(Expr.equal("fk_event", guest.event))
+                        .whereAnd(Expr.notEqual("fk_person", guest.person)
+                        );
 
                 final Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
                 if (duplicatePerson != null) {
                     duplicateErrorList.add(
-                        getDuplicateSeatErrorMessage(duplicatePerson,
-                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                            languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
-                            languageProvider)
+                            getDuplicateSeatErrorMessage(duplicatePerson,
+                                    languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                                    languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
+                                    languageProvider)
                     );
                 }
             }
@@ -883,29 +891,29 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void selectPartnerAddDuplicateGuestList(Database database, Guest guest, List<String> duplicateErrorList,
-                                                    final LanguageProvider languageProvider)
+            final LanguageProvider languageProvider)
             throws BeanException, IOException {
         if (guest.seatno_a != null && guest.seatno_a > 0) {
             if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
                 final Select select = database.getSelect("Guest")
-                    .whereOr(Expr.isNull("tableno_p"))
-                    .whereOr(Expr.equal("tableno_p", 0))
-                    .whereAnd(Expr.equal("seatno_p", guest.seatno_a))
-                    .whereAnd(Expr.equal("fk_event", guest.event))
-                    .whereAnd(Expr.notEqual("fk_person", guest.person));
+                        .whereOr(Expr.isNull("tableno_p"))
+                        .whereOr(Expr.equal("tableno_p", 0))
+                        .whereAnd(Expr.equal("seatno_p", guest.seatno_a))
+                        .whereAnd(Expr.equal("fk_event", guest.event))
+                        .whereAnd(Expr.notEqual("fk_person", guest.person));
                 final Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
                 if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
-                        languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
-                        languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                        languageProvider));
+                            languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider));
                 }
             } else {
                 final Select select = database.getSelect("Guest")
-                    .whereAnd(Expr.equal("tableno_p", guest.tableno_a))
-                    .whereAnd(Expr.equal("seatno_p", guest.seatno_a))
-                    .whereAnd(Expr.equal("fk_event", guest.event))
-                    .whereAnd(Expr.notEqual("fk_person", guest.person));
+                        .whereAnd(Expr.equal("tableno_p", guest.tableno_a))
+                        .whereAnd(Expr.equal("seatno_p", guest.seatno_a))
+                        .whereAnd(Expr.equal("fk_event", guest.event))
+                        .whereAnd(Expr.notEqual("fk_person", guest.person));
                 final Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
                 if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
@@ -927,30 +935,30 @@ public class GuestDetailWorker extends GuestListWorker {
         if (guest.seatno_a != null && guest.seatno_a > 0) {
             if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
                 final Select select = database.getSelect("Guest")
-                    .whereOr(Expr.isNull("tableno"))
-                    .whereOr(Expr.equal("tableno", 0))
-                    .whereAnd(Expr.equal("seatno", guest.seatno_a))
-                    .whereAnd(Expr.equal("fk_event", guest.event))
-                    .whereAnd(Expr.notEqual("fk_person", guest.person));
+                        .whereOr(Expr.isNull("tableno"))
+                        .whereOr(Expr.equal("tableno", 0))
+                        .whereAnd(Expr.equal("seatno", guest.seatno_a))
+                        .whereAnd(Expr.equal("fk_event", guest.event))
+                        .whereAnd(Expr.notEqual("fk_person", guest.person));
                 final Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
                 if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
-                        languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                        languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                        languageProvider));
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider));
                 }
             } else {
                 final Select select = database.getSelect("Guest")
-                    .whereAnd(Expr.equal("tableno", guest.tableno_a))
-                    .whereAnd(Expr.equal("seatno", guest.seatno_a))
-                    .whereAnd(Expr.equal("fk_event", guest.event))
-                    .whereAnd(Expr.notEqual("fk_person", guest.person));
+                        .whereAnd(Expr.equal("tableno", guest.tableno_a))
+                        .whereAnd(Expr.equal("seatno", guest.seatno_a))
+                        .whereAnd(Expr.equal("fk_event", guest.event))
+                        .whereAnd(Expr.notEqual("fk_person", guest.person));
                 final Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
                 if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
-                        languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                        languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                        languageProvider));
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider));
                 }
             }
         }
@@ -958,10 +966,8 @@ public class GuestDetailWorker extends GuestListWorker {
 
     /**
      * @param database The {@link Database}
-     * @param select FIXME
-
+     * @param select   FIXME
      * @return Person
-
      * @throws BeanException
      * @throws IOException
      */
@@ -1061,8 +1067,9 @@ public class GuestDetailWorker extends GuestListWorker {
         extendColumns(octopusContext, select);
 
         if (guestid != null && guestid.intValue() != 0) {
-            if (logger.isDebugEnabled())
+            if (logger.isDebugEnabled()) {
                 logger.debug("GuestDetail show for id " + guestid);
+            }
             select.where(Where.and(
                     Expr.equal("tguest.pk", guestid),
                     Expr.equal("tguest.fk_event", eventid)));
@@ -1087,7 +1094,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void getGuestListPositionById(OctopusContext octopusContext, Integer guestid, Database database,
-                                          GuestSearch search)
+            GuestSearch search)
             throws BeanException, IOException {
         // Gast wurde gefunden. Durch diese Suche (per ID) konnte sich aber ggf. die
         // Position innerhalb der Liste verändert werden, daher wird diese nun neu

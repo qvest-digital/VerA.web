@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.MailOutbox;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
@@ -83,90 +84,105 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
     //
     // Konstruktoren
     //
+
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
-	public MailOutboxWorker() {
-		super("MailOutbox");
-	}
+    public MailOutboxWorker() {
+        super("MailOutbox");
+    }
 
     //
     // Octopus-Aktionen
     //
-	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
-	public static final String INPUT_showDetail[] = { "id", "mailoutbox" };
-	/** Octopus-Eingabe-Parameterzwang für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
-	public static final boolean MANDATORY_showDetail[] = { false, false };
-	/** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)} */
-	public static final String OUTPUT_showDetail = "mailoutbox";
-	/**
-	 * Lädt eine eMail aus dem Postausgang und stellt
-	 * diesen in den Content, wenn eine ID übergeben wurde
-	 * und sich noch keine eMail im Content befindet.
-	 *
-	 * @param cntx Octopus-Context
-	 * @param id Datenbank ID
-	 * @param mailOutbox eMail-Entwurf aus dem Content.
-	 * @return eMail-Entwurf oder null
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	public MailOutbox showDetail(OctopusContext cntx, Integer id, MailOutbox mailOutbox) throws BeanException, IOException {
-		if (mailOutbox == null && id != null) {
-			return (MailOutbox)getDatabase(cntx).getBean("MailOutbox", id);
-		}
-		return mailOutbox;
-	}
+    /**
+     * Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)}
+     */
+    public static final String INPUT_showDetail[] = { "id", "mailoutbox" };
+    /**
+     * Octopus-Eingabe-Parameterzwang für {@link #showDetail(OctopusContext, Integer, MailOutbox)}
+     */
+    public static final boolean MANDATORY_showDetail[] = { false, false };
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailOutbox)}
+     */
+    public static final String OUTPUT_showDetail = "mailoutbox";
 
-	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
-	public static final String INPUT_saveDetail[] = { "save" };
-	/** Octopus-Eingabe-Parameterzwang für {@link #saveDetail(OctopusContext, Boolean)} */
-	public static final boolean MANDATORY_saveDetail[] = { false };
-	/** Octopus-Ausgabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
-	public static final String OUTPUT_saveDetail = "mailoutbox";
-	/**
-	 * Speichert die übergebenen eMail im Postausgang und setzt
-	 * den Status auf 'zu versenden' zurück.
-	 *
-	 * @param octopusContext Octopus-Context
-	 * @param save Gibt an ob eMail-Entwurf gespeichert werden soll.
-	 * @return eMail
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	public MailOutbox saveDetail(final OctopusContext octopusContext, Boolean save) throws BeanException, IOException {
-		if (save != null && save.booleanValue()) {
-			MailOutbox mailOutbox = (MailOutbox)getRequest(octopusContext).getBean("MailOutbox", "mailoutbox");
+    /**
+     * Lädt eine eMail aus dem Postausgang und stellt
+     * diesen in den Content, wenn eine ID übergeben wurde
+     * und sich noch keine eMail im Content befindet.
+     *
+     * @param cntx       Octopus-Context
+     * @param id         Datenbank ID
+     * @param mailOutbox eMail-Entwurf aus dem Content.
+     * @return eMail-Entwurf oder null
+     * @throws BeanException
+     * @throws IOException
+     */
+    public MailOutbox showDetail(OctopusContext cntx, Integer id, MailOutbox mailOutbox) throws BeanException, IOException {
+        if (mailOutbox == null && id != null) {
+            return (MailOutbox) getDatabase(cntx).getBean("MailOutbox", id);
+        }
+        return mailOutbox;
+    }
+
+    /**
+     * Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)}
+     */
+    public static final String INPUT_saveDetail[] = { "save" };
+    /**
+     * Octopus-Eingabe-Parameterzwang für {@link #saveDetail(OctopusContext, Boolean)}
+     */
+    public static final boolean MANDATORY_saveDetail[] = { false };
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)}
+     */
+    public static final String OUTPUT_saveDetail = "mailoutbox";
+
+    /**
+     * Speichert die übergebenen eMail im Postausgang und setzt
+     * den Status auf 'zu versenden' zurück.
+     *
+     * @param octopusContext Octopus-Context
+     * @param save           Gibt an ob eMail-Entwurf gespeichert werden soll.
+     * @return eMail
+     * @throws BeanException
+     * @throws IOException
+     */
+    public MailOutbox saveDetail(final OctopusContext octopusContext, Boolean save) throws BeanException, IOException {
+        if (save != null && save.booleanValue()) {
+            MailOutbox mailOutbox = (MailOutbox) getRequest(octopusContext).getBean("MailOutbox", "mailoutbox");
 
             mailOutbox.verify(octopusContext);
 
-			if (mailOutbox.lastupdate == null) {
-				mailOutbox.lastupdate = new Timestamp(System.currentTimeMillis());
-			}
-			if (mailOutbox.status == null) {
-				mailOutbox.status = new Integer(MailOutbox.STATUS_WAIT);
-			}
-			if (mailOutbox.status.intValue() != MailOutbox.STATUS_ERROR) {
-				mailOutbox.errortext = null;
-			}
+            if (mailOutbox.lastupdate == null) {
+                mailOutbox.lastupdate = new Timestamp(System.currentTimeMillis());
+            }
+            if (mailOutbox.status == null) {
+                mailOutbox.status = new Integer(MailOutbox.STATUS_WAIT);
+            }
+            if (mailOutbox.status.intValue() != MailOutbox.STATUS_ERROR) {
+                mailOutbox.errortext = null;
+            }
 
-			if (mailOutbox.isCorrect()) {
-				TransactionContext context = ( new DatabaseVeraWeb(octopusContext) ).getTransactionContext();
-				try {
-				    if (mailOutbox.id == null) {
+            if (mailOutbox.isCorrect()) {
+                TransactionContext context = (new DatabaseVeraWeb(octopusContext)).getTransactionContext();
+                try {
+                    if (mailOutbox.id == null) {
                         octopusContext.setContent("countInsert", new Integer(1));
                     } else {
                         octopusContext.setContent("countUpdate", new Integer(1));
                     }
-				    saveBean(octopusContext, mailOutbox, context);
-					context.commit();
-				} catch ( BeanException e ) {
-					context.rollBack();
-					throw new BeanException( "Die E-Mail konnte nicht f\u00fcr den Versand vorbereitet werden.", e );
-				}
-			}
-			return mailOutbox;
-		}
-		return null;
-	}
+                    saveBean(octopusContext, mailOutbox, context);
+                    context.commit();
+                } catch (BeanException e) {
+                    context.rollBack();
+                    throw new BeanException("Die E-Mail konnte nicht f\u00fcr den Versand vorbereitet werden.", e);
+                }
+            }
+            return mailOutbox;
+        }
+        return null;
+    }
 }

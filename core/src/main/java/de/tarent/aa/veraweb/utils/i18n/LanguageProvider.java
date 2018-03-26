@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils.i18n;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.LanguageHelper;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Request;
@@ -96,8 +97,7 @@ public class LanguageProvider {
     /**
      * Load language file into properties
      *
-     * @param langFileName
-     *            String name of language file
+     * @param langFileName String name of language file
      */
     public LanguageProvider(final String langFileName) {
         this.properties = this.loadProperties(langFileName);
@@ -137,8 +137,7 @@ public class LanguageProvider {
     /**
      * Get value from loaded property with key
      *
-     * @param key
-     *            String placeholder for translated text
+     * @param key String placeholder for translated text
      * @return value from key
      */
     public String getProperty(String key) {
@@ -157,8 +156,7 @@ public class LanguageProvider {
     /**
      * Load language names into Octopus Context
      *
-     * @param octopusContext
-     *            OctopusContext
+     * @param octopusContext OctopusContext
      */
     public void load(OctopusContext octopusContext) {
         final Map<String, String> languageOptions = this.getLanguageOptions(octopusContext);
@@ -183,10 +181,8 @@ public class LanguageProvider {
     /**
      * Getting translation by key
      *
-     * @param langFileName
-     *            String with full name of data with translations
-     * @param key
-     *            String with placeholder for translation
+     * @param langFileName String with full name of data with translations
+     * @param key          String with placeholder for translation
      * @return out String translated placeholder
      */
     public String getLocalizationValue(String langFileName, String key) {
@@ -287,15 +283,15 @@ public class LanguageProvider {
 
     /**
      * Get list of files (only file names)
-     * @param octopusContext  The {@link OctopusContext}
      *
+     * @param octopusContext The {@link OctopusContext}
      * @return list of file names
      */
     private List<String> getLanguageFileNames(OctopusContext octopusContext) {
         final List<String> localeNames = (List<String>) octopusContext.getConfigObject().getModuleConfig().getParams().get("availableTranslations");
         final List<String> languageFileNames = new ArrayList<String>();
-        for(String localeName:localeNames){
-            languageFileNames.add(localeName+".resource");
+        for (String localeName : localeNames) {
+            languageFileNames.add(localeName + ".resource");
         }
 
         return languageFileNames;

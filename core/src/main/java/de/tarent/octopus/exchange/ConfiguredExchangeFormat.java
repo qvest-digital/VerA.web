@@ -61,6 +61,7 @@ package de.tarent.octopus.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.data.exchange.ExchangeFormat;
 
 import java.net.MalformedURLException;
@@ -81,6 +82,7 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     //
     // Konstruktor
     //
+
     /**
      * Dieser Konstruktor bekommt eine {@link Map} übergeben, wie sie aus
      * einer Octopus-Konfiguration eingelesen wird, und initialisiert daraus
@@ -91,13 +93,15 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
      */
     public ConfiguredExchangeFormat(Map configuration) {
         super();
-        if (configuration != null)
+        if (configuration != null) {
             readConfiguration(configuration);
+        }
     }
 
     //
     // Öffentliche Hilfsmethoden
     //
+
     /**
      * Diese Methode fügt den über die ursprüngliche Konfiguration vorgegebenen Parametern
      * weitere hinzu, die etwa über Benutzereingabe oder sonstige Umstände bestimmt werden.
@@ -112,26 +116,43 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     //
     // Konstanten
     //
-    /** Parameterschlüssel für den Name dieses Formats */
+    /**
+     * Parameterschlüssel für den Name dieses Formats
+     */
     public final static String PARAM_NAME = "name";
-    /** Parameterschlüssel für die Beschreibung dieses Formats */
+    /**
+     * Parameterschlüssel für die Beschreibung dieses Formats
+     */
     public final static String PARAM_DESCRIPTION = "description";
-    /** Parameterschlüssel für die URL zu einem Icon zu diesem Format */
+    /**
+     * Parameterschlüssel für die URL zu einem Icon zu diesem Format
+     */
     public final static String PARAM_ICON = "icon";
-    /** Parameterschlüssel für den Namen der {@link de.tarent.aa.veraweb.utils.Exporter}-Klasse zu diesem Format */
+    /**
+     * Parameterschlüssel für den Namen der {@link de.tarent.aa.veraweb.utils.Exporter}-Klasse zu diesem Format
+     */
     public final static String PARAM_EXPORTER_CLASS = "exporterClass";
-    /** Parameterschlüssel für den Namen der {@link de.tarent.aa.veraweb.utils.Importer}-Klasse zu diesem Format */
+    /**
+     * Parameterschlüssel für den Namen der {@link de.tarent.aa.veraweb.utils.Importer}-Klasse zu diesem Format
+     */
     public final static String PARAM_IMPORTER_CLASS = "importerClass";
-    /** Parameterschlüssel für den MIME-Typ zu diesem Format */
+    /**
+     * Parameterschlüssel für den MIME-Typ zu diesem Format
+     */
     public final static String PARAM_MIME_TYPE = "mimeType";
-    /** Parameterschlüssel für das Standard-Suffix für Dateien dieses Formats */
+    /**
+     * Parameterschlüssel für das Standard-Suffix für Dateien dieses Formats
+     */
     public final static String PARAM_DEFAULT_EXTENSION = "defaultExtension";
-    /** Parameterschlüssel für die speziellen Attribute dieses Formats */
+    /**
+     * Parameterschlüssel für die speziellen Attribute dieses Formats
+     */
     public final static String PARAM_PROPERTIES = "properties";
 
     //
     // geschützte Hilfsmethoden
     //
+
     /**
      * Diese Methode liest aus der übergebenen {@link Map} die Daten des Formats.
      * Als Schlüssel werden die Konstanten <code>PARAM_*</code> benutzt.
@@ -144,8 +165,9 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
         setDescription(toString(configuration.get(PARAM_DESCRIPTION)));
         try {
             Object iconUrlString = configuration.get(PARAM_ICON);
-            if (iconUrlString != null)
+            if (iconUrlString != null) {
                 setIconUrl(new URL(iconUrlString.toString()));
+            }
         } catch (MalformedURLException e) {
             logger.log(Level.WARNING, "Icon-URL konnte nicht ge-parse-t werden.", e);
         }
@@ -154,8 +176,9 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
         setMimeType(toString(configuration.get(PARAM_MIME_TYPE)));
         setDefaultExtension(toString(configuration.get(PARAM_DEFAULT_EXTENSION)));
         Object propertiesMap = configuration.get(PARAM_PROPERTIES);
-        if (propertiesMap instanceof Map)
-            setProperties((Map)propertiesMap);
+        if (propertiesMap instanceof Map) {
+            setProperties((Map) propertiesMap);
+        }
     }
 
     /**
@@ -172,6 +195,8 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     //
     // geschützte Member
     //
-    /** Logger der Klasse */
+    /**
+     * Logger der Klasse
+     */
     static Logger logger = Logger.getLogger(ConfiguredExchangeFormat.class.getName());
 }

@@ -61,6 +61,7 @@ package de.tarent.data.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -78,6 +79,7 @@ public class FieldMappingTest extends TestCase {
     //
     // Tests
     //
+
     /**
      * (Erzeugung / Parsen der Parameter) Dieser Test erzeugt ein vermischtes
      * Mapping.
@@ -116,7 +118,7 @@ public class FieldMappingTest extends TestCase {
      */
     public void testCreateInnerJokerFail() {
         Set sources = createSources();
-        Map description =createDescriptions();
+        Map description = createDescriptions();
         description.put("Kategorie *", "{CAT:*essen}");
         try {
             FieldMapping mapping = new FieldMapping(sources, description);
@@ -145,7 +147,10 @@ public class FieldMappingTest extends TestCase {
     //
     // Hilfsmethoden
     //
-    /** Erzeugt eine gemischte Auswahl Quellen */
+
+    /**
+     * Erzeugt eine gemischte Auswahl Quellen
+     */
     Set createSources() {
         Set sources = new HashSet();
         sources.add(":vorname");
@@ -159,7 +164,9 @@ public class FieldMappingTest extends TestCase {
         return sources;
     }
 
-    /** erzeugt eine gemischte Auswahl Mapping-Beschreibungen */
+    /**
+     * erzeugt eine gemischte Auswahl Mapping-Beschreibungen
+     */
     Map createDescriptions() {
         Map descriptions = new HashMap();
         descriptions.put("*", "{:*} in {:ort}");
@@ -170,7 +177,9 @@ public class FieldMappingTest extends TestCase {
         return descriptions;
     }
 
-    /** erzeugt Auflösung von {@link #createDescriptions()} für {@link #createSources()} */
+    /**
+     * erzeugt Auflösung von {@link #createDescriptions()} für {@link #createSources()}
+     */
     Map createResolves() {
         Map expectedResolves = new HashMap();
         expectedResolves.put("vorname", "{:vorname} in {:ort}");
@@ -186,22 +195,30 @@ public class FieldMappingTest extends TestCase {
     FieldMapping.Entity createEntity() {
         return new FieldMapping.Entity() {
             public String get(String sourceKey) {
-                if (":vorname".equals(sourceKey))
+                if (":vorname".equals(sourceKey)) {
                     return "Hans";
-                if (":nachname".equals(sourceKey))
+                }
+                if (":nachname".equals(sourceKey)) {
                     return "Meier";
-                if (":straße".equals(sourceKey))
+                }
+                if (":straße".equals(sourceKey)) {
                     return "Optionsweg";
-                if (":ort".equals(sourceKey))
+                }
+                if (":ort".equals(sourceKey)) {
                     return "Backhausen";
-                if ("CAT:Weihnachtsessen".equals(sourceKey))
+                }
+                if ("CAT:Weihnachtsessen".equals(sourceKey)) {
                     return "14";
-                if ("CAT:Mafia".equals(sourceKey))
+                }
+                if ("CAT:Mafia".equals(sourceKey)) {
                     return "0";
-                if ("DTM:Etikett".equals(sourceKey))
+                }
+                if ("DTM:Etikett".equals(sourceKey)) {
                     return "Seine Exzellenz Hans Meier";
-                if ("DTP:Etikett".equals(sourceKey))
+                }
+                if ("DTP:Etikett".equals(sourceKey)) {
                     return "Freifrau Anneliese von Hohenstaufen-Meier";
+                }
                 return null;
             }
         };

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
@@ -181,12 +182,9 @@ public class PersonDetailWorker implements PersonConstants {
      * (falls die Person durch sie identifiziert wurde) in der Session unter
      * "person-id" abgelegt.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
-     * @param id
-     *            ID der Person
-     * @param person
-     *            Person
+     * @param octopusContext Octopus-Kontext
+     * @param id             ID der Person
+     * @param person         Person
      */
     public Person showDetail(OctopusContext octopusContext, Integer id, Person person) throws BeanException, IOException {
         logger.debug("Show person details");
@@ -417,10 +415,8 @@ public class PersonDetailWorker implements PersonConstants {
      * {@link Person#created}, {@link Person#createdby}, {@link Person#changed},
      * {@link Person#changedby} und {@link Person#importsource}.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
-     * @param id
-     *            Personen-ID
+     * @param octopusContext Octopus-Kontext
+     * @param id             Personen-ID
      */
     public void copyPerson(OctopusContext octopusContext, Integer id) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -490,8 +486,7 @@ public class PersonDetailWorker implements PersonConstants {
      * werden nur Daten zur Partnerperson ("only"), nur Daten zur Hauptperson
      * ("without") oder zu beiden (sonst) erzeugt.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      */
     public void showTestPerson(OctopusContext octopusContext) throws BeanException {
         String partner = octopusContext.requestAsString("partner");
@@ -515,8 +510,7 @@ public class PersonDetailWorker implements PersonConstants {
      * Diese Octopus-Aktion testet das übergebene Flag; falls es gesetzt ist,
      * wird der Status "saveperson" gesetzt.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException
      */
     public void prepareSaveDetail(OctopusContext octopusContext, Boolean saveperson) {
@@ -577,8 +571,7 @@ public class PersonDetailWorker implements PersonConstants {
      * "personAddresstypeTab" und "personLocaleTab" im Octopus-Request werden
      * unter den gleichen Schlüsseln in den -Content kopiert.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @return die abgespeicherte Person
      */
     public Person saveDetail(final OctopusContext octopusContext, Person person) throws BeanException, IOException {
@@ -1082,8 +1075,7 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Creates an OSIAM user with random username and password.
      *
-     * @param octopusContext
-     *            The {@link de.tarent.octopus.server.OctopusContext}
+     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
      */
     @SuppressWarnings("rawtypes")
     public Person createOsiamUser(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
@@ -1172,7 +1164,8 @@ public class PersonDetailWorker implements PersonConstants {
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
-            transactionContext.execute(SQL.Insert(database).table("veraweb.link_uuid").insert("uuid", getNewPersonUUID()).insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
+            transactionContext.execute(SQL.Insert(database).table("veraweb.link_uuid").insert("uuid", getNewPersonUUID())
+                    .insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
             transactionContext.commit();
         } catch (BeanException e) {
             LOGGER.error("Persisting uuid for link generation failed", e);
@@ -1198,7 +1191,8 @@ public class PersonDetailWorker implements PersonConstants {
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
-            transactionContext.execute(SQL.Update(database).table("veraweb.tperson").update("username", person.username).where(Expr.equal("pk", person.id)));
+            transactionContext
+                    .execute(SQL.Update(database).table("veraweb.tperson").update("username", person.username).where(Expr.equal("pk", person.id)));
             transactionContext.commit();
         } catch (BeanException e) {
             LOGGER.error("Persisting username failed", e);

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -87,7 +88,6 @@ import java.util.Map;
  * List worker for handling {@link Location}s.
  *
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
- *
  */
 public class LocationListWorker extends ListWorkerVeraWeb {
 
@@ -129,7 +129,7 @@ public class LocationListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
-                                  TransactionContext transactionContext) throws BeanException, IOException {
+            TransactionContext transactionContext) throws BeanException, IOException {
 
         int count = 0;
         if (selection == null || selection.size() == 0) {
@@ -202,21 +202,15 @@ public class LocationListWorker extends ListWorkerVeraWeb {
      * Temporarily method for inserting a {@link Location}. <br>
      * TODO: move this method to LocationDetailWorker!
      *
-     * @param octopusContext
-     *            Octopus context
-     * @param errors
-     *            list of errors
-     * @param location
-     *            bean {@link Location}
-     * @param transactionContext
-     *            database transaction context
-     * @throws BeanException
-     *             exception
-     * @throws IOException
-     *             exception
+     * @param octopusContext     Octopus context
+     * @param errors             list of errors
+     * @param location           bean {@link Location}
+     * @param transactionContext database transaction context
+     * @throws BeanException exception
+     * @throws IOException   exception
      */
     protected void insertBean(final OctopusContext octopusContext, final List<String> errors, final Location location,
-                              final TransactionContext transactionContext) throws BeanException, IOException {
+            final TransactionContext transactionContext) throws BeanException, IOException {
         if (location.isModified() && location.isCorrect()) {
             Database database = transactionContext.getDatabase();
 
@@ -239,8 +233,8 @@ public class LocationListWorker extends ListWorkerVeraWeb {
 
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
-        if(octopusContext.getRequestObject().containsParam("noneDeleted")) {
-                octopusContext.setContent("countRemove", 0);
+        if (octopusContext.getRequestObject().containsParam("noneDeleted")) {
+            octopusContext.setContent("countRemove", 0);
         }
         super.saveList(octopusContext);
     }
@@ -248,28 +242,28 @@ public class LocationListWorker extends ListWorkerVeraWeb {
     @Override
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
         Boolean noneChecked = true;
-        if(octopusContext.getRequestObject().getParam("list") != null) {
-                String[] listOfIds = null;
-                if(octopusContext.getRequestObject().getParam("list").getClass().getName().equals("java.lang.String")) {
+        if (octopusContext.getRequestObject().getParam("list") != null) {
+            String[] listOfIds = null;
+            if (octopusContext.getRequestObject().getParam("list").getClass().getName().equals("java.lang.String")) {
                 listOfIds = new String[1];
-                listOfIds[0]= (String) octopusContext.getRequestObject().getParam("list");
-                } else {
-                        listOfIds = (String[]) octopusContext.getRequestObject().getParam("list");
+                listOfIds[0] = (String) octopusContext.getRequestObject().getParam("list");
+            } else {
+                listOfIds = (String[]) octopusContext.getRequestObject().getParam("list");
+            }
+            for (String id : listOfIds) {
+                if (octopusContext.getRequestObject().containsParam(id + "-select")) {
+                    noneChecked = false;
+                    break;
                 }
-                        for (String id : listOfIds) {
-                                        if(octopusContext.getRequestObject().containsParam(id+"-select")){
-                                                noneChecked = false;
-                                                break;
-                                }
-                        }
+            }
         }
-    if(octopusContext.getRequestObject().get("remove") != null
+        if (octopusContext.getRequestObject().get("remove") != null
                 && !octopusContext.getRequestObject().get("remove").equals("Ja")
                 && !noneChecked) {
-        Boolean noMessage = null;
-        octopusContext.setContent("countRemove", noMessage);
-    }
+            Boolean noMessage = null;
+            octopusContext.setContent("countRemove", noMessage);
+        }
 
-    return super.showList(octopusContext);
+        return super.showList(octopusContext);
     }
 }

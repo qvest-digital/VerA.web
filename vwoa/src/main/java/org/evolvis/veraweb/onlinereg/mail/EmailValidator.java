@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.mail;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
@@ -71,9 +72,9 @@ public class EmailValidator {
      * return true if e-mail address is valid, false if not
      *
      * @param email String with possible e-mail address
-     * @return      boolean if e-mail address is valid or not
+     * @return boolean if e-mail address is valid or not
      */
-    public static boolean isValidEmailAddress(String email){
+    public static boolean isValidEmailAddress(String email) {
 
         try {
             new InternetAddress(email).validate();

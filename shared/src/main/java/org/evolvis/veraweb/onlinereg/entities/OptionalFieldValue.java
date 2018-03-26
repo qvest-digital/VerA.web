@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.util.List;
 
 /**
@@ -70,45 +71,45 @@ import java.util.List;
  */
 public class OptionalFieldValue extends OptionalField {
 
-        public OptionalFieldValue() {
-        }
-
-        public OptionalFieldValue(OptionalField field, String value) {
-                this.setPk(field.getPk());
-                this.setFk_event(field.getFk_event());
-                this.setLabel(field.getLabel());
-                this.setValue(value);
-                this.setFk_type(field.getFk_type());
-        }
-
-        private Integer id;
-
-        private String value;
-
-        private List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade;
-
-        public void setValue(String value) {
-                this.value = value;
-        }
-
-        public String getValue() {
-                return value;
-        }
-
-        public List<OptionalFieldTypeContentFacade> getOptionalFieldTypeContentsFacade() {
-                return optionalFieldTypeContentsFacade;
-        }
-
-        public void setOptionalFieldTypeContentsFacade(
-                        List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade) {
-                this.optionalFieldTypeContentsFacade = optionalFieldTypeContentsFacade;
-        }
-
-        public Integer getId() {
-            return id;
+    public OptionalFieldValue() {
     }
 
-        public void setId(Integer id) {
-            this.id = id;
+    public OptionalFieldValue(OptionalField field, String value) {
+        this.setPk(field.getPk());
+        this.setFk_event(field.getFk_event());
+        this.setLabel(field.getLabel());
+        this.setValue(value);
+        this.setFk_type(field.getFk_type());
+    }
+
+    private Integer id;
+
+    private String value;
+
+    private List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade;
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public List<OptionalFieldTypeContentFacade> getOptionalFieldTypeContentsFacade() {
+        return optionalFieldTypeContentsFacade;
+    }
+
+    public void setOptionalFieldTypeContentsFacade(
+            List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade) {
+        this.optionalFieldTypeContentsFacade = optionalFieldTypeContentsFacade;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

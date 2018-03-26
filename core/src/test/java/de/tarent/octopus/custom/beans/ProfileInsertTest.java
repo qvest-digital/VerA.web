@@ -61,6 +61,7 @@ package de.tarent.octopus.custom.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusResult;
 import junit.framework.TestCase;
@@ -86,8 +87,9 @@ public class ProfileInsertTest extends TestCase {
     private FileHandler fileLogHandler = null;
 
     public void testProfile() {
-        if (con == null)
-                return;
+        if (con == null) {
+            return;
+        }
 
         Map taskParamsTestProfile = new TreeMap();
         taskParamsTestProfile.put("module", "veraweb");
@@ -98,7 +100,7 @@ public class ProfileInsertTest extends TestCase {
         ProfileLogger pLog = new ProfileLogger();
         OctopusResult res = con.callTask("testProfile", taskParamsTestProfile);
         pLog.log("testProfile");
-        printResult(res, "testProfile-Result:" );
+        printResult(res, "testProfile-Result:");
     }
 
     @Override
@@ -107,7 +109,7 @@ public class ProfileInsertTest extends TestCase {
         baseLogger = Logger.getLogger("de.tarent");
         baseLogger.setLevel(Level.ALL);
         baseLogger.addHandler(new ConsoleHandler());
-//        con = OctopusConnectionFactory.getInstance().getConnection("test");
+        //        con = OctopusConnectionFactory.getInstance().getConnection("test");
     }
 
     @Override
@@ -117,12 +119,13 @@ public class ProfileInsertTest extends TestCase {
     }
 
     static void printResult(OctopusResult res, String title) {
-        if (res == null)
+        if (res == null) {
             return;
+        }
         System.out.println(title);
-        for (Iterator iter = res.getDataKeys(); iter.hasNext();) {
-            String key = (String)iter.next();
-            System.out.println("  "+key+ "="+res.getData(key));
+        for (Iterator iter = res.getDataKeys(); iter.hasNext(); ) {
+            String key = (String) iter.next();
+            System.out.println("  " + key + "=" + res.getData(key));
         }
         System.out.println();
     }

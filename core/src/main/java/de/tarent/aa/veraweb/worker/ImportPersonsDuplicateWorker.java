@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -212,7 +213,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private void setDuplicateFlag(Database database, TransactionContext transactionContext, ImportPerson sample, Where whereClause, List selection) throws IOException, BeanException {
+    private void setDuplicateFlag(Database database, TransactionContext transactionContext, ImportPerson sample, Where whereClause, List selection)
+            throws IOException, BeanException {
         // Markierungen wieder setzten.
         final Update update = SQL.Update(transactionContext);
         update.table(database.getProperty(sample, "table"));
@@ -222,7 +224,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
         transactionContext.commit();
     }
 
-    private void clearDuplicateFlags(Database database, TransactionContext transactionContext, ImportPerson sample, Where whereClause) throws IOException, BeanException {
+    private void clearDuplicateFlags(Database database, TransactionContext transactionContext, ImportPerson sample, Where whereClause)
+            throws IOException, BeanException {
         // Entfernt alle markierungen in der Datenbank.
         final Update update = SQL.Update(transactionContext);
         update.table(database.getProperty(sample, "table"));

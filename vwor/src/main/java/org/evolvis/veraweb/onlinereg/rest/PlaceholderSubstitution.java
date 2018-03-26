@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Person;
 
 import java.util.HashMap;
@@ -96,7 +97,7 @@ public class PlaceholderSubstitution {
         map.put("country", person.getCountry_a_e1());
         map.put("poboxzipcode", person.getPoboxzipcode_a_e1());
         map.put("pobox", person.getPobox_a_e1());
-        map.put("suffix1",person.getSuffix1_a_e1());
+        map.put("suffix1", person.getSuffix1_a_e1());
         map.put("suffix2", person.getSuffix2_a_e1());
         map.put("phone", person.getFon_a_e1());
         map.put("fax", person.getFax_a_e1());
@@ -125,7 +126,7 @@ public class PlaceholderSubstitution {
     }
 
     private String lookup(String name) {
-        if(map.containsKey(name)){
+        if (map.containsKey(name)) {
             String val = map.get(name);
             return val == null ? "" : val;
         }

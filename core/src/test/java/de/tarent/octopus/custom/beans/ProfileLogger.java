@@ -61,6 +61,7 @@ package de.tarent.octopus.custom.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -74,6 +75,7 @@ public final class ProfileLogger {
     //
     // Konstruktoren
     //
+
     /**
      * Dieser Konstruktor setzt den Startpunkt auf jetzt.
      */
@@ -85,6 +87,7 @@ public final class ProfileLogger {
     //
     // Öffentliche Methoden
     //
+
     /**
      * Diese Methode loggt die Millisekunden seit dem letzten Aufruf
      * mit dem übergebenen String als Information.
@@ -100,9 +103,13 @@ public final class ProfileLogger {
     //
     // geschützte Member
     //
-    /** letzter Messpunkt */
+    /**
+     * letzter Messpunkt
+     */
     long last = 0;
 
-    /** Logger */
+    /**
+     * Logger
+     */
     Logger logger = LogManager.getLogger(ProfileLogger.class.getName());
 }

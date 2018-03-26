@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.ldap.contact.ContactUser;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.UserManager;
@@ -101,9 +102,13 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     //
     // Konstanten
     //
-    /** LDAP-Objektklasse für tarent-contact-Kontakte */
+    /**
+     * LDAP-Objektklasse für tarent-contact-Kontakte
+     */
     public final static String OBJECT_CLASS_TARENT_CONTACT = "TarentContact";
-    /** Schlüssel für die Nichtverwendung der {@link #OBJECT_CLASS_TARENT_CONTACT} */
+    /**
+     * Schlüssel für die Nichtverwendung der {@link #OBJECT_CLASS_TARENT_CONTACT}
+     */
     public final static String KEY_OBJECTCLASS = "disableForceTarentObjectClass";
     public final static String KEY_REALLYDELETE = "deleteOnNoObjectClass";
     public final static String KEY_GOSASUPPORT = "enableGoSASupport";
@@ -117,38 +122,37 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     //
     // Konstruktoren
     //
+
     /**
      * Dieser Konstruktor reicht die Daten durch oder legt sie ab. Nebenbei werden
      * die Default-Objektklassen gesetzt.
      *
-     * @param lctx initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
+     * @param lctx   initialer LDAP-Kontext, auf dem dieser LDAP-Manager arbeitet
      * @param params LDAP-Manager-Parameter, vergleiche
-     *  {@link LDAPManager#LDAPManager(InitialLdapContext, Map)}
+     *               {@link LDAPManager#LDAPManager(InitialLdapContext, Map)}
      */
     public LDAPManagerTarentContact(InitialLdapContext lctx, Map params) {
         super(lctx, params);
-                use_tarent_objectclass = !isParameterTrue(params.get(KEY_OBJECTCLASS));
-                gosa_support = isParameterTrue(params.get(KEY_GOSASUPPORT));
-                really_delete = isParameterTrue(params.get(KEY_REALLYDELETE));
-                if(use_tarent_objectclass){
-                        setDefaultObjectClasses(new String[] {OBJECT_CLASS_TARENT_CONTACT});
-                }
+        use_tarent_objectclass = !isParameterTrue(params.get(KEY_OBJECTCLASS));
+        gosa_support = isParameterTrue(params.get(KEY_GOSASUPPORT));
+        really_delete = isParameterTrue(params.get(KEY_REALLYDELETE));
+        if (use_tarent_objectclass) {
+            setDefaultObjectClasses(new String[] { OBJECT_CLASS_TARENT_CONTACT });
+        }
     }
 
-        /**
-         * @param param FIXME
-         */
-        private boolean isParameterTrue(Object param) {
+    /**
+     * @param param FIXME
+     */
+    private boolean isParameterTrue(Object param) {
         return ("true".equals(param) || "1".equals(param) || "TRUE".equals(param) || "True".equals(param));
-        }
+    }
 
     /**
      * Fügt einen Contact zum LDAP hinzu
      *
-     * @param ldc
-     *            der Kontakt, der hinzugefügt werden soll
-     * @throws LDAPException
-     *             wenn etwas schief läuft
+     * @param ldc der Kontakt, der hinzugefügt werden soll
+     * @throws LDAPException wenn etwas schief läuft
      */
     public void addContact(LDAPContact ldc) throws LDAPException {
         //Object anlegen
@@ -173,60 +177,57 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Fügt einen einzelnen Kontakt zum LDAP hinzu
      *
-     * @param ldc
-     *            der LDAPContact
-     * @param gruppe
-     *            Kategorie, zu der der Kontakt hinzugefügt werden soll
-     * @throws LDAPException
-     *             wenn etwas schiefläuft
-     * @throws NamingException
-     *             wenn etwas schiefläuft
+     * @param ldc    der LDAPContact
+     * @param gruppe Kategorie, zu der der Kontakt hinzugefügt werden soll
+     * @throws LDAPException   wenn etwas schiefläuft
+     * @throws NamingException wenn etwas schiefläuft
      * @see de.tarent.ldap.LDAPContact
      */
     public void addContact_restricted(LDAPContact ldc, String gruppe) throws LDAPException, NamingException {
         if (checkOu(gruppe) == false) {
             createOU(gruppe, ldc.getUsers());
         }
-        try{
+        try {
             BasicAttributes attrs = ldc.generate_Attributes_restricted(this);
             lctx.createSubcontext("uid=" + ldc.getUserid() + ",ou=" + gruppe + relative + baseDN, attrs); //NON-NLS-1$
-        }catch(NoMemberException nme){
+        } catch (NoMemberException nme) {
             logger.warning("Konnte Adresse " + ldc.getUserid() + " nicht exportieren, da kein User hierauf Berechtigungen hat.");
         }
     }
 
     /**
      * Löscht einen User aus dem LDAP
+     *
      * @param uid FIXME
      * @throws LDAPException
      */
-    public void deleteContactUser(String uid) throws LDAPException{
-        if(!checkuid(uid)){
+    public void deleteContactUser(String uid) throws LDAPException {
+        if (!checkuid(uid)) {
             throw new LDAPException("Der User ist bereits gelöscht worden.");
         }
         try {
-                //FIXME: ueberarbeiten!!!
-                String dn = fullUserDN(uid);
-                if(use_tarent_objectclass){
+            //FIXME: ueberarbeiten!!!
+            String dn = fullUserDN(uid);
+            if (use_tarent_objectclass) {
                 Attribute objectClass;
                 Vector mods = new Vector();
                 try {
-                    String[] objectClassA = {"objectClass"};
+                    String[] objectClassA = { "objectClass" };
                     objectClass = lctx.getAttributes(dn, objectClassA).get("objectClass");
                 } catch (NamingException e1) {
                     throw new LDAPException(e1);
                 }
-                if(this.checkAttribute(uid, "objectClass", "TarentContact")){
-                        objectClass.remove("TarentContact");
+                if (this.checkAttribute(uid, "objectClass", "TarentContact")) {
+                    objectClass.remove("TarentContact");
                 }
                 mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, objectClass));
                 logger.log(Level.FINE, mods.toString());
                 lctx.modifyAttributes(dn, (ModificationItem[]) mods.toArray(new ModificationItem[1]));
-                }else{
-                        if(really_delete){
-                                lctx.destroySubcontext(dn);
-                        }
+            } else {
+                if (really_delete) {
+                    lctx.destroySubcontext(dn);
                 }
+            }
         } catch (NamingException e) {
             throw new LDAPException("Fehler beim Löschen des Users!", e);
         }
@@ -235,11 +236,9 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Methode, die einen Kontakt löscht
      *
-     * @param uid
-     *            UserID des Kontakts, relative und baseDN werden automatisch
+     * @param uid UserID des Kontakts, relative und baseDN werden automatisch
      *            angehängt
-     * @throws LDAPException
-     *             wenn etwas schief läuft
+     * @throws LDAPException wenn etwas schief läuft
      */
     public void delContact(String uid) throws LDAPException {
         //Object löschen
@@ -276,10 +275,8 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Modifiziert gegebenen Kontakt
      *
-     * @param ldc
-     *            der Kontakt
-     * @param allvert
-     *            Map mit allen Verteilergruppen
+     * @param ldc     der Kontakt
+     * @param allvert Map mit allen Verteilergruppen
      * @throws LDAPException
      */
     public void modifiyContact(LDAPContact ldc, Map allvert) throws LDAPException {
@@ -321,12 +318,9 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Methode, die einen gegebenen Kontakt im LDAP modifiziert
      *
-     * @param ldc
-     *            der zu modifizierende Kontakt
-     * @param vertgrp
-     *            Verteilergruppe, in der der Kontakt sich befindet
-     * @throws LDAPException
-     *             wenn etwas schief läuft
+     * @param ldc     der zu modifizierende Kontakt
+     * @param vertgrp Verteilergruppe, in der der Kontakt sich befindet
+     * @throws LDAPException wenn etwas schief läuft
      * @see de.tarent.ldap.LDAPContact
      */
     public void modifyContact_restricted(LDAPContact ldc, String vertgrp) throws LDAPException {
@@ -407,8 +401,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Löscht eine OU im LDAP
      *
-     * @param testou
-     *            OU, die gelöscht werden sollen
+     * @param testou OU, die gelöscht werden sollen
      */
     public void delOU(String testou) throws LDAPException {
         //checke, ob Objekt kinder hat
@@ -441,22 +434,48 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         String dn = fullUserDN(userName);
         try {
             Attributes attr = lctx.getAttributes(dn);
-            Attribute vorname = null, nachname = null, name = null, mail=null;
+            Attribute vorname = null, nachname = null, name = null, mail = null;
             Attribute adminflag = null;
-            if(attr.get("givenname")!=null) {vorname = attr.get("givenname");}
-            if(attr.get("gn")!=null) {vorname = attr.get("gn");}
-            if(attr.get("surname")!=null) {nachname = attr.get("sn");}
-            if(attr.get("sn")!=null) {nachname = attr.get("sn");}
-            if(attr.get("commonname")!=null) {name = attr.get("commonname");}
-            if(attr.get("cn")!=null) {name = attr.get("cn");}
-            if(attr.get("mail")!=null) {mail = attr.get("mail");}
-            if(attr.get("adminflag")!=null){adminflag = attr.get("adminflag");}
+            if (attr.get("givenname") != null) {
+                vorname = attr.get("givenname");
+            }
+            if (attr.get("gn") != null) {
+                vorname = attr.get("gn");
+            }
+            if (attr.get("surname") != null) {
+                nachname = attr.get("sn");
+            }
+            if (attr.get("sn") != null) {
+                nachname = attr.get("sn");
+            }
+            if (attr.get("commonname") != null) {
+                name = attr.get("commonname");
+            }
+            if (attr.get("cn") != null) {
+                name = attr.get("cn");
+            }
+            if (attr.get("mail") != null) {
+                mail = attr.get("mail");
+            }
+            if (attr.get("adminflag") != null) {
+                adminflag = attr.get("adminflag");
+            }
 
-            if(vorname!=null)userdata.put("vorname", vorname.get());
-            if(nachname!=null)userdata.put("nachname", nachname.get());
-            if(name!=null)userdata.put("name", name.get());
-            if(mail!=null)userdata.put("mail", mail.get());
-            if(adminflag!=null)userdata.put("adminflag", adminflag.get());
+            if (vorname != null) {
+                userdata.put("vorname", vorname.get());
+            }
+            if (nachname != null) {
+                userdata.put("nachname", nachname.get());
+            }
+            if (name != null) {
+                userdata.put("name", name.get());
+            }
+            if (mail != null) {
+                userdata.put("mail", mail.get());
+            }
+            if (adminflag != null) {
+                userdata.put("adminflag", adminflag.get());
+            }
         } catch (NamingException e) {
             throw new LDAPException("Es ist ein Fehler beim Holen der Userdaten aufgetreten! ", e);
         }
@@ -467,86 +486,86 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Methode, um einen User im LDAP anzulegen
      *
-     * @param userid    BenutzerID
-     * @param vorname   Vorname
-     * @param nachname  Nachname
-     * @param passwort  Passwort
+     * @param userid   BenutzerID
+     * @param vorname  Vorname
+     * @param nachname Nachname
+     * @param passwort Passwort
      * @throws LDAPException
      */
     public void addContactUser(
-        String userid,
-        String vorname,
-        String nachname,
-        String passwort) throws LDAPException
-    {
+            String userid,
+            String vorname,
+            String nachname,
+            String passwort) throws LDAPException {
         String password_enc2 = null;
-        if(passwort!=null&&passwort.length()>0){
-            try
-            {
+        if (passwort != null && passwort.length() > 0) {
+            try {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 password_enc2 = byteArrayToBase64(md.digest(passwort.getBytes()), false);
-                } catch (NoSuchAlgorithmException e)
-            {
+            } catch (NoSuchAlgorithmException e) {
                 throw new LDAPException(e);
             }
-            addContactUserRawPassword(userid, vorname, nachname, "{SHA}"+password_enc2);
-        }else{
-                addContactUserRawPassword(userid, vorname, nachname, passwort);
+            addContactUserRawPassword(userid, vorname, nachname, "{SHA}" + password_enc2);
+        } else {
+            addContactUserRawPassword(userid, vorname, nachname, passwort);
         }
     }
 
-    public void addContactUserRawPassword(        String userid,
+    public void addContactUserRawPassword(String userid,
             String vorname,
             String nachname,
-            String passwort) throws LDAPException
-        {
+            String passwort) throws LDAPException {
         logger.log(Level.FINE, "Füge User " + userid + " hinzu.");
-        if(checkuid(userid)){modifyContactUserRawPassword(userid, vorname, nachname, passwort);}
-        else{
+        if (checkuid(userid)) {
+            modifyContactUserRawPassword(userid, vorname, nachname, passwort);
+        } else {
             BasicAttributes attr = new BasicAttributes();
             BasicAttribute objectClass = new BasicAttribute("objectClass", "top");
             objectClass.add("simpleSecurityObject");
             objectClass.add("person");
             objectClass.add("organizationalPerson");
             objectClass.add("inetOrgPerson");
-            if(use_tarent_objectclass)objectClass.add("TarentContact");
-            if(gosa_support)objectClass.add("gosaAccount");
+            if (use_tarent_objectclass) {
+                objectClass.add("TarentContact");
+            }
+            if (gosa_support) {
+                objectClass.add("gosaAccount");
+            }
             attr.put(objectClass);
             attr.put("uid", userid);
             attr.put("sn", nachname);
             attr.put("cn", nachname + " " + vorname);
             attr.put("gn", vorname);
             attr.put("userPassword", passwort);
-            try
-            {
-                if(gosa_support){
-                        lctx.createSubcontext("cn=" + nachname + " " + vorname + relative + baseDN, attr);
-                }else{
-                        lctx.createSubcontext("uid=" + userid + relative + baseDN, attr);
+            try {
+                if (gosa_support) {
+                    lctx.createSubcontext("cn=" + nachname + " " + vorname + relative + baseDN, attr);
+                } else {
+                    lctx.createSubcontext("uid=" + userid + relative + baseDN, attr);
                 }
-            } catch (NamingException e)
-                {
-                    throw new LDAPException(e);
-                }
+            } catch (NamingException e) {
+                throw new LDAPException(e);
             }
+        }
     }
 
     /**
      * Modifiziere User so, dass er angegebenen Daten entspricht
-     * @param userid User, der modifiziert werden soll
-     * @param vorname   Vorname
-     * @param nachname  Nachname
-     * @param passwort  Passwort
+     *
+     * @param userid   User, der modifiziert werden soll
+     * @param vorname  Vorname
+     * @param nachname Nachname
+     * @param passwort Passwort
      * @throws LDAPException
      */
-    public void modifyContactUserRawPassword(String userid, String vorname, String nachname, String passwort) throws LDAPException{
+    public void modifyContactUserRawPassword(String userid, String vorname, String nachname, String passwort) throws LDAPException {
         logger.log(Level.FINE, "Modifiziere LDAP-User: " + userid);
         Vector mods = new Vector();
 
         //sichere ObjectClass
         Attribute objectClass;
         try {
-            String[] objectClassA = {"objectClass"};
+            String[] objectClassA = { "objectClass" };
             objectClass = lctx.getAttributes(fullUserDN(userid), objectClassA).get("objectClass");
         } catch (NamingException e1) {
             throw new LDAPException(e1);
@@ -554,29 +573,61 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 
         //Checke Objectclass
         boolean modified = false;
-        if(!this.checkAttribute(userid, "objectClass", "top")){objectClass.add("top");modified=true;}
-        if(!this.checkAttribute(userid, "objectClass", "simpleSecurityObject")){objectClass.add("simpleSecurityObject");modified=true;}
-        if(!this.checkAttribute(userid, "objectClass", "person")){objectClass.add("person");modified=true;}
-        if(use_tarent_objectclass&&!this.checkAttribute(userid, "objectClass", "TarentContact")){objectClass.add("TarentContact");modified=true;}
-        if(!this.checkAttribute(userid, "objectClass", "organizationalPerson")){objectClass.add("organizationalPerson");modified=true;}
-        if(!this.checkAttribute(userid, "objectClass", "inetOrgPerson")){objectClass.add("inetOrgPerson");modified=true;}
-        if(gosa_support&&!this.checkAttribute(userid, "objectClass", "gosaAccount")){objectClass.add("gosaAccount");modified=true;}
-        if(modified){
+        if (!this.checkAttribute(userid, "objectClass", "top")) {
+            objectClass.add("top");
+            modified = true;
+        }
+        if (!this.checkAttribute(userid, "objectClass", "simpleSecurityObject")) {
+            objectClass.add("simpleSecurityObject");
+            modified = true;
+        }
+        if (!this.checkAttribute(userid, "objectClass", "person")) {
+            objectClass.add("person");
+            modified = true;
+        }
+        if (use_tarent_objectclass && !this.checkAttribute(userid, "objectClass", "TarentContact")) {
+            objectClass.add("TarentContact");
+            modified = true;
+        }
+        if (!this.checkAttribute(userid, "objectClass", "organizationalPerson")) {
+            objectClass.add("organizationalPerson");
+            modified = true;
+        }
+        if (!this.checkAttribute(userid, "objectClass", "inetOrgPerson")) {
+            objectClass.add("inetOrgPerson");
+            modified = true;
+        }
+        if (gosa_support && !this.checkAttribute(userid, "objectClass", "gosaAccount")) {
+            objectClass.add("gosaAccount");
+            modified = true;
+        }
+        if (modified) {
             mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, objectClass));
         }
         //Checke sn
-        if(!this.checkAttribute(userid, "sn")){mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("sn", nachname)));        }
-        else if(!this.checkAttribute(userid, "sn", nachname)){mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("sn", nachname)));}
+        if (!this.checkAttribute(userid, "sn")) {
+            mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("sn", nachname)));
+        } else if (!this.checkAttribute(userid, "sn", nachname)) {
+            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("sn", nachname)));
+        }
         //Checke gn
-        if(!this.checkAttribute(userid, "gn")){mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("gn", vorname)));     }
-        else if(!this.checkAttribute(userid, "gn", vorname)){mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("gn", vorname)));}
+        if (!this.checkAttribute(userid, "gn")) {
+            mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("gn", vorname)));
+        } else if (!this.checkAttribute(userid, "gn", vorname)) {
+            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("gn", vorname)));
+        }
         //Checke cn
-        if(!this.checkAttribute(userid, "cn")){mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("cn", nachname + " " + vorname)));        }
-        else if(!this.checkAttribute(userid, "cn", nachname + " " + vorname)){mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("cn", nachname + " " + vorname)));}
+        if (!this.checkAttribute(userid, "cn")) {
+            mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("cn", nachname + " " + vorname)));
+        } else if (!this.checkAttribute(userid, "cn", nachname + " " + vorname)) {
+            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("cn", nachname + " " + vorname)));
+        }
 
         //Checke userPassword
-        if(passwort!=null&&passwort.length()>0){
-            if(!this.checkAttribute(userid, "userPassword")){mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("userPassword", passwort)));        }
+        if (passwort != null && passwort.length() > 0) {
+            if (!this.checkAttribute(userid, "userPassword")) {
+                mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute("userPassword", passwort)));
+            }
             mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("userPassword", passwort)));
         }
         try {
@@ -589,46 +640,49 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 
     /**
      * Modifiziere User so, dass er angegebenen Daten entspricht
-     * @param userid User, der modifiziert werden soll
-     * @param vorname   Vorname
-     * @param nachname  Nachname
-     * @param passwort  Passwort
+     *
+     * @param userid   User, der modifiziert werden soll
+     * @param vorname  Vorname
+     * @param nachname Nachname
+     * @param passwort Passwort
      * @throws LDAPException
      */
-    public void modifyContactUser(String userid, String vorname, String nachname, String passwort) throws LDAPException{
+    public void modifyContactUser(String userid, String vorname, String nachname, String passwort) throws LDAPException {
         String password_enc2 = null;
-        if(passwort!=null&&passwort.length()>0){
-            try
-            {
+        if (passwort != null && passwort.length() > 0) {
+            try {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 password_enc2 = byteArrayToBase64(md.digest(passwort.getBytes()), false);
-                } catch (NoSuchAlgorithmException e)
-            {
+            } catch (NoSuchAlgorithmException e) {
                 throw new LDAPException(e);
             }
-            modifyContactUserRawPassword(userid, vorname, nachname, "{SHA}"+password_enc2);
-        }else{
-                modifyContactUserRawPassword(userid, vorname, nachname, passwort);
+            modifyContactUserRawPassword(userid, vorname, nachname, "{SHA}" + password_enc2);
+        } else {
+            modifyContactUserRawPassword(userid, vorname, nachname, passwort);
         }
 
     }
 
     /**
      * Modfiziert des Attribute attribut des Users userid
-     * @param userid UserId des Users
+     *
+     * @param userid    UserId des Users
      * @param attribute zu modifizierendes Attribut
-     * @param value neue Value
+     * @param value     neue Value
      */
     public void modifyContactUserAttribute(String userid, String attribute, String value) throws LDAPException {
         logger.log(Level.FINE, "Modifiziere Attribut " + attribute + " von: " + userid + " nach " + value);
 
         //Checke Attribute
         Vector mods = new Vector();
-        if(!this.checkAttribute(userid, attribute)){mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute(attribute, value)));     }
-        else if(!this.checkAttribute(userid, attribute, value)){mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute(attribute, value)));}
+        if (!this.checkAttribute(userid, attribute)) {
+            mods.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute(attribute, value)));
+        } else if (!this.checkAttribute(userid, attribute, value)) {
+            mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute(attribute, value)));
+        }
 
         //try to modify user...
-        if(!mods.isEmpty()){
+        if (!mods.isEmpty()) {
             try {
                 logger.log(Level.FINE, mods.toString());
                 lctx.modifyAttributes(fullUserDN(userid), (ModificationItem[]) mods.toArray(new ModificationItem[1]));
@@ -641,7 +695,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /* (non-Javadoc)
      * @see de.tarent.octopus.server.UserManager#addUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
-    public void addUser(String userID, String firstName, String lastName, String password) throws TcSecurityException{
+    public void addUser(String userID, String firstName, String lastName, String password) throws TcSecurityException {
         try {
             addContactUser(userID, firstName, lastName, password);
         } catch (LDAPException e) {

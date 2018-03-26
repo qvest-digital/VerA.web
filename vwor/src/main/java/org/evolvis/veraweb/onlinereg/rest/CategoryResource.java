@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 
@@ -85,8 +86,7 @@ public class CategoryResource extends AbstractResource {
      * Get category id by media representatives uuid and category name.
      *
      * @param catname Category name
-     * @param uuid UUID for the media representatives
-     *
+     * @param uuid    UUID for the media representatives
      * @return The category id
      */
     @GET
@@ -111,7 +111,6 @@ public class CategoryResource extends AbstractResource {
      * Get category ID by category name.
      *
      * @param catname The name of the category
-     *
      * @return Category ID
      */
     @GET
@@ -131,14 +130,14 @@ public class CategoryResource extends AbstractResource {
     /**
      * Get category name by person ID and Delegation UUID
      *
-     * @param uuid delegation UUID
+     * @param uuid     delegation UUID
      * @param personId person ID
      * @return String catname
      */
     @GET
     @Path("/catname/{uuid}/{personId}")
     public String getCatnameByPersonIdAndDelegationUUID(@PathParam("uuid") String uuid,
-                                                        @PathParam(PERSON_ID) String personId) {
+            @PathParam(PERSON_ID) String personId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Category.findCatnameByUserAndDelegation");
@@ -153,7 +152,7 @@ public class CategoryResource extends AbstractResource {
     @GET
     @Path("person/data")
     public Integer getCategoryByCatnameAndOrgunit(@QueryParam(CATEGORY_NAME) String categoryName,
-                                                  @QueryParam(PERSON_ID) String personId) {
+            @QueryParam(PERSON_ID) String personId) {
         final Session session = openSession();
         try {
             final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");

@@ -61,6 +61,7 @@ package de.tarent.octopus.beans.veraweb;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -70,8 +71,8 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class DatabaseVeraWebFactory {
 
-	public DatabaseVeraWeb createDatabaseVeraWeb(OctopusContext cntx) {
+    public DatabaseVeraWeb createDatabaseVeraWeb(OctopusContext cntx) {
         return new DatabaseVeraWeb(cntx);
-	}
+    }
 
 }

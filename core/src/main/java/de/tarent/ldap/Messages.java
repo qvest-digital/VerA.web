@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -71,27 +72,29 @@ import java.util.ResourceBundle;
  */
 public class Messages {
 
-	private static final String BUNDLE_NAME = "de.tarent.ldap.resources.ldap"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "de.tarent.ldap.resources.ldap"; //$NON-NLS-1$
 
-	private static final ResourceBundle RESOURCE_BUNDLE =
-		ResourceBundle.getBundle(BUNDLE_NAME);
+    private static final ResourceBundle RESOURCE_BUNDLE =
+            ResourceBundle.getBundle(BUNDLE_NAME);
 
-	/**
-	 *	Konstuktor
-	 */
-	private Messages() {
+    /**
+     * Konstuktor
+     */
+    private Messages() {
 
-	}
-	/**
-	 * Methode, die die externen Strings holt
-	 * @param key FIXME
-	 * @return Message
-	 */
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
-	}
+    }
+
+    /**
+     * Methode, die die externen Strings holt
+     *
+     * @param key FIXME
+     * @return Message
+     */
+    public static String getString(String key) {
+        try {
+            return RESOURCE_BUNDLE.getString(key);
+        } catch (MissingResourceException e) {
+            return '!' + key + '!';
+        }
+    }
 }

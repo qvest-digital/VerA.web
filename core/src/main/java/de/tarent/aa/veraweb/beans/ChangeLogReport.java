@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -78,20 +79,18 @@ import java.util.Calendar;
  * and end ::= NOW, respectively.
  *
  * @author cklein
- * @since 1.2.0
  * @see de.tarent.aa.veraweb.worker.ChangeLogReportsWorker
+ * @since 1.2.0
  */
-public class ChangeLogReport extends AbstractBean
-{
-	public Date begin;
-	public Date end;
+public class ChangeLogReport extends AbstractBean {
+    public Date begin;
+    public Date end;
 
-	/**
-	 * Constructs a new instance of this.
-	 */
-	public ChangeLogReport()
-	{
-		this.begin = Date.valueOf( "01.01." + Calendar.getInstance().get( Calendar.YEAR ) );
-		this.end = new Date( System.currentTimeMillis() );
-	}
+    /**
+     * Constructs a new instance of this.
+     */
+    public ChangeLogReport() {
+        this.begin = Date.valueOf("01.01." + Calendar.getInstance().get(Calendar.YEAR));
+        this.end = new Date(System.currentTimeMillis());
+    }
 }

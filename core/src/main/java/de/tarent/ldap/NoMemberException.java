@@ -62,9 +62,9 @@ package de.tarent.ldap;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 public class NoMemberException extends LDAPException {
-	private static final long serialVersionUID = 6191825942458988785L;
+    private static final long serialVersionUID = 6191825942458988785L;
 
-	public NoMemberException(String message){
-		super(message);
-	}
+    public NoMemberException(String message) {
+        super(message);
+    }
 }

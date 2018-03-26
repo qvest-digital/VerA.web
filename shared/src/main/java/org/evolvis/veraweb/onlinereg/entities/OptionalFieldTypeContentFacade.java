@@ -61,28 +61,29 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * This Class is created to include the property isSelected for the
  * OptionalFieldTypeContent Object i.e: possible selections.
  */
 public class OptionalFieldTypeContentFacade extends OptionalFieldTypeContent {
 
-        private Boolean isSelected = false;
+    private Boolean isSelected = false;
 
-        public OptionalFieldTypeContentFacade () {
-        }
+    public OptionalFieldTypeContentFacade() {
+    }
 
-        public OptionalFieldTypeContentFacade (OptionalFieldTypeContent optionalFieldTypeContent) {
-                this.setPk(optionalFieldTypeContent.getPk());
-                this.setContent(optionalFieldTypeContent.getContent());
-                this.setFk_optional_field(optionalFieldTypeContent.getFk_optional_field());
-        }
+    public OptionalFieldTypeContentFacade(OptionalFieldTypeContent optionalFieldTypeContent) {
+        this.setPk(optionalFieldTypeContent.getPk());
+        this.setContent(optionalFieldTypeContent.getContent());
+        this.setFk_optional_field(optionalFieldTypeContent.getFk_optional_field());
+    }
 
-        public Boolean getIsSelected() {
-                return isSelected;
-        }
+    public Boolean getIsSelected() {
+        return isSelected;
+    }
 
-        public void setIsSelected(Boolean isSelected) {
-                this.isSelected = isSelected;
-        }
+    public void setIsSelected(Boolean isSelected) {
+        this.isSelected = isSelected;
+    }
 }

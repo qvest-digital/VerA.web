@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.rest.AbstractResource;
 import org.hibernate.SessionFactory;
 import org.mockito.invocation.InvocationOnMock;
@@ -116,6 +117,7 @@ public class AbstractResourceTest<T extends AbstractResource> {
 
     /**
      * Creates a new ResourceTest
+     *
      * @param clazz class object of class under test
      */
     public AbstractResourceTest(Class<T> clazz) {

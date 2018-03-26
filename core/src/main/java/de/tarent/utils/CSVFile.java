@@ -107,21 +107,30 @@ public abstract class CSVFile {
     //
     // Member-Variablen
     //
-    /** The default char used as field separator. */
+    /**
+     * The default char used as field separator.
+     */
     protected static final char DEFAULT_FIELD_SEPARATOR = ',';
 
-    /** The default char used as text qualifier */
+    /**
+     * The default char used as text qualifier
+     */
     protected static final char DEFAULT_TEXT_QUALIFIER = '"';
 
-    /** The current char used as field separator. */
+    /**
+     * The current char used as field separator.
+     */
     protected char fieldSeparator;
 
-    /** The current char used as text qualifier. */
+    /**
+     * The current char used as text qualifier.
+     */
     protected char textQualifier;
 
     //
     // Konstruktoren
     //
+
     /**
      * CSVFile constructor with the default field separator and text qualifier.
      */
@@ -133,8 +142,7 @@ public abstract class CSVFile {
      * CSVFile constructor with a given field separator and the default text
      * qualifier.
      *
-     * @param sep
-     *            The field separator to be used; overwrites the default one
+     * @param sep The field separator to be used; overwrites the default one
      */
     public CSVFile(char sep) {
         this(sep, DEFAULT_TEXT_QUALIFIER);
@@ -143,10 +151,8 @@ public abstract class CSVFile {
     /**
      * CSVFile constructor with given field separator and text qualifier.
      *
-     * @param sep
-     *            The field separator to be used; overwrites the default one
-     * @param qual
-     *            The text qualifier to be used; overwrites the default one
+     * @param sep  The field separator to be used; overwrites the default one
+     * @param qual The text qualifier to be used; overwrites the default one
      */
     public CSVFile(char sep, char qual) {
         setFieldSeparator(sep);
@@ -156,11 +162,11 @@ public abstract class CSVFile {
     //
     // Getter und Setter
     //
+
     /**
      * Set the current field separator.
      *
-     * @param sep
-     *            The new field separator to be used; overwrites the old one
+     * @param sep The new field separator to be used; overwrites the old one
      */
     public void setFieldSeparator(char sep) {
         fieldSeparator = sep;
@@ -169,8 +175,7 @@ public abstract class CSVFile {
     /**
      * Set the current text qualifier.
      *
-     * @param qual
-     *            The new text qualifier to be used; overwrites the old one
+     * @param qual The new text qualifier to be used; overwrites the old one
      */
     public void setTextQualifier(char qual) {
         textQualifier = qual;

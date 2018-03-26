@@ -61,6 +61,7 @@ package de.tarent.octopus.beans.veraweb;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.worker.JumpOffset;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.GroupBy;
@@ -87,6 +88,7 @@ public abstract class ListWorkerVeraWeb extends BeanListWorker {
     //
     // Konstruktoren
     //
+
     /**
      * Dieser Konstruktor gibt den Namen der zugrunde liegenden Bean weiter.
      */
@@ -97,43 +99,48 @@ public abstract class ListWorkerVeraWeb extends BeanListWorker {
     //
     // Oberklasse BeanListWorker
     //
-        /**
+
+    /**
      * Diese Methode liefert eine {@link DatabaseVeraWeb}-Instanz
      *
-         * @see BeanListWorker#getDatabase(OctopusContext)
-         */
-        @Override
+     * @see BeanListWorker#getDatabase(OctopusContext)
+     */
+    @Override
     protected Database getDatabase(OctopusContext cntx) {
-                return new DatabaseVeraWeb(cntx);
-        }
+        return new DatabaseVeraWeb(cntx);
+    }
 
-        /**
+    /**
      * Diese Methode liefert eine {@link RequestVeraWeb}-Instanz.
-         * @see BeanListWorker#getRequest(OctopusContext)
-         */
-        @Override
+     *
+     * @see BeanListWorker#getRequest(OctopusContext)
+     */
+    @Override
     protected Request getRequest(OctopusContext cntx) {
-                return new RequestVeraWeb(cntx);
-        }
-        /**
-         * Table column to use for Jump Offsets (a.k.a. "Direkteinsprung")
-         * <br>
-         * @param octopusContext The {@link OctopusContext}
-         * @return the db column name or <code>null</code> if no jump offsets should be generated.
-         * @throws BeanException
-         */
-        protected  String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException{
-            return null;
-        }
+        return new RequestVeraWeb(cntx);
+    }
 
-        public static final String INPUT_getJumpOffsets[] = {};
+    /**
+     * Table column to use for Jump Offsets (a.k.a. "Direkteinsprung")
+     * <br>
+     *
+     * @param octopusContext The {@link OctopusContext}
+     * @return the db column name or <code>null</code> if no jump offsets should be generated.
+     * @throws BeanException
+     */
+    protected String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException {
+        return null;
+    }
+
+    public static final String INPUT_getJumpOffsets[] = {};
     public static final String OUTPUT_getJumpOffsets = "jumpOffsets";
+
     public List<JumpOffset> getJumpOffsets(OctopusContext octopusContext) throws BeanException, IOException, SQLException {
         final Database database = getDatabase(octopusContext);
         final Integer start = getStart(octopusContext);
         final Integer limit = getLimit(octopusContext);
         final String col = getJumpOffsetsColumn(octopusContext);
-        if(col==null){
+        if (col == null) {
             return null;
         }
         final Select subQuery = getSelect(database);
@@ -146,14 +153,15 @@ public abstract class ListWorkerVeraWeb extends BeanListWorker {
                 .setDistinct(false)
                 .selectAs("s1.letter", "letter")
                 .selectAs("min(rownum)", "rownum")
-                .from("( select upper(substring(trim(" + col + "),1,1)) as letter, row_number() over () -1 as rownum from (" + subQuery.statementToString() + " ) s0 ) ", "s1")
+                .from("( select upper(substring(trim(" + col + "),1,1)) as letter, row_number() over () -1 as rownum from (" +
+                        subQuery.statementToString() + " ) s0 ) ", "s1")
                 .groupBy(new GroupBy("letter"))
                 .orderBy(Order.asc("rownum"));
         ResultSet rs = statement
                 .getResultSet();
         final ArrayList<JumpOffset> offsets = new ArrayList<JumpOffset>();
-        while(rs.next()){
-            offsets.add(new JumpOffset(rs.getString("letter"), rs.getInt("rownum") ,start,limit));
+        while (rs.next()) {
+            offsets.add(new JumpOffset(rs.getString("letter"), rs.getInt("rownum"), start, limit));
         }
         return offsets;
     }

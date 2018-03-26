@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.mail;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
 /**
@@ -87,18 +88,18 @@ public class EmailConfiguration {
     }
 
     public EmailConfiguration(String host,
-                              Integer port,
-                              String security,
-                              String username,
-                              String password,
-                              String from,
-                              String subject,
-                              String content,
-                              String contentType,
-                              String subjectResetPassword,
-                              String contentResetPassword,
-                              String subjectResendLogin,
-                              String contentResendLogin) {
+            Integer port,
+            String security,
+            String username,
+            String password,
+            String from,
+            String subject,
+            String content,
+            String contentType,
+            String subjectResetPassword,
+            String contentResetPassword,
+            String subjectResendLogin,
+            String contentResendLogin) {
 
         this.host = host;
         this.port = port;

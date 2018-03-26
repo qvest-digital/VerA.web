@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.event;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -121,13 +122,20 @@ public class DelegationResource {
     private static final String INVITATION_TYPE = "2";
 
     /* RETURN TYPES */
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
-    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
-    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
-    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
-    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {};
-    private static final TypeReference<List<String>> FUNCTION_LIST = new TypeReference<List<String>>() {};
-    private static final TypeReference<List<OptionalFieldTypeContent>> TYPE_CONTENT_LIST = new TypeReference<List<OptionalFieldTypeContent>>() {};
+    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
+    };
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
+    };
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
+    };
+    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {
+    };
+    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {
+    };
+    private static final TypeReference<List<String>> FUNCTION_LIST = new TypeReference<List<String>>() {
+    };
+    private static final TypeReference<List<OptionalFieldTypeContent>> TYPE_CONTENT_LIST = new TypeReference<List<OptionalFieldTypeContent>>() {
+    };
 
     /**
      * Jackson Object Mapper
@@ -145,7 +153,9 @@ public class DelegationResource {
     private final Client client;
     private final ResourceReader resourceReader;
 
-    /** Servlet context */
+    /**
+     * Servlet context
+     */
     @javax.ws.rs.core.Context
     @Getter
     private HttpServletRequest request;
@@ -208,9 +218,7 @@ public class DelegationResource {
      * Get function names of event
      *
      * @param uuid TODO
-     *
      * @return List with functions
-     *
      * @throws IOException FIXME
      */
     @GET
@@ -224,7 +232,7 @@ public class DelegationResource {
     /**
      * Get optional fields.
      *
-     * @param uuid     The delegation UUID
+     * @param uuid The delegation UUID
      * @return List with optional fields for delegates
      * @throws IOException TODO
      */
@@ -257,9 +265,7 @@ public class DelegationResource {
      *
      * @param uuid     Delegation UUID
      * @param personId person ID
-     *
      * @return {@link Person}
-     *
      * @throws IOException the exception
      */
     @GET
@@ -287,18 +293,16 @@ public class DelegationResource {
     /**
      * Register delegate for event.
      *
-     * @param uuid      The delegation UUID of the company.
-     * @param lastname  The last name of the delegare
-     * @param firstname The first name of the delegare
-     * @param gender    The gender of the delegare
-     * @param category Category
-     * @param function Function
-     * @param personId Person id
-     * @param fields FIXME
+     * @param uuid         The delegation UUID of the company.
+     * @param lastname     The last name of the delegare
+     * @param firstname    The first name of the delegare
+     * @param gender       The gender of the delegare
+     * @param category     Category
+     * @param function     Function
+     * @param personId     Person id
+     * @param fields       FIXME
      * @param hasTempImage FIXME
-
      * @return Status message
-
      * @throws IOException TODO
      */
     @POST
@@ -456,7 +460,8 @@ public class DelegationResource {
         return readResource(path("guest", "exist", uuid), BOOLEAN);
     }
 
-    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function, String category, String fields,
+    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function, String category,
+            String fields,
             Boolean hasTempImage) throws IOException {
 
         final Integer eventId = getEventId(uuid);
@@ -575,8 +580,9 @@ public class DelegationResource {
     }
 
     private Integer getCategoryIdByValue(String categoryName, Integer personId) {
-        WebResource categoryResource = client.resource(config.getVerawebEndpoint() + "/rest/category/person/data").queryParam("catname", categoryName)
-                .queryParam("personId", personId.toString());
+        WebResource categoryResource =
+                client.resource(config.getVerawebEndpoint() + "/rest/category/person/data").queryParam("catname", categoryName)
+                        .queryParam("personId", personId.toString());
 
         return categoryResource.get(Integer.class);
     }
@@ -613,7 +619,8 @@ public class DelegationResource {
         resource.post(Delegation.class, postBody);
     }
 
-    private Form createDelegatePostBodyContent(String companyName, Integer eventId, String firstname, String lastname, String gender, String username,
+    private Form createDelegatePostBodyContent(String companyName, Integer eventId, String firstname, String lastname, String gender,
+            String username,
             String function) {
         Form postBody = new Form();
 
@@ -679,12 +686,9 @@ public class DelegationResource {
     /**
      * Reads the resource at given path and returns the entity.
      *
-     * @param path
-     *            path
-     * @param type
-     *            TypeReference of requested entity
-     * @param <T>
-     *            Type of requested entity
+     * @param path path
+     * @param type TypeReference of requested entity
+     * @param <T>  Type of requested entity
      * @return requested resource
      * @throws IOException
      */
@@ -696,8 +700,7 @@ public class DelegationResource {
      * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path
      * fragmensts.
      *
-     * @param path
-     *            path fragments
+     * @param path path fragments
      * @return complete path as string
      */
     private String path(Object... path) {

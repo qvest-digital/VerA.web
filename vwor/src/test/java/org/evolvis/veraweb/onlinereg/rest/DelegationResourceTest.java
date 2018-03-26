@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
@@ -121,23 +122,23 @@ public class DelegationResourceTest {
         List<OptionalField> optionalFields = new ArrayList<OptionalField>();
 
         // -------------------------------------------------
-            OptionalField inputField = new OptionalField();
-            inputField.setFk_type(1);
-            inputField.setFk_event(1);
-            inputField.setLabel("My input field");
-            inputField.setPk(11);
+        OptionalField inputField = new OptionalField();
+        inputField.setFk_type(1);
+        inputField.setFk_event(1);
+        inputField.setLabel("My input field");
+        inputField.setPk(11);
 
-            OptionalField singleComboField = new OptionalField();
-            singleComboField.setFk_type(2);
-            singleComboField.setFk_event(1);
-            singleComboField.setLabel("My combobox field");
-            singleComboField.setPk(12);
+        OptionalField singleComboField = new OptionalField();
+        singleComboField.setFk_type(2);
+        singleComboField.setFk_event(1);
+        singleComboField.setLabel("My combobox field");
+        singleComboField.setPk(12);
 
-            OptionalField multipleComboField = new OptionalField();
-            multipleComboField.setFk_type(3);
-            multipleComboField.setFk_event(1);
-            multipleComboField.setLabel("My multiple combobox field");
-            multipleComboField.setPk(13);
+        OptionalField multipleComboField = new OptionalField();
+        multipleComboField.setFk_type(3);
+        multipleComboField.setFk_event(1);
+        multipleComboField.setLabel("My multiple combobox field");
+        multipleComboField.setPk(13);
         // -------------------------------------------------
 
         optionalFields.add(inputField);
@@ -150,25 +151,25 @@ public class DelegationResourceTest {
     private List<OptionalFieldTypeContent> getDummyOptionalFieldTypeContents() {
         List<OptionalFieldTypeContent> optionalFieldTypeContents = new ArrayList<OptionalFieldTypeContent>();
         // -------------------------------------------------
-            OptionalFieldTypeContent optionalFieldTypeContent1 = new OptionalFieldTypeContent();
-            optionalFieldTypeContent1.setContent("Option single combo 1");
-            optionalFieldTypeContent1.setFk_optional_field(12);
-            optionalFieldTypeContent1.setPk(1);
+        OptionalFieldTypeContent optionalFieldTypeContent1 = new OptionalFieldTypeContent();
+        optionalFieldTypeContent1.setContent("Option single combo 1");
+        optionalFieldTypeContent1.setFk_optional_field(12);
+        optionalFieldTypeContent1.setPk(1);
 
-            OptionalFieldTypeContent optionalFieldTypeContent2 = new OptionalFieldTypeContent();
-            optionalFieldTypeContent2.setContent("Option single combo 2");
-            optionalFieldTypeContent2.setFk_optional_field(12);
-            optionalFieldTypeContent2.setPk(2);
+        OptionalFieldTypeContent optionalFieldTypeContent2 = new OptionalFieldTypeContent();
+        optionalFieldTypeContent2.setContent("Option single combo 2");
+        optionalFieldTypeContent2.setFk_optional_field(12);
+        optionalFieldTypeContent2.setPk(2);
 
-            OptionalFieldTypeContent optionalFieldTypeContent3 = new OptionalFieldTypeContent();
-            optionalFieldTypeContent3.setContent("Option multiple combo 1");
-            optionalFieldTypeContent3.setFk_optional_field(13);
-            optionalFieldTypeContent3.setPk(3);
+        OptionalFieldTypeContent optionalFieldTypeContent3 = new OptionalFieldTypeContent();
+        optionalFieldTypeContent3.setContent("Option multiple combo 1");
+        optionalFieldTypeContent3.setFk_optional_field(13);
+        optionalFieldTypeContent3.setPk(3);
 
-            OptionalFieldTypeContent optionalFieldTypeContent4 = new OptionalFieldTypeContent();
-            optionalFieldTypeContent3.setContent("Option multiple combo 2");
-            optionalFieldTypeContent3.setFk_optional_field(13);
-            optionalFieldTypeContent3.setPk(4);
+        OptionalFieldTypeContent optionalFieldTypeContent4 = new OptionalFieldTypeContent();
+        optionalFieldTypeContent3.setContent("Option multiple combo 2");
+        optionalFieldTypeContent3.setFk_optional_field(13);
+        optionalFieldTypeContent3.setPk(4);
         // -------------------------------------------------
 
         optionalFieldTypeContents.add(optionalFieldTypeContent1);

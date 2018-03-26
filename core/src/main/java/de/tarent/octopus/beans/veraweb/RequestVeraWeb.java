@@ -61,6 +61,7 @@ package de.tarent.octopus.beans.veraweb;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.server.OctopusContext;
@@ -73,21 +74,24 @@ import de.tarent.octopus.server.OctopusContext;
  * @version 1.3
  */
 public class RequestVeraWeb extends Request {
-	//
+    //
     // Konstruktor
     //
+
     /**
      * Dieser Konstruktor initialisiert die {@link Request}-{@link BeanFactory}
      * mit dem übergebenen {@link OctopusContext} und dem VerA.web-Bean-Package
      * {@link #BEANPACKAGE "de.tarent.aa.veraweb.beans"}.
      */
-	public RequestVeraWeb(OctopusContext cntx) {
-		super(cntx, BEANPACKAGE);
-	}
+    public RequestVeraWeb(OctopusContext cntx) {
+        super(cntx, BEANPACKAGE);
+    }
 
     //
     // Konstanten
     //
-    /** VerA.web-Bean-Package */
+    /**
+     * VerA.web-Bean-Package
+     */
     public static final String BEANPACKAGE = "de.tarent.aa.veraweb.beans";
 }

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.server.OctopusContext;
@@ -78,20 +79,22 @@ public class DataExchangeHelper {
      * gemäß den Daten der Konfiguration des aktiven Octopus-Moduls.
      *
      * @param octopusContext Octopus-Kontext
-     * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
-     *  das gesuchte Format definiert ist.
+     * @param key            Schlüssel des Parameters der Modulkonfiguration, in dem
+     *                       das gesuchte Format definiert ist.
      * @return ein {@link ExchangeFormat} zum übergebenen Schlüssel oder
-     *  <code>null</code>, falls der entsprechende Konfigurationseintrag
-     *  nicht gefunden wird
+     * <code>null</code>, falls der entsprechende Konfigurationseintrag
+     * nicht gefunden wird
      */
     public static ExchangeFormat getFormat(OctopusContext octopusContext, String key) {
-        if (key == null)
+        if (key == null) {
             return null;
+        }
         assert octopusContext != null;
         assert octopusContext.moduleConfig() != null;
         Object configurationMap = octopusContext.moduleConfig().getParamAsObject(key);
-        if (configurationMap instanceof Map)
+        if (configurationMap instanceof Map) {
             return new ConfiguredExchangeFormat((Map) configurationMap);
+        }
         return null;
     }
 
@@ -101,18 +104,19 @@ public class DataExchangeHelper {
      * Octopus-Moduls.
      *
      * @param octopusContext Octopus-Kontext
-     * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
-     *  das Format zum gesuchten Importer definiert ist.
+     * @param key            Schlüssel des Parameters der Modulkonfiguration, in dem
+     *                       das Format zum gesuchten Importer definiert ist.
      * @return ein {@link Importer} zum übergebenen Schlüssel oder <code>null</code>,
-     *  falls die Konfigurationsdaten unvollständig sind
+     * falls die Konfigurationsdaten unvollständig sind
      * @throws ClassNotFoundException wenn die konfigurierte {@link Importer}-Klasse
-     *  nicht gefunden wird
+     *                                nicht gefunden wird
      * @throws InstantiationException wenn es Probleme während des Erzeugens einer
-     *  Instanz des {@link Importer}s gab.
+     *                                Instanz des {@link Importer}s gab.
      * @throws IllegalAccessException wenn Berechtigungsprobleme das Erzeugen einer
-     *  {@link Importer}-Instanz verhindert haben.
+     *                                {@link Importer}-Instanz verhindert haben.
      */
-    public static Importer getImporter(OctopusContext octopusContext, String key) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static Importer getImporter(OctopusContext octopusContext, String key)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         ExchangeFormat format = getFormat(octopusContext, key);
         if (format != null) {
             Class importerClass = format.getImporterClass();
@@ -129,23 +133,25 @@ public class DataExchangeHelper {
      * Octopus-Moduls.
      *
      * @param octopusContext Octopus-Kontext
-     * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
-     *  das Format zum gesuchten Exporter definiert ist.
+     * @param key            Schlüssel des Parameters der Modulkonfiguration, in dem
+     *                       das Format zum gesuchten Exporter definiert ist.
      * @return ein {@link Exporter} zum übergebenen Schlüssel oder <code>null</code>,
-     *  falls die Konfigurationsdaten unvollständig sind
+     * falls die Konfigurationsdaten unvollständig sind
      * @throws ClassNotFoundException wenn die konfigurierte {@link Exporter}-Klasse
-     *  nicht gefunden wird
+     *                                nicht gefunden wird
      * @throws InstantiationException wenn es Probleme während des Erzeugens einer
-     *  Instanz des {@link Exporter}s gab.
+     *                                Instanz des {@link Exporter}s gab.
      * @throws IllegalAccessException wenn Berechtigungsprobleme das Erzeugen einer
-     *  {@link Exporter}-Instanz verhindert haben.
+     *                                {@link Exporter}-Instanz verhindert haben.
      */
-    public static Exporter getExporter(OctopusContext octopusContext, String key) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static Exporter getExporter(OctopusContext octopusContext, String key)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         ExchangeFormat format = getFormat(octopusContext, key);
         if (format != null) {
             Class exporterClass = format.getExporterClass();
-            if (exporterClass != null && Exporter.class.isAssignableFrom(exporterClass))
+            if (exporterClass != null && Exporter.class.isAssignableFrom(exporterClass)) {
                 return (Exporter) exporterClass.newInstance();
+            }
         }
         return null;
     }

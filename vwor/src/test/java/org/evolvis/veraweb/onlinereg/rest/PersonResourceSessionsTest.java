@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.query.Query;
@@ -215,7 +216,8 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         // WHEN
-        personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+        personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city",
+                "country");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -238,7 +240,9 @@ public class PersonResourceSessionsTest {
         when(resultList.isEmpty()).thenReturn(false);
 
         // WHEN
-        Person personPress = personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+        Person personPress = personResource
+                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city",
+                        "country");
 
         // THEN
         assertTrue(personPress == null);
@@ -260,7 +264,9 @@ public class PersonResourceSessionsTest {
         mockEvent(mockitoSession);
 
         // WHEN
-        Person result = personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+        Person result = personResource
+                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city",
+                        "country");
 
         // THEN
         assertNull(result);
@@ -282,7 +288,9 @@ public class PersonResourceSessionsTest {
         mockEvent(mockitoSession);
 
         // WHEN
-        Person result = personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city", "country");
+        Person result = personResource
+                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address", "63123", "city",
+                        "country");
 
         // THEN
         assertNull(result);
@@ -335,7 +343,7 @@ public class PersonResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(person);
 
         // WHEN
-        personResource.updatePersonOrgunit(1,1);
+        personResource.updatePersonOrgunit(1, 1);
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -472,7 +480,7 @@ public class PersonResourceSessionsTest {
         verify(mockitoSession, times(1)).close();
     }
 
-       private List<Person> getDummyDelegates() {
+    private List<Person> getDummyDelegates() {
         List<Person> results = new ArrayList<Person>();
         results.add(mock(Person.class));
         results.add(mock(Person.class));

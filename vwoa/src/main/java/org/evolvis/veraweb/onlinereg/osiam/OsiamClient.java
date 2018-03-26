@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.osiam;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.sun.jersey.api.client.Client;
 import lombok.extern.java.Log;
 import org.osiam.client.OsiamConnector;
@@ -83,7 +84,7 @@ import java.util.List;
  */
 @Log
 public class OsiamClient {
-        private OsiamConnector connector;
+    private OsiamConnector connector;
 
     /**
      * Creates a new OSIAM client
@@ -93,10 +94,10 @@ public class OsiamClient {
      */
     public OsiamClient(OsiamConfig config, Client client) {
         this.connector = new OsiamConnector.Builder()
-                                                .setEndpoint(config.getEndpoint())
-                                                .setClientId(config.getClientId())
-                                                .setClientSecret(config.getClientSecret())
-                                                .build();
+                .setEndpoint(config.getEndpoint())
+                .setClientId(config.getClientId())
+                .setClientSecret(config.getClientSecret())
+                .build();
     }
 
     /**
@@ -104,7 +105,7 @@ public class OsiamClient {
      *
      * @param username username
      * @param password password
-     * @param scopes    scopes
+     * @param scopes   scopes
      * @return accesstoken as String
      * @throws IOException if an error occurs, e.g. service is not available, user does not exists, password wrong
      */
@@ -141,7 +142,7 @@ public class OsiamClient {
      * Gets the user with the specified username
      *
      * @param accessTokenAsString access token
-     * @param userName    username
+     * @param userName            username
      * @return User object of null, if user does not exist
      * @throws IOException FIXME
      */
@@ -150,8 +151,8 @@ public class OsiamClient {
         AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
         SCIMSearchResult<User> users = this.connector.searchUsers(query, accessToken);
 
-        if(users.getResources().size() == 0) {
-                return null;
+        if (users.getResources().size() == 0) {
+            return null;
         }
         return users.getResources().get(0);
     }
@@ -160,68 +161,67 @@ public class OsiamClient {
      * Creates a new user
      *
      * @param accessTokenAsString access token
-     * @param user        User object to create
+     * @param user                User object to create
      * @return newly created user with meta information
      * @throws IOException FIXME
      */
     public User createUser(String accessTokenAsString, User user) throws IOException {
         AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
         return this.connector.createUser(user, accessToken);
-        }
+    }
 
-    public BasicUser getUserBasic(String accessToken){
+    public BasicUser getUserBasic(String accessToken) {
         return this.connector.getCurrentUserBasic(new AccessToken.Builder(accessToken).build());
     }
 
-        /**
-         * Get all users.
-         *
-         * @param accessTokenAsString Access token
-         *
-         * @return List with users
-         */
-        public List<User> getAllUsers(String accessTokenAsString) {
-                AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
-                return this.connector.getAllUsers(accessToken);
-        }
+    /**
+     * Get all users.
+     *
+     * @param accessTokenAsString Access token
+     * @return List with users
+     */
+    public List<User> getAllUsers(String accessTokenAsString) {
+        AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
+        return this.connector.getAllUsers(accessToken);
+    }
 
-        /**
-         * Get user by email
-         *
-         * @param email Email of the user
-         *
-         * @throws IOException FIXME
-         * @return {@link User}
-         */
-        public User getUserByEmail(String email) throws IOException {
-                final String accessTokenAsString = getAccessTokenClientCred("GET", "POST");
-                final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
-                final Query query = new QueryBuilder().filter("emails.value eq \"" + email +"\"").build();
-                final List<User> resources = connector.searchUsers(query, accessToken).getResources();
-                if (resources.size() == 1) {
-                        return resources.get(0);
-                }
-                return null;
+    /**
+     * Get user by email
+     *
+     * @param email Email of the user
+     * @return {@link User}
+     * @throws IOException FIXME
+     */
+    public User getUserByEmail(String email) throws IOException {
+        final String accessTokenAsString = getAccessTokenClientCred("GET", "POST");
+        final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
+        final Query query = new QueryBuilder().filter("emails.value eq \"" + email + "\"").build();
+        final List<User> resources = connector.searchUsers(query, accessToken).getResources();
+        if (resources.size() == 1) {
+            return resources.get(0);
         }
+        return null;
+    }
 
-        /**
-         * Delete osiam user
-         * @param accessToken FIXME
-         * @param id FIXME
-         */
-        public void deleteUser(String id, AccessToken accessToken) {
-                this.connector.deleteUser(id, accessToken);
-        }
+    /**
+     * Delete osiam user
+     *
+     * @param accessToken FIXME
+     * @param id          FIXME
+     */
+    public void deleteUser(String id, AccessToken accessToken) {
+        this.connector.deleteUser(id, accessToken);
+    }
 
-        public void updateUser(String id, UpdateUser updateUser, AccessToken accessToken) {
-                this.connector.updateUser(id, updateUser, accessToken);
-        }
+    public void updateUser(String id, UpdateUser updateUser, AccessToken accessToken) {
+        this.connector.updateUser(id, updateUser, accessToken);
+    }
 
-        public OsiamConnector getConnector() {
-                return connector;
-        }
+    public OsiamConnector getConnector() {
+        return connector;
+    }
 
-        public void setConnector(OsiamConnector connector) {
-                this.connector = connector;
-        }
+    public void setConnector(OsiamConnector connector) {
+        this.connector = connector;
+    }
 }

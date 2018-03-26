@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.MediaRepresentativeActivation;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -84,16 +85,16 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     @POST
     @Path("/create")
     public MediaRepresentativeActivation addMediaRepresentativeActivationEntry(
-        @FormParam("activationToken") String activationToken,
-        @FormParam("email") String email,
-        @FormParam("eventId") Integer eventId,
-        @FormParam("gender") String gender,
-        @FormParam("address") String address,
-        @FormParam("city") String city,
-        @FormParam("country") String country,
-        @FormParam("firstname") String firstname,
-        @FormParam("lastname") String lastname,
-        @FormParam("zip") Integer zip
+            @FormParam("activationToken") String activationToken,
+            @FormParam("email") String email,
+            @FormParam("eventId") Integer eventId,
+            @FormParam("gender") String gender,
+            @FormParam("address") String address,
+            @FormParam("city") String city,
+            @FormParam("country") String country,
+            @FormParam("firstname") String firstname,
+            @FormParam("lastname") String lastname,
+            @FormParam("zip") Integer zip
     ) {
 
         final Session session = openSession();

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
@@ -290,6 +291,7 @@ public class EventResource extends AbstractResource {
             session.close();
         }
     }
+
     /**
      * Generalized method for isGuestListFull and isReserveListFull.
      *
@@ -318,7 +320,7 @@ public class EventResource extends AbstractResource {
     /**
      * Get the events associated to a person
      *
-     * @param session Session
+     * @param session  Session
      * @param personId ID
      * @return List<Event> List of events
      */
@@ -332,7 +334,7 @@ public class EventResource extends AbstractResource {
     /**
      * Checks the quantity of events associated to a person
      *
-     * @param session Session
+     * @param session  Session
      * @param personId ID
      * @return Boolean true, if user is registered to minimum one event
      */

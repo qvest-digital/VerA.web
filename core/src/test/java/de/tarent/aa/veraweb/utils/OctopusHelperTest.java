@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import junit.framework.TestCase;
 
 import java.io.UnsupportedEncodingException;
@@ -74,8 +75,10 @@ public class OctopusHelperTest extends TestCase {
     //
     // Tests
     //
+
     /**
      * Diese Testmethode testet das Re-Encoding des OctopusHelpers.
+     *
      * @throws UnsupportedEncodingException
      */
     public void testEncodeString() throws UnsupportedEncodingException {

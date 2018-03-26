@@ -64,52 +64,55 @@ package org.evolvis.veraweb.onlinereg.utils;
 public class ImprintTransporter implements Comparable<ImprintTransporter> {
 
     private String key;
-	private String heading;
-	private String text;
+    private String heading;
+    private String text;
 
-    /** Empty constructor */
-	public ImprintTransporter() {}
+    /**
+     * Empty constructor
+     */
+    public ImprintTransporter() {
+    }
 
-	/**
-	 * Custom constructor.
-	 *
-	 * @param key FIXME
-	 * @param heading FIXME
-	 * @param text FIXME
-	 */
-	public ImprintTransporter(String key, String heading, String text) {
-		super();
-		this.key = key;
-		this.heading = heading;
-		this.text = text;
-	}
+    /**
+     * Custom constructor.
+     *
+     * @param key     FIXME
+     * @param heading FIXME
+     * @param text    FIXME
+     */
+    public ImprintTransporter(String key, String heading, String text) {
+        super();
+        this.key = key;
+        this.heading = heading;
+        this.text = text;
+    }
 
-	public String getKey() {
-		return key;
-	}
+    public String getKey() {
+        return key;
+    }
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-	public String getHeading() {
-		return heading;
-	}
+    public String getHeading() {
+        return heading;
+    }
 
-	public void setHeading(String heading) {
-		this.heading = heading;
-	}
+    public void setHeading(String heading) {
+        this.heading = heading;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	@Override
-	public int compareTo(ImprintTransporter other) {
-		return this.key.compareTo(other.getKey());
-	}
+    @Override
+    public int compareTo(ImprintTransporter other) {
+        return this.key.compareTo(other.getKey());
+    }
 }

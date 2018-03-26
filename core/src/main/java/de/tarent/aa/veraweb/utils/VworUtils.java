@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,6 +76,7 @@ import java.net.SocketTimeoutException;
 
 /**
  * Created by csalib on 29.09.15.
+ *
  * @author csalib
  * @author jnunez
  * @author tglase
@@ -83,10 +85,14 @@ public class VworUtils {
 
     final private static String BASE_RESOURCE = "/rest";
 
-    /** Jackson Object mapper */
+    /**
+     * Jackson Object mapper
+     */
     private ObjectMapper mapper = new ObjectMapper();
 
-    /** Jersey Client */
+    /**
+     * Jersey Client
+     */
     private Client client;
 
     public VworUtils() {
@@ -106,7 +112,7 @@ public class VworUtils {
 
     public HTTPBasicAuthFilter getAuthorization() {
         // FIXME We have to uncomment this line and delete the next line to allow HTTPBasicAuth as configurable
-        return new HTTPBasicAuthFilter(getVworAuthUsername(),getVworAuthPassword());
+        return new HTTPBasicAuthFilter(getVworAuthUsername(), getVworAuthPassword());
     }
 
     private String getVworAuthUsername() {
@@ -128,7 +134,7 @@ public class VworUtils {
      *
      * @param path URI from VworUtils.path()
      * @param type desired result type from JSON mapping
-     * @param <T> FIXME
+     * @param <T>  FIXME
      * @return Entities from the Vwor component
      * @throws IOException FIXME
      */
@@ -146,7 +152,6 @@ public class VworUtils {
      *
      * @param path URI from VworUtils.path()
      * @return String from the Vwor component
-     *
      * @throws IOException FIXME
      */
     public String readResource(String path) throws IOException {
@@ -172,7 +177,6 @@ public class VworUtils {
      *
      * @param path path fragments
      * @return complete path as string
-     *
      * @throws IOException FIXME
      */
     public String path(Object... path) throws IOException {

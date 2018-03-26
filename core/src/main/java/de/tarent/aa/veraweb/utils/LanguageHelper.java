@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.util.Locale;
 import java.util.Map;
 /*
@@ -70,7 +71,7 @@ import java.util.Map;
 
 public class LanguageHelper {
 
-    final Map<String,String> placeholderWithTranslation;
+    final Map<String, String> placeholderWithTranslation;
 
     public LanguageHelper(Map<String, String> placeholderWithTranslation) {
         this.placeholderWithTranslation = placeholderWithTranslation;
@@ -85,8 +86,8 @@ public class LanguageHelper {
     }
 
     public String createMessage(String entity,
-                                String action,
-                                String count) {
+            String action,
+            String count) {
 
         String message;
         // singular or plural
@@ -109,7 +110,7 @@ public class LanguageHelper {
         return message;
     }
 
-    public String makeFirstLetterLowerCase (String input) {
+    public String makeFirstLetterLowerCase(String input) {
         Locale.setDefault(new Locale("en"));
         char c[] = input.toCharArray();
         c[0] = Character.toLowerCase(c[0]);
@@ -119,28 +120,32 @@ public class LanguageHelper {
     }
 
     // velocity 1.4 does not support varargs...
-    public String l10n(String code){
+    public String l10n(String code) {
         return translate(code);
     }
 
- // velocity 1.4 does not support varargs...
-    public String l10n(String code,Object arg0){
-        return translate(code,arg0);
+    // velocity 1.4 does not support varargs...
+    public String l10n(String code, Object arg0) {
+        return translate(code, arg0);
     }
- // velocity 1.4 does not support varargs...
-    public String l10n(String code, Object arg0, Object arg1){
+
+    // velocity 1.4 does not support varargs...
+    public String l10n(String code, Object arg0, Object arg1) {
         return translate(code, arg0, arg1);
     }
- // velocity 1.4 does not support varargs...
-    public String l10n(String code, Object arg0, Object arg1, Object arg2){
+
+    // velocity 1.4 does not support varargs...
+    public String l10n(String code, Object arg0, Object arg1, Object arg2) {
         return translate(code, arg0, arg1, arg2);
     }
- // velocity 1.4 does not support varargs...
-    public String l10n(String code, Object arg0, Object arg1, Object arg2, Object arg3){
+
+    // velocity 1.4 does not support varargs...
+    public String l10n(String code, Object arg0, Object arg1, Object arg2, Object arg3) {
         return translate(code, arg0, arg1, arg2, arg3);
     }
-    public String translate(String code, Object ... args) {
-        String format = placeholderWithTranslation.containsKey(code) ? placeholderWithTranslation.get(code): code;
+
+    public String translate(String code, Object... args) {
+        String format = placeholderWithTranslation.containsKey(code) ? placeholderWithTranslation.get(code) : code;
         return String.format(format, args);
     }
 }

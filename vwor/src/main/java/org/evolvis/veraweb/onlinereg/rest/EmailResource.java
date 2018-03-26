@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
 
@@ -111,7 +112,7 @@ public class EmailResource extends AbstractResource {
     }
 
     private String getActivationLink(String endpoint, String activationToken, Boolean isPressUser) {
-        if(isPressUser) {
+        if (isPressUser) {
             return endpoint + "media/activation/confirm/" + activationToken;
         }
         return endpoint + "user/activate/" + activationToken;

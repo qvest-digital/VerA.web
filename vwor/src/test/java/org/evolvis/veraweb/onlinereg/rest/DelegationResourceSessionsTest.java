@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
@@ -114,7 +115,8 @@ public class DelegationResourceSessionsTest {
         mockitoSession.close();
     }
 
-    @Test@Ignore
+    @Test
+    @Ignore
     public void testGetFieldsFromEvent() {
         // GIVEN
         prepareSession();
@@ -134,7 +136,7 @@ public class DelegationResourceSessionsTest {
         when(query3.list()).thenReturn(typeContents);
 
         // WHEN
-        delegationResource.getFieldsFromEvent(1,1);
+        delegationResource.getFieldsFromEvent(1, 1);
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -179,7 +181,7 @@ public class DelegationResourceSessionsTest {
         prepareSession();
 
         // WHEN
-        delegationResource.saveOptionalField(1,1,"fieldContent");
+        delegationResource.saveOptionalField(1, 1, "fieldContent");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -218,15 +220,18 @@ public class DelegationResourceSessionsTest {
         OptionalFieldTypeContentFacade facadede4 = new OptionalFieldTypeContentFacade(typeContent4);
         OptionalFieldTypeContentFacade facadede5 = new OptionalFieldTypeContentFacade(typeContent5);
 
-        List<OptionalFieldTypeContentFacade> facadeElements1 = new ArrayList<>();;
+        List<OptionalFieldTypeContentFacade> facadeElements1 = new ArrayList<>();
+        ;
         facadeElements1.add(facadede1);
         facadeElements1.add(facadede2);
 
-        List<OptionalFieldTypeContentFacade> facadeElements2 = new ArrayList<>();;
+        List<OptionalFieldTypeContentFacade> facadeElements2 = new ArrayList<>();
+        ;
         facadeElements2.add(facadede3);
         facadeElements2.add(facadede4);
 
-        List<OptionalFieldTypeContentFacade> facadeElements3 = new ArrayList<>();;
+        List<OptionalFieldTypeContentFacade> facadeElements3 = new ArrayList<>();
+        ;
         facadeElements3.add(facadede5);
 
         OptionalFieldValue optionalFieldValue1 = new OptionalFieldValue();

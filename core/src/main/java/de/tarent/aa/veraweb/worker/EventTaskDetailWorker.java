@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.utils.DateHelper;
@@ -97,15 +98,15 @@ public class EventTaskDetailWorker {
     private static final String PARAM_TASK = "task";
     private static final String PARAM_EVENT_ID = "eventId";
 
-    public static final String[] INPUT_setEventTaskId = {PARAM_EVENT_ID};
+    public static final String[] INPUT_setEventTaskId = { PARAM_EVENT_ID };
     public static final String OUTPUT_setEventTaskId = PARAM_EVENT_ID;
 
     /**
      * Load and return task with the given id.
      *
-     * @param oc FIXME
+     * @param oc      FIXME
      * @param eventId FIXME
-     * @param id FIXME
+     * @param id      FIXME
      * @return {@link Task}
      */
     public Task getTask(OctopusContext oc, String eventId, String id) {
@@ -118,8 +119,8 @@ public class EventTaskDetailWorker {
         }
     }
 
-    public static final String[] INPUT_loadReferencePerson = {"refPersId"};
-    public static final boolean[] MANDATORY_loadReferencePerson = {false};
+    public static final String[] INPUT_loadReferencePerson = { "refPersId" };
+    public static final boolean[] MANDATORY_loadReferencePerson = { false };
 
     public void loadReferencePerson(OctopusContext cntx, String refPersId) throws BeanException, IOException {
         if (refPersId == null || refPersId.trim().length() == 0) {
@@ -131,8 +132,8 @@ public class EventTaskDetailWorker {
         cntx.getContentObject().setField("refPerson", getPersonFromDB(cntx, pk));
     }
 
-    public static final String[] INPUT_copyTaskAndEventId = {PARAM_EVENT_ID, "taskId"};
-    public static final boolean[] MANDATORY_copyTaskAndEventId = {false, false};
+    public static final String[] INPUT_copyTaskAndEventId = { PARAM_EVENT_ID, "taskId" };
+    public static final boolean[] MANDATORY_copyTaskAndEventId = { false, false };
 
     public void copyTaskAndEventId(OctopusContext oc, String eventId, String taskId) {
         oc.setContent(PARAM_EVENT_ID, eventId);
@@ -143,7 +144,7 @@ public class EventTaskDetailWorker {
      * Assigns the eventId from the task list to a new created task to link
      * the task to the event
      *
-     * @param cntx FIXME
+     * @param cntx    FIXME
      * @param eventId FIXME
      * @return eventId
      */
@@ -152,8 +153,8 @@ public class EventTaskDetailWorker {
         return eventId;
     }
 
-    public static final String[] INPUT_showDetail = {PARAM_EVENT_ID, "id"};
-    public static final boolean[] MANDATORY_showDetail = {false, false};
+    public static final String[] INPUT_showDetail = { PARAM_EVENT_ID, "id" };
+    public static final boolean[] MANDATORY_showDetail = { false, false };
     public static final String OUTPUT_showDetail = PARAM_TASK;
 
     public Task showDetail(OctopusContext context, Integer eventId, Integer id) throws BeanException, IOException {
@@ -170,15 +171,16 @@ public class EventTaskDetailWorker {
         return task;
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #saveTemp(OctopusContext)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #saveTemp(OctopusContext)}
+     */
     public static final String INPUT_saveTemp[] = {};
 
     /**
      * Diese Octopus-Aktion holt eine Aufgabe unter "task" aus dem Octopus-Request und legt sie unter "task" in
      * den Octopus-Content und unter "tasktemp" in die Session.
      *
-     * @param cntx
-     *          Octopus-Kontext
+     * @param cntx Octopus-Kontext
      * @throws BeanException FIXME
      */
     public void saveTemp(OctopusContext cntx) throws BeanException {
@@ -188,7 +190,9 @@ public class EventTaskDetailWorker {
         cntx.setContent("task", task);
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #loadTemp(OctopusContext)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #loadTemp(OctopusContext)}
+     */
     public static final String INPUT_loadTemp[] = {};
 
     /**
@@ -203,9 +207,9 @@ public class EventTaskDetailWorker {
         cntx.setContent("task", task);
     }
 
-    public static final String INPUT_saveDetail[] = {"savetask"};
+    public static final String INPUT_saveDetail[] = { "savetask" };
 
-    public static final boolean MANDATORY_saveDetail[] = {false};
+    public static final boolean MANDATORY_saveDetail[] = { false };
 
     public void saveDetail(final OctopusContext octopusContext, Boolean savetask) throws BeanException, IOException {
 
@@ -232,7 +236,7 @@ public class EventTaskDetailWorker {
             final Task existingTask = (Task) database.getBean("Task", task.getId(), transactionContext);
 
             /** Aufgabe speichern */
-            if ( task.isModified() && task.isCorrect() ) {
+            if (task.isModified() && task.isCorrect()) {
                 createOrUpdateTask(octopusContext, database, transactionContext, task, existingTask);
             } else {
                 octopusContext.setStatus("notsaved");
@@ -274,7 +278,8 @@ public class EventTaskDetailWorker {
         return savetask;
     }
 
-    private void createOrUpdateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task, Task oldTask) throws BeanException, IOException {
+    private void createOrUpdateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task, Task oldTask)
+            throws BeanException, IOException {
         BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
         if (task.getId() == null) {
             createTask(octopusContext, database, transactionContext, task, clogger);
@@ -283,7 +288,8 @@ public class EventTaskDetailWorker {
         }
     }
 
-    private void createTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task, BeanChangeLogger clogger) throws BeanException, IOException {
+    private void createTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task,
+            BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countInsert", Integer.valueOf(1));
         database.getNextPk(task, transactionContext);
         task.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
@@ -301,7 +307,8 @@ public class EventTaskDetailWorker {
         clogger.logInsert(octopusContext.personalConfig().getLoginname(), task);
     }
 
-    private void updateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task, Task existingTask, BeanChangeLogger clogger) throws BeanException, IOException {
+    private void updateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task, Task existingTask,
+            BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countUpdate", Integer.valueOf(1));
         final Update update = database.getUpdate(task);
         if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {

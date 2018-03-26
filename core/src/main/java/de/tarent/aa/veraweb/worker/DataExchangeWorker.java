@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -755,12 +756,12 @@ public class DataExchangeWorker {
             outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
 
-		/*
+        /*
          * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
-		 * jetty used for testing made it a valid integer object of value 0, which broke
-		 * existing code relying on the fact that the request parameter would be null.
-		 * Keine/None now equals -1.
-		 */
+         * jetty used for testing made it a valid integer object of value 0, which broke
+         * existing code relying on the fact that the request parameter would be null.
+         * Keine/None now equals -1.
+         */
         if (event == null || event == 0) {
             outerWhere.addAnd(Expr.in(
                     database.getProperty(samplePerson, "id"),
@@ -811,12 +812,12 @@ public class DataExchangeWorker {
             outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
 
-		/*
+        /*
          * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
-		 * the jetty used for testing made it a valid integer object of value 0, which broke
-		 * existing code relying on the fact that the request parameter would be null.
-		 * Keine/None now equals -1.
-		 */
+         * the jetty used for testing made it a valid integer object of value 0, which broke
+         * existing code relying on the fact that the request parameter would be null.
+         * Keine/None now equals -1.
+         */
         if (category == null || category == 0) {
             outerWhere.addAnd(Expr.in(
                     database.getProperty(samplePerson, "id"),

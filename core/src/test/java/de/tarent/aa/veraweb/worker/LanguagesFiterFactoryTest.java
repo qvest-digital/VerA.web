@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -84,18 +85,25 @@ public class LanguagesFiterFactoryTest {
     @Test
     public void testGetLanguagesFilterWithOneLanguage() {
         PersonSearch personSearch = new PersonSearch();
-        personSearch.languages="Deutsch";
+        personSearch.languages = "Deutsch";
         WhereList klaus = (WhereList) factory.createLanguagesFilter(personSearch);
 
-        assertEquals("(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) LIKE veraweb.upper_fix('%Deutsch%'))", klaus.clauseToString());
+        assertEquals(
+                "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) LIKE veraweb" +
+                 ".upper_fix('%Deutsch%'))",
+                klaus.clauseToString());
     }
 
     @Test
     public void testGetLanguagesFilterWithTwoLanguages() {
         PersonSearch personSearch = new PersonSearch();
-        personSearch.languages="Deutsch, English";
+        personSearch.languages = "Deutsch, English";
         Clause klaus = factory.createLanguagesFilter(personSearch);
 
-        assertEquals("(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) LIKE veraweb.upper_fix('%Deutsch%')) OR (veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%English%') OR veraweb.upper_fix(languages_b_e1) LIKE veraweb.upper_fix('%English%'))", klaus.clauseToString());
+        assertEquals(
+                "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) LIKE veraweb" +
+                 ".upper_fix('%Deutsch%')) OR (veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%English%') OR veraweb.upper_fix" +
+                  "(languages_b_e1) LIKE veraweb.upper_fix('%English%'))",
+                klaus.clauseToString());
     }
 }

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.query.Query;
@@ -78,6 +79,7 @@ import java.util.List;
 
 /**
  * Created by mley on 01.09.14.
+ *
  * @author sweiz - tarent solutions GmbH
  */
 @Path("/person")
@@ -85,25 +87,24 @@ import java.util.List;
 public class PersonResource extends AbstractResource {
 
     private static final String PARAM_PERSON_ID = "personId";
-        private static final String PARAM_UUID = "uuid";
-        private static final String PARAM_USERNAME = "username";
+    private static final String PARAM_UUID = "uuid";
+    private static final String PARAM_USERNAME = "username";
     private static final String PARAM_EMAIL = "email";
 
     /**
      * Create person.
      *
-     * @param username Username
+     * @param username  Username
      * @param firstName First name
-     * @param lastname Last name
-     * @param email Email
-     *
+     * @param lastname  Last name
+     * @param email     Email
      * @return The created person.
      */
     @POST
     public Person createPerson(@FormParam(PARAM_USERNAME) String username,
-                                                   @FormParam("firstname") String firstName,
-                               @FormParam("lastname") String lastname,
-                               @FormParam("email") String email) {
+            @FormParam("firstname") String firstName,
+            @FormParam("lastname") String lastname,
+            @FormParam("email") String email) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -117,25 +118,24 @@ public class PersonResource extends AbstractResource {
     /**
      * Create delegate.
      *
-     * @param eventId Event id
-     * @param username Username
+     * @param eventId   Event id
+     * @param username  Username
      * @param firstName First name
-     * @param lastname Last name
-     * @param gender Gender
-     * @param company Company
-     * @param function Function
-     *
+     * @param lastname  Last name
+     * @param gender    Gender
+     * @param company   Company
+     * @param function  Function
      * @return The newly created person.
      */
     @POST
     @Path("/delegate")
     public Person createDelegate(@FormParam("eventId") Integer eventId,
-                                                                @FormParam(PARAM_USERNAME) String username,
-                                                                @FormParam("firstname") String firstName,
-                                                                @FormParam("lastname") String lastname,
-                                                                @FormParam("gender") String gender,
-                                                                @FormParam("company") String company,
-                                    @FormParam("function") String function) {
+            @FormParam(PARAM_USERNAME) String username,
+            @FormParam("firstname") String firstName,
+            @FormParam("lastname") String lastname,
+            @FormParam("gender") String gender,
+            @FormParam("company") String company,
+            @FormParam("function") String function) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -152,19 +152,19 @@ public class PersonResource extends AbstractResource {
      * Updating one delegate.
      *
      * @param firstName First name
-     * @param lastname Last name
-     * @param gender Gender
-     * @param function Function
-     * @param personId Person ID
+     * @param lastname  Last name
+     * @param gender    Gender
+     * @param function  Function
+     * @param personId  Person ID
      * @return Person updated person
      */
     @POST
     @Path("/delegate/update")
     public Person updateDelegate(@FormParam("firstname") String firstName,
-                                 @FormParam("lastname") String lastname,
-                                 @FormParam("gender") String gender,
-                                 @FormParam("function") String function,
-                                 @FormParam(PARAM_PERSON_ID) Integer personId) {
+            @FormParam("lastname") String lastname,
+            @FormParam("gender") String gender,
+            @FormParam("function") String function,
+            @FormParam(PARAM_PERSON_ID) Integer personId) {
 
         final Session session = openSession();
         session.beginTransaction();
@@ -193,31 +193,30 @@ public class PersonResource extends AbstractResource {
     /**
      * Create new media representative.
      *
-     * @param eventId Event id
-     * @param username Username
+     * @param eventId   Event id
+     * @param username  Username
      * @param firstName First name
-     * @param lastname Last name
-     * @param gender Gender
-     * @param email Email
-     * @param address Address
-     * @param zipCode Zip code
-     * @param city City
-     * @param country Country
-     *
+     * @param lastname  Last name
+     * @param gender    Gender
+     * @param email     Email
+     * @param address   Address
+     * @param zipCode   Zip code
+     * @param city      City
+     * @param country   Country
      * @return The newly created person.
      */
-        @POST
+    @POST
     @Path("/press")
     public Person createPersonPress(@FormParam("eventId") Integer eventId,
-                                    @FormParam(PARAM_USERNAME) String username,
-                                    @FormParam("firstname") String firstName,
-                                    @FormParam("lastname") String lastname,
-                                    @FormParam("gender") String gender,
-                                    @FormParam("email") String email,
-                                    @FormParam("address") String address,
-                                    @FormParam("plz") String zipCode,
-                                    @FormParam("city") String city,
-                                    @FormParam("country") String country) {
+            @FormParam(PARAM_USERNAME) String username,
+            @FormParam("firstname") String firstName,
+            @FormParam("lastname") String lastname,
+            @FormParam("gender") String gender,
+            @FormParam("email") String email,
+            @FormParam("address") String address,
+            @FormParam("plz") String zipCode,
+            @FormParam("city") String city,
+            @FormParam("country") String country) {
 
         final Session session = openSession();
         session.beginTransaction();
@@ -234,30 +233,29 @@ public class PersonResource extends AbstractResource {
     /**
      * Updates the core data of a person
      *
-     * @param username username of a person
-     * @param salutation salutation of a person
+     * @param username     username of a person
+     * @param salutation   salutation of a person
      * @param fkSalutation foreign key of salutation of a person
-     * @param title title of a person
-     * @param firstName firstName of a person
-     * @param lastName lastName of a person
-     * @param birthday birthday of a person as long timestamp
-     * @param nationality nationality of a person
-     * @param languages languages of a person
-     * @param gender gender of a person
-     *
+     * @param title        title of a person
+     * @param firstName    firstName of a person
+     * @param lastName     lastName of a person
+     * @param birthday     birthday of a person as long timestamp
+     * @param nationality  nationality of a person
+     * @param languages    languages of a person
+     * @param gender       gender of a person
      */
     @POST
     @Path("/usercoredata/update/")
     public void updatePersonCoreData(@FormParam(PARAM_USERNAME) String username,
-                                     @FormParam("salutation") String salutation,
-                                     @FormParam("fk_salutation") Integer fkSalutation,
-                                     @FormParam("title") String title,
-                                     @FormParam("firstName") String firstName,
-                                     @FormParam("lastName") String lastName,
-                                     @FormParam("birthday") Long birthday,
-                                     @FormParam("nationality") String nationality,
-                                     @FormParam("languages") String languages,
-                                     @FormParam("gender") String gender) {
+            @FormParam("salutation") String salutation,
+            @FormParam("fk_salutation") Integer fkSalutation,
+            @FormParam("title") String title,
+            @FormParam("firstName") String firstName,
+            @FormParam("lastName") String lastName,
+            @FormParam("birthday") Long birthday,
+            @FormParam("nationality") String nationality,
+            @FormParam("languages") String languages,
+            @FormParam("gender") String gender) {
         final Session session = openSession();
         session.beginTransaction();
 
@@ -274,12 +272,11 @@ public class PersonResource extends AbstractResource {
      * Gets the first and the last name of a person, by his username
      *
      * @param username username of person
-     *
      * @return first name and last name in one string separated by a whitespace
      */
-        @GET
-        @Path("/userinfo/{username}")
-        public String getFirstAndLastName(@PathParam(PARAM_USERNAME) String username) {
+    @GET
+    @Path("/userinfo/{username}")
+    public String getFirstAndLastName(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getPersonNamesByUsername");
@@ -295,7 +292,6 @@ public class PersonResource extends AbstractResource {
      * Get delegates for specific event by delegation uuid.
      *
      * @param uuid Delegation uuid
-     *
      * @return List with all delegates
      */
     @GET
@@ -315,7 +311,6 @@ public class PersonResource extends AbstractResource {
      * Get company by UUID.
      *
      * @param uuid UUID
-     *
      * @return The company (yes, company is instance of Person)
      */
     @GET
@@ -381,7 +376,7 @@ public class PersonResource extends AbstractResource {
     /**
      * Update the orgunit for a person after registration for event.
      *
-     * @param orgunit Integer
+     * @param orgunit  Integer
      * @param personId Integer
      */
     @POST
@@ -409,7 +404,6 @@ public class PersonResource extends AbstractResource {
      * Getting the username from a person ID
      *
      * @param personId Person id
-     *
      * @return The {@link Person}
      */
     @GET
@@ -501,7 +495,7 @@ public class PersonResource extends AbstractResource {
     }
 
     private Person initPersonDelegation(String company, Integer orgUnitId, String username, String firstName,
-                                        String lastname, String gender, String function) {
+            String lastname, String gender, String function) {
         final Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastname);
@@ -520,7 +514,7 @@ public class PersonResource extends AbstractResource {
     }
 
     private Person initPersonPress(Integer orgUnitId, String username, String firstName, String lastname, String gender,
-                                   String email, String address, String plz, String city, String country) {
+            String email, String address, String plz, String city, String country) {
         final Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastname);
@@ -537,27 +531,27 @@ public class PersonResource extends AbstractResource {
     }
 
     private void prepareAndUpdatePersonCoreData(String username,
-                                                String salutation,
-                                                Integer fk_salutation,
-                                                String title,
-                                                String firstName,
-                                                String lastName,
-                                                Long birthday,
-                                                String nationality,
-                                                String languages,
-                                                String gender,
-                                                Session session) {
+            String salutation,
+            Integer fk_salutation,
+            String title,
+            String firstName,
+            String lastName,
+            Long birthday,
+            String nationality,
+            String languages,
+            String gender,
+            Session session) {
         final Query query = getSelectPersonByUsernameQuery(username, session);
         final Person person = (Person) query.uniqueResult();
 
-        if(birthday != null) {
+        if (birthday != null) {
             final Date birthdayDate = new Date(birthday);
             person.setBirthday_a_e1(birthdayDate);
         } else {
             person.setBirthday_a_e1(null);
         }
 
-        if(fk_salutation != 0) {
+        if (fk_salutation != 0) {
             person.setFk_salutation_a_e1(fk_salutation);
             person.setSalutation_a_e1(salutation);
         }

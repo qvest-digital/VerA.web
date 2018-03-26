@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -81,9 +82,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "link_uuid")
 @NamedQueries({
-    @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l.personid FROM LinkUUID l where l.uuid = :uuid"),
-    @NamedQuery(name = "LinkUUID.deleteUUIDByPersonid", query = "DELETE FROM LinkUUID l WHERE l.personid=:personid"),
-    @NamedQuery(name = "LinkUUID.getLinkUuidByPersonid", query = "SELECT l FROM LinkUUID l WHERE l.personid=:personid")
+        @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l.personid FROM LinkUUID l where l.uuid = :uuid"),
+        @NamedQuery(name = "LinkUUID.deleteUUIDByPersonid", query = "DELETE FROM LinkUUID l WHERE l.personid=:personid"),
+        @NamedQuery(name = "LinkUUID.getLinkUuidByPersonid", query = "SELECT l FROM LinkUUID l WHERE l.personid=:personid")
 })
 public class LinkUUID {
 
