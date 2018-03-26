@@ -69,7 +69,7 @@
 		<log4j.version>2.6.2</log4j.version>
 		<lombok.version>1.14.4</lombok.version>
 		<mockito.version>1.10.19</mockito.version>
-		<osiam.connector4java.version>1.7</osiam.connector4java.version>
+		<osiam.connector4java.version>1.8</osiam.connector4java.version>
 		<postgresql.version>42.2.1</postgresql.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<spock-core.version>1.0-groovy-2.4</spock-core.version>
