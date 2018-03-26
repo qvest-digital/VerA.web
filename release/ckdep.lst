@@ -2,8 +2,6 @@ antlr:antlr 2.7.7 TODO
 aopalliance:aopalliance 1.0 TODO
 axis:axis 1.4 TODO
 axis:axis-wsdl4j 1.5.1 TODO
-bouncycastle:bcmail-jdk14 138 TODO
-bouncycastle:bcprov-jdk14 138 TODO
 bower::bootstrap 3.3.7 TODO
 bower::bootstrapvalidator 0.5.3 TODO
 bower::jquery 3.3.1 TODO
