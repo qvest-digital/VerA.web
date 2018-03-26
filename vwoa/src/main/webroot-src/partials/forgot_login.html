@@ -1,0 +1,28 @@
+<div class="container panel panel-body">
+    <form class="form-horizontal" role="form" ng-submit="forgotLogin()" name="forgotLoginForm">
+        <h2 class="form-rest-login-password-heading">{{'USER_LOGIN_RESEND'|translate}}</h2>
+
+        <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+
+        <p>{{'USER_LOGIN_RESEND_TEXT'|translate}}</p>
+        <br />
+
+        <div class="form-group" ng-class="forgotLoginForm.email.$valid ? 'has-success' : 'has-error'">
+            <div class="col-lg-3 col-lg-offset-4">
+                <input class="form-control" placeholder="{{'GENERIC_EMAIL'|translate}}" type="text" ng-model="osiam.email" name="email" id="email" required="true"/>
+
+                <div ng-show="forgotLoginForm.$submitted || forgotLoginForm.email.$touched">
+                    <div class="help-block" ng-show="forgotLoginForm.email.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-3 col-lg-offset-4">
+                <button type="submit" class="btn btn-lg btn-primary btn-block btn-custom">
+                    {{'USER_LOGIN_RESEND'|translate}}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

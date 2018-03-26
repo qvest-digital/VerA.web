@@ -1,0 +1,302 @@
+
+#if($action == "guest")
+        #set($activeMenu = "Veranstaltungen")
+        #set($title = "${placeholderWithTranslation.gastsuchenveranstaltung}: $!message.plain($event.shortname)")
+#elseif($action == "host")
+        #set($activeMenu = "Veranstaltungen")
+    #set($title = "${placeholderWithTranslation.gastsuchenveranstaltung}: $!message.plain($event.shortname)")
+#elseif($action == "statistikGuest")
+        #set($activeMenu = "Veranstaltungen")
+    #set($title = "${placeholderWithTranslation.gastsuchen}")
+#elseif($action == "statistikHost")
+        #set($activeMenu = "Veranstaltungen")
+    #set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_HOST_SEARCH}")
+#elseif($action == "taskReferencePerson")
+        #set($activeMenu = "Veranstaltungen")
+    #set($title = "${placeholderWithTranslation.verantwortlichenfueraufgabesuchen}")
+#else
+        #set($activeMenu = "Personen")
+    #set($title = "${placeholderWithTranslation.GENERIC_SEARCH_FOR_PERSON}")
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($entity="PERSON")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
+#parse("inc/header.vm")
+
+#if($action == "guest")
+        #set($formurl = "AddPersonToEventList")
+#elseif($action == "host")
+        #set($formurl = "SetHostToEventList")
+#elseif($action == "taskReferencePerson")
+        #set($formurl = "SetReferencePersonToEventTaskList")
+#else
+        #set($formurl = "SearchPerson")
+#end
+
+<div id="content_container">
+
+        #if($action == "host")
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.personensuchegastgeberhinzufugen}</h1>
+        #elseif($action == "guest")
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gasthinzufuegen}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.personensuchegasthinzufugen}</h1>
+        #elseif($action == "taskReferencePerson")
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS} > ${placeholderWithTranslation.GENERIC_ADD_RESPONSIBLES}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON} ${placeholderWithTranslation.verantwortlichenfueraufgabehinzufugen}</h1>
+        #else
+        <div id="breadcrumb" class="textRight marginBottom10">
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</h1>
+        #end
+    <div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+
+        <h2>${placeholderWithTranslation.GENERIC_SEARCH}</h2>
+
+        <form action="$formurl" id="peopleSearch_form" method="post">
+            <input type="hidden" name="start" value="0">
+            <input type="hidden" name="selectAll" value="false">
+            <input type="hidden" name="selectNone" value="true">
+                        <input type="hidden" name="search" value="reset">
+                        <input type="hidden" name="searchTask" value="personSearchTask">
+
+            #if($action == "taskReferencePerson")
+                <input type="hidden" name="eventId" value="$!eventId">
+                <input type="hidden" name="taskId" value="$!taskId">
+            #end
+
+            #if($action == "statistikHost")
+                <input type="hidden" name="onlyhosts" id="onlyhosts" value="true">
+            #end
+
+            <fieldset>
+                <legend>${placeholderWithTranslation.personfirma}</legend>
+
+                <div class="table width100">
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="firstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label>
+                            <input type="text" name="firstname" id="firstname" value="$!message.text($search.firstname)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="lastname">${placeholderWithTranslation.GENERIC_LASTNAME}</label>
+                            <input type="text" name="lastname" id="lastname" value="$!message.text($search.lastname)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="function">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</label>
+                            <input type="text" name="function" id="function" value="$!message.text($search.function)"  />
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="company">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</label>
+                            <input type="text" name="company" id="company" value="$!message.text($search.company)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="languages">${placeholderWithTranslation.GENERIC_LANGUAGES}</label>
+                            <input type="text" name="languages" id="languages" value="$!message.text($search.languages)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="iscompany">${placeholderWithTranslation.GENERIC_IS_COMPANY}</label>
+                            <input type="checkbox" name="iscompany" id="iscompany" value="true"  #if($search.iscompany) checked #end />
+                        </div>
+                    </div>
+
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="internal_id">${placeholderWithTranslation.INTERNAL_ID}</label>
+                            <input type="text" name="internal_id" id="internal_id" value="$!message.text($search.internal_id)"  />
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>${placeholderWithTranslation.GENERIC_ADDRESSES}</legend>
+
+                <div class="table width100">
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="street">${placeholderWithTranslation.GENERIC_STREET}</label>
+                            <input type="text" name="street" id="street" value="$!message.text($search.street)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label>
+                            <input type="text" name="zipcode" id="zipcode" value="$!message.text($search.zipcode)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="city">${placeholderWithTranslation.GENERIC_CITY}</label>
+                            <input type="text" name="city" id="city" value="$!message.text($search.city)"  />
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="state">${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label>
+                            <input type="text" name="state" id="state" value="$!message.text($search.state)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="country">${placeholderWithTranslation.GENERIC_COUNTRY}</label>
+                            <input type="text" name="country" id="country" value="$!message.text($search.country)"  />
+                        </div>
+                        <div class="tableCell width30"></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>${placeholderWithTranslation.weitereangaben}</legend>
+
+                <div class="table width100">
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="categorie">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
+
+                                                        <select name="categoriesSelection" id="categorie" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
+                                                        <option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>${placeholderWithTranslation.GENERIC_ALL}</option>
+                                                        <option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>${placeholderWithTranslation.keinekategoriezugeordnet}</option>
+                                                        #foreach($categorie in $allCategorie)
+                                                            #if((!$categorie.flags) || ($categorie.flags != 1))
+                                                            <option value="$!categorie.id" #if($search.categoriesSelection && $search.categoriesSelection.contains( $categorie.id )) selected #end>$!message.plain($!categorie.name)</option>
+                                                            #end
+                                                        #end
+                                                        </select>
+
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="workarea">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</label>
+
+                                                        <select name="workarea" id="workarea" >
+                                                        <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
+                                                        <option value="0">${placeholderWithTranslation.keinarbeitsbereichzugeordnet}</option>
+                                                        #foreach($workArea in $allWorkArea)
+                                                            <option value="$!workArea.id" #if($search.workarea && $search.workarea == $!workArea.id) selected #end>$!message.plain($!workArea.name)</option>
+                                                        #end
+                                                        </select>
+
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="categorie2">${placeholderWithTranslation.GENERIC_OCCASION}</label>
+
+                                                        <select name="categorie2" id="categorie2" >
+                                                        <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
+                                                        #foreach($categorie in $allCategorie)
+                                                            #if($categorie.flags == 1)
+                                                            <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!message.plain($!categorie.name)</option>
+                                                            #end
+                                                        #end
+                                                        </select>
+
+                        </div>
+                    </div>
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="importsource">${placeholderWithTranslation.GENERIC_ORIGIN_DATA}</label>
+                            <input type="text" name="importsource" id="importsource" value="$!message.text($search.importsource)"  />
+                        </div>
+                        <div class="tableCell width30">
+                            <label for="validtype">${placeholderWithTranslation.GENERIC_VALIDITY_DATE}</label>
+                            <select name="validtype" id="validtype" >
+                                <option value="1" #if($search.validtype && $search.validtype == 1) selected #end>${placeholderWithTranslation.biszudiesemdatum}</option>
+                                <option value="2" #if($search.validtype && $search.validtype == 2) selected #end>${placeholderWithTranslation.abdiesemdatum}</option>
+                                <option value="3" #if($search.validtype && $search.validtype == 3) selected #end>${placeholderWithTranslation.angenaudiesemdatum}</option>
+                            </select>
+
+                                                        <div class="calendarContainer">
+                                                        <span id="showGueltigDate" class="datepickerContainer">
+                                                                <input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="datepicker">
+                                                                <img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswaehlen}" title="${placeholderWithTranslation.datumauswaehlen}">
+                                                                <script type="text/javascript">
+                                                                    Calendar.setup({
+                                                                                inputField     :    "validdate",
+                                                                                button         :    "showGueltigDate",
+                                                                                ifFormat       :    "%d.%m.%Y",
+                                                                                showsTime      :    false
+                                                                        });
+                                                                </script></span>
+                                                        </div>
+                        </div>
+                        <div class="tableCell width30"></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div id="buttonPanel-bottom" class="textRight">
+                #if($action == "guest")
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
+                    <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='ShowGuestList?selectNone=true';" />
+                #elseif($action == "host")
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
+                    <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='SetHostToEventDetail';" />
+                #elseif($action == "statistikGuest")
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
+                    <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='Statistik';" />
+                #elseif($action == "statistikHost")
+                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
+                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
+                    <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='Statistik';" />
+                #else
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+                    <input type="button"  class="mainButton reset" name="cancel" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
+                #end
+            </div>
+        </form>
+    </div>
+    <vera-info>
+        <p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
+        ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen} <br/>
+        ${placeholderWithTranslation.HINT_SEARCH_MULTIPLE}
+    </vera-info>
+</div>
+
+<script type="text/javascript">
+        var clearForm = function () {
+        $ .each(['firstname', 'lastname', 'function', 'company', 'street', 'zipcode', 'city', 'country', 'importsource',
+                'validdate', 'state', 'workarea'], function(idx, field) {
+                $('#' + field).val('');
+        });
+
+                document.getElementById('categorie').selectedIndex = 0;
+                document.getElementById('categorie2').selectedIndex = 0;
+                document.getElementById('validtype').selectedIndex = 0;
+                document.getElementById('iscompany').checked = false;
+        };
+
+        var ensureCorrectSelection = function (elt) {
+                var deselectionStart = elt.options[ 0 ].selected ? 1 : 0;
+                var deselectionSkip = deselectionStart == 1 ? 0 : ( elt.options[ 1 ].selected ? 1 : -1 );
+                for( var i=0; i < elt.options.length; i++ )
+                {
+                        // on select ALL or NONE we must skip the element's option
+                        // we also skip the element's option in case that it is one of the multi-selectable ones
+                        // not equal to either ALL or NONE
+                        if ( i == deselectionSkip || deselectionSkip == -1 )
+                        {
+                                continue;
+                        }
+                        // we deselect all beginning with deselectionStart
+                        if ( i >= deselectionStart )
+                        {
+                                elt.options[ i ].selected = false;
+                        }
+                }
+        };
+</script>
+
+#parse("inc/footer.vm")

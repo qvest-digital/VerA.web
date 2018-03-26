@@ -1,0 +1,113 @@
+#set($activeMenu = "Administration")
+## $Id$
+#set($title = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CLIENT}")
+#set($entity="CLIENT")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 8)
+#set($column2 = 89)
+
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
+
+        #if($listerrors && $listerrors.size() > 0)
+    <vera-warn>
+        #foreach($error in $listerrors)
+                $error<br>
+        #end
+    </vera-warn>
+    #end
+
+<div id="content_container">
+
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</span>
+    </div>
+
+        <h1>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</h1>
+
+    <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
+                <div class="event" id="tabsMain">
+                        <ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                                <li vera-tab-default="" vera-tab="mandanten" class="active">
+                                        <div>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</div>
+                                </li>
+                                <li class="inactive"><a href="OrgunitCleanup" class="noBorder">
+                                        <div>${placeholderWithTranslation.GENERIC_DATABASE}</div></a>
+                                </li>
+                        </ul>
+                </div>
+
+        <input type="hidden" name="start" value="">
+                <input type="hidden" name="limit" value="">
+        <input type="hidden" name="selectNone" value="true">
+        <input type="hidden" name="doInsert" value="true">
+        <input type="hidden" name="doUpdate" value="true">
+        <input type="hidden" name="doRemove" value="true">
+        #if($order)
+        <input type="hidden" name="order" value="$order">
+        #end
+
+        #foreach($bean in $list)
+        <input type="hidden" name="list" value="$bean.id">
+                #end
+
+                <div class="contentBoxColored tabsContent" vera-content="mandanten">
+
+                <span class="inlineLabel" id="actionPanel">
+                <strong>${placeholderWithTranslation.markiertenmandanten}</strong>
+                <input type="submit" onclick="return confirm('${placeholderWithTranslation.markiertenmandantenwirklichloschen}?');" title="${placeholderWithTranslation.DELETE_SELECTED_MANDATOR}" name="remove"
+                value="${placeholderWithTranslation.GENERIC_DELETE}" />
+            </span>
+            <table class="fixed">
+                ##Set column size
+                                <col width="$column0%" />
+                        <col width="$column1%" />
+                        <col width="$column2%" />
+
+                <tr>
+                        <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+                        <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                        <th>${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}</th>
+                </tr>
+                <tr>
+                        <td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
+                        <td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
+                        <td><input type="text" name="add-name" maxlength="100" value="" onchange="setModified('add')"></td>
+                </tr>
+                                #foreach($bean in $list)
+                <tr>
+                        <td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+                        <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
+                        <td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onchange="setModified('${bean.id}')"></td>
+                </tr>
+                                #end
+                                        #if ($listparam.count == 0)
+                                                <tr>
+                                                        <td colspan="3">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
+                                                </tr>
+                                        #end
+
+                                #set($itemName = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
+                                #tableFooter(3)
+                                #parse("inc/list-direct-new.vm")
+            </table>
+
+        </div>
+                        <span id="buttonPanel-bottom" class="floatRight marginTop10">
+                        <!-- Show the save button -->
+                                <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton">
+                        </span>
+
+    </div><!-- End ID=main_content-->
+
+</div>
+
+</form>
+
+#parse("inc/footer.vm")

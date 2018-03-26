@@ -1,0 +1,43 @@
+#set($activeMenu = "Administration")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_CLEANUP}")
+#parse("inc/header.vm")
+
+<table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>
+	<td class="tableft">&nbsp;</td>
+	<td class="tabactiv"><span class="tabactiv">Cleanup</span></td>
+	<td class="tabright">&nbsp;</td>
+</tr></table>
+
+#if($cleanup && $cleanup.size() > 0)
+	#if($cleanupdone)
+		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
+			${placeholderWithTranslation.folgendeaktionen}<strong>${placeholderWithTranslation.wurden}</strong> ${placeholderWithTranslation.durchgefuhrt}</strong>
+		</div>
+	#else
+		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
+			${placeholderWithTranslation.folgendeaktionen}<strong>${placeholderWithTranslation.konnen}</strong> ${placeholderWithTranslation.durchgefuhrt}</strong>
+		</div>
+	#end
+	<ul>
+	#foreach($c in $cleanup)
+		<li>$!message.text($c)</li>
+	#end
+	</ul>
+
+	#if($cleanupdone)
+		<br>
+		<a href="${paths.staticWeb}do/Cleanup">${placeholderWithTranslation.aktuallisieren}</a>
+	#else
+		<br>
+		<a href="${paths.staticWeb}do/Cleanup">${placeholderWithTranslation.aktuallisieren}</a> &nbsp; | &nbsp;
+		<a href="${paths.staticWeb}do/Cleanup?force=true">${placeholderWithTranslation.cleanupjetztunwiderruflichdurchfuhren}</a>
+	#end
+#else
+	${placeholderWithTranslation.essindderzeitkeinecleanupsmoglichnotig}
+	<br><br>
+	<a href="${paths.staticWeb}do/Cleanup">${placeholderWithTranslation.aktuallisieren}</a>
+#end
+
+<hr class="footline">
+
+#parse("inc/footer.vm")

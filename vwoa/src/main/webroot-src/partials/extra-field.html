@@ -1,0 +1,25 @@
+<div class="col-xs-5" ng-switch={{field.fk_type}} >
+  <label for="{{field.label}}">{{field.label}}</label>
+  <input type="text"
+         ng-switch-default
+         class="form-control"
+         id="{{field.label}}"
+         placeholder="{{field.label}}"
+         ng-model="person.fields[field.pk]"
+         style="margin-bottom: 10px;"
+         />
+  <select ng-switch-when="2"
+          class="form-control"
+          ng-model="person.fields[field.pk]"
+          ng-options="item.pk as item.content for item in field.optionalFieldTypeContentsFacade"
+          >
+    <option value="">{{'GENERIC_PLEASE_SELECT'|translate}}</option>
+
+  </select>
+  <select ng-switch-when="3" multiple
+          class="form-control"
+          ng-model="person.fields[field.pk]"
+          ng-options="item.pk as item.content for item in field.optionalFieldTypeContentsFacade"
+          >
+  </select>
+</div>

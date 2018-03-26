@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/vwor/rest/event/1"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "event_1Response.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

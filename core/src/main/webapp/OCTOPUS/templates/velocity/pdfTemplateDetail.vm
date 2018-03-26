@@ -1,0 +1,179 @@
+#set($activeMenu = "Administration")
+#if($pdftemplate && $pdftemplate.id)
+    #set($edit = true)
+        #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE_EDIT}: $!message.text($pdftemplate.name)")
+        #set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_MODIFY_S}")
+        #set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_MODIFY_N}")
+#else
+        #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE_CREATE}")
+        #set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_S}")
+        #set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_N}")
+#end
+#set($errorMsgEmpty = ${placeholderWithTranslation.PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE})
+#set($errorMsgFile = ${placeholderWithTranslation.PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE})
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PDF_TEMPLATE}")
+#set($entity="PDF_TEMPLATE")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
+#parse("inc/header.vm")
+
+<script src="${paths.staticWeb}js/ext/jquery-form/jquery.form.js"></script>
+
+<!-- alternative salutations -->
+#if($edit)
+<!-- placeholder-->
+<div data-translation="${placeholderWithTranslation.SALUTATION_TO_SALUTATION}" id="salutations-placeholder-to"></div>
+<div data-translation="${placeholderWithTranslation.GENERIC_ADD}" id="salutations-placeholder-add"></div>
+<div data-translation="${placeholderWithTranslation.GENERIC_ALTERNATIVE} ${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}" id="salutations-dialog-text"></div>
+<div data-translation="..." id="salutations-dialog-field"></div>
+<div data-translation="${placeholderWithTranslation.speichern}" id="salutations-dialog-yes"></div>
+<div data-translation="${placeholderWithTranslation.GENERIC_CANCEL}" id="salutations-dialog-no"></div>
+<!-- rest-api path -->
+<div data-rest-path="${paths.staticWeb}salutation/alternative/unused/$pdftemplate.id" id="salutations-unused-list"></div>
+<div data-rest-path="${paths.staticWeb}salutation/alternative/list/$pdftemplate.id" id="salutations-alternative-list"></div>
+<div data-rest-path="${paths.staticWeb}salutation/alternative/save/$pdftemplate.id" id="salutations-save-link"></div>
+<div data-rest-path="${paths.staticWeb}salutation/alternative/delete/" id="salutations-delete-link"></div>
+<!-- ERROR MSG -->
+<div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_LOAD}" id="pdftemplate-salutation-load-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_EMPTY}" id="pdftemplate-salutation-empty-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_LENGTH}" id="pdftemplate-salutation-length-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_SAVE}" id="pdftemplate-salutation-save-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_DELETE}" id="pdftemplate-salutation-delete-errormsg"></div>
+<!-- vex library -->
+<script src="${paths.staticWeb}js/ext/vex/dist/js/vex.min.js"></script>
+<script src="${paths.staticWeb}js/ext/vex-dialog/dist/vex.dialog.min.js"></script>
+<script>vex.defaultOptions.className = 'vex-theme-default'</script>
+<link rel="stylesheet" href="${paths.staticWeb}js/ext/vex/dist/css/vex.css" />
+<link rel="stylesheet" href="${paths.staticWeb}js/ext/vex/dist/css/vex-theme-default.css" />
+<!-- js controller -->
+<script src="${paths.staticWeb}js/vera/salutation-list.js"></script>
+#end
+
+<div id="content_container">
+        <form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
+
+                <input type="hidden" name="save" value="true"/>
+                <input type="hidden" name="pdftemplate-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
+
+        <div id="breadcrumb" class="textRight marginBottom10">
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.pdfvorlagen}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.pdfvorlage}</h1>
+
+        #if($pdftemplate.errors.size() && $pdftemplate.errors.size() > 0)
+            <vera-warn>
+                #foreach($error in $pdftemplate.errors)
+                        $!message.plain($error)<br>
+                #end
+            </vera-warn>
+        #end
+
+        <div class="textRight bold">* = ${placeholderWithTranslation.pflichtfelder}</div>
+
+        <table class="form">
+                        <tr>
+                <td class="bold width15"><label for="pdftemplate-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
+                <td><input type="text" id="pdftemplate-id" name="pdftemplate-id" value="$!message.text($pdftemplate.id)" class="id" vera-disabled /></td>
+            </tr>
+                        <tr>
+                <td class="bold"><label for="pdftemplate-name">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}*</label></td>
+                <td><input type="text" id="pdftemplate-name" name="pdftemplate-name" maxlength="200" value="$!message.text($pdftemplate.name)" /></td>
+            </tr>
+            <tr>
+                <td class="bold">${placeholderWithTranslation.GENERIC_PDF_FILE}*</td>
+                <td><input type="file" id="pdftemplate-content" name="files"/></td>
+            </tr>
+
+            #if ($listparam.count && $listparam.count == 0)
+                <tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
+            #end
+
+            #if($edit)
+            <tr id="salutationsAlternativeList">
+                <td>${placeholderWithTranslation.GENERIC_ALTERNATIVE} ${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}</td>
+                <td colspan="2" id="salutationsAlternativeListContent">
+                    <span>${placeholderWithTranslation.SALUTATION_EDITABLE_TEXT}</span>
+                    <hr style="margin-top: 10px"/>
+                    <div id="salutationsAlternativeListContainer"></div>
+                </td>
+            </tr>
+            #end
+        </table>
+
+        <div id="buttonPanel-bottom" class="textRight marginTop10">
+                <input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+                <input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_CANCEL}" title="${placeholderWithTranslation.GENERIC_CANCEL}" class="mainButton" onclick="window.location.href='PdfTemplateList?selectNone=true';" />
+        </div>
+
+    </form>
+</div>
+
+<script type="text/javascript">
+
+        function addPlatzhalter(s) {
+                var sel = document.getElementById('platzhalter');
+                var text = sel.options[sel.selectedIndex].value;
+                if (text.length > 0) {
+                        insertAtCursor(document.getElementById('pdftemplate-text'), '<' + text + '>');
+                }
+        }
+
+        function disableSubmitButton() {
+            $('input[type="button"]').attr('disabled', 'disabled').addClass('disabled');
+                $('[type="submit"]').attr('disabled', 'disabled').addClass('disabled');
+        }
+
+    function enableSubmitButton() {
+        $('input[type="button"]').removeAttr('disabled').removeClass('disabled');
+        $('[type="submit"]').removeAttr('disabled').removeClass('disabled');
+    }
+
+    $(function(){
+        $('#pdftemplate-content').MultiFile({
+            max:1,
+            maxfile:1024,
+            STRING: {
+                remove:'${placeholderWithTranslation.GENERIC_DELETE}',
+                selected:'${placeholderWithTranslation.MAILING_LIST_SELECTED_FILE}: $file',
+                duplicate:'${placeholderWithTranslation.MAILING_LIST_ALREADY_SELECTED_FILE}:\n$file!',
+                toomany:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_MANY} (max: $max)',
+                toobig:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_BIG} ($size)'
+            }
+        });
+    });
+
+        $(document).ready(function() {
+    //TODO: umbauen in veraweb-pdftemplate-detail.js wie bei pdfTemplateList.vm mit veraweb-pdftemplate-list.js
+            var options = {
+                beforeSubmit: function() {
+                disableSubmitButton();
+            },
+            error: function(response) {
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+                if (response.status === 420) {
+                    showWarning('$errorMsgFile');
+                } else if (response.status === 414) {
+                        showWarning('$errorMsgEmpty');
+                } else {
+                                        showWarning('$errorMsg');
+                }
+                                enableSubmitButton();
+            },
+            success: function (response) {
+                                $("#pdftemplate-id").val(response.pk);
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+                window.location.href='PdfTemplateList?selectNone=true';
+            }
+        };
+
+            $('#formlist').ajaxForm(options);
+
+    });
+
+</script>
+
+#parse("inc/footer.vm")

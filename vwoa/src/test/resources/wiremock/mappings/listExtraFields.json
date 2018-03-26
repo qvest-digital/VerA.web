@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/vwor/rest/delegation/fields/list/1/1"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "getExtraFieldsResponse.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

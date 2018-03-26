@@ -1,0 +1,145 @@
+#set($activeMenu = "Administration")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_LOCATION}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EVENT_LOCATION}")
+#set($entity="EVENT_LOCATION")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EVENT_LOCATION_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 4)
+#set($column2 = 10)
+#set($column3 = 13)
+#set($column4 = 6)
+#set($column5 = 6)
+#set($column6 = 6)
+#set($column7 = 6)
+#set($column8 = 6)
+#set($column9 = 7)
+#set($column10 = 9)
+#set($column11 = 7)
+#set($column12 = 9)
+#set($column13 = 11)
+
+#parse("inc/header.vm")
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}</span>
+	</div>
+
+	<h1>${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}</h1>
+
+	<form id="formlist" name="formlist" action="Location" method="POST">
+		<input type="hidden" name="doRemove" value="true">
+		<input type="hidden" name="start" value="">
+		<input type="hidden" name="limit" value="">
+		<input type="hidden" name="selectNone" value="true">
+
+		#if($listerrors.size() > 0)
+			<vera-warn>
+			#foreach($error in $listerrors)
+				$error<br>
+			#end
+			</vera-warn>
+		#elseif($listquestions && $listquestions.size() > 0)
+			<vera-confirm>
+				<strong>${placeholderWithTranslation.EVENT_PLACES_CONFIRM_DELETE}</strong><br>
+				<table class="form" style="margin: 5px 0px 0px 0px;">
+				#foreach($quest in $listquestions.entrySet())
+					<tr>
+						<td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+					</tr>
+					#set($save = true)
+				#end
+				</table><br />
+
+			#if($save)
+				<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.markierteveranstaltungsorteloschen}"> &nbsp;
+			#end
+				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="window.location.href='Location?selectNone=true&noneDeleted=true';"> &nbsp;
+			</vera-confirm>
+		#end
+
+		#foreach($bean in $list)
+			<input type="hidden" name="list" value="$bean.id">
+		#end
+		##set($selectNone=false)
+		<span id="actionPanel" class="inlineLabel">
+			<label>${placeholderWithTranslation.markiertenveranstaltungsorte}
+				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markierteveranstaltungsorteloschen}" />
+			</label>
+		</span>
+
+		#if($grants.mayWrite())
+		<span class="textRight floatRight" id="buttonPanel-top">
+			<input type="button" id="new" name="new" value="${placeholderWithTranslation.GENERIC_ADD_NEW_EVENT_LOCATIONS}" title="${placeholderWithTranslation.GENERIC_ADD_NEW_EVENT_LOCATIONS}" class="mainButton" onclick="window.location.href='CreateLocation';" />
+		</span>
+		#end
+
+		<table class="fixed">
+
+			##Set column size
+			<col width="$column0%" />
+			<col width="$column1%" />
+			<col width="$column2%" />
+			<col width="$column3%" />
+			<col width="$column4%" />
+			<col width="$column5%" />
+			<col width="$column6%" />
+			<col width="$column7%" />
+			<col width="$column8%" />
+			<col width="$column9%" />
+			<col width="$column10%" />
+			<col width="$column11%" />
+			<col width="$column12%" />
+			<col width="$column13%" />
+
+			<tr>
+				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+				<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+				<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
+				<th>${placeholderWithTranslation.GENERIC_CONTACT_PERSON}</th>
+				<th>${placeholderWithTranslation.GENERIC_STREET}</th>
+				<th>${placeholderWithTranslation.GENERIC_POST_NUMBER}</th>
+				<th>${placeholderWithTranslation.GENERIC_CITY}</th>
+				<th>${placeholderWithTranslation.GENERIC_TELEFON}</th>
+				<th>${placeholderWithTranslation.GENERIC_FAX}</th>
+				<th>${placeholderWithTranslation.email}</th>
+				<th>${placeholderWithTranslation.GENERIC_REMARK}</th>
+				<th>${placeholderWithTranslation.GENERIC_URL}</th>
+				<th>${placeholderWithTranslation.gpsdaten}</th>
+				<th>${placeholderWithTranslation.GENERIC_ROOM_NUMBER}</th>
+			</tr>
+			#foreach($bean in $list)
+				<tr>
+					<td class="textCenter"><input type="checkbox" id="remove-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+					<td class="textCenter" onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.id)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.name)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.contactperson)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.address)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.zip)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.location)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.callnumber)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.faxnumber)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.email)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.comment)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.url)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.gpsdata)</td>
+					<td onclick="window.location.href='ShowLocation?id=$!{bean.id}'">$!message.plain($bean.roomnumber)</td>
+				</tr>
+			#end
+			#if ($listparam.count == 0)
+				<tr>
+					<td colspan="14">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
+				</tr>
+			#end
+
+			#set($itemName = "${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}")
+			#tableFooter(14)
+			#parse("inc/list-direct-new.vm")
+		</table>
+
+	</form>
+</div>
+#parse("inc/footer.vm")

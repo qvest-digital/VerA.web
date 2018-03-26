@@ -1,0 +1,18 @@
+{
+  "mappings": {
+    "firstname": {
+      "mapTo": "firstname"
+    },
+    "id": {
+      "mapTo": "id"
+    },
+    "lastname": {
+      "mapTo": "lastname"
+    },
+    "link": {
+      "extractWith": "org.evolvis.veraweb.export.CsvExporterTest$MyColumn",
+      "mapTo": "link"
+    }
+  },
+  "sql": "select person.*, person.id as link from person where id = \${id}"
+}

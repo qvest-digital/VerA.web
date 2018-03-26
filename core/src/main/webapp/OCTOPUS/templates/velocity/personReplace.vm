@@ -1,0 +1,122 @@
+#set($activeMenu = "Personen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_SEARCH_REPLACE}")
+#parse("inc/header.vm")
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.suchenersetzen}</span>
+	</div>
+
+	<h1>${placeholderWithTranslation.suchenersetzeninpersonendaten}</h1>
+
+	<form id="formlist" name="formlist" action="CountReplaceAllPerson" method="POST">
+	<input type="hidden" name="start" value="0">
+	<input type="hidden" name="selectAll" value="false">
+	<input type="hidden" name="selectNone" value="true">
+
+	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
+			<div class="table width20 marginBottom10">
+				<div class="tableRow">
+					<div class="tableCell">
+						<label for="snr-search">${placeholderWithTranslation.GENERIC_SEARCH_V}*</label>
+						<input type="text" name="snr-search" id="snr-search" value="$!message.text($replace-request.search)">
+					</div>
+				</div>
+				<div class="tableRow">
+					<div class="tableCell">
+						<label for="snr-replace">${placeholderWithTranslation.GENERIC_REPLACE}</label>
+						<input type="text" name="snr-replace" id="snr-replace" value="$!message.text($replace-request.replace)">
+					</div>
+				</div>
+			</div>
+
+			<p><strong>${placeholderWithTranslation.GENERIC_IN_THE_FOLLOWING_FIELDS}*</strong></p>
+
+			<div class="table inlineLabel marginBottom20">
+				<div class="tableRow">
+					<div class="tableCell"><input type="checkbox" id="snr-group01" name="snr-group01" value="true" #if($replace-request.snr-group01) checked#end> <label for="snr-group01" title="${placeholderWithTranslation.vornamederhauptpersonunddespartners}">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group02" name="snr-group02" value="true" #if($replace-request.snr-group02) checked#end> <label for="snr-group02" title="${placeholderWithTranslation.nachnamederhauptpersonunddespartners}">${placeholderWithTranslation.GENERIC_LASTNAME}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group04" name="snr-group04" value="true" #if($replace-request.snr-group04) checked#end> <label for="snr-group04" title="${placeholderWithTranslation.anredeundtitel}">${placeholderWithTranslation.anredetitel}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group07" name="snr-group07" value="true" #if($replace-request.snr-group07) checked#end> <label for="snr-group07" title="${placeholderWithTranslation.plzortundplzpostfach}">${placeholderWithTranslation.GENERIC_POST_NUMBER} / ${placeholderWithTranslation.GENERIC_CITY}</label></div>
+				</div>
+				<div class="tableRow">
+					<div class="tableCell"><input type="checkbox" id="snr-group03" name="snr-group03" value="true" #if($replace-request.snr-group03) checked#end> <label for="snr-group03" title="${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}">${placeholderWithTranslation.GENERIC_EMPLOYMENT_TITLE_SHORT}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group05" name="snr-group05" value="true" #if($replace-request.snr-group05) checked#end> <label for="snr-group05" title="${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}">${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group06" name="snr-group06" value="true" #if($replace-request.snr-group06) checked#end> <label for="snr-group06" title="${placeholderWithTranslation.straszligeadresszusatzundland}">${placeholderWithTranslation.GENERIC_ADDRESSES}</label></div>
+				</div>
+				<div class="tableRow">
+					<div class="tableCell"><input type="checkbox" id="snr-group08" name="snr-group08" value="true" #if($replace-request.snr-group08) checked#end> <label for="snr-group08" title="${placeholderWithTranslation.telefontelefaxundmobiltelefon}">${placeholderWithTranslation.telefonfax}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group09" name="snr-group09" value="true" #if($replace-request.snr-group09) checked#end> <label for="snr-group09" title="${placeholderWithTranslation.emailadresse}">${placeholderWithTranslation.email}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group10" name="snr-group10" value="true" #if($replace-request.snr-group10) checked#end> <label for="snr-group10" title="${placeholderWithTranslation.internetadresse}">${placeholderWithTranslation.LETTERS_WWW}</label></div>
+					<div class="tableCell"></div>
+				</div>
+			</div>
+
+			##IMPLEMENTNEWMESSAGEMETHOD
+			#if($snr-action == "replace" || $snr-action == "replaceAll")
+				#if(!$snr-count)
+					<vera-warn>
+					#if($noSearchParam)
+						${placeholderWithTranslation.ihresuchemussausmindestenseinembuchstabenbestehen}
+					#elseif($noFieldsSelected)
+						${placeholderWithTranslation.siemuessenmindestenseinfeldausgewhlthaben}
+					#end
+					</vera-warn>
+				#elseif($snr-count == 0)
+					<vera-success>${placeholderWithTranslation.eswurdekeinepersonersetzt}</vera-success>
+				#elseif($snr-count == 1)
+					<vera-success>${placeholderWithTranslation.eswurdeeinepersonersetzt}</vera-success>
+				#else
+					<vera-success>${placeholderWithTranslation.MESSAGE_REPLACED_PERSON_ONE} $!snr-count ${placeholderWithTranslation.MESSAGE_REPLACED_PERSON_TWO}</vera-success>
+				#end
+			#elseif($snr-action == "count")
+				#if(!$snr-count)
+					<vera-warn>
+					#if($noSearchParam)
+						${placeholderWithTranslation.ihresuchemussausmindestenseinembuchstabenbestehen}
+					#elseif($noFieldsSelected)
+						${placeholderWithTranslation.siemuessenmindestenseinfeldausgewaehlthaben}
+					#end
+					</vera-warn>
+				#elseif($snr-count == 0)
+					<vera-success>${placeholderWithTranslation.eswurdekeinepersongefunden}</vera-success>
+				#elseif($snr-count == 1)
+					<vera-success>${placeholderWithTranslation.eswurdeeinepersongefunden}</vera-success>
+				#else
+					<vera-success>${placeholderWithTranslation.MESSAGE_FOUND_PERSON_ONE} $!snr-count ${placeholderWithTranslation.MESSAGE_FOUND_PERSON_TWO}</vera-success>
+				#end
+			#end
+
+			<div id="buttonPanel-bottom">
+				<input type="submit" class="mainButton" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" name="count" value="${placeholderWithTranslation.GENERIC_SEARCH_V}"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.einzelneeinzraegezumersetzenselektieren}" name="replace" value="${placeholderWithTranslation.GENERIC_REPLACE_INDIVIDUALLY}" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.allesofortersetzen}" name="replaceall" value="${placeholderWithTranslation.GENERIC_REPLACE_ALL}" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson'; document.getElementById('formlist').submit();"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" name="cancel" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearFields();">
+			</div>
+		</div>
+		<vera-info>
+			${placeholderWithTranslation.wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendigedatenfelder}
+		</vera-info>
+	</form>
+</div>
+
+<script type="text/javascript">
+	function clearFields() {
+		document.getElementById('snr-search').value = '';
+		document.getElementById('snr-replace').value = '';
+		document.getElementById('snr-group01').checked = false;
+		document.getElementById('snr-group02').checked = false;
+		document.getElementById('snr-group03').checked = false;
+		document.getElementById('snr-group04').checked = false;
+		document.getElementById('snr-group05').checked = false;
+		document.getElementById('snr-group06').checked = false;
+		document.getElementById('snr-group07').checked = false;
+		document.getElementById('snr-group08').checked = false;
+		document.getElementById('snr-group09').checked = false;
+		document.getElementById('snr-group10').checked = false;
+		document.getElementById('snr-group20').checked = false;
+	}
+</script>
+
+#parse("inc/footer.vm")

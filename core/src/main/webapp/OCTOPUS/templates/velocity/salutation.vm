@@ -1,0 +1,130 @@
+#set($activeMenu = "Administration")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_DATA_SALUTATION}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_SALUTATION}")
+#set($entity="SALUTATION")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 8)
+#set($column2 = 78)
+#set($column3 = 11)
+
+#parse("inc/header.vm")
+
+<div id="content_container">
+    <form id="formlist" name="formlist" action="Salutation" method="POST">
+            <input type="hidden" name="doInsert" value="true">
+            <input type="hidden" name="doUpdate" value="true">
+            <input type="hidden" name="doRemove" value="true">
+            <input type="hidden" name="start" value="">
+            <input type="hidden" name="selectNone" value="true">
+            <input type="hidden" name="limit" value="" />
+
+            <div id="breadcrumb marginBottom10" class="textRight">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}"> ${placeholderWithTranslation.GENERIC_HOME} </a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_SALUTATIONS}</span>
+                </div>
+
+            <h1>${placeholderWithTranslation.GENERIC_SALUTATIONS}</h1>
+
+            <span id="actionPanel" class="inlineLabel">
+              <strong>${placeholderWithTranslation.GENERIC_SALUTATIONS_MARKED}</strong>
+                <input type="button" name="remove" onclick="askDelete()"  value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markierteanredenloschen}" #if($grants.isAdmin()) #else vera-disabled #end>
+            </span>
+
+            #if($listerrors.size() > 0)
+            <vera-warn>
+                #foreach($error in $listerrors)
+                        $error<br>
+                #end
+            </vera-warn>
+            #end
+
+            #foreach($bean in $list)
+            <input type="hidden" name="list" value="$bean.id">
+            #end
+            <div id="main_content">
+
+                                        <table class="fixed">
+                                                ##Set column size
+                                                                <col width="$column0%" />
+                                                        <col width="$column1%" />
+                                                        <col width="$column2%" />
+                                                        <col width="$column3%" />
+
+                                                <tr>
+                                                        <th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end></th>
+                                                        <th class="textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                                                        <th>${placeholderWithTranslation.GENERIC_MAIN_FORM}</th>
+                                                        <th class="textCenter width10">${placeholderWithTranslation.GENERIC_GENDER}</th>
+                                                </tr>
+
+                                                                <tr>
+                                        <td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
+                                        <td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
+                                        <td><input type="text" name="add-name" value="" maxlength="100" onchange="setModified('add')"></td>
+                                        <td>
+                                                <select name="add-gender" onchange="setModified('add')">
+                                                        <option value="M">${placeholderWithTranslation.GENERIC_GENDER_MALE}</option>
+                                                        <option value="F">${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</option>
+                                                </select>
+                                        </td>
+                                </tr>
+                                #foreach($bean in $list)
+                                        <tr>
+                                                <td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+                                                <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
+                                                <td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
+                                                <td>
+                                                        <select name="${bean.id}-gender"  style="width: 97%;" onchange="setModified('$!bean.id')">
+                                                                <option value="M">${placeholderWithTranslation.GENERIC_GENDER_MALE}</option>
+                                                                <option value="F" #if($bean.gender && $bean.gender == "F") selected#end>${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</option>
+                                                        </select>
+                                                </td>
+
+                                                <td class="textCenter"><a href="SalutationDoctype?start=0&id=${bean.id}" class="noBorder"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a></td>
+
+                                        </tr>
+                                        #end
+                                                                        #if ($listparam.count == 0)
+                                        <tr><td colspan="5">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
+                                    #end
+
+                                    #set($itemName = "${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}")
+                                        #tableFooter(5)
+                                #parse("inc/list-direct-new.vm")
+
+                                        </table>
+                                                        #if($grants.isAdmin())
+                                        <div class="textRight marginTop10" id="buttonPanel-bottom">
+                                                                        <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+                                        </div>
+                                                        #end
+
+                            ##Rueckfrage beim Loeschen
+                            <script type="text/javascript">
+                            function askDelete() {
+                                htmlConfirm(' ${placeholderWithTranslation.QUESTION_DELETE} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askDeleteYes();", "askDeleteNo();"));
+                            }
+                            function askDeleteYes() {
+                                hideDialogs();
+                                document.getElementById('presave').name='remove'
+                                document.getElementById('formlist').submit();
+                            }
+                            function askDeleteNo() {
+                                hideDialogs();
+                                showComboboxes();
+                            }
+                            </script>
+                                                        <input type="hidden" name="egal" value="egal" id="presave">
+         </div>
+    </form>
+</div>
+</script>
+<script type="text/javascript">
+#if(!$grants.isAdmin())
+        disableForm(document.getElementById('formlist'));
+#end
+</script>
+#parse("inc/footer.vm")

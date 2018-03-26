@@ -1,0 +1,150 @@
+#set($activeMenu = "Personen")
+#set($title = "${placeholderWithTranslation.personspeicherndublettenpruefung}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($entity="PERSON")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
+
+##Values in per cent for table columns width
+#set($column0 = 5)
+#set($column1 = 14)
+#set($column2 = 14)
+#set($column3 = 15)
+#set($column4 = 17)
+#set($column5 = 20)
+#set($column6 = 7)
+#set($column7 = 20)
+#set($column8 = 8)
+
+#parse("inc/header.vm")
+
+<div id="content_container">
+
+        <form id="formlist" name="formlist" action="SavePerson" method="POST">
+                <input type="hidden" name="start" value=""/>
+                <input type="hidden" name="limit" value=""/>
+                <input type="hidden" name="selectAll" value="false"/>
+                <input type="hidden" name="selectNone" value="false"/>
+
+                ##new cf. issue #2091
+                <input type="hidden" name="action" value="$!action"/>
+                <input type="hidden" name="id" value="$!id"/>
+
+                <input type="hidden" name="originalPersonId" value="$!octopusRequest.originalPersonId"/>
+                <input type="hidden" name="save" value="$!octopusRequest.save"/>
+                <input type="hidden" name="person-deleted" value="$!octopusRequest.person-deleted"/>
+                <input type="hidden" name="forcedupcheck" value="$!octopusRequest.forcedupcheck"/>
+                <input type="hidden" name="saveperson" value="$!octopusRequest.saveperson"/>
+                <input type="hidden" name="person-modified" value="$!octopusRequest.person-modified"/>
+                <input type="hidden" name="personTab" value="$!octopusRequest.personTab"/>
+                <input type="hidden" name="personMemberTab" value="$!octopusRequest.personTab"/>
+                <input type="hidden" name="personAddresstypeTab" value="$!octopusRequest.personTab"/>
+                <input type="hidden" name="personLocaleTab" value="$!octopusRequest.personTab"/>
+                <input type="hidden" name="person-expire" value="$!octopusRequest.person-expire"/>
+                <input type="hidden" name="person-firstname_a_e1" value="$!octopusRequest.person-firstname_a_e1"/>
+                <input type="hidden" name="person-lastname_a_e1" value="$!octopusRequest.person-lastname_a_e1"/>
+                <input type="hidden" name="person-iscompany" value="$!octopusRequest.person-iscompany"/>
+                <input type="hidden" name="person-company-ignore_a_e1" value="$!octopusRequest.person-company-ignore_a_e1"/>
+                <input type="hidden" name="person-company_a_e1" value="$!octopusRequest.person-company_a_e1"/>
+                <input type="hidden" name="company" value="$!octopusRequest.company"/>
+                <input type="hidden" name="companyfield" value="$!octopusRequest.companyfield"/>
+                <input type="hidden" name="person-salutation_a_e2" value="$!octopusRequest.person-salutation_a_e2"/>
+                <input type="hidden" name="person-salutation_a_e3" value="$!octopusRequest.person-salutation_a_e3"/>
+                <input type="hidden" name="person-salutation_b_e1" value="$!octopusRequest.person-salutation_b_e1"/>
+                <input type="hidden" name="person-salutation_b_e2" value="$!octopusRequest.person-salutation_b_e2"/>
+                <input type="hidden" name="person-salutation_b_e3" value="$!octopusRequest.person-salutation_b_e3"/>
+                <input type="hidden" name="person-domestic_a_e1" value="$!octopusRequest.person-domestic_a_e1"/>
+                <input type="hidden" name="person-domestic_b_e1" value="$!octopusRequest.person-domestic_b_e1"/>
+                <input type="hidden" name="person-sex_a_e1" value="$!octopusRequest.person-sex_a_e1"/>
+                <input type="hidden" name="person-sex_b_e1" value="$!octopusRequest.person-sex_b_e1"/>
+
+                <div id="breadcrumb" class="textRight marginBottom10">
+                        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_DUPLICATE_SEARCH}</span>
+                </div>
+
+                <vera-info>
+                        ${placeholderWithTranslation.GENERIC_TOOLTIP}<br />
+                        ${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
+                </vera-info>
+
+                <h1 class="paddingTop20">${placeholderWithTranslation.GENERIC_AVAILABLE_DUPLICATES}</h1>
+
+                #foreach($bean in $list)
+                <input type="hidden" name="list" value="$bean.id">
+                #end
+                <table class="sortable fixed">
+                        ##Set column size
+                        <col width="$column0%" />
+                <col width="$column1%" />
+                <col width="$column2%" />
+                <col width="$column3%" />
+                <col width="$column4%" />
+                <col width="$column5%" />
+                <col width="$column6%" />
+                <col width="$column7%" />
+                        <col width="$column8%" />
+
+                        <tr>
+                                <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                                <th>${placeholderWithTranslation.GENERIC_NAME}</th>
+                                <th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
+                                <th>${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
+                                <th>${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION} ${placeholderWithTranslation.LETTER_COMMERCIAL}</th>
+                                <th>${placeholderWithTranslation.GENERIC_STREET} ${placeholderWithTranslation.LETTER_COMMERCIAL}</th>
+                                <th>${placeholderWithTranslation.GENERIC_POST_NUMBER} ${placeholderWithTranslation.LETTER_COMMERCIAL}</th>
+                                <th>${placeholderWithTranslation.GENERIC_CITY} ${placeholderWithTranslation.LETTER_COMMERCIAL}</th>
+                                <th class="textCenter smallCell">${placeholderWithTranslation.GENERIC_FURTHER_PROCEEDING}</th>
+                        </tr>
+                        <tr>
+                                <td class="textCenter"><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
+                                ##additional parameters action cf. issue #2091
+                                <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.lastname_a_e1)</td>
+                                <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.firstname_a_e1)</td>
+                                <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.function_a_e1)</td>
+                                <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.company_a_e1)</td>
+                                <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.street_a_e1)</td>
+                                <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.zipcode_a_e1)</td>
+                                <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.city_a_e1)</td>
+                                <td class="textCenter"><a href="SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/add.png" alt="${placeholderWithTranslation.neueneintraganlegen}" title="${placeholderWithTranslation.neueneintraganlegen}"></a></td>
+                        </tr>
+                        #foreach($bean in $list)
+                        <tr>
+                                ##additional parameters action cf. issue #2091
+                                <td class="textCenter" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                                <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.lastname_a_e1)</td>
+                                <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.firstname_a_e1)</td>
+                                <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.function_a_e1)</td>
+                                <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.company_a_e1)</td>
+                                <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.street_a_e1)</td>
+                                <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.zipcode_a_e1)</td>
+                                <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.city_a_e1)</td>
+                                <td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="${placeholderWithTranslation.existierendeneintragbearbeiten}" title="${placeholderWithTranslation.existierendeneintragbearbeiten}"></a></td>
+                        </tr>
+                        #end
+
+                        #set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
+                        #tableFooter(9)
+                </table>
+
+                #set($disableListSelect = true)
+                #if ($listparam.count == 0)
+                        <br>${placeholderWithTranslation.eswurdenkeinedublettengefunden}
+                #end
+
+        <div class="textRight">
+
+                #if($action == "guest")
+                        <input type="submit" class="submit" name="add" value="${placeholderWithTranslation.hinzufuegen}" title="${placeholderWithTranslation.ausgewaehltepersonenzurveranstaltunghinzufuegen}">
+                        <input type="button" class="button" name="newperson" value="${placeholderWithTranslation.personerfassen}" title="${placeholderWithTranslation.personerfassen}" onclick="window.location.href='ShowPerson';">
+                        <input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='ShowGuestList?selectNone=true';">
+                #else
+                        <!-- <input type="button" class="button" name="newperson" value="${placeholderWithTranslation.dublettenanlegen}" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
+                        <input type="button" name="cancel" value="${placeholderWithTranslation.abbrechenundzurueck}" title="${placeholderWithTranslation.abbrechenundzurueck}" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
+                #end
+
+        </div>
+
+        </form><div class="clear"></div>
+</div>
+
+#parse("inc/footer.vm")

@@ -1,0 +1,9 @@
+
+			<footer id="footer"><img src="${paths.staticWeb}images/tarent_logo.png" alt="tarent Logo" title="tarent AG" /><!-- span
+			    style="position:absolute; right:1ex; font-size:7px;"><a
+TODO: fix path after we actually generate ↓ this file
+			    href="…/lic-info.htm" rel="jslicense">Lizenzbestimmungen</a></span -->
+			</footer>
+		</div>
+	</body>
+</html>

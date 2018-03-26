@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Für LDAP bitte folgendes anpassen:
+URL des LDAP-Servers,
+den Base-DN des LDAP,
+und User/Password für schreibenden Zugriff auf die Kontaktdaten
+-->
+<!DOCTYPE tcConfig SYSTEM "tcConfig.dtd">
+<!-- Hauptkonfiguration von tarent:config -->
+<tcConfig>
+	<application>
+		<!-- Pfadangaben müssen alle relativ zu '/WEB-INF/' Verzeichniss angegeben werden
+         und mit einem '/' enden. -->
+		<param name="paths.templateRoot" value="templates/"/>
+		<param name="paths.modules" value="modules/"/>
+		<param name="defaultResponseType" value="soap"/>
+		<param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
+		<param name="defaultEncoding" value="UTF-8"/>
+		<param name="defaultContentType" value="text/xml"/>
+		<param name="auth.type" value="ACCEPT"/>
+		<param name="defaultModule" value="testModule"/>
+	</application>
+	<modules>
+		<param name="onlyNeededToConformWithDtd"/>
+	</modules>
+</tcConfig>

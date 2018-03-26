@@ -1,0 +1,599 @@
+#if($person && $person.id)
+
+	#set($personDB = true)
+	#set($activeMenu = "Personen")
+	#set($title = "${placeholderWithTranslation.GENERIC_EDIT_PERSON}: $!message.plain($person.MainLatin.SaveAs)")
+	#set($createPersonView = false)
+
+#else
+
+	#if($action == "guest")
+		#set($activeMenu = "Veranstaltungen")
+	#elseif($action == "host")
+		#set($activeMenu = "Veranstaltungen")
+	#elseif($action == "statistikGuest")
+		#set($activeMenu = "Veranstaltungen")
+	#elseif($action == "statistikHost")
+		#set($activeMenu = "Veranstaltungen")
+	#elseif($action == "taskReferencePerson")
+		#set($activeMenu = "Veranstaltungen")
+	#else
+		#set($activeMenu = "Personen")
+	#end
+
+	#set($personTab = "1")
+	#set($personMemberTab = "1")
+	#set($personAddresstypeTab = "1")
+	#set($personLocaleTab = "1")
+	#set($title = "${placeholderWithTranslation.GENERIC_CREATE_PERSON}")
+	#set($createPersonView = true)
+
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($entity="PERSON")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
+#parse("inc/header.vm")
+
+#if($person.orgunit != $orgUnit.id)
+    <div class="msg errormsg"><span>
+        ${placeholderWithTranslation.eswurdenkeinedatengefunden}<br>
+    </span></div>
+#else
+
+    #set($searchTask = $octopusRequest.searchTask)
+
+    #if($newPersonErrors || !$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
+        #set($createNewPerson = true)
+    #end
+
+    <div id="content_container">
+    ##IMPLEMENTNEWMESSAGEMETHOD
+    #if($octopusRequest.task == "AddPersonToEventDetail")
+        <vera-success>
+            #if($invited == 1)
+                ${placeholderWithTranslation.diesepersonwurdeerfolgreichzurgaestelistederveranstaltung} &quot;$!message.plain($event.shortname)&quot; ${placeholderWithTranslation.hinzugefuegt}.
+            #end
+            #if($notInvited == 1)
+                ${placeholderWithTranslation.diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht}
+            #end
+        </vera-success>
+    #end
+
+    <form id="PersonForm" name="PersonForm" action="${paths.staticWeb}do/SavePerson" method="post">
+        <input type="hidden" name="id" value="$!person.id"/>
+        <input type="hidden" name="searchTask" value="$!searchTask"/>
+        <input type="hidden" name="person-id" value="$!person.id"/>
+        <input type="hidden" name="person-orgunit" value="$!person.orgunit"/>
+        <input type="hidden" name="person-deleted" #if($person.deleted && $person.deleted == "t") value="t" #else value="f" #end/>
+        <input type="hidden" name="person-importsource" value="$!message.plain($person.importsource)"/>
+        #if($person.username)
+            <input type="hidden" name="person-username" value="$!person.username"/>
+        #end
+        #if($octopusRequest.task == "LoadPersonCompany" || ($octopusRequest.forcedupcheck && $octopusRequest.forcedupcheck == "true"))
+            <input type="hidden" name="person-modified" id="modified" value="true"/>
+        #else
+            <input type="hidden" name="person-modified" id="modified" value="false"/>
+        #end
+        #if($newPersonErrors || !$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
+            <input type="hidden" name="forcedupcheck" id="forcedupcheck" value="true"/>
+        #else
+            <input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false"/>
+        #end
+
+        #if($noChangesMessage && !$createNewPerson)
+            <vera-warn> $noChangesMessage </vera-warn>
+        #end
+
+        <input type="hidden" id="saveperson" name="saveperson" value="true"/>
+        <input type="hidden" id="company" name="company" value=""/>
+        <input type="hidden" id="companyfield" name="companyfield" value=""/>
+        <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false"/>
+        <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false"/>
+
+        #if($personTab)
+            #set($thisPersonTab = $personTab) ## param
+        #elseif($userConfig.personTab)
+            #set($thisPersonTab = $userConfig.personTab) ## userconfig
+        #elseif($config.personTab)
+            #set($thisPersonTab = $config.personTab) ## config
+        #end
+
+        #if($personMemberTab)
+            #set($thisPersonMemberTab = $personMemberTab) ## param
+        #elseif($userConfig.personMemberTab)
+            #set($thisPersonMemberTab = $userConfig.personMemberTab) ## userconfig
+        #elseif($config.personMemberTab)
+            #set($thisPersonMemberTab = $config.personMemberTab) ## config
+        #end
+
+        #if($personAddresstypeTab)
+            #set($thisPersonAddresstypeTab = $personAddresstypeTab) ## param
+        #elseif($userConfig.personAddresstypeTab)
+            #set($thisPersonAddresstypeTab = $userConfig.personAddresstypeTab) ## userconfig
+        #elseif($config.personAddresstypeTab)
+            #set($thisPersonAddresstypeTab = $config.personAddresstypeTab) ## config
+        #end
+
+        #if($personLocaleTab)
+            #set($thisPersonLocaleTab = $personLocaleTab) ## param
+        #elseif($userConfig.personLocaleTab)
+            #set($thisPersonLocaleTab = $userConfig.personLocaleTab) ## userconfig
+        #elseif($config.personLocaleTab)
+            #set($thisPersonLocaleTab = $config.personLocaleTab) ## config
+        #end
+
+        #if($showAdressTab && $showAdressTab == 'true')
+            #set($thisPersonTab = '2')
+        #end
+
+        <input type="hidden" id="personTab" name="personTab" value = #if($thisPersonTab) "$thisPersonTab" #else "1" #end/>
+        <input type="hidden" id="personMemberTab" name="personMemberTab" value = #if($thisPersonMemberTab) "$thisPersonMemberTab" #else "1" #end/>
+        <input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value = #if($thisPersonAddresstypeTab) "$thisPersonAddresstypeTab" #else "1" #end/>
+        <input type="hidden" id="personLocaleTab" name="personLocaleTab" value = #if($thisPersonLocaleTab) "$thisPersonLocaleTab" #else "1" #end/>
+
+        <input type="hidden" id="tab" name="tab" value = "$!{octopusRequest.tab}"/>
+        <input type="hidden" id="show" name="show" value = "$!{octopusRequest.show}"/>
+
+        ##new cf. issue #2091
+        <input type="hidden" id="action" name="action" value="$action"/>
+
+        #if ($personDB)
+            <input type="hidden" name="person-nodupcheck" value="true"/>
+        #end
+        <input type="hidden" name="start" value="0"/>
+        <input type="hidden" name="selectAll" value="false"/>
+        <input type="hidden" name="selectNone" value="true"/>
+        <input type="hidden" name="originalPersonId" value="$!originalPersonId"/>
+
+        <input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $person.expire)"/>
+
+        #if($person.deleted == "t")
+            <vera-warn>
+                ${placeholderWithTranslation.diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt}
+            </vera-warn>
+        #end
+
+        #if($person)
+            #set( $errors = $person.errors )
+        #elseif($newPersonErrors)
+            #set( $errors = $newPersonErrors )
+        #end
+        #if($errors.size() > 0)
+            <vera-warn>
+                $!message.plain($errors.get(0))<br>
+                ##	#foreach($error in $errors)
+                ##		$error<br>
+                ##	#end
+            </vera-warn>
+        #end
+
+        <div id="breadcrumb" class="textRight marginBottom10">
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > #if($person && $person.id)${placeholderWithTranslation.GENERIC_EDIT_PERSON}#else ${placeholderWithTranslation.personanlegen}#end</span>
+        </div>
+
+        <h1>$title</h1>
+
+        #if($createNewPerson || !$personDB)
+                #if($octopusRequest.forcedupcheck && $octopusRequest.forcedupcheck == "true" && $errors.isEmpty())
+                <vera-success>
+                    ${placeholderWithTranslation.eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern}
+                </vera-success>
+                #else
+                <vera-info>
+                    ${placeholderWithTranslation.bittegebensiezunaechstden} <strong>${placeholderWithTranslation.vorundnachnamen}</strong> ${placeholderWithTranslation.sowieunteranschriftendie} <strong>${placeholderWithTranslation.emailadresse}</strong> ${placeholderWithTranslation.anundfuhrendiedublettenprufungdurch}
+                        ${placeholderWithTranslation.beifirmenwaehlensiediecheckbox} <strong>"${placeholderWithTranslation.GENERIC_IS_COMPANY}"</strong> ${placeholderWithTranslation.undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten}
+                        ${placeholderWithTranslation.liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern}
+                </vera-info>
+                #end
+        #end
+
+    #if($personDB)
+        #parse("inc/person-header.vm")
+    #end
+
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
+
+        <div id="tabsMain">
+            <ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                <li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');">
+                    <div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div>
+                </li>
+                <li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');">
+                    <div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
+                </li>
+                #if($personDB)
+                    <li class="inactive" id="kategorien" onclick="showCategories();">
+                        <div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
+                    </li>
+                #end
+            </ul>
+        </div>
+
+        #set($extEncoding1 = "_e1")
+        #set($extEncoding2 = "_e2")
+        #set($extEncoding3 = "_e3")
+
+        <div class="tabsSub" vera-content="personendaten">
+            <ul class="marginBottom20" vera-tab-group>
+                <li style="display:inline-table; width:89%" vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" >
+                    <div>${placeholderWithTranslation.GENERIC_MAIN_PERSON}</div>
+                </li>
+                <li style="display:inline-table; width:89%" vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" >
+                    <div>${placeholderWithTranslation.GENERIC_PARTNER}</div>
+                </li>
+            </ul>
+
+            <hr />
+
+            <div class="CharSet">
+                <label for="encoding">${placeholderWithTranslation.GENERIC_CHARSET}</label>
+                <select vera-select name="encoding" id="encoding">
+                    <option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end
+                    onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!config.latin</div></option>
+                    <option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end
+                    onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!config.extra1</div></option>
+                    <option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end
+                    onclick="$('#personLocaleTab').attr('value', '3');" ><div>$!config.extra2</div></option>
+                </select>
+            </div>
+        </div>
+
+        <div vera-content="personendaten" class="contentBoxColored tabsContent">
+
+            <div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
+
+            #set($personPartner = "hauptperson")
+            #set($extEncoding = "$extEncoding1")
+            #set($ext = "_a$extEncoding")
+            #set($facade = $person.MainLatin)
+            #parse("inc/person-member.vm")
+
+            #set($personPartner = "hauptperson")
+            #set($extEncoding = "$extEncoding2")
+            #set($ext = "_a$extEncoding")
+            #set($facade = $person.MainExtra1)
+            #parse("inc/person-member.vm")
+
+            #set($personPartner = "hauptperson")
+            #set($extEncoding = "$extEncoding3")
+            #set($ext = "_a$extEncoding")
+            #set($facade = $person.MainExtra2)
+            #parse("inc/person-member.vm")
+
+            #set($personPartner = "partner")
+            #set($extEncoding = "$extEncoding1")
+            #set($ext = "_b$extEncoding")
+            #set($facade = $person.PartnerLatin)
+            #parse("inc/person-member.vm")
+
+            #set($personPartner = "partner")
+            #set($extEncoding = "$extEncoding2")
+            #set($ext = "_b$extEncoding")
+            #set($facade = $person.PartnerExtra1)
+            #parse("inc/person-member.vm")
+
+            #set($personPartner = "partner")
+            #set($extEncoding = "$extEncoding3")
+            #set($ext = "_b$extEncoding")
+            #set($facade = $person.PartnerExtra2)
+            #parse("inc/person-member.vm")
+
+        </div>
+
+        <div class="tabsSub" vera-content="anschriften">
+            <ul class="marginBottom20" vera-tab-group>
+                <li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" >
+                    <div>$!config.business</div>
+                </li>
+                <li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" >
+                    <div>$!config.private</div>
+                </li>
+                <li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" >
+                    <div>$!config.other</div>
+                </li>
+            </ul>
+
+            <hr />
+
+            <div class="CharSet">
+                <label for="encoding">${placeholderWithTranslation.GENERIC_CHARSET}</label>
+                <select vera-select name="encoding" id="encoding">
+                    <option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!config.latin</div></option>
+                    <option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!config.extra1</div></option>
+                    <option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>$!config.extra2</div></option>
+                </select>
+            </div>
+        </div>
+
+        <div vera-content="anschriften" class="contentBoxColored tabsContent">
+
+            <div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
+
+            #set($addressType = "geschaeftlich")
+            #set($extEncoding = "$extEncoding1")
+            #set($ext = "_a$extEncoding")
+            #set($facade = $person.BusinessLatin)
+            #parse("inc/person-address.vm")
+
+            #set($addressType = "geschaeftlich")
+            #set($extEncoding = "$extEncoding2")
+            #set($ext = "_a$extEncoding")
+            #set($facade = $person.BusinessExtra1)
+            #parse("inc/person-address.vm")
+
+            #set($addressType = "geschaeftlich")
+            #set($extEncoding = "$extEncoding3")
+            #set($ext = "_a$extEncoding")
+            #set($facade = $person.BusinessExtra2)
+            #parse("inc/person-address.vm")
+
+            #set($addressType = "privat")
+            #set($extEncoding = "$extEncoding1")
+            #set($ext = "_b$extEncoding")
+            #set($facade = $person.PrivateLatin)
+            #parse("inc/person-address.vm")
+
+            #set($addressType = "privat")
+            #set($extEncoding = "$extEncoding2")
+            #set($ext = "_b$extEncoding")
+            #set($facade = $person.PrivateExtra1)
+            #parse("inc/person-address.vm")
+
+            #set($addressType = "privat")
+            #set($extEncoding = "$extEncoding3")
+            #set($ext = "_b$extEncoding")
+            #set($facade = $person.PrivateExtra2)
+            #parse("inc/person-address.vm")
+
+            #set($addressType = "weitere")
+            #set($extEncoding = "$extEncoding1")
+            #set($ext = "_c$extEncoding")
+            #set($facade = $person.OtherLatin)
+            #parse("inc/person-address.vm")
+
+            #set($addressType = "weitere")
+            #set($extEncoding = "$extEncoding2")
+            #set($ext = "_c$extEncoding")
+            #set($facade = $person.OtherExtra1)
+            #parse("inc/person-address.vm")
+
+            #set($addressType = "weitere")
+            #set($extEncoding = "$extEncoding3")
+            #set($ext = "_c$extEncoding")
+            #set($facade = $person.OtherExtra2)
+            #parse("inc/person-address.vm")
+
+        </div>
+
+    </div>
+
+    ## modified to support direct search result navigation as per change request for version 1.2.0
+    ## cklein
+    ## 2008-02-22
+        #if($action == "guest")
+            <span id="buttonPanel-bottom" class="floatRight">
+                #if($grants.mayWrite())
+                    <input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}"/>
+                #end
+                <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurpersonensuche}" title="${placeholderWithTranslation.zurueckzurpersonensuche}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/AddPersonToEventList?searchTask=personSearchTask'; }">
+            </span>
+
+        #elseif($action == "host")
+
+            <span id="buttonPanel-bottom" class="floatRight">
+                #if($grants.mayWrite())
+                    <input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}" />
+                #end
+                <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
+            </span>
+
+        #elseif($action == "event")
+            <span id="buttonPanel-bottom" class="floatRight">
+                #if($grants.mayWrite())
+                    <input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}" />
+                #end
+                <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+                #if($octopusRequest.show && $octopusRequest.show == 'doctype')
+                    <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
+                #else
+                    <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
+                #end
+            </span>
+
+        #else
+
+            <span id="buttonPanel-bottom" class="floatRight">
+                #if($grants.mayWrite())
+                    #if($createNewPerson)
+                        <input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.dublettenpruefungdurchfuehren}" title="${placeholderWithTranslation.dublettenpruefungdurchfuehren}" />
+                    #else
+                        <input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}" />
+                    #end
+                #end
+                #if($action == "duplicateSearch")
+                    <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurdublettensuche}" title="${placeholderWithTranslation.zurdublettensuche}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true'; }">
+                #elseif($searchTask && $searchTask == "personSearchTask")
+                    <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzumsuchergebnis}" title="${placeholderWithTranslation.zurueckzumsuchergebnis}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
+                #else
+                    <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+                #end
+            </span>
+
+        #end
+
+        #if($createPersonView == false)
+            #if($navigation)
+                #if($action != "event")
+                    #parse("inc/person-navi.vm")
+                #end
+            #end
+        #end
+    </form>
+    <div class="clear"></div>
+    </div>
+
+    <script type="text/javascript">
+
+        #if($action == "guest")
+            function addToGuestList() {
+                htmlConfirm('${placeholderWithTranslation.solldiesergastaufplatzgesetztwerden}', new Array('${placeholderWithTranslation.GENERIC_YES}', '${placeholderWithTranslation.GENERIC_NO}'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
+            }
+
+            function addToGuestQuestX1(answer) {
+                document.getElementById('inviteGuestReserve').value = answer;
+                htmlConfirm('${placeholderWithTranslation.solldiepartnerinderpartnermiteingeladenwerden}', new Array('${placeholderWithTranslation.GENERIC_YES}', '${placeholderWithTranslation.GENERIC_NO}'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
+            }
+
+            function addToGuestQuestX2(answer) {
+                document.getElementById('inviteGuestPartner').value = answer;
+                htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
+
+                var url = '${paths.staticWeb}do/AddPersonToEventGuestList';
+                url += '?list=$!{person.id}';
+                url += '&$!{person.id}-id=${person.id}';
+                url += '&$!{person.id}-select=true';
+                url += '&$!{person.id}-reserve=' + document.getElementById('inviteGuestReserve').value;
+                url += '&$!{person.id}-partner=' + document.getElementById('inviteGuestPartner').value;
+                url += '&$!{person.id}-category=$!octopusRequest.person-category';
+                window.location.href = url;
+            }
+        #end
+
+        function copyPerson() {
+            document.getElementById('PersonForm').action = '${paths.staticWeb}do/CopyPerson';
+        ## fixed bug 1011, copying did not work due to below line
+        ## cklein 2008-03-11
+    ##		document.getElementById('PersonForm').id.value = '';
+            document.getElementById('PersonForm').originalPersonId.value = '$!person.id';
+            document.getElementById('PersonForm').submit();
+        }
+
+        function removePerson() {
+            #if(!$grants.mayWrite())
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+                showWarning(' ${placeholderWithTranslation.siehabenkeineausreichendeberechtigungmpersonenzuentfernen} ');
+                return;
+            #end
+
+            var msg = "";
+
+            var textCancelDeletion = "${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION}";
+            var textConfirmDeletion = "${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING}";
+            var textWarnNoBack = "${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}";
+
+            msg += '<br><span class="notBold">' + textCancelDeletion + ' </span><br>' + textConfirmDeletion + ' ' + textWarnNoBack + ' <br>';
+
+            $(".errormsg").remove();
+            $(".successmsg").remove();
+
+            var question = "${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_HEADER}";
+            showConfirmYesNo(question, msg,
+                 // Ja, Person löschen
+                function () {
+                    window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
+                },
+
+                 // Nein, abbrechen
+                function () {
+                    $(".errormsg").remove();
+                    $(".successmsg").remove();
+                    showSuccess(' ${placeholderWithTranslation.GM_PERSON_DELETE_N}');
+                    $('input:checkbox').prop('disabled', false);
+                },
+                '${placeholderWithTranslation.GENERIC_DELETE}',
+                '${placeholderWithTranslation.abbrechen}'
+            );
+        }
+
+        function showCategories() {
+            if (document.getElementById('modified').value == 'true') {
+                document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}'+getGuestTabId();
+                document.getElementById('PersonForm').submit();
+            } else {
+                window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}'+getGuestTabId();
+            }
+        }
+
+        function setSex(salutation, sex) {
+            var s = document.getElementById(salutation);
+            var id = s.options[s.selectedIndex].value;
+            var g = '';
+            if (id == '') {}
+            #foreach($s in $allSalutation)
+                        else if (id == '$s.id') g = '$s.gender';
+            #end
+
+            if (g == 'M' || g == 'm') {
+                if (document.getElementById(sex + '-m')) {
+                    document.getElementById(sex + '-m').checked = true;
+                }
+            } else if (g == 'F' || g == 'f') {
+                if (document.getElementById(sex + '-f')) {
+                    document.getElementById(sex + '-f').checked = true;
+                }
+            }
+        }
+
+        #if(!$person)
+            setSex('person-salutation_a_e1', 'person-sex_a_e1');
+            setSex('person-salutation_b_e1', 'person-sex_b_e1');
+        #end
+
+        //Show the company row (Firma/Institution) in the person detail view if the "Ist Firma"
+        //checkbox was checked.
+        $("#person-iscompany:not([vera-disabled])").click(function() {
+            if (this.checked) {
+                $('#company-row').show();
+                $('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}');
+                $('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}');
+            } else {
+                $('#company-row').hide();
+                $('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}*');
+                $('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}*');
+            }
+        });
+
+        $(function () {
+            //The field person-company-ignore does exist only in order to be able to set the company
+            //name at start and show the company name in the person detail view. It's only the
+            //reference to the field person-company in the Tab Anschriften-->Geschaeftlich
+            var company_ignore = $("#person-company-ignore_a_e1");
+            var company_geschaeftlich = $("#person-company_a_e1");
+
+            company_ignore.val(company_geschaeftlich.val());
+
+            company_ignore.change(function (e){
+                company_geschaeftlich.val(company_ignore.val());
+            });
+            company_geschaeftlich.change(function (e){
+                company_ignore.val(company_geschaeftlich.val());
+            });
+
+            //Show the company row (Firma/Institution) on load in the person detail view only if "Ist Firma"
+            //checkbox was checked.
+            if($("#person-iscompany").is(":checked")){
+                $('#company-row').show();
+                $('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}');
+                $('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}');
+            } else {
+                $('#company-row').hide();
+                $('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}*');
+                $('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}*');
+            }
+        });
+
+        function updateExpiredDate(newdate) {
+            document.getElementById('person-expire').value = newdate;
+            var inputs = document.getElementsByClassName('personExpiredDate');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = newdate;
+            }
+        }
+    </script>
+
+#end
+
+#parse("inc/footer.vm")

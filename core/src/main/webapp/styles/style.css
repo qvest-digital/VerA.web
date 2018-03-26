@@ -1,0 +1,1186 @@
+/*
+*
+* Inhalt
+*
+* 1. reset
+* 2. general
+* 	2.1 headings
+* 	2.2 links
+* 	2.3 lists
+* 		2.3.1 paging
+*	2.4 misc
+* 3. header
+*	3.1 Logo
+* 4. navigation
+* 5. infoboxes
+* 6. content
+*	6.1 tabs
+*	6.2 Messages
+* 7. footer
+* 8. forms
+* 9. tables
+*	9.1 CSS tables
+* 10. File Upload
+*
+*
+* Colors:
+* dark gray: #1b1b1b (font color)
+* dark red: #8b0f0f (font color)
+* medium gray: #7d7d7d (tab font)
+* gradient nav and th: #fcfcfc (top) #dddddd (bottom)
+* nav active, border: #bdbdbd (medium gray)
+* gradient buttons: #e7e7e7 (top), #b5b5b5 (bottom)
+* cream: #f9f9f9 (background color of boxes)
+*
+*
+*/
+
+/************* =1. reset *************/
+
+* {
+	padding:0;
+	margin:0;
+}
+
+header, footer, nav {
+	display: block;
+}
+
+/************* End reset *************/
+
+/************* =2. general *************/
+
+html, body {
+	height:100%
+}
+
+body {
+    background-color: #E9E9E9;
+    color: #1B1B1B;
+    font-family: verdana,arial,sans-serif;
+    font-size: 15px;
+    line-height: 1.2em;
+}
+
+p {
+	margin-bottom: 5px;
+}
+
+/************* =2.1 headings *************/
+
+h1, h2 {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 1.4em;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+/************* End headings *************/
+
+/************* =2.2 links *************/
+
+a, .borderBottom {
+    border-bottom: 1px solid #8B0F0F;
+    color: #1B1B1B;
+    text-decoration: none;
+}
+
+a:visited { font-weight:bold; }
+
+a:hover,
+a:active,
+a:focus { color: #8B0F0F }
+
+a.noBorder {
+	border: none;
+}
+
+a img {
+	border: none;
+}
+
+th a {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    border: medium none;
+    display: inline-block;
+    padding: 9.5px;
+    width: 100%;
+}
+
+/************* End links *************/
+
+/************* =2.3 lists *************/
+
+ul.text {
+margin-left:1.3em;
+}
+
+ul.inline, ul.inline li {display:inline;}
+
+ul.alphabet li {
+    border-right: 1px solid;
+    padding: 0 0.5em;
+}
+
+ul.alphabet li:last-child{
+	border-right: none;
+   padding: 0 0.5em;
+}
+/************* =2.3.1 paging *************/
+
+.paging ul {
+	display:inline;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.paging ul li {
+    margin: 0;
+    list-style: none;
+    display: inline;
+    color: #1b1b1b;
+    border-right: 1px solid #b2b2b2;
+    padding: 0 0.5em;
+}
+
+.paging ul li:first-child,
+.paging ul li:last-child  {
+    border-right: none;
+    padding: 0;
+}
+
+.paging ul li:nth-of-type(2),
+.paging ul li:nth-last-of-type(2),
+.paging ul li:nth-last-of-type(3) {
+    border-right: none;
+}
+
+.paging .img a {
+    border: medium none;
+    vertical-align: inherit;
+}
+
+.paging .img {
+    padding: 0;
+    vertical-align: top;
+}
+
+.paging .img.inactive  img {
+	border:1px solid #BDBDBD;
+}
+
+.paging li.img {
+    display: inline-block;
+    height: 19px;
+    width: 19px;
+}
+
+/************* End paging *************/
+
+/************* End lists *************/
+
+/************* =2.4 misc *************/
+
+#actionPanel {
+    line-height: 35px;
+}
+
+.inactive, .gray-gradient {
+    background: linear-gradient(top, #fcfcfc, #dddddd);
+    background: -moz-linear-gradient(top, #fcfcfc, #dddddd);
+    background: -ms-linear-gradient(top, #fcfcfc, #dddddd);
+    background: -o-linear-gradient(top, #fcfcfc, #dddddd);
+    background: -webkit-linear-gradient(top, #fcfcfc, #dddddd);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
+}
+
+.box-shadow {
+	box-shadow: 0 1px 2px #d0d0d0;
+	-moz-box-shadow: 0 1px 2px #d0d0d0;
+	-o-box-shadow: 0 1px 2px #d0d0d0;
+	-khtml-box-shadow: 0 1px 2px #d0d0d0;
+	-webkit-box-shadow: 0 1px 2px #d0d0d0;
+}
+
+.textCenter {
+	text-align:center;
+}
+
+.textRight {
+	text-align:right;
+}
+
+.floatRight {
+	float: right;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.noFloat {
+	float: none !important;
+}
+
+.grayBorder {
+    border: 1px solid #bdbdbd;
+}
+
+.marginTop0 {
+	margin-top: 0px;
+}
+
+.marginTop5 {
+	margin-top: 5px;
+}
+
+.marginTop10 {
+	margin-top: 10px;
+}
+
+.marginTop20 {
+	margin-top: 20px;
+}
+
+.marginTop25 {
+	margin-top: 25px;
+}
+
+.marginTop30 {
+	margin-top: 30px;
+}
+
+.marginTop35 {
+	margin-top: 35px;
+}
+
+.marginTop40 {
+	margin-top: 40px;
+}
+
+.marginTop45 {
+	margin-top: 45px;
+}
+
+.marginBottom0 {
+	margin-bottom: 0;
+}
+
+.marginBottom5 {
+	margin-bottom: 5px;
+}
+
+.marginBottom10 {
+	margin-bottom: 10px !important;
+}
+
+.marginBottom15 {
+	margin-bottom: 15px;
+}
+
+.marginBottom20 {
+	margin-bottom: 20px;
+}
+
+.marginBottom25 {
+	margin-bottom: 25px;
+}
+
+.marginBottom30 {
+	margin-bottom: 30px;
+}
+
+.marginBottom35 {
+	margin-bottom: 35px;
+}
+
+.marginBottom40 {
+	margin-bottom: 40px;
+}
+
+.marginBottom45 {
+	margin-bottom: 45px;
+}
+
+.marginRight5 {
+	margin-right: 5px;
+}
+
+.paddingTop10 {
+	padding-top:10px;
+}
+
+.paddingTop15 {
+	padding-top:15px;
+}
+
+.paddingTop20 {
+	padding-top:20px;
+}
+
+.paddingBottom10 {
+	padding-bottom:10px !important;
+}
+
+.paddingBottom15 {
+	padding-bottom:15px !important;
+}
+
+.paddingBottom20 {
+	padding-bottom:20px !important;
+}
+
+.clear {clear:both;}
+
+.clickable {cursor: pointer;}
+
+.notBold {font-weight:normal}
+
+.bold {font-weight: bold;}
+
+.noDisplay {display:none;}
+
+.autoWidth {width:auto !important;}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.mandatoryText {
+	font-size:0.85em;
+	font-weight:bold;
+}
+
+pre {
+    display: inline-block;
+    font-family: inherit;
+    white-space: pre-wrap;
+}
+
+.inlineBlock {display:inline-block;}
+
+.posRel {position:relative;}
+
+.posAb {position:absolute;}
+
+.inline {display:inline;}
+
+.verticalBottom {vertical-align: bottom !important;}
+
+/************* End misc *************/
+
+/************* End general *************/
+
+/************* =3. header *************/
+
+header,
+#header  /* for IE8 */ {
+    height: 88px;
+    position: relative;
+}
+
+#topNav {
+    position: absolute;
+    right: -5px;
+    top: 10px;
+}
+
+#topNav li {
+    border-left: 1px solid;
+    display: inline;
+    padding: 0 5px 0 10px;
+}
+
+#topNav li:first-child {
+    border-left: none;
+}
+
+#user {
+    bottom: 10px;
+    position: absolute;
+    right: 0;
+}
+
+/************* =3.2 Logo *************/
+
+hgroup {
+
+}
+
+header h1 {
+
+}
+
+header h2 {
+
+}
+
+/************* End Logo *************/
+
+/************* End header *************/
+
+/************* =4. navigation *************/
+
+nav,
+#nav /* for IE8 */ {
+    border-width: 1px 0;
+    height: 35px;
+    left: -30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    position: relative;
+    width: 100%;
+}
+
+nav ul, #nav ul {
+    border-left: 1px solid #B2B2B2;
+    list-style-type: none;
+}
+
+nav li, #nav li {
+    border-right: 1px solid #B2B2B2;
+    display: inline-block;
+    line-height: 35px;
+    padding: 0 15px;
+    position: relative;
+    z-index:1000;
+}
+
+nav li ul, #nav li ul {
+    display: none;
+}
+
+nav li:hover ul, #nav li:hover ul {
+    background-color: #FFFFFF;
+    border: 1px solid #bdbdbd;
+    display: block;
+    left: 15px;
+    padding: 1px;
+    position: absolute;
+    top: 30px;
+    width: 270px;
+    z-index: 2;
+}
+
+nav li:hover li, #nav li:hover li {
+    border-bottom: 1px solid #8b0f0f;
+    border-right: none;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left:0;
+}
+
+nav li:hover li:last-child, #nav li:hover li:last-child{
+    border-bottom: none;
+}
+
+nav span, #nav span {
+    background-image: url("../images/nav_arrow.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    border-bottom: 0 none;
+    color: #8B0F0F;
+    font-weight: bold;
+    padding-right: 20px;
+    text-decoration: none;
+}
+
+nav .active, #nav .active {
+    background-color: #BDBDBD;
+    z-index: 999;
+}
+
+nav .active span, #nav .active span {
+    background-image: url("../images/nav_arrow_active.png");
+}
+
+nav a, #nav a {
+	border: none;
+	display:block;
+	width:100%;
+}
+
+/************* End navigation *************/
+
+/************* =5 infoboxes *************/
+
+.info {
+    background-color: #FFFFFF;
+    border: 2px solid #8B0F0F;
+    min-height: 100%;
+    padding: 10px;
+}
+
+#close-info{
+    float:right;
+    position:relative;
+    right:-19px;
+}
+/************* End infoboxes *************/
+
+/************* =6 content *************/
+
+#container {
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 0 10px #C8C8C8;
+    -moz-box-shadow: 0 0 10px #C8C8C8;
+    box-shadow: 0 0 10px #C8C8C8;
+    font-size: 0.93em;
+    height: auto;
+    margin: auto;
+    max-width: 1200px;
+    min-height: 100%;
+    padding: 0 30px;
+    position: relative;
+    width: 90%;
+}
+
+#content_container {
+    padding-bottom: 40px;
+    overflow: auto;
+}
+
+.contentBox,
+.contentBoxColored,
+.hinweis {
+	padding: 20px;
+}
+
+.contentBoxColored,
+.hinweis {
+	background-color: #f9f9f9 !important;
+}
+
+.contentBoxColored .hinweis {
+	background-color: white !important;
+}
+
+.hinweis {
+  /*  background-image: url("../images/dialog_close.png");*/
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: 21px auto;
+    padding: 10px 20px;
+}
+
+#guestSummary.hinweis,
+#key.hinweis {
+	background-image: none;
+}
+
+hr {border-top:1px solid #8b0f0f; }
+
+#peopleTop > .table > .tableRow > .tableCell {
+	background-color: #f9f9f9;
+    border: 1px solid #bdbdbd;
+}
+
+#peopleTop > .table > .tableRow > .tableCell:nth-child(2) {
+	background-color: #fff;
+    border: none;
+    width:20px;
+}
+
+#peopleTop > .table > .tableRow > .tableCell .tableCell {
+	padding: 20px;
+	}
+
+#peopleTop > .table > .tableRow > .tableCell {
+	padding-bottom: 0;
+}
+
+#peopleTop > .table > .tableRow > .tableCell .tableCell:last-child {
+}
+
+#eventTop strong,
+#guestTop strong {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+#popUp {
+	padding:20px;
+}
+
+#popUp h2 {
+	margin-bottom:10px;
+}
+
+#popUp ul {
+	margin:1em 0 20px 1em
+}
+
+.statisticsType input {margin-bottom:5px !important;}
+
+#guestSummary {
+    right: 20px;
+    top: 20px;
+}
+
+/************* =6.1 tabs *************/
+
+.tabs {
+    padding: 0;
+    font-weight: bold;
+}
+
+.tabs li.active {
+    background-color: #F9F9F9;
+}
+
+#tabsMain ul,
+#tabsMain2 ul {
+    border-left: 1px solid #BDBDBD;
+    display: inline-block;
+    height: 40px;
+    margin-left: 185px;
+}
+
+.event #tabsMain ul,
+#tabsMain2 ul {
+    border-left: 0 none;
+    margin-left: 0;
+}
+
+#tabsMain li,
+#tabsMain2 li {
+    border-right: 1px solid #BDBDBD;
+    display: inline-block;
+    line-height: 40px;
+    padding: 0;
+    cursor: pointer;
+}
+
+#tabsMain li.active,
+#tabsMain2 li.active {
+    height: 41px;
+}
+
+#tabsMain li.inactive,
+#tabsMain2 li.inactive,
+.tabsSub li.inactive {
+color:#7D7D7D
+}
+
+.tabsSub {
+	width:185px;
+	float:left;
+}
+
+.tabsSub ul {
+	list-style-type: none;
+}
+
+.tabsSub li div,
+#tabsMain li div,
+#tabsMain2 li div  {
+    padding: 0 15px;
+    width:100%;
+}
+
+#tabsMain.event ul {
+    border-left: 0 none;
+    margin-left: 0;
+}
+
+.tabsSub li {
+    border-top: 1px solid #BDBDBD;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px 0 0;
+    cursor: pointer;
+}
+
+.tabsSub li:last-of-type {
+	border-bottom:1px solid #BDBDBD;
+}
+
+.tabsSub li.active {
+	width: 166px;
+	}
+
+.tabsContent {
+    border-top: 1px solid #BDBDBD;
+}
+
+.tabsSub + .tabsContent {
+    border-left: 1px solid #BDBDBD;
+    -webkit-box-shadow: -3px 0 3px #D0D0D0;
+    -moz-box-shadow: -3px 0 3px #D0D0D0;
+    box-shadow: -3px 0 3px #D0D0D0;
+    margin-left: 185px;
+}
+
+.tabsContent #buttonPanel-bottom {
+    display: block;
+}
+
+.tabsContent h3 {
+    color: #8B0F08;
+    margin-bottom: 20px;
+}
+
+tr.repeat {
+	background-color: #D0F0D0 !important;
+}
+
+.CharSet {
+	padding:10px 20px 0;
+}
+/************* =End tabs *************/
+
+/************ =6.2 Messages ***********/
+
+.msg  {
+    display: block;
+    font-weight: 700;
+    margin: 2px auto 20px;
+    padding: 6px 6px 6px 30px;
+}
+
+.successmsg {
+    background: url("../images/success.png") no-repeat scroll 6px 50% #F4FDEF;
+    border: 1px solid #ACDFA7;
+    color: #384F34;
+}
+
+.errormsg {
+	background: url(../images/error.png) no-repeat 6px 50% #FDD;
+	border: 1px solid red;
+    color: #c00;
+}
+
+.errormsgButton {
+	margin: 2 auto 30px;
+    padding: 6px 6px 26px 30px;
+}
+
+.error {color:#c00;}
+
+/*** To be removed later ****/
+div.dialogInfo {
+	position: absolute;
+	margin: 0px 0px 0px 0px;
+	padding: 11px 13px 11px 13px;
+	border: 2px solid #80A7E0;
+	color: #000000;
+	background-color: #ffffff;
+}
+/*** To be removed later end****/
+
+/************ End Messages ***********/
+
+/************* End content *************/
+
+/************* =7 footer *************/
+
+footer,
+#footer /* IE8 */ {
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+/************* End footer *************/
+
+/************* =8. forms *****************/
+
+.buttonPanel-top + form {
+    float: left;
+    width: 100%;
+}
+
+input, select {
+    font-size: inherit;
+}
+
+input.small50px {
+	width: 50px;
+}
+
+td input[type="text"],
+td select,
+td textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width:100%;
+}
+
+select{
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #ABADB3;
+    padding: 1px;
+}
+
+select option {
+    padding: 0 10px 0 0;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button {
+	background: none repeat scroll 0 0 white;
+	border: 1px solid #BDBDBD;
+	background-image: -webkit-linear-gradient(bottom, #afafaf, white);
+	background-image: -moz-linear-gradient(bottom, #afafaf, white);
+	background-image: -o-linear-gradient(bottom, #afafaf, white);
+	background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#afafaf), to(white));
+	background-image: linear-gradient(bottom, #afafaf, white);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#afafaf',GradientType=0 ); /* IE6-9 */
+	padding: 1px 5px;
+    cursor: pointer;
+}
+
+textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    min-height: 50px;
+    resize: vertical;
+}
+
+.tableCell input,
+.tableCell select,
+.tableCell textarea,
+.CharSet select {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    margin-bottom: 5px;
+	width:100%;
+}
+
+.tableCell .datepicker {
+	width:30%;
+}
+
+.calendarContainer {
+	position:relative;
+}
+
+.datepickerContainer {
+    margin-left: -5px;
+    vertical-align: top;
+}
+
+.datepickerContainer img {
+    width: 21px;
+}
+
+input[type=radio],
+input[type=checkbox] {
+	margin-bottom: 0;
+    vertical-align: sub;
+    width:auto;
+}
+
+label {
+	display: block;
+    font-weight: bold;
+}
+
+.inlineLabel label,
+.inlineInput {
+	display:inline;
+}
+
+.inlineLabel input:last-child {
+	float:right;
+}
+
+#actionPanel input:last-child {
+	float:none;
+}
+
+fieldset {
+    border-width: 1px 0 0;
+	margin-bottom:60px;
+    padding-top: 20px;
+    position: relative;
+}
+
+fieldset:last-of-type {
+	margin-bottom:15px;
+}
+
+legend {
+    color: #8b0f0f;
+    font-size: 1.1em;
+    font-weight: bold;
+    left: 20px;
+    padding: 0 10px;
+    position: absolute;
+    top: -10px;
+}
+
+.contentBoxColored legend {
+	background-color: #f9f9f9;
+}
+
+.disabled {
+	opacity:0.3;
+}
+
+.mainButton,
+input.active {
+	color: #8b0f08 !important;
+}
+
+.mainButton {
+	height:29px;
+}
+
+input.active {
+	background:#d2d2d2;
+	font-weight: bold;
+	filter:none;
+}
+
+.addButton {
+	text-align:right;
+}
+
+.addButton input {
+	width: auto;
+}
+
+[vera-disabled] {
+    background-color: #ddd;
+    color: black;
+}
+
+/************* End forms *****************/
+
+/************* =9. tables *****************/
+table {
+    border-collapse: collapse;
+    margin: 5px 0;
+    width: 100%;
+    border: 1px solid #A0A0A0;
+}
+
+table.fixed {
+	table-layout:fixed;
+}
+
+table.fixed td {
+	overflow: hidden;
+}
+
+tr, td, th {
+    border: 1px solid #A0A0A0;
+}
+
+tr {
+    background-color: #fafafa;
+}
+
+tr:hover {
+	background-color: #ffffc3 !important;
+}
+
+tr:hover th {
+	background-color: none !important;
+}
+
+tr:nth-child(odd) {
+	background-color: #e5e5e5;
+}
+
+tr.colspan {
+	background:none;
+}
+
+tr.highlight {
+	background: antiquewhite;
+}
+
+th {
+	color: #8b0f0f;
+/* gradient causes problems with borders in IE9
+
+	background-color: #fff;
+	background-image: -webkit-linear-gradient(bottom, #e5e5e5 50%, white); Chrome10+, Safari5.1+
+	background-image: -moz-linear-gradient(bottom, #e5e5e5 50%, white); Mozilla/Gecko (Firefox etc)
+	background-image: -o-linear-gradient(bottom, #e5e5e5 50%, white); Opera 11.10+
+	background-image: -webkit-gradient(linear, 0 100%, 0 0, color-stop(0.5, #e5e5e5), to(white)); WebKit (Safari, Chrome, etc.)
+	background-image: -ms-linear-gradient(bottom, #e5e5e5 50%, white); IE10+
+	background-image: linear-gradient(bottom, #e5e5e5 50%, white); W3C working draft
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); IE6-9
+	 */
+	background-image: url(../images/th_bg.png);
+	background-repeat:repeat-x;
+    background-size: 1px 100%;
+}
+
+td, th {
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.sortable th > input {
+    margin: 14px 0;
+}
+
+.sortable th {
+	padding: 0;
+}
+
+.smallCell {
+	padding:10px 5px;
+	width:14px;
+}
+
+td {
+	word-wrap: break-word !important;
+}
+
+td[onclick]
+ {cursor:pointer;}
+
+#guestListWrapper {
+    overflow-x:auto;
+}
+
+/************* =8.1 CSS tables *****************/
+.table {display:table;}
+
+.tableRow {display:table-row;}
+
+.tableCell {
+    display: table-cell;
+    padding-bottom: 5px;
+    padding-right: 20px;
+    vertical-align: top;
+}
+
+#peopleAdd_form .tableCell {
+	padding-bottom: 10px;
+}
+
+.tableCell:last-child {
+    padding-right: 0;
+}
+
+.width5, .tabsContent .width5 {width: 5%;}
+
+.width10, .tabsContent .width10 {width: 10% !important;}
+
+.width15, .tabsContent .width15 {width: 15%;}
+
+.width20, .tabsContent .width20 {width: 20%;}
+
+.width25, .tabsContent .width25 {width: 25%;}
+
+.width30, .tabsContent .width30 {width: 30%;}
+
+.width35, .tabsContent .width35 {width: 35%;}
+
+.width40, .tabsContent .width40 {width: 40%;}
+
+.width45, .tabsContent .width45 {width: 45%;}
+
+.width49, .tabsContent .width49 {width: 49%;}
+
+.width50, .tabsContent .width50 {width: 50%;}
+
+.width55, .tabsContent .width55 {width: 55%;}
+
+.width60, .tabsContent .width60 {width: 60%;}
+
+.width65, .tabsContent .width65 {width: 65%;}
+
+.width70, .tabsContent .width70 {width: 70%;}
+
+.width75, .tabsContent .width75 {width: 75%;}
+
+.width80, .tabsContent .width80 {width: 80% !important;}
+
+.width85, .tabsContent .width85 {width: 85%;}
+
+.width90, .tabsContent .width90 {width: 90%;}
+
+.width95, .tabsContent .width95 {width: 95%;}
+
+.width100, .tabsContent .width100 {width: 100%;}
+
+.cutOff {
+  white-space: inherit;
+  width: 150px;
+}
+
+/************* End CSS tables *****************/
+
+/************* End tables *****************/
+
+.fakeButton {
+    text-align: center;
+    margin-right: 10px;
+    float:left;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #8b0f08;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    cursor: pointer;
+    position: relative;
+    z-index: 1000;
+    font-weight: normal;
+}
+
+.MultiFile-applied {
+    left: 0px;
+}
+
+.MultiFile-title {
+    width: 250px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+}
+
+label span {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/** Guest List checkboxes */
+.invisible {
+    display:none;
+}
+
+/** Flexbox */
+.flexContainer {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.flexItem {
+    margin-right: 10px;
+}
+
+.alignBottom {
+    align-self: flex-end;
+}

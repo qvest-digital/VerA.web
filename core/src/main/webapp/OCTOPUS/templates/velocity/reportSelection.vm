@@ -1,0 +1,153 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "${placeholderWithTranslation.gaestelisteerstellenfuerveranstaltungeventshortname}")
+#parse("inc/header.vm")
+
+<div id="content_container">
+        <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
+    </div>
+    <h1>${placeholderWithTranslation.gaesteverwaltungderveranstaltung} $!message.plain($event.shortname)</h1>
+
+        #if(!$isNewEvent)
+                #set($completeEventHeader = true)
+        #parse("inc/event-header.vm")
+        #end
+
+        <div class="contentBoxColored grayBorder marginTop20 marginBottom10">
+        <form action="ReportGuestList" target="_blank" method="get">
+
+                <h2>${placeholderWithTranslation.gaestelisteerstellen}</h2>
+
+                <div class="table">
+                        <div class="tableRow">
+                                <div class="tableCell">
+                                        <label for="type">${placeholderWithTranslation.ausgabeformatwaehlen}</label>
+                                        <select name="type" id="type">
+                                        <option value="Kat01">${placeholderWithTranslation.listenachkategoriengruppiertmitpartner}</option>
+                                        <option value="Kat02">${placeholderWithTranslation.listenachkategoriengruppiertmittelundmobiltelefon}</option>
+                                        <option value="Kat03">${placeholderWithTranslation.listenachkategoriengruppiertmitpartnerundfax}</option>
+                                        <option value="Alpha01">${placeholderWithTranslation.listenachsortierungmitpartnertelundmobiltelefon}</option>
+                                </select>
+                                </div>
+                        </div>
+                </div>
+
+                        <script>
+                                $(function(){
+                                        $('#type').change(function(){
+                                                if($(this).val() === 'Alpha01'){
+                                                        $('#sortHeadline').css('display','block');
+                                                        $('#sort').css('display','block');
+                                                } else {
+                                                        $('#sortHeadline').css('display','none');
+                                                        $('#sort').css('display','none');
+                                                }
+                                        });
+                                });
+            </script>
+
+                <!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
+                <h3 class="marginBottom10 marginTop30" id="sortHeadline" style="display:none">${placeholderWithTranslation.SORT_CRITERIA}</h3>
+
+                <div class="table" id="sort" style="display:none">
+                        <div class="tableRow">
+                                <div class="tableCell">
+                                        <label for="sort1">${placeholderWithTranslation.SORT_CRITERIA}</label>
+                                </div>
+                                <div class="tableCell">
+                                        <select name="sort1" id="sort1">
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                                                <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                                                <option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
+                                                <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                                                <option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                                                <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                                                <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
+                                                <option value="table">${placeholderWithTranslation.tisch}</option>
+                            #else
+                                                <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                                                <option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
+                                                <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                                                <option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                                                <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                                                <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
+                                                <option value="table">${placeholderWithTranslation.tisch}</option>
+                            #end
+                        </select>
+                                </div>
+                        </div>
+                        <div class="tableRow">
+                                <div class="tableCell"><label for="sort2">${placeholderWithTranslation.anschliesendnach}</label></div>
+                                <div class="tableCell">
+                                <select name="sort2" id="sort2">
+                                                <option value=""></option>
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                                                <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                                                <option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
+                                                <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                                                <option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                                                <option value="category" selected>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                                                <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
+                                                <option value="table">${placeholderWithTranslation.tisch}</option>
+                            #else
+                                                <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                                                <option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
+                                                <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                                                <option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                                                <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                                                <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
+                                                <option value="table">${placeholderWithTranslation.tisch}</option>
+                            #end
+                                </select>
+                                </div>
+                        </div>
+                        <div class="tableRow">
+                                <div class="tableCell"><label for="sort3">${placeholderWithTranslation.anschliesendnach}</label></div>
+                                <div class="tableCell">
+                                        <select name="sort3" id="sort3" >
+                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                                                <option value=""></option>
+                                                <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                                                <option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
+                                                <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                                                <option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                                                <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                                                <option value="rank" selected>${placeholderWithTranslation.GENERIC_RANK}</option>
+                                                <option value="table">${placeholderWithTranslation.tisch}</option>
+                            #else
+                                                <option value="" selected></option>
+                                                <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                                                <option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
+                                                <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                                                <option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                                                <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                                                <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
+                                                <option value="table">${placeholderWithTranslation.tisch}</option>
+                            #end
+                        </select>
+                                </div>
+                        </div>
+                        <div class="tableRow">
+                                <div class="tableCell">
+                                        <strong>${placeholderWithTranslation.zusaetzlichesortierungnach}</strong>
+                                </div>
+                                <div class="tableCell inlineLabel">
+                                        <label for="orderByWorkArea">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" class="noFloat" />
+                                </div>
+                        </div>
+                </div>
+                <!-- Bereich Ende -->
+
+                <div id="buttonPanel-bottom" class="textRight">
+                        <input type="submit" name="report" value="${placeholderWithTranslation.gaestelisteerstellen}" title="${placeholderWithTranslation.gaestelisteerstellen}" class="mainButton" />
+            </div>
+
+        </form>
+        </div>
+
+        <div id="buttonPanel-bottom" class="textRight">
+                <input type="button" name="cancel" value="${placeholderWithTranslation.zurueckzurgaesteverwaltung}" title="${placeholderWithTranslation.zurueckzurgaesteverwaltung}" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
+        </div>
+</div>
+
+#parse("inc/footer.vm")

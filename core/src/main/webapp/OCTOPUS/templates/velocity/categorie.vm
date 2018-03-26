@@ -1,0 +1,233 @@
+#set($activeMenu = "${placeholderWithTranslation.MENU_ADMINISTRATION}")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_CATEGORY}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CATEGORY}")
+#set($entity="CATEGORY")
+#set($elementNameSingular = ">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}<")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
+
+#if ($entityOverwrite)
+  #set($entity="${entityOverwrite}")
+#end
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 8)
+#set($column2 = 40)
+#set($column3 = 17)
+#set($column4 = 6)
+#set($column5 = 36)
+
+#parse("inc/header.vm")
+
+<div id="content_container">
+
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> >                                 ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</h1>
+
+        <form id="formlist" name="formlist" action="Categorie" method="POST">
+                #if($listerrors && $listerrors.size() > 0)
+                <vera-warn>
+                        #foreach($error in $listerrors)
+                                $error<br>
+                        #end
+                </vera-warn>
+                #end
+                #if($resortQuestion)
+                <vera-confirm>
+                        <strong>${placeholderWithTranslation.solldieneuekategorie} '$!message.text($beanToAdd.name)' ${placeholderWithTranslation.einsortiertwerden}</strong><br>
+                                <input type="hidden" name="questionConfirmed" value="true"/>
+                                <input type="button" id="button.resortYes" value="${placeholderWithTranslation.GENERIC_YES}"/> &nbsp;
+                        <input type="button" id="button.resortNo" value="${placeholderWithTranslation.GENERIC_NO}"/> &nbsp;
+                </vera-confirm>
+        #end
+
+                <input type="hidden" name="limit" value="" />
+                <input type="hidden" name="start" value="">
+                #if($grants.isAdmin() || $grants.isPartialAdmin())
+                <input type="hidden" name="selectNone" value="true">
+                <input type="hidden" name="doInsert" value="true">
+                <input type="hidden" name="doUpdate" value="true">
+                <input type="hidden" name="doRemove" value="true">
+                <input type="hidden" name="modified" id="modified" value="false">
+                <input type="hidden" id="entity" name="entity" value="$entityOverwrite">
+                #end
+                #if($order)
+                <input type="hidden" name="order" value="$order">
+                #end
+                #if($grants.isAdmin() || $grants.isPartialAdmin())
+                <input type="hidden" id="dosave" name="dosave" value="">
+                <input type="hidden" id="resort" name="resort" value="false">
+                #end
+
+                #if($grants.isAdmin() || $grants.isPartialAdmin())
+                        #foreach($bean in $list)
+                        <input type="hidden" name="list" value="$bean.id">
+                        #end
+                #end
+
+                <div class="textRight mandatoryText tabs">* = ${placeholderWithTranslation.pflichtfelder}</div>
+
+                <span class="inlineLabel" id="actionPanel">
+                        <strong>${placeholderWithTranslation.markiertekategorien}</strong>
+                        <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" class="button" title="${placeholderWithTranslation.markiertekategorienloschen}" onclick="$('#entity').val('CATEGORY'); formlist.action='SaveCategories';return true;">
+
+                </span>
+
+                <table class="fixed">
+                        ##Set column size
+                        <col width="$column0%" />
+                        <col width="$column1%" />
+                        <col width="$column2%" />
+                        <col width="$column3%" />
+                        <col width="$column4%" />
+                        <col width="$column5%" />
+
+                        <tr>
+                                #if($grants.isAdmin() || $grants.isPartialAdmin())
+                                        <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+                                        <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                                #end
+                                <th>${placeholderWithTranslation.GENERIC_LABELLING}*</th>
+                                <th>${placeholderWithTranslation.GENERIC_MARK_LONG}</th>
+                                <th>${placeholderWithTranslation.GENERIC_RANK}</th>
+                                <th>${placeholderWithTranslation.GENERIC_EVENTS_PP}</th>
+                        </tr>
+
+                #if($grants.isAdmin() || $grants.isPartialAdmin())
+                        <tr>
+                                <td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" #if($beanToAdd) value="true" #else value="false" #end/><input type="checkbox" id="add-select" name="add-select" value="true" style="display: none;" ></td>
+                                <td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
+                                <td><input type="text" name="add-name" id="add-name" maxlength="200" #if($beanToAdd) value="$!message.text($beanToAdd.name)" #else value="" #end onchange="setModified('add')"></td>
+                                <td>
+                                        <select id="add-flags" name="add-flags" onchange="setModified('add')">
+                                                <option value="0" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 0) selected #end>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                                                <option value="1" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 1) selected #end>${placeholderWithTranslation.GENERIC_OCCASION}</option>
+                                                <option value="99" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 99) selected #end>Diplo. Corps</option>
+                                        </select>
+                                </td>
+                                <td><input type="text" name="add-rank" id="add-rank" #if($beanToAdd) value="$!message.text($beanToAdd.rank)" #else value="" #end onchange="setModified('add')"></td>
+                                <td>
+                                        <select id="add-event" name="add-event" onchange="setModified('add'); ">
+                                        <option value="">${placeholderWithTranslation.furalleveranstaltungen}</option>
+                                        #foreach($event in $allEvent)
+                                                <option #if($beanToAdd && $beanToAdd.event && $beanToAdd.event == $event.id) selected#end value="$!event.id">$!message.plain($event.shortname)</option>
+                                        #end
+                                        </select>
+                                </td>
+                        </tr>
+                #end
+
+                #foreach($bean in $list)
+                        <tr>
+                        #if($grants.isAdmin() || $grants.isPartialAdmin())
+                                <td class="textCenter">
+                                        <input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
+                                        #if(${bean.name}!='Pressevertreter')
+                                                <input type="checkbox" name="${bean.id}-select" id="${bean.id}-select" value="true">
+                                        #end
+                                </td>
+                                <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
+                                <td>
+                                        #if(${bean.name}=='Pressevertreter')
+                                                <input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.plain($bean.name)" readonly></td>
+                                        #else
+                                                <input type="text" name="${bean.id}-name" id="${bean.id}-name" value="$!message.plain($bean.name)" onchange="setModified('$!bean.id')" #if(!($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end></td>
+                                        #end
+                                <td>
+                                        #if(${bean.name}=='Pressevertreter')
+                                                <select id="${bean.id}-flags" name="${bean.id}-flags" readonly">
+                                        #else
+                                                <select id="${bean.id}-flags" name="${bean.id}-flags" onchange="setModified('$!bean.id')">
+                                        #end
+                                                <option #if($bean.flags && $bean.flags == 0) selected#end value="0">${placeholderWithTranslation.OPTION_MARK_ADMINISTRATION_CATEGORY_1}</option>
+                                                <option #if($bean.flags && $bean.flags == 1) selected#end value="1">${placeholderWithTranslation.OPTION_MARK_ADMINISTRATION_CATEGORY_2}</option>
+                                                <option #if($bean.flags && $bean.flags == 99) selected#end value="99">${placeholderWithTranslation.OPTION_MARK_ADMINISTRATION_CATEGORY_3}</option>
+                                        </select>
+                                </td>
+                                <td class="textCenter">
+                                #if(${bean.name}=='Pressevertreter')
+                                        <input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)" readonly>
+                                #else
+                                        <input type="text" name="${bean.id}-rank" id="${bean.id}-rank" value="$!message.text($bean.rank)" onchange="setModified('$!bean.id')" #if(! ($grants.isAdmin() || $grants.isPartialAdmin()))vera-disabled#end>
+                                #end
+                                </td>
+                                <td>
+                                        #if(${bean.name}=='Pressevertreter')
+                                                <select id="${bean.id}-event" name="${bean.id}-event" readonly>
+                                        #else
+                                                <select id="${bean.id}-event" name="${bean.id}-event" onchange="setModified('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
+                                        #end
+                                        <option value="">${placeholderWithTranslation.furalleveranstaltungen}</option>
+                                        #foreach($event in $allEvent)
+                                                <option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.plain($event.shortname)</option>
+                                        #end
+                                        </select>
+                                </td>
+                        #else
+                                <td>$!message.plain($bean.name)</td>
+                                <td>
+                                        #if($bean.flags && $bean.flags == 0)
+                                                Kategorie
+                                        #elseif($bean.flags && $bean.flags == 1)
+                                                Ereignis
+                                        #else
+                                                Diplo. Corps
+                                        #end
+                                </td>
+                                <td>$!message.plain($bean.rank)</td>
+                                <td>
+                                        #set($found=false)
+                                        #foreach($event in $allEvent)
+                                                #if($bean.event && $bean.event == $event.id)#set($found=true)$!message.plain($event.shortname)#end
+                                        #end
+                                        #if(!$found)
+                                                ${placeholderWithTranslation.furalleveranstaltungen}
+                                        #end
+                                </td>
+                        #end
+                        </tr>
+                #end
+                #if ($listparam.count == 0)
+            <tr>
+                                <td colspan="99">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
+                        </tr>
+                #end
+                #set($itemName = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
+                #tableFooter(6)
+                #parse("inc/list-direct-new.vm")
+                </table>
+
+                ## introduced onclick form action change in order to allow all authenticated users to view the categories as per change request for version 1.2.0
+                ## cklein
+                ## 2008-02-21
+                        #if($grants.isAdmin() || $grants.isPartialAdmin())
+                                <div class="textRight marginTop10" id="buttonPanel-bottom">
+                                        <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" onclick="$('#categoryEntity').val('CATEGORY'); formlist.action='SaveCategories';return true;">
+                                </div>
+                        #end
+        </form>
+</div>
+
+<script>
+    $(function() {
+                $('#button\\.resortYes').click(function (e) {
+                        $('#resort').val('true');
+                        $('form')
+                                .append('<input type="hidden" name="save" value="true" />')
+                                .prop('action', 'SaveCategories')
+                                .submit();
+                });
+                $('#button\\.resortNo').click(function (e) {
+                        $('#resort').val('false');
+                        $('form')
+                                .append('<input type="hidden" name="save" value="true" />')
+                                .prop('action', 'SaveCategories')
+                                .submit();
+                });
+    });
+</script>
+
+#parse("inc/footer.vm")

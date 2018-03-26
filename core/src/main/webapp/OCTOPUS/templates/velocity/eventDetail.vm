@@ -1,0 +1,359 @@
+#set($activeMenu = "Veranstaltungen")
+
+#if($event && $event.id)
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
+#else
+	#set($isNewEvent = 1)
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_CREATE}")
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EVENT}")
+#set($entity="EVENT")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_PLURAL}")
+#parse("inc/header.vm")
+
+#if(!$isEntityModified && !$isNewEvent)
+	<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+#end
+
+<div id="content_container">
+	#if($event && $event.id)
+		<div id="breadcrumb" class="textRight marginBottom10">
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
+		</div>
+			<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT}: $!message.plain($event.shortname)</h1>
+	#else
+		<div id="breadcrumb" class="textRight marginBottom10">
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_NEW_EVENT}</span>
+		</div>
+			<h1>${placeholderWithTranslation.GENERIC_CREATE_NEW_EVENT}</h1>
+	#end
+
+	<form id="formlist" name="formlist" action="SaveEvent?id=$!event.id" method="POST">
+		<input type="hidden" id="a" name="a" value="">
+		<input type="hidden" id="modified" name="event-modified" value="false">
+		<input type="hidden" name="saveevent" value="true">
+		<input type="hidden" name="search" value="clear">
+
+		#if($status && $status.code && $status.code == "noevent")
+			<vera-warn>
+				${placeholderWithTranslation.dieveranstaltungandersiegeradegearbeitethabenwurdevoneinemanderenanwendergeloschtsiekonnennuneineneueveranstaltunganlegenoderanderweitigmitverawebarbeiten}
+			</vera-warn>
+		#end
+
+		#if($event.errors.size() > 0)
+
+			<div style="width: 99%; background-color: #ffffff;">
+				<vera-warn>
+					$!message.plain($event.errors.get(0))<br>
+					##	#foreach($error in $event.errors)
+					##		$error<br>
+					##	#end
+				</vera-warn>
+			</div>
+
+		#elseif($listquestions && $listquestions.size() > 0)
+
+			<vera-confirm>
+				<strong>${placeholderWithTranslation.bittebestatigensiedasspeicherndieserveranstaltung}</strong><br>
+				<table class="form" style="margin: 5px 0px 0px 0px;">
+				#foreach($quest in $listquestions.entrySet())
+					<tr>
+						<td><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</td>
+					</tr>
+					#set($save = true)
+				#end
+				</table><br>
+
+				#if($save)
+					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.speichern}">
+				#end
+				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="$('.errormsg').remove();">
+			</vera-confirm>
+
+		#end
+
+		#if(!$isNewEvent)
+			#set($completeEventHeader = false)
+			#parse("inc/event-header.vm")
+		#end
+
+		#if($event && $event.id)
+		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
+			<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" title="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+		</div>
+		#end
+
+		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
+
+			#if(!$isNewEvent)
+				<div id="tabsMain" class="event">
+					<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+						<li vera-tab="allgemein" vera-tab-default>
+							<div>${placeholderWithTranslation.GENERIC_GENERAL}</div>
+						</li>
+						<li class="inactive" #if ($event.id) onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end>
+							<div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
+						</li>
+						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
+							<div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
+						</li>
+					</ul>
+				</div>
+			#end
+
+			<input type="hidden" name="event-id" value="$!event.id">
+			<input type="hidden" name="event-orgunit" value="$!event.orgunit">
+
+			<div #if(!$isNewEvent)vera-content="allgemein"#end class="contentBoxColored tabsContent">
+				<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
+						<div class="table width100">
+							<div class="tableRow">
+								<div class="tableCell width50">
+									<label for="event-shortname">${placeholderWithTranslation.kurzbezeichnung}*</label>
+									<input type="text" onchange="setModified();" maxlength="50" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
+								</div>
+
+								#if ($online-registration.activated)
+									<div class="tableCell width50 inlineLabel">
+										<label for="event-eventtype">${placeholderWithTranslation.GENERIC_OPEN_EVENT}</label>
+										<!-- DEBUG $event.eventtype -->
+										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
+											#if($event && $event.eventtype != "")
+												checked
+											#end
+										>
+									</div>
+								#end
+							</div>
+
+							<div class="tableRow">
+								<div class="tableCell width50">
+									<label for="event-eventname">${placeholderWithTranslation.GENERIC_NAME}</label>
+									<textarea onchange="setModified();" id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
+								</div>
+
+								<div class="tableCell width50">
+
+									<label for="event-begin">${placeholderWithTranslation.GENERIC_BEGIN}*</label>
+									<div class="calenderContainer">
+											#if($grants.mayWrite())
+												<span class="datepickerContainer" id="show-begin">
+													<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
+													<img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
+													<script type="text/javascript">
+														Calendar.setup({
+															inputField: "event-begin",
+															button:     "show-begin",
+															ifFormat:   "%d.%m.%Y",
+															showsTime:  false
+														});
+													</script>
+												</span>
+											#end
+										${placeholderWithTranslation.GENERIC_AT} <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-begintime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
+									</div>
+
+									<label for="event-end">${placeholderWithTranslation.GENERIC_END}</label>
+									<div class="calenderContainer">
+											#if($grants.mayWrite())
+												<span class="datepickerContainer" id="show-end">
+												<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
+													<img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
+
+													<script type="text/javascript">
+														Calendar.setup({
+															inputField: "event-end",
+															button:     "show-end",
+															ifFormat:   "%d.%m.%Y",
+															showsTime:  false
+														});
+													</script>
+												</span>
+											#end
+										${placeholderWithTranslation.GENERIC_AT} <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-endtime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="tableRow">
+								<div class="tableCell width50">
+									<label for="event-invitationtype">${placeholderWithTranslation.EVENT_INVITATION_TYPE}</label>
+									<select onchange="setModified();" class="autoWidth" id="event-invitationtype" name="event-invitationtype">
+										<option #if($event.invitationtype && $event.invitationtype == 1) selected #end value="1">${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITH_PARTNER}</option>
+										<option #if($event.invitationtype && $event.invitationtype == 2) selected #end value="2">${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITHOUT_PARTNER}</option>
+										<option #if($event.invitationtype && $event.invitationtype == 3) selected #end value="3">${placeholderWithTranslation.EVENT_INVITATION_TYPE_ONLY_PARTNER}</option>
+									</select>
+								</div>
+								<div class="tableCell width50 ">
+									<label for="gastgeber">${placeholderWithTranslation.GENERIC_HOST}</label>
+									<input type="hidden" value="$!event.host" name="event-host" id="event-host">
+									<input type="hidden" value="$!event.hostname" name="event-hostname" id="event-hostname">
+									<input type="hidden" value="${placeholderWithTranslation.keingastgeberausgewahlt}" name="showevent-hostnametext" id="showevent-hostnametext">
+									<input type="text" vera-disabled class="textdisabled" value="$!message.text($event.hostname)" name="showevent-hostname" id="showevent-hostname">
+									#if($grants.mayWrite())
+									<div class="addButton">
+										<input type="button" value="${placeholderWithTranslation.GENERIC_SEARCH_FOR_HOST}" title="${placeholderWithTranslation.GENERIC_SEARCH_FOR_HOST}" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">
+										<input type="button" value="${placeholderWithTranslation.GENERIC_DELETE_HOST}" title="${placeholderWithTranslation.GENERIC_DELETE_HOST}" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent?id=$!event.id'; document.getElementById('formlist').submit();">
+									</div>
+									#end
+								</div>
+
+							</div>
+
+							<div class="tableRow">
+								<div class="tableCell width50">
+									<label for="event-maxguest">${placeholderWithTranslation.EVENT_MAX_GUEST}</label>
+									<input type="text" onchange="setModified();" class="int" id="event-maxguest" value="$!message.plain($event.maxguest)" name="event-maxguest">
+								</div>
+								<div class="tableCell width50 inlineLabel">
+									<label for="event-invitepartner">${placeholderWithTranslation.GENERIC_HOST_PARTNER}</label>
+									<input type="checkbox" class="noFloat" id="event-invitepartner" name="event-invitepartner" value="true" #if(!$event || $event.invitepartner) checked #end id="event-invitepartner">
+								</div>
+							</div>
+
+							<div class="tableRow">
+								<div class="tableCell width50">
+                                    <label for="event-maxreserve">${placeholderWithTranslation.maximalelangederwarteliste}</label>
+                                    <input type="text" onchange="setModified();" class="int" id="event-maxreserve" value="$!message.plain($event.maxreserve)" name="event-maxreserve">
+                                </div>
+                                <div class="tableCell width50">
+                                </div>
+							</div>
+
+							<div class="tableRow">
+								<div class="tableCell width50">
+									<label for="event-location">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_SINGULAR}</label>
+									<script type="text/javascript">
+										function addCity() {
+											var city = document.getElementById('addcity').value;
+											var select = document.getElementById('event-location');
+											var exists = false;
+											var i = 0;
+											for (i = 0; i < select.length; i++) {
+												if (select.options[i].text == city) {
+													exists = true;
+													break;
+												}
+											}
+											if (exists) {
+												select.options[i].selected = true;
+											} else {
+												select.options[select.length] = new Option(city, city, false, true);
+												#if($grants.isAdmin() || $grants.isPartialAdmin())
+												htmlConfirm(' ${placeholderWithTranslation.sollendiestammdatenumdiesenorterweitertwerden}? ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("addCityYes();", "addCityNo();"));
+												#else
+												addCityNo();
+												#end
+											}
+											setModified();
+										}
+
+										function addCityYes() {
+											document.getElementById('addcity-masterdata').value = 'true';
+											hideDialogs();
+											showComboboxes();
+										}
+
+										function addCityNo() {
+											document.getElementById('addcity-masterdata').value = 'false';
+											hideDialogs();
+											showComboboxes();
+										}
+									</script>
+									<input type="hidden" id="addcity-masterdata" name="addcity-masterdata" #if($addcity-masterdata) value="true" #else value="false" #end>
+									<input type="hidden" id="addcity" name="addcity" value="">
+									<select onchange="setModified();" name="event-location" id="event-location">
+										#if((!$event.location) || $event.location == "")
+											#set ($exists = 1)
+										#else
+											#set ($exists = 0)
+										#end
+
+										<option value=""></option>
+
+										#foreach($location in $allLocation)
+											#if($event.location && $event.location == $location.id)
+												#set ($exists = 1)
+												<option value="$location.id" selected>$!message.text($location.name)</option>
+											#else
+												<option value="$location.id">$!message.text($location.name)</option>
+											#end
+										#end
+
+									</select>
+								</div>
+								<div class="tableCell width50">
+									<label for="event-note">${placeholderWithTranslation.GENERIC_REMARK}</label>
+									<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>
+								</div>
+							</div>
+							#if($online-registration.activated)
+								<div class="tableRow">
+									<div class="tableCell width50 inlineLabel">
+										<label for="event-login_required">${placeholderWithTranslation.GENERIC_LOGIN_REQUIRED}</label>
+										<!-- DEBUG $event.login_required -->
+										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-login_required" name="event-login_required"
+											#if($event && $event.login_required)
+												checked
+											#end
+										>
+									</div>
+								</div>
+
+								<div class="tableRow">
+									<div class="tableCell width50 inlineLabel">
+										<label for="event-mediarepresentatives">${placeholderWithTranslation.GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE}</label>
+										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
+											#if($event && $event.mediarepresentatives)
+												checked
+											#end
+										>
+									</div>
+								</div>
+							#end
+					</div>
+			</div>
+		</div>
+
+		<span class="floatRight" id="buttonPanel-bottom">
+			<!-- Show the save button -->
+			#if($grants.mayWrite())
+				<input type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" name="save" onclick="document.getElementById('formlist').action='SaveEvent?id=$!event.id';">
+			#end
+
+			#if($event && $event.id)
+				<input type="reset" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">
+			#else
+				<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" name="cancel" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='SearchEvent?action=event&search=reset&selectNone=true'; }">
+			#end
+		</span>
+
+		<script type="text/javascript">
+			function removeHost() {
+				##showSuccess('Bitte beachten Sie das der Gastgeber dieser Veranstaltung weiterhin als normaler Gast zugeordenet ist.');
+				document.getElementById('event-host').value='';
+				document.getElementById('event-hostname').value='';
+				document.getElementById('showevent-hostname').value=document.getElementById('showevent-hostnametext').value;
+			};
+
+			function resetHost() {
+				#if(!$event.hostname || $event.hostname.length() == 0)
+					document.getElementById('event-host').value='';
+					document.getElementById('event-hostname').value='';
+					document.getElementById('showevent-hostname').value=document.getElementById('showevent-hostnametext').value;
+				#end
+			};
+
+			resetHost();
+
+			#if(!$grants.mayWrite())
+				disableForm(document.getElementById('formlist'));
+			#end
+		</script>
+
+	</form>
+	<div class="clear"></div>
+</div>
+#parse("inc/footer.vm")

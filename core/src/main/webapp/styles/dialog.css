@@ -1,0 +1,36 @@
+.inputDialog
+{
+	background-color: #E8F4F0;
+}
+
+.dialogBorder
+{
+	border: 1px solid #008000;
+}
+
+.dialogTitlebar
+{
+	background-color: #788084;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-right: 1px solid white;
+}
+
+.dialogTitle
+{
+	border: 1px solid black;
+	color: white;
+	font-weight: bold;
+}
+
+.dialogBody
+{
+	background-color: #C8D0D4;
+	border-left: 1px solid black;
+	border-right: 1px solid white;
+}
+
+.dialogFooter
+{
+	border: 1px solid black;
+}

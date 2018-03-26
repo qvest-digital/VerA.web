@@ -1,0 +1,50 @@
+
+#if($action == "Personen")
+	#set($activeMenu = "Personen")
+    #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_SEARCH}")
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($entity="PERSON")
+#set($elementNameSingular = "GENERIC_PERSON_SINGULAR")
+#set($elementNamePlural = "GENERIC_PERSON_PLURAL")
+#parse("inc/header.vm")
+
+<div id="content_container">
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</span>
+    </div>
+
+    <h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</h1>
+
+	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+
+        <h2><label for="searchfield">${placeholderWithTranslation.GENERIC_SEARCH}</label></h2>
+
+        <form action="SearchPerson" id="peopleSearch_form" method="post">
+            <input type="hidden" name="start" value="0">
+            <input type="hidden" name="selectAll" value="false">
+            <input type="hidden" name="selectNone" value="true">
+			<input type="hidden" name="search" value="reset">
+			<input type="hidden" name="searchTask" value="personSearchTask">
+
+            <div class="tableCell width30">
+                <input type="text" name="searchField" id="searchfield" value="$!message.text($search.searchField)"  />
+            </div>
+
+            <div id="buttonPanel-bottom" class="textRight">
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+                    <input type="button" class="mainButton submit" name="cancel" value="${placeholderWithTranslation.GENERIC_ADVANCED_SEARCH}" title="${placeholderWithTranslation.GENERIC_ADVANCED_SEARCH}" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" />
+            </div>
+
+        </form>
+    </div>
+    <vera-info vera-stay>
+	    ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}.
+        ${placeholderWithTranslation.HINT_SEARCH_WHERE}
+		${placeholderWithTranslation.undamtsbezeichnungfunktion}.
+		<img src="../images/dialog_close.png" id="close-info" style="top:-28px;" onclick="$(this).parent().get(0).remove()" />
+    </vera-info>
+</div>
+
+#parse("inc/footer.vm")

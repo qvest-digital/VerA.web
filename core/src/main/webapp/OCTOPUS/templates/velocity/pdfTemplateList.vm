@@ -1,0 +1,68 @@
+#set($activeMenu = "Administration")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PDF_TEMPLATE}")
+#set($entity="PDF_TEMPLATE")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 92)
+
+#parse("inc/header.vm")
+
+<div data-pdflist="${paths.staticWeb}pdftemplate/list" id="pdfetemplate-list"></div>
+<div data-pdfdelete="${paths.staticWeb}pdftemplate/delete" id="pdfetemplate-delete"></div>
+<div data-orgunit="$!octopusConfig.personalConfig.orgUnitId" id="pdfetemplate-orgunit"></div>
+<div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_LIST_NOT_LOAD}" id="pdfetemplate-list-load-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_DELETE_FAILED}" id="pdfetemplate-delete-errormsg"></div>
+
+<script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-pdftemplate-list.js"></script>
+
+<div id="content_container">
+    <form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/delete" method="POST">
+        <input type="hidden" name="limit" value=""/>
+        <input type="hidden" name="start" value=""/>
+        <input type="hidden" name="selectNone" value="true"/>
+        <input type="hidden" name="doRemove" value="true"/>
+
+        <div class="textRight marginBottom10" id="breadcrumb">
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.pdfvorlagen}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.pdfvorlagen}</h1>
+
+        <span id="actionPanel" class="inlineLabel">
+                <strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
+                <input type="button" id="deletePdfTemplateButton" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}" />
+        </span>
+        <span id="" class="buttonPanel-top textRight floatRight">
+                        <input type="button" name="new" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='PdfTemplateDetail';" />
+        </span>
+
+                <table id="pdftemplate-list-overview" class="fixed">
+                        ##Set column size
+                        <col width="$column0%" />
+                        <col width="$column1%" />
+                        <col width="$column2%" />
+
+                        <tr>
+                                <th class="smallCell textCenter">
+                                        <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
+                                </th>
+                                <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                                <th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
+                        </tr>
+
+                        <tr class="colspan">
+                                <td colspan="3">
+                                        <span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> ${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
+                                </td>
+                        </tr>
+                </table>
+
+    </form>
+</div>
+
+#parse("inc/footer.vm")
