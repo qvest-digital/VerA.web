@@ -1148,8 +1148,8 @@ sudo service tomcat8 start
 Jetzt laden Sie die OSIAM-Anwendungen herunter und installieren Sie sie:
 
 \begin{lstdump}{OSIAM herunterladen}
-curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-auth-server.war https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-resource-server.war https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{vwiaversosiam}〉/resource-server-〈\lstdumpesc{vwiaversosiam}〉.war
 sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat8/webapps/
 \end{lstdump}
 \end{minipage}
@@ -2016,8 +2016,8 @@ sudo service tomcat8 stop
 ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
 cd /var/lib/tomcat8/webapps
 rm -rf osiam-auth-server osiam-resource-server
-curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-auth-server.war https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-resource-server.war https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{vwiaversosiam}〉/resource-server-〈\lstdumpesc{vwiaversosiam}〉.war
 cd -
 sudo service tomcat8 start
 \end{lstdump}
