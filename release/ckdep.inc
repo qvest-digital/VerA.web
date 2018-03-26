@@ -1,4 +1,4 @@
-com.lowagie:itext 4.2.0 illegal:https://developers.itextpdf.com/question/versions-older-than-5
+com.lowagie:itext 2.1.7 illegal:https://developers.itextpdf.com/question/versions-older-than-5
 font::glyphicons-halflings-regular 1.009 TODO
 github::HubSpot/vex 3.0.0 ok
 github::baconjs/bacon.js 0.7.73 ok
