@@ -72,7 +72,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Location extends AbstractBean implements OrgUnitDependent, Comparable<Location> {
-
     /**
      * PK.
      */
@@ -302,28 +301,31 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
 
         List<Integer> comparedList = new ArrayList<Integer>();
 
-        comparedList.add(collator
-                .compare(this.address == null ? "" : this.address, location.address == null ? "" : location.address));
-        comparedList.add(collator
-                .compare(this.callnumber == null ? "" : this.callnumber, location.callnumber == null ? "" : location.callnumber));
-        comparedList.add(collator
-                .compare(this.comment == null ? "" : this.comment, location.comment == null ? "" : location.comment));
-        comparedList.add(collator
-                .compare(this.contactperson == null ? "" : this.contactperson,
-                        location.contactperson == null ? "" : location.contactperson));
-        comparedList.add(collator.compare(this.email == null ? "" : this.email, location.email == null ? "" : location.email));
-        comparedList.add(collator
-                .compare(this.faxnumber == null ? "" : this.faxnumber, location.faxnumber == null ? "" : location.faxnumber));
-        comparedList.add(collator
-                .compare(this.gpsdata == null ? "" : this.gpsdata, location.gpsdata == null ? "" : location.gpsdata));
-        comparedList.add(collator
-                .compare(this.location == null ? "" : this.location, location.location == null ? "" : location.location));
-        comparedList.add(collator.compare(this.name == null ? "" : this.name, location.name == null ? "" : location.name));
-        comparedList.add(collator
-                .compare(this.roomnumber == null ? "" : this.roomnumber, location.roomnumber == null ? "" : location.roomnumber));
+        comparedList.add(collator.compare(this.address == null ? "" : this.address,
+                location.address == null ? "" : location.address));
+        comparedList.add(collator.compare(this.callnumber == null ? "" : this.callnumber,
+                location.callnumber == null ? "" : location.callnumber));
+        comparedList.add(collator.compare(this.comment == null ? "" : this.comment,
+                location.comment == null ? "" : location.comment));
+        comparedList.add(collator.compare(this.contactperson == null ? "" : this.contactperson,
+                location.contactperson == null ? "" : location.contactperson));
+        comparedList.add(collator.compare(this.email == null ? "" : this.email,
+                location.email == null ? "" : location.email));
+        comparedList.add(collator.compare(this.faxnumber == null ? "" : this.faxnumber,
+                location.faxnumber == null ? "" : location.faxnumber));
+        comparedList.add(collator.compare(this.gpsdata == null ? "" : this.gpsdata,
+                location.gpsdata == null ? "" : location.gpsdata));
+        comparedList.add(collator.compare(this.location == null ? "" : this.location,
+                location.location == null ? "" : location.location));
+        comparedList.add(collator.compare(this.name == null ? "" : this.name,
+                location.name == null ? "" : location.name));
+        comparedList.add(collator.compare(this.roomnumber == null ? "" : this.roomnumber,
+                location.roomnumber == null ? "" : location.roomnumber));
         //comparedList.add(collator.compare(this.title, location.title));
-        comparedList.add(collator.compare(this.url == null ? "" : this.url, location.url == null ? "" : location.url));
-        comparedList.add(collator.compare(this.zip == null ? "" : this.zip, location.zip == null ? "" : location.zip));
+        comparedList.add(collator.compare(this.url == null ? "" : this.url,
+                location.url == null ? "" : location.url));
+        comparedList.add(collator.compare(this.zip == null ? "" : this.zip,
+                location.zip == null ? "" : location.zip));
 
         if (comparedList.contains(1) || comparedList.contains(-1)) { //It contains 1 or -1 so it is not equal
             return 1; //For this implementation it does not matter what value returns. Can be changed for future reasons.
