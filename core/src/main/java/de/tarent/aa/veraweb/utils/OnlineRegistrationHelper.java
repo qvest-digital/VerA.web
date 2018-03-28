@@ -115,7 +115,7 @@ public class OnlineRegistrationHelper {
                 result[i] = Integer.parseInt(sepList[i].trim());
             } catch (final NumberFormatException ex) {
                 result[i] = 0;
-                logger.error("PARAM \"mandanten-online-registration.deactivated\" in config_override.xml set wrong!", ex);
+                logger.error("PARAM \"mandanten-online-registration.deactivated\" in config_vwoa.xml set wrong!", ex);
             }
         }
 
