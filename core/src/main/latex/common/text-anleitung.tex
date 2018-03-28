@@ -1992,7 +1992,9 @@ Sie können nun im Kapitel \nameref{sec:test} fortfahren.
 
 VerA.web benötigt aktuell OSIAM auth-server und resource-server in
 der Version \vwiaversosiam{} und ist \emph{nur} mit dieser Version
-getestet worden.\keinumbruch
+sowie auth-server und resource-server 2.3 aus der OSIAM-Distribution
+2.4 (der in vorherigen Fassungen dieser Anwendung empfohlenen und in
+den Docker-Images noch verwendeten Version) getestet worden.\keinumbruch
 
 ⚠ \emph{Achtung:} Die Version von OSIAM muß die in der jeweils
 benutzten VerA.web-Version dokumentierte sein!
@@ -2654,24 +2656,31 @@ Möglichkeiten und beschreiben die Durchführung.
 
 Die Online-Anmeldung kann nach einer erfolgreichen Installation
 wieder komplett oder für einzelne Mandanten deaktiviert werden.
-Hierzu müssen zwei Parameter in der \texttt{config\_override.xml}
-Datei gesetzt werden.
+Hierzu müssen zwei Parameter in der Datei \texttt{config\_vwoa.xml}
+gesetzt werden.
 
 \subsubsection{Deaktivierung der Online-Anmeldung für die ganze Installation}
 
 \begin{minipage}{\linewidth}
-Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_override.xml},
+Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_vwoa.xml},
 indem Sie die folgenden zwei Parameter hinzufügen oder ggfs. anpassen.
 
 \begin{lstdump}[language=XML]{OA komplett}
 <?xml version="1.0" encoding="utf-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
 
+<!--
+	OCTOPUS config_vwoa.xml
+
+	disable Online-Anmeldung by default in core
+	blacklist for single mandants by default empty
+-->
 <tcModuleConfig>
-    <params>
-        <param name="online-registration.activated" value="false"/>
-        <param name="mandanten-online-registration.deactivated" value=""/>
-    </params>
+	<params>
+		<!-- wird die Online-Anmeldung auch ausgeführt -->
+		<param name="online-registration.activated" value="false"/>
+		<param name="mandanten-online-registration.deactivated" value=""/>
+	</params>
 </tcModuleConfig>
 \end{lstdump}
 \end{minipage}
@@ -2688,7 +2697,7 @@ Weboberfläche unter dem Menüpunkt \inlinekasten{Administration} /
 \inlinekasten{Mandanten}.
 
 \begin{minipage}{\linewidth}
-Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_override.xml}
+Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_vwoa.xml}
 indem Sie die folgenden zwei Parameter hinzufügen oder ggfs. anpassen.
 
 Tragen Sie jedoch anstelle von "MANDANTEN" die einzelnen IDs der zu
@@ -2698,11 +2707,17 @@ deaktivierenden Mandanten, als kommagetrennte Liste, ein.
 <?xml version="1.0" encoding="utf-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
 
+<!--
+	OCTOPUS config_vwoa.xml
+
+	enable Online-Anmeldung
+-->
 <tcModuleConfig>
-    <params>
-        <param name="online-registration.activated" value="true"/>
-        <param name="mandanten-online-registration.deactivated" value="MANDANTEN"/>
-    </params>
+	<params>
+		<!-- wird die Online-Anmeldung auch ausgeführt -->
+		<param name="online-registration.activated" value="true"/>
+		<param name="mandanten-online-registration.deactivated" value=""/>
+	</params>
 </tcModuleConfig>
 \end{lstdump}
 
