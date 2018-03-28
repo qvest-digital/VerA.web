@@ -71,6 +71,8 @@ $(document).ready(function() {
         success: function(data){
             $(".errormsg").remove();
             $(".successmsg").remove();
+	    if (data === undefined)
+		return;
             var select = document.getElementById("pdftemplate-combo");
             for (var i = 0; i < data.length; i++) {
                 var pk = data[i][0];
