@@ -1288,6 +1288,7 @@ markiertenveranstaltungsorte=Localizaciones seleccionadas
 hinweis=Aviso
 aktiv=activo
 inaktiv=inactivo
+net_do=no est\u00E1 instalado
 aktionen=Acciones
 anschrift=Direcci\u00F3n
 anderungenspeichern=Guardar cambios
