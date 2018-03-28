@@ -103,7 +103,7 @@ net.sourceforge.argparse4j:argparse4j 0.4.3 TODO
 npm::angular 1.6.9 TODO
 npm::angular-animate 1.6.9 TODO
 npm::angular-aria 1.6.9 TODO
-npm::angular-material 1.1.7 TODO
+npm::angular-material 1.1.8 TODO
 npm::angular-messages 1.6.9 TODO
 npm::angular-route 1.6.9 TODO
 npm::angular-translate 2.17.0 TODO
@@ -115,7 +115,7 @@ npm::inherits 2.0.3 TODO
 npm::jquery-param 0.2.0 TODO
 npm::lru-cache 2.7.3 TODO
 npm::minimatch 0.3.0 TODO
-npm::moment 2.20.1 TODO
+npm::moment 2.21.0 TODO
 npm::ng-file-upload 12.2.13 TODO
 npm::sigmund 1.0.1 TODO
 org.apache.axis:axis-jaxrpc 1.4 TODO
