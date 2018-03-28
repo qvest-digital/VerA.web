@@ -85,3 +85,15 @@ Probleme:
   wo? wann?
   nutzen wir die Tags (z.B. beim Reply in 4? 5?)?
   oder brauchen wir das vielleicht einfach gar nicht mehr?
+
+OCTOPUS: ggfs. komplett reinziehen oder zumindest monorepo
+für *alle* Abhängigkeiten, die nicht aus maven-central o.ä.
+kommen, also mindestens diese plus dependencies rekursiv:
+• de.tarent.octopus:octopus-core
+• de.tarent.octopus:octopus-servlet
+• de.tarent.octopus:octopus-ext-commons
+• de.tarent.octopus:octopus-ext-beans
+• de.tarent.octopus:octopus-ext-cronjobs
+• de.tarent.octopus:octopus-ext-jmx
+• de.tarent.octopus:octopus-ext-annotation
+• de.tarent.libraries:tarent-commons
