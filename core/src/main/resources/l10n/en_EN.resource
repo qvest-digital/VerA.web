@@ -1286,6 +1286,7 @@ markiertenveranstaltungsorte=selected venue(s)
 hinweis=note
 aktiv=active
 inaktiv=inactive
+net_do=not installed
 aktionen=Actions
 anschrift=Address
 anderungenspeichern=Save changes

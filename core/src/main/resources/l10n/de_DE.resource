@@ -1287,6 +1287,7 @@ markiertenveranstaltungsorte=Markierte(r) Veranstaltungsort(e)
 hinweis=Hinweis
 aktiv=aktiv
 inaktiv=inaktiv
+net_do=nicht installiert
 aktionen=Aktionen
 anschrift=Anschrift
 anderungenspeichern=\u00C4nderungen speichern

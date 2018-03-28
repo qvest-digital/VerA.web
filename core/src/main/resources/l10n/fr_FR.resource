@@ -1287,6 +1287,7 @@ markiertenveranstaltungsorte=Lieu(x) des \u00E9v\u00E9nements s\u00E9l\u00E9ctio
 hinweis=Conseil
 aktiv=actif
 inaktiv=inactif
+net_do=pas install\u00E9
 aktionen=Actiones
 anschrift=Adresse
 anderungenspeichern=Enregistrer les modifications
