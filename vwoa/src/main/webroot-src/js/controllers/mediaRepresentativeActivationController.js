@@ -4,9 +4,9 @@ module.exports = function($http, $scope, $rootScope, $routeParams, $location, sh
         method: 'GET',
         url: activatePressUserUrl
     }).then(function (result) {
-        if (result.status == 'OK') {
+        if (result.data.status == 'OK') {
           show.success('MEDIA_ACTIVATION_USER_MESSAGE_SUCCESS');
-        } else if (result.status == 'PRESS_USER_ALREADY_ACTIVATED') {
+        } else if (result.data.status == 'PRESS_USER_ALREADY_ACTIVATED') {
           show.success('MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_ACTIVATED');
         }
         $location.path('/login');

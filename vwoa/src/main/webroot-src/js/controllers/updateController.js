@@ -13,8 +13,8 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
   var eventId = undefined;
 
   $http.get('api/event/uuid/' + $routeParams.eventUuid).then(function(result) {
-    if(result.status != 'ERROR') {
-      eventId = result.status;
+    if(result.data.status != 'ERROR') {
+      eventId = result.data.status;
 
       $http.get('api/update/' + eventId).then(function(result) {
         $scope.event = result.data;
@@ -45,10 +45,10 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
             invitationstatus: $scope.acceptance.id
           })
         }).then(function(result) {
-          if (result.status === 'OK') {
+          if (result.data.status === 'OK') {
             show.success('USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE',{name:$scope.event.shortname});
             $location.path('veranstaltungen');
-          } else if (result.status === 'NOT_REGISTERED') {
+          } else if (result.data.status === 'NOT_REGISTERED') {
             show.error('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE');
           }
         });

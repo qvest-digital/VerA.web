@@ -3,16 +3,16 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
     var eventId = undefined;
 
     $http.get('api/event/uuid/' + $routeParams.eventUuid).then(function(result) {
-        if(result.status != 'ERROR') {
-            eventId = result.status;
+        if(result.data.status != 'ERROR') {
+            eventId = result.data.status;
 
             $http.get('api/event/guestlist/status/' + eventId).then(function(result) {
-                //save result.status in scope for next functions
-                $scope.guestStatus = result.status;
+                //save result.data.status in scope for next functions
+                $scope.guestStatus = result.data.status;
                 //second status to save status of registering in waiting list
-                $scope.registeredOnWaitingList = result.status;
+                $scope.registeredOnWaitingList = result.data.status;
 
-                if (result.status === 'WAITING_LIST_FULL' && $routeParams.noLoginRequiredUUID == null) {
+                if (result.data.status === 'WAITING_LIST_FULL' && $routeParams.noLoginRequiredUUID == null) {
                     $scope.registerButton = false;
 
                     show.error('REGISTER_USER_MESSAGE_EVENT_FULL');
@@ -52,10 +52,10 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
                         if ($scope.registeredOnWaitingList === 'WAITING_LIST_OK') {
                             show.success('REGISTER_USER_MESSAGE_TO_RESERVE_LIST');
                             $location.path('veranstaltungen');
-                        } else if (result.status === 'OK') {
+                        } else if (result.data.status === 'OK') {
                             show.success('USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL',{name:$scope.event.shortname});
                             $location.path('veranstaltungen');
-                        } else if (result.status === 'REGISTERED') {
+                        } else if (result.data.status === 'REGISTERED') {
                             show.error('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE');
                         }
                     });
@@ -71,11 +71,11 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
                             noLoginRequiredUUID: $scope.noLoginRequiredUUID
                         })
                     }).then(function(result) {
-                    if (result.status === 'OK') {
+                    if (result.data.status === 'OK') {
                             show.success('REGISTER_USER_MESSAGE_TO_RESERVE_LIST');
                             $location.path('veranstaltungen');
                             $scope.noteToHost = null;
-                        } else if (result.status === 'REGISTERED') {
+                        } else if (result.data.status === 'REGISTERED') {
                             show.error('USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE');
                         }
                     });

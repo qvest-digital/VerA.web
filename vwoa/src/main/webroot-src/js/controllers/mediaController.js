@@ -27,15 +27,15 @@ module.exports = function($scope, $http, $routeParams, $translate, param,show) {
         current_language: $translate.use()
       })
     }).then(function(result) {
-      if (result.status === 'NO_EVENT_DATA') {
+      if (result.data.status === 'NO_EVENT_DATA') {
         show.error('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS');
-      } else if (result.status === 'WRONG_EMAIL') {
+      } else if (result.data.status === 'WRONG_EMAIL') {
         show.error('GENERIC_MESSAGE_EMAIL_NOT_VALID');
-      } else if (result.status === 'WRONG_EVENT') {
+      } else if (result.data.status === 'WRONG_EVENT') {
         show.error('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS');
-      } else if (result.status === 'PRESS_USER_EXISTS_ALREADY') {
+      } else if (result.data.status === 'PRESS_USER_EXISTS_ALREADY') {
         show.error('MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST');
-      } else if (result.status === 'OK') {
+      } else if (result.data.status === 'OK') {
         show.success('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE');
 
         $scope.lastname = null;

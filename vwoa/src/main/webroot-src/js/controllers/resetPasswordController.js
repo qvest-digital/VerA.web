@@ -13,7 +13,7 @@ module.exports = function($http, $scope, $routeParams, $location, $rootScope, sh
           password: $scope.resetPasswordForm.password.$viewValue
         })
       }).then(function(result) {
-        if (result.status === "OK") {
+        if (result.data.status === "OK") {
           show.success('USER_PASSWORD_CHANGE_SUCCESS_MESSAGE');
           $location.path('/event');
         } else {

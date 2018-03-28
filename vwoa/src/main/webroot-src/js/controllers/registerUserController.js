@@ -18,7 +18,7 @@ module.exports = function($scope, $http, $location, param, show, $translate) {
                 current_language: $translate.use()
             })
         }).then(function (result) {
-            switch(result.status) {
+            switch(result.data.status) {
             case 'OK':
                 $location.path('/login');
                 show.success("REGISTER_USER_MESSAGE_SUCCESS");

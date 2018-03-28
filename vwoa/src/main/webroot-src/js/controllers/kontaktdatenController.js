@@ -6,7 +6,7 @@ module.exports = function($http, $translate, $scope, param, show) {
     method: 'GET',
     url: '/api/user/userdata/existing/event'
   }).then(function(result) {
-    if (result.status == 'OK') {
+    if (result.data.status == 'OK') {
       //user has events and fields should be enabled
       $scope.formDisabled = false
     } else {
@@ -98,7 +98,7 @@ module.exports = function($http, $translate, $scope, param, show) {
           person_gender: $scope.gender.id
         })
       }).then(function(result) {
-        switch (result.status) {
+        switch (result.data.status) {
           case 'OK':
             show.success('USER_ACCOUNT_CORE_DATA_UPDATED');
             break;

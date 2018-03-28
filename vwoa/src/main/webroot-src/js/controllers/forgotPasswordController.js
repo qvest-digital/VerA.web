@@ -11,7 +11,7 @@ module.exports = function($http, $scope, $location, show, $timeout, param, $tran
                     current_language: $translate.use()
             })
         }).then(function (result) {
-            switch(result.status) {
+            switch(result.data.status) {
             case 'OK':
                 show.success("USER_PASSWORD_RESET_MAIL");
                 break;
