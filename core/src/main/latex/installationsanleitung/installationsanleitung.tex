@@ -533,7 +533,7 @@ involvieren:\keinumbruch
 
 Bei einem Upgrade möchten Sie ggfs. vorher eine Sicherung erstellen.
 
-\subsection{Dienste verwalten mit DJB daemontools}\label{subsec:intro-svc}
+\subsection{Exkurs: Dienste verwalten mit DJB daemontools}\label{subsec:intro-svc}
 
 Die VerA.web Online-Anmeldung wird als sogenannter Microservice
 ausgeführt, im Gegensatz zu den anderen Komponenten, die als
@@ -619,6 +619,23 @@ automatisch wieder gestartet wird, solange keine Datei (kann auch leer sein)
 
 \texttt{man svc} zeigt noch einige weitere Optionen, aber die hier erwähnten
 sind die, die ein Systemadministrator im normalen Betrieb benötigt.
+
+\subsection{Exkurs: Wechsel von systemd nach sysvinit}\label{subsec:intro-sysvinit}
+
+Eine Standardinstallation (kein Upgrade) von Debian 8 „jessie“ oder neuer
+benutzt \texttt{systemd} als Init-System. Wir haben unsere Software und
+insbesondere die Integration der Online-Anmeldung jedoch ausschließlich
+mit \texttt{sysvinit}, das Unix-Administratoren vertrauter ist, getestet.
+
+\begin{minipage}{\linewidth}
+Zum Wechsel führen Sie folgende Befehle aus:
+
+\begin{lstdump}{sysvinit installieren}
+…
+\end{lstdump}
+\end{minipage}
+
+…_
 
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
