@@ -461,7 +461,7 @@ BEGIN
 		);
 
 		-- Update the orgunit for default categories
-		UPDATE tcategorie set fk_orgunit=-1 where fk_orgunit IS NULL;
+		UPDATE veraweb.tcategorie set fk_orgunit=-1 where fk_orgunit IS NULL;
 
 		-- post-upgrade 1.5.1.17
 		vmsg := 'end.update(1.5.1.17)';
