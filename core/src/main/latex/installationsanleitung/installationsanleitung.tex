@@ -68,7 +68,7 @@
 
 \section{Einleitung}\label{sec:intro}
 
-„VerA.web“ steht für Veranstaltungs- und Adreßverwaltung im „web“ (Internet).
+„VerA.web“ steht für Veranstaltungs‑ und Adreßverwaltung im „web“ (Internet).
 VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
 Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
 unterstützt.
@@ -128,9 +128,12 @@ unverständlicher zu machen. Hierzu gehören:\keinumbruch
   Stellen, wo Konfigurationsdateien angepaßt werden müssen, werden die
   Debian-Standardwerte als Grundlage vorausgesetzt. \texttt{sudo} ist
   installiert und eingerichtet.}
+ \item{⚠ Aktuell wird eine Debian-Installation mit \texttt{sysvinit},
+  \emph{nicht} \texttt{systemd}, vorausgesetzt!}
  \item{Das System ist grundsätzlich installiert, betriebsbereit
   und rebootfest; Firewalleinstellungen sind hinreichend getroffen.
-  Für jede Maschine ist ein gültiges SSL-Zertifikat vorhanden.}
+  Für jede Maschine ist ein gültiges SSL-Zertifikat vorhanden, das
+  alle verwendeten Hostnamen abdeckt.}
  \item{Die PostgreSQL-Datenbank für VerA.web wird auf dem System
   lokal installiert. (Abweichungen sind trivial möglich.)}
  \item{Die REST-API wird nicht vom VerA.web core getrennt.}
@@ -320,8 +323,6 @@ der von uns empfohlenen Installationsmethode die Komponenten auch
 untereinander ausschließlich verschlüsselt und sicher über HTTPS
 miteinander kommunizieren.
 
-\ifoa
-
 \subsection{Komponentendiagramm}\label{subsec:intro-overview-fine}
 
 In dieser Darstellung schlüsseln wir die verwendeten Komponenten
@@ -440,41 +441,31 @@ Vierte Spalte: & \multicolumn{2}{l}{%
 
 \end{minipage}
 
-Die WAR- und JAR-Dateien aus der zweiten Spalte finden Sie im
+Die WAR‑ und JAR-Dateien aus der zweiten Spalte finden Sie im
 nächsten Abschnitt als individuelle Einträge (bzw. bei OSIAM
 im entsprechenden Kapitel direkt als Download). Die schwarz
-umrahmten Skripte befinden sich in den \texttt{files}-Archiven.
-
-\fi% oa
+umrahmten Skripte befinden sich im \texttt{files}-Tarball.
 
 \subsection{Die VerA.web-Distribution}\label{subsec:intro-distro}
 
 Zur Installation bzw. Upgrade müssen Sie folgende Dateien („die
-VerA.web-core Distribution“) von tarent beziehen:\keinumbruch
+VerA.web-Distribution“) von tarent beziehen:\keinumbruch
 
 \begin{itemize}
  \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}}
-\ifoa
- \item{\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}}
-\fi% oa
  \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
  \item{\texttt{rest-api-\vwiaverssw{}.war}}
-\ifoa
- \item{\texttt{online-anmeldung-\vwiaverssw{}.jar}}
-\fi% oa
+ \item{\texttt{online-anmeldung-\vwiaverssw{}.jar} (falls gewünscht)}
 \end{itemize}
 
 Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
-
-\ifoa
 
 \subsubsection{Die OSIAM-Distribution}\label{subsubsec:intro-distro-ong}
 
 Falls Sie während des Aufsetzens von VerA.web eine eigene Installation
 von OSIAM einrichten möchten benötigen Sie hierfür auf dem System, auf
 dem OSIAM installiert werden soll, Internetzugang, da die notwendigen
-Installationspakete (vgl. Kapitel
-\ref{subsubsec:setup-osiam-download} und
+Installationspakete (vgl. Kapitel \ref{subsubsec:setup-osiam-download} und
 \ref{sec:upgrade-osiam}) „live“ über HTTPS heruntergeladen werden. Nach
 erfolgtem Download der Installationspakete während einer Erstinstallation
 oder eines Upgrades von OSIAM ist dieser Zugriff selbstverständlich nicht
@@ -485,8 +476,6 @@ eine separate Software, die durch VerA.web lediglich verwendet wird, daher
 ist OSIAM ebensowenig Teil der VerA.web-Distribution wie zum Beispiel ein
 Mailserver oder ein LDAP-Server.
 
-\fi% oa
-
 \subsection{Installationsvorgehen}\label{subsec:intro-install}
 
 Installation und Upgrade von VerA.web funktionieren, indem
@@ -494,9 +483,7 @@ zunächst Teile der Distribution (siehe oben) auf den Server
 kopiert werden, und alle weiteren Schritte dann auf dem System
 stattfinden. Die Beispiele sind so gehalten, daß die gesamte
 Installation als normaler Benutzer oder \texttt{root} auf dem
-\ifoa
 jeweiligen
-\fi% oa
 Server durchgeführt werden kann, und privilegierte Operationen
 mit Hilfe des Programms \texttt{sudo} durchgeführt werden.
 
@@ -510,14 +497,12 @@ involvieren:\keinumbruch
   Ihr aktuelles Arbeitsverzeichnis ist; sollten Sie zwischendurch
   das Verzeichnis wechseln müssen, wechseln Sie einfach zurück,
   bevor Sie den jeweils nächsten Schritt angehen.}
- \item{Anpassen von (Konfigurations-)Dateien}
+ \item{Anpassen von (Konfigurations‑)Dateien}
  \item{Installation von Dateien und Neustart von Diensten}
  \item{Löschen der ausgepackten Dateien und Installationsarchive}
 \end{itemize}
 
 Bei einem Upgrade möchten Sie ggfs. vorher eine Sicherung erstellen.
-
-\ifoa
 
 \subsection{Dienste verwalten mit DJB daemontools}\label{subsec:intro-svc}
 
@@ -606,42 +591,38 @@ automatisch wieder gestartet wird, solange keine Datei (kann auch leer sein)
 \texttt{man svc} zeigt noch einige weitere Optionen, aber die hier erwähnten
 sind die, die ein Systemadministrator im normalen Betrieb benötigt.
 
-\fi% oa
-
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
 In der Angabe für den benötigten Festplattenplatz ist die
 Grundinstallation des Betriebssystems (ohne Auslagerungsdatei)
 einkalkuliert.
 
-\ifoa
-
 Die Systemvoraussetzungen unterscheiden sich je nachdem wie Sie die
-Komponenten trennen. Im folgenden werden empfohlene Werte für zwei
-mögliche Installationsvarianten angegeben (OSIAM getrennt oder mit
-auf dem core-System); die Online-Anmeldung („OA“) wird als getrenntes
-System ausgeführt, bei einer Zusammenlegung der Online-Anmeldung mit
-dem core-System erhöhen sich die Anforderungen minimal.
+Komponenten auf individuelle VMs verteilen. Im folgenden werden im
+wesentlichen die Werte für zwei verschiedene Szenarien angegeben:
+core und OSIAM auf separaten Systemen (oder keine Online-Anmeldung)
+oder zusammen auf einem System. Die Online-Anmeldung selbst wird
+als separates System geführt; sie kann auch mit dem core-System
+zusammengelegt werden, dies erhöht die Anforderungen an dieses nur
+minimal.
 
 \begin{tabular}{| r || l | l | l |}\hline
-                       & Minimum    & empfohlen           & Maximum\\\hline\hline
- CPU (je VM)           & 1          & 1                   & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- RAM OSIAM (alleine)   & 960 MiB    & 1536 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- RAM core (alleine)    & 512 MiB    & 1024 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- RAM core + OSIAM      & 1024 MiB   & 2048 MiB            & 4096 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- RAM Online-Anmeldung  & 512 MiB    & 768 MiB             & 1024 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- HDD OSIAM (alleine)   & 2 GB       & 4 GB                & 8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- HDD core (alleine)    & 2 GB       & 8 GB                & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- HDD core + OSIAM      & 3 GB       & 10 GB               & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- HDD Online-Anmeldung  & 1½ GB      & 3 GB                & 8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Betriebssystem        & Debian 8   & Debian 8            & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
- Webserver             & Apache 2.4 & Apache 2.4          & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Java Laufzeitumgebung & OpenJDK 8  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
-%XXX TODO: auch unten
- Applikationsserver    & Tomcat 8       & aktuelle 8.x    & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
-%XXX TODO: Minimale Tomcat-Version einsetzen
- Datenbank             & PostgreSQL 9.1 & aktuelle 9.x    & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+                          & Minimum                & empfohlen     & Maximum\\\hline\hline
+ Anzahl Prozessoren je VM & 1                      & 1             & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Betriebssystem           & Debian 8 („jessie“)    & 9 („stretch“) & unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+ Java™-Laufzeitumgebung   & OpenJDK 8 JRE headless & wie Minimum   & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-nonewer}}\\\hline
+ Applikationsserver       & Tomcat 8               & wie Minimum   & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Webserver                & Apache 2.2             & Apache 2.4    & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Datenbank                & PostgreSQL 9.1         & aktuelle 9.x  & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
 %XXX TODO: PostgreSQL 10+ testen
+ OSIAM (alleine) Arbeitsspeicher   &  960 MiB      & 1536 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ OSIAM (alleine) Festplattengröße  &    2 GB       &    4 GB       &    8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ core (alleine) Arbeitsspeicher    &  512 MiB      & 1024 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ core (alleine) Festplattengröße   &    2 GB       &    8 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ core + OSIAM Arbeitsspeicher      & 1024 MiB      & 2048 MiB      & 4096 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ core + OSIAM Festplattengröße     &    3 GB       &   10 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Online-Anmeldung Arbeitsspeicher  &  512 MiB      &  768 MiB      & 1024 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Online-Anmeldung Festplattengröße &    ½ GB       &    3 GB       &    8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
 \end{tabular}
 
 Bitte beachten Sie bei der Dimensionierung der Maschinen und der
@@ -649,22 +630,6 @@ Netzwerkanbindung, daß das Veranstaltungsmanagement (core) nur
 durch Ihre Mitarbeiter bedient wird, während die Online-Anmeldung
 üblicherweise offen im Internet steht und entsprechender Last
 ausgesetzt sein \emph{kann}.
-
-\else% !oa
-% Voraussetzungen für VerA.web ohne Online-Anmeldung:
-\begin{tabular}{| r || l | l | l |}\hline
-                       & Minimum    & empfohlen           & Maximum\\\hline\hline
- CPU                   & 1          & 1                   & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Arbeitsspeicher       & 512 MiB    & 1024 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Festplatte            & 2 GB       & 8 GB                & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Betriebssystem        & Debian 8   & Debian 8            & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
- Webserver             & Apache 2.4 & Apache 2.4          & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Java Laufzeitumgebung & OpenJDK 8  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
-%XXX TODO: s.o.
- Applikationsserver    & Tomcat 8       & aktuelle 8.x    & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Datenbank             & PostgreSQL 9.1 & aktuelle 9.x    & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
-\end{tabular}
-\fi% !oa
 
 \hyperfootnotetext{\label{fn:req-tst-notmore}%
  wir haben keine größere Konfiguration getestet; eine praktische
@@ -674,8 +639,8 @@ ausgesetzt sein \emph{kann}.
 \hyperfootnotetext{\label{fn:req-notmore}%
  neuere Versionen wurden nicht getestet oder existierten zum
  Testzeitpunkt nicht}%
-%\hyperfootnotetext{\label{fn:req-nonewer}%
-% neuere Versionen funktionieren \emph{nicht}!}%
+\hyperfootnotetext{\label{fn:req-nonewer}%
+ neuere Versionen funktionieren \emph{nicht}!}%
 
 \subsection{LDAP-Verzeichnisdienst}\label{subsec:req-ldap}
 
@@ -690,11 +655,12 @@ Benutzern (identifiziert durch den Unix-Benutzernamen bzw. die
 \texttt{uid}) zu Benutzerrechten (z.B. Administrator oder Lesen
 eingeschränkt) und Mandanten wird durch VerA.web gespeichert;
 Näheres finden Sie in Kapitel 6.2 (Administration > Benutzer)
-im \href
-{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=vwor/src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD#6.2 Benutzer}
+im \href%
+{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=vwor/src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD#6.2 Benutzer}%
 {VerA.web-Benutzerhandbuch}. Einige weitere LDAP-Attribute wie
-\texttt{givenName} und \texttt{sn} werden ebenfalls verwendet,
-sowie \texttt{mail} als Absender beim Versand von eMails.
+\texttt{givenName} und \texttt{sn} (Vor‑ und Zuname) werden
+ebenfalls verwendet, sowie \texttt{mail} als Absendeadresse beim
+Versand von eMails.
 
 Für eine kleine Site ist es möglich, den LDAP-Server (Debian-Pakete
 \texttt{slapd} (OpenLDAP-Server) und \texttt{ldap-utils} sowie, als
@@ -706,65 +672,51 @@ Alle Informationen hierzu finden Sie in Kapitel \ref{sec:setup-lam}.
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
 Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
-\ifoa
 (OSIAM kann auf dem System mitinstalliert werden, wenn es nur für
-VerA.web verwendet wird)
-\fi% oa
-mit einer der stabilen Versionen Debian 8
-%XXX TODO: oder 9 „stretch“
-„jessie“ als Betriebssystem. Zwar \emph{kann} die Software auch
-mit einer anderen Debian-basierten Distribution (z.B. Ubuntu)
-oder einer anderen Java/Tomcat-Umgebung (z.B. Solaris \dash
-hier müssen Sie Pfade, z.B. \texttt{/usr/ucb/install} statt einfach
-\texttt{install}, und Befehle, z.B. \texttt{zcat … | tar -xf -}
-statt \texttt{tar -xzf …}, an die modifizierte Umgebung anpassen)
-betrieben werden, allerdings geht diese Installationsanleitung von
-der empfohlenen Systemumgebung aus. Eine graphische Oberfläche auf
-dem Server wird zum Betrieb nicht benötigt.
+VerA.web verwendet wird) mit der stabilen Debian-Version 9 („stretch“)
+als Betriebssystem. Zwar \emph{kann} die Software auch mit einer
+anderen Debian-basierten Distribution (z.B. Ubuntu) oder einer
+anderen Java/Tomcat-Umgebung (z.B. Solaris) betrieben werden,
+allerdings geht diese Installationsanleitung von der empfohlenen
+Systemumgebung aus. Eine graphische Oberfläche auf dem Server wird
+zum Betrieb nicht benötigt.
 
-Für VerA.web core benötigen Sie mindestens 512 MiB Arbeitsspeicher;
-1 GiB oder mehr wird empfohlen. Wir empfehlen eine Festplattengröße
-von mindestens 2 GB, besser 8 GB.
+Falls Sie abweichende Konfigurationen benutzen müssen Sie ggfs.
+Pfade (z.B. \texttt{/usr/ucb/install} statt einfach \texttt{install}),
+Befehle (z.B. \texttt{zcat … | tar -xf -} statt \texttt{tar -xzf …}),
+u.ä. an die modifizierte Umgebung anpassen.
 
 In dieser Anleitung sowie den Systemvoraussetzungen wird weiterhin
 angenommen, daß der notwendige Datenbankserver (PostgreSQL) auf
 derselben VM wie die interne Veranstaltungs- und Adreßverwaltung läuft;
 falls nicht ändern Sie bitte an den relevanten Stellen den Hostnamen,
 ggfs. Port, und Datenbanknamen in den Konfigurationsdateien.
-\ifoa
-Der PostgreSQL-Datenbankserver für OSIAM muß hingegen aus Gründen der
-Einfachheit auf demselben System wie der OSIAM-Anwendungsserver laufen.
-\fi% oa
+Der PostgreSQL-Datenbankserver für OSIAM \emph{muß} hingegen aus Gründen
+der Einfachheit auf demselben System wie der OSIAM-Anwendungsserver laufen.
 
-Desweiteren benötigen Sie den Webserver Apache 2 mit
-\ifoa
-\texttt{mod\_proxy\_http},
-\fi% oa
-\texttt{mod\_jk} und SSL, sowie den Applikationsserver Tomcat 8
-mit einer Java™-Laufzeitumgebung (OpenJDK) ab Version 8,
-ohne GUI (headless JRE).
+Desweiteren benötigen Sie den Applikationsserver Tomcat 8 mit einer
+Java™-Laufzeitumgebung (OpenJDK) ab Version 8, ohne GUI (headless JRE),
+sowie den Webserver Apache 2 mit \texttt{mod\_proxy\_http} (nur bei
+Verwendung der optionalen Online-Anmeldung), \texttt{mod\_jk} und SSL.
 
-⚠ \emph{Achtung:} Java™ 7 oder älter wird nicht unterstützt
-und führt während der Installation zu Fehlern!
+⚠ \emph{Achtung:} Java™ 7 oder älter sowie Tomcat 7 oder älter werden
+nicht unterstützt und führen während der Installation zu Fehlern!
 
 \subsubsection{Mailserver (MTA)}\label{subsubsec:req-core-mta}
 
-Auf dem Server für VerA.web core und REST-API muß ein Mailserver
-(z.B. \texttt{postfix} oder \texttt{sendmail} aus Debian)
+Auf dem Server für VerA.web core und REST-API \emph{muß} ein
+Mailserver (z.B. \texttt{postfix} oder \texttt{sendmail} aus Debian)
 installiert sein, der lokale Verbindungen auf Port 25 entgegennimmt
 und die eingehenden Nachrichten, ggfs. über einen als Smarthost
 eingestellten anderen Mailserver, zustellt.
-
-\ifoa
 
 \subsection{Online-Anmeldung}\label{subseq:req-oa}
 
 Zum Betrieb der Online-Anmeldung empfehlen wir ebenfalls eine
 eigenständige VM; sie kann allerdings auch auf demselben System
 wie der VerA.web core eingerichtet werden. Auch hier wird eine
-Installation von Debian 8 „jessie“ ohne
-%XXX TODO: stretch
-graphische Oberfläche vorausgesetzt.
+Installation von Debian 9 „stretch“ ohne graphische Oberfläche
+und mit \texttt{sysvinit} vorausgesetzt.
 
 Die Online-Anmeldung hat relativ bescheidene Voraussetzungen
 und kann bereits mit 512 MiB Arbeitsspeicher und 1½ GB Festplatte
@@ -774,8 +726,6 @@ Auch hier benötigen Sie den Apache Webserver und die Java™ 8
 Laufzeitumgebung, allerdings keinen Tomcat-Applikationsserver, da
 die Online-Anmeldung als sogenannter Microservice implementiert wurde.
 
-\fi% oa
-
 \subsection{Bevor Sie beginnen}\label{subsec:req-prereq}
 
 Im Verlauf der Installation werden Sie mindestens einen Useraccount
@@ -784,7 +734,7 @@ bitte vorab über die LDAP-Kürzel (Unix-Loginnamen, üblicherweise das
 Attribut \texttt{uid}) des oder der Benutzer, der/die initial als
 VerA.web-Administratoren dienen sollen.
 
-Plazieren Sie bitte für jede VM das zugehörige SSL-Zertifikat als
+Plazieren Sie bitte auf jeder VM das zugehörige SSL-Zertifikat als
 \texttt{/etc/ssl/vwserver.cer}, den privaten Schlüssel als
 \texttt{/etc/ssl/private/vwserver.key}, und, sofern vorhanden, die
 Zertifikatskette als \texttt{/etc/ssl/vwchain.cer}. Setzen Sie die
@@ -809,13 +759,8 @@ setzen und das System neustarten.
 \section{Installation OpenLDAP und LDAP-Account-Manager}\label{sec:setup-lam}
 
 Falls Sie bereits über einen \nameref{subsec:req-ldap} verfügen
-überspringen Sie dieses Kapitel bitte und lesen Sie direkt im Kapitel
-\ifoa
- \nameref{sec:setup-osiam}
-\else% !oa
- \nameref{sec:setup-int}
-\fi% !oa
-weiter.
+überspringen Sie dieses Kapitel bitte und lesen Sie direkt in
+Kapitel \nameref{sec:setup-osiam} weiter.
 
 Diese Installation wird auf dem Server durchgeführt, auf dem Sie
 später auch VerA.web-core installieren möchten.

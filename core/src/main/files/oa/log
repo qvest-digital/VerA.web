@@ -1,0 +1,2 @@
+#!/bin/sh
+exec setuidgid vwoalog multilog t ./main
