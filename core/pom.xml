@@ -169,14 +169,9 @@
 								<configuration>
 									<artifacts>
 										<artifact>
-											<file>target/latex/installationsanleitung-core/installationsanleitung-core.pdf</file>
+											<file>target/latex/installationsanleitung/installationsanleitung.pdf</file>
 											<type>pdf</type>
-											<classifier>installationsanleitung-core</classifier>
-										</artifact>
-										<artifact>
-											<file>target/latex/installationsanleitung-full/installationsanleitung-full.pdf</file>
-											<type>pdf</type>
-											<classifier>installationsanleitung-full</classifier>
+											<classifier>installationsanleitung</classifier>
 										</artifact>
 									</artifacts>
 								</configuration>

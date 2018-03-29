@@ -38,13 +38,27 @@
 % TODO:
 % - Unterkapitel "Securing OSIAM", mit den Berlinern zusammen, nach der Schnellinstallation
 
- \ifoa
-  \newcommand{\vwianame}{Installationsanleitung VerA.web-full}
- \else% !ifoa
-  \newcommand{\vwianame}{Installationsanleitung VerA.web-core}
- \fi% !ifoa
+\documentclass{tarentanleitung}
+\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
-\tarentanleitung{\vwianame}{\vwiaverssw}
+% VerA.web Fassung der Installationsanleitung
+\newcommand{\vwiaversfassungnr}{5.0}
+\newcommand{\vwiaversfassungmonat}{Februar}
+\newcommand{\vwiaversfassungjahr}{2018}
+
+% VerA.web Version
+\newcommand{\vwiaverssw}{1.8.58}
+
+% OSIAM-Version
+\newcommand{\vwiaversosiam}{2.5}
+
+% später entfernen
+\newif\ifoa
+\oatrue
+
+\begin{document}
+\tarentanleitung{Installationsanleitung VerA.web}{\vwiaverssw}
  {\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
 
 % uncomment if this is a WIP that should not be published
@@ -59,23 +73,17 @@ VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
 Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
 unterstützt.
 
-\ifoa
 Die „Online-Anmeldung“ ermöglicht es Gästen, sich selbst zu Veranstaltungen
 anzumelden, die für diese Prozedur freigeschaltet sind, sowie zu einer
 Veranstaltung angemeldeten Delegationen, ihre Mitglieder selbst zu melden.
-\fi% oa
+Die Installation und Nutzung der Online-Anmeldung ist optional.
 
 \subsection{Über diese Anleitung}\label{subsec:aboutmanual}
 
-\ifoa
 Dieses Dokument beschreibt, wie das Veranstaltungsmanagement
-VerA.web mit Online-Anmeldung und (falls nötig) das
-Identitätsmanagementsystem OSIAM
-\else% !oa
-Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
-Veranstaltungsmanagementsoftware)
-\fi% !oa
-durch einen Systemadministrator
+VerA.web, optional mit Online-Anmeldung und (falls nötig) dem
+von der Online-Anmeldung benötigte Identitätsmanagementsystem
+OSIAM, durch einen Systemadministrator
 eigenständig installiert werden kann. Hierbei wird eine empfohlene
 Installation beschrieben; ein Betrieb ist auch mit abweichender
 Konfiguration (z.B. ohne Apache) möglich, aber nicht durch dieses
@@ -116,29 +124,25 @@ unverständlicher zu machen. Hierzu gehören:\keinumbruch
 \begin{itemize}
  \item{Die Installation wird auf nicht anderweitig verwendeten,
   sauberen oder frisch installierten (virtuellen) Maschinen durchgeführt.}
- \item{Als Betriebssystem wird Debian 8 „jessie“
-%XXX TODO: oder 9 „stretch“
-  eingesetzt; an den Stellen, wo Konfigurationsdateien
-  angepaßt werden müssen, können wir die Debian-Standardwerte
-  als Grundlage voraussetzen. \texttt{sudo} ist installiert
-  und eingerichtet.}
+ \item{Als Betriebssystem wird Debian 9 „stretch“ eingesetzt; an den
+  Stellen, wo Konfigurationsdateien angepaßt werden müssen, werden die
+  Debian-Standardwerte als Grundlage vorausgesetzt. \texttt{sudo} ist
+  installiert und eingerichtet.}
  \item{Das System ist grundsätzlich installiert, betriebsbereit
   und rebootfest; Firewalleinstellungen sind hinreichend getroffen.
   Für jede Maschine ist ein gültiges SSL-Zertifikat vorhanden.}
  \item{Die PostgreSQL-Datenbank für VerA.web wird auf dem System
-  lokal installiert.}
+  lokal installiert. (Abweichungen sind trivial möglich.)}
  \item{Die REST-API wird nicht vom VerA.web core getrennt.}
-\ifoa
  \item{OSIAM ist entweder vorhanden, oder wird auf einem eigenen
-  System installiert, oder wird auf demselben System wie VerA.web
-  core installiert.}
- \item{Die PostgreSQL-Datenbank für OSIAM wird auf demselben
-  System lokal installiert.}
+  System installiert, oder wird (durch diese Anleitung gestützt)
+  auf demselben System wie VerA.web core installiert.}
+ \item{Die PostgreSQL-Datenbank für OSIAM ist bzw. wird lokal auf
+  dem System, auf dem OSIAM im Applikationsserver läuft, installiert.}
  \item{Die Online-Anmeldung wird entweder auf einem eigenen System
   (Regelfall) oder auf demselben System wie VerA.web core betrieben.}
  \item{Alle Komponenten kommunizieren auch untereinander über mit
   HTTPS gesicherte Verbindungen und durch die Apache-Frontends.}
-\fi% oa
 \end{itemize}
 
 \subsection{Konzepte}\label{subsec:concepts}
@@ -158,12 +162,14 @@ dieselbe Datenbank zu.
 
 VerA.web authentifiziert Sachbearbeiter über einen \nameref{subsec:req-ldap}.
 Ein LDAP-Server ist Voraussetzung für den Betrieb von VerA.web.
+(Falls Sie keinen LDAP-Server betreiben können Sie anhand dieser Anleitung
+einen schlanken LDAP-Server mit Administrations-Webfrontend installieren.)
 
-\ifoa
-VerA.web mit Online-Anmeldung benutzt OSIAM zur sicheren Identitätsverwaltung.
-Eine funktionierende OSIAM-Installation ist Voraussetzung für den Betrieb von
-VerA.web mit Online-Anmeldung; sollten Sie jedoch noch keine OSIAM-Instanz bei
-Ihnen betreiben wird eine für VerA.web taugliche Kurzinstallation erläutert.
+Die (optionale) Online-Anmeldung zu VerA.web benutzt OSIAM zur sicheren
+Identitätsverwaltung, daher ist eine funktionierende OSIAM-Installation
+Voraussetzung für den Betrieb der Online-Anmeldung; sollten Sie jedoch
+noch keine OSIAM-Instanz betreiben wird eine für VerA.web taugliche
+Kurzinstallation erläutert.
 OSIAM kann auf einem separaten System oder zusammen mit VerA.web core laufen
 und benötigt eine eigene Datenbank, die aber im selben PostgreSQL-Cluster
 liegen kann (und, bei Installation auf demselben Server, sollte). OSIAM für
@@ -174,13 +180,10 @@ installiert, da auf diese Komponente durch Dritte über das Internet
 zugegriffen werden soll (im Gegensatz zu VerA.web core, auf welchem
 sich nur Ihre Sachbearbeiter einloggen). Sie verfügt über keine eigene
 Datenbank und greift auf OSIAM und die VerA.web REST-API zu.
-\fi% oa
 
 Es wird empfohlen, nur mit der Administration der Systeme betreuten
 Personen Zugriff auf die Systeme auf Shell-Ebene zu gewähren, und
 ggfs. weitere geeignete Maßnahmen zur Absicherung zu treffen.
-
-\ifoa
 
 \subsection{Systemübersicht}\label{subsec:intro-overview-blocks}
 
@@ -198,7 +201,7 @@ erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
 % \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
 
   \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,75mm) {LDAP};
-  \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung};
+  \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung und REST-API};
   \node[above right,rectangle,fill=yellow!40,minimum width=119mm,minimum height=15mm] (oa) at (3mm,10mm) {VerA.web Online-Anmeldung};
   \node[above right,rectangle,fill=red!20,minimum width=99mm,minimum height=15mm] (osiam) at (23mm,37mm) {OSIAM};
 
@@ -221,8 +224,6 @@ erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
 \end{tikzpicture}
 
 \end{minipage}
-
-\fi% oa
 
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
@@ -4047,3 +4048,5 @@ mail.content.de_DE=「Bitte best\u00E4tigen Sie Ihre Registrierung bei VerA.web 
 mail.subject.en_EN=「VerA.web: Please confirm registration」
 mail.content.en_EN=「Please use the link ${link} to confirm your registration with VerA.web.」
 \end{lstdump}
+
+\end{document}
