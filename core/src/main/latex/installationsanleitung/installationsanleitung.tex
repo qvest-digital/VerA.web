@@ -184,9 +184,11 @@ zugegriffen werden soll (im Gegensatz zu VerA.web core, auf welchem
 sich nur Ihre Sachbearbeiter einloggen). Sie verfügt über keine eigene
 Datenbank und greift auf OSIAM und die VerA.web REST-API zu.
 
-Es wird empfohlen, nur mit der Administration der Systeme betreuten
-Personen Zugriff auf die Systeme auf Shell-Ebene zu gewähren, und
-ggfs. weitere geeignete Maßnahmen zur Absicherung zu treffen.
+Es wird grundsätzlich (insbesondere mit Blick auf das BDSG und die EU-DSGVO)
+empfohlen, nur mit der Administration der Systeme betreuten Personen Zugriff
+auf die Systeme auf Shell-Ebene zu gewähren, und weitere geeignete Maßnahmen
+zur Absicherung der Gesamtinstallation und aller Komponenten zu treffen.
+Diese sprengen jedoch den Rahmen dieses Dokuments.
 
 \subsection{Systemübersicht}\label{subsec:intro-overview-blocks}
 
@@ -194,7 +196,7 @@ Im folgenden finden Sie eine grobe Übersicht über die einzelnen oben
 erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
 
 \begin{minipage}{\linewidth}
-
+\vspace{5mm}
 \begin{tikzpicture}[
   >=stealth',
   people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
@@ -225,8 +227,35 @@ erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
   \draw[dashed]   (0mm,32mm) -- (173mm,32mm);
 
 \end{tikzpicture}
-
 \end{minipage}
+
+\vspace{10mm}
+
+Falls Sie VerA.web ohne die optionale Online-Anmeldung installieren
+gilt das folgende vereinfachte Diagramm:\keinumbruch
+
+\begin{minipage}{\linewidth}
+\vspace{5mm}
+\begin{tikzpicture}[
+  >=stealth',
+  people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+ ]
+
+  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,23mm) {LDAP};
+  \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,4mm) {VerA.web Webanwendung und REST-API};
+
+  \node[people]   (sb)     at (168mm,8mm) {Mitarbeiter};
+
+  \draw[thick,->] (web) -- (ldap);
+  \draw[thick,->] (sb.west) -- (sb-|web.east);
+
+\end{tikzpicture}
+\end{minipage}
+
+\vspace{5mm}
+
+Auch im folgenden gilt die jeweils vereinfachte Darstellung,
+die aus Platzgründen nicht jedes Mal neu abgespalten wird.
 
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
@@ -446,20 +475,6 @@ nächsten Abschnitt als individuelle Einträge (bzw. bei OSIAM
 im entsprechenden Kapitel direkt als Download). Die schwarz
 umrahmten Skripte befinden sich im \texttt{files}-Tarball.
 
-\subsection{Die VerA.web-Distribution}\label{subsec:intro-distro}
-
-Zur Installation bzw. Upgrade müssen Sie folgende Dateien („die
-VerA.web-Distribution“) von tarent beziehen:\keinumbruch
-
-\begin{itemize}
- \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}}
- \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
- \item{\texttt{rest-api-\vwiaverssw{}.war}}
- \item{\texttt{online-anmeldung-\vwiaverssw{}.jar} (falls gewünscht)}
-\end{itemize}
-
-Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
-
 \subsubsection{Die OSIAM-Distribution}\label{subsubsec:intro-distro-ong}
 
 Falls Sie während des Aufsetzens von VerA.web eine eigene Installation
@@ -475,6 +490,20 @@ OSIAM ist \emph{nicht} Teil des Veranstaltungsmanagements VerA.web sondern
 eine separate Software, die durch VerA.web lediglich verwendet wird, daher
 ist OSIAM ebensowenig Teil der VerA.web-Distribution wie zum Beispiel ein
 Mailserver oder ein LDAP-Server.
+
+\subsection{Die VerA.web-Distribution}\label{subsec:intro-distro}
+
+Zur Installation bzw. Upgrade müssen Sie folgende Dateien („die
+VerA.web-Distribution“) von tarent beziehen:\keinumbruch
+
+\begin{itemize}
+ \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}}
+ \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
+ \item{\texttt{rest-api-\vwiaverssw{}.war}}
+ \item{\texttt{online-anmeldung-\vwiaverssw{}.jar} (falls gewünscht)}
+\end{itemize}
+
+Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
 
 \subsection{Installationsvorgehen}\label{subsec:intro-install}
 
