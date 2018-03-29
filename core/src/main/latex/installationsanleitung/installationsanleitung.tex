@@ -236,12 +236,11 @@ mit dem Paßwort \texttt{veraweb} verwendet; eine Änderung der Zugangsdaten
 ist \emph{dringend empfohlen}, um die Betriebssicherheit zu gewährleisten;
 an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 
-\ifoa
-
 \subsection{Detailübersicht}\label{subsec:intro-overview-coarse}
 
-In der nächsten Graphik werden die zu VerA.web gehörenden Komponenten
-mit mehr Detailtiefe aufgeschlüsselt:\keinumbruch
+In der nächsten Graphik werden die zu einer vollen Installation (mit allen
+optionalen Komponenten und deren Abhängigkeiten) von VerA.web gehörenden
+Komponenten mit mehr Detailtiefe aufgeschlüsselt:\keinumbruch
 
 \begin{minipage}{\linewidth}
 
@@ -300,32 +299,26 @@ eigene Datenhaltung betreiben \dash die LDAP-Datenbank für slapd
 (der OpenLDAP-Server), und eine separate PostgreSQL-Datenbank
 für OSIAM.
 
-\fi% oa
-
 \subsection{Apache als Frontend}\label{subsec:intro-apache}
 
-Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
-daß HTTPS-Verbindungen im Apache Webserver terminiert werden und von
-diesem an die einzelnen Anwendungsserver (über das AJP-Protokoll an
-\ifoa
-Tomcat und als HTTP-Proxy an den Microservice der Online-Anmeldung)
-\else% !oa
-Tomcat)
-\fi% !oa
-weitergereicht werden. Sämtliche SSL/TLS-Keys, -Features und weitere
-sicherheitsrelevante Einstellungen richten wir im Apache Webserver ein,
-auch um die Angriffsoberfläche zu reduzieren und besser getesteten und
-weiter verbreiteten Code zu verwenden, und weil die Administration der
-genannten Features in Apache bekannter und erprobter ist als in den
-individuellen Anwendungsservern. Sie \emph{können} die Dienste auch direkt
-über HTTP ansprechen, dies widerspricht jedoch unserem empfohlenen Setup.
+Wir empfehlen üblicherweise, alle Systeme aus Sicherheitsgründen so
+aufzusetzen, daß HTTPS-Verbindungen im Apache Webserver terminiert
+werden und von diesem an die einzelnen Anwendungsserver (über das
+AJP-Protokoll an Tomcat und als HTTP-Proxy an den Microservice der
+Online-Anmeldung) weitergereicht werden. Sämtliche SSL/TLS-Keys, ‑Features
+und weitere sicherheitsrelevante Einstellungen werden im Apache Webserver
+eingerichtet, auch um die Angriffsoberfläche zu reduzieren und besser
+getesteten und weiter verbreiteten Code zu verwenden, und weil die
+Administration der genannten Features in Apache bekannter und erprobter
+ist als in den individuellen Anwendungsservern. Sie \emph{können} die
+Dienste auch direkt über HTTP ansprechen oder SSL in Java terminieren,
+dies widerspricht jedoch unserem empfohlenen Setup und kann nicht, z.B.
+im Rahmen dieser Anleitung, unterstützt werden.
 
-\ifoa
 Es wird je eine Installation des Webservers pro VM benötigt, da in
-der von uns empfohlenen Installationemethode die Komponenten auch
+der von uns empfohlenen Installationsmethode die Komponenten auch
 untereinander ausschließlich verschlüsselt und sicher über HTTPS
 miteinander kommunizieren.
-\fi% oa
 
 \ifoa
 
