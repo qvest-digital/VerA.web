@@ -90,7 +90,7 @@
   <triggers>
     <hudson.triggers.SCMTrigger>
       <spec># alle Viertelstunde
-H/15 * * * *</spec>
+#H/15 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
   </triggers>
@@ -198,13 +198,13 @@ else
 		set -ex
 		psql -U veraweb -h 127.0.0.1 veraweb
 		rm -rf /var/lib/tomcat$tomcat/webapps/v*
-	    &quot; &lt;core/files/upgrade.sql
+	    &quot; &lt;core/src/main/files/upgrade.sql
 	$oa || ssh root@$hostohne &quot;
 		PS4=&apos;(${hostohne%%.*})+++ &apos;
 		set -ex
 		psql -U veraweb -h 127.0.0.1 veraweb
 		rm -rf /var/lib/tomcat$tomcat/webapps/v*
-	    &quot; &lt;core/files/upgrade.sql
+	    &quot; &lt;core/src/main/files/upgrade.sql
 	scp core/target/veraweb.war vwor/target/vwor.war \
 	    root@$hostbase:/var/lib/tomcat$tomcat/webapps/
 	$oa || scp core/target/veraweb.war vwor/target/vwor.war \
