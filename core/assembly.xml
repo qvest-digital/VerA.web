@@ -5,7 +5,7 @@
 	</formats>
 	<fileSets>
 		<fileSet>
-			<directory>files</directory>
+			<directory>src/main/files</directory>
 			<outputDirectory/>
 		</fileSet>
 		<fileSet>

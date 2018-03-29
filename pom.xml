@@ -331,8 +331,8 @@
 					<includes>
 						<include>**/*.groovy</include>
 						<include>**/*.java</include>
-						<include>core/files/cli-import.sh</include>
-						<include>core/files/upgrade.sql</include>
+						<include>core/src/main/files/cli-import.sh</include>
+						<include>core/src/main/files/upgrade.sql</include>
 						<include>core/src/main/webapp/js/vera/*.js</include>
 					</includes>
 					<excludes>
