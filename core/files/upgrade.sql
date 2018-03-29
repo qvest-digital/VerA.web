@@ -64,7 +64,7 @@
 
 -- Entwicklernotiz: bei Hinzufügen einer neuen Version muß an drei
 -- Stellen was geändert werden:
--- ① vversion in Zeile 89
+-- ① vversion in Zeile 86
 -- ② recht nah am Ende der Datei (vor „-- end“)
 -- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
 
@@ -935,4 +935,4 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' VOLATILE;
 
-SELECT serv_vwdbupgrade.serv_vwdbupgrade() AS "Status Datenbank-Upgrade";
+SELECT veraweb.serv_vwdbupgrade() AS "Status Datenbank-Upgrade";
