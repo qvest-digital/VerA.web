@@ -539,7 +539,7 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
 		-- New column to identify Guest-Partner-Photo
-		ALTER TABLE tguest add column image_uuid_p character varying(100);
+		ALTER TABLE veraweb.tguest ADD COLUMN image_uuid_p character varying(100);
 
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
@@ -676,18 +676,18 @@ BEGIN
 
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-		drop table tdoctype;
-		drop table tevent_doctype;
-		drop table tguest_doctype;
-		drop table timportperson_doctype;
-		drop table tperson_doctype;
-		drop table tsalutation_doctype;
+		DROP TABLE veraweb.tdoctype;
+		DROP TABLE veraweb.tevent_doctype;
+		DROP TABLE veraweb.tguest_doctype;
+		DROP TABLE veraweb.timportperson_doctype;
+		DROP TABLE veraweb.tperson_doctype;
+		DROP TABLE veraweb.tsalutation_doctype;
 
-		create table veraweb.birthday_bak as (
+		CREATE TABLE veraweb.birthday_bak as (
 			select pk, birthday_a_e1, birthday_b_e1 from veraweb.tperson
 		);
-		alter table veraweb.tperson alter column birthday_a_e1 TYPE date;
-		alter table veraweb.tperson alter column birthday_b_e1 TYPE date;
+		ALTER TABLE veraweb.tperson ALTER COLUMN birthday_a_e1 TYPE date;
+		ALTER TABLE veraweb.tperson ALTER COLUMN birthday_b_e1 TYPE date;
 
 		CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (
 			select tperson.*,
@@ -837,7 +837,7 @@ BEGIN
 		ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(45);
 		ALTER TABLE veraweb.timportperson ADD COLUMN internal_id VARCHAR(45);
 
-		DROP VIEW veraweb.aggregated_field_content;
+		DROP VIEW IF EXISTS veraweb.aggregated_field_content;
 		CREATE OR REPLACE VIEW veraweb.aggregated_field_content as (
 		    select c.fk_guest, c.fk_delegation_field, ';'::text as value
 		      from veraweb.toptional_fields_delegation_content c
