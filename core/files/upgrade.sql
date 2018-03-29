@@ -126,10 +126,9 @@ BEGIN
 		vmsg := 'begin.update(1.4)';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-		-- Add table "ttask" with related sequence
-		CREATE SEQUENCE ttask_pk_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+		-- Add table "ttask"
 		CREATE TABLE veraweb.ttask (
-			pk INTEGER DEFAULT nextval('ttask_pk_seq') NOT NULL,
+			pk SERIAL,
 			title VARCHAR(100) NOT NULL,
 			description VARCHAR(1000),
 			startdate TIMESTAMP WITH TIME ZONE,
@@ -185,7 +184,7 @@ BEGIN
 		alter table veraweb.tguest add column osiam_login varchar(255);
 
 		-- Trigger for link mandant with categories
-		CREATE FUNCTION linkOrgUnitWithCategorie()
+		CREATE FUNCTION veraweb.linkOrgUnitWithCategorie()
 			RETURNS TRIGGER AS $BODY$
 			BEGIN
 				INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NEW.PK, 'Pressevertreter', NULL, NULL);
@@ -195,7 +194,7 @@ BEGIN
 
 		CREATE TRIGGER createCategorieOnUnitInsert
 			AFTER INSERT ON veraweb.torgunit
-			FOR EACH ROW EXECUTE PROCEDURE linkOrgUnitWithCategorie();
+			FOR EACH ROW EXECUTE PROCEDURE veraweb.linkOrgUnitWithCategorie();
 
 		-- Migrate old OrgUnits
 		CREATE FUNCTION migrateOrgUnits() RETURNS integer AS $BODY$
