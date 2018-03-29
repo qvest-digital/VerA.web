@@ -628,14 +628,34 @@ insbesondere die Integration der Online-Anmeldung jedoch ausschließlich
 mit \texttt{sysvinit}, das Unix-Administratoren vertrauter ist, getestet.
 
 \begin{minipage}{\linewidth}
-Zum Wechsel führen Sie folgende Befehle aus:
+Zum Wechsel führen Sie folgenden Befehl aus:
 
 \begin{lstdump}{sysvinit installieren}
-…
+sudo apt-get install sysvinit-core
+\end{lstdump}
+
+Danach rebooten Sie das System. Prüfen Sie dann, welches \texttt{init} läuft:
+
+\begin{lstdump}{init herausfinden}
+sudo ls -l /proc/1/exe
+\end{lstdump}
+
+Wenn hinter dem „Pfeil“ \texttt{->} in der Ausgabe der Text
+\texttt{/lib/systemd/systemd} steht war der Vorgang nicht
+erfolgreich; bei \texttt{/sbin/init} stimmt alles, und Sie
+können, falls Sie möchten (dies ist nicht zur Benutzung von
+VerA.web notwendig), nun \texttt{systemd} ganz entfernen:
+
+\begin{lstdump}{systemd entfernen}
+sudo apt-get purge --auto-remove systemd
 \end{lstdump}
 \end{minipage}
 
-…_
+Einer Nutzung von VerA.web unter \texttt{systemd} steht
+nichts Grundsätzliches im Wege; es sprengt lediglich den
+aktuellen Rahmen dieser Anleitung und erschwert die
+Nutzung von daemontools (siehe voriges Kapitel), welches
+zum Aufsetzen der Online-Anmeldung benutzt wird.
 
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
