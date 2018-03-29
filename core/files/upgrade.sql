@@ -68,7 +68,8 @@
 -- ② recht nah am Ende der Datei (vor „-- end“)
 -- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
 
-CREATE OR REPLACE FUNCTION serv_vwdbupgrade() RETURNS VARCHAR AS $$
+DROP FUNCTION IF EXISTS serv_vwdbupgrade();
+CREATE OR REPLACE FUNCTION veraweb.serv_vwdbupgrade() RETURNS VARCHAR AS $$
 
 DECLARE
 	vmsg VARCHAR;
@@ -935,4 +936,4 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' VOLATILE;
 
-SELECT serv_vwdbupgrade() AS "Status Datenbank-Upgrade";
+SELECT serv_vwdbupgrade.serv_vwdbupgrade() AS "Status Datenbank-Upgrade";
