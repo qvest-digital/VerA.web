@@ -90,6 +90,13 @@
 }
 \tarenthdr{\headmark}
 
+\makeatletter%
+\newcommand{\renewunicodechar}[2]{%
+ \expandafter\let\csname u8:\detokenize{#1}\endcsname\@undefined%
+ \newunicodechar{#1}{#2}%
+}%
+\makeatother%
+
 % Hurenkinder und Schusterjungen
 \clubpenalty10000
 \widowpenalty10000
@@ -114,7 +121,7 @@
  \makebox[0pt][c]{\color{red}\huge$\bigtriangleup$}}}%
 \newunicodechar{⚠}{\Warning}
 
-\newunicodechar{‑}{{\fontencoding{T1}\selectfont\symbol{'177}}\nolinebreak\hspace{0pt}}
+\renewunicodechar{‑}{{\fontencoding{T1}\selectfont\symbol{'177}}\nolinebreak\hspace{0pt}}
 
 \newcommand{\ankreuzen}{Bitte zum Beispiel so → \CheckedBox\hspace{0.05cm} ← ankreuzen!}
 \newcommand{\ankreuzkaestchen}{\Square\hspace{0.1cm}}
