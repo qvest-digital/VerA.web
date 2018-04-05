@@ -70,6 +70,10 @@ if (( build_vwoa )); then
 		    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p'
 	) 2>&1 >>ckdep-vwoa.tmp | sed 's!^![INFO] !' >&2
 	sort -uo ckdep-vwoa.tmp ckdep-vwoa.tmp
+	{
+		comm -13 ckdep-vwoa.lst ckdep-vwoa.tmp | sed 's/ ok$/ TO''DO/'
+		comm -12 ckdep-vwoa.lst ckdep-vwoa.tmp
+	} | sort -o ckdep-vwoa.tmp
 	if cmp -s ckdep-vwoa.lst ckdep-vwoa.tmp; then
 		print -ru2 -- '[INFO] list of VWOA dependencies did not change'
 	else
