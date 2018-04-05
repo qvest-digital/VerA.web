@@ -828,8 +828,8 @@ Falls Sie bereits über einen \nameref{subsec:req-ldap} verfügen
 überspringen Sie dieses Kapitel bitte und lesen Sie direkt in
 Kapitel \nameref{sec:setup-osiam} weiter.
 
-Diese Installation wird auf dem Server durchgeführt, auf dem Sie
-später auch VerA.web-core installieren möchten.
+Diese Installation wird üblicherweise auf dem Server durchgeführt,
+auf dem Sie später auch VerA.web-core installieren möchten.
 
 \subsection{Installation OpenLDAP-Server}\label{subsec:setup-lam-slapd}
 
@@ -850,22 +850,25 @@ Teil hinter dem Doppelpunkt (und Leerzeichen); dies ist Ihr sogenannter
 „Base DN“. In dieser Dokumentation wird \texttt{dc=lan,dc=tarent,dc=de} als
 Beispiel verwendet.
 
-Bearbeiten Sie die Datei \texttt{/etc/ldap/ldap.conf} und fügen Sie eine
-Zeile ein, die mit dem Wort \texttt{BASE} in Großbuchstaben beginnt und dann
-hinter einem Leerzeichen (ohne Doppelpunkt, diesmal) den Base DN enthält.
+Führen Sie das folgende kleine Skript aus oder nehmen Sie die Änderungen,
+die es durchführt, manuell vor: \texttt{/etc/ldap/ldap.conf} bearbeiten,
+indem eine Zeile eingefügt wird, die mit dem Wort \texttt{BASE} in Versalien
+beginnt und dann hinter einem Leerzeichen (ohne Doppelpunkt, diesmal) den
+Base-DN enthält.\keinumbruch
+
+\begin{minipage}{\linewidth}
+\begin{lstdump}{LDAP-Clientkonfiguration}
+cfg='/etc/ldap/slapd.d/cn=config/olcDatabase={1}mdb.ldif'
+basedn=$(sudo sed -n '/^olcSuffix: */s///p' "$cfg")
+echo "Der Base-DN ist: $basedn"
+sudo sh -c "echo 'BASE $basedn' >>/etc/ldap/ldap.conf"
+\end{lstdump}
+\end{minipage}
+
 Danach können Sie mit dem Befehl \texttt{ldapsearch -x} bereits die in
 Ihrem neuen LDAP-Verzeichnis enthaltenen Einträge sehen; dies ist initial
 lediglich der Wurzelknoten \texttt{dc=lan,dc=tarent,dc=de} sowie der
 LDAP-Administrator \texttt{cn=admin,dc=lan,dc=tarent,dc=de}.
-
-\begin{minipage}{\linewidth}
-\begin{lstdump}{LDAP-Clientkonfiguration}
-cfg=/etc/ldap/slapd.d/cn=config/olcDatabase={1}mdb.ldif
-basedn=$(sudo sed -n '/^olcSuffix: */s///p' "$cfg")
-echo "Der Base DN ist: $basedn"
-sudo sh -c "echo 'BASE $basedn' >>/etc/ldap/ldap.conf"
-\end{lstdump}
-\end{minipage}
 
 \subsection{Konfiguration LDAP-Account-Manager}\label{subsec:setup-lam-cfg}
 
