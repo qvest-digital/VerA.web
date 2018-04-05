@@ -954,7 +954,6 @@ freigeschaltet werden, entweder, bei der Erstinstallation, über die
 Datenbank (siehe Kapitel \ref{manual:db-user}), oder, später, über die
 Weboberfläche (siehe Benutzerhandbuch).
 
-\ifoa
 \section{Installation OSIAM-System}\label{sec:setup-osiam}
 
 Dieser Abschnitt gliedert sich in zwei Teile: die generelle Installation
@@ -962,7 +961,7 @@ von OSIAM, sofern Sie noch keine laufende OSIAM-Installation haben, und
 die Registration der VerA.web Online-Anmeldung beim OSIAM-Server.
 
 Kopieren Sie jedoch bitte zunächst die Datei
-\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
 auf den OSIAM-Server.
 
 \begin{minipage}{\linewidth}
@@ -970,8 +969,8 @@ Entpacken Sie das \texttt{files}-Archiv und wechseln in das
 Unterverzeichnis mit den OSIAM-Dateien:
 
 \begin{lstdump}{Entpacken OSIAM}
-tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/osiam
+tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉/osiam
 chmod go-rwx .
 \end{lstdump}
 \end{minipage}
@@ -1008,26 +1007,28 @@ Sie bitte zunächst das System vor, indem Sie einige Pakete installieren
 und sicherstellen, daß keine ältere Java-Version installiert ist bzw.
 versehentlich verwendet wird:
 
-\begin{lstdump}{Pakete OSIAM/jessie}
-### Debian 8 „jessie“ / Java 8
-sudo apt-get install openjdk-8-jre-headless/jessie-backports
-sudo apt-get install postgresql tomcat8 \
-    apache2 libapache2-mod-jk curl
+\begin{lstdump}{Pakete OSIAM}
+sudo apt-get install curl apache2 postgresql \
+    openjdk-8-jre-headless tomcat8 libtcnative-1 libapache2-mod-jk
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
-sudo apt-get purge openjdk-7-jre-headless \
-    gcj-4.8-jre-headless gcj-4.9-jre-headless
 java -version
 ### sollte etwa ausgeben:
-# openjdk version "1.8.0_66-internal"
-# OpenJDK Runtime Environment (build 1.8.0_66-internal-b17)
-# OpenJDK 64-Bit Server VM (build 25.66-b17, mixed mode)
+# openjdk version "1.8.0_162"
+# OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~deb9u1-b12)
+# OpenJDK 64-Bit Server VM (build 25.162-b12, mixed mode)
 \end{lstdump}
 \end{minipage}
 
+\begin{minipage}{\linewidth}
 Kopieren Sie außerdem die Datei \texttt{postgresql-jdbc4.jar} aus
 dem „files“-Tarball nach \texttt{/var/lib/tomcat8/lib/} (hierbei
-ggfs. bereits existierende überschreiben).
+ggfs. bereits existierende überschreiben):
+
+\begin{lstdump}{JDBC OSIAM}
+sudo cp ../postgresql-jdbc4.jar /var/lib/tomcat8/lib/
+\end{lstdump}
+\end{minipage}
 
 Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
 Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
@@ -1089,11 +1090,14 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
 
-Suchen Sie die Stelle, wo \texttt{-Xmx128m} in den \texttt{JAVA\_OPTS}
-gesetzt wird. ⚠ \emph{Achtung:} das erste Vorkommnis dieser
-Option ist ein Kommentar und nicht die gesuchte Stelle! Ändern Sie
-diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr
-als 1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
+\begin{minipage}{\linewidth}
+Fügen Sie eine der beiden folgenden Zeilen hinzu:
+
+\begin{lstdump}{Tomcat Speicher}
+JAVA_OPTS="${JAVA_OPTS} -Xmx512m"               # bei weniger als 1280 MiB RAM
+JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"     # andernfalls
+\end{lstdump}
+\end{minipage}
 
 \begin{minipage}{\linewidth}
 Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
@@ -1154,7 +1158,7 @@ explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
 \begin{minipage}{\linewidth}
 \begin{lstdump}{Tomcat restart}
 sudo service tomcat8 stop
-ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
+ps ax | grep java               # darf keinesfalls irgendeinen tomcat anzeigen
 sudo service tomcat8 start
 \end{lstdump}
 \end{minipage}
@@ -1165,8 +1169,10 @@ sudo service tomcat8 start
 Jetzt laden Sie die OSIAM-Anwendungen herunter und installieren Sie sie:
 
 \begin{lstdump}{OSIAM herunterladen}
-curl -o osiam-auth-server.war https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-curl -o osiam-resource-server.war https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{vwiaversosiam}〉/resource-server-〈\lstdumpesc{vwiaversosiam}〉.war
+curl -o osiam-auth-server.war \
+    https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-resource-server.war \
+    https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
 sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat8/webapps/
 \end{lstdump}
 \end{minipage}
@@ -1295,8 +1301,6 @@ cd ../..
 rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 \end{lstdump}
 \end{minipage}
-
-\fi% oa
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
@@ -1670,7 +1674,7 @@ explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
 \begin{minipage}{\linewidth}
 \begin{lstdump}{Tomcat restart}
 sudo service tomcat8 stop
-ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
+ps ax | grep java               # darf keinesfalls irgendeinen tomcat anzeigen
 sudo service tomcat8 start
 \end{lstdump}
 \end{minipage}
@@ -2032,11 +2036,13 @@ ist, die Webapplikationsarchive durch die neuen Versionen tauschen:
 
 \begin{lstdump}{OSIAM Upgrade}
 sudo service tomcat8 stop
-ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
+ps ax | grep java               # darf keinesfalls irgendeinen tomcat anzeigen
 cd /var/lib/tomcat8/webapps
 rm -rf osiam-auth-server osiam-resource-server
-curl -o osiam-auth-server.war https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-curl -o osiam-resource-server.war https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{vwiaversosiam}〉/resource-server-〈\lstdumpesc{vwiaversosiam}〉.war
+curl -o osiam-auth-server.war \
+    https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-resource-server.war \
+    https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
 cd -
 sudo service tomcat8 start
 \end{lstdump}
@@ -2088,7 +2094,7 @@ fahren Sie bitte den dort laufenden Tomcat-Applikationsserver herunter:
 
 \begin{lstdump}{Tomcat undeploy}
 sudo service tomcat8 stop
-ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
+ps ax | grep java               # darf keinesfalls irgendeinen tomcat anzeigen
 \end{lstdump}
 
 Beachten Sie dabei, daß der Tomcat-Dienst ggfs. noch einige Sekunden
