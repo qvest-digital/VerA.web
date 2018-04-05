@@ -900,18 +900,22 @@ des LDAP-Administrators\Hair\footnote{hier
 \texttt{ldapsearch -x} \dash vgl. Kapitel \ref{subsec:setup-lam-slapd}}.
 
 Sie brauchen an dieser Stelle noch nicht zu speichern. Wählen Sie oben
-den Registerreiter \inlinebild[Account types]{lam-gear} aus. Klicken
-Sie auf das Lösch-Icon \inlinebild{lam-del} neben den Einträgen
-\inlinebild[Hosts]{lam-host} und \inlinebild[Samba domains]
-{lam-smbDomain}, um die weitere Verwaltung zu vereinfachen. Ändern Sie
-den „LDAP suffix“ für \inlinebild[Users]{lam-user} in \texttt{ou=Users}
-gefolgt von einem Komma und Ihrem Base DN, und den „LDAP suffix“ für
-\inlinebild[Groups]{lam-group} in \texttt{ou=group} gefolgt von einem
-Komma und Ihrem Base DN.
+den Registerreiter \inlinebild[Account types]{lam-gear} aus. Stellen Sie
+sicher, daß unter „Active account types“ nur \inlinebild[Users]{lam-user}
+und \inlinebild[Groups]{lam-group} gelistet sind, indem Sie neben ggfs.%
+\Hair\footnote{\label{fn:vor9}in Debian 9 „stretch“ entspricht dies der
+Voreinstellung} weiteren Einträgen rechts das Lösch-Icon \inlinebild{lam-del}
+anklicken, um die weitere Verwaltung zu vereinfachen. Ändern Sie dann den
+„LDAP suffix“ für \inlinebild[Users]{lam-user} in \texttt{ou=Users} gefolgt
+von einem Komma und Ihrem Base DN (\texttt{ou=Users,dc=lan,dc=tarent,dc=de}
+in unserem Beispiel), und den „LDAP suffix“ für \inlinebild[Groups]{lam-group}
+in \texttt{ou=Group} gefolgt von einem Komma und Ihrem Base DN, also z.B:
+\texttt{ou=Group,dc=lan,dc=tarent,dc=de}
 
 Fahren Sie im Registerreiter \inlinebild[Modules]{lam-modules} fort,
-indem Sie jeweils „Samba 3 (sambaSamAccount)“ (Users) und „Samba 3
-(sambaGroupMapping)“ nach \inlinebild{lam-forward} rechts schieben.
+indem Sie wieder sicherstellen, daß nur die Module \texttt{inetOrgPerson},
+\texttt{posixAccount} und \texttt{shadowAccount} (Users) bzw.
+\texttt{posixGroup} (Groups) aktiv sind\Hair\textsuperscript{\ref{fn:vor9}}.
 Unter \inlinebild[Module settings]{lam-modules} können Sie, falls
 gewünscht, einzelne Felder aus der Anzeige ausblenden, um die spätere
 Benutzung weiter zu vereinfachen.
@@ -932,17 +936,17 @@ Damit ist die Ersteinrichtung des LDAP-Account-Managers abgeschlossen.
 
 Um einen Benutzer im LDAP anzulegen müssen Sie sich ggfs. (außer direkt
 nach der Ersteinrichtung) wieder mit dem Paßwort des LDAP-Administrators
-anmelden; sonst wählen Sie den Registerreiter \inlinebild[Users]{lam-user}.
-Klicken Sie dann auf \inlinebild[New user]{lam-add}.
+anmelden; sonst wählen Sie den Registerreiter \inlinebild[Users]{lam-user}
+einfach direkt aus. Klicken Sie dann auf \inlinebild[New user]{lam-add}.
 
 In der folgenden Maske müssen Sie mindestens den „Last Name“ ausfüllen;
 die „Email address“ ist zwar keine Pflicht, aber sinnvoll.
 Klicken Sie dann links auf \inlinebild[Unix]{lam-tux} und tragen im Feld
 „User name“ ein geeignetes Kürzel (⚠ nur Kleinbuchstaben und Zahlen) ein;
 mit diesem Kürzel kann sich später der Nutzer bei VerA.web anmelden. Nun
-wählen Sie noch \inlinebild[Set password]{lam-key}, tragen es (in beide
-Felder) ein, klicken im Dialog auf „Ok“ und dann oben links wieder auf
-\inlinebild[Save]{lam-save}.
+wählen Sie noch \inlinebild[Set password]{lam-key}, tragen das gewünschte
+Paßwort für den neu anzulegenden User (in beide Felder) ein, klicken im
+Dialog auf „Ok“ und dann oben links wieder auf \inlinebild[Save]{lam-save}.
 
 Jetzt erscheint die Meldung „Account was created successfully.“ in einem
 blauen Kasten; damit ist dieser Nutzer angelegt und kann in VerA.web core
