@@ -19,6 +19,10 @@
 			<outputDirectory/>
 		</file>
 		<file>
+			<source>src/main/webapp/OCTOPUS/config_vwoa.xml</source>
+			<outputDirectory/>
+		</file>
+		<file>
 			<source>../vwor/src/main/webapp/doc/Benutzerhandbuch.pdf</source>
 			<outputDirectory/>
 		</file>
