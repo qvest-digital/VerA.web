@@ -1180,9 +1180,11 @@ sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat8/webapps/
 Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
 \texttt{/var/log/tomcat8/catalina.out} befinden sich die Logs,
 unter anderem mit Erfolgsmeldungen im Stile von {\ttfamily
-INFO: Deployment of web application archive
-/var/lib/tomcat8/webapps/osiam-auth-server.war has finished
-in 12,338 ms} (eine separate solche Zeile pro Applikationsarchiv).
+2018-04-05 17:00:44.919    INFO
+(org.apache.catalina.startup.HostConfig deployWAR)
+[org.apache.catalina.startup.HostConfig] Deployment of web application archive
+/var/lib/tomcat8/webapps/osiam-auth-server.war has finished in 47,122 ms}
+(eine separate solche Zeile pro Applikationsarchiv).
 
 \subsubsection{Webserver}\label{subsubsec:setup-osiam-apache}
 
