@@ -1383,9 +1383,15 @@ java -version
 \end{lstdump}
 \end{minipage}
 
+\begin{minipage}{\linewidth}
 Kopieren Sie außerdem die Datei \texttt{postgresql-jdbc4.jar} aus
 dem „files“-Tarball nach \texttt{/var/lib/tomcat8/lib/} (hierbei
-ggfs. bereits existierende überschreiben).
+ggfs. bereits existierende überschreiben):
+
+\begin{lstdump}{JDBC core}
+sudo cp ../postgresql-jdbc4.jar /var/lib/tomcat8/lib/
+\end{lstdump}
+\end{minipage}
 
 Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
 Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
