@@ -1358,7 +1358,7 @@ dem „files“-Tarball nach \texttt{/var/lib/tomcat8/lib/} (hierbei
 ggfs. bereits existierende überschreiben):
 
 \begin{lstdump}{JDBC core}
-sudo cp ../postgresql-jdbc4.jar /var/lib/tomcat8/lib/
+sudo cp postgresql-jdbc4.jar /var/lib/tomcat8/lib/
 \end{lstdump}
 \end{minipage}
 
@@ -1493,7 +1493,7 @@ Mit den Parametern \texttt{mail.smtp.from.ID} können für die IDs der einzelnen
 Mandaten spezielle Absenderadressen gesetzt werden.
 
 \begin{lstdump}{Adresse für einzelne Mandanten setzen}
-# address verification
+# sender address for all emails sent out
 mail.smtp.from=noreply@example.com
 # to use specific addresses for individual organisational units set
 # property mail.smtp.from.{id} like the following two lines are showing
@@ -1501,14 +1501,16 @@ mail.smtp.from=noreply@example.com
 #mail.smtp.from.5=noreply-mandant5@example.com
 \end{lstdump}
 
-\ifoa
-
-Die \texttt{subject}- und
-\texttt{content}-Parameter enthalten den Nachrichtenbetreff und
+Für die Online-Anmeldung relevant enthalten die \texttt{subject}‑
+und \texttt{content}-Parameter enthalten den Nachrichtenbetreff und
 -inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
 sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 
-\fi% oa
+%TODO: Umlautkodierung
+
+%TODO: imprint nach hier schieben
+
+%XXX nicht so viel in eine minipage
 
 \end{minipage}
 
