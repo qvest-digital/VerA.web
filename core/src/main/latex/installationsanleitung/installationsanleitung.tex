@@ -1455,14 +1455,13 @@ REST-API erreichbar ist, üblicherweise also den Hostnamen vom
 core-System) und tragen Sie die Zugangsdaten für die REST-API
 (siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
-\ifoa
-Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
-\texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
-des OSIAM- bzw. des Online-Anmeldungssystems. Schließlich
-tragen Sie für \texttt{osiam.client.secret} denselben Wert
-ein, den Sie bei der \nameref{subsec:setup-osiam-register}
+
+Bei Verwendung der Online-Anmeldung ersetzen Sie bitte desweiteren
+\texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-OA} an allen Stellen
+durch die Hostnamen des OSIAM- bzw. des Online-Anmeldungssystems.
+Schließlich tragen Sie für \texttt{osiam.client.secret} denselben
+Wert ein, den Sie bei der \nameref{subsec:setup-osiam-register}
 als \texttt{vwsecret} gesetzt haben.
-\fi% oa
 
 \begin{minipage}{\linewidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
@@ -1532,6 +1531,8 @@ benutzen zu können. Dies sind insbesondere die folgenden Parameter:\keinumbruch
  \item{\texttt{ldapuserobjectclass}: Objektklasse, die Benutzerkonten
   innehaben; Standardwert: \texttt{person}}
 \end{itemize}
+
+%TODO: Online-Anmeldung aktivieren
 
 \subsection{Applikationsserver VerA.web-core und REST-API}\label{subsec:setup-core-tomcat}
 
@@ -1674,10 +1675,10 @@ unter anderem mit Erfolgsmeldungen im Stile von {\ttfamily
 INFO: Deployment of web application archive
 /var/lib/tomcat8/webapps/veraweb.war has finished in 2,151 ms}
 (eine separate solche Zeile pro Applikationsarchiv).
-\ifoa
 Falls OSIAM (oder andere Webanwendungen) auf demselben System
 installiert werden kann der Startvorgang deutlich länger dauern.
-\fi% oa
+
+%TODO: ggfs. Tomcat neustarten bei seltsamen Fehlern
 
 \subsection{Webserver VerA.web-core und REST-API}\label{subsec:setup-core-apache}
 
@@ -1781,34 +1782,26 @@ bitte den LDAP-Zugriff und die Logs\Hair\textsuperscript{\ref{fn:tomcatlogs}}.
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
-\ifoa
-\begin{lstdump}{Aufraeumen}
-cd ..
-rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
-rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
-\end{lstdump}
-\else% !oa
 \begin{lstdump}{Aufraeumen}
 cd ..
 rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
-\fi% !oa
 \end{minipage}
 
-\ifoa
+%TODO: bei nicht-OA bereits „Damit ist die Installation abgeschlossen“…
 
 \section{Installation Online-Anmeldung}\label{sec:setup-oa}
 
 \begin{minipage}{\linewidth}
-Kopieren Sie bitte zunächst \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+Kopieren Sie bitte zunächst \texttt{veraweb-core-\vwiaverssw{}-files.tgz}
 und \texttt{online-anmeldung-\vwiaverssw{}.jar}
 auf den Server, auf dem Sie die Online-Anmeldung installieren möchten,
 entpacken Sie diese Datei und wechseln in das Unterverzeichnis mit den
 relevanten Dateien:
 
 \begin{lstdump}{Entpacken OA}
-tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/vwoa
+tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉/oa
 chmod go-rwx ..
 \end{lstdump}
 \end{minipage}
@@ -1828,30 +1821,29 @@ Installieren Sie nun die benötigten Pakete und stellen Sie sicher, daß keine
 ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
 \begin{lstdump}{Pakete OA/jessie}
-### Debian 8 „jessie“ / Java 8
-sudo apt-get install openjdk-8-jre-headless/jessie-backports
-sudo apt-get install adduser apache2 daemontools-run
+sudo apt-get install adduser apache2 daemontools-run openjdk-8-jre-headless
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
-sudo apt-get purge openjdk-7-jre-headless \
-    gcj-4.8-jre-headless gcj-4.9-jre-headless
 java -version
 ### sollte etwa ausgeben:
-# openjdk version "1.8.0_66-internal"
-# OpenJDK Runtime Environment (build 1.8.0_66-internal-b17)
-# OpenJDK 64-Bit Server VM (build 25.66-b17, mixed mode)
+# openjdk version "1.8.0_162"
+# OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~deb9u1-b12)
+# OpenJDK 64-Bit Server VM (build 25.162-b12, mixed mode)
 \end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\linewidth}
 Richten Sie das Standardverzeichnis für die DJB dæmontools
-ein und legen Sie einen Benutzeraccount an, unter dem die
-Online-Anmeldung ausgeführt werden kann:
+ein und legen Sie zwei Benutzeraccounts an, unter denen die
+Online-Anmeldung und ihr Logging ausgeführt werden können:
 
 \begin{lstdump}{Prereqs OA}
 sudo adduser --system --home /etc/service/vwoa --shell /bin/sh \
-    --no-create-home --gecos 'VerA.web Online-Anmeldung' --group \
+    --no-create-home --gecos 'VerA.web Online-Anmeldung Microservice' --group \
     --disabled-password --disabled-login vwoa
+sudo adduser --system --home /etc/service/vwoa/log --shell /bin/sh \
+    --no-create-home --gecos 'VerA.web Online-Anmeldung Logging' --group \
+    --disabled-password --disabled-login vwoalog
 sudo ln -sf etc/service /service
 \end{lstdump}
 \end{minipage}
@@ -1874,15 +1866,19 @@ löschen danach die Installationsdateien:
 
 \begin{lstdump}{OA service}
 mv ../../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa.jar
+mkdir log log/main
+mv logrun log/run
 sudo chown -R 0:0 .
 sudo chgrp vwoa config.jsn
 sudo chmod 644 *
-sudo chmod 755 . run
+sudo chmod 755 . run log log/run
 sudo chmod 640 config.jsn
+sudo chown vwoalog:adm log/main
+sudo chmod 2750 log/main
 cd ..
-sudo mv vwoa /service/vwoa
+sudo mv oa /service/vwoa
 cd ..
-rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
+rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉*
 \end{lstdump}
 \end{minipage}
 
@@ -1890,7 +1886,8 @@ Danach können Sie mit \texttt{sudo svstat /service/vwoa} festellen,
 daß der Dienst vor wenigen Sekunden gestartet wurde; siehe
 auch die Anleitung in Kapitel \nameref{subsec:intro-svc}.
 Unterhalb von \texttt{/var/log/vwoa/vwoa.log} finden Sie die
-Logdateien der Online-Anmeldung.
+Logdateien der Online-Anmeldung, und unterhalb von
+\texttt{/service/vwoa/log/main/} ihre Statusmeldungen.
 
 \subsection{Webserver}\label{subsec:setup-oa-apache}
 
@@ -1978,8 +1975,6 @@ Jetzt können Sie \dash z.B. unter der URL
 \texttt{https://veraweb.lan.tarent.de/vwor-app/} \dash mit einem
 Webbrowser testen, ob die Online-Anmeldung verfügbar ist, ansonsten
 prüfen Sie die Logs\Hair\textsuperscript{\ref{fn:vwoalogs}}.
-
-\fi% oa
 
 Damit ist die Installation abgeschlossen.
 Sie können nun im Kapitel \nameref{sec:test} fortfahren.
@@ -2494,7 +2489,8 @@ neugestartet wurde, aber nicht in eine Endlos-Neustartschleife
 läuft (also die Sekunden weiterhin hochgezählt werden; siehe
 auch Kapitel \ref{subsec:intro-svc}). Prüfen Sie ggfs. die
 Logausgaben\Hair\footnote{\label{fn:vwoalogs}in
-\texttt{/var/log/vwoa/vwoa.log}} und die Verfügbarkeit des
+\texttt{/var/log/vwoa/vwoa.log} und ggfs. unterhalb von
+\texttt{/service/vwoa/log/main/}} und die Verfügbarkeit des
 Dienstes über die Weboberfläche.
 
 ⚠ \emph{Achtung:} Damit die neue Version der Anwendung auch

@@ -7,7 +7,7 @@ if test -d log && test -x log/run && test -d log/supervise; then
 	# for example with DJB daemontools:
 	# #!/bin/sh
 	# exec setuidgid vwoalog multilog t ./main
-	# log/main/ is then 2770 vwoalog:adm
+	# log/main/ is then 2750 vwoalog:adm
 	exec 2>&1
 else
 	exec >&2
