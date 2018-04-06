@@ -251,5 +251,5 @@ if [[ $x != HTTP/1.[01]\ 2*"$nl$nl{"*'"id":"online-registration"'* ]]; then
 	exit 1
 fi
 
-print -u2 I: all done
+print -u2 I: all done, success
 exit 0
