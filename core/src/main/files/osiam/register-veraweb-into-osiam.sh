@@ -112,12 +112,14 @@ print -u2 I: updating database
 cd /
 sudo -u postgres psql "$dbname" <<'EOF'
 INSERT INTO scim_extension
+    (internal_id, urn)
     SELECT (SELECT MAX(internal_id) + 1 FROM scim_extension),
 	'urn:scim:schemas:veraweb:1.5:Person'
     WHERE NOT EXISTS (
 	SELECT internal_id FROM scim_extension WHERE urn='urn:scim:schemas:veraweb:1.5:Person'
     );
 INSERT INTO scim_extension_field
+    (internal_id, name, is_required, type, extension_internal_id)
     SELECT (SELECT MAX(internal_id) + 1 FROM scim_extension_field),
 	'tpersonid', false, 'INTEGER',
 	(SELECT internal_id FROM scim_extension WHERE urn='urn:scim:schemas:veraweb:1.5:Person')
