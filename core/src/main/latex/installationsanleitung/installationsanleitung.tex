@@ -1301,15 +1301,8 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉*
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
-\ifoa
-Kopieren Sie bitte zunächst die „\texttt{files}-Dateien“
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz} und\linebreak[1]
-\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
-\else% !oa
 Kopieren Sie bitte zunächst die Datei
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
-\fi% !oa
-sowie die
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz} sowie die
 Installationsarchive \texttt{veraweb-core-\vwiaverssw{}.war}
 und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
@@ -1318,17 +1311,6 @@ Benennen Sie die Applikationsdateien in später leicher zu
 verwendende Namen um, entpacken Sie das Zusatzarchiv und
 wechseln Sie in das Unterverzeichnis mit den core-Dateien:
 
-\ifoa
-\begin{lstdump}{Entpacken}
-mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
-mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
-tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
-tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
-chmod go-rwx .
-\end{lstdump}
-\else% !oa
 \begin{lstdump}{Entpacken}
 mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
 mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
@@ -1336,7 +1318,6 @@ tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
 chmod go-rwx .
 \end{lstdump}
-\fi% !oa
 \end{minipage}
 
 Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
@@ -1358,22 +1339,16 @@ vorab Ihren Sachbearbeitern zukommen lassen können.
 Installieren Sie einige Pakete und stellen Sie sicher, daß keine
 ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
-%XXX TODO: libservlet3.1-java nötig?
-
 \begin{lstdump}{Pakete core/jessie}
-### Debian 8 „jessie“ / Java 8
-sudo apt-get install openjdk-8-jre-headless/jessie-backports
-sudo apt-get install postgresql tomcat8 \
-    apache2 libapache2-mod-jk curl
+sudo apt-get install curl apache2 postgresql openjdk-8-jre-headless \
+    tomcat8 libtcnative-1 libservlet3.1-java libapache2-mod-jk
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
-sudo apt-get purge openjdk-7-jre-headless \
-    gcj-4.8-jre-headless gcj-4.9-jre-headless
 java -version
 ### sollte etwa ausgeben:
-# openjdk version "1.8.0_66-internal"
-# OpenJDK Runtime Environment (build 1.8.0_66-internal-b17)
-# OpenJDK 64-Bit Server VM (build 25.66-b17, mixed mode)
+# openjdk version "1.8.0_162"
+# OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~deb9u1-b12)
+# OpenJDK 64-Bit Server VM (build 25.162-b12, mixed mode)
 \end{lstdump}
 \end{minipage}
 
