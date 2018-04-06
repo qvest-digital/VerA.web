@@ -116,7 +116,8 @@ function json_escape {
 
 print -u2 I: updating database
 cd /
-sudo -u postgres psql "$dbname" <<'EOF'
+function do_db {
+	sudo -u postgres psql "$dbname" <<'EOF'
 INSERT INTO scim_extension
     (internal_id, urn)
     SELECT (SELECT MAX(internal_id) + 1 FROM scim_extension),
@@ -182,6 +183,15 @@ SELECT CASE WHEN EXISTS (
 ELSE ' *** ERROR *** SCIM schema database adjustment failed, please check manually!'
 END AS "database upgrade result";
 EOF
+}
+db=nok
+x=$(do_db 2>&1) && [[ $x = *'Everything OK'* ]] && db=ok || :
+print -ru2 -- "$x"
+if [[ $db = nok ]]; then
+	print -u2
+	print -u2 E: database update failed
+	exit 1
+fi
 
 print -u2 I: downloading auth token
 if ! x=$(curl -H "Authorization: Basic $serverauth" -X POST \
