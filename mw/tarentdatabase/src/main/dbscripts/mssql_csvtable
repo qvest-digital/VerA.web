@@ -1,0 +1,71 @@
+
+-- This script introduces a fast function for traslation of a csv list to a non persistent table.
+-- It works with MSSQL Server 2005, see http://www.sommarskog.se/arrays-in-sql-2005.html for further information
+-- This function is required by tarent-database Expr.optimizedIn() for mssql
+-- 
+-- test it with:  SELECT * FROM tarent_database_csvtable('1016,1068,1127,1217')
+--
+
+
+CREATE TABLE tarent_database_numbers (Number int NOT NULL PRIMARY KEY);
+WITH digits (d) AS (
+   SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION
+   SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION
+   SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION
+   SELECT 0)
+INSERT tarent_database_numbers (Number)
+   SELECT Number
+   FROM   (SELECT i.d + ii.d * 10 + iii.d * 100 + iv.d * 1000 +
+                  v.d * 10000 AS Number
+           FROM   digits i
+           CROSS  JOIN digits ii
+           CROSS  JOIN digits iii
+           CROSS  JOIN digits iv
+           CROSS  JOIN digits v) AS Numbers
+   WHERE  Number > 0
+
+
+
+
+CREATE FUNCTION tarent_database_csvtable(@list  nvarchar(MAX))
+RETURNS @t TABLE (str   nvarchar(4000) NOT NULL) AS
+BEGIN
+   DECLARE @slices TABLE (slice nvarchar(4000) NOT NULL)
+   DECLARE @slice nvarchar(4000),
+           @textpos int,
+           @maxlen  int,
+           @stoppos int,
+		   @delim nchar(1)
+
+   SELECT @textpos = 1, @maxlen = 4000 - 2, @delim = N','
+   WHILE datalength(@list) / 2 - (@textpos - 1) >= @maxlen
+   BEGIN
+      SELECT @slice = substring(@list, @textpos, @maxlen)
+      SELECT @stoppos = @maxlen -
+                        charindex(@delim COLLATE Slovenian_BIN2,
+                                 reverse(@slice))
+      INSERT @slices (slice)
+         VALUES (@delim + left(@slice, @stoppos) + @delim)
+      SELECT @textpos = @textpos - 1 + @stoppos + 2
+      -- On the other side of the comma.
+   END
+   INSERT @slices (slice)
+       VALUES (@delim + substring(@list, @textpos, @maxlen) + @delim)
+
+   ;WITH stringget (str) AS (
+      SELECT ltrim(rtrim(substring(s.slice, N.Number + 1,
+                charindex(@delim COLLATE Slovenian_BIN2,
+                          s.slice, N.Number + 1) -
+                N.Number - 1)))
+       FROM  tarent_database_numbers N
+       JOIN  @slices s
+         ON  N.Number <= len(s.slice) - 1
+        AND  substring(s.slice, N.Number, 1) = @delim COLLATE Slovenian_BIN2
+   )
+   INSERT @t (str)
+      SELECT str
+      FROM   stringget
+
+   RETURN
+END
+

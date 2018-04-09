@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<tcModuleConfig>
+
+	<description>
+	  Tarent DB Layer extension for copy and resetting of databases
+	</description>
+	
+	<params>
+ 	</params>
+
+	<contentWorkerDeklaration>
+	
+		<worker name="CopyDBWorker" implementation="de.tarent.dblayer.octopus.CopyDBWorker" singleton="true" factory="reflected"/>
+		 	
+	</contentWorkerDeklaration>
+		
+	
+	<!-- Ablaufbeschreibungen der Aktionen -->
+  	<tasks>
+  	
+		<task name="copyDB" access="public" groups="Anonymous">
+			<description>Legt ein neues Event an oder manipuliert ein Event</description>
+			<param name="result" value="DONE."/>
+			<action name="copy" worker="CopyDBWorker" />
+		<response type="soap" name="xxx">
+			<param name="OutputFields" type="array">
+				<value>result</value>
+			</param>
+		</response>
+			
+		</task>
+		
+	</tasks>
+</tcModuleConfig>
