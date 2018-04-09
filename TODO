@@ -18,7 +18,7 @@
   cf. commit 2551bbe21b9723ede478f3bc0261a5cebb2f9d1f in env
 • replace ANSI-Bell: it installs stuff into /usr/local with pip
   FROM THE INTERNETZ⚠
-• update documentation from fresh install, cover upgrading
+• handle TODOs in documentation, cover upgrading, mark no-OA jumps
 • fix and check installing Docker offline works
 • consider OCTOPUS monorepo (and dependency versions!)
 

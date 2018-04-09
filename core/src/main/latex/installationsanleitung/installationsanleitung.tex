@@ -44,7 +44,7 @@
 
 % VerA.web Fassung der Installationsanleitung
 \newcommand{\vwiaversfassungnr}{5.0}
-\newcommand{\vwiaversfassungmonat}{Februar}
+\newcommand{\vwiaversfassungmonat}{April}
 \newcommand{\vwiaversfassungjahr}{2018}
 
 % VerA.web Version
@@ -2805,10 +2805,8 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
   Service, Wartung und Hosting}
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=vwor/src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
-\ifoa
  \item{\href{https://github.com/osiam/osiam/blob/v2.5/docs/detailed-reference-installation.md}{https://github.com/osiam/osiam/blob/v2.5/docs/detailed-reference-installation.md}
   \dash Detaillierte OSIAM-Referenzinstallationsanleitung}
-\fi% oa
 \end{itemize}
 
 \subsection{Absicherung}\label{subsec:links-sec}
@@ -2829,7 +2827,8 @@ u.a. an folgenden Stellen:\keinumbruch
  \item{\texttt{/etc/veraweb/config\_*.xml}}
  \item{\texttt{/etc/veraweb/veraweb.properties}}
  \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
-  und \texttt{/var/log/tomcat8/}}
+  und \texttt{/var/log/tomcat8/} sowie ggfs. in den entpackten
+  Webapplikationen unter \texttt{/var/lib/tomcat8/webapps/}}
  \item{Bilddateien in \texttt{/var/lib/veraweb/uploaded/}}
 \end{itemize}
 
@@ -2837,15 +2836,13 @@ VerA.web core und die REST-API laufen als Webarchive im
 Tomcat-Applikationsserver und somit mit dessen Rechten,
 d.h. als Unix-Nutzer \texttt{tomcat8}.
 
-\ifoa
-
 Die Online-Anmeldung läuft als separater Unix-Nutzer \texttt{vwoa}
 und hält folgende sicherheitsrelevanten Daten vor:\keinumbruch
 
 \begin{itemize}
  \item{\texttt{/etc/service/vwoa/config.jsn}}
- \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
-  und \texttt{/var/log/vwoa/}}
+ \item{in Logdateien unterhalb von \texttt{/var/log/apache2/},
+  \texttt{/var/log/vwoa/} und \texttt{/etc/service/vwoa/log/}}
 \end{itemize}
 
 OSIAM ist eine „Blackbox“, daher kann keine genaue Aussage hierüber getroffen
@@ -2860,15 +2857,10 @@ auch im \texttt{tomcat8}, und bekannte Stellen sind hier:\keinumbruch
   und \texttt{/var/log/tomcat8/}}
 \end{itemize}
 
-\fi% oa
-
 \section{Anhang: Referenzkonfigurationen}\label{sec:refcfg}
 
-%XXX TODO: update (tomcat8, possibly on stretch)
-⚠ Dieser Abschnitt wurde noch nicht auf Tomcat 8 aktualisiert!
-
 In diesem Kapitel finden Sie Beispiele für Konfigurationsdateien
-auf einer Testinstallation von VerA.web auf Debian 8 „jessie“.
+auf einer Testinstallation von VerA.web auf Debian 9 „stretch“.
 Hierbei wurden an allen Stellen die Standardpaßwörter gewählt;
 diese Beispiele sind strikt als nicht-normative Dokumentation
 zu verstehen.
@@ -2886,14 +2878,12 @@ zu verstehen.
 betrifft oft nur Teile einer Zeile (einzelne Worte oder
 Kommandozeilenoptionen)!
 
-\ifoa
-
 \subsection{/etc/apache2/sites-enabled/000-default.conf}\label{subsec:refcfg-apache-default}
 
 Diese Datei ist quasi identisch, nur das Ziel der Weiterleitung
 unterscheidet sich, je nach Host. Betrifft: alle
 
-\begin{lstdump}[tabsize=2]{/etc/apache2/sites-enabled/000-default.conf +OA}
+\begin{lstdump}[tabsize=2]{/etc/apache2/sites-enabled/000-default.conf}
 <VirtualHost *:80>
 	# The ServerName directive sets the request scheme, hostname and port that
 	# the server uses to identify itself. This is used when creating
@@ -2907,10 +2897,8 @@ unterscheidet sich, je nach Host. Betrifft: alle
 	ServerAdmin webmaster@localhost
 	DocumentRoot /var/www/html
 「
-	### Nur auf der Online-Anmeldung, und nur wenn separat:
-	#RedirectMatch 301 . https://vwcore.lan.tarent.de/
-	### Ansonsten und auf dem core-System:
-	RedirectMatch 301 . https://vwcore.lan.tarent.de/
+	# Weiterleiten auf core, nur bei separater Online-Anmeldung auf diese
+	RedirectMatch 301 . https://veraweb.lan.tarent.de/
 」
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 	# error, crit, alert, emerg.
@@ -2938,7 +2926,7 @@ Dieser vhost enthält kommentierte Alternativen für den core,
 OSIAM und die Online-Anmeldung. Bitte beachten Sie die
 inline-Kommentare genau! Betrifft: alle
 
-\begin{lstdump}[tabsize=2]{/etc/apache2/sites-enabled/default-ssl.conf +OA}
+\begin{lstdump}[tabsize=2]{/etc/apache2/sites-enabled/default-ssl.conf}
 <IfModule mod_ssl.c>
 	<VirtualHost _default_:443>
 		ServerAdmin webmaster@localhost
@@ -2952,12 +2940,12 @@ inline-Kommentare genau! Betrifft: alle
 		### core
 		JkMount /veraweb* ajp13_worker
 		JkMount /vwor* ajp13_worker
-		RedirectMatch 301 ^/*$ https://vwcore.lan.tarent.de/veraweb/
+		RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
 
 		### Online-Anmeldung
 		ProxyPass /vwor-app/ http://localhost:8081/
 		ProxyPassReverse /vwor-app/ http://localhost:8081/
-		RedirectMatch 301 ^/*$ https://vwoa.lan.tarent.de/vwor-app/
+		RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/vwor-app/
 」
 		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 		# error, crit, alert, emerg.
@@ -3079,11 +3067,9 @@ inline-Kommentare genau! Betrifft: alle
 		#   Similarly, one has to force some clients to use HTTP/1.0 to workaround
 		#   their broken HTTP/1.1 implementation. Use variables "downgrade-1.0" and
 		#   "force-response-1.0" for this.
-		BrowserMatch "MSIE [2-6]" \
-				nokeepalive ssl-unclean-shutdown \
-				downgrade-1.0 force-response-1.0
-		# MSIE 7 and newer should be able to use keepalive
-		BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+		# BrowserMatch "MSIE [2-6]" \
+		#		nokeepalive ssl-unclean-shutdown \
+		#		downgrade-1.0 force-response-1.0
 
 	</VirtualHost>
 </IfModule>
@@ -3091,33 +3077,33 @@ inline-Kommentare genau! Betrifft: alle
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 \end{lstdump}
 
-\subsection{/etc/default/tomcat7}\label{subsec:refcfg-tcdef}
+\subsection{/etc/default/tomcat8}\label{subsec:refcfg-tcdef}
 
 Dieses Beispiel ermöglicht es, alles auf einer VM zu betreiben;
 siehe auch inline-Kommentare. Betrifft: OSIAM, core
 
-\begin{lstdump}{/etc/default/tomcat7 all-in-one}
+\begin{lstdump}{/etc/default/tomcat8}
 # Run Tomcat as this user ID. Not setting this or leaving it blank will use the
-# default of tomcat7.
-TOMCAT7_USER=tomcat7
+# default of tomcat8.
+TOMCAT8_USER=tomcat8
 
 # Run Tomcat as this group ID. Not setting this or leaving it blank will use
-# the default of tomcat7.
-TOMCAT7_GROUP=tomcat7
+# the default of tomcat8.
+TOMCAT8_GROUP=tomcat8
 
 # The home directory of the Java development kit (JDK). You need at least
-# JDK version 6. If JAVA_HOME is not set, some common directories for
-# OpenJDK, the Oracle JDK, and various Java SE 6+ versions are tried.
-#JAVA_HOME=/usr/lib/jvm/openjdk-6-jdk
+# JDK version 8. If JAVA_HOME is not set, some common directories for
+# OpenJDK and the Oracle JDK are tried.
+#JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 # You may pass JVM startup parameters to Java here. If unset, the default
-# options will be: -Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC
+# options will be: -Djava.awt.headless=true -XX:+UseConcMarkSweepGC
 #
 # Use "-XX:+UseConcMarkSweepGC" to enable the CMS garbage collector (improved
 # response time). If you use that option and you run Tomcat on a machine with
 # exactly one CPU chip that contains one or two cores, you should also add
 # the "-XX:+CMSIncrementalMode" option.
-JAVA_OPTS="-Djava.awt.headless=true 「-Xmx512m」 -XX:+UseConcMarkSweepGC"
+JAVA_OPTS="-Djava.awt.headless=true -XX:+UseConcMarkSweepGC"
 
 # To enable remote debugging uncomment the following line.
 # You will then be able to use a java debugger on port 8000.
@@ -3128,16 +3114,16 @@ JAVA_OPTS="-Djava.awt.headless=true 「-Xmx512m」 -XX:+UseConcMarkSweepGC"
 #JSP_COMPILER=javac
 
 # Use the Java security manager? (yes/no, default: no)
-#TOMCAT7_SECURITY=no
+#TOMCAT8_SECURITY=no
 
-# Number of days to keep logfiles in /var/log/tomcat7. Default is 14 days.
+# Number of days to keep logfiles in /var/log/tomcat8. Default is 14 days.
 #LOGFILE_DAYS=14
 # Whether to compress logfiles older than today's
 #LOGFILE_COMPRESS=1
 
 # Location of the JVM temporary directory
 # WARNING: This directory will be destroyed and recreated at every startup !
-#JVM_TMP=/tmp/tomcat7-temp
+#JVM_TMP=/tmp/tomcat8-temp
 
 # If you run Tomcat on port numbers that are all higher than 1023, then you
 # do not need authbind.  It is used for binding Tomcat to lower port numbers.
@@ -3146,251 +3132,8 @@ JAVA_OPTS="-Djava.awt.headless=true 「-Xmx512m」 -XX:+UseConcMarkSweepGC"
 「
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
+JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"
 \end{lstdump}
-
-\else% !oa
-
-\subsection{/etc/apache2/sites-enabled/000-default.conf}\label{subsec:refcfg-apache-default}
-
-\begin{lstdump}[tabsize=2]{/etc/apache2/sites-enabled/000-default.conf}
-<VirtualHost *:80>
-	# The ServerName directive sets the request scheme, hostname and port that
-	# the server uses to identify itself. This is used when creating
-	# redirection URLs. In the context of virtual hosts, the ServerName
-	# specifies what hostname must appear in the request's Host: header to
-	# match this virtual host. For the default virtual host (this file) this
-	# value is not decisive as it is used as a last resort host regardless.
-	# However, you must set it for any further virtual host explicitly.
-	#ServerName www.example.com
-
-	ServerAdmin webmaster@localhost
-	DocumentRoot /var/www/html
-「
-	RedirectMatch 301 . https://vwcore.lan.tarent.de/
-」
-	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-	# error, crit, alert, emerg.
-	# It is also possible to configure the loglevel for particular
-	# modules, e.g.
-	#LogLevel info ssl:warn
-
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-	# For most configuration files from conf-available/, which are
-	# enabled or disabled at a global level, it is possible to
-	# include a line for only one particular virtual host. For example the
-	# following line enables the CGI configuration for this host only
-	# after it has been globally disabled with "a2disconf".
-	#Include conf-available/serve-cgi-bin.conf
-</VirtualHost>
-
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-\end{lstdump}
-
-\subsection{/etc/apache2/sites-enabled/default-ssl.conf}\label{subsec:refcfg-apache-defssl}
-
-\begin{lstdump}[tabsize=2]{/etc/apache2/sites-enabled/default-ssl.conf}
-<IfModule mod_ssl.c>
-	<VirtualHost _default_:443>
-		ServerAdmin webmaster@localhost
-
-		DocumentRoot /var/www/html
-「
-		JkMount /veraweb* ajp13_worker
-		JkMount /vwor* ajp13_worker
-
-		RedirectMatch 301 ^/*$ https://vwcore.lan.tarent.de/veraweb/
-」
-		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-		# error, crit, alert, emerg.
-		# It is also possible to configure the loglevel for particular
-		# modules, e.g.
-		#LogLevel info ssl:warn
-
-		ErrorLog ${APACHE_LOG_DIR}/error.log
-		CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-		# For most configuration files from conf-available/, which are
-		# enabled or disabled at a global level, it is possible to
-		# include a line for only one particular virtual host. For example the
-		# following line enables the CGI configuration for this host only
-		# after it has been globally disabled with "a2disconf".
-		#Include conf-available/serve-cgi-bin.conf
-
-		#   SSL Engine Switch:
-		#   Enable/Disable SSL for this virtual host.
-		SSLEngine on
-
-		#   A self-signed (snakeoil) certificate can be created by installing
-		#   the ssl-cert package. See
-		#   /usr/share/doc/apache2/README.Debian.gz for more info.
-		#   If both key and certificate are stored in the same file, only the
-		#   SSLCertificateFile directive is needed.
-「		SSLCertificateFile /etc/ssl/vwserver.cer
-		SSLCertificateKeyFile /etc/ssl/private/vwserver.key
-」
-		#   Server Certificate Chain:
-		#   Point SSLCertificateChainFile at a file containing the
-		#   concatenation of PEM encoded CA certificates which form the
-		#   certificate chain for the server certificate. Alternatively
-		#   the referenced file can be the same as SSLCertificateFile
-		#   when the CA certificates are directly appended to the server
-		#   certificate for convinience.
-「		SSLCertificateChainFile /etc/ssl/vwchain.cer
-」
-		#   Certificate Authority (CA):
-		#   Set the CA certificate verification path where to find CA
-		#   certificates for client authentication or alternatively one
-		#   huge file containing all of them (file must be PEM encoded)
-		#   Note: Inside SSLCACertificatePath you need hash symlinks
-		#		 to point to the certificate files. Use the provided
-		#		 Makefile to update the hash symlinks after changes.
-		#SSLCACertificatePath /etc/ssl/certs/
-		#SSLCACertificateFile /etc/apache2/ssl.crt/ca-bundle.crt
-
-		#   Certificate Revocation Lists (CRL):
-		#   Set the CA revocation path where to find CA CRLs for client
-		#   authentication or alternatively one huge file containing all
-		#   of them (file must be PEM encoded)
-		#   Note: Inside SSLCARevocationPath you need hash symlinks
-		#		 to point to the certificate files. Use the provided
-		#		 Makefile to update the hash symlinks after changes.
-		#SSLCARevocationPath /etc/apache2/ssl.crl/
-		#SSLCARevocationFile /etc/apache2/ssl.crl/ca-bundle.crl
-
-		#   Client Authentication (Type):
-		#   Client certificate verification type and depth.  Types are
-		#   none, optional, require and optional_no_ca.  Depth is a
-		#   number which specifies how deeply to verify the certificate
-		#   issuer chain before deciding the certificate is not valid.
-		#SSLVerifyClient require
-		#SSLVerifyDepth  10
-
-		#   SSL Engine Options:
-		#   Set various options for the SSL engine.
-		#   o FakeBasicAuth:
-		#	 Translate the client X.509 into a Basic Authorisation.  This means that
-		#	 the standard Auth/DBMAuth methods can be used for access control.  The
-		#	 user name is the `one line' version of the client's X.509 certificate.
-		#	 Note that no password is obtained from the user. Every entry in the user
-		#	 file needs this password: `xxj31ZMTZzkVA'.
-		#   o ExportCertData:
-		#	 This exports two additional environment variables: SSL_CLIENT_CERT and
-		#	 SSL_SERVER_CERT. These contain the PEM-encoded certificates of the
-		#	 server (always existing) and the client (only existing when client
-		#	 authentication is used). This can be used to import the certificates
-		#	 into CGI scripts.
-		#   o StdEnvVars:
-		#	 This exports the standard SSL/TLS related `SSL_*' environment variables.
-		#	 Per default this exportation is switched off for performance reasons,
-		#	 because the extraction step is an expensive operation and is usually
-		#	 useless for serving static content. So one usually enables the
-		#	 exportation for CGI and SSI requests only.
-		#   o OptRenegotiate:
-		#	 This enables optimized SSL connection renegotiation handling when SSL
-		#	 directives are used in per-directory context.
-		#SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
-		<FilesMatch "\.(cgi|shtml|phtml|php)$">
-				SSLOptions +StdEnvVars
-		</FilesMatch>
-		<Directory /usr/lib/cgi-bin>
-				SSLOptions +StdEnvVars
-		</Directory>
-
-		#   SSL Protocol Adjustments:
-		#   The safe and default but still SSL/TLS standard compliant shutdown
-		#   approach is that mod_ssl sends the close notify alert but doesn't wait for
-		#   the close notify alert from client. When you need a different shutdown
-		#   approach you can use one of the following variables:
-		#   o ssl-unclean-shutdown:
-		#	 This forces an unclean shutdown when the connection is closed, i.e. no
-		#	 SSL close notify alert is send or allowed to received.  This violates
-		#	 the SSL/TLS standard but is needed for some brain-dead browsers. Use
-		#	 this when you receive I/O errors because of the standard approach where
-		#	 mod_ssl sends the close notify alert.
-		#   o ssl-accurate-shutdown:
-		#	 This forces an accurate shutdown when the connection is closed, i.e. a
-		#	 SSL close notify alert is send and mod_ssl waits for the close notify
-		#	 alert of the client. This is 100% SSL/TLS standard compliant, but in
-		#	 practice often causes hanging connections with brain-dead browsers. Use
-		#	 this only for browsers where you know that their SSL implementation
-		#	 works correctly.
-		#   Notice: Most problems of broken clients are also related to the HTTP
-		#   keep-alive facility, so you usually additionally want to disable
-		#   keep-alive for those clients, too. Use variable "nokeepalive" for this.
-		#   Similarly, one has to force some clients to use HTTP/1.0 to workaround
-		#   their broken HTTP/1.1 implementation. Use variables "downgrade-1.0" and
-		#   "force-response-1.0" for this.
-		BrowserMatch "MSIE [2-6]" \
-				nokeepalive ssl-unclean-shutdown \
-				downgrade-1.0 force-response-1.0
-		# MSIE 7 and newer should be able to use keepalive
-		BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
-
-	</VirtualHost>
-</IfModule>
-
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-\end{lstdump}
-
-\subsection{/etc/default/tomcat7}\label{subsec:refcfg-tcdef}
-
-\begin{lstdump}{/etc/default/tomcat7}
-# Run Tomcat as this user ID. Not setting this or leaving it blank will use the
-# default of tomcat7.
-TOMCAT7_USER=tomcat7
-
-# Run Tomcat as this group ID. Not setting this or leaving it blank will use
-# the default of tomcat7.
-TOMCAT7_GROUP=tomcat7
-
-# The home directory of the Java development kit (JDK). You need at least
-# JDK version 6. If JAVA_HOME is not set, some common directories for
-# OpenJDK, the Oracle JDK, and various Java SE 6+ versions are tried.
-#JAVA_HOME=/usr/lib/jvm/openjdk-6-jdk
-
-# You may pass JVM startup parameters to Java here. If unset, the default
-# options will be: -Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC
-#
-# Use "-XX:+UseConcMarkSweepGC" to enable the CMS garbage collector (improved
-# response time). If you use that option and you run Tomcat on a machine with
-# exactly one CPU chip that contains one or two cores, you should also add
-# the "-XX:+CMSIncrementalMode" option.
-JAVA_OPTS="-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC"
-
-# To enable remote debugging uncomment the following line.
-# You will then be able to use a java debugger on port 8000.
-#JAVA_OPTS="${JAVA_OPTS} -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"
-
-# Java compiler to use for translating JavaServer Pages (JSPs). You can use all
-# compilers that are accepted by Ant's build.compiler property.
-#JSP_COMPILER=javac
-
-# Use the Java security manager? (yes/no, default: no)
-#TOMCAT7_SECURITY=no
-
-# Number of days to keep logfiles in /var/log/tomcat7. Default is 14 days.
-#LOGFILE_DAYS=14
-# Whether to compress logfiles older than today's
-#LOGFILE_COMPRESS=1
-
-# Location of the JVM temporary directory
-# WARNING: This directory will be destroyed and recreated at every startup !
-#JVM_TMP=/tmp/tomcat7-temp
-
-# If you run Tomcat on port numbers that are all higher than 1023, then you
-# do not need authbind.  It is used for binding Tomcat to lower port numbers.
-# (yes/no, default: no)
-#AUTHBIND=no
-「
-JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
-JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"」
-\end{lstdump}
-
-\fi% !oa
-% ↑ shared; ↓ OSIAM/OA-specific
-\ifoa
 
 \subsection{/etc/osiam/auth-server.properties}\label{subsec:refcfg-osiam-auth}
 
@@ -3400,17 +3143,26 @@ Betrifft: OSIAM
 # Database properties
 org.osiam.auth-server.db.vendor=postgresql
 org.osiam.auth-server.db.driver=org.postgresql.Driver
-org.osiam.auth-server.db.dialect=org.hibernate.dialect.PostgresPlusDialect
 org.osiam.auth-server.db.url=jdbc:postgresql://localhost:5432/ong
 org.osiam.auth-server.db.username=ong
 org.osiam.auth-server.db.password=〔ong〕
 
+# JDBC pool properties
+org.osiam.auth-server.db.maximum-pool-size=10
+org.osiam.auth-server.db.connection-timeout-ms=30000
+
 # OSIAM authentication-server configuration
 # Home URL (needed for self reference)
-org.osiam.auth-server.home=https://「vwosiam.lan.tarent.de」/osiam-auth-server
+org.osiam.auth-server.home=https://「veraweb.lan.tarent.de」/osiam-auth-server
 
 # OSIAM resource server configuration
-org.osiam.resource-server.home=https://「vwosiam.lan.tarent.de」/osiam-resource-server
+org.osiam.resource-server.home=https://「veraweb.lan.tarent.de」/osiam-resource-server
+# Maximum number of parallel connections to the resource-server
+org.osiam.resource-server.connector.max-connections=40
+# Timeouts of connections to resource-server in milliseconds
+org.osiam.resource-server.connector.read-timeout-ms=10000
+org.osiam.resource-server.connector.connect-timeout-ms=5000
+
 # ATTENTION: you have to set a random secret for the resource server client!
 # It has to be the same as in the properties file of the resource server!
 org.osiam.resource-server.client.secret=〔random-client-secret〕
@@ -3439,21 +3191,26 @@ Betrifft: OSIAM
 # Database properties
 org.osiam.resource-server.db.vendor=postgresql
 org.osiam.resource-server.db.driver=org.postgresql.Driver
-org.osiam.resource-server.db.dialect=org.hibernate.dialect.PostgresPlusDialect
 org.osiam.resource-server.db.url=jdbc:postgresql://localhost:5432/ong
 org.osiam.resource-server.db.username=ong
 org.osiam.resource-server.db.password=〔ong〕
 
-# OSIAM resource server configuration
-org.osiam.resource-server.profiling=false
+# JDBC pool properties
+org.osiam.resource-server.db.maximum-pool-size=10
+org.osiam.resource-server.db.connection-timeout-ms=30000
 
 # Home URL (needed for self reference)
-org.osiam.resource-server.home=https://「vwosiam.lan.tarent.de」/osiam-resource-server
+org.osiam.resource-server.home=https://「veraweb.lan.tarent.de」/osiam-resource-server
 # ATTENTION: you have to set a random secret for the resource server client!
 org.osiam.resource-server.client.secret=〔random-client-secret〕
 
-# OSIAM auth server configuration
-org.osiam.auth-server.home=https://「vwosiam.lan.tarent.de」/osiam-auth-server
+# OSIAM auth-server configuration
+org.osiam.auth-server.home=https://「veraweb.lan.tarent.de」/osiam-auth-server
+# Maximum number of parallel connections to the auth-server
+org.osiam.auth-server.connector.max-connections=40
+# Timeouts of connections to auth-server in milliseconds
+org.osiam.auth-server.connector.read-timeout-ms=10000
+org.osiam.auth-server.connector.connect-timeout-ms=5000
 \end{lstdump}
 
 \subsection{/etc/service/vwoa/config.jsn}\label{subsec:refcfg-oa-cfg}
@@ -3478,11 +3235,11 @@ Betrifft: Online-Anmeldung
       "org.hibernate.SQL": "ALL"
     }
   },
-  "onlineRegistrationEndpoint": "https://「vwoa.lan.tarent.de」/vwor-app/#/",
+  "onlineRegistrationEndpoint": "https://「veraweb.lan.tarent.de」/vwor-app/#/",
   "osiam": {
     "clientId": "online-registration",
     "clientSecret": "〔geheim〕",
-    "endpoint": "https://「vwosiam.lan.tarent.de」"
+    "endpoint": "https://「veraweb.lan.tarent.de」"
   },
   "restauth": {
     "password": "〔veraweb〕",
@@ -3511,15 +3268,15 @@ Betrifft: Online-Anmeldung
     },
     "type": "simple"
   },
-  "verawebEndpoint": "https://「vwcore.lan.tarent.de」/vwor"
+  "verawebEndpoint": "https://「veraweb.lan.tarent.de」/vwor"
 }
 \end{lstdump}
 
-\subsection{/etc/tomcat7/catalina.properties}\label{subsec:refcfg-tc-prop}
+\subsection{/etc/tomcat8/catalina.properties}\label{subsec:refcfg-tc-prop}
 
 Betrifft: OSIAM
 
-\begin{lstdump}{/etc/tomcat7/catalina.properties}
+\begin{lstdump}{/etc/tomcat8/catalina.properties}
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -3541,8 +3298,7 @@ Betrifft: OSIAM
 # passed to checkPackageAccess unless the
 # corresponding RuntimePermission ("accessClassInPackage."+package) has
 # been granted.
-package.access=sun.,org.apache.catalina.,org.apache.coyote.,org.apache.jasper.,\
-org.apache.naming.resources.,org.apache.tomcat.
+package.access=sun.,org.apache.catalina.,org.apache.coyote.,org.apache.jasper.,org.apache.tomcat.
 #
 # List of comma-separated packages that start with or equal this string
 # will cause a security exception to be thrown when
@@ -3568,7 +3324,12 @@ org.apache.jasper.,org.apache.naming.,org.apache.tomcat.
 #     "foo/*.jar": Add all the JARs of the specified folder as class
 #                  repositories
 #     "foo/bar.jar": Add bar.jar as a class repository
-common.loader=${catalina.base}/lib,${catalina.base}/lib/*.jar,${catalina.home}/lib,${catalina.home}/lib/*.jar,${catalina.home}/common/classes,${catalina.home}/common/*.jar
+#
+# Note: Values are enclosed in double quotes ("...") in case either the
+#       ${catalina.base} path or the ${catalina.home} path contains a comma.
+#       Because double quotes are used for quoting, the double quote character
+#       may not appear in a path.
+common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar","${catalina.base}/common/classes","${catalina.base}/common/*.jar","${catalina.home}/common/classes","${catalina.home}/common/*.jar"
 
 #
 # List of comma-separated paths defining the contents of the "server"
@@ -3581,7 +3342,12 @@ common.loader=${catalina.base}/lib,${catalina.base}/lib/*.jar,${catalina.home}/l
 #     "foo/*.jar": Add all the JARs of the specified folder as class
 #                  repositories
 #     "foo/bar.jar": Add bar.jar as a class repository
-server.loader=${catalina.home}/server/classes,${catalina.home}/server/*.jar
+#
+# Note: Values may be enclosed in double quotes ("...") in case either the
+#       ${catalina.base} path or the ${catalina.home} path contains a comma.
+#       Because double quotes are used for quoting, the double quote character
+#       may not appear in a path.
+server.loader="${catalina.base}/server/classes","${catalina.base}/server/*.jar","${catalina.home}/server/classes","${catalina.home}/server/*.jar"
 
 #
 # List of comma-separated paths defining the contents of the "shared"
@@ -3595,15 +3361,21 @@ server.loader=${catalina.home}/server/classes,${catalina.home}/server/*.jar
 #     "foo/bar.jar": Add bar.jar as a class repository
 # Please note that for single jars, e.g. bar.jar, you need the URL form
 # starting with file:.
-shared.loader=${catalina.home}/shared/classes,${catalina.home}/shared/*.jar「,/etc/osiam」
+#
+# Note: Values may be enclosed in double quotes ("...") in case either the
+#       ${catalina.base} path or the ${catalina.home} path contains a comma.
+#       Because double quotes are used for quoting, the double quote character
+#       may not appear in a path.
+shared.loader="${catalina.base}/shared/classes","${catalina.base}/shared/*.jar","${catalina.home}/shared/classes","${catalina.home}/shared/*.jar"「,/etc/osiam」
 
-# List of JAR files that should not be scanned using the JarScanner
+# Default list of JAR files that should not be scanned using the JarScanner
 # functionality. This is typically used to scan JARs for configuration
 # information. JARs that do not contain such information may be excluded from
 # the scan to speed up the scanning process. This is the default list. JARs on
-# this list are excluded from all scans. Scan specific lists (to exclude JARs
-# from individual scans) follow this. The list must be a comma separated list of
-# JAR file names.
+# this list are excluded from all scans. The list must be a comma separated list
+# of JAR file names.
+# The list of JARs to skip may be over-ridden at a Context level for individual
+# scan types by configuring a JarScanner with a nested JarScanFilter.
 # The JARs listed below include:
 # - Tomcat Bootstrap JARs
 # - Tomcat API JARs
@@ -3612,13 +3384,15 @@ shared.loader=${catalina.home}/shared/classes,${catalina.home}/shared/*.jar「,/
 # - Tomcat JARs
 # - Common non-Tomcat JARs
 # - Test JARs (JUnit, Cobertura and dependencies)
-tomcat.util.scan.DefaultJarScanner.jarsToSkip=\
+tomcat.util.scan.StandardJarScanFilter.jarsToSkip=\
 bootstrap.jar,commons-daemon.jar,tomcat-juli.jar,\
 annotations-api.jar,el-api.jar,jsp-api.jar,servlet-api.jar,websocket-api.jar,\
-catalina.jar,catalina-ant.jar,catalina-ha.jar,catalina-tribes.jar,\
+jaspic-api.jar,\
+catalina.jar,catalina-ant.jar,catalina-ha.jar,catalina-storeconfig.jar,\
+catalina-tribes.jar,\
 jasper.jar,jasper-el.jar,ecj-*.jar,\
-tomcat-api.jar,tomcat-util.jar,tomcat-coyote.jar,tomcat-dbcp.jar,\
-tomcat-jni.jar,tomcat-spdy.jar,\
+tomcat-api.jar,tomcat-util.jar,tomcat-util-scan.jar,tomcat-coyote.jar,\
+tomcat-dbcp.jar,tomcat-jni.jar,tomcat-websocket.jar,\
 tomcat-i18n-en.jar,tomcat-i18n-es.jar,tomcat-i18n-fr.jar,tomcat-i18n-ja.jar,\
 tomcat-juli-adapters.jar,catalina-jmx-remote.jar,catalina-ws.jar,\
 tomcat-jdbc.jar,\
@@ -3627,44 +3401,42 @@ commons-beanutils*.jar,commons-codec*.jar,commons-collections*.jar,\
 commons-dbcp*.jar,commons-digester*.jar,commons-fileupload*.jar,\
 commons-httpclient*.jar,commons-io*.jar,commons-lang*.jar,commons-logging*.jar,\
 commons-math*.jar,commons-pool*.jar,\
-jstl.jar,\
+jstl.jar,taglibs-standard-spec-*.jar,\
 geronimo-spec-jaxrpc*.jar,wsdl4j*.jar,\
 ant.jar,ant-junit*.jar,aspectj*.jar,jmx.jar,h2*.jar,hibernate*.jar,httpclient*.jar,\
-jmx-tools.jar,jta*.jar,log4j.jar,log4j-1*.jar,mail*.jar,slf4j*.jar,\
+jmx-tools.jar,jta*.jar,log4j*.jar,mail*.jar,slf4j*.jar,\
 xercesImpl.jar,xmlParserAPIs.jar,xml-apis.jar,\
-junit.jar,junit-*.jar,hamcrest*.jar,org.hamcrest*.jar,ant-launcher.jar,\
+junit.jar,junit-*.jar,hamcrest-*.jar,easymock-*.jar,cglib-*.jar,\
+objenesis-*.jar,ant-launcher.jar,\
 cobertura-*.jar,asm-*.jar,dom4j-*.jar,icu4j-*.jar,jaxen-*.jar,jdom-*.jar,\
 jetty-*.jar,oro-*.jar,servlet-api-*.jar,tagsoup-*.jar,xmlParserAPIs-*.jar,\
 xom-*.jar
 
-# Additional JARs (over and above the default JARs listed above) to skip when
-# scanning for Servlet 3.0 pluggability features. These features include web
-# fragments, annotations, SCIs and classes that match @HandlesTypes. The list
-# must be a comma separated list of JAR file names.
-org.apache.catalina.startup.ContextConfig.jarsToSkip=
+# Default list of JAR files that should be scanned that overrides the default
+# jarsToSkip list above. This is typically used to include a specific JAR that
+# has been excluded by a broad file name pattern in the jarsToSkip list.
+# The list of JARs to scan may be over-ridden at a Context level for individual
+# scan types by configuring a JarScanner with a nested JarScanFilter.
+tomcat.util.scan.StandardJarScanFilter.jarsToScan=\
+log4j-web*.jar,log4j-taglib*.jar,log4javascript*.jar,slf4j-taglib*.jar
 
-# Additional JARs (over and above the default JARs listed above) to skip when
-# scanning for TLDs. The list must be a comma separated list of JAR file names.
-org.apache.catalina.startup.TldConfig.jarsToSkip=tomcat7-websocket.jar
-
-#
 # String cache configuration.
 tomcat.util.buf.StringCache.byte.enabled=true
 #tomcat.util.buf.StringCache.char.enabled=true
 #tomcat.util.buf.StringCache.trainThreshold=500000
 #tomcat.util.buf.StringCache.cacheSize=5000
+
+# Allow for changes to HTTP request validation
+# WARNING: Using this option will expose the server to CVE-2016-6816
+#tomcat.util.http.parser.HttpParser.requestTargetAllow=|
 \end{lstdump}
 
-\fi% oa
+\subsection{/etc/tomcat8/context.xml}\label{subsec:refcfg-tc-ctx}
 
-\subsection{/etc/tomcat7/context.xml}\label{subsec:refcfg-tc-ctx}
-
-\ifoa
 Betrifft: core
-\fi% oa
 
-\begin{lstdump}{/etc/tomcat7/context.xml}
-<?xml version='1.0' encoding='utf-8'?>
+\begin{lstdump}{/etc/tomcat8/context.xml}
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -3684,33 +3456,27 @@ Betrifft: core
 <!-- The contents of this file will be loaded for each web application -->
 <Context>
 
-    <!-- Default set of monitored resources -->
+    <!-- Default set of monitored resources. If one of these changes, the    -->
+    <!-- web application will be reloaded.                                   -->
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
     <Manager pathname="" />
     -->
-
-    <!-- Uncomment this to enable Comet connection tacking (provides events
-         on session expiration as well as webapp lifecycle) -->
-    <!--
-    <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
-    -->
-「
-    <Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
+「    <Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
      driverClassName="org.postgresql.Driver" username="veraweb" password="〔veraweb〕"
      url="jdbc:postgresql://localhost:5432/veraweb" maxTotal="8" maxIdle="4" />」
-</Context>\end{lstdump}
+</Context>
+\end{lstdump}
 
-\subsection{/etc/tomcat7/server.xml}\label{subsec:refcfg-tc-server}
+\subsection{/etc/tomcat8/server.xml}\label{subsec:refcfg-tc-server}
 
-\ifoa
 Betrifft: OSIAM, core
-\fi% oa
 
-\begin{lstdump}[basicstyle=\ttfamily\footnotesize]{/etc/tomcat7/server.xml}
-<?xml version='1.0' encoding='utf-8'?>
+\begin{lstdump}[basicstyle=\ttfamily\footnotesize]{/etc/tomcat8/server.xml}
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -3732,15 +3498,12 @@ Betrifft: OSIAM, core
      Documentation at /docs/config/server.html
  -->
 <Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
   -->
   <!--APR library loader. Documentation at /docs/apr.html -->
-  <!--
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
-  -->
-  <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
-  <Listener className="org.apache.catalina.core.JasperListener" />
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
@@ -3773,17 +3536,17 @@ Betrifft: OSIAM, core
         maxThreads="150" minSpareThreads="4"/>
     -->
 
+
     <!-- A "Connector" represents an endpoint by which requests are received
          and responses are returned. Documentation at :
-         Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
+         Java HTTP Connector: /docs/config/http.html
          Java AJP  Connector: /docs/config/ajp.html
          APR (HTTP/AJP) Connector: /docs/apr.html
-         Define a non-SSL HTTP/1.1 Connector on port 8080
+         Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
 「<!--」
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               URIEncoding="UTF-8"
                redirectPort="8443" />
 「-->」
     <!-- A "Connector" using the shared thread pool-->
@@ -3793,15 +3556,40 @@ Betrifft: OSIAM, core
                connectionTimeout="20000"
                redirectPort="8443" />
     -->
-    <!-- Define a SSL HTTP/1.1 Connector on port 8443
-         This connector uses the BIO implementation that requires the JSSE
-         style configuration. When using the APR/native implementation, the
-         OpenSSL style configuration is required as described in the APR/native
-         documentation -->
+    <!-- Define a SSL/TLS HTTP/1.1 Connector on port 8443
+         This connector uses the NIO implementation. The default
+         SSLImplementation will depend on the presence of the APR/native
+         library and the useOpenSSL attribute of the
+         AprLifecycleListener.
+         Either JSSE or OpenSSL style configuration may be used regardless of
+         the SSLImplementation selected. JSSE style configuration is used below.
+    -->
     <!--
-    <Connector port="8443" protocol="org.apache.coyote.http11.Http11Protocol"
-               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
-               clientAuth="false" sslProtocol="TLS" />
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+    -->
+    <!-- Define a SSL/TLS HTTP/1.1 Connector on port 8443 with HTTP/2
+         This connector uses the APR/native implementation which always uses
+         OpenSSL for TLS.
+         Either JSSE or OpenSSL style configuration may be used. OpenSSL style
+         configuration is used below.
+    -->
+    <!--
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
+               maxThreads="150" SSLEnabled="true" >
+        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+        <SSLHostConfig>
+            <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
+                         certificateFile="conf/localhost-rsa-cert.pem"
+                         certificateChainFile="conf/localhost-rsa-chain.pem"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
     -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->「
@@ -3850,7 +3638,7 @@ Betrifft: OSIAM, core
              Documentation at: /docs/config/valve.html
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
-               prefix="localhost_access_log." suffix=".txt"
+               prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 
       </Host>
@@ -3859,14 +3647,12 @@ Betrifft: OSIAM, core
 </Server>
 \end{lstdump}
 
-\subsection{/etc/tomcat7/tomcat-users.xml}\label{subsec:refcfg-tc-users}
+\subsection{/etc/tomcat8/tomcat-users.xml}\label{subsec:refcfg-tc-users}
 
-\ifoa
 Betrifft: core
-\fi% oa
 
-\begin{lstdump}{/etc/tomcat7/tomcat-users.xml}
-<?xml version='1.0' encoding='utf-8'?>
+\begin{lstdump}{/etc/tomcat8/tomcat-users.xml}
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -3883,34 +3669,42 @@ Betrifft: core
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<tomcat-users>
+<tomcat-users xmlns="http://tomcat.apache.org/xml"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+              version="1.0">
 <!--
   NOTE:  By default, no user is included in the "manager-gui" role required
   to operate the "/manager/html" web application.  If you wish to use this app,
-  you must define such a user - the username and password are arbitrary.
+  you must define such a user - the username and password are arbitrary. It is
+  strongly recommended that you do NOT use one of the users in the commented out
+  section below since they are intended for use with the examples web
+  application.
 -->
 <!--
-  NOTE:  The sample user and role entries below are wrapped in a comment
-  and thus are ignored when reading this file. Do not forget to remove
-  <!.. ..> that surrounds them.
+  NOTE:  The sample user and role entries below are intended for use with the
+  examples web application. They are wrapped in a comment and thus are ignored
+  when reading this file. If you wish to configure these users for use with the
+  examples web application, do not forget to remove the <!.. ..> that surrounds
+  them. You will also need to set the passwords to something appropriate.
 -->
 <!--
   <role rolename="tomcat"/>
   <role rolename="role1"/>
-  <user username="tomcat" password="tomcat" roles="tomcat"/>
-  <user username="both" password="tomcat" roles="tomcat,role1"/>
-  <user username="role1" password="tomcat" roles="role1"/>
+  <user username="tomcat" password="<must-be-changed>" roles="tomcat"/>
+  <user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
+  <user username="role1" password="<must-be-changed>" roles="role1"/>
 -->
+
 「  <role rolename="veraweb" />
   <user roles="veraweb" username="veraweb" password="〔veraweb〕" />」
+
 </tomcat-users>
 \end{lstdump}
 
 \subsection{/etc/veraweb/config\_ldap\_access.xml}\label{subsec:refcfg-vw-cfgldap}
 
-\ifoa
 Betrifft: core
-\fi% oa
 
 \begin{lstdump}[basicstyle=\ttfamily\footnotesize]{/etc/veraweb/config_ldap_access.xml}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -3937,7 +3731,7 @@ Betrifft: core
 		<param name="ldapauth" value="simple" />
 
 		<!-- die URL des LDAP-Servers bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ldap://localhost:389/". -->
-		<param name="ldapurl" value="「ldap://localhost」" />
+		<param name="ldapurl" value="「ldaps://veraweb.lan.tarent.de/」" />
 		<!-- der Benutzer bei LDAP-Zugriffen, die nicht ein einfaches Überprüfen eines Logins darstellen; zum Beispiel "cn=Manager,ou=testav01,dc=aa". -->
 		<param name="ldapuser" value="cn=admin,dc=lan,dc=tarent,dc=de" />
 		<!-- LDAP Passwort falls erforderlich; falls nicht, auskommentiert lassen -->
@@ -3958,46 +3752,37 @@ Betrifft: core
 </tcModuleConfig>
 \end{lstdump}
 
-\ifoa
-
 \subsection{/etc/veraweb/veraweb.properties}\label{subsec:refcfg-vw-vwprop}
 
 Betrifft: core
 
-\begin{lstdump}{/etc/veraweb/veraweb.properties +OA}
-vwor.endpoint=https://「vwcore.lan.tarent.de」/vwor
+\begin{lstdump}{/etc/veraweb/veraweb.properties}
+vwor.endpoint=https://「veraweb.lan.tarent.de」/vwor
 vwor.auth.user=「veraweb」
 vwor.auth.password=〔veraweb〕
+
+# Die folgenden Einstellungen sind nur bei Benutzung der
+# Online-Anmeldung relevant; andernfalls ignorieren oder
+# entfernen:
+
 osiam.client.id=online-registration
 osiam.client.secret=〔geheim〕
 osiam.client.redirect_uri=http://localhost/irrelevant
-osiam.server.resource=https://「vwosiam.lan.tarent.de」/osiam-resource-server/
-osiam.server.auth=https://「vwosiam.lan.tarent.de」/osiam-auth-server/
+osiam.server.resource=https://「veraweb.lan.tarent.de」/osiam-resource-server/
+osiam.server.auth=https://「veraweb.lan.tarent.de」/osiam-auth-server/
 veraweb.onlinereg.protocol=https
-veraweb.onlinereg.host=「vwoa.lan.tarent.de」
+veraweb.onlinereg.host=「veraweb.lan.tarent.de」
 veraweb.onlinereg.port=443/vwor-app
 \end{lstdump}
 
-\else% !oa
-
-\subsection{/etc/veraweb/veraweb.properties}\label{subsec:refcfg-vw-vwprop}
-
-\begin{lstdump}{/etc/veraweb/veraweb.properties}
-vwor.endpoint=https://「vwcore.lan.tarent.de」/vwor
-vwor.auth.user=「veraweb」
-vwor.auth.password=〔veraweb〕
-\end{lstdump}
-
-\fi% !oa
-
 \subsection{/etc/veraweb/vwor.properties}\label{subsec:refcfg-vw-vworprop}
 
-\ifoa
 Betrifft: core
-\fi% oa
 
 \begin{lstdump}{/etc/veraweb/vwor.properties}
-filesLocation=/var/lib/veraweb/uploaded/
+# Encoding ISO-8859-1 necessary for propertyReader
+
+filesLocation=「/var/lib/veraweb/uploaded/」
 
 # generic SMTP properties
 mail.smtp.host=localhost
@@ -4008,19 +3793,43 @@ mail.smtp.security=none
 #mail.smtp.user=foo
 #mail.smtp.password=bar
 
-# address verification
+# sender address for all emails sent out
 mail.smtp.from=「noreply@example.com」
 # to use specific addresses for individual organisational units set
 # property mail.smtp.from.{id} like the following two lines are showing
-#mail.smtp.from.1=「noreply@example-mandant1.com」
-#mail.smtp.from.5=「noreply-mandant5@example.com」
+#mail.smtp.from.1=noreply@example-mandant1.com
+#mail.smtp.from.5=noreply-mandant5@example.com
 
+# email properties used by the online registration (Online-Anmeldung)
 # type can be plain or html, html is recommended
-mail.content.type=「plain」
-mail.subject.de_DE=「VerA.web: Bitte best\u00E4tigen Sie Ihre Registrierung」
-mail.content.de_DE=「Bitte best\u00E4tigen Sie Ihre Registrierung bei VerA.web und benutzen Sie dazu folgenden Link: ${link}」
-mail.subject.en_EN=「VerA.web: Please confirm registration」
-mail.content.en_EN=「Please use the link ${link} to confirm your registration with VerA.web.」
+mail.content.type=html
+mail.subject.de_DE=VerA.web: Bitte best\u00E4tigen Sie Ihre Registrierung
+mail.content.de_DE=Bitte best\u00E4tigen Sie Ihre Registrierung bei VerA.web und benutzen Sie dazu den folgenden Link: ${link}
+mail.subject.en_EN=VerA.web: Please confirm registration
+mail.content.en_EN=Please use the link ${link} to confirm your registration with VerA.web.
+mail.subject_reset_password.de_DE=VerA.web: Passwort vergessen
+mail.content_reset_password.de_DE=Neuer Link zum Passwortreset ist hier: ${link}
+mail.subject_reset_password.en_EN=VerA.web: Password forgotten
+mail.content_reset_password.en_EN=New link for password reset is here: ${link}
+mail.subject_resend_login.de_DE=VerA.web: Login Daten
+mail.content_resend_login.de_DE=Ihr(e) Benutzername(n): ${link}
+mail.subject_resend_login.en_EN=VerA.web: Login data
+mail.content_resend_login.en_EN=Your username(s): ${link}
+
+# imprint for the online registration (Online-Anmeldung)
+# imprint.<language_key>.heading.<sorting_number>=<heading>
+# imprint.<language_key>.content.<sorting_number>=<content>
+# <sorting_number> has to start with zeroes to sort correctly
+# <language_key> can be de_DE or en_EN
+# umlauts must be escaped (e.g. U-umlaut -> \u00DC ...)
+imprint.de_DE.heading.01=\u00DCberschrift
+imprint.de_DE.content.01=Text des ersten Abschnitts
+imprint.de_DE.heading.02=Titel
+imprint.de_DE.content.02=Text des zweiten Abschnitts
+imprint.en_EN.heading.01=Headline
+imprint.en_EN.content.01=Text of first paragraph
+imprint.en_EN.heading.02=Title
+imprint.en_EN.content.02=Text of second paragraph
 \end{lstdump}
 
 \end{document}
