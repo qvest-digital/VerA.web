@@ -33,7 +33,7 @@ import java.sql.SQLException;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContext;
 import de.tarent.dblayer.sql.statement.ExtPreparedStatement;
-    
+
 /**
  * All statement classes for use in the db layer context have to implement
  * this interface.
@@ -56,7 +56,7 @@ public interface Statement extends SetDbContext, ParamHolder {
 	final static public String DELETE = "DELETE ";
     /** the String "<code>FROM </code>" */
 	final static public String FROM = "FROM ";
-	
+
     //
     // public methods
     //
@@ -77,13 +77,12 @@ public interface Statement extends SetDbContext, ParamHolder {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise an exception is thrown or a default db layer context is assumed
      * which for now is a PostgresQL DBMS.
-     * 
+     *
      * @throws IllegalStateException if no DBContext is set.
      * @throws SQLException if an SQL error occures.
      */
     public Object execute() throws SQLException;
 
-    
     /**
      * Creates an ExtPreparedStatement of this statement which is already compiled.
      *
@@ -93,13 +92,13 @@ public interface Statement extends SetDbContext, ParamHolder {
 
     /**
      * Creates an ExtPreparedStatement of this statement which is already compiled.
-     * This method creates the PreparedStatement in the same DBContext as the Statement. 
-     * Therefore the DBContext of the Select must be set. 
+     * This method creates the PreparedStatement in the same DBContext as the Statement.
+     * Therefore the DBContext of the Select must be set.
      *
      * <p><b>Attention:<b> Setting a DBContext and calling prepare() may cause errors,
      * if the same statement is used in multiple threads.</p>
      *
      */
     public ExtPreparedStatement prepare() throws SQLException;
-    
+
 }

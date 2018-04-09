@@ -24,7 +24,7 @@
 // */
 //
 ///**
-// * 
+// *
 // */
 //package de.tarent.dblayer.sql;
 //
@@ -57,15 +57,15 @@
 //	protected void setUp() throws Exception {
 //		SchemaCreator.getInstance().setUp(false);
 //	}
-//	
+//
 //	public void testSelectParam() throws Exception {
 //        Select select = SQL.Select(dbc);
 //        select.from("person")
 //            .select("pk_person")
 //            .whereAnd(Expr.equal("pk_person", new ParamValue("id")));
-//        
+//
 //        assertEquals("Param Select", "SELECT pk_person FROM person WHERE pk_person=?", select.statementToString());
-//        
+//
 //        ParamValueList paramList = new ParamValueList();
 //        select.getParams(paramList);
 //        paramList.setAttribute("id", new Integer(1));
@@ -78,9 +78,9 @@
 //        select.from("person")
 //            .select("pk_person")
 //            .whereAndEq("pk_person", new ParamValue("id"));
-//        
+//
 //        assertEquals("Param Select", "SELECT pk_person FROM person WHERE pk_person=?", select.statementToString());
-//        
+//
 //        ParamValueList paramList = new ParamValueList();
 //        select.getParams(paramList);
 //        paramList.setAttribute("id", new Integer(1));
@@ -95,8 +95,8 @@
 //            .whereAnd(Expr.equal("pk_person", new ParamValue("id")))
 //            .whereAnd(Where.or(Expr.equal("vorname", new ParamValue("vname1")),
 //                               Expr.equal("vorname", new ParamValue("vname2"))));
-//        
-//        
+//
+//
 //        ParamValueList paramList = new ParamValueList();
 //        select.getParams(paramList);
 //        paramList.setAttribute("id", new Integer(1));
@@ -123,7 +123,7 @@
 //        assertEquals("Attribute on right position", "vname", ((ParamValue)paramList.get(1)).getName());
 //        assertEquals("Attribute on right position", "nname", ((ParamValue)paramList.get(2)).getName());
 //        assertEquals("Attribute on right position", "geb", ((ParamValue)paramList.get(3)).getName());
-//        
+//
 //        assertEquals("Simple param insert", "INSERT INTO person (fk_firma,vorname,nachname,geburtstag) VALUES (?,?,?,?)", stmt.statementToString());
 //    }
 //}

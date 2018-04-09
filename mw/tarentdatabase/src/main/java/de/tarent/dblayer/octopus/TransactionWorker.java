@@ -40,7 +40,7 @@ import de.tarent.octopus.server.OctopusContext;
  * {@link #start(OctopusContext, Connection, String) start transaction},
  * {@link #commit(OctopusContext, Connection) commit transaction} and
  * {@link #rollback(OctopusContext, Connection) rollback a transaction}.
- * 
+ *
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class TransactionWorker extends ConnectionWorker {
@@ -57,9 +57,9 @@ public class TransactionWorker extends ConnectionWorker {
 	 * This octopus action start a transaction. It use the
 	 * {@link #openConnection(OctopusContext, Connection, String)} method
 	 * from the {@link ConnectionWorker} to verify an open connection.
-	 * 
+	 *
 	 * Set {@link Connection#setAutoCommit(boolean)} to false.
-	 * 
+	 *
 	 * @param cntx The current octopus-context.
 	 * @param connection Optional database connection.
 	 * @param poolname Optional poolname.
@@ -68,7 +68,7 @@ public class TransactionWorker extends ConnectionWorker {
 	 */
 	public Connection start(OctopusContext cntx, Connection connection, String poolname) throws SQLException {
 		connection = openConnection(cntx, connection, poolname);
-		
+
 		if (logger.isDebugEnabled())
 			logger.debug("Start transaction, deactivate autocommit.");
 		connection.setAutoCommit(false);
@@ -79,9 +79,9 @@ public class TransactionWorker extends ConnectionWorker {
 	 * This octopus action add a transaction to the octopus cleanup
 	 * mechanism which rollback and close the transaction at the end
 	 * of the current task.
-	 * 
+	 *
 	 * @see OctopusContext#addCleanupCode(Closeable)
-	 * 
+	 *
 	 * @param cntx The current octopus-context.
 	 * @param connection Database connection.
 	 * @throws SQLException
@@ -120,9 +120,9 @@ public class TransactionWorker extends ConnectionWorker {
 	public static final boolean MANDATORY_commit[] = { false, false };
 	/**
 	 * This octopus action commit a transaction.
-	 * 
+	 *
 	 * @see Connection#commit()
-	 * 
+	 *
 	 * @param cntx The current octopus-context.
 	 * @param connection Database connection.
 	 * @throws SQLException
@@ -148,9 +148,9 @@ public class TransactionWorker extends ConnectionWorker {
 	public static final boolean MANDATORY_rollback[] = { false, false };
 	/**
 	 * This octopus action rollback a transaction.
-	 * 
+	 *
 	 * @see Connection#rollback()
-	 * 
+	 *
 	 * @param cntx The current octopus-context.
 	 * @param connection Database connection.
 	 * @throws SQLException

@@ -23,12 +23,10 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 /*
  * $Id: SQL.java,v 1.15 2007/06/14 14:51:57 dgoema Exp $
  */
 package de.tarent.dblayer.sql;
-
 
 import org.apache.commons.logging.Log;
 
@@ -73,28 +71,28 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Select Select(DBContext context) {
-        Select statement = null;
-        if (isOracle(context)) {
-            statement = new OracleSelect(false);
-        } else if(isMSSQL(context)) {
-            statement = new MSSQLSelect(false);
-        } else
-            statement = new Select(false);
-        statement.setDBContext(context);
-        return statement;
+	Select statement = null;
+	if (isOracle(context)) {
+	    statement = new OracleSelect(false);
+	} else if(isMSSQL(context)) {
+	    statement = new MSSQLSelect(false);
+	} else
+	    statement = new Select(false);
+	statement.setDBContext(context);
+	return statement;
 	}
 
     /**
      * This method returns a non-distinct {@link Select} {@link Statement}
      * fitting the default execution context which currently is a PostgresQL
      * DBMS. You had better use the method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #Select(DBContext)} instead.
      */
     static public Select Select() {
 		return new Select(false);
 	}
-	
+
     /**
      * This method returns a distinct {@link Select} {@link Statement}
      * fitting the given execution context.
@@ -102,29 +100,29 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Select SelectDistinct(DBContext context) {
-        Select statement = null;
-        if (isOracle(context)) {
-            statement = new OracleSelect(true);
-        } else if(isMSSQL(context)) {
-            statement = new MSSQLSelect(true);
-        }
-        else
-            statement = new Select(true);
-        statement.setDBContext(context);
-        return statement;
+	Select statement = null;
+	if (isOracle(context)) {
+	    statement = new OracleSelect(true);
+	} else if(isMSSQL(context)) {
+	    statement = new MSSQLSelect(true);
+	}
+	else
+	    statement = new Select(true);
+	statement.setDBContext(context);
+	return statement;
 	}
 
     /**
      * This method returns a distinct {@link Select} {@link Statement}
      * fitting the default execution context which currently is a PostgresQL
      * DBMS. You had better use the method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #SelectDistinct(DBContext)} instead.
      */
     static public Select SelectDistinct() {
 		return new Select(true);
 	}
-    
+
     /**
      * This method returns an {@link Insert} {@link Statement}
      * fitting the given execution context.
@@ -132,17 +130,17 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Insert Insert(DBContext context) {
-        // no db-dependent implementation switches at the moment
+	// no db-dependent implementation switches at the moment
 		Insert statement = new Insert();
-        statement.setDBContext(context);
-        return statement;
+	statement.setDBContext(context);
+	return statement;
 	}
 
     /**
      * This method returns an {@link Insert} {@link Statement}
      * fitting the default execution context which currently is a PostgresQL
      * DBMS. You had better use the method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #Insert(DBContext)} instead.
      */
     static public Insert Insert() {
@@ -156,23 +154,23 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Update Update(DBContext context) {
-        // no db-dependent implementation swichtes at the moment
+	// no db-dependent implementation swichtes at the moment
 		Update statement = new Update();
-        statement.setDBContext(context);
-        return statement;
+	statement.setDBContext(context);
+	return statement;
 	}
 
     /**
      * This method returns an {@link Update} {@link Statement}
      * fitting the default execution context which currently is a PostgresQL
      * DBMS. You had better use the method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #Update(DBContext)} instead.
      */
 	static public Update Update() {
 		return new Update();
 	}
-	
+
     /**
      * This method returns a {@link Delete} {@link Statement}
      * fitting the given execution context.
@@ -180,23 +178,23 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Delete Delete(DBContext context) {
-        // no db-dependent implementation swichtes at the moment
+	// no db-dependent implementation swichtes at the moment
 		Delete statement = new Delete();
-        statement.setDBContext(context);
-        return statement;
+	statement.setDBContext(context);
+	return statement;
 	}
 
     /**
      * This method returns a {@link Delete} {@link Statement}
      * fitting the default execution context which currently is a PostgresQL
      * DBMS. You had better use the method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #Delete(DBContext)} instead.
      */
 	static public Delete Delete() {
 		return new Delete();
 	}
-	
+
     /**
      * This method returns an {@link InsertUpdate} {@link Statement}
      * fitting the given execution context.
@@ -204,17 +202,17 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public InsertUpdate InsertUpdate(DBContext context) {
-        // no db-dependent implementation swichtes at the moment
+	// no db-dependent implementation swichtes at the moment
 		InsertUpdate statement = new InsertUpdate();
-        statement.setDBContext(context);
-        return statement;
+	statement.setDBContext(context);
+	return statement;
 	}
 
     /**
      * This method returns an {@link InsertUpdate} {@link Statement}
      * fitting the default execution context which currently is a PostgresQL
      * DBMS. You had better use the method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #InsertUpdate(DBContext)} instead.
      */
 	static public InsertUpdate InsertUpdate() {
@@ -228,23 +226,23 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Sequence Sequence(DBContext context) {
-        // no db-dependent implementation swichtes at the moment
+	// no db-dependent implementation swichtes at the moment
 		Sequence statement = new Sequence();
-        statement.setDBContext(context);
-        return statement;
+	statement.setDBContext(context);
+	return statement;
 	}
 
     /**
      * This method returns a {@link Sequence} {@link Statement}
      * fitting the default execution context which currently is a PostgresQL
      * DBMS. You had better use the method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #Sequence(DBContext)} instead.
      */
 	static public Sequence Sequence() {
 	    return new Sequence();
 	}
-	
+
     /**
      * This method returns a {@link WhereList}
      * fitting the given execution context.
@@ -252,23 +250,23 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public WhereList WhereList(DBContext context) {
-        // no db-dependent implementation swichtes at the moment
-        WhereList whereList = new WhereList();
-        whereList.setDBContext(context);
-        return whereList;
+	// no db-dependent implementation swichtes at the moment
+	WhereList whereList = new WhereList();
+	whereList.setDBContext(context);
+	return whereList;
     }
 
     /**
      * This method returns a {@link WhereList} fitting the default execution
      * context which currently is a PostgresQL DBMS. You had better use the
      * method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #WhereList(DBContext)} instead.
      */
 	static public WhereList WhereList() {
 	    return new WhereList();
 	}
-	
+
     /**
      * This method returns a {@link Function}
      * fitting the given execution context.
@@ -276,20 +274,20 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Function Function(DBContext context, String function) {
-        return new Function(context, function);
+	return new Function(context, function);
     }
 
     /**
      * This method returns a {@link Function} fitting the default execution
      * context which currently is a PostgresQL DBMS. You had better use the
      * method based on the db execution context.
-     * 
+     *
      * @deprecated use {@link #Function(DBContext, String)} instead.
      */
 	static public Function Function(String function) {
 	    return new Function(function);
 	}
-	
+
 	/**
 	 * This Methods returns a Procedure-Statement for the given SQL-Procedure.
 	 * You can add params via the {@link Procedure#addParam(String)}-call, they are
@@ -312,7 +310,7 @@ public class SQL {
      * their {@link DBContext} attribute and then calling their {@link Object#toString()}
      * method.<br>
      * All remaining classes are formatted using the helper methods of the classes
-     * {@link Format} or {@link OracleFormat} which know explicitely how to handle 
+     * {@link Format} or {@link OracleFormat} which know explicitely how to handle
      * Characters, Strings, Boolean, Date, Statement, and some collection framework
      * classes, while all other Objects are formatted using their respective
      * <code>.toString()</code> method.<br>
@@ -322,21 +320,21 @@ public class SQL {
      * @param value value to format
      */
     static public final String format(DBContext context, Object value) {
-        if (value instanceof Clause)
-            return ((Clause)value).clauseToString(context); // maybe better in brackets?
-        if (value instanceof SetDbContext) {
-            ((SetDbContext)value).setDBContext(context);
-            return value.toString();
-        }
-        if (isOracle(context)){
-            return OracleFormat.format(value);
-        }else if(isMSSQL(context)){
-        	return MSSQLFormat.format(value);
-        }else{ 
-            return Format.defaultFormat(value);
-        }
+	if (value instanceof Clause)
+	    return ((Clause)value).clauseToString(context); // maybe better in brackets?
+	if (value instanceof SetDbContext) {
+	    ((SetDbContext)value).setDBContext(context);
+	    return value.toString();
+	}
+	if (isOracle(context)){
+	    return OracleFormat.format(value);
+	}else if(isMSSQL(context)){
+		return MSSQLFormat.format(value);
+	}else{
+	    return Format.defaultFormat(value);
+	}
     }
-    
+
     //
     // protected helper methods
     //
@@ -344,49 +342,48 @@ public class SQL {
      * This method decides whether the given {@link DBContext} operates in
      * an Oracle context or not. A <code>null</code> {@link DBContext} is
      * considered to represent a default context which currently is a
-     * PostgresQL context. 
+     * PostgresQL context.
      */
     static public boolean isOracle(DBContext context) {
-        if (context == null)
-            return false;
-        if (context.getPool() == null) {
-            logger.warn("DBContext contains no pool.");
-            return false;
-        }
-        return Pool.DB_ORACLE.equals(context.getPool().getTargetDB());
+	if (context == null)
+	    return false;
+	if (context.getPool() == null) {
+	    logger.warn("DBContext contains no pool.");
+	    return false;
+	}
+	return Pool.DB_ORACLE.equals(context.getPool().getTargetDB());
     }
-    
+
     /**
      * This method decides whether the given {@link DBContext} operates in
      * an Oracle context or not. A <code>null</code> {@link DBContext} is
      * considered to represent a default context which currently is a
-     * PostgresQL context. 
+     * PostgresQL context.
      */
     static public boolean isPostgres(DBContext context) {
-        if (context == null)
-            return true;
-        if (context.getPool() == null) {
-            logger.warn("DBContext contains no pool.");
-            return true;
-        }
-        return Pool.DB_POSTGRESQL.equals(context.getPool().getTargetDB());
+	if (context == null)
+	    return true;
+	if (context.getPool() == null) {
+	    logger.warn("DBContext contains no pool.");
+	    return true;
+	}
+	return Pool.DB_POSTGRESQL.equals(context.getPool().getTargetDB());
     }
 
     /**
      * This method decides whether the given {@link DBContext} operates in
      * an MSSQL context or not. A <code>null</code> {@link DBContext} is
      * considered to represent a default context which currently is a
-     * PostgresQL context. 
+     * PostgresQL context.
      */
     static public boolean isMSSQL(DBContext context) {
-        if (context == null)
-            return false;
-        if (context.getPool() == null) {
-            logger.warn("DBContext contains no pool.");
-            return false;
-        }
-        return Pool.DB_MSSQL.equals(context.getPool().getTargetDB());
+	if (context == null)
+	    return false;
+	if (context.getPool() == null) {
+	    logger.warn("DBContext contains no pool.");
+	    return false;
+	}
+	return Pool.DB_MSSQL.equals(context.getPool().getTargetDB());
     }
 
-    
 }

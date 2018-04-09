@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /** Annotation for defining a reference to another bean
- * 
+ *
  * @author Martin Pelzer, tarent GmbH
  *
  */
@@ -18,14 +18,13 @@ import java.lang.annotation.Target;
 public @interface Reference {
 
 	/** the bean which is referenced
-	 * 
+	 *
 	 */
 	Class bean();
-	
-	
+
 	/** the field referenced in the bean
-	 * 
+	 *
 	 */
 	String [] fields() default "commonFields";
-	
+
 }

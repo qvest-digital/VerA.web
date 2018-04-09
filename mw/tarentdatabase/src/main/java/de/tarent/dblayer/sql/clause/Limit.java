@@ -35,7 +35,7 @@ import de.tarent.dblayer.engine.SetDbContextImpl;
 /**
  * This {@link Clause} represents the <code>LIMIT</code> and
  * <code>OFFSET</code> parts of a <code>SELECT</code> statement.
- * 
+ *
  * @author Simon B�hler
  */
 public class Limit extends SetDbContextImpl implements Clause {
@@ -62,7 +62,7 @@ public class Limit extends SetDbContextImpl implements Clause {
      * This constructor takes limit and offset as primitive <code>int</code>s.
      */
 	public Limit(int limit, int offset) {
-        this(new Integer(limit), new Integer(offset));
+	this(new Integer(limit), new Integer(offset));
     }
 
     /**
@@ -78,12 +78,12 @@ public class Limit extends SetDbContextImpl implements Clause {
     //
 	/** the limit */
     public int getLimit() {
-        return _limit.intValue();
+	return _limit.intValue();
     }
 
     /** the offset */
     public int getOffset() {
-        return _offset.intValue();
+	return _offset.intValue();
     }
 
     //
@@ -96,25 +96,25 @@ public class Limit extends SetDbContextImpl implements Clause {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      * @deprecated use {@link #clauseToString(DBContext)} instead
      */
 	final public String clauseToString() {
-        return clauseToString(getDBContext());
+	return clauseToString(getDBContext());
     }
-    
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
      */
     public String clauseToString(DBContext dbContext) {
-    	setDBContext(dbContext);
+	setDBContext(dbContext);
 		StringBuffer sb = new StringBuffer();
 		clauseToString(sb);
 		return sb.toString();
@@ -135,14 +135,13 @@ public class Limit extends SetDbContextImpl implements Clause {
 		}
 	}
 
-
     public Object clone() {
-        try {
-            return super.clone();
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
+	try {
+	    return super.clone();
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
     }
 
 }

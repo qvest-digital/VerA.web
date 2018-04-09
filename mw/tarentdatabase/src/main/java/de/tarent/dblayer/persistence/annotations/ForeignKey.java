@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /** annotation for defining a foreign key
- * 
+ *
  * @author Martin Pelzer, tarent GmbH
  *
  */
@@ -18,8 +18,8 @@ import java.lang.annotation.Target;
 public @interface ForeignKey {
 
 	/** the bean which is referenced
-	 * 
+	 *
 	 */
 	Class bean();
-	
+
 }

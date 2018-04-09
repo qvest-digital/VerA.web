@@ -58,7 +58,7 @@ public class Join extends SetDbContextImpl {
      * It sets the <code>joinHead</code> member to the required joining keywords
      * and the table name and saves the given clause for {@link DBContext}
      * sensitive serialization just in time.
-     * 
+     *
      * @param type type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
      *  and {@link #RIGHT_OUTER}.
      * @param table name of the table to join
@@ -73,8 +73,8 @@ public class Join extends SetDbContextImpl {
     }
 
     /**
-     * This constructor creates a cross join. 
-     * 
+     * This constructor creates a cross join.
+     *
      * @param type type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
      *  and {@link #RIGHT_OUTER}.
      * @param table name of the table to join
@@ -82,10 +82,10 @@ public class Join extends SetDbContextImpl {
     public Join(int type, String table) {
         this(type, table, null);
     }
-    
+
     /**
-     * This constructor creates a join on the two given columns. 
-     * 
+     * This constructor creates a join on the two given columns.
+     *
      * @param type type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
      *  and {@link #RIGHT_OUTER}.
      * @param table name of the table to join
@@ -103,7 +103,7 @@ public class Join extends SetDbContextImpl {
      * This method returns a {@link String} representation of the join. It is a
      * concatenation of the <code>joinHead</code> and a String representation of
      * the join {@link Clause} created using the current {@link DBContext}.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     public String toString() {
@@ -115,7 +115,7 @@ public class Join extends SetDbContextImpl {
               .append(") ");
         return buffer.toString();
     }
-    
+
     //
     // protected helper methods
     //
@@ -151,7 +151,7 @@ public class Join extends SetDbContextImpl {
     private static final String RIGHT_OUTER_JOIN = " RIGHT OUTER JOIN ";
     /** the String "<code> FULL JOIN </code>" */
     private static final String OUTER_JOIN = " FULL JOIN ";
-    
+
     //
     // protected member variables
     //

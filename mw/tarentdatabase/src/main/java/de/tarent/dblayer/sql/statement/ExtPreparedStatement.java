@@ -23,9 +23,7 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 package de.tarent.dblayer.sql.statement;
-
 
 import de.tarent.commons.datahandling.entity.AttributeSource;
 import de.tarent.commons.datahandling.entity.ParamSet;
@@ -45,15 +43,14 @@ import java.sql.ResultSet;
 
 import org.apache.commons.logging.Log;
 
-
 /**
- * This is an holder for an java.sql.PreparedStatement, 
+ * This is an holder for an java.sql.PreparedStatement,
  * where the Parameters can be set by String keys.
  */
 public class ExtPreparedStatement implements ParamSet {
-    
+
     private static final Log logger = LogFactory.getLog(ExtPreparedStatement.class);
-    
+
     String sqlCode;
     // String List of the param names
     List params;
@@ -67,7 +64,7 @@ public class ExtPreparedStatement implements ParamSet {
         defaultTypeMapping = new HashMap();
         defaultTypeMapping.put(java.util.Date.class, new Integer(Types.DATE));
     }
-    
+
     /**
      * Creates a new ExtPreparedStatement.
      *
@@ -95,7 +92,7 @@ public class ExtPreparedStatement implements ParamSet {
 
         ParamValueList paramValueList = new ParamValueList();
         statement.getParams(paramValueList);
-        
+
         int count = 0;
         for (Iterator iter = paramValueList.iterator(); iter.hasNext();) {
             ParamValue pv = (ParamValue)iter.next();
@@ -109,7 +106,7 @@ public class ExtPreparedStatement implements ParamSet {
             if (! pv.isSet())
                 params.add(pv.getName());
         }
-    }    
+    }
 
     /**
      * Returns the underlaying PreparedStatement
@@ -121,7 +118,7 @@ public class ExtPreparedStatement implements ParamSet {
     public void prepare(DBContext cntx) throws SQLException {
         prepare(cntx, false, false);
     }
-    
+
     public void prepareScrollable(DBContext cntx) throws SQLException {
         prepare(cntx, false, true);
     }
@@ -219,7 +216,7 @@ public class ExtPreparedStatement implements ParamSet {
             return (Integer)typeMapping.get(javaType);
         return (Integer)defaultTypeMapping.get(javaType);
     }
-    
+
     /**
      * Clears all parameters of the prepared statement.
      *
@@ -256,7 +253,7 @@ public class ExtPreparedStatement implements ParamSet {
                             if (logger.isDebugEnabled())
                                 logger.debug("set parameter "+attributeName+" ("+i+") to "+ attributeValue +" (converting it to java.sql.Timestamp)" );
                             Timestamp timestamp = new Timestamp(((java.util.Date)attributeValue).getTime());
-                            stmtDelegate.setTimestamp(i+1, timestamp);                            
+                            stmtDelegate.setTimestamp(i+1, timestamp);
                         } else {
                             Integer targetType = getJDBCTypeFor(attributeValue.getClass());
                             if (targetType != null) {
@@ -284,7 +281,7 @@ public class ExtPreparedStatement implements ParamSet {
         if (!set && logger.isDebugEnabled())
             logger.debug("not able to set the attribute "+attributeName+" for prepared statement");
     }
-    
+
     /**
      * Sets the attributes of this structure to the supplied attributes in the map.
      *
@@ -303,7 +300,7 @@ public class ExtPreparedStatement implements ParamSet {
     public InsertKeys returnGeneratedKeys(DBContext dbc) throws SQLException {
         return DB.returnGeneratedKeys(dbc, getPreparedStatement(), sqlCode);
     }
-    
+
     public List getAttributeNames() {
         return params;
     }

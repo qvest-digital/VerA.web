@@ -36,7 +36,7 @@ import de.tarent.dblayer.sql.Statement;
 /**
  * Result objects are holder object for a ResultSet  and the corresponding Statement, intended for closing both in one step.
  * But you should better use the getResultSet(...), instead of this mehtod, and close the Objects by close() and closeAll().
- * 
+ *
  * @author Wolfgang Klein
  */
 public class Result {
@@ -46,9 +46,8 @@ public class Result {
 
     private static final org.apache.commons.logging.Log logger = LogFactory.getLog(Result.class);
 
-
     boolean statementIsClosed;
-    
+
 	protected Result(DBContext dbx, String sql) throws SQLException {
         this.statement = DB.getStatement(dbx);
 		initialise(sql);
@@ -64,12 +63,11 @@ public class Result {
         this.connection = statement.getConnection();
         statementIsClosed = false;
 	}
-    
 
 	protected Result(DBContext dbx, Statement sql) throws SQLException {
 		this(dbx, sql.statementToString());
 	}
-    
+
 	protected Result(String poolname, Statement sql) throws SQLException {
 		this(poolname, sql.statementToString());
 	}
@@ -117,7 +115,7 @@ public class Result {
 	public void closeAll() {
         if (statementIsClosed)
             DB.close(connection);
-        else 
+        else
             DB.closeAll(statement);
         statementIsClosed = true;
         this.result = null;

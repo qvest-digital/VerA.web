@@ -59,11 +59,11 @@ import de.tarent.dblayer.engine.ResultProcessor;
 
 /**
  * This {@link Statement} models SQL <code>SELECT</code> statements.
- * 
+ *
  * @author Wolfgang Klein
  */
 public class Select extends AbstractStatement implements Clause, Cloneable {
-	
+
     //
     // member variables
     //
@@ -93,7 +93,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     Limit _limitClause;
     /** A column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to support a limit,offset workaroud. */
     String uniqueColumn;
-    
+
 	//
     // constructors
     //
@@ -109,11 +109,10 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * {@see ParamHolder#getParams(List)}
      */
     public void getParams(List list) {
-        if (_whereClause instanceof ParamHolder)
-            ((ParamHolder)_whereClause).getParams(list);
+	if (_whereClause instanceof ParamHolder)
+	    ((ParamHolder)_whereClause).getParams(list);
     }
 
-	
     //
     // public methods
     //
@@ -122,31 +121,31 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This method adds the parameter column name to the list of columns to
      * select and adds its local part to the list of the column alias names
      * of this statement.
-     * 
+     *
      * @param column name of the column to select
      * @return this {@link Select} {@link Statement}
      */
 	public Select select(String column) {
 		_selectColumns.add(column);
-        String alias = column;
-        int index = alias.indexOf(".");
-        if (index >= 0)
-            alias = alias.substring(index+1);
-        _columnAliasList.add(alias);
+	String alias = column;
+	int index = alias.indexOf(".");
+	if (index >= 0)
+	    alias = alias.substring(index+1);
+	_columnAliasList.add(alias);
 		return this;
 	}
-	
+
     /**
      * This method adds the parameter column name to the list of columns to
      * select using the identical name as an alias and adds it also to the
      * list of column alias names of this statement.
-     * 
+     *
      * @param column name and alias of the column to select
      * @return this {@link Select} {@link Statement}
      */
 	public Select selectAs(String column) {
 		_selectColumns.add(column + " AS " + "\"" + column + "\"");
-        _columnAliasList.add("\""+column+"\"");
+	_columnAliasList.add("\""+column+"\"");
 		return this;
 	}
 
@@ -154,23 +153,23 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This method adds the parameter column name to the list of columns to
      * select using the parameter alias name as an alias and adds it to the
      * list of column alias names of this statement.
-     * 
+     *
      * @param column name of the column to select
      * @param nameas alias of the column to select
      * @return this {@link Select} {@link Statement}
      */
 	public Select selectAs(String column, String nameas) {
 		_selectColumns.add(column + " AS " + "\"" + nameas + "\"");
-        _columnAliasList.add("\""+nameas+"\"");
+	_columnAliasList.add("\""+nameas+"\"");
 		return this;
 	}
-	
+
     /**
      * This method adds the parameter column name together with the parameter
      * type to the list of columns to select and list using the identical name
      * as an alias and adds it also to the list of column alias names of this
      * statement.
-     * 
+     *
      * @param column name of the column to select and list
      * @param type class as which to list the column
      * @return this {@link Select} {@link Statement}
@@ -178,35 +177,35 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      */
     public Select add(String column, Class type) {
 	    _listColumns.add(
-	            new Object[]{
-                    column,
-                    column + " AS \"" + column + "\"",
-                    type}
-        );
-        _columnAliasList.add(column);
+		    new Object[]{
+		    column,
+		    column + " AS \"" + column + "\"",
+		    type}
+	);
+	_columnAliasList.add(column);
 	    return this;
 	}
-    
+
     /**
      * This method clears the list of selected columns and their aliases.
-     *  
+     *
      */
     public void clearColumnSelection() {
-    	_selectColumns.clear();
+	_selectColumns.clear();
 	    _listColumns.clear();
-        _columnAliasList.clear();	    
+	_columnAliasList.clear();
 	}
 
     /**
      * This method change the behavior of the select. If the given parameter
      * is true this select will be use an <code>SELECT DISTINCT</code> for
      * catch data, <code>SELECT</code> otherwise.
-     * 
+     *
      * @param newValue
      */
     public Select setDistinct(boolean newValue) {
-    	_distinct = newValue;
-        return this;
+	_distinct = newValue;
+	return this;
     }
 
     /**
@@ -214,21 +213,21 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * Attention: This is an DB-dependent feature, known from postgres. Make sure, that the dblayer has implemented a workaround for your target database system.
      */
     public Select setDistinctOn(String newValue) {
-    	setDistinct(true);
-        distinctOn = newValue;
-        return this;
+	setDistinct(true);
+	distinctOn = newValue;
+	return this;
     }
-    
+
     /** This method returns the list of alias names of the selected columns. */
     public List<String> getColumnAliasList() {
-        return _columnAliasList;
+	return _columnAliasList;
     }
-    
+
     /** This method returns the list of the selected columns. */
     public List<String>  getSelectColumns() {
-        return _selectColumns;
+	return _selectColumns;
     }
-	
+
     // * tables from which to select
     /** This method adds the parameter name to the tables to select from. */
 	public Select from(String table) {
@@ -245,62 +244,62 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /** This method adds the given join to the table joins from which to select. */
     public Select join(Join join) {
-        _joins.add(join);
-        return this;
+	_joins.add(join);
+	return this;
     }
-    
+
     /**
      * This method adds the inner join of given table on the given columns
      * to the table joins from which to select.
      */
     public Select join(String table, String leftColumn, String rightColumn) {
-        _joins.add(new Join(Join.INNER, table, leftColumn, rightColumn));
-        return this;
+	_joins.add(new Join(Join.INNER, table, leftColumn, rightColumn));
+	return this;
     }
-    
+
     /**
      * This method adds the left outer join of given table on the given columns
      * to the table joins from which to select.
      */
     public Select joinLeftOuter(String table, String leftColumn, String rightColumn) {
-        _joins.add(new Join(Join.LEFT_OUTER, table, leftColumn, rightColumn));
-        return this;
+	_joins.add(new Join(Join.LEFT_OUTER, table, leftColumn, rightColumn));
+	return this;
     }
-    
+
     /**
      * This method adds the right outer join of given table on the given columns
      * to the table joins from which to select.
      */
     public Select joinRightOuter(String table, String leftColumn, String rightColumn) {
-        _joins.add(new Join(Join.RIGHT_OUTER, table, leftColumn, rightColumn));
-        return this;
+	_joins.add(new Join(Join.RIGHT_OUTER, table, leftColumn, rightColumn));
+	return this;
     }
-    
+
     /**
      * This method adds the outer join of given table on the given columns
      * to the table joins from which to select.
      */
     public Select joinOuter(String table, String leftColumn, String rightColumn) {
-        _joins.add(new Join(Join.OUTER, table, leftColumn, rightColumn));
-        return this;
+	_joins.add(new Join(Join.OUTER, table, leftColumn, rightColumn));
+	return this;
     }
-    
+
     //* Untions
     /**
      * This Method adds a union-Statement.
      * Regardless of which columns are selected, the select-columns will be overridden
      * by the ones from this select.
      * @param select - Select to be included in _union
-     * @throws SQLStatementException 
+     * @throws SQLStatementException
      */
     public Select union(Select select) throws SQLStatementException{
-    	if(!_columnAliasList.equals(_columnAliasList)){
-    		throw new SQLStatementException(null, "column aliases have to be identical!");
-    	}
-    	_unions.add(select);
-    	return this;
+	if(!_columnAliasList.equals(_columnAliasList)){
+		throw new SQLStatementException(null, "column aliases have to be identical!");
+	}
+	_unions.add(select);
+	return this;
     }
-    
+
     // * conditions on the data records to select
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
@@ -316,9 +315,9 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * part of the <code>SELECT</code> statement.
      */
     public Clause getWhere() {
-        return _whereClause;
+	return _whereClause;
     }
-    
+
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>SELECT</code> statement to "(current where clause) AND
@@ -326,11 +325,11 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * is <code>null</code>.
      */
 	public Select whereAnd(Clause additionalClause) {
-        if (_whereClause == null)
-            where(additionalClause);
-        else
-            where(Where.and(_whereClause, additionalClause));
-        return this;
+	if (_whereClause == null)
+	    where(additionalClause);
+	else
+	    where(Where.and(_whereClause, additionalClause));
+	return this;
 	}
 
     /**
@@ -338,10 +337,9 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * It is the same as .whereAnd(Expr.equal(columnName, value))
      */
 	public Select whereAndEq(String columnName, Object value) {
-        whereAnd(Expr.equal(columnName, value));
-        return this;
+	whereAnd(Expr.equal(columnName, value));
+	return this;
 	}
-
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
@@ -350,56 +348,56 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * is <code>null</code>.
      */
 	public Select whereOr(Clause additionalClause) {
-        if (_whereClause == null)
-            where(additionalClause);
-        else
-            where(Where.or(_whereClause, additionalClause));
-        return this;
+	if (_whereClause == null)
+	    where(additionalClause);
+	else
+	    where(Where.or(_whereClause, additionalClause));
+	return this;
 	}
-	
+
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>SELECT</code> statement to equality of the given column
      * and the given value.
      */
     public Select byId(String column, Object value) {
-        _whereClause = new Where(column, value, Expr.EQUAL);
-        return this;
+	_whereClause = new Where(column, value, Expr.EQUAL);
+	return this;
     }
 
     // * additional parameters for the data records to select
     /** This method sets the {@link Order} for the <code>SELECT</code> statement. */
 	public Select orderBy(Order order) {
-		_orderClause = order;		
+		_orderClause = order;
 		return this;
 	}
-	
+
 	/** This method adds an {@link Order} to the existing Orders for the <code>SELECT</code> statement. */
 	public Select addOrderBy(Order order) {
 		if (_orderClause == null || _orderClause.getColumns().size() == 0)
 			_orderClause = order;
 		else{
 			List sortDirections = order.getSortDirections();
-			
+
 			Iterator directionsIterator = sortDirections.iterator();
 			for (Iterator columnsIterator = order.getColumns().iterator(); columnsIterator.hasNext(); ){
-				
+
 				Boolean sortDirection = (Boolean) directionsIterator.next();
 				if (sortDirection.booleanValue())
 					_orderClause.andAsc(columnsIterator.next().toString());
-				else 
-					_orderClause.andDesc(columnsIterator.next().toString());					
+				else
+					_orderClause.andDesc(columnsIterator.next().toString());
 			}
-		}			
+		}
 		return this;
 	}
-	
+
     /** This method sets the {@link GroupBy} for the <code>SELECT</code> statement. */
 	public Select groupBy(GroupBy groupBy) {
 		_groupByClause = groupBy;
 		return this;
 	}
-	
+
     /** This method sets the {@link Limit} for the <code>SELECT</code> statement. */
 	public Select Limit(Limit limit){
 		if(limit != null && SQL.isMSSQL(getDBContext())){
@@ -414,39 +412,38 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 	public Limit getLimit(){
 	    return _limitClause;
 	}
-	
 
     /** Returns a column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to support a limit,offset workaroud. */
     public String getUniqueColumn() {
-        return uniqueColumn;
+	return uniqueColumn;
     }
 
     /** Sets a column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to support a limit,offset workaroud. */
     public void setUniqueColumn(String newUniqueColumn) {
-        this.uniqueColumn = newUniqueColumn;
+	this.uniqueColumn = newUniqueColumn;
     }
-    
+
     /** Returns the order by clause */
     public Order getOrderClause(){
-    	return _orderClause;
+	return _orderClause;
     }
 
     // * executing the select
 	/**
      * This method executes the modelled <code>SELECT</code> statement within the
      * db layer pool with the given name and returns a {@link Result}.
-     * 
-     * @param pool the connection pool in which to operate. 
+     *
+     * @param pool the connection pool in which to operate.
      */
 	public Result executeSelect(String pool) throws SQLException {
 	    return DB.result(pool, this);
 	}
-	    
+
 	/**
      * This method executes the modelled <code>SELECT</code> statement within the
      * db layer pool with the given name and returns a {@link Result}.
-     * 
-     * @param dbx the DBContext on which to operate. 
+     *
+     * @param dbx the DBContext on which to operate.
      */
 	public Result executeSelect(DBContext dbx) throws SQLException {
 	    return DB.result(dbx, this);
@@ -461,9 +458,9 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * @throws IllegalStateException if no DBContext was set.
      */
     public int iterate(ResultProcessor processor) throws SQLException {
-        if (getDBContext() == null)
-            throw new IllegalStateException("No DBContext was set on the statement");
-        return executeSelect(getDBContext()).iterate(processor);
+	if (getDBContext() == null)
+	    throw new IllegalStateException("No DBContext was set on the statement");
+	return executeSelect(getDBContext()).iterate(processor);
     }
 
     /**
@@ -474,14 +471,14 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * @returns the number of iterations
      */
     public int iterate(DBContext dbc, ResultProcessor processor) throws SQLException {
-        return executeSelect(dbc).iterate(processor);
+	return executeSelect(dbc).iterate(processor);
     }
 
 	/**
      * This method executes the modelled <code>SELECT</code> statement within the
      * db layer pool with the given name and returns a {@link ResultSet}.
-     * 
-     * @param dbx the DBContext on which to operate. 
+     *
+     * @param dbx the DBContext on which to operate.
      */
 	public ResultSet getResultSet(DBContext dbx) throws SQLException {
 	    return DB.getResultSet(dbx, this);
@@ -490,8 +487,8 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 	/**
      * This method executes the modelled <code>SELECT</code> statement within the
      * db layer pool with the given name and returns a {@link ResultSet}.
-     * 
-     * @param pool the connection pool in which to operate. 
+     *
+     * @param pool the connection pool in which to operate.
      */
 	public ResultSet getResultSet(String pool) throws SQLException {
 	    return DB.getResultSet(pool, this);
@@ -530,10 +527,10 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 	public Integer getFirstCellAsInteger() throws SQLException {
 	    return DB.fetchFirstCellAsInteger(getDBContext(), statementToString());
     }
-	
+
 	/**
 	 * Checks if the resultset is empty.
-	 * 
+	 *
 	 * @return <code>true</code> if the resultset is empty.
 	 * @throws SQLException
 	 */
@@ -546,18 +543,18 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * db layer pool with the given name and returns a {@link List} containing a
      * {@link java.util.Map} for each selected data record which in turn contains
      * an entry for each column requested using the {@link #add(String, Class)}
-     * method.  
-     * 
+     * method.
+     *
      * @param pool the connection pool in which to operate.
      * @return a {@link List} of the found data records
      */
 	public List getList(String pool) throws SQLException {
-        Result result = DB.result(pool, this);
-        try {
-            return ResultSetReader.list(_listColumns, result);
-        } finally {
-            result.closeAll();
-        }
+	Result result = DB.result(pool, this);
+	try {
+	    return ResultSetReader.list(_listColumns, result);
+	} finally {
+	    result.closeAll();
+	}
 	}
 
     /**
@@ -565,18 +562,18 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * db layer pool with the given name and returns a {@link List} containing a
      * {@link java.util.Map} for each selected data record which in turn contains
      * an entry for each column requested using the {@link #add(String, Class)}
-     * method.  
-     * 
+     * method.
+     *
      * @param dbx the DBContext on which to operate.
      * @return a {@link List} of the found data records
      */
 	public List getList(DBContext dbx) throws SQLException {
-        Result result = DB.result(dbx, this);
-        try {
-            return ResultSetReader.list(_listColumns, result);
-        } finally {
-            result.closeAll();
-        }
+	Result result = DB.result(dbx, this);
+	try {
+	    return ResultSetReader.list(_listColumns, result);
+	} finally {
+	    result.closeAll();
+	}
 	}
     //
     // interface {@link Statement}
@@ -590,14 +587,13 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * a PostgresQL DBMS.<br>
      * This method actually calls {@link #executeSelect(String)} using the pool name
      * of the {@link DBContext}.
-     * 
+     *
      * @see de.tarent.dblayer.sql.Statement#execute()
      */
     public Object execute() throws SQLException {
-        return executeSelect(getDBContext());
+	return executeSelect(getDBContext());
     }
 
-    
 	/**
      * This method creates the {@link DBContext} sensitive {@link String} representation
      * of the modelled SQL {@link Statement}.<br>
@@ -605,20 +601,20 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
 	 * @see de.tarent.dblayer.sql.Statement#statementToString()
 	 */
 	public String statementToString() throws SyntaxErrorException {
 	    DBContext dbc = getDBContext();
 		StringBuffer sb = new StringBuffer();
-        appendSelectPart(sb);
-        insertDistinctOnClause(sb);        
-        appendColumnList(sb);
-        appendFromPart(dbc, sb);
-        appendWherePart(dbc, sb);
-        appendGroupBy(sb);
-        appendOrder(dbc, sb);
-        appendLimit(dbc, sb);
+	appendSelectPart(sb);
+	insertDistinctOnClause(sb);
+	appendColumnList(sb);
+	appendFromPart(dbc, sb);
+	appendWherePart(dbc, sb);
+	appendGroupBy(sb);
+	appendOrder(dbc, sb);
+	appendLimit(dbc, sb);
 
 		if(!_unions.isEmpty()){
 			Iterator it = _unions.iterator();
@@ -632,7 +628,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 	}
 
     protected void appendSelectPart(StringBuffer sb) {
-        sb.append(_distinct ? SELECTDISTINCT : SELECT);
+	sb.append(_distinct ? SELECTDISTINCT : SELECT);
     }
 
     /**
@@ -643,8 +639,8 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 	    if (_fromClause.size() > 0)
 			sb.append(_fromClause.clauseToString(dbc));
 		for (Iterator it = _joins.iterator();it.hasNext();) {
-            Join join = (Join) it.next();
-            join.setDBContext(dbc);
+	    Join join = (Join) it.next();
+	    join.setDBContext(dbc);
 			sb.append(join);
 			sb.append(" ");
 		}
@@ -656,19 +652,18 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      */
     protected void appendWherePart(DBContext dbc, StringBuffer sb) {
 		if (_whereClause != null) {
-            String clauseString = _whereClause.clauseToString(dbc);
-            if (clauseString.length() != 0) {
-                sb.append(Where.WHERE);
-            	sb.append(" (");
-                sb.append(clauseString);
-                sb.append(") ");
-            }
+	    String clauseString = _whereClause.clauseToString(dbc);
+	    if (clauseString.length() != 0) {
+		sb.append(Where.WHERE);
+		sb.append(" (");
+		sb.append(clauseString);
+		sb.append(") ");
+	    }
 		}
     }
 
-
     protected boolean isWhereEmpty(DBContext dbc) {
-        return (_whereClause == null ||_whereClause.clauseToString(dbc).length() == 0);
+	return (_whereClause == null ||_whereClause.clauseToString(dbc).length() == 0);
     }
 
     /**
@@ -686,7 +681,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      */
     protected void appendOrder(DBContext dbc, StringBuffer sb) {
 		if (_orderClause != null) {
-            _orderClause.setDBContext(dbc);
+	    _orderClause.setDBContext(dbc);
 			_orderClause.clauseToString(sb);
 		}
     }
@@ -696,51 +691,50 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This is extracted into a method for overidding
      */
     protected void appendLimit(DBContext dbc, StringBuffer sb) {
-        appendLimitStatement(sb);
+	appendLimitStatement(sb);
     }
-
 
     //
     // protected helper methods
     //
     /**
      * This method appends a <code>LIMIT</code> and/or an <code>OFFSET</code>
-     * part of the <code>SELECT</code> statement to the given {@link StringBuffer}. 
+     * part of the <code>SELECT</code> statement to the given {@link StringBuffer}.
      */
     protected void appendLimitStatement(StringBuffer sb) {
 		if (_limitClause != null) {
-            _limitClause.setDBContext(getDBContext());
-            _limitClause.clauseToString(sb);
-        }
-    }    
+	    _limitClause.setDBContext(getDBContext());
+	    _limitClause.clauseToString(sb);
+	}
+    }
 
     /**
      * Insert the database dependent code ON-Clause for DISTINCT ON
      */
     protected void insertDistinctOnClause(StringBuffer sb) {
-        if (distinctOn != null) {
-            sb.append("ON (");
-            if (_orderClause != null) {
-                for (Iterator iter = _orderClause.getColumns().iterator(); iter.hasNext();) {
-                    sb.append(iter.next());
-                    sb.append(", ");
-                }
-            }
-            
-            sb.append(distinctOn).append(") ");
-        }
+	if (distinctOn != null) {
+	    sb.append("ON (");
+	    if (_orderClause != null) {
+		for (Iterator iter = _orderClause.getColumns().iterator(); iter.hasNext();) {
+		    sb.append(iter.next());
+		    sb.append(", ");
+		}
+	    }
+
+	    sb.append(distinctOn).append(") ");
+	}
     }
-    
+
     /**
      * This method appends the columns to select in the <code>SELECT</code> statement
-     * to the given {@link StringBuffer}. 
+     * to the given {@link StringBuffer}.
      */
-    protected void appendColumnList(StringBuffer sb) 
-        throws SyntaxErrorException {
+    protected void appendColumnList(StringBuffer sb)
+	throws SyntaxErrorException {
 
 		if (_selectColumns.isEmpty() && _listColumns.isEmpty())
 		    throw new SyntaxErrorException("Es muss mindestens eine Spalte selektiert werden.");
-        
+
 		for (Iterator it = _selectColumns.iterator();it.hasNext();) {
 			sb.append(it.next());
 			if (it.hasNext())
@@ -761,15 +755,15 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     public String toString() {
-        try {
-            return statementToString();
-        } catch (SyntaxErrorException e) {
-            return e.toString();
-        }
+	try {
+	    return statementToString();
+	} catch (SyntaxErrorException e) {
+	    return e.toString();
+	}
     }
 
     /**
@@ -781,15 +775,15 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @deprecated use {@link #clauseToString(DBContext)} instead
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      */
     public String clauseToString() {
-        return clauseToString(getDBContext());
+	return clauseToString(getDBContext());
     }
-    
+
     /**
      * This method creates the {@link DBContext} sensitive {@link String} representation
      * of the modelled SQL {@link Statement} using the method {@link #statementToString()}.
@@ -798,47 +792,46 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This method as a side effect changes the {@link DBContext} of this
      * {@link Clause} to the given one.<br>
      * TODO: This method should be able to throw qualified exceptions
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
      */
     public String clauseToString(DBContext dbContext) {
-        setDBContext(dbContext);
-        return new StringBuffer()
-            .append("(")
-            .append(toString())
-            .append(")").toString();
+	setDBContext(dbContext);
+	return new StringBuffer()
+	    .append("(")
+	    .append(toString())
+	    .append(")").toString();
     }
 
-    
     /**
      * Returns an independent clone of this statement.
      * <p>Use this method with care: Because of the complex structure of a complete
      * select statement there may be situations where the both objects reference the same object.
      * This is the case for the Object-Values in the Clauses Where, Operator and ParamValue.
      * <br>If for example a select <code>s1</code> has a where clause with a reference to a mutable object as value (e.g. a String Buffer),
-     * than a clone <code>s2 = s1.clone()</code> will have a reference to same oject. In this example a modification to the StringBuffer 
+     * than a clone <code>s2 = s1.clone()</code> will have a reference to same oject. In this example a modification to the StringBuffer
      * will modify the where clause of <code>s1</code> as well as <code>s2</code>.
      * </p>
      *
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-        try {
-            Select theClone = (Select)super.clone();
-            theClone._selectColumns = (ArrayList)_selectColumns.clone();
-            theClone._listColumns = (ArrayList)_listColumns.clone();
-            theClone._columnAliasList = (ArrayList)_columnAliasList.clone();
-            theClone._joins = (ArrayList)_joins.clone();
-            if (_fromClause != null)
-                theClone._fromClause = (From)_fromClause.clone();
-            if (_whereClause != null)
-                theClone._whereClause = (Clause)_whereClause.clone();
-            return theClone;
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
+	try {
+	    Select theClone = (Select)super.clone();
+	    theClone._selectColumns = (ArrayList)_selectColumns.clone();
+	    theClone._listColumns = (ArrayList)_listColumns.clone();
+	    theClone._columnAliasList = (ArrayList)_columnAliasList.clone();
+	    theClone._joins = (ArrayList)_joins.clone();
+	    if (_fromClause != null)
+		theClone._fromClause = (From)_fromClause.clone();
+	    if (_whereClause != null)
+		theClone._whereClause = (Clause)_whereClause.clone();
+	    return theClone;
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
       }
 }

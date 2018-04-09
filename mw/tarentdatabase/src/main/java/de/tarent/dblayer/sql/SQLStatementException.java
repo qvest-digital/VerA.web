@@ -32,7 +32,7 @@ import java.sql.SQLException;
 
 /**
  * This {@link Exception} class wraps {@link SQLException} combined with the
- * statement during the execution of which they occured.  
+ * statement during the execution of which they occured.
  */
 public class SQLStatementException extends SQLException {
     /**
@@ -59,7 +59,7 @@ public class SQLStatementException extends SQLException {
 
     /** wrapped {@link SQLException} */
     private final SQLException exception;
-    
+
     /** serialization UID */
     private static final long serialVersionUID = 3257848787924955442L;
 }

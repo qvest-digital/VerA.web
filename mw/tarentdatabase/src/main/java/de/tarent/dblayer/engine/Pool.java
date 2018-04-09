@@ -30,7 +30,7 @@ import java.sql.SQLException;
 
 /**
  * This is an abstract pooling interface for the tarent-database library.
- * 
+ *
  * @author Christoph Jerolimov, tarent GmbH
  * @author Sebastian Mancke, tarent GmbH
  */
@@ -40,7 +40,7 @@ public interface Pool {
 
 	/** Identifier for the oracle database */
 	public static final String DB_ORACLE = "oracle";
-	
+
 	/** Identifier for Microsoft SQL-Server */
 	public static final String DB_MSSQL = "mssql";
 
@@ -53,22 +53,21 @@ public interface Pool {
 	/** JDBC driver class for connections over an old JDBC 2 interface */
 	public static final String JDBC2_DRIVER_CLASS = "JDBC2DriverClass";
 
-	/** 
-	 * JDBC connectoin string for connections over an old JDBC 2 interface 
+	/**
+	 * JDBC connectoin string for connections over an old JDBC 2 interface
 	 * @deprecated typing error
 	 */
 	public static final String JDBC2_CONNECITON_STRING = "JDBC2ConnecitonString";
-	
+
 	/** JDBC connectoin string for connections over an old JDBC 2 interface */
 	public static final String JDBC2_CONNECTION_STRING = "JDBC2ConnectionString";
-	
-	
+
 	/** Boolean flag for usage of JNDI in WebSphere Application Server */
 	public static final String USE_JNDI = "useJNDI";
 
 	/** JNDI name for usage of JNDI in WebSphere Application Server */
-	public static final String JNDI_NAME = "JNDIName";	
-	
+	public static final String JNDI_NAME = "JNDIName";
+
 	/** The database username */
 	public static final String USER = "user";
 
@@ -102,7 +101,7 @@ public interface Pool {
 	/**
 	 * Returns an identifier for the target database of this context,
 	 * as provided in the pool configuration.
-	 * 
+	 *
 	 * @return this should be one of the DB_* constants of this interface
 	 */
 	public String getTargetDB();
@@ -116,7 +115,7 @@ public interface Pool {
 
 	/**
 	 * Get one connection.
-	 * 
+	 *
 	 * @return A new SQL connection.
 	 * @throws SQLException if no connection is available.
 	 */

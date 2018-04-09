@@ -44,8 +44,8 @@ import de.tarent.dblayer.engine.SetDbContextImpl;
  * TODO: A table can be added multiple times to this clause. This
  * is not yet supported sensibly but it should be. Therefore an
  * additional method is required to add a table together with an
- * alias name; this alias name should be enforced to be unique. 
- * 
+ * alias name; this alias name should be enforced to be unique.
+ *
  * @author Wolfgang Klein
  */
 public class From extends SetDbContextImpl implements Clause {
@@ -62,7 +62,7 @@ public class From extends SetDbContextImpl implements Clause {
     //
     /** the String "<code> FROM </code>" */
 	final static public String FROM = " FROM ";
-	
+
     //
     // public methods
     //
@@ -70,18 +70,18 @@ public class From extends SetDbContextImpl implements Clause {
 	public void addTable(String table) {
 		_tables.add(table);
 	}
-	
+
 	/** This method adds a table for this <code>FROM</code> clause. */
 	public void addTable(String table, String label) {
 		_tables.add(table);
 		tableLabels.put(table, label);
 	}
-    
+
     /** This method returns the number of tables in this <code>FROM</code> clause. */
     public int size() {
-        return _tables.size();
+	return _tables.size();
     }
-	
+
     //
     // interface {@link Clause}
     //
@@ -92,19 +92,19 @@ public class From extends SetDbContextImpl implements Clause {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @return string representation of the clause model
 	 * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      * @deprecated use {@link #clauseToString(DBContext)} instead
 	 */
 	public String clauseToString() {
-        return clauseToString(getDBContext());
+	return clauseToString(getDBContext());
     }
-    
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
@@ -124,20 +124,19 @@ public class From extends SetDbContextImpl implements Clause {
 		return sb.toString();
 	}
 
-    
     /**
      * Returns an independent clone of this statement.
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-        try {
-            From theClone = (From)super.clone();
-            theClone._tables = (ArrayList)_tables.clone();
-            theClone.tableLabels = (HashMap) tableLabels.clone();
-            return theClone;
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
-    }   
+	try {
+	    From theClone = (From)super.clone();
+	    theClone._tables = (ArrayList)_tables.clone();
+	    theClone.tableLabels = (HashMap) tableLabels.clone();
+	    return theClone;
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+    }
 }

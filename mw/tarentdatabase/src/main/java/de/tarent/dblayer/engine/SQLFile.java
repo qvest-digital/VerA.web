@@ -31,7 +31,6 @@
  * Created on 06.04.2006
  */
 
-
 package de.tarent.dblayer.engine;
 
 import java.io.File;
@@ -39,7 +38,7 @@ import java.io.File;
 /**
  * An SQLFile is a File with some additional options related to its role as a
  * cacheable sql-template.
- * 
+ *
  * @author Robert Linden (r.linden@tarent.de)
  *
  */
@@ -49,11 +48,10 @@ public class SQLFile extends File {
 
 	/** This flag determines if the SQLFile is cachable. */
     private boolean cacheable;
-     
-     
-    /** Create a new SQLFile. 
+
+    /** Create a new SQLFile.
      * For convenience you should use the {@link SQLFileFactory}.
-     * 
+     *
      * @param basepath The path to the file.
      * @param leafname The name of the file.
      * @param cacheable Wether this sql-script should be cached (true)
@@ -64,7 +62,6 @@ public class SQLFile extends File {
         this.cacheable = cacheable;
     }
 
-    
     /** Returns the cacheable-flag.
      * @return true = this file should be cached, false = do not cache
      */

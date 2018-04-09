@@ -24,7 +24,7 @@
 // */
 //
 ///**
-// * 
+// *
 // */
 //package de.tarent.dblayer.persistence;
 //
@@ -58,14 +58,14 @@
 //	 * @see junit.framework.TestCase#setUp()
 //	 */
 //	protected void setUp() throws Exception {
-//		SchemaCreator.getInstance().setUp(true);        
+//		SchemaCreator.getInstance().setUp(true);
 //        dbc = DB.getDefaultContext(SchemaCreator.TEST_POOL);
 //    }
 //
 //    public void tearDown() throws Exception {
 //        dbc.getDefaultConnection().close();
 //    }
-//	
+//
 //	public void testRetrievelOfPersonByID() throws SQLException{
 //        Person p = pdao.getPersonByID(dbc, new Integer(1));
 //        assertEquals("Rigth record", "Duck", p.getLastName());
@@ -106,7 +106,7 @@
 //        assertEquals("Rigth record", "Dagobert", p.getGivenName());
 //        p.setGivenName("Frank");
 //        pdao.update(dbc, p);
-//        
+//
 //        // try to load again
 //        p = pdao.getPersonByID(dbc, new Integer(1));
 //        assertEquals("Updated", "Frank", p.getGivenName());
@@ -130,10 +130,10 @@
 //        p.setLastName("Mueller");
 //        p.setGivenName("Fred");
 //        // birthday is left null
-//        
+//
 //        pdao.insert(dbc, p);
 //        assertTrue("id was set for new record", p.getId() != 0);
-//        
+//
 //        Person p2 = pdao.getPersonByID(dbc, new Integer(p.getId()));
 //        assertEquals("record correct saved", p2.getId(), p.getId());
 //        assertEquals("record correct saved", p2.getLastName(), p.getLastName());

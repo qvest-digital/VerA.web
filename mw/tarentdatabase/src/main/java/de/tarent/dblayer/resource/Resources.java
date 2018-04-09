@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 
 /**
  * Diese Klasse liefert Resourcen.
- * 
+ *
  * @author mikel
  * @author Sebastian Mancke, Tarent GmbH
  */
@@ -58,7 +58,7 @@ public class Resources {
     public final static Resources getInstance() {
         return instance;
     }
-    
+
     /*
      * Konstruktoren
      */
@@ -99,7 +99,7 @@ public class Resources {
      */
     /**
      * Diese Methode liefert den Wert zu einem Schl�ssel.
-     * 
+     *
      * @param key Schl�ssel
      * @return Wert
      */
@@ -115,7 +115,7 @@ public class Resources {
      * Diese Methode holt den Wert zu einem Schl�ssel, interpretiert
      * ihn als Message, in die die �bergebenen Parameter eingesetzt
      * werden, und gibt die ausgef�llte Message zur�ck.
-     *  
+     *
      * @param key Schl�ssel
      * @param params Parameter
      * @return ausgef�llte Message
@@ -128,7 +128,7 @@ public class Resources {
      * Diese Methode holt den Wert zu einem Schl�ssel, interpretiert
      * ihn als Message, in die der �bergebene Parameter eingesetzt
      * wird, und gibt die ausgef�llte Message zur�ck.
-     *  
+     *
      * @param key Schl�ssel
      * @param param Parameter
      * @return ausgef�llte Message
@@ -142,7 +142,7 @@ public class Resources {
      * Diese Methode holt den Wert zu einem Schl�ssel, interpretiert
      * ihn als Message, in die die �bergebene Parameter eingesetzt
      * werden, und gibt die ausgef�llte Message zur�ck.
-     *  
+     *
      * @param key Schl�ssel
      * @param param1 Parameter
      * @param param2 Parameter
@@ -157,7 +157,7 @@ public class Resources {
      * Diese Methode holt den Wert zu einem Schl�ssel, interpretiert
      * ihn als Message, in die die �bergebene Parameter eingesetzt
      * werden, und gibt die ausgef�llte Message zur�ck.
-     *  
+     *
      * @param key Schl�ssel
      * @param param1 Parameter
      * @param param2 Parameter

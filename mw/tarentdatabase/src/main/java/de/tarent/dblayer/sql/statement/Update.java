@@ -46,7 +46,7 @@ import de.tarent.dblayer.sql.clause.Expr;
 
 /**
  * This {@link Statement} models SQL <code>UPDATE</code> statements.
- * 
+ *
  * @author Wolfgang Klein
  */
 public class Update extends AbstractStatement {
@@ -92,7 +92,6 @@ public class Update extends AbstractStatement {
 		_values = new ArrayList(initialCapacity);
 	}
 
-    
     /**
      * {@see ParamHolder#getParams(List)}
      */
@@ -101,7 +100,7 @@ public class Update extends AbstractStatement {
         if (_whereClause instanceof ParamHolder)
             ((ParamHolder)_whereClause).getParams(paramList);
     }
-    
+
     //
     // public methods
     //
@@ -116,7 +115,7 @@ public class Update extends AbstractStatement {
      * Actually this method only appends the pair (column, value) to a list and
      * doesn't check whether there already is a pair for the same column in the list.
      * Your code will have to keep an eye on this itself.
-     * 
+     *
      * @param column name of the column of the value; only the local part is used
      * @param value value to update; this value will be formatted fitting its type
      *  and the {@link DBContext} this {@link Update} is operated in.
@@ -136,7 +135,7 @@ public class Update extends AbstractStatement {
      * Generally this should be <em>the</em> occurance but as already mentioned
      * {@link #update(String, Object) above} {@link Update} doesn't guarantee it
      * keeps at most one value per column.
-     * 
+     *
      * @param column the column the value assignment of which is to be removed
      * @return the value until now assigned to the column
      * @see #update(String, Object)
@@ -164,7 +163,7 @@ public class Update extends AbstractStatement {
 		_whereClause = clause;
 		return this;
 	}
-	
+
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>UPDATE</code> statement to "(current where clause) AND
@@ -188,7 +187,6 @@ public class Update extends AbstractStatement {
         return this;
 	}
 
-
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>UPDATE</code> statement to "(current where clause) OR
@@ -203,12 +201,11 @@ public class Update extends AbstractStatement {
         return this;
 	}
 
-
     /**
      * This method executes the modelled <code>UPDATE</code> statement within the
      * db layer pool with the given name and returns the {@link Update} itself.
-     * 
-     * @param pool the connection pool in which to operate. 
+     *
+     * @param pool the connection pool in which to operate.
      */
     public Update executeUpdate(String pool) throws SQLException {
         de.tarent.dblayer.engine.DB.update(pool, this);
@@ -218,8 +215,8 @@ public class Update extends AbstractStatement {
     /**
      * This method executes the modelled <code>UPDATE</code> statement within the
      * db layer pool with the given name and returns the {@link Update} itself.
-     * 
-     * @param dbx the DBContext on which to operate. 
+     *
+     * @param dbx the DBContext on which to operate.
      */
     public Update executeUpdate(DBContext dbx) throws SQLException {
         de.tarent.dblayer.engine.DB.update(dbx, this);
@@ -245,7 +242,7 @@ public class Update extends AbstractStatement {
      * a PostgresQL DBMS.<br>
      * This method actually calls {@link #executeUpdate(String)} using the pool name
      * of the {@link DBContext}.
-     * 
+     *
      * @see Statement#execute()
      */
 	public Object execute() throws SQLException {
@@ -259,7 +256,7 @@ public class Update extends AbstractStatement {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @see Statement#statementToString()
      */
 	public String statementToString() throws SyntaxErrorException {
@@ -302,7 +299,7 @@ public class Update extends AbstractStatement {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
 	public String toString() {

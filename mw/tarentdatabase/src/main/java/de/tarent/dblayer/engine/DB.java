@@ -41,14 +41,13 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SQLStatementException;
 import de.tarent.dblayer.sql.statement.Insert;
 
-
 /*
  * 2009-10-04 cklein, tarent-database-1.5.4
- * 
+ *
  * This version incorporates temporary fixes to a major problem where underlying
  * resultsets will be prematurely closed when OCTOPUS makes the transition from
  * controller execution to view rendering.
- * 
+ *
  * In order to fix this, all close() Statements on either the pool or the underlying
  * statements or resultsets have been disabled. This should result in no problem
  * whatsoever, since after GC of the controller and the view all of the resultset
@@ -56,7 +55,7 @@ import de.tarent.dblayer.sql.statement.Insert;
  */
 /**
  * This class ist is responsible for maniging the database pools and executing statements.
- * 
+ *
  * @author Wolfgang Klein, tarent GmbH  2002-2004
  * @author Christoph Jerolimov, tarent GmbH
  * @author Sebastian Mancke, tarent GmbH
@@ -77,7 +76,7 @@ public class DB {
 	 * @throws RuntimeException if an error occures
 	 */
 	static public void openPool(String poolname, Map info) {
-		if (hasPool(poolname)) 
+		if (hasPool(poolname))
 			return;
 		Pool pool = new DBPool(info);
 		if (info.containsKey(Pool.DEBUG_POOL_CLASS)) {
@@ -125,8 +124,7 @@ public class DB {
 		return pools.containsKey(poolname);
 	}
 
-
-	/** 
+	/**
 	 * Returns the pool for the specified poolname or null, if no such pool is exists
 	 */
 	static public Pool getPool(String poolname) {
@@ -134,7 +132,7 @@ public class DB {
 		return (Pool)pools.get(poolname);
 	}
 
-	/** 
+	/**
 	 * Returns a default implementation for the db execution context of the supplied pool.
 	 */
 	static public DBContext getDefaultContext(String poolname) {
@@ -142,7 +140,6 @@ public class DB {
 		dbc.setPoolName(poolname);
 		return dbc;
 	}
-
 
 	/**
 	 * Returns a java.sql.Connection for a given DBContext
@@ -254,11 +251,11 @@ public class DB {
 	 * to by the SQLFile including variable-substitution. A variable is a string
 	 * enclosed by {}. Please note that no special consideration is given to
 	 * string values that might contain { or } in the sql or escaped braces or
-	 * anything like that. 
-	 * 
+	 * anything like that.
+	 *
 	 * @param subst A map of key-value-pairs where each {key} will be
 	 *              replaced with its value prior to sql-execution. The key
-	 *              must not contain these {}, they will be added automaticaly. 
+	 *              must not contain these {}, they will be added automaticaly.
 	 */
 	static public ResultSet getResultSet( String poolname, SQLFile sqlfile, Map subst )
 	throws SQLStatementException {
@@ -286,11 +283,11 @@ public class DB {
 	 * to by the SQLFile including variable-substitution. A variable is a string
 	 * enclosed by {}. Please note that no special consideration is given to
 	 * string values that might contain { or } in the sql or escaped braces or
-	 * anything like that. 
-	 * 
+	 * anything like that.
+	 *
 	 * @param subst A map of key-value-pairs where each {key} will be
 	 *              replaced with its value prior to sql-execution. The key
-	 *              must not contain these {}, they will be added automaticaly. 
+	 *              must not contain these {}, they will be added automaticaly.
 	 */
 	static public ResultSet getResultSet( DBContext dbx, SQLFile sqlfile, Map subst )
 	throws SQLStatementException {
@@ -313,7 +310,7 @@ public class DB {
 		}
 	}
 
-	/** 
+	/**
 	 * Returns the first cell of the first row as a string,
 	 * or null, if the ResultSet is empty.
 	 *
@@ -323,7 +320,7 @@ public class DB {
 	public static String fetchFirstCellAsString(String poolname, String statement) throws SQLException {
 		ResultSet res = null;
 		try {
-			res = DB.getResultSet(poolname, statement); 
+			res = DB.getResultSet(poolname, statement);
 
 			if (res.next())
 				return res.getString(1);
@@ -333,7 +330,7 @@ public class DB {
 		}
 	}
 
-	/** 
+	/**
 	 * Returns the first cell of the first row as a string,
 	 * or null, if the ResultSet is empty.
 	 *
@@ -343,7 +340,7 @@ public class DB {
 	public static String fetchFirstCellAsString(DBContext dbx, String statement) throws SQLException {
 		ResultSet res = null;
 		try {
-			res = DB.getResultSet(dbx, statement); 
+			res = DB.getResultSet(dbx, statement);
 
 			if (res.next())
 				return res.getString(1);
@@ -353,7 +350,7 @@ public class DB {
 		}
 	}
 
-	/** 
+	/**
 	 * Returns the first cell of the first row as a timestamp,
 	 * or null, if the ResultSet is empty.
 	 *
@@ -363,7 +360,7 @@ public class DB {
 	public static Timestamp fetchFirstCellAsTimestamp(String poolname, String statement) throws SQLException {
 		ResultSet res = null;
 		try {
-			res = DB.getResultSet(poolname, statement); 
+			res = DB.getResultSet(poolname, statement);
 
 			if (res.next())
 				return res.getTimestamp(1);
@@ -373,7 +370,7 @@ public class DB {
 		}
 	}
 
-	/** 
+	/**
 	 * Returns the first cell of the first row as a timestamp,
 	 * or null, if the ResultSet is empty.
 	 *
@@ -383,7 +380,7 @@ public class DB {
 	public static Timestamp fetchFirstCellAsTimestamp(DBContext dbx, String statement) throws SQLException {
 		ResultSet res = null;
 		try {
-			res = DB.getResultSet(dbx, statement); 
+			res = DB.getResultSet(dbx, statement);
 
 			if (res.next())
 				return res.getTimestamp(1);
@@ -393,7 +390,7 @@ public class DB {
 		}
 	}
 
-	/** 
+	/**
 	 * Returns the first cell of the first row as an Integer,
 	 * or null, if the ResultSet is empty.
 	 *
@@ -403,7 +400,7 @@ public class DB {
 	public static Integer fetchFirstCellAsInteger(DBContext dbx, String statement) throws SQLException {
 		ResultSet res = null;
 		try {
-			res = DB.getResultSet(dbx, statement); 
+			res = DB.getResultSet(dbx, statement);
 
 			if (res.next())
 				return new Integer(res.getInt(1));
@@ -413,7 +410,7 @@ public class DB {
 		}
 	}
 
-	/** 
+	/**
 	 * Returns the first cell of the first row as an Integer,
 	 * or null, if the ResultSet is empty.
 	 *
@@ -423,7 +420,7 @@ public class DB {
 	public static Integer fetchFirstCellAsInteger(String poolname, String statement) throws SQLException {
 		ResultSet res = null;
 		try {
-			res = DB.getResultSet(poolname, statement); 
+			res = DB.getResultSet(poolname, statement);
 
 			if (res.next())
 				return new Integer(res.getInt(1));
@@ -464,8 +461,8 @@ public class DB {
 	/**
 	 * Closes the statement if it is not null and if the resultset is not null.
 	 * On errors no exception is thrown, but logged.
-	 * 
-	 * @throws SQLException 
+	 *
+	 * @throws SQLException
 	 */
 	static public void closeStatement(ResultSet resultSet) throws SQLException {
 		if (resultSet != null)
@@ -482,8 +479,8 @@ public class DB {
 			if (connection != null) {
 				connection.close();
 				logger.trace("closed connection");
-			} 
-			else 
+			}
+			else
 				logger.trace("connection was null");
 		} catch (SQLException e) {
 			logger.warn(Resources.getInstance().get("ERROR_CLOSING_CONNECTION"), e);
@@ -516,8 +513,8 @@ public class DB {
 				statement.close();
 				//close(con);
 				logger.trace("closed statement");
-			} 
-			else 
+			}
+			else
 				logger.trace("statement was null");
 
 		} catch (SQLException e) {
@@ -546,7 +543,7 @@ public class DB {
 			String schema = null;
 			String table = null;
 			int pos = temp.indexOf(".");
-			if(pos==-1){// SERIAL: 
+			if(pos==-1){// SERIAL:
 				table = temp;
 			}else{
 				table = temp.substring(pos+1).toLowerCase(); //Postgres seems to handle only lowercase table + schema
@@ -566,7 +563,7 @@ public class DB {
 				}
 				rs2.close();
 			}
-			rs.close();			
+			rs.close();
 		} else {
 			logger.warn("The DB neither supports 'getGeneratedKeys' nor is an alternative defined");
 		}
@@ -581,7 +578,7 @@ public class DB {
 	 * @throws SQLException If any Problem apears
 	 */
 	static public InsertKeys insertKeys(DBContext dbx, String insert) throws SQLException{
-		return insertKeys(dbx, insert, null);     
+		return insertKeys(dbx, insert, null);
 	}
 
 	/**
@@ -598,7 +595,7 @@ public class DB {
 		try{
 			Log.logStatement(insert);
 			statement = getStatement(dbx);
-			boolean supportsGetGeneratedKeys = (!SQL.isPostgres(dbx)) 
+			boolean supportsGetGeneratedKeys = (!SQL.isPostgres(dbx))
 			&& statement.getConnection().getMetaData().supportsGetGeneratedKeys();
 			if(! supportsGetGeneratedKeys){
 				statement.executeUpdate(insert);
@@ -754,7 +751,6 @@ public class DB {
 		return update(poolname, sql.statementToString());
 	}
 
-
 	/**
 	 * Returns a Result Object for the Statement and logs it if this is enabled.
 	 * Result objects are holder object for a ResultSet  and the corresponding Statement, intended for closing both in one step.
@@ -783,7 +779,6 @@ public class DB {
 		}
 	}
 
-
 	/**
 	 * Returns a Result Object for the Statement and logs it if this is enabled.
 	 * Result objects are holder object for a ResultSet  and the corresponding Statement, intended for closing both in one step.
@@ -804,7 +799,7 @@ public class DB {
 
 	/**
 	 * Checks if the resultset is empty.
-	 * 
+	 *
 	 * @param poolname The poolname
 	 * @param statement The statement
 	 * @return <code>true</code> if the resultset is empty.
@@ -814,7 +809,7 @@ public class DB {
 		ResultSet res = null;
 		boolean empty = false;
 		try {
-			res = DB.getResultSet(poolname, statement); 
+			res = DB.getResultSet(poolname, statement);
 			empty = !res.next();
 		} finally {
 			DB.closeAll(res);
@@ -824,7 +819,7 @@ public class DB {
 
 	/**
 	 * Checks if the resultset is empty.
-	 * 
+	 *
 	 * @param dbx Database context
 	 * @param statement The statement
 	 * @return <code>true</code> if the resultset is empty.
@@ -834,7 +829,7 @@ public class DB {
 		ResultSet res = null;
 		boolean empty = false;
 		try {
-			res = DB.getResultSet(dbx, statement); 
+			res = DB.getResultSet(dbx, statement);
 			empty = !res.next();
 		} finally {
 		DB.closeStatement(res);

@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 /** Annotation for defining the mapping of a bean attribute
  * to a column in the database.
- * 
+ *
  * @author Martin Pelzer, tarent GmbH
  *
  */
@@ -19,14 +19,14 @@ import java.lang.annotation.Target;
 public @interface Column {
 
 	/** the name of the column in the database
-	 * 
+	 *
 	 */
 	String name();
-	
+
 	/** the table of the column; if not given the table defined for
 	 * the whole bean is used
-	 * 
+	 *
 	 */
 	String table() default "";
-	
+
 }

@@ -48,12 +48,12 @@
 //import de.tarent.dblayer.engine.DBContext;
 //
 ///**
-// * This test class tests a number of db layer selection features. 
+// * This test class tests a number of db layer selection features.
 // */
 //public class SelectTest
 //    extends junit.framework.TestCase {
 //    static Log logger = LogFactory.getLog(SelectTest.class);
-//    
+//
 //    DBContext dbc;
 //    //
 //    // constructors and Testcase overrides
@@ -77,7 +77,7 @@
 //    public void tearDown() throws Exception {
 //        dbc.getDefaultConnection().close();
 //    }
-//    
+//
 //    //
 //    // test methods
 //    //
@@ -85,7 +85,7 @@
 //     * This method tests a simple ordered select from the table "person"; special
 //     * attention is given to the order and correctness of the results.
 //     */
-//    public void testSimpleSelect() 
+//    public void testSimpleSelect()
 //        throws SQLException {
 //
 //        ResultSet rs = null;
@@ -111,7 +111,7 @@
 //            DB.close(rs);
 //        }
 //    }
-//    
+//
 //    /**
 //     * This method tests a simple select from the inner join of the two tables "person"
 //     * and "firma"; special attention is given to the correctness of the result parts
@@ -256,7 +256,7 @@
 //     * of the results. Only {@link Select#selectAs(String, String)} is used to
 //     * select columns.
 //     */
-//    public void testLimit1() 
+//    public void testLimit1()
 //        throws SQLException {
 //
 //        ResultSet rs = null;
@@ -274,7 +274,7 @@
 //            assertTrue("missing data record", rs.next());
 //            checkPersonData(rs.getInt("pk_person"), rs.getString("vorname"), rs.getString("nachname"), rs.getDate("geburtstag"));
 //            assertEquals("wrong data record", 2, rs.getInt("pk_person"));
-//        
+//
 //            assertFalse("surplus data record", rs.next());
 //        } finally {
 //            DB.close(rs);
@@ -287,7 +287,7 @@
 //     * of the results. Only {@link Select#selectAs(String)} is used to select
 //     * columns.
 //     */
-//    public void testLimit2() 
+//    public void testLimit2()
 //        throws SQLException {
 //
 //        ResultSet rs = null;
@@ -305,7 +305,7 @@
 //            assertTrue("missing data record", rs.next());
 //            checkPersonData(rs.getInt("person.pk_person"), rs.getString("person.vorname"), rs.getString("person.nachname"), rs.getDate("person.geburtstag"));
 //            assertEquals("wrong data record", 2, rs.getInt("person.pk_person"));
-//        
+//
 //            assertFalse("surplus data record", rs.next());
 //        } finally {
 //            DB.close(rs);
@@ -318,7 +318,7 @@
 //     * of the results. Only {@link Select#select(String)} is used to select
 //     * columns.
 //     */
-//    public void testLimit3() 
+//    public void testLimit3()
 //        throws SQLException {
 //
 //        ResultSet rs = null;
@@ -332,17 +332,17 @@
 //                .orderBy(Order.asc("person.pk_person"))
 //                .Limit(new Limit(1, 1))
 //                .getResultSet();
-//        
+//
 //            assertTrue("missing data record", rs.next());
 //            checkPersonData(rs.getInt("pk_person"), rs.getString("vorname"), rs.getString("nachname"), rs.getDate("geburtstag"));
 //            assertEquals("wrong data record", rs.getInt("pk_person"), 2);
-//        
+//
 //            assertFalse("surplus data record", rs.next());
 //        } finally {
 //            DB.close(rs);
 //        }
 //    }
-//    
+//
 //    public void testUnion() throws SQLException{
 //    	ResultSet rs = null;
 //    	try{
@@ -365,13 +365,13 @@
 //    		assertTrue("missing data record", rs.next());
 //    		checkPersonData(rs.getInt("pk_person"), rs.getString("vorname"), rs.getString("nachname"), rs.getDate("geburtstag"));
 //    		assertTrue("missing data record", rs.next());
-//    		checkPersonData(rs.getInt("pk_person"), rs.getString("vorname"), rs.getString("nachname"), rs.getDate("geburtstag"));    		
+//    		checkPersonData(rs.getInt("pk_person"), rs.getString("vorname"), rs.getString("nachname"), rs.getDate("geburtstag"));
 //    		assertFalse("surplus data record", rs.next());
 //    	}finally{
 //    		DB.close(rs);
 //    	}
 //    }
-//    
+//
 //    /**
 //     * This method tests a simple ordered select from the table "person" using the
 //     * {@link ResultList} helper class; special attention is given to the order and
@@ -391,7 +391,7 @@
 //            .getResultSet();
 //
 //        List resultList = new ResultList(new Runnable() { public void run() { DB.close(rs); }},rs);
-//        
+//
 //        final int[] primaryKeys = new int[]{1, 2, 3, 4};
 //        assertEquals("wrong ResultList size", new Integer(primaryKeys.length), new Integer(resultList.size()));
 //        for (int count = 0; count < primaryKeys.length; count++) {
@@ -410,7 +410,7 @@
 //            assertEquals("primary key wrong", primaryKeys[count], ((Integer)entryPk).intValue());
 //        }
 //    }
-//    
+//
 //    /**
 //     * This method tests a simple ordered select from the table "person" using the
 //     * {@link ResultList} helper class many (100) times; special attention is given
@@ -424,12 +424,12 @@
 //            System.gc();
 //        }
 //    }
-//    
+//
 //    //
 //    // Helper methods
 //    //
 //    /**
-//     * This helper method checks person data for correctness. 
+//     * This helper method checks person data for correctness.
 //     */
 //    void checkPersonData(int key, String firstName, String lastname, Date birthday) {
 //        switch(key) {
@@ -463,9 +463,9 @@
 //        }
 //        logger.debug("Person " + key + "correct");
 //    }
-//    
+//
 //    /**
-//     * This helper method checks firm data for correctness. 
+//     * This helper method checks firm data for correctness.
 //     */
 //    void checkFirmData(int key, String name, int sales) {
 //        switch(key) {

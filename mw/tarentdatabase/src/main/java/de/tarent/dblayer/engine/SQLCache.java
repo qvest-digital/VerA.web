@@ -42,11 +42,10 @@ import java.util.Map;
 
 import de.tarent.commons.logging.LogFactory;
 
-
 /**
  * The SQLCache loads sql-statements from files and optionaly caches the statements
  * in order to avoid redundant I/O. The caching is per connection-pool.
- * 
+ *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  * @author Robert Linden (r.linden@tarent.de)
  *
@@ -55,16 +54,14 @@ public class SQLCache {
 
     private static final org.apache.commons.logging.Log logger = LogFactory.getLog(SQLCache.class);
 
-    
     /** This map stores the cached statements. The keys follow
      * the pattern {poolname}fullpathname.
      */
     private static Map sqlCache = new HashMap();
-    
-    
+
     /**
      * Reads the contents of a file into a string.
-     * 
+     *
      * @param file File to be read.
      * @return File contents as String.
      */
@@ -87,21 +84,20 @@ public class SQLCache {
         return text.toString();
     }
 
-    
     /** Retrieve an SQL-statement as a String. It is either read from
      * the cache or, if it is not in the cache or is marked as uncacheable,
      * from a file.
-     * 
+     *
      * @param dbx DBContext, used to differentiate cache-partitions.
      * @param sqlfile The SQLFile to fetch.
      * @return The statment as a String.
      */
     public static String getSQLFromFile( DBContext dbx, SQLFile sqlfile ) {
         String sqlStatement = "";
-        
+
         try {
             String key = "{"+dbx.getPoolName()+"}"+sqlfile.getCanonicalPath();
-    
+
             if ( sqlfile.isCacheable() && sqlCache.containsKey( key ) ) {
                 sqlStatement = (String)sqlCache.get( key );
                 if ( logger.isTraceEnabled()) {
@@ -125,14 +121,14 @@ public class SQLCache {
         catch ( IOException ex ) {
             logger.error("Could not read sql-file "+sqlfile.getAbsolutePath() );
         }
-        
+
         return sqlStatement;
     }
 
     /** Retrieve an SQL-statement as a String. It is either read from
      * the cache or, if it is not in the cache or is marked as uncacheable,
      * from a file.
-     * 
+     *
      * @param poolname The name of the DB-pool, used to differentiate between
      *                 cache-partitions.
      * @param sqlfile The SQLFile to fetch.
@@ -140,10 +136,10 @@ public class SQLCache {
      */
     public static String getSQLFromFile( String poolname, SQLFile sqlfile ) {
         String sqlStatement = "";
-        
+
         try {
             String key = "{"+poolname+"}"+sqlfile.getCanonicalPath();
-    
+
             if ( sqlfile.isCacheable() && sqlCache.containsKey( key ) ) {
                 sqlStatement = (String)sqlCache.get( key );
                 if ( logger.isTraceEnabled()) {
@@ -167,9 +163,8 @@ public class SQLCache {
         catch ( IOException ex ) {
             logger.error("Could not read sql-file "+sqlfile.getAbsolutePath() );
         }
-        
+
         return sqlStatement;
     }
-    
-    
+
 }

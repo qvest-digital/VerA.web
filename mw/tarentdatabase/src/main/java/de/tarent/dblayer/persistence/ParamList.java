@@ -30,19 +30,19 @@ import java.util.List;
 
 /**
  * A simple list of parameters and values.
- * 
+ *
  * @see de.tarent.dblayer.persistence.AbstractDAO#getEntityByIdFilterList(DBContext, String, ParamList)
- * 
+ *
  * @author Hendrik Helwich
  */
 public class ParamList {
-    
+
     private List params;
 
     /**
      * Adds a parameter and its value to the list.
-     * 
-     * @param   name 
+     *
+     * @param   name
      *          The name of the parameter
      * @param   value
      *          The value of the parameter
@@ -54,12 +54,12 @@ public class ParamList {
         params.add(new Object[] { name, value });
         return this;
     }
-    
+
     /**
      * Returns the list of parameters and its values.
-     * 
+     *
      * @return  The list of parameters and its values.
-     *          An Element of this list is a two-dimensional 
+     *          An Element of this list is a two-dimensional
      *          {@link Object} array. The first element of this array is
      *          a {@link java.lang.String} object.
      */

@@ -2,10 +2,9 @@
 -- This script introduces a fast function for traslation of a csv list to a non persistent table.
 -- It works with MSSQL Server 2005, see http://www.sommarskog.se/arrays-in-sql-2005.html for further information
 -- This function is required by tarent-database Expr.optimizedIn() for mssql
--- 
+--
 -- test it with:  SELECT * FROM tarent_database_csvtable('1016,1068,1127,1217')
 --
-
 
 CREATE TABLE tarent_database_numbers (Number int NOT NULL PRIMARY KEY);
 WITH digits (d) AS (
@@ -23,9 +22,6 @@ INSERT tarent_database_numbers (Number)
            CROSS  JOIN digits iv
            CROSS  JOIN digits v) AS Numbers
    WHERE  Number > 0
-
-
-
 
 CREATE FUNCTION tarent_database_csvtable(@list  nvarchar(MAX))
 RETURNS @t TABLE (str   nvarchar(4000) NOT NULL) AS
@@ -68,4 +64,3 @@ BEGIN
 
    RETURN
 END
-

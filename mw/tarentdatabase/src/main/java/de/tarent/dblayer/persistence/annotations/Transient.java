@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 /** annotation for marking getter methods that shall
  * not be persisted
- * 
+ *
  * @author Martin Pelzer, tarent GmbH
  *
  */

@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * This {@link Clause} represents the <code>ORDER BY</code> part
  * of a <code>SELECT</code> statement.
- * 
+ *
  * @author Wolfgang Klein
  */
 public class Order extends SetDbContextImpl implements Clause {
@@ -72,13 +72,13 @@ public class Order extends SetDbContextImpl implements Clause {
 
     /**
      * This private constructor creates an {@link Order} {@link Clause}
-     * with one order criteria already set.  
-     * 
+     * with one order criteria already set.
+     *
      * @param column name of the column to order by
      * @param ascending flag whether the order is ascending
      */
 	private Order(String column, boolean ascending) {
-        this();
+	this();
 		add(column, ascending);
 	}
 
@@ -87,12 +87,12 @@ public class Order extends SetDbContextImpl implements Clause {
     //
     /** This method creates an ascending {@link Order} criterion. */
     static public Order asc(String column) {
-        return new Order(column, true);
+	return new Order(column, true);
     }
 
     /** This method creates a descending {@link Order} criterion. */
     static public Order desc(String column) {
-        return new Order(column, false);
+	return new Order(column, false);
     }
 
     //
@@ -111,13 +111,13 @@ public class Order extends SetDbContextImpl implements Clause {
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @param sb buffer to which the string representation of the clause model
      *  is to be appended
      */
     public void clauseToString(StringBuffer sb) {
-        sb.append(ORDER);
-        appendClause(sb);
+	sb.append(ORDER);
+	appendClause(sb);
     }
 
     //
@@ -126,19 +126,19 @@ public class Order extends SetDbContextImpl implements Clause {
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @return string representation of the clause model
      * @see Clause#clauseToString()
      * @deprecated use {@link #clauseToString(DBContext)} instead
      */
 	public String clauseToString() {
-        return clauseToString(getDBContext());
+	return clauseToString(getDBContext());
     }
-    
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
@@ -180,43 +180,43 @@ public class Order extends SetDbContextImpl implements Clause {
      * An entry actually consists of a pair (an <code>Object[2]</code>) of a
      * column name {@link String} and a {@link Boolean} flag representing the
      * order direction.
-     * 
+     *
      * @param column column name of the order criterion
      * @param ascending flag whether the order is ascending
      * @return this {@link Order} instance itself
      */
     private Order add(String column, boolean ascending) {
-        Object o[] = new Object[2];
-        o[0] = column;
-        o[1] = Boolean.valueOf(ascending);
-        orderby.add(o);
-        return this;
+	Object o[] = new Object[2];
+	o[0] = column;
+	o[1] = Boolean.valueOf(ascending);
+	orderby.add(o);
+	return this;
     }
 
     /**
      * Returns the a list of all columns in the orderBy
      */
     public List getColumns() {
-        ArrayList list = new ArrayList(orderby.size());
+	ArrayList list = new ArrayList(orderby.size());
 		Iterator it = orderby.iterator();
 		while (it.hasNext()) {
 			Object[] o = (Object[]) it.next();
-            list.add(o[0]);
-        }
-        return list;
+	    list.add(o[0]);
+	}
+	return list;
     }
     /**
      * Returns list of sorting directions where true means ascending and false means descending
      * @return
      */
     public List getSortDirections(){
-    	ArrayList list = new ArrayList(orderby.size());
+	ArrayList list = new ArrayList(orderby.size());
 		Iterator it = orderby.iterator();
 		while (it.hasNext()) {
 			Object[] o = (Object[]) it.next();
-            list.add(o[1]);
-        }
-        return list;
+	    list.add(o[1]);
+	}
+	return list;
     }
 
     /**
@@ -224,14 +224,14 @@ public class Order extends SetDbContextImpl implements Clause {
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-        try {
-            Order theClone = (Order)super.clone();
-            theClone.orderby = (ArrayList)orderby.clone();
-            return theClone;
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
-    } 
+	try {
+	    Order theClone = (Order)super.clone();
+	    theClone.orderby = (ArrayList)orderby.clone();
+	    return theClone;
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+    }
 
 }

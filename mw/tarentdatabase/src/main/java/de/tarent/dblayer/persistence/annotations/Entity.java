@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 /** annotation for marking a Java class as an
  * persistence entity
- * 
+ *
  * @author Martin Pelzer, tarent GmbH
  *
  */

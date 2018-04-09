@@ -24,7 +24,7 @@
 // */
 //
 ///**
-// * 
+// *
 // */
 //package de.tarent.dblayer.sql.clause;
 //
@@ -37,7 +37,7 @@
 //
 ///**
 // * A Simple test for genereted SubSelects...
-// * 
+// *
 // * @author kirchner
 // */
 //public class SubSelectTest extends TestCase {

@@ -35,8 +35,6 @@ import de.tarent.dblayer.sql.statement.*;
 import java.sql.SQLException;
 import java.util.*;
 
-
-
 /**
  * Abstract base class for statements.
  * Intended for sharing common funtionality.
@@ -45,12 +43,11 @@ import java.util.*;
  */
 public abstract class AbstractStatement extends SetDbContextImpl implements Statement {
 
-
     public void getParams(List paramList) {
         // no params to add in the default implementation
     }
 
-    /** 
+    /**
      * Helper method for adding all containing ParamValues in a the supplied <code>objectList</code> to the <code>paramList</code>.
      *
      * @param paramList List for adding the ParamValue instances
@@ -66,7 +63,6 @@ public abstract class AbstractStatement extends SetDbContextImpl implements Stat
         }
     }
 
-    
     /**
      * Creates an ExtPreparedStatement of this statement which is already compiled.
      *
@@ -78,11 +74,10 @@ public abstract class AbstractStatement extends SetDbContextImpl implements Stat
         return stmt;
     }
 
-
     /**
      * Creates an ExtPreparedStatement of this statement which is already compiled.
-     * This method creates the PreparedStatement in the same DBContext as the Statement. 
-     * Therefore the DBContext of the Select must be set. 
+     * This method creates the PreparedStatement in the same DBContext as the Statement.
+     * Therefore the DBContext of the Select must be set.
      *
      * <p><b>Attention:<b> Setting a DBContext and calling prepare() may cause errors,
      * if the same statement is used in multiple threads.</p>

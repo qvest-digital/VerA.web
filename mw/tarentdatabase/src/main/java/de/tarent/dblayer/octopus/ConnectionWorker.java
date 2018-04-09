@@ -38,7 +38,7 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * This is a tarent-octopus worker which can open and close
  * database connections. It pushs or remove it from the context.
- * 
+ *
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class ConnectionWorker {
@@ -58,9 +58,9 @@ public class ConnectionWorker {
 	/**
 	 * This octopus action open a database connection and push it as
 	 * "{@link #CONNECTION connection}" into the octopus-context.
-	 * 
+	 *
 	 * @see DB#getConnection(String)
-	 * 
+	 *
 	 * @param cntx The current octopus-context.
 	 * @param connection Optional connection.
 	 * @param poolname Optional poolname.
@@ -86,9 +86,9 @@ public class ConnectionWorker {
 	/**
 	 * This octopus action add a database connection to the octopus cleanup
 	 * mechanism which close the conncetion at the end of the current task.
-	 * 
+	 *
 	 * @see OctopusContext#addCleanupCode(Closeable)
-	 * 
+	 *
 	 * @param cntx The current octopus-context.
 	 * @param connection Database connection.
 	 * @throws SQLException
@@ -126,9 +126,9 @@ public class ConnectionWorker {
 	/**
 	 * This octopus action close a database connection and remove it
 	 * from the octopus-context.
-	 * 
+	 *
 	 * @see DB#close(Connection)
-	 * 
+	 *
 	 * @param cntx The current octopus-context.
 	 * @param connection Connection to close.
 	 * @return null

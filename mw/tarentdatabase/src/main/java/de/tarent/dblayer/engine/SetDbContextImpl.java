@@ -25,7 +25,7 @@
 
 /*
  * $Id: SetDbContextImpl.java,v 1.3 2007/06/14 14:51:57 dgoema Exp $
- * 
+ *
  * Created on 18.04.2006
  */
 package de.tarent.dblayer.engine;
@@ -36,7 +36,7 @@ import de.tarent.dblayer.sql.SQL;
  * This class is a minimal {@link SetDbContext} implementation. It contains
  * public getter and setter methods and a private member variable to access
  * the db layer context.
- * 
+ *
  * @author Michael Klink
  */
 public class SetDbContextImpl implements SetDbContext {
@@ -45,17 +45,17 @@ public class SetDbContextImpl implements SetDbContext {
     //
     /**
      * This method returns the database execution context. A <code>null</code>
-     * value must be interpreted as a sensible default environment. 
-     * 
+     * value must be interpreted as a sensible default environment.
+     *
      * @return database execution context
      */
     public DBContext getDBContext() {
         return dbContext;
     }
-    
+
     /**
      * This method injects the database execution context.
-     * 
+     *
      * @param dbc database execution context
      * @see de.tarent.dblayer.engine.SetDbContext#setDBContext(de.tarent.dblayer.engine.DBContext)
      */
@@ -81,7 +81,7 @@ public class SetDbContextImpl implements SetDbContext {
         /** the literal itself */
         final Object literal;
     }
-    
+
     //
     // member variables
     //

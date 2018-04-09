@@ -39,7 +39,7 @@ import de.tarent.dblayer.sql.SQL;
 
 /**
  * This class represents literal enumeration parts of a SQL statement.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public final class StatementList extends SetDbContextImpl implements Clause {
@@ -59,7 +59,7 @@ public final class StatementList extends SetDbContextImpl implements Clause {
 	public StatementList(Collection list) {
 		_list = list;
 	}
-	
+
     /** This constructor accepts a {@link Iterator} as enumeration. */
 	public StatementList(Iterator it) {
 		_list = new ArrayList();
@@ -68,9 +68,9 @@ public final class StatementList extends SetDbContextImpl implements Clause {
 	}
 
     public boolean isEmpty() {
-        return _list == null || _list.size() == 0;
+	return _list == null || _list.size() == 0;
     }
-	
+
     //
     // interface {@link Clause}
     //
@@ -81,27 +81,27 @@ public final class StatementList extends SetDbContextImpl implements Clause {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      * @deprecated use {@link #clauseToString(DBContext)} instead
      */
     final public String clauseToString() {
-        return clauseToString(getDBContext());
+	return clauseToString(getDBContext());
     }
-    
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(DBContext)
      */
     public String clauseToString(DBContext dbContext) {
-        StringBuffer sb = new StringBuffer();
-        statementListToString(dbContext, this, sb);
-        return sb.toString();
+	StringBuffer sb = new StringBuffer();
+	statementListToString(dbContext, this, sb);
+	return sb.toString();
     }
 
     //
@@ -114,7 +114,7 @@ public final class StatementList extends SetDbContextImpl implements Clause {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @return string representation of the clause model
      * @see java.lang.Object#toString()
      */
@@ -132,32 +132,32 @@ public final class StatementList extends SetDbContextImpl implements Clause {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @deprecated use {@link #statementListToString(DBContext, StatementList, StringBuffer)} instead
      * @return string representation of the clause model
      */
     public final static StringBuffer statementListToString(StatementList sl, StringBuffer sb) {
-        return statementListToString(sl.getDBContext(), sl, sb);
+	return statementListToString(sl.getDBContext(), sl, sb);
     }
-    
+
     /**
      * This method generates a string representation of a {@link StatementList}
      * for use in SQL statements.
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      */
     public final static StringBuffer statementListToString(DBContext dbContext, StatementList sl, StringBuffer sb) {
-        sb.append("(");
-        if (sl._list != null) {
-            Iterator it = sl._list.iterator();
-            while (it.hasNext()) {
-                sb.append(SQL.format(dbContext, it.next()));
-                if (it.hasNext())
-                    sb.append(SEPARATOR);
-            }
-        }
-        sb.append(")");
+	sb.append("(");
+	if (sl._list != null) {
+	    Iterator it = sl._list.iterator();
+	    while (it.hasNext()) {
+		sb.append(SQL.format(dbContext, it.next()));
+		if (it.hasNext())
+		    sb.append(SEPARATOR);
+	    }
+	}
+	sb.append(")");
 		return sb;
 	}
 
@@ -166,15 +166,14 @@ public final class StatementList extends SetDbContextImpl implements Clause {
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-        try {
-            StatementList theClone = (StatementList)super.clone();
-            theClone._list = new ArrayList(_list);
-            return theClone;
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
-    }   
+	try {
+	    StatementList theClone = (StatementList)super.clone();
+	    theClone._list = new ArrayList(_list);
+	    return theClone;
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+    }
 
-    
 }

@@ -24,7 +24,7 @@
 // */
 //
 ///**
-// * 
+// *
 // */
 //package de.tarent.dblayer.sql.statement;
 //
@@ -58,9 +58,9 @@
 //		SchemaCreator.getInstance().setUp(false);
 //        dbc = DB.getDefaultContext(SchemaCreator.TEST_POOL);
 //	}
-//	
+//
 //	public void testSimpleClone() throws SQLException{
-//        
+//
 //        Select s1 = SQL.Select(dbc)
 //            .from("xx")
 //            .selectAs("ee")
@@ -70,10 +70,10 @@
 //            .orderBy(Order.asc("ccc"));
 //
 //        String sqlOriginal = s1.statementToString();
-//        
+//
 //        Select s2 = (Select)s1.clone();
 //        s2.whereAndEq("bbb", new ParamValue("pv3"))
-//            .from("yy")            
+//            .from("yy")
 //            .join("sdcsd", "sdcsdc", "sdcsdc")
 //            .Limit(new Limit(42, 42))
 //            .orderBy(Order.desc("qq"))
@@ -85,7 +85,7 @@
 //        pvl.setAttribute("pv", "AAAAAAA");
 //        pvl.setAttribute("pv2", "BBBBBBB");
 //        pvl.setAttribute("pv3", "CCCCCCCCC");
-//        
+//
 //        String sqlOriginalLater = s1.statementToString();
 //        assertEquals("Statement of s1 should not have changed", sqlOriginal, sqlOriginalLater);
 //    }

@@ -55,7 +55,7 @@ public class Operator extends SetDbContextImpl implements Clause {
      * itself.
      */
 	public Operator(String operator) {
-        assert operator != null;
+	assert operator != null;
 		this.operator = operator;
 	}
 
@@ -92,31 +92,31 @@ public class Operator extends SetDbContextImpl implements Clause {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      * @deprecated use {@link #clauseToString(DBContext)} instead
      */
 	public String clauseToString() {
-        return clauseToString(getDBContext());
+	return clauseToString(getDBContext());
     }
-    
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
      */
     public String clauseToString(DBContext dbContext) {
-        setDBContext(dbContext); // for LiteralWrappers
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(left)
-              .append(' ')
-              .append(operator)
-              .append(' ')
-              .append(right);
+	setDBContext(dbContext); // for LiteralWrappers
+	StringBuffer buffer = new StringBuffer();
+	buffer.append(left)
+	      .append(' ')
+	      .append(operator)
+	      .append(' ')
+	      .append(right);
 		return buffer.toString();
 	}
 
@@ -126,13 +126,13 @@ public class Operator extends SetDbContextImpl implements Clause {
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-        try {
-            Operator theClone = (Operator)super.clone();
-            return theClone;
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
-      }   
+	try {
+	    Operator theClone = (Operator)super.clone();
+	    return theClone;
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+      }
 
 }

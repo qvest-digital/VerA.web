@@ -24,7 +24,7 @@
 // */
 //
 ///**
-// * 
+// *
 // */
 //package de.tarent.dblayer.sql.statement;
 //
@@ -62,16 +62,16 @@
 //	protected void setUp() throws Exception {
 //		SchemaCreator.getInstance().setUp(false);
 //	}
-//	
+//
 //	public void testPreparedSelect() throws Exception {
 //        Select select = SQL.Select(dbc);
 //        select.from("person")
 //            .select("pk_person")
 //            .whereAnd(Expr.equal("pk_person", new ParamValue("id")))
 //            .whereAnd(Expr.equal("nachname", new ParamValue("nname")));
-//        
+//
 //        ExtPreparedStatement extstmt = select.prepare(dbc);
-//        
+//
 //        try {
 //            extstmt.setAttribute("id", new Integer(1));
 //            extstmt.setAttribute("nname", "Duck");
@@ -100,7 +100,7 @@
 //        stmt.insert("geburtstag", new ParamValue("geb"));
 //
 //        ExtPreparedStatement extstmt = stmt.prepare(dbc);
-//        
+//
 //        try {
 //            Calendar c = Calendar.getInstance();
 //            c.clear();
@@ -110,9 +110,9 @@
 //            extstmt.setAttribute("firma", new Integer(2));
 //            extstmt.setAttribute("vname", "Frank");
 //            extstmt.setAttribute("nname", "Mueller");
-//            extstmt.getPreparedStatement().executeUpdate();            
+//            extstmt.getPreparedStatement().executeUpdate();
 //            Integer id = extstmt.returnGeneratedKeys(dbc).getPkAsInteger();
-//            
+//
 //            int rows = SQL.Select().from("person")
 //                .select("fk_firma")
 //                .select("vorname")
@@ -128,7 +128,7 @@
 //                        }
 //                    });
 //            assertEquals("One row retrieved", 1, rows);
-//            
+//
 //
 //            // leaving the date
 //            //extstmt.setAttribute(geb, date);
@@ -137,7 +137,7 @@
 //            extstmt.setAttribute("nname", "Schneider");
 //            extstmt.getPreparedStatement().executeUpdate();
 //            id = extstmt.returnGeneratedKeys(dbc).getPkAsInteger();
-//            
+//
 //            rows = SQL.Select().from("person")
 //                .select("fk_firma")
 //                .select("vorname")
@@ -153,7 +153,7 @@
 //                        }
 //                    });
 //            assertEquals("One row retrieved", 1, rows);
-//            
+//
 //        } finally {
 //            DB.close(extstmt.getPreparedStatement());
 //        }

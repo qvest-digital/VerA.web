@@ -32,7 +32,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-
 /**
  * @author kleinw
  *
@@ -69,13 +68,13 @@ public class ResultSetReader {
 		}
 		return resultList;
 	}
-	
+
 	private static void getRow(Result result, Collection getColumns, List row) throws SQLException {
 		for (Iterator it = getColumns.iterator(); it.hasNext();) {
 			Object[] get = (Object[])it.next();
 			String column = (String)get[0];
 			Class type = (Class)get[2];
-			
+
 			if (type.equals(String.class))
 				row.add(result.resultSet().getString(column));
 			else if (type.equals(Integer.class))

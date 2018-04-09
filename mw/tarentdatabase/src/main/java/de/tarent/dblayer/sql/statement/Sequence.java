@@ -41,7 +41,7 @@ import de.tarent.dblayer.sql.Statement;
  * This {@link Statement} models SQL sequence value queries.<br>
  * It differs quite a bit from most other {@link Statement} implementations
  * as it is not designed to be used on a single sequence only.
- * 
+ *
  * @author Wolfgang Klein
  */
 public class Sequence extends AbstractStatement {
@@ -130,13 +130,13 @@ public class Sequence extends AbstractStatement {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @see Statement#execute()
      */
 	public Object execute() throws SQLException {
 	    return DB.result(getDBContext(), this);
     }
-	
+
     /**
      * This method creates the {@link DBContext} sensitive {@link String} representation
      * of the modelled SQL {@link Statement}.<br>
@@ -144,7 +144,7 @@ public class Sequence extends AbstractStatement {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @see Statement#statementToString()
      */
     public String statementToString() {
@@ -161,13 +161,13 @@ public class Sequence extends AbstractStatement {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     public String toString() {
 	    return _sequence;
 	}
-	
+
     //
     // protected member variables
     //

@@ -35,21 +35,21 @@ import java.sql.SQLException;
  * @author Sebastian Mancke, tarent GmbH
  */
 public interface DBContext {
-    
+
     /**
      * Returns the Pool identifier for this DBContext
      */
     public String getPoolName();
-    
+
     /**
      * Returns the Pool Object for this DBContext
      */
     public Pool getPool();
-    
+
     /**
      * Returns the Default Connection for this DBContext.
      * @return default Connection from pool
      */
     public Connection getDefaultConnection() throws SQLException;
-    
+
 }

@@ -49,12 +49,12 @@ public class OracleSelect extends Select {
     /**
      * This constructor sets the distinctness flag of this <code>SELECT</code>
      * statement.
-     * 
+     *
      * @see Select#Select(boolean)
      */
     public OracleSelect(boolean distinct) {
         super(distinct);
-    }   
+    }
 
     //
     // interface {@link Statement}
@@ -71,7 +71,7 @@ public class OracleSelect extends Select {
      * As a side effect the alias <code>dbLayerRownumber</code> must
      * not be used as a name alias of a selected column when using a
      * limit or offset.
-     * 
+     *
      * @see Select#statementToString()
      * @see Statement#statementToString()
      */
@@ -79,7 +79,7 @@ public class OracleSelect extends Select {
         String baseStatement = super.statementToString();
         if (getLimit() == null)
             return baseStatement;
-        
+
         // emulate the limit and offset using a filter on the oracle rownum
         StringBuffer sb = new StringBuffer(baseStatement.length() + 100);
         sb.append("SELECT ");
@@ -93,10 +93,10 @@ public class OracleSelect extends Select {
         sb.append(getLimit().getOffset() + getLimit().getLimit());
         sb.append(") WHERE dbLayerRownumber > ");
         sb.append(getLimit().getOffset());
-        
+
         return sb.toString();
     }
-    
+
     //
     // class {@link Select}
     //
@@ -110,13 +110,13 @@ public class OracleSelect extends Select {
     protected void appendLimitStatement(StringBuffer sb) {
         // do nothing here
     }
-    
+
     //
     // protected helper methods
     //
     /**
      * This method appends the aliases of the columns to select in the innermost
-     * <code>SELECT</code> statement to the given {@link StringBuffer}.<br> 
+     * <code>SELECT</code> statement to the given {@link StringBuffer}.<br>
      * As we have to do some <code>rownum</code> magic on Oracle DBMS to emulate
      * <code>LIMIT</code> and <code>OFFSET</code> and this magic includes nested
      * <code>SELECT</code> statements the outer ones need this list to select

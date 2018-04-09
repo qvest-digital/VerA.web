@@ -27,8 +27,6 @@ package de.tarent.dblayer.persistence;
 
 import java.util.*;
 
-
-
 public class Firma {
 
     int turnover;
@@ -37,7 +35,6 @@ public class Firma {
 
     List mitarbeiter;
 
-    
     public int getId() {
         return id;
     }
@@ -45,7 +42,7 @@ public class Firma {
     public void setId(int newId) {
         this.id = newId;
     }
-    
+
     public String getName() {
         return name;
     }

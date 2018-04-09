@@ -54,7 +54,7 @@ public class Function extends SetDbContextImpl {
     //
     /**
      * This constructor accepts only the name of the function.
-     * 
+     *
      * @deprecated use {@link #Function(DBContext, String)} instead
      */
 	public Function(String name) {
@@ -68,12 +68,12 @@ public class Function extends SetDbContextImpl {
      */
 	public Function(DBContext dbc, String name) {
 		this.name = name;
-        setDBContext(dbc);
+	setDBContext(dbc);
 	}
 
     /**
      * This constructor accepts the name of the function, one column
-     * parameter and a number of literal parameters. 
+     * parameter and a number of literal parameters.
      */
 	public Function(String name, String column, Collection param) {
 		this.name = name;
@@ -83,7 +83,7 @@ public class Function extends SetDbContextImpl {
 
     /**
      * This constructor accepts the name of the function, a number of
-     * literal parameters and one column parameter. 
+     * literal parameters and one column parameter.
      */
 	public Function(String name, Collection param, String column) {
 		this.name = name;
@@ -153,13 +153,13 @@ public class Function extends SetDbContextImpl {
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-        try {
-            Function theClone = (Function)super.clone();
-            theClone.parameter = (ArrayList)parameter.clone();
-            return theClone;
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
-      }   
+	try {
+	    Function theClone = (Function)super.clone();
+	    theClone.parameter = (ArrayList)parameter.clone();
+	    return theClone;
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+      }
 }

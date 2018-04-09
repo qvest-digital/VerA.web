@@ -46,7 +46,6 @@ public class GroupBy {
     /** the String "<code> GROUP BY </code>" */
 	static public final String GROUPBY = " GROUP BY ";
 
-
     //
     // protected member variables
     //
@@ -70,7 +69,7 @@ public class GroupBy {
     //
     /** This method returns an <code>GROUP BY</code> part having one column. */
     public static GroupBy groupBy(String column) {
-        return new GroupBy(column);
+	return new GroupBy(column);
     }
 
     //
@@ -89,7 +88,7 @@ public class GroupBy {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @return string representation of the <code>GROUP BY</code> part
      */
 	public String clauseToString() {
@@ -136,14 +135,14 @@ public class GroupBy {
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-        try {
-            GroupBy theClone = (GroupBy)super.clone();
-            theClone.groupby = (ArrayList)groupby.clone();
-            return theClone;
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
-      }   
+	try {
+	    GroupBy theClone = (GroupBy)super.clone();
+	    theClone.groupby = (ArrayList)groupby.clone();
+	    return theClone;
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+      }
 
 }

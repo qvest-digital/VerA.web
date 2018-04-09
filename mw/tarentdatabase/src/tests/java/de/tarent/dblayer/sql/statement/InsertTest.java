@@ -24,7 +24,7 @@
 // */
 //
 ///**
-// * 
+// *
 // */
 //package de.tarent.dblayer.sql.statement;
 //
@@ -56,7 +56,7 @@
 //	protected void setUp() throws Exception {
 //		SchemaCreator.getInstance().setUp(true);
 //	}
-//	
+//
 //	public void testRetrievelOfKeys() throws SQLException{
 //		DBContext dbx = DB.getDefaultContext(SchemaCreator.TEST_POOL);
 //		InsertKeys keys = SQL.Insert(dbx).table("insert_test").insert("data", "test").executeInsertKeys(dbx);
@@ -65,7 +65,7 @@
 //		assertEquals(new Integer(2), new Integer(keys.getPk()));
 //        dbx.getDefaultConnection().close();
 //	}
-//	
+//
 //	public void testRetrievelOfKeys2() throws SQLException{
 //		DBContext dbx = DB.getDefaultContext(SchemaCreator.TEST_POOL);
 //		InsertKeys keys = SQL.Insert(dbx).table("insert_test").insert("data", "Nur ein Test!").executeInsertKeys(dbx);

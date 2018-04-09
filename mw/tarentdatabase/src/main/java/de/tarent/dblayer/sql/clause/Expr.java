@@ -37,7 +37,7 @@ import de.tarent.commons.datahandling.PrimaryKeyList;
 /**
  * This utility class serves as a factory for {@link Where} {@link Clause}
  * parts.
- * 
+ *
  * @author Wolfgang Klein
  */
 public class Expr {
@@ -67,13 +67,12 @@ public class Expr {
     /** the String "<code> IN </code>" */
 	final static public String IN = " IN ";
 	/** the String "<code> NOT IN </code>" */
-	final static public String NOTIN = " NOT IN ";	
+	final static public String NOTIN = " NOT IN ";
 	/** the String "<code> EXISTS </code>" */
-	final static public String EXISTS = " EXISTS ";	
+	final static public String EXISTS = " EXISTS ";
 	/** the String "<code>NOT EXISTS </code>" */
 	final static public String NOTEXISTS = " NOT EXISTS ";
-	
-	
+
     //
     // public static factory methods
     //
@@ -84,7 +83,7 @@ public class Expr {
 	static public Where equal(String column, Object value) {
 		return new Where(column, value, EQUAL);
 	}
-	
+
 	/**
      * This method returns a {@link Where} {@link Clause} testing for
      * equality of the values of two columns.
@@ -107,7 +106,7 @@ public class Expr {
 	static public Where less(String column, Object value) {
 		return new Where(column, value, LESS);
 	}
-	
+
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content is less than or equal to a value.
@@ -123,7 +122,7 @@ public class Expr {
 	static public Where greater(String column, Object value) {
 		return new Where(column, value, GREATER);
 	}
-	
+
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content is greater than or equal to a value.
@@ -131,7 +130,7 @@ public class Expr {
 	static public Where greaterOrEqual(String column, Object value) {
 		return new Where(column, value, GREATEROREQUAL);
 	}
-	
+
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content is like a value.
@@ -147,13 +146,13 @@ public class Expr {
 	static public Where notLike(String column, Object value) {
 		return new Where(column, value, NOTLIKE);
 	}
-	
+
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content is <code>NULL</code>.
      */
 	static public Where isNull(String column) {
-		return new Where(column, null, ISNULL); 
+		return new Where(column, null, ISNULL);
 	}
 
     /**
@@ -161,33 +160,33 @@ public class Expr {
      * a column's content is <code>NULL</code> or a numeric <code>0</code>.
      */
 	static public Where nullOrInt0(String column) {
-		return 
+		return
 			Where.or(
 				Expr.isNull(column),
 				Expr.equal(column, new Integer(0))
-			); 
+			);
 	}
-	
+
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content is <code>NULL</code> or <code>'0'</code>.
      */
 	static public Where nullOrString0(String column) {
-		return 
+		return
 			Where.or(
 				Expr.isNull(column),
 				Expr.equal(column, "0")
-			); 
+			);
 	}
-	
+
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content is not <code>NULL</code>.
      */
 	static public Where isNotNull(String column) {
-		return new Where(column, null, ISNOTNULL); 
+		return new Where(column, null, ISNOTNULL);
 	}
-	
+
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content is in the given {@link Collection}.
@@ -201,7 +200,7 @@ public class Expr {
 
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
-     * a column's content is in the given {@link Collection}. In contrast to in(), 
+     * a column's content is in the given {@link Collection}. In contrast to in(),
      * this method trys to use (e.g. db) specific optimizations for the handling of the in list.
      *
      * <p><b>MSSQL:</b> This method was introduced for MSSQL, which has problems with long IN lists. For MSSQL
@@ -213,7 +212,7 @@ public class Expr {
             return falseExpression();
 
         if (SQL.isMSSQL(dbc) && list.size() > 500) {
-            return new Where(new RawClause("("+ column +" IN (SELECT * FROM tarent_database_csvtable('"+ PrimaryKeyList.toString(PrimaryKeyList.DELIM, list) +"')))"), null);            
+            return new Where(new RawClause("("+ column +" IN (SELECT * FROM tarent_database_csvtable('"+ PrimaryKeyList.toString(PrimaryKeyList.DELIM, list) +"')))"), null);
         } else {
             return in(column, list);
         }
@@ -239,7 +238,7 @@ public class Expr {
 	static public Where in(String column, Object value) {
 		return new Where(column, value, IN);
 	}
-	
+
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content is not in the given {@link Collection}.
@@ -270,22 +269,22 @@ public class Expr {
      */
 	static public Where notIn(String column, Object value) {
 		return new Where(column, value, NOTIN);
-	}	
-	
+	}
+
 	/**
-     * This method returns a {@link Where} {@link Clause} testing if the given subselect 
-     * returns at least one row. 
+     * This method returns a {@link Where} {@link Clause} testing if the given subselect
+     * returns at least one row.
      */
 	static public Where exists(SubSelect select){
-		return new Where(select, EXISTS);		
+		return new Where(select, EXISTS);
 	}
-	
+
 	/**
-     * This method returns a {@link Where} {@link Clause} testing if the given subselect 
-     * returns at least one row and negates the statement. 
+     * This method returns a {@link Where} {@link Clause} testing if the given subselect
+     * returns at least one row and negates the statement.
      */
 	static public Where notExists(SubSelect select){
-		return new Where(select, NOTEXISTS);		
+		return new Where(select, NOTEXISTS);
 	}
 
 	/**
@@ -296,7 +295,7 @@ public class Expr {
 	}
 
 	/**
-     * This method returns a {@link Where} {@link Clause} which always is <b>false</b>. 
+     * This method returns a {@link Where} {@link Clause} which always is <b>false</b>.
      */
 	static public Where falseExpression(){
         return new Where(new RawClause("1 = 2"), null);

@@ -49,15 +49,14 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.statement.Insert;
 /*
  * Copyright (c) tarent GmbH Heilsbachstrasse 24 . 53123 Bonn www.tarent.de . info@tarent.de
- * 
+ *
  * Created on 11.10.2006
  */
-public class CopyDBWorker 
+public class CopyDBWorker
 {
 	public static final String	TABLE_NAME_PATTERN	= "t%";
 	private static final List ignoreList = new ArrayList();
 	private static Log logger = LogFactory.getLog(CopyDBWorker.class);
-
 
 	/** Param Definition */
 	public static String[]			INPUT_copy					= {"poolNameFrom", "schemeFrom", "poolNameTo", "schemeTo", "tablesToIgnore"};
@@ -65,12 +64,12 @@ public class CopyDBWorker
 	/**
 	 * copying table-data (from all tables in the given scheme which name starts with TABLE_NAME_PATTERN) from the db in
 	 * poolNameFrom into the db in poolNameTo. Array-type data like Byte[] (e.g. Pictures) is not supported.
-	 * 
+	 *
 	 * Both db's must be equivalent in terms of tables, table names and column names. They may differ in column types
 	 * while dblayer can handle these differences.
-	 * 
+	 *
 	 * //TODO should be augmented to let you specify the involved tables (e.g. by param list).
-	 * 
+	 *
 	 * @param poolNameFrom
 	 *          pool name of the database where the data derived from
 	 * @param schemeFrom
@@ -91,7 +90,7 @@ public class CopyDBWorker
 		StringTokenizer strTok = new StringTokenizer(tablesToIgnore != null?tablesToIgnore:"");
 		while (strTok.hasMoreTokens())
 			ignoreList.add(strTok.nextToken());
-		
+
 		try
 		{
 			Pool from = DB.getPool(poolNameFrom);
@@ -111,12 +110,12 @@ public class CopyDBWorker
 			while (tables.next())
 			{
 				tableName = tables.getString("TABLE_NAME");
-				
+
 				if (ignoreList.contains(tableName.toLowerCase())){
 					logger.info("skipping table " + tableName);
 					continue;
 				}
-				
+
 				logger.info("transferring table " + tableName);
 				tableNameFrom = schemeFrom + "." + tableName;
 				tablenameTo = schemeTo + "." + tableName;
@@ -164,7 +163,7 @@ public class CopyDBWorker
 
 	/**
 	 * Actions to be done before inserting data-dump
-	 * 
+	 *
 	 * @param tableName
 	 *          full qualified name (scheme.tabelName)
 	 * @param context
@@ -211,7 +210,7 @@ public class CopyDBWorker
 
 	/**
 	 * Actions to be done after inserting data-dump
-	 * 
+	 *
 	 * @param tableName
 	 *          full qualified name (scheme.tabelName)
 	 * @param context

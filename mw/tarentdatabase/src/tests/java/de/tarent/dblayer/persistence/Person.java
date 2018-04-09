@@ -27,16 +27,14 @@ package de.tarent.dblayer.persistence;
 
 import java.util.Date;
 
-
 public class Person {
-
 
     String givenName;
     String lastName;
     Date birthday;
     int firmaFk;
     Firma firma;
-    
+
     int id;
 
     public int getId() {
@@ -46,7 +44,7 @@ public class Person {
     public void setId(int newId) {
         this.id = newId;
     }
-    
+
     public int getFirmaFk() {
         return firmaFk;
     }
@@ -54,7 +52,7 @@ public class Person {
     public void setFirmaFk(int newFirmaFk) {
         this.firmaFk = newFirmaFk;
     }
-    
+
     public Date getBirthday() {
         return birthday;
     }
@@ -62,7 +60,7 @@ public class Person {
     public void setBirthday(Date newBirthday) {
         this.birthday = newBirthday;
     }
-    
+
     public String getLastName() {
         return lastName;
     }
@@ -71,15 +69,14 @@ public class Person {
         this.lastName = newLastName;
     }
 
-    
     public String getGivenName() {
         return givenName;
     }
 
     public void setGivenName(String newGivenName) {
         this.givenName = newGivenName;
- 
-   }    
+
+   }
 
     public Firma getFirma() {
         return firma;

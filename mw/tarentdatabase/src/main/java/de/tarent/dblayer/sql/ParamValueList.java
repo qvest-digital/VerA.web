@@ -23,13 +23,11 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 package de.tarent.dblayer.sql;
 
 import de.tarent.commons.datahandling.entity.ParamSet;
 import de.tarent.commons.datahandling.entity.AttributeSource;
 import java.util.*;
-
 
 /**
  * List of ParamValues.
@@ -55,7 +53,7 @@ public class ParamValueList extends ArrayList implements ParamSet {
             ParamValue paramValue = (ParamValue)iter.next();
             if (!paramValue.isSet())
                 return false;
-        }        
+        }
         return true;
     }
 
@@ -71,7 +69,7 @@ public class ParamValueList extends ArrayList implements ParamSet {
             // do not break, if there are more than one param with the same name, all have to be set
         }
     }
-        
+
     /**
      * Sets the attributes of this statement to the supplied attributes in the map.
      */
@@ -80,7 +78,7 @@ public class ParamValueList extends ArrayList implements ParamSet {
             String paramName = (String)iter.next();
             setAttribute(paramName, attributeSource.getAttribute(paramName));
         }
-    }    
+    }
 
     public List getAttributeNames() {
         List names = new ArrayList(size());

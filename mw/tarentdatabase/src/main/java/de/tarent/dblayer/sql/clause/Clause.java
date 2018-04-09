@@ -44,11 +44,11 @@ public interface Clause extends SetDbContext, Cloneable {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @deprecated use {@link #clauseToString(DBContext)} instead
      * @return string representation of the clause model
      */
-	public String clauseToString();	
+	public String clauseToString();
 
     /**
      * This method generates a string representation of the clause model
@@ -56,12 +56,11 @@ public interface Clause extends SetDbContext, Cloneable {
      * This method MAY as a side effect change the {@link DBContext} of this
      * {@link Clause} to the given one.<br>
      * TODO: This method should be able to throw qualified exceptions
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      */
-    public String clauseToString(DBContext dbContext); 
-
+    public String clauseToString(DBContext dbContext);
 
     /**
      * Returns an independent clone of this close

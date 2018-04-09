@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.dblayer.sql.statement;
 
@@ -40,16 +40,15 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 
 /**
- * Statement for encapsultion of a Stored Procedure-Call 
- * 
+ * Statement for encapsultion of a Stored Procedure-Call
+ *
  * @author kirchner
  *
  */
 public class Procedure extends AbstractStatement {
 
-
 	protected String _name;
-	
+
 	protected List _params = new LinkedList();
 
 	/**
@@ -61,7 +60,7 @@ public class Procedure extends AbstractStatement {
 		setDBContext(dbx);
 		_name = name;
 	}
-	
+
 	/**
 	 * Executes the procedure on the given Context.
 	 * @param dbx DBContext
@@ -75,7 +74,7 @@ public class Procedure extends AbstractStatement {
 			DB.update(dbx, this);
 		}
 	}
-	
+
 	/**
 	 * Executes the procedure on the given Context.
 	 * @param dbx DBContext
@@ -85,7 +84,7 @@ public class Procedure extends AbstractStatement {
 	public Result executeProcedure(DBContext dbx) throws SQLException{
 		return DB.result(dbx, this);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see de.tarent.dblayer.sql.Statement#execute()
 	 */
@@ -109,12 +108,12 @@ public class Procedure extends AbstractStatement {
 			}
 			else
 				first=false;
-			
+
 			sb.append(SQL.format(getDBContext(), it.next()));
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -135,7 +134,7 @@ public class Procedure extends AbstractStatement {
 		_name = name;
 		return this;
 	}
-	
+
 	/**
 	 * Adds Parameter to call. Parameters are applied
 	 * in the order they are added via {@link Procedure#addParam(String)}.

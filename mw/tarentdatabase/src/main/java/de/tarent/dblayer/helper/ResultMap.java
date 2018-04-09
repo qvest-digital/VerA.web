@@ -48,20 +48,20 @@ import de.tarent.commons.logging.LogFactory;
  * This class is a wrapper for {@link ResultSet} instances implementing the {@link Map}
  * interface to access the current result set row. It does NOT provide for any means of
  * closing the result set or other instances it depends upon.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class ResultMap implements Map {
-    
+
     private static final Log logger = LogFactory.getLog(ResultMap.class);
-    
+
 	private final ResultSet resultSet;
 	private final List columns;
 	private final int size;
 
 	public ResultMap(ResultSet resultSet) throws SQLException {
 		this.resultSet = resultSet;
-		
+
 		ResultSetMetaData rsmd = resultSet.getMetaData();
 		size = rsmd.getColumnCount();
 		columns = new ArrayList(size);
@@ -91,7 +91,7 @@ public class ResultMap implements Map {
                 for (int i = 1; i <= size; i++)
                     if (resultSet.getObject(i) == null)
                         return true;
-                
+
             } else {
                 for (int i = 1; i <= size; i++)
                     if (value.equals(resultSet.getObject(i)))

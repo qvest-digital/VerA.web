@@ -44,11 +44,11 @@ import de.tarent.dblayer.sql.ParamHolder;
 
 /**
  * This {@link Statement} models SQL <code>DELETE</code> statements.
- * 
+ *
  * @author Wolfgang Klein
  */
 public class Delete extends AbstractStatement {
-	
+
     //
     // protected member variables
     //
@@ -56,7 +56,6 @@ public class Delete extends AbstractStatement {
     private final From _fromClause = new From();
     /** {@link Clause} modelling the <code>WHERE</code> part */
     private Clause _whereClause;
-
 
     /**
      * {@see ParamHolder#getParams(List)}
@@ -74,7 +73,7 @@ public class Delete extends AbstractStatement {
 		_fromClause.addTable(table);
 		return this;
 	}
-	
+
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>DELETE</code> statement.
@@ -107,7 +106,6 @@ public class Delete extends AbstractStatement {
         return this;
 	}
 
-
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>UPDATE</code> statement to "(current where clause) OR
@@ -135,19 +133,19 @@ public class Delete extends AbstractStatement {
     /**
      * This method executes the modelled <code>DELETE</code> statement within the
      * db layer pool with the given name and returns the {@link Delete} itself.
-     * 
-     * @param pool the connection pool in which to operate. 
+     *
+     * @param pool the connection pool in which to operate.
      */
     public Delete executeDelete(String pool) throws SQLException {
         DB.update(pool, this);
         return this;
     }
-    
+
     /**
      * This method executes the modelled <code>DELETE</code> statement within the
      * db layer pool with the given name and returns the {@link Delete} itself.
-     * 
-     * @param dbx the DBContext on which to operate 
+     *
+     * @param dbx the DBContext on which to operate
      */
     public Delete executeDelete(DBContext dbx) throws SQLException {
         DB.update(dbx, this);
@@ -166,13 +164,13 @@ public class Delete extends AbstractStatement {
      * a PostgresQL DBMS.<br>
      * This method actually calls {@link #executeDelete(String)} using the pool name
      * of the {@link DBContext}.
-     * 
+     *
      * @see Statement#execute()
      */
 	public Object execute() throws SQLException {
         return executeDelete(getDBContext());
     }
-    
+
     /**
      * This method creates the {@link DBContext} sensitive {@link String} representation
      * of the modelled SQL {@link Statement}.<br>
@@ -180,7 +178,7 @@ public class Delete extends AbstractStatement {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @see Statement#statementToString()
      */
 	public String statementToString() throws SyntaxErrorException {
@@ -196,7 +194,7 @@ public class Delete extends AbstractStatement {
 		}
 		return sb.toString();
 	}
-	
+
     //
     // class {@link Object}
     //
@@ -207,7 +205,7 @@ public class Delete extends AbstractStatement {
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
      * a PostgresQL DBMS.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
 	public String toString() {

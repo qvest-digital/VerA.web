@@ -55,14 +55,14 @@ import de.tarent.dblayer.engine.proxy.StatementProxyInvocationHandler;
  * @author Sebastian Mancke, tarent GmbH
  */
 public class DBContextImpl implements DBContext {
-    
+
     String poolName;
 
     /** Sets the pool identifier */
     public void setPoolName(String newPoolName) {
         this.poolName = newPoolName;
-    }    
-    
+    }
+
     /**
      * Returns the Pool identifier for this DBContext
      */
@@ -80,7 +80,7 @@ public class DBContextImpl implements DBContext {
 	public Connection getDefaultConnection() throws SQLException {
 		Pool pool = DB.getPool(poolName);
 
-		if (pool == null) 
+		if (pool == null)
             throw new RuntimeException("no pool configured for '"+getPoolName()+"'");
 
 		return pool.getConnection();

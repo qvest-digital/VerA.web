@@ -17,26 +17,23 @@ import de.tarent.dblayer.persistence.annotations.Transient;
 /** This DBMapping is used when an annotated Bean is used. It analyzes
  * the annotations of a bean and defines the mapping depending on these
  * information.
- * 
+ *
  * @author Martin Pelzer, tarent GmbH
  *
  */
 public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 
-	
 	public AnnotatedDBMapping() {
 		super();
 	}
-	
-	
+
 	public AnnotatedDBMapping(DBContext dbc, Class bean) {
 		super(dbc, bean);
 	}
-	
-	
+
 	/** This method uses the tarent-database annotations in the
 	 * associated bean to configure the mapping of the attributes
-	 * 
+	 *
 	 */
 	@Override
 	public void configureMapping() {
@@ -55,7 +52,7 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 			// we can't!
 			return;
 		}
-		
+
 		// Maybe there are defined some custom field definitions.
 		// We have to add them to the list so that they can be
 		// accessed and used later.
@@ -64,19 +61,19 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 		//for (int i = 0; i < newFields.length; i++) {
 		//	super.addCustomFieldDefinition(newFields[i]);
 		//}
-		
+
 		Set attributes = Pojo.getPropertyNames(bean.getClass());
-		
+
 		Iterator iter = attributes.iterator();
 		while (iter.hasNext()) {
 			// get next attribute name and get get method for this attribute
 			String attributeName = (String) iter.next();
-			
+
 			if (attributeName.equals("class"))
 				continue;
-			
+
 			Method method = Pojo.getGetMethod(bean, attributeName);
-			
+
 			// If annotation @Transient is present for this method,
 			// we do nothing.
 			if (!method.isAnnotationPresent(Transient.class)) {
@@ -84,19 +81,19 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 					// If annotation @Reference is present we have to add
 					// several fields of another bean. To do that we use method "addFields".
 					Reference reference = method.getAnnotation(Reference.class);
-					
+
 					int includeBitMask = getFieldSetBitMask(reference.fields());
 					int fieldSet = getFieldSetBitMask(method);
 					DBMapping dbMapping = DAORegistry.getDAOForBean(reference.bean()).getDbMapping();
-					
+
 					addFields((AbstractDBMapping) dbMapping, attributeName, includeBitMask, fieldSet);
-					
+
 				} else {
 					// standard column mapping
-					
+
 					String tableName; // name of the table in the database
 					String columnName; // name of the column in the database
-					
+
 					// get column name for mapping
 					Column column = method.getAnnotation(Column.class);
 					if (column == null) {
@@ -104,7 +101,7 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 					} else {
 						columnName = column.name();
 					}
-					
+
 					// get table name for mapping
 					if (column == null || column.table().equals("")) {
 						// no table name defined for this column;
@@ -114,27 +111,26 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 						// use table defined for this attribute
 						tableName = column.table();
 					}
-					
+
 					// get fields for mapping
 					int fieldSet = getFieldSetBitMask(method);
-					
+
 					// check if this key is a primary key field
 					if (method.isAnnotationPresent(Id.class)) {
 						// this attribute shall be the primary key
 						fieldSet = fieldSet | super.getFieldDefinitionValue("primaryKeyFields") | super.getFieldDefinitionValue("minimalFields") | super.getFieldDefinitionValue("commonFields");
 					}
-					
+
 					// add field mapping
 					addField(this.mapToDbConventions(tableName) + PROPTERTY_SEPERATOR + this.mapToDbConventions(columnName), attributeName, fieldSet);
 				}
 			}
 		}
-		
+
 		// call method for adding queries
 		this.addQueries();
 	}
-	
-	
+
 	private int getFieldSetBitMask(Method method) {
 		int fieldSet = 0;
 		Fields fields = method.getAnnotation(Fields.class);
@@ -144,7 +140,7 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 				fieldSet = super.getFieldDefinitionValue("defaultFieldSet");
 		} else {
 			String [] fieldSets = fields.value();
-			
+
 			// iterate over all given field sets, fetch value for each one from list and add it
 			for (int i = 0; i < fieldSets.length; i++) {
 				fieldSet = fieldSet | super.getFieldDefinitionValue(fieldSets[i]);
@@ -152,11 +148,10 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 		}
 		return fieldSet;
 	}
-	
-	
+
 	private int getFieldSetBitMask(String [] fieldSets) {
 		int fieldSet = 0;
-			
+
 		// iterate over all given field sets, fetch value for each one from list and add it
 		for (int i = 0; i < fieldSets.length; i++) {
 			fieldSet = fieldSet | super.getFieldDefinitionValue(fieldSets[i]);
@@ -165,12 +160,11 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 		return fieldSet;
 	}
 
-	
 	/** Returns the name of the target table in the database
 	 * as defined in the associated bean. If there is no associated
 	 * bean or no annotation @Table defined in the bean null is
 	 * returned.
-	 * 
+	 *
 	 */
 	@Override
 	public String getTargetTable() {
@@ -181,28 +175,26 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 		}
 		return null;
 	}
-	
-	
+
 	/** method for adding queries
-	 * 
+	 *
 	 *
 	 */
 	public abstract void addQueries();
-	
-	
+
 	/** Maps a string to the naming conventions of the
 	 * database as given in the MappingType annotation. If
 	 * MappingType is not defined, the string is returned as
 	 * is.
 	 * NOTE: the input parameter has to be in camelCase.
-	 * 
+	 *
 	 * @return
 	 */
 	private String mapToDbConventions(String string) {
 		MappingType mappingType = (MappingType) this.associatedBean.getAnnotation(MappingType.class);
 		if (mappingType == null)
 			return string;
-		
+
 		if (mappingType.value().equals(MappingType.Value.LOWER_CASE)) {
 			return string.toLowerCase();
 		}

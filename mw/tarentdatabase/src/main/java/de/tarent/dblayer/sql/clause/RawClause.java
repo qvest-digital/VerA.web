@@ -53,8 +53,8 @@ public class RawClause extends SetDbContextImpl implements Clause {
     //
     /** This constructor accepts the raw SQL from a {@link String} object. */
 	public RawClause(String string) {
-        assert string != null;
-        this.buffer = null;
+	assert string != null;
+	this.buffer = null;
 		this.string = string;
 	}
 
@@ -65,7 +65,7 @@ public class RawClause extends SetDbContextImpl implements Clause {
      */
 	public RawClause(StringBuffer buffer) {
 		this.buffer = buffer;
-        this.string = null;
+	this.string = null;
 	}
 
     //
@@ -74,19 +74,19 @@ public class RawClause extends SetDbContextImpl implements Clause {
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @deprecated use {@link #clauseToString(DBContext)} instead
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      */
 	public String clauseToString() {
-        return clauseToString(getDBContext());
+	return clauseToString(getDBContext());
     }
-    
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @param dbContext the db layer context to use for formatting parameters
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
@@ -101,7 +101,7 @@ public class RawClause extends SetDbContextImpl implements Clause {
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.
-     * 
+     *
      * @return string representation of the clause model
      * @see java.lang.Object#toString()
      */
@@ -114,14 +114,14 @@ public class RawClause extends SetDbContextImpl implements Clause {
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-        try {
-            RawClause theClone = (RawClause)super.clone();
-            if (buffer != null)
-                theClone.buffer = new StringBuffer(buffer.toString());
-            return theClone;
-        }
-        catch(CloneNotSupportedException e) {
-        	throw new InternalError();
-        }
-      }    
+	try {
+	    RawClause theClone = (RawClause)super.clone();
+	    if (buffer != null)
+		theClone.buffer = new StringBuffer(buffer.toString());
+	    return theClone;
+	}
+	catch(CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+      }
 }

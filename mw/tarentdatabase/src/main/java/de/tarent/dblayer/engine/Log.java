@@ -35,7 +35,7 @@ public class Log {
 		if (logger.isDebugEnabled())
 			logger.debug(statement+"");
 	}
-    
+
 	public static void logPool(String info) {
 		if (logger.isDebugEnabled())
 			logger.debug(info);

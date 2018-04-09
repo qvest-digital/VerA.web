@@ -23,12 +23,10 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 package de.tarent.dblayer.persistence;
 
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.engine.DBContext;
-
 
 public class PersonDBMapping extends AbstractDBMapping {
 
@@ -36,7 +34,6 @@ public class PersonDBMapping extends AbstractDBMapping {
 
     public static final String STMT_PERSON_FIRMA = "stmtPersonFirmaOne";
 
-    
     public PersonDBMapping(DBContext cntx) {
         super(cntx);
     }
@@ -44,14 +41,14 @@ public class PersonDBMapping extends AbstractDBMapping {
     public String getTargetTable() {
         return "person";
     }
-    
+
     public void configureMapping() {
         addField("person.pk_person", "id", PRIMARY_KEY_FIELDS | MINIMAL_FIELDS | COMMON_FIELDS);
-        addField("person.fk_firma", "firmaFk"); 
+        addField("person.fk_firma", "firmaFk");
         addField("person.vorname", "givenName", DEFAULT_FIELD_SET | MINIMAL_FIELDS);
         addField("person.nachname", "lastName", DEFAULT_FIELD_SET | MINIMAL_FIELDS);
         addField("person.geburtstag", "birthday");
-        
+
         addField("firma.pk_firma", concatPropCol("firma", "id"), PERSON_FIRMA_FIELDS);
         addField("firma.name", concatPropCol("firma","name"), PERSON_FIRMA_FIELDS);
         addField("firma.umsatz", concatPropCol("firma", "turnover"), PERSON_FIRMA_FIELDS);

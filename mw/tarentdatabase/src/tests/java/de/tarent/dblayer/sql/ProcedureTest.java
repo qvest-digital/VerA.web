@@ -24,7 +24,7 @@
 // */
 //
 ///**
-// * 
+// *
 // */
 //package de.tarent.dblayer.sql;
 //
@@ -44,7 +44,7 @@
 // */
 //public class ProcedureTest extends TestCase {
 //	DBContext dbc;
-//    
+//
 //	public ProcedureTest(String name) throws SQLException{
 //		super(name);
 //	}
@@ -57,22 +57,22 @@
 //    public void tearDown() throws Exception {
 //        dbc.getDefaultConnection().close();
 //    }
-//	
+//
 //	public void testFormat() throws SyntaxErrorException{
 //
 //         if (SQL.isMSSQL(dbc)) {
 //             Procedure proc_ms = SQL.Procedure(dbc, "dbo.unit_test").addParam("hallo");
 //             assertEquals("Formatierung für MSSQL nicht korrekt", "dbo.unit_test 'hallo'", proc_ms.statementToString());
-//         }        
+//         }
 //         if (SQL.isPostgres(dbc)) {
 //             Procedure proc_pg = SQL.Procedure(dbc, "public.unit_test").addParam("hallo");
 //             assertEquals("Formatierung für Postgres nicht korrekt", "SELECT * FROM public.unit_test('hallo')", proc_pg.statementToString());
 //         }
 //	}
-//	
+//
 //	public void testEcho() throws SQLException {
-//        
-// 		String param = (new Date()).toString();        
+//
+// 		String param = (new Date()).toString();
 // 		Procedure proc = null;
 //        if (SQL.isMSSQL(dbc)) {
 //             proc = SQL.Procedure(dbc, "dbo.unit_test").addParam(param);
@@ -89,7 +89,7 @@
 //	}
 //
 // 	public void testvoidProcedure() throws SQLException {
-//        
+//
 //  		Procedure proc = null;
 //         if (SQL.isMSSQL(dbc)) {
 //              proc = SQL.Procedure(dbc, "dbo.unit_test2");

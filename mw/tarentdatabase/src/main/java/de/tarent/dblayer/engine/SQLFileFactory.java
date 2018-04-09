@@ -37,24 +37,21 @@ import java.io.File;
 
 /**
  * The SQLFileFactory creates SQLFiles and sets their options.
- * 
+ *
  * @author Robert Linden (r.linden@tarent.de)
  *
  */
 public class SQLFileFactory {
 
-    
     public static final boolean CACHE = true;
     public static final boolean NOCACHE = false;
-    
+
     /** The basepath from which the SQLFiles are loaded. */
     private File basepath;
-    
+
     /** This flag determines if the SQLFiles will be marked as cachable. */
     private boolean cacheable;
-    
-    
-    
+
     /** Create a new SQLFileFactory with default-options. */
     public SQLFileFactory() {
         this.basepath = new File ( System.getProperty( "user.dir" ) );
@@ -68,11 +65,10 @@ public class SQLFileFactory {
     public SQLFileFactory( String basepath, boolean cacheable ) {
         if ( basepath != null ) this.basepath = new File( basepath );
         else this.basepath = new File( System.getProperty( "user.dir" ) );
-        
+
         this.cacheable = cacheable;
     }
-    
-    
+
     /** Get a new SQLFile.
      * @param filename The leaf-filename of the SQL-template.
      * @return An SQLFile with all options set according to this factory.
@@ -81,9 +77,7 @@ public class SQLFileFactory {
         SQLFile file = new SQLFile( basepath, leafname, cacheable );
         return file;
     }
-    
-    
-    
+
     /** Set the basepath from which the SQLFiles are loaded.
      * @param basepath The basepath from which the SQLFiles are loaded.
      * */
@@ -106,8 +100,7 @@ public class SQLFileFactory {
     public File getBasePath() {
         return basepath;
     }
-    
-    
+
     /** Set the flag that determines if the SQLFiles will be marked as cachable.
      * @param cachable true = only load each file once, false = reload every time
      */

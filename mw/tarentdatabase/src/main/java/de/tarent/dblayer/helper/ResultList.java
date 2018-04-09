@@ -51,8 +51,8 @@ import de.tarent.octopus.server.Closeable;
  * probably also some underlying objects.<br>
  * You should do this only very carefully, though, especially if you reserve a database
  * connection for this List as a pool can easily be exhausted before garbage collection
- * frees these connections for reuse.  
- * 
+ * frees these connections for reuse.
+ *
  * @author Christoph Jerolimov
  */
 public class ResultList implements List, Closeable {
@@ -71,7 +71,7 @@ public class ResultList implements List, Closeable {
     private boolean runFinallyCalled = false;
 	/** Flag: Is the ResultSet positioned on a readable position? */
 	private boolean canread = false;
-	
+
     //
     // constructors
     //
@@ -81,7 +81,7 @@ public class ResultList implements List, Closeable {
      * You are required to take care of closing the {@link ResultSet} (unless
      * finalisation during garbage collection is early enough) and maybe other
      * entities it depends upon, too.
-     * 
+     *
      * @param resultSet the {@link ResultSet} to wrap
      */
 	public ResultList(ResultSet resultSet) throws SQLException {
@@ -94,7 +94,7 @@ public class ResultList implements List, Closeable {
      * You are required to take care of closing the {@link ResultSet} (unless
      * finalisation during garbage collection is early enough) and maybe other
      * entities it depends upon, too, using the {@link Runnable} parameter.
-     * 
+     *
      * @param runFinally the {@link Runnable} to run during finalisation
      * @param resultSet the {@link ResultSet} to wrap
      */
@@ -108,7 +108,7 @@ public class ResultList implements List, Closeable {
      * You are required to take care of closing the {@link ResultSet} (unless
      * finalisation during garbage collection is early enough) and maybe other
      * entities it depends upon, too.
-     * 
+     *
      * @param resultSet the {@link ResultSet} to wrap
      * @param resultObject the {@link Object} representing the current result set row
      */
@@ -121,7 +121,7 @@ public class ResultList implements List, Closeable {
      * You are required to take care of closing the {@link ResultSet} (unless
      * finalisation during garbage collection is early enough) and maybe other
      * entities it depends upon, too, using the {@link Runnable} parameter.
-     * 
+     *
      * @param runFinally the {@link Runnable} to run during finalisation
      * @param resultSet the {@link ResultSet} to wrap
      * @param resultObject the {@link Object} representing the current result set row
@@ -132,7 +132,7 @@ public class ResultList implements List, Closeable {
         this.object = resultObject;
         this.iterator = new ResultIt();
     }
-    
+
     //
     // public methods
     //
@@ -162,8 +162,8 @@ public class ResultList implements List, Closeable {
      * of the cursor of the wrapped {@link ResultSet}:<br>
      * <code>resultSet.last(); return resultSet.getRow()</code><br>
      * This most probably invalidates the object returned by {@link #get(int)}
-     * and any {@link Iterator} returned by {@link #iterator()}. 
-     * 
+     * and any {@link Iterator} returned by {@link #iterator()}.
+     *
      * @return the number of elements in this {@link List}
      * @see #iterator()
      * @see List#size()
@@ -248,7 +248,7 @@ public class ResultList implements List, Closeable {
      * Removes the element at the specified position in this list (optional
      * operation).<br>
      * Not supported by {@link ResultList}.
-     * 
+     *
      * @throws UnsupportedOperationException as the <tt>remove</tt> method is
      *        not supported by this list.
      */
@@ -296,7 +296,7 @@ public class ResultList implements List, Closeable {
      * Ensures that this collection contains the specified element (optional
      * operation).<br>
      * Not supported by {@link ResultList}.
-     * 
+     *
      * @throws UnsupportedOperationException <tt>add</tt> is not supported by
      *         this collection.
      */
@@ -319,7 +319,7 @@ public class ResultList implements List, Closeable {
      * Removes a single instance of the specified element from this
      * collection, if it is present (optional operation).<br>
      * Not supported by {@link ResultList}.
-     * 
+     *
      * @throws UnsupportedOperationException remove is not supported by this
      *         collection.
      */
@@ -331,7 +331,7 @@ public class ResultList implements List, Closeable {
      * Inserts all of the elements in the specified collection into this
      * list at the specified position (optional operation).<br>
      * Not supported by {@link ResultList}.
-     * 
+     *
      * @throws UnsupportedOperationException if the <tt>addAll</tt> method is
      *        not supported by this list.
      */
@@ -343,7 +343,7 @@ public class ResultList implements List, Closeable {
      * Adds all of the elements in the specified collection to this collection
      * (optional operation).<br>
      * Not supported by {@link ResultList}.
-     * 
+     *
      * @throws UnsupportedOperationException as this collection does not
      *         support the <tt>addAll</tt> method.
      */
@@ -364,7 +364,7 @@ public class ResultList implements List, Closeable {
      * Removes all this collection's elements that are also contained in the
      * specified collection (optional operation).<br>
      * Not supported by {@link ResultList}.
-     * 
+     *
      * @throws UnsupportedOperationException as the <tt>removeAll</tt> method
      *         is not supported by this collection.
      * @see #remove(Object)
@@ -378,7 +378,7 @@ public class ResultList implements List, Closeable {
      * Retains only the elements in this collection that are contained in the
      * specified collection (optional operation).<br>
      * Not supported by {@link ResultList}.
-     * 
+     *
      * @throws UnsupportedOperationException as the <tt>retainAll</tt> method
      *         is not supported by this Collection.
      * @see #remove(Object)
@@ -396,7 +396,7 @@ public class ResultList implements List, Closeable {
      * Be careful! This method actually always returns the same object, thus
      * this {@link List} supports only one concurrent {@link Iterator}, the
      * state of any {@link Iterator} formerly returned by this method is the
-     * same as the state of this one.<br> 
+     * same as the state of this one.<br>
      * Additionally it repositions the wrapped {@link ResultSet} and thereby
      * invalidates any object returned by {@link #get(int)} or any object
      * returned by any other {@link Iterator} returned by this method before.<br>
@@ -408,7 +408,7 @@ public class ResultList implements List, Closeable {
      * method itself and any operation of an {@link Iterator} on this
      * {@link ResultList} most probably invalidates the state of this
      * {@link Iterator} and any object returned by it.
-     * 
+     *
      * @return an <tt>Iterator</tt> over the elements in this collection
      */
 	public Iterator iterator() {
@@ -456,7 +456,7 @@ public class ResultList implements List, Closeable {
      * Replaces the element at the specified position in this list with the
      * specified element (optional operation).<br>
      * Not supported by {@link ResultList}.
-     * 
+     *
      * @throws UnsupportedOperationException if the <tt>set</tt> method is not
      *        supported by this list.
      */
@@ -465,10 +465,10 @@ public class ResultList implements List, Closeable {
 	}
 
     /**
-     * Returns an array containing all of the elements in this collection; 
-     * the runtime type of the returned array is that of the specified array.  
-     * If the collection fits in the specified array, it is returned therein.  
-     * Otherwise, a new array is allocated with the runtime type of the 
+     * Returns an array containing all of the elements in this collection;
+     * the runtime type of the returned array is that of the specified array.
+     * If the collection fits in the specified array, it is returned therein.
+     * Otherwise, a new array is allocated with the runtime type of the
      * specified array and the size of this collection.<br>
      * TODO: implement properly
      */
@@ -506,7 +506,7 @@ public class ResultList implements List, Closeable {
     //
     // interface {@link Closeable}
     //
-    /** 
+    /**
      * This may be called to release the underlying ressources.
      * The finalisation {@link Runnable} is called here if it was not called before.
      */
@@ -558,7 +558,7 @@ public class ResultList implements List, Closeable {
 				return false;
 			}
 		}
-		
+
         /**
          * Returns the next element in the iteration.<br>
          * Beware! This method always returns the same object as long as it
@@ -578,7 +578,7 @@ public class ResultList implements List, Closeable {
 				throw new NoSuchElementException();
 			}
 		}
-		
+
         /**
          * Removes from the underlying collection the last element returned by the
          * iterator (optional operation).<br>

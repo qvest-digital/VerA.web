@@ -23,7 +23,6 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 package de.tarent.dblayer.persistence;
 
 import java.sql.SQLException;
@@ -41,17 +40,17 @@ public class PersonDAO extends AbstractDAO {
 
     PersonDBMapping mapping = new PersonDBMapping(DB.getDefaultContext(SchemaCreator.TEST_POOL));
     PersonEntityFactory entityFactory = new PersonEntityFactory();
-    
+
     public PersonDAO() {
         super();
         setDbMapping(mapping);
         setEntityFactory(entityFactory);
     }
-    
+
     public void setEntityKeys(InsertKeys keys, Object entity) {
         ((Person)entity).setId(keys.getPk());
     }
-        
+
     public Person getPersonByID(DBContext dbc, Integer id) throws SQLException {
         return (Person)getEntityByIdFilter(dbc, mapping.STMT_SELECT_ONE, "id", id);
     }

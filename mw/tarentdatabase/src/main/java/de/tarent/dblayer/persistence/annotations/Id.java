@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /** Annotation for marking the primary key
- * 
+ *
  * @author Martin Pelzer, tarent GmbH
  *
  */

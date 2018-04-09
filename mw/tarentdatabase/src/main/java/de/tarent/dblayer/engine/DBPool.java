@@ -25,7 +25,6 @@
 
 package de.tarent.dblayer.engine;
 
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -49,7 +48,7 @@ import de.tarent.dblayer.resource.Resources;
 
 /**
  * This Pool is a Frontend for the Apache dbcp-Pooling Framework.
- * It is configurable over a map with parameters. Valid parameters 
+ * It is configurable over a map with parameters. Valid parameters
  * are described by the constants in this class.
  *
  * @author Christoph Jerolimov, Tarent GmbH
@@ -64,14 +63,14 @@ public class DBPool implements Pool {
 
     boolean useOldJDBC2Connection = false;
     boolean useJNDI = false;
-    String jdbc2ConnectionString = null;    
-    
+    String jdbc2ConnectionString = null;
+
     /**
      * Creates a new Pool.
-     * The Pool uses the supplied Propertie Set to choose a DataSource an a Driver. 
-     * Every Property of the DataSource is configured by the value in the propertyset, 
+     * The Pool uses the supplied Propertie Set to choose a DataSource an a Driver.
+     * Every Property of the DataSource is configured by the value in the propertyset,
      * if a matching key exists.
-     * 
+     *
      * @param info Property set with <code>dataSourceClass</code> and one entry for each property of the DataSource
      * @throws RuntimeException if an error occures
      */
@@ -83,49 +82,49 @@ public class DBPool implements Pool {
 	 * @see de.tarent.dblayer.engine.Pool#getTargetDB()
 	 */
     public String getTargetDB() {
-        return getProperty(TARGET_DB);
+	return getProperty(TARGET_DB);
     }
 
 	/* (non-Javadoc)
 	 * @see de.tarent.dblayer.engine.Pool#init()
 	 */
 	public void init() {
-		try {            
+		try {
 
-            // use JDBC2
-            if (null != getProperty(USE_OLD_JDBC2) && (new Boolean(getProperty(USE_OLD_JDBC2))).booleanValue()) {
-                useOldJDBC2Connection = true;
-                Class.forName(getProperty(JDBC2_DRIVER_CLASS));
-                jdbc2ConnectionString = getProperty(JDBC2_CONNECTION_STRING);
-                if(jdbc2ConnectionString == null || jdbc2ConnectionString.trim().equals(""))
-                	jdbc2ConnectionString = getProperty(JDBC2_CONNECITON_STRING);
-            }
-            else if(null != getProperty(USE_JNDI) && (new Boolean(getProperty(USE_JNDI).trim())).booleanValue()){
-                // configure the JNDI DataSource 
-            	useJNDI = true;
-                InitialContext ctx = new InitialContext();
-                dataSource = (DataSource)ctx.lookup(getProperty(JNDI_NAME));
-                ctx.close();
-            } 
-            else {
-                
-                // configure the JDBC 3 DataSource
-                Class clazz = Class.forName(getProperty(DATASOURCE_CLASS));			
-                DataSource innerDataSource = (DataSource)clazz.newInstance();
-                setDataSourceParameter(innerDataSource, clazz.getMethods());
-            	
-                // create and configure the GenericPool
-                connectionPool = new GenericObjectPool(null);
-                configurePool(connectionPool, info);
-            
-                // set up the connection pool, autocommit = true by default
-                ConnectionFactory connectionFactory = new DataSourceConnectionFactory(innerDataSource);
-                new PoolableConnectionFactory(connectionFactory, connectionPool, null, null, false, true);
-            
-                dataSource = new PoolingDataSource(connectionPool);
+	    // use JDBC2
+	    if (null != getProperty(USE_OLD_JDBC2) && (new Boolean(getProperty(USE_OLD_JDBC2))).booleanValue()) {
+		useOldJDBC2Connection = true;
+		Class.forName(getProperty(JDBC2_DRIVER_CLASS));
+		jdbc2ConnectionString = getProperty(JDBC2_CONNECTION_STRING);
+		if(jdbc2ConnectionString == null || jdbc2ConnectionString.trim().equals(""))
+			jdbc2ConnectionString = getProperty(JDBC2_CONNECITON_STRING);
+	    }
+	    else if(null != getProperty(USE_JNDI) && (new Boolean(getProperty(USE_JNDI).trim())).booleanValue()){
+		// configure the JNDI DataSource
+		useJNDI = true;
+		InitialContext ctx = new InitialContext();
+		dataSource = (DataSource)ctx.lookup(getProperty(JNDI_NAME));
+		ctx.close();
+	    }
+	    else {
+
+		// configure the JDBC 3 DataSource
+		Class clazz = Class.forName(getProperty(DATASOURCE_CLASS));
+		DataSource innerDataSource = (DataSource)clazz.newInstance();
+		setDataSourceParameter(innerDataSource, clazz.getMethods());
+
+		// create and configure the GenericPool
+		connectionPool = new GenericObjectPool(null);
+		configurePool(connectionPool, info);
+
+		// set up the connection pool, autocommit = true by default
+		ConnectionFactory connectionFactory = new DataSourceConnectionFactory(innerDataSource);
+		new PoolableConnectionFactory(connectionFactory, connectionPool, null, null, false, true);
+
+		dataSource = new PoolingDataSource(connectionPool);
 //                ((PoolingDataSource)dataSource).setAccessToUnderlyingConnectionAllowed(true);
-            }                
-        } catch (Exception e) {
+	    }
+	} catch (Exception e) {
 			logger.error(Resources.getInstance().get("ERROR_INIT_POOL"), e);
 			throw new RuntimeException(Resources.getInstance().get("ERROR_INIT_POOL"), e);
 		}
@@ -138,9 +137,9 @@ public class DBPool implements Pool {
 		try {
 			//closing an not-initialized pool shuldn't log an exception
 			if (connectionPool != null)
-                connectionPool.close();
+		connectionPool.close();
 		} catch (Exception e) {
-			logger.warn(Resources.getInstance().get("ERROR_CLOSE_POOL"), e);            
+			logger.warn(Resources.getInstance().get("ERROR_CLOSE_POOL"), e);
 		}
 	}
 
@@ -196,43 +195,43 @@ public class DBPool implements Pool {
 	}
 
     protected void configurePool(GenericObjectPool pool, Map properties) {
-        pool.setWhenExhaustedAction(GenericObjectPool.WHEN_EXHAUSTED_BLOCK);
+	pool.setWhenExhaustedAction(GenericObjectPool.WHEN_EXHAUSTED_BLOCK);
 
-        pool.setMaxActive(getIntOrDefault(properties, POOL_MAX_ACTIVE, 40));
-        pool.setMaxWait(getIntOrDefault(properties, POOL_MAX_WAIT, 4000));
-        pool.setTimeBetweenEvictionRunsMillis(getIntOrDefault(properties, POOL_TIME_BETWEEN_EVICTION_RUNS, 10000));
-        pool.setMinEvictableIdleTimeMillis(getIntOrDefault(properties, POOL_MIN_EVICTABLE_IDLE_TIME, 30000));
-        pool.setMinIdle(getIntOrDefault(properties, POOL_MIN_IDLE, 2));
-        pool.setMaxIdle(getIntOrDefault(properties, POOL_MAX_IDLE, 10));
+	pool.setMaxActive(getIntOrDefault(properties, POOL_MAX_ACTIVE, 40));
+	pool.setMaxWait(getIntOrDefault(properties, POOL_MAX_WAIT, 4000));
+	pool.setTimeBetweenEvictionRunsMillis(getIntOrDefault(properties, POOL_TIME_BETWEEN_EVICTION_RUNS, 10000));
+	pool.setMinEvictableIdleTimeMillis(getIntOrDefault(properties, POOL_MIN_EVICTABLE_IDLE_TIME, 30000));
+	pool.setMinIdle(getIntOrDefault(properties, POOL_MIN_IDLE, 2));
+	pool.setMaxIdle(getIntOrDefault(properties, POOL_MAX_IDLE, 10));
 
-        if (logger.isDebugEnabled()) {
-            logger.debug("pool property maxActive: "+pool.getMaxActive());
-            logger.debug("pool property maxWait: "+pool.getMaxWait());
-            logger.debug("pool property timeBetweenEvictionRunsMillis: "+pool.getTimeBetweenEvictionRunsMillis());
-            logger.debug("pool property minEvictableIdleTimeMillis: "+pool.getMinEvictableIdleTimeMillis());
-            logger.debug("pool property minIdle: "+pool.getMinIdle());
-            logger.debug("pool property maxIdle: "+pool.getMaxIdle());
-        }
+	if (logger.isDebugEnabled()) {
+	    logger.debug("pool property maxActive: "+pool.getMaxActive());
+	    logger.debug("pool property maxWait: "+pool.getMaxWait());
+	    logger.debug("pool property timeBetweenEvictionRunsMillis: "+pool.getTimeBetweenEvictionRunsMillis());
+	    logger.debug("pool property minEvictableIdleTimeMillis: "+pool.getMinEvictableIdleTimeMillis());
+	    logger.debug("pool property minIdle: "+pool.getMinIdle());
+	    logger.debug("pool property maxIdle: "+pool.getMaxIdle());
+	}
     }
 
     /**
      * Returns the int representation of the value for the key in the map, or the default value, this entry is not in the map
      */
     int getIntOrDefault(Map map, Object key, int defaultValue) {
-        Object value = map.get(key);
-        if (value != null)
-            return Integer.parseInt(value.toString());        
-        return defaultValue;
+	Object value = map.get(key);
+	if (value != null)
+	    return Integer.parseInt(value.toString());
+	return defaultValue;
     }
 
     /**
      * @return the value for the key in this pools property set.
      */
     public String getProperty(String key) {
-        Object v = info.get(key);
-        return (v == null) ? null : v.toString();
+	Object v = info.get(key);
+	return (v == null) ? null : v.toString();
     }
-    
+
     /**
      * Finds all setter with an associates property int the property set.
      */
@@ -255,10 +254,10 @@ public class DBPool implements Pool {
      * Sets one Property of the DataSource
      */
 	private void setDataSourceParameter(DataSource dataSource, Method setter, String value) {
-        if (logger.isDebugEnabled())
-            logger.debug("setting DataSource parameter: "+ setter +" to value: "+ value);
+	if (logger.isDebugEnabled())
+	    logger.debug("setting DataSource parameter: "+ setter +" to value: "+ value);
 		try {
-			Class types[] = setter.getParameterTypes();			
+			Class types[] = setter.getParameterTypes();
 			if (types.length == 1 && types[0].equals(String.class)) {
 				setter.invoke(dataSource, new Object[] { value });
 			} else if (types.length == 1 && types[0].equals(Integer.TYPE)) {

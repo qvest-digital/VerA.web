@@ -39,7 +39,7 @@ public class SyntaxErrorException extends SQLException {
 	public SyntaxErrorException(String msg) {
 		super(msg);
 	}
-    
+
     /** serialization UID */
     private static final long serialVersionUID = 3257848787924955441L;
 }

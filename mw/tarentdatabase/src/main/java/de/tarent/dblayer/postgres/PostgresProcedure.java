@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.dblayer.postgres;
 
@@ -34,8 +34,6 @@ import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.statement.Procedure;
-
-
 
 /**
  * @author kirchner
@@ -63,14 +61,13 @@ public class PostgresProcedure extends Procedure {
 			if(!first){
 				sb.append(", ");
 			}
-			else 
+			else
 				first = false;
-			
+
 			sb.append(SQL.format(getDBContext(), it.next()));
 		}
 		sb.append(")");
 		return sb.toString();
 	}
-
 
 }

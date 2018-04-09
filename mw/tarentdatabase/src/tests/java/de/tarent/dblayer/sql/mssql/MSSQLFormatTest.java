@@ -24,7 +24,7 @@
 // */
 //
 ///**
-// * 
+// *
 // */
 //package de.tarent.dblayer.sql.mssql;
 //
@@ -49,7 +49,7 @@
 //	static public final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 //	/**
 //	 * @param arg0
-//	 * @throws SQLException 
+//	 * @throws SQLException
 //	 */
 //	public MSSQLFormatTest(String arg0) throws SQLException {
 //		super(arg0);
@@ -70,7 +70,7 @@
 //	protected void tearDown() throws Exception {
 //		super.tearDown();
 //	}
-//	
+//
 //	public void testDate(){
 //        // only execute if pool is on MS SQL
 //        if (SQL.isMSSQL(dbx)) {
