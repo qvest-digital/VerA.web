@@ -1,23 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.tarent.octopus</groupId>
+	<groupId>org.evolvis.veraweb.middleware</groupId>
 	<artifactId>octopus-rpctunnel</artifactId>
+	<version>1.8.58-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>octopus-rpctunnel</name>
-	<version>0.2</version>
-	<developers>
-		<developer>
-			<id>jneuma</id>
-			<name>Jens Neumaier</name>
-			<email>j.neumaier@tarent.de</email>
-			<organization>tarent GmbH</organization>
-			<organizationUrl>http://www.tarent.de/</organizationUrl>
-			<roles>
-				<role>Core Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
+	<name>OCTOPUS rpctunnel</name>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
