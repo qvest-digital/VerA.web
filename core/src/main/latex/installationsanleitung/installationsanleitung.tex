@@ -1504,10 +1504,10 @@ Für die Online-Anmeldung relevant enthalten die \texttt{subject}‑
 und \texttt{content}-Parameter enthalten den Nachrichtenbetreff und
 -inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
 sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
-
-%TODO: Umlautkodierung
-
-%TODO: imprint nach hier schieben
+Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen nach Unicode kodiert
+werden (z.B. wird \texttt{ä} zu \texttt{\textbackslash{}u00E4}).
+Auch das Impressum der Online-Anmeldung können Sie hier setzen,
+vgl. Kapitel \ref{sec:imprint-oa}.
 
 %XXX nicht so viel in eine minipage
 
@@ -2568,7 +2568,6 @@ die Hauptperson zu sehen sein\Hair\footnote{falls das Bild nicht
 zu sehen ist funktioniert die \texttt{vwor.war} (REST-API) nicht
 korrekt\Hair\textsuperscript{\ref{fn:tomcatlogs}}}.
 
-\ifoa
 \subsection{Online-Anmeldung mit Delegationsanmeldung}
 
 Wählen Sie oben \inlinekasten{Personen} / \inlinekasten{Neue Person}
@@ -2645,9 +2644,6 @@ und dem Testflohmarkt \inlinekasten{Verbindlich zusagen}.
 Zurück in VerA.web-core gehen Sie \inlinekasten{Zur Gästeverwaltung}
 und finden den gerade angelegten Benutzer in der Gästeliste.
 
-\fi% oa
-
-\ifoa
 \section{Konfiguration der Online-Anmeldung}\label{sec:conf-oa}
 
 Das Verhalten der Online-Anmeldung lässt sich nach der Installation
@@ -2663,30 +2659,8 @@ gesetzt werden.
 
 \subsubsection{Deaktivierung der Online-Anmeldung für die ganze Installation}
 
-\begin{minipage}{\linewidth}
-Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_vwoa.xml},
-indem Sie die folgenden zwei Parameter hinzufügen oder ggfs. anpassen.
-
-\begin{lstdump}[language=XML]{OA komplett}
-<?xml version="1.0" encoding="utf-8"?>
-<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
-
-<!--
-	OCTOPUS config_vwoa.xml
-
-	disable Online-Anmeldung by default in core
-	blacklist for single mandants by default empty
--->
-<tcModuleConfig>
-	<params>
-		<!-- wird die Online-Anmeldung auch ausgeführt -->
-		<param name="online-registration.activated" value="false"/>
-		<param name="mandanten-online-registration.deactivated" value=""/>
-	</params>
-</tcModuleConfig>
-\end{lstdump}
-\end{minipage}
-
+Setzen Sie in der Datei \texttt{/etc/veraweb/config\_vwoa.xml} den
+Parameter \texttt{online-registration.activated} auf \texttt{false}.
 Nach der Deaktivierung verhält sich die VerA.web-Installation wie eine
 Installation ohne Online-Anmeldung.
 
@@ -2699,31 +2673,32 @@ Weboberfläche unter dem Menüpunkt \inlinekasten{Administration} /
 \inlinekasten{Mandanten}.
 
 \begin{minipage}{\linewidth}
-Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_vwoa.xml}
-indem Sie die folgenden zwei Parameter hinzufügen oder ggfs. anpassen.
-
-Tragen Sie jedoch anstelle von "MANDANTEN" die einzelnen IDs der zu
+Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_vwoa.xml},
+indem Sie die folgenden zwei Parameter anpassen.
+Tragen Sie jedoch anstelle von „MANDANTEN“ die einzelnen IDs der zu
 deaktivierenden Mandanten, als kommagetrennte Liste, ein.
 
-\begin{lstdump}[language=XML]{OA einzelnd}
+\begin{lstdump}[language=XML,tabsize=2]{OA einzelnd}
 <?xml version="1.0" encoding="utf-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
 
 <!--
 	OCTOPUS config_vwoa.xml
 
-	enable Online-Anmeldung
+	disable Online-Anmeldung by default in core
+	blacklist for single mandants by default empty
 -->
 <tcModuleConfig>
 	<params>
 		<!-- wird die Online-Anmeldung auch ausgeführt -->
-		<param name="online-registration.activated" value="true"/>
-		<param name="mandanten-online-registration.deactivated" value=""/>
+		<param name="online-registration.activated" value="〈\color{blue}\lstdumpesc{true}〉"/>
+		<param name="mandanten-online-registration.deactivated" value="〈\color{blue}\lstdumpesc{MANDANTEN}〉"/>
 	</params>
 </tcModuleConfig>
 \end{lstdump}
 
-Mögliche Beispielskonfigurationen:
+Mögliche Beispielskonfigurationen (nur \emph{eine} Zeile):
+
 \begin{lstdump}[language=XML]{OA Beispiel}
         <param name="mandanten-online-registration.deactivated" value=""/>
         <param name="mandanten-online-registration.deactivated" value="3"/>
@@ -2739,21 +2714,22 @@ zur Online-Anmeldung nicht mehr angezeigt.
 \subsection{Setzen des Impressums der Online-Anmeldung}\label{sec:imprint-oa}
 
 Um ein benutzerdefiniertes Impressum für die Online-Anmeldung zu hinterlegen,
-muss die Datei \texttt{/etc/veraweb/vwor.properties} erweitert werden.
+muß die Datei \texttt{/etc/veraweb/vwor.properties} erweitert werden.
 
-Mit den Einträgen imprint.<language\_key>.heading.<sorting\_number>=<heading>
-und imprint.<language\_key>.content.<sorting\_number>=<content>
+Mit den Einträgen \texttt{imprint.}<language\_key>\texttt{.heading.}<sorting\_number>\texttt{=}<heading>
+und \texttt{imprint.}<language\_key>\texttt{.content.}<sorting\_number>\texttt{=}<content>
 lassen sich einzelne Abschnitte zum Impressum hinzufügen.
 
 Um das Impressum mehrsprachig zur Verfügung zu stellen, sollte ein Eintrag je
-einmal für den Sprachschlüssel (<language\_key>) „de\_DE“ und „en\_EN“ existieren.
+einmal für den Sprachschlüssel (<language\_key>) „\texttt{de\_DE}“ (deutsch)
+und „\texttt{en\_EN}“ (englisch) existieren.
 
 Durch das Nummerieren der Abschnitte kann die vorgesehene Reihenfolge erzeugt werden.
-Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen auch dementsprechend nach Unicode kodiert
-werden (\texttt{ä} wird zu \texttt{\textbackslash{}u00E4}).
+Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen wie im Beispiel nach Unicode kodiert
+werden (z.B. wird \texttt{ä} zu \texttt{\textbackslash{}u00E4}).
 
 Um nur einen Textblock ohne Überschrift zu generieren kann nur der Eintrag
-für die Inhalt angegeben werden (imprint.<language\_key>.content.<sorting\_number>=<content>)
+für die Inhalt angegeben werden (\texttt{imprint.}<language\_key>\texttt{.content.}<sorting\_number>\texttt{=}<content>)
 
 Sollte es mehrere Einträge ohne Sortiernummer oder mit doppelter Nummer geben,
 ist keine spezielle Reihenfolge gewährleistet. Auch sollten die Nummern mit
@@ -2771,9 +2747,6 @@ imprint.en_EN.content.00=Just text without headline.
 \end{lstdump}
 \end{minipage}
 
-\fi% oa
-
-\iffalse% nach der Auslieferung zu diskutieren
 \section{Anpassung der Sprachdateien}\label{sec:l10n}
 
 Seit Version 1.8.27 ist das Anpassen der Sprachdateien vereinfacht.
@@ -2781,26 +2754,28 @@ Die Standardübersetzungen sind jetzt fest in der \texttt{war}-Datei
 des Cores enthalten. Individuelle Anpassungen können in
 externen Dateien vorgenommen werden.
 
-Dazu schaut man sich die original Übersetzungsdateien im Verzeichnis
+Dazu betrachten Sie die ausgelieferten Übersetzungsdateien im Verzeichnis
 \texttt{l10n} des \texttt{veraweb-core-\vwiaverssw{}-files.tgz}-Archives
 an. Die Datei mit den englischen Texten heißt beispielsweise
-\texttt{en\_EN.resource}. Darin sucht man sich den Text, den man
-anpassen will, z.B. \texttt{MENU\_PERSONS=people}. Der Teil vor dem
+\texttt{en\_EN.resource}. Darin suchen Sie den anzupassenden Text,
+z.B. \texttt{MENU\_PERSONS=people}. Der Teil vor dem Gleichheitszeichen
 \texttt{=} entspricht dabei dem Schlüssel, über den die Software den
-Text sucht und der hintere Teil ist der ensprechende Text. Es darf
-immer nur ein Text pro Zeile stehen.
+Text sucht und der hintere Teil ist der ensprechende anzuzeigende Text,
+jeweils auf immer nur einer Zeile.
 
-Nun legt man eine Datei \texttt{en\_EN.resource} im Verzeichnis
-\texttt{/etc/veraweb/l10n} an und fügt die eigene Anpassung dort ein.
-Passend zu unserem Beispiel könnte der Inhalt der Datei so aussehen:
+Die geänderten Übersetzungstexte schreiben Sie in eine Datei mit demselben
+Namen (also z.B. wieder \texttt{en\_EN.resource}) unterhalb des Verzeichnisses
+\texttt{/etc/veraweb/l10n/}. Passend zu obigem Beispiel könnte der Inhalt der
+Datei so aussehen:\keinumbruch
 
+\begin{minipage}{\linewidth}
 \begin{lstdumpx}
 MENU_PERSONS=People
 \end{lstdumpx}
+\end{minipage}
 
-Tiefgreifendere Änderungen können über den Service- und Wartungsvertrag
-erledigt werden.
-\fi
+Tiefgreifendere Änderungen können über einen Service- und Wartungsvertrag
+durchgeführt werden.
 
 \section{Weitere Fragen}\label{sec:outro}
 
