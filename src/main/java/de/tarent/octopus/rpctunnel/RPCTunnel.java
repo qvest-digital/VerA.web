@@ -20,7 +20,7 @@
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-octopus'
  * (which makes passes at compilers) written
- * by Hendrik Helwich. 
+ * by Hendrik Helwich.
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
  */
@@ -33,12 +33,12 @@ import java.util.logging.Logger;
 public class RPCTunnel
 {
 	private static Map listeners;
-    private static Logger logger = Logger.getLogger(RPCTunnel.class.getName());
-    
-    // Registering default OctopusCallbackListener
-    static {
-    	//RPCTunnel.registerListener(new OctopusCallbackListener(), DefaultRoles.ROLE_ACTIVEBPEL);
-    }
+	private static Logger logger = Logger.getLogger(RPCTunnel.class.getName());
+
+	// Registering default OctopusCallbackListener
+	static {
+		//RPCTunnel.registerListener(new OctopusCallbackListener(), DefaultRoles.ROLE_ACTIVEBPEL);
+	}
 
 	public static boolean registerListener(RPCListener listener, String role)
 	{
@@ -60,18 +60,18 @@ public class RPCTunnel
 			return b;
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * This method must have the same signature as the method
 	 * <code>execute</code> in interface <code>RPCListener</code>.
-	 * 
+	 *
 	 * @param myRole
 	 * @param partnerRole
 	 * @param module
 	 * @param task
 	 * @param parameters
-	 * @return 
+	 * @return
 	 *     <code>null</code> if the addressee given by <code>partnerRole</code> is unknown.
 	 */
 	public static Map execute(String myRole, String partnerRole, String module, String task, Map parameters)

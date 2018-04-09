@@ -20,7 +20,7 @@
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-octopus'
  * (which makes passes at compilers) written
- * by Hendrik Helwich. 
+ * by Hendrik Helwich.
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
  */

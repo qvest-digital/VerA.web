@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  
 <document>
-  <properties>
-    <title>Changes</title>
-  </properties>
-  <body>
-    <release version="1.0.0" date="2005-10-24">
-      <action dev="kleinhenz" type="add">
-	      Initial release of the maven skeleton project.
-      </action>
-    </release>
-  </body>
+	<properties>
+		<title>Changes</title>
+	</properties>
+	<body>
+		<release version="1.0.0" date="2005-10-24">
+			<action dev="kleinhenz" type="add">Initial release of the maven skeleton project.</action>
+		</release>
+	</body>
 </document>
