@@ -891,6 +891,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.veraweb.middleware</groupId>
+				<artifactId>octopus-rpctunnel</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.evolvis.veraweb.middleware</groupId>
 				<artifactId>octopus-servlet</artifactId>
 				<version>${project.version}</version>
 				<exclusions>
@@ -989,6 +994,11 @@
 						<artifactId>commons-logging</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.evolvis.veraweb.middleware</groupId>
+				<artifactId>tarent-database</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.tomakehurst</groupId>

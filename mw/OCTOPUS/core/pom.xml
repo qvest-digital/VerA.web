@@ -1,8 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.evolvis.veraweb.middleware</groupId>
+	<parent>
+		<groupId>org.evolvis.veraweb.middleware</groupId>
+		<artifactId>octopus-parent</artifactId>
+		<version>1.8.58-SNAPSHOT</version>
+	</parent>
 	<artifactId>octopus-core</artifactId>
-	<version>1.8.58-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OCTOPUS core</name>
 	<description>tarent OCTOPUS application framework, base library</description>
@@ -20,13 +23,11 @@
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-rpctunnel</artifactId>
-			<version>1.8.58-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

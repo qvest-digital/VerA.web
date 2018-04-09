@@ -5,7 +5,8 @@
 		<artifactId>middleware</artifactId>
 		<version>1.8.58-SNAPSHOT</version>
 	</parent>
-	<artifactId>octopus</artifactId>
+	<groupId>org.evolvis.veraweb.middleware</groupId>
+	<artifactId>octopus-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>VerA.web embedded OCTOPUS</name>
 	<modules>
