@@ -92,16 +92,4 @@
 			<version>1.2.2</version>
 		</dependency>
 	</dependencies>
-	<distributionManagement>
-		<repository>
-			<id>evolvis-release-repository</id>
-			<name>evolvis.org release repository</name>
-			<url>sftp://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>evolvis-snapshot-repository</id>
-			<name>evolvis.org snapshot repository</name>
-			<url>sftp://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>
