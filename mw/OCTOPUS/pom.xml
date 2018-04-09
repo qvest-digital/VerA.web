@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.evolvis.veraweb</groupId>
+		<artifactId>middleware</artifactId>
+		<version>1.8.58-SNAPSHOT</version>
+	</parent>
+	<artifactId>octopus</artifactId>
+	<packaging>pom</packaging>
+	<name>VerA.web embedded OCTOPUS</name>
+	<modules>
+		<module>core</module>
+		<module>ext-annotation</module>
+		<module>ext-beans</module>
+		<module>ext-commons</module>
+		<module>ext-cronjobs</module>
+		<module>ext-jmx</module>
+		<module>servlet</module>
+	</modules>
+</project>

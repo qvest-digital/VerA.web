@@ -4,51 +4,11 @@
 	<artifactId>octopus-ext-beans</artifactId>
 	<version>1.8.58-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>tarent-octopus bean extension</name>
-	<description>
-		an opensource webservice and webapplication framework (bean extension)
-	</description>
-	<licenses>
-		<license>
-			<name>MIT</name>
-			<url>http://opensource.org/licenses/MIT</url>
-		</license>
-	</licenses>
-	<url>http://octopus.evolvis.org/</url>
-	<inceptionYear>2006</inceptionYear>
-	<organization>
-		<name>tarent GmbH, Germany</name>
-		<url>http://www.tarent.de/</url>
-	</organization>
+	<name>OCTOPUS bean extension</name>
+	<description>an opensource webservice and webapplication framework (bean extension)</description>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.5</java.version>
 	</properties>
-	<scm>
-		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/octopus-veraweb.git</developerConnection>
-	</scm>
-	<repositories>
-		<repository>
-			<id>evolvis-release-repository</id>
-			<name>evolvis.org release repository</name>
-			<url>http://maven-repo.evolvis.org/releases</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>evolvis-snapshot-repository</id>
-			<name>evolvis.org snapshot repository</name>
-			<url>http://maven-repo.evolvis.org/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<mailingLists>
-		<mailingList>
-			<name>octopus-commits@evolvis.org</name>
-		</mailingList>
-	</mailingLists>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
