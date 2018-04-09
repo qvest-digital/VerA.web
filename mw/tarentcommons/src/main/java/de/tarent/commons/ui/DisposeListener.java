@@ -33,7 +33,7 @@ import java.awt.event.MouseListener;
 
 public class DisposeListener implements MouseListener {
 	protected Component component;
-	
+
 	public DisposeListener(Component component) {
 		this.component = component;
 	}
@@ -79,7 +79,7 @@ public class DisposeListener implements MouseListener {
 	}
 
 	/**
-	 * Dispose the given component. 
+	 * Dispose the given component.
 	 */
 	protected void dispose() {
 		Container container = component.getParent();

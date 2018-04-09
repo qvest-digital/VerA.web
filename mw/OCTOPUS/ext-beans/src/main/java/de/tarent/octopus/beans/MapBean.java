@@ -45,7 +45,7 @@ import java.util.logging.Logger;
 /**
  * Abstraktes Bean, das Map implementiert, damit in Velocity
  * Membervariablen direkt angesprochen werden können.
- * 
+ *
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
@@ -62,7 +62,7 @@ public class MapBean extends AbstractMap implements Bean {
     //
     /**
      * Dieser Konstruktor sammelt die nicht-statischen und nicht-finalen Felder
-     * und die Methoden, die über Reflection bekannt sind, ein und legt sie lokal 
+     * und die Methoden, die über Reflection bekannt sind, ein und legt sie lokal
      * in Membervariablen ab.
      */
 	public MapBean() {
@@ -74,7 +74,7 @@ public class MapBean extends AbstractMap implements Bean {
     //
     /**
      * Fügt eine Nachricht der Bean-Fehlerliste hinzu.
-     * 
+     *
      * @param message neue Nachricht
      */
 	public void addError(String message) {
@@ -83,7 +83,7 @@ public class MapBean extends AbstractMap implements Bean {
 
     /**
      * Gibt eine nur-lese Liste mit Fehlermeldungen (Strings) zurück.
-     * 
+     *
      * @return Fehlerliste
      */
 	public List getErrors() {
@@ -93,7 +93,7 @@ public class MapBean extends AbstractMap implements Bean {
     /**
      * Gibt <code>true</code> zurück, wenn keine Fehler beim Erzeugen der Bean
      * aufgetreten sind, anderfalls <code>false</code>.
-     * 
+     *
      * @return <code>true</code>, wenn die Bean fehlerfrei ist.
      */
 	public boolean isCorrect() {
@@ -103,7 +103,7 @@ public class MapBean extends AbstractMap implements Bean {
     /**
      * Gibt <code>true</code> zurück, wenn das erzeugte der Bean
      * geändert wurde, anderfalls <code>false</code>.
-     * 
+     *
      * @return <code>true</code>, wenn die Bean unmodifiziert ist.
      */
 	public boolean isModified(){
@@ -112,7 +112,7 @@ public class MapBean extends AbstractMap implements Bean {
 
     /**
      * Setzt das Modified-Flag.
-     * 
+     *
      * @param modified neues Modified-Flag
      */
 	public void setModified(boolean modified){
@@ -123,15 +123,15 @@ public class MapBean extends AbstractMap implements Bean {
      * Überprüft das Bean auf innere Vollständigkeit.
      * Diese Methode sollte von konkreten Bohnen mit Ansprüchen an
      * Vollständigkeit passend überschrieben werden.
-     * 
+     *
      * @throws BeanException bei Unvollständigkeit
      */
 	public void verify() throws BeanException {
 	}
 
     /**
-     * Gibt eine String-Liste mit den Field-Keys zurück. 
-     * 
+     * Gibt eine String-Liste mit den Field-Keys zurück.
+     *
      * @return String-Liste der Field-Keys
      */
 	public Set getFields() {
@@ -140,7 +140,7 @@ public class MapBean extends AbstractMap implements Bean {
 
     /**
      * Gibt den Inhalt eines Bean-Feldes zurück.
-     * 
+     *
      * @param key Feldschlüssel
      * @return Feldinhalt
      */
@@ -154,7 +154,7 @@ public class MapBean extends AbstractMap implements Bean {
 
     /**
      * Setzt den Inhalt eines Bean-Feldes.
-     * 
+     *
      * @param key Feldschlüssel
      * @param value neuer Feldwert
      */
@@ -162,7 +162,7 @@ public class MapBean extends AbstractMap implements Bean {
 		try {
 			BeanAccessor accessor = getBeanAccessor(this);
 			Method setter = accessor.getSetter(key);
-			
+
 			if (setter == null) {
 				Field field = accessor.getField(key);
 				try {
@@ -189,7 +189,7 @@ public class MapBean extends AbstractMap implements Bean {
 
     /**
      * Gibt die Klasse eines Bean-Feldes zurück.
-     * 
+     *
      * @param key Feldschlüssel
      * @return Klasse des Bean-Fields
      */
@@ -201,8 +201,6 @@ public class MapBean extends AbstractMap implements Bean {
 			return null;
 		}
 	}
-    
-
 
     //
     // Überschreibungen von Object
@@ -241,9 +239,9 @@ public class MapBean extends AbstractMap implements Bean {
 	/**
 	 * Für den direkten Zugriff aus Velocity auf Field-Variablen. Der
      * Aufruf dieser Methode entspricht einem <code>getField(key.toString())</code>.
-	 * 
+	 *
      * @param key Feldschlüssel
-	 * @return Feldwert zu dem angegebenen Feldschlüssel 
+	 * @return Feldwert zu dem angegebenen Feldschlüssel
 	 */
 	public Object get(Object key) {
 		try {
@@ -256,7 +254,7 @@ public class MapBean extends AbstractMap implements Bean {
 	/**
 	 * Für den direkten Zugriff aus Velocity auf Field-Variablen. Der Aufruf dieser
      * Methode entspricht einem <code>setField(key.toString(), value)</code>.
-     * 
+     *
      * @param key Feldschlüssel
      * @param value neuer Feldwert
      * @return alter Feldwert
@@ -275,7 +273,7 @@ public class MapBean extends AbstractMap implements Bean {
 
 	/**
      * Der Aufruf dieser Methode entspricht einem <code>return getFields()</code>.
-     * 
+     *
      * @return eine Sammlung von {@link Map.Entry}-Instanzen
 	 */
 	public Set entrySet() {
@@ -290,7 +288,7 @@ public class MapBean extends AbstractMap implements Bean {
     /**
      * Returns <tt>true</tt> if this map contains a mapping for the specified
      * key. <p>
-     * 
+     *
      * @see java.util.AbstractMap#containsKey(java.lang.Object)
      */
     public boolean containsKey(Object key) {
@@ -301,7 +299,7 @@ public class MapBean extends AbstractMap implements Bean {
     // innere Klassen
     //
     /**
-     * Diese Klasse implementiert {@link Map.Entry} für die {@link MapBean}. 
+     * Diese Klasse implementiert {@link Map.Entry} für die {@link MapBean}.
      */
 	class SimpleEntry implements Map.Entry {
         // Membervariablen
@@ -343,17 +341,17 @@ public class MapBean extends AbstractMap implements Bean {
 	static private class BeanAccessor {
 		Map fields = new HashMap(); // String fieldname -> Field
 		Map methods = new HashMap(); // String fieldname -> Method
-		
+
 		private BeanAccessor(Bean bean) {
 			Field f[] = bean.getClass().getFields();
 			for (int i = 0; i < f.length; i++) {
 	            Field currentField = f[i];
 	            int currentModifier = currentField.getModifiers();
 	            if (!(Modifier.isStatic(currentModifier) || Modifier.isFinal(currentModifier))) {
-	                fields.put(currentField.getName(), currentField);   
+	                fields.put(currentField.getName(), currentField);
 	            }
 			}
-			
+
 			Method m[] = bean.getClass().getMethods();
 			for (int i = 0; i < m.length; i++) {
 				String name = m[i].getName();
@@ -365,15 +363,15 @@ public class MapBean extends AbstractMap implements Bean {
 				}
 			}
 		}
-		
+
 		private Set getFieldNames() {
 			return fields.keySet();
 		}
-		
+
 		private Field getField(String fieldname) {
 			return (Field)fields.get(fieldname);
 		}
-		
+
 		private Method getSetter(String fieldname) {
 			return (Method)methods.get(fieldname);
 		}

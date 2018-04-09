@@ -105,7 +105,6 @@ ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
 SOFTWARE, EVEN IF IBM IS APPRISED OF THE POSSIBILITY OF SUCH
 DAMAGES.  */
 
-
 package de.tarent.commons.utils;
 
 import java.io.ByteArrayOutputStream;
@@ -114,7 +113,7 @@ import java.io.IOException;
 /**
  * Base64 encoding/decoding implementation from GNU Classpath
  * used under GPL + linking exception.
- * 
+ *
  * @author Robert Schuster
  *
  */
@@ -144,7 +143,7 @@ public final class Base64
   {
     return encode(buf, 0);
   }
-  
+
   /**
    * Base64 encode a byte array, returning the returning string.
    *
@@ -159,7 +158,7 @@ public final class Base64
 
   /**
    * Base64 encode a byte array, returning the returning string.
-   * 
+   *
    * @param buf The byte array to encode.
    * @param offset The offset in the byte array to start.
    * @param length The number of bytes to encode.

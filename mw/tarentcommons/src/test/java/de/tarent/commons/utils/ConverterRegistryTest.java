@@ -25,7 +25,6 @@
 
 package de.tarent.commons.utils;
 
-
 import junit.framework.TestCase;
 
 public class ConverterRegistryTest extends TestCase {
@@ -47,7 +46,7 @@ public class ConverterRegistryTest extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-	
+
 	public void testConverterLookup() {
         assertEquals("Right converter", ConverterRegistry.getDefaultRegistry().getConverter(String.class, Boolean.class).getConverterName(), "StringToBoolean");
         assertEquals("Right converter", ConverterRegistry.getDefaultRegistry().getConverter(Boolean.class, String.class).getConverterName(), "BooleanToString");
@@ -69,7 +68,7 @@ public class ConverterRegistryTest extends TestCase {
         assertEquals("Complex conversion with null", null, ConverterRegistry.convert(null, Boolean.class));
 	}
 
-	public void testErrorHandling() 
+	public void testErrorHandling()
         throws Exception {
         try {
             ConverterRegistry.convert(this, Boolean.class);
@@ -79,7 +78,7 @@ public class ConverterRegistryTest extends TestCase {
         throw new Exception("exception estimated");
     }
 
-	public void testErrorHandling2() 
+	public void testErrorHandling2()
         throws Exception {
         try {
             ConverterRegistry.convert("XXX", Integer.class);

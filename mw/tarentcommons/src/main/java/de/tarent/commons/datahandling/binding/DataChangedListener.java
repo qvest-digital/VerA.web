@@ -34,7 +34,6 @@ package de.tarent.commons.datahandling.binding;
  *
  */
 public interface DataChangedListener {
-    
 
     /**
      * Listener method which is called on DataChang Events.

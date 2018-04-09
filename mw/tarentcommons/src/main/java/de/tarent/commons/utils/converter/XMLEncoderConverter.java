@@ -48,20 +48,20 @@ public class XMLEncoderConverter extends AbstractConverter {
     public Class getSourceType() {
         return sourceClass;
     }
-    
+
     public Object doConversion(Object sourceData) throws IllegalArgumentException {
-        if (sourceData != null && !sourceClass.isAssignableFrom(sourceData.getClass())) 
+        if (sourceData != null && !sourceClass.isAssignableFrom(sourceData.getClass()))
             throw new IllegalArgumentException("Source data is not instance of "+sourceClass+" ("+sourceData.getClass() +")");
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         XMLEncoder encoder = new XMLEncoder(bos);
         encoder.writeObject(sourceData);
         encoder.close();
-        
+
         try {
             return bos.toString("UTF-8");
         } catch (UnsupportedEncodingException e) { // should never occur with UTF-8
-            throw new RuntimeException(e); 
+            throw new RuntimeException(e);
         }
-    } 
-}   
+    }
+}

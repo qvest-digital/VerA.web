@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.commons.fileformats.office;
 

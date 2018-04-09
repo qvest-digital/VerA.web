@@ -23,8 +23,6 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
-
 package de.tarent.octopus.content.annotation;
 
 import de.tarent.octopus.config.*;
@@ -44,17 +42,15 @@ public class AnnotationWorkerWrapperTest
     Content content;
     OctopusConfig config;
 
-
-
     public AnnotationWorkerWrapperTest(String init) {
         super(init);
     }
 
-    public void setUp() 
+    public void setUp()
         throws Exception {
         calledFlag = false;
         moduleConfig = ModuleConfig.createMockupModuleConfig("/tmp", new HashMap());
-        
+
         AnnotationWorkerFactory factory = new AnnotationWorkerFactory();
         ContentWorkerDeclaration workerDeclaration = new ContentWorkerDeclaration();
         workerDeclaration.setImplementationSource(SampleWorker1.class.getName());
@@ -70,58 +66,57 @@ public class AnnotationWorkerWrapperTest
         // this mockup can produce errors if parts of the config will be accecced
         config = new OctopusConfig(null, null, null);
     }
-    
-    public void testVersion() 
+
+    public void testVersion()
         throws Exception {
-        
+
         assertEquals("Given Version.", "0.4.2", sampleWorker1.getVersion() );
         assertEquals("Default Version.", "1.0", sampleWorker2.getVersion() );
     }
 
-
-    public void testInitCall() 
+    public void testInitCall()
         throws Exception {
-        
+
         sampleWorker1.init(moduleConfig);
         assertTrue("Init method was called.", ((SampleWorker1)((DelegatingWorker)sampleWorker1).getWorkerDelegate()).wasInitCalled);
-        
+
         sampleWorker2.init(moduleConfig);
-        // no init method, only assert, that there is no exception        
+        // no init method, only assert, that there is no exception
     }
 
-    public void testSimpleCall1() 
+    public void testSimpleCall1()
         throws Exception {
         sampleWorker1.doAction(config, "helloWorld", request, content);
         assertEquals("getting result", "Hello World!", content.getAsString("helloWorldResult"));
     }
 
-    public void testSimpleCall2() 
+    public void testSimpleCall2()
         throws Exception {
         sampleWorker1.doAction(config, "helloWorldWithDefaultResult", request, content);
         assertEquals("getting result", "Hello World!", content.getAsString("return"));
     }
 
-    public void testSimpleCall3() 
+    public void testSimpleCall3()
         throws Exception {
         sampleWorker1.doAction(config, "otherName", request, content);
         assertEquals("getting result", "Hello World!", content.getAsString("return"));
     }
 
-    public void testArgumentCall1() 
+    public void testArgumentCall1()
         throws Exception {
         content.setField("firstname", "Frank");
         sampleWorker1.doAction(config, "helloWorldWithArgument", request, content);
         assertEquals("getting result", "Hello Frank", content.getAsString("return"));
     }
 
-    public void testArgumentCall2() 
+    public void testArgumentCall2()
         throws Exception {
         content.setField("firstname", "Frank");
         sampleWorker1.doAction(config, "nameAnnotation", request, content);
         assertEquals("getting result", "Hello Frank", content.getAsString("return"));
     }
 
-    public void testMandatoryParams1() 
+    public void testMandatoryParams1()
         throws Exception {
 
         content.setField("mandatoryByDefault", "Frank");
@@ -161,7 +156,7 @@ public class AnnotationWorkerWrapperTest
         fail("no exception on missing mandatory param");
     }
 
-    public void testTypesSimple() 
+    public void testTypesSimple()
         throws Exception {
 
         content.setField("testCase", this);
@@ -176,8 +171,7 @@ public class AnnotationWorkerWrapperTest
         sampleWorker1.doAction(config, "testTypesSimple", request, content);
     }
 
-
-    public void testParameterConversions() 
+    public void testParameterConversions()
         throws Exception {
 
         content.setField("testCase", this);
@@ -198,8 +192,7 @@ public class AnnotationWorkerWrapperTest
         sampleWorker1.doAction(config, "testParameterConversions", request, content);
     }
 
-
-    public void testInOuts() 
+    public void testInOuts()
         throws Exception {
 
         content.setField("p1", "test");
@@ -212,7 +205,5 @@ public class AnnotationWorkerWrapperTest
         assertEquals("Integer InOut", 42, content.get("p2"));
         assertEquals("String InOut", true, content.get("p3"));
     }
-
-    
 
 }

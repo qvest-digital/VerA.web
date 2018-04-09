@@ -41,14 +41,14 @@ import org.apache.commons.logging.LogFactory;
  * This lifecycle listener will be notified if a servlet context has just
  * been created and is available to service its first request,
  * or the servlet context is about to be shutdown.
- * 
+ *
  * It will be used for realize that new octopus modules will be available.
  * So we can implement
  * the {@link Octopus#doAutostart(String, CommonConfig))} and
  * the {@link Octopus#doCleanup(String, CommonConfig)} also if one module
  * will loaded after the octopus webapplication. (Only in seperate
  * installations.)
- * 
+ *
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class LifecycleListener implements ServletContextListener {
@@ -59,7 +59,7 @@ public class LifecycleListener implements ServletContextListener {
 		ServletContext servletContext = event.getServletContext();
 		String module = getOctopusModule(servletContext);
 		Object octopus = getOctopus();
-		
+
 		if (octopus == null) {
 			logger.info(
 					"Webapplication context '" + module + "' initialized, " +
@@ -71,12 +71,12 @@ public class LifecycleListener implements ServletContextListener {
 			// TODO
 		}
 	}
-	
+
 	public void contextDestroyed(ServletContextEvent event) {
 		ServletContext servletContext = event.getServletContext();
 		String module = getOctopusModule(servletContext);
 		Object octopus = getOctopus();
-		
+
 		if (octopus == null) {
 			logger.info(
 					"Webapplication context '" + module + "' destroyed, " +
@@ -92,7 +92,7 @@ public class LifecycleListener implements ServletContextListener {
 	protected String getOctopusModule(ServletContext servletContext) {
 		// This return the display name of the module!
 		//return servletContext.getServletContextName()
-		
+
 		try {
 			// Return in tomcat 5.5 a URL like this 'jndi:/localhost/modulename/'
 			// where the path includes the full part right of the colon.
@@ -128,7 +128,7 @@ public class LifecycleListener implements ServletContextListener {
 	 * as JNDI context provider. See
 	 * <code>http://tomcat.apache.org/tomcat-5.5-doc/jndi-resources-howto.html</code>
 	 * for more informations about this configuration.
-	 * 
+	 *
 	 * @return naming context
 	 */
 	protected Context getContext() {

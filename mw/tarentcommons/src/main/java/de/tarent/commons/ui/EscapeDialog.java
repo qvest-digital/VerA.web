@@ -39,12 +39,12 @@ import javax.swing.KeyStroke;
 /**
  * A Dialog that closes when escape key pressed.<p>
  * <p>
- * Note: it works only if a content pane is not empty. 
+ * Note: it works only if a content pane is not empty.
  * <p>
  * Extend this Dialog to enable your subclass to react on escape event.
- * You can also overwrite <tt>closeWindow</tt> method 
+ * You can also overwrite <tt>closeWindow</tt> method
  * to handle this event in a custom way.
- * <p> 
+ * <p>
  * @author Aleksej Palij (a.palij@tarent.de), tarent GmbH Bonn
  */
 public class EscapeDialog extends JDialog {
@@ -96,8 +96,8 @@ public class EscapeDialog extends JDialog {
         rootPane.registerKeyboardAction( actionListener, stroke, JComponent.WHEN_IN_FOCUSED_WINDOW );
         return rootPane;
     }
-    
-    /** 
+
+    /**
      * Hides the window and releases all resources have been held by it.<p>
      * Overwrite to handle escape event in a custom way.
      */

@@ -27,7 +27,7 @@
  * Copyright (c) tarent GmbH
  * Bahnhofstrasse 13 . 53123 Bonn
  * www.tarent.de . info@tarent.de
- * 
+ *
  * Created on 28.04.2005
  */
 package de.tarent.commons.utils;
@@ -35,13 +35,13 @@ package de.tarent.commons.utils;
 /**
  * This class provides simple access to version and package information.
  * There are two ways to use this class:
- *  
- * 1. To use Version in your project copy this class to the main directory of your 
+ *
+ * 1. To use Version in your project copy this class to the main directory of your
  * project and change the package declaration accordingly.
- * 2.Keep the Version- class in de.tarent.commons.util and call the init-Method 
+ * 2.Keep the Version- class in de.tarent.commons.util and call the init-Method
  * passing an object from your package:
- * <pre> 
- * 
+ * <pre>
+ *
  * package de.tarent.mypackage;
  * class MyMainClass {
  *  public MyMainClass() {
@@ -49,13 +49,13 @@ package de.tarent.commons.utils;
  *  }
  * }
  * </pre>
- * 
+ *
  * Information like version-numbers, titles and vendors are read from the .jars manifest
- * file, so this information appears only, if compiled als Jar-File with a proper setup 
+ * file, so this information appears only, if compiled als Jar-File with a proper setup
  * build system (Maven works).
- * 
+ *
  * @author Martin Ley
- * 
+ *
  */
 public class Version {
 
@@ -80,7 +80,7 @@ public class Version {
 		gatherPackageInfo(Version.class.getPackage());
 
 	}
-	
+
 	/**
 	 * Initialize Version with Object o. All package information is retrieved from the passed
 	 * object.
@@ -92,7 +92,7 @@ public class Version {
 
 	/**
 	 * Retrieves package information from passed Package p
-	 * 
+	 *
 	 * If some version, title or vendor information is not available, the corresponding
 	 * String is set to ""
 	 * @param p
@@ -100,8 +100,7 @@ public class Version {
 	private static void gatherPackageInfo(Package p) {
 		// name of this package.
 		name = p.getName();
-		
-		
+
 		// title of the specification of this package.
 		String s = p.getSpecificationTitle();
 		specificationTitle = s != null ? s : "";

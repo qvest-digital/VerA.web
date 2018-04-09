@@ -31,12 +31,12 @@ package de.tarent.commons.datahandling.entity;
  * @author Sebastian Mancke, tarent GmbH
  *
  */
-public interface ReadableAttribute {  
+public interface ReadableAttribute {
 
     /**
      * returns an attribute of the unit
      * The key may be hierarchically organized with a '.' as delimiter, depending on the underlaying implementation.
-     * 
+     *
      * @param key the key of the attribute
      * @return the value of th attribute
      */

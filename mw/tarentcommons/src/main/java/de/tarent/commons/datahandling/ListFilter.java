@@ -25,13 +25,12 @@
 
 package de.tarent.commons.datahandling;
 
-
 /**
  * Abstraction of the parameters for filtering, sorting and paging of result lists.
  *
  */
 public interface ListFilter extends ListFilterProvider {
-    
+
     public static final String PARAM_RESET = "reset";
     public static final String PARAM_RESET_FILTER = "resetFilter";
     public static final String PARAM_START = "start";
@@ -52,7 +51,7 @@ public interface ListFilter extends ListFilterProvider {
      * Returns the sort direction. This may be one of the constants DIRECTION_ASC, DIRECTION_DESC.
      */
     public String getSortDirection();
-    
+
     /**
      * Returns the total count of records in the list.
      */
@@ -67,9 +66,9 @@ public interface ListFilter extends ListFilterProvider {
      * Returns the start position. (Beginning at 0)
      */
     public int getStart();
-    
+
     /**
-     * Returns the start position for the given page. 
+     * Returns the start position for the given page.
      * @param page number of page
      * @return start position.
      */
@@ -109,6 +108,6 @@ public interface ListFilter extends ListFilterProvider {
      * Returns the start position of the last page, based on the values for start, limit and count.
      */
     public int getLastPageStart();
-    
+
     public String getFilterName();
 }

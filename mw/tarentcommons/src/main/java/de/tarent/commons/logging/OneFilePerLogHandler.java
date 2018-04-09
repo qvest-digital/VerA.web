@@ -71,7 +71,7 @@ public class OneFilePerLogHandler extends Handler {
 
 	protected String getPlainMessage(String message) {
 		StringBuffer buffer = new StringBuffer(message.length());
-		
+
 		char c[] = message.toCharArray();
 		for (int i = 0; i < c.length; i++) {
 			if ("-_.,".indexOf(c[i]) != -1 ||
@@ -122,7 +122,7 @@ public class OneFilePerLogHandler extends Handler {
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter(getWriter(record.getMessage()));
-			
+
 			formatter.format(writer, record);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -24,16 +24,16 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.commons.utils;
 
 import de.tarent.commons.ui.UnsupportedVersionComplain;
 
 /**
- * 
+ *
  * Provides system-information
- * 
+ *
  * @author Fabian K&ouml;ster (f.koester@tarent.de), tarent GmbH Bonn
  *
  */
@@ -41,7 +41,7 @@ public class SystemInfo
 {
 	/**
 	 * Checks if the host-system consists of crappy code from Redmond
-	 * 
+	 *
 	 * @return true if we are running in an evil-environment
 	 */
 
@@ -51,9 +51,9 @@ public class SystemInfo
 	}
 
 	/**
-	 * 
+	 *
 	 * Checks if the host-system is a Linux-derivate
-	 * 
+	 *
 	 * @return true if we are at home
 	 */
 
@@ -63,9 +63,9 @@ public class SystemInfo
 	}
 
 	/**
-	 * 
-	 * Returns the System-Property-Value os.name. (Just for convenience) 
-	 * 
+	 *
+	 * Returns the System-Property-Value os.name. (Just for convenience)
+	 *
 	 * @return the name of the host-operating-system
 	 */
 
@@ -106,14 +106,14 @@ public class SystemInfo
 
 	/**
 	 * checks the runtime for compatibility.
-	 * 
+	 *
 	 */
 	public static boolean checkForCompatibility(String appName, double minVersion, double maxVersion)
 	{
 		double d = new Double(System.getProperty("java.specification.version", "0.0")).doubleValue();
 		if (d < minVersion|| d > maxVersion || System.getProperty("java.vendor", "none").indexOf("Sun Microsystems") < 0)
 			return UnsupportedVersionComplain.showUnsupportedVersionComplain(appName);
-		
+
 		return true;
 	}
 }

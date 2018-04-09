@@ -1,5 +1,4 @@
 
-
 package de.tarent.commons.config;
 
 import java.util.HashMap;
@@ -13,24 +12,24 @@ import de.tarent.commons.config.ConfigManager.Scope;
 public final class ConnectionDefinition extends Base
 {
   /** The scope in which this ConnectionDefinition was defined in.
-   * 
+   *
    * This property allows various evaluating various access rights
    * conditions (e.g. normal user may not modify site or installation scope
    * definitions).
    */
   Scope scope;
-  
+
   public ConnectionDefinition(String label, String serverURL, String module)
   {
     putParam(Key.LABEL, label);
     putParam(Key.SERVER_URL, serverURL);
     putParam(Key.OCTOPUS_MODULE, module);
   }
-    
+
   ConnectionDefinition(Scope scope, Node node) throws KeyUnavailableException
   {
 	this.scope = scope;
-	
+
     NodeList list = node.getChildNodes();
     int size = list.getLength();
 
@@ -38,7 +37,7 @@ public final class ConnectionDefinition extends Base
       {
         Node subNode = list.item(i);
         String nodeName = subNode.getNodeName();
-        
+
         if (nodeName == null)
           continue;
         else if (nodeName.equals("param"))
@@ -56,7 +55,7 @@ public final class ConnectionDefinition extends Base
   {
     return getParamValue(key, null);
   }
-  
+
   public String toString()
   {
     return get(Key.LABEL);
@@ -71,14 +70,14 @@ public final class ConnectionDefinition extends Base
   {
     private static HashMap instances = new HashMap();
 
-    // 
+    //
 
     public static final Key SERVER_URL = make("serverURL");
 
     public static final Key OCTOPUS_MODULE = make("octopusModule");
 
     public static final Key LABEL = make("label");
-    
+
     //
 
     private Key(String label)

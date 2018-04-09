@@ -13,7 +13,6 @@ Dataaccess quickstart
   Notice that you can everytime make an instance of these classes and throw it
   away as soon as possible. It's not necessary to cache or reuse them!
 
-
 * Configuration
 
   For first tests you can direct put an <<<DataAccessBackend>>> into the
@@ -25,13 +24,11 @@ Dataaccess quickstart
 +-----------------------------------------------------------------------------+
     import de.tarent.commons.dataaccess.DataAccessConfiguration;
     import de.tarent.commons.dataaccess.backend.impl.MemoryDataAccessBackend;
-    
-    
-    MemoryDataAccessBackend backend = new MemoryDataAccessBackend();
-    
-    new DataAccessConfiguration().putDataAccessBackend("default", backend);
-+-----------------------------------------------------------------------------+  
 
+    MemoryDataAccessBackend backend = new MemoryDataAccessBackend();
+
+    new DataAccessConfiguration().putDataAccessBackend("default", backend);
++-----------------------------------------------------------------------------+
 
 * Store objects
 
@@ -40,26 +37,24 @@ Dataaccess quickstart
 +-----------------------------------------------------------------------------+
     import java.util.Map;
     import java.util.LinkedHashMap;
-    
+
     import de.tarent.commons.dataaccess.DataAccess;
-    
-    
+
     DataAccess dataAccess = new DataAccess();
     try {
         dataAccess.begin();
-        
+
         Map person = new LinkedHashMap();
         person.put("firstname", "Jim");
         person.put("lastname", "Panse");
-        
+
         dataAccess.store(person);
-        
+
         dataAccess.commit();
     } finally {
         dataAccess.rollback();
     }
 +-----------------------------------------------------------------------------+
-
 
 * Query objects
 
@@ -67,30 +62,28 @@ Dataaccess quickstart
 
 +-----------------------------------------------------------------------------+
     import junit.framework.TestCase;
-    
+
     import javax.management.AttributeValueExp;
     import javax.management.Query;
     import javax.management.QueryExp;
     import javax.management.StringValueExp;
-    
+
     import de.tarent.commons.dataaccess.DataAccess;
-    
-    
+
     // object.lastname start with "Pa"  ("Pa*")
     QueryExp queryExp = Query.anySubString(
             new AttributeValueExp("lastname"),
             new StringValueExp("Pa"));
-    
+
     DataAccess dataAccess = new DataAccess();
-    
+
     List entries = dataAccess.getEntries(queryExp);
-    
+
     TestCase.assertEquals(1, entries.size());
-    
-    
+
     String firstname = (String) ((Map) entries.get(0)).get("firstname");
     String lastname  = (String) ((Map) entries.get(0)).get("lastname")
-    
+
     TestCase.assertEquals("Jim", firstname);
     TestCase.assertEquals("Panse", lastname);
 +-----------------------------------------------------------------------------+

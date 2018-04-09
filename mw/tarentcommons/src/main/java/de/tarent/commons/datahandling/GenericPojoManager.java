@@ -27,7 +27,6 @@ package de.tarent.commons.datahandling;
 
 import java.lang.reflect.Method;
 
-
 /**
  * Interface for a controler for pojos
  *

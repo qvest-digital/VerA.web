@@ -45,7 +45,7 @@ public class StringTools {
 
 	/**
 	 * Returns {@code s} with the first letter in upper case
-	 * 
+	 *
 	 * @param s the string to be processed
 	 * @return {@code s} with the first letter in upper case
 	 */
@@ -64,7 +64,7 @@ public class StringTools {
 
 	/**
 	 * Returns {@code s} with the first letter in lower case
-	 * 
+	 *
 	 * @param s the string to be processed
 	 * @return {@code s} with the first letter in lower case
 	 */
@@ -86,7 +86,7 @@ public class StringTools {
 	 * @param input String to be hashed
 	 * @param hashfunction Hash-Function to use
 	 * @return hashed version of input
-	 * @throws NoSuchAlgorithmException 
+	 * @throws NoSuchAlgorithmException
 	 */
 	public static String digest(String input, String hashfunction) throws NoSuchAlgorithmException{
 		String md5 = null;

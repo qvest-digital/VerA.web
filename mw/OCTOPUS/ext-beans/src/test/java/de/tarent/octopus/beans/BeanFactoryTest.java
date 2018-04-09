@@ -61,14 +61,14 @@ import junit.framework.TestCase;
 
 /**
  * This class test the functionality from the {@link BeanFactory}.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class BeanFactoryTest extends TestCase {
 	/**
 	 * Simple test of the {@link BeanFactory#transform(Object, Class)} method,
 	 * verifiy same correct date inputs.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void testGetDateSimpleCorrect() throws Exception {
@@ -79,7 +79,7 @@ public class BeanFactoryTest extends TestCase {
 	/**
 	 * Simple test of the {@link BeanFactory#transform(Object, Class)} method,
 	 * verifiy same incorrect date inputs.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void testGetDateSimpleInvalid() throws Exception {
@@ -100,7 +100,7 @@ public class BeanFactoryTest extends TestCase {
 	/**
 	 * Test the {@link BeanFactory#transform(Object, Class)} method with
 	 * two digit year dates, in german.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void testGetDateTwoDigitsGerman() throws Exception {
@@ -114,7 +114,7 @@ public class BeanFactoryTest extends TestCase {
 	/**
 	 * Test the {@link BeanFactory#transform(Object, Class)} method with
 	 * two digit year dates, in english.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void testGetDateTwoDigitsEnglish() throws Exception {
@@ -128,7 +128,7 @@ public class BeanFactoryTest extends TestCase {
 	/**
 	 * Test the {@link BeanFactory#transform(Object, Class)} method with
 	 * four digit year dates, in german.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void testGetDateFourDigitsGerman() throws Exception {
@@ -140,7 +140,7 @@ public class BeanFactoryTest extends TestCase {
 	/**
 	 * Test the {@link BeanFactory#transform(Object, Class)} method with
 	 * four digit year dates, in english.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void testGetDateFourDigitsEnglish() throws Exception {
@@ -151,7 +151,7 @@ public class BeanFactoryTest extends TestCase {
 
 	/**
 	 * Test some date input.
-	 * 
+	 *
 	 * @param expectedInput Expected date in the german format <code>d.M.y</code>.
 	 * @param actualInput The "userinput" which will be verified.
 	 * @throws BeanException

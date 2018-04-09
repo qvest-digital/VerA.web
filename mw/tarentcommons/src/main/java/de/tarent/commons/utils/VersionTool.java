@@ -36,17 +36,15 @@ import java.util.jar.Attributes;
 import de.tarent.octopus.server.OctopusContext;
 import java.util.Collections;
 
-
-
-/**                                            
+/**
  * This is again an Implementation of a generic tool for collecting version information.
  * The goal of this implementation is to support different environments like 'installed client application' or 'war/ear archive',
  * as well as different version info ressource like. Simple properties file, Manifest file.
- * 
+ *
  * @author Sebastian Mancke (s.mancke@tarent.de) tarent GmbH Bonn
  */
 public class VersionTool {
-    
+
     private static final Log log = LogFactory.getLog(VersionTool.class);
 
     public static final String PREFIX_PACKAGE = "package:";
@@ -67,7 +65,7 @@ public class VersionTool {
 
     /**
      * Search the searchPath for Version infos.
-     * Depending on the type the search entries may have a describing prefix. Valid entries in the searchPath are: 
+     * Depending on the type the search entries may have a describing prefix. Valid entries in the searchPath are:
      * <ul>
      *    <li>Directory (prefix: none). The directoy will be searched for a META-INF/MANIFEST.MF, as well as for jar-files, which are included with there manifest.</li>
      *    <li>Package Names (prefix: 'package:')</li>
@@ -81,10 +79,10 @@ public class VersionTool {
             VersionInfo info = null;
             if (searchPath[i].startsWith(PREFIX_PACKAGE)) {
                 info = getInfoFromPackage(searchPath[i].substring(PREFIX_PACKAGE.length()));
-            } 
+            }
             else if (searchPath[i].startsWith(PREFIX_RESOURCE)) {
                 info = getInfoFromResourceFile(searchPath[i].substring(PREFIX_RESOURCE.length()));
-            } 
+            }
             else if (searchPath[i].startsWith(PREFIX_JAR)) {
                 info = getInfoFromJar(searchPath[i].substring(PREFIX_JAR.length()));
             }
@@ -111,16 +109,16 @@ public class VersionTool {
                         return -1;
                     if (v2.getVendor() != null && v2.getVendor().startsWith("tarent"))
                         return 1;
-                    
+
                     if (v1.getVendor() != null && v2.getVendor() == null)
                         return -1;
 
                     if (v2.getVendor() != null && v1.getVendor() == null)
                         return 1;
-                    
+
                     return v1.getVendor().compareTo(v2.getVendor());
                 }
-                
+
                 public boolean equals(Object obj) {
                     return false;
                 }
@@ -130,7 +128,7 @@ public class VersionTool {
     public static String[] INPUT_getVersions = {"prependingSearchPath", "appendingSearchPath"};
     public static boolean[] MANDATORY_getVersions = {false, false};
     public static String OUTPUT_getVersions = "versionInfos";
-    
+
     /**
      * Octopus action, which searches the module path and the supplied path for version information.
      * @params cntx the octopus context
@@ -156,8 +154,8 @@ public class VersionTool {
         vt.search(args);
         for (Iterator iter = vt.getVersionInfos().iterator(); iter.hasNext();) {
             VersionInfo vi = (VersionInfo)iter.next();
-            System.out.println(vi);            
-        }        
+            System.out.println(vi);
+        }
     }
 
     /**
@@ -192,20 +190,20 @@ public class VersionTool {
             }
         }
     }
-    
+
     public static VersionInfo getInfoFromClass(Class klass)
     {
 //      return getInfoFromPackage(klass.getPackage());
     	return getInfoFromJar(klass.getProtectionDomain().getCodeSource().getLocation().getFile());
     }
-    
+
     public static VersionInfo getInfoFromPackage(String packageName) {
       return getInfoFromPackage(Package.getPackage(packageName));
     }
-      
+
     public static VersionInfo getInfoFromPackage(Package packageDescriptor) {
         String packageName = packageDescriptor.getName();
-        
+
         if (packageDescriptor == null) {
             log.warn("package '"+packageName+"' for version info not found");
             return null;
@@ -276,7 +274,7 @@ public class VersionTool {
             } catch (IOException ioe) {}
         }
     }
-    
+
     public static VersionInfo getInfoFromDirectory(String dirname) {
         File f = new File(new File(dirname, "META-INF"), "MANIFEST.MF");
         if (!f.exists()) {
@@ -326,7 +324,7 @@ public class VersionTool {
         	info.setBuildID(att.getValue(BuildID));
         return info;
     }
-    
+
     static String specImplConcat(String specText, String implText) {
         if ( (implText == null || implText.trim().length() == 0)
              && specText != null)

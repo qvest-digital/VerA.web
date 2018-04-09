@@ -2,21 +2,21 @@
  *
  * tarent-contact, Plattform-Independent Webservice-Based Contactmanagement
  * Copyright (C) 2002 tarent GmbH
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-contact'
  * (which makes passes at compilers) written
@@ -40,26 +40,25 @@ import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 
-
 /**
  * Implementation of a JPopupMenu as an ActionContainer.
- * 
+ *
  * Actions may be appended by an menuPath:
  * <pre>
  * menuPath :== MenuName ("/" MenuName)* (":" Position)?
  * MenuName :== &lt;Name&gt;
  * Position :== [0-9]+
  * </pre>
- * 
+ *
  * The Menus will be created as needed. A missing position or a position of -1 means appending at the end.
- * The Position of the Actions is not forced. A later appended Action may relocate other actions. 
+ * The Position of the Actions is not forced. A later appended Action may relocate other actions.
  *
  * @see de.tarent.contact.gui.action.ActionRegistry
  */
 public class PopupMenu extends JPopupMenu implements ActionContainer {
 
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -3371448570419300838L;
 
@@ -83,9 +82,9 @@ public class PopupMenu extends JPopupMenu implements ActionContainer {
         return uniqueName;
     }
 
-    /** 
+    /**
      * Adds the given action to a menu bar at assigned position.
-     * 
+     *
      * @param action The action to attach
      * @param menuPath The path and rules to attach, as described above
      */
@@ -124,10 +123,10 @@ public class PopupMenu extends JPopupMenu implements ActionContainer {
     public void removeGUIAction( Action action ) {
         logger.warning( "optional, not implemented method yet: removeGUIAction" );
     }
-    
+
     public void initActions() {
     	Iterator mbIt = ActionRegistry.getInstance().getActions(getContainerUniqueName()).iterator();
-		
+
 		while(mbIt.hasNext())
 		{
 			TarentGUIAction action = (TarentGUIAction)mbIt.next();
@@ -155,7 +154,7 @@ public class PopupMenu extends JPopupMenu implements ActionContainer {
         if ( withBackSeparator )
             add( new JSeparator(), pos );
     }
-    
+
     private String removeMainMenuPriority(String menuPath)
     {
     	String[] menuPathParts = null;
@@ -163,14 +162,14 @@ public class PopupMenu extends JPopupMenu implements ActionContainer {
     		menuPathParts = menuPath.split(":");
     	else
     		return null;
-    	
+
     	// check if the menuPath starts with a digit
     	if(menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0)))
     	{
     		// this menuPath contains a priority-value for the main-menu. remove it
     		return menuPath.substring(menuPath.indexOf(':')+1);
     	}
-    	
+
     	// does not contain a priority-value for the main-menu. return without change
     	return menuPath;
     }

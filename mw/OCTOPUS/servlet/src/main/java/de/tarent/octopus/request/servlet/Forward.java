@@ -51,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
  * certified(?) java enterprise edition servers is growed up. ;-) But this is
  * now not needful, this is not performance critically.)
  * </p>
- * 
+ *
  * @author Michael Klink, tarent GmbH
  * @author Christoph Jerolimov, tarent GmbH
  */
@@ -82,32 +82,32 @@ public class Forward extends HttpServlet {
      * the current context. And if the servlet parameter 'targetPath' it not
      * defined it will be use the default <code>/octopus</code>.
      * </p>
-	 * 
+	 *
 	 * @see HttpServlet#service(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String targetContextString = getInitParameter(INIT_PARAM_TARGET_CONTEXT);
 	    String targetPathString = getInitParameter(INIT_PARAM_TARGET_PATH);
-	    
+
         ServletContext targetContext = (targetContextString == null)
 	        ? getServletContext()
 	        : getServletContext().getContext(targetContextString);
-	    
+
 	    if (targetContext == null)
 	        throw new ServletException("can not access target context: '" + targetContextString + "'");
-	    
+
 	    if (targetPathString == null)
 	        targetPathString = DEFAULT_TARGET_PATH;
-	    
+
 	    String target = targetPathString + request.getContextPath();
 		if (request.getPathInfo() != null)
 			target += request.getPathInfo();
-		
+
 		if (logger.isDebugEnabled())
 			logger.debug("Forwarding URI " +
 					"<" + request.getRequestURI() + "> to" +
 					"<" + targetContext.getServletContextName() + target + ">");
-		
+
 		RequestDispatcher dispatcher = targetContext.getRequestDispatcher(target);
 		dispatcher.forward(request, response);
     }

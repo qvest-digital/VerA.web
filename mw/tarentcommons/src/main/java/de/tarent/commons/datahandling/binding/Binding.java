@@ -41,7 +41,7 @@ public interface Binding {
     /** Returns the data from the view according to the binding. */
     public Object getViewData();
 
-    /** 
+    /**
      * Returns the bindings attribute key in the model.
      * This attribute key is a "data-path-describtor" for the data on which the view is bound by this binding.
      * Depending on the model, the attribute key may be hierarchically organized.
@@ -51,7 +51,7 @@ public interface Binding {
     public String getModelAttributeKey();
 
     /**
-     * Reports, if the data in the view was modified since it was set from the model. 
+     * Reports, if the data in the view was modified since it was set from the model.
      * The implementation of this method is optional. If the feature is not supported
      * by the underlaying implementation, wasViewModified should always return <code>true</code>.
      */
@@ -64,8 +64,7 @@ public interface Binding {
      */
     public boolean onChangeWriteToModel();
 
-
-    /** 
+    /**
      * Flag to indicate if a Binding should only be used to transfer data from the model to the view
      */
     public boolean isReadOnly();

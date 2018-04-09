@@ -49,23 +49,23 @@ public class OctopusManagement implements OctopusExtension
     private static Logger logger = Logger.getLogger(OctopusManagement.class.getName());
 
     private List<OctopusModuleManagement> modules = new LinkedList<OctopusModuleManagement>();
-    
+
     public OctopusManagement()
     {
         super();
     }
-    
+
     public void initialize(Object params)
     {
         if (!(params instanceof Map))
             logger.log(Level.SEVERE, "JMX extension parameter is not a map!");
-        
+
         if (!((Map)params).containsKey("octopus") || !((Map)params).containsKey("config"))
             logger.log(Level.SEVERE, "JMX extension needs parameter 'octopus' and parameter 'config'");
-            
+
         Octopus octopus = (Octopus)((Map)params).get("octopus");
         CommonConfig commonconfig = (CommonConfig)((Map)params).get("config");
-        
+
         // initialize octopus core MBean
         try
         {
@@ -75,7 +75,7 @@ public class OctopusManagement implements OctopusExtension
         {
             logger.log(Level.SEVERE, "Error initializing JMX for octopus core.", e);
         }
-        
+
         // initialize module specific MBeans
         Iterator iter = commonconfig.getExistingModuleNames();
         String module = null;
@@ -124,5 +124,5 @@ public class OctopusManagement implements OctopusExtension
             {
                 logger.log(Level.SEVERE, "Error stopping JMX for module " + module.getMBeanInfo().getClassName(), e);
             }
-    }    
+    }
 }

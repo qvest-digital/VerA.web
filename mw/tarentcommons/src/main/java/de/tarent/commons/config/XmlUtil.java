@@ -20,7 +20,7 @@
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-contact'
  * (which makes passes at compilers) written
- * by Sebastian Mancke, Michael Klink. 
+ * by Sebastian Mancke, Michael Klink.
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
  */
@@ -56,13 +56,12 @@ import org.xml.sax.SAXException;
 
 import de.tarent.commons.config.ConnectionDefinition.Key;
 
-
 /**
- * 
+ *
  * This class was once an integral part of the older
  * configuration system. It allowed access to raw
  * XML data which is now discouraged.
- * 
+ *
  * A better approach is to add the neccessary accessor
  * methods in the {@link ConfigManager} class. It should
  * parse the XML and provide it as Map or other suitable
@@ -71,9 +70,9 @@ import de.tarent.commons.config.ConnectionDefinition.Key;
 public class XmlUtil {
     public final static String ENABLED_ATTRIBUTE = "enabled";
     public final static Logger logger = Logger.getLogger(XmlUtil.class.getName());
-    
+
     private static DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-    
+
     private static DocumentBuilder getDocumentBuilder() {
     	try
     	  {
@@ -84,14 +83,14 @@ public class XmlUtil {
     		// The exception is swallowed and hidden in an unchecked one because:
     		// If the XML parser cannot be configured something is seriously broken
     		// and there is no need that every caller should check for a seriously
-    		// broken state. 
+    		// broken state.
     		throw (IllegalStateException) new IllegalStateException("XML parser could not be configured").initCause(e);
           }
     }
-    
+
     /**
      * Writes a given document out using the provided {@link OutputStream}.
-     * 
+     *
      * @param doc
      * @param dest
      * @throws XmlUtil.Exception
@@ -101,15 +100,15 @@ public class XmlUtil {
     {
       Source source = new DOMSource(doc);
       StreamResult result = new StreamResult(dest);
-    
+
       try
         {
           Transformer t = TransformerFactory.newInstance().newTransformer();
-          
+
           // Enforces indentation enabling a half-way pretty printed output
           // (indentation sizes are outside the scope of the standard :( )
           t.setOutputProperty(OutputKeys.INDENT, "yes");
-          
+
           t.transform(source, result);
         }
       catch (TransformerConfigurationException e)
@@ -121,18 +120,18 @@ public class XmlUtil {
           throw new XmlUtil.Exception("Error transforming XML", e);
         }
      }
-    
+
     /**
      * Parses an XML document from an <code>InputStream</code>.
-     * 
+     *
      * <p>Provide the
      * <code>baseURI</code> from which relative URIs inside the document are
      * resolved.</p>
-     * 
+     *
      * <p>All kinds of exceptions which may happen while obtaining and
      * parsing the document are wrapped in a {@link XmlUtil.Exception}
      * for convenience.</p>
-     * 
+     *
      * @param is
      * @param baseURI
      * @return
@@ -151,9 +150,9 @@ public class XmlUtil {
       {
         throw new XmlUtil.Exception("Error parsing XML", ioe);
       }
-      
+
     }
-    
+
     public static Document createDocument() {
         return getDocumentBuilder().newDocument();
      }
@@ -172,28 +171,28 @@ public class XmlUtil {
 
     /**
      * Returns found value string or empty string if value not found.
-     *  
+     *
      * <p>This method is used for the new configuration system
      * only. It should be moved ASAP.</p>
      */
-    
+
     static String getValue(Element e) {
         try {
             String value = "";
-            
+
             if(e.hasAttribute("value")) {
-                
+
                 value = e.getAttribute("value");//<param value=".."/>
-                
+
             } else if (e.hasChildNodes()) {
-                
+
                 Node valueChild = null;
                 NodeList paramChilds = e.getElementsByTagName("value");
                 if (paramChilds.getLength() > 0) {
                     valueChild = paramChilds.item(0);
                     value = valueChild.getFirstChild().getNodeValue();//<param><value>..</value>...</param>
                 } else {
-                    
+
                     value = e.getFirstChild().getNodeValue();//<param>..</param>
 
                     if("".equals(value)) {
@@ -204,9 +203,9 @@ public class XmlUtil {
                     }
                 }
             }
-            
+
             return value;
-            
+
         } catch (NullPointerException npe) {
             logger.info("[!] element value not found: " + e.getAttribute("name"));
             return "";
@@ -234,7 +233,7 @@ public class XmlUtil {
         printObjIfVisible(buffer,    "getNextSibling()     = ", node.getNextSibling() );
       }
       buffer.append(    "----------------------\n" );
-      
+
       logger.info(buffer.toString());
     }
 
@@ -252,13 +251,13 @@ public class XmlUtil {
       if( null != s && 0 < s.trim().length() && !s.trim().equals( "\n" ) )
           buffer.append( sValName + s + " \n");
     }
-    
+
     /**
      * Liefert die Paramattribute eines Knotens
      *
      * @param parentNode Dom Knoten, der 'param' Elemente mit den 'name' und 'value' Attributen als Kinder hat.
      *                   Das 'value' Attribut kann alternativ auch als nested 'value' Element angegeben werden.
-     * 					 Wenn das Attribut type=array ist, kann es auch eine Liste von 'value' Kindern haben, 
+     * 					 Wenn das Attribut type=array ist, kann es auch eine Liste von 'value' Kindern haben,
      * 			 	     die dann in einem Vector abgelegt werden.
      * @return Hashtable mir String als Keys und Values
      */
@@ -268,15 +267,15 @@ public class XmlUtil {
 
         Node currentNode;
         NodeList nodes = parentNode.getChildNodes();
-        
+
         for (int i=0; i<nodes.getLength(); i++) {
-        
+
         	currentNode = nodes.item( i );
-            
+
         	if ("param".equals( currentNode.getNodeName())) {
-                
+
         		Element paramElement = (Element)currentNode;
-                
+
         		String name = paramElement.getAttribute("name");
 
                 if (!isEnabled(paramElement))
@@ -287,23 +286,23 @@ public class XmlUtil {
 
                 // Ganze Liste drin
                 if (isArray(paramElement)) {
-                    
+
                 	NodeList paramChilds = paramElement.getElementsByTagName("value");
-                    
+
                 	Vector values = new Vector();
-                    
+
                 	for (int j=0; j<paramChilds.getLength(); j++) {
-                    
+
                 		Node valueChild = paramChilds.item(j);
-                        
+
                 		String value = valueChild.getFirstChild().getNodeValue();
-                        
+
                 		values.add(value);
                     }
-                    
+
                 	paramMap.put(name, values);
 
-                } else {	
+                } else {
                     // Nur ein Value
                     paramMap.put(name, getValue(paramElement));
                 }
@@ -314,7 +313,7 @@ public class XmlUtil {
 
     /**
      * This method converts the XML-unsafe characters of a given string to XML-Entities.
-     * @return escaped string or empty string if a given string empty 
+     * @return escaped string or empty string if a given string empty
      */
     public static String escape(String source) {
         if(source == null || "".equals(source)) {
@@ -336,7 +335,7 @@ public class XmlUtil {
         }
         return buffer.toString();
     }
-    
+
     public static class Exception extends java.lang.Exception
     {
       Exception(String msg, Throwable cause)
@@ -344,74 +343,74 @@ public class XmlUtil {
         super(msg, cause);
       }
     }
-    
+
     /**
      * Creates an XML document for environment configuration.
-     * 
+     *
      * <p>Note: This method is quick and dirty. Don't spread the use, don't
      * copy and paste. Just survive the release (2.0) and get replaced.</p>
-     * 
+     *
      * <p>TODO: Get replaced.</p>
-     * 
+     *
      * @return
      */
     static Document createQnDEnvironmentDocument()
     {
     	Document doc = createDocument();
-    	
+
     	Element root = doc.createElement("environment");
     	doc.appendChild(root);
-    	
+
     	Element connections = doc.createElement("connections");
     	connections.setAttribute("file", "connections.xml");
     	root.appendChild(connections);
-    	
+
     	return doc;
     }
-    
+
     /**
      * Creates an XML document for the given connection definitions.
-     * 
+     *
      * <p>Note: This method is quick and dirty. Don't spread the use, don't
      * copy and paste. Just survive the release (2.0) and get replaced.</p>
-     * 
+     *
      * <p>TODO: Get replaced.</p>
-     * 
+     *
      * @param connectionDefinitions
      * @return
      */
     static Document createQnDConnectionsDocument(Collection connectionDefinitions)
     {
     	Document doc = createDocument();
-    	
+
     	Element root = doc.createElement("connections");
     	doc.appendChild(root);
-    	
+
     	Iterator ite = connectionDefinitions.iterator();
     	while (ite.hasNext())
     	{
     		ConnectionDefinition cd = (ConnectionDefinition) ite.next();
-    		
+
     	    Element connection = doc.createElement("connection");
     	    root.appendChild(connection);
-    	    
+
     	    Element param = doc.createElement("param");
     	    param.setAttribute("name", Key.LABEL.toString());
     	    param.setAttribute("value", cd.get(Key.LABEL));
     	    connection.appendChild(param);
-    	    
+
     	    param = doc.createElement("param");
     	    param.setAttribute("name", Key.SERVER_URL.toString());
     	    param.setAttribute("value", cd.get(Key.SERVER_URL));
     	    connection.appendChild(param);
-    	    
+
     	    param = doc.createElement("param");
     	    param.setAttribute("name", Key.OCTOPUS_MODULE.toString());
     	    param.setAttribute("value", cd.get(Key.OCTOPUS_MODULE));
     	    connection.appendChild(param);
      	}
-    	
+
     	return doc;
     }
-    
+
 }

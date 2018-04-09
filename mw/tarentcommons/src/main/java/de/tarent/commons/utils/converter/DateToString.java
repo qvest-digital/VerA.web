@@ -40,7 +40,7 @@ public class DateToString extends AbstractConverter {
     public Class getSourceType() {
         return Date.class;
     }
-    
+
     public Object doConversion(Object sourceData) throws NumberFormatException {
         return df.format((Date)sourceData);
     }

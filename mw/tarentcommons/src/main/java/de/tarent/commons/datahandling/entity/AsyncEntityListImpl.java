@@ -25,7 +25,6 @@
 
 package de.tarent.commons.datahandling.entity;
 
-
 import de.tarent.commons.datahandling.entity.EntityListEvent;
 import java.util.*;
 
@@ -52,15 +51,15 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
 
     public final static String KEY_ENTITIES = "entities";
     public final static String KEY_ENTITY_COUNT = "entityCount";
-	
+
     public static List ATTRIBUTE_LIST_ID = Arrays.asList( new String[]{"id"} );
 
     static final int LOADER_SLEEP_TIME = 15;
-    
-    private static final Log logger = LogFactory.getLog(AsyncEntityListImpl.class);    
+
+    private static final Log logger = LogFactory.getLog(AsyncEntityListImpl.class);
 
     /**
-     * A list of observer (EntityListListeners) for this entity list    
+     * A list of observer (EntityListListeners) for this entity list
      */
     List entityListListeners = new ArrayList(1);
 
@@ -68,7 +67,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
      * The connection to the octopus instance
      */
     OctopusConnection connection;
-    
+
     /**
      * The octopus task to call
      */
@@ -109,11 +108,10 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
      */
     int fetchSize = 30;
 
-    /** 
+    /**
      * Maximum value for the limit parameter, before the requests will be splittedo
      */
-    int maxLimit = 120;    
-
+    int maxLimit = 120;
 
     /**
      * Maximum queued load Jobs to remember
@@ -132,17 +130,15 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
      */
     int lastRecentlyQueriedEntity = -1;
 
-    /** 
+    /**
      * The loader for the loader thread
      */
     Loader loader = new Loader();
-    
 
-    /** 
+    /**
      * The factory for creation of entity objects
      */
     EntityFactory entityFactory;
-
 
     /**
      * Template method to override for error reporting
@@ -159,13 +155,13 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
         fireEntityListChanged(new EntityListEvent(this, EntityListEvent.UPDATE));
         loader.start();
         // preload the main attributes of the fetchSize first entities
-        loadRangeAsync(new LoadJob(0, fetchSize, attributeList));        
+        loadRangeAsync(new LoadJob(0, fetchSize, attributeList));
     }
 
     public void stop() {
         loader.stopAndLock();
     }
-    
+
     public void reload() {
         stop();
         initialLoad();
@@ -179,7 +175,6 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
         loader.loadRangeAsync(loadJob);
     }
 
-
     /**
      * Loads a proper block, containing the entity
      */
@@ -187,22 +182,21 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
         if (! (loader.isLoading(index) || loader.isScheduled(index))) {
             int start = index;
             LoadJob currentJob = loader.getCurrentJob();
-            while (start > 0 
-                   && (currentJob == null || (!currentJob.isBetween(start-1))) 
-                   && (entities.size() <= (start-1) || entities.get(start-1) == null) 
+            while (start > 0
+                   && (currentJob == null || (!currentJob.isBetween(start-1)))
+                   && (entities.size() <= (start-1) || entities.get(start-1) == null)
                    && (index-start < getFetchSize()/2))
                 start--;
-                    
+
             int fetch = 1;
-            while ((currentJob == null || (!currentJob.isBetween(index+fetch))) 
-                   && (entities.size() <= (index+fetch) || entities.get(index+fetch) == null) 
+            while ((currentJob == null || (!currentJob.isBetween(index+fetch)))
+                   && (entities.size() <= (index+fetch) || entities.get(index+fetch) == null)
                    && (fetch < getFetchSize()/2))
                 fetch++;
             LoadJob newJob = new LoadJob(start, (index-start)+fetch, attributeList);
             loadRangeAsync(newJob);
         }
     }
-    
 
     /**
      * This method should be called by the loader thread
@@ -222,32 +216,32 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
             }
             long startTime = 0;
             if (logger.isTraceEnabled()) {
-                startTime = System.currentTimeMillis(); 
+                startTime = System.currentTimeMillis();
                 logger.trace("start loading range: "+loadJob);
             }
             OctopusResult res = callTask(loadJob);
-            
+
             // TODO: error handling for null or wrong type
             List listOfEntities = readEntities(res);
             count = readEntityCount(res);
-            
+
             int newMinSize = loadJob.offset+Math.min(loadJob.limit, listOfEntities.size());
-            
+
             synchronized (entities) {
                 entities.ensureCapacity(newMinSize);
                 while (entities.size() < newMinSize)
-                    entities.add(null);            
+                    entities.add(null);
                 int offset = loadJob.offset;
-                                
+
                 for (Iterator iter = listOfEntities.iterator(); iter.hasNext();) {
                     Object data = iter.next();
-                    
+
                     if (entities.get(offset) == null)
                         currentlyHoldEntities++;
                     updatePosition(entities, offset, data);
                     offset++;
                     if (offset >= entities.size() && iter.hasNext()) {
-                        logger.warn("The server returned more entities than the client requested."); 
+                        logger.warn("The server returned more entities than the client requested.");
                         break;
                     }
                 }
@@ -263,17 +257,15 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                 }
             }
             fireEntityListChanged(new EntityListEvent(this, loadJob.getOffset(), loadJob.getMaxIndex(),  EntityListEvent.UPDATE));
-            
+
             if (logger.isTraceEnabled()) {
-                logger.trace("range loaded: "+ (System.currentTimeMillis()-startTime) +"ms");                        
+                logger.trace("range loaded: "+ (System.currentTimeMillis()-startTime) +"ms");
             }
         } catch (Exception e) {
             //TODO: Reporting about job start, error and success to a global instance!
             reportError(e);
         }
     }
-
-    
 
     /**
      * This method calls the server side task and returns the OctopusResult with the entity list.
@@ -286,30 +278,29 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
         // force a reload of the filter
         task.add(getFilterParamName()+"."+ListFilter.PARAM_RESET, "true");
         task.add(getFilterParamName()+"."+ListFilter.PARAM_RESET_FILTER, "true");
-        
+
         task.add(getFilterParamName()+"."+ListFilter.PARAM_START, new Integer(loadJob.offset));
         task.add(getFilterParamName()+"."+ListFilter.PARAM_LIMIT, new Integer(loadJob.limit));
         if (getSortField() != null)
             task.add(getFilterParamName()+"."+ListFilter.PARAM_SORT_FIELD, getSortField());
-        
+
         if (getFilterList() != null)
             task.add(getFilterParamName()+"."+ListFilter.PARAM_FILTER_LIST, getFilterList());
-        
+
         OctopusResult res = task.invoke();
         return(res);
     }
-    
 
     /**
-     * Returns the List of Entities contained in the octopus result. 
+     * Returns the List of Entities contained in the octopus result.
      * This method should be overwritten, if needed.
      */
     protected List readEntities(OctopusResult res) {
         return (List)res.getData(KEY_ENTITIES);
     }
-    
+
     /**
-     * Returns total count of Entities. This Information should be in the OctopusResult. 
+     * Returns total count of Entities. This Information should be in the OctopusResult.
      * This method should be overwritten, if needed.
      */
     protected int readEntityCount(OctopusResult res) {
@@ -333,9 +324,9 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
             entityFactory.fillEntity(entity, new MapAttributeSource(entityData), null);
         }
     }
-    
+
     /**
-     * If the requested entity is available, it is returned. If it is not available, 
+     * If the requested entity is available, it is returned. If it is not available,
      * it will be loaded in the background and null will be returned.
      *
      * @return returns the entity or null, if the entity is not already available
@@ -354,9 +345,9 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
             if (entities.size() > index)
                 entity = entities.get(index);
         }
-        
+
         if (entity == null)
-            loadEntityAsync(index);        
+            loadEntityAsync(index);
         else {
             int preloadIndex = index+(3*getFetchSize())/4;
             if (preloadIndex < getSize() && (preloadIndex >= entities.size() || entities.get(preloadIndex) == null)) {
@@ -365,21 +356,21 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
         }
         return entity;
     }
-    
+
     public boolean isSizeKnown() {
         return count != -1;
     }
-    
+
     public int getSize() {
         if (count < 0)
             return 0;
         return count;
-    }    
+    }
 
     public void finalize() {
         loader.stop();
     }
-    
+
     protected void fireEntityListChanged(EntityListEvent e) {
         for (Iterator iter = entityListListeners.iterator(); iter.hasNext();) {
             EntityListListener listener = (EntityListListener)iter.next();
@@ -389,13 +380,13 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
     }
 
     public void addEntityListListener(EntityListListener listener) {
-        entityListListeners.add(listener);        
+        entityListListeners.add(listener);
     }
-    
+
     public void removeEntityListListener(EntityListListener listener) {
         entityListListeners.remove(listener);
     }
-    
+
     public void removeAllEntityListListeners() {
         entityListListeners.clear();
     }
@@ -414,8 +405,8 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
 
     public void setFilterParamName(String newFilterParamName) {
         this.filterParamName = newFilterParamName;
-    }    
-    
+    }
+
     public OctopusConnection getConnection() {
         return connection;
     }
@@ -462,8 +453,8 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
 
     public void setMaxHoldEntities(final int newMaxHoldEntities) {
         this.maxHoldEntities = newMaxHoldEntities;
-    }    
-    
+    }
+
     /**
      * Returns the list of attributes to load for each entity
      */
@@ -477,7 +468,6 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
     public void setAttributeList(List newAttributeList) {
         this.attributeList = newAttributeList;
     }
-
 
     /**
      * Returns the amount of entities to load in one go
@@ -493,21 +483,20 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
         this.fetchSize = newFetchSize;
     }
 
-    /** 
+    /**
      * Returns the factory for creation of entity objects
      */
     public EntityFactory getEntityFactory() {
         return entityFactory;
     }
 
-    /** 
+    /**
      * sets the factory for creation of entity objects
      */
     public void setEntityFactory(EntityFactory newEntityFactory) {
         this.entityFactory = newEntityFactory;
     }
 
-    
     public class LoadJob {
         int offset;
         int limit;
@@ -532,7 +521,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
         }
 
         /**
-         * tests, wether the supplie index is in the range of the load job 
+         * tests, wether the supplie index is in the range of the load job
          */
         public boolean isBetween(int index) {
             return offset <= index && index <= getMaxIndex();
@@ -545,7 +534,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                 return false;
             return attributes.equals(otherJob.attributes);
         }
-        
+
         public int getMaxIndex() {
             return offset+limit-1;
         }
@@ -554,7 +543,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
             return "("+getOffset()+","+getMaxIndex()+")";
         }
     }
-    
+
     public class Loader implements Runnable {
 
         /** the loader thread */
@@ -562,7 +551,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
 
         /** flag, for stopping the runner */
         boolean keepRunning = false;
-        
+
         /** current job */
         LoadJob currentJob;
 
@@ -576,14 +565,14 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
 
         /** A status monitor for monitoring the activity */
         LoadTaskMonitor loadTaskMonitor;
-        
+
         /**
          * start the thread, if it is not allready running
          */
         public void start() {
             if (thread == null || !thread.isAlive()) {
                 loadTaskMonitor = new LoadTaskMonitor(this);
-                keepRunning = true;                
+                keepRunning = true;
                 thread = new Thread(this);
                 thread.setDaemon(true);
                 thread.start();
@@ -596,7 +585,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                 return jobQueue.size();
             }
         }
-        
+
         /**
          * Stops the loader, removes all scheduled jobs and and prevents it from loading new jobs.
          */
@@ -613,27 +602,27 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                     }
                     // If this is not enough, we interrupt the thread
                     if (thread != null) {
-                        thread.interrupt(); 
+                        thread.interrupt();
                         thread = null;
                     }
                 }
-                
+
             }
             isLocked = true;
             jobQueue.clear();
-        }        
-        
+        }
+
         public void stop() {
             keepRunning = false;
             if (thread != null && thread.isAlive()) {
                 thread.interrupt();
             }
         }
-        
+
         public void cancelJobs() {
             synchronized (jobQueue) {
                 if (logger.isTraceEnabled())
-                    logger.trace("cancel jobs");                
+                    logger.trace("cancel jobs");
                 jobQueue.clear();
                 if (thread != null && thread.isAlive()) {
                     thread.interrupt();
@@ -650,7 +639,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                     if ( ((LoadJob)iter.next()).isBetween(index) )
                         return true;
                 }
-                return false;                
+                return false;
             }
         }
 
@@ -666,12 +655,12 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
         public LoadJob getCurrentJob() {
             return currentJob;
         }
-        
+
         public void loadRangeAsync(LoadJob newJob) {
             if (isLocked)
                 return;
             synchronized (jobQueue) {
-                
+
                 // try to merge the jobs
                 boolean merged = false;
                 for (Iterator iter = jobQueue.iterator(); iter.hasNext();) {
@@ -681,14 +670,14 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                         merged = true;
                         break;
                     }
-                    
+
                     if (newJob.isBetween(job.offset) && (newJob.limit+job.limit<maxLimit) && job.hasSameAttributes(newJob)) {
                         newJob.limit = Math.max(job.getMaxIndex(), newJob.getMaxIndex()) - newJob.offset + 1;
                         merged = true;
                         break;
                     }
                 }
-            
+
                 if (! merged) {
                     jobQueue.addFirst(newJob);
                     while (jobQueue.size() > maxQueuedJobs)
@@ -696,7 +685,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                     jobQueue.notifyAll();
                     if (!loadTaskMonitor.isRunning())
                         TaskManager.getInstance().register(loadTaskMonitor, Messages.getString("AsyncEntityListImpl_GetAddresses_TaskName"), true);
-                    
+
                     if (logger.isTraceEnabled()) {
                         logger.trace("added load job to queue: "+newJob);
                     }
@@ -705,18 +694,18 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                         logger.trace("merged load job to queue: "+newJob);
                     }
                 }
-                
+
                 // start, if it is not allready running
                 start();
             }
         }
-        
+
         public void run() {
-            while (keepRunning) {                
+            while (keepRunning) {
                 synchronized (jobQueue) {
-                    currentJob = null;                    
+                    currentJob = null;
                     if (jobQueue.size() > 0)
-                        currentJob = (LoadJob)jobQueue.removeFirst();                
+                        currentJob = (LoadJob)jobQueue.removeFirst();
                 }
                 if (currentJob == null) {
                     try {
@@ -762,11 +751,11 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                 total = loader.getQueueSize() + done;
                 if (done >= total)
                     total = done +1;
-                
+
                 ctx.setGoal(total);
                 ctx.setCurrent(done);
                 lastJob = cJob;
-                
+
                 if (cJob != null)
                     ctx.setActivityDescription(Messages.getFormattedString("AsyncEntityListImpl_GetAddresses_ProgressDesc", new Integer(cJob.getOffset()), new Integer(cJob.getMaxIndex())));
 
@@ -776,7 +765,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
             }
             running = false;
         }
-        
+
         /**
          * @see TaskManager.Task#cancel()
          */

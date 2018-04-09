@@ -40,7 +40,7 @@ public class BooleanToInteger extends AbstractConverter {
     public Class getSourceType() {
         return Boolean.class;
     }
-        
+
     public Object doConversion(Object sourceData) {
         if (((Boolean)sourceData).booleanValue())
             return new Integer(1);

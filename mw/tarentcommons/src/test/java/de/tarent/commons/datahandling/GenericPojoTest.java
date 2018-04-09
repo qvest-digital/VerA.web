@@ -45,7 +45,7 @@ public class GenericPojoTest extends TestCase {
         personCustomStorage = (PersonI)GenericPojo.implementPojo(PersonI.class, new HashMapPojoStorage() {
                 /** serialVersionUID */
         		private static final long serialVersionUID = -6022561434143473039L;
-        		
+
 				public Object get(Object key) {
                     return key;
                 }
@@ -60,48 +60,44 @@ public class GenericPojoTest extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-    
-    
+
     public void testSimpleValues() {
         personDefault.setName("Sebastian");
         assertEquals("Propertie matches", "Sebastian", personDefault.getName());
-        
+
         personDefault.setAge(10);
         assertEquals("Propertie matches", 10, personDefault.getAge());
 
         personDefault.setCondition(true);
         assertEquals("Propertie matches", true, personDefault.isCondition());
-        
+
         personDefault.setCondition(false);
         assertEquals("Propertie matches", false, personDefault.isCondition());
-        
+
         personDefault.setA(42);
         assertEquals("Propertie matches", 42, personDefault.getA());
-    }    
+    }
 
     public void testNullForPrimitive() {
         try {
             personDefault.isCondition();
             fail("No Exception");
-        } catch (NullPointerException npe) {}        
-    }    
+        } catch (NullPointerException npe) {}
+    }
 
     public void testWrongType() {
         try {
             personCustomStorage.getA();
             fail("No Exception");
-        } catch (ClassCastException npe) {}        
-    }    
+        } catch (ClassCastException npe) {}
+    }
 
-    
     public void testMethodCall() {
-        assertEquals("method call response matches", "Test", personWithManager.echoMethod("Test"));        
+        assertEquals("method call response matches", "Test", personWithManager.echoMethod("Test"));
     }
-    
 
-    
     public void testCustomStorage() {
-        assertEquals("custom storage works", "name", personCustomStorage.getName());                
+        assertEquals("custom storage works", "name", personCustomStorage.getName());
     }
-    
+
 }

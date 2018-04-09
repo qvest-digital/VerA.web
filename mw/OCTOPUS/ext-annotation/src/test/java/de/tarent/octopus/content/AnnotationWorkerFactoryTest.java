@@ -23,12 +23,10 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 package de.tarent.octopus.content;
 
 import de.tarent.octopus.config.*;
 import java.util.HashMap;
-
 
 public class AnnotationWorkerFactoryTest
     extends junit.framework.TestCase {
@@ -53,8 +51,8 @@ public class AnnotationWorkerFactoryTest
         workerDeclaration = new ContentWorkerDeclaration();
 
     }
-    
-    public void testCreation() 
+
+    public void testCreation()
         throws Exception {
         workerDeclaration.setImplementationSource(getClass().getName());
 
@@ -62,8 +60,8 @@ public class AnnotationWorkerFactoryTest
         Object workerDelegate = ((DelegatingWorker)worker).getWorkerDelegate();
         assertEquals("Worker is instance of the class.", workerDelegate.getClass(), getClass());
     }
-    
-    public void testErrorHandling_noSource() 
+
+    public void testErrorHandling_noSource()
         throws Exception {
 
         try {
@@ -72,11 +70,11 @@ public class AnnotationWorkerFactoryTest
             // Success
             return;
         }
-        
+
         fail("No exception on worker creation with missing source");
     }
-    
-    public void testErrorHandling_wrongSource() 
+
+    public void testErrorHandling_wrongSource()
         throws Exception {
 
         try {
@@ -86,7 +84,7 @@ public class AnnotationWorkerFactoryTest
             // Success
             return;
         }
-        
+
         fail("No exception on worker creation with wrong source");
     }
 

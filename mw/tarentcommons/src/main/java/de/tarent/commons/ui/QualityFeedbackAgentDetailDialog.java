@@ -54,24 +54,24 @@ public class QualityFeedbackAgentDetailDialog extends JDialog
 	private JPanel jContentPane = null;
     private JButton closeButton = null;
     private String message = null;
-    
+
     /**
      * Constructs a new qfba details dialog. It displays the given text message.
-     * 
+     *
      * @param pMessage Text message.
      */
     public QualityFeedbackAgentDetailDialog(String pMessage)
     {
         this(pMessage, null);
     }
-    
+
     /**
      * Constructs a new qfba details dialog. It displays the given text message and the given exception.
-     * 
+     *
      * @param pMessage Text message.
      * @param pException a Exception
      */
-    
+
     public QualityFeedbackAgentDetailDialog(String pMessage, Exception pException)
     {
     	super();
@@ -81,7 +81,7 @@ public class QualityFeedbackAgentDetailDialog extends JDialog
     	if(pException != null)
     	{
     		this.message += "\r\n\nTechnical Information:\r\n"+pException.toString();
-    		
+
     		StackTraceElement[] stackTrace = pException.getStackTrace();
     		for(int i=0; i < stackTrace.length; i++)
     		{
@@ -96,7 +96,7 @@ public class QualityFeedbackAgentDetailDialog extends JDialog
         this.setContentPane(getJContentPane());
         this.pack();
         this.setLocationRelativeTo(null);
-        this.setVisible(true);        
+        this.setVisible(true);
     }
 
     private JPanel getJContentPane()
@@ -106,14 +106,14 @@ public class QualityFeedbackAgentDetailDialog extends JDialog
             jContentPane = new JPanel();
             jContentPane.setLayout(new BorderLayout());
             jContentPane.add(getCloseButton(), java.awt.BorderLayout.SOUTH);
-            
+
             JEditorPane pane = new JEditorPane();
             pane.setContentType("text/plain");
             pane.setEditorKit(JEditorPane.createEditorKitForContentType("text/plain"));
             pane.setFocusable( false );
             pane.setEditable(false);
             pane.setText(message);
-            
+
             JScrollPane scrollPane = new JScrollPane(pane);
 
             jContentPane.setPreferredSize(new Dimension(400, 300));
@@ -139,4 +139,4 @@ public class QualityFeedbackAgentDetailDialog extends JDialog
         }
         return closeButton;
     }
-} 
+}

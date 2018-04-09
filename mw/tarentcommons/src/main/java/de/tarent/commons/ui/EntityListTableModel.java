@@ -42,11 +42,10 @@ import org.apache.commons.logging.Log;
 
 import de.tarent.commons.utils.Pojo;
 
-
 /**
  * Table model for an Asynchronous Entity List
  */
-public class EntityListTableModel 
+public class EntityListTableModel
     implements TableModel, EntityListListener {
 
     private static final Log logger = LogFactory.getLog(EntityListTableModel.class);
@@ -54,7 +53,7 @@ public class EntityListTableModel
     List tml = new ArrayList();
     AsyncEntityListImpl list;
     ColumnDescription[] columnDescriptions = null;
-    
+
     public EntityListTableModel(AsyncEntityListImpl list, ColumnDescription[] columnDescriptions) {
         this.list = list;
         this.columnDescriptions = columnDescriptions;
@@ -65,13 +64,13 @@ public class EntityListTableModel
         this.columnDescriptions = columnDescriptions;
         fireTableModelListenerEventLater(new TableModelEvent(this, 0, Integer.MAX_VALUE, TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
     }
-    
+
     public void entityListChanged(EntityListEvent e) {
         fireTableModelListenerEventLater(new TableModelEvent(this, 0, Integer.MAX_VALUE, TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
         // using the exact rows is cleaner, but produces revalidation problem in the tarent-contact address table
         fireTableModelListenerEventLater(new TableModelEvent(this, e.getFirstRow(), e.getLastRow(), TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
-    }    
-    
+    }
+
     protected void fireTableModelListenerEventLater(final TableModelEvent e) {
         EventQueue.invokeLater(new Runnable() {
                 public void run() {
@@ -82,11 +81,11 @@ public class EntityListTableModel
                 }
             });
     }
-    
+
     public void addTableModelListener(TableModelListener l) {
         tml.add(l);
     }
-    
+
     public void	removeTableModelListener(TableModelListener l) {
         tml.remove(l);
     }
@@ -124,20 +123,19 @@ public class EntityListTableModel
             return null;
         }
     }
-    
+
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
     }
-    
+
     public void	setValueAt(Object aValue, int rowIndex, int columnIndex) {
         throw new RuntimeException("Operation not supported");
     }
-    
+
     public int getRowOf(Object object){
     	if(tml.contains(object))
     		return tml.indexOf(object);
     	return -1;
     }
-    
 
 }

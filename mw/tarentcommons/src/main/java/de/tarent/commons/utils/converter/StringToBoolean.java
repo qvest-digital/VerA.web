@@ -35,7 +35,7 @@ public class StringToBoolean extends AbstractConverter {
     public Class getSourceType() {
         return String.class;
     }
-    
+
     public Object doConversion(Object sourceData) throws NumberFormatException {
         return new Boolean((String)sourceData);
     }

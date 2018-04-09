@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.commons.datahandling;
 
@@ -35,12 +35,12 @@ import junit.framework.TestCase;
 
 /**
  * Tests for {@link BeanMapTransformator}.
- * 
+ *
  * @author Tim Steffens
  *
  */
 public class BeanMapTranformatorTest extends TestCase {
-	
+
 	BeanMapTransformator beanMapTransformator;
 
 	/**
@@ -79,7 +79,7 @@ public class BeanMapTranformatorTest extends TestCase {
 	public void testTransformMapToBeanMapClass() {
 		Map map = new HashMap();
 		map.put("anAttribute", "aNewAttributeValue");
-		ConcreteBeanMap bean = (ConcreteBeanMap) this.beanMapTransformator.transformMapToBean(map, ConcreteBeanMap.class);		
+		ConcreteBeanMap bean = (ConcreteBeanMap) this.beanMapTransformator.transformMapToBean(map, ConcreteBeanMap.class);
 		assertEquals("aNewAttributeValue", bean.getAnAttribute());
 	}
 
@@ -99,7 +99,7 @@ public class BeanMapTranformatorTest extends TestCase {
 	public void testTransformMapToBeanMapObject() {
 		Map map = new HashMap();
 		map.put("anAttribute", "aNewAttributeValue");
-		ConcreteBeanMap bean = new ConcreteBeanMap(); 
+		ConcreteBeanMap bean = new ConcreteBeanMap();
 		this.beanMapTransformator.transformMapToBean(map, bean);
 		assertEquals("aNewAttributeValue", bean.getAnAttribute());
 	}

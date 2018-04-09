@@ -32,7 +32,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
-import de.tarent.commons.utils.*;    
+import de.tarent.commons.utils.*;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -43,7 +43,7 @@ import javax.swing.JComboBox;
 
 /**
  * This is a binding implementation for usage of normal swing components or other bean like classes as view.
- * To use this binding, the view must only have a matching get/set pair to the viewAttributeKey. If the 
+ * To use this binding, the view must only have a matching get/set pair to the viewAttributeKey. If the
  * view has only a set-method, then the BeanBinding defaults to readOnly binding.
  *
  * <p>There are two methods of data conversion for the get an set to the model: explicit DataConverter and an automatic data conversion.
@@ -60,7 +60,7 @@ import javax.swing.JComboBox;
 public class BeanBinding implements Binding, DataSubject {
 
     static final Object[] emptyArgs = new Object[]{};
-    
+
     Object viewComponent;
     String viewAttributeKey;
     Method setMethod;
@@ -69,7 +69,7 @@ public class BeanBinding implements Binding, DataSubject {
     boolean onChangeWriteToModel = true;
     boolean readOnly = false;
     List dataChangedListener;
-    
+
     /**
      * The datatype to which the data is converted after retrieving from the view, if no converter is set.
      * If this value is not set, it will be set to the supplied datatype in the first after the firt setViewData() call.
@@ -87,21 +87,20 @@ public class BeanBinding implements Binding, DataSubject {
      * If no such converter is supplied, an auto converting mechanism is used.
      */
     Converter setViewDataConverter;
-    
-    
+
     public BeanBinding(Object viewComponent, String viewAttributeKey, String modelAttributeKey) {
         this.viewComponent = viewComponent;
         this.viewAttributeKey = viewAttributeKey;
         this.modelAttributeKey = modelAttributeKey;
 
-        getMethod = Pojo.getGetMethod(viewComponent, viewAttributeKey, true);  
-        setMethod = Pojo.getSetMethod(viewComponent, viewAttributeKey, true);  
+        getMethod = Pojo.getGetMethod(viewComponent, viewAttributeKey, true);
+        setMethod = Pojo.getSetMethod(viewComponent, viewAttributeKey, true);
         if (setMethod == null)
             throw new IllegalArgumentException("No method setter method found for binding '"+this+"' in class '"+viewComponent.getClass()+"'");
         if (getMethod == null)
             readOnly = true;
-        
-        registerListener();        
+
+        registerListener();
     }
 
     /**
@@ -120,15 +119,15 @@ public class BeanBinding implements Binding, DataSubject {
             ((JComboBox)viewComponent).addActionListener(new ActionListenerAdapter(this));
         }
     }
-    
+
     public void setViewData(Object data) {
         if (data != null && forceDataType == null)
-            forceDataType = data.getClass();        
+            forceDataType = data.getClass();
         if (setViewDataConverter != null)
-            data = setViewDataConverter.convert(data);            
+            data = setViewDataConverter.convert(data);
         Pojo.set(viewComponent, setMethod, data);
     }
-    
+
     public Object getViewData() {
         if (!isReadOnly()) {
             Object result = Pojo.get(viewComponent, getMethod);
@@ -140,7 +139,7 @@ public class BeanBinding implements Binding, DataSubject {
         }
         throw new RuntimeException("getViewData on readonly Binding called "+toString());
     }
-    
+
     public String getModelAttributeKey() {
         return modelAttributeKey;
     }
@@ -148,11 +147,11 @@ public class BeanBinding implements Binding, DataSubject {
     public String getViewAttributeKey() {
         return viewAttributeKey;
     }
-    
+
     public boolean wasViewModified() {
         return true;
     }
-    
+
     public void setOnChangeWriteToModel(boolean newOnChangeWriteToModel) {
         this.onChangeWriteToModel = newOnChangeWriteToModel;
     }
@@ -164,7 +163,7 @@ public class BeanBinding implements Binding, DataSubject {
     public boolean isReadOnly() {
         return readOnly;
     }
-    
+
     public void setReadOnly(boolean newReadOnly) {
         this.readOnly = newReadOnly;
     }
@@ -176,14 +175,14 @@ public class BeanBinding implements Binding, DataSubject {
             DataChangedListener listener = (DataChangedListener)iter.next();
             listener.dataChanged(e);
         }
-    }    
-    
+    }
+
     public void addDataChangedListener(DataChangedListener listener) {
         if (dataChangedListener == null)
             dataChangedListener = new ArrayList(2);
         dataChangedListener.add(listener);
-    }    
-    
+    }
+
     /**
      * Removes a DataChangedListener
      * @param listener The registered listener
@@ -225,7 +224,7 @@ public class BeanBinding implements Binding, DataSubject {
     public void setSetViewDataConverter(Converter newSetViewDataConverter) {
         this.setViewDataConverter = newSetViewDataConverter;
     }
-    
+
     /**
      * Returns the converter for conversion of the data befor getting it to the view.
      * If no such converter is supplied, an auto converting mechanism is used.
@@ -241,74 +240,73 @@ public class BeanBinding implements Binding, DataSubject {
     public void setGetViewDataConverter(Converter newGetViewDataConverter) {
         this.getViewDataConverter = newGetViewDataConverter;
     }
-    
 
     public String toString() {
         String writeTo = onChangeWriteToModel ? "=" : "-";
         String notRo = readOnly ? "" : ">";
-        
+
         return "("
             +viewComponent.getClass().getName()
-            +":" 
+            +":"
             +viewAttributeKey
-            +" <"+writeTo+notRo+ " model:" 
+            +" <"+writeTo+notRo+ " model:"
             +modelAttributeKey
             +")";
     }
 
     protected class DocumentListenerAdapter implements DocumentListener {
-        
+
         BeanBinding parentBinding;
         public DocumentListenerAdapter(BeanBinding parentBinding) {
             this.parentBinding = parentBinding;
         }
-        
+
         void fire() {
             parentBinding.fireDataChanged(new DataChangedEvent(parentBinding, parentBinding.getModelAttributeKey()));
         }
-        
+
         public void changedUpdate(DocumentEvent e) {
             fire();
         }
-        
+
         public void insertUpdate(DocumentEvent e) {
             fire();
         }
 
         public void removeUpdate(DocumentEvent e) {
-            fire();            
+            fire();
         }
     }
 
     protected class ChangeListenerAdapter implements ChangeListener {
-        
+
         BeanBinding parentBinding;
-        
+
         public ChangeListenerAdapter(BeanBinding parentBinding) {
             this.parentBinding = parentBinding;
         }
-        
+
         void fire() {
             parentBinding.fireDataChanged(new DataChangedEvent(parentBinding, parentBinding.getModelAttributeKey()));
         }
-        
+
         public void stateChanged(ChangeEvent e) {
             fire();
         }
     }
 
     protected class ActionListenerAdapter implements ActionListener {
-        
+
         BeanBinding parentBinding;
-        
+
         public ActionListenerAdapter(BeanBinding parentBinding) {
             this.parentBinding = parentBinding;
         }
-        
+
         void fire() {
             parentBinding.fireDataChanged(new DataChangedEvent(parentBinding, parentBinding.getModelAttributeKey()));
         }
-        
+
         public void actionPerformed(ActionEvent e) {
             fire();
         }

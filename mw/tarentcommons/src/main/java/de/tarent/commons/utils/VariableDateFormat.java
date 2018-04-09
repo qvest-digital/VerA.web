@@ -49,7 +49,7 @@ public class VariableDateFormat extends SimpleDateFormat
     {
         super();
     }
-    
+
     private boolean isMonth(String input)
     {
         String[] monthNames = new DateFormatSymbols(Locale.getDefault()).getMonths();
@@ -74,7 +74,7 @@ public class VariableDateFormat extends SimpleDateFormat
         String[] tokens = input.split(" ");
         return isMonth(tokens[0]) && input.matches("[a-zA-Z]+ [0-9][0-9][0-9][0-9]");
     }
-    
+
     private boolean isFormatB(String input)
     {
         // "Januar 06"
@@ -169,19 +169,19 @@ public class VariableDateFormat extends SimpleDateFormat
         // "01.01.2006"
         return input.matches("[0-9][0-9]\\.[0-9][0-9]\\.[0-9][0-9][0-9][0-9]");
     }
-        
+
     private boolean isFormatP(String input)
     {
         // "01.01.06"
         return input.matches("[0-9][0-9]\\.[0-9][0-9]\\.[0-9][0-9]");
     }
-        
+
     private boolean isFormatQ(String input)
     {
         // "2006-01-20 12:30:50.9"
         return input.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d.\\d");
     }
-        
+
     private boolean isFormatR(String input)
     {
         // "2006.20.01"

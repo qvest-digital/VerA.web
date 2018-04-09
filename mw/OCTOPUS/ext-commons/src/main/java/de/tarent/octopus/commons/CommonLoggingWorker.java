@@ -75,9 +75,9 @@ import de.tarent.octopus.server.OctopusContext;
 /**
  * This octopus worker will be load the java.util.logging configuration
  * from a file with the tarent-commons {@link LogManager}.
- * 
+ *
  * @see LogManager for more information.
- * 
+ *
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class CommonLoggingWorker {
@@ -99,13 +99,13 @@ public class CommonLoggingWorker {
 	/**
 	 * This octopus action re-configure the {@link LogManager} with the given
 	 * parameters <code>logging.property.file</code>.
-	 * 
+	 *
 	 * If <code>contentFilename</code> is set, the configuration file will be
 	 * loaded from the content parameter <code>logging.property.file</code>.
-	 * 
+	 *
 	 * Otherwise it tries to load the configuration file name from the octopus
 	 * module configuration with the parameter <code>logging.property.file</code>.
-	 * 
+	 *
 	 * @param contentFilename
 	 * @param configFilename
 	 */
@@ -114,10 +114,10 @@ public class CommonLoggingWorker {
 			OctopusContext octopusContext,
 			@Name("CONTENT:logging.property.file") @Optional(true) String contentFilename,
 			@Name("CONFIG:logging.property.file") @Optional(true) String configFilename) {
-		
+
 		try {
 			File modulePath = octopusContext.moduleRootPath();
-			
+
 			if (contentFilename != null) {
 				if (!appendLoggingProperties(new File(modulePath, contentFilename))) {
 					appendLoggingProperties(new File(contentFilename));
@@ -138,15 +138,15 @@ public class CommonLoggingWorker {
 		if (file.exists()) {
 			if (logger.isLoggable(Level.INFO))
 				logger.log(Level.INFO, READ_CONFIGURATION_FILE.getMessage(file.getAbsoluteFile()));
-			
+
 			InputStream is = new FileInputStream(file.getAbsoluteFile());
-			
+
 			// Do not call here java.util.logging.LogManager!
 			// This will reset all other logging configurations and that
 			// is really evil and can be have side effects to other
 			// software producer that are running in the same vm.
 			getLogManager().readConfiguration(is);
-			
+
 			return true;
 		} else {
 			if (logger.isLoggable(Level.INFO))
@@ -160,36 +160,36 @@ public class CommonLoggingWorker {
 			OctopusContext octopusContext,
 			@Name("CONFIG:logging.handler") @Optional(true) Map<String, Map<String, String>> configHandler,
 			@Name("CONFIG:logging.logger") @Optional(true) Map<String, Map<String, String>> configLogger) {
-		
+
 		LogManager logManager = getLogManager();
-		
+
 		if (configHandler != null) {
 			for (Map.Entry<String, Map<String, String>> entry : configHandler.entrySet()) {
 				String handlername = entry.getKey();
 				Properties properties = new Properties();
-				
+
 				for (Map.Entry<String, String> param : entry.getValue().entrySet()) {
 					String key = param.getKey();
 					String value = octopusContext.moduleConfig().substituteVars(param.getValue());
 					properties.put(key, value);
 				}
-				
+
 				logManager.setHandler(handlername, properties, null);
 			}
 		}
-		
+
 		if (configLogger != null) {
 			for (Map.Entry<String, Map<String, String>> entry : configLogger.entrySet()) {
 				String loggername = entry.getKey();
 				String level = entry.getValue().get("level");
 				String handlers = entry.getValue().get("handlers");
-				
+
 				Properties properties = new Properties();
 				if (level != null && level.length() != 0)
 					properties.setProperty(loggername + ".level", level);
 				if (handlers != null && handlers.length() != 0)
 					properties.setProperty(loggername + ".handlers", handlers);
-				
+
 				logManager.readConfiguration(properties);
 			}
 		}
@@ -198,24 +198,24 @@ public class CommonLoggingWorker {
 	@WebMethod
 	public void changeHandlerLevels(
 			@Name("CONFIG:logging.level") @Optional(true) Map<String, Map<String, String>> configLevels) {
-		
+
 		if (configLevels != null) {
 			for (Map.Entry<String, Map<String, String>> entry : configLevels.entrySet()) {
 				String loggername = entry.getKey();
 				if (loggername.equals("root"))
 					loggername = "";
-				
+
 				if (logger.isLoggable(Level.INFO))
 					logger.log(Level.INFO, "Will change log level for handler of logger '" + loggername + "' with " + entry.getValue() + ".");
-				
+
 				List<Handler> handlers = Arrays.asList(Logger.getLogger(loggername).getHandlers());
 				if (logger.isLoggable(Level.INFO))
 					logger.log(Level.INFO, "Available handlers: " + handlers);
-				
+
 				for (Map.Entry<String, String> handlerToLevel : entry.getValue().entrySet()) {
 					String handlerpattern = handlerToLevel.getKey();
 					String level = handlerToLevel.getValue();
-					
+
 					if (level != null && level.length() != 0) {
 						for (Handler handler : handlers) {
 							if (handler.toString().contains(handlerpattern)) {
@@ -237,14 +237,14 @@ public class CommonLoggingWorker {
 	/**
 	 * Initialize a thread logger for the current request thread with
 	 * the request id of the surroung webapplication server.
-	 * 
+	 *
 	 * @param octopusContext
 	 */
 	@WebMethod
 	public void initializeThreadLogger(OctopusContext octopusContext) {
 		String threadId = octopusContext.getRequestObject().getRequestID();
 		final ThreadLogger threadLogger = ThreadLogger.createInstance(threadId);
-		
+
 		octopusContext.addCleanupCode(new Runnable() {
 			public void run() {
 				threadLogger.clean();
@@ -258,7 +258,7 @@ public class CommonLoggingWorker {
 	/**
 	 * Return one {@link LogManager} instance for all octopus actions
 	 * in this worker.
-	 * 
+	 *
 	 * @return
 	 */
 	protected LogManager getLogManager() {

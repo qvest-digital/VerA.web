@@ -29,13 +29,13 @@ import java.util.List;
 import java.util.Arrays;
 
 /**
- * Is a wrapper class for a filter operator.<p>  
- * 
- * It will be used by {@link de.tarent.commons.datahandling.ListFilterProvider} 
+ * Is a wrapper class for a filter operator.<p>
+ *
+ * It will be used by {@link de.tarent.commons.datahandling.ListFilterProvider}
  * in order to distinguish and handle the filter elements inside the list, that represents a filter.
  * <p>
  * @see de.tarent.commons.datahandling.ListFilterProvider#getFilterList()
- * <p>  
+ * <p>
  */
 public class ListFilterOperator {
 
@@ -66,8 +66,7 @@ public class ListFilterOperator {
     public static final ListFilterOperator AND = new ListFilterOperator("AND");
     public static final ListFilterOperator OR = new ListFilterOperator("OR");
     public static final ListFilterOperator NOT = new ListFilterOperator("NOT");
-    
-    
+
     private String operator;
 
     /**
@@ -79,7 +78,7 @@ public class ListFilterOperator {
             throw new IllegalArgumentException(anOperator +"is not a valid operator. Ony the predefined operators are allowed: "+VALID_OPERATOR_SYMBOLS);
         operator = anOperator;
     }
-    
+
     /**
      * Returns a count of operands required for a given operator.
      * @return '1' if NOT or IS_NULL operator and '2' else.
@@ -91,8 +90,7 @@ public class ListFilterOperator {
         return 2;
     }
 
-    
-    /** Checks if this operator is a connection operator. 
+    /** Checks if this operator is a connection operator.
      * @return 'true' if is one of the following operators: AND, OR, NOT.
      */
     public boolean isConnectionOperator() {
@@ -102,9 +100,9 @@ public class ListFilterOperator {
     }
 
     public boolean equals(Object o) {
-        return (o instanceof ListFilterOperator) && o.toString().equals(operator); 
+        return (o instanceof ListFilterOperator) && o.toString().equals(operator);
     }
-    
+
     /** Returns a string representation of an encapsulated operator.*/
     public String toString() {
         return operator;

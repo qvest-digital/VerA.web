@@ -90,7 +90,7 @@ public class CSVDocument implements SpreadSheet {
 	public void closeRow() {
 	}
 
-	public void addCell(Object content) {        
+	public void addCell(Object content) {
         currentRow.add(content == null ? "" : content.toString());
 	}
 }

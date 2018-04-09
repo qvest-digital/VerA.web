@@ -35,7 +35,7 @@ import de.tarent.commons.spreadsheet.export.xls.XLSSpreadSheet;
 
 /**
  * Hilfsklasse für SpreadSheets.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class SpreadSheetFactory {
@@ -60,7 +60,7 @@ public class SpreadSheetFactory {
 	/**
 	 * Gibt eine SpreadSheet-Instanz entsprechend des übergebenen Typens zurück.
 	 * Als Default gibt es ein {@link #TYPE_ODS_DOCUMENT} zurück.
-	 * 
+	 *
 	 * @param type siehe TYPE_*
 	 * @return SpreadSheetContent
 	 */

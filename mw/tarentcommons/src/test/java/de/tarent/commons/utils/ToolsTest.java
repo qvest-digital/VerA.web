@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.commons.utils;
 
@@ -38,7 +38,7 @@ import junit.framework.TestCase;
 
 /**
  * @author tim
- * 
+ *
  * Unti test for {@link Tools}.
  *
  */
@@ -57,7 +57,7 @@ public class ToolsTest extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-	
+
 	/**
 	 * Test method for {@link Tools#mapIsEmpty(Map)}
 	 */
@@ -72,8 +72,8 @@ public class ToolsTest extends TestCase {
 		assertTrue("Problem with whitespaces", Tools.mapIsEmpty(map));
 		map.put("test4", "4");
 		assertFalse("Problem with nonempty map", Tools.mapIsEmpty(map));
-	}	
-	
+	}
+
 	/**
 	 * Test method for {@link Tools#removeNullEntries(Map)}
 	 */
@@ -93,9 +93,9 @@ public class ToolsTest extends TestCase {
 		map.put("test4", "4");
 		Tools.removeNullEntries(map);
 		assertEquals("Problem with nonempty ma", 3, map.size());
-		
+
 	}
-	
+
 	/**
 	 * Test method for {@link Tools#removeEmptyEntriesy(Map)}
 	 */
@@ -145,9 +145,9 @@ public class ToolsTest extends TestCase {
 		Tools.putIfNotNull(map, o1, o2);
 		assertEquals("Problem with two existing values", true, map.containsKey(o1));
 		assertEquals("Problem with two existing values", true, map.containsValue(o2));
-		
+
 	}
-	
+
 	/**
 	 * Test method for {@link Tools#iteratorToString(java.util.Iterator, String, boolean, String, boolean)}
 	 */
@@ -165,7 +165,7 @@ public class ToolsTest extends TestCase {
 				"First element--Second element",
 				Tools.iteratorToString(linkList.iterator(), "-", false, "-", false));
 	}
-	
+
 	/**
 	 * Test method for {@link Tools#mapToString(Map, String, boolean, String, String, boolean)}
 	 */
@@ -182,9 +182,9 @@ public class ToolsTest extends TestCase {
 		assertEquals("Problems with prefix and suffix (not before first and after last)",
 				"Key1=Value1--Key2=Value2",
 				Tools.mapToString(map, "-", false, "=" , "-", false));
-	
+
 	}
-	
+
 	/**
 	 * Test method for {@link Tools#arrayToString(java.util.Iterator, String, boolean, String, boolean)}
 	 */

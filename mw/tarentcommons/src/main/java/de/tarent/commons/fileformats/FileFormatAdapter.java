@@ -55,26 +55,11 @@ public class FileFormatAdapter implements FileFormat
   private boolean   m_bCanSave = true;
   private boolean	m_bTemplateFormat = false;
   private boolean	m_bXMLFormat = false;
-  
+
   private ImageIcon m_oIcon = null;
   private List      m_oSuffixes;
-  
+
   // -----------------------------------
-  
-  /**
-   * Erzeugt ein OfficeFileFormat
-   * @param key         - der Schlüssel über den auf das FileFormat zugegriffen werden kann
-   * @param shortname   - eine Kurzbezeichnung des Dateiformats
-   * @param longname    - die vollständige Bezeichnung des Dateiformats
-   * @param description - eine genaue Erklärung des Dateiformats
-   * @param icon        - ein Icon für das Dateiformat
-   * @param suffixes    - ein String oder ein String[] mit de(r/n) Dateiendung(en) 
-   */
-  public FileFormatAdapter(String key, String shortname, String longname, String description, Object icon, Object suffixes)
-  {
-    this(key, shortname, longname, description, icon, suffixes, true, true);
-  }
-  
 
   /**
    * Erzeugt ein OfficeFileFormat
@@ -83,8 +68,22 @@ public class FileFormatAdapter implements FileFormat
    * @param longname    - die vollständige Bezeichnung des Dateiformats
    * @param description - eine genaue Erklärung des Dateiformats
    * @param icon        - ein Icon für das Dateiformat
-   * @param suffixes    - ein String oder ein String[] mit de(r/n) Dateiendung(en) 
-   * @param canLoad     - gibt an ob die API dieses Format lesen kann 
+   * @param suffixes    - ein String oder ein String[] mit de(r/n) Dateiendung(en)
+   */
+  public FileFormatAdapter(String key, String shortname, String longname, String description, Object icon, Object suffixes)
+  {
+    this(key, shortname, longname, description, icon, suffixes, true, true);
+  }
+
+  /**
+   * Erzeugt ein OfficeFileFormat
+   * @param key         - der Schlüssel über den auf das FileFormat zugegriffen werden kann
+   * @param shortname   - eine Kurzbezeichnung des Dateiformats
+   * @param longname    - die vollständige Bezeichnung des Dateiformats
+   * @param description - eine genaue Erklärung des Dateiformats
+   * @param icon        - ein Icon für das Dateiformat
+   * @param suffixes    - ein String oder ein String[] mit de(r/n) Dateiendung(en)
+   * @param canLoad     - gibt an ob die API dieses Format lesen kann
    * @param canSave     - gibt an ob die API dieses Format schreiben kann
    */
   public FileFormatAdapter(String key, String shortname, String longname, String description, Object icon, Object suffixes, boolean canLoad, boolean canSave)
@@ -95,17 +94,17 @@ public class FileFormatAdapter implements FileFormat
     m_sDescription = description;
     m_bCanLoad = canLoad;
     m_bCanSave = canSave;
-    
+
 //    if (icon instanceof ImageIcon)
 //    {
-//      m_oIcon = (ImageIcon)icon;      
+//      m_oIcon = (ImageIcon)icon;
 //    }
 //    else if (icon instanceof String)
 //    {
-//      m_oIcon = loadIcon((String)icon);      
+//      m_oIcon = loadIcon((String)icon);
 //    }
 //    else m_oIcon = null;
-    
+
     m_oSuffixes = new ArrayList();
     if (suffixes != null)
     {
@@ -122,9 +121,9 @@ public class FileFormatAdapter implements FileFormat
       }
     }
   }
-  
+
   // -----------------------------------
-  
+
   public String getKey()
   {
     return m_sKey;
@@ -188,9 +187,8 @@ public class FileFormatAdapter implements FileFormat
   public int getNumberOfSuffixes()
   {
     return m_oSuffixes.size();
-  }  
+  }
 
-  
   public boolean endsWithSuffix(String filename)
   {
     Iterator it = m_oSuffixes.iterator();
@@ -202,32 +200,29 @@ public class FileFormatAdapter implements FileFormat
     return false;
   }
 
-  
-  
   private class OfficeFileFilter extends FileFilter
   {
     public boolean accept(File f)
     {
       for(int i=0; i<(getNumberOfSuffixes()); i++)
       {
-        String suffix = getSuffix(i).toUpperCase();        
+        String suffix = getSuffix(i).toUpperCase();
         if (f.getName().toUpperCase().endsWith(suffix)) return true;
       }
-      
+
       return false;
     }
 
     public String getDescription()
     {
       return FileFormatAdapter.this.getDescription();
-    }    
+    }
   }
-    
+
   public FileFilter getFileFilter()
   {
     return new OfficeFileFilter();
   }
-
 
   public boolean canLoad()
   {
@@ -239,7 +234,6 @@ public class FileFormatAdapter implements FileFormat
     return m_bCanSave;
   }
 
-  
   public void setCanLoad(boolean canLoad)
   {
     m_bCanLoad = canLoad;
@@ -249,7 +243,7 @@ public class FileFormatAdapter implements FileFormat
   {
     m_bCanSave = canSave;
   }
-  
+
   public void setTemplateFormat(boolean pTemplate)
   {
 	  m_bTemplateFormat = pTemplate;
@@ -259,15 +253,15 @@ public class FileFormatAdapter implements FileFormat
   {
 	  return m_bTemplateFormat;
   }
-  
+
   public void setXMLFormat(boolean pXMLFormat)
   {
 	  m_bXMLFormat = pXMLFormat;
   }
-  
+
   public boolean isXMLFormat()
   {
 	  return m_bXMLFormat;
   }
-  
+
 }

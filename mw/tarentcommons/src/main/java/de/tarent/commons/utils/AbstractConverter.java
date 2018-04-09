@@ -25,12 +25,11 @@
 
 package de.tarent.commons.utils;
 
-
 /**
  * Abstract default implementation of the converter interface.
  */
 public abstract class AbstractConverter implements Converter {
-    
+
     /**
      * Returns the Name of the converter
      */
@@ -38,7 +37,7 @@ public abstract class AbstractConverter implements Converter {
         String cname = getClass().getName();
         return cname.substring(cname.lastIndexOf(".")+1);
     }
-    
+
     /**
      * Returns the target type of the converter
      */
@@ -52,7 +51,7 @@ public abstract class AbstractConverter implements Converter {
     public Class getSourceType() {
         return Object.class;
     }
-    
+
     /**
      * Converts a data Item from the source to the target type.
      * This method does the handling of errors and null and uses doConversion() for the real conversion.
@@ -66,7 +65,7 @@ public abstract class AbstractConverter implements Converter {
             return doConversion(sourceData);
         } catch (Exception e) {
         	// TODO Sebastian Mancke: IAE have only a simple string constructor in java 1.4, please verify this changes. Also externalize strings?
-            
+
         	RuntimeException re = new IllegalArgumentException("Error while conversion '" + sourceData + "'.");
             re.initCause(e);
             throw re;

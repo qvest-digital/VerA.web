@@ -22,19 +22,18 @@ import com.jgoodies.forms.layout.FormLayout;
 import de.tarent.commons.utils.TaskManager;
 import de.tarent.commons.utils.TaskManager.Context;
 
-
 /**
  * Simple implementation of the {@link TaskManager.TaskListener} interface which
  * displays the latest task with a label and a progress bar and provides a
  * cancel button for cancelable tasks.
- * 
+ *
  * @author Robert Schuster
  */
 public class SmallTaskManagerPanel extends JComponent implements
 TaskManager.TaskListener
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1129992957849564059L;
 
@@ -98,7 +97,7 @@ TaskManager.TaskListener
 	/**
 	 * Puts the newly registered task as the active one and copies
 	 * the description.
-	 * 
+	 *
 	 */
 	public void taskRegistered(Context t, final String description)
 	{
@@ -122,7 +121,7 @@ TaskManager.TaskListener
 	}
 
 	/** Sets the label's text (on the Swing thread).
-	 * 
+	 *
 	 * @param text
 	 */
 	private void setLabelLater(final String text)
@@ -138,18 +137,18 @@ TaskManager.TaskListener
 
 	/**
 	 * Sets the progress bar on the Swing thread.
-	 * 
+	 *
 	 * <p>If <code>progress</code> is <code>0</code> this
 	 * is interpreted as the task's start which results in
 	 * the label, the progress bar and the cancel button (if
 	 * applicable) being made visible.</p>
-	 * 
+	 *
 	 * <p>If the progress bar's maximum value is zero it is
 	 * set into indeterminate mode.</p>
-	 * 
+	 *
 	 * <p>In case <code>progress</code> is non-zero the progress
 	 * bar's value is updated accordingly.</p>
-	 * 
+	 *
 	 * @param progress
 	 */
 	private void setProgressLater(final int progress)
@@ -250,7 +249,6 @@ TaskManager.TaskListener
 		if (t == showingContext)
 			setMaximumLater(amount);
 	}
-
 
 	private Context getMostImportantContext() {
 		Context mostImportant = null;

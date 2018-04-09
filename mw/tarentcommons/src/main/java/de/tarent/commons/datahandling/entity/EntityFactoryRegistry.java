@@ -38,7 +38,7 @@ public class EntityFactoryRegistry {
 
 	/**
 	 * Register an {@link EntityFactory} for the given instantiation class name.
-	 * 
+	 *
 	 * @param instantiationClass
 	 * @param entityFactory
 	 */
@@ -49,7 +49,7 @@ public class EntityFactoryRegistry {
 	/**
 	 * Unregister an {@link EntityFactory} for the given instantiation class
 	 * name.
-	 * 
+	 *
 	 * @param instantiationClass
 	 * @param entityFactory
 	 */
@@ -61,14 +61,14 @@ public class EntityFactoryRegistry {
 	 * Return an {@link EntityFactory} for the given instantiation class name.
 	 * If none {@link EntityFactory} has registered it will return an new
 	 * {@link DefaultEntityFactory} instance.
-	 * 
+	 *
 	 * @param instantiationClass
 	 * @return
 	 */
 	public static EntityFactory getEntityFactory(Class instantiationClass) {
 		if (instantiationClass == null)
 			return null;
-		
+
 		EntityFactory entityFactory = (EntityFactory) entityFactories.get(instantiationClass);
 		if (entityFactory == null) {
 			entityFactory = new DefaultEntityFactory(instantiationClass);
@@ -82,14 +82,14 @@ public class EntityFactoryRegistry {
 	 * If none {@link EntityFactory} has registered it will return an new
 	 * {@link DefaultEntityFactory} instance initialized with the given
 	 * <code>keyName</code>.
-	 * 
+	 *
 	 * @param instantiationClass
 	 * @return
 	 */
 	public static EntityFactory getEntityFactory(Class instantiationClass, String keyName) {
 		if (instantiationClass == null)
 			return null;
-		
+
 		EntityFactory entityFactory = (EntityFactory) entityFactories.get(instantiationClass);
 		if (entityFactory == null) {
 			entityFactory = new DefaultEntityFactory(instantiationClass, keyName);

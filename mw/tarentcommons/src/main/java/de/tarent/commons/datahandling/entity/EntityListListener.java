@@ -33,7 +33,7 @@ import java.util.EventListener;
  *
  */
 public interface EntityListListener extends EventListener {
-    
+
     public void entityListChanged(EntityListEvent e);
-    
+
 }

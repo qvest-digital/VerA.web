@@ -30,8 +30,6 @@ import java.util.LinkedList;
 import java.util.StringTokenizer;
 import java.util.Collection;
 
-
-
 /**
  * Abstraction for a list of Integer Primary Keys.
  * This List has a simple String representation, which is provided
@@ -39,7 +37,7 @@ import java.util.Collection;
  * The String representation ist a comma "," separated list.
  */
 public class PrimaryKeyList extends LinkedList {
-    
+
     public static final String DELIM = ",";
 
     public PrimaryKeyList() {
@@ -56,7 +54,7 @@ public class PrimaryKeyList extends LinkedList {
             add(new Integer(st.nextToken()));
         }
     }
-    
+
     /**
      * Returns a PrimaryKeyList representations for the supplied collection.
      * If the collection is already a PrimaryKeyList instance, this is simply a cast.
@@ -69,11 +67,11 @@ public class PrimaryKeyList extends LinkedList {
         pkList.addAll(c);
         return pkList;
     }
-    
+
     public String toString() {
         return toString(DELIM, this);
     }
-    
+
     public static String toString(String delim, Collection collection) {
         StringBuffer sb = new StringBuffer();
         for (Iterator iter = collection.iterator(); iter.hasNext();) {

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.tarent.commons.ui;
 
@@ -42,15 +42,15 @@ import de.tarent.commons.config.Environment.Key;
 import de.tarent.commons.ui.connection.ViewConnectionPropertiesAction;
 
 /**
- * 
+ *
  * <p>Provides a login screen that is displayed right after the
  * start and which allows the user to select the database connection
  * as well providing her login credentials.</p>
- * 
+ *
  * <p>Other classes can register <code>ActionListeners</code> via
  * the <code>addActionListener</code> method, if they are interested
- * in events like "User clicked on Login-Button" or "User clicked on Cancel-Button" 
- * 
+ * in events like "User clicked on Login-Button" or "User clicked on Cancel-Button"
+ *
  * @author Robert Schuster (r.schuster@tarent.de) tarent GmbH Bonn
  * @author Fabian K&ouml;ster (f.koester@tarent.de) tarent GmbH Bonn
  *
@@ -58,7 +58,7 @@ import de.tarent.commons.ui.connection.ViewConnectionPropertiesAction;
 public class LoginDialog extends JFrame implements DeferringLoginProvider
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 657372095408198428L;
 	protected JPanel mainPanel;
@@ -93,7 +93,7 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 	{
 		this(null, null, null);
 	}
-	
+
 	public LoginDialog(String initialUser, String initialConnection, Image icon) {
 		this(initialUser, initialConnection, icon, null);
 	}
@@ -155,7 +155,7 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 	{
 		fireActionEvent("cancel");
 	}
-	
+
 	public void fireQuitRequested()
 	{
 		fireActionEvent("quit");
@@ -258,7 +258,7 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 			PanelBuilder builder = new PanelBuilder(layout);
 
 			CellConstraints cc = new CellConstraints();
-			
+
 			builder.add(getProgressBar(), cc.xy(1, 2));
 
 			progressBarPanel = builder.getPanel();
@@ -327,32 +327,32 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 				{
 					// initialize viewer (invoked by action) with the currently selected connection-definition
                     ConnectionDefinition selectedConnection = (ConnectionDefinition) getConnectionBox().getSelectedItem();
-                    
+
                     if(selectedConnection != null) //if at least one connection defined
                         action.setPreferredConnection(selectedConnection.get(ConnectionDefinition.Key.LABEL));
-					
+
 					action.actionPerformed(ae);
 					if (action.wasCancelled())
 					  return;
-					
+
 					// Updates the connection box' content after knowing that
 					// the connection definitions must have changed.
 					connectionDefinitions = ConfigManager.getEnvironment().getConnectionDefinitions();
-					
+
 					getConnectionBox().setModel(new DefaultComboBoxModel(
 							connectionDefinitions.toArray()));
-					
+
 					setSelectedConnection(action.getPreferredConnection());
-					
+
 					// need to adapt the size of the dialog to eventually changed
 					// width of the connections-box
 					LoginDialog.this.pack();
-					
+
 					// The dialog should also be centered again
 					LoginDialog.this.setLocationRelativeTo(null);
 				}
 			});
-			
+
 			connectionPropertiesButton.setMnemonic('e');
 		}
 		return connectionPropertiesButton;
@@ -365,7 +365,7 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 
 		return passwordField;
 	}
-	
+
 	protected JLabel getPasswordLabel()
 	{
 		if(passwordLabel == null)
@@ -384,7 +384,7 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 
 		return userNameField;
 	}
-	
+
 	protected JLabel getUserNameLabel()
 	{
 		if(userNameLabel == null)
@@ -416,7 +416,7 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 			continueSessionLabel = createPlainLabel(Messages.getString("LoginDialog_Continue"));
 			continueSessionLabel.setLabelFor(getContinueSessionBox());
 			continueSessionLabel.setEnabled(false);
-			// TODO does not apply to english I18n 
+			// TODO does not apply to english I18n
 			continueSessionLabel.setDisplayedMnemonic('w');
 		}
 		return continueSessionLabel;
@@ -432,19 +432,18 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 		}
 		return connectionBox;
 	}
-	
+
 	protected JLabel getConnectionLabel()
 	{
 		if(connectionLabel == null)
 		{
 			connectionLabel = new JLabel(Messages.getString("LoginDialog_Connection"));
 			connectionLabel.setLabelFor(getConnectionBox());
-			// TODO does not apply to english I18n 
+			// TODO does not apply to english I18n
 			connectionLabel.setDisplayedMnemonic('v');
 		}
 		return connectionLabel;
 	}
-
 
 	public void setStatusText(String pText)
 	{
@@ -458,11 +457,11 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 
 	public void setDialogVisible(boolean pVisible)
 	{
-		if(pVisible) 
+		if(pVisible)
 			initFocus();
-		
+
 		setVisible(pVisible);
-		
+
 		if(!pVisible)
 			dispose();
 	}
@@ -521,7 +520,7 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				
+
 				setControlsEnabled(false);
 				getProgressBarPanel().setVisible(true);
 				getCancelButton().setText(Messages.getString("LoginDialog_Button_Cancel"));
@@ -533,11 +532,11 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 			else if(pEvent.getSource().equals(getConnectionBox()))
 			{
 				// disable continue-session-checkbox
-				// maybe enabled by Starter after check again 
+				// maybe enabled by Starter after check again
 				getContinueSessionBox().setSelected(false);
 				getContinueSessionBox().setEnabled(false);
 				getContinueSessionLabel().setEnabled(false);
-				
+
 				// eventually need to enable username and password-field
 				getUserNameField().setEnabled(true);
 				getUserNameLabel().setEnabled(true);
@@ -560,10 +559,10 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 	{
 		getProgressBar().setValue(100);
 		getProgressBar().setString("");
-		
+
 		int seconds = ConfigManager.getEnvironment().getAsInt(Key.SLEEP_SECONDS, 3);
 		new SleepScreen(this, Messages.getString("SleepScreen_Title"), Messages.getString("SleepScreen_Message"), seconds);
-		
+
 		getCancelButton().setText(Messages.getString("LoginDialog_Button_Quit"));
 		getCancelButton().setToolTipText(Messages.getString("LoginDialog_Button_Quit_ToolTip"));
 		getPasswordField().setText("");
@@ -581,7 +580,7 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 
 	protected void setSelectedConnection(String pInitialConnection)
 	{
-		for(int i=0; i < getConnectionBox().getItemCount(); i++)  
+		for(int i=0; i < getConnectionBox().getItemCount(); i++)
 		{
 			if(getConnectionBox().getItemAt(i).toString().equals(pInitialConnection))
 			{
@@ -620,6 +619,6 @@ public class LoginDialog extends JFrame implements DeferringLoginProvider
 		{
 			fireCancelRequested();
 			super.windowClosing(e);
-		}	
+		}
 	}
 }

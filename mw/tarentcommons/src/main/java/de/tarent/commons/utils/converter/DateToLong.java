@@ -36,7 +36,7 @@ public class DateToLong extends AbstractConverter {
     public Class getSourceType() {
         return Date.class;
     }
-    
+
     public Object doConversion(Object sourceData) throws NumberFormatException {
         return new Long(((Date)sourceData).getTime());
     }

@@ -31,11 +31,11 @@ import java.util.Map;
  * Simple Implementation of a GenericPojoStorage as a wrapper over a Map.
  * With this class it is possible to use an existing Map as a storage without copying it to a new data structure.
  */
-public class MapWrapperPojoStorage 
-    implements GenericPojoStorage {   
+public class MapWrapperPojoStorage
+    implements GenericPojoStorage {
 
-    Map dataContainer;    
-    
+    Map dataContainer;
+
     public MapWrapperPojoStorage(Map dataContainer) {
         this.dataContainer = dataContainer;
     }
@@ -51,7 +51,7 @@ public class MapWrapperPojoStorage
     public Map getDataContainer() {
         return dataContainer;
     }
-    
+
     public void setDataContainer(final Map newDataContainer) {
         this.dataContainer = newDataContainer;
     }

@@ -57,7 +57,7 @@ public class JHTMLFormView extends FormView
 
     /**
      * Constructs a new JFormView.
-     * 
+     *
      * @param elem Element that should be created.
      * @param controller Controlling JHTMLPanel.
      */
@@ -67,7 +67,7 @@ public class JHTMLFormView extends FormView
         this.controller = controller;
         this.widgetMap = widgetMap;
         this.element = elem;
-        
+
         nameAttribute  = (String)elem.getAttributes().getAttribute(HTML.Attribute.NAME);
         typeAttribute = (String)elem.getAttributes().getAttribute(HTML.Attribute.TYPE);
     }
@@ -75,29 +75,29 @@ public class JHTMLFormView extends FormView
     /**
      * This actually created the component by looking up the contents of the
      * "type" attribute of the input element in the configuration. The component
-     * is created and returned to Swing which places it into the rendered HTML. This 
+     * is created and returned to Swing which places it into the rendered HTML. This
      * virtually extends the HTML language to include arbitrary Swing widgets in
-     * a HTML rendered panel. 
+     * a HTML rendered panel.
      * <p>
      * Please note the callback to the controller's componentCreated method. This is
-     * needed for synchronizing the creation of the HTML panel's content and the 
+     * needed for synchronizing the creation of the HTML panel's content and the
      * main thread of the main application. Normally, the HTML is rendered in the background and
      * the widgets are not available when the main thread returns to the initialize method
      * of the panel. Thus, if the panel tries to register listeners on the widgets in the
      * JHTML panel, it may get errors. This is resolved by placing the component
      * configuration including the listener registration in the componentCreated method.
-     * 
+     *
      * @return Created component.
      */
-    protected Component createComponent() 
+    protected Component createComponent()
     {
         Component component = null;
-        
+
         if (widgetMap.containsKey(typeAttribute))
         {
             // a tag defined or overwritten in the configuration was used
             Class componentClass = (Class)widgetMap.get(typeAttribute);
-            
+
             try
             {
                 component = (Component)componentClass.newInstance();
@@ -110,16 +110,16 @@ public class JHTMLFormView extends FormView
             {
                 throw new RuntimeException("Illegal access while creating custom widget instance: " + componentClass.getName());
             }
-            
+
             controller.componentCreated(nameAttribute, component, element);
         }
         else
         {
-            // standard type was used - rely on standard Swing 
+            // standard type was used - rely on standard Swing
             component = super.createComponent();
             controller.componentCreated(nameAttribute, component, element);
         }
-        
+
         return component;
     }
 }

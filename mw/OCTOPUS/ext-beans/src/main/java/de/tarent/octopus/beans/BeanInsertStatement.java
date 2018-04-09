@@ -25,7 +25,7 @@
 
 /*
  * $Id: BeanInsertStatement.java,v 1.4 2007/06/11 13:24:36 christoph Exp $
- * 
+ *
  * Created on 25.01.2006
  */
 package de.tarent.octopus.beans;
@@ -43,7 +43,7 @@ import de.tarent.dblayer.sql.statement.Insert;
  * This class encapsulates an INSERT {@link PreparedStatement}operating in
  * a given {@link ExecutionContext} and using data from {@link Bean} instances.<br>
  * TODO: implement ID pre-fetches and post-fetches using aggregated BeanSelectStatements.
- * 
+ *
  * @author Michael Klink
  */
 class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
@@ -53,7 +53,7 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
     /**
      * This constructor stores the given context and creates the prepared
      * statement.
-     * 
+     *
      * @param insert the db layer INSERT statement using {@link BeanBaseStatement#PLACE_HOLDER}
      *  for variables where bean field values are to be set.
      * @param fieldsInInsert fields to insert in the same order as their corresponding
@@ -70,7 +70,7 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
     //
     /**
      * This method executes the insert using the given bean.
-     * 
+     *
      * @param bean this bean's attributes are fed into the prepared statement.
      * @return count of insert operations
      * @see de.tarent.octopus.beans.BeanStatement#execute(de.tarent.octopus.beans.Bean)
@@ -79,7 +79,7 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
         if (bean != null)
             try {
                 preparedStatement.clearParameters();
-                List params = new ArrayList(); 
+                List params = new ArrayList();
                 for (int index = 0; index < fields.size(); index++) {
                     String field = fields.get(index).toString();
                     Object value = bean.getField(field);
@@ -102,7 +102,7 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
     //
     /** Here the fields are listed corresponding to the variables to fill in the statement. */
     final List fields;
-    
+
     /** logger of this class. */
     final static Logger logger = Logger.getLogger(BeanUpdateStatement.class.getName());
 }

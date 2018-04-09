@@ -25,7 +25,6 @@
 
 package de.tarent.octopus.content.annotation;
 
-
 /**
  * Wrapper um ein CallByReference in Java zu realisieren.
  * Hier mit Generic.
@@ -33,10 +32,10 @@ package de.tarent.octopus.content.annotation;
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @version 1.0
  */
-public interface InOutParam<T> 
+public interface InOutParam<T>
     extends de.tarent.octopus.server.InOutParam {
-	
+
 	public T get();
 	public void set(T newData);
-	
+
 }

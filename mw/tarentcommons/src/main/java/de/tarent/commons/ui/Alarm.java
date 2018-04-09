@@ -49,7 +49,7 @@ public class Alarm extends Window {
 	public static void main(String[] args) throws Exception {
 		Alarm alarm = new Alarm();
 		alarm.setVisible(true);
-		
+
 		Thread.sleep(10000);
 		System.exit(1);
 	}
@@ -66,10 +66,10 @@ public class Alarm extends Window {
 	public Alarm(String text) {
 		super(new Frame());
 		this.text = text;
-		
+
 		capturedImage = getCaptureImage();
 		alarmImage = getAlarmImage();
-		
+
 		addMouseListener(new DisposeListener(this) {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
@@ -85,7 +85,7 @@ public class Alarm extends Window {
 
 	private Image getCaptureImage() {
 		try {
-			return new Robot().createScreenCapture(getScreenSize());		
+			return new Robot().createScreenCapture(getScreenSize());
 		} catch (AWTException e) {
 			return null;
 		}
@@ -94,7 +94,7 @@ public class Alarm extends Window {
 	private Image getAlarmImage() {
 		int w = getScreenSize().width;
 		int h = getScreenSize().height;
-		
+
 		BufferedImage bi = new BufferedImage(w, h, ColorSpace.TYPE_RGB);
 		createImage(bi.createGraphics());
 		return bi;
@@ -104,23 +104,23 @@ public class Alarm extends Window {
 		Font font = new Font("Verdana", Font.BOLD, 160);
 		int w = getScreenSize().width;
 		int h = getScreenSize().height;
-		
+
 		g2d.setFont(font);
 		g2d.setRenderingHint(
 				RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		FontMetrics metrics = g2d.getFontMetrics(font);
-		
+
 		int width = metrics.stringWidth("Alarm");
 //		int height = metrics.getHeight();
 		int top = h / 2; // + height / 2;
 		int left = w / 2 - width / 2;
-		
+
 		g2d.drawImage(capturedImage, 0, 0, new Color(0, 0, 0, 127), this);
-		
+
 		g2d.setPaint(ColorHelper.getMetallic(Color.RED, h));
 		g2d.fillRect(0, 0, w - 1, h - 1);
-		
+
 		createText(g2d, Color.BLACK, top, left, 4, 4);
 		createText(g2d, Color.WHITE, top, left, 0, 255);
 	}
@@ -131,11 +131,11 @@ public class Alarm extends Window {
 			for (int oy = -offset; oy <= offset; oy++)
 				g2d.drawString(text, left + ox, top + oy);
 	}
-	
+
 	protected Rectangle getScreenSize() {
 		if (screensize != null)
 			return screensize;
-		
+
 		return screensize =
 			GraphicsEnvironment.
 			getLocalGraphicsEnvironment().

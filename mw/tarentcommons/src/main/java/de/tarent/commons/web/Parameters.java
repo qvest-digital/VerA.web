@@ -34,7 +34,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/** 
+/**
  * Class for dealing with parameters (key/value-pairs) passed over http-requests.
  * Use this class, if you want to keep user-specific information for more then one request
  * without using sessions.
@@ -44,7 +44,7 @@ import java.util.Map;
  * <p>
  * In case of the POST-method, getHiddenHTMLFormFields() deliveres fields
  * to be used in HTML-Forms containing the information.
- * 
+ *
  * @author Tim Steffens
  */
 public class Parameters extends LinkedHashMap {
@@ -55,7 +55,7 @@ public class Parameters extends LinkedHashMap {
 	 * The default encoding to be used for the parameters
 	 */
 	private String defaultEncoding = "UTF-8";
-	
+
 	/**
 	 * The expected length for each key or value (used for estimating the size of the used StringBuffers)
 	 */
@@ -66,7 +66,7 @@ public class Parameters extends LinkedHashMap {
 	 * urls and hidden form fields.
 	 */
 	private boolean needsEncoding = true;
-	
+
 	private String namePrefix = "";
 	private String nameSuffix = "";
 
@@ -78,9 +78,9 @@ public class Parameters extends LinkedHashMap {
 		super();
 	}
 
-	/** 
+	/**
 	 * Attaches the contained parameters to {@code url} and returns it.
-	 * 
+	 *
 	 * @throws UnsupportedEncodingException If the encoding applied to the string is not supported.
 	 */
 	public String encodeUrl(String url) throws UnsupportedEncodingException {
@@ -88,10 +88,10 @@ public class Parameters extends LinkedHashMap {
 			return url;
 		}
 		else {
-			boolean putSeperator;		
+			boolean putSeperator;
 			StringBuffer urlBuffer = new StringBuffer(this.keySet().size() * EXPECTED_PARAMETER_LENGTH * 2);
 			urlBuffer.append(url.trim());
-			
+
 			if (url.indexOf("?")==-1)
 			{ 	// if the url does not contain ?, we assume no parameters have been attached yet.
 				urlBuffer.append("?");
@@ -99,40 +99,40 @@ public class Parameters extends LinkedHashMap {
 			} else { // otherwise we assume there already is a parameterlist and just append it.
 				putSeperator = true;
 			}
-			
+
 			Iterator keysIterator = this.keySet().iterator();
 			while (keysIterator.hasNext()) {
 				String key = (String) keysIterator.next();
-				
+
 				if (putSeperator) {
 					urlBuffer.append("&amp;");
 				} else {
 					putSeperator = true;
 				}
-				
+
 				urlBuffer.append(encodeName(key) + "="
 						+ encodeValue(this.get(key)));
 			}
-			
+
 			return urlBuffer.toString();
 		}
 	}
-	
+
 	/**
 	 * Returns hidden HTML forms fields containing all parameters
-	 * 
+	 *
 	 * @throws UnsupportedEncodingException If the encoding applied to the string is not supported.
 	 */
 	public String getHiddenHTMLFormFields() throws UnsupportedEncodingException {
 		StringBuffer fields = new StringBuffer(this.keySet().size() * (40 + (EXPECTED_PARAMETER_LENGTH * 2)));
-		
+
 		Iterator keysIterator = this.keySet().iterator();
 		while (keysIterator.hasNext()) {
-			String key = (String) keysIterator.next();			
+			String key = (String) keysIterator.next();
 			fields.append("<input type=\"hidden\" name=\"" + encodeName(key)
 					+ "\" value=\""	+ encodeValue(this.get(key)) + "\">" + StringTools.LINE_SEPERATOR);
 		}
-		
+
 		return fields.toString();
 	}
 
@@ -147,7 +147,7 @@ public class Parameters extends LinkedHashMap {
 			return namePrefix + name + nameSuffix;
 		}
 	}
-	
+
 	private String encodeValue(Object value) throws UnsupportedEncodingException {
 		if (needsEncoding) {
 			return value == null ? "" : URLEncoder.encode(URLDecoder.decode(value.toString(), defaultEncoding), defaultEncoding);
@@ -172,7 +172,7 @@ public class Parameters extends LinkedHashMap {
 	public void setNeedsEncoding(boolean needsEncoding) {
 		this.needsEncoding = needsEncoding;
 	}
-	
+
 	/**
 	 * Decodes all values contained in this map using @code{URLDecoder.decode()}.
 	 */

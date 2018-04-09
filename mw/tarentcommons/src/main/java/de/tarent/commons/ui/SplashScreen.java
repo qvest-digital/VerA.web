@@ -35,7 +35,7 @@
  * Copyright (c) tarent GmbH
  * Bahnhofstrasse 13 . 53123 Bonn
  * www.tarent.de . info@tarent.de
- * 
+ *
  * Created on 28.04.2005
  */
 package de.tarent.commons.ui;
@@ -77,8 +77,8 @@ public class SplashScreen extends JFrame
 
     /**
      * Shows a splash screen using a PNG image with alpha channel transparency.
-     * 
-     * @param filename Path to the PNG relative to the application working directory. 
+     *
+     * @param filename Path to the PNG relative to the application working directory.
      * @param w Width of image in pixels.
      * @param h Height of image in pixels.
      * @param millis The duration of the display in milliseconds.
@@ -103,51 +103,51 @@ public class SplashScreen extends JFrame
         int frmX = ((int) d.getWidth() - (w + defaultScreenWidthMargin)) / 2;
         int frmY = ((int) d.getHeight() - (h + defaultScreenHeightMargin)) / 2;
         setLocation(frmX, frmY);
-        
-        try 
+
+        try
         {
             Robot rob = new Robot();
             Rectangle rect = new Rectangle(frmX, frmY, newW, newH);
             capture = rob.createScreenCapture(rect);
-        } 
-        catch (AWTException e) 
+        }
+        catch (AWTException e)
         {
             e.printStackTrace();
         }
-        
+
         MediaTracker mt = new MediaTracker(this);
-        
-        try 
+
+        try
         {
             picture = Toolkit.getDefaultToolkit().getImage(file).getScaledInstance(w, h, Image.SCALE_SMOOTH);
             mt.addImage(picture, 0);
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
-        
-        try 
+
+        try
         {
             mt.waitForAll();
-        } 
-        catch (InterruptedException e) 
+        }
+        catch (InterruptedException e)
         {
             e.printStackTrace();
         }
-        
+
 // FIXME        setAlwaysOnTop(true);
         if (picture == null)
             picture = createImage(w, h);
         timer = new Timer();
         timer.schedule(new ExitTimerTask(this), millis);
-        
+
         addMouseListener(new DisposeListener(this));
     }
-    
-    public void paint(Graphics g) 
+
+    public void paint(Graphics g)
     {
-        if (picture != null && capture != null) 
+        if (picture != null && capture != null)
         {
             capture.getGraphics().drawImage(picture,
                     0 + defaultScreenWidthMargin / 2,
@@ -158,15 +158,15 @@ public class SplashScreen extends JFrame
         }
     }
 
-    private class ExitTimerTask extends TimerTask 
+    private class ExitTimerTask extends TimerTask
     {
         private JFrame frm;
-        public ExitTimerTask(JFrame frm) 
+        public ExitTimerTask(JFrame frm)
         {
             this.frm = frm;
         }
 
-        public void run() 
+        public void run()
         {
             frm.setVisible(false);
             frm.dispose();

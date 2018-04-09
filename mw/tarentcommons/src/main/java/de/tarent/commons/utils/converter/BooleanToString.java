@@ -35,7 +35,7 @@ public class BooleanToString extends AbstractConverter {
     public Class getSourceType() {
         return Boolean.class;
     }
-        
+
     public Object doConversion(Object sourceData) {
         return sourceData.toString();
     }

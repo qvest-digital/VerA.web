@@ -34,8 +34,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Helper class for all kind of Java serialization needs. 
- * 
+ * Helper class for all kind of Java serialization needs.
+ *
  * @author Robert Schuster
  *
  */
@@ -45,24 +45,24 @@ public class SerializationHelper
   {
     // Nothing to do.
   }
-  
+
   /**
    * Deserializes the given byte array into an instance
    * of {@link List}.
-   * 
+   *
    * <p>For convenience an empty list is returned if the
    * argument is null.</p>
-   * 
+   *
    * @param serializedList
    * @return
    * @throws IllegalStateException if something goes wrong.
-   * 
+   *
    */
   public static List deserializeList(byte[] serializedList)
   {
     if (serializedList == null)
       return Collections.EMPTY_LIST;
-    
+
     ByteArrayInputStream bais = new ByteArrayInputStream(serializedList);
 
     try
@@ -85,7 +85,7 @@ public class SerializationHelper
 
   /**
    * Serializes the given {@link List} instance into a byte array.
-   * 
+   *
    * @param l
    * @return
    * @throws IllegalStateException if something goes wrong.
@@ -109,5 +109,5 @@ public class SerializationHelper
 
       }
   }
-  
+
 }

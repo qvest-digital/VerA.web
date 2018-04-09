@@ -31,11 +31,11 @@ package de.tarent.commons.datahandling;
  *
  */
 public class ConcreteBeanMap extends BeanMap {
-		
+
 	private String anAttribute;
 	private String aReadonlyAttribute;
 	private String aWriteonlyAttribute;
-	
+
 	public ConcreteBeanMap() {
 		anAttribute = "anAttributeValue";
 		aReadonlyAttribute = "aReadonlyAttributeValue";

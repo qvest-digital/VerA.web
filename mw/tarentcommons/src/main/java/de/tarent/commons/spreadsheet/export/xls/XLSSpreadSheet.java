@@ -87,7 +87,7 @@ public class XLSSpreadSheet implements SpreadSheet {
 
 	public void addCell(Object content) {
 		HSSFCell cell = row.createCell(cells++);
-		
+
 		if (content == null) {
 			// nothing
 		} else if (content instanceof Date) {

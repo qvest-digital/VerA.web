@@ -32,7 +32,6 @@ import java.sql.Clob;
 
 public class ClobToString extends AbstractConverter {
 
-	
 	 public Class getTargetType() {
 	        return String.class;
 	    }
@@ -41,12 +40,12 @@ public class ClobToString extends AbstractConverter {
 	        return Clob.class;
 	    }
 	public Object doConversion(Object sourceData) throws Exception {
-		if (sourceData == null) 
+		if (sourceData == null)
 	        return  "";
-	          
+
 	      StringBuffer strOut = new StringBuffer();
 	      String aux;
-	            
+
 	      BufferedReader br = new BufferedReader(((Clob)sourceData).getCharacterStream());
 
 	      while ((aux=br.readLine())!=null)

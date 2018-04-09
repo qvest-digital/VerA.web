@@ -30,13 +30,12 @@ import java.util.*;
 
 /**
  * This is a registry for converter of data items using the converter interface.
- * A default set of converter is provided out of the box. Other converter can 
+ * A default set of converter is provided out of the box. Other converter can
  * be added.
  */
 public class ConverterRegistry {
-    
-    protected static ConverterRegistry defaultRegistry = null;
 
+    protected static ConverterRegistry defaultRegistry = null;
 
     /** The default converter in a list */
     private LinkedList converterList = new LinkedList();
@@ -44,7 +43,6 @@ public class ConverterRegistry {
     /** All converter by there name */
     private Map converterMap = new HashMap();
 
-    
     protected ConverterRegistry() {
         register(new ObjectToString(), true);
         register(new StringToInteger(), true);
@@ -93,8 +91,8 @@ public class ConverterRegistry {
             return null;
         }
         if (targetType.isPrimitive())
-            targetType = getComplexForPrimitive(targetType);            
-        
+            targetType = getComplexForPrimitive(targetType);
+
         if (targetType.isAssignableFrom(sourceData.getClass()))
             return sourceData;
         Converter converter = ConverterRegistry.getDefaultRegistry().getConverter(sourceData.getClass(), targetType);
@@ -114,7 +112,7 @@ public class ConverterRegistry {
             throw new IllegalArgumentException("No suitable converter for name "+ converterName);
         return converter.convert(sourceData);
     }
-    
+
     /**
      * Add a new converter to the Registry. Later registered converters are preferred by the lookup via type.
      * If the flag useByDefault is true, the converter is returned for a query by datatype,
@@ -123,7 +121,7 @@ public class ConverterRegistry {
      * @param useByDefault use the supplied converter by default
      */
     public void register(Converter converter, boolean useByDefault) {
-        if (useByDefault)       
+        if (useByDefault)
             converterList.addFirst(converter);
         converterMap.put(converter.getConverterName(), converter);
     }
@@ -140,7 +138,7 @@ public class ConverterRegistry {
         for (Iterator iter = converterList.iterator(); iter.hasNext();) {
             Converter converter = (Converter)iter.next();
             if (targetType.isAssignableFrom(converter.getTargetType())
-                && converter.getSourceType().isAssignableFrom(sourceType))      
+                && converter.getSourceType().isAssignableFrom(sourceType))
                 return converter;
         }
         return null;
@@ -167,10 +165,10 @@ public class ConverterRegistry {
 
         else if (targetType == Float.TYPE)
             return Float.class;
-        
+
         else if (targetType == Double.TYPE)
             return Double.class;
-        
+
         else
             return targetType;
     }
@@ -207,12 +205,10 @@ public class ConverterRegistry {
         return null;
     }
 
-
-    
     /**
      * Returns a special named converter.
      */
     public Converter getConverter(String converterName) {
         return (Converter)converterMap.get(converterName);
-    }   
+    }
 }

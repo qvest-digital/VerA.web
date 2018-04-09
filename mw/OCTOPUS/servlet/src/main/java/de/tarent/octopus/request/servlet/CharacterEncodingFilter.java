@@ -68,7 +68,7 @@ import javax.servlet.ServletResponse;
  * client has not already specified an encoding. By default, this parameter is
  * set to "true".</li>
  * </ul>
- * 
+ *
  * <p>
  * Although this filter can be used unchanged, it is also easy to subclass it
  * and make the <code>selectEncoding()</code> method more intelligent about
@@ -77,7 +77,7 @@ import javax.servlet.ServletResponse;
  * <code>User-Agent</code> headers, or a value stashed in the current user's
  * session.
  * </p>
- * 
+ *
  * @author Craig McClanahan
  * @version $Revision: 1.2 $ $Date: 2007/07/04 15:38:25 $
  */
@@ -115,7 +115,7 @@ public class CharacterEncodingFilter implements Filter {
 	/**
 	 * Select and set (if specified) the character encoding to be used to
 	 * interpret request parameters for this request.
-	 * 
+	 *
 	 * @param request The servlet request we are processing
 	 * @param response The servlet response we are creating
 	 * @param chain The filter chain we are processing
@@ -129,14 +129,14 @@ public class CharacterEncodingFilter implements Filter {
 			if (encoding != null)
 				request.setCharacterEncoding(encoding);
 		}
-		
+
 		// Pass control on to the next filter
 		chain.doFilter(request, response);
 	}
 
 	/**
 	 * Place this filter into service.
-	 * 
+	 *
 	 * @param filterConfig The filter configuration object
 	 */
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -164,7 +164,7 @@ public class CharacterEncodingFilter implements Filter {
 	 * The default implementation unconditionally returns the value configured
 	 * by the <strong>encoding</strong> initialization parameter for this
 	 * filter.
-	 * 
+	 *
 	 * @param request The servlet request we are processing
 	 */
 	protected String selectEncoding(ServletRequest request) {

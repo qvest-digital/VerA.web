@@ -41,7 +41,6 @@ public interface GenericPojoStorage {
      */
     public abstract Object put(Object key, Object value);
 
-
     /**
      * Template Method for accessing a propertie.
      *

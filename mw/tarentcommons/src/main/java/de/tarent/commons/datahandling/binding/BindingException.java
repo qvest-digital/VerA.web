@@ -25,7 +25,6 @@
 
 package de.tarent.commons.datahandling.binding;
 
-
 /**
  * Exception for binding related problems.
  */

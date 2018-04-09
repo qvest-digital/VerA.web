@@ -29,7 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TestProcedure implements Runnable {
-    
+
     private Logger logger = Logger.getLogger(TestProcedure.class.getName());
 
     private String ausgabe;
@@ -48,11 +48,11 @@ public class TestProcedure implements Runnable {
             }
             logger.log(Level.INFO,"TEST " + i + ": " + ausgabe );
             System.out.println("TEST " + i + ": " + ausgabe);
-            
+
         }
 
     }
-    
+
     public void setAusgabe(String ausgabe){
         this.ausgabe = ausgabe;
     }

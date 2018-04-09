@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.commons.fileformats;
 
@@ -50,10 +50,10 @@ public interface FileFormat
 	public String getSuffix(int index);
 	public void addSuffix(String suffix);
 	public boolean endsWithSuffix(String filename);
-	public int getNumberOfSuffixes();  
+	public int getNumberOfSuffixes();
 	public FileFilter getFileFilter();
 	public boolean canLoad();
-	public boolean canSave();  
+	public boolean canSave();
 	public void setCanLoad(boolean canLoad);
 	public void setCanSave(boolean canSave);
 	public boolean isTemplateFormat();

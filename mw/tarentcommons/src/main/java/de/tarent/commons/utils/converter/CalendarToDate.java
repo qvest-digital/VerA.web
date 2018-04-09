@@ -36,7 +36,7 @@ public class CalendarToDate extends AbstractConverter {
     public Class getSourceType() {
         return Calendar.class;
     }
-    
+
     public Object doConversion(Object sourceData) throws NumberFormatException {
         return ((Calendar)sourceData).getTime();
     }

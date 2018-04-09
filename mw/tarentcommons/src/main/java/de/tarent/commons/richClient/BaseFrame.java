@@ -41,29 +41,29 @@ public abstract class BaseFrame implements CommonDialogServices, ApplicationFram
     private JPanel glassPanel;
     boolean iswaiting;
 
-	public BaseFrame() {        
-		frame = new JFrame();       
-        
+	public BaseFrame() {
+		frame = new JFrame();
+
         glassPanel = new JPanel();
         getFrame().setGlassPane(glassPanel);
         glassPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         glassPanel.setOpaque(false);
 	}
-    
+
     public void setVisible(boolean visible) {
         frame.setVisible(visible);
     }
 
-    // Interface CommonDialogServices implementation 
+    // Interface CommonDialogServices implementation
 
 	public int askUser(String caption, String question, String[] answers, String[] tooltips, int defaultValue) {
         return askUser(getFrame(), caption, question, answers, tooltips, defaultValue);
     }
-    
+
     public int askUser(JFrame parent, String caption, String question, String[] answers, String[] tooltips, int defaultValue) {
         logger.error("TODO: implement askUser()");
         return -1;
-    }    
+    }
 
     /**
      * Publish a System Error, which was not planed an may be a application bug.
@@ -81,18 +81,16 @@ public abstract class BaseFrame implements CommonDialogServices, ApplicationFram
 				cause = cause.getCause();
 			extendedtext = cause.getMessage();
 		}
-        logger.error("TODO: implement publishError()");        
+        logger.error("TODO: implement publishError()");
 	}
-    
 
 	public void showInfo(String caption, String message) {
         showInfo(getFrame(), caption, message);
 	}
-    
+
 	public void showInfo(JFrame comp, String caption, String message) {
         logger.error("TODO: implement showInfo");
 	}
-
 
     /**
      * Show an error in the category of user faults.
@@ -100,18 +98,18 @@ public abstract class BaseFrame implements CommonDialogServices, ApplicationFram
 	public void showError(String caption, String message) {
 		showError(getFrame(), caption, message);
 	}
-    
+
     /**
      * Show an error in the category of user faults.
      */
 	public void showError(JFrame comp, String caption, String message) {
-        logger.error("TODO: implement showError");		
+        logger.error("TODO: implement showError");
 	}
-    
+
     /**
      * Method setWaiting. Setzt je nach Parameter den Mauspfeil auf "Sanduhr" bzw. "normal" sollte mit dem Parameter "true" aufgerufen werden bevor eine langwierige Operation
      * ausgefhrt wird. Nach Beendigung der Operation muss die Methode erneut aufgerufen werden, jedoch nun mit dem Parameter "false"
-     * 
+     *
      * @param iswaiting
      */
     public void setWaiting(boolean iswaiting) {
@@ -125,7 +123,7 @@ public abstract class BaseFrame implements CommonDialogServices, ApplicationFram
             if (glassPanel != null)
                 glassPanel.setVisible(false);
         }
-    }    
+    }
 
 	// ------------------ getter and setter ------------------------
 	public JFrame getFrame() {

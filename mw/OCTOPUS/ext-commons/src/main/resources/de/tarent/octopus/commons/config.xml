@@ -16,7 +16,7 @@
 			singleton="true"
 			factory="annotation"/>
 	</contentWorkerDeklaration>
-	
+
 	<tasks>
 		<task name="appendLoggingProperties" access="public" groups="Anonymous,User,Administrator">
 			<description>
@@ -26,21 +26,21 @@
 			</description>
 			<action name="appendLoggingProperties" worker="CommonLoggingWorker" />
 		</task>
-		
+
 		<task name="appendLoggingHandler" access="public" groups="Anonymous,User,Administrator">
 			<description>
 				Append some handler and loggers to the java.util.logging settings.
 			</description>
 			<action name="appendLoggingHandler" worker="CommonLoggingWorker" />
 		</task>
-		
+
 		<task name="changeHandlerLevels" access="public" groups="Anonymous,User,Administrator">
 			<description>
 				Change the handler log leven for defined loggers.
 			</description>
 			<action name="changeHandlerLevels" worker="CommonLoggingWorker" />
 		</task>
-		
+
 		<task name="appendLoggingInformation" access="public" groups="Anonymous,User,Administrator">
 			<description>
 				Append logging information.
@@ -54,7 +54,7 @@
 				</param>
 			</response>
 		</task>
-		
+
 		<task name="initializeThreadLogger" access="private">
 			<description>
 				Initialize a thread logger for the current instance.

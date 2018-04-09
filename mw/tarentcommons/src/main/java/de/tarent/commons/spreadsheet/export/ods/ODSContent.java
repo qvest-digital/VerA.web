@@ -41,10 +41,10 @@ import de.tarent.commons.spreadsheet.export.XMLDocument;
 
 /*
  * GENERATE:
- * 
+ *
  * <table:table table:name="Tabelle 1" table:style-name="ta1" table:print="false">
  * <table:table-column table:style-name="co1" table:number-columns-repeated="3" table:default-cell-style-name="Default"/>
- * 
+ *
  * <table:table-row table:style-name="ro1">
  * <table:table-cell office:value-type="string"><text:p>A1</text:p></table:table-cell>
  * <table:table-cell office:value-type="string"><text:p>B1</text:p></table:table-cell>
@@ -62,7 +62,7 @@ import de.tarent.commons.spreadsheet.export.XMLDocument;
  * <p>
  * <em>Als Vorlage diente eine unter Windows 2000 SP4 mit
  * OpenOffice.org 1.9.79 erzeugte ODS-Datei.</em>
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class ODSContent extends XMLDocument implements SpreadSheet {
@@ -102,7 +102,7 @@ public class ODSContent extends XMLDocument implements SpreadSheet {
 	public void init() throws IOException {
 		try {
 			loadDocument(getStream("content.xml"));
-			
+
 			Element element = (Element)getNode("office:document-content");
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:chart", "urn:oasis:names:tc:opendocument:xmlns:chart:1.0");
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:dc", "http://purl.org/dc/elements/1.1/");
@@ -127,7 +127,7 @@ public class ODSContent extends XMLDocument implements SpreadSheet {
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-			
+
 		} catch (Exception e) {
 			throwIOException(e);
 		}
@@ -150,7 +150,7 @@ public class ODSContent extends XMLDocument implements SpreadSheet {
 		this.columnsize = colCount;
 		this.column = 0;
 		spread = getNode("office:spreadsheet");
-		
+
 		Element t = document.createElement("table:table");
 		t.setAttribute("table:name", tablename);
 		t.setAttribute("table:style-name", "ta1");
@@ -160,7 +160,7 @@ public class ODSContent extends XMLDocument implements SpreadSheet {
 		tc.setAttribute("table:number-columns-repeated", Integer.toString(columnsize));
 		tc.setAttribute("table:default-cell-style-name", "Default");
 		table = t;
-		
+
 		spread.appendChild(t);
 		spread.appendChild(tc);
 	}
@@ -170,11 +170,11 @@ public class ODSContent extends XMLDocument implements SpreadSheet {
 
 	public void openRow() {
 		this.column = 0;
-		
+
 		Element tr = document.createElement("table:table-row");
 		tr.setAttribute("table:style-name", "ro1");
 		row = tr;
-		
+
 		table.appendChild(tr);
 	}
 
@@ -188,7 +188,7 @@ public class ODSContent extends XMLDocument implements SpreadSheet {
 
 	public void addCell(Object content) {
 		column++;
-		
+
 		Element cell = document.createElement("table:table-cell");
 		if (content == null) {
 			// nothing

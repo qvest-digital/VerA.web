@@ -39,7 +39,7 @@ public class NumberToLong extends AbstractConverter {
     public Class getSourceType() {
         return Number.class;
     }
-        
+
     public Object doConversion(Object sourceData) {
         return new Long(((Number)sourceData).longValue());
     }

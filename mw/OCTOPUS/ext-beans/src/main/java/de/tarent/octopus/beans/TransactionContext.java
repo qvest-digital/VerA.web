@@ -25,7 +25,7 @@
 
 /*
  * $Id: TransactionContext.java,v 1.7 2007/06/11 13:24:36 christoph Exp $
- * 
+ *
  * Created on 24.11.2005
  */
 package de.tarent.octopus.beans;
@@ -44,7 +44,7 @@ import de.tarent.dblayer.sql.statement.Select;
 
 /**
  * Diese Klasse stellt einen Transaktionskontext für Massenoperationen dar.
- * 
+ *
  * @author mikel
  */
 public class TransactionContext implements ExecutionContext {
@@ -52,8 +52,8 @@ public class TransactionContext implements ExecutionContext {
     // Konstruktor und Finalizer
     //
     /**
-     * Dieser Konstruktor legt die übergebene {@link Database}-Referenz ab. 
-     * 
+     * Dieser Konstruktor legt die übergebene {@link Database}-Referenz ab.
+     *
      * @param database die zu nutzende {@link Database}.
      */
     TransactionContext(Database database) {
@@ -79,9 +79,8 @@ public class TransactionContext implements ExecutionContext {
      */
     public Pool getPool() {
         return database.getPool();
-    }    
+    }
 
-    
     /**
      * Dieser Finalizer schließt die eventuell noch offene Verbindung mit
      * einem RollBack.
@@ -96,9 +95,9 @@ public class TransactionContext implements ExecutionContext {
     //
     /**
      * Diese Methode führt das übergebene Statement aus.
-     * 
+     *
      * @param sql auszuführendes Statement
-     * @throws BeanException 
+     * @throws BeanException
      */
     public void execute(Statement sql) throws BeanException {
         assert sql != null;
@@ -111,12 +110,12 @@ public class TransactionContext implements ExecutionContext {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
     }
-    
+
     /**
      * Diese Methode führt das übergebene {@link Select}-{@link Statement}
      * aus und erwartet als Resultat ein {@link ResultSet}, das dann
-     * zurückgegeben wird. 
-     * 
+     * zurückgegeben wird.
+     *
      * @param sql auszuführendes {@link Select}-{@link Statement}
      * @return resultierendes {@link ResultSet}
      * @throws BeanException
@@ -132,15 +131,15 @@ public class TransactionContext implements ExecutionContext {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
     }
-    
+
     /**
      * This method closes a {@link ResultSet} returned by {@link #result(Select)}.
      * It may also close the {@link java.sql.Statement} and {@link java.sql.Connection}
      * used for creating the {@link ResultSet} if they were opened just for this
      * task.
-     * 
+     *
      * @param resultSet a {@link ResultSet} returned by {@link #result(Select)}.
-     * @throws BeanException 
+     * @throws BeanException
      */
     public void close(ResultSet resultSet) throws BeanException {
         try {
@@ -149,10 +148,10 @@ public class TransactionContext implements ExecutionContext {
             throw new BeanException("Error closing a ResultSet", e);
         }
     }
-    
+
     /**
-     * Diese Methode bereitet das übergebene {@link Statement} vor. 
-     * 
+     * Diese Methode bereitet das übergebene {@link Statement} vor.
+     *
      * @param statement vorzubereitendes {@link Statement}
      * @return resultierendes {@link PreparedStatement}
      * @throws BeanException
@@ -164,20 +163,20 @@ public class TransactionContext implements ExecutionContext {
             throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
         }
     }
-    
+
     /**
-     * Diese Methode liefert die {@link Database}, in der dieser Kontext arbeitet. 
-     * 
+     * Diese Methode liefert die {@link Database}, in der dieser Kontext arbeitet.
+     *
      * @return zugehörige {@link Database}
      */
     public Database getDatabase() {
         return database;
     }
-    
+
     /**
      * Diese Methode führt ein Commit der angefallenen Änderungen aus und
      * schließt dann die Verbindung.
-     * 
+     *
      * @throws BeanException
      */
     public void commit() throws BeanException {
@@ -187,11 +186,11 @@ public class TransactionContext implements ExecutionContext {
             throw new BeanException("Fehler beim Commit einer Transaktion", e);
         }
     }
-    
+
     /**
      * Diese Methode führt ein RollBack der angefallenen Änderungen aus und
      * schließt dann die Verbindung.
-     * 
+     *
      * @throws BeanException
      */
     public void rollBack() throws BeanException {
@@ -201,7 +200,7 @@ public class TransactionContext implements ExecutionContext {
             throw new BeanException("Fehler beim RollBack einer Transaktion", e);
         }
     }
-    
+
     //
     // geschätzte Hilfsmethoden
     //
@@ -215,7 +214,7 @@ public class TransactionContext implements ExecutionContext {
             connection.setAutoCommit(false);
         }
     }
-    
+
     /**
      * Returns the Connection of this transactional context.
      * If no connection exists yet it will be created by ensureValidConnection().
@@ -224,11 +223,11 @@ public class TransactionContext implements ExecutionContext {
         ensureValidConnection();
         return connection;
     }
-    
+
     /**
      * Diese Methode schließt gegebenenfalls die zu Grunde liegende
-     * Verbindung nach einem Commit oder RollBack. 
-     * 
+     * Verbindung nach einem Commit oder RollBack.
+     *
      * @param commit Flag: <code>true</code> führt zum Commit,
      *  <code>false</code> zum RollBack.
      * @throws SQLException
@@ -253,7 +252,7 @@ public class TransactionContext implements ExecutionContext {
             throw e;
         }
     }
-    
+
     //
     // geschätzte Member
     //

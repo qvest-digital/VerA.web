@@ -29,15 +29,15 @@ import java.util.Iterator;
 
 /**
  * Wraps an interator interface around an array
- * 
+ *
  * @author Tim Steffens
  *
  */
 public class ArrayIterator implements Iterator {
-	
+
 	private Object[] array;
 	private int index;
-	
+
 	public ArrayIterator(Object[] array) {
 		this.array = array;
 		this.index = 0;

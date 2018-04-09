@@ -25,7 +25,6 @@
 
 package de.tarent.commons.datahandling.entity;
 
-
 import de.tarent.commons.logging.LogFactory;
 import de.tarent.commons.utils.Pojo;
 import de.tarent.commons.utils.StringTools;
@@ -37,25 +36,23 @@ import org.apache.commons.logging.Log;
 /**
  * Abstract class for object creation and object filling over reflection.
  * It is intended for subclassing, as well as usage out of the box.
- * 
+ *
  */
 public class DefaultEntityFactory implements EntityFactory {
 
     private static final Log logger = LogFactory.getLog(DefaultEntityFactory.class);
 
     public static final String PROPTERTY_SEPERATOR = ".";
-    
+
     Class instantiationClass;
     private static Object[] emptyObjectArray = new Object[]{};
     private static Class[] emptyClassArray = new Class[]{};
     private String className;
-    
+
     // The name of the PrimaryKey with which to look up entities in the
     // LookupContext for duplicate-identification. The default is "id".
     private final String keyName;
-    
 
-    
     /**
      * Contructor for initialisation with the class, the factory should serve
      * for. Uses the default LookupContext-keyName "id".
@@ -67,7 +64,7 @@ public class DefaultEntityFactory implements EntityFactory {
     /**
      * Contructor for initialisation with the class, the factory should serve
      * for.
-     * 
+     *
      * @param keyName The id with which to look up entities in the
     // LookupContext.
      */
@@ -76,7 +73,6 @@ public class DefaultEntityFactory implements EntityFactory {
         this.keyName = keyName;
     }
 
-    
     /**
      * Returns a factory responsible for creation of instances for supplied attributeName
      * This method should be customized by subclasses.
@@ -113,7 +109,6 @@ public class DefaultEntityFactory implements EntityFactory {
     	lc.registerEntity(id, instantiationClass.getName(), entity);
     }
 
-
     public Object getEntity() {
         try {
             return instantiationClass.getConstructor(emptyClassArray).newInstance(emptyObjectArray);
@@ -121,7 +116,7 @@ public class DefaultEntityFactory implements EntityFactory {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
      * Fills the entity with the AttributeSet
      * TODO: At the moment this implementation covers creation of linked entities only. The filing of referenced entities is not supported for now.
@@ -156,8 +151,7 @@ public class DefaultEntityFactory implements EntityFactory {
                     continue;
                 addedReferredProperties.add(propertyName);
 
-
-                // create or fill the entity if any field for the entity exist                
+                // create or fill the entity if any field for the entity exist
                 EntityFactory ef = getFactoryFor(propertyName);
                 if (ef == null)
                 	ef = getFactoryFor(as.getAttributeType(propertyName), propertyName);
@@ -174,8 +168,8 @@ public class DefaultEntityFactory implements EntityFactory {
                 // try to lookup an existing referred entity
                 Method getMethod = Pojo.getGetMethod(entity, propertyName);
                 if (getMethod != null)
-                    referredEntity = Pojo.get(entity, getMethod);                
-                
+                    referredEntity = Pojo.get(entity, getMethod);
+
                 if (referredEntity != null) {
                     ef.fillEntity(referredEntity, pas, lc);
                 } else {
@@ -195,7 +189,7 @@ public class DefaultEntityFactory implements EntityFactory {
                     if (logger.isTraceEnabled())
                         logger.trace("set entity property '"+propertyName+"' to '"+referredEntity+"'");
                     Pojo.set(entity, propertyName, referredEntity);
-                    
+
                     // or append to over an addXXX method (X:N)
                 } else {
                     // TODO: speed up with caching of the method lookup
@@ -210,7 +204,7 @@ public class DefaultEntityFactory implements EntityFactory {
                         throw new RuntimeException("No suitable set or add method in class "+instantiationClass+" for property '"+propertyName + "' with argument type "+referredEntity.getClass()+" found.");
                     }
                 }
-                
+
              // easy settable property
             } else {
                 if (fillLinkedEntitiesOnly)
@@ -222,12 +216,12 @@ public class DefaultEntityFactory implements EntityFactory {
             }
         }
     }
-    
+
     /**
      * This default implementation fills the entity over reflection
      */
     public Object getEntity(AttributeSource as, LookupContext lc) {
-        assert as != null;        
+        assert as != null;
         Object entity = getEntityFromLookupContext(as, lc);
         if (entity == null) {
             entity = getEntity();
@@ -245,7 +239,7 @@ public class DefaultEntityFactory implements EntityFactory {
     public void writeTo(ParamSet target, Object entity) {
         for (Iterator iter = target.getAttributeNames().iterator(); iter.hasNext();) {
             String attributeName = (String)iter.next();
-            
+
             int pos = attributeName.indexOf(PROPTERTY_SEPERATOR);
             if (pos != -1 ) {
                 String propertyName = attributeName.substring(0, pos);

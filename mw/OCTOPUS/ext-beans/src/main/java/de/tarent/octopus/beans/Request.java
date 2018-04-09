@@ -25,7 +25,7 @@
 
 /*
  * $Id: Request.java,v 1.4 2007/06/11 13:24:36 christoph Exp $
- * 
+ *
  * Created on 08.02.2005
  */
 package de.tarent.octopus.beans;
@@ -38,8 +38,8 @@ import java.util.List;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Konkrete {@link BeanFactory}, die Beans aus den Request-Parametern ausliest. 
- * 
+ * Konkrete {@link BeanFactory}, die Beans aus den Request-Parametern ausliest.
+ *
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
@@ -50,7 +50,7 @@ public abstract class Request extends BeanFactory {
     /**
      * Der Konstruktor merkt sich den übergebenen {@link OctopusContext} und
      * initialisiert die {@link BeanFactory} mit dem übergebenen Bean-Package.
-     * 
+     *
      * @param cntx {@link OctopusContext}, aus dessen Request-Parameter Beans
      *  ausgelesen werden.
      * @param beanPackage Package der zu nutzenden Bean-Klassen.
@@ -66,7 +66,7 @@ public abstract class Request extends BeanFactory {
 	/**
      * Diese Methode liefert eine Bean vom übergebenen Typ aus den passenden
      * Request-Parametern mit leerem Präfix.
-     *  
+     *
      * @param beanname Klasse der zu holenden Bean
      * @return die ausgelesene Bean oder <code>null</code>
 	 */
@@ -77,7 +77,7 @@ public abstract class Request extends BeanFactory {
     /**
      * Diese Methode liefert eine Bean vom übergebenen Typ aus den passenden
      * Request-Parametern mit dem übergebenen Präfix.
-     * 
+     *
      * @param beanname Klasse der zu holenden Bean
      * @param prefix Präfix der zu benutzenden Request-Parameter; falls
      *  <code>null</code>, so wird kein Präfix voran gestellt.
@@ -93,7 +93,7 @@ public abstract class Request extends BeanFactory {
     /**
      * Diese Methode holt eine Liste mit Bean-Präfixen aus dem Request und
      * generiert daraus eine Liste mit Bean-Instanzen vom übergebenen Typ.
-     * 
+     *
      * @param beanname Klasse der zu holenden Beans
      * @param listname Name des Request-Parameters, dessen Inhalt als Liste
      *  von Bean-Präfixrn interpretiert wird
@@ -114,7 +114,7 @@ public abstract class Request extends BeanFactory {
      * {@link Bean#isModified() Modified}. Sollten keine Informationen
      * verfügbar sein, bleibt das Feld unangetastet, es sollte also vor dem
      * Aufruf dieser Methode sinnvoll vorbelegt sein.
-     * 
+     *
      * @param bean Bohne, deren {@link Bean#isModified() Modified}-Feld aktualisiert werden soll.
      * @throws BeanException
      * @see BeanFactory#checkModified(Bean)
@@ -129,7 +129,7 @@ public abstract class Request extends BeanFactory {
     /**
      * Liefert ein Objekt, das in ein bestimmtes Feld der "aktuellen" Bean
      * gesetzt werden soll.
-     * 
+     *
      * @param key Feld-Schlüssel
      * @return Feldinhalt oder null
      * @throws BeanException bei Datenzugriffsfehlern.
@@ -142,7 +142,7 @@ public abstract class Request extends BeanFactory {
     /**
      * Wird verwendet, um bei Bean-Listen zur nächsten Bohne zu springen,
      * wird vor dem Einlesen einer Bean aufgerufen.
-     * 
+     *
      * @return <code>true</code>, wenn weitere Beans vorhanden sind, ansonsten
      *  <code>false</code>.
      * @throws BeanException bei Datenzugriffsfehlern.
@@ -163,23 +163,23 @@ public abstract class Request extends BeanFactory {
     /**
      * Diese Methode löscht das aktuelle Präfix und trägt als Präfix-Iterator
      * einen {@link Iterator} über die übergebene {@link Collection} ein.
-     * 
+     *
      * @param prefixes Sammlung von Präfixen.
      */
 	void setPrefixes(Collection prefixes) {
 		prefix = null;
 		it = prefixes.iterator();
 	}
-    
+
     //
     // geschätzte Membervariablen
     //
     /** Octopus-Kontext, in dessen Request-Parametern gearbeitet wird */
     final OctopusContext cntx;
-    
+
     /** Präfix der aktuellen Bean */
     String prefix = null;
-    
+
     /** Präfix-Iterator der aktuell noch abzuholenden Beans */
     Iterator it = null;
 }

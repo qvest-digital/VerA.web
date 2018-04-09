@@ -27,7 +27,6 @@ package de.tarent.commons.datahandling.entity;
 
 import java.util.*;
 
-
 /**
  * Represents an API to set paraemters in an parameterized structure.
  */
@@ -42,7 +41,7 @@ public interface ParamSet extends WritableAttribute {
      * Sets the attribute <code>attributeName</code> of this structure to the supplied value.
      */
     public void setAttribute(String attributeName, Object attributeValue);
-        
+
     /**
      * Sets the attributes of this structure to the supplied attributes in the map.
      */

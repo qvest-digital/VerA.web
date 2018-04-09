@@ -25,12 +25,11 @@
 
 package de.tarent.commons.datahandling;
 
-
 /**
  * used by BeanMapTest
  */
 public interface PersonI {
-    
+
     public String getName();
     public void setName(String newName);
 

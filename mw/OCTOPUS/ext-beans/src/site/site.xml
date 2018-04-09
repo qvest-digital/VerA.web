@@ -5,27 +5,27 @@
 		<artifactId>maven-stylus-skin</artifactId>
 		<version>1.0.1</version>
 	</skin>
-	
+
 	<bannerLeft>
 		<name>octopus</name>
 		<src>images/octopus-logo.png</src>
 		<href>http://octopus.evolvis.org/</href>
 	</bannerLeft>
-	
+
 	<body>
 		<head>
 			<link rel="shortcut icon" type="image/x-icon" href="images/octopus-favicon.ico" />
 		</head>
-		
+
 		<links>
 			<item name="evolvis" href="http://evolvis.org/" />
 			<item name="evolvis project homepage" href="http://evolvis.org/projects/octopus/" />
 		</links>
-		
+
 		<menu ref="modules" />
-		
+
 		${reports}
-		
+
 		<menu name="Links">
 			<item name="RPC tunnel"            href="../octopus-rpctunnel/" />
 			<item name="Octopus core"          href="../octopus-core/" />
@@ -37,12 +37,12 @@
 			<item name="Cronjob extension"     href="../octopus-ext-cronjobs/" />
 			<item name="JMX extension"         href="../octopus-ext-jmx/" />
 		</menu>
-		
+
 		<menu name="Supported by">
 			<item name="evolvis" href="http://evolvis.org/" />
 			<item name="tarent GmbH" href="http://www.tarent.de/" />
 		</menu>
-		
+
 		<menu name="">
 			<item name="Impressum" href="http://evolvis.org/impress/" />
 		</menu>

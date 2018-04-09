@@ -25,7 +25,7 @@
 
 /*
  * License GPL.
- * 
+ *
  * Part of this software are copied from the GNU Classpath project.
  * Visit http://developer.classpath.org/doc/ for more information.
  */
@@ -56,16 +56,16 @@ import de.tarent.commons.messages.MessageHelper;
  * because you <strong>can extend</strong> already loaded {@link Properties}
  * information about the logging. The default implementation will
  * remove all old informations.
- * 
+ *
  * TODO License information (GPL)
- * 
+ *
  * @author Christoph Jerolimov, tarent GmbH
  * @author Sascha Brawer (brawer@acm.org)
  */
 public class LogManager {
 	/** Java util logger instance. */
 	private static final Log logger = LogFactory.getLog(LogManager.class);
-	
+
 	/** Root logger property name */
 	private static final String ROOT_LOGGER_NAME = "root";
 	/** Handler property const */
@@ -80,7 +80,7 @@ public class LogManager {
 	private static final String USE_PARENT = "useParentHandlers";
 	/** Use parent property const */
 	private static final String USE_PARENT_SUFFIX = ".useParentHandlers";
-	
+
 	/** Will be syserr'ed if no parameter is available. */
 	public static Message NO_PARAMETER_AVAILABLE;
 	/** Will be syserr'ed if a new configuration file will be read. (1th param is full filename.) */
@@ -112,43 +112,43 @@ public class LogManager {
 
 	/**
 	 * Read the logging.properties from the given {@link InputStream} instance.
-	 * 
+	 *
 	 * @param inputStream
 	 * @throws IOException
 	 */
 	public void readConfiguration(InputStream inputStream) throws IOException {
 		if (logger.isInfoEnabled())
 			logger.info("Reading logging properties from an inputstream, will append this now.");
-		
+
 		Properties properties = new Properties();
 		properties.load(inputStream);
-		
+
 		appendHandlers(properties);
 		configureLoggers(properties);
 	}
 
 	/**
 	 * Read the logging.properties from the given {@link Properties} instance.
-	 * 
+	 *
 	 * @param properties
 	 */
 	public void readConfiguration(Properties properties) {
 		if (logger.isInfoEnabled())
 			logger.info("Reading logging properties from a property object, will append this now.");
-		
+
 		appendHandlers(properties);
 		configureLoggers(properties);
 	}
 
 	/**
 	 * Append {@link Handler log handlers} to a logger.
-	 * 
+	 *
 	 * Properties <code>handlers</code> and <code>.handlers</code>
 	 * define the handlers of the root logger.
-	 * 
+	 *
 	 * Properties like <code>abc.my.logger.handlers</code> will append
 	 * the handlers to the {@link Logger logger} "abc.my.logger".
-	 * 
+	 *
 	 * @param properties
 	 */
 	public void appendHandlers(Properties properties) {
@@ -156,12 +156,12 @@ public class LogManager {
 		while (keys.hasMoreElements()) {
 			String key = (String)keys.nextElement();
 			String value = properties.getProperty(key);
-			
+
 			if (key == null || (key = key.trim()).length() == 0)
 				continue;
 			if (value == null || (value = value.trim()).length() == 0)
 				continue;
-			
+
 			// Append handler to loggers.
 			if (key.equals(HANDLERS) || key.endsWith(HANDLERS_SUFFIX)) {
 				String loggername;
@@ -171,14 +171,14 @@ public class LogManager {
 					loggername = key.substring(0, key.length() - HANDLERS_SUFFIX.length());
 				if (loggername.equals(ROOT_LOGGER_NAME))
 					loggername = "";
-				
+
 				if (logger.isInfoEnabled()) {
 					if (loggername.length() == 0)
 						logger.info("Found new handlers for root logger: '" + value + "'");
 					else
 						logger.info("Found new handlers for logger '" + loggername + "': '" + value + "'");
 				}
-				
+
 				StringTokenizer tokenizer = new StringTokenizer(value);
 				while (tokenizer.hasMoreTokens()) {
 					String handlername = tokenizer.nextToken();
@@ -200,13 +200,13 @@ public class LogManager {
 
 	/**
 	 * Set the {@link Level log level} of the loggers.
-	 * 
+	 *
 	 * Properties <code>level</code> and <code>.level</code> define
 	 * the log level of the root logger.
-	 * 
+	 *
 	 * Properties like <code>abc.my.logger.level</code> will set
 	 * the level of the {@link Logger logger} "abc.my.logger".
-	 * 
+	 *
 	 * @param properties
 	 */
 	protected void configureLoggers(Properties properties) {
@@ -214,12 +214,12 @@ public class LogManager {
 		while (keys.hasMoreElements()) {
 			String key = (String)keys.nextElement();
 			String value = properties.getProperty(key);
-			
+
 			if (key == null || (key = key.trim()).length() == 0)
 				continue;
 			if (value == null || (value = value.trim()).length() == 0)
 				continue;
-			
+
 			// Set logger level
 			if (key.equals(LEVEL) || key.endsWith(LEVEL_SUFFIX)) {
 				String loggername;
@@ -229,14 +229,14 @@ public class LogManager {
 					loggername = key.substring(0, key.length() - LEVEL_SUFFIX.length());
 				if (loggername.equals(ROOT_LOGGER_NAME))
 					loggername = "";
-				
+
 				try {
 					Logger.getLogger(loggername).setLevel(Level.parse(value));
 				} catch (IllegalArgumentException e) {
 					logger.warn("Bad level '" + value + "' for '" + key + "' logger.", e);
 				}
 			}
-			
+
 			if (key.equals(USE_PARENT) || key.endsWith(USE_PARENT_SUFFIX)) {
 				String loggername;
 				if (key.length() == USE_PARENT.length())
@@ -245,7 +245,7 @@ public class LogManager {
 					loggername = key.substring(0, key.length() - USE_PARENT_SUFFIX.length());
 				if (loggername.equals(ROOT_LOGGER_NAME))
 					loggername = "";
-				
+
 				Logger.getLogger(loggername).setUseParentHandlers(Boolean.valueOf(value).booleanValue());
 			}
 		}
@@ -254,7 +254,7 @@ public class LogManager {
 	/**
 	 * Return true if the {@link Handler handler} behind the name
 	 * <code>handlername</code> is available. False otherwise.
-	 * 
+	 *
 	 * @param handlername
 	 * @return
 	 */
@@ -265,7 +265,7 @@ public class LogManager {
 	/**
 	 * Get an {@link Handler handler} instance from the internal
 	 * logmanager pool. Null if no handler for this name is available.
-	 * 
+	 *
 	 * @param handlername
 	 * @return
 	 */
@@ -275,7 +275,7 @@ public class LogManager {
 
 	/**
 	 * Return a new instance of a {@link Handler handler} for the given handlername.
-	 * 
+	 *
 	 * @param handlerPool
 	 * @param handlername
 	 * @param properties
@@ -286,23 +286,23 @@ public class LogManager {
 			// Return if already a handler available.
 			if (isHandlerAvailable(handlername))
 				return;
-			
+
 			// Otherwise load the class.
 			String classname = getParameter(properties, propertyPrefix, "class", null);
 			String level = getParameter(properties, propertyPrefix, "level", null);
 			Handler handler;
-			
+
 			// No classname found.
 			if (classname == null || classname.length() == 0) {
 				logger.warn("No classname for handler '" + handlername + "' found.");
 				return;
 			} else
-			
+
 			// ConsoleHandler
 			if (classname.equals("java.util.logging.ConsoleHandler")) {
 				handler = new ConsoleHandler();
 			} else
-			
+
 			// FileHandler
 			if (classname.equals("java.util.logging.FileHandler")) {
 				handler = new FileHandler(
@@ -311,34 +311,34 @@ public class LogManager {
 						getParameter(properties, propertyPrefix, "limit", 1),
 						getParameter(properties, propertyPrefix, "append", false));
 			} else
-			
+
 			// SocketHandler
 			if (classname.equals("java.util.logging.SocketHandler")) {
 				handler =  new SocketHandler(
 						getParameter(properties, propertyPrefix, "host", "127.0.0.1"),
 						getParameter(properties, propertyPrefix, "port", 0));
 			} else
-			
+
 			// All other classes
 			if (true) {
 				Class clazz = Class.forName(classname);
 				Method setter = null;
 				handler = (Handler)clazz.newInstance();
-				
+
 				if (propertyPrefix == null)
 					propertyPrefix = "";
-				
+
 				Enumeration keys = properties.keys();
 				while (keys.hasMoreElements()) {
 					String key = (String)keys.nextElement();
 					if (!key.startsWith(propertyPrefix))
 						continue;
-					
+
 					key = key.substring(propertyPrefix.length());
 					String value = getParameter(properties, propertyPrefix, key, null);
-					
+
 					System.out.println(" -> " + key + " -> " + value);
-					
+
 					// TODO Set attributes of a handler can also be maked over an common function.
 					if (value != null && !(key.equals("class") || key.equals("level"))) {
 						setter = clazz.getMethod("set" +
@@ -353,7 +353,7 @@ public class LogManager {
 					}
 				}
 			}
-			
+
 			if (level != null && level.length() != 0) {
 				try {
 					handler.setLevel(Level.parse(level));
@@ -361,12 +361,12 @@ public class LogManager {
 					logger.warn("Bad level '" + level + "' for '" + handler + "'.", e);
 				}
 			}
-			
+
 			// TODO externalize string
 			if (logger.isInfoEnabled())
 				logger.info("Add new handler '" + handlername + "' (" + handler + ").");
 			handlerPool.put(handlername, handler);
-			
+
 		} catch (Exception e) {
 			logger.error(UNEXPECTED_EXCEPTION.getMessage(e.getLocalizedMessage()), e);
 		}

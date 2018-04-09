@@ -37,7 +37,7 @@ import de.tarent.octopus.content.annotation.AnnotationWorkerWrapper;
 
 /**
  * Instantiiert AnnotationWorker nach der ReflectedWorkerWrapper Konvention.
- * 
+ *
  * @see ContentWorker
  * @author Sebastian Mancke, tarent GmbH
  */
@@ -47,7 +47,7 @@ public class AnnotationWorkerFactory implements SpecialWorkerFactory {
     /**
      * Liefert einen Worker entsprechend der workerDeclaration zurück.
      * Im Normalfall muss von der Factory nur die ImplementationSource berücksichtigt werden.
-     * 
+     *
      * @param classLoader Octopus Classloader fuer Worker.
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
@@ -55,14 +55,14 @@ public class AnnotationWorkerFactory implements SpecialWorkerFactory {
 			ClassLoader classLoader,
 			ContentWorkerDeclaration workerDeclaration)
 			throws WorkerCreationException {
-		
+
 		try {
 			if (logger.isLoggable(Level.FINE))
 				logger.fine(Resources.getInstance().get("WORKERFACTORY_LOADING_WORKER",
 						getClass().getName(),
 						workerDeclaration.getWorkerName(),
 						workerDeclaration.getImplementationSource()));
-			
+
 			Class workerClass = classLoader.loadClass(workerDeclaration.getImplementationSource());
 			return new AnnotationWorkerWrapper(workerClass.newInstance());
 		} catch (Exception reflectionException) {

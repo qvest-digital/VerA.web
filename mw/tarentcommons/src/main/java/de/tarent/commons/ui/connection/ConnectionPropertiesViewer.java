@@ -30,63 +30,63 @@ import de.tarent.commons.ui.EscapeDialog;
 import de.tarent.commons.ui.Messages;
 
 /**
- * 
+ *
  * @author Robert Schuster (r.schuster@tarent.de) tarent GmbH Bonn
  *
  */
 
 public class ConnectionPropertiesViewer extends EscapeDialog {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 5827220017771955633L;
 
 	private ConnectionPropertiesViewerModel model;
-	
+
 	ActionListener actionListener;
-	
+
 	JList entries;
-	
+
 	JTextField connectionLabel;
-	
+
 	JTextField serverURL;
-	
+
 	JTextField module;
-	
+
 	JButton newButton, deleteButton, editButton;
-	
+
 	boolean cancelled;
-	
+
 	ConnectionPropertiesEditor editor;
 
 	public ConnectionPropertiesViewer(JDialog parent)
 	{
 		super(parent, true);
-		
+
 		init();
 	}
 
 	public ConnectionPropertiesViewer(JFrame parent)
 	{
 		super(parent, true);
-		
+
 		init();
 	}
-	
+
 	public boolean wasCancelled()
 	{
 		return cancelled;
 	}
-	
+
 	public String getPreferredConnection()
 	{
 		if(entries != null && entries.getSelectedIndex() != -1)
 			return ((ConnectionProperties)entries.getSelectedValue()).label;
-		
+
 		return null;
 	}
-	
+
 	public void initEntries(Collection/*<ConnectionDefinition>*/ fixed, Collection/*<ConnectionDefinition>*/ modifiable)
 	{
 		model.clear();
@@ -106,7 +106,7 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 		while (ite.hasNext())
 		{
 			ConnectionDefinition cd = (ConnectionDefinition) ite.next();
-			
+
 			model.add(new ConnectionProperties(
 					cd.get(Key.LABEL),
 					cd.get(Key.SERVER_URL),
@@ -114,7 +114,7 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 					true));
 		}
 	}
-	
+
 	public Collection/*<ConnectionDefinition>*/ getModifiableEntries()
 	{
 		Enumeration e = model.connectionPropertiesList.elements();
@@ -125,20 +125,20 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 			if (cp.modifiable)
 			  ll.add(new ConnectionDefinition(cp.label, cp.serverURL, cp.moduleName));
 		}
-		
+
 		return ll;
 	}
-	
+
 	private void init()
 	{
 		editor = new ConnectionPropertiesEditor(this);
 		model = new ConnectionPropertiesViewerModel(new Runnable() { public void run(){ update(); } });
 		initComponents();
-		
+
 		pack();
 		setLocationRelativeTo(getOwner());
 	}
-	
+
 	private void initComponents()
 	{
 		setTitle(Messages.getString("ConnectionPropertiesViewer_Title"));
@@ -149,7 +149,7 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 		// be carefull if you fiddle with this.
 		entries.setPrototypeCellValue("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		entries.setCellRenderer(model.getRenderer());
-		
+
 		entries.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		entries.addListSelectionListener(new ListSelectionListener()
 		{
@@ -158,16 +158,16 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 				  model.setSelected(entries.getSelectedIndex());
 			}
 		});
-		
+
 		connectionLabel = new JTextField();
 		connectionLabel.setEditable(false);
-		
+
 		serverURL = new JTextField();
 		serverURL.setEditable(false);
-		
+
 		module = new JTextField(30);
 		module.setEditable(false);
-		
+
 		newButton = new JButton(Messages.getString("ConnectionPropertiesViewer_New"));
 		newButton.setToolTipText(Messages.getString("ConnectionPropertiesViewer_New_ToolTip"));
 		newButton.addActionListener(new ActionListener()
@@ -175,17 +175,17 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 			public void actionPerformed(ActionEvent ae)
 			{
 				editor.setVisible(true);
-				
+
 				if (editor.wasCancelled())
 				  return;
-				
+
 				ConnectionProperties cp = new ConnectionProperties(editor.connectionLabelCopy,
 						editor.serverURLCopy, editor.moduleCopy, true);
-				
+
 				model.add(cp);
 			}
 		});
-		
+
 		editButton = new JButton(Messages.getString("ConnectionPropertiesViewer_Edit"));
 		editButton.setToolTipText(Messages.getString("ConnectionPropertiesViewer_Edit_ToolTip"));
 		editButton.setEnabled(false);
@@ -195,30 +195,30 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 			{
 				ConnectionProperties cp = (ConnectionProperties) entries.getSelectedValue();
 				editor.initEntry(cp.label, cp.serverURL, cp.moduleName);
-				
+
 				// will block until the user closes the editor-dialog
 				editor.setVisible(true);
-				
+
 				if (editor.wasCancelled())
 				  return;
-				
+
 				cp.label = editor.connectionLabelCopy;
 				cp.serverURL = editor.serverURLCopy;
 				cp.moduleName = editor.moduleCopy;
-				
+
 				// The list model knows no way to refresh itself when the properties
 				// of an entry have updated. So we remove the entry and insert it at
 				// the same position to cause a proper update.
 				int index = entries.getSelectedIndex();
 				model.delete(index);
 				model.insert(cp, index);
-				
+
 				// Causes the updated values of cp being written into the
 				// model and then the textfields.
 				entries.setSelectedIndex(index);
 			}
 		});
-		
+
 		deleteButton = new JButton(Messages.getString("ConnectionPropertiesViewer_Delete"));
 		deleteButton.setToolTipText(Messages.getString("ConnectionPropertiesViewer_Delete_ToolTip"));
 		deleteButton.setEnabled(false);
@@ -229,13 +229,13 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 				model.delete(entries.getSelectedIndex());
 			}
 		});
-		
+
 		FormLayout l = new FormLayout("3dlu, pref:grow, 3dlu, pref, 3dlu, 120dlu:grow, 3dlu", // columns
 		"3dlu, pref, 3dlu, pref, 3dlu, pref, 3dlu, fill:pref:grow, 3dlu, pref, 3dlu"); // rows
 
 		Container cp = getContentPane();
 		cp.setLayout(l);
-		
+
 		CellConstraints cc = new CellConstraints();
 		cp.add(new JScrollPane(entries), cc.xywh(2, 2, 1, 7));
 
@@ -247,17 +247,17 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 
 		cp.add(new JLabel(Messages.getString("ConnectionPropertiesViewer_Module")), cc.xy(4, 6));
 		cp.add(module, cc.xy(6, 6));
-		
+
 		PanelBuilder pb = new PanelBuilder(new FormLayout("pref, 3dlu:grow, pref, 3dlu:grow, pref", "pref"));
 		pb.add(newButton, cc.xy(1, 1));
 		pb.add(editButton, cc.xy(3, 1));
 		pb.add(deleteButton, cc.xy(5, 1));
-		
+
 		cp.add(pb.getPanel(), cc.xyw(4, 8, 3));
-		
+
 		cp.add(CommonDialogButtons.getSubmitCancelButtons(getActionListener(), getRootPane()), cc.xyw(2, 10, 5));
 	}
-	
+
 	protected ActionListener getActionListener() {
 		if(actionListener == null) {
 			actionListener = new ActionListener(){
@@ -276,17 +276,17 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 		}
 		return actionListener;
 	}
-	
+
 	private void update()
 	{
 		connectionLabel.setText(model.label);
 		serverURL.setText(model.serverURL);
 		module.setText(model.module);
-		
+
 		editButton.setEnabled(model.modifiable);
 		deleteButton.setEnabled(model.modifiable);
 	}
-	
+
 	public void setVisible(boolean b)
 	{
 		super.setVisible(b);
@@ -298,11 +298,11 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 			module.setText("");
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * Determines whether the given label is already used for another connection-definition
-	 * 
+	 *
 	 * @param connectionLabel the label to check
 	 * @return true if the label is already existent
 	 */
@@ -317,10 +317,10 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Sets the connection the viewer will show when it becomes visible
-	 * 
+	 *
 	 * @param connectionLabel the label identifying the connection to show initially
 	 */
 
@@ -329,7 +329,7 @@ public class ConnectionPropertiesViewer extends EscapeDialog {
 		// need to clear selection, otherwise setSelectedValue above
 		// does not refill the property-fields when selection did not change
 		entries.clearSelection();
-		
+
 		for(int i=0; i < entries.getModel().getSize(); i++)
 		{
 			ConnectionProperties props = (ConnectionProperties)entries.getModel().getElementAt(i);

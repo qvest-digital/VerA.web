@@ -20,7 +20,7 @@
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-contact'
  * (which makes passes at compilers) written
- * by Sebastian Mancke, Michael Klink. 
+ * by Sebastian Mancke, Michael Klink.
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
  */
@@ -32,12 +32,12 @@ package de.tarent.commons.config;
  * where plain XML data is accessed. Since direct
  * access to XML elements is discouraged this class
  * is, too.
- * 
+ *
  * A better approach is to add the neccessary accessor
  * methods in the {@link ConfigManager} class. It should
  * parse the XML and provide it as Map or other suitable
  * data structures to the user.
- *  
+ *
  * @author Robert Schuster
  * @deprecated Direct access to XML data is discouraged. See class
  * documentation for details.

@@ -30,13 +30,12 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-
 /**
  * This is an generic implementation for pojos using the {@see java.lang.reflect.Proxy}.
  * With this implementation it is possible to provide an implementation for a pojo-Object by runtime,
  * using the interface of the pojo.
  *
- * <p>GenericPojos delegeate calls to the pojo to two different members: All property access is 
+ * <p>GenericPojos delegeate calls to the pojo to two different members: All property access is
  * controled by a GenericPojoStorage and all other calls are controled by a GenericPojoManager.
  * The last one is optional.</p>
  *
@@ -56,7 +55,7 @@ public class GenericPojo implements InvocationHandler {
         pojoStorage = storage;
         pojoManager = manager;
     }
-    
+
     /**
      * Contructe a new GenericPojo with the supplied storage and no manager
      */
@@ -70,7 +69,7 @@ public class GenericPojo implements InvocationHandler {
     public GenericPojo() {
         pojoStorage = new HashMapPojoStorage();
     }
-    
+
     /**
      * Create a GenericPojo implementation for the supplied pojoInterface with the default storage and no pojoManager
      *
@@ -104,7 +103,7 @@ public class GenericPojo implements InvocationHandler {
     }
 
     /**
-     * The invocation of the proxy. Here we decide, 
+     * The invocation of the proxy. Here we decide,
      * what action we want to perform: get or set an attribute.
      *
      * @param proxy The proxy instance
@@ -119,30 +118,29 @@ public class GenericPojo implements InvocationHandler {
 
         if (proxy instanceof WritableEntity && name.equals("setAttribute") && args.length == 2)
             return pojoStorage.put(args[0], args[1]);
-        
+
         // get
         if (name.length() > 3 && (args == null || args.length == 0) && name.startsWith("get"))
             return pojoStorage.get(getKeyByMethodName(name, 3));
-        
+
         // set
         if (name.length() > 3 && args != null && args.length == 1 && name.startsWith("set"))
             return pojoStorage.put(getKeyByMethodName(name, 3), args[0]);
-        
+
         // is
         if (name.length() > 2 && (args == null || args.length == 0) && name.startsWith("is"))
             return pojoStorage.get(getKeyByMethodName(name, 2));
-        
 
         // if no property is accessed, we delegate the call to a PojoManager
         if (pojoManager != null)
             return pojoManager.methodCalled(proxy, this, method, args);
-        
+
         if (name.equals("toString"))
             return toString();
 
         return null;
     }
-    
+
     protected static String getKeyByMethodName(String methodName, int offset) {
         String name = methodName.substring(offset++,offset).toLowerCase();
         if (methodName.length() > offset)

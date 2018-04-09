@@ -50,7 +50,7 @@ import org.w3c.dom.Node;
 /**
  * Stellt Methoden zum laden und speichern eines XML-Dokumentes
  * zur Verfügung.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class XMLDocument {
@@ -58,7 +58,7 @@ public class XMLDocument {
 
 	/**
 	 * Lädt ein XML-Dokument aus dem übergebenem InputStream.
-	 * 
+	 *
 	 * @param inputStream
 	 * @throws IOException
 	 */
@@ -76,7 +76,7 @@ public class XMLDocument {
 
 	/**
 	 * Speichert ein XML-Dokument in dem übergebenem OutputStream.
-	 * 
+	 *
 	 * @param outputStream
 	 * @throws IOException
 	 */
@@ -93,7 +93,7 @@ public class XMLDocument {
 	/**
 	 * Gibt das erste Node-Element mit dem übergebenem Namen
 	 * aus dem aktuellen Dokumente zurück.
-	 * 
+	 *
 	 * @param name Name des Elements
 	 * @return Node
 	 */
@@ -119,7 +119,7 @@ public class XMLDocument {
 	 * Verpackt eine beliebige Exception in eine IOException
 	 * und wirft diese, Fehlermeldung und Stacktrace werden dabei
 	 * beibehalten.
-	 * 
+	 *
 	 * @param t
 	 * @throws IOException IMMER
 	 */
@@ -130,7 +130,7 @@ public class XMLDocument {
 			throw (RuntimeException)t;
 		else if (t instanceof Error)
 			throw (Error)t;
-		
+
 		IOException e = new IOException(t.toString());
 		e.setStackTrace(t.getStackTrace());
 		throw e;

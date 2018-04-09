@@ -32,20 +32,20 @@ import java.util.Map;
 /**
  * This util class help you to transform a bean (every object instance) with
  * all his properties in a map. Also the other way, from a map into a bean.
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class BeanMapTransformator {
 	/** BeanAccessor cache for more performance. */
 	private Map beanAccessorCache = new HashMap();
-	
+
 	/** format for converting a date to a string*/
 	private String dateOutputFormat = "dd.MM.yyyy";
 
 	/**
 	 * Return a new map with all getable property information of
 	 * the given <code>bean</code>.
-	 * 
+	 *
 	 * @param bean
 	 * @throws NullPointerException if bean is null.
 	 * @return Map, never null.
@@ -60,7 +60,7 @@ public class BeanMapTransformator {
 	 * Return a new instance of the given <code>clazz</code>.
 	 * All setable property information of the bean are already
 	 * filled with the information of the map.
-	 * 
+	 *
 	 * @param map
 	 * @param clazz
 	 * @throw NullPointerException, if map or clazz are null.
@@ -80,7 +80,7 @@ public class BeanMapTransformator {
 
 	/**
 	 * Transfer all information from the bean into the map.
-	 * 
+	 *
 	 * @param bean
 	 * @param map
 	 */
@@ -90,7 +90,7 @@ public class BeanMapTransformator {
 		if (map == null)
 			throw new NullPointerException("Map can not be null.");
 		BeanAccessor accessor = getBeanAccessor(bean.getClass());
-		
+
 		for (Iterator it = accessor.getGetableProperties().iterator(); it.hasNext(); ) {
 			String property = (String)it.next();
 			map.put(property, accessor.getProperty(bean, property));
@@ -100,7 +100,7 @@ public class BeanMapTransformator {
 	/**
 	 * Set all setable properties of the bean with the attributes
 	 * of the map. (Only if the map is filled with this information.)
-	 * 
+	 *
 	 * @param map
 	 * @param bean
 	 */
@@ -110,7 +110,7 @@ public class BeanMapTransformator {
 		if (map == null)
 			throw new NullPointerException("Map can not be null.");
 		BeanAccessor accessor = getBeanAccessor(bean.getClass());
-		
+
 		for (Iterator it = accessor.getSetableProperties().iterator(); it.hasNext(); ) {
 			String property = (String)it.next();
 			if (map.containsKey(property))
@@ -120,7 +120,7 @@ public class BeanMapTransformator {
 
 	/**
 	 * Return a cached {@link BeanAccessor} for the given <code>clazz</code>.
-	 * 
+	 *
 	 * @param clazz
 	 * @return
 	 */

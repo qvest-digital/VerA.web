@@ -78,7 +78,7 @@ public abstract class QualityFeedbackAgent extends JDialog
     private Exception exception = null;
     private String message = null;
     private JScrollPane doneTextAreaPane = null;
-    
+
     private class ImagePanel extends JPanel
     {
         /** serialVersionUID */
@@ -89,18 +89,18 @@ public abstract class QualityFeedbackAgent extends JDialog
             super();
             this.setBounds(new java.awt.Rectangle(0,0,120,469));
         }
-        
-        protected void paintComponent(Graphics g) 
+
+        protected void paintComponent(Graphics g)
         {
             super.paintComponent(g);
 
             Image aboutImage = null;
-            try 
+            try
             {
                 URL url = getClass().getResource("/de/tarent/commons/gfx/qfba-splash.png");
                 aboutImage = javax.imageio.ImageIO.read(url);
-            } 
-            catch (IOException ioe) 
+            }
+            catch (IOException ioe)
             {
                 throw new RuntimeException("Can't open about image.");
             }
@@ -111,7 +111,7 @@ public abstract class QualityFeedbackAgent extends JDialog
 
     /**
      * This creates a new Quality Feedback Agent.
-     * 
+     *
      * @param message Message to be displayed in the detail dialog.
      * @param exception Exception that triggered the crash.
      */
@@ -132,7 +132,7 @@ public abstract class QualityFeedbackAgent extends JDialog
  // FIXME       this.setPreferredSize(new Dimension(300, 200));
         this.setContentPane(getJContentPane());
         this.setLocationRelativeTo(null);
-        this.setVisible(true);        
+        this.setVisible(true);
     }
 
     private JPanel getJContentPane()
@@ -156,7 +156,7 @@ public abstract class QualityFeedbackAgent extends JDialog
             jContentPane.add(jLabel2, null);
             jContentPane.add(jLabel3, null);
             jContentPane.add(getDoneTextAreaPane(), null);
-            
+
         }
         return jContentPane;
     }
@@ -240,7 +240,7 @@ public abstract class QualityFeedbackAgent extends JDialog
         }
         return emailField;
     }
-    
+
     private JScrollPane getDoneTextAreaPane()
     {
         if (doneTextAreaPane == null)
@@ -250,8 +250,8 @@ public abstract class QualityFeedbackAgent extends JDialog
             doneTextAreaPane.setBounds(new java.awt.Rectangle(134,215,339,195));
         }
         return doneTextAreaPane;
-    }   
-    
+    }
+
     private JTextArea getDoneTextArea()
     {
         if (doneTextArea == null)
@@ -263,13 +263,13 @@ public abstract class QualityFeedbackAgent extends JDialog
         }
         return doneTextArea;
     }
-    
+
     // abstract methods follow
-    
+
     /**
      * This method has to be implemented in all explicit quality feedback agents. It will
      * be called from the qfa when the user klicks on the send button. The text entered in
-     * the dialog will be attached as parameters. The implementing method chooses the 
+     * the dialog will be attached as parameters. The implementing method chooses the
      * transport method for sending out the message.
      */
     public abstract void send(String email, String doneText, String message, Exception exception);

@@ -32,9 +32,9 @@ import java.io.File;
  * This helper supports some simple normalize functions to transfer unix or
  * windows path information to the present system.
  * </p>
- * 
+ *
  * @see File#separatorChar
- * 
+ *
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class FileDelimiter {
@@ -46,7 +46,7 @@ public class FileDelimiter {
 	/**
 	 * This function return a new normalized file instance which
 	 * use the system path delimiter.
-	 * 
+	 *
 	 * @param filename Unix or windows filename.
 	 * @return A normalized file instance, never null.
 	 * @throws NullPointerException if the argument is null.
@@ -58,7 +58,7 @@ public class FileDelimiter {
 	/**
 	 * This function return a new normalized file instance which
 	 * use the system path delimiter.
-	 * 
+	 *
 	 * @param file File which contains a unix or windows filename.
 	 * @return A normalized file instance, never null.
 	 * @throws NullPointerException if the argument is null.
@@ -70,7 +70,7 @@ public class FileDelimiter {
 	/**
 	 * This function return a new normalized file instance which
 	 * use the system path delimiter.
-	 * 
+	 *
 	 * @param filename Unix or windows filename.
 	 * @return A normalized string, never null.
 	 * @throws NullPointerException if the argument is null.

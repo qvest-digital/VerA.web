@@ -9,7 +9,7 @@
 			<password></password>
 		</parameters>
 	</dataaccess>
-	
+
 	<dataaccess name="hsqldb-memory02">
 		<class>de.tarent.commons.dataaccess.backend.impl.SqlDataAccessBackend</class>
 		<parameters>

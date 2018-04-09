@@ -25,9 +25,9 @@
 
 /*
  * $Id: WebFormat.java,v 1.4 2007/06/14 13:34:49 dgoema Exp $
- * 
+ *
  * Created on 13.09.2004
- * 
+ *
  * Original aus der tarent-groupware-Library.
  */
 package de.tarent.commons.web;
@@ -45,8 +45,8 @@ import de.tarent.commons.utils.VariableDateFormat;
 /**
  * Diese Klasse holt (potentiell lokalisiert) ausgelagerte Mitteilungen; diese
  * können so roh oder mittels {@link MessageFormat} mit Parametern gefüllt
- * abgefragt werden.  
- * 
+ * abgefragt werden.
+ *
  * @author Christoph Jerolimov, tarent GmbH;
  * 			Tim Steffens, tarent GmbH
  */
@@ -63,10 +63,10 @@ public class WebFormat {
 	public static String MONTH;
 	/** Jahr */
 	public static String YEAR;
-	
+
 	/**
 	 * Encodet einen Text zur direkten Darstellung im HTML-Inhalt.
-	 * 
+	 *
 	 * @param input Original String
 	 * @return Encodeter String
 	 */
@@ -78,7 +78,7 @@ public class WebFormat {
 
 	/**
 	 * Encodet einen Text zur direkten Darstellung im HTML-Input-Feldern.
-	 * 
+	 *
 	 * @param input Original String
 	 * @return Encodeter String
 	 */
@@ -90,7 +90,7 @@ public class WebFormat {
 
 	/**
 	 * Encodet einen Text zur direkten Darstellung in HTML-Textarea-Feldern.
-	 * 
+	 *
 	 * @param input Original String
 	 * @return Encodeter String
 	 */
@@ -107,10 +107,10 @@ public class WebFormat {
 		VariableDateFormat vdf = new VariableDateFormat();
 		return date(vdf.analyzeString(brokerDate));
 	}
-	
+
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
-     * 
+     *
      * @param input Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
      *  interpretiert.
@@ -122,7 +122,7 @@ public class WebFormat {
 
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
-     * 
+     *
      * @param input Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
      *  interpretiert.
@@ -134,7 +134,7 @@ public class WebFormat {
 
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
-     * 
+     *
      * @param input Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
      *  interpretiert.
@@ -146,7 +146,7 @@ public class WebFormat {
 
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
-     * 
+     *
      * @param input Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
      *  interpretiert.
@@ -158,7 +158,7 @@ public class WebFormat {
 
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
-     * 
+     *
      * @param input Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
      *  interpretiert.
@@ -170,7 +170,7 @@ public class WebFormat {
 
     /**
      * Encodet ein Datum zur direkten Darstellung in HTML-Textarea-Feldern.
-     * 
+     *
      * @param input Darzustellendes Datum als {@link Date}- oder {@link Long}-Instanz.
      *  Bei anderen Klassen wird die Stringdarstellung genommen und als {@link Long}
      *  interpretiert.
@@ -208,7 +208,7 @@ public class WebFormat {
 
 	/**
 	 * Encodet einen String in einen HTML-String.
-	 * 
+	 *
 	 * @param string Original String
 	 * @return Encodeted HTML
 	 */
@@ -231,7 +231,7 @@ public class WebFormat {
 
 	/**
 	 * Decodet einen String in einen Plaintext-String.
-	 * 
+	 *
 	 * @param string HTML String
 	 * @return Plaintext
 	 */

@@ -28,7 +28,7 @@ package de.tarent.commons.datahandling.entity;
 import java.util.List;
 
 /**
- * This interface stands for an abstract unit that may have some attributes 
+ * This interface stands for an abstract unit that may have some attributes
  * for reading and have the capability to list the attributes.
  *
  * @author Sebastian Mancke, tarent GmbH
@@ -37,7 +37,7 @@ import java.util.List;
 public interface AttributeSource extends ReadableAttribute {
 	/**
 	 * Return the value of the given attribute name.
-     * 
+     *
      * @param attributeName
      * @return
 	 */
@@ -45,7 +45,7 @@ public interface AttributeSource extends ReadableAttribute {
 
     /**
      * Return the type of the given attribute name.
-     * 
+     *
      * @param attributeName
      * @return
      */

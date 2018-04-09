@@ -59,7 +59,7 @@ import javax.swing.text.Element;
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
 public interface JHTMLPanel
-{    
+{
     /**
      * When the JHTML widget has created an actual instance of a widget, it is
      * announced with it's given name (taken from the name attribute in the JHTML source)
@@ -67,7 +67,7 @@ public interface JHTMLPanel
      * <p>
      * This is needed for synchronization purposes between the JHTMLEditorKit display thread
      * that actually creates the view and the main thread.
-     * 
+     *
      * @param nameAttribute Name of the component as given by the name attribute in the JHTML source.
      * @param component The widget itself.
      * @param componentElement The XML element for this component.

@@ -43,7 +43,7 @@ public class ColumnDescription {
     public void setType(Class newType) {
         this.type = newType;
     }
-        
+
     public String getTitle() {
         return title;
     }
@@ -51,7 +51,7 @@ public class ColumnDescription {
     public void setTitle(String newTitle) {
         this.title = newTitle;
     }
-        
+
     public String getAttributeName() {
         return attributeName;
     }

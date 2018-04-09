@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.tarent.commons.ui;
 
@@ -45,14 +45,14 @@ import de.tarent.commons.utils.TaskManager.TaskListener;
  * An implementation of the {@link TaskManager.TaskListener} interface which
  * is capable of displaying multiple tasks with a label and a progress bar and provides a
  * cancel button for cancelable tasks.
- * 
+ *
  * @author Fabian K&ouml;ster (f.koester@tarent.de) tarent GmbH Bonn
  *
  */
 public class TaskManagerPanel extends JComponent implements TaskListener {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 3515935584947905202L;
 
@@ -75,7 +75,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	protected final static int SINGLE_MODE = 0;
 	protected final static int MULTI_MODE = 1;
 	protected final static int NONE_MODE = 2;
-	
+
 	public TaskManagerPanel() {
 		this(null);
 	}
@@ -93,10 +93,9 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 					if(resizeComp.isVisible())
 						TaskManagerPanel.this.showPopup();
 				}
-				
+
 			});
-		
-		
+
 		setLayout(new FormLayout("pref, 3dlu, pref, 3dlu, pref, 3dlu, pref",
 		"1dlu, fill:pref, 1dlu"));
 
@@ -130,12 +129,12 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				 * @see javax.swing.ListCellRenderer#getListCellRendererComponent(javax.swing.JList, java.lang.Object, int, boolean, boolean)
 				 */
 				public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-					return (TaskPanel)value; 
+					return (TaskPanel)value;
 				}
 
 			});
 			contextList.addMouseListener(new MouseAdapter() {
-				
+
 				protected MouseEvent mousePressedEvent;
 
 				public Component getComponentAt(MouseEvent e) {
@@ -158,7 +157,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 					Component c = getComponentAt(e);
 					if (c instanceof JButton) {
 						c.dispatchEvent(new MouseEvent(c, e.getID(), e.getWhen(), e.getModifiers(), 0, 0, e.getClickCount(), e.isPopupTrigger(), e.getButton()));
-						getContextList().repaint(getRepaintBounds(e));					
+						getContextList().repaint(getRepaintBounds(e));
 					}
 				}
 
@@ -261,11 +260,11 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 		}
 		return toggleExtendedButton;
 	}
-	
+
 	protected void showPopup() {
 		if(popup != null)
 			popup.hide();
-			
+
 		if(getToggleExtendedButton().isVisible()) {
 			int x = (int)(getToggleExtendedButton().getLocationOnScreen().getX()+getToggleExtendedButton().getWidth()-getContextScrollPane().getPreferredSize().getWidth());
 			int y = (int)(getToggleExtendedButton().getLocationOnScreen().getY()-getContextScrollPane().getPreferredSize().getHeight());
@@ -312,7 +311,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				taskPanel.getProgressBar().setValue(amount);
 			}
 			getContextList().repaint();
-		} else 
+		} else
 			getGlobalProgressBar().setValue(amount);
 	}
 
@@ -334,7 +333,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				taskPanel.getProgressBar().setMaximum(amount);
 			}
 			getContextList().repaint();
-		} else 
+		} else
 			getGlobalProgressBar().setMaximum(amount);
 	}
 
@@ -410,11 +409,11 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 				getGlobalProgressBar().setVisible(false);
 				getGlobalCancelButton().setVisible(false);
 				getToggleExtendedButton().setVisible(false);
-				
+
 				// if visible, also hide popup and deselect toggle-button
 				if(popup != null)
 					popup.hide();
-				
+
 				getToggleExtendedButton().setSelected(false);
 				//getToggleExtendedButton().setIcon(collapsed);
 
@@ -487,7 +486,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 	protected class TaskPanel extends JComponent {
 
 		/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = 4717031274747790529L;
 
@@ -542,7 +541,7 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 					 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 					 */
 					public void actionPerformed(ActionEvent e) {
-						
+
 						// Make the button unclickable instantly because a task
 						// should not be cancelled twice.
 						getCancelButton().setEnabled(false);
@@ -561,19 +560,19 @@ public class TaskManagerPanel extends JComponent implements TaskListener {
 			}
 			return cancelButton;
 		}
-		
+
 		public Component getComponentAt(int x, int y) {
             for (int i = 0; i < getComponentCount(); i++)
                 if (getComponent(i).getBounds().contains(x, y))
                     return getComponent(i);
-            
+
             return null;
         }
 	}
-	
+
 	protected class RelocatingPopup extends Popup {
 		public RelocatingPopup() {
-			
+
 		}
 	}
 }

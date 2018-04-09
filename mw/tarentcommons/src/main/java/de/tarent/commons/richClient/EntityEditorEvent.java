@@ -27,7 +27,6 @@ package de.tarent.commons.richClient;
 
 import java.util.EventObject;
 
-
 public class EntityEditorEvent extends EventObject {
 
     /** serialVersionUID */

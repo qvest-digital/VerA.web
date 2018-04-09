@@ -23,7 +23,6 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 package de.tarent.octopus.content.annotation;
 
 import de.tarent.octopus.config.ModuleConfig;
@@ -40,28 +39,28 @@ public class SampleWorker1 {
 
     public boolean wasInitCalled = false;
 
-    public void init(ModuleConfig tmc) 
+    public void init(ModuleConfig tmc)
     {
         wasInitCalled = true;
     }
 
     @WebMethod()
     @Result("helloWorldResult")
-    public String helloWorld() 
+    public String helloWorld()
     {
         return "Hello World!";
     }
 
     @WebMethod()
     @Result() //using default: "return"
-    public String helloWorldWithDefaultResult() 
+    public String helloWorldWithDefaultResult()
     {
         return "Hello World!";
     }
 
     @WebMethod(operationName="otherName")
     @Result() //using default: "return"
-    public String helloWorldWithOtherName() 
+    public String helloWorldWithOtherName()
     {
         return "Hello World!";
     }
@@ -69,7 +68,7 @@ public class SampleWorker1 {
     @WebMethod()
     @Result() //using default: "return"
     public String helloWorldWithArgument(@WebParam(name="firstname")
-                                         String name)     
+                                         String name)
     {
         return "Hello "+name;
     }
@@ -77,20 +76,19 @@ public class SampleWorker1 {
     @WebMethod()
     @Result() //using default: "return"
     public String nameAnnotation(@Name("firstname")
-                                 String name)     
+                                 String name)
     {
         return "Hello "+name;
     }
 
-
     @WebMethod()
     public void optionalArguments(@Name("mandatoryByDefault")
                                   String p1,
-                                  
+
                                   @Name("mandatory")
                                   @Optional(false)
                                   String p2,
-                                  
+
                                   @Name("optional")
                                   @Optional(true)
                                   String p3,
@@ -101,7 +99,6 @@ public class SampleWorker1 {
     {
         return;
     }
-
 
     @WebMethod()
     public void testTypesSimple(@Name("testCase") TestCase testCase,
@@ -132,22 +129,21 @@ public class SampleWorker1 {
 
         Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
         Assert.assertEquals("boolean Übergabe", true, boolean2);
-        
-        Assert.assertTrue("List Übergabe", list.size()== 1);
-        Assert.assertTrue("Map Übergabe", map.size()== 1);        
-    }
 
+        Assert.assertTrue("List Übergabe", list.size()== 1);
+        Assert.assertTrue("Map Übergabe", map.size()== 1);
+    }
 
     @WebMethod()
     public void testParameterConversions(@Name("testCase") TestCase testCase,
 
-                                         @Name("int1") 
+                                         @Name("int1")
                                          Integer int1,
 
                                          @Name("int2") @Optional()
                                          int int2,
 
-                                         @Name("long1") 
+                                         @Name("long1")
                                          Long long1,
 
                                          @Name("long2") @Optional()
@@ -159,22 +155,22 @@ public class SampleWorker1 {
                                          @Name("float2") @Optional()
                                          float float2,
 
-                                         @Name("double1") 
+                                         @Name("double1")
                                          Double double1,
 
                                          @Name("double2") @Optional()
                                          double double2,
 
-                                         @Name("boolean1") 
+                                         @Name("boolean1")
                                          Boolean boolean1,
 
-                                         @Name("boolean2") @Optional() 
+                                         @Name("boolean2") @Optional()
                                          boolean boolean2,
 
-                                         @Name("list") 
+                                         @Name("list")
                                          List list,
 
-                                         @Name("map") 
+                                         @Name("map")
                                          MyMapBean mapBan)
     {
     	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
@@ -191,13 +187,12 @@ public class SampleWorker1 {
 
         Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
         Assert.assertEquals("boolean Übergabe", false, boolean2);
-        
+
         Assert.assertTrue("List Übergabe", list.size()== 1);
-        
+
         Assert.assertEquals("MapBean Übergabe", "Frank", mapBan.getName());
         Assert.assertEquals("MapBean Übergabe", "Prüm", mapBan.getCity());
     }
-
 
     @WebMethod
     public void testInOuts(@Name("p1")
@@ -212,6 +207,5 @@ public class SampleWorker1 {
         p2.set(p2.get()+2);
         p3.set(!p3.get());
     }
-   
 
 }

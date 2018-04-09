@@ -36,7 +36,7 @@ import java.util.List;
  * <code>TaskManager</code> allows scheduling and running time-consuming
  * background tasks and provides infrastructure to allow displaying the task's
  * state.
- * 
+ *
  * @author Robert Schuster
  */
 public class TaskManager {
@@ -52,7 +52,7 @@ public class TaskManager {
 	private LinkedList threads = new LinkedList();
 
 	private boolean running = true;
-	
+
 	private Blocker blocker;
 
 	private TaskManager() {
@@ -115,7 +115,7 @@ public class TaskManager {
 				ctx.run();
 			else if (ctx.exclusive) {
 				waitForAllTasks();
-				
+
 				// Informs the blocker if one is available.
 				if (blocker != null)
 				  {
@@ -157,7 +157,7 @@ public class TaskManager {
 				// Nothing to do if there are no threads.
 				if (threads.isEmpty())
 				  return;
-				
+
 				t = (Thread) threads.removeFirst();
 			}
 
@@ -174,26 +174,26 @@ public class TaskManager {
 
 	/**
 	 * Returns the one and only instance of the <code>TaskManager</code>
-	 * 
+	 *
 	 * @return
 	 */
 	public static TaskManager getInstance() {
 		return instance;
 	}
-	
+
 	/**
 	 * Installs a {@link Blocker} instance on the {@link TaskManager}.
-	 * 
+	 *
 	 * <p>When an exclusive task is run the {@link TaskManager} invokes
 	 * <code>setBlocked(true)</code> on it and does <code>setBlocked(false)</code>
 	 * when the task has finished.</p>
-	 * 
+	 *
 	 * <p>An implementor may use this to dissallow userinput when an exclusive task
 	 * is being run.</p>
-	 * 
+	 *
 	 * <p>Setting a {@link Blocker} is optional and does not affect executing exclusive
 	 * tasks any further.</p>
-	 * 
+	 *
 	 * @param b
 	 */
 	public void setBlocker(Blocker b)
@@ -204,7 +204,7 @@ public class TaskManager {
 	/**
 	 * Registers a {@link TaskManager.TaskListener} instance which from now on
 	 * receives updates about the task manager's state.
-	 * 
+	 *
 	 * @param l
 	 */
 	public void addTaskListener(TaskListener l) {
@@ -214,7 +214,7 @@ public class TaskManager {
 	/**
 	 * Removes a {@link TaskManager.TaskListener} so it will not be notified
 	 * about changes to the task manager's state any more.
-	 * 
+	 *
 	 * @param l
 	 */
 	public void removeTaskListener(TaskListener l) {
@@ -224,12 +224,12 @@ public class TaskManager {
 	/**
 	 * Checks whether the current thread is the the Swing event dispatch thread
 	 * and if so throws an <code>IllegalStateException</code>.
-	 * 
+	 *
 	 * <p>
 	 * This is used by various method of the task manager which dissallow being
 	 * called on the Swing event dispatch thread.
 	 * </p>
-	 * 
+	 *
 	 */
 	private void checkDispatchThread() {
 		if (EventQueue.isDispatchThread())
@@ -240,7 +240,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * a new task registration.
-	 * 
+	 *
 	 * @param t
 	 * @param description
 	 */
@@ -253,7 +253,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * a new blocking task registration.
-	 * 
+	 *
 	 * @param t
 	 * @param description
 	 */
@@ -266,7 +266,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * a new exclusive task registration.
-	 * 
+	 *
 	 * @param t
 	 * @param description
 	 */
@@ -279,7 +279,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * an update of a task's activity description.
-	 * 
+	 *
 	 * @param t
 	 * @param description
 	 */
@@ -292,7 +292,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * an update of a task's goal value.
-	 * 
+	 *
 	 * @param t
 	 * @param amount
 	 */
@@ -305,7 +305,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * an update of a task's current progress.
-	 * 
+	 *
 	 * @param t
 	 * @param description
 	 */
@@ -318,7 +318,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * a task being completed.
-	 * 
+	 *
 	 * @param t
 	 */
 	private void fireTaskCompleted(Context t) {
@@ -330,7 +330,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * a task being cancelled.
-	 * 
+	 *
 	 * @param t
 	 */
 	private void fireTaskCancelled(Context t) {
@@ -342,7 +342,7 @@ public class TaskManager {
 	/**
 	 * Notifies all registered {@link TaskManager.TaskListener} instances about
 	 * a task being started.
-	 * 
+	 *
 	 * @param t
 	 */
 	private void fireTaskStarted(Context t) {
@@ -364,7 +364,7 @@ public class TaskManager {
 	/**
 	 * Registers a normal (concurrent) task with the supplied priotiry.
      * The has no effect to the computation order of the Tasks, but is supplied for e.g. the view order.
-	 * 
+	 *
 	 * @param t
 	 * @param taskDescription
 	 * @param cancelable
@@ -377,7 +377,7 @@ public class TaskManager {
 
 	/**
 	 * Registers a normal (concurrent) task.
-	 * 
+	 *
 	 * @param t
 	 * @param taskDescription
 	 * @param cancelable
@@ -395,14 +395,14 @@ public class TaskManager {
         // TODO: realy check this?
 		//checkDispatchThread();
 
-		fireBlockingTaskRegistered(register(new Context(t, true, false, cancelable, DEFAULT_PRIORITY)), 
+		fireBlockingTaskRegistered(register(new Context(t, true, false, cancelable, DEFAULT_PRIORITY)),
                                    taskDescription);
 	}
 
 	/**
 	 * Registers a task which can be run only when all other tasks have been
 	 * completed and then blocks running following tasks until it is completed.
-	 * 
+	 *
 	 * @param t
 	 * @param taskDescription
 	 * @param cancelable
@@ -411,7 +411,7 @@ public class TaskManager {
 			boolean cancelable) {
 		//checkDispatchThread();
 
-		fireExclusiveTaskRegistered(register(new Context(t, false, true, cancelable, DEFAULT_PRIORITY)), 
+		fireExclusiveTaskRegistered(register(new Context(t, false, true, cancelable, DEFAULT_PRIORITY)),
                                     taskDescription);
 	}
 
@@ -437,7 +437,7 @@ public class TaskManager {
 		volatile Thread thread;
 
 		volatile boolean cancelled;
-        
+
         int priority;
 
 		Context(Task t, boolean blocking, boolean exclusive, boolean cancelable, int priority) {
@@ -455,9 +455,9 @@ public class TaskManager {
 		public boolean isCancelable() {
 			return cancelable;
 		}
-		
+
 		/** Returns whether the context's task has been cancelled.
-		 * 
+		 *
 		 * @return
 		 */
 		public boolean isCancelled()
@@ -495,7 +495,7 @@ public class TaskManager {
 		 * cancelation. For this reason it is wrong to call the method from
 		 * within the Swing dispatch thread as it may freeze the UI.
 		 * </p>
-		 * 
+		 *
 		 * @throws IllegalStateException
 		 *             if the task is not cancelable or the method is called
 		 *             from the Swing dispatch thread
@@ -521,11 +521,11 @@ public class TaskManager {
 			fireTaskCancelled(this);
 		}
 	}
-	
+
 	/**
 	 * A {@link Blocker} implementation registered to the {@link TaskManager}
 	 * may provide means to block user-input while an exclusive task is running.
-	 * 
+	 *
 	 * @author Robert Schuster
 	 *
 	 */
@@ -536,7 +536,7 @@ public class TaskManager {
 	/**
 	 * This is the interface to be implemented for long running background tasks
 	 * which should be subject to a specific scheduling policy.
-	 * 
+	 *
 	 * <p>Cancellation can be implemented in two ways:
 	 * <p>
 	 * The first variant regularly checks the {@link TaskManager.Context#isCancelled()}
@@ -561,7 +561,7 @@ public class TaskManager {
 		 * <li>you are on an arbitrary thread, not the one that started the
 		 * application</li>
 		 * </lu>
-		 * 
+		 *
 		 * @param ctx
 		 */
 		void run(Context ctx);
@@ -576,16 +576,16 @@ public class TaskManager {
 		 */
 		void cancel();
 	}
-	
+
 	/** This class does nothing else than providing an implementation where
 	 * the {@link #cancel()} method is implemented empty, removing the need
 	 * to define it.
-	 *  
+	 *
 	 * @author Robert Schuster.
 	 *
 	 */
 	public static abstract class AbstractTask implements Task {
-		
+
 		public void cancel()
 		{
 			// Does nothing.
@@ -667,7 +667,7 @@ public class TaskManager {
 		 * This method is called right before the task is run and should be used
 		 * to set up everything to run the task.
 		 * </p>
-		 * 
+		 *
 		 * @param ctx
 		 */
 		protected void prepare(Context ctx) {
@@ -682,7 +682,7 @@ public class TaskManager {
 		 * <p>
 		 * Throw a {@link SwingTask.Exception} to indicate that the task failed.
 		 * </p>
-		 * 
+		 *
 		 * @param ctx
 		 * @throws SwingTask.Exception
 		 */
@@ -694,7 +694,7 @@ public class TaskManager {
 		 * <p>
 		 * This method is called on the Swing thread.
 		 * </p>
-		 * 
+		 *
 		 * @param ctx
 		 */
 		protected abstract void succeeded(Context ctx);
@@ -705,7 +705,7 @@ public class TaskManager {
 		 * <p>
 		 * This method is called on the Swing thread.
 		 * </p>
-		 * 
+		 *
 		 * @param ctx
 		 */
 		protected abstract void failed(Context ctx);
@@ -737,14 +737,14 @@ public class TaskManager {
 	 * Via the {@link Context} instances an implementor can issue cancellation
 	 * of tasks supporting this.
 	 * </p>
-	 * 
+	 *
 	 * @author Robert Schuster
 	 */
 	public static interface TaskListener {
 
 		/** This method is called whenever a new concurrent task
 		 * is registered at the <code>TaskManager</code>.
-		 * 
+		 *
 		 * @param t
 		 * @param description
 		 */
@@ -752,7 +752,7 @@ public class TaskManager {
 
 		/** This method is called whenever a new blocking task
 		 * is registered at the <code>TaskManager</code>.
-		 * 
+		 *
 		 * @param t
 		 * @param description
 		 */
@@ -760,7 +760,7 @@ public class TaskManager {
 
 		/** This method is called whenever a new exclusive task
 		 * is registered at the <code>TaskManager</code>.
-		 * 
+		 *
 		 * @param t
 		 * @param description
 		 */
@@ -768,45 +768,45 @@ public class TaskManager {
 
 		/** This method is called whenever a task's activity description
 		 * changes.
-		 * 
+		 *
 		 * @param t
 		 * @param description
 		 */
 		void activityDescriptionSet(Context t, String description);
 
 		/** This method is called whenever a task starts.
-		 * 
+		 *
 		 * @param t
 		 */
 		void taskStarted(Context t);
 
 		/** This method is called whenever a task is completed.
-		 * 
+		 *
 		 * <p>A task is completed after its {@link TaskManager.Task#run(Context)}
 		 * method returns.</p>
-		 * 
+		 *
 		 * @param t
 		 */
 		void taskCompleted(Context t);
 
 		/** This method is called whenever a task is cancelled.
-		 * 
+		 *
 		 * <p>A task is cancelled when the <code>cancel</code> method of the
 		 * task's <code>Context</code> was called and after that returns from
 		 * the {@link TaskManager.Task#run(Context)} method.
-		 * 
+		 *
 		 * @param t
 		 */
 		void taskCancelled(Context t);
 
 		/** This method is called whenever a task's progress is updated.
-		 * 
+		 *
 		 * @param t
 		 */
 		void currentUpdated(Context t, int amount);
 
 		/** This method is called whenever a task's progress goal is updated.
-		 * 
+		 *
 		 * @param t
 		 */
 		void goalUpdated(Context t, int amount);

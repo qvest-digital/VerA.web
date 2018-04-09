@@ -68,7 +68,7 @@ public class MessageHelper {
 			Class clazz = Class.forName(classname);
 			String source = "Source path is not available.";
 			ResourceBundle bundle = null;
-			
+
 			try {
 				bundle = ResourceBundle.getBundle(bundlename);
 				source = getResourceName(clazz.getClassLoader(), bundlename, bundle.getLocale());
@@ -81,7 +81,7 @@ public class MessageHelper {
 				e.printStackTrace();
 				// nothing here, source path not found is default message.
 			}
-			
+
 			Field fields[] = clazz.getDeclaredFields();
 			for (int i = 0; i < fields.length; i++) {
 				if (fields[i].getModifiers() == STATIC_PUBLIC_MODIFIER) {
@@ -96,7 +96,7 @@ public class MessageHelper {
 					} else {
 						message = "No message for key '" + key + "' found, resource bundle '" + bundlename + "' is missing.";
 					}
-					
+
 					if (fields[i].getType().equals(String.class)) {
 						fields[i].set(null, message);
 					} else if (fields[i].getType().equals(Message.class)) {
@@ -116,7 +116,7 @@ public class MessageHelper {
 			if (locale.toString().length() != 0)
 				buffer.append("_").append(locale.toString());
 			buffer.append(".properties");
-			
+
 			URL resource = loader.getResource(buffer.toString());
 			if (resource == null)
 				throw new NullPointerException("Resource for \"" + buffer + "\" can not be null.");

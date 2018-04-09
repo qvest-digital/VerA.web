@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  *
  */
 public class BeanMapTest extends TestCase {
-	
+
 	ConcreteBeanMap aBeanMap;
 
 	protected void setUp() throws Exception {
@@ -48,7 +48,6 @@ public class BeanMapTest extends TestCase {
 		super.tearDown();
 	}
 
-	
 	/*
 	 * Test method for 'de.tarent.commons.datahandling.BeanMap.getValueType(String)'
 	 */

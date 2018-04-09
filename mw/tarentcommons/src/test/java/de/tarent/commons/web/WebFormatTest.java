@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.commons.web;
 
@@ -37,7 +37,7 @@ import junit.framework.TestCase;
  *
  */
 public class WebFormatTest extends TestCase {
-	
+
 	WebFormat wf;
 
 	/**
@@ -64,7 +64,7 @@ public class WebFormatTest extends TestCase {
 
 	/**
 	 * Test method for {@link de.tarent.commons.web.WebFormat#brokerDateToHumanDate(java.lang.String)}.
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public void testBrokerDateToHumanDate() throws ParseException {
 		assertEquals("04.05.2006", wf.brokerDateToHumanDate("2006-05-04 00:00:00.0"));

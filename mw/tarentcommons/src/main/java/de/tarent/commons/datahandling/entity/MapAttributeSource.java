@@ -36,7 +36,7 @@ import java.util.*;
 public class MapAttributeSource implements AttributeSource {
 
     Map delegate;
-    
+
     public MapAttributeSource(Map delegate) {
         setDelegate(delegate);
     }

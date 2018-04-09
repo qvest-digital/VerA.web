@@ -40,7 +40,7 @@ public class NumberToBoolean extends AbstractConverter {
     public Class getSourceType() {
         return Number.class;
     }
-        
+
     public Object doConversion(Object sourceData) {
         if (((Number)sourceData).intValue() == 1)
             return Boolean.TRUE;

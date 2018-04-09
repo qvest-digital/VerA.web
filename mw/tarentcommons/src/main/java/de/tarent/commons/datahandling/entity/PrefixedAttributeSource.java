@@ -40,12 +40,11 @@ public class PrefixedAttributeSource implements AttributeSource {
     AttributeSource delegate;
     private List attributeNames;
 
-
     public PrefixedAttributeSource(String prefix, AttributeSource delegate) {
         setPrefix(prefix);
         setDelegate(delegate);
     }
-    
+
     public Object getAttribute(String attributeName) {
         return delegate.getAttribute(prefix.concat(attributeName));
     }
@@ -71,7 +70,7 @@ public class PrefixedAttributeSource implements AttributeSource {
         return attributeNames;
     }
 
-    /** 
+    /**
      * Helper method to test, if any of the values in this AS are != null
      */
     public boolean hasNotNullFields() {
@@ -82,7 +81,7 @@ public class PrefixedAttributeSource implements AttributeSource {
         }
         return false;
     }
-    
+
     public String getPrefix() {
         return prefix;
     }
@@ -98,6 +97,5 @@ public class PrefixedAttributeSource implements AttributeSource {
     public void setDelegate(AttributeSource newDelegate) {
         this.delegate = newDelegate;
     }
-
 
 }

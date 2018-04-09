@@ -31,7 +31,7 @@ import java.text.MessageFormat;
  * This simple message helper class help you to i18n your application
  * and make error messages compile safe. Use this with the static
  * {@link MessageHelper#init() init}-method of the {@link MessageHelper}.
- * 
+ *
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class MessageImpl implements Message {
@@ -47,7 +47,7 @@ public class MessageImpl implements Message {
 	 * <code>key</code>, <code>source</code> and <code>message</code> for
 	 * {@link #getKey()}, {@link #getSource()} and transforming message
 	 * with the different {@link #getMessage()} methods.
-	 * 
+	 *
 	 * @param key
 	 * @param source
 	 * @param message
@@ -67,7 +67,7 @@ public class MessageImpl implements Message {
 	public String getSource() {
 		return source;
 	}
-	
+
 	/** {@inheritDoc} */
 	public String getPlainMessage() {
 		return message;

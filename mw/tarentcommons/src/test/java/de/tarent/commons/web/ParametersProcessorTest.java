@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.commons.web;
 
@@ -37,7 +37,7 @@ import junit.framework.TestCase;
  *
  */
 public class ParametersProcessorTest extends TestCase {
-	
+
 	private ParametersProcessor proc;
 	private Parameters params1;
 	private Parameters params2;
@@ -63,7 +63,7 @@ public class ParametersProcessorTest extends TestCase {
 
 	/**
 	 * Test method for {@link de.tarent.sbk.utils.ParametersProcessor#encodeUrl(java.lang.String, de.tarent.commons.web.Parameters)}.
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
 	public void testEncodeUrl() throws UnsupportedEncodingException {
 		assertEquals("Problems with null values", "test", proc.encodeUrl("test", null));

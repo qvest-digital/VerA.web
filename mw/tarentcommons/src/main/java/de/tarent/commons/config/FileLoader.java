@@ -17,26 +17,26 @@ import de.tarent.commons.utils.SystemInfo;
 /**
  * {@link ConfigManager.Loader} implementation that reads configuration documents
  * from the local filesystem and provides its own configuration via system properties.
- * 
+ *
  * <p>The <code>FileLoader</code> distinguishes between local, global and posix installation.
  * It decides which to use by evaluating the system property
  * <code>de.tarent.contact.config.file.style</code>.</p>
- * 
+ *
  * <p>In case the property's value is <code>global</code> the property
  * <code>de.tarent.contact.config.file.dir</code> is taken into account. If
  * this is not set it tries a well-known location on Unix and Windows.
  * However the correct way to handle this is by specifying the complete
  * properties. This should be handled by the packaging system.</p>
- * 
+ *
  * <p>For development purposes no property needs to be set as the implementation
- * can find the configuration files anyway.</p> 
- * 
+ * can find the configuration files anyway.</p>
+ *
  * @author Robert Schuster
  *
  */
 class FileLoader extends ConfigManager.Loader
 {
-	private Logger logger = Logger.getLogger(FileLoader.class.getName()); 
+	private Logger logger = Logger.getLogger(FileLoader.class.getName());
 
 	private static final String BASE = "de.tarent.commons.config.file";
 
@@ -59,13 +59,13 @@ class FileLoader extends ConfigManager.Loader
 	String baseDirInstallation;
 
 	String baseDirUser;
-	
+
 	Class applicationClass;
 
 	FileLoader(String variant, Class applicationClass)
 	{
 		super(variant);
-		
+
 		this.applicationClass = applicationClass;
 
 		String style = System.getProperty(STYLE, STYLE_LOCAL).intern();
@@ -97,14 +97,13 @@ class FileLoader extends ConfigManager.Loader
 		+ File.separator + VARIANT;
 	}
 
-
 	private void findDirectoriesForLocalInstall()
 	{
 	    String localDir = System.getProperty(DIR, null);
 	    if (localDir == null)
 	      {
 	        logger.warning("Missing system property '" + DIR + "', looking files up manually. Check install and packaging!");
-	    
+
 	        // Assuming the application is installed locally (= not loaded via the net)
 	        // and the installation has a fixed directory layout we can find out the application's
 	        // base installation directory via the CodeSource of one of its classes.
@@ -120,7 +119,7 @@ class FileLoader extends ConfigManager.Loader
 	                  // If the class was loaded from a directory the application is in development mode and we can
 	                  // assume the development layout
 	                  File baseDevDir = f.getParentFile().getParentFile();
-	                  localDir = baseDevDir + "/src/main/config/"; 
+	                  localDir = baseDevDir + "/src/main/config/";
 	                }
 	              else
 	                {
@@ -145,7 +144,7 @@ class FileLoader extends ConfigManager.Loader
 	      }
 	    else
 	      localDir += File.separator;
-	    
+
 	    baseDirSite = localDir + VARIANT + File.separator + "site";
 	    baseDirInstallation = localDir + VARIANT + File.separator + "installation";
 	    baseDirUser = System.getProperty("user.home") + File.separator

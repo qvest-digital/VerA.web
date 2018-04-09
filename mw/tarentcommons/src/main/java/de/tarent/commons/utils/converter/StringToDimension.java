@@ -33,11 +33,11 @@ import de.tarent.commons.utils.AbstractConverter;
  * Converts a String to a Dimension.
  */
 public class StringToDimension extends AbstractConverter {
-	
+
 	public Class getSourceType() {
         return String.class;
     }
-	
+
 	public Class getTargetType() {
         return Dimension.class;
     }

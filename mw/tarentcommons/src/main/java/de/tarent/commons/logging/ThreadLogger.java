@@ -37,7 +37,7 @@ import de.tarent.commons.utils.Tools;
  * <p>
  * This class is a <a href="http://en.wikipedia.org/wiki/Singleton_pattern">singleton</a>
  * which is altered a bit: for each thread an own instance exists.
- * 
+ *
  * @author Tim Steffens, Christoph Jerolimov; tarent GmbH
  */
 public class ThreadLogger {
@@ -47,7 +47,7 @@ public class ThreadLogger {
 	 * Return a new threadlogger instance with an pseudo unique
 	 * threadId which was generated with this simple code:
 	 * <code>Long.toHexString(System.currentTimeMillis())</code>
-	 * 
+	 *
 	 * @return new threadlogger instance, never null.
 	 */
 	public static ThreadLogger createInstance() {
@@ -58,7 +58,7 @@ public class ThreadLogger {
 	 * Return a new threadlogger instance with the given <code>threadId</code>.
 	 * For example this id can be a thread-name, a request-id or just a simple
 	 * developer note.
-	 * 
+	 *
 	 * @param threadId
 	 * @return new threadlogger instance, never null.
 	 */
@@ -74,7 +74,7 @@ public class ThreadLogger {
 	 * Is no threadlogger yet has been initialized or the current
 	 * is disposed (the {@link #clean()} are already called) it
 	 * will be call {@link #createInstance()}.
-	 * 
+	 *
 	 * @return new threadlogger instance, never null.
 	 */
 	public static ThreadLogger getInstance() {
@@ -91,7 +91,7 @@ public class ThreadLogger {
 	 * Is no threadlogger yet has been initialized or the current
 	 * is disposed (the {@link #clean()} are already called) it
 	 * will be call {@link #createInstance(String)}.
-	 * 
+	 *
 	 * @param threadId
 	 * @return new threadlogger instance, never null.
 	 */
@@ -168,7 +168,7 @@ public class ThreadLogger {
 	public List getMethodCalls() {
 		return methodCalls;
 	}
-	
+
 	/**
 	 * Human readable string output. :o)
 	 */

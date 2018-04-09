@@ -36,7 +36,7 @@ import java.util.Random;
 
 /**
  * Beispiel-Anwendung
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class Sample {

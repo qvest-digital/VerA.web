@@ -1,5 +1,4 @@
 
-
 package de.tarent.commons.config;
 
 import java.util.ArrayList;
@@ -38,12 +37,12 @@ public class ConfigManager
   private static Logger logger = Logger.getLogger(ConfigManager.class.getName());
 
   private static ConfigManager instance;
-  
+
   // Configuration files
   public String APPEARANCE_CONFIG = "appearance.xml";
-  
+
   public String ENVIRONMENT_CONFIG = "environment.xml";
-  
+
   /** A list of document which failed to parse. */
   private List/*<String>*/ missingDocuments;
 
@@ -106,32 +105,32 @@ public class ConfigManager
    * Name of the root tag in the connection definition documents.
    */
   private static final String ROOT_TAG_CONNECTIONS = "connections";
-  
+
   /** Preferences node name of personal application-settings.*/
   private String prefBaseNodeName;
-  
+
   private Class applicationClass;
-  
+
   private String variant;
 
   private Appearance ape = new Appearance();
 
   private Environment env = new Environment();
-  
+
   private Preferences prefs;
 
   private ConfigManager()
   {
   }
-  
+
   public void setPrefBaseNodeName(String prefBaseNodeName) {
 	  this.prefBaseNodeName = prefBaseNodeName;
   }
-  
+
   public void setBootstrapVariant(String bootstrapVariant) {
 	  this.variant = bootstrapVariant;
   }
-  
+
   public void setApplicationClass(Class applicationClass) {
 	  this.applicationClass = applicationClass;
   }
@@ -144,12 +143,12 @@ public class ConfigManager
    * {@link #getEnvironment()} contain meaningful configuration data which can
    * be used throughout the application.
    * </p>
-   * 
+   *
    * <p>
    * If no appearance configuration can be loaded an {@link IllegalStateException}
    * is thrown.
    * </p>
-   * 
+   *
    * @throws IllegalStateException
    *           when an important configuration document cannot be found or
    *           parsed.
@@ -162,15 +161,15 @@ public class ConfigManager
         logger.warning("Sytem property " + BOOTSTRAP_TYPE + " is not set. Using default: " + BOOTSTRAP_TYPE_FILE);
         type = BOOTSTRAP_TYPE_FILE;
       }
-    
+
     if(System.getProperty(BOOTSTRAP_VARIANT) != null)
     	variant = System.getProperty(BOOTSTRAP_VARIANT);
-    
+
     if (variant == null) {
         logger.warning("System property " + BOOTSTRAP_VARIANT + " is not set. Using default: " + BOOTSTRAP_VARIANT_CONTACT);
         variant = BOOTSTRAP_VARIANT_CONTACT;
     }
-    
+
     loadConfiguration(type, variant);
   }
 
@@ -183,23 +182,23 @@ public class ConfigManager
   {
     return getInstance().env;
   }
-  
+
   public static Preferences getPreferences()
   {
     return getInstance().prefs;
   }
-  
+
   public void store()
   {
 	  Map/*<String, Document>*/ documents = getEnvironment().prepareDocuments();
-	  
+
 	  Iterator ite = documents.entrySet().iterator();
 	  while (ite.hasNext())
 	  {
 		  Map.Entry entry = (Map.Entry) ite.next();
 		  String name = (String) entry.getKey();
 		  Document doc = (Document) entry.getValue();
-		  
+
 		  try
 		    {
 		      loader.storeDocument(Scope.USER, name, doc);
@@ -210,13 +209,13 @@ public class ConfigManager
 		    }
 	  }
   }
-  
+
   /**
    * Returns a list of documents which failed to parse and are therefore
    * missing.
-   * 
+   *
    * <p>The list is empty of no documents are missing.</p>
-   * 
+   *
    * @return
    */
   public static List getMissingDocuments()
@@ -224,7 +223,7 @@ public class ConfigManager
 	  ConfigManager instance = getInstance();
 	  if (instance.missingDocuments == null)
 		return Collections.EMPTY_LIST;
-    
+
 	  return new ArrayList(instance.missingDocuments);
   }
 
@@ -237,11 +236,11 @@ public class ConfigManager
       {
     	if(applicationClass == null)
     		applicationClass = FileLoader.class;
-    	
+
         loader = new FileLoader(variant, applicationClass);
     	//loader = new JARLoader(variant, applicationClass);
       }
-    
+
     // Initializes the application variant's Preferences instance.
     prefs = Preferences.userRoot().node(prefBaseNodeName + "/" + variant);
 
@@ -324,7 +323,7 @@ public class ConfigManager
         logger.info("user scope environment configuration disabled.");
         return;
       }
-    
+
     try
       {
         doc = loader.getDocument(Scope.USER,
@@ -370,17 +369,17 @@ public class ConfigManager
 
       }
   }
-  
+
   /**
    * Reads a document with the given loader from the given scope. The method
-   * is supposed to be used with secondary documents only whose absence (e.g. 
+   * is supposed to be used with secondary documents only whose absence (e.g.
    * due to errors) is tolerable.
-   * 
+   *
    * <p>In case the loading fails an error message is logged and <code>null</code>
    * is returned. This gives the callee the possibility to continue parsing.
    * Additionally the document's name is added to the list of missing documents
    * which can be accessed later to show a proper diagnostic dialog.</p>
-   * 
+   *
    * @param loader
    * @param scope
    * @param docName
@@ -396,16 +395,16 @@ public class ConfigManager
     {
     	addMissingDocument(e.docURL);
     	logger.warning("linked document from scope \"" + scope + "\" is not available: " + e.reason);
-    	
+
     	return null;
     }
   }
-  
+
   private void addMissingDocument(String docURL)
   {
   	if (missingDocuments == null)
   	  missingDocuments = new ArrayList();
-  	
+
   	missingDocuments.add(docURL);
   }
 
@@ -456,13 +455,13 @@ public class ConfigManager
 
     protected abstract Document getDocument(Scope scope, String docName)
         throws DocumentUnavailableException;
-    
+
     protected abstract boolean isStoringSupported();
 
     protected void storeDocument(Scope scope, String docName, Document doc)
         throws DocumentUnavailableException, UnsupportedOperationException
     {
-      throw new UnsupportedOperationException();	
+      throw new UnsupportedOperationException();
     }
 
   }
@@ -470,7 +469,7 @@ public class ConfigManager
   static class DocumentUnavailableException extends Exception
   {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1311824187433589069L;
 	String docURL;
@@ -488,11 +487,11 @@ public class ConfigManager
       return reason;
     }
   }
-  
+
   static class ParseException extends Exception
   {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -6643357532451708370L;
 
@@ -500,12 +499,12 @@ public class ConfigManager
     {
       super(msg);
     }
-    
+
     ParseException(String msg, Throwable cause)
     {
       super(msg, cause);
     }
-    
+
   }
 
   /**
@@ -565,7 +564,7 @@ public class ConfigManager
       else if (nodeName.equals("param"))
         {
           Node name = attributes.getNamedItem("name");
-          
+
           if (name == null)
             throw new ParseException("expected name attribute in <param> tag");
 
@@ -575,11 +574,10 @@ public class ConfigManager
       else if (nodeName.equals("include"))
         {
           Node documentName = attributes.getNamedItem("file");
-          
+
           if (documentName == null)
             throw new ParseException("expected file attribute in <include> tag");
 
-          
           Document linkedDoc = getLinkedDocument(loader, scope, documentName.getNodeValue());
           if (linkedDoc != null)
             insertElements(scope, linkedDoc, ROOT_TAG_APPEARANCE, this);
@@ -590,9 +588,9 @@ public class ConfigManager
 
           if (documentName == null)
             throw new ParseException("expected file attribute in <actions> tag");
-          
+
           Document actionsDoc = getLinkedDocument(loader, scope, documentName.getNodeValue());
-          
+
           if (actionsDoc != null)
             insertElements(scope, actionsDoc, ROOT_TAG_ACTIONS,
                          new ActionsHandler());
@@ -605,7 +603,7 @@ public class ConfigManager
             throw new ParseException("expected file attribute in <plugins> tag");
 
           Document pluginsDoc = getLinkedDocument(loader, scope, documentName.getNodeValue());
-          
+
           if (pluginsDoc != null)
           insertElements(scope, pluginsDoc, ROOT_TAG_PLUGINS,
                          new PluginsHandler());
@@ -640,12 +638,12 @@ public class ConfigManager
             throw new ParseException("expected file attribute in <include> tag");
 
           Document actionsDoc = getLinkedDocument(loader, scope, documentName.getNodeValue());
-          
+
           if (actionsDoc != null)
             insertElements(scope, actionsDoc, ROOT_TAG_ACTIONS, this);
         }
     }
-    
+
     String getId(Node action) throws ParseException
     {
       NodeList params = action.getChildNodes();
@@ -691,12 +689,12 @@ public class ConfigManager
             throw new ParseException("expected file attribute in <include> tag");
 
           Document includeDoc = getLinkedDocument(loader, scope, documentName.getNodeValue());
-          
+
           if (includeDoc != null)
             insertElements(scope, includeDoc, ROOT_TAG_PLUGINS, this);
         }
     }
-    
+
     String getId(Node action) throws ParseException
     {
       NodeList params = action.getChildNodes();
@@ -713,7 +711,7 @@ public class ConfigManager
           if (attr != null && attr.getFirstChild() != null && attr.getFirstChild().getNodeValue().equals("id"))
           {
             Node attrVal = attributes.getNamedItem("value");
-            
+
             if(attrVal != null && attrVal.getFirstChild() != null)
               return attrVal.getFirstChild().getNodeValue();
           }
@@ -749,7 +747,7 @@ public class ConfigManager
             throw new ParseException("expected file attribute in <include> tag");
 
           Document linkedDoc = getLinkedDocument(loader, scope, documentName.getNodeValue());
-          
+
           if (linkedDoc != null)
             insertElements(scope, linkedDoc, ROOT_TAG_ENVIRONMENT, this);
         }
@@ -761,27 +759,27 @@ public class ConfigManager
             throw new ParseException("expected file attribute in <include> tag");
 
           Document includeDoc = getLinkedDocument(loader, scope, documentName.getNodeValue());
-          
+
           if (includeDoc != null)
             insertElements(scope, includeDoc, ROOT_TAG_CONNECTIONS, new ConnectionsHandler());
-          
+
         }
       else if (nodeName.equals("userOverridable"))
         {
-          // Detects and handles the userOverridable tag which is only allowed in 
+          // Detects and handles the userOverridable tag which is only allowed in
           // site and installation scope.
           if (scope == Scope.USER)
             throw new ParseException("<userOverridable> tag not allowed in user scope configuration document.");
-          
+
           Node name = attributes.getNamedItem("value");
 
           env.setUserOverridable(name.getNodeValue());
-          
+
         }
     }
 
   }
-  
+
   private class ConnectionsHandler implements Handler
   {
     public void handle(Scope scope, Node node, String nodeName,

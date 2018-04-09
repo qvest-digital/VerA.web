@@ -45,7 +45,7 @@ import org.apache.commons.logging.impl.SimpleLog;
  * Possible values for this Property are: jdk (Java util logging backend), log4j (Log4j backend), commons (apache commons default behavior), simple (apache commons simple logger)<p/>
  */
 public class LogFactory {
-	
+
     public static final String TARENT_LOGGING_PROPERTIES = "/tarent-logging.properties";
 
     public static final String LOGGING_API = "logging.api";
@@ -59,14 +59,14 @@ public class LogFactory {
     protected static final int LOG4J_LOGGER = 2;
     protected static final int COMMONS_LOGGER = 3;
     protected static final int SIMPLE_LOGGER = 4;
-    
+
     static int logger = JDK14_LOGGER;
 
-	static {		
-		loadProperties();		
+	static {
+		loadProperties();
 	}
 
-	public static Log getLog(Class clazz) {        
+	public static Log getLog(Class clazz) {
 		if (useJdkLogger())
 			return new Jdk14Logger(clazz.getName());
 		else if (useLog4jLogger())
@@ -77,12 +77,12 @@ public class LogFactory {
 			return new SimpleLog(clazz.getName());
 		else
 			return org.apache.commons.logging.LogFactory.getLog(clazz);
-    }	
-    
+    }
+
 	public static void loadProperties() {
-        InputStream in = LogFactory.class.getResourceAsStream(TARENT_LOGGING_PROPERTIES);		
+        InputStream in = LogFactory.class.getResourceAsStream(TARENT_LOGGING_PROPERTIES);
         if (in != null) {
-            Properties properties = new Properties();            
+            Properties properties = new Properties();
             try {
                 properties.load(in);
                 Object value = properties.get(LOGGING_API);
@@ -100,7 +100,6 @@ public class LogFactory {
         }
     }
 
-
 	static boolean useJdkLogger() {
 		return (JDK14_LOGGER  == logger);
 	}
@@ -108,11 +107,11 @@ public class LogFactory {
 	static boolean useLog4jLogger() {
 		return (LOG4J_LOGGER  == logger);
 	}
-    
+
 	static boolean useCommonsLogger() {
 		return (COMMONS_LOGGER  == logger);
 	}
-	
+
 	static boolean useSimpleLog() {
 		return (SIMPLE_LOGGER  == logger);
 	}

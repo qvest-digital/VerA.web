@@ -2,45 +2,44 @@
  *
  * tarent-contact, Plattform-Independent Webservice-Based Contactmanagement
  * Copyright (C) 2002 tarent GmbH
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-contact'
  * (which makes passes at compilers) written
  * by Sebastian Mancke.
  * signature of Elmar Geese, 1 June 2002
  * Elmar Geese, CEO tarent GmbH
- */ 
+ */
 
 package de.tarent.commons.action;
 
 import javax.swing.Action;
 
-
 /**
  * <code>TarentGUIAction</code> is an interface to use actions across 'Tarent' applications.<p>
- * Inherited Parameters: 
+ * Inherited Parameters:
  * <pre>
- * Action.NAME, 
- * Action.MNEMONIC_KEY, 
- * Action.SHORT_DESCRIPTION, 
- * Action.LONG_DESCRIPTION, 
- * Action.SMALL_ICON, 
- * Action.ACTION_COMMAND_KEY, 
- * Action.ACCELERATOR_KEY. 
+ * Action.NAME,
+ * Action.MNEMONIC_KEY,
+ * Action.SHORT_DESCRIPTION,
+ * Action.LONG_DESCRIPTION,
+ * Action.SMALL_ICON,
+ * Action.ACTION_COMMAND_KEY,
+ * Action.ACCELERATOR_KEY.
  * </pre>
  * <p>
  * XML definition example:<p>
@@ -63,7 +62,7 @@ import javax.swing.Action;
  *    &lt;/param&gt;
  *  &lt;/action&gt;
  * </pre>
- * 
+ *
  * @see XmlUtil#getParamMap(Node)
  * @see ActionRegistry#readActionDefinition(String)
  */
@@ -86,28 +85,26 @@ public interface TarentGUIAction extends Action {
     public String PROP_KEY_ACTIVATION_LIST = "ActivationList";
     /** A deactivation list contains unique names of related actions. */
     public String PROP_KEY_DEACTIVATION_LIST = "DeActivationList";
-    /** 
+    /**
      * The key to store and retrieve the list of actions
      * that should be enabled because of the context of a given action.
-     * <p> 
+     * <p>
      *  @see MenuHelper#getActivationActions(AbstractGUIAction)
      */
     public String PROP_KEY_ACTIONS_TO_ENABLE = "actionsToEnable";
-    /** 
+    /**
      * The key to store and retrieve the list of actions
      * that should be disabled because of the context of a given action.
-     * <p> 
+     * <p>
      *  @see MenuHelper#getDeactivationActions(AbstractGUIAction)
      */
     public String PROP_KEY_ACTIONS_TO_DISABLE = "actionsToDisable";
 
-
-    
     /**
      * The key used to store and retrieve the list of components
      * wich should be synchronized. The actual value of the key is irrelevant,
      * it just needs to be different from the other keys in use.
-     * 
+     *
      * @see MenuHelper#addSynchronizationComponent(Action, JComponent)
      * @see MenuHelper#getSynchronizationComponents(Action)
      */
@@ -132,11 +129,11 @@ public interface TarentGUIAction extends Action {
     public boolean isAssignedToContainer(String containerName);
 
     /**
-     * Returns the menu path, where an action will be allocated in a container. 
-     * 
-     * @param containerName The container for which the path is requestet. 
+     * Returns the menu path, where an action will be allocated in a container.
+     *
+     * @param containerName The container for which the path is requestet.
      * @return An containerspecific identifier which describes, how to place this action. Null or "" if not specified.
      */
     public String getMenuPath(String containerName);
-    
+
 }

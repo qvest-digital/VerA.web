@@ -36,7 +36,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * Util class for dealing with plain old java objects (Pojo's)
  */
@@ -90,12 +89,12 @@ public class Pojo {
         Method cachedMethod = (Method)methodCache.get(methodKey);
         if (cachedMethod != null)
             return cachedMethod;
-        
+
         // find the new one
         Method[] methods = clazz.getMethods();
         String set = "set"+StringTools.capitalizeFirstLetter(property);
         for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getParameterTypes().length == 1 && 
+            if (methods[i].getParameterTypes().length == 1 &&
                 ((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(set))
                  || methods[i].getName().equals(set))) {
                 methodCache.put(methodKey, methods[i]);
@@ -129,11 +128,10 @@ public class Pojo {
         }
         // nothing to return
     }
-    
 
     /**
      * Sets the property of a pojo.
-     * Short method for getSetMethod()+set(). For multiple calls it is faster to 
+     * Short method for getSetMethod()+set(). For multiple calls it is faster to
      * use getSetMethod() once and set() for every property assignment, because the mehtod lookup is expensive.
      *
      * @throws IllegalArgumentException if no such property exists, or the supplied data does not match the signature.
@@ -144,7 +142,7 @@ public class Pojo {
 
     /**
      * Sets the property of a pojo.
-     * Short method for getSetMethod()+set(). For multiple calls it is faster to 
+     * Short method for getSetMethod()+set(). For multiple calls it is faster to
      * use getSetMethod() once and set() for every property assignment, because the mehtod lookup is expensive.
      *
      * @throws IllegalArgumentException if no such property exists, or the supplied data does not match the signature.
@@ -184,7 +182,7 @@ public class Pojo {
         Method[] methods = pojo.getClass().getMethods();
         String get = "get"+StringTools.capitalizeFirstLetter(property);
         for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getParameterTypes().length == 0 && 
+            if (methods[i].getParameterTypes().length == 0 &&
                 ((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(get))
                  || methods[i].getName().equals(get))) {
                 methodCache.put(methodKey, methods[i]);
@@ -194,7 +192,7 @@ public class Pojo {
         // search fo an boolean isXXX
         String is = "is"+StringTools.capitalizeFirstLetter(property);
         for (int i = 0; i < methods.length; i++) {
-            if (methods[i].getParameterTypes().length == 0 && 
+            if (methods[i].getParameterTypes().length == 0 &&
                 ((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(is))
                  || methods[i].getName().equals(is))) {
                 methodCache.put(methodKey, methods[i]);
@@ -221,11 +219,11 @@ public class Pojo {
         } catch (Exception e) {
             throw new RuntimeException("Error on getting property of '"+ pojo +"' with method '"+getter+"'", e);
         }
-    }    
+    }
 
     /**
      * Returns the value of the property represented by the supplied method.
-     * Short method for getGetMethod()+get(). For multiple calls it is faster to 
+     * Short method for getGetMethod()+get(). For multiple calls it is faster to
      * use getGetMethod() once and get() for every property assignment, because the mehtod lookup is expensive.
      *
      * @throws IllegalArgumentException if no matching method was found
@@ -233,10 +231,10 @@ public class Pojo {
     public static Object get(Object pojo, String property) {
         return get(pojo, property, false);
     }
-    
+
     /**
      * Returns the value of the property represented by the supplied method.
-     * Short method for getGetMethod()+get(). For multiple calls it is faster to 
+     * Short method for getGetMethod()+get(). For multiple calls it is faster to
      * use getGetMethod() once and get() for every property assignment, because the mehtod lookup is expensive.
      *
      * @throws IllegalArgumentException if no matching method was found
@@ -251,8 +249,8 @@ public class Pojo {
     /**
      * Return all readable or writeable property names of the given pojo object.
      * Uses an {@link #allPropertyTypCache internal static cache} for holding
-     * these list, also fill the {@link #methodCache method cache}. 
-     * 
+     * these list, also fill the {@link #methodCache method cache}.
+     *
      * @param pojo
      * @return
      */
@@ -264,8 +262,8 @@ public class Pojo {
      * Return all readable or writeable property names of the given pojo object
      * as map which contains the property name as key and the type as value.
      * Uses an {@link #allPropertyTypCache internal static cache} for holding
-     * these list, also fill the {@link #methodCache method cache}. 
-     * 
+     * these list, also fill the {@link #methodCache method cache}.
+     *
      * @param pojo
      * @return
      */
@@ -274,10 +272,10 @@ public class Pojo {
     	Map map = (Map) allPropertyTypCache.get(className);
     	if (map != null)
     		return map;
-    	
+
     	map = new LinkedHashMap();
     	Method m[] = pojo.getClass().getMethods();
-    	
+
     	for (int i = 0; i < m.length; i++) {
     		if (
     				m[i].getName().startsWith("get") &&
@@ -312,18 +310,18 @@ public class Pojo {
     			methodCache.put(methodKey, m[i]);
     		}
     	}
-    	
+
     	map = Collections.unmodifiableMap(map);
     	allPropertyTypCache.put(className, map);
-    	
+
     	return map;
     }
 
     /**
      * Return all readable property names of the given pojo object.
      * Uses an {@link #readablePropertyTypCache internal static cache} for holding
-     * these list, also fill the {@link #methodCache method cache}. 
-     * 
+     * these list, also fill the {@link #methodCache method cache}.
+     *
      * @param pojo
      * @return
      */
@@ -335,8 +333,8 @@ public class Pojo {
      * Return all readable or writeable property names of the given pojo object
      * as map which contains the property name as key and the type as value.
      * Uses an {@link #readablePropertyTypCache internal static cache} for holding
-     * these list, also fill the {@link #methodCache method cache}. 
-     * 
+     * these list, also fill the {@link #methodCache method cache}.
+     *
      * @param pojo
      * @return
      */
@@ -345,10 +343,10 @@ public class Pojo {
     	Map map = (Map) readablePropertyTypCache.get(className);
     	if (map != null)
     		return map;
-    	
+
     	map = new LinkedHashMap();
     	Method m[] = pojo.getClass().getMethods();
-    	
+
     	for (int i = 0; i < m.length; i++) {
     		if (
     				m[i].getName().startsWith("get") &&
@@ -374,18 +372,18 @@ public class Pojo {
 				methodCache.put(methodKey, m[i]);
     		}
     	}
-    	
+
     	map = Collections.unmodifiableMap(map);
     	readablePropertyTypCache.put(className, map);
-    	
+
     	return map;
     }
 
     /**
      * Return all writeable property names of the given pojo object.
      * Uses an {@link #writeablePropertyTypCache internal static cache} for holding
-     * these list, also fill the {@link #methodCache method cache}. 
-     * 
+     * these list, also fill the {@link #methodCache method cache}.
+     *
      * @param pojo
      * @return
      */
@@ -397,8 +395,8 @@ public class Pojo {
      * Return all readable or writeable property names of the given pojo object
      * as map which contains the property name as key and the type as value.
      * Uses an {@link #writeablePropertyTypCache internal static cache} for holding
-     * these list, also fill the {@link #methodCache method cache}. 
-     * 
+     * these list, also fill the {@link #methodCache method cache}.
+     *
      * @param pojo
      * @return
      */
@@ -407,10 +405,10 @@ public class Pojo {
     	Map map = (Map) writeablePropertyTypCache.get(className);
     	if (map != null)
     		return map;
-    	
+
     	map = new LinkedHashMap();
     	Method m[] = pojo.getClass().getMethods();
-    	
+
     	for (int i = 0; i < m.length; i++) {
     		if (
     				m[i].getName().startsWith("set") &&
@@ -427,7 +425,7 @@ public class Pojo {
 
     	map = Collections.unmodifiableMap(map);
     	writeablePropertyTypCache.put(className, map);
-    	
+
     	return map;
     }
 }

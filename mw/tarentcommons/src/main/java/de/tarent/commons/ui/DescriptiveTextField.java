@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.tarent.commons.ui;
 
@@ -15,16 +15,16 @@ import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
 /**
- * 
+ *
  * A Textfield which can display an informative text when it is not focused.
- * 
+ *
  * @author Fabian K&ouml;ster (f.koester@tarent.de) tarent GmbH Bonn
  *
  */
 public class DescriptiveTextField extends JTextField {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -8782822484717981539L;
 
@@ -39,9 +39,9 @@ public class DescriptiveTextField extends JTextField {
 
 	public DescriptiveTextField(String text) {
 		super();
-		
+
 		editDoc = getDocument();
-		
+
 		setDescription(text);
 	}
 

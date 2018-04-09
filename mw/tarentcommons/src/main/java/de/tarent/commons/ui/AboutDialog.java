@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.tarent.commons.ui;
 
@@ -36,17 +36,17 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * 
+ *
  * A simple AboutDialog showing information about the program like
  * versions or contributions
- * 
+ *
  * @author Fabian K&ouml;ster (f.koester@tarent.de), tarent GmbH Bonn
  *
  */
 public class AboutDialog extends EscapeDialog implements ClipboardOwner
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6631158858725021221L;
 	protected JPanel mainPanel;
@@ -254,7 +254,7 @@ public class AboutDialog extends EscapeDialog implements ClipboardOwner
 											System.getProperty("java.vendor") + ", " + System.getProperty("java.vendor.url") + ", " + System.getProperty("java.version") + "\r\n" +
 											System.getProperty("os.name") + ", " + System.getProperty("os.arch") + ", " + System.getProperty("os.version"))
 					, AboutDialog.this);
-				}				
+				}
 			});
 		}
 		return copyToClipboardButton;
@@ -310,7 +310,7 @@ public class AboutDialog extends EscapeDialog implements ClipboardOwner
 	protected class HTMLPanel extends JPanel implements HyperlinkListener
 	{
 		/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = 1757438482225641428L;
 
@@ -322,7 +322,7 @@ public class AboutDialog extends EscapeDialog implements ClipboardOwner
 			JEditorPane htmlPane = new JEditorPane(getClass().getResource(resource))
 			{
 				/**
-				 * 
+				 *
 				 */
 				private static final long serialVersionUID = -7951097550114658569L;
 

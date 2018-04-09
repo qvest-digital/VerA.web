@@ -34,7 +34,7 @@ import java.util.Map;
 
 /**
  * "red alpha 20"
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class ColorHelper {
@@ -51,7 +51,7 @@ public class ColorHelper {
 //		Color.BLUE;
 //		Color.RED;
 //		Color.MAGENTA;
-		
+
 		Map colors = new HashMap();
 		colors.put("red", new Integer(0));
 		colors.put("orange", new Integer(30));
@@ -68,9 +68,9 @@ public class ColorHelper {
 	public static Color getColor(String string) {
 		Color color = (Color)hue.get(string.toLowerCase());
 		if (color != null) return color;
-		
+
 //		String params[] = string.split(" ");
-		
+
 		return null;
 	}
 
@@ -122,7 +122,7 @@ public class ColorHelper {
 				x1, y1, getLightMetallicColor(color),
 				x2, y2, getDarkMetallicColor(color));
 	}
-	
+
 	public static Color getLightMetallicColor(String color) {
 		return new Color(gimpHSVtoRGB(getHue(color), 50, 100));
 	}

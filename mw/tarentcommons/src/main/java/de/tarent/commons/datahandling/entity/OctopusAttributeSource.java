@@ -24,7 +24,7 @@
  */
 
 /**
- * 
+ *
  */
 package de.tarent.commons.datahandling.entity;
 
@@ -43,32 +43,32 @@ import de.tarent.octopus.server.OctopusContext;
 public class OctopusAttributeSource implements AttributeSource {
 	OctopusContext oct;
     List attributeNames;
-	
+
     public OctopusAttributeSource(OctopusContext oct){
     	this.oct=oct;
     }
-    
+
     public OctopusAttributeSource(OctopusContext oct, List attributeNames){
     	this.oct=oct;
     	this.attributeNames=attributeNames;
     }
-    
+
     public OctopusAttributeSource(OctopusContext oct, String attributeName){
     	this.oct=oct;
     	addAttributeName(attributeName);
-    }    
-    
-    public OctopusAttributeSource addAttributeName(String attributeName){    	
+    }
+
+    public OctopusAttributeSource addAttributeName(String attributeName){
     	if(attributeNames==null)
-    		attributeNames = new LinkedList();    		
+    		attributeNames = new LinkedList();
     	attributeNames.add(attributeName);
     	return this;
-    }    
-    
+    }
+
 	/* (non-Javadoc)
 	 * @see de.tarent.commons.datahandling.entity.AttributeSource#getAttribute(java.lang.String)
 	 */
-	public Object getAttribute(String attributeName) {	
+	public Object getAttribute(String attributeName) {
 		Object param = oct.getRequestObject().getParam(attributeName);
 		//trim the spaces
 		if(String.class.isInstance(param))
@@ -86,14 +86,14 @@ public class OctopusAttributeSource implements AttributeSource {
 	 */
 	public List getAttributeNames() {
 		if(attributeNames==null){
-			Set params = oct.getRequestObject().getRequestParameters().keySet();			
+			Set params = oct.getRequestObject().getRequestParameters().keySet();
 	        Iterator iter = params.iterator();
 	        int count = params.size();
 	        attributeNames = new ArrayList(count);
 	        while (iter.hasNext()){
 	            attributeNames.add(iter.next());
-	        }			
-		}		
+	        }
+		}
 		return attributeNames;
 	}
 

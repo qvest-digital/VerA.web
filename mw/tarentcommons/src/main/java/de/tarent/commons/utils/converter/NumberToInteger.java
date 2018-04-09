@@ -39,7 +39,7 @@ public class NumberToInteger extends AbstractConverter {
     public Class getSourceType() {
         return Number.class;
     }
-        
+
     public Object doConversion(Object sourceData) {
         return new Integer(((Number)sourceData).intValue());
     }

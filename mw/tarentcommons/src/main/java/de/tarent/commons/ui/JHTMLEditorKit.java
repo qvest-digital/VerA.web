@@ -52,7 +52,7 @@ public class JHTMLEditorKit extends HTMLEditorKit
 
 	private JHTMLPanel controller = null;
     private Map widgetMap = null;
-    
+
     /**
      * This constructs a new JHTMLEditorKit. It stores the
      * controller and calls the constructor of the superclass.
@@ -70,7 +70,7 @@ public class JHTMLEditorKit extends HTMLEditorKit
      * To display a JSlider. The name of the JSlider will be "myname". The name
      * and the instantiated object of the displayed JSlider will be announced
      * to the JHTMLPanel implementing class via the componentCreated() method.
-     * 
+     *
      * @param controller HTMLPanel that hosts this HTML panel and acts as a controller for it.
      * @param widgetMap Map containing name to component associations.
      */
@@ -83,10 +83,10 @@ public class JHTMLEditorKit extends HTMLEditorKit
 
     /**
      * Returns our JHTMLViewFactory. This is called from Swing.
-     * 
+     *
      * @return Our custom ViewFactory.
      */
-    public ViewFactory getViewFactory() 
+    public ViewFactory getViewFactory()
     {
         return new JHTMLFactory(controller, widgetMap);
     }

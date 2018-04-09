@@ -29,12 +29,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 /**
  * Interface for a subject in an observer pattern.
  */
 public class AbstractDataSubject implements DataSubject {
-
 
     protected List dataChangedListener;
 
@@ -45,14 +43,14 @@ public class AbstractDataSubject implements DataSubject {
             DataChangedListener listener = (DataChangedListener)iter.next();
             listener.dataChanged(e);
         }
-    }    
-    
+    }
+
     public void addDataChangedListener(DataChangedListener listener) {
         if (dataChangedListener == null)
             dataChangedListener = new ArrayList(2);
         dataChangedListener.add(listener);
-    }    
-    
+    }
+
     /**
      * Removes a DataChangedListener
      * @param listener The registered listener

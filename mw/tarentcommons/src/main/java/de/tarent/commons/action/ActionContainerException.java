@@ -1,8 +1,8 @@
 package de.tarent.commons.action;
 
 /**
- * Contains information about specific errors in any action container.  
- * 
+ * Contains information about specific errors in any action container.
+ *
  * @author Aleksej Palij (a.palij@tarent.de), tarent GmbH Bonn
  */
 public class ActionContainerException extends Exception {

@@ -31,11 +31,10 @@ public interface CommonDialogServices {
 
 	/** Hauptfenster der GUI */
 	public JFrame getFrame();
-	
 
 	public int askUser(String caption, String question, String[] answers, String[] tooltips, int defaultValue);
-    
-    public int askUser(JFrame parent, String caption, String question, String[] answers, String[] tooltips, int defaultValue);    
+
+    public int askUser(JFrame parent, String caption, String question, String[] answers, String[] tooltips, int defaultValue);
 
 	public void showInfo(String caption, String message);
 
@@ -57,7 +56,6 @@ public interface CommonDialogServices {
      */
 	public void publishSystemError(String caption, String msg, Throwable e);
 
-
 	//
 	// Sonstige GUI-Wrapper
 	//
@@ -67,11 +65,10 @@ public interface CommonDialogServices {
 	 * langwierige Operation ausgeführt wird. Nach Beendigung der Operation
 	 * muss die Methode erneut aufgerufen werden, jedoch nun mit dem Parameter
 	 * "false"
-	 * 
+	 *
 	 * @param isWaiting
 	 *            wenn true: Sanduhr anzeigen.
 	 */
 	public void setWaiting(boolean isWaiting);
-
 
 }

@@ -27,7 +27,7 @@ import javax.swing.border.LineBorder;
 public class SleepScreen extends JDialog
 {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -5956411502610782809L;
 	private int totalSeconds;
@@ -64,14 +64,14 @@ public class SleepScreen extends JDialog
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		getContentPane().add(mainpanel);
 		setResizable(false);
-		setUndecorated(true);    
+		setUndecorated(true);
 		pack();
 
-		Rectangle parentrect = parent.getBounds(); 
+		Rectangle parentrect = parent.getBounds();
 		setLocation( (parentrect.width / 2)-(this.getWidth() / 2) + (parentrect.x), (parentrect.height / 2)-(this.getHeight() / 2)  + (parentrect.y));
 
 		startTimerTask();
-		setVisible(true);    
+		setVisible(true);
 	}
 
 	private class SleepTimer extends TimerTask

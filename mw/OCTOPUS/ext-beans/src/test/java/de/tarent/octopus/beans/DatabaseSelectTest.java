@@ -25,7 +25,7 @@
 
 /*
  * $Id: DatabaseSelectTest.java,v 1.3 2007/06/11 13:24:36 christoph Exp $
- * 
+ *
  * Created on 03.05.2006
  */
 package de.tarent.octopus.beans;
@@ -51,8 +51,8 @@ import java.sql.SQLException;
 import de.tarent.dblayer.engine.DB;
 
 /**
- * This class tests basic bean framework {@link Database} selection features. 
- * 
+ * This class tests basic bean framework {@link Database} selection features.
+ *
  * @author Michael Klink
  */
 public class DatabaseSelectTest extends TestCase {
@@ -63,14 +63,14 @@ public class DatabaseSelectTest extends TestCase {
     //
     /** Logger for this test */
     public final static Logger logger = Logger.getLogger(DatabaseSelectTest.class.getName());
-    
+
     /** db layer pool name of the test database connection */
     public final static String POOL_NAME = SchemaCreator.TEST_POOL;
     /** package of the bean classes */
     public final static String BEAN_PACKAGE = "de.tarent.beans";
     /** path of the bean property files */
     public final static File BEAN_PROPERTIES_PATH = new File("src/test/beans");
-    
+
     /** Integer 1 */
     public final static Integer INTEGER_1 = new Integer(1);
     /** Integer 2 */
@@ -79,10 +79,10 @@ public class DatabaseSelectTest extends TestCase {
     public final static Integer INTEGER_3 = new Integer(3);
     /** Integer 4 */
     public final static Integer INTEGER_4 = new Integer(4);
-    
+
     /** collection of all person ids */
     public final static Set ALL_PERSON_IDS = new TreeSet(Arrays.asList(new Integer[]{INTEGER_1, INTEGER_2, INTEGER_3, INTEGER_4}));
-    
+
     //
     // constructors and Testcase overrides
     //
@@ -102,14 +102,14 @@ public class DatabaseSelectTest extends TestCase {
     	if (schemaCreator != null)
         	schemaCreator.setUp(false);
     }
-    
+
     //
     // test methods
     //
     /**
      * This test method tries to read a {@link Person} bean from the database.<br>
      * This checks the basic bean attribute mapping abilities.
-     * 
+     *
      * @see Database#getBean(String, Integer)
      */
     public void testReadPerson1() throws BeanException, IOException {
@@ -124,13 +124,13 @@ public class DatabaseSelectTest extends TestCase {
      * This test method tries to read a {@link Person} bean from the database
      * many (100) times.<br>
      * This checks proper connection pool use.
-     * 
+     *
      * @see Database#getBean(String, Integer)
      */
     public void testReadPerson1x100() throws BeanException, IOException {
         Database database = getDatabase();
         if (database == null) return;
-        final long startTime = System.currentTimeMillis(); 
+        final long startTime = System.currentTimeMillis();
         for(int i = 0; i < 100; i++) {
             Person person = (Person) database.getBean("Person", INTEGER_1);
             checkData(person);
@@ -143,7 +143,7 @@ public class DatabaseSelectTest extends TestCase {
      * This test method tries to read a {@link List} of {@link Person} beans from
      * the database.<br>
      * This checks the bean mass reading abilities.
-     * 
+     *
      * @see Database#getBeanList(String, Select)
      */
     public void testReadAllPersons() throws BeanException, IOException {
@@ -152,18 +152,18 @@ public class DatabaseSelectTest extends TestCase {
         List persons = database.getBeanList("Person", database.getSelect(Person.SAMPLE));
         checkPersonList(persons, ALL_PERSON_IDS, true);
     }
-    
+
     /**
      * This test method tries to read a {@link List} of {@link Person} beans from
      * the database many (100) times.<br>
      * This checks proper connection pool use.
-     * 
+     *
      * @see Database#getBeanList(String, Select)
      */
     public void testReadAllPersonsx100() throws BeanException, IOException {
         Database database = getDatabase();
         if (database == null) return;
-        final long startTime = System.currentTimeMillis(); 
+        final long startTime = System.currentTimeMillis();
         for(int i = 0; i < 100; i++) {
             List persons = database.getBeanList("Person", database.getSelect(Person.SAMPLE));
             checkPersonList(persons, ALL_PERSON_IDS, true);
@@ -175,7 +175,7 @@ public class DatabaseSelectTest extends TestCase {
      * This test method tries to read a {@link List} of person data {@link Map}
      * instances from the database.<br>
      * This checks the bean mass reading abilities.
-     * 
+     *
      * @see Database#getList(Select, ExecutionContext)
      */
     public void testReadAllPersonData() throws BeanException, IOException {
@@ -184,18 +184,18 @@ public class DatabaseSelectTest extends TestCase {
         List personData = database.getList(database.getSelect(Person.SAMPLE), database);
         checkPersonDataList(personData, ALL_PERSON_IDS, true);
     }
-    
+
     /**
      * This test method tries to read a {@link List} of person data {@link Map}
      * instances from the database many (100) times.<br>
      * This checks proper connection pool use.
-     * 
+     *
      * @see Database#getList(Select, ExecutionContext)
      */
     public void testReadAllPersonDatax100() throws BeanException, IOException {
         Database database = getDatabase();
         if (database == null) return;
-        final long startTime = System.currentTimeMillis(); 
+        final long startTime = System.currentTimeMillis();
         for(int i = 0; i < 100; i++) {
             System.gc();
             List personData = database.getList(database.getSelect(Person.SAMPLE), database);
@@ -213,7 +213,7 @@ public class DatabaseSelectTest extends TestCase {
     static Database getDatabase() {
     	if (SchemaCreator.getInstance() == null)
     		return null;
-    	
+
         if (testDatabase == null) {
             testDatabase = new Database(POOL_NAME, BEAN_PROPERTIES_PATH, BEAN_PACKAGE) {
                     Connection defaultConnection = null;
@@ -221,14 +221,14 @@ public class DatabaseSelectTest extends TestCase {
                         if (defaultConnection == null)
                             defaultConnection = DB.getConnection(getPoolName());
                         return defaultConnection;
-                    }                
+                    }
                 };
         }
         return testDatabase;
     }
-    
+
     /**
-     * This helper method checks person data for correctness. 
+     * This helper method checks person data for correctness.
      */
     void checkData(Person person) {
         assertNotNull("person is NULL", person);
@@ -260,21 +260,21 @@ public class DatabaseSelectTest extends TestCase {
         default:
             fail("Unexpected person: " + person);
         }
-        
+
         logger.fine("Person " + person.id + " correct");
     }
-    
+
     static Date getDate(int year, int month, int date) {
     	Calendar calendar = Calendar.getInstance();
     	calendar.set(year, month, date);
     	return calendar.getTime();
     }
-    
+
     /**
      * This helper method checks a list of persons. It checks whether the
      * list contains only valid {@link Person} instances and whether it
      * contains exactly the persons with the expected ids.
-     * 
+     *
      * @param persons list of {@link Person} instances to check
      * @param expectedIds set of ids expected in this list
      * @param checkForDoubles if <code>true</code> method will fail when
@@ -302,8 +302,8 @@ public class DatabaseSelectTest extends TestCase {
      * This helper method checks a list of person data Maps. It checks
      * whether the list contains only valid {@link Map} instances with
      * person data and whether it contains data of exactly the persons
-     * with the expected ids. 
-     * 
+     * with the expected ids.
+     *
      * @param persons list of person data {@link Map} instances to check
      * @param expectedIds set of ids expected in this list
      * @param checkForDoubles if <code>true</code> method will fail when

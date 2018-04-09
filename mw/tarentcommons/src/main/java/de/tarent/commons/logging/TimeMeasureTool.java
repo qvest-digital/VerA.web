@@ -23,11 +23,9 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 package de.tarent.commons.logging;
 
 import org.apache.commons.logging.Log;
-
 
 /**
  * Simple Tool for time measurement to the logging system.
@@ -37,7 +35,7 @@ import org.apache.commons.logging.Log;
 public class TimeMeasureTool {
 
     static boolean doLogging = (System.getProperty("enableTimeMeasureTool") != null && ! "false".equalsIgnoreCase(System.getProperty("enableTimeMeasureTool")));
-                                   
+
     private static final Log defaultLogger = LogFactory.getLog(TimeMeasureTool.class);
     private static final TimeMeasureTool NOP = new TimeMeasureTool();
     Log log;
@@ -45,7 +43,7 @@ public class TimeMeasureTool {
     long start;
     long last;
     int steps = 0;
-    
+
     /**
      * Construcs a TimeMeasureTool with the default logger
      */
@@ -71,7 +69,7 @@ public class TimeMeasureTool {
             return new TimeMeasureTool(logger);
         return NOP;
     }
-    
+
     /**
      * Logs the time since the last step or the beginning.
      */
@@ -83,7 +81,7 @@ public class TimeMeasureTool {
         log.info(name + " took "+ time +"ms");
         steps++;
     }
-    
+
     /**
      * Logs the time since the beginning.
      */

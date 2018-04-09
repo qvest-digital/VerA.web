@@ -38,101 +38,101 @@ import de.tarent.commons.utils.Tools;
 
 /**
  * Class for accessing attributes via reflection
- * 
+ *
  * @author tim
  *
  */
 
 /*
  * Aus der Java-Beans Spezifikation, Version 1.01:
- *    
+ *
  *   8.3.1 Simple properties
- *   
+ *
  *   By default, we use design patterns to locate properties by looking for methods of the form:
- *   
+ *
  *      public < PropertyType> get< PropertyName>();
  *      public void set< PropertyName>(< PropertyType> a);
- *   
+ *
  *   If we discover a matching pair of get<PropertyName> and set<PropertyName> methods
  *   that take and return the same type, then we regard these methods as defining a read-write property
  *   whose name will be <propertyName>. We will use the get<PropertyName> method
  *   to get the property value and the set<PropertyName> method to set the property value. The
  *   pair of methods may be located either in the same class or one may be in a base class and the
  *   other may be in a derived class.
- *   
+ *
  *   If we find only one of these methods, then we regard it as defining either a read-only or a writeonly
  *   property called <propertyName>
- *   
+ *
  *   By default we assume that properties are neither bound nor constrained (see Section 7).
  *   So a simple read-write property foo might be represented by a pair of methods:
- *   
+ *
  *      public Wombat getFoo();
  *      public void setFoo(Wombat w);
- *   
+ *
  *   8.3.2 Boolean properties
- *   
+ *
  *   In addition, for boolean properties, we allow a getter method to match the pattern:
  *   public boolean is< PropertyName>();
- *   
+ *
  *   This is<PropertyName> method may be provided instead of a get<PropertyName> method,
  *   or it may be provided in addition to a get<PropertyName> method.
  *   In either case, if the is<PropertyName> method is present for a boolean property then we will
  *   use the is<PropertyName> method to read the property value.
- *   
+ *
  *   An example boolean property might be:
- *   
+ *
  *      public boolean isMarsupial();
  *      public void setMarsupial(boolean m);
  */
 
 public class BeanMap implements Map {
-	
+
 	private class Property {
 		String name;
 		Class type;
 		boolean canBeRead;
 		boolean canBeWritten;
-		
+
 		public Property(String name, Class type, boolean canBeRead, boolean canBeWritten) {
 			this.name = name;
 			this.type = type;
 			this.canBeRead = canBeRead;
 			this.canBeWritten = canBeWritten;
 		}
-		
+
 		public boolean isCanBeRead() {
 			return canBeRead;
 		}
-		
+
 		public void setCanBeRead(boolean canBeRead) {
 			this.canBeRead = canBeRead;
 		}
-		
+
 		public boolean isCanBeWritten() {
 			return canBeWritten;
 		}
-		
+
 		public void setCanBeWritten(boolean canBeWritten) {
 			this.canBeWritten = canBeWritten;
 		}
-		
+
 		public String getName() {
 			return name;
 		}
-		
+
 		public void setName(String name) {
 			this.name = name;
 		}
-		
+
 		public Class getType() {
 			return type;
 		}
-		
+
 		public void setType(Class type) {
 			this.type = type;
 		}
 	}
- 
+
     /**
      * Alle Methoden dieser Bean.
      */
@@ -142,7 +142,6 @@ public class BeanMap implements Map {
      * HashSet-Repraesentation dieser Bean
      */
     protected HashMap properties;
-    
 
     public BeanMap()
     {
@@ -150,7 +149,7 @@ public class BeanMap implements Map {
         this.methods = this.getMethods();
         this.properties = this.getPropertyMap();
     }
-    
+
     /**
      * Returns all methods of this class, except those that are inheritet from Map and Object.
      * @return
@@ -172,13 +171,13 @@ public class BeanMap implements Map {
 
 	/**
      * Returns the get method appropriate to {@code attribute}.
-     * 
+     *
      * @param attribute the attribute corresponding to the searched get method
      * @param ignoreCase true, if the case should be ignored and false otherwise
      * @return the get-method appropriate to {@code attribute} or null, if none is found.
      */
     private Method getMatchingGetMethod(String attribute, boolean ignoreCase)
-    {       
+    {
         for (int i = 0; i < methods.length; i++)
         {
             String methodCandidate = methods[i].getName();
@@ -187,34 +186,34 @@ public class BeanMap implements Map {
             	(ignoreCase &&
             		methodCandidate.toLowerCase().equals("get" + attribute.toLowerCase()))) {
             	//System.out.println("Returned " + methods[i].getName());
-            	return methods[i];	
+            	return methods[i];
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * Liefert den Typ eines Attributs in dieser Bean zurück.
-     * 
+     *
      * @param attribute - Gesuchtes Attribut
      * @return Typ des Attributs
-     * @throws NoSuchFieldException 
-     * @throws SecurityException 
+     * @throws NoSuchFieldException
+     * @throws SecurityException
      */
     public Class getValueType(String attribute) throws SecurityException, NoSuchFieldException
     {
         if (!containsKey(attribute)) {
-            throw new ClassCastException("Key not found.");        	
+            throw new ClassCastException("Key not found.");
         }
         return this.getClass().getDeclaredField(attribute).getType();
     }
-    
+
     /**
-     * Diese Methode gibt den korrespondierenden Wert eines übergebenen Keys 
+     * Diese Methode gibt den korrespondierenden Wert eines übergebenen Keys
      * in der (virtuellen) Map zurück.
-     * 
-     * 
+     *
+     *
      * @param key - Key des gesuchten Werts.
      * @return Wert, oder null, falls Key nicht gefunden.
      */
@@ -226,7 +225,7 @@ public class BeanMap implements Map {
     /**
      * Returns the value of the attribute specified by {@code key}. If {@code ignoreCase}
      * is true, the case is ignored, otherwise not.
-     * 
+     *
      * @param key the name of the attribute
      * @param ignoreCase true, if the case schould be ignored, otherwise false.
      * @return the value of the attribute specified by {@code key}
@@ -241,13 +240,13 @@ public class BeanMap implements Map {
             		(ignoreCase && aPropertyName.toLowerCase().equals(
             				((String) key).toLowerCase())))
             {
-                try 
+                try
                 {
                     Method thisMethod = this.getMatchingGetMethod(aPropertyName, ignoreCase);
                     Object thisValue = thisMethod.invoke(this, new Object[] {});
                     return thisValue;
-                } 
-                catch (Exception e) 
+                }
+                catch (Exception e)
                 {
                     throw new RuntimeException(e);
                 }
@@ -258,9 +257,9 @@ public class BeanMap implements Map {
 	}
 
     /**
-     * Diese Methode gibt den korrespondierenden Wert eines übergebenen Keys 
+     * Diese Methode gibt den korrespondierenden Wert eines übergebenen Keys
      * in der (virtuellen) Map zurück und ignoriert dabei die Groß-Kleinschreibung.
-     * 
+     *
      * @param key - Key des gesuchten Werts.
      * @return Wert, oder null, falls Key nicht gefunden.
      */
@@ -297,7 +296,7 @@ public class BeanMap implements Map {
             	}
             }
         }
-        
+
         // Zweiter Pass - Korrelieren
         //System.out.println(properties.keySet().toString());
         return properties;
@@ -334,20 +333,20 @@ public class BeanMap implements Map {
     {
         return properties.keySet();
     }
-    
+
     /**
-     * 
-     * @see java.util.Map#containsValue(java.lang.Object) 
+     *
+     * @see java.util.Map#containsValue(java.lang.Object)
      */
     public boolean containsValue(Object value)
     {
         if (value == null) return true;
-        
+
         Iterator iter = properties.keySet().iterator();
         while (iter.hasNext())
         {
             String aPropertyName = (String) iter.next();
-            try 
+            try
             {
                 Method thisMethod = this.getMatchingGetMethod(aPropertyName, false);
                 if (thisMethod != null) {
@@ -356,13 +355,13 @@ public class BeanMap implements Map {
 	                    return true;
 	                }
                 }
-            } 
-            catch (Exception e) 
+            }
+            catch (Exception e)
             {
                 throw new RuntimeException(e);
             }
         }
-        
+
         return false;
     }
 
@@ -384,10 +383,10 @@ public class BeanMap implements Map {
     }
 
     /**
-     * Diese Operation ist nicht unterstützt, weil sich lt. Standard 
+     * Diese Operation ist nicht unterstützt, weil sich lt. Standard
      * die Werte in der zurückgegebenen Collection synchron ändern, wenn sich
      * in der zugrundeliegenden Map etwas ändert.
-     * 
+     *
      * @see java.util.Map#values()
      */
     public Collection values()
@@ -396,10 +395,10 @@ public class BeanMap implements Map {
     }
 
     /**
-     * Diese Operation ist nicht unterstützt, weil sich lt. Standard 
+     * Diese Operation ist nicht unterstützt, weil sich lt. Standard
      * die Werte im zurückgegebenen Set synchron ändern, wenn sich
      * in der zugrundeliegenden Map etwas ändert.
-     * 
+     *
      * @see java.util.Map#entrySet()
      */
     public Set entrySet()

@@ -35,7 +35,7 @@ public class StringToFloat extends AbstractConverter {
     public Class getSourceType() {
         return String.class;
     }
-    
+
     public Object doConversion(Object sourceData) throws NumberFormatException {
         return new Float((String)sourceData);
     }

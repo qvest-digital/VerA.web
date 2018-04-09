@@ -35,13 +35,13 @@ import de.tarent.commons.utils.Tools;
 
 /**
  * Used for saving name and parameters of a method call in {@link ThreadLogger}.
- * 
+ *
  * @author Tim Steffens
  */
 public class MethodCall {
-	
+
 	private static String LINE_SEPERATOR = de.tarent.commons.utils.StringTools.LINE_SEPERATOR;
-	
+
 	/** The time this Object was instanciatet in millseconds. */
 	private final long invokeTime = System.currentTimeMillis();
 	/** Class name */
@@ -91,7 +91,7 @@ public class MethodCall {
 	 * Init the current methodcall instance and set the classname and the
 	 * method name of the given <code>logpos</code>. Logpos define the
 	 * position of an entry in the current stack.
-	 * 
+	 *
 	 * @param logpos
 	 */
 	protected void init(int logpos) {
@@ -112,7 +112,7 @@ public class MethodCall {
 
 	/**
 	 * Adds a new parameter to the end of the list of parameters
-	 * 
+	 *
 	 * @param name name of the parameter
 	 * @param value value of the parameter
 	 */

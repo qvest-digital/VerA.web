@@ -48,7 +48,7 @@ import java.util.logging.Logger;
  * Abstract base factory class for {@link Bean} beans implementing
  * basic bean creation, initialization, filling, and verification
  * functions.
- * 
+ *
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
@@ -63,13 +63,13 @@ public abstract class BeanFactory {
         assert beanPackage != null;
         BEANPACKAGE = beanPackage;
     }
-    
+
     //
     // public methods
     //
     /**
      * Instantiates a new {@link Bean}.
-     * 
+     *
      * @param beanname name of the bean; the implementing class is expected
      *  in the Java package given in the {@link #BeanFactory(String) constructor}
      *  and must have a parameterless constructor.
@@ -102,7 +102,7 @@ public abstract class BeanFactory {
      * to convert non-numerical data to a numerical type) an exception is thrown.<br>
      * Otherwise an instance of the target class or one of its sub classes is
      * returned.
-     * 
+     *
      * @param value the value to transform
      * @param target the target class the value is to be transformed into.
      * @return the transformed value
@@ -204,20 +204,20 @@ public abstract class BeanFactory {
 	/**
      * This methods shall return an object that is to be used as content
      * of a field of the currently filled bean instance.
-	 * 
+	 *
 	 * @param key key of the field for which a value is requested
-	 * @return requested value of the field 
+	 * @return requested value of the field
 	 * @throws BeanException when an attempt to receive the field value
      *  from the data source fails.
      * @see #fillBean(Bean)
      * @see #fillBeanList(String)
 	 */
 	abstract protected Object getField(String key) throws BeanException;
-	
+
 	/**
      * This method is used to proceed to the next (maybe the only) bean when
      * filling a single bean or a bean list.
-	 * 
+	 *
 	 * @return <code>true</code> if there is data to fill another bean,
      *  <code>false</code> otherwise.
 	 * @throws BeanException when an attempt to receive data from the
@@ -231,7 +231,7 @@ public abstract class BeanFactory {
      * If the factory can not decide whether or not the {@link Bean} data was
      * modified it leaves the bean untouched; therefore this attribute shall
      * be initialized sensibly.
-     * 
+     *
      * @param bean the bean to check for modifications.
      */
     abstract protected void checkModified(Bean bean) throws BeanException;
@@ -245,12 +245,12 @@ public abstract class BeanFactory {
      * cursor on the data source is positioned on the data set to use to
      * fill the bean.<br>
      * After filling the attributes the bean its {@link Bean#verify()}
-     * method is called. 
-	 * 
+     * method is called.
+	 *
 	 * @param bean {@link Bean} instance to fill
 	 * @return filled {@link Bean} instance; currently this is the same instance
      *  as the one given as parameter.
-	 * @throws BeanException 
+	 * @throws BeanException
 	 */
 	protected Bean fillBean(Bean bean) throws BeanException {
 		for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
@@ -266,7 +266,7 @@ public abstract class BeanFactory {
 	 * This method fills a list with {@link Bean Beans} using the method
      * {@link #hasNext()} and {@link #fillBean(Bean)} repeatedly until no
      * more data is available.
-	 * 
+	 *
 	 * @param beanname name of the {@link Bean} class to use
 	 * @return {@link List} of beans, never <code>null</code>.
 	 * @throws BeanException
@@ -312,13 +312,13 @@ public abstract class BeanFactory {
 		} catch (Exception e) {
             throw new BeanException(MessageFormat.format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }), e);
 		}
-		
+
 		throw new BeanException(MessageFormat.format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }));
 	}
 
 	/**
 	 * This method verify the correctness of the date with the given user input.
-	 * 
+	 *
 	 * @param day Unparsed day.
 	 * @param month Unparsed month.
 	 * @param year Unparsed year.
@@ -330,7 +330,7 @@ public abstract class BeanFactory {
 		int d = Integer.parseInt(day);
 		int m = Integer.parseInt(month);
 		int y = Integer.parseInt(year);
-		
+
 		if (y <= 99) {
 			Calendar currentY = Calendar.getInstance();
 			currentY.setTime(new Date());
@@ -338,7 +338,7 @@ public abstract class BeanFactory {
 			int yh = cy / 100 * 100;
 			y += (y + yh <= cy + 20) ? yh : yh - 100;
 		}
-		
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		return (d == calendar.get(Calendar.DAY_OF_MONTH) &&

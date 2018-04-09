@@ -30,17 +30,17 @@ package de.tarent.commons.utils;
  */
 public class VersionInfo {
 
-    /** name of the software package */       
+    /** name of the software package */
     String name;
-    /** description of the software package */       
+    /** description of the software package */
     String description;
-    /** version string of the software package */       
+    /** version string of the software package */
     String version;
-    /** additional build info (e.g. build date and host) of the software package */       
-    String buildInfo;    
-    /** copyright info of the software package */       
+    /** additional build info (e.g. build date and host) of the software package */
+    String buildInfo;
+    /** copyright info of the software package */
     String copyright;
-    /** vendor information of the software package */       
+    /** vendor information of the software package */
     String vendor;
     /** name of the resource for which the version info is */
     String resourceName;
@@ -53,7 +53,7 @@ public class VersionInfo {
 
     public void setResourceName(String newResourceName) {
         this.resourceName = newResourceName;
-    }    
+    }
 
     public String getVendor() {
         return vendor;
@@ -93,7 +93,7 @@ public class VersionInfo {
 
     public void setName(String newName) {
         this.name = newName;
-    }    
+    }
 
     public String getVersion() {
         return version;
@@ -142,7 +142,7 @@ public class VersionInfo {
         	return this.description;
         }
     }
-    
+
     public String getCopyright(String appCopyrigth) {
     	if(getCopyright() == null){
         	return appCopyrigth;
@@ -158,7 +158,7 @@ public class VersionInfo {
         	return this.name;
         }
     }
-    
+
     public String getVersion(String appVersion) {
     	if(getVersion() == null){
         	return appVersion;

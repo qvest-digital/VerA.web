@@ -62,7 +62,7 @@ public class XMLSerializer
 {
     /**
      * Serializes the given object to a xml string.
-     * 
+     *
      * @param object Serializable that should be serialized.
      * @return String containing the XML representation of the object instance.
      */
@@ -75,7 +75,7 @@ public class XMLSerializer
 
     /**
      * Serializes the given object to a xml file on mass storage.
-     * 
+     *
      * @param object Serializable that should be serialized.
      * @param file File that should be written.
      */
@@ -91,14 +91,14 @@ public class XMLSerializer
             Log.error(this.getClass(), "Can't open file " + file.getAbsolutePath(), e);
             return;
         }
-        
+
         encode(fileStream, object);
     }
 
     /**
      * Deserializes an object from a xml string representation created with the
      * corresponding serialize method of this class.
-     * 
+     *
      * @param encodedXML Encoded XML string.
      * @return Re-created object instance.
      */
@@ -107,11 +107,11 @@ public class XMLSerializer
         ByteArrayInputStream byteStream = new ByteArrayInputStream(encodedXML.getBytes());
         return decode(byteStream);
     }
-    
+
     /**
      * Deserializes an object from a xml file representation created with the
      * corresponding serialize method of this class.
-     * 
+     *
      * @param encodedXML Encoded XML file.
      * @return Re-created object instance.
      */
@@ -127,10 +127,10 @@ public class XMLSerializer
             Log.error(this.getClass(), "Can't open file " + xmlFile.getAbsolutePath(), e);
             return null;
         }
-        
+
         return decode(fileStream);
     }
-    
+
     private void encode(OutputStream outputStream, Serializable object)
     {
         XMLEncoder encoder = null;
@@ -145,7 +145,7 @@ public class XMLSerializer
         decoder = new XMLDecoder(new BufferedInputStream(inputStream));
         Serializable temp = (Serializable)decoder.readObject();
         decoder.close();
-        
+
         return temp;
     }
 }

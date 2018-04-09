@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.tarent.commons.ui;
 
@@ -29,35 +29,35 @@ import de.tarent.commons.datahandling.ListFilter;
 public class FilterPanel extends JPanel {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8500774231416921033L;
 	protected DescriptiveTextField textField;
 	protected JComboBox filterSelection;
-	
+
 	// java 1.5: protected List<ListFilter> availableFilters;
 	protected List availableFilters;
-	
+
 	protected List filterChangeListeners;
-	
+
 	// java 1.5: public FilterPanel(List<ListFilter> availableFilters) {
 	public FilterPanel(List availableFilters) {
-		
+
 		this.availableFilters = availableFilters;
-		
+
 		FormLayout layout = new FormLayout("fill:pref:grow, 2dlu, pref", // columns
 				"fill:pref"); // rows
-		
+
 		layout.setColumnGroups(new int[][] { { 1, 3 } });
-		
+
 		setLayout(layout);
-		
+
 		CellConstraints cc = new CellConstraints();
-		
+
 		add(getTextField(), cc.xy(1, 1));
 		add(getFilterSelection(), cc.xy(3, 1));
 	}
-	
+
 	protected DescriptiveTextField getTextField() {
 		if(textField == null) {
 			textField = new DescriptiveTextField("Enter search params here...");
@@ -83,20 +83,20 @@ public class FilterPanel extends JPanel {
 				public void removeUpdate(DocumentEvent e) {
 					fireFilterChanged();
 				}
-				
+
 			});
 		}
-		
+
 		return textField;
 	}
-	
+
 	protected JComboBox getFilterSelection() {
 		if(filterSelection == null) {
 			filterSelection = new JComboBox(availableFilters.toArray());
 			filterSelection.setRenderer(new DefaultListCellRenderer() {
 
 				/**
-				 * 
+				 *
 				 */
 				private static final long serialVersionUID = 3011751938668796062L;
 
@@ -107,7 +107,7 @@ public class FilterPanel extends JPanel {
 					return super.getListCellRendererComponent(list, ((ListFilter)value).getFilterName(), index, isSelected,
 							cellHasFocus);
 				}
-				
+
 			});
 			filterSelection.addItemListener(new ItemListener() {
 
@@ -121,35 +121,35 @@ public class FilterPanel extends JPanel {
 			});
 			filterSelection.addMouseWheelListener(new ComboBoxMouseWheelNavigator(filterSelection));
 		}
-		
+
 		return filterSelection;
 	}
-	
+
 	public ListFilter getActiveFilter() {
 		return (ListFilter)getFilterSelection().getSelectedItem();
 	}
-	
+
 	public void addFilterChangeListener(FilterChangeListener listener) {
 		getFilterChangeListeners().add(listener);
 	}
-	
+
 	public void removeFilterChangeListener(FilterChangeListener listener) {
 		getFilterChangeListeners().remove(listener);
 	}
-	
+
 	protected List getFilterChangeListeners() {
 		if(filterChangeListeners == null)
 			filterChangeListeners = new ArrayList();
 		return filterChangeListeners;
 	}
-	
+
 	protected void fireFilterChanged() {
 		Iterator it = getFilterChangeListeners().iterator();
-		
-		while(it.hasNext()) 
+
+		while(it.hasNext())
 			((FilterChangeListener)it.next()).filterChanged((ListFilter)getFilterSelection().getSelectedItem());
 	}
-	
+
 	public interface FilterChangeListener {
 		public void filterChanged(ListFilter newFilter);
 	}

@@ -34,9 +34,9 @@ public class StringToDate extends AbstractConverter {
 
     String datePattern = "yy-M-d";
     String germanDatePattern = "d.M.yy";
-    String dateTimePattern = "yy-M-d H:m:s";    
+    String dateTimePattern = "yy-M-d H:m:s";
     String germanDateTimePattern = "d.M.yy H:m:s";
-    String shortDateTimePattern = "yy-M-d H:m";    
+    String shortDateTimePattern = "yy-M-d H:m";
     String shortGermanDateTimePattern = "d.M.yy H:m";
 
     DateFormat defautDf = new SimpleDateFormat();
@@ -46,7 +46,7 @@ public class StringToDate extends AbstractConverter {
     DateFormat germanDateTime = new SimpleDateFormat(germanDateTimePattern);
     DateFormat shortDateTime = new SimpleDateFormat(shortDateTimePattern);
     DateFormat shortGermanDateTime = new SimpleDateFormat(shortGermanDateTimePattern);
-  
+
     public Class getTargetType() {
         return Date.class;
     }
@@ -54,27 +54,27 @@ public class StringToDate extends AbstractConverter {
     public Class getSourceType() {
         return String.class;
     }
-    
+
     public Object doConversion(Object sourceData) throws java.text.ParseException {
         String sourceString = ((String)sourceData).trim();
         if(sourceString.matches("[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{2,4}\\ [0-9]{1,2}\\:[0-9]{1,2}\\:[0-9]{1,2}"))
         	return germanDateTime.parse(sourceString);
-        
+
         else if(sourceString.matches("[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{2,4}\\ [0-9]{1,2}\\:[0-9]{1,2}"))
         	return shortGermanDateTime.parse(sourceString);
-        	
+
         else if (sourceString.matches("[0-9]{2,4}\\-[0-9]{1,2}\\-[0-9]{1,2}\\ [0-9]{1,2}\\:[0-9]{1,2}\\:[0-9]{1,2}"))
             return dateTime.parse(sourceString);
-        
+
         else if (sourceString.matches("[0-9]{2,4}\\-[0-9]{1,2}\\-[0-9]{1,2}\\ [0-9]{1,2}\\:[0-9]{1,2}"))
             return shortDateTime.parse(sourceString);
-        
-        else if (sourceString.matches("[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{2,4}"))       	
+
+        else if (sourceString.matches("[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{2,4}"))
             return germanDate.parse(sourceString);
 
         else if (sourceString.matches("[0-9]{2,4}\\-[0-9]{1,2}\\-[0-9]{1,2}"))
             return date.parse(sourceString);
-                
+
         return defautDf.parse(sourceString);
     }
-}    
+}

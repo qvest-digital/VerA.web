@@ -35,7 +35,7 @@ public class ObjectToString extends AbstractConverter {
     public Class getSourceType() {
         return Object.class;
     }
-        
+
     public Object doConversion(Object sourceData) {
         return sourceData.toString();
     }

@@ -56,10 +56,10 @@ public class JHTMLFactory extends HTMLFactory implements ViewFactory
 {
     private JHTMLPanel controller = null;
     private Map widgetMap = null;
-    
+
     /**
      * Constructs a new JHTMLFactory.
-     * 
+     *
      * @param controller The controlling HTMLPanel.
      */
     public JHTMLFactory(JHTMLPanel controller, Map widgetMap)
@@ -73,16 +73,16 @@ public class JHTMLFactory extends HTMLFactory implements ViewFactory
      * This is called from Swing only. It checks if the needed component is a
      * standard component or a custom defined one. Depending on this check, the
      * creation is delegated to the standard Swing process or to a custom JFormView.
-     * 
+     *
      * @param elem Element to be created.
      * @return FormView of element.
      */
-    public View create(Element elem) 
+    public View create(Element elem)
     {
-        Object o = elem.getAttributes().getAttribute(StyleConstants.NameAttribute);        
+        Object o = elem.getAttributes().getAttribute(StyleConstants.NameAttribute);
 
-        if (o == HTML.Tag.INPUT || o == HTML.Tag.SELECT || o == HTML.Tag.TEXTAREA || o instanceof HTML.UnknownTag) 
-            return new JHTMLFormView(elem, controller, widgetMap);        
+        if (o == HTML.Tag.INPUT || o == HTML.Tag.SELECT || o == HTML.Tag.TEXTAREA || o instanceof HTML.UnknownTag)
+            return new JHTMLFormView(elem, controller, widgetMap);
         else
             return super.create(elem);
     }

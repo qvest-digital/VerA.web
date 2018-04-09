@@ -48,9 +48,8 @@ public class ListFilterImpl implements ListFilter {
     boolean useLimit = false;
 
     List possibleAndFilterParams;
-    /** supplied filter list from the request */       
+    /** supplied filter list from the request */
     List requestFilterList = null;
-    
 
     /**
      * Inits the values of the filter from the octopus context.
@@ -58,11 +57,11 @@ public class ListFilterImpl implements ListFilter {
      */
     public ListFilterImpl init(OctopusContext cntx, String prefix) {
         if (cntx.requestAsString(prefix + "."+PARAM_RESET) != null && !"".equals(cntx.requestAsString(prefix + "."+PARAM_RESET)))
-            resetSession(cntx, prefix); 
-        
+            resetSession(cntx, prefix);
+
         if (cntx.requestAsString(prefix + "."+PARAM_RESET_FILTER) != null && !"".equals(cntx.requestAsString(prefix + "."+PARAM_RESET_FILTER)))
-            resetFilter(cntx, prefix); 
-        
+            resetFilter(cntx, prefix);
+
         setStart(getOctopusInt(cntx, prefix + "."+PARAM_START, getStart()));
         setLimit(getOctopusInt(cntx, prefix + "."+PARAM_LIMIT, getLimit()));
         setSortField(getOctopusString(cntx, prefix + "."+PARAM_SORT_FIELD, getSortField()));
@@ -70,7 +69,7 @@ public class ListFilterImpl implements ListFilter {
         setUseLimit(true);
 
         requestFilterList = (List)cntx.requestAsObject(prefix + "."+PARAM_FILTER_LIST);
-            
+
         if (possibleAndFilterParams != null) {
             for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
                 FilterParam param = (FilterParam)iter.next();
@@ -78,13 +77,13 @@ public class ListFilterImpl implements ListFilter {
                 Object filterValue = cntx.getContextField(key);
                 if (filterValue == null)
                     filterValue = cntx.sessionAsObject(key);
-                    
+
                 if (filterValue instanceof String && ((String)filterValue).trim().length() == 0)
                     param.value = null;
                 else
                     if(filterValue != null)
                         param.value = filterValue;
-                    
+
                 cntx.setSession(key, param.value);
             }
         }
@@ -112,12 +111,12 @@ public class ListFilterImpl implements ListFilter {
             for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
                 FilterParam param = (FilterParam)iter.next();
                 String key = prefix+"."+param.columnName;
-                
+
                 cntx.setSession(key, null);
             }
         }
     }
-    
+
     protected int getOctopusInt(OctopusContext cntx, String key, int defaultValue) {
 		String s = cntx.requestAsString(key);
         Integer result = null;
@@ -136,19 +135,19 @@ public class ListFilterImpl implements ListFilter {
 		cntx.setSession(key, result);
 		return result.intValue();
     }
-    
+
     protected String getOctopusString(OctopusContext cntx, String key, String defaultValue) {
 		String result = cntx.requestAsString(key);
 		if (result == null)
-			result = cntx.sessionAsString(key);        
-		
+			result = cntx.sessionAsString(key);
+
         if (result == null || result.trim().length() == 0)
 			result = defaultValue;
 		cntx.setSession(key, result);
 
 		return result;
     }
-    
+
     /**
      * Returns the column for sorting of the list
      */
@@ -159,8 +158,8 @@ public class ListFilterImpl implements ListFilter {
     /**
      * Sets the column or colums the SQL should use for ORDER BY
      * You can use one Popertyname that will be mapped to a database column
-     * or simply the columnname as a String. Even multiple colums as a 
-     * concatenated String like "table1.column1, table2.column1" can be used 
+     * or simply the columnname as a String. Even multiple colums as a
+     * concatenated String like "table1.column1, table2.column1" can be used
      * @param sortField
      */
     public void setSortField(String sortField) {
@@ -180,7 +179,7 @@ public class ListFilterImpl implements ListFilter {
         else
             this.sortDirection = DIRECTION_ASC;
     }
-    
+
     /**
      * Returns the total count of records in the list.
      */
@@ -201,7 +200,7 @@ public class ListFilterImpl implements ListFilter {
     	 * of a web application that needs full pages of data. So instead of the given offset the
     	 * offset of the current page was used.
     	 * This should be considered when setting the offset instead of cerrecting it in the database
-    	 * layer. 
+    	 * layer.
     	 */
     	return start;
     }
@@ -225,14 +224,14 @@ public class ListFilterImpl implements ListFilter {
      * Returns the count of pages for the total list, based on the values for limit and count.
      */
     public int getPages() {
-        return  count / limit + (count % limit == 0 ? 0 : 1);        
+        return  count / limit + (count % limit == 0 ? 0 : 1);
     }
 
     /**
      * Returns the current page number.
      */
     public int getPage() {
-        return  start / limit + 1;        
+        return  start / limit + 1;
     }
 
     /**
@@ -244,7 +243,7 @@ public class ListFilterImpl implements ListFilter {
             return 0;
         return prev;
     }
-    
+
     /**
      * Returns the start position of the next page, based on the values for start, limit and count.
      */
@@ -269,12 +268,11 @@ public class ListFilterImpl implements ListFilter {
     public void setUseLimit(boolean newUseLimit) {
         this.useLimit = newUseLimit;
     }
-   
+
     public void addFilter(String columnName, ListFilterOperator relation) {
         // TODO: It would be more clean to store the ListFilterOperator directly
         addFilterParam(new FilterParam(columnName, relation.toString()));
     }
-
 
     public void addFilter(String columnName, String relation) {
         addFilterParam(new FilterParam(columnName, relation));
@@ -296,7 +294,7 @@ public class ListFilterImpl implements ListFilter {
             FilterParam param = (FilterParam)iter.next();
             if (param.columnName.equals(columnName))
                 param.value = value;
-        }        
+        }
     }
 
     public Object getFilterValue(String columnName) {
@@ -307,10 +305,10 @@ public class ListFilterImpl implements ListFilter {
             FilterParam param = (FilterParam)iter.next();
             if (param.columnName.equals(columnName))
                 return param.value;
-        }        
+        }
         return null;
     }
-    
+
     public void clearAllFilterValues(String columnName, Object value) {
         if (possibleAndFilterParams == null)
             return;
@@ -318,13 +316,13 @@ public class ListFilterImpl implements ListFilter {
         for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
             FilterParam param = (FilterParam)iter.next();
             param.value = null;
-        }        
+        }
     }
 
     public void addFilterParam(FilterParam param) {
         if (possibleAndFilterParams == null)
             possibleAndFilterParams = new ArrayList();
-        possibleAndFilterParams.add(param);        
+        possibleAndFilterParams.add(param);
     }
 
     /**
@@ -340,7 +338,7 @@ public class ListFilterImpl implements ListFilter {
     }
 
     /**
-     * Returns the filter tree as list in Reverse Polish Notation (Umgekehrte Polnische Notation UPN)     
+     * Returns the filter tree as list in Reverse Polish Notation (Umgekehrte Polnische Notation UPN)
      * The first (left) operand is allways the String column name, the right operand may be of any type.
      * The operators are ListFilterOperator objects.
      */
@@ -363,7 +361,7 @@ public class ListFilterImpl implements ListFilter {
                 filterList.add(ListFilterOperator.AND);
             }
         }
-        if (requestFilterList != null && requestFilterList.size() > 0 
+        if (requestFilterList != null && requestFilterList.size() > 0
             && possibleAndFilterParams != null && possibleAndFilterParams.size() > 0)
             filterList.add(ListFilterOperator.AND);
 
@@ -391,7 +389,7 @@ public class ListFilterImpl implements ListFilter {
             this.relation = relation;
             this.optional = optional;
         }
-        
+
         public boolean isSet() {
             if (value instanceof String)
                 return ((String)value).trim().length() > 0;
@@ -404,10 +402,10 @@ public class ListFilterImpl implements ListFilter {
 			return 0;
 		if((page-1) * limit >=getLastPageStart())
 			return getLastPageStart();
-		else		
+		else
 			return (page-1) * limit;
 	}
-	
+
 	public String getFilterName() {
 		return toString();
 	}

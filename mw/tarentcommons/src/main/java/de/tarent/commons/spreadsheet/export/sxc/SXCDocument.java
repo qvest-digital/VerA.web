@@ -42,23 +42,23 @@ import de.tarent.commons.spreadsheet.export.XMLDocument;
  * <p>
  * <em>Als Vorlage diente eine unter Windows 2000 SP4 mit
  * OpenOffice.org 1.1.1 erzeugte SXC-Datei.</em>
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class SXCDocument extends SXCContent {
 	public void save(OutputStream outputStream) throws IOException {
 		try {
 			ZipOutputStream zip = new ZipOutputStream(outputStream);
-			
+
 			zip.putNextEntry(new ZipEntry("mimetype"));
 			zip.write(CONTENT_TYPE.getBytes("UTF-8"));
 			zip.closeEntry();
-			
+
 			pipe(zip, "META-INF/manifest.xml", getStream("manifest.xml"));
 			pipe(zip, "styles.xml", getStream("styles.xml"));
-			
+
 			zip.putNextEntry(new ZipEntry("content.xml"));
-			
+
 			super.save(zip);
 			zip.closeEntry();
 			zip.close();

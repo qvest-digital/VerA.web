@@ -35,11 +35,11 @@ import java.io.FileOutputStream;
 
 /**
  * Used to convert a mandatory file to a java class source file containig a static byte array containig
- * the content of the first file. 
+ * the content of the first file.
  * <p>
  * The file name of the desination is constructed as follows:<br>
  * destinationDir + packagePath (according to the package name) + className + ".java"
- * 
+ *
  * @author Tim Steffens
  *
  */
@@ -52,7 +52,7 @@ public class FileToClassWithByteArray {
 	private String packageName;
 	private String className;
 	private String fieldName;
-	
+
 	public FileToClassWithByteArray(URI sourceFileURI, String destinationDir, String packageName, String className, String fieldName) {
 		this.sourceFileURI = sourceFileURI;
 		setDestinationDir(destinationDir);
@@ -60,8 +60,7 @@ public class FileToClassWithByteArray {
 		setClassName(className);
 		setFieldName(fieldName);
 	}
-	
-	
+
 	public static void main(String[] args) {
 		if (args.length != 5) {
 			System.out.println("Invalid arguent count, expected 5 arguments:");
@@ -79,7 +78,7 @@ public class FileToClassWithByteArray {
 			}
 		}
 	}
-	
+
 	public void performConversion() throws IOException {
 		FileInputStream source = new FileInputStream(new File(sourceFileURI));
 		PrintWriter writer = new PrintWriter(new FileOutputStream(new File(getDestinationFileName())));
@@ -90,8 +89,7 @@ public class FileToClassWithByteArray {
 		writer.flush();
 		writer.close();
 	}
-	
-	
+
 	private String getDestinationFileName() {
 		StringBuffer buffer = new StringBuffer();
 		if (!getDestinationDir().equals("")) {
@@ -106,8 +104,6 @@ public class FileToClassWithByteArray {
 		return buffer.toString();
 	}
 
-
-
 	private void printHeader(PrintWriter writer) {
 		writer.println("package " + getPackageName() + ";");
 		writer.println();
@@ -117,13 +113,11 @@ public class FileToClassWithByteArray {
 		writer.println(" * @author Tim Steffens' FileToClassWithByteArray");
 		writer.println(" */");
 		writer.println("class " + getClassName() + " {");
-		writer.println();	
+		writer.println();
 	}
 
-
-
 	private void printContent(FileInputStream source, PrintWriter writer) throws IOException {
-		writer.println("\tpublic final static byte[] " + getFieldName() + " = new byte[] {");	
+		writer.println("\tpublic final static byte[] " + getFieldName() + " = new byte[] {");
 		byte[] buffer = new byte[getBufferSize()];
 		boolean firstRun = true;
 		for (int length = source.read(buffer); length != -1; length = source.read(buffer)) {
@@ -145,60 +139,41 @@ public class FileToClassWithByteArray {
 		writer.println("\t};");
 	}
 
-
-
 	private int getBufferSize() {
 		return BUFFER_SIZE;
 	}
 
-	
 	private void printFooter(PrintWriter writer) {
 		writer.println("}");
 	}
-
-
 
 	public String getClassName() {
 		return className;
 	}
 
-
-
 	public void setClassName(String className) {
 		this.className = className.trim();
 	}
-
-
 
 	public String getFieldName() {
 		return fieldName;
 	}
 
-
-
 	public void setFieldName(String fieldName) {
 		this.fieldName = fieldName.trim();
 	}
-
-
 
 	public URI getSourceFileURI() {
 		return sourceFileURI;
 	}
 
-
-
 	public void setSourceFileURI(URI sourceFileURI) {
 		this.sourceFileURI = sourceFileURI;
 	}
 
-
-
 	public String getDestinationDir() {
 		return destinationDir;
 	}
-
-
 
 	public void setDestinationDir(String destinationDir) {
 		if (destinationDir != null) {
@@ -211,13 +186,9 @@ public class FileToClassWithByteArray {
 		}
 	}
 
-
-
 	public String getPackageName() {
 		return packageName;
 	}
-
-
 
 	public void setPackageName(String packageName) {
 		if (packageName != null) {
@@ -228,12 +199,8 @@ public class FileToClassWithByteArray {
 		}
 	}
 
-
-
 	public char getDirSeperator() {
 		return DIR_SEPERATOR;
 	}
-	
-	
-	
+
 }

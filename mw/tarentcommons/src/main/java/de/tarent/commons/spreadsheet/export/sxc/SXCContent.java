@@ -41,10 +41,10 @@ import de.tarent.commons.spreadsheet.export.XMLDocument;
 
 /*
  * GENERATE:
- * 
+ *
  * <table:table table:name="Tabelle 1" table:style-name="ta1" table:print="false">
  * <table:table-column table:style-name="co1" table:number-columns-repeated="3" table:default-cell-style-name="Default"/>
- * 
+ *
  * <table:table-row table:style-name="ro1">
  * <table:table-cell office:value-type="string"><text:p>A1</text:p></table:table-cell>
  * <table:table-cell office:value-type="string"><text:p>B1</text:p></table:table-cell>
@@ -62,7 +62,7 @@ import de.tarent.commons.spreadsheet.export.XMLDocument;
  * <p>
  * <em>Als Vorlage diente eine unter Windows 2000 SP4 mit
  * OpenOffice.org 1.1.1 erzeugte SXC-Datei.</em>
- * 
+ *
  * @author Christoph Jerolimov
  */
 public class SXCContent extends XMLDocument implements SpreadSheet {
@@ -102,7 +102,7 @@ public class SXCContent extends XMLDocument implements SpreadSheet {
 	public void init() throws IOException {
 		try {
 			loadDocument(getStream("content.xml"));
-			
+
 			Element element = (Element)getNode("office:document-content");
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:chart", "http://openoffice.org/2000/chart");
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:dr3d", "http://openoffice.org/2000/dr3d");
@@ -118,7 +118,7 @@ public class SXCContent extends XMLDocument implements SpreadSheet {
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:table", "http://openoffice.org/2000/table");
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:text", "http://openoffice.org/2000/text");
 			element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
-			
+
 		} catch (Exception e) {
 			throwIOException(e);
 		}
@@ -141,7 +141,7 @@ public class SXCContent extends XMLDocument implements SpreadSheet {
 		this.columnsize = colCount;
 		this.column = 0;
 		spread = getNode("office:body");
-		
+
 		Element t = document.createElement("table:table");
 		t.setAttribute("table:name", tablename);
 		t.setAttribute("table:style-name", "ta1");
@@ -151,7 +151,7 @@ public class SXCContent extends XMLDocument implements SpreadSheet {
 		tc.setAttribute("table:number-columns-repeated", Integer.toString(columnsize));
 		tc.setAttribute("table:default-cell-style-name", "Default");
 		table = t;
-		
+
 		spread.appendChild(t);
 		spread.appendChild(tc);
 	}
@@ -161,11 +161,11 @@ public class SXCContent extends XMLDocument implements SpreadSheet {
 
 	public void openRow() {
 		this.column = 0;
-		
+
 		Element tr = document.createElement("table:table-row");
 		tr.setAttribute("table:style-name", "ro1");
 		row = tr;
-		
+
 		table.appendChild(tr);
 	}
 
@@ -179,7 +179,7 @@ public class SXCContent extends XMLDocument implements SpreadSheet {
 
 	public void addCell(Object content) {
 		column++;
-		
+
 		Element cell = document.createElement("table:table-cell");
 		if (content == null) {
 			// nothing

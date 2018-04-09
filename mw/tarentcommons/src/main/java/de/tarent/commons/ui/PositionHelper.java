@@ -86,7 +86,7 @@ public class PositionHelper implements SwingConstants {
 		Rectangle s = getScreen();
 		int x;
 		int y;
-		
+
 		if (boxx == LEFT)
 			x = s.x + paddingX;
 		else if (boxx == CENTER)
@@ -95,7 +95,7 @@ public class PositionHelper implements SwingConstants {
 			x = s.x + s.width - width - paddingX;
 		else
 			throw new IllegalArgumentException("Illegal compass: " + boxx);
-		
+
 		if (boxy == TOP)
 			y = s.y + paddingY;
 		else if (boxy == CENTER)
@@ -104,7 +104,7 @@ public class PositionHelper implements SwingConstants {
 			y = s.y + s.height - height - paddingY;
 		else
 			throw new IllegalArgumentException("Illegal compass: " + boxy);
-		
+
 		return new Rectangle(x, y, width, height);
 	}
 

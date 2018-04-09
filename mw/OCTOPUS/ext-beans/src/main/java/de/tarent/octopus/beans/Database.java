@@ -25,7 +25,7 @@
 
 /*
  * $Id: Database.java,v 1.20 2007/06/11 13:24:36 christoph Exp $
- * 
+ *
  * Created on 21.02.2005
  */
 package de.tarent.octopus.beans;
@@ -65,8 +65,8 @@ import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Konkrete {@link BeanFactory}, die Beans aus einer Datenbank ausliest. 
- * 
+ * Konkrete {@link BeanFactory}, die Beans aus einer Datenbank ausliest.
+ *
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
@@ -76,16 +76,16 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     //
     /** This boolean attribut define if a column is read only. */
     public final static String ATTRIBUTE_READ_ONLY = "ro";
-    
+
     /** This boolean attribut define if a table need a distinct select. */
     public final static String ATTRIBUTE_SELECT_DISINCT = "distinct";
-    
+
     /** This boolean attribut define if a table need a distinct select. */
     public final static String ATTRIBUTE_SELECT_NO_DISINCT = "nodistinct";
-    
+
     /** relative bean property path inside an octopus module */
-    public final static String OCTOPUS_BEAN_SUB_FOLDER = "beans"; 
-    
+    public final static String OCTOPUS_BEAN_SUB_FOLDER = "beans";
+
     //
     // Konstruktoren
     //
@@ -94,7 +94,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * bean package and sets the pool name and the bean property folder to the
      * octopus module name and the {@link #OCTOPUS_BEAN_SUB_FOLDER beans} sub
      * folder of the octopus module path respectively.
-     * 
+     *
      * @param cntx octopus context determining the pool name and bean properties
      *  path.
      * @param beanPackage Java package of the {@link Bean} implementations for this
@@ -109,7 +109,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     /**
      * This constructor initializes the {@link BeanFactory} using the given
      * bean package, pool name, and bean property folder.
-     * 
+     *
      * @param poolName pool name for the db layer access.
      * @param beanPropertyPath bean property folder
      * @param beanPackage Java package of the {@link Bean} implementations for this
@@ -117,10 +117,10 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      */
 	public Database(String poolName, File beanPropertyPath, String beanPackage) {
         super(beanPackage);
-		this.beanPropertyPath = beanPropertyPath; 
+		this.beanPropertyPath = beanPropertyPath;
 		this.poolName = poolName;
 	}
-    
+
     /**
      * Returns the DBLayer pool identifier for this DBContext.
      *
@@ -137,7 +137,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      */
     public Pool getPool() {
         return DB.getPool(this.getPoolName());
-    }    
+    }
 
     //
     // Öffentliche Methoden
@@ -149,12 +149,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     public TransactionContext getTransactionContext() {
         return new TransactionContext(this);
     }
-    
+
     // Öffentliche Bean-orientierte Methoden
     /**
      * Diese Methode liefert eine Bean vom übergebenen Typ zum übergebenen
      * Primärschlüssel aus der Datenbank.
-     * 
+     *
      * @param beanname Klasse der zu holenden Bean
      * @param pk Primärschlüssel des auszulesenden DB-Datensatzes.
      * @return die ausgelesene Bean oder <code>null</code>
@@ -164,12 +164,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     public Bean getBean(String beanname, Integer pk) throws BeanException, IOException {
         return getBean(beanname, pk, this);
     }
-    
+
     /**
      * Diese Methode liefert eine Bean vom übergebenen Typ zum übergebenen
      * Primärschlüssel aus dem übergebenen {@link ExecutionContext Ausführungskontext}
      * der Datenbank.
-     * 
+     *
      * @param beanname Klasse der zu holenden Bean
      * @param pk Primärschlüssel des auszulesenden DB-Datensatzes.
      * @param context {@link ExecutionContext Ausführungskontext}, in dem gelesen werden soll.
@@ -195,7 +195,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     /**
      * Diese Methode liefert eine Bean vom übergebenen Typ zum übergebenen
      * Select-Statement aus der Datenbank.
-     * 
+     *
      * @param beanname Klasse der zu holenden Bean
      * @param select Select-Statement zum Zugriff auf den DB-Datensatz.
      * @return die ausgelesene Bean oder <code>null</code>
@@ -204,12 +204,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     public Bean getBean(String beanname, Select select) throws BeanException {
         return getBean(beanname, select, this);
     }
-    
+
     /**
      * Diese Methode liefert eine Bean vom übergebenen Typ zum übergebenen
      * Select-Statement aus dem übergebenen {@link ExecutionContext Ausführungskontext}
      * der Datenbank.
-     * 
+     *
      * @param beanname Klasse der zu holenden Bean
      * @param select Select-Statement zum Zugriff auf den DB-Datensatz.
      * @param context {@link ExecutionContext Ausführungskontext}, in dem gelesen werden soll.
@@ -228,7 +228,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     /**
      * Diese Methode liefert eine Liste mit Bean-Instanzen vom übergebenen Typ zum
      * übergebenen Select-Statement aus der Datenbank.
-     * 
+     *
      * @param beanname Klasse der zu holenden Beans
      * @param select Select-Statement zum Zugriff auf die DB-Datensätze.
      * @return eine Liste ausgelesener Beans.
@@ -237,12 +237,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     public List getBeanList(String beanname, Select select) throws BeanException {
         return getBeanList(beanname, select, this);
     }
-    
+
     /**
      * Diese Methode liefert eine Liste mit Bean-Instanzen vom übergebenen Typ zum
      * übergebenen Select-Statement aus dem übergebenen {@link ExecutionContext Ausführungskontext}
      * der Datenbank.
-     * 
+     *
      * @param beanname Klasse der zu holenden Beans
      * @param select Select-Statement zum Zugriff auf die DB-Datensätze.
      * @param context {@link ExecutionContext Ausführungskontext}, in dem gelesen werden soll.
@@ -262,8 +262,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     /**
      * Diese Methode speichert eine Bean in der Datenbank. Hierbei wird im
      * Falle eines neu erzeugten DB-Datensatzes der ID-Eintrag aktualisiert,
-     * sofern er entsprechend in den Properties konfiguriert wurde.  
-     * 
+     * sofern er entsprechend in den Properties konfiguriert wurde.
+     *
      * @param bean zu speichernde Bean
      * @throws BeanException
      * @throws IOException
@@ -275,8 +275,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     /**
      * Diese Methode speichert eine Bean im übergebenen {@link ExecutionContext Ausführungskontext}
      * der Datenbank. Wahlweise wird hierbei im Falle eines neu erzeugten DB-Datensatzes
-     * der ID-Eintrag aktualisiert, sofern er entsprechend in den Properties konfiguriert wurde. 
-     * 
+     * der ID-Eintrag aktualisiert, sofern er entsprechend in den Properties konfiguriert wurde.
+     *
      * @param bean zu speichernde Bean
      * @param context {@link ExecutionContext Ausführungskontext}, in dem gespeichert werden soll.
      * @param updateID Flag, ob der ID-Eintrag der Bean aktualisiert werden muss
@@ -301,10 +301,10 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
             context.execute(getUpdate(bean));
         }
     }
-    
+
     /**
-     * Diese Methode löscht den DBDatensatz, der der übergebenen Bean zugrunde liegt  
-     * 
+     * Diese Methode löscht den DBDatensatz, der der übergebenen Bean zugrunde liegt
+     *
      * @param bean
      * @throws BeanException
      * @throws IOException
@@ -316,7 +316,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     /**
      * Diese Methode löscht den DBDatensatz, der der übergebenen Bean zugrunde liegt,
      * im übergebenen {@link ExecutionContext Ausführungskontext} der Datenbank.
-     * 
+     *
      * @param bean Bean, die den zu löschenden Datensatz darstellt
      * @param context Ausführungskontext, innerhalb dessen gelöscht werden soll.
      * @throws BeanException
@@ -338,7 +338,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * Diese Methode führt das übergebene Select-Statement in String-Form
      * aus und erwartet als Resultat ein {@link ResultSet}, das dann
      * zurückgegeben wird.
-     * 
+     *
      * @param statement auszuführendes Select-Statement
      * @return resultierendes {@link ResultSet}
      * @throws BeanException
@@ -352,8 +352,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     }
 
     /**
-     * Diese Methode führt ein Zählstatement in der Datenbank aus 
-     * 
+     * Diese Methode führt ein Zählstatement in der Datenbank aus
+     *
      * @param select Select-Statement
      * @return Zahl aus der ersten Spalte des ersten Ergebnisdatensatzes
      * @throws BeanException
@@ -364,8 +364,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode führt ein Zählstatement in dem übergebenen
-     * {@link ExecutionContext Ausführungskontext} der Datenbank aus 
-     * 
+     * {@link ExecutionContext Ausführungskontext} der Datenbank aus
+     *
      * @param select Select-Statement
      * @param context {@link ExecutionContext Ausführungskontext}, in dem gezählt werden soll.
      * @return Zahl aus der ersten Spalte des ersten Ergebnisdatensatzes
@@ -377,7 +377,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
             rs = context.result(select);
             if (rs.next())
                 return new Integer(rs.getInt(1));
-            
+
             throw new BeanException("Failed to read a count value from the database.");
         } catch (SQLException e) {
             throw new BeanException("Failed to read a count value from the database.", e);
@@ -399,7 +399,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * that uses a fresh connection from the pool for each executed statement (e.g. this
      * class {@link Database} itself) you might drain the pool in no time.<br>
      * TODO: Replace this method by something more safe.
-     * 
+     *
      * @param statement Select-Statement zum Zugriff auf die DB-Datensätze.
      * @param context {@link ExecutionContext Ausführungskontext}, in dem gelesen werden soll.
      * @return eine Liste von Maps.
@@ -428,9 +428,9 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * zugrunde liegenden Tabelle im übergebenen {@link ExecutionContext Ausführungskontext}
      * ab und setzt das ID-Feld dieser Bean entsprechend.<br>
      * Dies erlaubt beim Einfügen eines neuen Datensatzes ein sicheres Wissen um die
-     * zugeteilte ID. 
-     * 
-     * @param bean Bean, die die nächste freie ID bekommen soll. 
+     * zugeteilte ID.
+     *
+     * @param bean Bean, die die nächste freie ID bekommen soll.
      * @param context {@link ExecutionContext Ausführungskontext}, in dem gearbeitet werden soll.
      * @throws BeanException
      * @throws IOException
@@ -440,7 +440,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         String nextval = getProperty(bean, "sequence.nextval");
         String nextvalTable = getProperty(bean, "sequence.nextval.table");
         if (nextval == null) return;
-        
+
         Select select = SQL.Select(this);
         select.selectAs(nextval, "pk");
         if (nextvalTable != null)
@@ -453,9 +453,9 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * zugrunde liegenden Tabelle im übergebenen {@link ExecutionContext Ausführungskontext}
      * ab und setzt das ID-Feld dieser Bean entsprechend.<br>
      * Dies erlaubt nach einem Einfügen eines neuen Datensatzes eine plausible Annahme
-     * über die ID des neuen Datensatzes. 
-     * 
-     * @param bean Bean, die die nächste freie ID bekommen soll. 
+     * über die ID des neuen Datensatzes.
+     *
+     * @param bean Bean, die die nächste freie ID bekommen soll.
      * @param context {@link ExecutionContext Ausführungskontext}, in dem gearbeitet werden soll.
      * @throws BeanException
      * @throws IOException
@@ -464,16 +464,16 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         String id = getProperty(bean, "pk");
         String pk = getProperty(bean, id);
         if (pk == null) return;
-        
+
         Select select = SQL.Select(this).from(getProperty(bean, "table"));
         select.selectAs("MAX(" + pk + ')', "pk");
         bean.setField(id, getCount(select, context));
     }
-    
+
     /**
      * Diese Methode liefert ein Statement zum Zählen von Datensätzen, die der
      * Bean des übergebenen Namens zugrunde liegen.
-     * 
+     *
      * @param beanname Name der Bean, zu der Datensätze gezählt werden sollen
      * @return Select-Statment zum Zählen von Datensätzen zum übergebenen Beantyp.
      * @throws BeanException
@@ -485,15 +485,15 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Zählen von Datensätzen, die dem
-     * Typ der übergebenen Bean zugrunde liegen. 
-     * 
+     * Typ der übergebenen Bean zugrunde liegen.
+     *
      * @param bean Bean, zu deren Typ Datensätze gezählt werden sollen
      * @return Select-Statment zum Zählen von Datensätzen zum Typ der übergebenen Bean.
      * @throws BeanException
      * @throws IOException
      */
     public Select getCount(Bean bean) throws BeanException, IOException {
-        String pk = getProperty(bean, "pk");        
+        String pk = getProperty(bean, "pk");
         Select select = SQL.Select(this);
         select.from(getProperty(bean, "table"));
         select.select("COUNT(" + getProperty(bean, pk) + ")");
@@ -502,8 +502,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Abfragen von Datensätzen, die der
-     * Bean des übergebenen Namens zugrunde liegen. 
-     * 
+     * Bean des übergebenen Namens zugrunde liegen.
+     *
      * @param beanname Name der Bean, zu der Datensätze abgefragt werden sollen
      * @return Select-Statment zum Abfragen von Datensätzen zum übergebenen Beantyp.
      * @throws BeanException
@@ -515,8 +515,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Abfragen von Datensätzen, die dem
-     * Typ der übergebenen Bean zugrunde liegen. 
-     * 
+     * Typ der übergebenen Bean zugrunde liegen.
+     *
      * @param bean Bean, zu deren Typ Datensätze abgefragt werden sollen
      * @return Select-Statment zum Abfragen von Datensätzen zum Typ der übergebenen Bean.
      * @throws BeanException
@@ -539,8 +539,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Abfragen von IDs von Datensätzen, die dem
-     * Typ der übergebenen Bean zugrunde liegen. 
-     * 
+     * Typ der übergebenen Bean zugrunde liegen.
+     *
      * @param bean Bean, zu deren Typ Datensatz-IDs abgefragt werden sollen
      * @return Select-Statment zum Abfragen von IDs von Datensätzen zum Typ der übergebenen Bean.
      * @throws BeanException
@@ -556,7 +556,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * Return a new emtry select statement with only the given from-table.
      * It also heed the parameters {@value #ATTRIBUTE_SELECT_DISINCT}
      * and {@value #ATTRIBUTE_SELECT_NO_DISINCT}.
-     * 
+     *
      * @param bean
      * @return
      * @throws BeanException
@@ -583,8 +583,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Erzeugen eines Datensatzes
-     * zu der übergebenen Bean. 
-     * 
+     * zu der übergebenen Bean.
+     *
      * @param bean Bean, zu der ein Datensätze erzeugt werden sollen
      * @return Insert-Statment zum Erzeugen eines Datensatzes zu der übergebenen Bean
      * @throws BeanException
@@ -609,8 +609,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Aktualisieren eines Datensatzes
-     * zu einer Bean mit dem übergebenen Namen.  
-     * 
+     * zu einer Bean mit dem übergebenen Namen.
+     *
      * @param beanname Name des Bean-Typs, zu dem ein Aktualisierungs-Statement erzeugt werden soll.
      * @return Update-Statment zum Aktualisieren eines Datensatzes zu einer Bean mit dem übergebenen Namen
      * @throws BeanException
@@ -622,8 +622,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Aktualisieren des Datensatzes
-     * zu der übergebenen Bean. 
-     * 
+     * zu der übergebenen Bean.
+     *
      * @param bean Bean, deren Datensätze aktualisiert werden sollen
      * @return Update-Statment zum Aktualisieren des Datensatzes der übergebenen Bean
      * @throws BeanException
@@ -647,8 +647,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Löschen eines Datensatzes
-     * zu einer Bean mit dem übergebenen Namen.  
-     * 
+     * zu einer Bean mit dem übergebenen Namen.
+     *
      * @param beanname Name des Bean-Typs, zu dem ein Lösch-Statement erzeugt werden soll.
      * @return Delete-Statment zum Löschen eines Datensatzes zu einer Bean mit dem übergebenen Namen
      * @throws BeanException
@@ -660,8 +660,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 
     /**
      * Diese Methode liefert ein Statement zum Löschen des Datensatzes
-     * zu der übergebenen Bean. 
-     * 
+     * zu der übergebenen Bean.
+     *
      * @param bean Bean, deren Datensätze gelöscht werden sollen
      * @return Delete-Statment zum Löschen des Datensatzes der übergebenen Bean
      * @throws BeanException
@@ -680,7 +680,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     /**
      * Diese Methode liefert eine Where-Klausel zum Bestimmen des Datensatzes
      * zu der übergebenen Bean.
-     * 
+     *
      * @param bean Bean, zu der eine Where-Klausel erstellt werden soll
      * @return Where-Klausel zum Bestimmen des Datensatzes zu der übergebenen Bean.
      * @throws BeanException
@@ -699,8 +699,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     }
 
     /**
-     * Diese Methode liefert ein Attribut eines Properties zum übergebenen Bean-Typ. 
-     * 
+     * Diese Methode liefert ein Attribut eines Properties zum übergebenen Bean-Typ.
+     *
      * @param bean Bean, zu deren Typ ein Property-Attribut geliefert werden soll
      * @param key Schlüssel des zu betroffenen Properties
      * @param attributeKey Schlüssel des Attributs des betroffenen Properties
@@ -712,8 +712,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     }
 
     /**
-     * Diese Methode liefert ein Property zum übergebenen Bean-Typ. 
-     * 
+     * Diese Methode liefert ein Property zum übergebenen Bean-Typ.
+     *
      * @param bean Bean, zu deren Typ ein Property geliefert werden soll
      * @param key Schlüssel des zu liefernden Properties
      * @return das gewünschte Property zum Bean-Typ.
@@ -727,12 +727,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         }
         return (String)map.get(key);
     }
-    
+
     /**
      * Diese Methode erzeugt ein UPDATE-PreparedStatement zu einer {@link Bean} mit
      * einer Anzahl Schlüssel- (für die WHERE-Klausel) und Update-Felder (für die
      * SET-Anweisung), die im übergebenen Kontext arbeitet.
-     * 
+     *
      * @param sample Beispiel-{@link Bean}
      * @param keyFields Sammlung von Schlüsselfeldern
      * @param updateFields Sammlung von Update-Feldern
@@ -744,14 +744,14 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         Update update = getPreparedUpdate(sample, keyFields, updateFields, fieldsInUpdate);
         return new BeanUpdateStatement(update, fieldsInUpdate, context);
     }
-    
+
     //
     // Basisklassen BeanFactory
     //
     /**
      * Liefert ein Objekt, das in ein bestimmtes Feld der "aktuellen" Bean
      * gesetzt werden soll.
-     * 
+     *
      * @param key Feld-Schlüssel
      * @return Feldinhalt oder <code>null</code> bei DB-Zugriffsfehlern.
      * @throws BeanException bei Datenzugriffsfehlern.
@@ -770,7 +770,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     /**
      * Wird verwendet, um bei Bean-Listen zur nächsten Bohne zu springen,
      * wird vor dem Einlesen einer Bean aufgerufen.
-     * 
+     *
      * @return <code>true</code>, wenn weitere Beans vorhanden sind, ansonsten
      *  <code>false</code>.
      * @throws BeanException bei Datenzugriffsfehlern.
@@ -783,13 +783,13 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 			throw new BeanException("Fehler beim Lesen aus der Datenbank.", e);
 		}
 	}
-    
+
     /**
      * Diese Methode setzt basierend auf dem Factory-Wissen das Bean-Feld
      * {@link Bean#isModified() Modified}.<br>
      * Im Datenbank-Kontext wird davon ausgegangen, dass eine Prüfung genauso
      * aufwändig wie ein Update ist, und also ist dies ein NOP.
-     * 
+     *
      * @param bean Bohne, deren {@link Bean#isModified() Modified}-Feld aktualisiert werden soll.
      * @throws BeanException
      * @see BeanFactory#checkModified(Bean)
@@ -803,7 +803,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     //
     /**
      * Diese Methode führt das übergebene {@link Statement} aus.
-     * 
+     *
      * @param statement auszuführendes {@link Statement}
      * @throws BeanException
      * @see ExecutionContext#execute(Statement)
@@ -815,12 +815,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
             throw new BeanException("Fehler beim Ausführen eines Statements in der Datenbank.", e);
         }
     }
-    
+
     /**
      * Diese Methode führt das übergebene {@link Select}-{@link Statement}
      * aus und erwartet als Resultat ein {@link ResultSet}, das dann
-     * zurückgegeben wird. 
-     * 
+     * zurückgegeben wird.
+     *
      * @param statement auszuführendes {@link Select}-{@link Statement}
      * @return resultierendes {@link ResultSet}
      * @throws BeanException
@@ -833,24 +833,24 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
             throw new BeanException("Fehler beim Erzeugen eines SQL-Strings zu einem Select-Statement", e);
         }
     }
-    
+
     /**
      * This method closes a {@link ResultSet} returned by {@link #result(Select)}.
      * It may also close the {@link java.sql.Statement} and {@link java.sql.Connection}
      * used for creating the {@link ResultSet} if they were opened just for this
      * task.
-     * 
+     *
      * @param resultSet a {@link ResultSet} returned by {@link #result(Select)}.
-     * @throws BeanException 
+     * @throws BeanException
      */
     public void close(ResultSet resultSet) throws BeanException {
         DB.closeAll(resultSet);
     }
-    
+
     /**
      * Diese Methode bereitet das übergebene {@link Statement} vor.<br>
-     * TODO: Die geholte Connection wird nicht geschlossen, es sei denn, es tritt einen SQLException auf! 
-     * 
+     * TODO: Die geholte Connection wird nicht geschlossen, es sei denn, es tritt einen SQLException auf!
+     *
      * @param statement vorzubereitendes {@link Statement}
      * @return resultierendes {@link PreparedStatement}
      * @throws BeanException
@@ -866,23 +866,23 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
             throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
         }
     }
-    
+
     /**
-     * Diese Methode liefert die {@link Database}, in der dieser Kontext arbeitet. 
-     * 
+     * Diese Methode liefert die {@link Database}, in der dieser Kontext arbeitet.
+     *
      * @return zugehörige {@link Database}
      */
     public Database getDatabase() {
         return this;
     }
-    
+
     //
     // geschätzte Hilfsmethoden
     //
     /**
      * Diese Methode erzeugt das eigentliche dblayer-SQL-Statement für den Update
      * und fällt die übergebene Liste der Platzhalter-Felder.
-     * 
+     *
      * @param sample eine Beispiel-Bean zu der Update-Tabelle
      * @param keyFields eine Sammlung von Filterfeldern für die Abfrage
      * @param updateFields eine Sammlung Felder für den Update in dieser Abfrage
@@ -925,14 +925,11 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         return update;
     }
 
-    
-    
-    
     /**
      * Diese Methode führt im übergebenen {@link ExecutionContext Ausführungskontext}
      * das übergebene Select-Statement aus und merkt sich das erzeugte
      * {@link ResultSet}.
-     * 
+     *
      * @param select auszuführendes Select-Statement
      * @param context context {@link ExecutionContext Ausführungskontext},
      *  in dem gelesen werden soll.
@@ -955,8 +952,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 	}
 
     /**
-     * Diese Methode liefert eine Map der Properties zum Typ der übergebenen Bean. 
-     * 
+     * Diese Methode liefert eine Map der Properties zum Typ der übergebenen Bean.
+     *
      * @param bean Bean, zu deren Typ die Properties geholt werden sollen.
      * @return {@link Map} der Properties des Typs der übergebenen Bean.
      * @throws IOException
@@ -964,12 +961,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 	Map loadProperties(Bean bean) throws IOException {
 		String beanname = bean.getClass().getName();
 		beanname = beanname.substring(beanname.lastIndexOf('.') + 1);
-		
+
 		File file = new File(beanPropertyPath, beanname + ".properties");
-		
+
 		Properties properties = new Properties();
 		properties.load(new FileInputStream(file));
-		
+
 		Map map = new HashMap(properties.size());
 		for (Iterator it = properties.entrySet().iterator(); it.hasNext(); ) {
 			Entry entry = (Entry)it.next();
@@ -989,16 +986,16 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      */
 	static private class StringOrder extends Order {
 		private final String order;
-		
+
 		private StringOrder(String order) {
 			this.order = order;
 		}
-		
+
 		protected void appendClause(StringBuffer sb) {
 			sb.append(order);
 		}
 	}
-    
+
     //
     // geschätzte Variablen
     //
@@ -1009,7 +1006,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
     protected final String poolName;
     /** path of the property files describing the bean db mapping */
     protected final File beanPropertyPath;
-    
+
     /** statischer Cache der Bean-Klassen-Properties */
     final static private Map beans = new HashMap();
 

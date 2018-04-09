@@ -38,20 +38,20 @@ import java.util.EventObject;
 public class EntityListEvent extends EventObject {
     /** serialVersionUID */
 	private static final long serialVersionUID = 3997106056581798888L;
-	
+
 	public final static int INSERT = 0;
     public final static int DELETE = 1;
-    public final static int UPDATE = 2;   
-    
+    public final static int UPDATE = 2;
+
     private int type;
 
     int firstRow = 0;
     int lastRow = Integer.MAX_VALUE;
-    
+
     public EntityListEvent(Object source, int t) {
         super(source);
         type = t;
-    }    
+    }
 
     public EntityListEvent(Object source, int firstRow, int lastRow, int t) {
         this(source, t);

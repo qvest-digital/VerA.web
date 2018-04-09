@@ -25,7 +25,7 @@
 
 /*
  * $Id: BeanUpdateStatement.java,v 1.4 2007/06/11 13:24:36 christoph Exp $
- * 
+ *
  * Created on 20.01.2006
  */
 package de.tarent.octopus.beans;
@@ -43,7 +43,7 @@ import de.tarent.dblayer.sql.statement.Update;
  * Diese Klasse stellt ein UPDATE-PreparedStatement dar, dass in einem
  * {@link ExecutionContext} arbeitet und seine Daten aus einer {@link Bean}
  * bezieht.
- * 
+ *
  * @author mikel
  */
 class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
@@ -53,7 +53,7 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
     /**
      * Dieser Konstruktor legt den übergebenen Kontext ab und erzeugt
      * das PreparedStatement.
-     * 
+     *
      * @param update das dbLayer-Update-Statement
      * @param fieldsInUpdate Felder für die Platzhalter im Statement
      * @param context Ausführungskontext des PreparedStatements
@@ -69,7 +69,7 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
     /**
      * Diese Methode führt das Update auf der übergebenen Bean aus.<br>
      * TODO: Falls Feld <code>null</code>, so muss (?) mit setNull, nicht setObject gearbeitet werden
-     * 
+     *
      * @param bean Bean, bezüglich deren Daten das Update ausgeführt werden soll.
      * @return Anzahl Updates
      */
@@ -77,7 +77,7 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
         if (bean != null)
             try {
                 preparedStatement.clearParameters();
-                List params = new ArrayList(); 
+                List params = new ArrayList();
                 for (int index = 0; index < fields.size(); index++) {
                     String field = fields.get(index).toString();
                     Object value = bean.getField(field);
@@ -94,13 +94,13 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
             logger.warning("Aufruf ohne Bean nicht erlaubt");
         return 0;
     }
-    
+
     //
     // geschätzte Variablen
     //
     /** Hier sind die Felder zu den Platzhaltern im PreparedStatement aufgelistet. */
     final List fields;
-    
+
     /** logger of this class. */
     final static Logger logger = Logger.getLogger(BeanUpdateStatement.class.getName());
 }

@@ -31,7 +31,7 @@ package de.tarent.octopus.beans;
 
 /**
  * Exception-Klasse des Bean-Frameworks
- * 
+ *
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
@@ -52,7 +52,7 @@ public class BeanException extends Exception {
 	public BeanException(String msg, Throwable e) {
 		super(msg, e);
 	}
-    
+
 	//
     // geschätzte Variablen
     //

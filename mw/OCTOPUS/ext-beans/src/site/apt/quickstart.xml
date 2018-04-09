@@ -22,7 +22,7 @@
         module this quickstart also assumes such a scenario.
       </p>
     </section>
-    
+
     <section name="Preparations">
       <p>
         There are a number of steps required to prepare an octopus module to make
@@ -96,7 +96,7 @@ changedby = k_user.upd_user
 	      You can find more detailled information on this
 	      <a href="#Mapping_bean_attributes_to_table_columns">here</a>.
 	    </p>
-      </subsection>      
+      </subsection>
       <subsection name="Data source configuration">
         <p>
           As the beans are intended to be loaded from and stored into database tables
@@ -435,10 +435,10 @@ public class User extends AbstractHistory {
     /**
      * This method checks whether the given password char sequence
      * represents a valid password for this user.
-     * 
+     *
      * @param password a password char sequence
-     * @throws NoSuchAlgorithmException 
-     * @throws UnsupportedEncodingException 
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
      */
     public boolean checkPassword(char[] password)
             throws UnsupportedEncodingException, NoSuchAlgorithmException {
@@ -446,13 +446,13 @@ public class User extends AbstractHistory {
             return password == null;
         return this.password.equals(digest(password));
     }
-    
+
     /**
      * This method updates the password of this user. This method is not
      * made a setter method as the bean framework would use it, too, to
      * set the password member of this bean and thus infer a digest of
      * the digest of the password.
-     *  
+     *
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
@@ -460,9 +460,9 @@ public class User extends AbstractHistory {
             throws UnsupportedEncodingException, NoSuchAlgorithmException {
         this.password = digest(password);
     }
-    
+
     //
-    // getter and setter methods 
+    // getter and setter methods
     //
     /** id of this user */
     public Integer getId() {
@@ -501,7 +501,7 @@ public class User extends AbstractHistory {
     public void setEMail(String mail) {
         eMail = mail;
     }
-    
+
     /**
      * flag of this user for his enabled state,
      * a boolean representaion of {@link #getDisabled()}
@@ -518,7 +518,7 @@ public class User extends AbstractHistory {
     public void setEnabled(boolean enabled) {
         this.disabled = enabled ? DISABLED_VALUE_FALSE : DISABLED_VALUE_TRUE;
     }
-    
+
     /** forename of this user */
     public String getForename() {
         return forename;
@@ -536,7 +536,7 @@ public class User extends AbstractHistory {
     public void setLastLoginDate(Date lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
     }
-    
+
     /** surname of this user */
     public String getSurname() {
         return surname;
@@ -554,7 +554,7 @@ public class User extends AbstractHistory {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    
+
     /** login name of this user */
     public String getUserName() {
         return userName;
@@ -563,7 +563,7 @@ public class User extends AbstractHistory {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
+
     //
     // public constants
     //
@@ -573,18 +573,18 @@ public class User extends AbstractHistory {
      * {@link de.tarent.octopus.beans.Database} methods.
      */
     public final static User SAMPLE = new User();
-    
+
     /**
      * This Character is the one value of the {@link #disabled} attribute
-     * representing an enabled user entry. 
+     * representing an enabled user entry.
      */
     public final static Character DISABLED_VALUE_FALSE = new Character('N');
     /**
      * This Character is a possible value of the {@link #disabled} attribute
-     * representing a disabled user entry. 
+     * representing a disabled user entry.
      */
     public final static Character DISABLED_VALUE_TRUE = new Character('J');
-    
+
     //
     // Helper methods
     //
@@ -735,7 +735,7 @@ public class DatabaseDemo extends Database {
     public static final String OUTPUT_readUser = "user";
     /**
      * This octopus action returns a {@link User} object.
-     * 
+     *
      * @param cntx octopus context
      * @param userId user ID
      * @return {@link User} bean containing the data of the user having the
@@ -839,7 +839,7 @@ public class DatabaseDemo extends Database {
      * This octopus action writes a {@link User} bean into the database.
      * If this implies an database INSERT the bean primary key attribute
      * is also updated.
-     * 
+     *
      * @param cntx octopus context
      * @param user User instance to save
      * @return probably updated {@link User} bean
@@ -878,7 +878,7 @@ public class DatabaseDemo extends Database {
      * This octopus action deletes the database record corresponding to
      * the given {@link User} bean. It then clears the primary key
      * attribute value.
-     * 
+     *
      * @param cntx octopus context
      * @param user User instance to remove from the database
      * @return updated {@link User} bean
@@ -916,7 +916,7 @@ public class DatabaseDemo extends Database {
     /**
      * This octopus action reads all user data and returns them as
      * a list of {@link User} beans.
-     * 
+     *
      * @param cntx octopus context
      * @return List of {@link User} bean
      */
@@ -952,7 +952,7 @@ public class DatabaseDemo extends Database {
     /**
      * This octopus action returns a custom list based on a result set
      * that offers access to all users' data using a custom Map implementation.
-     * 
+     *
      * @param cntx octopus context
      * @return List of user data Maps
      */
@@ -1104,11 +1104,11 @@ public class DatabaseDemo extends Database {
      * the {@link User} beans listed in the userList parameter. These users
      * should be existing in the database already as we only update existing
      * data rows.
-     * 
+     *
      * @param cntx octopus context
      * @param userList list of {@link User} beans having possibly changed
      *  department values.
-     * @return List of {@link User} beans 
+     * @return List of {@link User} beans
      */
     public List saveUserDepartments(OctopusContext cntx, List userList)
             throws BeanException, IOException {
@@ -1177,7 +1177,7 @@ public class DatabaseDemo extends Database {
         }
         return insert;
     }
-    
+
     /**
      * This method creates a db layer {@link Update} statement for the given
      * bean in the table backing it. If this bean derives from
@@ -1250,7 +1250,7 @@ public class RequestDemo extends Request {
     public static final String OUTPUT_assembleUser = "user";
     /**
      * This octopus action returns a {@link User} object.
-     * 
+     *
      * @param cntx octopus context
      * @param prefix prefix of user data in request
      * @return {@link User} assembled from request data using the given prefix
@@ -1339,7 +1339,7 @@ public class RequestDemo extends Request {
     public static final String OUTPUT_assembleUserList = "userList";
     /**
      * This octopus action returns a {@link List} of {@link User} objects.
-     * 
+     *
      * @param cntx octopus context
      * @param listName name of the request parameter containing a list
      *  of prefixes.
@@ -1914,8 +1914,8 @@ function navigateSelectNone() {
         if (userFilter != null) {
             select.where(userFilter);
     }
-    
-    public static final String INPUT_setUserNameFilter[] = 
+
+    public static final String INPUT_setUserNameFilter[] =
         { "filter-userName" };
     public void setUserNameFilter(OctopusContext cntx,
             String userNameFilter) throws BeanException {

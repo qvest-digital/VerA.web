@@ -37,8 +37,7 @@ import de.tarent.commons.datahandling.BeanMapTransformator;
  *
  */
 public class Tools {
-	
-	
+
 	/**
 	 * Sets all entries from {@code map} that contain the empty String, only whitespaces or null to null
 	 */
@@ -51,7 +50,7 @@ public class Tools {
 			}
 		}
 	}
-	
+
 	/**
 	 * Removes all entries from {@code map} that contain the empty String, only whitespaces or null.
 	 */
@@ -63,8 +62,8 @@ public class Tools {
 				it.remove();
 			}
 		}
-	}	
-	
+	}
+
 	/**
 	 * Removes all entries vrom {@code map} that are null.
 	 */
@@ -77,7 +76,7 @@ public class Tools {
 			}
 		}
 	}
-	
+
 	/**
 	 * Returns true, if all entrys of map contain the empty String, only whitespaces or null.
 	 */
@@ -106,7 +105,7 @@ public class Tools {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * If {@code key} and {@code value} are both not null, they are put into {@code map}.
 	 */
@@ -115,19 +114,19 @@ public class Tools {
 			map.put(key, value);
 		}
 	}
-	
+
 	/**
 	 * Returns a string containing an ordered concatenation of the
 	 * string representations of all items in <code>iterator</code>.
-	 * 
+	 *
 	 * @param prefix is a string that is put in front of each item
 	 * @param prefixBeforeFirst is false, iff the prefix should not be put before the first item
 	 * @param suffix is a string that is put behind each item
 	 * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
-	 * 
+	 *
 	 */
 	public static String iteratorToString(Iterator iterator,
-			String prefix, boolean prefixBeforeFirst, 
+			String prefix, boolean prefixBeforeFirst,
 			String suffix, boolean suffixBehindLast) {
 		boolean isFirst = true;
 		StringBuffer buffer = new StringBuffer();
@@ -147,7 +146,7 @@ public class Tools {
 
 	/**
 	 * Returns a string representation of {@code map}
-	 * 
+	 *
 	 * @param prefix string that is put in front of each item
 	 * @param prefixBeforeFirst is false, iff the prefix should not be put before the first item
 	 * @param infix string, that is put between key and value
@@ -166,26 +165,26 @@ public class Tools {
 		}
 		return iteratorToString(keyValueList.iterator(), prefix, prefixBeforeFirst, suffix, suffixBehindLast);
 	}
-	
+
 	/**
 	 * Returns a string containing an ordered concatenation of the
 	 * string representations of all items in <code>array</code>.
-	 * 
+	 *
 	 * @param prefix is a string that is put in front of each item
 	 * @param prefixBeforeFirst is false, iff the prefix should not be put before the first item
 	 * @param suffix is a string that is put behind each item
 	 * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
-	 * 
+	 *
 	 */
 	public static String arrayToString(Object[] array,
-			String prefix, boolean prefixBeforeFirst, 
+			String prefix, boolean prefixBeforeFirst,
 			String suffix, boolean suffixBehindLast) {
 		return iteratorToString(new ArrayIterator(array), prefix, prefixBeforeFirst, suffix, suffixBehindLast);
 	}
-	
+
 	/**
 	 * Returns a string representation of {@code bean}
-	 * 
+	 *
 	 * @param prefix string that is put in front of each item
 	 * @param prefixBeforeFirst is false, iff the prefix should not be put before the first item
 	 * @param infix string, that is put between key and value
@@ -198,7 +197,5 @@ public class Tools {
 			String suffix, boolean suffixBehindLast) {
 		return mapToString((new BeanMapTransformator()).transformBeanToMap(bean), prefix, prefixBeforeFirst, infix, suffix, suffixBehindLast);
 	}
-	
-	
-	
+
 }

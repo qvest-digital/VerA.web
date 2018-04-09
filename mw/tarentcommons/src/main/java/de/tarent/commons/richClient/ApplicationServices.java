@@ -29,18 +29,18 @@ import org.apache.commons.logging.Log;
 import de.tarent.commons.logging.LogFactory;
 
 /**
- * This class keeps different application services, 
- * that can be used by every component of the application. 
+ * This class keeps different application services,
+ * that can be used by every component of the application.
  * The implemetations of the services can be registered an replaced during execution.
- *  
- * 
+ *
+ *
  * @author Steffi Tinder, tarent GmbH
  *
  */
 public class ApplicationServices {
 
 	private static final Log logger = LogFactory.getLog(ApplicationServices.class);
-	
+
 	private static ApplicationServices instance;
 	private CommonDialogServices commonDialogServices;
     private ApplicationFrame applicationFrame;
@@ -49,7 +49,7 @@ public class ApplicationServices {
 	}
 
 	/**
-	 * This message returns the Instance of ApplicationServices. 
+	 * This message returns the Instance of ApplicationServices.
 	 * If it does not exist, it will be created at this point.
 	 * @return the instance of ApplicationServices
 	 */
@@ -61,7 +61,7 @@ public class ApplicationServices {
 	}
 
 	/**
-	 * This method returns the currently registered implementation of 
+	 * This method returns the currently registered implementation of
 	 * CommonDialogServices or null if no implementation is registered.
 	 * @return the registered CommonDialogServices-Implementation
 	 */
@@ -76,7 +76,6 @@ public class ApplicationServices {
 	public void setCommonDialogServices(CommonDialogServices commonDialogServices) {
 		this.commonDialogServices = commonDialogServices;
 	}
-
 
     /**
      * @return the MainFrame

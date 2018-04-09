@@ -46,26 +46,26 @@ public class SchemaCreator {
     // variables and constants
     //
     /** Logger of this class */
-    public static final Logger logger = Logger.getLogger(SchemaCreator.class.getName());    
+    public static final Logger logger = Logger.getLogger(SchemaCreator.class.getName());
 
     /** filename (may contain path) of the db layer properties */
     public static final String CONFIG_FILENAME = "test-connection.properties";
 
     /** name of the test db layer pool */
     public static final String TEST_POOL = "test_pool";
-    
+
     /** instance of this singleton */
     static SchemaCreator instance;
-    
+
     /** flag: true iff db schema has been set up by this singleton instance */
     boolean isSchemaSetUp = false;
-    
+
     /** flag: true iff the test database supports serial fields */
     boolean supportingSerials = false;
-    
+
     /** db layer properties */
     final Properties info = new Properties();
-    
+
     //
     // singleton pattern methods
     //
@@ -74,7 +74,7 @@ public class SchemaCreator {
      */
     protected SchemaCreator() {
     }
-    
+
     /**
      * This method returns the singleton instance of this class.
      */
@@ -85,7 +85,7 @@ public class SchemaCreator {
     				"\"beans.test.enabled\" to \"true\". ");
     		return null;
     	}
-    	
+
         if (instance == null)
             instance = new SchemaCreator();
         return instance;
@@ -96,7 +96,7 @@ public class SchemaCreator {
     //
     /**
      * This method sets up the tables and data in the test database.
-     *  
+     *
      * @param force if false, this is only done once by this singleton.
      */
     public void setUp(boolean force)
@@ -109,11 +109,11 @@ public class SchemaCreator {
             isSchemaSetUp = true;
         }
     }
-    
+
     /**
      * This method initialises the {@link #info db layer properties} and the
      * {@link #supportingSerials} flag and then opens the test db layer pool.
-     * 
+     *
      * @throws SQLException
      */
     public void openPool()  {
@@ -125,18 +125,18 @@ public class SchemaCreator {
                 System.out.println("using connection configuration: "+connectionConfiguration.getAbsolutePath());
                 info.load(new FileInputStream(connectionConfiguration));
             } else {
-                System.out.println();                
+                System.out.println();
                 System.out.println("----- using default connection configuration: postgres, 192.168.165.46/dblayer_unit_test");
                 System.out.println("----- create "+ CONFIG_FILENAME +" to change this");
-            
-                info.setProperty(Pool.DATASOURCE_CLASS, "org.postgresql.jdbc3.Jdbc3PoolingDataSource");		   			
+
+                info.setProperty(Pool.DATASOURCE_CLASS, "org.postgresql.jdbc3.Jdbc3PoolingDataSource");
                 info.setProperty("targetDBType", "postgres");
                 info.setProperty("serverName", "192.168.165.46");
                 //			info.setProperty("portNumber", "");
                 info.setProperty("databaseName", "dblayer_unit_test");
                 info.setProperty("user", "postgres");
                 info.setProperty("password", "postgres");
-			                
+
                 info.setProperty("poolMaxWait", "20000");
                 info.setProperty("poolMinIdle", "1");
                 info.setProperty("poolMaxActive", "10");
@@ -151,19 +151,19 @@ public class SchemaCreator {
     /**
      * This flag is true iff the test database supports serials and thus especially
      * whether or not the table "produkt" having a serial primary key exists.
-     * 
+     *
      * @return true iff the test database supports serials
      */
     public boolean isSupportingSerials() {
         return supportingSerials;
     }
-    
+
     //
     // helper methods
     //
     /**
      * This method drops the test tables in the test database. Exceptions are
-     * ignored, thus this can also be executed when there are no test tables. 
+     * ignored, thus this can also be executed when there are no test tables.
      */
     protected void dropSchema() {
         try {
@@ -191,20 +191,20 @@ public class SchemaCreator {
     /**
      * This method creates the tables "firma", "person" and (if the test
      * database supports serials) "produkt".
-     * 
+     *
      * @see #isSupportingSerials()
      * @throws SQLException
      */
     protected void createSchema() throws SQLException {
-        DB.update(TEST_POOL, 
+        DB.update(TEST_POOL,
                   "CREATE TABLE firma ("
                   +" pk_firma integer not null,"
                   +" name varchar(50),"
                   +" umsatz integer,"
                   +" CONSTRAINT firma_pkey PRIMARY KEY (pk_firma)"
                   +")");
-        
-        DB.update(TEST_POOL, 
+
+        DB.update(TEST_POOL,
                   "CREATE TABLE person ("
                   +" pk_person integer not null,"
                   +" fk_firma integer,"
@@ -214,9 +214,9 @@ public class SchemaCreator {
                   +" CONSTRAINT person_pkey PRIMARY KEY (pk_person),"
                   +" CONSTRAINT firma_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
                   +")");
-        
+
         if (isSupportingSerials())
-            DB.update(TEST_POOL, 
+            DB.update(TEST_POOL,
                     "CREATE TABLE produkt ("
                     +" pk_produkt serial not null,"
                     +" fk_firma integer,"
@@ -225,11 +225,11 @@ public class SchemaCreator {
                     +" CONSTRAINT produkt_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
                     +")");
     }
-    
+
     /**
      * This method creates entries in the tables "firma", "person" and
      * (if the test database supports serials) "produkt".
-     * 
+     *
      * @see #isSupportingSerials()
      * @throws SQLException
      */
@@ -254,7 +254,6 @@ public class SchemaCreator {
                 .insert("umsatz", new Integer(3000))
                 .execute();
 
-
             SQL.Insert(dbc).table("person")
                 .insert("pk_person", new Integer(1))
                 .insert("fk_firma", new Integer(1))
@@ -270,7 +269,7 @@ public class SchemaCreator {
                 .insert("nachname", "Duck")
                 .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("11.03.80"))
                 .execute();
-        
+
             SQL.Insert(dbc).table("person")
                 .insert("pk_person", new Integer(3))
                 .insert("fk_firma", new Integer(2))
@@ -287,7 +286,6 @@ public class SchemaCreator {
                 .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("26.11.80"))
                 .execute();
 
-            
             if (isSupportingSerials()) {
                 SQL.Insert(dbc).table("produkt")
                     .insert("fk_firma", new Integer(2))
@@ -299,4 +297,3 @@ public class SchemaCreator {
         }
     }
 }
-

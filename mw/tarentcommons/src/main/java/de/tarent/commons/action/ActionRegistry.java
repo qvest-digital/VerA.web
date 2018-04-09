@@ -2,21 +2,21 @@
  *
  * tarent-contact, Plattform-Independent Webservice-Based Contactmanagement
  * Copyright (C) 2002 tarent GmbH
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * tarent GmbH., hereby disclaims all copyright
  * interest in the program 'tarent-contact'
  * (which makes passes at compilers) written
@@ -70,7 +70,7 @@ import de.tarent.commons.ui.Messages;
  * <ul>
  * <li> {@link de.tarent.config.StartUpConstants#VIEW_MODE} when nothing processed,</li>
  * <li> {@link de.tarent.config.StartUpConstants#SEARCH_MODE} when search is being processed,</li>
- * <li> {@link de.tarent.config.StartUpConstants#NEW_MODE} when a new contact entry is being processed, and</li> 
+ * <li> {@link de.tarent.config.StartUpConstants#NEW_MODE} when a new contact entry is being processed, and</li>
  * <li> {@link de.tarent.config.StartUpConstants#EDIT_MODE} when a selected contact entry is being processed.</li>
  * </ul>
  * </p>
@@ -80,35 +80,35 @@ import de.tarent.commons.ui.Messages;
  * when deactivating a context: the actions within a set will be then enabled.
  * The context can be managed by two simple methods:
  * <ul>
- * <li> {@link #enableContext(String)}</li> 
+ * <li> {@link #enableContext(String)}</li>
  * <li> {@link #disableContext(String)}</li>
  * </ul>
- * </p> 
+ * </p>
  * <p>
- * and by one optimized method {@link #switchContext(String, String)}, 
+ * and by one optimized method {@link #switchContext(String, String)},
  * which facilitates an efficient swithching between two disjunctive contexts.
  * </p>
  * <p>
  * The context modification is performed by the {@link de.tarent.contact.controller.ActionManager} and it's super classes,
- * when appropriate gui requests or action events processed.   
+ * when appropriate gui requests or action events processed.
  * Here is the context change-over table (top-down) with according actions, that causes a major context change:
  * </p>
  * <pre>
  *  _______________________________________________
  * |xxxxxxx|---NEW---|---EDIT--|--SEARCH--|--VIEW--|
- * |_______________________________________________| 
+ * |_______________________________________________|
  * |NEW----|xxxxxxxxx|xxxxxxxxx|---new----|--new---|
  * |-------|xxxxxxxxx|xxxxxxxxx|----------|-import-|
- * |_______________________________________________| 
+ * |_______________________________________________|
  * |EDIT---|xxxxxxxxx|xxxxxxxxx|---edit---|--edit--|
- * |_______________________________________________| 
+ * |_______________________________________________|
  * |SEARCH-|xxxxxxxxx|xxxxxxxxx|xxxxxxxxxx|-search-|
- * |_______________________________________________| 
+ * |_______________________________________________|
  * |-------|--cancel-|--cancel-|filter-off|xxxxxxxx|
  * |VIEW---|--save---|---save--|----------|xxxxxxxx|
  * |-------|---------|--delete-|----------|xxxxxxxx|
- * |_______________________________________________| 
- * </pre>  
+ * |_______________________________________________|
+ * </pre>
  * <p>
  * And here is the list of actions to be disabled for a given context:<p>
  * </p>
@@ -149,8 +149,8 @@ import de.tarent.commons.ui.Messages;
  * <li>save.contact</li>
  * </ul>
  * </p>
- *    
- * <p>   
+ *
+ * <p>
  * There are two ways for a container to obtain his Actions.
  * </p>
  * <ul>
@@ -159,10 +159,10 @@ import de.tarent.commons.ui.Messages;
  * <li>Pull: Obtain all Actions for a speciffic container by getActions(UID)
  * Method.</li>
  * </ul>
- * 
+ *
  * @see de.tarent.contact.controller.manager.AmSelection
  * @see de.tarent.contact.controller.manager.AmRequestFacade
- * 
+ *
  */
 public class ActionRegistry {
 
@@ -187,33 +187,33 @@ public class ActionRegistry {
 
     /** Context Map - [context:List[Action]]. */
     protected Map deactivationContextMap = new HashMap();
-    
+
     /** A set of active contexts.*/
     private Set activeContexts = new HashSet();
 
     /** A list of context change listeners.*/
     private List contextChangeListeners = new ArrayList();
-    
+
     /** A list of <code>Runnable</code> that need to be run
      * as soon as it is considered safe.
-     * 
+     *
      * <p>If the <code>List</code> instance is <code>null</code>
      * the delayed initializations have been run already.</p>
-     * 
+     *
      */
     private List delayedInitializiations = new ArrayList();
 
     private ActionRegistry() {
     }
-    
+
     /**
      * Runs all the action's delayed initiallizations.
-     * 
+     *
      * <p>As the actions contained within the registry may depend on
      * other program modules being initialized first, the
      * <code>ActionRegistry</code> will delay the action's initialization
      * by putting them into a wait list.</p>
-     * 
+     *
      * <p>When the rest of the application is in the proper state for the
      * actions initialization this method has to be called. This needs to
      * done only once.</p>
@@ -222,7 +222,7 @@ public class ActionRegistry {
     {
       if (delayedInitializiations == null)
         return;
-      
+
       synchronized (singletonMonitor)
       {
         if (delayedInitializiations == null)
@@ -231,14 +231,14 @@ public class ActionRegistry {
         Iterator ite = delayedInitializiations.iterator();
         while (ite.hasNext())
           ((Runnable) ite.next()).run();
-        
+
         delayedInitializiations.clear();
         delayedInitializiations = null;
 
       }
     }
 
-    /** 
+    /**
      * Returns a singleton instance.<p>
      * @return ActionRegistry
      */
@@ -246,7 +246,7 @@ public class ActionRegistry {
       // Try without synchronization first.
       if (instance != null)
         return instance;
-      
+
       // Otherwise pay the cost for synchronization
       // and try again.
       synchronized ( singletonMonitor )
@@ -254,11 +254,11 @@ public class ActionRegistry {
         if (instance == null)
           instance = new ActionRegistry();
       }
-      
+
       return instance;
     }
 
-    /** 
+    /**
      * Registers a {@link ContextChangeListener} intance.
      * This instance will be notified about context changes.<p>
      * @param l listener
@@ -270,7 +270,7 @@ public class ActionRegistry {
             logger.fine( "[!] context change listener already registered" );
     }
 
-    /** 
+    /**
      * Removes a {@link ContextChangeListener} intance from the list of listeners.<p>
      * @param l listener
      * @return 'true' if listener removed
@@ -324,7 +324,7 @@ public class ActionRegistry {
     /**
      * This method initializes the properties of an action and registers it by it's assigned containers
      * according to the defined container path.<p>
-     *  
+     *
      * @param action to register
      */
     public void registerAction( TarentGUIAction action ) {
@@ -395,7 +395,7 @@ public class ActionRegistry {
 
    /**
      * Creates the actions from the definitions loaded
-     * by the config management.  
+     * by the config management.
      */
     public void init( Iterator actionDefinitions ) {
 
@@ -422,11 +422,11 @@ public class ActionRegistry {
 /**
    * Reads the Action-Definitions from a input Stream and registers all actions
    * in this file.
-   * 
+   *
    * <p>A base URI must be provided to allow resolving of relative URIs within
    * the document.</p>
-   * 
-   * <p>For 1.4-compatibility the base URI must contain the protocol, e.g. "http://" 
+   *
+   * <p>For 1.4-compatibility the base URI must contain the protocol, e.g. "http://"
    * or "file://".</p>
    */
   public void readActionDefinition(InputStream is, String baseURI) throws IOException,
@@ -438,7 +438,7 @@ public class ActionRegistry {
         Element root = definition.getDocumentElement();
         NodeList actions = root.getElementsByTagName("action");
         int length = actions.getLength();
-        
+
         ArrayList list = new ArrayList();
         for (int i=0;i<length;i++)
           list.add(XmlUtil.getParamMap(actions.item(i)));
@@ -517,8 +517,8 @@ public class ActionRegistry {
      * Splits a given comma separed string.<p>
      * The tring "foo,bla,\n\tblabla",for example, yields the following result:<p>
      * {"foo","bla","blabla"}.<p>
-     * 
-     * @return String[] array of splited strings  
+     *
+     * @return String[] array of splited strings
      */
     private String[] getStringArray( String string ) {
         return string.split( "\\s*,\\s*" );
@@ -542,7 +542,7 @@ public class ActionRegistry {
         if ( ga instanceof AbstractGUIAction ) {
             final AbstractGUIAction aga = (AbstractGUIAction) ga;
             assignContainers( aga, containerList );
-            
+
             synchronized (singletonMonitor)
             {
               if (delayedInitializiations != null)
@@ -555,7 +555,7 @@ public class ActionRegistry {
                       aga.init();
                     }
                   });
-                  
+
                   // Nothing to be done any more.
                   return;
                 }
@@ -655,15 +655,14 @@ public class ActionRegistry {
         return value;
     }
 
-
     public boolean isContextEnabled( String edit_modus ) {
         return activeContexts.contains(edit_modus);
     }
 
     /**
-     * Switchs from one context to another. 
+     * Switchs from one context to another.
      * This method is more efficient than sequence of enable and disable methods.<p>
-     *  
+     *
      * @param from context
      * @param to context
      */
@@ -675,7 +674,7 @@ public class ActionRegistry {
         if(canHandleContext(from, false)) {
             //IMPORTANT: as first update active contexts (because of getCurrentDeactivationSet())
             activeContexts.remove(from);
-            //enable actions: in 'from' & not in 'to' & not not in 'deactivation set'  
+            //enable actions: in 'from' & not in 'to' & not not in 'deactivation set'
             Set toEnableSet = new HashSet();
             toEnableSet.addAll(fromContextList);
             toEnableSet.removeAll(toContextList);
@@ -698,7 +697,7 @@ public class ActionRegistry {
 
     /**
      * Sets the <code>contextEnabled</code> property of the actions in the given set.
-     * 
+     *
      * @param actions
      * @param toEnable
      */
@@ -709,9 +708,8 @@ public class ActionRegistry {
         }
     }
 
-    
     /** Enables a given context, that is the set of assigned actions will be disabled.<p>
-     *  
+     *
      * @param context to enable
      */
     public void enableContext( String context ) {
@@ -725,7 +723,7 @@ public class ActionRegistry {
     }
 
     /** Disables a given context, that is the set of assigned actions will be enabled.<p>
-     *  
+     *
      * @param context to disable
      */
     public void disableContext( String context ) {
