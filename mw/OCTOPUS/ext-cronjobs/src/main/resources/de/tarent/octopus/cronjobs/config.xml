@@ -26,10 +26,10 @@
       <description>Returns the names of all cronjobs as a list</description>
       <action name="getCronJobNames" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>cronjobnames</value>
-    	</param>
-  	  </response>
+	<param name="OutputFields" type="array">
+		<value>cronjobnames</value>
+	</param>
+	  </response>
       <!-- <response type="none" name="none"/> -->
 	</task>
 
@@ -37,133 +37,133 @@
       <description>Returns a List with Cronjob-Maps of every existing cronjob</description>
       <action name="getCronJobs" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>cronjobs</value>
-    	</param>
-  	</response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>cronjobs</value>
+	</param>
+	</response>
+	</task>
 
-  	<task name="getCronJob" access="public" groups="Anonymous">
+	<task name="getCronJob" access="public" groups="Anonymous">
       <description>Returns a Cronjob-Map for a Cronjob specified by its name (cronjobname)</description>
       <action name="getCronJob" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>cronjob</value>
-    	</param>
-  	</response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>cronjob</value>
+	</param>
+	</response>
+	</task>
 
-  	<task name="getCronJobStatus" access="public" groups="Anonymous">
+	<task name="getCronJobStatus" access="public" groups="Anonymous">
       <description>Returns the status of a Cronjob specified by a CronJobMap (cronjob) or its name (cronjobname)</description>
       <action name="getCronJobStatus" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>status</value>
-    	</param>
-  	</response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>status</value>
+	</param>
+	</response>
+	</task>
 
-  	<task name="getAvailableCronJobTypes" access="public" groups="Anonymous">
+	<task name="getAvailableCronJobTypes" access="public" groups="Anonymous">
       <description>Returns all types of Cronjobs as List</description>
       <action name="getAvailableCronJobTypes" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>availableTypes</value>
-    	</param>
-  	</response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>availableTypes</value>
+	</param>
+	</response>
+	</task>
 
-  	<task name="getAvailableCronJobProperties" access="public" groups="Anonymous">
+	<task name="getAvailableCronJobProperties" access="public" groups="Anonymous">
       <description>
-      		Returns a list of possible properties for a specific type of cronjob.
-      		Input must be a cronjob-type as Integer.
+		Returns a list of possible properties for a specific type of cronjob.
+		Input must be a cronjob-type as Integer.
       </description>
       <action name="getAvailableCronJobProperties" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>availableProperties</value>
-    	</param>
-  	</response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>availableProperties</value>
+	</param>
+	</response>
+	</task>
 
-  	<task name="activateCronJob" access="public" groups="Anonymous">
+	<task name="activateCronJob" access="public" groups="Anonymous">
       <description>
-      		Activates a Cronjob specified by a CronJobMap (cronjob) or its name (cronjobname)
-  	  </description>
+		Activates a Cronjob specified by a CronJobMap (cronjob) or its name (cronjobname)
+	  </description>
       <action name="activateCronJob" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>cronjob</value>
-    	</param>
-  	  </response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>cronjob</value>
+	</param>
+	  </response>
+	</task>
 
-  	<task name="deactivateCronJob" access="public" groups="Anonymous">
+	<task name="deactivateCronJob" access="public" groups="Anonymous">
       <description>
-      		Deactivates a Cronjob specified by a CronJobMap (cronjob) or its name (cronjobname)
-  	  </description>
+		Deactivates a Cronjob specified by a CronJobMap (cronjob) or its name (cronjobname)
+	  </description>
       <action name="deactivateCronJob" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>cronjob</value>
-    	</param>
-  	  </response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>cronjob</value>
+	</param>
+	  </response>
+	</task>
 
-  	<task name="startCronJobRoutine" access="public" groups="Anonymous">
+	<task name="startCronJobRoutine" access="public" groups="Anonymous">
       <description>
-      		Starts or reactivates the routine that handles all cronjobs
-  	  </description>
+		Starts or reactivates the routine that handles all cronjobs
+	  </description>
       <action name="startCronJobRoutine" worker="CronJobWorker"/>
       <response type="soap" name="xxx"/>
-  	</task>
+	</task>
 
-  	<task name="stopCronJobRoutine" access="public" groups="Anonymous">
+	<task name="stopCronJobRoutine" access="public" groups="Anonymous">
       <description>
-      		Stops the routine that handles all cronjobs.
-      		This will not stop immediately but will avoid that the routine starts again.
-  	  </description>
+		Stops the routine that handles all cronjobs.
+		This will not stop immediately but will avoid that the routine starts again.
+	  </description>
       <action name="stopCronJobRoutine" worker="CronJobWorker"/>
       <response type="soap" name="xxx"/>
 
-  	</task>
+	</task>
 
-  	<task name="setCronJob" access="public" groups="Anonymous">
+	<task name="setCronJob" access="public" groups="Anonymous">
       <description>
-      		Creates or Modifies a Cronjob. Input parameter must be a CronJobMap (cronjob)
-      		Returns CronJobmap (cronjob) if succesfull and null if not succesfull.
+		Creates or Modifies a Cronjob. Input parameter must be a CronJobMap (cronjob)
+		Returns CronJobmap (cronjob) if succesfull and null if not succesfull.
       </description>
       <action name="setCronJob" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>cronjob</value>
-    	</param>
-  	</response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>cronjob</value>
+	</param>
+	</response>
+	</task>
 
-  	<task name="removeCronJob" access="public" groups="Anonymous">
+	<task name="removeCronJob" access="public" groups="Anonymous">
       <description>
-      		Removes a Cronjob from the queue and consequently deletes it.
-      		Input parameter must be a CronJobMap (cronjob) or the specific name (cronjobname).
-      		Returns CronJobmap (cronjob) if succesfull and null if not succesfull.
+		Removes a Cronjob from the queue and consequently deletes it.
+		Input parameter must be a CronJobMap (cronjob) or the specific name (cronjobname).
+		Returns CronJobmap (cronjob) if succesfull and null if not succesfull.
       </description>
       <action name="removeCronJob" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>cronjob</value>
-    	</param>
-  	</response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>cronjob</value>
+	</param>
+	</response>
+	</task>
 
 	<task name="runCronJob" access="public" groups="Anonymous">
       <description>Starts a Cronjob immediately. The Cronjob is specified by a CronJobMap (cronjob) or by name (cronjobname)</description>
       <action name="runCronJob" worker="CronJobWorker"/>
       <response type="soap" name="xxx">
-    	<param name="OutputFields" type="array">
-      		<value>cronjob</value>
-    	</param>
-  	</response>
-  	</task>
+	<param name="OutputFields" type="array">
+		<value>cronjob</value>
+	</param>
+	</response>
+	</task>
 
   </tasks>
 </tcModuleConfig>

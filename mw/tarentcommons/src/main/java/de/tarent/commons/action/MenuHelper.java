@@ -67,36 +67,36 @@ public class MenuHelper {
      * @return index
      */
     public static int getInsertPosition( Component[] components, String priorityKey, Integer priority ) {
-        if(components == null || components.length == 0) return 0;// first position
-        int lastPosition = components.length;
-        if((priority != null)
-            && (priority.intValue() != Integer.MAX_VALUE)) {//not the least priority
-            for(int i = 0; i < lastPosition; i++){
-                Component c = components[i];
-                Integer nextPriority = null;
-                if ( c instanceof AbstractButton ) {//get action priority
-                    AbstractButton nextButton = (AbstractButton) c;
-                    Action a = nextButton.getAction();
-                    if ( a != null ) {
-                        nextPriority = (Integer) nextButton.getAction().getValue( priorityKey );
-                    }
-                }
-                else if ( c instanceof JComponent ) {//get group priority (exists in JToolBar only)
-                    JComponent nextComponent = (JComponent) c;
-                    nextPriority = (Integer) nextComponent.getClientProperty( priorityKey );
-                }
+	if(components == null || components.length == 0) return 0;// first position
+	int lastPosition = components.length;
+	if((priority != null)
+	    && (priority.intValue() != Integer.MAX_VALUE)) {//not the least priority
+	    for(int i = 0; i < lastPosition; i++){
+		Component c = components[i];
+		Integer nextPriority = null;
+		if ( c instanceof AbstractButton ) {//get action priority
+		    AbstractButton nextButton = (AbstractButton) c;
+		    Action a = nextButton.getAction();
+		    if ( a != null ) {
+			nextPriority = (Integer) nextButton.getAction().getValue( priorityKey );
+		    }
+		}
+		else if ( c instanceof JComponent ) {//get group priority (exists in JToolBar only)
+		    JComponent nextComponent = (JComponent) c;
+		    nextPriority = (Integer) nextComponent.getClientProperty( priorityKey );
+		}
 
-                //ignore whitespaces and separators
-                if ( nextPriority != null ) {
-                    if ( priority.compareTo( nextPriority ) >= 0 )
-                        continue;//priority is still minor or equal
+		//ignore whitespaces and separators
+		if ( nextPriority != null ) {
+		    if ( priority.compareTo( nextPriority ) >= 0 )
+			continue;//priority is still minor or equal
 
-                    return i;//priority is greater than next priority found, thus (1 < 3), (7 < 9) etc.
-                }
-            }
-        }
+		    return i;//priority is greater than next priority found, thus (1 < 3), (7 < 9) etc.
+		}
+	    }
+	}
 
-        return lastPosition;// last position
+	return lastPosition;// last position
     }
 
     /**
@@ -121,10 +121,10 @@ public class MenuHelper {
 
       List l = (List) action.getValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS);
       if (l == null)
-        {
-          l = new ArrayList();
-          action.putValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS, l);
-        }
+	{
+	  l = new ArrayList();
+	  action.putValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS, l);
+	}
 
       l.add(component);
     }
@@ -166,7 +166,7 @@ public class MenuHelper {
       List l = (List) action.getValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS);
 
       if (l == null)
-        l = Collections.EMPTY_LIST;
+	l = Collections.EMPTY_LIST;
 
       return l.iterator();
     }
@@ -188,17 +188,17 @@ public class MenuHelper {
 
       DelegatingToggleButton(JCheckBoxMenuItem item)
       {
-        this.item = item;
+	this.item = item;
       }
 
       public void setSelected(boolean s)
       {
-        item.setSelected(s);
+	item.setSelected(s);
       }
 
       public boolean isSelected()
       {
-        return item.isSelected();
+	return item.isSelected();
       }
 
     }
@@ -213,21 +213,21 @@ public class MenuHelper {
      * @return iterator with AbstractGUIActions to enable
      */
     public static Iterator getActivationActions( AbstractGUIAction action ) {
-        String[] array = (String[]) action.getValue(TarentGUIAction.PROP_KEY_ACTIVATION_LIST);
+	String[] array = (String[]) action.getValue(TarentGUIAction.PROP_KEY_ACTIVATION_LIST);
 
-        if (array != null){
-            List list = (List) action.getValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_ENABLE);
-            //retrieve if possible
-            if(list != null) return list.iterator();//-> found
+	if (array != null){
+	    List list = (List) action.getValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_ENABLE);
+	    //retrieve if possible
+	    if(list != null) return list.iterator();//-> found
 
-            //save to retrieve later
-            list = getRelatedActions( array );
-            action.putValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_ENABLE, list);
-            return list.iterator();
+	    //save to retrieve later
+	    list = getRelatedActions( array );
+	    action.putValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_ENABLE, list);
+	    return list.iterator();
 
-        }
+	}
 
-        return Collections.EMPTY_LIST.iterator();
+	return Collections.EMPTY_LIST.iterator();
     }
 
     /**
@@ -240,21 +240,21 @@ public class MenuHelper {
      * @return iterator with AbstractGUIActions to disable
      */
     public static Iterator getDeactivationActions( AbstractGUIAction action ) {
-        String[] array = (String[]) action.getValue(TarentGUIAction.PROP_KEY_DEACTIVATION_LIST);
+	String[] array = (String[]) action.getValue(TarentGUIAction.PROP_KEY_DEACTIVATION_LIST);
 
-        if (array != null){
-            List list = (List) action.getValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_DISABLE);
-            //retrieve if possible
-            if(list != null) return list.iterator();//-> found
+	if (array != null){
+	    List list = (List) action.getValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_DISABLE);
+	    //retrieve if possible
+	    if(list != null) return list.iterator();//-> found
 
-            //save to retrieve later
-            list = getRelatedActions( array );
-            action.putValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_DISABLE, list);
-            return list.iterator();
+	    //save to retrieve later
+	    list = getRelatedActions( array );
+	    action.putValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_DISABLE, list);
+	    return list.iterator();
 
-        }
+	}
 
-        return Collections.EMPTY_LIST.iterator();
+	return Collections.EMPTY_LIST.iterator();
     }
 
     /**
@@ -263,40 +263,40 @@ public class MenuHelper {
      * @return List of Actions to the given unique names
      */
     private static List getRelatedActions( String[] array ) {
-        List list;
-        list = new ArrayList(array.length);
-        for(int i = array.length-1; i>=0; i--){//for every unique name
-            String nextUniqueName = array[i].trim();
-            AbstractGUIAction nextAction = ActionRegistry.getInstance().getAction(nextUniqueName);
-            if(nextAction != null) list.add(nextAction);//get action
-            else logger.warning("[!] action to de-/activate not found: " + nextUniqueName);
-        }
-        return list;
+	List list;
+	list = new ArrayList(array.length);
+	for(int i = array.length-1; i>=0; i--){//for every unique name
+	    String nextUniqueName = array[i].trim();
+	    AbstractGUIAction nextAction = ActionRegistry.getInstance().getAction(nextUniqueName);
+	    if(nextAction != null) list.add(nextAction);//get action
+	    else logger.warning("[!] action to de-/activate not found: " + nextUniqueName);
+	}
+	return list;
     }
 
     /**
      * Returns 'true' if a separator should be added after a given action.
      */
     public static boolean isWithBackSeparator( Action action ) {
-        boolean withBackSeparator = false;
-        String separatorValue;
-        separatorValue = (String) action.getValue( AbstractGUIAction.PROP_KEY_WITH_BACK_SEPARATOR );
-        if ( separatorValue != null ) {
-            withBackSeparator = Boolean.valueOf( separatorValue ).booleanValue();
-        }
-        return withBackSeparator;
+	boolean withBackSeparator = false;
+	String separatorValue;
+	separatorValue = (String) action.getValue( AbstractGUIAction.PROP_KEY_WITH_BACK_SEPARATOR );
+	if ( separatorValue != null ) {
+	    withBackSeparator = Boolean.valueOf( separatorValue ).booleanValue();
+	}
+	return withBackSeparator;
     }
 
     /**
      * Returns 'true' if a separator should be added before a given action.
      */
     public static boolean isWithFrontSeparator( Action action ) {
-        boolean withFrontSeparator = false;
-        String separatorValue = (String) action.getValue( AbstractGUIAction.PROP_KEY_WITH_FRONT_SEPARATOR );
-        if ( separatorValue != null ) {
-            withFrontSeparator = Boolean.valueOf( separatorValue ).booleanValue();
-        }
-        return withFrontSeparator;
+	boolean withFrontSeparator = false;
+	String separatorValue = (String) action.getValue( AbstractGUIAction.PROP_KEY_WITH_FRONT_SEPARATOR );
+	if ( separatorValue != null ) {
+	    withFrontSeparator = Boolean.valueOf( separatorValue ).booleanValue();
+	}
+	return withFrontSeparator;
     }
 
     /**
@@ -309,10 +309,10 @@ public class MenuHelper {
      * @param currentMenu
      */
     public static void checkMenuNameForSpaces( JMenu currentMenu ) {
-        String menuNameToParse = currentMenu.getText();
-        if(menuNameToParse.indexOf("_") > 0){
-            currentMenu.setText(menuNameToParse.replace('_',' '));
-        }
+	String menuNameToParse = currentMenu.getText();
+	if(menuNameToParse.indexOf("_") > 0){
+	    currentMenu.setText(menuNameToParse.replace('_',' '));
+	}
     }
 
     /**
@@ -328,17 +328,17 @@ public class MenuHelper {
       // check if position assigned
       String[] menuPathParts = menuPath.split(":");
       if (menuPathParts.length > 1 && !"".equals(menuPathParts[1]))
-        {
-          try
-            {
-              return Integer.parseInt(menuPathParts[menuPathParts.length - 1]);
-            }
-          catch (NumberFormatException nfe)
-            {
-              logger.warning("Invalid number format for menu priority in menu path: "
-                             + menuPath);
-            }
-        }
+	{
+	  try
+	    {
+	      return Integer.parseInt(menuPathParts[menuPathParts.length - 1]);
+	    }
+	  catch (NumberFormatException nfe)
+	    {
+	      logger.warning("Invalid number format for menu priority in menu path: "
+			     + menuPath);
+	    }
+	}
 
       // No priority given, then return maximal possible value.
       return Integer.MAX_VALUE;
@@ -354,20 +354,20 @@ public class MenuHelper {
 
     public static int getAssignedMainMenuPriority(String menuPath)
     {
-    	String[] menuPathParts = menuPath.split(":");
+	String[] menuPathParts = menuPath.split(":");
 
-    	// check if the menuPath starts with a digit
-    	if(menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0)))
-    	{
-    		try
-    		{
-    			return Integer.parseInt(menuPathParts[0]);
-    		}
-    		catch(NumberFormatException pExcp)
-    		{
-    			logger.warning("Invalid number format for main-menu priority in menu path: "+ menuPath);
-    		}
-    	}
-    	return -1;
+	// check if the menuPath starts with a digit
+	if(menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0)))
+	{
+		try
+		{
+			return Integer.parseInt(menuPathParts[0]);
+		}
+		catch(NumberFormatException pExcp)
+		{
+			logger.warning("Invalid number format for main-menu priority in menu path: "+ menuPath);
+		}
+	}
+	return -1;
     }
 }

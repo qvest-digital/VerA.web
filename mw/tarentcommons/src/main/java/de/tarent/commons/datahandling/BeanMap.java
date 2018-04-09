@@ -145,9 +145,9 @@ public class BeanMap implements Map {
 
     public BeanMap()
     {
-        super();
-        this.methods = this.getMethods();
-        this.properties = this.getPropertyMap();
+	super();
+	this.methods = this.getMethods();
+	this.properties = this.getPropertyMap();
     }
 
     /**
@@ -155,17 +155,17 @@ public class BeanMap implements Map {
      * @return
      */
     private Method[] getMethods() {
-    	Method[] allMethods = this.getClass().getMethods();
-    	Vector filteredMethods = new Vector();
-    	for (int i = 0; i < allMethods.length; i++) {
-    		if (!Tools.arrayContains(BeanMap.class.getMethods(), allMethods[i])) {
-    			filteredMethods.add(allMethods[i]);
-    		}
-    	}
-    	Method[] returnMethods = new Method[filteredMethods.size()];
-    	for (int i = 0; i < returnMethods.length; i++) {
-    		returnMethods[i] = (Method) filteredMethods.get(i);
-    	}
+	Method[] allMethods = this.getClass().getMethods();
+	Vector filteredMethods = new Vector();
+	for (int i = 0; i < allMethods.length; i++) {
+		if (!Tools.arrayContains(BeanMap.class.getMethods(), allMethods[i])) {
+			filteredMethods.add(allMethods[i]);
+		}
+	}
+	Method[] returnMethods = new Method[filteredMethods.size()];
+	for (int i = 0; i < returnMethods.length; i++) {
+		returnMethods[i] = (Method) filteredMethods.get(i);
+	}
 		return returnMethods;
 	}
 
@@ -178,19 +178,19 @@ public class BeanMap implements Map {
      */
     private Method getMatchingGetMethod(String attribute, boolean ignoreCase)
     {
-        for (int i = 0; i < methods.length; i++)
-        {
-            String methodCandidate = methods[i].getName();
-            if ((!ignoreCase &&
-            		methodCandidate.equals("get" + StringTools.capitalizeFirstLetter(attribute))) ||
-            	(ignoreCase &&
-            		methodCandidate.toLowerCase().equals("get" + attribute.toLowerCase()))) {
-            	//System.out.println("Returned " + methods[i].getName());
-            	return methods[i];
-            }
-        }
+	for (int i = 0; i < methods.length; i++)
+	{
+	    String methodCandidate = methods[i].getName();
+	    if ((!ignoreCase &&
+			methodCandidate.equals("get" + StringTools.capitalizeFirstLetter(attribute))) ||
+		(ignoreCase &&
+			methodCandidate.toLowerCase().equals("get" + attribute.toLowerCase()))) {
+		//System.out.println("Returned " + methods[i].getName());
+		return methods[i];
+	    }
+	}
 
-        return null;
+	return null;
     }
 
     /**
@@ -203,10 +203,10 @@ public class BeanMap implements Map {
      */
     public Class getValueType(String attribute) throws SecurityException, NoSuchFieldException
     {
-        if (!containsKey(attribute)) {
-            throw new ClassCastException("Key not found.");
-        }
-        return this.getClass().getDeclaredField(attribute).getType();
+	if (!containsKey(attribute)) {
+	    throw new ClassCastException("Key not found.");
+	}
+	return this.getClass().getDeclaredField(attribute).getType();
     }
 
     /**
@@ -219,7 +219,7 @@ public class BeanMap implements Map {
      */
     private Object getValue(Object key) throws NoSuchFieldException
     {
-        return getValueCase(key, false);
+	return getValueCase(key, false);
     }
 
     /**
@@ -233,27 +233,27 @@ public class BeanMap implements Map {
      */
 	private Object getValueCase(Object key, boolean ignoreCase) throws NoSuchFieldException {
 		Iterator iter = properties.keySet().iterator();
-        while (iter.hasNext())
-        {
-            String aPropertyName = (String) iter.next();
-            if ( 	(!ignoreCase && aPropertyName.equals(key)) ||
-            		(ignoreCase && aPropertyName.toLowerCase().equals(
-            				((String) key).toLowerCase())))
-            {
-                try
-                {
-                    Method thisMethod = this.getMatchingGetMethod(aPropertyName, ignoreCase);
-                    Object thisValue = thisMethod.invoke(this, new Object[] {});
-                    return thisValue;
-                }
-                catch (Exception e)
-                {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        // Key wurde nicht gefunden
-        throw new NoSuchFieldException();
+	while (iter.hasNext())
+	{
+	    String aPropertyName = (String) iter.next();
+	    if ( 	(!ignoreCase && aPropertyName.equals(key)) ||
+			(ignoreCase && aPropertyName.toLowerCase().equals(
+					((String) key).toLowerCase())))
+	    {
+		try
+		{
+		    Method thisMethod = this.getMatchingGetMethod(aPropertyName, ignoreCase);
+		    Object thisValue = thisMethod.invoke(this, new Object[] {});
+		    return thisValue;
+		}
+		catch (Exception e)
+		{
+		    throw new RuntimeException(e);
+		}
+	    }
+	}
+	// Key wurde nicht gefunden
+	throw new NoSuchFieldException();
 	}
 
     /**
@@ -265,7 +265,7 @@ public class BeanMap implements Map {
      */
     private Object getValueIgnoreCase(Object key) throws NoSuchFieldException
     {
-        return getValueCase(key, true);
+	return getValueCase(key, true);
     }
 
     /**
@@ -273,33 +273,33 @@ public class BeanMap implements Map {
      */
     private HashMap getPropertyMap()
     {
-        // Erster Pass - holen der Kandidaten
-        HashMap properties = new HashMap();
-        for (int i = 0; i < methods.length; i++) {
-            Method thisMethod = methods[i];
-            if (thisMethod.getName().startsWith("get")) {
-            	String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("get", ""));
-            		properties.put(pureName, new Property(pureName, methods[i].getReturnType(), true, false));
-            }
-            else if (thisMethod.getName().startsWith("is")) {
-            	String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("is", ""));
-        		properties.put(pureName, new Property(pureName, methods[i].getReturnType(), true, false));
-            }
-            else if (thisMethod.getName().startsWith("set")) {
-            	String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("set", ""));
-            	if (properties.containsKey(pureName) &&
-            			((Property) properties.get(pureName)).getType().equals(methods[i].getParameterTypes()[0])) {
-            		((Property) properties.get(pureName)).setCanBeWritten(true);
-            	}
-            	else {
-            		properties.put(pureName, new Property(pureName, methods[i].getParameterTypes()[0], false, true));
-            	}
-            }
-        }
+	// Erster Pass - holen der Kandidaten
+	HashMap properties = new HashMap();
+	for (int i = 0; i < methods.length; i++) {
+	    Method thisMethod = methods[i];
+	    if (thisMethod.getName().startsWith("get")) {
+		String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("get", ""));
+			properties.put(pureName, new Property(pureName, methods[i].getReturnType(), true, false));
+	    }
+	    else if (thisMethod.getName().startsWith("is")) {
+		String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("is", ""));
+			properties.put(pureName, new Property(pureName, methods[i].getReturnType(), true, false));
+	    }
+	    else if (thisMethod.getName().startsWith("set")) {
+		String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("set", ""));
+		if (properties.containsKey(pureName) &&
+				((Property) properties.get(pureName)).getType().equals(methods[i].getParameterTypes()[0])) {
+			((Property) properties.get(pureName)).setCanBeWritten(true);
+		}
+		else {
+			properties.put(pureName, new Property(pureName, methods[i].getParameterTypes()[0], false, true));
+		}
+	    }
+	}
 
-        // Zweiter Pass - Korrelieren
-        //System.out.println(properties.keySet().toString());
-        return properties;
+	// Zweiter Pass - Korrelieren
+	//System.out.println(properties.keySet().toString());
+	return properties;
     }
 
 	/**
@@ -307,7 +307,7 @@ public class BeanMap implements Map {
      */
     public int size()
     {
-        return this.properties.size();
+	return this.properties.size();
     }
 
     /**
@@ -315,7 +315,7 @@ public class BeanMap implements Map {
      */
     public boolean isEmpty()
     {
-        return this.properties.isEmpty();
+	return this.properties.isEmpty();
     }
 
     /**
@@ -323,7 +323,7 @@ public class BeanMap implements Map {
      */
     public boolean containsKey(Object key)
     {
-        return this.properties.containsKey(key);
+	return this.properties.containsKey(key);
     }
 
     /**
@@ -331,7 +331,7 @@ public class BeanMap implements Map {
      */
     public Set keySet()
     {
-        return properties.keySet();
+	return properties.keySet();
     }
 
     /**
@@ -340,29 +340,29 @@ public class BeanMap implements Map {
      */
     public boolean containsValue(Object value)
     {
-        if (value == null) return true;
+	if (value == null) return true;
 
-        Iterator iter = properties.keySet().iterator();
-        while (iter.hasNext())
-        {
-            String aPropertyName = (String) iter.next();
-            try
-            {
-                Method thisMethod = this.getMatchingGetMethod(aPropertyName, false);
-                if (thisMethod != null) {
-	                Object thisValue = thisMethod.invoke(this, new Object[] {});
-	                if (thisValue != null && thisValue.equals(value)) {
-	                    return true;
-	                }
-                }
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
+	Iterator iter = properties.keySet().iterator();
+	while (iter.hasNext())
+	{
+	    String aPropertyName = (String) iter.next();
+	    try
+	    {
+		Method thisMethod = this.getMatchingGetMethod(aPropertyName, false);
+		if (thisMethod != null) {
+			Object thisValue = thisMethod.invoke(this, new Object[] {});
+			if (thisValue != null && thisValue.equals(value)) {
+			    return true;
+			}
+		}
+	    }
+	    catch (Exception e)
+	    {
+		throw new RuntimeException(e);
+	    }
+	}
 
-        return false;
+	return false;
     }
 
     /**
@@ -370,16 +370,16 @@ public class BeanMap implements Map {
      */
     public Object get(Object key)
     {
-        Object thisValue = null;
-        try
-        {
-            thisValue = this.getValue(key);
-        }
-        catch (NoSuchFieldException e)
-        {
-            throw new ClassCastException("Key not found.");
-        }
-        return thisValue;
+	Object thisValue = null;
+	try
+	{
+	    thisValue = this.getValue(key);
+	}
+	catch (NoSuchFieldException e)
+	{
+	    throw new ClassCastException("Key not found.");
+	}
+	return thisValue;
     }
 
     /**
@@ -391,7 +391,7 @@ public class BeanMap implements Map {
      */
     public Collection values()
     {
-        throw new UnsupportedOperationException();
+	throw new UnsupportedOperationException();
     }
 
     /**
@@ -403,7 +403,7 @@ public class BeanMap implements Map {
      */
     public Set entrySet()
     {
-        throw new UnsupportedOperationException();
+	throw new UnsupportedOperationException();
     }
 
     /**
@@ -411,7 +411,7 @@ public class BeanMap implements Map {
      */
     public Object put(Object arg0, Object arg1)
     {
-        throw new UnsupportedOperationException();
+	throw new UnsupportedOperationException();
     }
 
     /**
@@ -419,7 +419,7 @@ public class BeanMap implements Map {
      */
     public Object remove(Object key)
     {
-        throw new UnsupportedOperationException();
+	throw new UnsupportedOperationException();
     }
 
     /**
@@ -427,7 +427,7 @@ public class BeanMap implements Map {
      */
     public void putAll(Map arg0)
     {
-        throw new UnsupportedOperationException();
+	throw new UnsupportedOperationException();
     }
 
     /**
@@ -435,7 +435,7 @@ public class BeanMap implements Map {
      */
     public void clear()
     {
-        throw new UnsupportedOperationException();
+	throw new UnsupportedOperationException();
     }
 
     /**
@@ -443,15 +443,15 @@ public class BeanMap implements Map {
      */
     public Object getIgnoreCase(Object key)
     {
-        Object thisValue = null;
-        try
-        {
-            thisValue = this.getValueIgnoreCase(key);
-        }
-        catch (NoSuchFieldException e)
-        {
-            throw new ClassCastException("Key not found.");
-        }
-        return thisValue;
+	Object thisValue = null;
+	try
+	{
+	    thisValue = this.getValueIgnoreCase(key);
+	}
+	catch (NoSuchFieldException e)
+	{
+	    throw new ClassCastException("Key not found.");
+	}
+	return thisValue;
     }
 }

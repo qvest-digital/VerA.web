@@ -60,19 +60,19 @@ public class DatabaseUpdateTest extends TestCase {
     //
     /** the empty constructor */
     public DatabaseUpdateTest() {
-        super();
+	super();
     }
 
     /** the constructor with an initial name */
     public DatabaseUpdateTest(String init) {
-        super(init);
+	super(init);
     }
 
     /** the initialising method used to setup the database schema */
     public void setUp() throws Exception {
-    	SchemaCreator schemaCreator = SchemaCreator.getInstance();
-    	if (schemaCreator != null)
-    		schemaCreator.setUp(false);
+	SchemaCreator schemaCreator = SchemaCreator.getInstance();
+	if (schemaCreator != null)
+		schemaCreator.setUp(false);
     }
 
     //
@@ -88,30 +88,30 @@ public class DatabaseUpdateTest extends TestCase {
      * @see Database#removeBean(Bean)
      */
     public void testPerson5() throws BeanException, IOException {
-        Database database = DatabaseSelectTest.getDatabase();
-        if (database == null) return;
-        Person person = createNewPerson();
-        Integer testPersonId = INTEGER_5;
+	Database database = DatabaseSelectTest.getDatabase();
+	if (database == null) return;
+	Person person = createNewPerson();
+	Integer testPersonId = INTEGER_5;
 
-        Person personInDB = (Person) database.getBean("Person", testPersonId);
-        assertNull("unexpected person in database", personInDB);
+	Person personInDB = (Person) database.getBean("Person", testPersonId);
+	assertNull("unexpected person in database", personInDB);
 
-        database.saveBean(person);
-        assertEquals("unexpected id for new person", testPersonId, person.id);
+	database.saveBean(person);
+	assertEquals("unexpected id for new person", testPersonId, person.id);
 
-        personInDB = (Person) database.getBean("Person", testPersonId);
-        assertEquals("wrong new person in database", person, personInDB);
+	personInDB = (Person) database.getBean("Person", testPersonId);
+	assertEquals("wrong new person in database", person, personInDB);
 
-        person.firmId = DatabaseSelectTest.INTEGER_3;
-        database.saveBean(person);
-        assertEquals("unexpected id for updated person", testPersonId, person.id);
+	person.firmId = DatabaseSelectTest.INTEGER_3;
+	database.saveBean(person);
+	assertEquals("unexpected id for updated person", testPersonId, person.id);
 
-        personInDB = (Person) database.getBean("Person", testPersonId);
-        assertEquals("wrong updated person in database", person, personInDB);
+	personInDB = (Person) database.getBean("Person", testPersonId);
+	assertEquals("wrong updated person in database", person, personInDB);
 
-        database.removeBean(person);
-        personInDB = (Person) database.getBean("Person", testPersonId);
-        assertNull("unexpected deleted person in database", personInDB);
+	database.removeBean(person);
+	personInDB = (Person) database.getBean("Person", testPersonId);
+	assertNull("unexpected deleted person in database", personInDB);
     }
 
     /**
@@ -123,21 +123,21 @@ public class DatabaseUpdateTest extends TestCase {
      * @see Database#saveBean(Bean, ExecutionContext, boolean)
      */
     public void testPerson5NoIdUpdate() throws BeanException, IOException {
-        Database database = DatabaseSelectTest.getDatabase();
-        if (database == null) return;
-        Person person = createNewPerson();
-        Integer testPersonId = INTEGER_5;
+	Database database = DatabaseSelectTest.getDatabase();
+	if (database == null) return;
+	Person person = createNewPerson();
+	Integer testPersonId = INTEGER_5;
 
-        Person personInDB = (Person) database.getBean("Person", testPersonId);
-        assertNull("unexpected person in database", personInDB);
+	Person personInDB = (Person) database.getBean("Person", testPersonId);
+	assertNull("unexpected person in database", personInDB);
 
-        database.saveBean(person, database, false);
-        person.id = testPersonId;
+	database.saveBean(person, database, false);
+	person.id = testPersonId;
 
-        personInDB = (Person) database.getBean("Person", testPersonId);
-        assertEquals("wrong new person in database", person, personInDB);
+	personInDB = (Person) database.getBean("Person", testPersonId);
+	assertEquals("wrong new person in database", person, personInDB);
 
-        database.removeBean(person);
+	database.removeBean(person);
     }
 
     /**
@@ -151,40 +151,40 @@ public class DatabaseUpdateTest extends TestCase {
      * @see Database#saveBean(Bean)
      */
     public void testProduct2and3() throws BeanException, IOException {
-    	if (SchemaCreator.getInstance() == null)
-    		return;
+	if (SchemaCreator.getInstance() == null)
+		return;
 
-        if (SchemaCreator.getInstance().isSupportingSerials()) {
-            Database database = DatabaseSelectTest.getDatabase();
-            if (database == null) return;
-            Product product = createNewProduct();
-            Integer testProductId2 = DatabaseSelectTest.INTEGER_2;
-            Integer testProductId3 = DatabaseSelectTest.INTEGER_3;
+	if (SchemaCreator.getInstance().isSupportingSerials()) {
+	    Database database = DatabaseSelectTest.getDatabase();
+	    if (database == null) return;
+	    Product product = createNewProduct();
+	    Integer testProductId2 = DatabaseSelectTest.INTEGER_2;
+	    Integer testProductId3 = DatabaseSelectTest.INTEGER_3;
 
-            Product productInDB = (Product) database.getBean("Product", testProductId2);
-            assertNull("unexpected product in database", productInDB);
+	    Product productInDB = (Product) database.getBean("Product", testProductId2);
+	    assertNull("unexpected product in database", productInDB);
 
-            database.saveBean(product, database, false);
-            product.id = testProductId2;
+	    database.saveBean(product, database, false);
+	    product.id = testProductId2;
 
-            productInDB = (Product) database.getBean("Product", testProductId2);
-            assertEquals("wrong new product in database", product, productInDB);
+	    productInDB = (Product) database.getBean("Product", testProductId2);
+	    assertEquals("wrong new product in database", product, productInDB);
 
-            database.removeBean(product);
-            productInDB = (Product) database.getBean("Product", testProductId2);
-            assertNull("unexpected deleted product in database", productInDB);
+	    database.removeBean(product);
+	    productInDB = (Product) database.getBean("Product", testProductId2);
+	    assertNull("unexpected deleted product in database", productInDB);
 
-            product.id = null;
-            database.saveBean(product);
-            assertEquals("unexpected id for new product", testProductId3, product.id);
+	    product.id = null;
+	    database.saveBean(product);
+	    assertEquals("unexpected id for new product", testProductId3, product.id);
 
-            productInDB = (Product) database.getBean("Product", testProductId3);
-            assertEquals("wrong new product in database", product, productInDB);
+	    productInDB = (Product) database.getBean("Product", testProductId3);
+	    assertEquals("wrong new product in database", product, productInDB);
 
-            database.removeBean(product);
-        } else {
-            logger.info("No insert tests without sequence usage executed as test database does not support serials");
-        }
+	    database.removeBean(product);
+	} else {
+	    logger.info("No insert tests without sequence usage executed as test database does not support serials");
+	}
     }
 
     //
@@ -195,11 +195,11 @@ public class DatabaseUpdateTest extends TestCase {
      * database.
      */
     Person createNewPerson() {
-        Person person = new Person();
-        person.forename = "Daniel";
-        person.surname = "Düsentrieb";
-        person.dateOfBirth = DatabaseSelectTest.getDate(77, 3, 6);
-        return person;
+	Person person = new Person();
+	person.forename = "Daniel";
+	person.surname = "Düsentrieb";
+	person.dateOfBirth = DatabaseSelectTest.getDate(77, 3, 6);
+	return person;
     }
 
     /**
@@ -207,9 +207,9 @@ public class DatabaseUpdateTest extends TestCase {
      * database.
      */
     Product createNewProduct() {
-        Product product = new Product();
-        product.firmId = DatabaseSelectTest.INTEGER_3;
-        product.name = "Ornithopter";
-        return product;
+	Product product = new Product();
+	product.firmId = DatabaseSelectTest.INTEGER_3;
+	product.name = "Ornithopter";
+	return product;
     }
 }

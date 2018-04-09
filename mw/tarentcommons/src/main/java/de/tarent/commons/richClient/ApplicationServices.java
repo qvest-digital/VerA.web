@@ -54,9 +54,9 @@ public class ApplicationServices {
 	 * @return the instance of ApplicationServices
 	 */
 	public synchronized static ApplicationServices getInstance(){
-        if (instance == null){
-            instance = new ApplicationServices();
-        }
+	if (instance == null){
+	    instance = new ApplicationServices();
+	}
 		return instance;
 	}
 
@@ -81,14 +81,14 @@ public class ApplicationServices {
      * @return the MainFrame
      */
     public ApplicationFrame getMainFrame() {
-    	if(applicationFrame == null) logger.debug("[ApplicationServices]: Main Frame not found");
-        return applicationFrame;
+	if(applicationFrame == null) logger.debug("[ApplicationServices]: Main Frame not found");
+	return applicationFrame;
     }
 
     /**
      * sets the MainFrame
      */
     public void setMainFrame(ApplicationFrame newApplicationFrame) {
-        this.applicationFrame = newApplicationFrame;
+	this.applicationFrame = newApplicationFrame;
     }
 }

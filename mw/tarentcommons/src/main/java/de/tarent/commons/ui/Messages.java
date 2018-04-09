@@ -42,7 +42,7 @@ public class Messages {
     private static ResourceBundle currentResourceBundle = ResourceBundle.getBundle("de.tarent.commons.messages.GUI", Locale.getDefault()); //$NON-NLS-1$
 
     private Messages() {
-    	// do not instantiate
+	// do not instantiate
     }
 
     /**
@@ -52,20 +52,20 @@ public class Messages {
      * @return String appendant to key; if not found <code>'!' + key + '!'</code> will be returned
      */
     public static String getString(String key) {
-        try {
-            return currentResourceBundle.getString(key);
+	try {
+	    return currentResourceBundle.getString(key);
 
-        } catch (MissingResourceException e) {
-            String bundleSuffix = "";
-            if(!"".equals(currentResourceBundle.getLocale().getLanguage())) {
-                bundleSuffix += "_"+currentResourceBundle.getLocale().getLanguage();
-            }
-            if(!"".equals(currentResourceBundle.getLocale().getCountry())) {
-                bundleSuffix += "_"+currentResourceBundle.getLocale().getCountry();
-            }
+	} catch (MissingResourceException e) {
+	    String bundleSuffix = "";
+	    if(!"".equals(currentResourceBundle.getLocale().getLanguage())) {
+		bundleSuffix += "_"+currentResourceBundle.getLocale().getLanguage();
+	    }
+	    if(!"".equals(currentResourceBundle.getLocale().getCountry())) {
+		bundleSuffix += "_"+currentResourceBundle.getLocale().getCountry();
+	    }
 
-            return '!' + key + '!';
-        }
+	    return '!' + key + '!';
+	}
     }
 
     /**
@@ -81,23 +81,23 @@ public class Messages {
      * @return String appendant to key; if not found <code>'!' + key + '!'</code> will be returned
      */
     public static String getString(Object callingObject, String key) {
-        String callingPackage = callingObject.getClass().getPackage().getName();
+	String callingPackage = callingObject.getClass().getPackage().getName();
 
-        ResourceBundle packageBundle = null;
+	ResourceBundle packageBundle = null;
 
-        // searching for package ResourceBundle; otherwise searching key in global ResourceBundle
-        try {
-            packageBundle = ResourceBundle.getBundle(callingPackage, currentResourceBundle.getLocale());
-        } catch (MissingResourceException e) {
-            return getString(key);
-        }
+	// searching for package ResourceBundle; otherwise searching key in global ResourceBundle
+	try {
+	    packageBundle = ResourceBundle.getBundle(callingPackage, currentResourceBundle.getLocale());
+	} catch (MissingResourceException e) {
+	    return getString(key);
+	}
 
-        // searching key in package ResourceBundle; otherwise searching key in global ResourceBundle
-        try {
-            return packageBundle.getString(key);
-        } catch (MissingResourceException e) {
-            return getString(key);
-        }
+	// searching key in package ResourceBundle; otherwise searching key in global ResourceBundle
+	try {
+	    return packageBundle.getString(key);
+	} catch (MissingResourceException e) {
+	    return getString(key);
+	}
     }
 
     /*
@@ -109,7 +109,7 @@ public class Messages {
      * @see Messages#getFormattedString(String, Object[])
      */
     public static String getFormattedString(String key, Object argument1) {
-        return getFormattedString(key, argument1, null, null, null);
+	return getFormattedString(key, argument1, null, null, null);
     }
 
     /**
@@ -118,7 +118,7 @@ public class Messages {
      * @see Messages#getFormattedString(String, Object[])
      */
     public static String getFormattedString(String key, Object argument1, Object argument2) {
-        return getFormattedString(key, argument1, argument2, null, null);
+	return getFormattedString(key, argument1, argument2, null, null);
     }
 
     /**
@@ -127,7 +127,7 @@ public class Messages {
      * @see Messages#getFormattedString(String, Object[])
      */
     public static String getFormattedString(String key, Object argument1, Object argument2, Object argument3) {
-        return getFormattedString(key, argument1, argument2, argument3, null);
+	return getFormattedString(key, argument1, argument2, argument3, null);
     }
 
     /**
@@ -136,14 +136,14 @@ public class Messages {
      * @see Messages#getFormattedString(String, Object[])
      */
     public static String getFormattedString(String key, Object argument1, Object argument2, Object argument3, Object argument4) {
-        List arguments = new ArrayList(4);
+	List arguments = new ArrayList(4);
 
-        if (argument1 != null) arguments.add(argument1);
-        if (argument2 != null) arguments.add(argument2);
-        if (argument3 != null) arguments.add(argument3);
-        if (argument4 != null) arguments.add(argument4);
+	if (argument1 != null) arguments.add(argument1);
+	if (argument2 != null) arguments.add(argument2);
+	if (argument3 != null) arguments.add(argument3);
+	if (argument4 != null) arguments.add(argument4);
 
-        return getFormattedString(key, arguments.toArray());
+	return getFormattedString(key, arguments.toArray());
     }
 
     /**
@@ -152,7 +152,7 @@ public class Messages {
      * @see Messages#getFormattedString(String, Object[])
      */
     public static String getFormattedString(String key, List arguments) {
-        return getFormattedString(key, arguments.toArray());
+	return getFormattedString(key, arguments.toArray());
     }
 
     /**
@@ -162,7 +162,7 @@ public class Messages {
      * @see MessageFormat#format(java.lang.String, java.lang.Object[])
      */
     public static String getFormattedString(String key, Object[] arguments) {
-        return MessageFormat.format(getString(key), arguments);
+	return MessageFormat.format(getString(key), arguments);
     }
 
     /*
@@ -174,7 +174,7 @@ public class Messages {
      * @see Messages#getFormattedString(Object, String, Object[])
      */
     public static String getFormattedString(Object callingObject, String key, Object argument1) {
-        return getFormattedString(callingObject, key, argument1, null, null, null);
+	return getFormattedString(callingObject, key, argument1, null, null, null);
     }
 
     /**
@@ -183,7 +183,7 @@ public class Messages {
      * @see Messages#getFormattedString(Object, String, Object[])
      */
     public static String getFormattedString(Object callingObject, String key, Object argument1, Object argument2) {
-        return getFormattedString(callingObject, key, argument1, argument2, null, null);
+	return getFormattedString(callingObject, key, argument1, argument2, null, null);
     }
 
     /**
@@ -192,7 +192,7 @@ public class Messages {
      * @see Messages#getFormattedString(Object, String, Object[])
      */
     public static String getFormattedString(Object callingObject, String key, Object argument1, Object argument2, Object argument3) {
-        return getFormattedString(callingObject, key, argument1, argument2, argument3, null);
+	return getFormattedString(callingObject, key, argument1, argument2, argument3, null);
     }
 
     /**
@@ -201,14 +201,14 @@ public class Messages {
      * @see Messages#getFormattedString(Object, String, Object[])
      */
     public static String getFormattedString(Object callingObject, String key, Object argument1, Object argument2, Object argument3, Object argument4) {
-        List arguments = new ArrayList(4);
+	List arguments = new ArrayList(4);
 
-        if (argument1 != null) arguments.add(argument1);
-        if (argument2 != null) arguments.add(argument2);
-        if (argument3 != null) arguments.add(argument3);
-        if (argument4 != null) arguments.add(argument4);
+	if (argument1 != null) arguments.add(argument1);
+	if (argument2 != null) arguments.add(argument2);
+	if (argument3 != null) arguments.add(argument3);
+	if (argument4 != null) arguments.add(argument4);
 
-        return getFormattedString(callingObject, key, arguments.toArray());
+	return getFormattedString(callingObject, key, arguments.toArray());
     }
 
     /**
@@ -217,7 +217,7 @@ public class Messages {
      * @see Messages#getFormattedString(Object, String, Object[])
      */
     public static String getFormattedString(Object callingObject, String key, List arguments) {
-        return getFormattedString(callingObject, key, arguments.toArray());
+	return getFormattedString(callingObject, key, arguments.toArray());
     }
 
     /**
@@ -228,7 +228,7 @@ public class Messages {
      * @see MessageFormat#format(java.lang.String, java.lang.Object[])
      */
     public static String getFormattedString(Object callingObject, String key, Object[] arguments) {
-        return MessageFormat.format(getString(callingObject, key), arguments);
+	return MessageFormat.format(getString(callingObject, key), arguments);
     }
 
     /**
@@ -237,6 +237,6 @@ public class Messages {
      * @param locale locale to set
      */
     public static void setLocale(Locale locale) {
-        currentResourceBundle = PropertyResourceBundle.getBundle("de.tarent.commons.messages.GUI",locale); //$NON-NLS-1$
+	currentResourceBundle = PropertyResourceBundle.getBundle("de.tarent.commons.messages.GUI",locale); //$NON-NLS-1$
     }
 }

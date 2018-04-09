@@ -96,20 +96,20 @@ public abstract class AbstractGUIAction extends AbstractAction implements Tarent
      * @param selected
      */
     public void setSelected( boolean selected ) {
-    	isSelected = selected;
-        Iterator ite = MenuHelper.getSynchronizationComponents( this );
-        while ( ite.hasNext() )
-            ( (JToggleButton) ite.next() ).setSelected( selected );
+	isSelected = selected;
+	Iterator ite = MenuHelper.getSynchronizationComponents( this );
+	while ( ite.hasNext() )
+	    ( (JToggleButton) ite.next() ).setSelected( selected );
 
     }
 
     public boolean isSelected() {
-    	return isSelected;
+	return isSelected;
     }
 
     /** Returns an unique name of an action. */
     public String toString() {
-        return getUniqueName();
+	return getUniqueName();
     }
 
 }

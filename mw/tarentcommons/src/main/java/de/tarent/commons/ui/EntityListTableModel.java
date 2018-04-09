@@ -55,87 +55,87 @@ public class EntityListTableModel
     ColumnDescription[] columnDescriptions = null;
 
     public EntityListTableModel(AsyncEntityListImpl list, ColumnDescription[] columnDescriptions) {
-        this.list = list;
-        this.columnDescriptions = columnDescriptions;
-        list.addEntityListListener(this);
+	this.list = list;
+	this.columnDescriptions = columnDescriptions;
+	list.addEntityListListener(this);
     }
 
     public void setColumnDescriptions(ColumnDescription[] columnDescriptions) {
-        this.columnDescriptions = columnDescriptions;
-        fireTableModelListenerEventLater(new TableModelEvent(this, 0, Integer.MAX_VALUE, TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
+	this.columnDescriptions = columnDescriptions;
+	fireTableModelListenerEventLater(new TableModelEvent(this, 0, Integer.MAX_VALUE, TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
     }
 
     public void entityListChanged(EntityListEvent e) {
-        fireTableModelListenerEventLater(new TableModelEvent(this, 0, Integer.MAX_VALUE, TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
-        // using the exact rows is cleaner, but produces revalidation problem in the tarent-contact address table
-        fireTableModelListenerEventLater(new TableModelEvent(this, e.getFirstRow(), e.getLastRow(), TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
+	fireTableModelListenerEventLater(new TableModelEvent(this, 0, Integer.MAX_VALUE, TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
+	// using the exact rows is cleaner, but produces revalidation problem in the tarent-contact address table
+	fireTableModelListenerEventLater(new TableModelEvent(this, e.getFirstRow(), e.getLastRow(), TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE));
     }
 
     protected void fireTableModelListenerEventLater(final TableModelEvent e) {
-        EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    for (int i = 0; i < tml.size(); i++) {
-                        TableModelListener t = (TableModelListener)tml.get(i);
-                        t.tableChanged(e);
-                    }
-                }
-            });
+	EventQueue.invokeLater(new Runnable() {
+		public void run() {
+		    for (int i = 0; i < tml.size(); i++) {
+			TableModelListener t = (TableModelListener)tml.get(i);
+			t.tableChanged(e);
+		    }
+		}
+	    });
     }
 
     public void addTableModelListener(TableModelListener l) {
-        tml.add(l);
+	tml.add(l);
     }
 
     public void	removeTableModelListener(TableModelListener l) {
-        tml.remove(l);
+	tml.remove(l);
     }
 
     public Class getColumnClass(int columnIndex) {
-        return columnDescriptions[columnIndex].getType();
+	return columnDescriptions[columnIndex].getType();
     }
 
     public int getColumnCount() {
-        return columnDescriptions.length;
+	return columnDescriptions.length;
     }
 
     public String getColumnName(int columnIndex) {
-        return columnDescriptions[columnIndex].getTitle();
+	return columnDescriptions[columnIndex].getTitle();
     }
 
     public int getRowCount() {
-        return list.getSize();
+	return list.getSize();
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Object entityO = list.getEntityAt(rowIndex);
-        if (entityO == null)
-            return "...";
+	Object entityO = list.getEntityAt(rowIndex);
+	if (entityO == null)
+	    return "...";
 
-        try {
-            if (entityO instanceof Entity) {
-                Entity entity = (Entity)entityO;
-                return entity.getAttribute(columnDescriptions[columnIndex].getAttributeName());
-            } else {
-                return Pojo.get(entityO, columnDescriptions[columnIndex].getAttributeName());
-            }
-        } catch (Exception e) {
-            logger.error("Error while accessing entity attribute", e);
-            return null;
-        }
+	try {
+	    if (entityO instanceof Entity) {
+		Entity entity = (Entity)entityO;
+		return entity.getAttribute(columnDescriptions[columnIndex].getAttributeName());
+	    } else {
+		return Pojo.get(entityO, columnDescriptions[columnIndex].getAttributeName());
+	    }
+	} catch (Exception e) {
+	    logger.error("Error while accessing entity attribute", e);
+	    return null;
+	}
     }
 
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return false;
+	return false;
     }
 
     public void	setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        throw new RuntimeException("Operation not supported");
+	throw new RuntimeException("Operation not supported");
     }
 
     public int getRowOf(Object object){
-    	if(tml.contains(object))
-    		return tml.indexOf(object);
-    	return -1;
+	if(tml.contains(object))
+		return tml.indexOf(object);
+	return -1;
     }
 
 }

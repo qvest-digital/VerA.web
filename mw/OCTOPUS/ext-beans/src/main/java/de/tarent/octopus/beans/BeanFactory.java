@@ -60,8 +60,8 @@ public abstract class BeanFactory {
      * This constructor sets the Java package of the {@link Bean} implementations.
      */
     protected BeanFactory(String beanPackage) {
-        assert beanPackage != null;
-        BEANPACKAGE = beanPackage;
+	assert beanPackage != null;
+	BEANPACKAGE = beanPackage;
     }
 
     //
@@ -77,12 +77,12 @@ public abstract class BeanFactory {
      * @throws BeanException
      */
     public Bean createBean(String beanname) throws BeanException {
-        try {
-            Class clazz = Class.forName(BEANPACKAGE + "." + beanname);
-            return (Bean)clazz.newInstance();
-        } catch (Exception e) {
-            throw new BeanException(MessageFormat.format("Failed to instantiate ''{0}.{1}''.", new Object[] { BEANPACKAGE, beanname }), e);
-        }
+	try {
+	    Class clazz = Class.forName(BEANPACKAGE + "." + beanname);
+	    return (Bean)clazz.newInstance();
+	} catch (Exception e) {
+	    throw new BeanException(MessageFormat.format("Failed to instantiate ''{0}.{1}''.", new Object[] { BEANPACKAGE, beanname }), e);
+	}
     }
 
     //
@@ -109,93 +109,93 @@ public abstract class BeanFactory {
      * @throws BeanException when actual conversion prcesses fail.
      */
     static public Object transform(Object value, Class target) throws BeanException {
-        if (value == null) {
-            if (target.isAssignableFrom(List.class))
-                return Collections.EMPTY_LIST;
-            else if (target.isAssignableFrom(Set.class))
-                return Collections.EMPTY_SET;
-            else if (target.isAssignableFrom(Map.class))
-                return Collections.EMPTY_MAP;
-            else if (target.isAssignableFrom(Boolean.class) || target.isAssignableFrom(Boolean.TYPE))
-                return Boolean.FALSE;
-            else
-                return null;
-        }
-        if (target.isAssignableFrom(value.getClass()))
-            return value;
-        if (target.isAssignableFrom(String.class))
-            return value.toString();
-        if (target.isAssignableFrom(Boolean.class) || target.isAssignableFrom(Boolean.TYPE)) {
-            if (value instanceof Integer)
-                return Boolean.valueOf(((Integer)value).intValue() != 0);
-            else
-                return Boolean.valueOf(value.toString());
-        }
-        if (target.isAssignableFrom(List.class)) {
-            if (value instanceof Object[])
-                return Arrays.asList((Object[])value);
-            return Collections.singletonList(value);
-        }
-        if (target.isAssignableFrom(Set.class)) {
-            if (value instanceof Object[])
-                return new HashSet(Arrays.asList((Object[])value));
-            return Collections.singleton(value);
-        }
-        String valueAsString = value.toString();
-        if (target.isAssignableFrom(Integer.class) || target.isAssignableFrom(Integer.TYPE)) {
-            if (valueAsString.length() == 0)
-                return null;
-            try {
-                return new Integer(valueAsString);
-            } catch (NumberFormatException e) {
-                throw new BeanException(MessageFormat.format("''{0}'' ist keine gültige Zahl.", new Object[] { value }), e);
-            }
-        }
-        if (target.isAssignableFrom(Double.class) || target.isAssignableFrom(Double.TYPE)) {
-            if (valueAsString.length() == 0)
-                return null;
-            try {
-                return new Double(valueAsString.indexOf(',') == -1 ? valueAsString : valueAsString.replace(',', '.'));
-            } catch (NumberFormatException e) {
-                throw new BeanException(MessageFormat.format("''{0}'' ist keine gültige Zahl.", new Object[] { value }), e);
-            }
-        }
-        if (target.isAssignableFrom(Long.class) || target.isAssignableFrom(Long.TYPE)) {
-            if (valueAsString.length() == 0)
-                return null;
-            try {
-                return new Long(valueAsString);
-            } catch (NumberFormatException e) {
-                throw new BeanException(MessageFormat.format("''{0}'' ist keine gültige Zahl.", new Object[] { value }), e);
-            }
-        }
-        if (target.isAssignableFrom(Float.class) || target.isAssignableFrom(Float.TYPE)) {
-            if (valueAsString.length() == 0)
-                return null;
-            try {
-                return new Float(valueAsString.indexOf(',') == -1 ? valueAsString : valueAsString.replace(',', '.'));
-            } catch (NumberFormatException e) {
-                throw new BeanException(MessageFormat.format("''{0}'' ist keine gültige Zahl.", new Object[] { value }), e);
-            }
-        }
-        if (target.isAssignableFrom(Character.class) || target.isAssignableFrom(Character.TYPE)) {
-            if (valueAsString.length() == 0)
-                return null;
-            return new Character(valueAsString.charAt(0));
-        }
-        if (target.isAssignableFrom(Date.class)) {
-        	if (value instanceof Calendar)
-        		return ((Calendar)value).getTime();
-            if (valueAsString.length() == 0)
-                return null;
-            return getDate(valueAsString);
-        }
-        if (target.isAssignableFrom(Timestamp.class)) {
-            Date date = (Date)transform(value, Date.class);
-            return date == null ? null : new Timestamp(date.getTime());
-        }
-        logger.warning("can not transform " + value.getClass().getName() + " ('" + value + "') to " + target.getName());
-        return null;
+	if (value == null) {
+	    if (target.isAssignableFrom(List.class))
+		return Collections.EMPTY_LIST;
+	    else if (target.isAssignableFrom(Set.class))
+		return Collections.EMPTY_SET;
+	    else if (target.isAssignableFrom(Map.class))
+		return Collections.EMPTY_MAP;
+	    else if (target.isAssignableFrom(Boolean.class) || target.isAssignableFrom(Boolean.TYPE))
+		return Boolean.FALSE;
+	    else
+		return null;
+	}
+	if (target.isAssignableFrom(value.getClass()))
+	    return value;
+	if (target.isAssignableFrom(String.class))
+	    return value.toString();
+	if (target.isAssignableFrom(Boolean.class) || target.isAssignableFrom(Boolean.TYPE)) {
+	    if (value instanceof Integer)
+		return Boolean.valueOf(((Integer)value).intValue() != 0);
+	    else
+		return Boolean.valueOf(value.toString());
+	}
+	if (target.isAssignableFrom(List.class)) {
+	    if (value instanceof Object[])
+		return Arrays.asList((Object[])value);
+	    return Collections.singletonList(value);
+	}
+	if (target.isAssignableFrom(Set.class)) {
+	    if (value instanceof Object[])
+		return new HashSet(Arrays.asList((Object[])value));
+	    return Collections.singleton(value);
+	}
+	String valueAsString = value.toString();
+	if (target.isAssignableFrom(Integer.class) || target.isAssignableFrom(Integer.TYPE)) {
+	    if (valueAsString.length() == 0)
+		return null;
+	    try {
+		return new Integer(valueAsString);
+	    } catch (NumberFormatException e) {
+		throw new BeanException(MessageFormat.format("''{0}'' ist keine gültige Zahl.", new Object[] { value }), e);
+	    }
+	}
+	if (target.isAssignableFrom(Double.class) || target.isAssignableFrom(Double.TYPE)) {
+	    if (valueAsString.length() == 0)
+		return null;
+	    try {
+		return new Double(valueAsString.indexOf(',') == -1 ? valueAsString : valueAsString.replace(',', '.'));
+	    } catch (NumberFormatException e) {
+		throw new BeanException(MessageFormat.format("''{0}'' ist keine gültige Zahl.", new Object[] { value }), e);
+	    }
+	}
+	if (target.isAssignableFrom(Long.class) || target.isAssignableFrom(Long.TYPE)) {
+	    if (valueAsString.length() == 0)
+		return null;
+	    try {
+		return new Long(valueAsString);
+	    } catch (NumberFormatException e) {
+		throw new BeanException(MessageFormat.format("''{0}'' ist keine gültige Zahl.", new Object[] { value }), e);
+	    }
+	}
+	if (target.isAssignableFrom(Float.class) || target.isAssignableFrom(Float.TYPE)) {
+	    if (valueAsString.length() == 0)
+		return null;
+	    try {
+		return new Float(valueAsString.indexOf(',') == -1 ? valueAsString : valueAsString.replace(',', '.'));
+	    } catch (NumberFormatException e) {
+		throw new BeanException(MessageFormat.format("''{0}'' ist keine gültige Zahl.", new Object[] { value }), e);
+	    }
+	}
+	if (target.isAssignableFrom(Character.class) || target.isAssignableFrom(Character.TYPE)) {
+	    if (valueAsString.length() == 0)
+		return null;
+	    return new Character(valueAsString.charAt(0));
+	}
+	if (target.isAssignableFrom(Date.class)) {
+		if (value instanceof Calendar)
+			return ((Calendar)value).getTime();
+	    if (valueAsString.length() == 0)
+		return null;
+	    return getDate(valueAsString);
+	}
+	if (target.isAssignableFrom(Timestamp.class)) {
+	    Date date = (Date)transform(value, Date.class);
+	    return date == null ? null : new Timestamp(date.getTime());
+	}
+	logger.warning("can not transform " + value.getClass().getName() + " ('" + value + "') to " + target.getName());
+	return null;
     }
 
     //
@@ -310,7 +310,7 @@ public abstract class BeanFactory {
 				}
 			}
 		} catch (Exception e) {
-            throw new BeanException(MessageFormat.format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }), e);
+	    throw new BeanException(MessageFormat.format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }), e);
 		}
 
 		throw new BeanException(MessageFormat.format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }));

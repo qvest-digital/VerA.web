@@ -41,171 +41,171 @@ public class SampleWorker1 {
 
     public void init(ModuleConfig tmc)
     {
-        wasInitCalled = true;
+	wasInitCalled = true;
     }
 
     @WebMethod()
     @Result("helloWorldResult")
     public String helloWorld()
     {
-        return "Hello World!";
+	return "Hello World!";
     }
 
     @WebMethod()
     @Result() //using default: "return"
     public String helloWorldWithDefaultResult()
     {
-        return "Hello World!";
+	return "Hello World!";
     }
 
     @WebMethod(operationName="otherName")
     @Result() //using default: "return"
     public String helloWorldWithOtherName()
     {
-        return "Hello World!";
+	return "Hello World!";
     }
 
     @WebMethod()
     @Result() //using default: "return"
     public String helloWorldWithArgument(@WebParam(name="firstname")
-                                         String name)
+					 String name)
     {
-        return "Hello "+name;
+	return "Hello "+name;
     }
 
     @WebMethod()
     @Result() //using default: "return"
     public String nameAnnotation(@Name("firstname")
-                                 String name)
+				 String name)
     {
-        return "Hello "+name;
+	return "Hello "+name;
     }
 
     @WebMethod()
     public void optionalArguments(@Name("mandatoryByDefault")
-                                  String p1,
+				  String p1,
 
-                                  @Name("mandatory")
-                                  @Optional(false)
-                                  String p2,
+				  @Name("mandatory")
+				  @Optional(false)
+				  String p2,
 
-                                  @Name("optional")
-                                  @Optional(true)
-                                  String p3,
+				  @Name("optional")
+				  @Optional(true)
+				  String p3,
 
-                                  @Name("optional")
-                                  @Optional() //defaultvalue
-                                  String p4)
+				  @Name("optional")
+				  @Optional() //defaultvalue
+				  String p4)
     {
-        return;
+	return;
     }
 
     @WebMethod()
     public void testTypesSimple(@Name("testCase") TestCase testCase,
-                                @Name("int") Integer int1,
-                                @Name("int") int int2,
-                                @Name("long") Long long1,
-                                @Name("long") long long2,
-                                @Name("float") Float float1,
-                                @Name("float") float float2,
-                                @Name("double") Double double1,
-                                @Name("double") double double2,
-                                @Name("boolean") Boolean boolean1,
-                                @Name("boolean") boolean boolean2,
-                                @Name("list") List list,
-                                @Name("map") Map map)
+				@Name("int") Integer int1,
+				@Name("int") int int2,
+				@Name("long") Long long1,
+				@Name("long") long long2,
+				@Name("float") Float float1,
+				@Name("float") float float2,
+				@Name("double") Double double1,
+				@Name("double") double double2,
+				@Name("boolean") Boolean boolean1,
+				@Name("boolean") boolean boolean2,
+				@Name("list") List list,
+				@Name("map") Map map)
     {
-    	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
-    	Assert.assertEquals("int Übergabe", 42, int2);
+	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
+	Assert.assertEquals("int Übergabe", 42, int2);
 
-    	Assert.assertEquals("Long Übergabe", 42, (long)long1);
-    	Assert.assertEquals("long Übergabe", 42, long2);
+	Assert.assertEquals("Long Übergabe", 42, (long)long1);
+	Assert.assertEquals("long Übergabe", 42, long2);
 
-    	Assert.assertEquals("Float Übergabe", 42f, (float)float1);
-    	Assert.assertEquals("float Übergabe", 42f, float2);
+	Assert.assertEquals("Float Übergabe", 42f, (float)float1);
+	Assert.assertEquals("float Übergabe", 42f, float2);
 
-        Assert.assertEquals("Double Übergabe", 42d, (double)double1);
-        Assert.assertEquals("double Übergabe", 42d, double2);
+	Assert.assertEquals("Double Übergabe", 42d, (double)double1);
+	Assert.assertEquals("double Übergabe", 42d, double2);
 
-        Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
-        Assert.assertEquals("boolean Übergabe", true, boolean2);
+	Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
+	Assert.assertEquals("boolean Übergabe", true, boolean2);
 
-        Assert.assertTrue("List Übergabe", list.size()== 1);
-        Assert.assertTrue("Map Übergabe", map.size()== 1);
+	Assert.assertTrue("List Übergabe", list.size()== 1);
+	Assert.assertTrue("Map Übergabe", map.size()== 1);
     }
 
     @WebMethod()
     public void testParameterConversions(@Name("testCase") TestCase testCase,
 
-                                         @Name("int1")
-                                         Integer int1,
+					 @Name("int1")
+					 Integer int1,
 
-                                         @Name("int2") @Optional()
-                                         int int2,
+					 @Name("int2") @Optional()
+					 int int2,
 
-                                         @Name("long1")
-                                         Long long1,
+					 @Name("long1")
+					 Long long1,
 
-                                         @Name("long2") @Optional()
-                                         long long2,
+					 @Name("long2") @Optional()
+					 long long2,
 
-                                         @Name("float1")
-                                         Float float1,
+					 @Name("float1")
+					 Float float1,
 
-                                         @Name("float2") @Optional()
-                                         float float2,
+					 @Name("float2") @Optional()
+					 float float2,
 
-                                         @Name("double1")
-                                         Double double1,
+					 @Name("double1")
+					 Double double1,
 
-                                         @Name("double2") @Optional()
-                                         double double2,
+					 @Name("double2") @Optional()
+					 double double2,
 
-                                         @Name("boolean1")
-                                         Boolean boolean1,
+					 @Name("boolean1")
+					 Boolean boolean1,
 
-                                         @Name("boolean2") @Optional()
-                                         boolean boolean2,
+					 @Name("boolean2") @Optional()
+					 boolean boolean2,
 
-                                         @Name("list")
-                                         List list,
+					 @Name("list")
+					 List list,
 
-                                         @Name("map")
-                                         MyMapBean mapBan)
+					 @Name("map")
+					 MyMapBean mapBan)
     {
-    	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
-        Assert.assertEquals("int Übergabe", 0, int2);
+	Assert.assertEquals("Integer Übergabe", 42, (int)int1);
+	Assert.assertEquals("int Übergabe", 0, int2);
 
-        Assert.assertEquals("Long Übergabe", 42, (long)long1);
-        Assert.assertEquals("long Übergabe", 0, long2);
+	Assert.assertEquals("Long Übergabe", 42, (long)long1);
+	Assert.assertEquals("long Übergabe", 0, long2);
 
-        Assert.assertEquals("Float Übergabe", 42f, (float)float1);
-        Assert.assertEquals("float Übergabe", 0f, float2);
+	Assert.assertEquals("Float Übergabe", 42f, (float)float1);
+	Assert.assertEquals("float Übergabe", 0f, float2);
 
-        Assert.assertEquals("Double Übergabe", 42d, (double)double1);
-        Assert.assertEquals("double Übergabe", 0d, double2);
+	Assert.assertEquals("Double Übergabe", 42d, (double)double1);
+	Assert.assertEquals("double Übergabe", 0d, double2);
 
-        Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
-        Assert.assertEquals("boolean Übergabe", false, boolean2);
+	Assert.assertEquals("Boolean Übergabe", true, (boolean)boolean1);
+	Assert.assertEquals("boolean Übergabe", false, boolean2);
 
-        Assert.assertTrue("List Übergabe", list.size()== 1);
+	Assert.assertTrue("List Übergabe", list.size()== 1);
 
-        Assert.assertEquals("MapBean Übergabe", "Frank", mapBan.getName());
-        Assert.assertEquals("MapBean Übergabe", "Prüm", mapBan.getCity());
+	Assert.assertEquals("MapBean Übergabe", "Frank", mapBan.getName());
+	Assert.assertEquals("MapBean Übergabe", "Prüm", mapBan.getCity());
     }
 
     @WebMethod
     public void testInOuts(@Name("p1")
-                           InOutParam<String> p1,
+			   InOutParam<String> p1,
 
-                           @Name("p2")
-                           InOutParam<Integer> p2,
+			   @Name("p2")
+			   InOutParam<Integer> p2,
 
-                           @Name("p3")
-                           InOutParam<Boolean> p3) {
-        p1.set(p1.get()+".suffix");
-        p2.set(p2.get()+2);
-        p3.set(!p3.get());
+			   @Name("p3")
+			   InOutParam<Boolean> p3) {
+	p1.set(p1.get()+".suffix");
+	p2.set(p2.get()+2);
+	p3.set(!p3.get());
     }
 
 }

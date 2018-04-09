@@ -75,54 +75,54 @@ public class VersionTool {
      * Depending on the type, the version info is collected.
      */
     public void search(String[] searchPath) {
-        for (int i = 0; i < searchPath.length; i++) {
-            VersionInfo info = null;
-            if (searchPath[i].startsWith(PREFIX_PACKAGE)) {
-                info = getInfoFromPackage(searchPath[i].substring(PREFIX_PACKAGE.length()));
-            }
-            else if (searchPath[i].startsWith(PREFIX_RESOURCE)) {
-                info = getInfoFromResourceFile(searchPath[i].substring(PREFIX_RESOURCE.length()));
-            }
-            else if (searchPath[i].startsWith(PREFIX_JAR)) {
-                info = getInfoFromJar(searchPath[i].substring(PREFIX_JAR.length()));
-            }
-            else {
-                info = getInfoFromDirectory(searchPath[i]);
-                searchInDirectory(searchPath[i]);
-            }
-            if (info != null)
-                versionInfos.add(info);
-        }
+	for (int i = 0; i < searchPath.length; i++) {
+	    VersionInfo info = null;
+	    if (searchPath[i].startsWith(PREFIX_PACKAGE)) {
+		info = getInfoFromPackage(searchPath[i].substring(PREFIX_PACKAGE.length()));
+	    }
+	    else if (searchPath[i].startsWith(PREFIX_RESOURCE)) {
+		info = getInfoFromResourceFile(searchPath[i].substring(PREFIX_RESOURCE.length()));
+	    }
+	    else if (searchPath[i].startsWith(PREFIX_JAR)) {
+		info = getInfoFromJar(searchPath[i].substring(PREFIX_JAR.length()));
+	    }
+	    else {
+		info = getInfoFromDirectory(searchPath[i]);
+		searchInDirectory(searchPath[i]);
+	    }
+	    if (info != null)
+		versionInfos.add(info);
+	}
 
-        if (mainVersionInfo == null && versionInfos.size() > 0)
-            mainVersionInfo = (VersionInfo)versionInfos.get(0);
+	if (mainVersionInfo == null && versionInfos.size() > 0)
+	    mainVersionInfo = (VersionInfo)versionInfos.get(0);
 
-        Collections.sort(versionInfos, new Comparator() {
-                public int compare(Object o1, Object o2) {
-                    VersionInfo v1 = (VersionInfo)o1;
-                    VersionInfo v2 = (VersionInfo)o2;
+	Collections.sort(versionInfos, new Comparator() {
+		public int compare(Object o1, Object o2) {
+		    VersionInfo v1 = (VersionInfo)o1;
+		    VersionInfo v2 = (VersionInfo)o2;
 
-                    if (v1.getVendor() == null && v2.getVendor() == null)
-                        return 0;
+		    if (v1.getVendor() == null && v2.getVendor() == null)
+			return 0;
 
-                    if (v1.getVendor() != null && v1.getVendor().startsWith("tarent"))
-                        return -1;
-                    if (v2.getVendor() != null && v2.getVendor().startsWith("tarent"))
-                        return 1;
+		    if (v1.getVendor() != null && v1.getVendor().startsWith("tarent"))
+			return -1;
+		    if (v2.getVendor() != null && v2.getVendor().startsWith("tarent"))
+			return 1;
 
-                    if (v1.getVendor() != null && v2.getVendor() == null)
-                        return -1;
+		    if (v1.getVendor() != null && v2.getVendor() == null)
+			return -1;
 
-                    if (v2.getVendor() != null && v1.getVendor() == null)
-                        return 1;
+		    if (v2.getVendor() != null && v1.getVendor() == null)
+			return 1;
 
-                    return v1.getVendor().compareTo(v2.getVendor());
-                }
+		    return v1.getVendor().compareTo(v2.getVendor());
+		}
 
-                public boolean equals(Object obj) {
-                    return false;
-                }
-            });
+		public boolean equals(Object obj) {
+		    return false;
+		}
+	    });
     }
 
     public static String[] INPUT_getVersions = {"prependingSearchPath", "appendingSearchPath"};
@@ -136,26 +136,26 @@ public class VersionTool {
      * @param appendingSearchPath Path string with ':' as delimiter, appended for the default path, may be null
      */
     public static VersionTool getVersions(OctopusContext cntx, String prependingSearchPath, String appendingSearchPath) {
-        VersionTool vt = new VersionTool();
-        if (prependingSearchPath != null)
-            vt.search(prependingSearchPath.split(":"));
-        vt.search(new String[]{
-                      cntx.moduleRootPath().getParentFile().getAbsolutePath(),
-                      new File(new File(cntx.moduleRootPath().getParentFile(), "WEB-INF"),"lib").getAbsolutePath(),
-                      new File(new File(cntx.moduleRootPath().getParentFile(), "OCTOPUS"),"lib").getAbsolutePath()
-                  });
-        if (appendingSearchPath != null)
-            vt.search(appendingSearchPath.split(":"));
-        return vt;
+	VersionTool vt = new VersionTool();
+	if (prependingSearchPath != null)
+	    vt.search(prependingSearchPath.split(":"));
+	vt.search(new String[]{
+		      cntx.moduleRootPath().getParentFile().getAbsolutePath(),
+		      new File(new File(cntx.moduleRootPath().getParentFile(), "WEB-INF"),"lib").getAbsolutePath(),
+		      new File(new File(cntx.moduleRootPath().getParentFile(), "OCTOPUS"),"lib").getAbsolutePath()
+		  });
+	if (appendingSearchPath != null)
+	    vt.search(appendingSearchPath.split(":"));
+	return vt;
     }
 
     public static void main(String args[]) {
-        VersionTool vt = new VersionTool();
-        vt.search(args);
-        for (Iterator iter = vt.getVersionInfos().iterator(); iter.hasNext();) {
-            VersionInfo vi = (VersionInfo)iter.next();
-            System.out.println(vi);
-        }
+	VersionTool vt = new VersionTool();
+	vt.search(args);
+	for (Iterator iter = vt.getVersionInfos().iterator(); iter.hasNext();) {
+	    VersionInfo vi = (VersionInfo)iter.next();
+	    System.out.println(vi);
+	}
     }
 
     /**
@@ -163,7 +163,7 @@ public class VersionTool {
      * @returns list of VersionInfo objects from the search path.
      */
     public VersionInfo getMainVersionInfo() {
-        return mainVersionInfo;
+	return mainVersionInfo;
     }
 
     /**
@@ -171,30 +171,30 @@ public class VersionTool {
      * @returns list of VersionInfo objects from the search path.
      */
     public List getVersionInfos() {
-        return versionInfos;
+	return versionInfos;
     }
 
     public void searchInDirectory(String dirname) {
-        File f = new File(dirname);
-        if (!f.exists() || !f.isDirectory()) {
-            log.warn("directory '"+dirname+"' for version info not found");
-        }
-        File[] files = f.listFiles();
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].getName().endsWith(".jar")) {
-                    VersionInfo info = getInfoFromJar(files[i].getAbsolutePath());
-                    if (info != null)
-                        versionInfos.add(info);
-                }
-            }
-        }
+	File f = new File(dirname);
+	if (!f.exists() || !f.isDirectory()) {
+	    log.warn("directory '"+dirname+"' for version info not found");
+	}
+	File[] files = f.listFiles();
+	if (files != null) {
+	    for (int i = 0; i < files.length; i++) {
+		if (files[i].getName().endsWith(".jar")) {
+		    VersionInfo info = getInfoFromJar(files[i].getAbsolutePath());
+		    if (info != null)
+			versionInfos.add(info);
+		}
+	    }
+	}
     }
 
     public static VersionInfo getInfoFromClass(Class klass)
     {
 //      return getInfoFromPackage(klass.getPackage());
-    	return getInfoFromJar(klass.getProtectionDomain().getCodeSource().getLocation().getFile());
+	return getInfoFromJar(klass.getProtectionDomain().getCodeSource().getLocation().getFile());
     }
 
     public static VersionInfo getInfoFromPackage(String packageName) {
@@ -202,133 +202,133 @@ public class VersionTool {
     }
 
     public static VersionInfo getInfoFromPackage(Package packageDescriptor) {
-        String packageName = packageDescriptor.getName();
+	String packageName = packageDescriptor.getName();
 
-        if (packageDescriptor == null) {
-            log.warn("package '"+packageName+"' for version info not found");
-            return null;
-        }
-        VersionInfo info = new VersionInfo();
-        info.setResourceName("Package: "+packageName);
-        info.setName(specImplConcat(packageDescriptor.getSpecificationTitle(), packageDescriptor.getImplementationTitle()));
-        info.setVersion(specImplConcat(packageDescriptor.getSpecificationVersion(), packageDescriptor.getImplementationVersion()));
-        info.setVendor(specImplConcat(packageDescriptor.getSpecificationVendor(), packageDescriptor.getImplementationVendor()));
-        return info;
+	if (packageDescriptor == null) {
+	    log.warn("package '"+packageName+"' for version info not found");
+	    return null;
+	}
+	VersionInfo info = new VersionInfo();
+	info.setResourceName("Package: "+packageName);
+	info.setName(specImplConcat(packageDescriptor.getSpecificationTitle(), packageDescriptor.getImplementationTitle()));
+	info.setVersion(specImplConcat(packageDescriptor.getSpecificationVersion(), packageDescriptor.getImplementationVersion()));
+	info.setVendor(specImplConcat(packageDescriptor.getSpecificationVendor(), packageDescriptor.getImplementationVendor()));
+	return info;
     }
 
     public static VersionInfo getInfoFromResourceFile(String resName) {
-        InputStream is = VersionTool.class.getResourceAsStream(resName);
-        if (is == null) {
-            log.warn("resource '"+resName+"' for version info not found in classpath");
-            return null;
-        }
-        try {
-            Properties props = new Properties();
-            props.load(is);
-            is.close();
-            VersionInfo info = new VersionInfo();
-            info.setResourceName("Resource file: "+resName);
-            info.setName(props.getProperty(VERSION_NAME));
-            info.setDescription(props.getProperty(VERSION_DESCRIPTION));
-            info.setCopyright(props.getProperty(VERSION_COPYRIGHT));
-            info.setVersion(props.getProperty(VERSION_VERSION));
-            info.setBuildInfo(props.getProperty(VERSION_BUILD_INFO));
-            info.setVendor(props.getProperty(VERSION_VENDOR));
-            info.setBuildID(props.getProperty(BuildID));
-            return info;
-        } catch (IOException ioe) {
-            log.error("cant read '"+resName+"'", ioe);
-            return null;
-        } finally {
-            try {
-                if (is != null)
-                    is.close();
-            } catch (IOException ioe) {}
-        }
+	InputStream is = VersionTool.class.getResourceAsStream(resName);
+	if (is == null) {
+	    log.warn("resource '"+resName+"' for version info not found in classpath");
+	    return null;
+	}
+	try {
+	    Properties props = new Properties();
+	    props.load(is);
+	    is.close();
+	    VersionInfo info = new VersionInfo();
+	    info.setResourceName("Resource file: "+resName);
+	    info.setName(props.getProperty(VERSION_NAME));
+	    info.setDescription(props.getProperty(VERSION_DESCRIPTION));
+	    info.setCopyright(props.getProperty(VERSION_COPYRIGHT));
+	    info.setVersion(props.getProperty(VERSION_VERSION));
+	    info.setBuildInfo(props.getProperty(VERSION_BUILD_INFO));
+	    info.setVendor(props.getProperty(VERSION_VENDOR));
+	    info.setBuildID(props.getProperty(BuildID));
+	    return info;
+	} catch (IOException ioe) {
+	    log.error("cant read '"+resName+"'", ioe);
+	    return null;
+	} finally {
+	    try {
+		if (is != null)
+		    is.close();
+	    } catch (IOException ioe) {}
+	}
     }
 
     public static VersionInfo getInfoFromJar(String jarPathName) {
-        File f = new File(jarPathName);
-        if (!f.exists()) {
-            log.warn("file '"+jarPathName+"' for version info not found");
+	File f = new File(jarPathName);
+	if (!f.exists()) {
+	    log.warn("file '"+jarPathName+"' for version info not found");
 //            return null;
-            // return new VersionInfo instead of null
-            return new VersionInfo();
-        }
-        JarFile jar = null;
-        try {
-            jar = new JarFile(f);
-            VersionInfo info = getInfoFromManifest(jar.getManifest());
-            info.setResourceName("jar: "+jarPathName);
-            if (info.getName() == null || info.getName().trim().length() == 0)
-                info.setName(f.getName());
-            return info;
-        } catch (IOException ioe) {
-            log.info("cant read '"+jarPathName+"'. probably not running a jar-build");
+	    // return new VersionInfo instead of null
+	    return new VersionInfo();
+	}
+	JarFile jar = null;
+	try {
+	    jar = new JarFile(f);
+	    VersionInfo info = getInfoFromManifest(jar.getManifest());
+	    info.setResourceName("jar: "+jarPathName);
+	    if (info.getName() == null || info.getName().trim().length() == 0)
+		info.setName(f.getName());
+	    return info;
+	} catch (IOException ioe) {
+	    log.info("cant read '"+jarPathName+"'. probably not running a jar-build");
 //          return new VersionInfo instead of null
-            return new VersionInfo();
-        } finally {
-            try {
-                if (jar != null)
-                    jar.close();
-            } catch (IOException ioe) {}
-        }
+	    return new VersionInfo();
+	} finally {
+	    try {
+		if (jar != null)
+		    jar.close();
+	    } catch (IOException ioe) {}
+	}
     }
 
     public static VersionInfo getInfoFromDirectory(String dirname) {
-        File f = new File(new File(dirname, "META-INF"), "MANIFEST.MF");
-        if (!f.exists()) {
-            log.info("file '"+f.getAbsolutePath()+"' for version info not found");
-            return null;
-        }
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(f);
-            VersionInfo info = getInfoFromManifest(new Manifest(fis));
-            info.setResourceName("Directory: "+dirname);
-            return info;
-        } catch (IOException ioe) {
-            log.error("cant read '"+f.getAbsolutePath()+"'", ioe);
-            return null;
-        } finally {
-            try {
-                if (fis != null)
-                    fis.close();
-            } catch (IOException ioe) {}
-        }
+	File f = new File(new File(dirname, "META-INF"), "MANIFEST.MF");
+	if (!f.exists()) {
+	    log.info("file '"+f.getAbsolutePath()+"' for version info not found");
+	    return null;
+	}
+	FileInputStream fis = null;
+	try {
+	    fis = new FileInputStream(f);
+	    VersionInfo info = getInfoFromManifest(new Manifest(fis));
+	    info.setResourceName("Directory: "+dirname);
+	    return info;
+	} catch (IOException ioe) {
+	    log.error("cant read '"+f.getAbsolutePath()+"'", ioe);
+	    return null;
+	} finally {
+	    try {
+		if (fis != null)
+		    fis.close();
+	    } catch (IOException ioe) {}
+	}
     }
 
     public static VersionInfo getInfoFromManifest(Manifest manifest) {
-        Attributes att = manifest.getMainAttributes();
-        VersionInfo info = new VersionInfo();
+	Attributes att = manifest.getMainAttributes();
+	VersionInfo info = new VersionInfo();
 
-        // use standard attributes as defaiult
-        info.setName(specImplConcat(att.getValue("Specification-Title"), att.getValue("Implementation-Title")));
-        info.setVersion(specImplConcat(att.getValue("Specification-Version"), att.getValue("Implementation-Version")));
-        info.setVendor(specImplConcat(att.getValue("Specification-Vendor"), att.getValue("Implementation-Vendor")));
-        info.setBuildInfo(att.getValue("Implementation-Build"));
+	// use standard attributes as defaiult
+	info.setName(specImplConcat(att.getValue("Specification-Title"), att.getValue("Implementation-Title")));
+	info.setVersion(specImplConcat(att.getValue("Specification-Version"), att.getValue("Implementation-Version")));
+	info.setVendor(specImplConcat(att.getValue("Specification-Vendor"), att.getValue("Implementation-Vendor")));
+	info.setBuildInfo(att.getValue("Implementation-Build"));
 
-        if (att.getValue(VERSION_NAME) != null)
-            info.setName(att.getValue(VERSION_NAME));
-        if (att.getValue(VERSION_DESCRIPTION) != null)
-            info.setDescription(att.getValue(VERSION_DESCRIPTION));
-        if (att.getValue(VERSION_COPYRIGHT) != null)
-            info.setCopyright(att.getValue(VERSION_COPYRIGHT));
-        if (att.getValue(VERSION_VERSION) != null)
-            info.setVersion(att.getValue(VERSION_VERSION));
-        if (att.getValue(VERSION_BUILD_INFO) != null)
-            info.setBuildInfo(att.getValue(VERSION_BUILD_INFO));
-        if (att.getValue(VERSION_VENDOR) != null)
-            info.setVendor(att.getValue(VERSION_VENDOR));
-        if (att.getValue(BuildID) != null)
-        	info.setBuildID(att.getValue(BuildID));
-        return info;
+	if (att.getValue(VERSION_NAME) != null)
+	    info.setName(att.getValue(VERSION_NAME));
+	if (att.getValue(VERSION_DESCRIPTION) != null)
+	    info.setDescription(att.getValue(VERSION_DESCRIPTION));
+	if (att.getValue(VERSION_COPYRIGHT) != null)
+	    info.setCopyright(att.getValue(VERSION_COPYRIGHT));
+	if (att.getValue(VERSION_VERSION) != null)
+	    info.setVersion(att.getValue(VERSION_VERSION));
+	if (att.getValue(VERSION_BUILD_INFO) != null)
+	    info.setBuildInfo(att.getValue(VERSION_BUILD_INFO));
+	if (att.getValue(VERSION_VENDOR) != null)
+	    info.setVendor(att.getValue(VERSION_VENDOR));
+	if (att.getValue(BuildID) != null)
+		info.setBuildID(att.getValue(BuildID));
+	return info;
     }
 
     static String specImplConcat(String specText, String implText) {
-        if ( (implText == null || implText.trim().length() == 0)
-             && specText != null)
-            return "Specification: "+specText;
-        return implText;
+	if ( (implText == null || implText.trim().length() == 0)
+	     && specText != null)
+	    return "Specification: "+specText;
+	return implText;
     }
 }

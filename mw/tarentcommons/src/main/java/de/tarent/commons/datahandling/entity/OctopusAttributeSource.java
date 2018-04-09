@@ -45,24 +45,24 @@ public class OctopusAttributeSource implements AttributeSource {
     List attributeNames;
 
     public OctopusAttributeSource(OctopusContext oct){
-    	this.oct=oct;
+	this.oct=oct;
     }
 
     public OctopusAttributeSource(OctopusContext oct, List attributeNames){
-    	this.oct=oct;
-    	this.attributeNames=attributeNames;
+	this.oct=oct;
+	this.attributeNames=attributeNames;
     }
 
     public OctopusAttributeSource(OctopusContext oct, String attributeName){
-    	this.oct=oct;
-    	addAttributeName(attributeName);
+	this.oct=oct;
+	addAttributeName(attributeName);
     }
 
     public OctopusAttributeSource addAttributeName(String attributeName){
-    	if(attributeNames==null)
-    		attributeNames = new LinkedList();
-    	attributeNames.add(attributeName);
-    	return this;
+	if(attributeNames==null)
+		attributeNames = new LinkedList();
+	attributeNames.add(attributeName);
+	return this;
     }
 
 	/* (non-Javadoc)
@@ -87,12 +87,12 @@ public class OctopusAttributeSource implements AttributeSource {
 	public List getAttributeNames() {
 		if(attributeNames==null){
 			Set params = oct.getRequestObject().getRequestParameters().keySet();
-	        Iterator iter = params.iterator();
-	        int count = params.size();
-	        attributeNames = new ArrayList(count);
-	        while (iter.hasNext()){
-	            attributeNames.add(iter.next());
-	        }
+		Iterator iter = params.iterator();
+		int count = params.size();
+		attributeNames = new ArrayList(count);
+		while (iter.hasNext()){
+		    attributeNames.add(iter.next());
+		}
 		}
 		return attributeNames;
 	}

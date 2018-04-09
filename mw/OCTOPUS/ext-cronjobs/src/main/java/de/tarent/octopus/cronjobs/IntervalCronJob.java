@@ -56,9 +56,9 @@ public class IntervalCronJob extends CronJob
      */
     public IntervalCronJob(Cron cron, int intervalMinutes)
     {
-    	super(cron);
-        this.intervalMinutes = intervalMinutes;
-        //setLastRun(new Date());
+	super(cron);
+	this.intervalMinutes = intervalMinutes;
+	//setLastRun(new Date());
     }
 
     /**
@@ -66,17 +66,17 @@ public class IntervalCronJob extends CronJob
      */
     public int getType()
     {
-        return Cron.INTERVAL_CRONJOB;
+	return Cron.INTERVAL_CRONJOB;
     }
 
     public int getIntervalMinutes()
     {
-        return intervalMinutes;
+	return intervalMinutes;
     }
 
     public void setIntervalMinutes(int intervalMinutes)
     {
-        this.intervalMinutes = intervalMinutes;
+	this.intervalMinutes = intervalMinutes;
     }
 
     /**
@@ -86,13 +86,13 @@ public class IntervalCronJob extends CronJob
      */
 
     public Map getCronJobMap(){
-        Map cronJobMap = super.getCronJobMap();
-        Map properties = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
+	Map cronJobMap = super.getCronJobMap();
+	Map properties = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
 
-        properties.put(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL, new Integer(getIntervalMinutes()));
-        cronJobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
+	properties.put(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL, new Integer(getIntervalMinutes()));
+	cronJobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
 
-        return cronJobMap;
+	return cronJobMap;
     }
 
 }

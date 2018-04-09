@@ -69,15 +69,15 @@ public class MenuBar extends JMenuBar implements ActionContainer {
     private static final String PRIORITY_KEY = "menuBar.items.priority.key";
 
     public MenuBar( String uniqueName, ResourceBundle resourceBundle ) {
-        this.uniqueName = uniqueName;
-        this.resourceBundle = resourceBundle;
+	this.uniqueName = uniqueName;
+	this.resourceBundle = resourceBundle;
     }
 
     /**
      * Returns container's unique name.
      */
     public String getContainerUniqueName() {
-        return uniqueName;
+	return uniqueName;
     }
 
     /**
@@ -87,43 +87,43 @@ public class MenuBar extends JMenuBar implements ActionContainer {
      * @param menuPath The path and rules to attach, as described above
      */
     public void attachGUIAction( Action action, String menuPath ) {
-        JMenuItem item;
-        String actionType = (String) action.getValue( AbstractGUIAction.PROP_KEY_ACTION_TYPE );
+	JMenuItem item;
+	String actionType = (String) action.getValue( AbstractGUIAction.PROP_KEY_ACTION_TYPE );
 
-        if ( AbstractGUIAction.TYPE_CHECK.equals( actionType ) ) {
-            item = new JCheckBoxMenuItem( action );
-            // Adds the checkbox to the list of elements whose selection state
-            // can be set through AbstractGUIAction.setSelected(boolean)
-            MenuHelper.addSynchronizationComponent( action, (JCheckBoxMenuItem) item );
+	if ( AbstractGUIAction.TYPE_CHECK.equals( actionType ) ) {
+	    item = new JCheckBoxMenuItem( action );
+	    // Adds the checkbox to the list of elements whose selection state
+	    // can be set through AbstractGUIAction.setSelected(boolean)
+	    MenuHelper.addSynchronizationComponent( action, (JCheckBoxMenuItem) item );
 
-        }
-        else if ( AbstractGUIAction.TYPE_CHOISE.equals( actionType ) ) {
-            item = new JRadioButtonMenuItem( action );
+	}
+	else if ( AbstractGUIAction.TYPE_CHOISE.equals( actionType ) ) {
+	    item = new JRadioButtonMenuItem( action );
 
-        }
-        else if ( AbstractGUIAction.TYPE_SEPARATOR.equals( actionType ) ) {
-            addSeparator( menuPath );
-            return;//READY
+	}
+	else if ( AbstractGUIAction.TYPE_SEPARATOR.equals( actionType ) ) {
+	    addSeparator( menuPath );
+	    return;//READY
 
-        }
-        else {
-            item = new JMenuItem( action );
-        }
-        // set component name (for later ecxeption handling)
-        item.setName( (String) action.getValue( AbstractGUIAction.NAME ) );
-        addItem( item, menuPath, MenuHelper.isWithFrontSeparator( action ), MenuHelper.isWithBackSeparator( action ) );
+	}
+	else {
+	    item = new JMenuItem( action );
+	}
+	// set component name (for later ecxeption handling)
+	item.setName( (String) action.getValue( AbstractGUIAction.NAME ) );
+	addItem( item, menuPath, MenuHelper.isWithFrontSeparator( action ), MenuHelper.isWithBackSeparator( action ) );
     }
 
     private void addSeparator( String menuPath ) {
-        getAssignedMenu( menuPath ).addSeparator();
+	getAssignedMenu( menuPath ).addSeparator();
     }
 
     public void removeGUIAction( Action action ) {
-        logger.warning( "optional, not implemented method yet: removeGUIAction" );
+	logger.warning( "optional, not implemented method yet: removeGUIAction" );
     }
 
     public void initActions() {
-    	Iterator mbIt = ActionRegistry.getInstance().getActions(getContainerUniqueName()).iterator();
+	Iterator mbIt = ActionRegistry.getInstance().getActions(getContainerUniqueName()).iterator();
 
 		while(mbIt.hasNext())
 		{
@@ -138,116 +138,116 @@ public class MenuBar extends JMenuBar implements ActionContainer {
      * @param withBackSeparator
      */
     public void addItem( JMenuItem item, String menuPath, boolean withFrontSeparator, boolean withBackSeparator ) {
-        JMenu currentMenu = getAssignedMenu( menuPath );
+	JMenu currentMenu = getAssignedMenu( menuPath );
 
-        int priority = MenuHelper.getAssignedPriority( removeMainMenuPriority(menuPath) );
+	int priority = MenuHelper.getAssignedPriority( removeMainMenuPriority(menuPath) );
 
-        item.getAction().putValue( PRIORITY_KEY, new Integer( priority ) );
+	item.getAction().putValue( PRIORITY_KEY, new Integer( priority ) );
 
-        int pos = MenuHelper.getInsertPosition( currentMenu.getMenuComponents(), PRIORITY_KEY, new Integer( priority ) );
-        if ( withFrontSeparator )
-            currentMenu.add( new JSeparator(), pos++ );
+	int pos = MenuHelper.getInsertPosition( currentMenu.getMenuComponents(), PRIORITY_KEY, new Integer( priority ) );
+	if ( withFrontSeparator )
+	    currentMenu.add( new JSeparator(), pos++ );
 
-        logger.fine( "[menuBar]: " + item.getAction() + ": pos=" + String.valueOf( pos ) + " path=" + menuPath );
-        currentMenu.add( item, pos++ );
+	logger.fine( "[menuBar]: " + item.getAction() + ": pos=" + String.valueOf( pos ) + " path=" + menuPath );
+	currentMenu.add( item, pos++ );
 
-        if ( withBackSeparator )
-            currentMenu.add( new JSeparator(), pos );
+	if ( withBackSeparator )
+	    currentMenu.add( new JSeparator(), pos );
     }
 
     private JMenu getAssignedMenu( String menuPath ) {
-        String menuName;
-        JMenu parentMenu = null;
-        JMenu currentMenu = null;
-        String[] menuSteps = getMenuSteps( removeMainMenuPriority(menuPath) );
+	String menuName;
+	JMenu parentMenu = null;
+	JMenu currentMenu = null;
+	String[] menuSteps = getMenuSteps( removeMainMenuPriority(menuPath) );
 
-        for ( int i = 0; i < menuSteps.length; i++ ) {
-            menuName = menuSteps[i];
+	for ( int i = 0; i < menuSteps.length; i++ ) {
+	    menuName = menuSteps[i];
 
-            currentMenu = (JMenu) menus.get( menuName );
+	    currentMenu = (JMenu) menus.get( menuName );
 
-            if ( null == currentMenu ) {
-                currentMenu = new JMenu( menuName );
+	    if ( null == currentMenu ) {
+		currentMenu = new JMenu( menuName );
 
-                setMnemonicKey( menuName, currentMenu );
-                MenuHelper.checkMenuNameForSpaces( currentMenu );
-                menus.put( menuName, currentMenu );
+		setMnemonicKey( menuName, currentMenu );
+		MenuHelper.checkMenuNameForSpaces( currentMenu );
+		menus.put( menuName, currentMenu );
 
-                int priority = MenuHelper.getAssignedMainMenuPriority(menuPath);
+		int priority = MenuHelper.getAssignedMainMenuPriority(menuPath);
 
-                if ( null != parentMenu ) {
-                	if(priority != -1 && priority < getMenuCount())
-                		parentMenu.add( currentMenu, priority );
-                	else
-                		parentMenu.add( currentMenu );
-                }
-                else {
-                	if(priority != -1 && priority < getMenuCount())
-                		add( currentMenu, priority );
-                	else
-                		add( currentMenu );
-                }
-            }
-            parentMenu = currentMenu;
-        }
-        return currentMenu;
+		if ( null != parentMenu ) {
+			if(priority != -1 && priority < getMenuCount())
+				parentMenu.add( currentMenu, priority );
+			else
+				parentMenu.add( currentMenu );
+		}
+		else {
+			if(priority != -1 && priority < getMenuCount())
+				add( currentMenu, priority );
+			else
+				add( currentMenu );
+		}
+	    }
+	    parentMenu = currentMenu;
+	}
+	return currentMenu;
     }
 
     private String[] getMenuSteps( String menuPath ) {
-        String[] menuSteps;
-        if ( null == menuPath || "".equals( menuPath ) ) {
-            menuSteps = new String[] { DEFAULT_MENU };
-        }
-        else {
-            String[] menuPathParts = menuPath.split( ":" );
-            menuSteps = menuPathParts[0].split( "/" );
-        }
-        return menuSteps;
+	String[] menuSteps;
+	if ( null == menuPath || "".equals( menuPath ) ) {
+	    menuSteps = new String[] { DEFAULT_MENU };
+	}
+	else {
+	    String[] menuPathParts = menuPath.split( ":" );
+	    menuSteps = menuPathParts[0].split( "/" );
+	}
+	return menuSteps;
     }
 
     private String removeMainMenuPriority(String menuPath)
     {
-    	String[] menuPathParts = null;
-    	if(menuPath != null)
-    		menuPathParts = menuPath.split(":");
-    	else
-    		return null;
+	String[] menuPathParts = null;
+	if(menuPath != null)
+		menuPathParts = menuPath.split(":");
+	else
+		return null;
 
-    	// check if the menuPath starts with a digit
-    	if(menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0)))
-    	{
-    		// this menuPath contains a priority-value for the main-menu. remove it
-    		return menuPath.substring(menuPath.indexOf(':')+1);
-    	}
+	// check if the menuPath starts with a digit
+	if(menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0)))
+	{
+		// this menuPath contains a priority-value for the main-menu. remove it
+		return menuPath.substring(menuPath.indexOf(':')+1);
+	}
 
-    	// does not contain a priority-value for the main-menu. return without change
-    	return menuPath;
+	// does not contain a priority-value for the main-menu. return without change
+	return menuPath;
     }
 
     private void setMnemonicKey( String menuName, JMenu currentMenu ) {
-        try {
-            String key = resourceBundle.getString( menuName );
+	try {
+	    String key = resourceBundle.getString( menuName );
 
-            if ( null != key ) {
-                int mnemonic = ActionRegistry.getKeyEventID( key );
-                if ( mnemonic != -1 ) {
-                    currentMenu.setMnemonic( mnemonic );
+	    if ( null != key ) {
+		int mnemonic = ActionRegistry.getKeyEventID( key );
+		if ( mnemonic != -1 ) {
+		    currentMenu.setMnemonic( mnemonic );
 
-                    return;
-                }
-            }
-            logger.warning( "[!] couldn't get mnemonic key for '" + menuName + "' menu" );
+		    return;
+		}
+	    }
+	    logger.warning( "[!] couldn't get mnemonic key for '" + menuName + "' menu" );
 
-        }
-        catch ( MissingResourceException e ) {
-            String bundleSuffix = "";
-            if ( !"".equals( resourceBundle.getLocale().getLanguage() ) ) {
-                bundleSuffix += "_" + resourceBundle.getLocale().getLanguage();
-            }
-            if ( !"".equals( resourceBundle.getLocale().getCountry() ) ) {
-                bundleSuffix += "_" + resourceBundle.getLocale().getCountry();
-            }
-            logger.info( "[MenuBar]: no mnemonic key found for '" + menuName + "' in Resource Bundle");
-        }
+	}
+	catch ( MissingResourceException e ) {
+	    String bundleSuffix = "";
+	    if ( !"".equals( resourceBundle.getLocale().getLanguage() ) ) {
+		bundleSuffix += "_" + resourceBundle.getLocale().getLanguage();
+	    }
+	    if ( !"".equals( resourceBundle.getLocale().getCountry() ) ) {
+		bundleSuffix += "_" + resourceBundle.getLocale().getCountry();
+	    }
+	    logger.info( "[MenuBar]: no mnemonic key found for '" + menuName + "' in Resource Bundle");
+	}
     }
 }

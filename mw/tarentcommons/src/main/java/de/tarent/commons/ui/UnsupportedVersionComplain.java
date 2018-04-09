@@ -47,24 +47,24 @@ public class UnsupportedVersionComplain {
 
       // Construction of the warning dialog.
       FormLayout l = new FormLayout("3dlu, 10dlu, 6dlu, pref:grow, 3dlu, pref:grow, 6dlu, 10dlu, 3dlu",
-                                    "3dlu, pref, 12dlu, pref, 3dlu, pref, 3dlu, pref, 3dlu, pref, 12dlu, pref, 12dlu, pref, 3dlu, pref, 3dlu");
+				    "3dlu, pref, 12dlu, pref, 3dlu, pref, 3dlu, pref, 3dlu, pref, 12dlu, pref, 12dlu, pref, 3dlu, pref, 3dlu");
 
       final JFrame frame = new JFrame(Messages.getString("UnsupportedVersionComplain_Title"));
 
       frame.addWindowListener(new WindowAdapter() {
 
-    	  public void windowClosing(WindowEvent arg0) {
+	  public void windowClosing(WindowEvent arg0) {
 
-    		  // Makes frame invisible and stores the result.
-    		  super.windowClosing(arg0);
-    		  result[0] = false;
+		  // Makes frame invisible and stores the result.
+		  super.windowClosing(arg0);
+		  result[0] = false;
 
-    		  // Re-awakens the main thread.
-    		  synchronized (monitor)
-    		  {
-    			  monitor.notifyAll();
-    		  }
-    	  }
+		  // Re-awakens the main thread.
+		  synchronized (monitor)
+		  {
+			  monitor.notifyAll();
+		  }
+	  }
       });
 
       Container cp = frame.getContentPane();
@@ -92,18 +92,18 @@ public class UnsupportedVersionComplain {
       JButton yesButton = new JButton(Messages.getString("UnsupportedVersionComplain_Yes"));
       yesButton.addActionListener(new ActionListener()
       {
-    	  public void actionPerformed(ActionEvent ae)
-    	  {
-    		  // Makes frame invisible and stores the result.
-    		  frame.setVisible(false);
-    		  result[0] = true;
+	  public void actionPerformed(ActionEvent ae)
+	  {
+		  // Makes frame invisible and stores the result.
+		  frame.setVisible(false);
+		  result[0] = true;
 
-    		  // Re-awakens the main thread.
-    		  synchronized (monitor)
-    		  {
-    			  monitor.notifyAll();
-    		  }
-    	  }
+		  // Re-awakens the main thread.
+		  synchronized (monitor)
+		  {
+			  monitor.notifyAll();
+		  }
+	  }
       });
 
       frame.getRootPane().setDefaultButton(yesButton);
@@ -111,18 +111,18 @@ public class UnsupportedVersionComplain {
       JButton noButton = new JButton(Messages.getString("UnsupportedVersionComplain_No"));
       noButton.addActionListener(new ActionListener()
       {
-    	  public void actionPerformed(ActionEvent ae)
-    	  {
-    		  // Makes frame invisible and stores the result.
-    		  frame.setVisible(false);
-    		  result[0] = false;
+	  public void actionPerformed(ActionEvent ae)
+	  {
+		  // Makes frame invisible and stores the result.
+		  frame.setVisible(false);
+		  result[0] = false;
 
-    		  // Re-awakens the main thread.
-    		  synchronized (monitor)
-    		  {
-    			  monitor.notifyAll();
-    		  }
-    	  }
+		  // Re-awakens the main thread.
+		  synchronized (monitor)
+		  {
+			  monitor.notifyAll();
+		  }
+	  }
       });
 
       // Buttons resemble the layout of a JOptionPane dialog: They have the same width and
@@ -140,12 +140,12 @@ public class UnsupportedVersionComplain {
 
       // Sleeps until awakened by action events on the buttons.
       try {
-    	  synchronized (monitor) {
-    	    monitor.wait();
-    	  }
+	  synchronized (monitor) {
+	    monitor.wait();
+	  }
       } catch (InterruptedException e)
       {
-        // Expected (caused by monitor.notifyAll() ).
+	// Expected (caused by monitor.notifyAll() ).
       }
 
       frame.dispose();

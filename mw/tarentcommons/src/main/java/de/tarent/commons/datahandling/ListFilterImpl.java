@@ -56,70 +56,70 @@ public class ListFilterImpl implements ListFilter {
      * @return Returns this.
      */
     public ListFilterImpl init(OctopusContext cntx, String prefix) {
-        if (cntx.requestAsString(prefix + "."+PARAM_RESET) != null && !"".equals(cntx.requestAsString(prefix + "."+PARAM_RESET)))
-            resetSession(cntx, prefix);
+	if (cntx.requestAsString(prefix + "."+PARAM_RESET) != null && !"".equals(cntx.requestAsString(prefix + "."+PARAM_RESET)))
+	    resetSession(cntx, prefix);
 
-        if (cntx.requestAsString(prefix + "."+PARAM_RESET_FILTER) != null && !"".equals(cntx.requestAsString(prefix + "."+PARAM_RESET_FILTER)))
-            resetFilter(cntx, prefix);
+	if (cntx.requestAsString(prefix + "."+PARAM_RESET_FILTER) != null && !"".equals(cntx.requestAsString(prefix + "."+PARAM_RESET_FILTER)))
+	    resetFilter(cntx, prefix);
 
-        setStart(getOctopusInt(cntx, prefix + "."+PARAM_START, getStart()));
-        setLimit(getOctopusInt(cntx, prefix + "."+PARAM_LIMIT, getLimit()));
-        setSortField(getOctopusString(cntx, prefix + "."+PARAM_SORT_FIELD, getSortField()));
-        setSortDirection(getOctopusString(cntx, prefix + "."+PARAM_SORT_DIRECTION, getSortDirection()));
-        setUseLimit(true);
+	setStart(getOctopusInt(cntx, prefix + "."+PARAM_START, getStart()));
+	setLimit(getOctopusInt(cntx, prefix + "."+PARAM_LIMIT, getLimit()));
+	setSortField(getOctopusString(cntx, prefix + "."+PARAM_SORT_FIELD, getSortField()));
+	setSortDirection(getOctopusString(cntx, prefix + "."+PARAM_SORT_DIRECTION, getSortDirection()));
+	setUseLimit(true);
 
-        requestFilterList = (List)cntx.requestAsObject(prefix + "."+PARAM_FILTER_LIST);
+	requestFilterList = (List)cntx.requestAsObject(prefix + "."+PARAM_FILTER_LIST);
 
-        if (possibleAndFilterParams != null) {
-            for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
-                FilterParam param = (FilterParam)iter.next();
-                String key = prefix+"."+param.columnName;
-                Object filterValue = cntx.getContextField(key);
-                if (filterValue == null)
-                    filterValue = cntx.sessionAsObject(key);
+	if (possibleAndFilterParams != null) {
+	    for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
+		FilterParam param = (FilterParam)iter.next();
+		String key = prefix+"."+param.columnName;
+		Object filterValue = cntx.getContextField(key);
+		if (filterValue == null)
+		    filterValue = cntx.sessionAsObject(key);
 
-                if (filterValue instanceof String && ((String)filterValue).trim().length() == 0)
-                    param.value = null;
-                else
-                    if(filterValue != null)
-                        param.value = filterValue;
+		if (filterValue instanceof String && ((String)filterValue).trim().length() == 0)
+		    param.value = null;
+		else
+		    if(filterValue != null)
+			param.value = filterValue;
 
-                cntx.setSession(key, param.value);
-            }
-        }
-        cntx.setContent(prefix, this);
+		cntx.setSession(key, param.value);
+	    }
+	}
+	cntx.setContent(prefix, this);
 
-        return this;
+	return this;
     }
 
     /**
      * Reset all Values in the session
      */
     public void resetSession(OctopusContext cntx, String prefix) {
-        cntx.setSession(prefix + "."+PARAM_START, null);
-        // we should not reset the limit
-        cntx.setSession(prefix + "."+PARAM_SORT_FIELD, null);
-        cntx.setSession(prefix + "."+PARAM_SORT_DIRECTION, null);
-        resetFilter(cntx, prefix);
+	cntx.setSession(prefix + "."+PARAM_START, null);
+	// we should not reset the limit
+	cntx.setSession(prefix + "."+PARAM_SORT_FIELD, null);
+	cntx.setSession(prefix + "."+PARAM_SORT_DIRECTION, null);
+	resetFilter(cntx, prefix);
     }
 
     /**
      * Reset all filter Values in the session
      */
     public void resetFilter(OctopusContext cntx, String prefix) {
-        if (possibleAndFilterParams != null) {
-            for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
-                FilterParam param = (FilterParam)iter.next();
-                String key = prefix+"."+param.columnName;
+	if (possibleAndFilterParams != null) {
+	    for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
+		FilterParam param = (FilterParam)iter.next();
+		String key = prefix+"."+param.columnName;
 
-                cntx.setSession(key, null);
-            }
-        }
+		cntx.setSession(key, null);
+	    }
+	}
     }
 
     protected int getOctopusInt(OctopusContext cntx, String key, int defaultValue) {
 		String s = cntx.requestAsString(key);
-        Integer result = null;
+	Integer result = null;
 		if (s != null && s.length() != 0) {
 			try {
 				result = new Integer(s);
@@ -141,7 +141,7 @@ public class ListFilterImpl implements ListFilter {
 		if (result == null)
 			result = cntx.sessionAsString(key);
 
-        if (result == null || result.trim().length() == 0)
+	if (result == null || result.trim().length() == 0)
 			result = defaultValue;
 		cntx.setSession(key, result);
 
@@ -152,7 +152,7 @@ public class ListFilterImpl implements ListFilter {
      * Returns the column for sorting of the list
      */
     public String getSortField() {
-        return sortField;
+	return sortField;
     }
 
     /**
@@ -163,75 +163,75 @@ public class ListFilterImpl implements ListFilter {
      * @param sortField
      */
     public void setSortField(String sortField) {
-        this.sortField = sortField;
+	this.sortField = sortField;
     }
 
     /**
      * Returns the sort direction. This may be one of the constants DIRECTION_ASC, DIRECTION_DESC.
      */
     public String getSortDirection() {
-        return sortDirection;
+	return sortDirection;
     }
 
     public void setSortDirection(String sortDirection) {
-        if (DIRECTION_DESC.equalsIgnoreCase(sortDirection))
-            this.sortDirection = DIRECTION_DESC;
-        else
-            this.sortDirection = DIRECTION_ASC;
+	if (DIRECTION_DESC.equalsIgnoreCase(sortDirection))
+	    this.sortDirection = DIRECTION_DESC;
+	else
+	    this.sortDirection = DIRECTION_ASC;
     }
 
     /**
      * Returns the total count of records in the list.
      */
     public int getCount() {
-        return count;
+	return count;
     }
 
     public void setCount(int count) {
-        this.count = count;
+	this.count = count;
     }
 
     /**
      * Returns the start position. (Beginning at 0)
      */
     public int getStart() {
-    	/**
-    	 * this solution "return Math.min(start, getLastPageStart());" considered the special case
-    	 * of a web application that needs full pages of data. So instead of the given offset the
-    	 * offset of the current page was used.
-    	 * This should be considered when setting the offset instead of cerrecting it in the database
-    	 * layer.
-    	 */
-    	return start;
+	/**
+	 * this solution "return Math.min(start, getLastPageStart());" considered the special case
+	 * of a web application that needs full pages of data. So instead of the given offset the
+	 * offset of the current page was used.
+	 * This should be considered when setting the offset instead of cerrecting it in the database
+	 * layer.
+	 */
+	return start;
     }
 
     public void setStart(int start) {
-        this.start = start;
+	this.start = start;
     }
 
     /**
      * Returns the count of records to return, beginning at position start.
      */
     public int getLimit() {
-        return limit;
+	return limit;
     }
 
     public void setLimit(int limit) {
-        this.limit = limit;
+	this.limit = limit;
     }
 
     /**
      * Returns the count of pages for the total list, based on the values for limit and count.
      */
     public int getPages() {
-        return  count / limit + (count % limit == 0 ? 0 : 1);
+	return  count / limit + (count % limit == 0 ? 0 : 1);
     }
 
     /**
      * Returns the current page number.
      */
     public int getPage() {
-        return  start / limit + 1;
+	return  start / limit + 1;
     }
 
     /**
@@ -239,102 +239,102 @@ public class ListFilterImpl implements ListFilter {
      */
     public int getPreviousPageStart() {
 		int prev = start - limit;
-        if (prev < 0)
-            return 0;
-        return prev;
+	if (prev < 0)
+	    return 0;
+	return prev;
     }
 
     /**
      * Returns the start position of the next page, based on the values for start, limit and count.
      */
     public int getNextPageStart() {
-        int next = start + limit;
-        if (next > getLastPageStart())
-            return getLastPageStart();
-        return next;
+	int next = start + limit;
+	if (next > getLastPageStart())
+	    return getLastPageStart();
+	return next;
     }
 
     /**
      * Returns the start position of the last page, based on the values for start, limit and count.
      */
     public int getLastPageStart() {
-        return count - (count % limit) - (count != 0 && count % limit  == 0 ? limit : 0);
+	return count - (count % limit) - (count != 0 && count % limit  == 0 ? limit : 0);
     }
 
     public boolean useLimit() {
-        return useLimit;
+	return useLimit;
     }
 
     public void setUseLimit(boolean newUseLimit) {
-        this.useLimit = newUseLimit;
+	this.useLimit = newUseLimit;
     }
 
     public void addFilter(String columnName, ListFilterOperator relation) {
-        // TODO: It would be more clean to store the ListFilterOperator directly
-        addFilterParam(new FilterParam(columnName, relation.toString()));
+	// TODO: It would be more clean to store the ListFilterOperator directly
+	addFilterParam(new FilterParam(columnName, relation.toString()));
     }
 
     public void addFilter(String columnName, String relation) {
-        addFilterParam(new FilterParam(columnName, relation));
+	addFilterParam(new FilterParam(columnName, relation));
     }
 
     public void addFilter(String columnName, ListFilterOperator relation, Object defaultValue) {
-        addFilterParam(new FilterParam(columnName, relation.toString(), defaultValue));
+	addFilterParam(new FilterParam(columnName, relation.toString(), defaultValue));
     }
 
     public void addFilter(String columnName, String relation, Object defaultValue) {
-        addFilterParam(new FilterParam(columnName, relation, defaultValue));
+	addFilterParam(new FilterParam(columnName, relation, defaultValue));
     }
 
     public void setFilterValue(String columnName, Object value) {
-        if (possibleAndFilterParams == null)
-            return;
+	if (possibleAndFilterParams == null)
+	    return;
 
-        for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
-            FilterParam param = (FilterParam)iter.next();
-            if (param.columnName.equals(columnName))
-                param.value = value;
-        }
+	for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
+	    FilterParam param = (FilterParam)iter.next();
+	    if (param.columnName.equals(columnName))
+		param.value = value;
+	}
     }
 
     public Object getFilterValue(String columnName) {
-        if (possibleAndFilterParams == null)
-            return null;
+	if (possibleAndFilterParams == null)
+	    return null;
 
-        for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
-            FilterParam param = (FilterParam)iter.next();
-            if (param.columnName.equals(columnName))
-                return param.value;
-        }
-        return null;
+	for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
+	    FilterParam param = (FilterParam)iter.next();
+	    if (param.columnName.equals(columnName))
+		return param.value;
+	}
+	return null;
     }
 
     public void clearAllFilterValues(String columnName, Object value) {
-        if (possibleAndFilterParams == null)
-            return;
+	if (possibleAndFilterParams == null)
+	    return;
 
-        for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
-            FilterParam param = (FilterParam)iter.next();
-            param.value = null;
-        }
+	for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
+	    FilterParam param = (FilterParam)iter.next();
+	    param.value = null;
+	}
     }
 
     public void addFilterParam(FilterParam param) {
-        if (possibleAndFilterParams == null)
-            possibleAndFilterParams = new ArrayList();
-        possibleAndFilterParams.add(param);
+	if (possibleAndFilterParams == null)
+	    possibleAndFilterParams = new ArrayList();
+	possibleAndFilterParams.add(param);
     }
 
     /**
      * Checks wether all not optional paramters are set
      */
     public boolean isComplete() {
-        for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
-            FilterParam param = (FilterParam)iter.next();
-            if ( ! (param.optional || param.isSet()) )
-                 return false;
-        }
-        return true;
+	for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
+	    FilterParam param = (FilterParam)iter.next();
+	    if ( ! (param.optional || param.isSet()) )
+		 return false;
+	}
+	return true;
     }
 
     /**
@@ -343,58 +343,58 @@ public class ListFilterImpl implements ListFilter {
      * The operators are ListFilterOperator objects.
      */
     public List getFilterList() {
-        int stackCounter = 0;
-        LinkedList filterList = new LinkedList();
-        if (requestFilterList != null)
-            filterList.addAll(requestFilterList);
-        if (possibleAndFilterParams != null) {
-            for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
-                FilterParam param = (FilterParam)iter.next();
-                if (param.isSet()) {
-                    filterList.add(param.columnName);
-                    filterList.add(param.value);
-                    filterList.add(new ListFilterOperator(param.relation));
-                    stackCounter++;
-                }
-            }
-            while (--stackCounter > 0) {
-                filterList.add(ListFilterOperator.AND);
-            }
-        }
-        if (requestFilterList != null && requestFilterList.size() > 0
-            && possibleAndFilterParams != null && possibleAndFilterParams.size() > 0)
-            filterList.add(ListFilterOperator.AND);
+	int stackCounter = 0;
+	LinkedList filterList = new LinkedList();
+	if (requestFilterList != null)
+	    filterList.addAll(requestFilterList);
+	if (possibleAndFilterParams != null) {
+	    for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext();) {
+		FilterParam param = (FilterParam)iter.next();
+		if (param.isSet()) {
+		    filterList.add(param.columnName);
+		    filterList.add(param.value);
+		    filterList.add(new ListFilterOperator(param.relation));
+		    stackCounter++;
+		}
+	    }
+	    while (--stackCounter > 0) {
+		filterList.add(ListFilterOperator.AND);
+	    }
+	}
+	if (requestFilterList != null && requestFilterList.size() > 0
+	    && possibleAndFilterParams != null && possibleAndFilterParams.size() > 0)
+	    filterList.add(ListFilterOperator.AND);
 
-        return filterList;
+	return filterList;
     }
 
     public class FilterParam {
-        boolean optional = true;
-        String columnName;
-        String relation;
-        Object value;
+	boolean optional = true;
+	String columnName;
+	String relation;
+	Object value;
 
-        public FilterParam(String columnName, String relation) {
-            this.columnName = columnName;
-            this.relation = relation;
-        }
-        public FilterParam(String columnName, String relation, Object value) {
-            this.columnName = columnName;
-            this.relation = relation;
-            this.value = value;
-        }
+	public FilterParam(String columnName, String relation) {
+	    this.columnName = columnName;
+	    this.relation = relation;
+	}
+	public FilterParam(String columnName, String relation, Object value) {
+	    this.columnName = columnName;
+	    this.relation = relation;
+	    this.value = value;
+	}
 
-        public FilterParam(String columnName, String relation, boolean optional) {
-            this.columnName = columnName;
-            this.relation = relation;
-            this.optional = optional;
-        }
+	public FilterParam(String columnName, String relation, boolean optional) {
+	    this.columnName = columnName;
+	    this.relation = relation;
+	    this.optional = optional;
+	}
 
-        public boolean isSet() {
-            if (value instanceof String)
-                return ((String)value).trim().length() > 0;
-            return value != null;
-        }
+	public boolean isSet() {
+	    if (value instanceof String)
+		return ((String)value).trim().length() > 0;
+	    return value != null;
+	}
     }
 
 	public int getStartForPage(int page) {

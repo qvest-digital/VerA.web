@@ -62,7 +62,7 @@ public class QualityFeedbackAgentDetailDialog extends JDialog
      */
     public QualityFeedbackAgentDetailDialog(String pMessage)
     {
-        this(pMessage, null);
+	this(pMessage, null);
     }
 
     /**
@@ -74,69 +74,69 @@ public class QualityFeedbackAgentDetailDialog extends JDialog
 
     public QualityFeedbackAgentDetailDialog(String pMessage, Exception pException)
     {
-    	super();
-    	this.setModal(true);
-    	this.setTitle("Details");
-    	this.message = pMessage;
-    	if(pException != null)
-    	{
-    		this.message += "\r\n\nTechnical Information:\r\n"+pException.toString();
+	super();
+	this.setModal(true);
+	this.setTitle("Details");
+	this.message = pMessage;
+	if(pException != null)
+	{
+		this.message += "\r\n\nTechnical Information:\r\n"+pException.toString();
 
-    		StackTraceElement[] stackTrace = pException.getStackTrace();
-    		for(int i=0; i < stackTrace.length; i++)
-    		{
-    			this.message += "\r\n"+stackTrace[i].toString();
-    		}
-    	}
-    	initialize();
+		StackTraceElement[] stackTrace = pException.getStackTrace();
+		for(int i=0; i < stackTrace.length; i++)
+		{
+			this.message += "\r\n"+stackTrace[i].toString();
+		}
+	}
+	initialize();
     }
 
     private void initialize()
     {
-        this.setContentPane(getJContentPane());
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+	this.setContentPane(getJContentPane());
+	this.pack();
+	this.setLocationRelativeTo(null);
+	this.setVisible(true);
     }
 
     private JPanel getJContentPane()
     {
-        if (jContentPane == null)
-        {
-            jContentPane = new JPanel();
-            jContentPane.setLayout(new BorderLayout());
-            jContentPane.add(getCloseButton(), java.awt.BorderLayout.SOUTH);
+	if (jContentPane == null)
+	{
+	    jContentPane = new JPanel();
+	    jContentPane.setLayout(new BorderLayout());
+	    jContentPane.add(getCloseButton(), java.awt.BorderLayout.SOUTH);
 
-            JEditorPane pane = new JEditorPane();
-            pane.setContentType("text/plain");
-            pane.setEditorKit(JEditorPane.createEditorKitForContentType("text/plain"));
-            pane.setFocusable( false );
-            pane.setEditable(false);
-            pane.setText(message);
+	    JEditorPane pane = new JEditorPane();
+	    pane.setContentType("text/plain");
+	    pane.setEditorKit(JEditorPane.createEditorKitForContentType("text/plain"));
+	    pane.setFocusable( false );
+	    pane.setEditable(false);
+	    pane.setText(message);
 
-            JScrollPane scrollPane = new JScrollPane(pane);
+	    JScrollPane scrollPane = new JScrollPane(pane);
 
-            jContentPane.setPreferredSize(new Dimension(400, 300));
-            jContentPane.add(scrollPane, "Center");
-        }
-        return jContentPane;
+	    jContentPane.setPreferredSize(new Dimension(400, 300));
+	    jContentPane.add(scrollPane, "Center");
+	}
+	return jContentPane;
     }
 
     private JButton getCloseButton()
     {
-        if (closeButton == null)
-        {
-            closeButton = new JButton();
-            closeButton.setText("Close");
-            closeButton.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent e)
-                {
-                    QualityFeedbackAgentDetailDialog.this.setVisible(false);
-                    QualityFeedbackAgentDetailDialog.this.dispose();
-                }
-            });
-        }
-        return closeButton;
+	if (closeButton == null)
+	{
+	    closeButton = new JButton();
+	    closeButton.setText("Close");
+	    closeButton.addActionListener(new java.awt.event.ActionListener()
+	    {
+		public void actionPerformed(java.awt.event.ActionEvent e)
+		{
+		    QualityFeedbackAgentDetailDialog.this.setVisible(false);
+		    QualityFeedbackAgentDetailDialog.this.dispose();
+		}
+	    });
+	}
+	return closeButton;
     }
 }

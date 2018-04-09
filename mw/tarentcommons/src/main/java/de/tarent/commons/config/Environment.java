@@ -272,7 +272,7 @@ public final class Environment extends Base
 
   public boolean isUserOverridable()
   {
-  	return userOverridable;
+	return userOverridable;
   }
 
   void setUserOverridable(String value)
@@ -393,7 +393,7 @@ public final class Environment extends Base
       Key k = (Key) instances.get(label);
 
       if (k == null)
-        throw new KeyUnavailableException(label);
+	throw new KeyUnavailableException(label);
 
       return k;
     }

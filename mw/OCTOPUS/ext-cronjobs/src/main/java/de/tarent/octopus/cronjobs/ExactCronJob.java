@@ -95,13 +95,13 @@ public class ExactCronJob extends CronJob
      */
     public ExactCronJob(Cron cron, int hour, int minute, int month, int dayOfMonth, int dayOfWeek)
     {
-    	super(cron);
+	super(cron);
 
-        setHour(hour);
-        setMinute(minute);
-        setMonth(month);
-        setDayOfMonth(dayOfMonth);
-        setDayOfWeek(dayOfWeek);
+	setHour(hour);
+	setMinute(minute);
+	setMonth(month);
+	setDayOfMonth(dayOfMonth);
+	setDayOfWeek(dayOfWeek);
     }
 
     /**
@@ -113,7 +113,7 @@ public class ExactCronJob extends CronJob
      */
     public ExactCronJob(Cron cron, int hour, int minute)
     {
-        this(cron, hour, minute, -1, -1, -1);
+	this(cron, hour, minute, -1, -1, -1);
     }
 
     /**
@@ -121,57 +121,57 @@ public class ExactCronJob extends CronJob
      */
     public int getType()
     {
-        return Cron.EXACT_CRONJOB;
+	return Cron.EXACT_CRONJOB;
     }
 
     public int getDayOfMonth()
     {
-        return dayOfMonth;
+	return dayOfMonth;
     }
 
     public void setDayOfMonth(int dayOfMonth)
     {
-        this.dayOfMonth = dayOfMonth;
+	this.dayOfMonth = dayOfMonth;
     }
 
     public int getDayOfWeek()
     {
-        return dayOfWeek;
+	return dayOfWeek;
     }
 
     public void setDayOfWeek(int dayOfWeek)
     {
-        this.dayOfWeek = dayOfWeek;
+	this.dayOfWeek = dayOfWeek;
     }
 
     public int getHour()
     {
-        return hour;
+	return hour;
     }
 
     public void setHour(int hour)
     {
-        this.hour = hour;
+	this.hour = hour;
     }
 
     public int getMinute()
     {
-        return minute;
+	return minute;
     }
 
     public void setMinute(int minute)
     {
-        this.minute = minute;
+	this.minute = minute;
     }
 
     public int getMonth()
     {
-        return month;
+	return month;
     }
 
     public void setMonth(int month)
     {
-        this.month = month;
+	this.month = month;
     }
 
     /**
@@ -181,17 +181,17 @@ public class ExactCronJob extends CronJob
      */
 
     public Map getCronJobMap(){
-        Map cronJobMap = super.getCronJobMap();
-        Map properties = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
+	Map cronJobMap = super.getCronJobMap();
+	Map properties = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
 
-        properties.put(ExactCronJob.PROPERTIESMAP_KEY_HOUR, new Integer(getHour()));
-        properties.put(ExactCronJob.PROPERTIESMAP_KEY_MINUTE, new Integer(getMinute()));
-        properties.put(ExactCronJob.PROPERTIESMAP_KEY_MONTH, new Integer(getMonth()));
-        properties.put(ExactCronJob.PROPERTIESMAP_KEY_DAYOFWEEK, new Integer(getDayOfWeek()));
-        properties.put(ExactCronJob.PROPERTIESMAP_KEY_DAYOFMONTH, new Integer(getDayOfMonth()));
+	properties.put(ExactCronJob.PROPERTIESMAP_KEY_HOUR, new Integer(getHour()));
+	properties.put(ExactCronJob.PROPERTIESMAP_KEY_MINUTE, new Integer(getMinute()));
+	properties.put(ExactCronJob.PROPERTIESMAP_KEY_MONTH, new Integer(getMonth()));
+	properties.put(ExactCronJob.PROPERTIESMAP_KEY_DAYOFWEEK, new Integer(getDayOfWeek()));
+	properties.put(ExactCronJob.PROPERTIESMAP_KEY_DAYOFMONTH, new Integer(getDayOfMonth()));
 
-        cronJobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
+	cronJobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
 
-        return cronJobMap;
+	return cronJobMap;
     }
 }

@@ -57,9 +57,9 @@ public class TransactionContext implements ExecutionContext {
      * @param database die zu nutzende {@link Database}.
      */
     TransactionContext(Database database) {
-        super();
-        assert database != null;
-        this.database = database;
+	super();
+	assert database != null;
+	this.database = database;
     }
 
     /**
@@ -69,7 +69,7 @@ public class TransactionContext implements ExecutionContext {
      * @see de.tarent.dblayer.engine.DBContext#getPoolName()
      */
     public String getPoolName() {
-        return database.getPoolName();
+	return database.getPoolName();
     }
 
     /**
@@ -78,7 +78,7 @@ public class TransactionContext implements ExecutionContext {
      * @see de.tarent.dblayer.engine.DBContext#getPool()
      */
     public Pool getPool() {
-        return database.getPool();
+	return database.getPool();
     }
 
     /**
@@ -86,8 +86,8 @@ public class TransactionContext implements ExecutionContext {
      * einem RollBack.
      */
     protected void finalize() throws Throwable {
-        rollBack();
-        super.finalize();
+	rollBack();
+	super.finalize();
     }
 
     //
@@ -100,15 +100,15 @@ public class TransactionContext implements ExecutionContext {
      * @throws BeanException
      */
     public void execute(Statement sql) throws BeanException {
-        assert sql != null;
-        if (logger.isLoggable(Level.FINE))
-            logger.fine("Executing " + sql);
-        try {
-            ensureValidConnection();
-            connection.createStatement().execute(sql.statementToString());
-        } catch (SQLException e) {
-            throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
-        }
+	assert sql != null;
+	if (logger.isLoggable(Level.FINE))
+	    logger.fine("Executing " + sql);
+	try {
+	    ensureValidConnection();
+	    connection.createStatement().execute(sql.statementToString());
+	} catch (SQLException e) {
+	    throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
+	}
     }
 
     /**
@@ -121,15 +121,15 @@ public class TransactionContext implements ExecutionContext {
      * @throws BeanException
      */
     public ResultSet result(Select sql) throws BeanException {
-        assert sql != null;
-        if (logger.isLoggable(Level.FINE))
-            logger.fine("Executing " + sql);
-        try {
-            ensureValidConnection();
-            return connection.createStatement().executeQuery(sql.statementToString());
-        } catch (SQLException e) {
-            throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
-        }
+	assert sql != null;
+	if (logger.isLoggable(Level.FINE))
+	    logger.fine("Executing " + sql);
+	try {
+	    ensureValidConnection();
+	    return connection.createStatement().executeQuery(sql.statementToString());
+	} catch (SQLException e) {
+	    throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
+	}
     }
 
     /**
@@ -142,11 +142,11 @@ public class TransactionContext implements ExecutionContext {
      * @throws BeanException
      */
     public void close(ResultSet resultSet) throws BeanException {
-        try {
-            resultSet.close();
-        } catch (SQLException e) {
-            throw new BeanException("Error closing a ResultSet", e);
-        }
+	try {
+	    resultSet.close();
+	} catch (SQLException e) {
+	    throw new BeanException("Error closing a ResultSet", e);
+	}
     }
 
     /**
@@ -157,11 +157,11 @@ public class TransactionContext implements ExecutionContext {
      * @throws BeanException
      */
     public PreparedStatement prepare(Statement statement) throws BeanException {
-        try {
-            return connection.prepareStatement(statement.statementToString());
-        } catch (SQLException e) {
-            throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
-        }
+	try {
+	    return connection.prepareStatement(statement.statementToString());
+	} catch (SQLException e) {
+	    throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
+	}
     }
 
     /**
@@ -170,7 +170,7 @@ public class TransactionContext implements ExecutionContext {
      * @return zugehörige {@link Database}
      */
     public Database getDatabase() {
-        return database;
+	return database;
     }
 
     /**
@@ -180,11 +180,11 @@ public class TransactionContext implements ExecutionContext {
      * @throws BeanException
      */
     public void commit() throws BeanException {
-        try {
-            close(true);
-        } catch (SQLException e) {
-            throw new BeanException("Fehler beim Commit einer Transaktion", e);
-        }
+	try {
+	    close(true);
+	} catch (SQLException e) {
+	    throw new BeanException("Fehler beim Commit einer Transaktion", e);
+	}
     }
 
     /**
@@ -194,11 +194,11 @@ public class TransactionContext implements ExecutionContext {
      * @throws BeanException
      */
     public void rollBack() throws BeanException {
-        try {
-            close(false);
-        } catch (SQLException e) {
-            throw new BeanException("Fehler beim RollBack einer Transaktion", e);
-        }
+	try {
+	    close(false);
+	} catch (SQLException e) {
+	    throw new BeanException("Fehler beim RollBack einer Transaktion", e);
+	}
     }
 
     //
@@ -209,10 +209,10 @@ public class TransactionContext implements ExecutionContext {
      * Datenbankverbindung bereit liegt, deren AutoCommit deaktiviert ist.
      */
     void ensureValidConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            connection = DB.getConnection(database.getPoolName());
-            connection.setAutoCommit(false);
-        }
+	if (connection == null || connection.isClosed()) {
+	    connection = DB.getConnection(database.getPoolName());
+	    connection.setAutoCommit(false);
+	}
     }
 
     /**
@@ -220,8 +220,8 @@ public class TransactionContext implements ExecutionContext {
      * If no connection exists yet it will be created by ensureValidConnection().
      */
     public Connection getDefaultConnection() throws SQLException {
-        ensureValidConnection();
-        return connection;
+	ensureValidConnection();
+	return connection;
     }
 
     /**
@@ -233,24 +233,24 @@ public class TransactionContext implements ExecutionContext {
      * @throws SQLException
      */
     void close(boolean commit) throws SQLException {
-        if (connection == null)
-            return;
-        try {
-            if (commit)
-                connection.commit();
-            else
-                connection.rollback();
-        }
-        catch ( SQLException e )
-        {
-        	try {
-                connection.close();
-            } catch (SQLException e1) {
-                logger.log(Level.WARNING, "Fehler beim abschließenden Schließen einer Transaktionsverbindung", e);
-            }
-            connection = null;
-            throw e;
-        }
+	if (connection == null)
+	    return;
+	try {
+	    if (commit)
+		connection.commit();
+	    else
+		connection.rollback();
+	}
+	catch ( SQLException e )
+	{
+		try {
+		connection.close();
+	    } catch (SQLException e1) {
+		logger.log(Level.WARNING, "Fehler beim abschließenden Schließen einer Transaktionsverbindung", e);
+	    }
+	    connection = null;
+	    throw e;
+	}
     }
 
     //

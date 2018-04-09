@@ -51,11 +51,11 @@ public abstract class Config {
 
       if(vi != null)
       {
-    	  APPLICATION_CAPTION = vi.getName("contact-client");
+	  APPLICATION_CAPTION = vi.getName("contact-client");
 
-    	  APPLICATION_VERSION = vi.getVersion("n/a");
+	  APPLICATION_VERSION = vi.getVersion("n/a");
 
-    	  APPLICATION_BUILD = vi.getBuildID("development build");
+	  APPLICATION_BUILD = vi.getBuildID("development build");
       }
     }
 

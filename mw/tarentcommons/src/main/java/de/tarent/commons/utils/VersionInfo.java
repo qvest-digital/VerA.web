@@ -48,59 +48,59 @@ public class VersionInfo {
     String buildID;
 
     public String getResourceName() {
-        return resourceName;
+	return resourceName;
     }
 
     public void setResourceName(String newResourceName) {
-        this.resourceName = newResourceName;
+	this.resourceName = newResourceName;
     }
 
     public String getVendor() {
-        return vendor;
+	return vendor;
     }
 
     public void setVendor(String newVendor) {
-        this.vendor = newVendor;
+	this.vendor = newVendor;
     }
 
     public String getBuildInfo() {
-        return buildInfo;
+	return buildInfo;
     }
 
     public void setBuildInfo(String newBuildInfo) {
-        this.buildInfo = newBuildInfo;
+	this.buildInfo = newBuildInfo;
     }
 
     public String getDescription() {
-        return description;
+	return description;
     }
 
     public void setDescription(String newDescription) {
-        this.description = newDescription;
+	this.description = newDescription;
     }
 
     public String getCopyright() {
-        return copyright;
+	return copyright;
     }
 
     public void setCopyright(String newCopyright) {
-        this.copyright = newCopyright;
+	this.copyright = newCopyright;
     }
 
     public String getName() {
-        return name;
+	return name;
     }
 
     public void setName(String newName) {
-        this.name = newName;
+	this.name = newName;
     }
 
     public String getVersion() {
-        return version;
+	return version;
     }
 
     public void setVersion(String newVersion) {
-        this.version = newVersion;
+	this.version = newVersion;
     }
 
     public String getBuildID() {
@@ -112,72 +112,72 @@ public class VersionInfo {
 	}
 
     public String getResourceName(String appResourceName) {
-        if(getResourceName() == null){
-        	return appResourceName;
-        }else{
-        	return this.resourceName;
-        }
+	if(getResourceName() == null){
+		return appResourceName;
+	}else{
+		return this.resourceName;
+	}
     }
 
     public String getVendor(String appVendor) {
-    	if(getVendor() == null){
-        	return appVendor;
-        }else{
-        	return this.vendor;
-        }
+	if(getVendor() == null){
+		return appVendor;
+	}else{
+		return this.vendor;
+	}
     }
 
     public String getBuildInfo(String appBuildInfo) {
-    	if(getBuildInfo() == null){
-        	return appBuildInfo;
-        }else{
-        	return this.buildInfo;
-        }
+	if(getBuildInfo() == null){
+		return appBuildInfo;
+	}else{
+		return this.buildInfo;
+	}
     }
 
     public String getDescription(String appDescription) {
-    	if(getDescription() == null){
-        	return appDescription;
-        }else{
-        	return this.description;
-        }
+	if(getDescription() == null){
+		return appDescription;
+	}else{
+		return this.description;
+	}
     }
 
     public String getCopyright(String appCopyrigth) {
-    	if(getCopyright() == null){
-        	return appCopyrigth;
-        }else{
-        	return this.copyright;
-        }
+	if(getCopyright() == null){
+		return appCopyrigth;
+	}else{
+		return this.copyright;
+	}
     }
 
     public String getName(String appName) {
-    	if(getName() == null){
-        	return appName;
-        }else{
-        	return this.name;
-        }
+	if(getName() == null){
+		return appName;
+	}else{
+		return this.name;
+	}
     }
 
     public String getVersion(String appVersion) {
-    	if(getVersion() == null){
-        	return appVersion;
-        }else{
-        	return this.version;
-        }
+	if(getVersion() == null){
+		return appVersion;
+	}else{
+		return this.version;
+	}
     }
 
     public String getBuildID(String appBuildID) {
-    	if(getBuildID() == null){
-        	return appBuildID;
-        }else{
-        	return this.buildID;
-        }
+	if(getBuildID() == null){
+		return appBuildID;
+	}else{
+		return this.buildID;
+	}
 	}
 
 	public String toString() {
-        if (getName() == null && getVersion() == null)
-            return getResourceName()+": no version info present";
-        return getResourceName()+": "+getName() +", "+getVersion();
+	if (getName() == null && getVersion() == null)
+	    return getResourceName()+": no version info present";
+	return getResourceName()+": "+getName() +", "+getVersion();
     }
 }

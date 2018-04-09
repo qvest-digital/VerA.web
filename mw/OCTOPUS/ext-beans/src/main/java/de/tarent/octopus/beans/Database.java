@@ -101,8 +101,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      *  {@link BeanFactory}.
      */
 	public Database(OctopusContext cntx, String beanPackage) {
-        super(beanPackage);
-        this.beanPropertyPath = new File(cntx.moduleRootPath(), OCTOPUS_BEAN_SUB_FOLDER);
+	super(beanPackage);
+	this.beanPropertyPath = new File(cntx.moduleRootPath(), OCTOPUS_BEAN_SUB_FOLDER);
 		this.poolName = cntx.getModuleName();
 	}
 
@@ -116,7 +116,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      *  {@link BeanFactory}.
      */
 	public Database(String poolName, File beanPropertyPath, String beanPackage) {
-        super(beanPackage);
+	super(beanPackage);
 		this.beanPropertyPath = beanPropertyPath;
 		this.poolName = poolName;
 	}
@@ -127,7 +127,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @see de.tarent.dblayer.engine.DBContext#getPoolName()
      */
     public String getPoolName() {
-        return this.poolName;
+	return this.poolName;
     }
 
     /**
@@ -136,7 +136,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @see de.tarent.dblayer.engine.DBContext#getPool()
      */
     public Pool getPool() {
-        return DB.getPool(this.getPoolName());
+	return DB.getPool(this.getPoolName());
     }
 
     //
@@ -147,7 +147,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * zu dieser Datenbank-Instanz.
      */
     public TransactionContext getTransactionContext() {
-        return new TransactionContext(this);
+	return new TransactionContext(this);
     }
 
     // Öffentliche Bean-orientierte Methoden
@@ -162,7 +162,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException bei Problemen beim Zugriff auf die Bean-Properties
      */
     public Bean getBean(String beanname, Integer pk) throws BeanException, IOException {
-        return getBean(beanname, pk, this);
+	return getBean(beanname, pk, this);
     }
 
     /**
@@ -178,18 +178,18 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException bei Problemen beim Zugriff auf die Bean-Properties
      */
     public Bean getBean(String beanname, Integer pk, ExecutionContext context) throws BeanException, IOException {
-        if (pk == null)
-            return null;
-        Bean sample = createBean(beanname);
-        String pkField = getProperty(sample, "pk");
-        String pkColumn = null;
-        if (pkField != null)
-            pkColumn = getProperty(sample, pkField);
-        if (pkColumn == null) {
-            logger.info("Kann Schlüsselfeldnamen nicht den Bean-Eigenschaften von " + beanname + " entnehmen; gehe von 'pk' aus.");
-            pkColumn = "pk";
-        }
-        return getBean(beanname, getSelect(beanname).where(Expr.equal(pkColumn, pk)), context);
+	if (pk == null)
+	    return null;
+	Bean sample = createBean(beanname);
+	String pkField = getProperty(sample, "pk");
+	String pkColumn = null;
+	if (pkField != null)
+	    pkColumn = getProperty(sample, pkField);
+	if (pkColumn == null) {
+	    logger.info("Kann Schlüsselfeldnamen nicht den Bean-Eigenschaften von " + beanname + " entnehmen; gehe von 'pk' aus.");
+	    pkColumn = "pk";
+	}
+	return getBean(beanname, getSelect(beanname).where(Expr.equal(pkColumn, pk)), context);
     }
 
     /**
@@ -202,7 +202,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public Bean getBean(String beanname, Select select) throws BeanException {
-        return getBean(beanname, select, this);
+	return getBean(beanname, select, this);
     }
 
     /**
@@ -217,12 +217,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public Bean getBean(String beanname, Select select, ExecutionContext context) throws BeanException {
-        try {
-            executeSelect(select, context);
-            return hasNext() ? fillBean(createBean(beanname)) : null;
-        } finally {
-            closeResultSet(context);
-        }
+	try {
+	    executeSelect(select, context);
+	    return hasNext() ? fillBean(createBean(beanname)) : null;
+	} finally {
+	    closeResultSet(context);
+	}
     }
 
     /**
@@ -235,7 +235,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public List getBeanList(String beanname, Select select) throws BeanException {
-        return getBeanList(beanname, select, this);
+	return getBeanList(beanname, select, this);
     }
 
     /**
@@ -250,13 +250,13 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public List getBeanList(String beanname, Select select, ExecutionContext context) throws BeanException {
-        // TODO: beans on the fly erstellen
-        try {
-            executeSelect(select, context);
-            return fillBeanList(beanname);
-        } finally {
-            closeResultSet(context);
-        }
+	// TODO: beans on the fly erstellen
+	try {
+	    executeSelect(select, context);
+	    return fillBeanList(beanname);
+	} finally {
+	    closeResultSet(context);
+	}
     }
 
     /**
@@ -269,7 +269,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public void saveBean(Bean bean) throws BeanException, IOException {
-        saveBean(bean, this, true);
+	saveBean(bean, this, true);
     }
 
     /**
@@ -284,22 +284,22 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public void saveBean(Bean bean, ExecutionContext context, boolean updateID) throws BeanException, IOException {
-        String id = getProperty(bean, "pk");
-        if (bean.getField(id) == null) {
-            String nextval = getProperty(bean, "sequence.nextval");
-            if (nextval != null) {
-                getNextPk(bean, context);
-                Insert insert = getInsert(bean);
-                insert.insert(getProperty(bean, id), bean.getField(id));
-                context.execute(insert);
-            } else {
-                context.execute(getInsert(bean));
-                if (updateID)
-                    getInsertedPk(bean, context);
-            }
-        } else {
-            context.execute(getUpdate(bean));
-        }
+	String id = getProperty(bean, "pk");
+	if (bean.getField(id) == null) {
+	    String nextval = getProperty(bean, "sequence.nextval");
+	    if (nextval != null) {
+		getNextPk(bean, context);
+		Insert insert = getInsert(bean);
+		insert.insert(getProperty(bean, id), bean.getField(id));
+		context.execute(insert);
+	    } else {
+		context.execute(getInsert(bean));
+		if (updateID)
+		    getInsertedPk(bean, context);
+	    }
+	} else {
+	    context.execute(getUpdate(bean));
+	}
     }
 
     /**
@@ -310,7 +310,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public void removeBean(Bean bean) throws BeanException, IOException {
-        removeBean(bean, this);
+	removeBean(bean, this);
     }
 
     /**
@@ -323,14 +323,14 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public void removeBean(Bean bean, ExecutionContext context) throws BeanException, IOException {
-        String field = getProperty(bean, "pk");
-        if (bean.getField(field) != null) {
-            context.execute(getDelete(bean));
-        } else {
-            // TODO: sensible delete operation even without primary key information
-            // This might be done using a WHERE clause including comparisons of all column values.
-            logger.warning("Instance of bean class " + bean.getClass().getName() + "could not be deleted as it has no primary key property.");
-        }
+	String field = getProperty(bean, "pk");
+	if (bean.getField(field) != null) {
+	    context.execute(getDelete(bean));
+	} else {
+	    // TODO: sensible delete operation even without primary key information
+	    // This might be done using a WHERE clause including comparisons of all column values.
+	    logger.warning("Instance of bean class " + bean.getClass().getName() + "could not be deleted as it has no primary key property.");
+	}
     }
 
     // Öffentliche dblayer-orientierte Methoden
@@ -344,11 +344,11 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public ResultSet result(String statement) throws BeanException {
-        try {
-            return DB.getResultSet(getPoolName(), statement);
-        } catch (SQLException e) {
-            throw new BeanException("Fehler beim Ausführen einer Datenbankabfrage.", e);
-        }
+	try {
+	    return DB.getResultSet(getPoolName(), statement);
+	} catch (SQLException e) {
+	    throw new BeanException("Fehler beim Ausführen einer Datenbankabfrage.", e);
+	}
     }
 
     /**
@@ -359,7 +359,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public Integer getCount(Select select) throws BeanException {
-        return getCount(select, this);
+	return getCount(select, this);
     }
 
     /**
@@ -372,18 +372,18 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public Integer getCount(Select select, ExecutionContext context) throws BeanException {
-        ResultSet rs = null;
-        try {
-            rs = context.result(select);
-            if (rs.next())
-                return new Integer(rs.getInt(1));
+	ResultSet rs = null;
+	try {
+	    rs = context.result(select);
+	    if (rs.next())
+		return new Integer(rs.getInt(1));
 
-            throw new BeanException("Failed to read a count value from the database.");
-        } catch (SQLException e) {
-            throw new BeanException("Failed to read a count value from the database.", e);
-        } finally {
-            context.close(rs);
-        }
+	    throw new BeanException("Failed to read a count value from the database.");
+	} catch (SQLException e) {
+	    throw new BeanException("Failed to read a count value from the database.", e);
+	} finally {
+	    context.close(rs);
+	}
     }
 
     /**
@@ -436,16 +436,16 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public void getNextPk(Bean bean, ExecutionContext context) throws BeanException, IOException {
-        String id = getProperty(bean, "pk");
-        String nextval = getProperty(bean, "sequence.nextval");
-        String nextvalTable = getProperty(bean, "sequence.nextval.table");
-        if (nextval == null) return;
+	String id = getProperty(bean, "pk");
+	String nextval = getProperty(bean, "sequence.nextval");
+	String nextvalTable = getProperty(bean, "sequence.nextval.table");
+	if (nextval == null) return;
 
-        Select select = SQL.Select(this);
-        select.selectAs(nextval, "pk");
-        if (nextvalTable != null)
-        	select.from(nextvalTable);
-        bean.setField(id, getCount(select, context));
+	Select select = SQL.Select(this);
+	select.selectAs(nextval, "pk");
+	if (nextvalTable != null)
+		select.from(nextvalTable);
+	bean.setField(id, getCount(select, context));
     }
 
     /**
@@ -461,13 +461,13 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public void getInsertedPk(Bean bean, ExecutionContext context) throws IOException, BeanException {
-        String id = getProperty(bean, "pk");
-        String pk = getProperty(bean, id);
-        if (pk == null) return;
+	String id = getProperty(bean, "pk");
+	String pk = getProperty(bean, id);
+	if (pk == null) return;
 
-        Select select = SQL.Select(this).from(getProperty(bean, "table"));
-        select.selectAs("MAX(" + pk + ')', "pk");
-        bean.setField(id, getCount(select, context));
+	Select select = SQL.Select(this).from(getProperty(bean, "table"));
+	select.selectAs("MAX(" + pk + ')', "pk");
+	bean.setField(id, getCount(select, context));
     }
 
     /**
@@ -480,7 +480,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Select getCount(String beanname) throws BeanException, IOException {
-        return getCount(createBean(beanname));
+	return getCount(createBean(beanname));
     }
 
     /**
@@ -493,11 +493,11 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Select getCount(Bean bean) throws BeanException, IOException {
-        String pk = getProperty(bean, "pk");
-        Select select = SQL.Select(this);
-        select.from(getProperty(bean, "table"));
-        select.select("COUNT(" + getProperty(bean, pk) + ")");
-        return select;
+	String pk = getProperty(bean, "pk");
+	Select select = SQL.Select(this);
+	select.from(getProperty(bean, "table"));
+	select.select("COUNT(" + getProperty(bean, pk) + ")");
+	return select;
     }
 
     /**
@@ -510,7 +510,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Select getSelect(String beanname) throws BeanException, IOException {
-        return getSelect(createBean(beanname));
+	return getSelect(createBean(beanname));
     }
 
     /**
@@ -523,18 +523,18 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Select getSelect(Bean bean) throws BeanException, IOException {
-        String field, column;
-        Select select = getEmptySelect(bean);
-        if (getProperty(bean, "order") != null) {
-            select.orderBy(new StringOrder(getProperty(bean, "order")));
-        }
-        for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
-            field = (String)it.next();
-            column = getProperty(bean, field);
-            if (column != null)
-                select.selectAs(column, field);
-        }
-        return select;
+	String field, column;
+	Select select = getEmptySelect(bean);
+	if (getProperty(bean, "order") != null) {
+	    select.orderBy(new StringOrder(getProperty(bean, "order")));
+	}
+	for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
+	    field = (String)it.next();
+	    column = getProperty(bean, field);
+	    if (column != null)
+		select.selectAs(column, field);
+	}
+	return select;
     }
 
     /**
@@ -547,9 +547,9 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Select getSelectIds(Bean bean) throws BeanException, IOException {
-    	Select select = getEmptySelect(bean);
-        select.selectAs(getProperty(bean, "id"), "id");
-        return select;
+	Select select = getEmptySelect(bean);
+	select.selectAs(getProperty(bean, "id"), "id");
+	return select;
     }
 
     /**
@@ -563,22 +563,22 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Select getEmptySelect(Bean bean) throws BeanException, IOException {
-    	String attrNoDistinct = getPropertyAttribute(bean, "table", ATTRIBUTE_SELECT_NO_DISINCT);
-    	// If ATTRIBUTE_SELECT_NO_DISINCT true return SQL.Select, if false SQL.SelectDistinct.
-    	if (attrNoDistinct != null && attrNoDistinct.length() != 0) {
-    		return Boolean.valueOf(attrNoDistinct).booleanValue() ?
-    				SQL.Select(this).from(getProperty(bean, "table")) :
-    				SQL.SelectDistinct(this).from(getProperty(bean, "table"));
-    	// If ATTRIBUTE_SELECT_DISINCT is true return SQL.SelectDistinct, if false SQL.Select.
-    	} else {
-        	String attrDistinct = getPropertyAttribute(bean, "table", ATTRIBUTE_SELECT_DISINCT);
-        	if (attrDistinct != null && attrDistinct.length() != 0) {
-        		return Boolean.valueOf(attrDistinct).booleanValue() ?
-        				SQL.SelectDistinct(this).from(getProperty(bean, "table")) :
-        				SQL.Select(this).from(getProperty(bean, "table"));
-        	}
-    	}
-   		return SQL.SelectDistinct(this).from(getProperty(bean, "table"));
+	String attrNoDistinct = getPropertyAttribute(bean, "table", ATTRIBUTE_SELECT_NO_DISINCT);
+	// If ATTRIBUTE_SELECT_NO_DISINCT true return SQL.Select, if false SQL.SelectDistinct.
+	if (attrNoDistinct != null && attrNoDistinct.length() != 0) {
+		return Boolean.valueOf(attrNoDistinct).booleanValue() ?
+				SQL.Select(this).from(getProperty(bean, "table")) :
+				SQL.SelectDistinct(this).from(getProperty(bean, "table"));
+	// If ATTRIBUTE_SELECT_DISINCT is true return SQL.SelectDistinct, if false SQL.Select.
+	} else {
+		String attrDistinct = getPropertyAttribute(bean, "table", ATTRIBUTE_SELECT_DISINCT);
+		if (attrDistinct != null && attrDistinct.length() != 0) {
+			return Boolean.valueOf(attrDistinct).booleanValue() ?
+					SQL.SelectDistinct(this).from(getProperty(bean, "table")) :
+					SQL.Select(this).from(getProperty(bean, "table"));
+		}
+	}
+		return SQL.SelectDistinct(this).from(getProperty(bean, "table"));
     }
 
     /**
@@ -591,20 +591,20 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Insert getInsert(Bean bean) throws BeanException, IOException {
-        String pk = getProperty(bean, "pk");
-        String field, column;
-        Insert insert = SQL.Insert(this);
-        insert.table(getProperty(bean, "table"));
-        for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
-            field = (String)it.next();
-            if (!(field.equals(pk) || Boolean.valueOf(getPropertyAttribute(bean, field, ATTRIBUTE_READ_ONLY)).booleanValue())) {
-                column = getProperty(bean, field);
-                if (column != null) {
-                    insert.insert(column, bean.getField(field));
-                }
-            }
-        }
-        return insert;
+	String pk = getProperty(bean, "pk");
+	String field, column;
+	Insert insert = SQL.Insert(this);
+	insert.table(getProperty(bean, "table"));
+	for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
+	    field = (String)it.next();
+	    if (!(field.equals(pk) || Boolean.valueOf(getPropertyAttribute(bean, field, ATTRIBUTE_READ_ONLY)).booleanValue())) {
+		column = getProperty(bean, field);
+		if (column != null) {
+		    insert.insert(column, bean.getField(field));
+		}
+	    }
+	}
+	return insert;
     }
 
     /**
@@ -617,7 +617,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Update getUpdate(String beanname) throws BeanException, IOException {
-        return SQL.Update(this).table(getProperty(createBean(beanname), "table"));
+	return SQL.Update(this).table(getProperty(createBean(beanname), "table"));
     }
 
     /**
@@ -630,19 +630,19 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Update getUpdate(Bean bean) throws BeanException, IOException {
-        String field, column;
-        Update update = SQL.Update(this);
-        update.table(getProperty(bean, "table"));
-        for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
-            field = (String)it.next();
-            column = getProperty(bean, field);
-            if (column != null  && !Boolean.valueOf(getPropertyAttribute(bean, field, ATTRIBUTE_READ_ONLY)).booleanValue())
-                update.update(column, bean.getField(field));
-        }
-        field = getProperty(bean, "pk");
-        column = getProperty(bean, field);
-        update.where(Expr.equal(column, bean.getField(field)));
-        return update;
+	String field, column;
+	Update update = SQL.Update(this);
+	update.table(getProperty(bean, "table"));
+	for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
+	    field = (String)it.next();
+	    column = getProperty(bean, field);
+	    if (column != null  && !Boolean.valueOf(getPropertyAttribute(bean, field, ATTRIBUTE_READ_ONLY)).booleanValue())
+		update.update(column, bean.getField(field));
+	}
+	field = getProperty(bean, "pk");
+	column = getProperty(bean, field);
+	update.where(Expr.equal(column, bean.getField(field)));
+	return update;
     }
 
     /**
@@ -655,7 +655,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Delete getDelete(String beanname) throws BeanException, IOException {
-        return SQL.Delete(this).from(getProperty(createBean(beanname), "table"));
+	return SQL.Delete(this).from(getProperty(createBean(beanname), "table"));
     }
 
     /**
@@ -668,13 +668,13 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Delete getDelete(Bean bean) throws BeanException, IOException {
-        String field, column;
-        Delete delete = SQL.Delete(this);
-        delete.from(getProperty(bean, "table"));
-        field = getProperty(bean, "pk");
-        column = getProperty(bean, field);
-        delete.where(Expr.equal(column, bean.getField(field)));
-        return delete;
+	String field, column;
+	Delete delete = SQL.Delete(this);
+	delete.from(getProperty(bean, "table"));
+	field = getProperty(bean, "pk");
+	column = getProperty(bean, field);
+	delete.where(Expr.equal(column, bean.getField(field)));
+	return delete;
     }
 
     /**
@@ -687,15 +687,15 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public Clause getWhere(Bean bean) throws BeanException, IOException {
-        WhereList where = new WhereList();
-        for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
-            String field = (String)it.next();
-            Object object = bean.getField(field);
-            if (object != null && !Boolean.valueOf(getPropertyAttribute(bean, field, ATTRIBUTE_READ_ONLY)).booleanValue()) {
-                where.addAnd(Expr.equal(getProperty(bean, field), object));
-            }
-        }
-        return where;
+	WhereList where = new WhereList();
+	for (Iterator it = bean.getFields().iterator(); it.hasNext(); ) {
+	    String field = (String)it.next();
+	    Object object = bean.getField(field);
+	    if (object != null && !Boolean.valueOf(getPropertyAttribute(bean, field, ATTRIBUTE_READ_ONLY)).booleanValue()) {
+		where.addAnd(Expr.equal(getProperty(bean, field), object));
+	    }
+	}
+	return where;
     }
 
     /**
@@ -708,7 +708,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public String getPropertyAttribute(Bean bean, String key, String attributeKey) throws IOException {
-        return getProperty(bean, propertyAttributeKeyFormat.format(new Object[] { key, attributeKey }));
+	return getProperty(bean, propertyAttributeKeyFormat.format(new Object[] { key, attributeKey }));
     }
 
     /**
@@ -720,12 +720,12 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws IOException
      */
     public String getProperty(Bean bean, String key) throws IOException {
-        Map map = (Map)beans.get(bean.getClass().getName());
-        if (map == null) {
-            map = loadProperties(bean);
-            beans.put(bean.getClass().getName(), map);
-        }
-        return (String)map.get(key);
+	Map map = (Map)beans.get(bean.getClass().getName());
+	if (map == null) {
+	    map = loadProperties(bean);
+	    beans.put(bean.getClass().getName(), map);
+	}
+	return (String)map.get(key);
     }
 
     /**
@@ -740,9 +740,9 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @return ein UPDATE-PreparedStatement
      */
     public BeanStatement prepareUpdate(Bean sample, Collection keyFields, Collection updateFields, ExecutionContext context) throws BeanException, IOException {
-        List fieldsInUpdate = new ArrayList();
-        Update update = getPreparedUpdate(sample, keyFields, updateFields, fieldsInUpdate);
-        return new BeanUpdateStatement(update, fieldsInUpdate, context);
+	List fieldsInUpdate = new ArrayList();
+	Update update = getPreparedUpdate(sample, keyFields, updateFields, fieldsInUpdate);
+	return new BeanUpdateStatement(update, fieldsInUpdate, context);
     }
 
     //
@@ -761,8 +761,8 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 		try {
 			return resultSet.getObject(key);
 		} catch (SQLException e) {
-            if (logger.isLoggable(Level.FINE))
-                logger.log(Level.FINE, "Feld " + key + " kann nicht ausgelesen werden.", e);
+	    if (logger.isLoggable(Level.FINE))
+		logger.log(Level.FINE, "Feld " + key + " kann nicht ausgelesen werden.", e);
 			return null;
 		}
 	}
@@ -795,7 +795,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @see BeanFactory#checkModified(Bean)
      */
     protected void checkModified(Bean bean) throws BeanException {
-        assert bean != null;
+	assert bean != null;
     }
 
     //
@@ -809,11 +809,11 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @see ExecutionContext#execute(Statement)
      */
     public void execute(Statement statement) throws BeanException {
-        try {
-            statement.execute();
-        } catch (SQLException e) {
-            throw new BeanException("Fehler beim Ausführen eines Statements in der Datenbank.", e);
-        }
+	try {
+	    statement.execute();
+	} catch (SQLException e) {
+	    throw new BeanException("Fehler beim Ausführen eines Statements in der Datenbank.", e);
+	}
     }
 
     /**
@@ -827,11 +827,11 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @see ExecutionContext#result(Select)
      */
     public ResultSet result(Select statement) throws BeanException {
-        try {
-            return statement.getResultSet(getPoolName());
-        } catch (SQLException e) {
-            throw new BeanException("Fehler beim Erzeugen eines SQL-Strings zu einem Select-Statement", e);
-        }
+	try {
+	    return statement.getResultSet(getPoolName());
+	} catch (SQLException e) {
+	    throw new BeanException("Fehler beim Erzeugen eines SQL-Strings zu einem Select-Statement", e);
+	}
     }
 
     /**
@@ -844,7 +844,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public void close(ResultSet resultSet) throws BeanException {
-        DB.closeAll(resultSet);
+	DB.closeAll(resultSet);
     }
 
     /**
@@ -856,15 +856,15 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @throws BeanException
      */
     public PreparedStatement prepare(Statement statement) throws BeanException {
-        Connection con = null;
-        try {
-            con = DB.getConnection(getPoolName());
-            con.setAutoCommit(true);
-            return con.prepareStatement(statement.statementToString());
-        } catch (SQLException e) {
-            DB.close(con);
-            throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
-        }
+	Connection con = null;
+	try {
+	    con = DB.getConnection(getPoolName());
+	    con.setAutoCommit(true);
+	    return con.prepareStatement(statement.statementToString());
+	} catch (SQLException e) {
+	    DB.close(con);
+	    throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
+	}
     }
 
     /**
@@ -873,7 +873,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @return zugehörige {@link Database}
      */
     public Database getDatabase() {
-        return this;
+	return this;
     }
 
     //
@@ -891,38 +891,38 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @return dblayer-SQL-Statement
      */
     Update getPreparedUpdate(Bean sample, Collection keyFields, Collection updateFields, List fieldsInStatement) throws IOException {
-        assert keyFields != null && !keyFields.isEmpty();
-        assert updateFields != null && !updateFields.isEmpty();
+	assert keyFields != null && !keyFields.isEmpty();
+	assert updateFields != null && !updateFields.isEmpty();
 
-        WhereList where = new WhereList();
-        Collection keyFieldsFound = new ArrayList();
-        String field, column;
-        Update update = SQL.Update(this);
-        update.table(getProperty(sample, "table"));
-        for (Iterator it = sample.getFields().iterator(); it.hasNext(); ) {
-            field = (String)it.next();
-            column = getProperty(sample, field);
-            if (keyFields.contains(field)) {
-                if (column == null || column.length() == 0)
-                    logger.warning("Schlüsselfeld ohne zugeordnete Tabellenspalte: " + field);
-                else {
-                    keyFieldsFound.add(field);
-                    where.addAnd(Expr.equal(column, BeanBaseStatement.PLACE_HOLDER));
-                }
-            } else if (updateFields.contains(field)) {
-                if (column == null || column.length() == 0)
-                    logger.warning("Update-Feld ohne zugeordnete Tabellenspalte: " + field);
-                else if (Boolean.valueOf(getPropertyAttribute(sample, field, Database.ATTRIBUTE_READ_ONLY)).booleanValue())
-                    logger.warning("Update-Feld ohne zugeordnete Tabellenspalte: " + field);
-                else {
-                    fieldsInStatement.add(field);
-                    update.update(column, BeanBaseStatement.PLACE_HOLDER);
-                }
-            }
-        }
-        fieldsInStatement.addAll(keyFieldsFound);
-        update.where(where);
-        return update;
+	WhereList where = new WhereList();
+	Collection keyFieldsFound = new ArrayList();
+	String field, column;
+	Update update = SQL.Update(this);
+	update.table(getProperty(sample, "table"));
+	for (Iterator it = sample.getFields().iterator(); it.hasNext(); ) {
+	    field = (String)it.next();
+	    column = getProperty(sample, field);
+	    if (keyFields.contains(field)) {
+		if (column == null || column.length() == 0)
+		    logger.warning("Schlüsselfeld ohne zugeordnete Tabellenspalte: " + field);
+		else {
+		    keyFieldsFound.add(field);
+		    where.addAnd(Expr.equal(column, BeanBaseStatement.PLACE_HOLDER));
+		}
+	    } else if (updateFields.contains(field)) {
+		if (column == null || column.length() == 0)
+		    logger.warning("Update-Feld ohne zugeordnete Tabellenspalte: " + field);
+		else if (Boolean.valueOf(getPropertyAttribute(sample, field, Database.ATTRIBUTE_READ_ONLY)).booleanValue())
+		    logger.warning("Update-Feld ohne zugeordnete Tabellenspalte: " + field);
+		else {
+		    fieldsInStatement.add(field);
+		    update.update(column, BeanBaseStatement.PLACE_HOLDER);
+		}
+	    }
+	}
+	fieldsInStatement.addAll(keyFieldsFound);
+	update.where(where);
+	return update;
     }
 
     /**
@@ -947,7 +947,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
 			if (resultSet != null)
 				context.close(resultSet);
 		} catch (BeanException e) {
-            logger.log(Level.WARNING, "Fehler beim Schließen eines ResultSets", e);
+	    logger.log(Level.WARNING, "Fehler beim Schließen eines ResultSets", e);
 		}
 	}
 
