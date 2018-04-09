@@ -15,6 +15,7 @@
 		<module>ext-commons</module>
 		<module>ext-cronjobs</module>
 		<module>ext-jmx</module>
+		<module>rpctunnel</module>
 		<module>servlet</module>
 	</modules>
 </project>
