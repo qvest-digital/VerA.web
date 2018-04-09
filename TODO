@@ -94,4 +94,5 @@ monorepo status:
 ‣ de.tarent.octopus:octopus-ext-commons		1.90.4
 ‣ de.tarent.octopus:octopus-ext-cronjobs	1.6.2
 ‣ de.tarent.octopus:octopus-ext-jmx		1.90.4
+• de.tarent.octopus:octopus-rpctunnel		0.2
 ‣ de.tarent.octopus:octopus-servlet		1.6.2
