@@ -124,7 +124,6 @@
 					</fileTypes>
 				</configuration>
 			</plugin>
-			<!-- required for deployment to maven repo via ssh/sftp with maven 3 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
