@@ -1,6 +1,5 @@
 VerA.web-Middleware, newly MIT licenced, is comprised of:
 tarent-commons, a set of common components and solutions
-tarent-contact, Plattform-Independent Webservice-Based Contactmanagement
 tarent-database, jdbc database library
 tarent-octopus, Webservice Data Integrator and Application Server
  © 2005, 2006, 2007 asteban <s.mancke@tarent.de>
