@@ -338,6 +338,7 @@
 					<excludes>
 						<exclude>**/io/dropwizard/client/HttpClientConfiguration.java</exclude>
 						<exclude>**/src/main/js/ext/**</exclude>
+						<exclude>mw/**</exclude>
 					</excludes>
 					<headerDefinitions>
 						<headerDefinition>${project.basedir}/release/myc-javapkg.xml</headerDefinition>
