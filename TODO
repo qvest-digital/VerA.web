@@ -90,6 +90,7 @@ OCTOPUS: ggfs. komplett reinziehen oder zumindest monorepo
 für *alle* Abhängigkeiten, die nicht aus maven-central o.ä.
 kommen, also mindestens diese plus dependencies rekursiv:
 ‣ de.tarent.libraries:tarent-commons		1.3.2.1
+• de.tarent.libraries:tarent-database		1.5.4verawebpl3
 ‣ de.tarent.octopus:octopus-core		1.6.7
 ‣ de.tarent.octopus:octopus-ext-annotation	1.90.4
 ‣ de.tarent.octopus:octopus-ext-beans		1.6.2verawebpl5

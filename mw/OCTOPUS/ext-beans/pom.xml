@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.tarent.octopus</groupId>
+	<groupId>org.evolvis.veraweb.middleware</groupId>
 	<artifactId>octopus-ext-beans</artifactId>
+	<version>1.8.58-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<version>1.6.2verawebpl5</version>
 	<name>tarent-octopus bean extension</name>
 	<description>
 		an opensource webservice and webapplication framework (bean extension)
@@ -145,45 +145,39 @@
 			<version>1.5.4verawebpl3</version>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
-			<version>1.6.2verawebpl5</version>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-servlet</artifactId>
-			<version>1.6.2</version>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-commons</artifactId>
-			<version>1.90.4</version>
-			<exclusions>
-				<exclusion>
-					<groupId>de.tarent.commons</groupId>
-					<artifactId>tarent-commons</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-cronjobs</artifactId>
-			<version>1.6.2</version>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-jmx</artifactId>
-			<version>1.90.4</version>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-annotation</artifactId>
-			<version>1.90.4</version>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.libraries</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>tarent-commons</artifactId>
-			<version>1.3.2</version>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>

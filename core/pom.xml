@@ -17,19 +17,19 @@
 			<artifactId>smiley-http-proxy-servlet</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-servlet</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-commons</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-beans</artifactId>
 		</dependency>
 		<dependency>
@@ -37,20 +37,16 @@
 			<artifactId>connector4java</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-cronjobs</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-jmx</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-annotation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.tarent.libraries</groupId>
-			<artifactId>tarent-commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>

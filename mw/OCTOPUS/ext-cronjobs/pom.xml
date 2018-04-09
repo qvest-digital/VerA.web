@@ -1,7 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.tarent.octopus</groupId>
+	<groupId>org.evolvis.veraweb.middleware</groupId>
 	<artifactId>octopus-ext-cronjobs</artifactId>
+	<version>1.8.58-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>tarent-octopus cronjob extension</name>
 	<description>
@@ -19,7 +20,6 @@
 		<name>tarent GmbH, Germany</name>
 		<url>http://www.tarent.de/</url>
 	</organization>
-	<version>1.6.2</version>
 	<scm>
 		<connection>scm:cvs:local:/cvs/newcvsroot:octopus/extensions/cronjobs</connection>
 	</scm>
@@ -150,9 +150,9 @@
 	</reporting>
 	<dependencies>
 		<dependency>
-			<groupId>de.tarent.octopus</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
-			<version>1.6.2</version>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
