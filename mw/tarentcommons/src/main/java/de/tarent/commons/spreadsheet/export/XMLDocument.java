@@ -49,7 +49,7 @@ import org.w3c.dom.Node;
 
 /**
  * Stellt Methoden zum laden und speichern eines XML-Dokumentes
- * zur Verfügung.
+ * zur VerfÃ¼gung.
  * 
  * @author Christoph Jerolimov
  */
@@ -57,7 +57,7 @@ public class XMLDocument {
 	protected Document document;
 
 	/**
-	 * Lädt ein XML-Dokument aus dem übergebenem InputStream.
+	 * LÃ¤dt ein XML-Dokument aus dem Ã¼bergebenem InputStream.
 	 * 
 	 * @param inputStream
 	 * @throws IOException
@@ -75,7 +75,7 @@ public class XMLDocument {
 	}
 
 	/**
-	 * Speichert ein XML-Dokument in dem übergebenem OutputStream.
+	 * Speichert ein XML-Dokument in dem Ã¼bergebenem OutputStream.
 	 * 
 	 * @param outputStream
 	 * @throws IOException
@@ -91,8 +91,8 @@ public class XMLDocument {
 	}
 
 	/**
-	 * Gibt das erste Node-Element mit dem übergebenem Namen
-	 * aus dem aktuellen Dokumente zurück.
+	 * Gibt das erste Node-Element mit dem Ã¼bergebenem Namen
+	 * aus dem aktuellen Dokumente zurÃ¼ck.
 	 * 
 	 * @param name Name des Elements
 	 * @return Node

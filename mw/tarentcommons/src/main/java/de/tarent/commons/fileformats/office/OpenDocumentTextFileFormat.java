@@ -31,7 +31,7 @@ package de.tarent.commons.fileformats.office;
 import de.tarent.commons.fileformats.FileFormatAdapter;
 
 /**
- * @author Fabian Köster (f.koester@tarent.de), tarent GmbH Bonn
+ * @author Fabian KÃ¶ster (f.koester@tarent.de), tarent GmbH Bonn
  *
  */
 public class OpenDocumentTextFileFormat extends FileFormatAdapter

@@ -34,7 +34,7 @@ import de.tarent.commons.spreadsheet.export.sxc.SXCDocument;
 import de.tarent.commons.spreadsheet.export.xls.XLSSpreadSheet;
 
 /**
- * Hilfsklasse für SpreadSheets.
+ * Hilfsklasse fÃ¼r SpreadSheets.
  * 
  * @author Christoph Jerolimov
  */
@@ -42,24 +42,24 @@ public class SpreadSheetFactory {
 	/** ResourceBundle */
 	public static final ResourceBundle bundle = ResourceBundle.getBundle("de.tarent.commons.spreadsheet.export.messages");
 
-	/** Gibt eine SpreadSheet-Instanz zurück, welches eine CSV-Datei erzeugen kann. */
+	/** Gibt eine SpreadSheet-Instanz zurÃ¼ck, welches eine CSV-Datei erzeugen kann. */
 	public static final String TYPE_CSV_DOCUMENT = "csv";
-	/** Gibt eine SpreadSheet-Instanz zurück, welches ein ODS ZIP-Archiv erzeugen kann. */
+	/** Gibt eine SpreadSheet-Instanz zurÃ¼ck, welches ein ODS ZIP-Archiv erzeugen kann. */
 	public static final String TYPE_SXC_DOCUMENT = "sxc-document";
-	/** Gibt eine SpreadSheet-Instanz zurück, welches ein ODS XML-Dokument erzeugen kann. */
+	/** Gibt eine SpreadSheet-Instanz zurÃ¼ck, welches ein ODS XML-Dokument erzeugen kann. */
 	public static final String TYPE_SXC_CONTENT = "sxc-content";
-	/** Gibt eine SpreadSheet-Instanz zurück, welches ein ODS ZIP-Archiv erzeugen kann. */
+	/** Gibt eine SpreadSheet-Instanz zurÃ¼ck, welches ein ODS ZIP-Archiv erzeugen kann. */
 	public static final String TYPE_ODS_DOCUMENT = "ods-document";
-	/** Gibt eine SpreadSheet-Instanz zurück, welches ein ODS XML-Dokument erzeugen kann. */
+	/** Gibt eine SpreadSheet-Instanz zurÃ¼ck, welches ein ODS XML-Dokument erzeugen kann. */
 	public static final String TYPE_ODS_CONTENT = "ods-content";
-	/** Gibt eine SpreadSheet-Instanz zurück, welches ein Excel XLS-Dokument erzeugen kann. */
+	/** Gibt eine SpreadSheet-Instanz zurÃ¼ck, welches ein Excel XLS-Dokument erzeugen kann. */
 	public static final String TYPE_XLS_DOCUMENT = "xls";
 	/** Gibt die standard SpreadSheet-Instanz, aktuell: {@link #TYPE_ODS_DOCUMENT} */
 	public static final String TYPE_DEFAULT = TYPE_ODS_DOCUMENT;
 
 	/**
-	 * Gibt eine SpreadSheet-Instanz entsprechend des übergebenen Typens zurück.
-	 * Als Default gibt es ein {@link #TYPE_ODS_DOCUMENT} zurück.
+	 * Gibt eine SpreadSheet-Instanz entsprechend des Ã¼bergebenen Typens zurÃ¼ck.
+	 * Als Default gibt es ein {@link #TYPE_ODS_DOCUMENT} zurÃ¼ck.
 	 * 
 	 * @param type siehe TYPE_*
 	 * @return SpreadSheetContent

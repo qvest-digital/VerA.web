@@ -63,11 +63,11 @@ public class FileFormatAdapter implements FileFormat
   
   /**
    * Erzeugt ein OfficeFileFormat
-   * @param key         - der Schlüssel über den auf das FileFormat zugegriffen werden kann
+   * @param key         - der SchlÃ¼ssel Ã¼ber den auf das FileFormat zugegriffen werden kann
    * @param shortname   - eine Kurzbezeichnung des Dateiformats
-   * @param longname    - die vollständige Bezeichnung des Dateiformats
-   * @param description - eine genaue Erklärung des Dateiformats
-   * @param icon        - ein Icon für das Dateiformat
+   * @param longname    - die vollstÃ¤ndige Bezeichnung des Dateiformats
+   * @param description - eine genaue ErklÃ¤rung des Dateiformats
+   * @param icon        - ein Icon fÃ¼r das Dateiformat
    * @param suffixes    - ein String oder ein String[] mit de(r/n) Dateiendung(en) 
    */
   public FileFormatAdapter(String key, String shortname, String longname, String description, Object icon, Object suffixes)
@@ -78,11 +78,11 @@ public class FileFormatAdapter implements FileFormat
 
   /**
    * Erzeugt ein OfficeFileFormat
-   * @param key         - der Schlüssel über den auf das FileFormat zugegriffen werden kann
+   * @param key         - der SchlÃ¼ssel Ã¼ber den auf das FileFormat zugegriffen werden kann
    * @param shortname   - eine Kurzbezeichnung des Dateiformats
-   * @param longname    - die vollständige Bezeichnung des Dateiformats
-   * @param description - eine genaue Erklärung des Dateiformats
-   * @param icon        - ein Icon für das Dateiformat
+   * @param longname    - die vollstÃ¤ndige Bezeichnung des Dateiformats
+   * @param description - eine genaue ErklÃ¤rung des Dateiformats
+   * @param icon        - ein Icon fÃ¼r das Dateiformat
    * @param suffixes    - ein String oder ein String[] mit de(r/n) Dateiendung(en) 
    * @param canLoad     - gibt an ob die API dieses Format lesen kann 
    * @param canSave     - gibt an ob die API dieses Format schreiben kann

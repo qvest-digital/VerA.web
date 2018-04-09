@@ -58,14 +58,14 @@ public abstract class AbstractGUIAction extends AbstractAction implements Tarent
 
 
 	/**
-	 * Template Methode zum Überschreiben in Unterklassen. Diese Methode wird von der ActionRegistry nach dem Erzeugen auf gerufen.
+	 * Template Methode zum Ãœberschreiben in Unterklassen. Diese Methode wird von der ActionRegistry nach dem Erzeugen auf gerufen.
 	 */
 	protected void init() {
 	}
 
 
 	/**
-	 * Liefert einen global eindeutigen Namen, über den die Action angesprochen werden kann.
+	 * Liefert einen global eindeutigen Namen, Ã¼ber den die Action angesprochen werden kann.
 	 */
 	public String getUniqueName() {
 		return "" + getValue(PROP_KEY_UNIQUE_NAME);
@@ -73,7 +73,7 @@ public abstract class AbstractGUIAction extends AbstractAction implements Tarent
 
 
 	/**
-	 * Gibt an, ob die Action in dem entsprechenden Container (Menü, Toolbar, ..) angezeigt werden soll.
+	 * Gibt an, ob die Action in dem entsprechenden Container (MenÃ¼, Toolbar, ..) angezeigt werden soll.
 	 * 
 	 */
 	public boolean isAssignedToContainer(String containerUID) {
@@ -90,7 +90,7 @@ public abstract class AbstractGUIAction extends AbstractAction implements Tarent
 
 
 	/**
-	 * Liefert den Menübereich, unter dem die Action angezeigt werden soll. Derzeit sind die Konstanten unter MenuBar erlaubt.
+	 * Liefert den MenÃ¼bereich, unter dem die Action angezeigt werden soll. Derzeit sind die Konstanten unter MenuBar erlaubt.
 	 */
 	public String getMenuPath(String containerUID) {
 		return (String) containersMap.get(containerUID);

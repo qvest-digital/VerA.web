@@ -28,8 +28,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Repräsentiert eine Tabellenkalkulation-Dokument, stellt entsprechende
- * Methoden zur Erstellung von Tabellen, Zeilen und Zellen zur Verfügung.
+ * ReprÃ¤sentiert eine Tabellenkalkulation-Dokument, stellt entsprechende
+ * Methoden zur Erstellung von Tabellen, Zeilen und Zellen zur VerfÃ¼gung.
  * API ist wie folgende Baumstruktur zu verwenden:
  * 
  * <pre>
@@ -56,18 +56,18 @@ import java.io.OutputStream;
  */
 public interface SpreadSheet {
 	/**
-	 * Setzt eine Einstellung für dieses Dokument. Sollte vor dem
+	 * Setzt eine Einstellung fÃ¼r dieses Dokument. Sollte vor dem
 	 * initalisieren geschehen.
 	 * 
-	 * @param key Schlüßel
+	 * @param key SchlÃ¼ÃŸel
 	 * @param value Wert
 	 */
 	public void setProperty(String key, String value) throws IOException;
 
 	/**
-	 * Gibt eine Einstellung für dieses Dokument zurück.
+	 * Gibt eine Einstellung fÃ¼r dieses Dokument zurÃ¼ck.
 	 * 
-	 * @param key Schlüßel
+	 * @param key SchlÃ¼ÃŸel
 	 * @return Wert
 	 */
 	public String getProperty(String key) throws IOException;
@@ -80,29 +80,29 @@ public interface SpreadSheet {
 	public void init() throws IOException;
 
 	/**
-	 * Speichert das Dokument in dem übergebenem OutputStream.
-	 * <strong>Schließt diesen NICHT.</strong>
+	 * Speichert das Dokument in dem Ã¼bergebenem OutputStream.
+	 * <strong>SchlieÃŸt diesen NICHT.</strong>
 	 * 
 	 * @param outputStream
 	 */
 	public void save(OutputStream outputStream) throws IOException;
 
 	/**
-	 * Gibt den MimeType dieses Dokumentes zurück.
+	 * Gibt den MimeType dieses Dokumentes zurÃ¼ck.
 	 * 
 	 * @return MimeType
 	 */
 	public String getContentType();
 
 	/**
-	 * Gibt die Standard Dateierweiterung dieses Dokumentes zurück.
+	 * Gibt die Standard Dateierweiterung dieses Dokumentes zurÃ¼ck.
 	 * 
 	 * @return Dateierweiterung
 	 */
 	public String getFileExtension();
 
 	/**
-	 * Öffnet eine neue Tabelle mit dem übergebenem Namen.
+	 * Ã–ffnet eine neue Tabelle mit dem Ã¼bergebenem Namen.
 	 * 
 	 * @param name Tabellen-Name
 	 * @param colCount Gibt an wieviele Spalten die Tabelle hat.
@@ -110,22 +110,22 @@ public interface SpreadSheet {
 	public void openTable(String name, int colCount);
 
 	/**
-	 * Schließt die Tabelle wieder.
+	 * SchlieÃŸt die Tabelle wieder.
 	 */
 	public void closeTable();
 
 	/**
-	 * Öffnet eine neue Zeile.
+	 * Ã–ffnet eine neue Zeile.
 	 */
 	public void openRow();
 
 	/**
-	 * Schließt eine neue Zeile.
+	 * SchlieÃŸt eine neue Zeile.
 	 */
 	public void closeRow();
 
 	/**
-	 * Fügt eine neue Zelle mit dem übergebenem Inhalt ein.
+	 * FÃ¼gt eine neue Zelle mit dem Ã¼bergebenem Inhalt ein.
 	 * 
 	 * @param content Zellen-Inhalt
 	 */

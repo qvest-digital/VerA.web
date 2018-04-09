@@ -44,7 +44,7 @@ import de.tarent.commons.utils.VariableDateFormat;
 
 /**
  * Diese Klasse holt (potentiell lokalisiert) ausgelagerte Mitteilungen; diese
- * können so roh oder mittels {@link MessageFormat} mit Parametern gefüllt
+ * kÃ¶nnen so roh oder mittels {@link MessageFormat} mit Parametern gefÃ¼llt
  * abgefragt werden.  
  * 
  * @author Christoph Jerolimov, tarent GmbH;

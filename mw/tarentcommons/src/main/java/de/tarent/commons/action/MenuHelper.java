@@ -322,7 +322,7 @@ public class MenuHelper {
     /**
      * Fumbles out the priority from a menu path.
      * 
-     * <p>Eg. in a string like "trülü:bla/foo/baz:42" you will
+     * <p>Eg. in a string like "trÃ¼lÃ¼:bla/foo/baz:42" you will
      * get 42. If the priority does not exist, you will get 
      * <code>Integer.MAX_VALUE</code> denoting that the element should
      * be added to the end.<p>  

@@ -32,7 +32,7 @@ import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * @author Fabian Köster (f.koester@tarent.de), tarent GmbH Bonn
+ * @author Fabian KÃ¶ster (f.koester@tarent.de), tarent GmbH Bonn
  *
  */
 public interface FileFormat

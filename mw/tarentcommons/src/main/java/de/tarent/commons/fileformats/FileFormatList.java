@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author Fabian Köster (f.koester@tarent.de), tarent GmbH Bonn
+ * @author Fabian KÃ¶ster (f.koester@tarent.de), tarent GmbH Bonn
  *
  */
 public class FileFormatList

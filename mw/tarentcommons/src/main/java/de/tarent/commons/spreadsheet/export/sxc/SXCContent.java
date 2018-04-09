@@ -58,7 +58,7 @@ import de.tarent.commons.spreadsheet.export.XMLDocument;
  * </table:table>
  */
 /**
- * Repr‰sentiert ein OpenOffice SpreadSheet XML-Baumstruktur.
+ * Repr√§sentiert ein OpenOffice SpreadSheet XML-Baumstruktur.
  * <p>
  * <em>Als Vorlage diente eine unter Windows 2000 SP4 mit
  * OpenOffice.org 1.1.1 erzeugte SXC-Datei.</em>

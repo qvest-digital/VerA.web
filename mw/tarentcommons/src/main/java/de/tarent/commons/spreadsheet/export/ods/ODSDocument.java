@@ -38,7 +38,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import de.tarent.commons.spreadsheet.export.XMLDocument;
 
 /**
- * Repr‰sentiert ein OpenDocument SpreadSheet Dokument.
+ * Repr√§sentiert ein OpenDocument SpreadSheet Dokument.
  * <p>
  * <em>Als Vorlage diente eine unter Windows 2000 SP4 mit
  * OpenOffice.org 1.9.79 erzeugte ODS-Datei.</em>

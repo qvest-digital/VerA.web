@@ -26,7 +26,7 @@
 package de.tarent.commons.datahandling.entity;
 
 /**
- * @author Fabian Köster (f.koester@tarent.de), tarent GmbH Bonn
+ * @author Fabian KÃ¶ster (f.koester@tarent.de), tarent GmbH Bonn
  *
  */
 public interface WritableEntity extends Entity, WritableAttribute {

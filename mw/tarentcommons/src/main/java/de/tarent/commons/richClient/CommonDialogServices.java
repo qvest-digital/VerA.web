@@ -64,7 +64,7 @@ public interface CommonDialogServices {
 	/**
 	 * Setzt je nach Parameter den Mauspfeil auf "Sanduhr" bzw. "normal";
 	 * sollte mit dem Parameter "true" aufgerufen werden, bevor eine
-	 * langwierige Operation ausgeführt wird. Nach Beendigung der Operation
+	 * langwierige Operation ausgefÃ¼hrt wird. Nach Beendigung der Operation
 	 * muss die Methode erneut aufgerufen werden, jedoch nun mit dem Parameter
 	 * "false"
 	 * 
