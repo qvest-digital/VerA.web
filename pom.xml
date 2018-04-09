@@ -50,7 +50,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.91.0-SNAPSHOT</version>
+	<version>1.90.4</version>
 
 	<scm>
 		<connection>scm:cvs:local:/cvs/newcvsroot:octopus/extensions/annotation</connection>
@@ -204,13 +204,13 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-core</artifactId>
-			<version>1.91.0-SNAPSHOT</version>
+			<version>1.90.4</version>
 		</dependency>
 
 		<dependency>
-			<groupId>javax.jws</groupId>
-			<artifactId>javaws-jsr181</artifactId>
-			<version>1.0</version>
+			<groupId>xfire</groupId>
+			<artifactId>xfire-jsr181-api</artifactId>
+			<version>1.0-M1</version>
 		</dependency>
 
 		<dependency>
@@ -224,18 +224,19 @@
 	<!-- this section is required for deployment -->
 	<distributionManagement>
 		<repository>
-			<id>tarent2-repository</id>
-			<name>tarent Maven2 Repository</name>
-			<url>scp://kassandra.tarent.de/home/maven/repository2/</url>
+			<id>evolvis-release-repository</id>
+			<name>evolvis.org release repository</name>
+			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>tarent2-repository</id>
-			<name>tarent Maven2 Repository</name>
-			<url>scp://kassandra.tarent.de/home/maven/repository2/</url>
+			<id>evolvis-snapshot-repository</id>
+			<name>evolvis.org snapshot repository</name>
+			<url>scpexe://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
 		</snapshotRepository>
 		<site>
-			<id>maven-site-projects</id>
-			<url>scp://kassandra.tarent.de/home/maven/projects/octopus</url>
+			<id>evolvis-site-repository</id>
+			<name>evolvis.org site repository</name>
+			<url>scpexe://maven@svn.evolvis.org/site/octopus/htdocs/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
 </project>
