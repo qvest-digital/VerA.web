@@ -29,13 +29,22 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>tarent-commons</artifactId>
+			<groupId>net.sourceforge.jtds</groupId>
+			<artifactId>jtds</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
@@ -43,25 +52,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>commons-pool</groupId>
-			<artifactId>commons-pool</artifactId>
-			<version>1.5.4</version>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>tarent-commons</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>8.4-701.jdbc3</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.sourceforge.jtds</groupId>
-			<artifactId>jtds</artifactId>
-			<version>1.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -8,7 +8,7 @@
 	<artifactId>octopus-ext-cronjobs</artifactId>
 	<packaging>jar</packaging>
 	<name>OCTOPUS cronjob extension</name>
-	<description>an opensource webservice and webapplication framework (cronjob extension)</description>
+	<description>tarent OCTOPUS application framework, cronjob extension</description>
 	<properties>
 		<java.version>1.5</java.version>
 	</properties>
@@ -21,13 +21,13 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-core</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>octopus-core</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -8,7 +8,7 @@
 	<artifactId>octopus-ext-commons</artifactId>
 	<packaging>jar</packaging>
 	<name>OCTOPUS common extension</name>
-	<description>an opensource webservice and webapplication framework (common part)</description>
+	<description>tarent OCTOPUS application framework, common part</description>
 	<properties>
 		<java.version>1.5</java.version>
 	</properties>
@@ -21,6 +21,11 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
 		</dependency>
@@ -31,11 +36,6 @@
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>tarent-commons</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

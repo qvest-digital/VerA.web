@@ -21,8 +21,28 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-rpctunnel</artifactId>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis-wsdl4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -33,48 +53,19 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.12</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.0.3</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-discovery</groupId>
-			<artifactId>commons-discovery</artifactId>
-			<version>0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.4</version>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>octopus-rpctunnel</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlrpc</groupId>
-			<artifactId>xmlrpc</artifactId>
-			<version>1.2-b1</version>
 		</dependency>
 		<dependency>
 			<groupId>velocity</groupId>
 			<artifactId>velocity</artifactId>
-			<version>1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>axis</groupId>
-			<artifactId>axis</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>axis</groupId>
-			<artifactId>axis-wsdl4j</artifactId>
-			<version>1.5.1</version>
+			<groupId>xmlrpc</groupId>
+			<artifactId>xmlrpc</artifactId>
 		</dependency>
 	</dependencies>
 </project>

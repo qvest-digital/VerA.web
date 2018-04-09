@@ -8,7 +8,7 @@
 	<artifactId>octopus-ext-beans</artifactId>
 	<packaging>jar</packaging>
 	<name>OCTOPUS bean extension</name>
-	<description>an opensource webservice and webapplication framework (bean extension)</description>
+	<description>tarent OCTOPUS application framework, bean extension</description>
 	<properties>
 		<java.version>1.5</java.version>
 	</properties>
@@ -21,8 +21,22 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>tarent-database</artifactId>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
@@ -30,7 +44,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-servlet</artifactId>
+			<artifactId>octopus-ext-annotation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
@@ -46,32 +60,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-annotation</artifactId>
+			<artifactId>octopus-servlet</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>tarent-commons</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>activation</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>tarent-database</artifactId>
 		</dependency>
 	</dependencies>
 </project>

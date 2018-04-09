@@ -55,6 +55,7 @@
 		<commons-csv.version>1.2</commons-csv.version>
 		<commons-io.version>2.5</commons-io.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
+		<commons-lang2.version>2.6</commons-lang2.version>
 		<dropwizard.version>0.7.1</dropwizard.version>
 		<extract-tool.version>1.4</extract-tool.version>
 		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
@@ -510,7 +511,7 @@
 			<dependency>
 				<groupId>commons-lang</groupId>
 				<artifactId>commons-lang</artifactId>
-				<version>2.6</version>
+				<version>${commons-lang2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>

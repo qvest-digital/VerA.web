@@ -8,6 +8,7 @@
 	<artifactId>octopus-rpctunnel</artifactId>
 	<packaging>jar</packaging>
 	<name>OCTOPUS rpctunnel</name>
+	<description>tarent OCTOPUS application framework, rpctunnel part</description>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
