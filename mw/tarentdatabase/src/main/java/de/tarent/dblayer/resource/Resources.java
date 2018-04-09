@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
  * Diese Klasse liefert Resourcen.
  *
  * @author mikel
- * @author Sebastian Mancke, Tarent GmbH
+ * @author Sebastian Mancke, tarent GmbH
  */
 public class Resources {
 

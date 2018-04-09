@@ -51,8 +51,8 @@ import de.tarent.dblayer.resource.Resources;
  * It is configurable over a map with parameters. Valid parameters
  * are described by the constants in this class.
  *
- * @author Christoph Jerolimov, Tarent GmbH
- * @author Sebastian Mancke, Tarent GmbH
+ * @author Christoph Jerolimov, tarent GmbH
+ * @author Sebastian Mancke, tarent GmbH
  */
 public class DBPool implements Pool {
 	private static final org.apache.commons.logging.Log logger = LogFactory.getLog(DBPool.class);

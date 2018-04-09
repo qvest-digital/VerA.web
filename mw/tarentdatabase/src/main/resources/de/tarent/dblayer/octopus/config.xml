@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tcModuleConfig>
-	<description>Tarent DB Layer extension for copy and resetting of databases</description>
+	<description>tarent DB Layer extension for copy and resetting of databases</description>
 	<params>
 	</params>
 	<contentWorkerDeklaration>

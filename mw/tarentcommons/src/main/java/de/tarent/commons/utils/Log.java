@@ -36,7 +36,7 @@ package de.tarent.commons.utils;
 import de.tarent.commons.logging.LogFactory;
 
 /**
- * This class is a static wrapper around the Tarent Commons LogFactory, based on Apache Commons Logging.
+ * This class is a static wrapper around the tarent-commons LogFactory, based on Apache Commons Logging.
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */

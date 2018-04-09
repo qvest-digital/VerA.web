@@ -38,7 +38,7 @@ import java.net.*;
  * Test application for JHTML panels.
  *
  *
- * @author Sebastian Mancke, Tarent GmbH
+ * @author Sebastian Mancke, tarent GmbH
  */
 public final class JHTMLTest {
 

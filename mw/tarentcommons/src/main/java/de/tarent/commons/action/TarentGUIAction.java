@@ -30,7 +30,7 @@ package de.tarent.commons.action;
 import javax.swing.Action;
 
 /**
- * <code>TarentGUIAction</code> is an interface to use actions across 'Tarent' applications.<p>
+ * <code>TarentGUIAction</code> is an interface to use actions across 'tarent' applications.<p>
  * Inherited Parameters:
  * <pre>
  * Action.NAME,
