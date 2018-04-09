@@ -140,9 +140,9 @@
 	<!-- the dependencies that are required for this project -->
 	<dependencies>
 		<dependency>
-			<groupId>de.tarent.libraries</groupId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>tarent-database</artifactId>
-			<version>1.5.4verawebpl3</version>
+			<version>1.8.58-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>

@@ -20,7 +20,6 @@
   FROM THE INTERNETZ⚠
 • handle TODOs in documentation, cover upgrading, mark no-OA jumps
 • fix and check installing Docker offline works
-• consider OCTOPUS monorepo (and dependency versions!)
 
 Status: kann alles getestet werden, löpt
 
@@ -86,11 +85,9 @@ Probleme:
   nutzen wir die Tags (z.B. beim Reply in 4? 5?)?
   oder brauchen wir das vielleicht einfach gar nicht mehr?
 
-OCTOPUS: ggfs. komplett reinziehen oder zumindest monorepo
-für *alle* Abhängigkeiten, die nicht aus maven-central o.ä.
-kommen, also mindestens diese plus dependencies rekursiv:
+monorepo status:
 ‣ de.tarent.libraries:tarent-commons		1.3.2.1
-• de.tarent.libraries:tarent-database		1.5.4verawebpl3
+‣ de.tarent.libraries:tarent-database		1.5.4verawebpl3
 ‣ de.tarent.octopus:octopus-core		1.6.7
 ‣ de.tarent.octopus:octopus-ext-annotation	1.90.4
 ‣ de.tarent.octopus:octopus-ext-beans		1.6.2verawebpl5
