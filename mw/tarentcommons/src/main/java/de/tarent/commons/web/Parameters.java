@@ -54,7 +54,7 @@ public class Parameters extends LinkedHashMap {
 	/**
 	 * The default encoding to be used for the parameters
 	 */
-	private String defaultEncoding = "ISO-8859-1";//"UTF-8";
+	private String defaultEncoding = "UTF-8";
 	
 	/**
 	 * The expected length for each key or value (used for estimating the size of the used StringBuffers)

@@ -10,12 +10,10 @@
 			<!-- <secutityPrincipal></secutityPrincipal> -->
 			<!-- LDAP pssword -->
 			<!-- secutityCredentials></secutityCredentials> -->
-			
 			<encodingFilterInput>UTF-8</encodingFilterInput>
 			<encodingFilterOutput>ISO-8859-1</encodingFilterOutput>
 		</parameters>
 	</dataaccess>
-	
 	<mapping for="ldap-tarent">
 		<class>de.tarent.commons.dataaccess.test.Person</class>
 		<parameters>
