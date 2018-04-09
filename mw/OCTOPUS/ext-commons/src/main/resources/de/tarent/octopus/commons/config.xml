@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+	tarent-octopus common config.xml
+-->
+
+<tcModuleConfig>
+	<contentWorkerDeklaration>
+		<worker
+			name="CommonLoggingWorker"
+			implementation="de.tarent.octopus.commons.CommonLoggingWorker"
+			singleton="true"
+			factory="annotation"/>
+		<worker
+			name="CommonWebWorker"
+			implementation="de.tarent.octopus.commons.CommonWebWorker"
+			singleton="true"
+			factory="annotation"/>
+	</contentWorkerDeklaration>
+	
+	<tasks>
+		<task name="appendLoggingProperties" access="public" groups="Anonymous,User,Administrator">
+			<description>
+				Load the java.util.logging from the content parameter
+				"logging.property.file" or out of the module configuration
+				with parameter key "logging.property.file".
+			</description>
+			<action name="appendLoggingProperties" worker="CommonLoggingWorker" />
+		</task>
+		
+		<task name="appendLoggingHandler" access="public" groups="Anonymous,User,Administrator">
+			<description>
+				Append some handler and loggers to the java.util.logging settings.
+			</description>
+			<action name="appendLoggingHandler" worker="CommonLoggingWorker" />
+		</task>
+		
+		<task name="changeHandlerLevels" access="public" groups="Anonymous,User,Administrator">
+			<description>
+				Change the handler log leven for defined loggers.
+			</description>
+			<action name="changeHandlerLevels" worker="CommonLoggingWorker" />
+		</task>
+		
+		<task name="appendLoggingInformation" access="public" groups="Anonymous,User,Administrator">
+			<description>
+				Append logging information.
+			</description>
+			<doTask name="appendLoggingProperties"/>
+			<doTask name="appendLoggingHandler"/>
+			<doTask name="changeHandlerLevels"/>
+			<response type="soap" name="unused">
+				<param name="OutputFields" type="array">
+					<value>status</value>
+				</param>
+			</response>
+		</task>
+		
+		<task name="initializeThreadLogger" access="private">
+			<description>
+				Initialize a thread logger for the current instance.
+			</description>
+			<action name="initializeThreadLogger" worker="CommonLoggingWorker" />
+		</task>
+	</tasks>
+</tcModuleConfig>

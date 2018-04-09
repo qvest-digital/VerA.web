@@ -1,0 +1,128 @@
+/*
+ * tarent-octopus jmx extension,
+ * an opensource webservice and webapplication framework (jmx part)
+ * Copyright (c) 2006-2007 tarent GmbH
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License,version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ *
+ * tarent GmbH., hereby disclaims all copyright
+ * interest in the program 'tarent-octopus jmx extension'
+ * Signature of Elmar Geese, 11 June 2007
+ * Elmar Geese, CEO tarent GmbH.
+ */
+
+/*
+ * Copyright (c) tarent GmbH
+ * Bahnhofstrasse 13 . 53123 Bonn
+ * www.tarent.de . info@tarent.de
+ *
+ * Created on 19.06.2006
+ */
+
+package de.tarent.octopus.jmx;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import de.tarent.octopus.config.CommonConfig;
+import de.tarent.octopus.extensions.OctopusExtension;
+import de.tarent.octopus.request.Octopus;
+
+public class OctopusManagement implements OctopusExtension
+{
+    private static Logger logger = Logger.getLogger(OctopusManagement.class.getName());
+
+    private List<OctopusModuleManagement> modules = new LinkedList<OctopusModuleManagement>();
+    
+    public OctopusManagement()
+    {
+        super();
+    }
+    
+    public void initialize(Object params)
+    {
+        if (!(params instanceof Map))
+            logger.log(Level.SEVERE, "JMX extension parameter is not a map!");
+        
+        if (!((Map)params).containsKey("octopus") || !((Map)params).containsKey("config"))
+            logger.log(Level.SEVERE, "JMX extension needs parameter 'octopus' and parameter 'config'");
+            
+        Octopus octopus = (Octopus)((Map)params).get("octopus");
+        CommonConfig commonconfig = (CommonConfig)((Map)params).get("config");
+        
+        // initialize octopus core MBean
+        try
+        {
+            modules.add(new OctopusModuleManagement(octopus, commonconfig, "octopus"));
+        }
+        catch (Exception e)
+        {
+            logger.log(Level.SEVERE, "Error initializing JMX for octopus core.", e);
+        }
+        
+        // initialize module specific MBeans
+        Iterator iter = commonconfig.getExistingModuleNames();
+        String module = null;
+        while (iter.hasNext())
+            try
+            {
+                module = (String)iter.next();
+                modules.add(new OctopusModuleManagement(octopus, commonconfig, module));
+            }
+            catch (Exception e)
+            {
+                logger.log(Level.SEVERE, "Error initializing JMX for module " + module, e);
+            }
+    }
+
+    /**
+     * Starts the management thread by getting a connection to a running
+     * JMX server (or creating a new server) and publishing the management
+     * information to the server.
+     */
+    public void start()
+    {
+        for (OctopusModuleManagement module : modules)
+            try
+            {
+                module.start();
+            }
+            catch (Exception e)
+            {
+                logger.log(Level.SEVERE, "Error starting JMX for module " + module.getMBeanInfo().getClassName(), e);
+            }
+    }
+
+    /**
+     * Shuts down the JMX server by unregistering the MBean from the
+     * running server.
+     */
+    public void stop()
+    {
+        for (OctopusModuleManagement module : modules)
+            try
+            {
+                module.stop();
+            }
+            catch (Exception e)
+            {
+                logger.log(Level.SEVERE, "Error stopping JMX for module " + module.getMBeanInfo().getClassName(), e);
+            }
+    }    
+}
