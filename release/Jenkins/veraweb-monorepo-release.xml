@@ -36,6 +36,7 @@
             <a class="string-array">
               <string>mit/ohne</string>
               <string>po</string>
+              <string>thense</string>
               <string>(keine)</string>
               <string>stadtmuenchen</string>
             </a>
@@ -163,10 +164,13 @@ else
 		hostbase=veraweb-mit.lan.tarent.de
 		hostoa=veraweb-mit-oa.lan.tarent.de
 		hostohne=veraweb-ohne.lan.tarent.de
-		tomcat=8
 		;;
 	(po)
 		hostbase=veraweb-po.lan.tarent.de
+		hostoa=$hostbase
+		;;
+	(thense)
+		hostbase=veraweb-thense.lan.tarent.de
 		hostoa=$hostbase
 		;;
 	(stadtmuenchen)
