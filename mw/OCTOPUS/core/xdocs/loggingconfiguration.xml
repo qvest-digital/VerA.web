@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>Logging configuration</title>
+	</properties>
+	<body>
+		<section href="intro" name="Logging configuration">
+			<p>
+				The OCTOPUS logging (not the module logging!) can be
+				configured in the web.xml file of the OCTOPUS
+				webapplication or in your webapplication if you include
+				OCTOPUS as a library.
+				In the default configuration OCTOPUS uses 10 rotation
+				logging files with a maximum of 4 MiB size.
+			</p>
+			<p>
+				You must define the logging parameters as
+				<code>init-param</code>s, like this:
+			</p>
+			<pre>	&lt;init-param&gt;
+		&lt;param-name&gt;logging.level&lt;/param-name&gt;
+		&lt;param-value&gt;INFO&lt;/param-value&gt;
+	&lt;/init-param&gt;</pre>
+			<p>
+				The following parameters are allowed:
+			</p>
+			<table>
+				<tr>
+					<th>Parameter</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>logging.level</td>
+					<td>Defines the log level of OCTOPUS,
+						allowed are all java.util.logging levels.</td>
+				</tr>
+				<tr>
+					<td>logging.pattern</td>
+					<td>Defines the filename pattern for logging,
+						allowed are all FileHandler options.</td>
+				</tr>
+				<tr>
+					<td>logging.limit</td>
+					<td>Defines the maximum size of one log file, default is 4 MiB.
+						To disable limit set this parameter to <code>0</code> or <code>disabled</code>,
+						also allowed is the option <code>default</code>.</td>
+				</tr>
+				<tr>
+					<td>logging.count</td>
+					<td>Defines the maximum count of all log files, default is 10.
+						To disable limit set this parameter to <code>1</code> or <code>disabled</code>,
+						also allowed is the option <code>default</code>.</td>
+				</tr>
+				<tr>
+					<td>paths.logPath</td>
+					<td>Optional historic parameter which define the log path.
+						No default, it will insert between module path and
+						logging.pattern and should terminate with a slash.</td>
+				</tr>
+			</table>
+			<p>
+				To disable
+			</p>
+			<p>
+				For more information about this parameters please read the java.util.logging API:
+				<li>
+					<ul><a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/logging/Level.html">java.util.logging.Level (JavaDoc)</a></ul>
+					<ul><a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/logging/FileHandler.html">java.util.logging.FileHandler (JavaDoc)</a></ul>
+				</li>
+			</p>
+		</section>
+	</body>
+</document>

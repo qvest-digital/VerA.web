@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<tcModuleConfig>
+	<description>Test Config 1</description>
+
+	<include file="./config2.xml" />
+
+	<params>
+		<param name="TestParameter1" value="1" />
+	</params>
+
+	<tasks></tasks>
+</tcModuleConfig>
