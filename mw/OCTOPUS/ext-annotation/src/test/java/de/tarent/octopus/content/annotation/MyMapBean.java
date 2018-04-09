@@ -23,7 +23,6 @@
  * Elmar Geese, CEO tarent GmbH.
  */
 
-
 package de.tarent.octopus.content.annotation;
 
 import java.util.HashMap;

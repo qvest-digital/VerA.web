@@ -25,10 +25,7 @@
 
 package de.tarent.commons.datahandling.entity;
 
-
 import de.tarent.commons.datahandling.entity.AttributeSource;
-
-
 
 /**
  * Interface for object creation factories
