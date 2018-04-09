@@ -51,7 +51,7 @@ public class AnnotationWorkerFactory implements SpecialWorkerFactory {
      * @param classLoader Octopus Classloader fuer Worker.
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
-	public ContentWorker createInstance(
+	public TcContentWorker createInstance(
 			ClassLoader classLoader,
 			ContentWorkerDeclaration workerDeclaration)
 			throws WorkerCreationException {

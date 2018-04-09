@@ -39,7 +39,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 
 import de.tarent.octopus.content.AbstractWorkerWrapper;
-import de.tarent.octopus.content.ActionDeclarationException;
+import de.tarent.octopus.content.TcActionDeclarationException;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -74,7 +74,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
      * @return Metadaten die beschreiben, wie die Action-Methode aufgerufen werden soll.
      */
     public ActionData getActionData(String actionName)
-	throws ActionDeclarationException {
+	throws TcActionDeclarationException {
 
 	if (null == actionName)
 	    throw new NullPointerException("Action Name darf nicht null sein");
@@ -101,7 +101,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
 	}
 
 	if (action.method == null)
-	    throw new ActionDeclarationException("Serverfehler: Keine passende Methode für die Action "+actionName+" im Worker "+getWorkerClass().getName()+" gefunden.");
+	    throw new TcActionDeclarationException("Serverfehler: Keine passende Methode für die Action "+actionName+" im Worker "+getWorkerClass().getName()+" gefunden.");
 
 	if (action.method.getAnnotation(Description.class) != null)
 	    action.description = action.method.getAnnotation(Description.class).value();
@@ -170,7 +170,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
     }
 
     public String[] getActionNames()
-	throws ActionDeclarationException {
+	throws TcActionDeclarationException {
 
 	List out = new ArrayList();
 
@@ -212,7 +212,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
 			return (Class)genericType;
 		}
 
-		ActionDeclarationException actionDeclarationException = new ActionDeclarationException(
+		TcActionDeclarationException actionDeclarationException = new TcActionDeclarationException(
 				"Fehler bei Bestimmung des Generic-Zieltypes für " + pos + ". " +
 				"Parameter von " + method.getName());
 		throw new Error(actionDeclarationException);

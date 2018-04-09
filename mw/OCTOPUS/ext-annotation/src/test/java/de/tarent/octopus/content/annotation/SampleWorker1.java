@@ -25,7 +25,7 @@
 
 package de.tarent.octopus.content.annotation;
 
-import de.tarent.octopus.config.ModuleConfig;
+import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.annotation.InOutParam;
 
 import junit.framework.Assert;
@@ -39,7 +39,7 @@ public class SampleWorker1 {
 
     public boolean wasInitCalled = false;
 
-    public void init(ModuleConfig tmc)
+    public void init(TcModuleConfig tmc)
     {
 	wasInitCalled = true;
     }
@@ -207,5 +207,4 @@ public class SampleWorker1 {
 	p2.set(p2.get()+2);
 	p3.set(!p3.get());
     }
-
 }

@@ -35,12 +35,12 @@ public class AnnotationWorkerWrapperTest
 
     static boolean calledFlag;
 
-    ModuleConfig moduleConfig;
-    ContentWorker sampleWorker1;
-    ContentWorker sampleWorker2;
-    OctopusRequest request;
-    Content content;
-    OctopusConfig config;
+    TcModuleConfig moduleConfig;
+    TcContentWorker sampleWorker1;
+    TcContentWorker sampleWorker2;
+    TcRequest request;
+    TcContent content;
+    TcConfig config;
 
     public AnnotationWorkerWrapperTest(String init) {
         super(init);
@@ -49,7 +49,7 @@ public class AnnotationWorkerWrapperTest
     public void setUp()
         throws Exception {
         calledFlag = false;
-        moduleConfig = ModuleConfig.createMockupModuleConfig("/tmp", new HashMap());
+        moduleConfig = TcModuleConfig.createMockupModuleConfig("/tmp", new HashMap());
 
         AnnotationWorkerFactory factory = new AnnotationWorkerFactory();
         ContentWorkerDeclaration workerDeclaration = new ContentWorkerDeclaration();
@@ -59,12 +59,12 @@ public class AnnotationWorkerWrapperTest
         workerDeclaration.setImplementationSource(SampleWorker2.class.getName());
         sampleWorker2 = factory.createInstance(getClass().getClassLoader(), workerDeclaration);
 
-        request = new OctopusRequest();
+        request = new TcRequest();
         request.setRequestParameters(new HashMap());
-        content = new Content();
+        content = new TcContent();
 
         // this mockup can produce errors if parts of the config will be accecced
-        config = new OctopusConfig(null, null, null);
+        config = new TcConfig(null, null, null);
     }
 
     public void testVersion()
@@ -134,7 +134,7 @@ public class AnnotationWorkerWrapperTest
             content.setField("mandatory", (String)null);
             content.setField("optional", (String)null);
             sampleWorker1.doAction(config, "optionalArguments", request, content);
-        } catch (ActionInvocationException aie) {
+        } catch (TcActionInvocationException aie) {
             // success
             return;
         }
@@ -149,7 +149,7 @@ public class AnnotationWorkerWrapperTest
             content.setField("mandatory", "Frank");
             content.setField("optional", (String)null);
             sampleWorker1.doAction(config, "optionalArguments", request, content);
-        } catch (ActionInvocationException aie) {
+        } catch (TcActionInvocationException aie) {
             // success
             return;
         }
@@ -205,5 +205,4 @@ public class AnnotationWorkerWrapperTest
         assertEquals("Integer InOut", 42, content.get("p2"));
         assertEquals("String InOut", true, content.get("p3"));
     }
-
 }
