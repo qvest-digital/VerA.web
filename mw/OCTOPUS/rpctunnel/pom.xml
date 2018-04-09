@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.tarent.octopus</groupId>
+	<artifactId>octopus-rpctunnel</artifactId>
+	<packaging>jar</packaging>
+	<name>octopus-rpctunnel</name>
+	<version>0.2</version>
+	<developers>
+		<developer>
+			<id>jneuma</id>
+			<name>Jens Neumaier</name>
+			<email>j.neumaier@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+			<roles>
+				<role>Core Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<outputDirectory>target/classes</outputDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<distributionManagement>
+		<repository>
+			<id>tarent2-repository</id>
+			<name>tarent Maven2 Repository</name>
+			<url>scp://kassandra.tarent.de/home/maven/repository2</url>
+		</repository>
+		<snapshotRepository>
+			<id>tarent2-repository</id>
+			<name>tarent Maven2 Repository</name>
+			<url>scp://kassandra.tarent.de/home/maven/repository2</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
