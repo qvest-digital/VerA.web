@@ -5,23 +5,6 @@
 	<version>1.8.58-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OCTOPUS rpctunnel</name>
-	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
-		<testSourceDirectory>src/test/java</testSourceDirectory>
-		<outputDirectory>target/classes</outputDirectory>
-		<testOutputDirectory>target/test-classes</testOutputDirectory>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-			</testResource>
-		</testResources>
-	</build>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -30,16 +13,4 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-	<distributionManagement>
-		<repository>
-			<id>tarent2-repository</id>
-			<name>tarent Maven2 Repository</name>
-			<url>scp://kassandra.tarent.de/home/maven/repository2</url>
-		</repository>
-		<snapshotRepository>
-			<id>tarent2-repository</id>
-			<name>tarent Maven2 Repository</name>
-			<url>scp://kassandra.tarent.de/home/maven/repository2</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>
