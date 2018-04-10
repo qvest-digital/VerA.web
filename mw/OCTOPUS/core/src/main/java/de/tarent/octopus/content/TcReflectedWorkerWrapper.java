@@ -48,24 +48,21 @@ package de.tarent.octopus.content;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.server.OctopusContext;
+import org.apache.commons.logging.Log;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.logging.Log;
-
-import de.tarent.octopus.logging.LogFactory;
-import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Reflection Worker, der als Wrapper zu einer Generischen Java-Klasse fungiert.
  *
  * @author Sebastian Mancke
  */
-public class TcReflectedWorkerWrapper
-        extends AbstractWorkerWrapper {
-
+public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
     Log logger = LogFactory.getLog(getClass());
 
     // Feldkonstanten für die Metadaten
@@ -102,8 +99,7 @@ public class TcReflectedWorkerWrapper
      * @param actionName Name der Action
      * @return Metadaten die beschreiben, wie die Action-Methode aufgerufen werden soll.
      */
-    public ActionData getActionData(String actionName)
-            throws TcActionDeclarationException {
+    public ActionData getActionData(String actionName) throws TcActionDeclarationException {
         if (!actionDataLookup.containsKey(actionName)) {
             ActionData action = new ActionData();
             Method[] methods = workerClass.getMethods();
@@ -198,9 +194,7 @@ public class TcReflectedWorkerWrapper
         return (ActionData) actionDataLookup.get(actionName);
     }
 
-    public String[] getActionNames()
-            throws TcActionDeclarationException {
-
+    public String[] getActionNames() throws TcActionDeclarationException {
         List out = new ArrayList();
         try {
 
@@ -224,7 +218,38 @@ public class TcReflectedWorkerWrapper
             throw new TcActionDeclarationException("Fehler beim Ermitteln der Selbstbeschreibung von " + workerClass.getName(),
                     e);
         }
-
         return (String[]) out.toArray(new String[] {});
+    }
+
+    public EnrichedInOutParam wrapWithInOutParam(Object value) {
+        return new EnrichedParamImplementation(value);
+    }
+
+    /**
+     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
+     */
+    static class EnrichedParamImplementation implements EnrichedInOutParam {
+        Object data;
+        String contextFieldName;
+
+        protected EnrichedParamImplementation(Object data) {
+            this.data = data;
+        }
+
+        public String getContextFieldName() {
+            return contextFieldName;
+        }
+
+        public void setContextFieldName(String newContextFieldName) {
+            this.contextFieldName = newContextFieldName;
+        }
+
+        public Object get() {
+            return this.data;
+        }
+
+        public void set(Object newData) {
+            this.data = newData;
+        }
     }
 }

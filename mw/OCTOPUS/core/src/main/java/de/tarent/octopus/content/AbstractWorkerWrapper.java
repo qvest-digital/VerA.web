@@ -48,6 +48,15 @@ package de.tarent.octopus.content;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.logging.LogFactory;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.server.InOutParam;
+import de.tarent.octopus.server.OctopusContext;
+import org.apache.commons.logging.Log;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -59,24 +68,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-
-import de.tarent.octopus.config.TcConfig;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.logging.LogFactory;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.resource.Resources;
-import de.tarent.octopus.server.InOutParam;
-import de.tarent.octopus.server.OctopusContext;
-
 /**
  * Basisklasse für Worker-Wrapper nach dem Template-Method Pattern.
  *
  * @author Sebastian Mancke
  */
-public abstract class AbstractWorkerWrapper
-        implements TcContentWorker, DelegatingWorker {
-
+public abstract class AbstractWorkerWrapper implements TcContentWorker, DelegatingWorker {
     private static Log logger = LogFactory.getLog(AbstractWorkerWrapper.class);
 
     /**
@@ -136,46 +133,8 @@ public abstract class AbstractWorkerWrapper
 
     /**
      * Wrap the value with an InOutParam Container
-     *
-     * Supposed to be abstract, but we have only two children,
-     * TcReflectedWorkerWrapper in core and AnnotationWorkerWrapper
-     * in ext-annotation, both currently sharing this due to the
-     * degenerification of AnnotationWorkerWrapper
      */
-    public EnrichedInOutParam wrapWithInOutParam(Object value) {
-        return new EnrichedParamImplementation(value);
-    }
-
-    /**
-     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter
-     * bei Actions realisiert werden können (TcReflectedWorkerWrapper)
-     */
-    static class EnrichedParamImplementation
-            implements EnrichedInOutParam {
-
-        Object data;
-        String contextFieldName;
-
-        protected EnrichedParamImplementation(Object data) {
-            this.data = data;
-        }
-
-        public String getContextFieldName() {
-            return contextFieldName;
-        }
-
-        public void setContextFieldName(String newContextFieldName) {
-            this.contextFieldName = newContextFieldName;
-        }
-
-        public Object get() {
-            return this.data;
-        }
-
-        public void set(Object newData) {
-            this.data = newData;
-        }
-    }
+    public abstract EnrichedInOutParam wrapWithInOutParam(Object value);
 
     /**
      * Initialisierung des Workers
@@ -199,7 +158,6 @@ public abstract class AbstractWorkerWrapper
      */
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
             throws TcContentProzessException {
-
         try {
 
             ActionData actionData = getActionDataCached(actionName);
@@ -232,11 +190,13 @@ public abstract class AbstractWorkerWrapper
                     if (paramValue == null && actionData.mandatoryFlags[i]) {
                         throw new TcActionInvocationException(Resources.getInstance()
                                 .get("WORKER_WRAPPER_EXC_MISSING_PARAM",
-                                        new Object[] { tcRequest.getRequestID(),
+                                        new Object[] {
+                                                tcRequest.getRequestID(),
                                                 actionData.inputParams[i],
                                                 actionData.getArgTargetType(argsPos).getName(),
                                                 workerClass.getName(),
-                                                actionName }));
+                                                actionName
+                                        }));
                     }
                     // type conversion
                     if (!actionData.getArgTargetType(argsPos).isInstance(paramValue)) {
@@ -278,10 +238,8 @@ public abstract class AbstractWorkerWrapper
                 }
             }
 
-            return (octopusContext.getStatus() != null)
-                    ? octopusContext.getStatus()
-                    : TcContentWorker.RESULT_ok;
-
+            return (octopusContext.getStatus() != null) ?
+                    octopusContext.getStatus() : TcContentWorker.RESULT_ok;
         } catch (TcContentProzessException e) {
             throw e;
         } catch (IllegalArgumentException e) {
@@ -310,9 +268,7 @@ public abstract class AbstractWorkerWrapper
      *
      * TODO: Unterstützung für long => Date
      */
-    protected Object tryToConvert(Object param, Class targetType)
-            throws TcContentProzessException {
-
+    protected Object tryToConvert(Object param, Class targetType) throws TcContentProzessException {
         try {
             if (param == null && !targetType.isPrimitive()) {
                 return null;
@@ -392,9 +348,7 @@ public abstract class AbstractWorkerWrapper
      * @param actionName Name der Action
      * @return Metadaten die beschreiben, wie die Action-Methode aufgerufen werden soll.
      */
-    protected ActionData getActionDataCached(String actionName)
-            throws TcActionDeclarationException {
-
+    protected ActionData getActionDataCached(String actionName) throws TcActionDeclarationException {
         ActionData action = (ActionData) actionDataLookup.get(actionName);
         if (null == action) {
             action = getActionData(actionName);
@@ -461,9 +415,7 @@ public abstract class AbstractWorkerWrapper
         }
     }
 
-    public interface EnrichedInOutParam
-            extends InOutParam {
-
+    public interface EnrichedInOutParam extends InOutParam {
         public String getContextFieldName();
 
         public void setContextFieldName(String newContextFieldName);
