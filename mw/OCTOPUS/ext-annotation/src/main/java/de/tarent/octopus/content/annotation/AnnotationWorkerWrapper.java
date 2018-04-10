@@ -195,28 +195,10 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
 
 	/**
 	 * Returns the type for the parameter to use.
-	 * Normaly, this ist the paramtype. In the case of InOutParams
-	 * this is the Generic-Type of the InOutParam.
 	 */
 	public Class getArgTargetType(int pos) {
 	    if (args[pos] == null)
 		return Void.class;
-
-	    // Generic InOutParam Type
-	    if (de.tarent.octopus.content.annotation.InOutParam.class.isAssignableFrom(args[pos])) {
-		if (genericParameterTypes == null)
-		    genericParameterTypes = method.getGenericParameterTypes();
-		if (genericParameterTypes[pos] instanceof ParameterizedType) {
-		    Type genericType = ((ParameterizedType)genericParameterTypes[pos]).getActualTypeArguments()[0];
-		    if (genericType instanceof Class)
-			return (Class)genericType;
-		}
-
-		TcActionDeclarationException actionDeclarationException = new TcActionDeclarationException(
-				"Fehler bei Bestimmung des Generic-Zieltypes für " + pos + ". " +
-				"Parameter von " + method.getName());
-		throw new Error(actionDeclarationException);
-	    }
 
 	    if (de.tarent.octopus.server.InOutParam.class.isAssignableFrom(args[pos]))
 		return Object.class;
@@ -225,42 +207,7 @@ public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
 	}
 
 	public boolean isInOutParam(int pos) {
-	    return de.tarent.octopus.content.annotation.InOutParam.class.isAssignableFrom(args[pos])
-		|| de.tarent.octopus.server.InOutParam.class.isAssignableFrom(args[pos]);
-	}
-    }
-
-    public EnrichedInOutParam wrapWithInOutParam(Object value) {
-	return new EnrichedParamImplementation(value);
-    }
-
-    /**
-     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
-     */
-    class EnrichedParamImplementation<T>
-	implements de.tarent.octopus.content.annotation.InOutParam, EnrichedInOutParam {
-
-	T data;
-	String contextFieldName;
-
-	protected EnrichedParamImplementation(T data) {
-	    this.data = data;
-	}
-
-	public String getContextFieldName() {
-	    return contextFieldName;
-	}
-
-	public void setContextFieldName(String newContextFieldName) {
-	    this.contextFieldName = newContextFieldName;
-	}
-
-	public T get() {
-	    return this.data;
-	}
-
-	public void set(Object newData) {
-	    this.data = (T)newData;
+	    return de.tarent.octopus.server.InOutParam.class.isAssignableFrom(args[pos]);
 	}
     }
 }

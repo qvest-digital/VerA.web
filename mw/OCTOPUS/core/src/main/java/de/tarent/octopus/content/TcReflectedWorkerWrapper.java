@@ -180,37 +180,4 @@ public class TcReflectedWorkerWrapper
 
         return (String[])out.toArray(new String[]{});
     }
-
-    public EnrichedInOutParam wrapWithInOutParam(Object value) {
-        return new EnrichedParamImplementation(value);
-    }
-
-    /**
-     * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
-     */
-    static class EnrichedParamImplementation
-        implements EnrichedInOutParam {
-
-        Object data;
-        String contextFieldName;
-
-        protected EnrichedParamImplementation(Object data) {
-            this.data = data;
-        }
-
-        public String getContextFieldName() {
-            return contextFieldName;
-        }
-
-        public void setContextFieldName(String newContextFieldName) {
-            this.contextFieldName = newContextFieldName;
-        }
-
-        public Object get() {
-            return this.data;
-        }
-        public void set(Object newData) {
-            this.data = newData;
-        }
-    }
 }
