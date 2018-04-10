@@ -222,7 +222,7 @@ public abstract class QualityFeedbackAgent extends JDialog {
             jTextPane.setText(
                     "The tarent quality feedback agent has captured information that tarent needs to improve this products " +
                             "quality.\n\nEnter your email address (optional), describe how you were using this product " +
-                             "(optional), " +
+                            "(optional), " +
                             "then click Send.");
             jTextPane.setBounds(new java.awt.Rectangle(134, 15, 342, 104));
         }

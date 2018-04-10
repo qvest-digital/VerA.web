@@ -776,9 +776,8 @@ public class TcSecurityLDAPManager {
                         "Der User ist nicht eindeutig, bitte wählen sie einen anderen Usernamen");
             }
         } catch (NamingException e) {
-            throw new TcSecurityException(
-                    "Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. Bitte versuchen Sie es später noch einmal" +
-                     ".");
+            throw new TcSecurityException("Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. " +
+                        "Bitte versuchen Sie es später noch einmal.");
         }
         return dn;
     }

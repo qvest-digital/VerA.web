@@ -862,7 +862,7 @@ public class TcModuleConfig implements Serializable {
                             TcPersonalConfig.class;
                     if (!PersonalConfig.class.isAssignableFrom(classClass)) {
                         String msg = "Fehler beim Laden des Konstruktors für PersonalConfigs; " +
-                                 "angegebene Klasse implementiert nicht PersonalConfig.";
+                                "angegebene Klasse implementiert nicht PersonalConfig.";
                         logger.error(msg);
                         throw new TcConfigException(msg);
                     }
