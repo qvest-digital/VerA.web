@@ -134,6 +134,9 @@
 					<includes>
 						<include>**/*.java</include>
 					</includes>
+					<excludes>
+						<exclude>**/de/tarent/commons/logging/LogManager.java</exclude>
+					</excludes>
 					<headerDefinitions>
 						<headerDefinition>${project.basedir}/myc-javapkg.xml</headerDefinition>
 					</headerDefinitions>

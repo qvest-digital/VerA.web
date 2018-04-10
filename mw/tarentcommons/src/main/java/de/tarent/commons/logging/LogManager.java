@@ -1,10 +1,52 @@
 package de.tarent.commons.logging;
 
-/*
- * License GPL.
+/*-
+ * tarent-commons LogManager
  *
- * Part of this software are copied from the GNU Classpath project.
- * Visit http://developer.classpath.org/doc/ for more information.
+ * Copyright © 2005, 2006 Christoph Jerolimov <c.jerolimov@tarent.de>
+ * Licensor is tarent solutions GmbH, http://www.tarent.de/
+ *
+ * Derived from LogManager.java (a class for maintaining Loggers and
+ * managing configuration properties), part of GNU Classpath, and
+ * published under the same terms (GNU GPLv2+ with Classpath exception)
+ * as GNU Classpath, by licensor understanding that “this library”
+ * below means this Java™ class which is merely aggregated into
+ * tarent-commons a.k.a. VerA.web-Middleware.
+ *
+ * Copyright (C) 2002, 2005 Free Software Foundation, Inc.
+ * contributed by Sascha Brawer <brawer@acm.org>
+ *
+ * GNU Classpath is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * GNU Classpath is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with GNU Classpath; see the file COPYING.  If not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA.
+ *
+ * Linking this library statically or dynamically with other modules is
+ * making a combined work based on this library.  Thus, the terms and
+ * conditions of the GNU General Public License cover the whole
+ * combination.
+ *
+ * As a special exception, the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent
+ * modules, and to copy and distribute the resulting executable under
+ * terms of your choice, provided that you also meet, for each linked
+ * independent module, the terms and conditions of the license of that
+ * module.  An independent module is a module which is not derived from
+ * or based on this library.  If you modify this library, you may extend
+ * this exception to your version of the library, but you are not
+ * obligated to do so.  If you do not wish to do so, delete this
+ * exception statement from your version.
  */
 
 import java.io.IOException;
@@ -32,8 +74,6 @@ import de.tarent.commons.messages.MessageHelper;
  * because you <strong>can extend</strong> already loaded {@link Properties}
  * information about the logging. The default implementation will
  * remove all old informations.
- *
- * TODO License information (GPL)
  *
  * @author Christoph Jerolimov, tarent GmbH
  * @author Sascha Brawer (brawer@acm.org)
