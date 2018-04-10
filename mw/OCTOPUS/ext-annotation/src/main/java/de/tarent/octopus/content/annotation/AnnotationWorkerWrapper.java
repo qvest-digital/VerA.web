@@ -50,7 +50,6 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Sebastian Mancke
  */
 public class AnnotationWorkerWrapper extends AbstractWorkerWrapper {
-
     Logger logger = Logger.getLogger(getClass().getName());
 
     public AnnotationWorkerWrapper(Object workerDelegate) {
