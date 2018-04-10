@@ -45,7 +45,7 @@ import java.io.FileOutputStream;
  */
 public class FileToClassWithByteArray {
 
-	private final static char DIR_SEPERATOR = '/';
+	private final static char DIR_SEPARATOR = '/';
 	private final static int BUFFER_SIZE = 1024;
 	private URI sourceFileURI;
 	private String destinationDir;
@@ -96,8 +96,8 @@ public class FileToClassWithByteArray {
 			buffer.append(getDestinationDir());
 		}
 		if (!getPackageName().equals("")) {
-			buffer.append(getPackageName().replace('.', getDirSeperator()));
-			buffer.append(getDirSeperator());
+			buffer.append(getPackageName().replace('.', getDirSeparator()));
+			buffer.append(getDirSeparator());
 		}
 		buffer.append(getClassName());
 		buffer.append(".java");
@@ -177,9 +177,9 @@ public class FileToClassWithByteArray {
 
 	public void setDestinationDir(String destinationDir) {
 		if (destinationDir != null) {
-			this.destinationDir = destinationDir.trim().endsWith((new Character(getDirSeperator())).toString())
+			this.destinationDir = destinationDir.trim().endsWith((new Character(getDirSeparator())).toString())
 				? destinationDir.trim()
-				: destinationDir.trim() + getDirSeperator();
+				: destinationDir.trim() + getDirSeparator();
 		}
 		else {
 			this.destinationDir = "";
@@ -199,8 +199,8 @@ public class FileToClassWithByteArray {
 		}
 	}
 
-	public char getDirSeperator() {
-		return DIR_SEPERATOR;
+	public char getDirSeparator() {
+		return DIR_SEPARATOR;
 	}
 
 }

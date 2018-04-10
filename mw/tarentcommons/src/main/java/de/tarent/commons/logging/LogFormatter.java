@@ -77,7 +77,7 @@ public class LogFormatter {
 				ThreadLogger threadLogger = ThreadLogger.getInstance();
 				writer.println("  Available method calls of current threadlogger (" + threadLogger.getThreadId() + "):");
 				writer.println();
-				writer.println(Tools.iteratorToString(threadLogger.getMethodCalls().iterator(), "    ", true, StringTools.LINE_SEPERATOR, true));
+				writer.println(Tools.iteratorToString(threadLogger.getMethodCalls().iterator(), "    ", true, StringTools.LINE_SEPARATOR, true));
 				writer.println();
 			}
 

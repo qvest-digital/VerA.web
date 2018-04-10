@@ -41,7 +41,7 @@ public class StringTools {
 	/**
 	 * OS-specific character sequence for line break
 	 */
-	public final static String LINE_SEPERATOR = System.getProperty("line.separator");
+	public final static String LINE_SEPARATOR = System.getProperty("line.separator");
 
 	/**
 	 * Returns {@code s} with the first letter in upper case

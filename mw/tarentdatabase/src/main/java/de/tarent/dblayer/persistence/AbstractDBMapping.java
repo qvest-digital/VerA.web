@@ -39,7 +39,7 @@ import java.util.*;
  */
 public abstract class AbstractDBMapping implements DBMapping {
 
-	public static final String PROPTERTY_SEPERATOR = ".";
+	public static final String PROPERTY_SEPARATOR = ".";
 
 	// the following definitions are deprecated and should no longer be used
 	@Deprecated
@@ -416,14 +416,14 @@ public abstract class AbstractDBMapping implements DBMapping {
 
     /**
      * Concatenate the given property name
-     * with the {@link #PROPTERTY_SEPERATOR} and column name
+     * with the {@link #PROPERTY_SEPARATOR} and column name
      * Returns the concatenated string back.
      * @param propertyName
      * @param columnName
      * @return concatenated string
      */
     protected String concatPropCol(String propertyName, String columnName){
-	return propertyName.concat(PROPTERTY_SEPERATOR).concat(columnName);
+	return propertyName.concat(PROPERTY_SEPARATOR).concat(columnName);
     }
 
     //

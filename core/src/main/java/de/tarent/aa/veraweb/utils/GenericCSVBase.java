@@ -260,7 +260,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
         csvFieldNames = new ArrayList(fieldMapping.getTargets());
         Collections.sort(csvFieldNames);
 
-        //sollte der Feld Seperator in den Spaltennamen auftauchen, so wird er hier durch eine von zwei Alternativen ersetzt
+        //sollte der Feldseparator in den Spaltennamen auftauchen, so wird er hier durch eine von zwei Alternativen ersetzt
         for (int i = 0; i < csvFieldNames.size(); i++) {
             csvFieldNames.set(i, csvFieldNames.get(i).toString().replace(fieldSeparator, getAlternativeFieldSeparator()));
         }

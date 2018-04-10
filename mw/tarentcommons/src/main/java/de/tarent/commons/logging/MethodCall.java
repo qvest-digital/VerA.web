@@ -40,7 +40,7 @@ import de.tarent.commons.utils.Tools;
  */
 public class MethodCall {
 
-	private static String LINE_SEPERATOR = de.tarent.commons.utils.StringTools.LINE_SEPERATOR;
+	private static String LINE_SEPARATOR = de.tarent.commons.utils.StringTools.LINE_SEPARATOR;
 
 	/** The time this Object was instanciatet in millseconds. */
 	private final long invokeTime = System.currentTimeMillis();
@@ -151,14 +151,14 @@ public class MethodCall {
 	public String toString() {
 		StringBuffer buffer = new StringBuffer(500);
 		buffer.append(classname).append("#").append(methodname);
-		buffer.append(" [at ").append(getInvokeTime()).append("]:").append(LINE_SEPERATOR);
+		buffer.append(" [at ").append(getInvokeTime()).append("]:").append(LINE_SEPARATOR);
 		if (!parameters.isEmpty()) {
-			buffer.append("      With parameters:").append(LINE_SEPERATOR);
-			buffer.append(Tools.iteratorToString(parameters.iterator(), "        ", true, LINE_SEPERATOR, true));
+			buffer.append("      With parameters:").append(LINE_SEPARATOR);
+			buffer.append(Tools.iteratorToString(parameters.iterator(), "        ", true, LINE_SEPARATOR, true));
 		}
 		if (!variables.isEmpty()) {
-			buffer.append("      Local variables:").append(LINE_SEPERATOR);
-			buffer.append(Tools.iteratorToString(variables.iterator(), "        ", true, LINE_SEPERATOR, true));
+			buffer.append("      Local variables:").append(LINE_SEPARATOR);
+			buffer.append(Tools.iteratorToString(variables.iterator(), "        ", true, LINE_SEPARATOR, true));
 		}
 		return buffer.toString();
 	}

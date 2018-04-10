@@ -175,7 +175,7 @@ public class ThreadLogger {
 	public String toString() {
 		return "Log for thread \"" + getThreadId() + "\""
 			+ (disposed ? " (disposed):" : ":")
-			+ StringTools.LINE_SEPERATOR + StringTools.LINE_SEPERATOR
-			+ Tools.iteratorToString(methodCalls.iterator(), "", true, StringTools.LINE_SEPERATOR, true);
+			+ StringTools.LINE_SEPARATOR + StringTools.LINE_SEPARATOR
+			+ Tools.iteratorToString(methodCalls.iterator(), "", true, StringTools.LINE_SEPARATOR, true);
 	}
 }

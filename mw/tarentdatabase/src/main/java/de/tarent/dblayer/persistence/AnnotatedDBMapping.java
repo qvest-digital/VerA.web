@@ -122,7 +122,7 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
 					}
 
 					// add field mapping
-					addField(this.mapToDbConventions(tableName) + PROPTERTY_SEPERATOR + this.mapToDbConventions(columnName), attributeName, fieldSet);
+					addField(this.mapToDbConventions(tableName) + PROPERTY_SEPARATOR + this.mapToDbConventions(columnName), attributeName, fieldSet);
 				}
 			}
 		}

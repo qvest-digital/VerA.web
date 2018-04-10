@@ -88,26 +88,26 @@ public class Parameters extends LinkedHashMap {
 			return url;
 		}
 		else {
-			boolean putSeperator;
+			boolean putSeparator;
 			StringBuffer urlBuffer = new StringBuffer(this.keySet().size() * EXPECTED_PARAMETER_LENGTH * 2);
 			urlBuffer.append(url.trim());
 
 			if (url.indexOf("?")==-1)
 			{ 	// if the url does not contain ?, we assume no parameters have been attached yet.
 				urlBuffer.append("?");
-				putSeperator = false;
+				putSeparator = false;
 			} else { // otherwise we assume there already is a parameterlist and just append it.
-				putSeperator = true;
+				putSeparator = true;
 			}
 
 			Iterator keysIterator = this.keySet().iterator();
 			while (keysIterator.hasNext()) {
 				String key = (String) keysIterator.next();
 
-				if (putSeperator) {
+				if (putSeparator) {
 					urlBuffer.append("&amp;");
 				} else {
-					putSeperator = true;
+					putSeparator = true;
 				}
 
 				urlBuffer.append(encodeName(key) + "="
@@ -130,7 +130,7 @@ public class Parameters extends LinkedHashMap {
 		while (keysIterator.hasNext()) {
 			String key = (String) keysIterator.next();
 			fields.append("<input type=\"hidden\" name=\"" + encodeName(key)
-					+ "\" value=\""	+ encodeValue(this.get(key)) + "\">" + StringTools.LINE_SEPERATOR);
+					+ "\" value=\""	+ encodeValue(this.get(key)) + "\">" + StringTools.LINE_SEPARATOR);
 		}
 
 		return fields.toString();

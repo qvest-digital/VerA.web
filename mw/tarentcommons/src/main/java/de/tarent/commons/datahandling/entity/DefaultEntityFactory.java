@@ -41,7 +41,7 @@ import org.apache.commons.logging.Log;
 public class DefaultEntityFactory implements EntityFactory {
     private static final Log logger = LogFactory.getLog(DefaultEntityFactory.class);
 
-    public static final String PROPTERTY_SEPERATOR = ".";
+    public static final String PROPERTY_SEPARATOR = ".";
 
     Class instantiationClass;
     private static Object[] emptyObjectArray = new Object[]{};
@@ -67,7 +67,7 @@ public class DefaultEntityFactory implements EntityFactory {
      * for.
      *
      * @param keyName The id with which to look up entities in the
-    // LookupContext.
+     * LookupContext.
      */
     public DefaultEntityFactory(Class instantiationClass, String keyName) {
 	setInstantiationClass(instantiationClass);
@@ -146,7 +146,7 @@ public class DefaultEntityFactory implements EntityFactory {
 	for (Iterator iter = as.getAttributeNames().iterator(); iter.hasNext();) {
 	    String name = (String)iter.next();
 
-	    int pos = name.indexOf(PROPTERTY_SEPERATOR);
+	    int pos = name.indexOf(PROPERTY_SEPARATOR);
 	    // property to another entity, supplied from another factory
 	    if (pos != -1 ) {
 		String propertyName = name.substring(0, pos);
@@ -164,7 +164,7 @@ public class DefaultEntityFactory implements EntityFactory {
 			ef = getFactoryFor(as.getAttributeType(propertyName), propertyName);
 		if (ef == null)
 		    throw new RuntimeException("No factory configured for property '"+propertyName+"' (in factory "+getClass().getName()+").");
-		PrefixedAttributeSource pas = new PrefixedAttributeSource(propertyName+PROPTERTY_SEPERATOR, as);
+		PrefixedAttributeSource pas = new PrefixedAttributeSource(propertyName+PROPERTY_SEPARATOR, as);
 		if (!pas.hasNotNullFields()) {
 		    logger.debug("skip entity creation with only null fields");
 		    continue;
@@ -247,7 +247,7 @@ public class DefaultEntityFactory implements EntityFactory {
 	for (Iterator iter = target.getAttributeNames().iterator(); iter.hasNext();) {
 	    String attributeName = (String)iter.next();
 
-	    int pos = attributeName.indexOf(PROPTERTY_SEPERATOR);
+	    int pos = attributeName.indexOf(PROPERTY_SEPARATOR);
 	    if (pos != -1 ) {
 		String propertyName = attributeName.substring(0, pos);
 		String referingEntityPropertyName = attributeName.substring(pos+1);

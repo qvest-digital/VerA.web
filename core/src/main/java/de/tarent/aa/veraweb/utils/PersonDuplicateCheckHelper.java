@@ -407,7 +407,7 @@ public class PersonDuplicateCheckHelper {
 
     /**
      * Creates a string from the given duplicate ids with the
-     * {@link ImportPerson#PK_SEPERATOR_CHAR} character.
+     * {@link ImportPerson#PK_SEPARATOR_CHAR} character.
      *
      * @param duplicates - the duplicate list
      * @return the duplicates as string
@@ -419,7 +419,7 @@ public class PersonDuplicateCheckHelper {
         final StringBuffer buffer = new StringBuffer();
         for (Iterator<Integer> itDuplicates = duplicates.iterator(); itDuplicates.hasNext(); ) {
             if (buffer.length() > 0) {
-                buffer.append(ImportPerson.PK_SEPERATOR_CHAR);
+                buffer.append(ImportPerson.PK_SEPARATOR_CHAR);
             }
             buffer.append(itDuplicates.next());
         }

@@ -140,7 +140,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
                     List dups = null;
                     StringTokenizer tokenizer = new StringTokenizer(
                             importPerson.duplicates,
-                            Character.toString(ImportPerson.PK_SEPERATOR_CHAR)
+                            Character.toString(ImportPerson.PK_SEPARATOR_CHAR)
                     );
 
                     int count = 0;

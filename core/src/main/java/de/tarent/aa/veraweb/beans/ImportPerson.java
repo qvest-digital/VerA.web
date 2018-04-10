@@ -105,7 +105,7 @@ public class ImportPerson extends Person {
      * Element-Trennzeichen, um eine Menge von Primärschlüsseln in einem
      * Datenfeld (namentlich {@link #duplicates}) zu speichern.
      */
-    public final static char PK_SEPERATOR_CHAR = ';';
+    public final static char PK_SEPARATOR_CHAR = ';';
 
     /**
      * DB-Integerwert für <code>true</code> für {@link #dupcheckaction} und {@link #dupcheckstatus}
