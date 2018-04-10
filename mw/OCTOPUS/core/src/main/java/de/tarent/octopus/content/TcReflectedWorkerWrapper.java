@@ -39,7 +39,6 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Sebastian Mancke
  */
 public class TcReflectedWorkerWrapper
-
     extends AbstractWorkerWrapper {
 
     Log logger = LogFactory.getLog(getClass());
@@ -189,7 +188,7 @@ public class TcReflectedWorkerWrapper
     /**
      * Implementierung eines InOutParam, mit dem Ein-Ausgabeparameter bei Actions realisiert werden können
      */
-    class EnrichedParamImplementation
+    static class EnrichedParamImplementation
         implements EnrichedInOutParam {
 
         Object data;
