@@ -21,6 +21,11 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>xfire</groupId>
 			<artifactId>xfire-jsr181-api</artifactId>
 		</dependency>
