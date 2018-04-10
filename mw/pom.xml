@@ -132,7 +132,7 @@
 				<artifactId>license-maven-plugin</artifactId>
 				<configuration>
 					<basedir>${project.basedir}</basedir>
-					<header>${project.basedir}/LICENCE.hdx</header>
+					<header>${project.basedir}/LICENCE.hdr</header>
 					<quiet>false</quiet>
 					<failIfMissing>true</failIfMissing>
 					<aggregate>true</aggregate>
@@ -143,7 +143,7 @@
 						<headerDefinition>${project.basedir}/myc-javapkg.xml</headerDefinition>
 					</headerDefinitions>
 					<mapping>
-						<!--java>JavaPackage_style</java-->
+						<java>JavaPackage_style</java>
 					</mapping>
 					<useDefaultExcludes>true</useDefaultExcludes>
 					<useDefaultMapping>true</useDefaultMapping>

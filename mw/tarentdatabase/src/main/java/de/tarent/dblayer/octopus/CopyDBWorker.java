@@ -22,11 +22,7 @@ import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.Pool;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.statement.Insert;
-/*
- * Copyright (c) tarent GmbH Heilsbachstrasse 24 . 53123 Bonn www.tarent.de . info@tarent.de
- *
- * Created on 11.10.2006
- */
+
 public class CopyDBWorker
 {
 	public static final String	TABLE_NAME_PATTERN	= "t%";
