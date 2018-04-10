@@ -1,10 +1,11 @@
+package de.tarent.commons.logging;
+
 /*
  * License GPL.
  *
  * Part of this software are copied from the GNU Classpath project.
  * Visit http://developer.classpath.org/doc/ for more information.
  */
-package de.tarent.commons.logging;
 
 import java.io.IOException;
 import java.io.InputStream;
