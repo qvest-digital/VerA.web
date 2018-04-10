@@ -1,8 +1,3 @@
-/*
- * $Id: Product.java,v 1.2 2007/06/11 13:24:36 christoph Exp $
- *
- * Created on 12.05.2006
- */
 package de.tarent.beans;
 
 import de.tarent.octopus.beans.MapBean;

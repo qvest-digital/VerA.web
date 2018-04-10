@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.ui;
 
 import java.awt.BorderLayout;

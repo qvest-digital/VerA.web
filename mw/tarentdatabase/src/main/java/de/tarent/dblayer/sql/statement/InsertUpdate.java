@@ -1,6 +1,3 @@
-/*
- * $Id: InsertUpdate.java,v 1.9 2007/06/14 14:51:57 dgoema Exp $
- */
 package de.tarent.dblayer.sql.statement;
 
 import java.sql.SQLException;

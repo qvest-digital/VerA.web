@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.dblayer.sql.statement;
 
 import java.sql.SQLException;

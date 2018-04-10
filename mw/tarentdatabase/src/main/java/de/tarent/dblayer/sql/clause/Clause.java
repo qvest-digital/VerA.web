@@ -1,6 +1,3 @@
-/*
- * $Id: Clause.java,v 1.9 2007/06/14 14:51:56 dgoema Exp $
- */
 package de.tarent.dblayer.sql.clause;
 
 import de.tarent.dblayer.engine.DBContext;

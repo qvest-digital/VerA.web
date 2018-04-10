@@ -1,8 +1,3 @@
-/*
- * $Id: BeanInsertStatement.java,v 1.4 2007/06/11 13:24:36 christoph Exp $
- *
- * Created on 25.01.2006
- */
 package de.tarent.octopus.beans;
 
 import java.sql.PreparedStatement;

@@ -1,6 +1,3 @@
-/* $Id: Operator.java,v 1.7 2007/06/14 14:51:56 dgoema Exp $
- * Created on 07.09.2004
- */
 package de.tarent.dblayer.sql.clause;
 
 import de.tarent.dblayer.engine.DBContext;

@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.web;
 
 import java.io.UnsupportedEncodingException;

@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.utils;
 
 import java.util.HashMap;

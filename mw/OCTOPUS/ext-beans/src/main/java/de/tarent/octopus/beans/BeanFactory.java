@@ -1,7 +1,3 @@
-/*
- * $Id: BeanFactory.java,v 1.7 2007/06/11 13:24:36 christoph Exp $
- * Created on 08.02.2005
- */
 package de.tarent.octopus.beans;
 
 import java.sql.Timestamp;

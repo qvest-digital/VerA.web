@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.dblayer.postgres;
 
 import java.util.Iterator;

@@ -1,8 +1,3 @@
-/*
- * $Id: DatabaseSelectTest.java,v 1.3 2007/06/11 13:24:36 christoph Exp $
- *
- * Created on 03.05.2006
- */
 package de.tarent.octopus.beans;
 
 import java.io.File;

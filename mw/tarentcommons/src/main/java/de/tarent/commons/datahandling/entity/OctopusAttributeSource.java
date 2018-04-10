@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.datahandling.entity;
 
 import java.util.ArrayList;

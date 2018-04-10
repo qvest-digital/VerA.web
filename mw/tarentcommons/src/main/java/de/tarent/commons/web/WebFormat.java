@@ -1,10 +1,3 @@
-/*
- * $Id: WebFormat.java,v 1.4 2007/06/14 13:34:49 dgoema Exp $
- *
- * Created on 13.09.2004
- *
- * Original aus der tarent-groupware-Library.
- */
 package de.tarent.commons.web;
 
 import java.text.MessageFormat;

@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.utils;
 
 import de.tarent.commons.ui.UnsupportedVersionComplain;

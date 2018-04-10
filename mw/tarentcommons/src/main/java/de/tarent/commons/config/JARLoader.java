@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.config;
 
 import java.io.InputStream;

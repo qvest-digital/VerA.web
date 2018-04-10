@@ -1,8 +1,3 @@
-/*
- * $Id: BeanStatement.java,v 1.3 2007/06/11 13:24:36 christoph Exp $
- *
- * Created on 20.01.2006
- */
 package de.tarent.octopus.beans;
 
 /**

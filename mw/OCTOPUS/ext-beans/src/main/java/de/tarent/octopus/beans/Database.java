@@ -1,8 +1,3 @@
-/*
- * $Id: Database.java,v 1.20 2007/06/11 13:24:36 christoph Exp $
- *
- * Created on 21.02.2005
- */
 package de.tarent.octopus.beans;
 
 import java.io.File;

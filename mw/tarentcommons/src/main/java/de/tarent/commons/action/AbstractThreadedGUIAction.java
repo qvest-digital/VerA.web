@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.action;
 
 import java.awt.event.ActionEvent;

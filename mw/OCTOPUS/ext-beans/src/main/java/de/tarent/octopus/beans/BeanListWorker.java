@@ -1,6 +1,3 @@
-/*
- * Created on 23.02.2005
- */
 package de.tarent.octopus.beans;
 
 import java.io.IOException;

@@ -1,6 +1,3 @@
-/*
- * $Id: Function.java,v 1.5 2007/06/14 14:51:57 dgoema Exp $
- */
 package de.tarent.dblayer.sql;
 
 import de.tarent.dblayer.sql.statement.Procedure;

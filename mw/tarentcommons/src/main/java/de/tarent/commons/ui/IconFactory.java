@@ -1,5 +1,3 @@
-
-
 package de.tarent.commons.ui;
 
 import java.io.IOException;

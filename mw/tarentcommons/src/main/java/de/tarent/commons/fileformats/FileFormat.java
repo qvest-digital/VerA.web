@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.fileformats;
 
 import javax.swing.ImageIcon;

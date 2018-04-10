@@ -1,6 +1,3 @@
-/*
- * Created on 22.08.2005
- */
 package de.tarent.octopus.beans;
 
 /**

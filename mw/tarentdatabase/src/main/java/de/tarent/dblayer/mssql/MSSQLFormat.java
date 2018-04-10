@@ -1,6 +1,3 @@
-/*
- * $Id: MSSQLFormat.java,v 1.6 2007/06/14 14:51:57 dgoema Exp $
- */
 package de.tarent.dblayer.mssql;
 
 import java.text.SimpleDateFormat;

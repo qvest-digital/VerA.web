@@ -1,6 +1,3 @@
-/*
- * Created on 15.03.2005
- */
 package de.tarent.dblayer.helper;
 
 import java.sql.ResultSet;

@@ -1,8 +1,3 @@
-/*
- * $Id: Person.java,v 1.2 2007/06/11 13:24:36 christoph Exp $
- *
- * Created on 03.05.2006
- */
 package de.tarent.beans;
 
 import java.util.Date;

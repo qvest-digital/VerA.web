@@ -1,6 +1,3 @@
-/*
- * $Id: BeanFactoryTest.java,v 1.2 2007/06/11 13:24:36 christoph Exp $
- */
 package de.tarent.octopus.beans;
 
 import java.text.ParseException;

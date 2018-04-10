@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.dblayer.sql.clause;
 
 import de.tarent.dblayer.engine.DBContext;

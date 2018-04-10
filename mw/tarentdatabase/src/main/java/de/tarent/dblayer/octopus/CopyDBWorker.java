@@ -1,6 +1,3 @@
-/**
- * @author  peet@tarent.de
- */
 package de.tarent.dblayer.octopus;
 
 import java.util.Arrays;

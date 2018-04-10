@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.fileformats;
 
 import java.util.List;

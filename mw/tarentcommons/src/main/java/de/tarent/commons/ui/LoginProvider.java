@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.ui;
 
 import de.tarent.commons.config.ConnectionDefinition;

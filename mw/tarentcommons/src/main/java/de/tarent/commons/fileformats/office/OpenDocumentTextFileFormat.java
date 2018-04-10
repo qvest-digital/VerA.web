@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.commons.fileformats.office;
 
 import de.tarent.commons.fileformats.FileFormatAdapter;

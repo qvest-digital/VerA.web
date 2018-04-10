@@ -1,6 +1,3 @@
-/**
- *
- */
 package de.tarent.dblayer.engine;
 
 import java.util.HashMap;

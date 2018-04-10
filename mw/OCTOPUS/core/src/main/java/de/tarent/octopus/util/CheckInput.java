@@ -1,7 +1,3 @@
-/*
- * To change the template for this generated file go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
 package de.tarent.octopus.util;
 import java.util.HashMap;
 import java.util.regex.Matcher;

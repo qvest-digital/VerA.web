@@ -1,6 +1,3 @@
-/*
- * $Id: SQL.java,v 1.15 2007/06/14 14:51:57 dgoema Exp $
- */
 package de.tarent.dblayer.sql;
 
 import org.apache.commons.logging.Log;

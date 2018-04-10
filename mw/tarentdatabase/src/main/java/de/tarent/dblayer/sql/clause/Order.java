@@ -1,6 +1,3 @@
-/*
- * $Id: Order.java,v 1.10 2007/07/30 09:47:08 asteban Exp $
- */
 package de.tarent.dblayer.sql.clause;
 
 import java.util.ArrayList;

@@ -1,8 +1,3 @@
-/*
- * $Id: SetDbContext.java,v 1.2 2007/06/14 14:51:57 dgoema Exp $
- *
- * Created on 18.04.2006
- */
 package de.tarent.dblayer.engine;
 
 /**

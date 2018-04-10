@@ -1,7 +1,3 @@
-/*
- * Created on 22.09.2003
- *
- */
 package de.tarent.commons.ui;
 
 import java.awt.BorderLayout;

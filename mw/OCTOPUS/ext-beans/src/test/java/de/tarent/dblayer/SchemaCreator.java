@@ -1,6 +1,3 @@
-/*
- * $Id: SchemaCreator.java,v 1.4 2007/06/11 13:24:36 christoph Exp $
- */
 package de.tarent.dblayer;
 
 import java.sql.*;

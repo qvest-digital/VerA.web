@@ -1,4 +1,3 @@
-
 package de.tarent.commons.config;
 
 import java.util.ArrayList;
