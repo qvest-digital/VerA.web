@@ -239,7 +239,7 @@ public class CronJobWorker {
             }
 
             errMsg =
-                    "An Error occured trying to run a cronjob. The transfered parameters either reference different cornjobs, " +
+                    "An Error occured trying to run a cronjob. The transfered parameters either reference different cronjobs, " +
                             "both parameters are null or there is no cronjob in queue that matches. ";
             errMsg += "\n inputCronJobMap: " + inputCronJobMap;
             errMsg += "\n cronJobName: " + cronJobName;
@@ -271,7 +271,7 @@ public class CronJobWorker {
 
             errMsg =
                     "An Error occured trying get the status of a cronjob. The transfered parameters either reference different " +
-                            "cornjobs, both parameters are null or there is no cronjob in queue that matches. ";
+                            "cronjobs, both parameters are null or there is no cronjob in queue that matches. ";
             errMsg += "\n inputCronJobMap: " + inputCronJobMap;
             errMsg += "\n cronJobName: " + cronJobName;
 
@@ -307,7 +307,7 @@ public class CronJobWorker {
             }
             errMsg =
                     "An Error occured trying to remove Cronjob from queue. The transfered parameters either reference different" +
-                            " cornjobs, both parameters are null or there is no cronjob in queue that matches. ";
+                            " cronjobs, both parameters are null or there is no cronjob in queue that matches. ";
             errMsg += "\n inputCronJobMap: " + inputCronJobMap;
             errMsg += "\n cronJobName: " + cronJobName;
         } catch (Exception e) {
@@ -390,7 +390,7 @@ public class CronJobWorker {
 
             errMsg =
                     "An Error occured trying to activate a cronjob. The transfered parameters either reference different " +
-                            "cornjobs, both parameters are null or there is no cronjob in queue that matches. ";
+                            "cronjobs, both parameters are null or there is no cronjob in queue that matches. ";
             errMsg += "\n inputCronJobMap: " + inputCronJobMap;
             errMsg += "\n cronJobName: " + cronJobName;
         } catch (Exception e) {
@@ -420,7 +420,7 @@ public class CronJobWorker {
 
             errMsg =
                     "An Error occured trying to deactivate a cronjob. The transfered parameters either reference different " +
-                            "cornjobs, both parameters are null or there is no cronjob in queue that matches. ";
+                            "cronjobs, both parameters are null or there is no cronjob in queue that matches. ";
             errMsg += "\n inputCronJobMap: " + inputCronJobMap;
             errMsg += "\n cronJobName: " + cronJobName;
         } catch (Exception e) {
