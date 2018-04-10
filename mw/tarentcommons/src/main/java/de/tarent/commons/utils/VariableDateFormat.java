@@ -1,11 +1,3 @@
-/*
- * Copyright (c) tarent GmbH
- * Bahnhofstrasse 13 . 53123 Bonn
- * www.tarent.de . info@tarent.de
- *
- * Created on 04.04.2006
- */
-
 package de.tarent.commons.utils;
 
 import java.text.DateFormatSymbols;

@@ -1,11 +1,3 @@
-/*
- * Copyright (c) tarent GmbH
- * Bahnhofstrasse 13 . 53123 Bonn
- * www.tarent.de . info@tarent.de
- *
- * Created on 28.02.2006
- */
-
 package de.tarent.octopus.cronjobs;
 
 import java.util.Map;

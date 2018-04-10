@@ -1,11 +1,3 @@
-/*
- * Copyright (c) tarent GmbH
- * Bahnhofstrasse 13 . 53123 Bonn
- * www.tarent.de . info@tarent.de
- *
- * Created on 06.04.2006
- */
-
 package de.tarent.dblayer.engine;
 
 import java.io.File;

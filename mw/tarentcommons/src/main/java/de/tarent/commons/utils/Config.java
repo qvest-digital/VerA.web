@@ -1,11 +1,3 @@
-/*
- * Copyright (c) tarent GmbH
- * Bahnhofstrasse 13 . 53123 Bonn
- * www.tarent.de . info@tarent.de
- *
- * Created on 13.10.2005
- */
-
 package de.tarent.commons.utils;
 
 import org.apache.commons.configuration.Configuration;
