@@ -385,8 +385,8 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      * @param cntx   Octopus-Kontext
      * @param errors kummulierte Fehlerliste
      * @param bean   einzufügendes Bean
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)

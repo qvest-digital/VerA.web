@@ -110,7 +110,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb {
      */
     public static final String INPUT_loadConfig[] = { "begin", "end" };
     /**
-     * Input parameter configuration for action {@link #loadReport(OctopusContext, String, String) }
+     * Input parameter configuration for action
      */
     public static final boolean MANDATORY_loadConfig[] = { false, false };
 

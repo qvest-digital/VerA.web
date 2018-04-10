@@ -230,6 +230,7 @@ public class DataExchangeWorker {
      * @param domain    Domäne, aus der die Personen stammen ("all" oder "ou")
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ungültigen Parameterwerten.
+     * @throws IOException ioException
      */
     public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter,
             final Integer event,
@@ -383,6 +384,7 @@ public class DataExchangeWorker {
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws IOException               FIXME
      * @throws TcContentProzessException FIXME
+     * @throws BeanException beanException
      */
     public Map importToTransit(OctopusContext octopusContext,
             Map stream,
@@ -963,6 +965,7 @@ public class DataExchangeWorker {
      * @param dsCount  Anzahl Datensätze insgesamt
      * @param dupCount Anzahl Duplikate
      * @param id       Import-ID
+     * @param saveCount save Count
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
@@ -985,6 +988,7 @@ public class DataExchangeWorker {
      * @param dsCount  Anzahl nicht ignorierter Datensätze insgesamt
      * @param dupCount Anzahl Duplikate
      * @param id       Import-ID
+     * @param saveCount saveCount
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".

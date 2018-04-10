@@ -204,8 +204,8 @@ public class PersonReplaceWorker extends PersonListWorker {
      *
      * @param cntx Octopus-Context
      * @return Liste mit Beans, nie null.
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      * @see #getSelection(OctopusContext, Integer)
      */
     public List showList(OctopusContext cntx) throws BeanException, IOException {
@@ -403,8 +403,8 @@ public class PersonReplaceWorker extends PersonListWorker {
      * und gibt diese Zahl zur Benutzerinformation zurück.
      *
      * @param octopusContext The {@link OctopusContext}
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public Integer countData(OctopusContext octopusContext) throws BeanException, IOException {
         Database database = getDatabase(octopusContext);
@@ -475,8 +475,8 @@ public class PersonReplaceWorker extends PersonListWorker {
      * Ersetzt in der Gästeliste ausgewählte Gäste.
      *
      * @param octopusContext The {@link OctopusContext}
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public void replaceSelectedData(OctopusContext octopusContext) throws BeanException, IOException {
         List selection = getSelection(octopusContext, null);

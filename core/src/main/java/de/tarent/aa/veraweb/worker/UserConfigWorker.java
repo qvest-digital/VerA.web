@@ -110,8 +110,8 @@ public class UserConfigWorker {
      * Lädt die Konfiguration aus der Datenbank in die Session.
      *
      * @param octopusContext The {@link OctopusContext}
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public Map init(OctopusContext octopusContext) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -196,8 +196,8 @@ public class UserConfigWorker {
      * Lädt die Konfiguration aus der Session in den Content.
      *
      * @param octopusContext The {@link OctopusContext}
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public Map load(OctopusContext octopusContext) throws BeanException, IOException {
         Map result = (Map) octopusContext.sessionAsObject("userConfig");
@@ -216,8 +216,8 @@ public class UserConfigWorker {
      * Speichert die Benutzer Einstellungen in der Datenbank.
      *
      * @param octopusContext The {@link OctopusContext}
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public void save(OctopusContext octopusContext) throws BeanException, IOException {
         if (!octopusContext.requestContains("save")) {

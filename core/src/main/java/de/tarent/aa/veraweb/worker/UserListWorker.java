@@ -213,8 +213,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @param cntx   Octopus-Kontext
      * @param errors kummulierte Fehlerliste
      * @param bean   einzufügendes Bean
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     @Override
@@ -275,8 +275,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
      *
      * @param cntx Octopus-Kontext
      * @param bean zu löschende Bean
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      * @see #removeBean(OctopusContext, Bean, TransactionContext)
      */
     @Override

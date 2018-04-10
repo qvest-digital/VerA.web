@@ -108,7 +108,7 @@ import java.util.UUID;
  *
  * @author christoph
  * @author mikel
- * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH
+ * @author Max Marche
  */
 public class GuestWorker {
     //
@@ -430,12 +430,12 @@ public class GuestWorker {
         }
     }
 
-    /**
+    /*
      * Octopus-Eingabe-Parameter für {@link #addPerson(OctopusContext, Integer)}
      */
     public static final String[] INPUT_addPerson = { "event-id" };
 
-    /**
+    /*
      * Fügt eine Person aus dem Content zu einer Veranstaltung hinzu.
      *
      * Wird offenbar nur verwendet wenn aus der Detail-Sicht einer Person diese Person einer Veranstaltung zugewiesen
@@ -491,12 +491,12 @@ public class GuestWorker {
         }
     }
 
-    /**
+    /*
      * Octopus-Eingabe-Parameter für {@link #reloadData(OctopusContext, Integer)}
      */
     public static final String INPUT_reloadData[] = { "guest-id" };
 
-    /**
+    /*
      * Diese Octopus-Aktion aktualisiert die Daten eines Gastes
      * aus den Stammdaten und erzeugt die Dokumenttypen neu.
      */
@@ -514,12 +514,12 @@ public class GuestWorker {
         }
     }
 
-    /**
+    /*
      * Octopus-Eingabe-Parameter für {@link #reloadAllData(OctopusContext)}
      */
     public static final String INPUT_reloadAllData[] = {};
 
-    /**
+    /*
      * Diese Octopus-Aktion aktuallisiert die Dokumenttypen
      * des aktuellen Gastes zu einer Veranstaltung.
      */
@@ -552,7 +552,7 @@ public class GuestWorker {
         }
     }
 
-    /**
+    /*
      * Octopus-Eingabe-Parameter für {@link #calcSerialNumber(OctopusContext)}
      */
     public static final String INPUT_calcSerialNumber[] = {};
@@ -595,7 +595,7 @@ public class GuestWorker {
     // Geschützte Methoden
     //
 
-    /**
+    /*
      * Neuen Gast hinzufügen.
      *
      * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
@@ -606,7 +606,7 @@ public class GuestWorker {
         return saveGuest(cntx, database, context, event, null, personId, categoryId, reserve, invitationtype, ishost);
     }
 
-    /**
+    /*
      * Bestehnden Gast aus Stammdaten neuladen.
      *
      * @see #saveGuest(OctopusContext, Database, ExecutionContext, Event, Integer, Integer, Integer, Boolean, Integer, Boolean)
@@ -628,6 +628,7 @@ public class GuestWorker {
      *
      * @param cntx           Octopus-Context
      * @param database       Datenbank
+     * @param executionContext executionContext
      * @param event          Veranstaltung
      * @param guestId        Gast der bearbeitet werden soll, null zum hinzufügen.
      * @param personId       Person mit dessen Daten der Gast gefüllt werden soll.
@@ -635,8 +636,10 @@ public class GuestWorker {
      * @param reserve        Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
      * @param invitationtype Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
      * @param ishost         Gibt an ob dieser Gast gleichzeitig Gastgeber ist.
-     */
-    /*
+     * @throws BeanException beanexception
+     * @throws IOException ioexceoption
+     *
+     * @return true if save successful
      * 2009-05-12 cklein
      *
      * fixed as part of issue #1531 - personCategorie was always null due to malformed query
@@ -818,7 +821,7 @@ public class GuestWorker {
     //
     // Variablen
     //
-    /**
+    /*
      * Logger für diese Klasse
      */
     private final static Logger logger = LogManager.getLogger(GuestWorker.class);

@@ -111,6 +111,10 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 
     /**
      * Schränkt das Suchergebnis auf nicht gelöschte Firmen ein.
+     * @param cntx octupus context
+     * @param select select
+     * @throws BeanException beanException
+     * @throws IOException ioException
      */
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
@@ -163,8 +167,8 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
      * @param cntx         Octopus-Context
      * @param company      Person-PK der Firma dessen Daten übernommen werden sollen.
      * @param companyfield Name des HTML-Firmenfeldes zu dem Firmendaten geladen werden sollen.
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException bean Exception
+     * @throws IOException io Exception
      */
     public void copyCompanyData(OctopusContext cntx, Integer company, String companyfield) throws BeanException, IOException {
         cntx.setContent("tab", cntx.requestAsObject("tab"));

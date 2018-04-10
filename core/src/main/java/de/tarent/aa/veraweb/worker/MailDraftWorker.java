@@ -94,7 +94,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
     // Konstruktoren
     //
 
-    /**
+    /*
      * Der Konstruktor legt den Bean-Namen fest.
      */
     public MailDraftWorker() {
@@ -121,7 +121,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
         return new Integer(i.intValue() - (i.intValue() % getLimit(octopusContext).intValue()));
     }
 
-    /**
+    /*
      * Updatet ausschließlich den Namen der in der Liste angezeigt wird.
      */
     @Override
@@ -184,8 +184,8 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      * @param id             Datenbank ID
      * @param mailDraft      eMail-Entwurf aus dem Content.
      * @return eMail-Entwurf oder null
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public MailDraft showDetail(OctopusContext octopusContext, Integer id, MailDraft mailDraft)
             throws BeanException, IOException {
@@ -219,8 +219,8 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @param save           Gibt an ob eMail-Entwurf gespeichert werden soll.
      * @return eMail-Entwurf
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public MailDraft saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException, IOException {
         if (save != null && save.booleanValue()) {

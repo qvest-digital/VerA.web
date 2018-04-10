@@ -110,6 +110,9 @@ public class ExportHelper {
      * Vorgabe aus PersonDoctype, überschreibbar in GuestDoctype
      * Muss auch in anderen Bereichen umgesetzt werden.
      * Z.B. beim "Neu Laden" in Worker und Template.
+     *
+     * @param addresstype adresstype
+     * @return addresstype
      */
     public static String getAddresstype(Integer addresstype) {
         if (addresstype == null) {
@@ -129,6 +132,9 @@ public class ExportHelper {
      * Vorgabe aus PersonDoctype, überschreibbar in GuestDoctype
      * Muss auch in anderen Bereichen umgesetzt werden.
      * Z.B. beim "Neu Laden" in Worker und Template.
+     *
+     * @param locale locale
+     * @return locale
      */
     public static String getLocale(Integer locale) {
         if (locale == null) {
@@ -144,6 +150,9 @@ public class ExportHelper {
 
     /**
      * Diese Methode liefert eine String-Darstellung eines Gender-Werts
+     *
+     * @param gender gender
+     * @return gender
      */
     public static String getGender(String gender) {
         return gender;

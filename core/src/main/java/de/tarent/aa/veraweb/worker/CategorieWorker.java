@@ -281,7 +281,7 @@ public class CategorieWorker extends StammdatenWorker {
      * of the above roles and processing continues as normal.
      *
      * @throws BeanException in case that the user is not authorized to save the list
-     * @throws IOException
+     * @throws IOException in case of an IOException
      */
     @Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
@@ -333,11 +333,12 @@ public class CategorieWorker extends StammdatenWorker {
 
     /**
      * Die Kategorie bean innerhalb der bestehenden Kategorieen einsortieren. Dazu werden alle bestehenden Kategorien mit
-     * Rang >= bean.rank in ihrem Rang um eins erhoeht.
+     * Rang greater equal bean.rank in ihrem Rang um eins erhoeht.
      *
      * @param cntx {@link OctopusContext}
      * @param bean {@link Categorie}
-     * @throws BeanException
+     * @param transactionContext {@link TransactionContext}
+     * @throws BeanException bean exception
      */
     protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext transactionContext)
             throws BeanException {

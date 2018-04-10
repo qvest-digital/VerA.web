@@ -385,7 +385,7 @@ public class EventResource {
      * @param eventId Event id
      * @param userId  User id
      * @param gender  Gender of the person
-     * @throws IOException
+     * @throws IOException IOException
      */
     private Guest addGuestToEvent(String eventId,
             String userId,

@@ -200,8 +200,9 @@ public class ChangeLogMaintenanceWorker implements Runnable {
     /**
      * Purges the change log from old information.
      *
-     * @throws IOException
-     * @throws BeanException
+     * @throws IOException ioException
+     * @throws BeanException beanException
+     * @throws SQLException sqlException
      */
     public void purgeChangeLog() throws SQLException, BeanException, IOException {
         Calendar c = Calendar.getInstance();

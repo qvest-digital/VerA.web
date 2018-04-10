@@ -184,11 +184,11 @@ public class EventListWorker extends ListWorkerVeraWeb {
     }
 
     /**
-     * Wenn das Event <code>search</code> einen Start-Termin hat,
+     * Wenn das Event &lt;code&gt;search&lt;/code&gt; einen Start-Termin hat,
      * werden nur Veranstaltungen angezeigt die <strong>genau</strong>
      * diesem Termin <strong>beginnen</strong>.<br><br>
      *
-     * Wenn das Event <code>search<code> einen Ende-Termin hat,
+     * Wenn das Event &lt;code&gt;search&lt;code&gt; einen Ende-Termin hat,
      * werden nur Veranstaltungen angezeigt die <strong>nach</strong>
      * diesem Termin <strong>beginnen oder enden</strong>.<br><br>
      *
@@ -196,6 +196,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
      * 'Datum-Beginn', sowie die Funktion 'Aktuelle Veranstaltung anzeigen'.
      *
      * @see #getSearch(OctopusContext)
+     * @param octopusContext octopusContext
+     * @param select select
      */
     @Override
     protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {

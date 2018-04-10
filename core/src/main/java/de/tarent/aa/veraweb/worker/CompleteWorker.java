@@ -91,7 +91,7 @@ public class CompleteWorker {
      * @param column Column
      * @param query  Query
      * @return Liste mit den 10 ersten Einträgen.
-     * @throws BeanException
+     * @throws BeanException  BeanException
      */
     private List getList(OctopusContext cntx, String table, String column, String query) throws BeanException {
         cntx.setContent(QUERY, query);
@@ -117,7 +117,7 @@ public class CompleteWorker {
      * @param cntx  Octopus-Context
      * @param query Aktuelle Benutzereingabe
      * @return Liste mit ähnlichen Locations.
-     * @throws BeanException
+     * @throws BeanException beanexception
      */
     public List completeLocation(OctopusContext cntx, String query) throws BeanException {
         return getList(cntx, "veraweb.tlocation", "locationname", query);

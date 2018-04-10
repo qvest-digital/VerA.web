@@ -111,7 +111,7 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @param save           Gibt an ob eMail-Entwurf gespeichert werden soll.
      * @return eMail-Entwurf
-     * @throws BeanException
+     * @throws BeanException BeanException
      */
     public PdfTemplate saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException {
         if (save != null && save) {

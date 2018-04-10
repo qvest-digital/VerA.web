@@ -128,7 +128,7 @@ public class GuestReportWorker {
      * (Liste der konkreten Gastdaten) Daten für den Bericht bereitgestellt.
      *
      * @param cntx {@link OctopusContext}
-     * @throws BeanException
+     * @throws BeanException beanexception
      */
     public void createReport(OctopusContext cntx) throws BeanException {
         Database database = new DatabaseVeraWeb(cntx);

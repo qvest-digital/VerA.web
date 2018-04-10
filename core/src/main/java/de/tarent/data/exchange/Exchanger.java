@@ -82,31 +82,37 @@ public interface Exchanger {
 
     /**
      * Das zu verwendende Austauschformat
+     * @return exchange Format
      */
     ExchangeFormat getExchangeFormat();
 
     /**
      * Das zu verwendende Austauschformat
+     * @param format exchange Format
      */
     void setExchangeFormat(ExchangeFormat format);
 
     /**
      * Der zu verwendende Eingabedatenstrom
+     * @return input Stream
      */
     InputStream getInputStream();
 
     /**
      * Der zu verwendende Eingabedatenstrom
+     * @param stream input stream
      */
     void setInputStream(InputStream stream);
 
     /**
      * Der zu verwendende Ausgabedatenstrom
+     * @return output Stream
      */
     OutputStream getOutputStream();
 
     /**
      * Der zu verwendende Ausgabedatenstrom
+     * @param stream outputStream
      */
     void setOutputStream(OutputStream stream);
 

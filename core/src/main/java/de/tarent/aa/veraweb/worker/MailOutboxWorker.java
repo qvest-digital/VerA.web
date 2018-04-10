@@ -117,8 +117,8 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
      * @param id         Datenbank ID
      * @param mailOutbox eMail-Entwurf aus dem Content.
      * @return eMail-Entwurf oder null
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public MailOutbox showDetail(OctopusContext cntx, Integer id, MailOutbox mailOutbox) throws BeanException, IOException {
         if (mailOutbox == null && id != null) {
@@ -147,8 +147,8 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @param save           Gibt an ob eMail-Entwurf gespeichert werden soll.
      * @return eMail
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException  BeanException
+     * @throws IOException  IOException
      */
     public MailOutbox saveDetail(final OctopusContext octopusContext, Boolean save) throws BeanException, IOException {
         if (save != null && save.booleanValue()) {

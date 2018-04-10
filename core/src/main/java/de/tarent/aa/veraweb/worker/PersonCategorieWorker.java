@@ -180,7 +180,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
      * @param octopusContext    The {@link de.tarent.octopus.server.OctopusContext}
      * @param requestParameters All request parameters
      * @param requestParameter  The current request parameter, which is inspected and potentially used for deletion
-     * @throws BeanException
+     * @throws BeanException BeanException
      */
     private void deleteCategoryFromGuest(OctopusContext octopusContext, Map requestParameters, Object requestParameter)
             throws BeanException {
