@@ -50,6 +50,7 @@ package de.tarent.octopus.request.servlet;
 
 import java.io.IOException;
 import javax.servlet.Filter;
+import javax.servlet.FilterConfig;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -71,6 +72,7 @@ public class DefaultUTF8Filter implements Filter {
 	 * @exception IOException if an input/output error occurs
 	 * @exception ServletException if a servlet error occurs
 	 */
+	//@Override
 	public void doFilter(final ServletRequest request,
 	    final ServletResponse response, final FilterChain chain)
 	throws IOException, ServletException
@@ -81,5 +83,17 @@ public class DefaultUTF8Filter implements Filter {
 
 		/* pass control on to the next filter */
 		chain.doFilter(request, response);
+	}
+
+	//@Override
+	public void init(FilterConfig config)
+	{
+		/* nothing to do here */
+	}
+
+	//@Override
+	public void destroy()
+	{
+		/* nothing to do here */
 	}
 }
