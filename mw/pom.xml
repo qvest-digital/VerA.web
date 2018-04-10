@@ -16,7 +16,6 @@
 	</licenses>
 	<properties>
 		<!-- common but older versions of dependencies -->
-		<commons-lang2.version>2.1</commons-lang2.version>
 		<junit.version>3.8.1</junit.version>
 	</properties>
 	<!-- middleware-only older dependencies -->
