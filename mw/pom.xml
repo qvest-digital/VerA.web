@@ -124,4 +124,33 @@
 		<module>tarentcommons</module>
 		<module>tarentdatabase</module>
 	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<inherited>false</inherited>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<configuration>
+					<basedir>${project.basedir}</basedir>
+					<header>${project.basedir}/LICENCE.hdx</header>
+					<quiet>false</quiet>
+					<failIfMissing>true</failIfMissing>
+					<aggregate>true</aggregate>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					<headerDefinitions>
+						<headerDefinition>${project.basedir}/myc-javapkg.xml</headerDefinition>
+					</headerDefinitions>
+					<mapping>
+						<java>JavaPackage_style</java>
+					</mapping>
+					<useDefaultExcludes>true</useDefaultExcludes>
+					<useDefaultMapping>true</useDefaultMapping>
+					<encoding>UTF-8</encoding>
+					<strictCheck>true</strictCheck>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
