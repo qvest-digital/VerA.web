@@ -88,3 +88,4 @@ Probleme:
 monorepo status:
 • de.tarent.extract:extract-tool		1.4
 • de.tarent.dfg-commons:background-jobs		1.15
+• de.tarent.dfg-commons:dfg-commons-parent	1.15	(implicit)
