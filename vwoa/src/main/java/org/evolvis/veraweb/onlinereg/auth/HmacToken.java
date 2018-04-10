@@ -61,7 +61,6 @@ package org.evolvis.veraweb.onlinereg.auth;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-
 import org.apache.commons.codec.binary.Base64;
 import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 

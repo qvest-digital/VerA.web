@@ -61,7 +61,6 @@ package de.tarent.octopus.custom.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusResult;
 import junit.framework.TestCase;

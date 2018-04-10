@@ -61,7 +61,6 @@ package org.evolvis.veraweb.onlinereg.osiam;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.jersey.api.client.Client;
 import lombok.Getter;

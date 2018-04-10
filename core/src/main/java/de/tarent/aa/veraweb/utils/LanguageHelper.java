@@ -61,7 +61,6 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-
 import java.util.Locale;
 import java.util.Map;
 /*

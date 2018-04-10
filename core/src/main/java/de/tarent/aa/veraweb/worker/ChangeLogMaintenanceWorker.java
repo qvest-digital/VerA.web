@@ -61,7 +61,6 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-
 import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;

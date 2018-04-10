@@ -61,7 +61,6 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.aa.veraweb.beans.UserConfig;

@@ -61,7 +61,6 @@ package de.tarent.aa.veraweb.beans.facade;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-
 /**
  * Diese Schnittstelle stellt Konstanten für {@link de.tarent.aa.veraweb.beans.Person}-
  * und {@link de.tarent.aa.veraweb.beans.Person}-Instanzen zur Verfügung.

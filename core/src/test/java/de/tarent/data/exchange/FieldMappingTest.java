@@ -61,7 +61,6 @@ package de.tarent.data.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
