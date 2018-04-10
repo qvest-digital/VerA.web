@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
@@ -301,9 +302,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext Octopus-Context-Instanz
      * @param orgunit        Neue Orgunit-ID
+     * @return missingorgunit
      * @throws BeanException FIXME
      * @throws IOException   FIXME
-     * @return missingorgunit
      */
     @SuppressWarnings("unchecked")
     public Map cleanupDatabase(OctopusContext octopusContext, Integer orgunit) throws BeanException, IOException {
@@ -410,10 +411,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * @param errors    kumulierte Fehlerliste
      * @param selection zu löschende Auswahl
      * @param context   TransactionContext
-     * @return Anzahl erfolgreich gelöschter Beans
-     * @throws BeanException BeanException
-     * @throws IOException IOException
      * @return count
+     * @throws BeanException BeanException
+     * @throws IOException   IOException
      */
     @Override
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context)

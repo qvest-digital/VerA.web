@@ -47,6 +47,7 @@ package de.tarent.octopus.client;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
@@ -194,9 +195,9 @@ public class EventListWorker extends ListWorkerVeraWeb {
      * Siehe hierzu im 'Veranstaltung suchen'-Dialog das Eingabe Feld
      * 'Datum-Beginn', sowie die Funktion 'Aktuelle Veranstaltung anzeigen'.
      *
-     * @see #getSearch(OctopusContext)
      * @param octopusContext octopusContext
-     * @param select select
+     * @param select         select
+     * @see #getSearch(OctopusContext)
      */
     @Override
     protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {

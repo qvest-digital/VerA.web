@@ -47,6 +47,7 @@ package de.tarent.dblayer.sql;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * This utility class offers methods for generic escaping of SQL string literals.
  * This includes expecially handling of the characters "'" and "\".

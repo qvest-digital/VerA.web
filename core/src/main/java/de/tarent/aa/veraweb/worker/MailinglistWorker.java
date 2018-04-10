@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.aa.veraweb.beans.MailinglistAddress;
@@ -113,7 +114,7 @@ public class MailinglistWorker {
      * @param mailinglist    FIXME
      * @return Map mit dem Key <code>count</code>
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public Map createMailinglist(OctopusContext octopusContext, Mailinglist mailinglist) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -185,7 +186,7 @@ public class MailinglistWorker {
      * @param mailinglist    FIXME
      * @return FIXME
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
 
     private int createMailinglistBySelectAllOption(OctopusContext octopusContext, Mailinglist mailinglist)
@@ -219,7 +220,7 @@ public class MailinglistWorker {
      * @param clause      Bedingung
      * @return Anzahl der hinzugefügten Adressen.
      * @throws BeanException BeanException
-     * @throws IOException  IOException
+     * @throws IOException   IOException
      */
     protected int addMailinglistFromPerson(OctopusContext cntx, Mailinglist mailinglist, Integer addresstype, Integer locale,
             Clause clause)
@@ -262,7 +263,7 @@ public class MailinglistWorker {
      * @param clause         Bedingung
      * @return Anzahl der hinzugefügten Adressen.
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     protected int addMailinglistFromGuest(OctopusContext octopusContext, Mailinglist mailinglist, Clause clause)
             throws BeanException, IOException {
@@ -394,9 +395,9 @@ public class MailinglistWorker {
      * @param mailinglist FIXME
      * @param person      FIXME
      * @param address     FIXME
-     * @throws IOException IOException
-     * @throws BeanException BeanException
      * @return True wenn ein entsprechender Eintrag gespeichert wurde.
+     * @throws IOException   IOException
+     * @throws BeanException BeanException
      */
     protected boolean savePerson(Database database, Integer mailinglist, Integer person, String address)
             throws BeanException, IOException {

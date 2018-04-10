@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.beans.facade;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.sql.Timestamp;
 
 /**
@@ -151,96 +152,112 @@ public interface PersonMemberFacade {
 
     /**
      * Ändert Anrede
+     *
      * @param value salutation
      */
     void setSalutation(String value);
 
     /**
      * Ändert Anrede-ID
+     *
      * @param value salutation id
      */
     void setSalutationFK(Integer value);
 
     /**
      * Ändert Akad. Titel
+     *
      * @param value title
      */
     void setTitle(String value);
 
     /**
      * Ändert Vorname
+     *
      * @param value first name
      */
     void setFirstname(String value);
 
     /**
      * Ändert Nachname
+     *
      * @param value last name
      */
     void setLastname(String value);
 
     /**
      * Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland}
+     *
      * @param value domestic or international
      */
     void setDomestic(String value);
 
     /**
      * Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich}
+     *
      * @param value gender
      */
     void setSex(String value);
 
     /**
      * Ändert Geburtsdatum
+     *
      * @param value birthday
      */
     void setBirthday(Timestamp value);
 
     /**
      * aendert Geburtsort
+     *
      * @param birthplace birthplace
      */
     void setBirthplace(String birthplace);
 
     /**
      * Ändert Akkretierungsdatum
+     *
      * @param value Akkretierungsdatum
      */
     void setDiplodate(Timestamp value);
 
     /**
      * Ändert Sprachen
+     *
      * @param value language
      */
     void setLanguages(String value);
 
     /**
      * Ändert Nationalität
+     *
      * @param value nationality
      */
     void setNationality(String value);
 
     /**
      * Ändert Bemerkung
+     *
      * @param value note
      */
     void setNote(String value);
 
     /**
      * Ändert Bemerkung für die Orga
+     *
      * @param value orga
      */
     void setNoteOrga(String value);
 
     /**
      * Ändert Bemerkung für den Gastgeber
+     *
      * @param value note host
      */
     void setNoteHost(String value);
 
     /**
      * Gibt einen zusammengesetzten Namen zurück.
+     *
      * @return combined name
      */
     String getSaveAs();

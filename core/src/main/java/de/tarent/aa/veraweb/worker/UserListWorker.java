@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.aa.veraweb.beans.User;
@@ -213,7 +214,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @param errors kummulierte Fehlerliste
      * @param bean   einzufügendes Bean
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     @Override
@@ -275,7 +276,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @param cntx Octopus-Kontext
      * @param bean zu löschende Bean
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @see #removeBean(OctopusContext, Bean, TransactionContext)
      */
     @Override

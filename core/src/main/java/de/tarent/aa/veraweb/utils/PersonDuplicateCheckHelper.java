@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.Person;
@@ -205,7 +206,7 @@ public class PersonDuplicateCheckHelper {
      * Identified by fk_import from the importInstance.id
      *
      * @return a list of {@link ResultList}
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @throws BeanException BeanException
      */
     @SuppressWarnings("unchecked")
@@ -391,7 +392,7 @@ public class PersonDuplicateCheckHelper {
      * @param importPerson - the imported person to update
      * @param duplicates   - the duplicate ids
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     void setDuplicates(ImportPerson importPerson, List<Integer> duplicates)
             throws BeanException, IOException {

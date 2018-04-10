@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 /**
  * Diese Schnittstelle enthält Konstanten, die für das Erstellen und Parsen von
  * VerA.web-XML-Dokumenten nötig sind.

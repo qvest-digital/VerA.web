@@ -47,6 +47,7 @@ package de.tarent.commons.logging;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Contains an object associated with a name.
  * Used for parameters and variables in class {@link MethodCall}.

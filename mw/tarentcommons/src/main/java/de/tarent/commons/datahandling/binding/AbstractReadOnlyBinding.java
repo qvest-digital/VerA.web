@@ -47,6 +47,7 @@ package de.tarent.commons.datahandling.binding;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * This abstract implementation of the {@link Binding}
  * interface eases the effort to implement a read-only

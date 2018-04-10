@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +113,7 @@ public class TcMessageDefinition {
      *
      * @param name         Name des Parameters
      * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt
-     * werden.
+     *                     werden.
      * @param description  Beschreibung des Parameters
      * @param optional     Flag, ob der Parameter optional sein soll
      */
@@ -127,7 +128,7 @@ public class TcMessageDefinition {
      *
      * @param name         Name des Parameters
      * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt
-     * werden.
+     *                     werden.
      * @param description  Beschreibung des Parameters
      */
     public TcMessageDefinition addPart(String name, String partDataType, String description) {

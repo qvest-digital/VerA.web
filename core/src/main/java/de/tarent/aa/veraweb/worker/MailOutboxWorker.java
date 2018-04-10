@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.MailOutbox;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
@@ -117,7 +118,7 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
      * @param mailOutbox eMail-Entwurf aus dem Content.
      * @return eMail-Entwurf oder null
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public MailOutbox showDetail(OctopusContext cntx, Integer id, MailOutbox mailOutbox) throws BeanException, IOException {
         if (mailOutbox == null && id != null) {
@@ -146,8 +147,8 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @param save           Gibt an ob eMail-Entwurf gespeichert werden soll.
      * @return eMail
-     * @throws BeanException  BeanException
-     * @throws IOException  IOException
+     * @throws BeanException BeanException
+     * @throws IOException   IOException
      */
     public MailOutbox saveDetail(final OctopusContext octopusContext, Boolean save) throws BeanException, IOException {
         if (save != null && save.booleanValue()) {

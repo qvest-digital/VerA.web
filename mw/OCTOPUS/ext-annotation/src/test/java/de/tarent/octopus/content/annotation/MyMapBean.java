@@ -47,6 +47,7 @@ package de.tarent.octopus.content.annotation;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.HashMap;
 
 public class MyMapBean extends HashMap {

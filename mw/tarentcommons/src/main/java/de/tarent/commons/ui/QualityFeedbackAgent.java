@@ -47,6 +47,7 @@ package de.tarent.commons.ui;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -220,8 +221,9 @@ public abstract class QualityFeedbackAgent extends JDialog {
             jTextPane.setFont(new Font("Helvetica", Font.PLAIN, 12));
             jTextPane.setText(
                     "The tarent quality feedback agent has captured information that tarent needs to improve this products " +
-                     "quality.\n\nEnter your email address (optional), describe how you were using this product (optional), " +
-                      "then click Send.");
+                            "quality.\n\nEnter your email address (optional), describe how you were using this product " +
+                             "(optional), " +
+                            "then click Send.");
             jTextPane.setBounds(new java.awt.Rectangle(134, 15, 342, 104));
         }
         return jTextPane;

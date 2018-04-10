@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
@@ -186,9 +187,9 @@ public class PersonDetailWorker implements PersonConstants {
      * @param octopusContext Octopus-Kontext
      * @param id             ID der Person
      * @param person         Person
-     * @throws BeanException BeanException
-     * @throws IOException ioException
      * @return person
+     * @throws BeanException BeanException
+     * @throws IOException   ioException
      */
     public Person showDetail(OctopusContext octopusContext, Integer id, Person person) throws BeanException, IOException {
         logger.debug("Show person details");
@@ -425,7 +426,7 @@ public class PersonDetailWorker implements PersonConstants {
      *
      * @param octopusContext Octopus-Kontext
      * @param id             Personen-ID
-     * @throws IOException IoException
+     * @throws IOException   IoException
      * @throws BeanException BeanException
      */
     public void copyPerson(OctopusContext octopusContext, Integer id) throws BeanException, IOException {
@@ -523,7 +524,7 @@ public class PersonDetailWorker implements PersonConstants {
      * wird der Status "saveperson" gesetzt.
      *
      * @param octopusContext Octopus-Kontext
-     * @param saveperson SavePerson
+     * @param saveperson     SavePerson
      */
     public void prepareSaveDetail(OctopusContext octopusContext, Boolean saveperson) {
         if (saveperson != null && saveperson) {
@@ -584,10 +585,10 @@ public class PersonDetailWorker implements PersonConstants {
      * unter den gleichen Schlüsseln in den -Content kopiert.
      *
      * @param octopusContext Octopus-Kontext
-     * @param person Person
-     * @throws BeanException beanException
-     * @throws IOException ioException
+     * @param person         Person
      * @return die abgespeicherte Person
+     * @throws BeanException beanException
+     * @throws IOException   ioException
      */
     public Person saveDetail(final OctopusContext octopusContext, Person person) throws BeanException, IOException {
         octopusContext.setContent("personTab", octopusContext.requestAsString("personTab"));
@@ -867,7 +868,7 @@ public class PersonDetailWorker implements PersonConstants {
      * @param person         Person; wird benutzt, falls sie die richtige ID hat
      * @param personId       Personen-ID
      * @throws BeanException beanException
-     * @throws IOException ioException
+     * @throws IOException   ioException
      */
     public void updatePerson(OctopusContext octopusContext, Person person, Integer personId) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -902,8 +903,8 @@ public class PersonDetailWorker implements PersonConstants {
      *
      * @param partner bei "only" werden nur Daten zur Partnerperson, bei "without"
      *                nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
-     * @throws BeanException beanException
      * @return Person
+     * @throws BeanException beanException
      */
     public static Person getTestPerson(String partner) throws BeanException {
         Person person = new Person();
@@ -935,6 +936,7 @@ public class PersonDetailWorker implements PersonConstants {
 
     /**
      * Diese Methode füllt die Personen-Member-Facade mit Testwerten.
+     *
      * @param facade facade
      * @param suffix Suffix für Text-wertige Attribute
      */
@@ -1014,9 +1016,9 @@ public class PersonDetailWorker implements PersonConstants {
      *
      * @param octopusContext Aktueller Octopus Kontext
      * @param person         Die zu löschende Person
-     * @param username username
+     * @param username       username
      * @throws BeanException inkl. Datenbank-Fehler
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     void removePerson(OctopusContext octopusContext, Person person, String username) throws BeanException, IOException {
         // Datenbank-Einträge inkl. Abhängigkeiten löschen.
@@ -1104,10 +1106,10 @@ public class PersonDetailWorker implements PersonConstants {
      * Creates an OSIAM user with random username and password.
      *
      * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
-     * @param personId person id
-     * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @param personId       person id
      * @return Person
+     * @throws BeanException BeanException
+     * @throws IOException   IOException
      */
     @SuppressWarnings("rawtypes")
     public Person createOsiamUser(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
@@ -1191,10 +1193,10 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Save new instance LinkUUID to allow having a reset password url
      *
-     * @param personId FIXME
+     * @param personId       FIXME
      * @param octopusContext octopusContext
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     private void saveLinkUUID(Integer personId, OctopusContext octopusContext) {
         final Database database = new DatabaseVeraWeb(octopusContext);

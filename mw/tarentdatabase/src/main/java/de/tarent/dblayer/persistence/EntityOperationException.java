@@ -47,6 +47,7 @@ package de.tarent.dblayer.persistence;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * exception that will be thrown if there is a problem during
  * operations (insert, update, delete) on entities that are not

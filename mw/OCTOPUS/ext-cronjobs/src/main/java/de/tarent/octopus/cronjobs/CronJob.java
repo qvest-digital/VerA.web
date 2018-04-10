@@ -47,6 +47,7 @@ package de.tarent.octopus.cronjobs;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.Thread.State;
@@ -79,13 +80,13 @@ public abstract class CronJob implements Runnable {
 
     public static final int ALREADY_RUNNING_PARALLEL = 1;    // if job is already running a second instance is started parallel
     public static final int ALREADY_RUNNING_WAIT = 2;
-            // if job is already running process waits until job is finished to start next job
+    // if job is already running process waits until job is finished to start next job
     public static final int ALREADY_RUNNING_INTERRUPT = 3;
-            // if job is already running the actual job will be interrupted before starting a new job
+    // if job is already running the actual job will be interrupted before starting a new job
     public static final int ALREADY_RUNNING_DROP = 4;    // if job is already running the start of a second job is dropped
 
     protected static final int timeToWaitForNextTry = 5000;
-            // milliseconds to wait if job is already running and alreadyRunning == ALREADY_RUNNING_WAIT
+    // milliseconds to wait if job is already running and alreadyRunning == ALREADY_RUNNING_WAIT
     protected static final int maxTimeToWait = 25000; // wait max 25 seconds for finishing a cronjob
 
     private Date lastRun;

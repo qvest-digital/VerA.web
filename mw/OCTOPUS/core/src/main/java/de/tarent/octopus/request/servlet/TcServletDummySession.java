@@ -47,6 +47,7 @@ package de.tarent.octopus.request.servlet;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.request.TcSession;
 
 import java.io.Serializable;

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -229,7 +230,7 @@ public class DataExchangeWorker {
      * @param domain    Domäne, aus der die Personen stammen ("all" oder "ou")
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ungültigen Parameterwerten.
-     * @throws IOException ioException
+     * @throws IOException               ioException
      */
     public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter,
             final Integer event,
@@ -383,7 +384,7 @@ public class DataExchangeWorker {
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws IOException               FIXME
      * @throws TcContentProzessException FIXME
-     * @throws BeanException beanException
+     * @throws BeanException             beanException
      */
     public Map importToTransit(OctopusContext octopusContext,
             Map stream,
@@ -961,9 +962,9 @@ public class DataExchangeWorker {
      * Diese Methode erzeugt eine <code>Map</code>, in der Statistiken zu einem Import
      * kodiert sind.
      *
-     * @param dsCount  Anzahl Datensätze insgesamt
-     * @param dupCount Anzahl Duplikate
-     * @param id       Import-ID
+     * @param dsCount   Anzahl Datensätze insgesamt
+     * @param dupCount  Anzahl Duplikate
+     * @param id        Import-ID
      * @param saveCount save Count
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
@@ -983,10 +984,10 @@ public class DataExchangeWorker {
      * kodiert sind. In dieser Variante werden auch die Datensätze gezählt, die wegen
      * Unkorrektheit ignoriert wurden.
      *
-     * @param igCount  Anzahl ignorierter (unkorrekter) Datensätze
-     * @param dsCount  Anzahl nicht ignorierter Datensätze insgesamt
-     * @param dupCount Anzahl Duplikate
-     * @param id       Import-ID
+     * @param igCount   Anzahl ignorierter (unkorrekter) Datensätze
+     * @param dsCount   Anzahl nicht ignorierter Datensätze insgesamt
+     * @param dupCount  Anzahl Duplikate
+     * @param id        Import-ID
      * @param saveCount saveCount
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl

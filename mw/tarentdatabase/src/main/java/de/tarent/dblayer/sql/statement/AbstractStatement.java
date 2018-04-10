@@ -47,6 +47,7 @@ package de.tarent.dblayer.sql.statement;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContextImpl;
 import de.tarent.dblayer.sql.*;

@@ -47,6 +47,7 @@ package de.tarent.octopus.security.ldap;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -161,7 +162,7 @@ public class TcSecurityLDAPManager {
         } catch (NamingException e) {
             logger.error(
                     "Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie" +
-                     " es später noch einmal.",
+                            " es später noch einmal.",
                     e);
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
         }
@@ -185,7 +186,7 @@ public class TcSecurityLDAPManager {
         } catch (NamingException e) {
             logger.error(
                     "Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie" +
-                     " es später noch einmal.",
+                            " es später noch einmal.",
                     e);
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
         }
@@ -476,8 +477,8 @@ public class TcSecurityLDAPManager {
      * Testet, ob userid im LDAP vorhanden
      *
      * @param userid UserID, die getestet werden soll
-     * @throws TcSecurityException, wenn Fehler auftritt
      * @return true, wenn vorhanden, false sonst
+     * @throws TcSecurityException, wenn Fehler auftritt
      */
     public boolean checkuid(String userid) throws TcSecurityException {
         boolean vorhanden = false;
@@ -776,7 +777,8 @@ public class TcSecurityLDAPManager {
             }
         } catch (NamingException e) {
             throw new TcSecurityException(
-                    "Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. Bitte versuchen Sie es später noch einmal.");
+                    "Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. Bitte versuchen Sie es später noch einmal" +
+                     ".");
         }
         return dn;
     }

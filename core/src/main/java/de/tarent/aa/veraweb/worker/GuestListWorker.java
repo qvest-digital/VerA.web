@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
@@ -232,7 +233,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @return Map mit dem Key <code>count</code>
      * @throws BeanException beanexception
-     * @throws IOException ioexception
+     * @throws IOException   ioexception
      */
     public Map countRecipients(OctopusContext octopusContext) throws BeanException, IOException {
         final Integer countGuests;
@@ -649,7 +650,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Kontext
      * @return eine {@link Event}-Instanz oder <code>null</code>.
      * @throws BeanException beanexception
-     * @throws IOException ioexception
+     * @throws IOException   ioexception
      */
     public Event getEvent(OctopusContext octopusContext) throws BeanException, IOException {
         final GuestSearch search = getSearch(octopusContext);
@@ -709,9 +710,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}
      * -Instanz in einer WHERE-Statement-Liste.
      *
-     * @deprecated Use {@link GuestSearch#addGuestListFilter(WhereList)}  instead
      * @param guestSearch guestSearch
-     * @param where  werelist
+     * @param where       werelist
+     * @deprecated Use {@link GuestSearch#addGuestListFilter(WhereList)}  instead
      */
     public static void addGuestListFilter(GuestSearch guestSearch, WhereList where) {
         guestSearch.addGuestListFilter(where);

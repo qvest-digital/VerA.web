@@ -47,6 +47,7 @@ package de.tarent.octopus.request.directcall;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.soap.TcSOAPEngine;
 

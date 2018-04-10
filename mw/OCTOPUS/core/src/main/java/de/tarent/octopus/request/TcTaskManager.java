@@ -47,6 +47,7 @@ package de.tarent.octopus.request;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -273,7 +274,8 @@ public class TcTaskManager {
     // 	 */
     // 	public String getCurrentActionWorker() throws TcTaskProzessingException {
     // 		if (position == null || !(position instanceof TcTask.ActionNode))
-    // 			throw new TcTaskProzessingException("Position steht nicht auf einem Action-Element. Das Verarbeiten der Tasks muss mit start() beginnen.");
+    // 			throw new TcTaskProzessingException("Position steht nicht auf einem Action-Element. Das Verarbeiten der Tasks
+    // muss mit start() beginnen.");
 
     // 		String value = ((TcTask.ActionNode) position).worker;
 

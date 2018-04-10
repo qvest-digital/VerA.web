@@ -47,6 +47,7 @@ package de.tarent.dblayer;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -63,23 +64,23 @@ public class SchemaCreatorMSSQL extends SchemaCreator {
             try {
                 st.execute(
                         "IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[person]') AND OBJECTPROPERTY" +
-                         "(id, N'IsUserTable') = 1)\n"
+                                "(id, N'IsUserTable') = 1)\n"
                                 + "DROP TABLE [dbo].[person]");
                 st.execute(
                         "IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[firma]') AND OBJECTPROPERTY(id," +
-                         " N'IsUserTable') = 1)\n"
+                                " N'IsUserTable') = 1)\n"
                                 + "DROP TABLE [dbo].[firma]");
                 st.execute(
                         "IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[insert_test]') AND " +
-                         "OBJECTPROPERTY(id, N'IsUserTable') = 1)\n"
+                                "OBJECTPROPERTY(id, N'IsUserTable') = 1)\n"
                                 + "DROP TABLE [dbo].[insert_test]");
                 st.execute(
                         "if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[unit_test]') and OBJECTPROPERTY" +
-                         "(id, N'IsProcedure') = 1)\n"
+                                "(id, N'IsProcedure') = 1)\n"
                                 + "drop procedure [dbo].[unit_test]");
                 st.execute(
                         "if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[unit_test2]') and OBJECTPROPERTY" +
-                         "(id, N'IsProcedure') = 1)\n"
+                                "(id, N'IsProcedure') = 1)\n"
                                 + "drop procedure [dbo].[unit_test2]");
             } catch (SQLException e) {
                 logger.error(e.getMessage(), e);

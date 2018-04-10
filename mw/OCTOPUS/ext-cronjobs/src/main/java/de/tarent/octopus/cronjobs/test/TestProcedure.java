@@ -47,6 +47,7 @@ package de.tarent.octopus.cronjobs.test;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

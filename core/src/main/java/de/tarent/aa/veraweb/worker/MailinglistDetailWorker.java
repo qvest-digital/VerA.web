@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -144,7 +145,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext Octopus-Kontext
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public void showDetail(final OctopusContext octopusContext) throws BeanException, IOException {
         final Database database = getDatabase(octopusContext);
@@ -227,7 +228,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * @param mailinglist Mailingliste
      * @return Liste mit mailto-URLs zu der Mailingliste
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public List getAddressList(final OctopusContext cntx, final Mailinglist mailinglist) throws BeanException,
             IOException {

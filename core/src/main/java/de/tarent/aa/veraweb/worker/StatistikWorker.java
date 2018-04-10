@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.ExportHelper;
 import de.tarent.aa.veraweb.utils.OctopusHelper;
@@ -435,8 +436,8 @@ public class StatistikWorker {
      * @param octopusContext The {@link OctopusContext}
      * @param resultSet      FIXME
      * @return Map mit Stream Informationen
-     * @throws IOException IOException
-     * @throws SQLException SQLException
+     * @throws IOException                          IOException
+     * @throws SQLException                         SQLException
      * @throws FactoryConfigurationError
      * @throws TransformerFactoryConfigurationError
      */

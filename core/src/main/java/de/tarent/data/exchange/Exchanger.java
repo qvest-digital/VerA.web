@@ -61,6 +61,7 @@ package de.tarent.data.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
@@ -81,36 +82,42 @@ public interface Exchanger {
 
     /**
      * Das zu verwendende Austauschformat
+     *
      * @return exchange Format
      */
     ExchangeFormat getExchangeFormat();
 
     /**
      * Das zu verwendende Austauschformat
+     *
      * @param format exchange Format
      */
     void setExchangeFormat(ExchangeFormat format);
 
     /**
      * Der zu verwendende Eingabedatenstrom
+     *
      * @return input Stream
      */
     InputStream getInputStream();
 
     /**
      * Der zu verwendende Eingabedatenstrom
+     *
      * @param stream input stream
      */
     void setInputStream(InputStream stream);
 
     /**
      * Der zu verwendende Ausgabedatenstrom
+     *
      * @return output Stream
      */
     OutputStream getOutputStream();
 
     /**
      * Der zu verwendende Ausgabedatenstrom
+     *
      * @param stream outputStream
      */
     void setOutputStream(OutputStream stream);

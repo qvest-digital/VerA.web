@@ -47,6 +47,7 @@ package de.tarent.commons.datahandling.binding;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Abstract implementation of a model.
  * This implementation is able to deal with the listener.

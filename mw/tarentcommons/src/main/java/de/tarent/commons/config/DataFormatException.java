@@ -47,6 +47,7 @@ package de.tarent.commons.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * This exception class is catched in some places
  * where plain XML data is accessed. Since direct

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
@@ -90,7 +91,7 @@ public class CompleteWorker {
      * @param column Column
      * @param query  Query
      * @return Liste mit den 10 ersten Einträgen.
-     * @throws BeanException  BeanException
+     * @throws BeanException BeanException
      */
     private List getList(OctopusContext cntx, String table, String column, String query) throws BeanException {
         cntx.setContent(QUERY, query);

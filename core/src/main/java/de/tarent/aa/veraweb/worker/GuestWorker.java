@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Person;
@@ -625,23 +626,22 @@ public class GuestWorker {
      * Gast angelegt wenn dieser noch nicht dieser Veranstaltung zugeordnet
      * war. Wenn die Gast-ID übergeben wird, wird dieser Gast aktuallisiert!
      *
-     * @param cntx           Octopus-Context
-     * @param database       Datenbank
+     * @param cntx             Octopus-Context
+     * @param database         Datenbank
      * @param executionContext executionContext
-     * @param event          Veranstaltung
-     * @param guestId        Gast der bearbeitet werden soll, null zum hinzufügen.
-     * @param personId       Person mit dessen Daten der Gast gefüllt werden soll.
-     * @param categoryId     Kategorie nach der gefiltert wurde.
-     * @param reserve        Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
-     * @param invitationtype Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
-     * @param ishost         Gibt an ob dieser Gast gleichzeitig Gastgeber ist.
-     * @throws BeanException beanexception
-     * @throws IOException ioexceoption
-     *
+     * @param event            Veranstaltung
+     * @param guestId          Gast der bearbeitet werden soll, null zum hinzufügen.
+     * @param personId         Person mit dessen Daten der Gast gefüllt werden soll.
+     * @param categoryId       Kategorie nach der gefiltert wurde.
+     * @param reserve          Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
+     * @param invitationtype   Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
+     * @param ishost           Gibt an ob dieser Gast gleichzeitig Gastgeber ist.
      * @return true if save successful
      * 2009-05-12 cklein
      *
      * fixed as part of issue #1531 - personCategorie was always null due to malformed query
+     * @throws BeanException beanexception
+     * @throws IOException   ioexceoption
      */
     protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext executionContext, Event event,
             Integer guestId, Integer personId, Integer categoryId, Boolean reserve,

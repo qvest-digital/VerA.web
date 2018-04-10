@@ -47,6 +47,7 @@ package de.tarent.commons.datahandling.binding;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Binding is an abstraction for the connection between a model and a view.
  * The binding stores, which attribute of the model is mapped to the view.

@@ -47,6 +47,7 @@ package de.tarent.octopus.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.resource.Resources;
@@ -860,16 +861,15 @@ public class TcModuleConfig implements Serializable {
                     Class classClass = className != null ? getClassLoader().loadClass(className) :
                             TcPersonalConfig.class;
                     if (!PersonalConfig.class.isAssignableFrom(classClass)) {
-                        String msg =
-                                "Fehler beim Laden des Konstruktors für PersonalConfigs; angegebene Klasse implementiert nicht PersonalConfig.";
+                        String msg = "Fehler beim Laden des Konstruktors für PersonalConfigs; " +
+                                 "angegebene Klasse implementiert nicht PersonalConfig.";
                         logger.error(msg);
                         throw new TcConfigException(msg);
                     }
                     personalConfigConstructor = classClass.getConstructor(new Class[0]);
                 } catch (Exception e) {
                     logger.error("Fehler beim Laden des Konstruktors für PersonalConfigs.", e);
-                    throw new TcConfigException(
-                            "Fehler beim Laden des Konstruktors für PersonalConfigs.", e);
+                    throw new TcConfigException("Fehler beim Laden des Konstruktors für PersonalConfigs.", e);
                 }
             }
         }

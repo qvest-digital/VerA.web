@@ -47,6 +47,7 @@ package de.tarent.dblayer;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.sql.SQLException;
 
 import de.tarent.commons.logging.LogFactory;
@@ -130,7 +131,7 @@ public abstract class SchemaCreator {
      * Set up the tables and data in the test database;
      *
      * @param force    if force == false, this is only done once in the java-process, so multiple calls with (force == false)
-     * have no effect.
+     *                 have no effect.
      * @param poolname TODO
      */
     public void setUp(boolean force) throws SQLException {

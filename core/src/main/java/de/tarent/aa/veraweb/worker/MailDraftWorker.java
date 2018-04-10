@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.MailDraft;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
@@ -184,7 +185,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      * @param mailDraft      eMail-Entwurf aus dem Content.
      * @return eMail-Entwurf oder null
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public MailDraft showDetail(OctopusContext octopusContext, Integer id, MailDraft mailDraft)
             throws BeanException, IOException {
@@ -219,7 +220,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      * @param save           Gibt an ob eMail-Entwurf gespeichert werden soll.
      * @return eMail-Entwurf
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public MailDraft saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException, IOException {
         if (save != null && save.booleanValue()) {

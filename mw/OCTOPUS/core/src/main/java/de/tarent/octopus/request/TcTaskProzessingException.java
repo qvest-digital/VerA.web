@@ -47,6 +47,7 @@ package de.tarent.octopus.request;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Exception, die geworfen werden soll, wenn
  * Probleme, wie z.B. fehlende Attribute und Anweidsungen wärend der

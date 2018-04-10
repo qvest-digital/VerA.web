@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -130,7 +131,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                             throw new TcActionDeclarationException(
                                     "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
                                             "' stimmt die Anzahl der Argumente (der Methode, exkl. TcAll) nicht mit dennen des " +
-                                             "statischen String[] 'INPUT_" +
+                                            "statischen String[] 'INPUT_" +
                                             methodname + "' überein.");
                         }
                     } catch (NoSuchFieldException e) {

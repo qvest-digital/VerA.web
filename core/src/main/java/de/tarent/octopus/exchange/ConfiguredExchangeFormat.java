@@ -61,6 +61,7 @@ package de.tarent.octopus.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.data.exchange.ExchangeFormat;
 
 import java.net.MalformedURLException;

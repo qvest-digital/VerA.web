@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
@@ -106,7 +107,7 @@ public class CleanupWorker {
      *
      * @param cntx Octopus context
      * @throws BeanException beanException
-     * @throws IOException ioException
+     * @throws IOException   ioException
      */
     public void summarizeCategories(OctopusContext cntx) throws BeanException, IOException {
         //		summarizeCategoriesA(octopusContext, new DatabaseVeraWeb(octopusContext));
@@ -114,10 +115,10 @@ public class CleanupWorker {
     }
 
     /**
-     * @see #summarizeCategories(OctopusContext)
-     * @param cntx OctupusContext
+     * @param cntx     OctupusContext
      * @param database database
      * @throws BeanException beanexception
+     * @see #summarizeCategories(OctopusContext)
      */
     protected void summarizeCategoriesA(OctopusContext cntx, Database database) throws BeanException {
         if (logger.isInfoEnabled()) {
@@ -184,11 +185,11 @@ public class CleanupWorker {
     }
 
     /**
-     * @see #summarizeCategories(OctopusContext)
-     * @param cntx octupus context
+     * @param cntx     octupus context
      * @param database database
      * @throws BeanException beanException
-     * @throws IOException ioexception
+     * @throws IOException   ioexception
+     * @see #summarizeCategories(OctopusContext)
      */
     protected void summarizeCategoriesB(OctopusContext cntx, Database database) throws BeanException, IOException {
         if (logger.isInfoEnabled()) {

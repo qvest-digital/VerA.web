@@ -47,6 +47,7 @@ package de.tarent.commons.ui;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,7 @@ public class Messages {
      * expected at src/main/resources/de/tarent/contact/selector/actions.properties
      *
      * @param callingObject Object you are calling this method from (<code>this</code>) or object from the package whose
-     * ResourceBundle should be used
+     *                      ResourceBundle should be used
      * @param key
      * @return String appendant to key; if not found <code>'!' + key + '!'</code> will be returned
      */

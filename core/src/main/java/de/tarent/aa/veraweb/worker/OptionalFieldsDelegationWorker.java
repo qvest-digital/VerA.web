@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.dblayer.engine.DB;
@@ -162,7 +163,7 @@ public class OptionalFieldsDelegationWorker {
      * Get the optional delegation fields by guest id.
      *
      * @param guestId Guest id
-     * @param eventId  event ID
+     * @param eventId event ID
      * @return List with all optional delegation fields for the current guest
      * @throws SQLException  FIXME
      * @throws BeanException FIXME

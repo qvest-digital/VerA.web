@@ -47,6 +47,7 @@ package de.tarent.octopus.logging;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.resource.Resources;
 import org.apache.commons.logging.Log;
@@ -287,13 +288,13 @@ public class LogFactory {
                                     ") element(" + xlogger_element +
                                     ") name(" + handler +
                                     ") encoding is 7-bit ASCII (platform encoding, LC_CTYPE=C; consider export LC_CTYPE=C.UTF-8" +
-                                     " or starting the JVM with -Dfile.encoding=UTF-8 to fix this; umlauts *will* be broken)");
+                                    " or starting the JVM with -Dfile.encoding=UTF-8 to fix this; umlauts *will* be broken)");
                         } else if (!enc.equals("UTF-8")) {
                             baseLogger.info("Logger parent(" + xlogger_parent +
                                     ") element(" + xlogger_element + ") name(" + handler +
                                     ") encoding is '" + enc +
                                     "' (platform encoding; consider export LC_CTYPE=C.UTF-8 or starting the JVM with -Dfile" +
-                                     ".encoding=UTF-8 to fix this)");
+                                    ".encoding=UTF-8 to fix this)");
                         }
                     } else if (enc.equals("US-ASCII")) {
                         baseLogger.warning("Logger parent(" + xlogger_parent +

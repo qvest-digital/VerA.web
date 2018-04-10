@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
@@ -144,7 +145,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @return Liste mit Beans, nie null.
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @see #getSelection(OctopusContext, Integer)
      */
     @Override
@@ -421,7 +422,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      *                   gilt
      * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public void unassignWorkArea(final OctopusContext cntx, final List<Integer> personIds, final Integer workAreaId)
             throws BeanException,
@@ -453,7 +454,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @param personIds      Liste von Personen IDs für die die neue Zuordnung gilt
      * @param workAreaId     ID des Arbeitsbereiches der zugeordnet werden soll
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public void assignWorkArea(final OctopusContext octopusContext, final List<Integer> personIds, final Integer workAreaId)
             throws BeanException,
@@ -953,7 +954,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext The {@link OctopusContext}
      * @param list           FIXME
-     * @throws BeanException  BeanException
+     * @throws BeanException BeanException
      */
     private void addPersonListFilter(final OctopusContext octopusContext, final WhereList list) throws BeanException {
         final PersonSearch personSearch = getSearch(octopusContext);

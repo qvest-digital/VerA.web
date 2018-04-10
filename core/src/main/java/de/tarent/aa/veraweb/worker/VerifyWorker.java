@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Config;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -147,7 +148,7 @@ public class VerifyWorker {
      *
      * @param cntx OctopusContext
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public void verifySchemaVersion(OctopusContext cntx) throws BeanException, IOException {
         LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();

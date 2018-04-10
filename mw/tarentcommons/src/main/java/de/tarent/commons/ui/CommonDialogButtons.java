@@ -47,6 +47,7 @@ package de.tarent.commons.ui;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -87,7 +88,7 @@ public class CommonDialogButtons extends JPanel {
     protected ImageIcon submitIcon = null;
     protected ImageIcon cancelIcon = new ImageIcon(
             Toolkit.getDefaultToolkit().getImage(getClass().getResource("/de/tarent/commons/gfx/process-stop.png")));
-            //$NON-NLS-1$
+    //$NON-NLS-1$
 
     protected ActionListener actionListener;
 

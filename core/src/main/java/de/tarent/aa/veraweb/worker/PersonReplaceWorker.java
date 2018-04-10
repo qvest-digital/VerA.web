@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.dblayer.sql.Escaper;
@@ -204,7 +205,7 @@ public class PersonReplaceWorker extends PersonListWorker {
      * @param cntx Octopus-Context
      * @return Liste mit Beans, nie null.
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @see #getSelection(OctopusContext, Integer)
      */
     public List showList(OctopusContext cntx) throws BeanException, IOException {
@@ -403,7 +404,7 @@ public class PersonReplaceWorker extends PersonListWorker {
      *
      * @param octopusContext The {@link OctopusContext}
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public Integer countData(OctopusContext octopusContext) throws BeanException, IOException {
         Database database = getDatabase(octopusContext);
@@ -475,7 +476,7 @@ public class PersonReplaceWorker extends PersonListWorker {
      *
      * @param octopusContext The {@link OctopusContext}
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public void replaceSelectedData(OctopusContext octopusContext) throws BeanException, IOException {
         List selection = getSelection(octopusContext, null);

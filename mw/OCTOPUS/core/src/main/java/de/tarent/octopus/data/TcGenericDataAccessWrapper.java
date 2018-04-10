@@ -47,6 +47,7 @@ package de.tarent.octopus.data;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -436,7 +437,7 @@ public class TcGenericDataAccessWrapper {
      * @param cmd         SQL Commando, muss für gleiche Resultsets auch gleich sein.
      * @param cache       Soll das Resultset gecacht werden`
      * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein
-     * Dirty-Flag ab zu fragen.
+     *                    Dirty-Flag ab zu fragen.
      *                    Kann null sein, wenn aktualität egal ist.
      * @return ResultSet der Ergebnissmenge
      */
@@ -541,7 +542,7 @@ public class TcGenericDataAccessWrapper {
      *
      * @param sql         Das SQL Kommando
      * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein
-     * Dirty-Flag ab zu fragen.
+     *                    Dirty-Flag ab zu fragen.
      *                    Kann null sein, wenn aktualität egal ist.
      * @return Ergebnis der Aktion, wenn diese eines zurück liefert
      */
@@ -576,7 +577,7 @@ public class TcGenericDataAccessWrapper {
      *
      * @param cursor   Das Result Set
      * @param cacheKey Ein Key, der für diese Anordnung von Feldnamen eindeutig ist. Darunter kann das Ergebniss dieser Anfrage
-     *  dann abgelegt werden.
+     *                 dann abgelegt werden.
      * @return Ein Array mit den Feldnamen der Spalten in der richtigen Reihenfolge. Vorsicht: Die erste Spalte liegt im Array
      * bei [0], wärend der erste Spalte in einem ResultSet mit 1 anfängt.
      */

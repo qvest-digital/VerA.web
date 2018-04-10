@@ -47,6 +47,7 @@ package de.tarent.commons.action;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -150,7 +151,7 @@ public class ToolBar extends JToolBar implements ActionContainer {
      *
      * @param aUniqueName - a unique name
      * @param small       - whether the toolbar should be small (without text) or large with large symbols and the action-text
-     * under it
+     *                    under it
      */
     public ToolBar(String aUniqueName, boolean small) {
         uniqueName = aUniqueName;

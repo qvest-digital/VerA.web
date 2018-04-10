@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
@@ -141,8 +142,8 @@ public class OSIAMWorker {
      * Creates an new user in OSIAM via connector4java and the configured client
      *
      * @param octopusContext The {@link OctopusContext}
-     * @throws BeanException  BeanException
-     * @throws SQLException SQLException
+     * @throws BeanException BeanException
+     * @throws SQLException  SQLException
      */
     public void createDelegationUsers(OctopusContext octopusContext) throws BeanException,
             SQLException {

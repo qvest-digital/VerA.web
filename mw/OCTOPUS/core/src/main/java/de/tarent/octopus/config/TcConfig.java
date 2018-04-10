@@ -47,6 +47,7 @@ package de.tarent.octopus.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.File;
 
 import de.tarent.octopus.server.PersonalConfig;
@@ -75,7 +76,7 @@ public class TcConfig {
      * @param commonConfig      Die Systemweiten Einstellungen
      * @param personalConfig    Die Benutzerspezifischen Einstellungen
      * @param currentModuleName Names des Modules, aus dem das aktuelle Task ist und aus dem die aktuellen Config Daten geladen
-     *  werden.
+     *                          werden.
      */
     public TcConfig(
             TcCommonConfig commonConfig,

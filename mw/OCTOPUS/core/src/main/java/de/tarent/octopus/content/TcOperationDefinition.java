@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -195,7 +196,7 @@ public class TcOperationDefinition {
      *
      * @param faultStatusCode  Der Fehlercode zu der diese FaultMessage gehört.
      * @param faultDescription Liefert die Beschreibung zu einem faultStatusCode. Das soll eine Beschreibung sein, die den
-     * Fehler kurz Charakterisiert.
+     *                         Fehler kurz Charakterisiert.
      * @param faultMessage     Die Beschreibung der Ausgabeparameter der Operation bei einem Fehler mit dem faultStatusCode
      * @return Die gesetzte FaultMessage
      */
@@ -214,7 +215,7 @@ public class TcOperationDefinition {
      *
      * @param faultStatusCode  Der Fehlercode zu der diese FaultMessage gehört.
      * @param faultDescription Liefert die Beschreibung zu einem faultStatusCode. Das soll eine Beschreibung sein, die den
-     * Fehler kurz Charakterisiert.
+     *                         Fehler kurz Charakterisiert.
      * @return Die neu erzeugte FaultMessage
      */
     public TcMessageDefinition addFaultMessage(String faultStatusCode, String faultDescription) {

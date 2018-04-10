@@ -47,6 +47,7 @@ package de.tarent.octopus.extensions;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * This implements a simple extension framework for
  * the Octopus application server. An extension has to be

@@ -47,6 +47,7 @@ package de.tarent.commons.fileformats;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 

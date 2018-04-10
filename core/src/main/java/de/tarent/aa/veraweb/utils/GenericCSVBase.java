@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.Exchanger;
@@ -303,7 +304,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Diese Methode liefert die Menge der verfügbaren Kategorienfelder.
      *
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @throws BeanException BeanException
      */
     Set getCategoryFields() throws BeanException, IOException {

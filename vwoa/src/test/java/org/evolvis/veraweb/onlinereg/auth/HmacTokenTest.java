@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.auth;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import com.sun.jersey.core.util.Base64;
 import org.junit.Test;
 

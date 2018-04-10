@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
@@ -135,7 +136,7 @@ public class ImportPersonsWorker {
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public Map importStoredRecord(OctopusContext octopusContext, Integer importId) throws BeanException, IOException {
         if (importId == null) {
@@ -258,7 +259,7 @@ public class ImportPersonsWorker {
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public Map finalise(OctopusContext octopusContext, Integer importId, List ignorePersonFields, Map importTextfieldMapping)
             throws BeanException, IOException {

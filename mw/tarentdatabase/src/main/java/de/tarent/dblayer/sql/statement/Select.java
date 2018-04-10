@@ -47,6 +47,7 @@ package de.tarent.dblayer.sql.statement;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -136,7 +137,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     Limit _limitClause;
     /**
      * A column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to support
-     *  a limit,offset workaroud.
+     * a limit,offset workaroud.
      */
     String uniqueColumn;
 
@@ -493,7 +494,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * Returns a column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to
-     *  support a limit,offset workaroud.
+     * support a limit,offset workaroud.
      */
     public String getUniqueColumn() {
         return uniqueColumn;
@@ -907,8 +908,10 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * <p>Use this method with care: Because of the complex structure of a complete
      * select statement there may be situations where the both objects reference the same object.
      * This is the case for the Object-Values in the Clauses Where, Operator and ParamValue.
-     * <br>If for example a select <code>s1</code> has a where clause with a reference to a mutable object as value (e.g. a String Buffer),
-     * than a clone <code>s2 = s1.clone()</code> will have a reference to same oject. In this example a modification to the StringBuffer
+     * <br>If for example a select <code>s1</code> has a where clause with a reference to a mutable object as value (e.g. a
+     * String Buffer),
+     * than a clone <code>s2 = s1.clone()</code> will have a reference to same oject. In this example a modification to the
+     * StringBuffer
      * will modify the where clause of <code>s1</code> as well as <code>s2</code>.
      * </p>
      *

@@ -47,6 +47,7 @@ package de.tarent.commons.datahandling.entity;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * This interface stands for an abstract unit that can easily be displayed
  * and managed in tables, without the need to publish any details of the actual object.

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.AddressHelper;
@@ -110,10 +111,11 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 
     /**
      * Schränkt das Suchergebnis auf nicht gelöschte Firmen ein.
-     * @param cntx octupus context
+     *
+     * @param cntx   octupus context
      * @param select select
      * @throws BeanException beanException
-     * @throws IOException ioException
+     * @throws IOException   ioException
      */
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
@@ -167,7 +169,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
      * @param company      Person-PK der Firma dessen Daten übernommen werden sollen.
      * @param companyfield Name des HTML-Firmenfeldes zu dem Firmendaten geladen werden sollen.
      * @throws BeanException bean Exception
-     * @throws IOException io Exception
+     * @throws IOException   io Exception
      */
     public void copyCompanyData(OctopusContext cntx, Integer company, String companyfield) throws BeanException, IOException {
         cntx.setContent("tab", cntx.requestAsObject("tab"));

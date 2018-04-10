@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -199,9 +200,9 @@ public class ChangeLogMaintenanceWorker implements Runnable {
     /**
      * Purges the change log from old information.
      *
-     * @throws IOException ioException
+     * @throws IOException   ioException
      * @throws BeanException beanException
-     * @throws SQLException sqlException
+     * @throws SQLException  sqlException
      */
     public void purgeChangeLog() throws SQLException, BeanException, IOException {
         Calendar c = Calendar.getInstance();

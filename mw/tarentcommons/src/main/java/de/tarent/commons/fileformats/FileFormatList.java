@@ -47,6 +47,7 @@ package de.tarent.commons.fileformats;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.List;
 import java.util.ArrayList;
 

@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Person;
@@ -280,7 +281,7 @@ public class CategorieWorker extends StammdatenWorker {
      * of the above roles and processing continues as normal.
      *
      * @throws BeanException in case that the user is not authorized to save the list
-     * @throws IOException in case of an IOException
+     * @throws IOException   in case of an IOException
      */
     @Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
@@ -334,8 +335,8 @@ public class CategorieWorker extends StammdatenWorker {
      * Die Kategorie bean innerhalb der bestehenden Kategorieen einsortieren. Dazu werden alle bestehenden Kategorien mit
      * Rang greater equal bean.rank in ihrem Rang um eins erhoeht.
      *
-     * @param cntx {@link OctopusContext}
-     * @param bean {@link Categorie}
+     * @param cntx               {@link OctopusContext}
+     * @param bean               {@link Categorie}
      * @param transactionContext {@link TransactionContext}
      * @throws BeanException bean exception
      */

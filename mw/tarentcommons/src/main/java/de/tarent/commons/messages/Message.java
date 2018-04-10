@@ -47,6 +47,7 @@ package de.tarent.commons.messages;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * This simple message helper class help you to i18n your application
  * and make error messages compile safe. Use this with the static

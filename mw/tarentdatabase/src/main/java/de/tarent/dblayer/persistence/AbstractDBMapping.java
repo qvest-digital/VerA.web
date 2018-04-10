@@ -47,6 +47,7 @@ package de.tarent.dblayer.persistence;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.commons.datahandling.entity.EntityProperty;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.engine.*;
@@ -152,7 +153,7 @@ public abstract class AbstractDBMapping implements DBMapping {
      *
      * @param maxIdentifierLength the maximal length of identifiers for the database system.
      * @param dbc                 A database context, which will be used for configuration information and not for connecting
-     * to the database.
+     *                            to the database.
      */
     public AbstractDBMapping(int maxIdentifierLength, DBContext dbc) {
         this.maxIdentifierLength = maxIdentifierLength;

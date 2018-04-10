@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.ldap.contact.ContactUser;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.UserManager;

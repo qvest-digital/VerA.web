@@ -47,6 +47,7 @@ package de.tarent.octopus.data;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +134,7 @@ public class TarWhereClause {
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
             throw new TarMalformedWhereClauseException(
                     "Der Ausdruck ist keine gültige Postfix Notation. Es sind nicht genügend Operanden für die Operatoren " +
-                     "vorhanden.");
+                            "vorhanden.");
         }
     }
 

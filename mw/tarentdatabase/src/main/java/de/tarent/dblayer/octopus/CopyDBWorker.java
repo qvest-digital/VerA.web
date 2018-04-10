@@ -47,6 +47,7 @@ package de.tarent.dblayer.octopus;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
