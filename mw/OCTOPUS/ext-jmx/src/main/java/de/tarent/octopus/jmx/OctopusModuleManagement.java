@@ -60,15 +60,15 @@ import javax.management.ObjectName;
 import javax.management.ReflectionException;
 import javax.management.RuntimeOperationsException;
 
-import de.tarent.octopus.config.CommonConfig;
-import de.tarent.octopus.content.MessageDefinition;
-import de.tarent.octopus.content.MessageDefinitionPart;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.content.TcMessageDefinition;
+import de.tarent.octopus.content.TcMessageDefinitionPart;
 import de.tarent.octopus.request.Octopus;
-import de.tarent.octopus.request.OctopusRequest;
-import de.tarent.octopus.config.Task;
-import de.tarent.octopus.config.TaskList;
-import de.tarent.octopus.embedded.DirectCallResponse;
-import de.tarent.octopus.embedded.DirectCallSession;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.request.TcTask;
+import de.tarent.octopus.request.TcTaskList;
+import de.tarent.octopus.request.directCall.TcDirectCallResponse;
+import de.tarent.octopus.request.directCall.TcDirectCallSession;
 import de.tarent.octopus.response.ResponseProcessingException;
 
 public class OctopusModuleManagement implements DynamicMBean
@@ -77,13 +77,13 @@ public class OctopusModuleManagement implements DynamicMBean
     private MBeanInfo octopusMBeanInfo = null;
     private MBeanServer mbs = null;
     private HashMap octopusOperationMap = null;
-    private CommonConfig octopusConfig = null;
+    private TcCommonConfig octopusConfig = null;
     private Octopus octopus = null;
     private String module = null;
 
     private static Logger logger = Logger.getLogger(OctopusModuleManagement.class.getName());
 
-    public OctopusModuleManagement(Octopus octopus, CommonConfig commonconfig, String module) throws MalformedObjectNameException, NullPointerException
+    public OctopusModuleManagement(Octopus octopus, TcCommonConfig commonconfig, String module) throws MalformedObjectNameException, NullPointerException
     {
         octopusOperationMap = new HashMap();
 
@@ -334,7 +334,7 @@ public class OctopusModuleManagement implements DynamicMBean
         MBeanParameterInfo[] parameterInfo = (MBeanParameterInfo[])octopusOperationMap.get(task);
 
         // build the request
-        OctopusRequest request = new OctopusRequest();
+        TcRequest request = new TcRequest();
         request.setRequestParameters(new HashMap());
         request.setParam("module", module);
         request.setParam("task", task);
@@ -348,10 +348,10 @@ public class OctopusModuleManagement implements DynamicMBean
         }
 
         // issue call
-        DirectCallResponse response = new DirectCallResponse();
+        TcDirectCallResponse response = new TcDirectCallResponse();
         try
         {
-            octopus.dispatch(request, response, new DirectCallSession());
+            octopus.dispatch(request, response, new TcDirectCallSession());
         }
         catch (ResponseProcessingException e)
         {
@@ -405,7 +405,7 @@ public class OctopusModuleManagement implements DynamicMBean
 
         // construct Octopus task descriptions
         temp = new ArrayList();
-        TaskList taskList = null;
+        TcTaskList taskList = null;
         if (!"octopus".equals(module))
             taskList = octopusConfig.getTaskList(module);
         MBeanOperationInfo[] octopusOperations = null;
@@ -415,7 +415,7 @@ public class OctopusModuleManagement implements DynamicMBean
             while (iter.hasNext())
             {
                 String thisTaskName = (String)iter.next();
-                Task thisTask = octopusConfig.getTaskList(module).getTask(thisTaskName);
+                TcTask thisTask = octopusConfig.getTaskList(module).getTask(thisTaskName);
                 MBeanParameterInfo[] thisParameters = parseParameters(thisTask.getInputMessage());
 
                 MBeanOperationInfo thisOperation = new MBeanOperationInfo(
@@ -451,14 +451,14 @@ public class OctopusModuleManagement implements DynamicMBean
                                    octopusNotifications);
     }
 
-    private MBeanParameterInfo[] parseParameters(MessageDefinition inputMessage)
+    private MBeanParameterInfo[] parseParameters(TcMessageDefinition inputMessage)
     {
         List result = new ArrayList();
 
         Iterator iter = inputMessage.getParts().iterator();
         while (iter.hasNext())
         {
-            MessageDefinitionPart thisPart = (MessageDefinitionPart)iter.next();
+            TcMessageDefinitionPart thisPart = (TcMessageDefinitionPart)iter.next();
             String thisPartName = thisPart.getName().replaceFirst(".*:","");
 
             String thisPartType = thisPart.getPartDataType();
