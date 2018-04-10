@@ -287,7 +287,7 @@ public class ExtPreparedStatement implements ParamSet {
                         }
                         stmtDelegate.setNull(i + 1, Types.NULL);
                     } else {
-                        if (attributeValue instanceof java.util.Date & !(attributeValue instanceof java.sql.Date) &
+                        if (attributeValue instanceof java.util.Date && !(attributeValue instanceof java.sql.Date) &&
                                 !(attributeValue instanceof java.sql.Timestamp)) {
                             if (logger.isDebugEnabled()) {
                                 logger.debug("set parameter " + attributeName + " (" + i + ") to " + attributeValue +

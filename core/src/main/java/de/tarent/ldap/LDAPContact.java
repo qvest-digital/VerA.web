@@ -702,7 +702,7 @@ public class LDAPContact {
         for (int i = 0; i < childs.getLength(); i++) {
             String attribut = childs.item(i).getAttributes().item(0).getNodeValue();
             String value = getValue(childs.item(i).getAttributes());
-            if ((value != null) & (!value.equals(""))) { //$NON-NLS-1$
+            if ((value != null) && (!value.equals(""))) { //$NON-NLS-1$
                 attr.put(attribut, value);
             }
         }

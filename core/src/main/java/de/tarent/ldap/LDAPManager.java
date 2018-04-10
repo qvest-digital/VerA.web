@@ -537,7 +537,7 @@ public class LDAPManager {
      * @param wert          FIXME
      */
     protected List modifyAttributes_restricted(List modifications, Attributes contact, String attribut, String wert) {
-        if ((wert != null) & (!wert.equals(""))) { //$NON-NLS-1$
+        if (wert != null && !"".equals(wert)) { //$NON-NLS-1$
             if (!this.checkAttribute(contact, attribut)) {
                 modifications.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute(attribut, wert)));
             } else if (!this.checkAttribute(contact, attribut, wert)) {
