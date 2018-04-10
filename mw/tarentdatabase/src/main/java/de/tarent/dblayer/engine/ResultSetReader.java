@@ -62,7 +62,7 @@ import java.util.List;
  * und in List oder Mapobjekte umgewandelt.
  *
  * HINWEIS : Date-Objekte werden hier nach Long
- * gewandelt, da sich dieser Datentyp f�r den
+ * gewandelt, da sich dieser Datentyp für den
  * SOAPTransfer besser eignet.
  */
 public class ResultSetReader {
