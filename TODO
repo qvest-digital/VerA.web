@@ -20,7 +20,6 @@
   FROM THE INTERNETZ⚠
 • handle TODOs in documentation, cover upgrading, mark no-OA jumps
 • fix and check installing Docker offline works
-• commit 5b68f338258e4a2b46689a0c7ea7b33d44ce9765 (generics error in subinterface)
 • mw/tarentcommons/src/main/java/de/tarent/commons/logging/LogManager.java
 
 Status: kann alles getestet werden, löpt
