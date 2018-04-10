@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.tarent.octopus.config.CommonConfig;
+import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.extensions.OctopusExtension;
 import de.tarent.octopus.request.Octopus;
 
@@ -64,7 +64,7 @@ public class OctopusManagement implements OctopusExtension
             logger.log(Level.SEVERE, "JMX extension needs parameter 'octopus' and parameter 'config'");
             
         Octopus octopus = (Octopus)((Map)params).get("octopus");
-        CommonConfig commonconfig = (CommonConfig)((Map)params).get("config");
+        TcCommonConfig commonconfig = (TcCommonConfig)((Map)params).get("config");
         
         // initialize octopus core MBean
         try
