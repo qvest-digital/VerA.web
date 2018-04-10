@@ -18,7 +18,7 @@
   cf. commit 2551bbe21b9723ede478f3bc0261a5cebb2f9d1f in env
 • replace ANSI-Bell: it installs stuff into /usr/local with pip
   FROM THE INTERNETZ⚠
-• update documentation from fresh install, cover upgrading
+• handle TODOs in documentation, cover upgrading, mark no-OA jumps
 • fix and check installing Docker offline works
 • consider OCTOPUS monorepo (and dependency versions!)
 
@@ -89,11 +89,11 @@ Probleme:
 OCTOPUS: ggfs. komplett reinziehen oder zumindest monorepo
 für *alle* Abhängigkeiten, die nicht aus maven-central o.ä.
 kommen, also mindestens diese plus dependencies rekursiv:
-• de.tarent.octopus:octopus-core
-• de.tarent.octopus:octopus-servlet
-• de.tarent.octopus:octopus-ext-commons
-• de.tarent.octopus:octopus-ext-beans
-• de.tarent.octopus:octopus-ext-cronjobs
-• de.tarent.octopus:octopus-ext-jmx
-• de.tarent.octopus:octopus-ext-annotation
-• de.tarent.libraries:tarent-commons
+• de.tarent.libraries:tarent-commons		1.3.2.1
+‣ de.tarent.octopus:octopus-core		1.6.7
+• de.tarent.octopus:octopus-ext-annotation	1.90.4
+‣ de.tarent.octopus:octopus-ext-beans		1.6.2verawebpl5
+• de.tarent.octopus:octopus-ext-commons		1.90.4
+‣ de.tarent.octopus:octopus-ext-cronjobs	1.6.2
+• de.tarent.octopus:octopus-ext-jmx		1.90.4
+‣ de.tarent.octopus:octopus-servlet		1.6.2
