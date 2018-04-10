@@ -86,13 +86,6 @@ Probleme:
   oder brauchen wir das vielleicht einfach gar nicht mehr?
 
 monorepo status:
-‣ de.tarent.libraries:tarent-commons		1.3.2.1
-‣ de.tarent.libraries:tarent-database		1.5.4verawebpl3
-‣ de.tarent.octopus:octopus-core		1.6.7
-‣ de.tarent.octopus:octopus-ext-annotation	1.90.4
-‣ de.tarent.octopus:octopus-ext-beans		1.6.2verawebpl5
-‣ de.tarent.octopus:octopus-ext-commons		1.90.4
-‣ de.tarent.octopus:octopus-ext-cronjobs	1.6.2
-‣ de.tarent.octopus:octopus-ext-jmx		1.90.4
-‣ de.tarent.octopus:octopus-rpctunnel		0.2
-‣ de.tarent.octopus:octopus-servlet		1.6.2
+• de.tarent.extract:extract-tool		1.4
+• de.tarent.dfg-commons:background-jobs		1.15
+• de.tarent.dfg-commons:dfg-commons-parent	1.15	(implicit)
