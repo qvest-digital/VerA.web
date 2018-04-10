@@ -1,7 +1,3 @@
-/**
- * FIXME: KEINE NEUE ÄNDERUNGEN HIER, IN ZUKUNFT - NEUIMPLEMENTIEREN ANALOG GÄSTEVERWALTUNG
- */
-
 package de.tarent.aa.veraweb.worker;
 
 /*-
