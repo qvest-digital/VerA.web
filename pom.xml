@@ -1010,6 +1010,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<modules>
+		<module>mw</module>
 		<module>shared</module>
 		<module>core</module>
 		<module>export</module>
