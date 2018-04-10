@@ -143,7 +143,7 @@
 						<headerDefinition>${project.basedir}/myc-javapkg.xml</headerDefinition>
 					</headerDefinitions>
 					<mapping>
-						<java>JavaPackage_style</java>
+						<!--java>JavaPackage_style</java-->
 					</mapping>
 					<useDefaultExcludes>true</useDefaultExcludes>
 					<useDefaultMapping>true</useDefaultMapping>
