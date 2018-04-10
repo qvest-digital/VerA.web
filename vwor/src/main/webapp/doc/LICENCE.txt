@@ -636,7 +636,7 @@ External code found in the Java™ backend part includes:
 │ Copyright © Ian F. Darwin                                                │
 │ Copyright © Ben Ballard                                                  │
 │ Copyright © Fabrizio Fazzino                                             │
-│ Copyright © Mikel                                                        │
+│ Copyright © Michael Klink <m.klink@tarent.de>                            │
 │                                                                          │
 │ CSVFile is published by Fabrizio Fazzino under the terms of the          │
 │ GNU Library or Lesser General Public License version 2.0 (LGPLv2).       │
