@@ -519,6 +519,11 @@
 				<version>${commons-lang3.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.2</version>
+			</dependency>
+			<dependency>
 				<groupId>net.jodah</groupId>
 				<artifactId>expiringmap</artifactId>
 				<version>0.5.7</version>
