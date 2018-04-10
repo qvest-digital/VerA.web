@@ -8,9 +8,6 @@
 ChecksumTool
 
   The class {{{apidocs/de/tarent/commons/utils/ChecksumTool.html}<ChecksumTool>}} enables you to create checksums of a given file.\
-  The tool uses the MD5-algorithm of the {{{http://www.jonelo.de/java/jacksum/index_de.html}Jacksum-Library}} which is pure Java and licensed under the {{{http://www.fsf.org/licenses/gpl.html}GNU General Public License (GPL)}}.
-
-  <<Note>>: The maven2-dependency to jacksum is now set to <provided> so you must explicitely configure this dependency in your project if you want to use this tool.
 
   For generating an initial checksum you call the static method {{{apidocs/de/tarent/commons/utils/ChecksumTool.html#createChecksum(java.lang.String)}<ChecksumTool.createChecksum(String pFileName)>}}\
   For validating a file with a previously stored checksum-string you can call {{{apidocs/de/tarent/commons/utils/ChecksumTool.html#validateFile(java.lang.String, java.lang.String)}<ChecksumTool.validateFile(String pFileName, String pChecksum)>}}
