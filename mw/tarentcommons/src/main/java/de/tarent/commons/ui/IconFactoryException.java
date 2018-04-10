@@ -56,16 +56,16 @@ public class IconFactoryException extends Exception {
         super();
     }
 
-    public IconFactoryException( String message ) {
-        super( message );
+    public IconFactoryException(String message) {
+        super(message);
     }
 
-    public IconFactoryException( String message, Throwable cause ) {
-        super( message, cause );
+    public IconFactoryException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public IconFactoryException( Throwable cause ) {
-        super( cause );
+    public IconFactoryException(Throwable cause) {
+        super(cause);
     }
 
 }

@@ -61,6 +61,7 @@ package de.tarent.data.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;

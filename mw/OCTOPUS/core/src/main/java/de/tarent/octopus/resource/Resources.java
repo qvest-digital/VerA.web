@@ -47,6 +47,7 @@ package de.tarent.octopus.resource;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -60,6 +61,7 @@ public class Resources {
     /*
      * Singelton-Zugriff
      */
+
     /**
      * Diese Methode liefert ein Singleton für das Standardbündel.
      */
@@ -70,6 +72,7 @@ public class Resources {
     /*
      * Konstruktoren
      */
+
     /**
      * Dieser Konstruktor liefert eine Instanz zum Standardbündel ohne
      * Parent.
@@ -92,12 +95,13 @@ public class Resources {
      */
     public Resources(String bundleName, Resources parent) {
         this.parent = parent;
-        if (bundleName == null)
+        if (bundleName == null) {
             bundleName = OCTOPUS_BUNDLE_NAME;
+        }
         ResourceBundle resourceBundle = null;
         try {
             resourceBundle = ResourceBundle.getBundle(bundleName);
-        } catch(MissingResourceException mre) {
+        } catch (MissingResourceException mre) {
         }
         bundle = resourceBundle;
     }
@@ -105,6 +109,7 @@ public class Resources {
     /*
      * Methoden
      */
+
     /**
      * Diese Methode liefert den Wert zu einem Schlüssel.
      *
@@ -112,9 +117,11 @@ public class Resources {
      * @return Wert
      */
     public String get(String key) {
-        if (bundle != null) try {
-            return bundle.getString(key);
-        } catch (MissingResourceException e) {
+        if (bundle != null) {
+            try {
+                return bundle.getString(key);
+            } catch (MissingResourceException e) {
+            }
         }
         return (parent != null) ? parent.get(key) : '!' + key + '!';
     }
@@ -124,7 +131,7 @@ public class Resources {
      * ihn als Message, in die die übergebenen Parameter eingesetzt
      * werden, und gibt die ausgefüllte Message zurück.
      *
-     * @param key Schlüssel
+     * @param key    Schlüssel
      * @param params Parameter
      * @return ausgefüllte Message
      */
@@ -137,13 +144,13 @@ public class Resources {
      * ihn als Message, in die der übergebene Parameter eingesetzt
      * wird, und gibt die ausgefüllte Message zurück.
      *
-     * @param key Schlüssel
+     * @param key   Schlüssel
      * @param param Parameter
      * @return ausgefüllte Message
      * @see #get(String, Object[])
      */
     public String get(String key, Object param) {
-        return get(key, new Object[]{param});
+        return get(key, new Object[] { param });
     }
 
     /**
@@ -151,14 +158,14 @@ public class Resources {
      * ihn als Message, in die die übergebene Parameter eingesetzt
      * werden, und gibt die ausgefüllte Message zurück.
      *
-     * @param key Schlüssel
+     * @param key    Schlüssel
      * @param param1 Parameter
      * @param param2 Parameter
      * @return ausgefüllte Message
      * @see #get(String, Object[])
      */
     public String get(String key, Object param1, Object param2) {
-        return get(key, new Object[]{param1, param2});
+        return get(key, new Object[] { param1, param2 });
     }
 
     /**
@@ -166,7 +173,7 @@ public class Resources {
      * ihn als Message, in die die übergebene Parameter eingesetzt
      * werden, und gibt die ausgefüllte Message zurück.
      *
-     * @param key Schlüssel
+     * @param key    Schlüssel
      * @param param1 Parameter
      * @param param2 Parameter
      * @param param3 Parameter
@@ -174,7 +181,7 @@ public class Resources {
      * @see #get(String, Object[])
      */
     public String get(String key, Object param1, Object param2, Object param3) {
-        return get(key, new Object[]{param1, param2, param3});
+        return get(key, new Object[] { param1, param2, param3 });
     }
 
     /*

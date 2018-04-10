@@ -55,7 +55,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
+
 import de.tarent.commons.utils.*;
+
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -69,12 +71,16 @@ import javax.swing.JComboBox;
  * To use this binding, the view must only have a matching get/set pair to the viewAttributeKey. If the
  * view has only a set-method, then the BeanBinding defaults to readOnly binding.
  *
- * <p>There are two methods of data conversion for the get an set to the model: explicit DataConverter and an automatic data conversion.
+ * <p>There are two methods of data conversion for the get an set to the model: explicit DataConverter and an automatic data
+ * conversion.
  * <h3>explicit DataConverter</h3>
- * If the getViewDataConverter or the setViewDataConverter are set, they are used to convert the data before setting or after getting from the view.
+ * If the getViewDataConverter or the setViewDataConverter are set, they are used to convert the data before setting or after
+ * getting from the view.
  * <h3>automatic data conversion</h3>
- * If no setViewDataConverter is set, the data is automaticly converted before setting by the {@see de.tarent.commons.utils.Pojo} and {@see de.tarent.commons.utils.ConverterRegistry} api ot the target type of the pojo property.
- * If no getViewDataConverter is set, the data is automaticly converted after retrieving from the view, to the type of data in the first setViewData() operation. It is possible to force this datatype with the forceDataType attribute.
+ * If no setViewDataConverter is set, the data is automaticly converted before setting by the {@see de.tarent.commons.utils
+ * .Pojo} and {@see de.tarent.commons.utils.ConverterRegistry} api ot the target type of the pojo property.
+ * If no getViewDataConverter is set, the data is automaticly converted after retrieving from the view, to the type of data in
+ * the first setViewData() operation. It is possible to force this datatype with the forceDataType attribute.
  * </p>
  *
  *
@@ -82,7 +88,7 @@ import javax.swing.JComboBox;
  */
 public class BeanBinding implements Binding, DataSubject {
 
-    static final Object[] emptyArgs = new Object[]{};
+    static final Object[] emptyArgs = new Object[] {};
 
     Object viewComponent;
     String viewAttributeKey;
@@ -118,10 +124,13 @@ public class BeanBinding implements Binding, DataSubject {
 
         getMethod = Pojo.getGetMethod(viewComponent, viewAttributeKey, true);
         setMethod = Pojo.getSetMethod(viewComponent, viewAttributeKey, true);
-        if (setMethod == null)
-            throw new IllegalArgumentException("No method setter method found for binding '"+this+"' in class '"+viewComponent.getClass()+"'");
-        if (getMethod == null)
+        if (setMethod == null) {
+            throw new IllegalArgumentException(
+                    "No method setter method found for binding '" + this + "' in class '" + viewComponent.getClass() + "'");
+        }
+        if (getMethod == null) {
             readOnly = true;
+        }
 
         registerListener();
     }
@@ -130,37 +139,42 @@ public class BeanBinding implements Binding, DataSubject {
      * TODO: Extend the listener for target components
      */
     protected void registerListener() {
-        if (viewComponent instanceof JTextField)
-            ((JTextField)viewComponent).getDocument().addDocumentListener(new DocumentListenerAdapter(this));
-        else if (viewComponent instanceof JTextArea)
-            ((JTextArea)viewComponent).getDocument().addDocumentListener(new DocumentListenerAdapter(this));
-        else if (viewComponent instanceof JCheckBox)
-            ((JCheckBox)viewComponent).addActionListener(new ActionListenerAdapter(this));
-        else if (viewComponent instanceof JRadioButton)
-            ((JRadioButton)viewComponent).addChangeListener(new ChangeListenerAdapter(this));
-        else if (viewComponent instanceof JComboBox && (("selectedItem".equalsIgnoreCase(viewAttributeKey) || "selectedIndex".equalsIgnoreCase(viewAttributeKey)) )) {
-            ((JComboBox)viewComponent).addActionListener(new ActionListenerAdapter(this));
+        if (viewComponent instanceof JTextField) {
+            ((JTextField) viewComponent).getDocument().addDocumentListener(new DocumentListenerAdapter(this));
+        } else if (viewComponent instanceof JTextArea) {
+            ((JTextArea) viewComponent).getDocument().addDocumentListener(new DocumentListenerAdapter(this));
+        } else if (viewComponent instanceof JCheckBox) {
+            ((JCheckBox) viewComponent).addActionListener(new ActionListenerAdapter(this));
+        } else if (viewComponent instanceof JRadioButton) {
+            ((JRadioButton) viewComponent).addChangeListener(new ChangeListenerAdapter(this));
+        } else if (viewComponent instanceof JComboBox &&
+                (("selectedItem".equalsIgnoreCase(viewAttributeKey) || "selectedIndex".equalsIgnoreCase(viewAttributeKey)))) {
+            ((JComboBox) viewComponent).addActionListener(new ActionListenerAdapter(this));
         }
     }
 
     public void setViewData(Object data) {
-        if (data != null && forceDataType == null)
+        if (data != null && forceDataType == null) {
             forceDataType = data.getClass();
-        if (setViewDataConverter != null)
+        }
+        if (setViewDataConverter != null) {
             data = setViewDataConverter.convert(data);
+        }
         Pojo.set(viewComponent, setMethod, data);
     }
 
     public Object getViewData() {
         if (!isReadOnly()) {
             Object result = Pojo.get(viewComponent, getMethod);
-            if (getViewDataConverter != null)
+            if (getViewDataConverter != null) {
                 return getViewDataConverter.convert(result);
-            if (forceDataType != null)
+            }
+            if (forceDataType != null) {
                 return ConverterRegistry.convert(result, forceDataType);
+            }
             return result;
         }
-        throw new RuntimeException("getViewData on readonly Binding called "+toString());
+        throw new RuntimeException("getViewData on readonly Binding called " + toString());
     }
 
     public String getModelAttributeKey() {
@@ -192,22 +206,25 @@ public class BeanBinding implements Binding, DataSubject {
     }
 
     protected void fireDataChanged(DataChangedEvent e) {
-        if (dataChangedListener == null)
+        if (dataChangedListener == null) {
             return;
-        for (Iterator iter = dataChangedListener.iterator(); iter.hasNext();) {
-            DataChangedListener listener = (DataChangedListener)iter.next();
+        }
+        for (Iterator iter = dataChangedListener.iterator(); iter.hasNext(); ) {
+            DataChangedListener listener = (DataChangedListener) iter.next();
             listener.dataChanged(e);
         }
     }
 
     public void addDataChangedListener(DataChangedListener listener) {
-        if (dataChangedListener == null)
+        if (dataChangedListener == null) {
             dataChangedListener = new ArrayList(2);
+        }
         dataChangedListener.add(listener);
     }
 
     /**
      * Removes a DataChangedListener
+     *
      * @param listener The registered listener
      */
     public void removeDataChangedListener(DataChangedListener listener) {
@@ -269,17 +286,18 @@ public class BeanBinding implements Binding, DataSubject {
         String notRo = readOnly ? "" : ">";
 
         return "("
-            +viewComponent.getClass().getName()
-            +":"
-            +viewAttributeKey
-            +" <"+writeTo+notRo+ " model:"
-            +modelAttributeKey
-            +")";
+                + viewComponent.getClass().getName()
+                + ":"
+                + viewAttributeKey
+                + " <" + writeTo + notRo + " model:"
+                + modelAttributeKey
+                + ")";
     }
 
     protected class DocumentListenerAdapter implements DocumentListener {
 
         BeanBinding parentBinding;
+
         public DocumentListenerAdapter(BeanBinding parentBinding) {
             this.parentBinding = parentBinding;
         }

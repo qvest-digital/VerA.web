@@ -74,61 +74,79 @@ public class Update extends AbstractStatement {
     //
     // protected constants
     //
-    /** the String "<code> SET </code>" */
+    /**
+     * the String "<code> SET </code>"
+     */
     private static String SET = " SET ";
 
     //
     // protected member variables
     //
-    /** the name of the table to insert into */
-    private String _table = null;;
-    /** the list of column names ({@link String}) having values to update */
+    /**
+     * the name of the table to insert into
+     */
+    private String _table = null;
+    ;
+    /**
+     * the list of column names ({@link String}) having values to update
+     */
     private final List _columns;
-    /** the list of value objects in sync with {@link #_columns} */
+    /**
+     * the list of value objects in sync with {@link #_columns}
+     */
     private final List _values;
 
-    /** {@link From} {@link Clause} listing all tables for the <code>FROM</code> part */
+    /**
+     * {@link From} {@link Clause} listing all tables for the <code>FROM</code> part
+     */
     private final From _fromClause = new From();
-    /** {@link Clause} modelling the <code>WHERE</code> part */
+    /**
+     * {@link Clause} modelling the <code>WHERE</code> part
+     */
     private Clause _whereClause = null;
 
     //
     // constructors
     //
+
     /**
      * This constructor creates a simple {@link Update} {@link Statement}.
      */
-	public Update() {
-		_columns = new ArrayList();
-		_values = new ArrayList();
-	}
+    public Update() {
+        _columns = new ArrayList();
+        _values = new ArrayList();
+    }
 
     /**
      * This constructor creates an {@link Update} {@link Statement} initialized
      * for the given number of values to update.
      */
-	public Update(int initialCapacity) {
-		_columns = new ArrayList(initialCapacity);
-		_values = new ArrayList(initialCapacity);
-	}
+    public Update(int initialCapacity) {
+        _columns = new ArrayList(initialCapacity);
+        _values = new ArrayList(initialCapacity);
+    }
 
     /**
      * {@see ParamHolder#getParams(List)}
      */
     public void getParams(List paramList) {
         addParams(paramList, _values);
-        if (_whereClause instanceof ParamHolder)
-            ((ParamHolder)_whereClause).getParams(paramList);
+        if (_whereClause instanceof ParamHolder) {
+            ((ParamHolder) _whereClause).getParams(paramList);
+        }
     }
 
     //
     // public methods
     //
-    /** This method sets the name of the table to update. */
-	public Update table(String table) {
-		_table = table;
-		return this;
-	}
+
+    /**
+     * This method sets the name of the table to update.
+     */
+    public Update table(String table) {
+        _table = table;
+        return this;
+    }
 
     /**
      * This method sets the value for the given column of the data records to update.<br>
@@ -137,16 +155,16 @@ public class Update extends AbstractStatement {
      * Your code will have to keep an eye on this itself.
      *
      * @param column name of the column of the value; only the local part is used
-     * @param value value to update; this value will be formatted fitting its type
-     *  and the {@link DBContext} this {@link Update} is operated in.
+     * @param value  value to update; this value will be formatted fitting its type
+     *               and the {@link DBContext} this {@link Update} is operated in.
      * @return this {@link Update} instance
      * @see #remove(String)
      */
-	public Update update(String column, Object value) {
-		_columns.add(column.substring(column.lastIndexOf('.') + 1));
-		_values.add(value);
-		return this;
-	}
+    public Update update(String column, Object value) {
+        _columns.add(column.substring(column.lastIndexOf('.') + 1));
+        _values.add(value);
+        return this;
+    }
 
     /**
      * This method removes the value of the given column from the collection of
@@ -160,29 +178,31 @@ public class Update extends AbstractStatement {
      * @return the value until now assigned to the column
      * @see #update(String, Object)
      */
-	public Object remove(String column) {
-		int index = _columns.indexOf(column);
-		if (index != -1) {
-			_columns.remove(index);
-			return _values.remove(index);
-		}
-		return null;
-	}
+    public Object remove(String column) {
+        int index = _columns.indexOf(column);
+        if (index != -1) {
+            _columns.remove(index);
+            return _values.remove(index);
+        }
+        return null;
+    }
 
-    /** This method adds the parameter name to the tables to update. */
-	public Update from(String from) {
-		_fromClause.addTable(from);
-		return this;
-	}
+    /**
+     * This method adds the parameter name to the tables to update.
+     */
+    public Update from(String from) {
+        _fromClause.addTable(from);
+        return this;
+    }
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>UPDATE</code> statement.
      */
-	public Update where(Clause clause) {
-		_whereClause = clause;
-		return this;
-	}
+    public Update where(Clause clause) {
+        _whereClause = clause;
+        return this;
+    }
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
@@ -190,22 +210,23 @@ public class Update extends AbstractStatement {
      * (additional clause)", or to "additional clause" if the current where clause
      * is <code>null</code>.
      */
-	public Update whereAnd(Clause additionalClause) {
-        if (_whereClause == null)
+    public Update whereAnd(Clause additionalClause) {
+        if (_whereClause == null) {
             where(additionalClause);
-        else
+        } else {
             where(Where.and(_whereClause, additionalClause));
+        }
         return this;
-	}
+    }
 
     /**
      * This method adds an equals expression to the current where list, connected by an ANT operator.
      * It is the same as .whereAnd(Expr.equal(columnName, value))
      */
-	public Update whereAndEq(String columnName, Object value) {
+    public Update whereAndEq(String columnName, Object value) {
         whereAnd(Expr.equal(columnName, value));
         return this;
-	}
+    }
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
@@ -213,13 +234,14 @@ public class Update extends AbstractStatement {
      * (additional clause)", or to "additional clause" if the current where clause
      * is <code>null</code>.
      */
-	public Update whereOr(Clause additionalClause) {
-        if (_whereClause == null)
+    public Update whereOr(Clause additionalClause) {
+        if (_whereClause == null) {
             where(additionalClause);
-        else
+        } else {
             where(Where.or(_whereClause, additionalClause));
+        }
         return this;
-	}
+    }
 
     /**
      * This method executes the modelled <code>UPDATE</code> statement within the
@@ -253,6 +275,7 @@ public class Update extends AbstractStatement {
     //
     // interface {@link Statement}
     //
+
     /**
      * This method executes the modelled <code>UPDATE</code> statement within the
      * {@link DBContext} of this {@link Update} instance.<br>
@@ -265,7 +288,7 @@ public class Update extends AbstractStatement {
      *
      * @see Statement#execute()
      */
-	public Object execute() throws SQLException {
+    public Object execute() throws SQLException {
         return executeUpdate(getDBContext());
     }
 
@@ -279,39 +302,45 @@ public class Update extends AbstractStatement {
      *
      * @see Statement#statementToString()
      */
-	public String statementToString() throws SyntaxErrorException {
-		if (_table == null)
-			throw new SyntaxErrorException("A table to update is required for an UPDATE operation.");
-		if (_values.size() == 0)
-			throw new SyntaxErrorException("At least one value to update is required for an UPDATE operation.");
-
-		StringBuffer sb = new StringBuffer();
-		sb.append(UPDATE).append(_table).append(SET);
-
-		Iterator c = _columns.iterator();
-		Iterator v = _values.iterator();
-
-		while (c.hasNext()) {
-			sb.append(c.next()).append('=').append(SQL.format(getDBContext(), v.next()));
-			if (c.hasNext())
-				sb.append(',');
-		}
-
-		if (_fromClause.size() > 0)
-			sb.append(_fromClause.clauseToString(getDBContext()));
-		sb.append(' ');
-
-		if (_whereClause != null) {
-            String whereString = _whereClause.clauseToString(getDBContext());
-            if (whereString.length() > 0)
-                sb.append(Where.WHERE).append(whereString);
+    public String statementToString() throws SyntaxErrorException {
+        if (_table == null) {
+            throw new SyntaxErrorException("A table to update is required for an UPDATE operation.");
         }
-		return sb.toString();
-	}
+        if (_values.size() == 0) {
+            throw new SyntaxErrorException("At least one value to update is required for an UPDATE operation.");
+        }
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(UPDATE).append(_table).append(SET);
+
+        Iterator c = _columns.iterator();
+        Iterator v = _values.iterator();
+
+        while (c.hasNext()) {
+            sb.append(c.next()).append('=').append(SQL.format(getDBContext(), v.next()));
+            if (c.hasNext()) {
+                sb.append(',');
+            }
+        }
+
+        if (_fromClause.size() > 0) {
+            sb.append(_fromClause.clauseToString(getDBContext()));
+        }
+        sb.append(' ');
+
+        if (_whereClause != null) {
+            String whereString = _whereClause.clauseToString(getDBContext());
+            if (whereString.length() > 0) {
+                sb.append(Where.WHERE).append(whereString);
+            }
+        }
+        return sb.toString();
+    }
 
     //
     // class {@link Object}
     //
+
     /**
      * This method creates the {@link DBContext} sensitive {@link String} representation
      * of the modelled SQL {@link Statement} using the method {@link #statementToString()}.<br>
@@ -322,11 +351,11 @@ public class Update extends AbstractStatement {
      *
      * @see java.lang.Object#toString()
      */
-	public String toString() {
-		try {
-			return statementToString();
-		} catch (SyntaxErrorException e) {
-			return e.toString();
-		}
-	}
+    public String toString() {
+        try {
+            return statementToString();
+        } catch (SyntaxErrorException e) {
+            return e.toString();
+        }
+    }
 }

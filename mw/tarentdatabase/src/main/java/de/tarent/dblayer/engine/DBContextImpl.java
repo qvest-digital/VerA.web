@@ -81,7 +81,9 @@ public class DBContextImpl implements DBContext {
 
     String poolName;
 
-    /** Sets the pool identifier */
+    /**
+     * Sets the pool identifier
+     */
     public void setPoolName(String newPoolName) {
         this.poolName = newPoolName;
     }
@@ -100,12 +102,13 @@ public class DBContextImpl implements DBContext {
         return DB.getPool(this.getPoolName());
     }
 
-	public Connection getDefaultConnection() throws SQLException {
-		Pool pool = DB.getPool(poolName);
+    public Connection getDefaultConnection() throws SQLException {
+        Pool pool = DB.getPool(poolName);
 
-		if (pool == null)
-            throw new RuntimeException("no pool configured for '"+getPoolName()+"'");
+        if (pool == null) {
+            throw new RuntimeException("no pool configured for '" + getPoolName() + "'");
+        }
 
-		return pool.getConnection();
-	}
+        return pool.getConnection();
+    }
 }

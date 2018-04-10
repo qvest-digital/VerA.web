@@ -60,6 +60,6 @@ public class StringToFloat extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) throws NumberFormatException {
-        return new Float((String)sourceData);
+        return new Float((String) sourceData);
     }
 }

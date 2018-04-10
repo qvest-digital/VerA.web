@@ -73,6 +73,7 @@ public class InsertUpdate extends AbstractStatement {
     //
     // public methods
     //
+
     /**
      * This method sets the value for the given column of the data record to insert
      * or update.<br>
@@ -81,20 +82,22 @@ public class InsertUpdate extends AbstractStatement {
      * Your code will have to keep an eye on this itself.
      *
      * @param column name of the column of the value; only the local part is used
-     * @param value value to insert; this value will be formatted fitting its type
-     *  and the {@link DBContext} this {@link InsertUpdate} is operated in.
+     * @param value  value to insert; this value will be formatted fitting its type
+     *               and the {@link DBContext} this {@link InsertUpdate} is operated in.
      * @return this {@link InsertUpdate} instance
      */
-	public InsertUpdate add(String column, Object value) {
-		_values.put(column, value);
-		return this;
-	}
+    public InsertUpdate add(String column, Object value) {
+        _values.put(column, value);
+        return this;
+    }
 
-    /** This method sets the name of the table to insert into or update. */
-	public InsertUpdate table(String table) {
-		_table = table;
-		return this;
-	}
+    /**
+     * This method sets the name of the table to insert into or update.
+     */
+    public InsertUpdate table(String table) {
+        _table = table;
+        return this;
+    }
 
     /**
      * This method creates an {@link Insert} {@link Statement} and feeds it
@@ -103,16 +106,16 @@ public class InsertUpdate extends AbstractStatement {
      * @return an {@link Insert} reflecting this {@link InsertUpdate}
      * @throws SyntaxErrorException
      */
-	public Insert insert() throws SyntaxErrorException {
-		Insert insert = SQL.Insert(getDBContext()).table(_table);
+    public Insert insert() throws SyntaxErrorException {
+        Insert insert = SQL.Insert(getDBContext()).table(_table);
 
-		Iterator k = _values.keySet().iterator();
-		Iterator v = _values.values().iterator();
-		while (k.hasNext()) {
-			insert.insert((String) k.next(), v.next());
-		}
-		return insert;
-	}
+        Iterator k = _values.keySet().iterator();
+        Iterator v = _values.values().iterator();
+        while (k.hasNext()) {
+            insert.insert((String) k.next(), v.next());
+        }
+        return insert;
+    }
 
     /**
      * This method creates an {@link Insert} {@link Statement} and feeds it
@@ -121,50 +124,50 @@ public class InsertUpdate extends AbstractStatement {
      * @return an {@link Insert} reflecting this {@link InsertUpdate}
      * @throws SyntaxErrorException
      */
-	public Insert insert(DBContext dbx) throws SyntaxErrorException {
-		Insert insert = SQL.Insert(dbx).table(_table);
+    public Insert insert(DBContext dbx) throws SyntaxErrorException {
+        Insert insert = SQL.Insert(dbx).table(_table);
 
-		Iterator k = _values.keySet().iterator();
-		Iterator v = _values.values().iterator();
-		while (k.hasNext()) {
-			insert.insert((String) k.next(), v.next());
-		}
-		return insert;
-	}
+        Iterator k = _values.keySet().iterator();
+        Iterator v = _values.values().iterator();
+        while (k.hasNext()) {
+            insert.insert((String) k.next(), v.next());
+        }
+        return insert;
+    }
 
-	/**
+    /**
      * This method creates an {@link Update} {@link Statement} and feeds it
      * with the data already put into this {@link InsertUpdate}.
      *
      * @return an {@link Update} reflecting this {@link InsertUpdate}
      */
-	public Update update() {
-		Update update = SQL.Update(getDBContext()).table(_table);
+    public Update update() {
+        Update update = SQL.Update(getDBContext()).table(_table);
 
-		Iterator k = _values.keySet().iterator();
-		Iterator v = _values.values().iterator();
-		while (k.hasNext()) {
-			update.update((String) k.next(), v.next());
-		}
-		return update;
-	}
+        Iterator k = _values.keySet().iterator();
+        Iterator v = _values.values().iterator();
+        while (k.hasNext()) {
+            update.update((String) k.next(), v.next());
+        }
+        return update;
+    }
 
-	/**
+    /**
      * This method creates an {@link Update} {@link Statement} and feeds it
      * with the data already put into this {@link InsertUpdate}.
      *
      * @return an {@link Update} reflecting this {@link InsertUpdate}
      */
-	public Update update(DBContext dbx) {
-		Update update = SQL.Update(dbx).table(_table);
+    public Update update(DBContext dbx) {
+        Update update = SQL.Update(dbx).table(_table);
 
-		Iterator k = _values.keySet().iterator();
-		Iterator v = _values.values().iterator();
-		while (k.hasNext()) {
-			update.update((String) k.next(), v.next());
-		}
-		return update;
-	}
+        Iterator k = _values.keySet().iterator();
+        Iterator v = _values.values().iterator();
+        while (k.hasNext()) {
+            update.update((String) k.next(), v.next());
+        }
+        return update;
+    }
 
     /**
      * This method executes the modelled <code>INSERT</code> statement within the
@@ -220,15 +223,16 @@ public class InsertUpdate extends AbstractStatement {
      * If the given column name is not <code>null</code> the update is executed
      * only on those data records having the given value in the given column.
      *
-     * @param pool the connection pool in which to operate.
+     * @param pool     the connection pool in which to operate.
      * @param idColumn name of the column to check for the given value before update
-     * @param idValue value to check the given column for before update
+     * @param idValue  value to check the given column for before update
      */
     public void executeUpdate(String pool, String idColumn, Integer idValue) throws SQLException {
         if (_values.size() > 0) {
             Update update = update();
-            if (idColumn != null)
+            if (idColumn != null) {
                 update.where(Expr.equal(idColumn, idValue));
+            }
             DB.update(pool, update);
         }
     }
@@ -239,15 +243,16 @@ public class InsertUpdate extends AbstractStatement {
      * If the given column name is not <code>null</code> the update is executed
      * only on those data records having the given value in the given column.
      *
-     * @param dbx the DBContext on which to operate
+     * @param dbx      the DBContext on which to operate
      * @param idColumn name of the column to check for the given value before update
-     * @param idValue value to check the given column for before update
+     * @param idValue  value to check the given column for before update
      */
     public void executeUpdate(DBContext dbx, String idColumn, Integer idValue) throws SQLException {
         if (_values.size() > 0) {
             Update update = update();
-            if (idColumn != null)
+            if (idColumn != null) {
                 update.where(Expr.equal(idColumn, idValue));
+            }
             DB.update(dbx, update);
         }
     }
@@ -255,6 +260,7 @@ public class InsertUpdate extends AbstractStatement {
     //
     // interface {@link Statement}
     //
+
     /**
      * This method executes the modelled <code>INSERT</code> statement within the
      * {@link DBContext} of this {@link InsertUpdate} instance.<br>
@@ -268,7 +274,7 @@ public class InsertUpdate extends AbstractStatement {
      * @return the number of inserted rows
      * @see Statement#execute()
      */
-	public Object execute() throws SQLException {
+    public Object execute() throws SQLException {
         return new Integer(executeInsert(getDBContext()));
     }
 
@@ -285,11 +291,11 @@ public class InsertUpdate extends AbstractStatement {
      * @return the number of inserted rows
      * @see Statement#execute()
      */
-	public Object execute(DBContext dbx) throws SQLException {
+    public Object execute(DBContext dbx) throws SQLException {
         return new Integer(executeInsert(dbx));
     }
 
-	/**
+    /**
      * This method generally creates the {@link DBContext} sensitive {@link String}
      * representation of the modelled SQL {@link Statement}. In this case though
      * it just returns <code>null</code> as it is not clear which kind of
@@ -297,15 +303,19 @@ public class InsertUpdate extends AbstractStatement {
      *
      * @see Statement#statementToString()
      */
-	public String statementToString() throws SyntaxErrorException {
-		return null;
-	}
+    public String statementToString() throws SyntaxErrorException {
+        return null;
+    }
 
     //
     // protected member variables
     //
-    /** the name of the table to insert into or update */
+    /**
+     * the name of the table to insert into or update
+     */
     private String _table;
-    /** mapping column name ({@link String}) to value object representing the data to insert or update */
+    /**
+     * mapping column name ({@link String}) to value object representing the data to insert or update
+     */
     private final Map _values = new HashMap();
 }

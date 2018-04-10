@@ -60,17 +60,18 @@ import java.util.EventObject;
  *
  * <p>Examples for attribute descriptions:
  * <ul>
- *   <li> <code>name</code> describing a name Attribute</li>
- *   <li> <code>address.street</code> describing the field street in the name structure of the model</li>
+ * <li> <code>name</code> describing a name Attribute</li>
+ * <li> <code>address.street</code> describing the field street in the name structure of the model</li>
  * </ul>
  * </p>
- *
  */
 public class DataChangedEvent extends EventObject {
 
-    /** serialVersionUID */
-	private static final long serialVersionUID = 9017031537257068083L;
-	String attributePath;
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 9017031537257068083L;
+    String attributePath;
 
     public DataChangedEvent(Object source, String attributePath) {
         super(source);

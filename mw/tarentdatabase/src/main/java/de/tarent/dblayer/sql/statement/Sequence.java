@@ -68,6 +68,7 @@ public class Sequence extends AbstractStatement {
     //
     // public methods
     //
+
     /**
      * This method sets this {@link Sequence} to return the current value
      * of the sequence having the given name.
@@ -75,13 +76,13 @@ public class Sequence extends AbstractStatement {
      * @param sequence name of the sequence
      * @return this {@link Sequence} {@link Statement} instance
      */
-	public Sequence currVal(String sequence) {
-		_sequence = new StringBuffer("SELECT CURRVAL ('")
-            .append(sequence)
-            .append("')")
-            .toString();
-		return this;
-	}
+    public Sequence currVal(String sequence) {
+        _sequence = new StringBuffer("SELECT CURRVAL ('")
+                .append(sequence)
+                .append("')")
+                .toString();
+        return this;
+    }
 
     /**
      * This method sets this {@link Sequence} to proceed to the next value
@@ -90,13 +91,13 @@ public class Sequence extends AbstractStatement {
      * @param sequence name of the sequence
      * @return this {@link Sequence} {@link Statement} instance
      */
-	public Sequence nextVal(String sequence) {
-		_sequence = new StringBuffer("SELECT NEXTVAL ('")
-			.append(sequence)
-			.append("')")
-			.toString();
-		return this;
-	}
+    public Sequence nextVal(String sequence) {
+        _sequence = new StringBuffer("SELECT NEXTVAL ('")
+                .append(sequence)
+                .append("')")
+                .toString();
+        return this;
+    }
 
     /**
      * This method returns the next value of the given sequence as an Integer.
@@ -104,20 +105,22 @@ public class Sequence extends AbstractStatement {
      * @param sequence name of the sequence
      * @return the next value of the sequence
      */
-	public Integer nextVal(String pool, String sequence) throws SQLException {
-	    Sequence seq = new Sequence().nextVal(sequence);
-	    ResultSet rs = null;
-	    try {
-	        rs = DB.getResultSet(pool, seq);
+    public Integer nextVal(String pool, String sequence) throws SQLException {
+        Sequence seq = new Sequence().nextVal(sequence);
+        ResultSet rs = null;
+        try {
+            rs = DB.getResultSet(pool, seq);
             Integer nextVal = null;
-            if (rs.next())
+            if (rs.next()) {
                 nextVal = new Integer(rs.getInt("nextVal"));
+            }
             return nextVal;
         } finally {
-            if (rs != null)
+            if (rs != null) {
                 rs.close();
+            }
         }
-	}
+    }
 
     /**
      * This method returns the next value of the given sequence as an Integer.
@@ -125,23 +128,26 @@ public class Sequence extends AbstractStatement {
      * @param sequence name of the sequence
      * @return the next value of the sequence
      */
-	public Integer nextVal(DBContext dbx, String sequence) throws SQLException {
-	    Sequence seq = new Sequence().nextVal(sequence);
-	    ResultSet rs = null;
-	    try {
-	        rs = DB.getResultSet(dbx, seq);
+    public Integer nextVal(DBContext dbx, String sequence) throws SQLException {
+        Sequence seq = new Sequence().nextVal(sequence);
+        ResultSet rs = null;
+        try {
+            rs = DB.getResultSet(dbx, seq);
             Integer nextVal = null;
-            if (rs.next())
+            if (rs.next()) {
                 nextVal = new Integer(rs.getInt("nextVal"));
+            }
             return nextVal;
         } finally {
-            if (rs != null)
+            if (rs != null) {
                 rs.close();
+            }
         }
-	}
+    }
     //
     // interface {@link Statement}
     //
+
     /**
      * This method executes the modelled sequence statement within the
      * {@link DBContext} of this {@link Sequence} instance and returns
@@ -153,8 +159,8 @@ public class Sequence extends AbstractStatement {
      *
      * @see Statement#execute()
      */
-	public Object execute() throws SQLException {
-	    return DB.result(getDBContext(), this);
+    public Object execute() throws SQLException {
+        return DB.result(getDBContext(), this);
     }
 
     /**
@@ -174,6 +180,7 @@ public class Sequence extends AbstractStatement {
     //
     // class {@link Object}
     //
+
     /**
      * This method creates the {@link DBContext} sensitive {@link String} representation
      * of the modelled SQL {@link Statement} using the method {@link #statementToString()}.<br>
@@ -185,8 +192,8 @@ public class Sequence extends AbstractStatement {
      * @see java.lang.Object#toString()
      */
     public String toString() {
-	    return _sequence;
-	}
+        return _sequence;
+    }
 
     //
     // protected member variables

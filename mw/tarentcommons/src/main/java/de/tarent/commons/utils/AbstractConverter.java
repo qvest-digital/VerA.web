@@ -57,22 +57,22 @@ public abstract class AbstractConverter implements Converter {
      * Returns the Name of the converter
      */
     public String getConverterName() {
-	String cname = getClass().getName();
-	return cname.substring(cname.lastIndexOf(".")+1);
+        String cname = getClass().getName();
+        return cname.substring(cname.lastIndexOf(".") + 1);
     }
 
     /**
      * Returns the target type of the converter
      */
     public Class getTargetType() {
-	return Object.class;
+        return Object.class;
     }
 
     /**
      * Returns the source type of the converter
      */
     public Class getSourceType() {
-	return Object.class;
+        return Object.class;
     }
 
     /**
@@ -81,18 +81,20 @@ public abstract class AbstractConverter implements Converter {
      *
      * @throws IllegalArgumentException if the input data is not convertable by this converter
      */
-    public Object convert(Object sourceData) throws IllegalArgumentException{
-	if (sourceData == null)
-	    return null;
-	try {
-	    return doConversion(sourceData);
-	} catch (Exception e) {
-		// TODO Sebastian Mancke: IAE have only a simple string constructor in java 1.4, please verify this changes. Also externalize strings?
+    public Object convert(Object sourceData) throws IllegalArgumentException {
+        if (sourceData == null) {
+            return null;
+        }
+        try {
+            return doConversion(sourceData);
+        } catch (Exception e) {
+            // TODO Sebastian Mancke: IAE have only a simple string constructor in java 1.4, please verify this changes. Also
+            // externalize strings?
 
-		RuntimeException re = new IllegalArgumentException("Error while conversion '" + sourceData + "'.");
-	    re.initCause(e);
-	    throw re;
-	}
+            RuntimeException re = new IllegalArgumentException("Error while conversion '" + sourceData + "'.");
+            re.initCause(e);
+            throw re;
+        }
     }
 
     /**

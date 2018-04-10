@@ -54,8 +54,8 @@ import de.tarent.dblayer.sql.statement.Procedure;
  * Wrapper for a {@link String} instance used to prevent formatting methods from
  * escaping and quoting it.
  *
- * @deprecated use {@link de.tarent.dblayer.sql.clause.RawClause} or {@link Procedure} instead
  * @author Wolfgang Klein
+ * @deprecated use {@link de.tarent.dblayer.sql.clause.RawClause} or {@link Procedure} instead
  */
 public class Function {
     /**
@@ -73,6 +73,8 @@ public class Function {
         return _function;
     }
 
-    /** this is the {@link String} this wrapper class is to wrap */
+    /**
+     * this is the {@link String} this wrapper class is to wrap
+     */
     private final String _function;
 }

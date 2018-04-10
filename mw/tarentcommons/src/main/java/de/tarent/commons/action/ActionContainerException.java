@@ -59,15 +59,15 @@ public class ActionContainerException extends Exception {
         super();
     }
 
-    public ActionContainerException( String message, Throwable cause ) {
-        super( message, cause );
+    public ActionContainerException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public ActionContainerException( String message ) {
-        super( message );
+    public ActionContainerException(String message) {
+        super(message);
     }
 
-    public ActionContainerException( Throwable cause ) {
-        super( cause );
+    public ActionContainerException(Throwable cause) {
+        super(cause);
     }
 }

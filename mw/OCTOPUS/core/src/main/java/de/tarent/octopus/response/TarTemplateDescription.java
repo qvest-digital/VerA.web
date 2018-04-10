@@ -47,6 +47,7 @@ package de.tarent.octopus.response;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -123,7 +124,7 @@ public class TarTemplateDescription {
      * Wobei die positionen als Keys dienen.
      *
      * @return Map, wobei die Positionen in Form von Strings als Keys dienen
-     *         und die Values wieder TarTemplateDescriptions sind.
+     * und die Values wieder TarTemplateDescriptions sind.
      */
     public Map getChildTemplateDescriptions() {
         return childs;
@@ -140,14 +141,14 @@ public class TarTemplateDescription {
         StringBuffer sb = new StringBuffer();
         sb.append("TarTemplateDescription: name=" + name + " position=" + position + "\n");
 
-        for (Iterator e = childs.keySet().iterator(); e.hasNext();) {
+        for (Iterator e = childs.keySet().iterator(); e.hasNext(); ) {
             String key = (String) e.next();
             sb.append(
-                einrueckung
-                    + "      "
-                    + key
-                    + " => "
-                    + ((TarTemplateDescription) childs.get(key)).toString(einrueckung + "      "));
+                    einrueckung
+                            + "      "
+                            + key
+                            + " => "
+                            + ((TarTemplateDescription) childs.get(key)).toString(einrueckung + "      "));
         }
         return sb.toString();
     }

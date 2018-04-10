@@ -47,6 +47,7 @@ package de.tarent.octopus.cronjobs;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.Calendar;
 import java.util.Map;
 
@@ -56,11 +57,9 @@ import java.util.Map;
  *
  * @author Nils Neumaier (n.neumaier@tarent.de)
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
- *
  */
 
-public class ExactCronJob extends CronJob
-{
+public class ExactCronJob extends CronJob {
     public static final int JANUARY = Calendar.JANUARY;
     public static final int FEBRUARY = Calendar.FEBRUARY;
     public static final int MARCH = Calendar.MARCH;
@@ -82,11 +81,11 @@ public class ExactCronJob extends CronJob
     public static final int FRIDAY = Calendar.FRIDAY;
     public static final int SATURDAY = Calendar.SATURDAY;
 
-    public static final String PROPERTIESMAP_KEY_HOUR               = "hour";
-    public static final String PROPERTIESMAP_KEY_MINUTE             = "minute";
-    public static final String PROPERTIESMAP_KEY_MONTH              = "month";
-    public static final String PROPERTIESMAP_KEY_DAYOFWEEK          = "dayofweek";
-    public static final String PROPERTIESMAP_KEY_DAYOFMONTH         = "dayofmonth";
+    public static final String PROPERTIESMAP_KEY_HOUR = "hour";
+    public static final String PROPERTIESMAP_KEY_MINUTE = "minute";
+    public static final String PROPERTIESMAP_KEY_MONTH = "month";
+    public static final String PROPERTIESMAP_KEY_DAYOFWEEK = "dayofweek";
+    public static final String PROPERTIESMAP_KEY_DAYOFMONTH = "dayofmonth";
 
     private int hour = -1;
     private int minute = -1;
@@ -102,91 +101,78 @@ public class ExactCronJob extends CronJob
      * To use a wildcard for a field (equivalent to "*" in unix cron), use the value -1 for
      * the fields.
      *
-     * @param hour The hour, the job should be run (24h clock).
-     * @param minute The minute, the job should be run.
-     * @param month The month, the job should be run.
+     * @param hour       The hour, the job should be run (24h clock).
+     * @param minute     The minute, the job should be run.
+     * @param month      The month, the job should be run.
      * @param dayOfMonth The day of month, the job should be run.
-     * @param dayOfWeek The day of week, the job should be run.
+     * @param dayOfWeek  The day of week, the job should be run.
      */
-    public ExactCronJob(Cron cron, int hour, int minute, int month, int dayOfMonth, int dayOfWeek)
-    {
-	super(cron);
+    public ExactCronJob(Cron cron, int hour, int minute, int month, int dayOfMonth, int dayOfWeek) {
+        super(cron);
 
-	setHour(hour);
-	setMinute(minute);
-	setMonth(month);
-	setDayOfMonth(dayOfMonth);
-	setDayOfWeek(dayOfWeek);
+        setHour(hour);
+        setMinute(minute);
+        setMonth(month);
+        setDayOfMonth(dayOfMonth);
+        setDayOfWeek(dayOfWeek);
     }
 
     /**
      * Creates a new ExactCronJob that will be run every time the clock
      * equals the given hour and minute.
      *
-     * @param hour The hour, the job should be run (24h clock).
+     * @param hour   The hour, the job should be run (24h clock).
      * @param minute The minute, the job should be run (24h clock).
      */
-    public ExactCronJob(Cron cron, int hour, int minute)
-    {
-	this(cron, hour, minute, -1, -1, -1);
+    public ExactCronJob(Cron cron, int hour, int minute) {
+        this(cron, hour, minute, -1, -1, -1);
     }
 
     /**
      * Returns the type of this CronJob.
      */
-    public int getType()
-    {
-	return Cron.EXACT_CRONJOB;
+    public int getType() {
+        return Cron.EXACT_CRONJOB;
     }
 
-    public int getDayOfMonth()
-    {
-	return dayOfMonth;
+    public int getDayOfMonth() {
+        return dayOfMonth;
     }
 
-    public void setDayOfMonth(int dayOfMonth)
-    {
-	this.dayOfMonth = dayOfMonth;
+    public void setDayOfMonth(int dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
     }
 
-    public int getDayOfWeek()
-    {
-	return dayOfWeek;
+    public int getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setDayOfWeek(int dayOfWeek)
-    {
-	this.dayOfWeek = dayOfWeek;
+    public void setDayOfWeek(int dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
-    public int getHour()
-    {
-	return hour;
+    public int getHour() {
+        return hour;
     }
 
-    public void setHour(int hour)
-    {
-	this.hour = hour;
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 
-    public int getMinute()
-    {
-	return minute;
+    public int getMinute() {
+        return minute;
     }
 
-    public void setMinute(int minute)
-    {
-	this.minute = minute;
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
-    public int getMonth()
-    {
-	return month;
+    public int getMonth() {
+        return month;
     }
 
-    public void setMonth(int month)
-    {
-	this.month = month;
+    public void setMonth(int month) {
+        this.month = month;
     }
 
     /**
@@ -195,18 +181,18 @@ public class ExactCronJob extends CronJob
      * specific for exact-cronjobs
      */
 
-    public Map getCronJobMap(){
-	Map cronJobMap = super.getCronJobMap();
-	Map properties = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
+    public Map getCronJobMap() {
+        Map cronJobMap = super.getCronJobMap();
+        Map properties = (Map) cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
 
-	properties.put(ExactCronJob.PROPERTIESMAP_KEY_HOUR, new Integer(getHour()));
-	properties.put(ExactCronJob.PROPERTIESMAP_KEY_MINUTE, new Integer(getMinute()));
-	properties.put(ExactCronJob.PROPERTIESMAP_KEY_MONTH, new Integer(getMonth()));
-	properties.put(ExactCronJob.PROPERTIESMAP_KEY_DAYOFWEEK, new Integer(getDayOfWeek()));
-	properties.put(ExactCronJob.PROPERTIESMAP_KEY_DAYOFMONTH, new Integer(getDayOfMonth()));
+        properties.put(ExactCronJob.PROPERTIESMAP_KEY_HOUR, new Integer(getHour()));
+        properties.put(ExactCronJob.PROPERTIESMAP_KEY_MINUTE, new Integer(getMinute()));
+        properties.put(ExactCronJob.PROPERTIESMAP_KEY_MONTH, new Integer(getMonth()));
+        properties.put(ExactCronJob.PROPERTIESMAP_KEY_DAYOFWEEK, new Integer(getDayOfWeek()));
+        properties.put(ExactCronJob.PROPERTIESMAP_KEY_DAYOFMONTH, new Integer(getDayOfMonth()));
 
-	cronJobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
+        cronJobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
 
-	return cronJobMap;
+        return cronJobMap;
     }
 }

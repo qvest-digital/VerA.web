@@ -47,6 +47,7 @@ package de.tarent.octopus.security;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.net.PasswordAuthentication;
 import java.util.HashMap;
 import java.util.Map;
@@ -88,7 +89,7 @@ public abstract class AbstractLoginManager implements LoginManager {
     }
 
     public void handleAuthentication(TcCommonConfig config, TcRequest tcRequest, TcSession theSession)
-        throws TcSecurityException {
+            throws TcSecurityException {
 
         PersonalConfig pConfig = getPersonalConfig(config, tcRequest, theSession);
         boolean wasNew = false;
@@ -99,20 +100,21 @@ public abstract class AbstractLoginManager implements LoginManager {
             } catch (TcConfigException e) {
                 throw new TcSecurityException(e.getMessage(), e.getCause());
             }
-            theSession.setAttribute(PREFIX_PERSONAL_CONFIGS+tcRequest.getModule(),
-                                    pConfig);
+            theSession.setAttribute(PREFIX_PERSONAL_CONFIGS + tcRequest.getModule(),
+                    pConfig);
+        } else if (pConfig.isUserInGroup(PersonalConfig.GROUP_LOGGED_OUT)) {
+            pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_ANONYMOUS });
         }
-        else if (pConfig.isUserInGroup(PersonalConfig.GROUP_LOGGED_OUT))
-            pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_ANONYMOUS});
 
         String task = tcRequest.getTask();
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
         if (TASK_LOGIN.equals(tcRequest.get(task))
-            || TASK_LOGIN_SOAP.equals(task)
-            || pwdAuth != null) {
+                || TASK_LOGIN_SOAP.equals(task)
+                || pwdAuth != null) {
 
-            if (pwdAuth == null)
+            if (pwdAuth == null) {
                 throw new TcSecurityException(TcSecurityException.ERROR_INCOMPLETE_USER_DATA);
+            }
 
             doLogin(config, pConfig, tcRequest);
         }
@@ -140,36 +142,38 @@ public abstract class AbstractLoginManager implements LoginManager {
      * Template-Method Pattern
      */
     protected abstract void doLogin(TcCommonConfig config, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException;
+            throws TcSecurityException;
 
     /**
      * Template-Method Pattern
      */
     protected abstract void doLogout(TcCommonConfig config, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException;
+            throws TcSecurityException;
 
     public PersonalConfig getPersonalConfig(TcCommonConfig config, TcRequest tcRequest, TcSession theSession) {
-        return (PersonalConfig)theSession.getAttribute(PREFIX_PERSONAL_CONFIGS+tcRequest.getModule());
+        return (PersonalConfig) theSession.getAttribute(PREFIX_PERSONAL_CONFIGS + tcRequest.getModule());
     }
 
-	/* (non-Javadoc)
-	 * @see de.tarent.octopus.server.LoginManager#isUserManagementSupported()
-	 */
-	public boolean isUserManagementSupported() {
-		return false;
-	}
+    /* (non-Javadoc)
+     * @see de.tarent.octopus.server.LoginManager#isUserManagementSupported()
+     */
+    public boolean isUserManagementSupported() {
+        return false;
+    }
 
-	/* (non-Javadoc)
-	 * @see de.tarent.octopus.server.LoginManager#getUserManager()
-	 */
-	public UserManager getUserManager() {
-		return null;
-	}
+    /* (non-Javadoc)
+     * @see de.tarent.octopus.server.LoginManager#getUserManager()
+     */
+    public UserManager getUserManager() {
+        return null;
+    }
 
-	protected boolean arrayContains(String[] array, String item) {
-        for (int i = 0; i < array.length; i++)
-            if (array[i].equals(item))
+    protected boolean arrayContains(String[] array, String item) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(item)) {
                 return true;
+            }
+        }
         return false;
     }
 }

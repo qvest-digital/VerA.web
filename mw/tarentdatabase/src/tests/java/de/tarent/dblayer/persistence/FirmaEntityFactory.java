@@ -67,8 +67,9 @@ public class FirmaEntityFactory extends DefaultEntityFactory {
     }
 
     protected EntityFactory getFactoryFor(String attribute) {
-        if ("firma".equals(attribute))
+        if ("firma".equals(attribute)) {
             return PersonEntityFactory.getInstance();
+        }
         return null;
     }
 

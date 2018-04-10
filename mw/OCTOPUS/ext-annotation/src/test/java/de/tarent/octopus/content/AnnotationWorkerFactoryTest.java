@@ -49,17 +49,18 @@ package de.tarent.octopus.content;
  */
 
 import de.tarent.octopus.config.*;
+
 import java.util.HashMap;
 
 public class AnnotationWorkerFactoryTest
-    extends junit.framework.TestCase {
+        extends junit.framework.TestCase {
 
     TcModuleConfig config;
     AnnotationWorkerFactory factory;
     ContentWorkerDeclaration workerDeclaration;
 
     /**
-     *  Void Constructor for instantiation as worker
+     * Void Constructor for instantiation as worker
      */
     public AnnotationWorkerFactoryTest() {
     }
@@ -76,16 +77,16 @@ public class AnnotationWorkerFactoryTest
     }
 
     public void testCreation()
-        throws Exception {
+            throws Exception {
         workerDeclaration.setImplementationSource(getClass().getName());
 
         TcContentWorker worker = factory.createInstance(getClass().getClassLoader(), workerDeclaration);
-        Object workerDelegate = ((DelegatingWorker)worker).getWorkerDelegate();
+        Object workerDelegate = ((DelegatingWorker) worker).getWorkerDelegate();
         assertEquals("Worker is instance of the class.", workerDelegate.getClass(), getClass());
     }
 
     public void testErrorHandling_noSource()
-        throws Exception {
+            throws Exception {
 
         try {
             factory.createInstance(getClass().getClassLoader(), workerDeclaration);
@@ -98,7 +99,7 @@ public class AnnotationWorkerFactoryTest
     }
 
     public void testErrorHandling_wrongSource()
-        throws Exception {
+            throws Exception {
 
         try {
             workerDeclaration.setImplementationSource("xxx.yyy.zzzz");

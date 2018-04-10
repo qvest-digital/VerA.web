@@ -61,21 +61,17 @@ package de.tarent.commons.config;
  * application code.</p>
  *
  * @author Robert Schuster
- *
  */
-class KeyUnavailableException extends Exception
-{
-  private String label;
+class KeyUnavailableException extends Exception {
+    private String label;
 
-  KeyUnavailableException(String label)
-  {
-    super();
-    this.label = label;
-  }
+    KeyUnavailableException(String label) {
+        super();
+        this.label = label;
+    }
 
-  String getKeyLabel()
-  {
-    return label;
-  }
+    String getKeyLabel() {
+        return label;
+    }
 
 }

@@ -56,13 +56,12 @@ import java.lang.annotation.*;
  * Dieser Annotation ist gleichbedeutend mit dem name-Attribut von WebResult,
  * hat jedoch eine einfachere Schreibweise.
  *
- *
  * @see javax.jws.WebResult;
  * @see javax.jws.WebMethod;
  * @see http://jcp.org/aboutJava/communityprocess/final/jsr181/index.html
  */
 @Retention(value = RetentionPolicy.RUNTIME)
-@Target(value = {ElementType.METHOD, ElementType.PARAMETER, ElementType.TYPE})
+@Target(value = { ElementType.METHOD, ElementType.PARAMETER, ElementType.TYPE })
 public @interface Result {
 
     /**

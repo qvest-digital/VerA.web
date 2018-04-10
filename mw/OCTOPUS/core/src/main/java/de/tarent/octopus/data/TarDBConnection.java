@@ -47,6 +47,7 @@ package de.tarent.octopus.data;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.Map;
 
 /**
@@ -62,7 +63,7 @@ public class TarDBConnection {
 
     public TarDBConnection(Map params) {
         this.params = params;
-        if(params.get("schema") != null){
+        if (params.get("schema") != null) {
             schema = params.get("schema").toString();
         }
     }
@@ -73,16 +74,20 @@ public class TarDBConnection {
 
     public String getAccessWrapperClassName() {
         String out = (String) params.get(ACCESS_WRAPPER_CLASS_NAME);
-        if (out != null)
+        if (out != null) {
             return out;
+        }
         return DEFAULT_ACCESS_WRAPPER_CLASS_NAME;
     }
+
     /**
      * @return String
      */
     public String getSchema() {
-        if(schema.equals(""))return "";
-        else
-      return schema+".";
+        if (schema.equals("")) {
+            return "";
+        } else {
+            return schema + ".";
+        }
     }
 }

@@ -64,6 +64,6 @@ public class NumberToLong extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) {
-        return new Long(((Number)sourceData).longValue());
+        return new Long(((Number) sourceData).longValue());
     }
 }

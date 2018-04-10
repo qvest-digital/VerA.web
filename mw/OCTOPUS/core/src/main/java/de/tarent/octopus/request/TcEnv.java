@@ -47,6 +47,7 @@ package de.tarent.octopus.request;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
@@ -65,16 +66,16 @@ import java.util.Map;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcEnv extends HashMap {
-	private static final long serialVersionUID = 1608152979959890490L;
+    private static final long serialVersionUID = 1608152979959890490L;
 
-	/**
-	 * Logger für diese Klasse
-	 */
-	private static Log logger = LogFactory.getLog(TcEnv.class);
+    /**
+     * Logger für diese Klasse
+     */
+    private static Log logger = LogFactory.getLog(TcEnv.class);
 
-	public TcEnv() {
+    public TcEnv() {
 
-	}
+    }
 
     /**
      * Setzt die Map mit den Einstellungen. Alle vorhandenen Werte werden überschrieben.
@@ -82,53 +83,53 @@ public class TcEnv extends HashMap {
      * @param envMap Erwartet eine Map mit Strings als key und Strings und Stringarrays als Values
      */
     public void setAllValues(Map envMap) {
-	this.putAll(envMap);
+        this.putAll(envMap);
     }
 
     /**
      * Setzt eine  Einstellung. Ein vorhandener Wert wird überschrieben.
      *
-     * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
+     * @param key   Der Key mit Prefix, z.B. "global.sessionTimeout"
      * @param value Wert
      * @return Den Wert, der vorher unter diesem Key gespeichert war
      */
     public Object setValue(String key, String value) {
-	return this.put(key, value);
+        return this.put(key, value);
     }
 
     /**
      * Setzt eine  Einstellung. Ein vorhandener Wert wird überschrieben.
      *
      * @param prefix Das Prefix, z.B. "global"
-     * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
-     * @param value Wert
+     * @param key    Der Key ohne Prefix, z.B. "sessionTimeout"
+     * @param value  Wert
      * @return Den Wert, der vorher unter diesem Key gespeichert war
      */
     public Object setValue(String prefix, String key, String value) {
-	return this.put(prefix + "." + key, value);
+        return this.put(prefix + "." + key, value);
     }
 
     /**
      * Setzt ein Einstellungsarray. Ein vorhandener Wert wird überschrieben.
      *
-     * @param key Der Key mit Prefix, z.B. "global.sessionTimeout"
+     * @param key    Der Key mit Prefix, z.B. "global.sessionTimeout"
      * @param values Werte als Stringarray
      * @return Den Wert, der vorher unter diesem Key gespeichert war
      */
     public Object setValue(String key, String[] values) {
-	return this.put(key, values);
+        return this.put(key, values);
     }
 
     /**
      * Setzt ein Einstellungsarray. Ein vorhandener Wert wird überschrieben.
      *
      * @param prefix Das Prefix, z.B. "global"
-     * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
+     * @param key    Der Key ohne Prefix, z.B. "sessionTimeout"
      * @param values Werte als Stringarray
      * @return Den Wert, der vorher unter diesem Key gespeichert war
      */
     public Object setValue(String prefix, String key, String[] values) {
-	return this.put(prefix + "." + key, values);
+        return this.put(prefix + "." + key, values);
     }
 
     /**
@@ -138,14 +139,14 @@ public class TcEnv extends HashMap {
      * @return Ein String oder String[] Objekt
      */
     public Object getValue(String key) {
-	return this.get(key);
+        return this.get(key);
     }
 
     /**
      * Gibt einen Wert als Object zurück.
      */
     public Object getValueAsObject(String key) {
-	return super.get(key);
+        return super.get(key);
     }
 
     /**
@@ -155,13 +156,14 @@ public class TcEnv extends HashMap {
      * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurückgegeben.
      */
     public String getValueAsString(String key) {
-	Object value = this.get(key);
-	if (value instanceof String)
-	    return (String) value;
-	else if (value instanceof String[] && ((String[]) value).length > 0)
-	    return ((String[]) value)[0];
-	else
-	    return null;
+        Object value = this.get(key);
+        if (value instanceof String) {
+            return (String) value;
+        } else if (value instanceof String[] && ((String[]) value).length > 0) {
+            return ((String[]) value)[0];
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -172,13 +174,14 @@ public class TcEnv extends HashMap {
      * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurückgegeben.
      */
     public String get(String key) {
-	Object value = super.get(key);
-	if (value instanceof String)
-	    return (String) value;
-	else if (value instanceof String[] && ((String[]) value).length > 0)
-	    return ((String[]) value)[0];
-	else
-	    return null;
+        Object value = super.get(key);
+        if (value instanceof String) {
+            return (String) value;
+        } else if (value instanceof String[] && ((String[]) value).length > 0) {
+            return ((String[]) value)[0];
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -188,13 +191,14 @@ public class TcEnv extends HashMap {
      * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurückgegeben.
      */
     public String[] getValueAsStringArray(String key) {
-	Object value = this.get(key);
-	if (value instanceof String)
-	    return new String[] {(String) value };
-	else if (value instanceof String[])
-	    return (String[]) value;
-	else
-	    return null;
+        Object value = this.get(key);
+        if (value instanceof String) {
+            return new String[] { (String) value };
+        } else if (value instanceof String[]) {
+            return (String[]) value;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -204,16 +208,17 @@ public class TcEnv extends HashMap {
      * @return true, wenn der String, oder der erste Eintrag im String-Array "true" ist, false sonst. Nicht case-Sensitiv.
      */
     public boolean getValueAsBoolean(String key) {
-	Object value = super.get(key);
-	String stringValue;
-	if (value instanceof String)
-	    stringValue = (String) value;
-	else if (value instanceof String[])
-	    stringValue = ((String[]) value)[0];
-	else
-	    return false;
+        Object value = super.get(key);
+        String stringValue;
+        if (value instanceof String) {
+            stringValue = (String) value;
+        } else if (value instanceof String[]) {
+            stringValue = ((String[]) value)[0];
+        } else {
+            return false;
+        }
 
-	return stringValue.toLowerCase().equals("true");
+        return stringValue.toLowerCase().equals("true");
     }
 
     /**
@@ -223,89 +228,93 @@ public class TcEnv extends HashMap {
      * @return Zahlwert oder 0, wenn es kein gültiger Zahlwert ist.
      */
     public int getValueAsInt(String key) {
-	Object value = super.get(key);
-	String stringValue;
-	if (value instanceof String)
-	    stringValue = (String) value;
-	else if (value instanceof String[])
-	    stringValue = ((String[]) value)[0];
-	else
-	    return 0;
+        Object value = super.get(key);
+        String stringValue;
+        if (value instanceof String) {
+            stringValue = (String) value;
+        } else if (value instanceof String[]) {
+            stringValue = ((String[]) value)[0];
+        } else {
+            return 0;
+        }
 
-	try {
-	    return Integer.parseInt(stringValue);
-	} catch (Exception e) {
-	    return 0;
-	}
+        try {
+            return Integer.parseInt(stringValue);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     /**
      * Gibt einen Wert als Object zurück
      *
      * @param prefix Das Prefix, z.B. "global"
-     * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
+     * @param key    Der Key ohne Prefix, z.B. "sessionTimeout"
      * @return Ein String oder String[] Objekt
      */
     public Object getValue(String prefix, String key) {
-	key = prefix + "." + key;
-	return this.get(key);
+        key = prefix + "." + key;
+        return this.get(key);
     }
 
     /**
      * Gibt einen Wert als String zurück
      *
      * @param prefix Das Prefix, z.B. "global"
-     * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
+     * @param key    Der Key ohne Prefix, z.B. "sessionTimeout"
      * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurückgegeben.
      */
     public String getValueAsString(String prefix, String key) {
-	key = prefix + "." + key;
-	Object value = this.get(key);
-	if (value instanceof String)
-	    return (String) value;
-	else if (value instanceof String[] && ((String[]) value).length > 0)
-	    return ((String[]) value)[0];
-	else
-	    return null;
+        key = prefix + "." + key;
+        Object value = this.get(key);
+        if (value instanceof String) {
+            return (String) value;
+        } else if (value instanceof String[] && ((String[]) value).length > 0) {
+            return ((String[]) value)[0];
+        } else {
+            return null;
+        }
     }
 
     /**
      * Gibt einen Wert als String[] zurück
      *
      * @param prefix Das Prefix, z.B. "global"
-     * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
+     * @param key    Der Key ohne Prefix, z.B. "sessionTimeout"
      * @return Einen String. Wenn ein String[] gespeichert ist, wird das erste Element zurückgegeben.
      */
     public String[] getValueAsStringArray(String prefix, String key) {
-	key = prefix + "." + key;
-	Object value = this.get(key);
-	if (value instanceof String)
-	    return new String[] {(String) value };
-	else if (value instanceof String[])
-	    return (String[]) value;
-	else
-	    return null;
+        key = prefix + "." + key;
+        Object value = this.get(key);
+        if (value instanceof String) {
+            return new String[] { (String) value };
+        } else if (value instanceof String[]) {
+            return (String[]) value;
+        } else {
+            return null;
+        }
     }
 
     /**
      * Gibt einen Wert als boolean zurück
      *
      * @param prefix Das Prefix, z.B. "global"
-     * @param key Der Key ohne Prefix, z.B. "sessionTimeout"
+     * @param key    Der Key ohne Prefix, z.B. "sessionTimeout"
      * @return true, wenn der String, oder der erste Eintrag im String-Array "true" ist, false sonst. Nicht case-Sensitiv.
      */
     public boolean getValueAsBoolean(String prefix, String key) {
-	key = prefix + "." + key;
-	Object value = this.get(key);
-	String stringValue;
-	if (value instanceof String)
-	    stringValue = (String) value;
-	else if (value instanceof String[])
-	    stringValue = ((String[]) value)[0];
-	else
-	    return false;
+        key = prefix + "." + key;
+        Object value = this.get(key);
+        String stringValue;
+        if (value instanceof String) {
+            stringValue = (String) value;
+        } else if (value instanceof String[]) {
+            stringValue = ((String[]) value)[0];
+        } else {
+            return false;
+        }
 
-	return stringValue.toLowerCase().equals("true");
+        return stringValue.toLowerCase().equals("true");
     }
 
     /**
@@ -315,53 +324,57 @@ public class TcEnv extends HashMap {
      * @return true, wenn der String, oder der erste Eintrag im String-Array "true" ist, false sonst. Nicht case-Sensitiv.
      */
     public int getValueAsInt(String prefix, String key) {
-	key = prefix + "." + key;
-	Object value = this.get(key);
-	String stringValue;
-	if (value instanceof String)
-	    stringValue = (String) value;
-	else if (value instanceof String[])
-	    stringValue = ((String[]) value)[0];
-	else
-	    return 0;
+        key = prefix + "." + key;
+        Object value = this.get(key);
+        String stringValue;
+        if (value instanceof String) {
+            stringValue = (String) value;
+        } else if (value instanceof String[]) {
+            stringValue = ((String[]) value)[0];
+        } else {
+            return 0;
+        }
 
-	return Integer.parseInt(stringValue);
+        return Integer.parseInt(stringValue);
     }
 
     //
     // Object
     //
+
     /**
      * Diese Methode liefert eine String-Darstellung des Environments
      * für Debug-Zwecke.
      */
     public String toString() {
-	StringBuffer sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer();
 
-	sb.append("TcEnv:\n");
-	for (Iterator it = this.entrySet().iterator(); it.hasNext();) {
-		Map.Entry entry = (Map.Entry) it.next();
-	    if (entry.getValue() instanceof String[]) {
-		String[] sArr = (String[]) entry.getValue();
-		sb.append(entry.getKey() + " =>  (");
-		for (int i = 0; i < sArr.length; i++) {
-		    sb.append(" \"" + sArr[i] + "\" ");
-		}
-		sb.append(")\n");
-	    } else {
-		sb.append(entry.getKey() + " => " + entry.getValue() + "\n");
-	    }
-	}
-	return sb.toString();
+        sb.append("TcEnv:\n");
+        for (Iterator it = this.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getValue() instanceof String[]) {
+                String[] sArr = (String[]) entry.getValue();
+                sb.append(entry.getKey() + " =>  (");
+                for (int i = 0; i < sArr.length; i++) {
+                    sb.append(" \"" + sArr[i] + "\" ");
+                }
+                sb.append(")\n");
+            } else {
+                sb.append(entry.getKey() + " => " + entry.getValue() + "\n");
+            }
+        }
+        return sb.toString();
     }
 
     //
     // Schlüsselkonstanten
     //
 
-    /** Prefix für den Key, unter dem der direkte Pfad zu einer
-	Configdatei eines Modules angegeben werden kann
-	Der gesamte key setzt sich zusammen aus: KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + modulname */
+    /**
+     * Prefix für den Key, unter dem der direkte Pfad zu einer
+     * Configdatei eines Modules angegeben werden kann
+     * Der gesamte key setzt sich zusammen aus: KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + modulname
+     */
     public final static String KEY_MODULE_CONFIGFILE_LOCATION_PREFIX = "moduleConfig.";
     public final static String KEY_OMIT_SESSIONS = "omitSessions";
     public final static String KEY_OMIT_HTTPAUTH = "omitHttpAuth";

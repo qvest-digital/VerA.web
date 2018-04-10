@@ -73,11 +73,12 @@ import de.tarent.commons.utils.Version;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-public class SplashScreen extends JFrame
-{
-    /** serialVersionUID */
-	private static final long serialVersionUID = -2849648397422583671L;
-	private int defaultScreenWidthMargin = 50;
+public class SplashScreen extends JFrame {
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = -2849648397422583671L;
+    private int defaultScreenWidthMargin = 50;
     private int defaultScreenHeightMargin = 37;
     private Image capture;
     private Image picture;
@@ -87,20 +88,16 @@ public class SplashScreen extends JFrame
      * Shows a splash screen using a PNG image with alpha channel transparency.
      *
      * @param filename Path to the PNG relative to the application working directory.
-     * @param w Width of image in pixels.
-     * @param h Height of image in pixels.
-     * @param millis The duration of the display in milliseconds.
+     * @param w        Width of image in pixels.
+     * @param h        Height of image in pixels.
+     * @param millis   The duration of the display in milliseconds.
      * @throws URISyntaxException
      */
-    public SplashScreen(String filename, int w, int h, long millis)
-    {
+    public SplashScreen(String filename, int w, int h, long millis) {
         URL file = null;
-        try
-        {
+        try {
             file = new File(filename).toURL();
-        }
-        catch (MalformedURLException e)
-        {
+        } catch (MalformedURLException e) {
             Log.error(this.getClass(), "Can't open splash screen image.", e);
         }
         int newW = w + defaultScreenWidthMargin;
@@ -112,70 +109,58 @@ public class SplashScreen extends JFrame
         int frmY = ((int) d.getHeight() - (h + defaultScreenHeightMargin)) / 2;
         setLocation(frmX, frmY);
 
-        try
-        {
+        try {
             Robot rob = new Robot();
             Rectangle rect = new Rectangle(frmX, frmY, newW, newH);
             capture = rob.createScreenCapture(rect);
-        }
-        catch (AWTException e)
-        {
+        } catch (AWTException e) {
             e.printStackTrace();
         }
 
         MediaTracker mt = new MediaTracker(this);
 
-        try
-        {
+        try {
             picture = Toolkit.getDefaultToolkit().getImage(file).getScaledInstance(w, h, Image.SCALE_SMOOTH);
             mt.addImage(picture, 0);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        try
-        {
+        try {
             mt.waitForAll();
-        }
-        catch (InterruptedException e)
-        {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-// FIXME        setAlwaysOnTop(true);
-        if (picture == null)
+        // FIXME        setAlwaysOnTop(true);
+        if (picture == null) {
             picture = createImage(w, h);
+        }
         timer = new Timer();
         timer.schedule(new ExitTimerTask(this), millis);
 
         addMouseListener(new DisposeListener(this));
     }
 
-    public void paint(Graphics g)
-    {
-        if (picture != null && capture != null)
-        {
+    public void paint(Graphics g) {
+        if (picture != null && capture != null) {
             capture.getGraphics().drawImage(picture,
                     0 + defaultScreenWidthMargin / 2,
                     0 + defaultScreenHeightMargin / 2, this);
             g.drawImage(capture, 0, 0, this);
-            g.setColor(new Color(0,0,0));
+            g.setColor(new Color(0, 0, 0));
             g.drawString(Version.getVersion(), 320, 350);
         }
     }
 
-    private class ExitTimerTask extends TimerTask
-    {
+    private class ExitTimerTask extends TimerTask {
         private JFrame frm;
-        public ExitTimerTask(JFrame frm)
-        {
+
+        public ExitTimerTask(JFrame frm) {
             this.frm = frm;
         }
 
-        public void run()
-        {
+        public void run() {
             frm.setVisible(false);
             frm.dispose();
         }

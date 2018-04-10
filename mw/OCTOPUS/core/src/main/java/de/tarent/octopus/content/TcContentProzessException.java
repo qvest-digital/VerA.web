@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Diese klasse kapselt Fehlermeldungen, die wärend
  * der Verarbeitung des Contents auf treten.
@@ -55,16 +56,18 @@ package de.tarent.octopus.content;
  */
 public class TcContentProzessException extends Exception {
     /**
-	 * serialVersionUID = 1890104261924600634L
-	 */
-	private static final long serialVersionUID = 1890104261924600634L;
+     * serialVersionUID = 1890104261924600634L
+     */
+    private static final long serialVersionUID = 1890104261924600634L;
 
-	public TcContentProzessException(String message) {
+    public TcContentProzessException(String message) {
         super(message);
     }
+
     public TcContentProzessException(String message, Throwable cause) {
         super(message, cause);
     }
+
     public TcContentProzessException(Throwable cause) {
         super(cause);
     }

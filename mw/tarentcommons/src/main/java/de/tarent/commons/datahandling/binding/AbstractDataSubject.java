@@ -60,22 +60,25 @@ public class AbstractDataSubject implements DataSubject {
     protected List dataChangedListener;
 
     protected void fireDataChanged(DataChangedEvent e) {
-        if (dataChangedListener == null)
+        if (dataChangedListener == null) {
             return;
-        for (Iterator iter = dataChangedListener.iterator(); iter.hasNext();) {
-            DataChangedListener listener = (DataChangedListener)iter.next();
+        }
+        for (Iterator iter = dataChangedListener.iterator(); iter.hasNext(); ) {
+            DataChangedListener listener = (DataChangedListener) iter.next();
             listener.dataChanged(e);
         }
     }
 
     public void addDataChangedListener(DataChangedListener listener) {
-        if (dataChangedListener == null)
+        if (dataChangedListener == null) {
             dataChangedListener = new ArrayList(2);
+        }
         dataChangedListener.add(listener);
     }
 
     /**
      * Removes a DataChangedListener
+     *
      * @param listener The registered listener
      */
     public void removeDataChangedListener(DataChangedListener listener) {

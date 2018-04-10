@@ -65,29 +65,31 @@ public abstract class Request extends BeanFactory {
     //
     // Konstruktor
     //
+
     /**
      * Der Konstruktor merkt sich den übergebenen {@link OctopusContext} und
      * initialisiert die {@link BeanFactory} mit dem übergebenen Bean-Package.
      *
-     * @param cntx {@link OctopusContext}, aus dessen Request-Parameter Beans
-     *  ausgelesen werden.
+     * @param cntx        {@link OctopusContext}, aus dessen Request-Parameter Beans
+     *                    ausgelesen werden.
      * @param beanPackage Package der zu nutzenden Bean-Klassen.
      */
-	public Request(OctopusContext cntx, String beanPackage) {
+    public Request(OctopusContext cntx, String beanPackage) {
         super(beanPackage);
-		this.cntx = cntx;
-	}
+        this.cntx = cntx;
+    }
 
     //
     // öffentliche Methoden
     //
-	/**
+
+    /**
      * Diese Methode liefert eine Bean vom übergebenen Typ aus den passenden
      * Request-Parametern mit leerem Präfix.
      *
      * @param beanname Klasse der zu holenden Bean
      * @return die ausgelesene Bean oder <code>null</code>
-	 */
+     */
     public Bean getBean(String beanname) throws BeanException {
         return getBean(beanname, null);
     }
@@ -97,8 +99,8 @@ public abstract class Request extends BeanFactory {
      * Request-Parametern mit dem übergebenen Präfix.
      *
      * @param beanname Klasse der zu holenden Bean
-     * @param prefix Präfix der zu benutzenden Request-Parameter; falls
-     *  <code>null</code>, so wird kein Präfix voran gestellt.
+     * @param prefix   Präfix der zu benutzenden Request-Parameter; falls
+     *                 <code>null</code>, so wird kein Präfix voran gestellt.
      * @return die ausgelesene Bean oder <code>null</code>
      * @throws BeanException
      */
@@ -114,18 +116,19 @@ public abstract class Request extends BeanFactory {
      *
      * @param beanname Klasse der zu holenden Beans
      * @param listname Name des Request-Parameters, dessen Inhalt als Liste
-     *  von Bean-Präfixrn interpretiert wird
+     *                 von Bean-Präfixrn interpretiert wird
      * @return eine Liste ausgelesener Beans.
      * @throws BeanException
      */
     public List getBeanList(String beanname, String listname) throws BeanException {
-        setPrefixes((List)BeanFactory.transform(cntx.requestAsObject(listname), List.class));
+        setPrefixes((List) BeanFactory.transform(cntx.requestAsObject(listname), List.class));
         return fillBeanList(beanname);
     }
 
     //
     // Basisklassen BeanFactory
     //
+
     /**
      * Diese Methode setzt basierend auf dem Inhalt des Request-Parameters
      * <code>[{@link #prefix PRÄFIX}-]modified</code> das Bean-Feld
@@ -137,12 +140,12 @@ public abstract class Request extends BeanFactory {
      * @throws BeanException
      * @see BeanFactory#checkModified(Bean)
      */
-	protected void checkModified(Bean bean) throws BeanException{
-		Object o = getField("modified");
-		if (o != null && o instanceof String){
-			bean.setModified(Boolean.valueOf((String)o).booleanValue());
-		}
-	}
+    protected void checkModified(Bean bean) throws BeanException {
+        Object o = getField("modified");
+        if (o != null && o instanceof String) {
+            bean.setModified(Boolean.valueOf((String) o).booleanValue());
+        }
+    }
 
     /**
      * Liefert ein Objekt, das in ein bestimmtes Feld der "aktuellen" Bean
@@ -153,51 +156,58 @@ public abstract class Request extends BeanFactory {
      * @throws BeanException bei Datenzugriffsfehlern.
      * @see BeanFactory#getField(String)
      */
-	public Object getField(String key) throws BeanException {
-		return cntx.requestAsObject(prefix != null ? prefix + '-' + key : key);
-	}
+    public Object getField(String key) throws BeanException {
+        return cntx.requestAsObject(prefix != null ? prefix + '-' + key : key);
+    }
 
     /**
      * Wird verwendet, um bei Bean-Listen zur nächsten Bohne zu springen,
      * wird vor dem Einlesen einer Bean aufgerufen.
      *
      * @return <code>true</code>, wenn weitere Beans vorhanden sind, ansonsten
-     *  <code>false</code>.
+     * <code>false</code>.
      * @throws BeanException bei Datenzugriffsfehlern.
      * @see BeanFactory#hasNext()
      */
-	public boolean hasNext() throws BeanException {
-		if (it.hasNext()) {
-			prefix = (String)it.next(); // FIXME: hasNext should not move the cursor
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public boolean hasNext() throws BeanException {
+        if (it.hasNext()) {
+            prefix = (String) it.next(); // FIXME: hasNext should not move the cursor
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //
     // geschätzte Hilfsmethoden
     //
+
     /**
      * Diese Methode löscht das aktuelle Präfix und trägt als Präfix-Iterator
      * einen {@link Iterator} über die übergebene {@link Collection} ein.
      *
      * @param prefixes Sammlung von Präfixen.
      */
-	void setPrefixes(Collection prefixes) {
-		prefix = null;
-		it = prefixes.iterator();
-	}
+    void setPrefixes(Collection prefixes) {
+        prefix = null;
+        it = prefixes.iterator();
+    }
 
     //
     // geschätzte Membervariablen
     //
-    /** Octopus-Kontext, in dessen Request-Parametern gearbeitet wird */
+    /**
+     * Octopus-Kontext, in dessen Request-Parametern gearbeitet wird
+     */
     final OctopusContext cntx;
 
-    /** Präfix der aktuellen Bean */
+    /**
+     * Präfix der aktuellen Bean
+     */
     String prefix = null;
 
-    /** Präfix-Iterator der aktuell noch abzuholenden Beans */
+    /**
+     * Präfix-Iterator der aktuell noch abzuholenden Beans
+     */
     Iterator it = null;
 }

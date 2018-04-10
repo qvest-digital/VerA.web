@@ -50,7 +50,6 @@ package de.tarent.commons.datahandling;
 
 /**
  * Abstraction of the parameters for filtering, sorting and paging of result lists.
- *
  */
 public interface ListFilter extends ListFilterProvider {
 
@@ -92,6 +91,7 @@ public interface ListFilter extends ListFilterProvider {
 
     /**
      * Returns the start position for the given page.
+     *
      * @param page number of page
      * @return start position.
      */

@@ -53,6 +53,8 @@ package de.tarent.commons.action;
  */
 public interface ActionActivationListener {
 
-    /** Activates actions only to the specified context.*/
+    /**
+     * Activates actions only to the specified context.
+     */
     public void setCurrentActivationContext(String context);
 }

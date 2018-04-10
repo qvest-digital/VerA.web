@@ -83,8 +83,9 @@ public class PrimaryKeyList extends LinkedList {
      * If the collection is already a PrimaryKeyList instance, this is simply a cast.
      */
     public static PrimaryKeyList getPrimaryKeysListFor(Collection c) {
-        if (c instanceof PrimaryKeyList)
-            return (PrimaryKeyList)c;
+        if (c instanceof PrimaryKeyList) {
+            return (PrimaryKeyList) c;
+        }
 
         PrimaryKeyList pkList = new PrimaryKeyList();
         pkList.addAll(c);
@@ -97,10 +98,11 @@ public class PrimaryKeyList extends LinkedList {
 
     public static String toString(String delim, Collection collection) {
         StringBuffer sb = new StringBuffer();
-        for (Iterator iter = collection.iterator(); iter.hasNext();) {
+        for (Iterator iter = collection.iterator(); iter.hasNext(); ) {
             sb.append(iter.next());
-            if (iter.hasNext())
+            if (iter.hasNext()) {
                 sb.append(delim);
+            }
         }
         return sb.toString();
     }

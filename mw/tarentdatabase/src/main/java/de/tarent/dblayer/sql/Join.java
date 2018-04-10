@@ -61,27 +61,36 @@ public class Join extends SetDbContextImpl {
     //
     // public constants
     //
-    /** join type: inner join */
-	public static final int INNER = 1;
-    /** join type: left outer join */
-	public static final int LEFT_OUTER = 2;
-    /** join type: right outer join */
-	public static final int RIGHT_OUTER = 3;
-    /** join type: outer join */
+    /**
+     * join type: inner join
+     */
+    public static final int INNER = 1;
+    /**
+     * join type: left outer join
+     */
+    public static final int LEFT_OUTER = 2;
+    /**
+     * join type: right outer join
+     */
+    public static final int RIGHT_OUTER = 3;
+    /**
+     * join type: outer join
+     */
     public static final int OUTER = 4;
 
     //
     // constructors
     //
+
     /**
      * This constructor creates a join using a custom join {@link Clause}.<br>
      * It sets the <code>joinHead</code> member to the required joining keywords
      * and the table name and saves the given clause for {@link DBContext}
      * sensitive serialization just in time.
      *
-     * @param type type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
-     *  and {@link #RIGHT_OUTER}.
-     * @param table name of the table to join
+     * @param type   type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
+     *               and {@link #RIGHT_OUTER}.
+     * @param table  name of the table to join
      * @param clause the join {@link Clause}; <code>null</code> for cross joins.
      */
     public Join(int type, String table, Clause clause) {
@@ -95,8 +104,8 @@ public class Join extends SetDbContextImpl {
     /**
      * This constructor creates a cross join.
      *
-     * @param type type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
-     *  and {@link #RIGHT_OUTER}.
+     * @param type  type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
+     *              and {@link #RIGHT_OUTER}.
      * @param table name of the table to join
      */
     public Join(int type, String table) {
@@ -106,19 +115,20 @@ public class Join extends SetDbContextImpl {
     /**
      * This constructor creates a join on the two given columns.
      *
-     * @param type type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
-     *  and {@link #RIGHT_OUTER}.
-     * @param table name of the table to join
-     * @param leftColumn left side column name of the equality
+     * @param type        type of the join, one of {@link #INNER}, {@link #LEFT_OUTER}
+     *                    and {@link #RIGHT_OUTER}.
+     * @param table       name of the table to join
+     * @param leftColumn  left side column name of the equality
      * @param rightColumn right side column name of the equality
      */
-	public Join(int type, String table, String leftColumn, String rightColumn) {
+    public Join(int type, String table, String leftColumn, String rightColumn) {
         this(type, table, new RawClause(leftColumn + '=' + rightColumn));
-	}
+    }
 
     //
     // class {@link Object}
     //
+
     /**
      * This method returns a {@link String} representation of the join. It is a
      * concatenation of the <code>joinHead</code> and a String representation of
@@ -127,56 +137,70 @@ public class Join extends SetDbContextImpl {
      * @see java.lang.Object#toString()
      */
     public String toString() {
-        if (clause == null)
+        if (clause == null) {
             return joinHead;
+        }
         StringBuffer buffer = new StringBuffer(joinHead);
         buffer.append("ON (")
-              .append(clause.clauseToString(getDBContext()))
-              .append(") ");
+                .append(clause.clauseToString(getDBContext()))
+                .append(") ");
         return buffer.toString();
     }
 
     //
     // protected helper methods
     //
+
     /**
      * This method appends the join keywords to the given {@link StringBuffer}
      * according to the given type.
      */
-	protected static void appendJoin(StringBuffer buffer, int type) {
-		switch (type) {
-		case LEFT_OUTER:
-			buffer.append(LEFT_OUTER_JOIN);
-			break;
-		case RIGHT_OUTER:
-			buffer.append(RIGHT_OUTER_JOIN);
-			break;
+    protected static void appendJoin(StringBuffer buffer, int type) {
+        switch (type) {
+        case LEFT_OUTER:
+            buffer.append(LEFT_OUTER_JOIN);
+            break;
+        case RIGHT_OUTER:
+            buffer.append(RIGHT_OUTER_JOIN);
+            break;
         case OUTER:
             buffer.append(OUTER_JOIN);
             break;
-		default:
-			buffer.append(SIMPLE_JOIN);
-			break;
-		}
-	}
+        default:
+            buffer.append(SIMPLE_JOIN);
+            break;
+        }
+    }
 
     //
     // private constants
     //
-    /** the String "<code> JOIN </code>" */
+    /**
+     * the String "<code> JOIN </code>"
+     */
     private static final String SIMPLE_JOIN = " JOIN ";
-    /** the String "<code> LEFT OUTER JOIN </code>" */
+    /**
+     * the String "<code> LEFT OUTER JOIN </code>"
+     */
     private static final String LEFT_OUTER_JOIN = " LEFT OUTER JOIN ";
-    /** the String "<code> RIGHT OUTER JOIN </code>" */
+    /**
+     * the String "<code> RIGHT OUTER JOIN </code>"
+     */
     private static final String RIGHT_OUTER_JOIN = " RIGHT OUTER JOIN ";
-    /** the String "<code> FULL JOIN </code>" */
+    /**
+     * the String "<code> FULL JOIN </code>"
+     */
     private static final String OUTER_JOIN = " FULL JOIN ";
 
     //
     // protected member variables
     //
-    /** this is the concatenation of the appropriate join keywords, the table name and a ' ' */
+    /**
+     * this is the concatenation of the appropriate join keywords, the table name and a ' '
+     */
     private final String joinHead;
-    /** this is the join {@link Clause}; it may be <code>null</code> for cross joins */
+    /**
+     * this is the join {@link Clause}; it may be <code>null</code> for cross joins
+     */
     private final Clause clause;
 }

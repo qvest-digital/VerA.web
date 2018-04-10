@@ -47,19 +47,20 @@ package de.tarent.octopus.server;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Exception, für Fehler beim Erstellen einer neuen Worker-Instatnz
  *
- * @see de.tarent.octopus.content.TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
+ * @see de.tarent.octopus.content.TcContentWorker
  */
 public class WorkerCreationException extends Exception {
     /**
-	 * serialVersionUID = 46639696610147426L;
-	 */
-	private static final long serialVersionUID = 46639696610147426L;
+     * serialVersionUID = 46639696610147426L;
+     */
+    private static final long serialVersionUID = 46639696610147426L;
 
-	public WorkerCreationException() {
+    public WorkerCreationException() {
         super();
     }
 

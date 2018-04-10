@@ -56,7 +56,9 @@ import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContext;
 import de.tarent.dblayer.engine.SetDbContextImpl;
 import de.tarent.dblayer.sql.ParamHolder;
+
 import java.util.List;
+
 import de.tarent.dblayer.sql.ParamHolder;
 
 /**
@@ -71,21 +73,25 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
     //
     // protected members
     //
-    /** list of {@link Clause Clauses} and boolean operators */
+    /**
+     * list of {@link Clause Clauses} and boolean operators
+     */
     ArrayList _list = new ArrayList();
 
-	//
+    //
     // public methods
     //
+
     /**
      * {@see ParamHolder#getParams(List)}
      */
     public void getParams(List paramList) {
-	for (Iterator iter = _list.iterator(); iter.hasNext();) {
-	    Object item = iter.next();
-	    if (item instanceof ParamHolder)
-		((ParamHolder)item).getParams(paramList);
-	}
+        for (Iterator iter = _list.iterator(); iter.hasNext(); ) {
+            Object item = iter.next();
+            if (item instanceof ParamHolder) {
+                ((ParamHolder) item).getParams(paramList);
+            }
+        }
     }
 
     /**
@@ -97,10 +103,10 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
      * @param clause the {@link Clause} to add
      * @return this {@link WhereList} instance
      */
-	public WhereList add(Clause clause) {
-		_list.add(clause);
-		return this;
-	}
+    public WhereList add(Clause clause) {
+        _list.add(clause);
+        return this;
+    }
 
     /**
      * This method adds a {@link Clause} to the list of <code>WHERE</code>
@@ -110,12 +116,13 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
      * @param clause the {@link Clause} to add
      * @return this {@link WhereList} instance
      */
-	public WhereList addOr(Clause clause) {
-		if(_list.size() != 0)
-		    _list.add(Where.OR);
-		_list.add(clause);
-		return this;
-	}
+    public WhereList addOr(Clause clause) {
+        if (_list.size() != 0) {
+            _list.add(Where.OR);
+        }
+        _list.add(clause);
+        return this;
+    }
 
     /**
      * This method adds a {@link Clause} to the list of <code>WHERE</code>
@@ -125,12 +132,13 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
      * @param clause the {@link Clause} to add
      * @return this {@link WhereList} instance
      */
-	public WhereList addAnd(Clause clause) {
-		if(_list.size() != 0)
-		    _list.add(Where.AND);
-		_list.add(clause);
-		return this;
-	}
+    public WhereList addAnd(Clause clause) {
+        if (_list.size() != 0) {
+            _list.add(Where.AND);
+        }
+        _list.add(clause);
+        return this;
+    }
 
     /**
      * This method returns the size of the list of <code>WHERE</code>
@@ -138,13 +146,14 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
      *
      * @return size of the list of <code>WHERE</code> clauses
      */
-	public int size() {
-		return _list.size();
-	}
+    public int size() {
+        return _list.size();
+    }
 
     //
     // interface {@link Clause}
     //
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.<br>
@@ -157,8 +166,8 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      * @deprecated use {@link #clauseToString(DBContext)} instead
      */
-	public String clauseToString() {
-	return clauseToString(getDBContext());
+    public String clauseToString() {
+        return clauseToString(getDBContext());
     }
 
     /**
@@ -170,37 +179,39 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
      */
     public String clauseToString(DBContext dbContext) {
-		if (_list.size() == 0)
-			return "";
+        if (_list.size() == 0) {
+            return "";
+        }
 
-		StringBuffer sb = new StringBuffer();
-		sb.append('(');
-		for (Iterator it = _list.iterator();it.hasNext();) {
-			Object next = it.next();
-			if (next instanceof Where)
-				Where.clauseToString((Where)next, sb, false, dbContext);
-			else if (next instanceof Clause)
-				sb.append(((Clause)next).clauseToString(dbContext));
-			else if (next instanceof String)
-				sb.append(next);
-		}
-		sb.append(')');
-		return sb.toString();
-	}
+        StringBuffer sb = new StringBuffer();
+        sb.append('(');
+        for (Iterator it = _list.iterator(); it.hasNext(); ) {
+            Object next = it.next();
+            if (next instanceof Where) {
+                Where.clauseToString((Where) next, sb, false, dbContext);
+            } else if (next instanceof Clause) {
+                sb.append(((Clause) next).clauseToString(dbContext));
+            } else if (next instanceof String) {
+                sb.append(next);
+            }
+        }
+        sb.append(')');
+        return sb.toString();
+    }
 
     /**
      * Returns an independent clone of this statement.
+     *
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-	try {
-	    WhereList theClone = (WhereList)super.clone();
-	    theClone._list = (ArrayList)_list.clone();
-	    return theClone;
-	}
-	catch(CloneNotSupportedException e) {
-		throw new InternalError();
-	}
+        try {
+            WhereList theClone = (WhereList) super.clone();
+            theClone._list = (ArrayList) _list.clone();
+            return theClone;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
     }
 
 }

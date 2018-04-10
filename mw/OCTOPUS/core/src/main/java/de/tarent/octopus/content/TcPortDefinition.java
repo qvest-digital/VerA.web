@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.util.Xml;
 
 import java.util.Collections;
@@ -93,14 +94,15 @@ import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
  * <br><br>
  * <ul>
  * <b>Die Beschreibung ist folgendermaßen gegliedert:</b>
- *  <li>Ein Port ist z.B. ein TcContentWorker oder eine Ansammlung von Tasks.
- *    Er benötigt genau eine TcPortDefinition.</li>
- *  <li>Die Actions eines Workers, bzw. die Tasks einer Tasksammlung sind die Operationen. Sie werden von TcOperationDefinition Objekten repräsentiert.
- *    Ein Port hat in der Regel viele Operationen, die er zur Verfügung stellt.</li>
- *  <li>Eine Operation hat eine InputMessage und eine OutputMessage, dazu kommen beliebig viele FaultMessages.
- *    Eine Message wird durch TcMessageDefinition dar gestellt und beschreibt die Parameter, die eine Operation benötigt,
- *    bzw. zurück liefert. </li>
- *  <li>Eine Message besteht aus TcMessageDefinitionParts. Diese beschreiben einzelne Eingabeparameter mit ihrem Typ und Namen</li>
+ * <li>Ein Port ist z.B. ein TcContentWorker oder eine Ansammlung von Tasks.
+ * Er benötigt genau eine TcPortDefinition.</li>
+ * <li>Die Actions eines Workers, bzw. die Tasks einer Tasksammlung sind die Operationen. Sie werden von TcOperationDefinition
+ * Objekten repräsentiert.
+ * Ein Port hat in der Regel viele Operationen, die er zur Verfügung stellt.</li>
+ * <li>Eine Operation hat eine InputMessage und eine OutputMessage, dazu kommen beliebig viele FaultMessages.
+ * Eine Message wird durch TcMessageDefinition dar gestellt und beschreibt die Parameter, die eine Operation benötigt,
+ * bzw. zurück liefert. </li>
+ * <li>Eine Message besteht aus TcMessageDefinitionParts. Diese beschreiben einzelne Eingabeparameter mit ihrem Typ und Namen</li>
  * </ul>
  *
  * Die Art dieser Beschreibung ist an WSDL angepasst, so daß unmittelbar ein XML-Dokument daraus erzeugt werden kann, daß
@@ -109,24 +111,23 @@ import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
  * @see TcOperationDefinition
  * @see TcMessageDefinition
  * @see TcMessageDefinitionPart
- *
  */
 public class TcPortDefinition {
     static final String SOAP_ACTION_EXECUTE = "execute";
-	static final String ENCODING_STYLE_URI_SOAP = "http://schemas.xmlsoap.org/soap/encoding/";
-	static final String SOAP_BODY_USE_ENCODED = "encoded";
-	static final String WSDL_OUTPUT_MESSAGE_POSTFIX = "_OutputMessage";
-	static final String WSDL_INPUT_MESSAGE_POSTFIX = "_InputMessage";
-	static final String WSDL_PORTTYPE_POSTFIX = "PortType";
-	static final String SOAP_TRANSPORT_URI_HTTP = "http://schemas.xmlsoap.org/soap/http";
-	static final String WSDL_DEFINITION_POSTFIX = "Definition";
-	static final String SOAP_BINDING_STYLE_RPC = "rpc";
-	static final String WSDL_BINDING_POSTFIX = "Binding";
-	static final String WSDL_PORT_POSTFIX = "Port";
-	static final String WSDL_SERVICE_POSTFIX = "Service";
-	static final String NS_SOAP = "soap";
-	static final String NS_XML_SCHEMA = "xsd";
-	static final String NS_TARGET = "tns";
+    static final String ENCODING_STYLE_URI_SOAP = "http://schemas.xmlsoap.org/soap/encoding/";
+    static final String SOAP_BODY_USE_ENCODED = "encoded";
+    static final String WSDL_OUTPUT_MESSAGE_POSTFIX = "_OutputMessage";
+    static final String WSDL_INPUT_MESSAGE_POSTFIX = "_InputMessage";
+    static final String WSDL_PORTTYPE_POSTFIX = "PortType";
+    static final String SOAP_TRANSPORT_URI_HTTP = "http://schemas.xmlsoap.org/soap/http";
+    static final String WSDL_DEFINITION_POSTFIX = "Definition";
+    static final String SOAP_BINDING_STYLE_RPC = "rpc";
+    static final String WSDL_BINDING_POSTFIX = "Binding";
+    static final String WSDL_PORT_POSTFIX = "Port";
+    static final String WSDL_SERVICE_POSTFIX = "Service";
+    static final String NS_SOAP = "soap";
+    static final String NS_XML_SCHEMA = "xsd";
+    static final String NS_TARGET = "tns";
     final static String NS_URI_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
     final static String NS_URI_SOAP = "http://schemas.xmlsoap.org/wsdl/soap/";
 
@@ -136,7 +137,8 @@ public class TcPortDefinition {
 
     /**
      * Initialisiert eine Port Definition
-     * @param name Name der TcPortDefinition
+     *
+     * @param name        Name der TcPortDefinition
      * @param description Sinnvolle Beschreibung des Ports
      */
     public TcPortDefinition(String name, String description) {
@@ -147,6 +149,7 @@ public class TcPortDefinition {
 
     /**
      * Liefert den Namen, der im Constructor übergeben wurde.
+     *
      * @return String mit dem Namen
      */
     public String getName() {
@@ -155,6 +158,7 @@ public class TcPortDefinition {
 
     /**
      * Liefert die Beschreibung, die im Constructor übergeben wurde.
+     *
      * @return String mit der Beschreibung
      */
     public String getDescription() {
@@ -163,6 +167,7 @@ public class TcPortDefinition {
 
     /**
      * Fügt eine neue Operation hinzu, die von diesem, Port angeboten wird.
+     *
      * @param theOperation Die Beschreibung der Operation, die hinzu gefügt werden soll
      */
     public TcOperationDefinition addOperation(TcOperationDefinition theOperation) {
@@ -174,7 +179,7 @@ public class TcPortDefinition {
      * Fügt eine neue Operation hinzu, die von diesem, Port angeboten wird.
      * Dabei wird automatisch ein Beschreibungsobjekt erstellt und hinzu gefügt.
      *
-     * @param name Der Name der Operation
+     * @param name        Der Name der Operation
      * @param description Eine Beschreibung der Operation
      */
     public TcOperationDefinition addOperation(String name, String description) {
@@ -183,6 +188,7 @@ public class TcPortDefinition {
 
     /**
      * Liefert die Operationen, die von diesem Port unterstützt werden zurück.
+     *
      * @return Map mit den Namen der Operationen als Keys und TcOperationDefinition Objekten als Values
      */
     public Map getOperations() {
@@ -191,6 +197,7 @@ public class TcPortDefinition {
 
     /**
      * Liefert die Beschreibgung einer Operation.
+     *
      * @param name Der Name der Operation, deren Beschreibung zurück gegeben werden soll.
      * @return Die Beschreibung oder null, wenn keine Operation zu dme Namen existiert.
      */
@@ -203,12 +210,13 @@ public class TcPortDefinition {
      * einfach eine WSDL-Darstellung erstellbar ist.
      *
      * @param includeCredentials <code>true</code>, falls jeder Operation,
-     *  die nicht anonym ist, Benutzername und Passwort als Pflichtparameter
-     *  hinzugefügt werden sollen.
+     *                           die nicht anonym ist, Benutzername und Passwort als Pflichtparameter
+     *                           hinzugefügt werden sollen.
      * @return ein WSDL4J-Definition-Objekt.
      * @throws WSDLException Ausnahmen, die in WSDL4J aufkommen
      */
-    public Definition getWsdlDefinition(boolean includeCredentials, String tns, String prefix, String locationUri) throws WSDLException {
+    public Definition getWsdlDefinition(boolean includeCredentials, String tns, String prefix, String locationUri)
+            throws WSDLException {
         WSDLFactory factory = WSDLFactory.newInstance();
         Definition def = factory.newDefinition();
 
@@ -241,9 +249,11 @@ public class TcPortDefinition {
         while (itOperations.hasNext()) {
             TcOperationDefinition octopusOperation = (TcOperationDefinition) itOperations.next();
 
-            Message inputMessage = createInputMessage(def, tns, octopusOperation.getName(), octopusOperation.getInputMessage(), includeCredentials);
+            Message inputMessage = createInputMessage(def, tns, octopusOperation.getName(), octopusOperation.getInputMessage(),
+                    includeCredentials);
             def.addMessage(inputMessage);
-            Message outputMessage = createOutputMessage(def, tns, octopusOperation.getName(), octopusOperation.getOutputMessage());
+            Message outputMessage =
+                    createOutputMessage(def, tns, octopusOperation.getName(), octopusOperation.getOutputMessage());
             def.addMessage(outputMessage);
 
             Input input = createInput(def, inputMessage);
@@ -292,7 +302,8 @@ public class TcPortDefinition {
         return portType;
     }
 
-    protected Message createInputMessage(Definition def, String tns, String operationName, TcMessageDefinition octopusMessage, boolean includeCredentials) {
+    protected Message createInputMessage(Definition def, String tns, String operationName, TcMessageDefinition octopusMessage,
+            boolean includeCredentials) {
         Message message = def.createMessage();
         message.setQName(new QName(tns, operationName + WSDL_INPUT_MESSAGE_POSTFIX));
         List octopusParts = octopusMessage.getParts();
@@ -308,7 +319,7 @@ public class TcPortDefinition {
         }
         if (octopusParts != null && !octopusParts.isEmpty()) {
             Iterator itOctopusParts = octopusParts.iterator();
-            while(itOctopusParts.hasNext()) {
+            while (itOctopusParts.hasNext()) {
                 TcMessageDefinitionPart octopusPart = (TcMessageDefinitionPart) itOctopusParts.next();
                 Part part = def.createPart();
                 part.setName(octopusPart.getName());
@@ -327,7 +338,7 @@ public class TcPortDefinition {
         List octopusParts = octopusMessage.getParts();
         if (octopusParts != null && !octopusParts.isEmpty()) {
             Iterator itOctopusParts = octopusParts.iterator();
-            while(itOctopusParts.hasNext()) {
+            while (itOctopusParts.hasNext()) {
                 TcMessageDefinitionPart octopusPart = (TcMessageDefinitionPart) itOctopusParts.next();
                 Part part = def.createPart();
                 part.setName(octopusPart.getName());
@@ -361,7 +372,8 @@ public class TcPortDefinition {
         return operation;
     }
 
-    protected BindingOperation createBindingOperation(Definition def, String namespaceURI, Input input, Output output, Operation operation) {
+    protected BindingOperation createBindingOperation(Definition def, String namespaceURI, Input input, Output output,
+            Operation operation) {
         BindingOperation bindingOperation = def.createBindingOperation();
 
         BindingInput bindingInput = def.createBindingInput();
@@ -394,6 +406,7 @@ public class TcPortDefinition {
 
     /**
      * Liefert eine Darstellung der gesamten PortDefinition mit Operationen und Messages als XML-DOM Tree
+     *
      * @return Ein XML-Dom Tree
      */
     public Document getDomRepresentation() {
@@ -419,7 +432,7 @@ public class TcPortDefinition {
         // Dabei werden Dubletten nicht erkannt.
         Map messagesTable = new HashMap();
 
-        for (Iterator e = operations.values().iterator(); e.hasNext();) {
+        for (Iterator e = operations.values().iterator(); e.hasNext(); ) {
             TcOperationDefinition currOperation = (TcOperationDefinition) e.next();
 
             Element currOperationNode = document.createElement("Operation");
@@ -436,7 +449,7 @@ public class TcPortDefinition {
             messagesTable.put(messageName, currOperation.getOutputMessage());
 
             Map faultMessages = currOperation.getFaultMessages();
-            for (Iterator e2 = faultMessages.keySet().iterator(); e2.hasNext();) {
+            for (Iterator e2 = faultMessages.keySet().iterator(); e2.hasNext(); ) {
                 String faultCode = (String) e2.next();
                 TcMessageDefinition currentFaultMessage = (TcMessageDefinition) faultMessages.get(faultCode);
                 String currentFaultMessageDescription = currOperation.getFaultMessageDescription(faultCode);
@@ -450,7 +463,7 @@ public class TcPortDefinition {
 
         Element messagesNode = document.createElement("Messages");
         rootNode.appendChild(messagesNode);
-        for (Iterator e3 = messagesTable.keySet().iterator(); e3.hasNext();) {
+        for (Iterator e3 = messagesTable.keySet().iterator(); e3.hasNext(); ) {
             String name = (String) e3.next();
             TcMessageDefinition message = (TcMessageDefinition) messagesTable.get(name);
 
@@ -466,12 +479,14 @@ public class TcPortDefinition {
                     currentMessageNode.appendChild(currentPartNode);
                     currentPartNode.setAttribute("name", currentPart.getName());
                     currentPartNode.setAttribute("type", currentPart.getPartDataType());
-                    if (currentPart.isOptional())
+                    if (currentPart.isOptional()) {
                         currentPartNode.setAttribute("optional", "true");
+                    }
 
                     String description = currentPart.getDescription();
-                    if (description != null && description.length() != 0)
+                    if (description != null && description.length() != 0) {
                         appendDescriptionNode(document, currentPartNode, description);
+                    }
                 }
             }
         }
@@ -496,6 +511,7 @@ public class TcPortDefinition {
 
     /**
      * Liefert eine Darstellung der gesamten PortDefinition mit Operationen und Messages als XML Dokument
+     *
      * @return Ein XML Fragment als String
      */
     public String toString() {

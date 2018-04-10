@@ -47,6 +47,7 @@ package de.tarent.octopus.request;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -83,16 +84,16 @@ public interface TcResponse {
      */
     public void setContentType(String contentType);
 
-	/**
-	 * Setzt den Status für die Ausgabe.
-	 * Das muss passiert sein, bevor etwas ausgegeben wurde.
-	 */
-	public void setStatus(int code);
+    /**
+     * Setzt den Status für die Ausgabe.
+     * Das muss passiert sein, bevor etwas ausgegeben wurde.
+     */
+    public void setStatus(int code);
 
-	/**
-	 * Setzt das Ausgabe-Level für geworfene Fehlermeldungen.
-	 */
-	public void setErrorLevel(String errorLevel);
+    /**
+     * Setzt das Ausgabe-Level für geworfene Fehlermeldungen.
+     */
+    public void setErrorLevel(String errorLevel);
 
     /**
      * Setzt einen Header-Parameter.
@@ -111,7 +112,7 @@ public interface TcResponse {
      * Diese Methode setzt die maximale Verweildauer der Antwort in einem Cache.
      *
      * @param millis maximale Caching-Dauer in Millisekunden. Negative Werte verbieten ein Caching.
-     * @param param Zusätzliche Caching Paramater. Null entspricht default verhalten.
+     * @param param  Zusätzliche Caching Paramater. Null entspricht default verhalten.
      */
     public void setCachingTime(int millis, String param);
 
@@ -144,10 +145,11 @@ public interface TcResponse {
      * @param cookie
      */
     public void addCookie(Object cookie);
+
     /**
-     *  TODO: Eigentlich macht es keinen Sinn, dass
-     *        die response irgend eine Engine kennt.
-     *        Warum wurde das gemacht?
+     * TODO: Eigentlich macht es keinen Sinn, dass
+     * die response irgend eine Engine kennt.
+     * Warum wurde das gemacht?
      */
     public void setSoapEngine(TcSOAPEngine soapEngine);
 
@@ -163,6 +165,7 @@ public interface TcResponse {
 
     /**
      * Returns the outputStream.
+     *
      * @return OutputStream
      */
     public OutputStream getOutputStream();
@@ -189,13 +192,13 @@ public interface TcResponse {
      * Diese Methode sendet gepufferte Ausgaben.
      */
     public void flush()
-        throws IOException;
+            throws IOException;
 
     /**
      * Diese Methode schließt die Ausgabe ab.
      */
     public void close()
-        throws IOException;
+            throws IOException;
 
     /**
      * Diese Methode gibt einen Fehlerstatus aus.
@@ -203,9 +206,9 @@ public interface TcResponse {
      * HTML-, SOAP- oder sonstiger form.
      *
      * @param responseType Antwortart, vergleiche HttpHelper im OctopusWebapp-Projekt.
-     * @param requestID die ID der Anfrage
-     * @param header eine Überschrift (nur für HTML benutzt)
-     * @param e eine Exception
+     * @param requestID    die ID der Anfrage
+     * @param header       eine Überschrift (nur für HTML benutzt)
+     * @param e            eine Exception
      */
     public void sendError(int responseType, String requestID, String header, Exception e);
 

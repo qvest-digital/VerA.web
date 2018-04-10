@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -139,9 +140,9 @@ public class ChangeLogMaintenanceWorker implements Runnable {
             // log invalid setting and use 1yr. default
             this.logger
                     .warn("changeLogRetentionPolicy Konfigurationseinstellung ist fehlerhaft. Die Einstellung muss einer " +
-                     "g\u00fcltigen " +
+                            "g\u00fcltigen " +
                             "Zeitdauerangabe im Format P[0-9]+Y[0-9]+M[0-9]+D entsprechen. Stattdessen wird die Vorgabe P1Y (1 " +
-                             "Jahr) verwendet.");
+                            "Jahr) verwendet.");
             this.retentionPolicy.years = 1;
         }
 

@@ -69,35 +69,34 @@ package de.tarent.commons.datahandling.entity;
  */
 public abstract class EntityProperty {
 
-	protected final String key;
+    protected final String key;
 
-	/**
-	 * Creates a new <code>EntityProperty</code> with a
-	 * fixed name.
-	 *
-	 * @param key
-	 */
-	protected EntityProperty(String key)
-	{
-		this.key = key;
-	}
+    /**
+     * Creates a new <code>EntityProperty</code> with a
+     * fixed name.
+     *
+     * @param key
+     */
+    protected EntityProperty(String key) {
+        this.key = key;
+    }
 
-	/**
-	 * Returns the property's identifying key.
-	 *
-	 *  <p>This override allows nicer usage of <code>EntityProperty</code>
-	 *  instances in string concatenation scenarios.</p>
-	 */
-	public final String toString() {
-		return key;
-	}
+    /**
+     * Returns the property's identifying key.
+     *
+     * <p>This override allows nicer usage of <code>EntityProperty</code>
+     * instances in string concatenation scenarios.</p>
+     */
+    public final String toString() {
+        return key;
+    }
 
-	/**
-	 * Returns the property's identifying key.
-	 */
-	public final String getKey() {
-		return key;
-	}
+    /**
+     * Returns the property's identifying key.
+     */
+    public final String getKey() {
+        return key;
+    }
 
     /**
      * Should be implemented to return the property's
@@ -106,5 +105,5 @@ public abstract class EntityProperty {
      *
      * @return
      */
-	public abstract String getLabel();
+    public abstract String getLabel();
 }

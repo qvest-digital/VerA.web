@@ -64,122 +64,131 @@ public class Function extends SetDbContextImpl {
     //
     // protected member variables
     //
-    /** name of the function */
+    /**
+     * name of the function
+     */
     String name;
-    /** list of parameter description of the function */
+    /**
+     * list of parameter description of the function
+     */
     ArrayList parameter = new ArrayList();
 
     //
     // constructors
     //
+
     /**
      * This constructor accepts only the name of the function.
      *
      * @deprecated use {@link #Function(DBContext, String)} instead
      */
-	public Function(String name) {
-		this.name = name;
-	}
+    public Function(String name) {
+        this.name = name;
+    }
 
     /**
      * This constructor accepts the name of the function and the
      * {@link DBContext} its literal parameters are to be formatted
      * according to.
      */
-	public Function(DBContext dbc, String name) {
-		this.name = name;
-	setDBContext(dbc);
-	}
+    public Function(DBContext dbc, String name) {
+        this.name = name;
+        setDBContext(dbc);
+    }
 
     /**
      * This constructor accepts the name of the function, one column
      * parameter and a number of literal parameters.
      */
-	public Function(String name, String column, Collection param) {
-		this.name = name;
-		column(column);
-		parameter(param);
-	}
+    public Function(String name, String column, Collection param) {
+        this.name = name;
+        column(column);
+        parameter(param);
+    }
 
     /**
      * This constructor accepts the name of the function, a number of
      * literal parameters and one column parameter.
      */
-	public Function(String name, Collection param, String column) {
-		this.name = name;
-		parameter(param);
-		column(column);
-	}
+    public Function(String name, Collection param, String column) {
+        this.name = name;
+        parameter(param);
+        column(column);
+    }
 
     /**
      * This constructor accepts the name of the function and a number
      * of literal parameters
      */
-	public Function(String name, Collection param) {
-		this.name = name;
-		parameter(param);
-	}
+    public Function(String name, Collection param) {
+        this.name = name;
+        parameter(param);
+    }
 
     //
     // public method
     //
+
     /**
      * This method adds a number of literal parameters.
      */
-	public Function parameter(Collection param) {
-		for (Iterator it = param.iterator(); it.hasNext(); )
-			parameter.add(new LiteralWrapper(it.next()));
-		return this;
-	}
+    public Function parameter(Collection param) {
+        for (Iterator it = param.iterator(); it.hasNext(); ) {
+            parameter.add(new LiteralWrapper(it.next()));
+        }
+        return this;
+    }
 
     /**
      * This method adds a literal parameter.
      */
-	public Function parameter(Object param) {
-		parameter.add(new LiteralWrapper(param));
-		return this;
-	}
+    public Function parameter(Object param) {
+        parameter.add(new LiteralWrapper(param));
+        return this;
+    }
 
     /**
      * This method adds a column parameter.
      */
-	public Function column(String column) {
-		parameter.add(column);
-		return this;
-	}
+    public Function column(String column) {
+        parameter.add(column);
+        return this;
+    }
 
     //
     // class {@link Object}
     //
+
     /**
      * This method returns a serialization of this {@link Function}
      * according to the current {@link DBContext}.
      */
-	public String toString() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(name);
-		buffer.append("(");
-		for (Iterator it = parameter.iterator(); it.hasNext(); ) {
-			buffer.append(it.next());
-			if (it.hasNext())
-				buffer.append(", ");
-		}
-		buffer.append(")");
-		return buffer.toString();
-	}
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(name);
+        buffer.append("(");
+        for (Iterator it = parameter.iterator(); it.hasNext(); ) {
+            buffer.append(it.next());
+            if (it.hasNext()) {
+                buffer.append(", ");
+            }
+        }
+        buffer.append(")");
+        return buffer.toString();
+    }
 
     /**
      * Returns an independent clone of this statement.
+     *
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-	try {
-	    Function theClone = (Function)super.clone();
-	    theClone.parameter = (ArrayList)parameter.clone();
-	    return theClone;
-	}
-	catch(CloneNotSupportedException e) {
-		throw new InternalError();
-	}
-      }
+        try {
+            Function theClone = (Function) super.clone();
+            theClone.parameter = (ArrayList) parameter.clone();
+            return theClone;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
+    }
 }

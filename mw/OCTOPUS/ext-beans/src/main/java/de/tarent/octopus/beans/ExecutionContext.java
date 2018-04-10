@@ -74,7 +74,7 @@ public interface ExecutionContext extends DBContext {
      * aus und erwartet als Resultat ein {@link ResultSet}, das dann
      * zurückgegeben wird.
      *
-     * @param statement  auszuführendes {@link Select}-{@link Statement}
+     * @param statement auszuführendes {@link Select}-{@link Statement}
      * @return resultierendes {@link ResultSet}
      * @throws BeanException
      */

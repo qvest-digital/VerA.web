@@ -79,7 +79,6 @@ import org.xml.sax.SAXException;
 import de.tarent.commons.config.ConnectionDefinition.Key;
 
 /**
- *
  * This class was once an integral part of the older
  * configuration system. It allowed access to raw
  * XML data which is now discouraged.
@@ -96,18 +95,15 @@ public class XmlUtil {
     private static DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 
     private static DocumentBuilder getDocumentBuilder() {
-	try
-	  {
-	  return domFactory.newDocumentBuilder();
-	  }
-	catch (ParserConfigurationException e)
-	  {
-		// The exception is swallowed and hidden in an unchecked one because:
-		// If the XML parser cannot be configured something is seriously broken
-		// and there is no need that every caller should check for a seriously
-		// broken state.
-		throw (IllegalStateException) new IllegalStateException("XML parser could not be configured").initCause(e);
-	  }
+        try {
+            return domFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            // The exception is swallowed and hidden in an unchecked one because:
+            // If the XML parser cannot be configured something is seriously broken
+            // and there is no need that every caller should check for a seriously
+            // broken state.
+            throw (IllegalStateException) new IllegalStateException("XML parser could not be configured").initCause(e);
+        }
     }
 
     /**
@@ -118,30 +114,24 @@ public class XmlUtil {
      * @throws XmlUtil.Exception
      */
     public static void storeDocument(Document doc, OutputStream dest)
-    throws XmlUtil.Exception
-    {
-      Source source = new DOMSource(doc);
-      StreamResult result = new StreamResult(dest);
+            throws XmlUtil.Exception {
+        Source source = new DOMSource(doc);
+        StreamResult result = new StreamResult(dest);
 
-      try
-	{
-	  Transformer t = TransformerFactory.newInstance().newTransformer();
+        try {
+            Transformer t = TransformerFactory.newInstance().newTransformer();
 
-	  // Enforces indentation enabling a half-way pretty printed output
-	  // (indentation sizes are outside the scope of the standard :( )
-	  t.setOutputProperty(OutputKeys.INDENT, "yes");
+            // Enforces indentation enabling a half-way pretty printed output
+            // (indentation sizes are outside the scope of the standard :( )
+            t.setOutputProperty(OutputKeys.INDENT, "yes");
 
-	  t.transform(source, result);
-	}
-      catch (TransformerConfigurationException e)
-	{
-	 throw new XmlUtil.Exception("Error configuring XML transformer", e);
-	}
-      catch (TransformerException e)
-	{
-	  throw new XmlUtil.Exception("Error transforming XML", e);
-	}
-     }
+            t.transform(source, result);
+        } catch (TransformerConfigurationException e) {
+            throw new XmlUtil.Exception("Error configuring XML transformer", e);
+        } catch (TransformerException e) {
+            throw new XmlUtil.Exception("Error transforming XML", e);
+        }
+    }
 
     /**
      * Parses an XML document from an <code>InputStream</code>.
@@ -160,35 +150,30 @@ public class XmlUtil {
      * @throws XmlUtil.Exception
      */
     public static Document getParsedDocument(InputStream is, String baseURI) throws XmlUtil.Exception {
-      try
-      {
-	return getDocumentBuilder().parse(is, baseURI);
-      }
-      catch(SAXException saxe)
-      {
-	throw new XmlUtil.Exception("Error parsing XML", saxe);
-      }
-      catch(IOException ioe)
-      {
-	throw new XmlUtil.Exception("Error parsing XML", ioe);
-      }
+        try {
+            return getDocumentBuilder().parse(is, baseURI);
+        } catch (SAXException saxe) {
+            throw new XmlUtil.Exception("Error parsing XML", saxe);
+        } catch (IOException ioe) {
+            throw new XmlUtil.Exception("Error parsing XML", ioe);
+        }
 
     }
 
     public static Document createDocument() {
-	return getDocumentBuilder().newDocument();
-     }
+        return getDocumentBuilder().newDocument();
+    }
 
     private static boolean isEnabled(Element e) {
-	String enabled = e.getAttribute(ENABLED_ATTRIBUTE);
-	return !("0".equals(enabled) ||
-		  "no".equalsIgnoreCase(enabled) ||
-		  "false".equalsIgnoreCase(enabled));
+        String enabled = e.getAttribute(ENABLED_ATTRIBUTE);
+        return !("0".equals(enabled) ||
+                "no".equalsIgnoreCase(enabled) ||
+                "false".equalsIgnoreCase(enabled));
     }
 
     private static boolean isArray(Element e) {
-	String type = e.getAttribute("type");
-	return "array".equalsIgnoreCase(type);
+        String type = e.getAttribute("type");
+        return "array".equalsIgnoreCase(type);
     }
 
     /**
@@ -199,79 +184,83 @@ public class XmlUtil {
      */
 
     static String getValue(Element e) {
-	try {
-	    String value = "";
+        try {
+            String value = "";
 
-	    if(e.hasAttribute("value")) {
+            if (e.hasAttribute("value")) {
 
-		value = e.getAttribute("value");//<param value=".."/>
+                value = e.getAttribute("value");//<param value=".."/>
 
-	    } else if (e.hasChildNodes()) {
+            } else if (e.hasChildNodes()) {
 
-		Node valueChild = null;
-		NodeList paramChilds = e.getElementsByTagName("value");
-		if (paramChilds.getLength() > 0) {
-		    valueChild = paramChilds.item(0);
-		    value = valueChild.getFirstChild().getNodeValue();//<param><value>..</value>...</param>
-		} else {
+                Node valueChild = null;
+                NodeList paramChilds = e.getElementsByTagName("value");
+                if (paramChilds.getLength() > 0) {
+                    valueChild = paramChilds.item(0);
+                    value = valueChild.getFirstChild().getNodeValue();//<param><value>..</value>...</param>
+                } else {
 
-		    value = e.getFirstChild().getNodeValue();//<param>..</param>
+                    value = e.getFirstChild().getNodeValue();//<param>..</param>
 
-		    if("".equals(value)) {
-			logger.info("[!] element value not found: " + e.getAttribute("name"));
-			printNodeInfos(e.getNodeName(), e);
+                    if ("".equals(value)) {
+                        logger.info("[!] element value not found: " + e.getAttribute("name"));
+                        printNodeInfos(e.getNodeName(), e);
 
-			return "";
-		    }
-		}
-	    }
+                        return "";
+                    }
+                }
+            }
 
-	    return value;
+            return value;
 
-	} catch (NullPointerException npe) {
-	    logger.info("[!] element value not found: " + e.getAttribute("name"));
-	    return "";
-	}
+        } catch (NullPointerException npe) {
+            logger.info("[!] element value not found: " + e.getAttribute("name"));
+            return "";
+        }
     }
 
-    private static void printNodeInfos( String sNodeName, Node node )
-    {
-      StringBuffer buffer = new StringBuffer();
-      buffer.append("\n---------------------- node: " + sNodeName + "\n");
-      if( null != node )
-      {
-	printObjIfVisible(buffer,    "getNodeType()        = ", "" + node.getNodeType() );
-	printObjIfVisible(buffer,    "getNodeName()        = ", node.getNodeName() );
-	printObjIfVisible(buffer,    "getLocalName()       = ", node.getLocalName() );
-	printObjIfVisible(buffer,    "getNodeValue()       = ", node.getNodeValue() );
-	if( node.hasAttributes() ) {
-	    printObjIfVisible(buffer,"getAttributes()      = ", node.getAttributes() );
-	}
-	if( node.hasChildNodes() ) {
-	  printObjIfVisible(buffer,  "getChildNodes()      = ", node.getChildNodes() );
-	  printObjIfVisible(buffer,  "getFirstChild()      = ", node.getFirstChild() );
-	}
-	printObjIfVisible(buffer,    "getPreviousSibling() = ", node.getPreviousSibling() );
-	printObjIfVisible(buffer,    "getNextSibling()     = ", node.getNextSibling() );
-      }
-      buffer.append(    "----------------------\n" );
+    private static void printNodeInfos(String sNodeName, Node node) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("\n---------------------- node: " + sNodeName + "\n");
+        if (null != node) {
+            printObjIfVisible(buffer, "getNodeType()        = ", "" + node.getNodeType());
+            printObjIfVisible(buffer, "getNodeName()        = ", node.getNodeName());
+            printObjIfVisible(buffer, "getLocalName()       = ", node.getLocalName());
+            printObjIfVisible(buffer, "getNodeValue()       = ", node.getNodeValue());
+            if (node.hasAttributes()) {
+                printObjIfVisible(buffer, "getAttributes()      = ", node.getAttributes());
+            }
+            if (node.hasChildNodes()) {
+                printObjIfVisible(buffer, "getChildNodes()      = ", node.getChildNodes());
+                printObjIfVisible(buffer, "getFirstChild()      = ", node.getFirstChild());
+            }
+            printObjIfVisible(buffer, "getPreviousSibling() = ", node.getPreviousSibling());
+            printObjIfVisible(buffer, "getNextSibling()     = ", node.getNextSibling());
+        }
+        buffer.append("----------------------\n");
 
-      logger.info(buffer.toString());
+        logger.info(buffer.toString());
     }
 
-    private static void printObjIfVisible(StringBuffer buffer,  String sValName, Object obj )
-    {
-      if( null == obj )  return;
-      if( obj instanceof NamedNodeMap) {
-	  NamedNodeMap map = (NamedNodeMap) obj;
-	  if(map.getLength() > 0) buffer.append(sValName);
-	  for(int i = 0; i < map.getLength(); i++ ) buffer.append(map.item(i).getNodeValue().trim() + " ");
-	  buffer.append("\n");
-	  return;
-      }
-      String s = obj.toString();
-      if( null != s && 0 < s.trim().length() && !s.trim().equals( "\n" ) )
-	  buffer.append( sValName + s + " \n");
+    private static void printObjIfVisible(StringBuffer buffer, String sValName, Object obj) {
+        if (null == obj) {
+            return;
+        }
+        if (obj instanceof NamedNodeMap) {
+            NamedNodeMap map = (NamedNodeMap) obj;
+            if (map.getLength() > 0) {
+                buffer.append(sValName);
+            }
+            for (int i = 0; i < map.getLength(); i++) {
+                buffer.append(map.item(i).getNodeValue().trim() + " ");
+            }
+            buffer.append("\n");
+            return;
+        }
+        String s = obj.toString();
+        if (null != s && 0 < s.trim().length() && !s.trim().equals("\n")) {
+            buffer.append(sValName + s + " \n");
+        }
     }
 
     /**
@@ -279,91 +268,103 @@ public class XmlUtil {
      *
      * @param parentNode Dom Knoten, der 'param' Elemente mit den 'name' und 'value' Attributen als Kinder hat.
      *                   Das 'value' Attribut kann alternativ auch als nested 'value' Element angegeben werden.
-     * 					 Wenn das Attribut type=array ist, kann es auch eine Liste von 'value' Kindern haben,
-     * 			 	     die dann in einem Vector abgelegt werden.
+     *                   Wenn das Attribut type=array ist, kann es auch eine Liste von 'value' Kindern haben,
+     *                   die dann in einem Vector abgelegt werden.
      * @return Hashtable mir String als Keys und Values
      */
     public static Hashtable getParamMap(Node parentNode) throws DataFormatException {
 
-	Hashtable paramMap = new Hashtable();
+        Hashtable paramMap = new Hashtable();
 
-	Node currentNode;
-	NodeList nodes = parentNode.getChildNodes();
+        Node currentNode;
+        NodeList nodes = parentNode.getChildNodes();
 
-	for (int i=0; i<nodes.getLength(); i++) {
+        for (int i = 0; i < nodes.getLength(); i++) {
 
-		currentNode = nodes.item( i );
+            currentNode = nodes.item(i);
 
-		if ("param".equals( currentNode.getNodeName())) {
+            if ("param".equals(currentNode.getNodeName())) {
 
-			Element paramElement = (Element)currentNode;
+                Element paramElement = (Element) currentNode;
 
-			String name = paramElement.getAttribute("name");
+                String name = paramElement.getAttribute("name");
 
-		if (!isEnabled(paramElement))
-		    continue;
+                if (!isEnabled(paramElement)) {
+                    continue;
+                }
 
-		if ("".equals(name))
-		    throw new DataFormatException("Ein 'param'  Element muss ein nicht leeres 'name' Attribut haben.");
+                if ("".equals(name)) {
+                    throw new DataFormatException("Ein 'param'  Element muss ein nicht leeres 'name' Attribut haben.");
+                }
 
-		// Ganze Liste drin
-		if (isArray(paramElement)) {
+                // Ganze Liste drin
+                if (isArray(paramElement)) {
 
-			NodeList paramChilds = paramElement.getElementsByTagName("value");
+                    NodeList paramChilds = paramElement.getElementsByTagName("value");
 
-			Vector values = new Vector();
+                    Vector values = new Vector();
 
-			for (int j=0; j<paramChilds.getLength(); j++) {
+                    for (int j = 0; j < paramChilds.getLength(); j++) {
 
-				Node valueChild = paramChilds.item(j);
+                        Node valueChild = paramChilds.item(j);
 
-				String value = valueChild.getFirstChild().getNodeValue();
+                        String value = valueChild.getFirstChild().getNodeValue();
 
-				values.add(value);
-		    }
+                        values.add(value);
+                    }
 
-			paramMap.put(name, values);
+                    paramMap.put(name, values);
 
-		} else {
-		    // Nur ein Value
-		    paramMap.put(name, getValue(paramElement));
-		}
-	    }
-	}
-	return paramMap;
+                } else {
+                    // Nur ein Value
+                    paramMap.put(name, getValue(paramElement));
+                }
+            }
+        }
+        return paramMap;
     }
 
     /**
      * This method converts the XML-unsafe characters of a given string to XML-Entities.
+     *
      * @return escaped string or empty string if a given string empty
      */
     public static String escape(String source) {
-	if(source == null || "".equals(source)) {
-	    logger.warning("[!] can't escape an empty string");
-	    return "";
-	}
-	StringBuffer buffer = new StringBuffer();
-	if (source != null) {
-	    for (int index = 0; index < source.length(); index++) {
-		switch(source.charAt(index)) {
-		case '&': buffer.append("&amp;");  break;
-		case '<': buffer.append("&lt;");   break;
-		case '>': buffer.append("&gt;");   break;
-		case '"': buffer.append("&quot;"); break;
-		case '\'': buffer.append("&apos;"); break;
-		default:  buffer.append(source.charAt(index));
-		}
-	    }
-	}
-	return buffer.toString();
+        if (source == null || "".equals(source)) {
+            logger.warning("[!] can't escape an empty string");
+            return "";
+        }
+        StringBuffer buffer = new StringBuffer();
+        if (source != null) {
+            for (int index = 0; index < source.length(); index++) {
+                switch (source.charAt(index)) {
+                case '&':
+                    buffer.append("&amp;");
+                    break;
+                case '<':
+                    buffer.append("&lt;");
+                    break;
+                case '>':
+                    buffer.append("&gt;");
+                    break;
+                case '"':
+                    buffer.append("&quot;");
+                    break;
+                case '\'':
+                    buffer.append("&apos;");
+                    break;
+                default:
+                    buffer.append(source.charAt(index));
+                }
+            }
+        }
+        return buffer.toString();
     }
 
-    public static class Exception extends java.lang.Exception
-    {
-      Exception(String msg, Throwable cause)
-      {
-	super(msg, cause);
-      }
+    public static class Exception extends java.lang.Exception {
+        Exception(String msg, Throwable cause) {
+            super(msg, cause);
+        }
     }
 
     /**
@@ -376,18 +377,17 @@ public class XmlUtil {
      *
      * @return
      */
-    static Document createQnDEnvironmentDocument()
-    {
-	Document doc = createDocument();
+    static Document createQnDEnvironmentDocument() {
+        Document doc = createDocument();
 
-	Element root = doc.createElement("environment");
-	doc.appendChild(root);
+        Element root = doc.createElement("environment");
+        doc.appendChild(root);
 
-	Element connections = doc.createElement("connections");
-	connections.setAttribute("file", "connections.xml");
-	root.appendChild(connections);
+        Element connections = doc.createElement("connections");
+        connections.setAttribute("file", "connections.xml");
+        root.appendChild(connections);
 
-	return doc;
+        return doc;
     }
 
     /**
@@ -401,38 +401,36 @@ public class XmlUtil {
      * @param connectionDefinitions
      * @return
      */
-    static Document createQnDConnectionsDocument(Collection connectionDefinitions)
-    {
-	Document doc = createDocument();
+    static Document createQnDConnectionsDocument(Collection connectionDefinitions) {
+        Document doc = createDocument();
 
-	Element root = doc.createElement("connections");
-	doc.appendChild(root);
+        Element root = doc.createElement("connections");
+        doc.appendChild(root);
 
-	Iterator ite = connectionDefinitions.iterator();
-	while (ite.hasNext())
-	{
-		ConnectionDefinition cd = (ConnectionDefinition) ite.next();
+        Iterator ite = connectionDefinitions.iterator();
+        while (ite.hasNext()) {
+            ConnectionDefinition cd = (ConnectionDefinition) ite.next();
 
-	    Element connection = doc.createElement("connection");
-	    root.appendChild(connection);
+            Element connection = doc.createElement("connection");
+            root.appendChild(connection);
 
-	    Element param = doc.createElement("param");
-	    param.setAttribute("name", Key.LABEL.toString());
-	    param.setAttribute("value", cd.get(Key.LABEL));
-	    connection.appendChild(param);
+            Element param = doc.createElement("param");
+            param.setAttribute("name", Key.LABEL.toString());
+            param.setAttribute("value", cd.get(Key.LABEL));
+            connection.appendChild(param);
 
-	    param = doc.createElement("param");
-	    param.setAttribute("name", Key.SERVER_URL.toString());
-	    param.setAttribute("value", cd.get(Key.SERVER_URL));
-	    connection.appendChild(param);
+            param = doc.createElement("param");
+            param.setAttribute("name", Key.SERVER_URL.toString());
+            param.setAttribute("value", cd.get(Key.SERVER_URL));
+            connection.appendChild(param);
 
-	    param = doc.createElement("param");
-	    param.setAttribute("name", Key.OCTOPUS_MODULE.toString());
-	    param.setAttribute("value", cd.get(Key.OCTOPUS_MODULE));
-	    connection.appendChild(param);
-	}
+            param = doc.createElement("param");
+            param.setAttribute("name", Key.OCTOPUS_MODULE.toString());
+            param.setAttribute("value", cd.get(Key.OCTOPUS_MODULE));
+            connection.appendChild(param);
+        }
 
-	return doc;
+        return doc;
     }
 
 }

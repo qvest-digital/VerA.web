@@ -60,6 +60,6 @@ public class StringToBoolean extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) throws NumberFormatException {
-        return new Boolean((String)sourceData);
+        return new Boolean((String) sourceData);
     }
 }

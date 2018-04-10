@@ -60,51 +60,68 @@ public class Operator extends SetDbContextImpl implements Clause {
     //
     // protected members
     //
-    /** the {@link String} representation of the operator itself */
+    /**
+     * the {@link String} representation of the operator itself
+     */
     String operator;
-    /** the left side argument of the operator */
+    /**
+     * the left side argument of the operator
+     */
     Object left = null;
-    /** the right side argument of the operator */
+    /**
+     * the right side argument of the operator
+     */
     Object right = null;
 
     //
     // constructors
     //
+
     /**
      * The constructor saves the String representation of the operator
      * itself.
      */
-	public Operator(String operator) {
-	assert operator != null;
-		this.operator = operator;
-	}
+    public Operator(String operator) {
+        assert operator != null;
+        this.operator = operator;
+    }
 
     //
     // public methods
     //
-    /** left side argument of type column name */
-	public void setLeft(String column) {
-		left = column;
-	}
 
-    /** right side argument of type column name */
-	public void setRight(String column) {
-		right = column;
-	}
+    /**
+     * left side argument of type column name
+     */
+    public void setLeft(String column) {
+        left = column;
+    }
 
-    /** left side argument of type literal or {@link Function function call} */
-	public void setLeft(Object object) {
-		left = new LiteralWrapper(object);
-	}
+    /**
+     * right side argument of type column name
+     */
+    public void setRight(String column) {
+        right = column;
+    }
 
-    /** right side argument of type literal or {@link Function function call} */
-	public void setRight(Object object) {
-		right = new LiteralWrapper(object);
-	}
+    /**
+     * left side argument of type literal or {@link Function function call}
+     */
+    public void setLeft(Object object) {
+        left = new LiteralWrapper(object);
+    }
+
+    /**
+     * right side argument of type literal or {@link Function function call}
+     */
+    public void setRight(Object object) {
+        right = new LiteralWrapper(object);
+    }
 
     //
     // interface {@link Clause}
     //
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.<br>
@@ -117,8 +134,8 @@ public class Operator extends SetDbContextImpl implements Clause {
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      * @deprecated use {@link #clauseToString(DBContext)} instead
      */
-	public String clauseToString() {
-	return clauseToString(getDBContext());
+    public String clauseToString() {
+        return clauseToString(getDBContext());
     }
 
     /**
@@ -130,29 +147,29 @@ public class Operator extends SetDbContextImpl implements Clause {
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
      */
     public String clauseToString(DBContext dbContext) {
-	setDBContext(dbContext); // for LiteralWrappers
-	StringBuffer buffer = new StringBuffer();
-	buffer.append(left)
-	      .append(' ')
-	      .append(operator)
-	      .append(' ')
-	      .append(right);
-		return buffer.toString();
-	}
+        setDBContext(dbContext); // for LiteralWrappers
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(left)
+                .append(' ')
+                .append(operator)
+                .append(' ')
+                .append(right);
+        return buffer.toString();
+    }
 
     /**
      * Returns an independent clone of this statement.
      * ATTENTION: The value element of the expression will no be copied
+     *
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-	try {
-	    Operator theClone = (Operator)super.clone();
-	    return theClone;
-	}
-	catch(CloneNotSupportedException e) {
-		throw new InternalError();
-	}
-      }
+        try {
+            Operator theClone = (Operator) super.clone();
+            return theClone;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
+    }
 
 }

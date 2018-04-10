@@ -47,6 +47,7 @@ package de.tarent.octopus.response;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -63,22 +64,26 @@ import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
 
 /**
- *  Diese Klasse arbeitet als direkte Ausgabe Engine.
+ * Diese Klasse arbeitet als direkte Ausgabe Engine.
  *
- *  @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
+ * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcRawResponseEngine implements TcResponseEngine {
-    /** Der Logger */
+    /**
+     * Der Logger
+     */
     private static Log logger = LogFactory.getLog(TcRawResponseEngine.class);
 
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }
 
-    public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc, TcRequest request)
-        throws ResponseProcessingException {
+    public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
+            TcRequest request)
+            throws ResponseProcessingException {
         String encoding = (String) theContent.getAsObject("responseParams.encoding");
-        if (encoding == null || encoding.length() == 0)
+        if (encoding == null || encoding.length() == 0) {
             encoding = config.getDefaultEncoding();
+        }
         PrintWriter outWriter = null;
         try {
             outWriter = new PrintWriter(new OutputStreamWriter(tcResponse.getOutputStream(), encoding), true);

@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.request.TcRequest;
@@ -70,14 +71,14 @@ public interface TcContentWorker {
      * Die Ergebnisse werden in dem tcContent-Kontainer abgelegt.
      * Ein ContentWorker kann für mehrere Actions zuständig sein.
      *
-     * @param tcConfig Konfiguration
+     * @param tcConfig   Konfiguration
      * @param actionName Name der Aktion, die von diesem Worker ausgeführt werden soll.
-     * @param tcRequest Die Anfragedaten
-     * @param tcContent Der Content-Kontainer, in dem die Daten abgelegt werden können.
+     * @param tcRequest  Die Anfragedaten
+     * @param tcContent  Der Content-Kontainer, in dem die Daten abgelegt werden können.
      * @return String mit einem Statuscode z.B. ok oder error
      */
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
-        throws TcContentProzessException;
+            throws TcContentProzessException;
 
     /**
      * Liefert eine Beschreibgung der Actions und deren Eingabeparameter,

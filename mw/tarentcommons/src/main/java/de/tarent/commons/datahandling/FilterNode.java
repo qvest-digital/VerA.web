@@ -53,11 +53,10 @@ import java.util.*;
 /**
  * This is a class for representing one node in an filter expression.
  * This class supports methods to transform this FilterNode to a postfix notated list.
- *
  */
 public class FilterNode {
 
-	ListFilterOperator operator;
+    ListFilterOperator operator;
     ListFilterPropertyName attribute;
     Object value;
     boolean negated = false;
@@ -68,6 +67,7 @@ public class FilterNode {
         this.operator = theOperator;
         this.negated = isNegated;
     }
+
     public static FilterNode eq(String theAttribute, Object theValue) {
         return new FilterNode(theAttribute, ListFilterOperator.EQ, theValue, false);
     }
@@ -78,36 +78,42 @@ public class FilterNode {
 
     /**
      * Appends this FilterNode to the supplied filter expression in the List.
+     *
      * @param filterList a filter list in postfix notation
      */
     public void appendToList(List filterList) {
         filterList.add(attribute);
         filterList.add(value);
         filterList.add(operator);
-        if (negated)
+        if (negated) {
             filterList.add(ListFilterOperator.NOT);
+        }
     }
 
     /**
      * Appends this FilterNode to the supplied filter expression in the List using an AND operator.
+     *
      * @param filterList a filter list in postfix notation
      */
     public void appendToListAND(List filterList) {
         boolean wasEmpty = filterList.size() == 0;
         appendToList(filterList);
-        if (! wasEmpty)
+        if (!wasEmpty) {
             filterList.add(ListFilterOperator.AND);
+        }
     }
 
     /**
      * Appends this FilterNode to the supplied filter expression in the List using an AND operator.
+     *
      * @param filterList a filter list in postfix notation
      */
     public void appendToListOR(List filterList) {
         boolean wasEmpty = filterList.size() == 0;
         appendToList(filterList);
-        if (! wasEmpty)
+        if (!wasEmpty) {
             filterList.add(ListFilterOperator.OR);
+        }
     }
 
     public boolean isNegated() {
@@ -139,7 +145,7 @@ public class FilterNode {
     }
 
     public void setOperator(ListFilterOperator newOperator) {
-        this.operator = newOperator ;
+        this.operator = newOperator;
     }
 
 }

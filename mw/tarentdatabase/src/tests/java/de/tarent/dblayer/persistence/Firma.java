@@ -91,8 +91,9 @@ public class Firma {
     }
 
     public void addMitarbeiter(Person person) {
-        if (mitarbeiter == null)
+        if (mitarbeiter == null) {
             mitarbeiter = new ArrayList();
+        }
         mitarbeiter.add(person);
     }
 }

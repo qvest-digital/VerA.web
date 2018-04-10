@@ -79,79 +79,79 @@ import java.io.OutputStream;
  * @author Christoph Jerolimov
  */
 public interface SpreadSheet {
-	/**
-	 * Setzt eine Einstellung für dieses Dokument. Sollte vor dem
-	 * initalisieren geschehen.
-	 *
-	 * @param key Schlüßel
-	 * @param value Wert
-	 */
-	public void setProperty(String key, String value) throws IOException;
+    /**
+     * Setzt eine Einstellung für dieses Dokument. Sollte vor dem
+     * initalisieren geschehen.
+     *
+     * @param key   Schlüßel
+     * @param value Wert
+     */
+    public void setProperty(String key, String value) throws IOException;
 
-	/**
-	 * Gibt eine Einstellung für dieses Dokument zurück.
-	 *
-	 * @param key Schlüßel
-	 * @return Wert
-	 */
-	public String getProperty(String key) throws IOException;
+    /**
+     * Gibt eine Einstellung für dieses Dokument zurück.
+     *
+     * @param key Schlüßel
+     * @return Wert
+     */
+    public String getProperty(String key) throws IOException;
 
-	/**
-	 * Initalisiert das SpreadSheetDocument.
-	 *
-	 * @throws IOException
-	 */
-	public void init() throws IOException;
+    /**
+     * Initalisiert das SpreadSheetDocument.
+     *
+     * @throws IOException
+     */
+    public void init() throws IOException;
 
-	/**
-	 * Speichert das Dokument in dem übergebenem OutputStream.
-	 * <strong>Schließt diesen NICHT.</strong>
-	 *
-	 * @param outputStream
-	 */
-	public void save(OutputStream outputStream) throws IOException;
+    /**
+     * Speichert das Dokument in dem übergebenem OutputStream.
+     * <strong>Schließt diesen NICHT.</strong>
+     *
+     * @param outputStream
+     */
+    public void save(OutputStream outputStream) throws IOException;
 
-	/**
-	 * Gibt den MimeType dieses Dokumentes zurück.
-	 *
-	 * @return MimeType
-	 */
-	public String getContentType();
+    /**
+     * Gibt den MimeType dieses Dokumentes zurück.
+     *
+     * @return MimeType
+     */
+    public String getContentType();
 
-	/**
-	 * Gibt die Standard Dateierweiterung dieses Dokumentes zurück.
-	 *
-	 * @return Dateierweiterung
-	 */
-	public String getFileExtension();
+    /**
+     * Gibt die Standard Dateierweiterung dieses Dokumentes zurück.
+     *
+     * @return Dateierweiterung
+     */
+    public String getFileExtension();
 
-	/**
-	 * Öffnet eine neue Tabelle mit dem übergebenem Namen.
-	 *
-	 * @param name Tabellen-Name
-	 * @param colCount Gibt an wieviele Spalten die Tabelle hat.
-	 */
-	public void openTable(String name, int colCount);
+    /**
+     * Öffnet eine neue Tabelle mit dem übergebenem Namen.
+     *
+     * @param name     Tabellen-Name
+     * @param colCount Gibt an wieviele Spalten die Tabelle hat.
+     */
+    public void openTable(String name, int colCount);
 
-	/**
-	 * Schließt die Tabelle wieder.
-	 */
-	public void closeTable();
+    /**
+     * Schließt die Tabelle wieder.
+     */
+    public void closeTable();
 
-	/**
-	 * Öffnet eine neue Zeile.
-	 */
-	public void openRow();
+    /**
+     * Öffnet eine neue Zeile.
+     */
+    public void openRow();
 
-	/**
-	 * Schließt eine neue Zeile.
-	 */
-	public void closeRow();
+    /**
+     * Schließt eine neue Zeile.
+     */
+    public void closeRow();
 
-	/**
-	 * Fügt eine neue Zelle mit dem übergebenem Inhalt ein.
-	 *
-	 * @param content Zellen-Inhalt
-	 */
-	public void addCell(Object content);
+    /**
+     * Fügt eine neue Zelle mit dem übergebenem Inhalt ein.
+     *
+     * @param content Zellen-Inhalt
+     */
+    public void addCell(Object content);
 }

@@ -47,6 +47,7 @@ package de.tarent.octopus.data;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.util.RootCauseException;
 
 /**
@@ -57,11 +58,11 @@ import de.tarent.octopus.util.RootCauseException;
  */
 public class TcDataAccessException extends Exception implements RootCauseException {
     /**
-	 * serialVersionUID = 2926994428165573435L
-	 */
-	private static final long serialVersionUID = 2926994428165573435L;
+     * serialVersionUID = 2926994428165573435L
+     */
+    private static final long serialVersionUID = 2926994428165573435L;
 
-	/**
+    /**
      * Expection, die der eigentliche Grund ist.
      */
     Throwable rootCause;

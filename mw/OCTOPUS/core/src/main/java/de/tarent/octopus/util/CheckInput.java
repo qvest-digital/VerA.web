@@ -47,6 +47,7 @@ package de.tarent.octopus.util;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,22 +62,21 @@ public class CheckInput {
      * Key:
      * type  String : z.B. EMail, PLZ usw
      * Value: eine HashMap mit
-     *             Key:
-     *             Vorkompilierter Regulärer Ausdruck vom typ Pattern und
-     *             Value:
-     *                 Ein String mit der Beschreibung der Eingabe für den Benutzer
-     *                  z.B.
-     *                 Eine gültige Eingabe für das Datums-format ist folgende:
-     *                TT.MM.JJJJ
+     * Key:
+     * Vorkompilierter Regulärer Ausdruck vom typ Pattern und
+     * Value:
+     * Ein String mit der Beschreibung der Eingabe für den Benutzer
+     * z.B.
+     * Eine gültige Eingabe für das Datums-format ist folgende:
+     * TT.MM.JJJJ
      *
      * Bem: diese HashMap dient dem Worker CheckInput als Basis
-     *  zur überprüfung von Eingaben aus einem Velocity (HTML)
+     * zur überprüfung von Eingaben aus einem Velocity (HTML)
      * kontext.
      *
      * Die Werte für diese Map werden in der Funktion InitInputRegexp
      * einmal initialisiert. Sie sollten dann statisch für alle instanzen dieser
      * Klasse vorliegen.
-     *
      */
     private static HashMap InputRegexp = new HashMap();
     private static HashMap InputDesc = new HashMap();
@@ -92,17 +92,21 @@ public class CheckInput {
     /* EMail */
     public static String IT_EMail = new String("EMail");
     private static String ID_EMail =
-        new String("Eine gültige EMail-Adresse hat folgendes Format: adressad@Domain.TopDomain");
+            new String("Eine gültige EMail-Adresse hat folgendes Format: adressad@Domain.TopDomain");
     private static Pattern IP_EMail = Pattern.compile("[A-Za-z]*@[A-Za-z]*.[A-Za-z]{2,3}");
     /* Vorname */
     public static String IT_Vorname = new String("Vorname");
     private static String ID_Vorname =
-        new String("Eine gültiger Vorname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
+            new String(
+                    "Eine gültiger Vorname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste " +
+                     "Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
     private static Pattern IP_Vorname = Pattern.compile("[A-Z][a-z]{1,29}");
     /* Nachname */
     public static String IT_Nachname = new String("Nachname");
     private static String ID_Nachname =
-        new String("Eine gültiger Nachname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
+            new String(
+                    "Eine gültiger Nachname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste " +
+                     "Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
     private static Pattern IP_Nachname = Pattern.compile("[A-Z][a-z]{1,29}");
     /* PLZ */
     public static String IT_PLZ = new String("PLZ");
@@ -116,6 +120,7 @@ public class CheckInput {
      * in den HashMaps.
      *
      * Wird von der Funktion InitStatic aufgerufen.
+     *
      * @param IT
      * @param ID
      * @param IP
@@ -128,7 +133,8 @@ public class CheckInput {
     /**
      * Dient zur Initialisierung der der Statischen Elemente
      * Diese Funktion wird im Konstruktor aufgerufen.
-    * @author Heiko Ferger
+     *
+     * @author Heiko Ferger
      */
     private void InitStatic() {
         // Variablen mit hilfe der Funktion r (registrieren).
@@ -151,6 +157,7 @@ public class CheckInput {
 
     /**
      * Gibt die Beschreibung zum format eines Eingabetypen (InputType) als String wieder.
+     *
      * @param InputType
      * @return Beschreibung zum Eingabetyp
      */
@@ -168,6 +175,7 @@ public class CheckInput {
 
     /**
      * Gibt das Pattern (RegExp) zu einem EingabeTyp als String zurück
+     *
      * @param InputType
      * @return Pattern zum Eingabetyp
      */
@@ -181,8 +189,10 @@ public class CheckInput {
             return result;
         }
     }
+
     /**
      * Gibt true zurück, falls der InputType existiert, sonnsten false.
+     *
      * @param InputType
      * @return boolean
      */
@@ -197,7 +207,7 @@ public class CheckInput {
     }
 
     /**
-     * @param InputType String  : Type des Eingabeformates
+     * @param InputType   String  : Type des Eingabeformates
      * @param InputString String : Zu überprüfender String
      * @return true falls eine Übereinstimmung des EingabeTypen mit dem InputString erfolgreich war.
      * Ansonsten false

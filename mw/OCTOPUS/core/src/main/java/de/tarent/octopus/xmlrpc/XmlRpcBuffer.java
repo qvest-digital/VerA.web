@@ -47,6 +47,7 @@ package de.tarent.octopus.xmlrpc;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
@@ -73,6 +74,7 @@ public class XmlRpcBuffer {
     //
     // Konstruktoren
     //
+
     /**
      * Der Konstruktor initialisiert den inneren StringBuffer mit einem XML-Prolog.
      */
@@ -83,6 +85,7 @@ public class XmlRpcBuffer {
     //
     // öffentliche Methoden
     //
+
     /**
      * Diese Methode liefert die kodierte XML-RPC-Antwort.
      */
@@ -94,13 +97,11 @@ public class XmlRpcBuffer {
     /**
      * Diese Methode fügt eine vollständige XML-RPC-Antwort an.
      *
-     * @param result
-     *            Antwortparameter; wenn dieser null ist, ist die Antwort leer.
-     * @throws IllegalArgumentException
-     *             Wenn <code>null</code> im Parameter eingefügt werden soll,
-     *             wird diese Ausnahme geworfen, da dies nicht nach der <a
-     *             href="http://xml-rpc.com/spec">XML-RPC Specifikation </a>)
-     *             erlaubt ist.
+     * @param result Antwortparameter; wenn dieser null ist, ist die Antwort leer.
+     * @throws IllegalArgumentException Wenn <code>null</code> im Parameter eingefügt werden soll,
+     *                                  wird diese Ausnahme geworfen, da dies nicht nach der <a
+     *                                  href="http://xml-rpc.com/spec">XML-RPC Specifikation </a>)
+     *                                  erlaubt ist.
      */
     public void appendResponse(Object result) {
         startElement("methodResponse");
@@ -117,48 +118,45 @@ public class XmlRpcBuffer {
     /**
      * Diese Methode fügt eine XML-RPC-Beschreibung eines Java-Objekts ein.
      *
-     * @param object
-     *            Das einzufügende Objekt.
-     * @throws IllegalArgumentException
-     *             Wenn <code>null</code> als Objekt eingefügt werden soll,
-     *             wird diese Ausnahme geworfen, da dies nicht nach der <a
-     *             href="http://xml-rpc.com/spec">XML-RPC Specifikation </a>)
-     *             erlaubt ist.
+     * @param object Das einzufügende Objekt.
+     * @throws IllegalArgumentException Wenn <code>null</code> als Objekt eingefügt werden soll,
+     *                                  wird diese Ausnahme geworfen, da dies nicht nach der <a
+     *                                  href="http://xml-rpc.com/spec">XML-RPC Specifikation </a>)
+     *                                  erlaubt ist.
      */
     public void appendObject(Object object) {
         startElement("value");
-        if (object == null)
+        if (object == null) {
             throw new IllegalArgumentException("XML-RPC unterstützt keine null-Objekte");
-        else if (object instanceof String)
+        } else if (object instanceof String) {
             buffer.append(Xml.escape((String) object));
-        else if (object instanceof Integer)
+        } else if (object instanceof Integer) {
             appendDataElement("int", object);
-        else if (object instanceof Boolean)
+        } else if (object instanceof Boolean) {
             appendDataElement("boolean", ((Boolean) object).booleanValue() ? "1" : "0");
-        else if (object instanceof Double || object instanceof Float)
+        } else if (object instanceof Double || object instanceof Float) {
             appendDataElement("double", object);
-        else if (object instanceof Date)
+        } else if (object instanceof Date) {
             appendDataElement("dateTime.iso8601", dateFormatter.format((Date) object));
-        else if (object instanceof byte[])
+        } else if (object instanceof byte[]) {
             appendDataElement("base64", new String(Base64.encode((byte[]) object)));
-        else if (object instanceof Object[])
+        } else if (object instanceof Object[]) {
             appendDataElement(Arrays.asList((Object[]) object));
-        else if (object instanceof Collection)
+        } else if (object instanceof Collection) {
             appendDataElement((Collection) object);
-        else if (object instanceof Map)
+        } else if (object instanceof Map) {
             appendDataElement((Map) object);
-        else
+        } else {
             throw new RuntimeException("nicht unterstützter Java-Typ: " + object.getClass());
+        }
         endElement("value");
     }
 
     /**
      * Diese Methode fügt eine XML-RPC-Fehlermeldung ein.
      *
-     * @param code
-     *            Fehlercode
-     * @param message
-     *            Fehlermitteilung
+     * @param code    Fehlercode
+     * @param message Fehlermitteilung
      */
     public void appendError(int code, String message) {
         Map errorMap = new HashMap();
@@ -175,8 +173,7 @@ public class XmlRpcBuffer {
      * Diese Methode startet ein Element. Dieses muss mit
      * {@link #endElement(String)}beendet werden.
      *
-     * @param element
-     *            Name des Elements
+     * @param element Name des Elements
      */
     public void startElement(String element) {
         buffer.append('<').append(element).append('>');
@@ -186,8 +183,7 @@ public class XmlRpcBuffer {
      * Diese Methode beendet ein Element. Dieses muss mit
      * {@link #startElement(String)}gestartet worden sein.
      *
-     * @param element
-     *            Name des Elements
+     * @param element Name des Elements
      */
     public void endElement(String element) {
         buffer.append("</").append(element).append('>');
@@ -196,14 +192,13 @@ public class XmlRpcBuffer {
     //
     // Hilfsmethoden
     //
+
     /**
      * Diese Methode fügt ein einfaches Datenelement ein. Diese Methode führt
      * kein XML-Escaping durch!
      *
-     * @param type
-     *            Typenstring
-     * @param object
-     *            Objekt, das als einfaches Datenobjekt einzufügen ist.
+     * @param type   Typenstring
+     * @param object Objekt, das als einfaches Datenobjekt einzufügen ist.
      */
     void appendDataElement(String type, Object object) {
         assert type != null;
@@ -216,16 +211,16 @@ public class XmlRpcBuffer {
     /**
      * Diese Methode fügt eine Collection als XML-RPC-Array an.
      *
-     * @param collection
-     *            Kollektion, die einzufügen ist.
+     * @param collection Kollektion, die einzufügen ist.
      */
     void appendDataElement(Collection collection) {
         assert collection != null;
         startElement("array");
         startElement("data");
         Iterator itList = collection.iterator();
-        while (itList.hasNext())
+        while (itList.hasNext()) {
             appendObject(itList.next());
+        }
         endElement("data");
         endElement("array");
     }
@@ -233,8 +228,7 @@ public class XmlRpcBuffer {
     /**
      * Diese Methode fügt eine Map als XML-RPC-Struct an.
      *
-     * @param map
-     *            Map, die einzufügen ist.
+     * @param map Map, die einzufügen ist.
      */
     void appendDataElement(Map map) {
         assert map != null;
@@ -268,7 +262,9 @@ public class XmlRpcBuffer {
     //
     // Membervariablen
     //
-    /** In diesem Buffer wird die XML-RPC-Antwort erstellt */
+    /**
+     * In diesem Buffer wird die XML-RPC-Antwort erstellt
+     */
     StringBuffer buffer = new StringBuffer();
 
     /**

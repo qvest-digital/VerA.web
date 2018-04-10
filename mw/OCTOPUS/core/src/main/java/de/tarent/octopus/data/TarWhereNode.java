@@ -47,6 +47,7 @@ package de.tarent.octopus.data;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.Arrays;
 
 /**
@@ -56,7 +57,7 @@ import java.util.Arrays;
  * Dieser wird als Schlüsselwort erkannt, wenn er in den Arrays DOUBLE_OPERATORS oder SINGLE_OPERATORS enthalten ist.
  *
  * @see TarWhereClause
-*/
+ */
 public class TarWhereNode {
     /**
      * Operatoren, die sich auf zwei Operanden beziehen.

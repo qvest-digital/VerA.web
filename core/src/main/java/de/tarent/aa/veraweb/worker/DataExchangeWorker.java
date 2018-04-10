@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -534,7 +535,7 @@ public class DataExchangeWorker {
                         // default to closest thing to cp1252
                         LOGGER.error(
                                 "JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters " +
-                                 "will be lost!");
+                                        "will be lost!");
                         ics = StandardCharsets.ISO_8859_1;
                     } else {
                         // default to cp1252

@@ -47,6 +47,7 @@ package de.tarent.octopus.client.remote;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.client.*;
 
 import java.io.InputStream;
@@ -89,10 +90,10 @@ public class OctopusRemoteResult implements OctopusResult {
     }
 
     public void writeContent(OutputStream to)
-        throws IOException {
+            throws IOException {
         byte[] buff = new byte[1024];
         int len = -1;
-        while(-1 != (len = streamContent.read(buff))) {
+        while (-1 != (len = streamContent.read(buff))) {
             to.write(buff, 0, len);
         }
         to.flush();
@@ -108,8 +109,9 @@ public class OctopusRemoteResult implements OctopusResult {
     }
 
     public Object nextData() {
-        if (!hasMoreData())
+        if (!hasMoreData()) {
             return null;
+        }
         Object key = dataKeys.removeFirst();
         return dataMap.get(key);
     }
@@ -128,48 +130,48 @@ public class OctopusRemoteResult implements OctopusResult {
         return dataMap.get(key);
     }
 
-//     public Object nextDataAs(Class type) {
-//         if (!hasMoreData())
-//             return null;
-//         Object o = data.removeFirst();
-//         if (!type.isInstance(o))
-//             throw new ClassCastException("Can not cast <"+o.getClass().getName()+"> to <"+type.getClass().getName()+">.");
-//         return o;
-//    }
+    //     public Object nextDataAs(Class type) {
+    //         if (!hasMoreData())
+    //             return null;
+    //         Object o = data.removeFirst();
+    //         if (!type.isInstance(o))
+    //             throw new ClassCastException("Can not cast <"+o.getClass().getName()+"> to <"+type.getClass().getName()+">.");
+    //         return o;
+    //    }
 
     public String nextDataAsString() {
-        return ""+nextData();
+        return "" + nextData();
     }
 
-//     public int nextDataAsInt() {
-//         Object o = data.removeFirst();
-//         if (o instanceof Integer)
-//             return ((Integer)o).intValue();
+    //     public int nextDataAsInt() {
+    //         Object o = data.removeFirst();
+    //         if (o instanceof Integer)
+    //             return ((Integer)o).intValue();
 
-//         try {
-//             return Integer.parseInt(""+o);
-//         } catch (NumberFormatException e) {
-//             throw new ClassCastException("Can not parse int from <"+o+">.");
-//         }
-//     }
+    //         try {
+    //             return Integer.parseInt(""+o);
+    //         } catch (NumberFormatException e) {
+    //             throw new ClassCastException("Can not parse int from <"+o+">.");
+    //         }
+    //     }
 
-//     xpublic float nextDataAsFloat() {
-//         Object o = data.removeFirst();
-//         if (o instanceof Float)
-//             return ((Float)o).floatValue();
+    //     xpublic float nextDataAsFloat() {
+    //         Object o = data.removeFirst();
+    //         if (o instanceof Float)
+    //             return ((Float)o).floatValue();
 
-//         try {
-//             return Float.parseFloat(""+o);
-//         } catch (NumberFormatException e) {
-//             throw new ClassCastException("Can not parse float from <"+o+">.");
-//         }
-//     }
+    //         try {
+    //             return Float.parseFloat(""+o);
+    //         } catch (NumberFormatException e) {
+    //             throw new ClassCastException("Can not parse float from <"+o+">.");
+    //         }
+    //     }
 
-//     public byte[] nextDataAsByteArray() {
-//        return (byte[])nextData();
-//     }
+    //     public byte[] nextDataAsByteArray() {
+    //        return (byte[])nextData();
+    //     }
 
     public String toString() {
-        return "OctopusRemoteResult: "+dataMap.toString();
+        return "OctopusRemoteResult: " + dataMap.toString();
     }
 }

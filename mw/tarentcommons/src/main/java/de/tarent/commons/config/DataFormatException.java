@@ -62,12 +62,11 @@ package de.tarent.commons.config;
  * @author Robert Schuster
  * @deprecated Direct access to XML data is discouraged. See class
  * documentation for details.
- *
  */
 public class DataFormatException extends Exception {
 
-    public DataFormatException( String message ) {
-	super( message );
+    public DataFormatException(String message) {
+        super(message);
     }
 
 }

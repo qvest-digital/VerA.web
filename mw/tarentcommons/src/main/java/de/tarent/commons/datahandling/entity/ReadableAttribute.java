@@ -52,7 +52,6 @@ package de.tarent.commons.datahandling.entity;
  * This interface stands for an abstract unit that may have Attributes for reading.
  *
  * @author Sebastian Mancke, tarent GmbH
- *
  */
 public interface ReadableAttribute {
 

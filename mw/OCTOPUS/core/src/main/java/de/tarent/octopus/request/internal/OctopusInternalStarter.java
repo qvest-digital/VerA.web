@@ -47,6 +47,7 @@ package de.tarent.octopus.request.internal;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -94,7 +95,7 @@ public class OctopusInternalStarter implements OctopusStarter {
      * Startet die Abarbeitung einer Anfrage
      */
     public OctopusDirectCallResult request(Map requestParams)
-        throws TcDirectCallException {
+            throws TcDirectCallException {
 
         logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START"));
 

@@ -55,18 +55,24 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-/** annotation for setting the type with which java variable
+/**
+ * annotation for setting the type with which java variable
  * names should be mapped to column names.
  *
  * @author Martin Pelzer, tarent GmbH
- *
  */
-@Target (value = { TYPE } )
+@Target(value = { TYPE })
 @Documented
-@Retention( RUNTIME )
+@Retention(RUNTIME)
 public @interface MappingType {
 
-	enum Value { CAMEL_CASE, LOWER_CASE, UPPER_CASE, LOWER_CASE_UNDERSCORE, UPPER_CASE_UNDERSCORE }
+    enum Value {
+        CAMEL_CASE,
+        LOWER_CASE,
+        UPPER_CASE,
+        LOWER_CASE_UNDERSCORE,
+        UPPER_CASE_UNDERSCORE
+    }
 
-	Value value() default Value.LOWER_CASE_UNDERSCORE;
+    Value value() default Value.LOWER_CASE_UNDERSCORE;
 }

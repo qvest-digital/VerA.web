@@ -55,14 +55,21 @@ import java.util.*;
  * a set of Database Pools.
  */
 public class PoolWorker {
-    /** The Param Name of the Pool definitions within the Octopus Context */
+    /**
+     * The Param Name of the Pool definitions within the Octopus Context
+     */
     public static final String P_POOL_DEFINITIONS = "CONTENT:poolDefinitions";
 
-    /** The key for the pool identifier within the pool definition map */
+    /**
+     * The key for the pool identifier within the pool definition map
+     */
     public static final String KEY_POOL_NAME = "poolName";
 
-    /** Param Definition */
-    public static String[] INPUT_openPools = {P_POOL_DEFINITIONS};
+    /**
+     * Param Definition
+     */
+    public static String[] INPUT_openPools = { P_POOL_DEFINITIONS };
+
     /**
      * Opens all the pools provided in the list of pool definitions.
      * For each Map in the pool definition a pool is opened. The keys
@@ -73,15 +80,18 @@ public class PoolWorker {
      * @param poolDefinitions a list of Maps containing the pool definitions
      */
     public void openPools(List poolDefinitions) {
-        for (Iterator iter = poolDefinitions.iterator(); iter.hasNext();) {
-            Map poolDefinition = (Map)iter.next();
-            String poolName = (String)poolDefinition.get(KEY_POOL_NAME);
+        for (Iterator iter = poolDefinitions.iterator(); iter.hasNext(); ) {
+            Map poolDefinition = (Map) iter.next();
+            String poolName = (String) poolDefinition.get(KEY_POOL_NAME);
             DB.openPool(poolName, poolDefinition);
         }
     }
 
-    /** Param Definition */
-    public static String[] INPUT_closePools = {P_POOL_DEFINITIONS};
+    /**
+     * Param Definition
+     */
+    public static String[] INPUT_closePools = { P_POOL_DEFINITIONS };
+
     /**
      * Closes all the pools provided in the list of pool definitions.
      * Each map in the list <b>must have</b> a Field <code>poolName</code>, with a String-identifier
@@ -90,9 +100,9 @@ public class PoolWorker {
      * @param poolDefinitions a list of Maps containing the pool definitions
      */
     public void closePools(List poolDefinitions) {
-        for (Iterator iter = poolDefinitions.iterator(); iter.hasNext();) {
-            Map poolDefinition = (Map)iter.next();
-            String poolName = (String)poolDefinition.get(KEY_POOL_NAME);
+        for (Iterator iter = poolDefinitions.iterator(); iter.hasNext(); ) {
+            Map poolDefinition = (Map) iter.next();
+            String poolName = (String) poolDefinition.get(KEY_POOL_NAME);
             DB.closePool(poolName);
         }
     }

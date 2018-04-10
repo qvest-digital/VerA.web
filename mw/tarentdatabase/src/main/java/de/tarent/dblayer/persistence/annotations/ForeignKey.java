@@ -55,19 +55,19 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-/** annotation for defining a foreign key
+/**
+ * annotation for defining a foreign key
  *
  * @author Martin Pelzer, tarent GmbH
- *
  */
-@Target (value = { METHOD } )
+@Target(value = { METHOD })
 @Documented
-@Retention( RUNTIME )
+@Retention(RUNTIME)
 public @interface ForeignKey {
 
-	/** the bean which is referenced
-	 *
-	 */
-	Class bean();
+    /**
+     * the bean which is referenced
+     */
+    Class bean();
 
 }

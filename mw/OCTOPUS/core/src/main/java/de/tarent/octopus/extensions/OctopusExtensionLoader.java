@@ -47,6 +47,7 @@ package de.tarent.octopus.extensions;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.logging.LogFactory;
@@ -60,8 +61,7 @@ import de.tarent.octopus.logging.LogFactory;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-public class OctopusExtensionLoader
-{
+public class OctopusExtensionLoader {
     private static Log logger = LogFactory.getLog(OctopusExtensionLoader.class);
 
     /**
@@ -69,33 +69,24 @@ public class OctopusExtensionLoader
      * On initialization, the given parameter is used.
      *
      * @param classname Extension class to be initialized and started.
-     * @param param Parameter passed to the extension's initialize method.
+     * @param param     Parameter passed to the extension's initialize method.
      * @return Extension instance or null if the extension loading failed.
      */
-    public static OctopusExtension load(String classname, Object param)
-    {
+    public static OctopusExtension load(String classname, Object param) {
         logger.info("Enabling octopus extension: " + classname);
 
         OctopusExtension extension = null;
-        try
-        {
-            extension = (OctopusExtension)Class.forName(classname).newInstance();
-        }
-        catch (InstantiationException e)
-        {
+        try {
+            extension = (OctopusExtension) Class.forName(classname).newInstance();
+        } catch (InstantiationException e) {
             logger.error("Error getting extension instance: " + classname, e);
-        }
-        catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             logger.error("Illegal Access getting extension instance: " + classname, e);
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             logger.info("Extension class not found: " + classname, e);
         }
 
-        if (extension!=null)
-        {
+        if (extension != null) {
             extension.initialize(param);
             extension.start();
         }

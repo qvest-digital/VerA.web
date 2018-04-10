@@ -47,11 +47,12 @@ package de.tarent.octopus.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Klasse zur Kapselung der Informaionen zu einem ContentWorker.
  *
- * @see de.tarent.octopus.content.TcContentWorker
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
+ * @see de.tarent.octopus.content.TcContentWorker
  */
 public class ContentWorkerDeclaration {
 
@@ -74,6 +75,7 @@ public class ContentWorkerDeclaration {
 
     /**
      * Liefert die Factory, von der dieser Worker erzeugt werden kann.
+     *
      * @return Voll qualifizierter Klassenname der Factory
      */
     public String getFactory() {

@@ -47,6 +47,7 @@ package de.tarent.octopus.security;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.net.PasswordAuthentication;
 
 import de.tarent.octopus.config.TcCommonConfig;
@@ -62,19 +63,20 @@ import de.tarent.octopus.server.PersonalConfig;
 public class LoginManagerFilter extends AbstractLoginManager {
 
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException {
+            throws TcSecurityException {
 
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
-        if (pwdAuth == null || pwdAuth.getUserName() == null || pwdAuth.getUserName().length() == 0)
+        if (pwdAuth == null || pwdAuth.getUserName() == null || pwdAuth.getUserName().length() == 0) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
+        }
 
-        pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER});
+        pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_USER });
         pConfig.userLoggedIn(pwdAuth.getUserName());
     }
 
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException {
-        pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
+            throws TcSecurityException {
+        pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
         pConfig.userLoggedOut();
     }
 

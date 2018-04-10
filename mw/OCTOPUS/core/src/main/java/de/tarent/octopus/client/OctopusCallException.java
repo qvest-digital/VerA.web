@@ -47,6 +47,7 @@ package de.tarent.octopus.client;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Aufruf eines Task des Octopus.
  *
@@ -54,24 +55,26 @@ package de.tarent.octopus.client;
  */
 public class OctopusCallException extends RuntimeException {
     /**
-	 * serialVersionUID = -604458204528968362L
-	 */
-	private static final long serialVersionUID = -604458204528968362L;
+     * serialVersionUID = -604458204528968362L
+     */
+    private static final long serialVersionUID = -604458204528968362L;
 
-	protected String errorCode;
+    protected String errorCode;
     protected String causeMessage;
 
     public OctopusCallException(String msg, Exception e) {
         super(msg, e);
-        if (e != null)
+        if (e != null) {
             causeMessage = e.getMessage();
+        }
     }
 
     public OctopusCallException(String errorCode, String msg, Exception e) {
         super(msg, e);
         this.errorCode = errorCode;
-        if (e != null)
+        if (e != null) {
             causeMessage = e.getMessage();
+        }
     }
 
     public String getCauseMessage() {

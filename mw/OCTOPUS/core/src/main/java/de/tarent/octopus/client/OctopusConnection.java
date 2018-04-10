@@ -47,6 +47,7 @@ package de.tarent.octopus.client;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.Map;
 
 /**
@@ -67,14 +68,14 @@ public interface OctopusConnection {
      * Liefert ein CallObject, dass für den Aufruf dieses Task verwendet werden kann.
      */
     public OctopusTask getTask(String taskName)
-        throws OctopusCallException;
+            throws OctopusCallException;
 
     /**
      * Aufruf eines Task mit seinen Parametern als Map.
      * Kurzform für getCallObject(taskName).add(k1,v1).add(..,..).invoke()
      */
     public OctopusResult callTask(String taskName, Map paramMap)
-        throws OctopusCallException;
+            throws OctopusCallException;
 
     /**
      * Setzen des Passwortes, mit dem Authentifiziert werden soll.

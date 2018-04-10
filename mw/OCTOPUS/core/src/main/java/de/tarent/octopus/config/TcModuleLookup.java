@@ -47,6 +47,7 @@ package de.tarent.octopus.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.File;
 
 /**
@@ -54,7 +55,7 @@ import java.io.File;
  * module, dependent of the surrounded container.
  */
 public interface TcModuleLookup {
-	public final static String PREF_NAME_REAL_PATH = "realPath";
+    public final static String PREF_NAME_REAL_PATH = "realPath";
 
-	public File getModulePath(String module);
+    public File getModulePath(String module);
 }

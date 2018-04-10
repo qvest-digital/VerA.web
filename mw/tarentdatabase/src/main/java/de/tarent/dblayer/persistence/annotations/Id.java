@@ -55,14 +55,14 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-/** Annotation for marking the primary key
+/**
+ * Annotation for marking the primary key
  *
  * @author Martin Pelzer, tarent GmbH
- *
  */
-@Target (value = { METHOD } )
+@Target(value = { METHOD })
 @Documented
-@Retention( RUNTIME )
+@Retention(RUNTIME)
 public @interface Id {
 
 }

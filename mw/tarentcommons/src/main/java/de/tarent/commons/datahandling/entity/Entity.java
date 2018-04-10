@@ -54,12 +54,12 @@ package de.tarent.commons.datahandling.entity;
  *
  * @author Steffi Tinder, tarent GmbH
  * @author Sebastian Mancke, tarent GmbH
- *
  */
 
 public interface Entity extends ReadableAttribute {
     /**
-     *  returns the unique ID of the entity
+     * returns the unique ID of the entity
+     *
      * @return the id
      */
     public int getId();

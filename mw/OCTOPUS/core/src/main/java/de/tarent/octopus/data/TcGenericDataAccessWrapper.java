@@ -47,6 +47,7 @@ package de.tarent.octopus.data;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -78,7 +79,7 @@ import de.tarent.octopus.logging.LogFactory;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcGenericDataAccessWrapper {
-	//
+    //
     // geschützte Member
     //
     protected TarDBConnection dbConnection;
@@ -99,17 +100,26 @@ public class TcGenericDataAccessWrapper {
     protected long creationTimeMillis = 0;
     protected final static long MAX_TIME_MILLIS = 600000;
 
-    /** Hier werden die aktuellen Benutzungslocks gezählt */
+    /**
+     * Hier werden die aktuellen Benutzungslocks gezählt
+     */
     private int useCount = 0;
-    /** Mutex für das Erzeugen der {@link #jdbcConnection Datenbankverbindung} */
+    /**
+     * Mutex für das Erzeugen der {@link #jdbcConnection Datenbankverbindung}
+     */
     private final Object connectionMutex = new Object();
-    /** Mutex für das Verwalten des {@link #useCount} */
+    /**
+     * Mutex für das Verwalten des {@link #useCount}
+     */
     private final Object useMutex = new Object();
-    /** Flag: {@link #jdbcConnection Datenbankverbindung} soll baldmöglichst geschlossen werden */
+    /**
+     * Flag: {@link #jdbcConnection Datenbankverbindung} soll baldmöglichst geschlossen werden
+     */
     private boolean pendingDisconnect = false;
     //
     // Konstruktoren
     //
+
     /**
      * Inititalisierung mit Verbindungsinformationen zur Datenbank
      *
@@ -118,7 +128,7 @@ public class TcGenericDataAccessWrapper {
     public TcGenericDataAccessWrapper(TarDBConnection dbConnection) {
         this();
         this.dbConnection = dbConnection;
-		this.schema = dbConnection.getSchema();
+        this.schema = dbConnection.getSchema();
     }
 
     /**
@@ -139,35 +149,45 @@ public class TcGenericDataAccessWrapper {
     //
     // Getter und Setter
     //
-    /** Das konfigurierende {@link TarDBConnection}-Objekt */
+
+    /**
+     * Das konfigurierende {@link TarDBConnection}-Objekt
+     */
     public TarDBConnection getDbConnection() {
         return dbConnection;
     }
 
-    /** Das zugrundeliegende {@link Connection}-Objekt */
+    /**
+     * Das zugrundeliegende {@link Connection}-Objekt
+     */
     public Connection getJdbcConnection() {
         return jdbcConnection;
     }
 
-    /** Verbindungsinformationen zur Datenbank */
+    /**
+     * Verbindungsinformationen zur Datenbank
+     */
     public void setDBConnection(TarDBConnection dbConnection) {
         this.dbConnection = dbConnection;
         this.schema = dbConnection.getSchema();
     }
 
-    /** Die Größe des Puffers für das Cachen von Resultsets */
+    /**
+     * Die Größe des Puffers für das Cachen von Resultsets
+     */
     public void setResultSetCacheSize(int resultSetCount) {
         resultSetCache = resultSetCount;
     }
 
     /** Der statische Logger dieser Klasse */
-//    public void setLogger(Logger logger) {
-//        TcGenericDataAccessWrapper.logger = logger;
-//    }
+    //    public void setLogger(Logger logger) {
+    //        TcGenericDataAccessWrapper.logger = logger;
+    //    }
 
     //
     // öffentliche Methoden
     //
+
     /**
      * Diese Methode liefert, ob der Wrapper 'alt', also älter als
      * {@link #MAX_TIME_MILLIS} ist.
@@ -191,10 +211,10 @@ public class TcGenericDataAccessWrapper {
                 // Verbinden mit Datenbank
                 Class.forName(dbConnection.get("driver"));
                 jdbcConnection =
-                    DriverManager.getConnection(
-                        dbConnection.get("url"),
-                        dbConnection.get("username"),
-                        dbConnection.get("password"));
+                        DriverManager.getConnection(
+                                dbConnection.get("url"),
+                                dbConnection.get("username"),
+                                dbConnection.get("password"));
             }
         }
     }
@@ -257,19 +277,20 @@ public class TcGenericDataAccessWrapper {
      * und z.B. ein neues Resultset erzeugt werden soll.
      *
      * @param section Bezeichner für den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
-     *        solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
+     *                solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
      */
     public void setDirtyDataSection(String section) {
         // Irgend einen Wert != null rein setzen
-        if (section != null)
+        if (section != null) {
             dirtyDataSections.put(section, "X");
+        }
     }
 
     /**
      * Löscht das Flagg, daß anzeigt, das sich die Daten in einem Bereich geändert haben
      *
      * @param section Bezeichner für den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
-     *        solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
+     *                solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
      */
     public void removeDirtyDataSection(String section) {
         dirtyDataSections.remove(section);
@@ -279,19 +300,21 @@ public class TcGenericDataAccessWrapper {
      * Setzt das Ditry Flag für eine Section bei allen Workern
      *
      * @param section Bezeichner für den Bereich der Daten. Dieser Bezeichner kann beliebig sein,
-     *        solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
+     *                solange gewährleistet ist, daß zugriffe auf den gleichen Bereich auch den gleichen Bezeichner verwenden.
      */
     public void setDirtyDataSectionOnAll(String section) {
-        for (;;) {
+        for (; ; ) {
             try {
                 synchronized (allDataAccessWrappers) {
                     Iterator itWrappers = allDataAccessWrappers.iterator();
                     while (itWrappers.hasNext()) {
-                        TcGenericDataAccessWrapper wrapper = (TcGenericDataAccessWrapper) ((WeakReference)itWrappers.next()).get();
-                        if (wrapper == null)
+                        TcGenericDataAccessWrapper wrapper =
+                                (TcGenericDataAccessWrapper) ((WeakReference) itWrappers.next()).get();
+                        if (wrapper == null) {
                             itWrappers.remove();
-                        else
+                        } else {
                             wrapper.setDirtyDataSection(section);
+                        }
                     }
                 }
                 return;
@@ -308,21 +331,22 @@ public class TcGenericDataAccessWrapper {
     //
     // geschützte Methoden für einen generischen Zugriff auf Daten durch abgeleitete Klassen
     //
+
     /**
      * Liefert eine Map mit einem Datensatz.
      * Der Datensatz ist der erste eines Selects.
      *
-     * @param tableName Tabelle, die selektiert werden soll.
+     * @param tableName   Tabelle, die selektiert werden soll.
      * @param whereClause String mit einer where Bedingung.
-     *
      * @return Einen Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
      */
     protected Map getFirstRowFromSelect(String tableName, String whereClause) throws TcDataAccessException {
         try {
             use();
             String sqlQuery = "SELECT * FROM " + tableName;
-            if (whereClause != null && whereClause.length() != 0)
+            if (whereClause != null && whereClause.length() != 0) {
                 sqlQuery += " WHERE " + whereClause;
+            }
             ResultSet cursor = getResultSet(sqlQuery, true, tableName);
 
             if (cursor.first()) {
@@ -330,10 +354,11 @@ public class TcGenericDataAccessWrapper {
                 String[] fieldNames = getFieldList(cursor, tableName);
                 for (int i = 0; i < fieldNames.length; i++) {
                     String value = cursor.getString(i + 1);
-                    if (value != null)
+                    if (value != null) {
                         out.put(fieldNames[i], value);
-                    else
+                    } else {
                         out.put(fieldNames[i], "");
+                    }
                 }
                 return out;
             }
@@ -358,18 +383,18 @@ public class TcGenericDataAccessWrapper {
      * Liefert eine Map mit einem Datensatz.
      * Der Datensatz ist der in offset angegebene, beginnend mit 1
      *
-     * @param tableName Tabelle, die selektiert werden soll.
+     * @param tableName   Tabelle, die selektiert werden soll.
      * @param whereClause String mit einer where Bedingung.
-     * @param offset Position des gewünschten Datensatzes
-     *
+     * @param offset      Position des gewünschten Datensatzes
      * @return Einen Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
      */
     protected Map getOneRowFromSelect(String tableName, String whereClause, int offset) throws TcDataAccessException {
         try {
             use();
             String sql = "SELECT * FROM " + tableName;
-            if (whereClause != null && whereClause.length() != 0)
+            if (whereClause != null && whereClause.length() != 0) {
                 sql += " WHERE " + whereClause;
+            }
             logger.debug("SQL[0]: " + sql);
             ResultSet cursor = getResultSet(sql, false, tableName);
 
@@ -378,10 +403,11 @@ public class TcGenericDataAccessWrapper {
                 String[] fieldNames = getFieldList(cursor, tableName);
                 for (int i = 0; i < fieldNames.length; i++) {
                     String value = cursor.getString(i + 1);
-                    if (value != null)
+                    if (value != null) {
                         out.put(fieldNames[i], value);
-                    else
+                    } else {
                         out.put(fieldNames[i], "");
+                    }
                 }
                 return out;
             }
@@ -408,15 +434,15 @@ public class TcGenericDataAccessWrapper {
      * wenn bereits eines für das gleiche Kommando gemacht wurde.
      * Bzw. wird es wird ein neues erzeugt und in der Schlange abgelegt.
      *
-     * @param cmd SQL Commando, muss für gleiche Resultsets auch gleich sein.
-     * @param cache Soll das Resultset gecacht werden`
-     * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein Dirty-Flag ab zu fragen.
+     * @param cmd         SQL Commando, muss für gleiche Resultsets auch gleich sein.
+     * @param cache       Soll das Resultset gecacht werden`
+     * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein
+     * Dirty-Flag ab zu fragen.
      *                    Kann null sein, wenn aktualität egal ist.
-     *
      * @return ResultSet der Ergebnissmenge
      */
     protected ResultSet getResultSet(String cmd, boolean cache, String dataSection)
-        throws SQLException, ClassNotFoundException {
+            throws SQLException, ClassNotFoundException {
 
         try {
             use();
@@ -456,7 +482,7 @@ public class TcGenericDataAccessWrapper {
                 removeDirtyDataSection(dataSection);
 
                 logger.trace(
-                    "resultSetCache/resultSets.size(): " + resultSetCache + "/" + resultSets.size() + "   =>" + resultSets);
+                        "resultSetCache/resultSets.size(): " + resultSetCache + "/" + resultSets.size() + "   =>" + resultSets);
                 while (resultSets.size() > resultSetCache) {
                     ResultSet oldCursor = (ResultSet) resultSets.remove(0);
                     oldCursor.close();
@@ -474,70 +500,74 @@ public class TcGenericDataAccessWrapper {
     /**
      * Aktualisiert eine Auswahl auf einer Tabelle
      *
-     * @param tableName Tabelle, die selektiert werden soll.
+     * @param tableName   Tabelle, die selektiert werden soll.
      * @param whereClause String mit einer where Bedingung.
-     * @param reccord Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
-     *
+     * @param reccord     Datensatz mit den Spaltennamen als Keys und den Feldern als String Values.
      * @return Anzahl geänderter Datensätze
      */
-   protected int doUpdate(String tableName, String whereClause, Map reccord) throws TcDataAccessException {
-       try {
-           StringBuffer sqlKeyList = new StringBuffer();
-           StringBuffer sqlValueList = new StringBuffer();
-           Iterator e = reccord.keySet().iterator();
-           if (e.hasNext()) {
-               String nextKey = (String) e.next();
-               while (e.hasNext()) {
-                   sqlKeyList.append(nextKey).append(", ");
-                   sqlValueList.append("'").append(reccord.get(nextKey).toString()).append("', ");
-                   nextKey = (String) e.next();
-               }
-               sqlKeyList.append(nextKey);
-               sqlValueList.append("'").append(reccord.get(nextKey).toString()).append("'");
-           }
+    protected int doUpdate(String tableName, String whereClause, Map reccord) throws TcDataAccessException {
+        try {
+            StringBuffer sqlKeyList = new StringBuffer();
+            StringBuffer sqlValueList = new StringBuffer();
+            Iterator e = reccord.keySet().iterator();
+            if (e.hasNext()) {
+                String nextKey = (String) e.next();
+                while (e.hasNext()) {
+                    sqlKeyList.append(nextKey).append(", ");
+                    sqlValueList.append("'").append(reccord.get(nextKey).toString()).append("', ");
+                    nextKey = (String) e.next();
+                }
+                sqlKeyList.append(nextKey);
+                sqlValueList.append("'").append(reccord.get(nextKey).toString()).append("'");
+            }
 
-           String sql = "UPDATE " + tableName + " (" + sqlKeyList + ") VALUES (" + sqlValueList + ")";
-           if (whereClause != null && whereClause.length() != 0)
-               sql += " WHERE " + whereClause;
-           logger.debug("SQL[0]: " + sql);
+            String sql = "UPDATE " + tableName + " (" + sqlKeyList + ") VALUES (" + sqlValueList + ")";
+            if (whereClause != null && whereClause.length() != 0) {
+                sql += " WHERE " + whereClause;
+            }
+            logger.debug("SQL[0]: " + sql);
 
-           return doSql(sql, tableName);
-       } catch (java.sql.SQLException sqle) {
-           logger.error("Fehler beim DB Zugriff", sqle);
-           throw new TcDataAccessException("Fehler beim DB Zugriff", sqle);
-       } catch (ClassNotFoundException cnfe) {
-           logger.error("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
-           throw new TcDataAccessException("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
-       }
-   }
+            return doSql(sql, tableName);
+        } catch (java.sql.SQLException sqle) {
+            logger.error("Fehler beim DB Zugriff", sqle);
+            throw new TcDataAccessException("Fehler beim DB Zugriff", sqle);
+        } catch (ClassNotFoundException cnfe) {
+            logger.error("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
+            throw new TcDataAccessException("Fehler beim DB Zugriff. Kann Datenbanktreiber anscheinend nicht finden.", cnfe);
+        }
+    }
 
-   /**
-    * Füht einen SQL befehl aus, der kein Resultset liefert.
-    *
-    * @param sql Das SQL Kommando
-    * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein Dirty-Flag ab zu fragen.
-    *                    Kann null sein, wenn aktualität egal ist.
-    * @return Ergebnis der Aktion, wenn diese eines zurück liefert
-    */
-   protected int doSql(String sql, String dataSection) throws SQLException, ClassNotFoundException {
-       if (dataSection != null)
-           logger.debug("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
-       setDirtyDataSection(dataSection);
-       if (dataSection != null)
-           logger.debug("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
-       try {
-           use();
-           connect();
-           Statement stmt = jdbcConnection.createStatement();
-           return stmt.executeUpdate(sql);
-       } finally {
-           unUse();
-       }
-   }
+    /**
+     * Füht einen SQL befehl aus, der kein Resultset liefert.
+     *
+     * @param sql         Das SQL Kommando
+     * @param dataSection Bezeichner, der den Bereich aus dem die Daten sind bezeichnet und benutzt werden kann um ein
+     * Dirty-Flag ab zu fragen.
+     *                    Kann null sein, wenn aktualität egal ist.
+     * @return Ergebnis der Aktion, wenn diese eines zurück liefert
+     */
+    protected int doSql(String sql, String dataSection) throws SQLException, ClassNotFoundException {
+        if (dataSection != null) {
+            logger.debug("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
+        }
+        setDirtyDataSection(dataSection);
+        if (dataSection != null) {
+            logger.debug("dirtyDataSections.get( " + dataSection + " ): " + dirtyDataSections.get(dataSection));
+        }
+        try {
+            use();
+            connect();
+            Statement stmt = jdbcConnection.createStatement();
+            return stmt.executeUpdate(sql);
+        } finally {
+            unUse();
+        }
+    }
 
-   //
-   // geschützte Hilfsmethoden
-   //
+    //
+    // geschützte Hilfsmethoden
+    //
+
     /**
      * Liefert die Felder eines Resultsets, also die Spaltennamen zurück.
      *
@@ -545,12 +575,14 @@ public class TcGenericDataAccessWrapper {
      * später aber aus eimem Puffer. Um dies zu realisieren muss ein Key
      * mit übergeben werden, der für diese Anordnung von Feldnamen eindeutig ist.
      *
-     * @param cursor Das Result Set
-     * @param cacheKey Ein Key, der für diese Anordnung von Feldnamen eindeutig ist. Darunter kann das Ergebniss dieser Anfrage dann abgelegt werden.
-     * @return Ein Array mit den Feldnamen der Spalten in der richtigen Reihenfolge. Vorsicht: Die erste Spalte liegt im Array bei [0], wärend der erste Spalte in einem ResultSet mit 1 anfängt.
+     * @param cursor   Das Result Set
+     * @param cacheKey Ein Key, der für diese Anordnung von Feldnamen eindeutig ist. Darunter kann das Ergebniss dieser Anfrage
+     *  dann abgelegt werden.
+     * @return Ein Array mit den Feldnamen der Spalten in der richtigen Reihenfolge. Vorsicht: Die erste Spalte liegt im Array
+     * bei [0], wärend der erste Spalte in einem ResultSet mit 1 anfängt.
      */
     protected String[] getFieldList(ResultSet cursor, Object cacheKey)
-        throws java.sql.SQLException {
+            throws java.sql.SQLException {
 
         ResultSetMetaData rsmd = cursor.getMetaData();
         String[] out = new String[rsmd.getColumnCount()];
@@ -569,12 +601,13 @@ public class TcGenericDataAccessWrapper {
     private static void cleanWrapperList() {
         try {
             synchronized (allDataAccessWrappers) {
-                for (Iterator itWrappers = allDataAccessWrappers.iterator(); itWrappers.hasNext();) {
-                    if (((WeakReference)itWrappers.next()).get() == null)
+                for (Iterator itWrappers = allDataAccessWrappers.iterator(); itWrappers.hasNext(); ) {
+                    if (((WeakReference) itWrappers.next()).get() == null) {
                         itWrappers.remove();
+                    }
                 }
             }
-        } catch(ConcurrentModificationException cme) {
+        } catch (ConcurrentModificationException cme) {
         }
     }
 
@@ -587,10 +620,12 @@ public class TcGenericDataAccessWrapper {
     private void doDisconnect() throws SQLException {
         synchronized (connectionMutex) {
             pendingDisconnect = false;
-            if (jdbcConnection != null) try {
-                jdbcConnection.close();
-            } finally {
-                jdbcConnection = null;
+            if (jdbcConnection != null) {
+                try {
+                    jdbcConnection.close();
+                } finally {
+                    jdbcConnection = null;
+                }
             }
         }
     }

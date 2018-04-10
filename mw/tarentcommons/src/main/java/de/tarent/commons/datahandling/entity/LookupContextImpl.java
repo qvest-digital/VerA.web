@@ -70,6 +70,6 @@ public class LookupContextImpl implements LookupContext {
     }
 
     protected String concat(Object entityID, String entityType) {
-        return entityType +":"+ entityID;
+        return entityType + ":" + entityID;
     }
 }

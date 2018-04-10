@@ -73,16 +73,14 @@ import de.tarent.commons.utils.Log;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-public class XMLSerializer
-{
+public class XMLSerializer {
     /**
      * Serializes the given object to a xml string.
      *
      * @param object Serializable that should be serialized.
      * @return String containing the XML representation of the object instance.
      */
-    public String serialize(Serializable object)
-    {
+    public String serialize(Serializable object) {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         encode(byteStream, object);
         return byteStream.toString();
@@ -92,17 +90,13 @@ public class XMLSerializer
      * Serializes the given object to a xml file on mass storage.
      *
      * @param object Serializable that should be serialized.
-     * @param file File that should be written.
+     * @param file   File that should be written.
      */
-    public void serialize(File file, Serializable object)
-    {
+    public void serialize(File file, Serializable object) {
         FileOutputStream fileStream = null;
-        try
-        {
+        try {
             fileStream = new FileOutputStream(file);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             Log.error(this.getClass(), "Can't open file " + file.getAbsolutePath(), e);
             return;
         }
@@ -117,8 +111,7 @@ public class XMLSerializer
      * @param encodedXML Encoded XML string.
      * @return Re-created object instance.
      */
-    public Serializable deserialize(String encodedXML)
-    {
+    public Serializable deserialize(String encodedXML) {
         ByteArrayInputStream byteStream = new ByteArrayInputStream(encodedXML.getBytes());
         return decode(byteStream);
     }
@@ -130,15 +123,11 @@ public class XMLSerializer
      * @param encodedXML Encoded XML file.
      * @return Re-created object instance.
      */
-    public Serializable deserialize(File xmlFile)
-    {
+    public Serializable deserialize(File xmlFile) {
         FileInputStream fileStream = null;
-        try
-        {
+        try {
             fileStream = new FileInputStream(xmlFile);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             Log.error(this.getClass(), "Can't open file " + xmlFile.getAbsolutePath(), e);
             return null;
         }
@@ -146,19 +135,17 @@ public class XMLSerializer
         return decode(fileStream);
     }
 
-    private void encode(OutputStream outputStream, Serializable object)
-    {
+    private void encode(OutputStream outputStream, Serializable object) {
         XMLEncoder encoder = null;
         encoder = new XMLEncoder(new BufferedOutputStream(outputStream));
         encoder.writeObject(object);
         encoder.close();
     }
 
-    private Serializable decode(InputStream inputStream)
-    {
+    private Serializable decode(InputStream inputStream) {
         XMLDecoder decoder;
         decoder = new XMLDecoder(new BufferedInputStream(inputStream));
-        Serializable temp = (Serializable)decoder.readObject();
+        Serializable temp = (Serializable) decoder.readObject();
         decoder.close();
 
         return temp;

@@ -47,6 +47,7 @@ package de.tarent.octopus.security;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.File;
 import java.net.PasswordAuthentication;
 import java.util.HashMap;
@@ -81,14 +82,14 @@ public class LoginManagerXML extends AbstractLoginManager {
     public static final String DEFAULT_USER_FILE_NAME = "user.xml";
 
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException {
+            throws TcSecurityException {
 
         File userFile = null;
         File base = commonConfig.getModuleConfig(tcRequest.getModule()).getRealPath();
         if (getConfigurationString(KEY_USER_FILE) != null) {
-            userFile = new File(base,getConfigurationString(KEY_USER_FILE));
+            userFile = new File(base, getConfigurationString(KEY_USER_FILE));
         } else {
-            userFile = new File(base,DEFAULT_USER_FILE_NAME);
+            userFile = new File(base, DEFAULT_USER_FILE_NAME);
         }
 
         String fileUrl = Resources.getInstance().get("LOGINMANAGERXML_URL_USER_FILE", userFile.getAbsolutePath());
@@ -97,10 +98,10 @@ public class LoginManagerXML extends AbstractLoginManager {
             SAXParserFactory.newInstance().newSAXParser().parse(fileUrl, ch);
         } catch (SAXParseException e) {
             logger.warn(Resources.getInstance().get(
-                                                   "LOGINMANAGERXML_LOG_USER_PARSE_SAX_EXCEPTION",
-                                                   new Integer(e.getLineNumber()),
-                                                   new Integer(e.getColumnNumber())),
-                       e);
+                    "LOGINMANAGERXML_LOG_USER_PARSE_SAX_EXCEPTION",
+                    new Integer(e.getLineNumber()),
+                    new Integer(e.getColumnNumber())),
+                    e);
             throw new TcSecurityException(Resources.getInstance().get("LOGINMANAGERXML_EXC_USER_PARSE_ERROR", userFile));
         } catch (Exception e) {
             logger.warn(Resources.getInstance().get("LOGINMANAGERXML_LOG_USER_PARSE_ERROR"), e);
@@ -109,18 +110,18 @@ public class LoginManagerXML extends AbstractLoginManager {
 
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
         if (pwdAuth == null
-            || ! ch.getUsermap().containsKey(pwdAuth.getUserName())
-            || ! ch.getUsermap().get(pwdAuth.getUserName()).toString().equals(new String(pwdAuth.getPassword()))) {
+                || !ch.getUsermap().containsKey(pwdAuth.getUserName())
+                || !ch.getUsermap().get(pwdAuth.getUserName()).toString().equals(new String(pwdAuth.getPassword()))) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
         }
 
-        pConfig.setUserGroups((String[])ch.getGroupmap().get(pwdAuth.getUserName()));
+        pConfig.setUserGroups((String[]) ch.getGroupmap().get(pwdAuth.getUserName()));
         pConfig.userLoggedIn(pwdAuth.getUserName());
     }
 
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException {
-        pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
+            throws TcSecurityException {
+        pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
         pConfig.userLoggedOut();
     }
 
@@ -130,31 +131,43 @@ public class LoginManagerXML extends AbstractLoginManager {
 
         public void setDocumentLocator(Locator arg0) {
         }
+
         public void startDocument() throws SAXException {
         }
+
         public void endDocument() throws SAXException {
         }
+
         public void startPrefixMapping(String arg0, String arg1) throws SAXException {
         }
+
         public void endPrefixMapping(String arg0) throws SAXException {
         }
+
         public void startElement(String arg0, String arg1, String arg2, Attributes arg3) throws SAXException {
             if ("user".equals(arg2)) {
                 usermap.put(arg3.getValue("name"), arg3.getValue("password"));
-                if (arg3.getValue("groups") != null)
+                if (arg3.getValue("groups") != null) {
                     groupmap.put(arg3.getValue("name"), arg3.getValue("groups").split("[:]"));
+                }
             }
         }
+
         public void endElement(String arg0, String arg1, String arg2) throws SAXException {
         }
+
         public void characters(char[] arg0, int arg1, int arg2) throws SAXException {
         }
+
         public void ignorableWhitespace(char[] arg0, int arg1, int arg2) throws SAXException {
         }
+
         public void processingInstruction(String arg0, String arg1) throws SAXException {
         }
+
         public void skippedEntity(String arg0) throws SAXException {
         }
+
         public Map getUsermap() {
             return usermap;
         }

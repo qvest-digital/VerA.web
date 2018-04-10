@@ -65,8 +65,9 @@ public class BooleanToInteger extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) {
-        if (((Boolean)sourceData).booleanValue())
+        if (((Boolean) sourceData).booleanValue()) {
             return new Integer(1);
+        }
         return new Integer(0);
     }
 }

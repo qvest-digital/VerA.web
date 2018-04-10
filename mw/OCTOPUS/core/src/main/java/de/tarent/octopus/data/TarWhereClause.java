@@ -47,6 +47,7 @@ package de.tarent.octopus.data;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +56,11 @@ import java.util.List;
  * Die Klasse wird über einen Postfix Ausdruck Initialisiert. Und kann einen String mit einem SQL Ausdruck liefern.
  *
  * <b>Postfix:</b>
- * Postfix ist eine Möglichkeit einen Ausdrucksbaum, wie in einer flachen Liste eindeutig zu speichern, ohne Klammerung zu benötigen.
+ * Postfix ist eine Möglichkeit einen Ausdrucksbaum, wie in einer flachen Liste eindeutig zu speichern, ohne Klammerung zu
+ * benötigen.
  * <br>Der Ausdruck ((name = 'Sebastian') and (id = '2'))  sieht in Postfix z.B. so aus: name 'Sebastian' = id '2' "=" "AND"
- * Dieses Modell bietet die Möglichkeit Suchausdrücke in einer flachen Struktur zu speichern und ihre logische Struktur dabei zu erhalten.
+ * Dieses Modell bietet die Möglichkeit Suchausdrücke in einer flachen Struktur zu speichern und ihre logische Struktur dabei
+ * zu erhalten.
  * Letzteres wäre bei der Repräsentation in einem String nicht der Fall.
  *
  * <br><br>
@@ -121,12 +124,17 @@ public class TarWhereClause {
                 }
                 stack.add(newNode);
             }
-            if (stack.size() > 1)
-                throw new TarMalformedWhereClauseException("Der Ausdruck ist keine gültige Postfix Notation. Es sind zu wehnig Operatoren für die Operanden vorhanden.");
+            if (stack.size() > 1) {
+                throw new TarMalformedWhereClauseException(
+                        "Der Ausdruck ist keine gültige Postfix Notation. Es sind zu wehnig Operatoren für die Operanden " +
+                                "vorhanden.");
+            }
 
             return (TarWhereNode) stack.remove(0);
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
-            throw new TarMalformedWhereClauseException("Der Ausdruck ist keine gültige Postfix Notation. Es sind nicht genügend Operanden für die Operatoren vorhanden.");
+            throw new TarMalformedWhereClauseException(
+                    "Der Ausdruck ist keine gültige Postfix Notation. Es sind nicht genügend Operanden für die Operatoren " +
+                     "vorhanden.");
         }
     }
 
@@ -134,21 +142,25 @@ public class TarWhereClause {
         StringBuffer out = new StringBuffer();
         if (currRootNode != null) {
 
-            if (currRootNode.isDoubleOperator())
+            if (currRootNode.isDoubleOperator()) {
                 out.append("(");
+            }
 
             StringBuffer left = inOrderTraverse(currRootNode.getFistChild());
-            if (left.length() > 0)
+            if (left.length() > 0) {
                 out.append(left).append(" ");
+            }
 
             out.append(currRootNode.getValue());
 
             StringBuffer right = inOrderTraverse(currRootNode.getSecondChild());
-            if (right.length() > 0)
+            if (right.length() > 0) {
                 out.append(" ").append(right);
+            }
 
-            if (currRootNode.isDoubleOperator())
+            if (currRootNode.isDoubleOperator()) {
                 out.append(")");
+            }
         }
         return out;
     }

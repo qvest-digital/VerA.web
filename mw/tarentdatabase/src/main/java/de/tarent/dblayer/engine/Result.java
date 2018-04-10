@@ -63,41 +63,42 @@ import de.tarent.dblayer.sql.Statement;
  * @author Wolfgang Klein
  */
 public class Result {
-	private java.sql.Connection connection;
-	private java.sql.Statement statement;
-	private java.sql.ResultSet result;
+    private java.sql.Connection connection;
+    private java.sql.Statement statement;
+    private java.sql.ResultSet result;
 
     private static final org.apache.commons.logging.Log logger = LogFactory.getLog(Result.class);
 
     boolean statementIsClosed;
 
-	protected Result(DBContext dbx, String sql) throws SQLException {
+    protected Result(DBContext dbx, String sql) throws SQLException {
         this.statement = DB.getStatement(dbx);
-		initialise(sql);
-	}
+        initialise(sql);
+    }
 
-	protected Result(String poolname, String sql) throws SQLException {
-		this.statement = DB.getStatement(poolname);
-		initialise(sql);
-	}
+    protected Result(String poolname, String sql) throws SQLException {
+        this.statement = DB.getStatement(poolname);
+        initialise(sql);
+    }
 
-	private void initialise(String sql) throws SQLException {
-		this.result = this.statement.executeQuery(sql);
+    private void initialise(String sql) throws SQLException {
+        this.result = this.statement.executeQuery(sql);
         this.connection = statement.getConnection();
         statementIsClosed = false;
-	}
+    }
 
-	protected Result(DBContext dbx, Statement sql) throws SQLException {
-		this(dbx, sql.statementToString());
-	}
+    protected Result(DBContext dbx, Statement sql) throws SQLException {
+        this(dbx, sql.statementToString());
+    }
 
-	protected Result(String poolname, Statement sql) throws SQLException {
-		this(poolname, sql.statementToString());
-	}
+    protected Result(String poolname, Statement sql) throws SQLException {
+        this(poolname, sql.statementToString());
+    }
 
-	public ResultSet resultSet() {
-		return ( ResultSet ) Proxy.newProxyInstance( this.getClass().getClassLoader(), new Class[] { ResultSet.class }, new ResultSetProxyInvocationHandler( result ) );
-	}
+    public ResultSet resultSet() {
+        return (ResultSet) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { ResultSet.class },
+                new ResultSetProxyInvocationHandler(result));
+    }
 
     /**
      * Iterates over the result set and calles the process method for each row.
@@ -118,28 +119,30 @@ public class Result {
         return i;
     }
 
-	public void close() {
-        if (statementIsClosed)
+    public void close() {
+        if (statementIsClosed) {
             return;
+        }
 
-		try {
-			statement.close();
+        try {
+            statement.close();
             statementIsClosed = true;
             statement = null;
             this.result = null;
-		} catch (SQLException e) {
+        } catch (SQLException e) {
             logger.warn("Error on closing connection", e);
-		}
-	}
+        }
+    }
 
     /**
      * Close from the Statement up to the Connection
      */
-	public void closeAll() {
-        if (statementIsClosed)
+    public void closeAll() {
+        if (statementIsClosed) {
             DB.close(connection);
-        else
+        } else {
             DB.closeAll(statement);
+        }
         statementIsClosed = true;
         this.result = null;
         connection = null;

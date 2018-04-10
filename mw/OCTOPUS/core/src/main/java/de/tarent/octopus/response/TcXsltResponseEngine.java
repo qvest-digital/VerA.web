@@ -47,6 +47,7 @@ package de.tarent.octopus.response;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.File;
 import java.io.StringReader;
 import java.util.Iterator;
@@ -76,16 +77,20 @@ import de.tarent.octopus.util.Xml;
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public class TcXsltResponseEngine implements TcResponseEngine {
-    /** Der Logger */
+    /**
+     * Der Logger
+     */
     private static Log logger = LogFactory.getLog(TcXsltResponseEngine.class);
     private static final String suffix = ".xsl";
     private static final String subdir = "xslt";
 
     /**
-     * @see de.tarent.octopus.response.TcResponseEngine#sendResponse(TcConfig, TcResponse, TcContent, TcResponseDescription, TcRequest)
+     * @see de.tarent.octopus.response.TcResponseEngine#sendResponse(TcConfig, TcResponse, TcContent, TcResponseDescription,
+     * TcRequest)
      */
-    public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc, TcRequest request)
-        throws ResponseProcessingException {
+    public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
+            TcRequest request)
+            throws ResponseProcessingException {
         String name = (String) theContent.getAsObject("responseParams.name");
         File templateFile = new File(new File(config.getTemplateRootPath(), subdir), desc.getDescName() + suffix);
 
@@ -94,16 +99,19 @@ public class TcXsltResponseEngine implements TcResponseEngine {
 
             TcCommonConfig cc = config.getCommonConfig();
             File defaultTemplateFile =
-                new File(new File(cc.getTemplateRootPath(cc.getDefaultModuleName()), subdir), desc.getDescName() + suffix);
-            if (defaultTemplateFile.exists())
+                    new File(new File(cc.getTemplateRootPath(cc.getDefaultModuleName()), subdir), desc.getDescName() + suffix);
+            if (defaultTemplateFile.exists()) {
                 templateFile = defaultTemplateFile;
-            else
-                throw new ResponseProcessingException(Resources.getInstance().get("XSLTRESPONSE_EXC_NO_TEMPLATE", templateFile, defaultTemplateFile));
+            } else {
+                throw new ResponseProcessingException(
+                        Resources.getInstance().get("XSLTRESPONSE_EXC_NO_TEMPLATE", templateFile, defaultTemplateFile));
+            }
         }
 
         String xmlDef = (String) theContent.getAsObject(name);
-        if (xmlDef == null)
+        if (xmlDef == null) {
             xmlDef = Resources.getInstance().get("XSLTRESPONSE_XML_DEFAULT_SOURCE");
+        }
         try {
             Transformer transformer = Xml.getXSLTTransformer(new StreamSource(templateFile));
             Iterator e = theContent.getKeys();
@@ -113,29 +121,35 @@ public class TcXsltResponseEngine implements TcResponseEngine {
             }
             transformer.transform(new StreamSource(new StringReader(xmlDef)), new StreamResult(tcResponse.getWriter()));
         } catch (TransformerException e) {
-            logger.warn(Resources.getInstance().get("XSLTRESPONSE_LOG_TRANSFORM_EXCEPTION", request.getRequestID(), templateFile), e);
+            logger.warn(Resources.getInstance().get("XSLTRESPONSE_LOG_TRANSFORM_EXCEPTION", request.getRequestID(), templateFile),
+                    e);
         }
     }
 
     private void putXSLTParameter(Transformer transformer, String name, Object value) {
-        if (name == null)
+        if (name == null) {
             name = "";
+        }
         if (value instanceof Map) {
-            if (name.length() > 0)
+            if (name.length() > 0) {
                 name += '.';
-            Iterator mapIt = ((Map)value).entrySet().iterator();
+            }
+            Iterator mapIt = ((Map) value).entrySet().iterator();
             while (mapIt.hasNext()) {
                 Map.Entry entry = (Map.Entry) mapIt.next();
                 putXSLTParameter(transformer, name + entry.getKey(), entry.getValue());
             }
         } else if (value instanceof List) {
-            if (name.length() > 0)
+            if (name.length() > 0) {
                 name += '.';
-            Iterator listIt = ((List)value).iterator();
-            for (int i = 0; listIt.hasNext(); i++)
+            }
+            Iterator listIt = ((List) value).iterator();
+            for (int i = 0; listIt.hasNext(); i++) {
                 putXSLTParameter(transformer, name + i, listIt.next());
-        } else
+            }
+        } else {
             transformer.setParameter(name, value);
+        }
     }
 
     /**

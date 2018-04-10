@@ -59,7 +59,9 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.From;
 import de.tarent.dblayer.sql.clause.Where;
+
 import java.util.List;
+
 import de.tarent.dblayer.sql.ParamHolder;
 
 /**
@@ -72,36 +74,44 @@ public class Delete extends AbstractStatement {
     //
     // protected member variables
     //
-    /** {@link From} {@link Clause} listing all tables for the <code>FROM</code> part */
+    /**
+     * {@link From} {@link Clause} listing all tables for the <code>FROM</code> part
+     */
     private final From _fromClause = new From();
-    /** {@link Clause} modelling the <code>WHERE</code> part */
+    /**
+     * {@link Clause} modelling the <code>WHERE</code> part
+     */
     private Clause _whereClause;
 
     /**
      * {@see ParamHolder#getParams(List)}
      */
     public void getParams(List list) {
-        if (_whereClause instanceof ParamHolder)
-            ((ParamHolder)_whereClause).getParams(list);
+        if (_whereClause instanceof ParamHolder) {
+            ((ParamHolder) _whereClause).getParams(list);
+        }
     }
 
     //
     // public methods
     //
-    /** This method adds the parameter name to the tables to delete from. */
-	public Delete from(String table) {
-		_fromClause.addTable(table);
-		return this;
-	}
+
+    /**
+     * This method adds the parameter name to the tables to delete from.
+     */
+    public Delete from(String table) {
+        _fromClause.addTable(table);
+        return this;
+    }
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>DELETE</code> statement.
      */
-	public Delete where(Clause clause) {
-		_whereClause = clause;
-		return this;
-	}
+    public Delete where(Clause clause) {
+        _whereClause = clause;
+        return this;
+    }
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
@@ -109,22 +119,23 @@ public class Delete extends AbstractStatement {
      * (additional clause)", or to "additional clause" if the current where clause
      * is <code>null</code>.
      */
-	public Delete whereAnd(Clause additionalClause) {
-        if (_whereClause == null)
+    public Delete whereAnd(Clause additionalClause) {
+        if (_whereClause == null) {
             where(additionalClause);
-        else
+        } else {
             where(Where.and(_whereClause, additionalClause));
+        }
         return this;
-	}
+    }
 
     /**
      * This method adds an equals expression to the current where list, connected by an ANT operator.
      * It is the same as .whereAnd(Expr.equal(columnName, value))
      */
-	public Delete whereAndEq(String columnName, Object value) {
+    public Delete whereAndEq(String columnName, Object value) {
         whereAnd(Expr.equal(columnName, value));
         return this;
-	}
+    }
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
@@ -132,23 +143,24 @@ public class Delete extends AbstractStatement {
      * (additional clause)", or to "additional clause" if the current where clause
      * is <code>null</code>.
      */
-	public Delete whereOr(Clause additionalClause) {
-        if (_whereClause == null)
+    public Delete whereOr(Clause additionalClause) {
+        if (_whereClause == null) {
             where(additionalClause);
-        else
+        } else {
             where(Where.or(_whereClause, additionalClause));
+        }
         return this;
-	}
+    }
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>DELETE</code> statement to equality of the given column
      * and the given value.
      */
-	public Delete byId(String column, Object value) {
-	    _whereClause = new Where(column, value, Expr.EQUAL);
-	    return this;
-	}
+    public Delete byId(String column, Object value) {
+        _whereClause = new Where(column, value, Expr.EQUAL);
+        return this;
+    }
 
     /**
      * This method executes the modelled <code>DELETE</code> statement within the
@@ -175,6 +187,7 @@ public class Delete extends AbstractStatement {
     //
     // interface {@link Statement}
     //
+
     /**
      * This method executes the modelled <code>DELETE</code> statement within the
      * {@link DBContext} of this {@link Delete} instance.<br>
@@ -187,7 +200,7 @@ public class Delete extends AbstractStatement {
      *
      * @see Statement#execute()
      */
-	public Object execute() throws SQLException {
+    public Object execute() throws SQLException {
         return executeDelete(getDBContext());
     }
 
@@ -201,23 +214,25 @@ public class Delete extends AbstractStatement {
      *
      * @see Statement#statementToString()
      */
-	public String statementToString() throws SyntaxErrorException {
-		StringBuffer sb = new StringBuffer();
-		sb.append(DELETE);
-		if (_fromClause != null)
-			sb.append(_fromClause.clauseToString(getDBContext()));
-		else
-		    throw new SyntaxErrorException("A table to delete from is required for a DELETE operation.");
-		if (_whereClause != null) {
-			sb.append(Where.WHERE);
-		    sb.append(_whereClause.clauseToString(getDBContext()));
-		}
-		return sb.toString();
-	}
+    public String statementToString() throws SyntaxErrorException {
+        StringBuffer sb = new StringBuffer();
+        sb.append(DELETE);
+        if (_fromClause != null) {
+            sb.append(_fromClause.clauseToString(getDBContext()));
+        } else {
+            throw new SyntaxErrorException("A table to delete from is required for a DELETE operation.");
+        }
+        if (_whereClause != null) {
+            sb.append(Where.WHERE);
+            sb.append(_whereClause.clauseToString(getDBContext()));
+        }
+        return sb.toString();
+    }
 
     //
     // class {@link Object}
     //
+
     /**
      * This method creates the {@link DBContext} sensitive {@link String} representation
      * of the modelled SQL {@link Statement} using the method {@link #statementToString()}.<br>
@@ -228,11 +243,11 @@ public class Delete extends AbstractStatement {
      *
      * @see java.lang.Object#toString()
      */
-	public String toString() {
-	    try {
+    public String toString() {
+        try {
             return statementToString();
         } catch (SyntaxErrorException e) {
             return e.toString();
         }
-	}
+    }
 }

@@ -53,9 +53,8 @@ import java.util.List;
 /**
  * Is an interface in order to provide the list representation of a filter.<p>
  *
- * @see de.tarent.commons.datahandling.ListFilterImpl
- *
  * @author Aleksej Palij (a.palij@tarent.de), tarent GmbH Bonn
+ * @see de.tarent.commons.datahandling.ListFilterImpl
  */
 public interface ListFilterProvider {
 

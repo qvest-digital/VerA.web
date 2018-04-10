@@ -63,13 +63,13 @@ import de.tarent.commons.logging.LogFactory;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  * @author Robert Linden (r.linden@tarent.de)
- *
  */
 public class SQLCache {
 
     private static final org.apache.commons.logging.Log logger = LogFactory.getLog(SQLCache.class);
 
-    /** This map stores the cached statements. The keys follow
+    /**
+     * This map stores the cached statements. The keys follow
      * the pattern {poolname}fullpathname.
      */
     private static Map sqlCache = new HashMap();
@@ -81,16 +81,14 @@ public class SQLCache {
      * @return File contents as String.
      */
     private static String readTextFile(File file)
-    throws IOException
-    {
+            throws IOException {
         StringBuffer text = new StringBuffer();
 
         BufferedReader input = null;
 
         input = new BufferedReader(new FileReader(file));
         String line = null;
-        while ((line = input.readLine())!=null)
-        {
+        while ((line = input.readLine()) != null) {
             text.append(line);
             text.append(System.getProperty("line.separator"));
         }
@@ -99,84 +97,82 @@ public class SQLCache {
         return text.toString();
     }
 
-    /** Retrieve an SQL-statement as a String. It is either read from
+    /**
+     * Retrieve an SQL-statement as a String. It is either read from
      * the cache or, if it is not in the cache or is marked as uncacheable,
      * from a file.
      *
-     * @param dbx DBContext, used to differentiate cache-partitions.
+     * @param dbx     DBContext, used to differentiate cache-partitions.
      * @param sqlfile The SQLFile to fetch.
      * @return The statment as a String.
      */
-    public static String getSQLFromFile( DBContext dbx, SQLFile sqlfile ) {
+    public static String getSQLFromFile(DBContext dbx, SQLFile sqlfile) {
         String sqlStatement = "";
 
         try {
-            String key = "{"+dbx.getPoolName()+"}"+sqlfile.getCanonicalPath();
+            String key = "{" + dbx.getPoolName() + "}" + sqlfile.getCanonicalPath();
 
-            if ( sqlfile.isCacheable() && sqlCache.containsKey( key ) ) {
-                sqlStatement = (String)sqlCache.get( key );
-                if ( logger.isTraceEnabled()) {
-                    logger.trace("Found cached statement '"+key+"'" );
+            if (sqlfile.isCacheable() && sqlCache.containsKey(key)) {
+                sqlStatement = (String) sqlCache.get(key);
+                if (logger.isTraceEnabled()) {
+                    logger.trace("Found cached statement '" + key + "'");
                 }
-            }
-            else {
-                sqlStatement = readTextFile( sqlfile );
-                if ( logger.isDebugEnabled()) {
-                    logger.debug("Read uncached statement '"+key+"'" );
+            } else {
+                sqlStatement = readTextFile(sqlfile);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Read uncached statement '" + key + "'");
                 }
-                if ( sqlfile.isCacheable() ) {
-                    sqlCache.put( key, sqlStatement );
-                    if ( logger.isDebugEnabled()) {
-                        logger.debug("Statement '"+key+"' cached." );
+                if (sqlfile.isCacheable()) {
+                    sqlCache.put(key, sqlStatement);
+                    if (logger.isDebugEnabled()) {
+                        logger.debug("Statement '" + key + "' cached.");
                     }
                 }
             }
 
-        }
-        catch ( IOException ex ) {
-            logger.error("Could not read sql-file "+sqlfile.getAbsolutePath() );
+        } catch (IOException ex) {
+            logger.error("Could not read sql-file " + sqlfile.getAbsolutePath());
         }
 
         return sqlStatement;
     }
 
-    /** Retrieve an SQL-statement as a String. It is either read from
+    /**
+     * Retrieve an SQL-statement as a String. It is either read from
      * the cache or, if it is not in the cache or is marked as uncacheable,
      * from a file.
      *
      * @param poolname The name of the DB-pool, used to differentiate between
      *                 cache-partitions.
-     * @param sqlfile The SQLFile to fetch.
+     * @param sqlfile  The SQLFile to fetch.
      * @return The statment as a String.
      */
-    public static String getSQLFromFile( String poolname, SQLFile sqlfile ) {
+    public static String getSQLFromFile(String poolname, SQLFile sqlfile) {
         String sqlStatement = "";
 
         try {
-            String key = "{"+poolname+"}"+sqlfile.getCanonicalPath();
+            String key = "{" + poolname + "}" + sqlfile.getCanonicalPath();
 
-            if ( sqlfile.isCacheable() && sqlCache.containsKey( key ) ) {
-                sqlStatement = (String)sqlCache.get( key );
-                if ( logger.isTraceEnabled()) {
-                    logger.trace("Found cached statement '"+key+"'" );
+            if (sqlfile.isCacheable() && sqlCache.containsKey(key)) {
+                sqlStatement = (String) sqlCache.get(key);
+                if (logger.isTraceEnabled()) {
+                    logger.trace("Found cached statement '" + key + "'");
                 }
-            }
-            else {
-                sqlStatement = readTextFile( sqlfile );
-                if ( logger.isDebugEnabled()) {
-                    logger.debug("Read uncached statement '"+key+"'" );
+            } else {
+                sqlStatement = readTextFile(sqlfile);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Read uncached statement '" + key + "'");
                 }
-                if ( sqlfile.isCacheable() ) {
-                    sqlCache.put( key, sqlStatement );
-                    if ( logger.isDebugEnabled()) {
-                        logger.debug("Statement '"+key+"' cached." );
+                if (sqlfile.isCacheable()) {
+                    sqlCache.put(key, sqlStatement);
+                    if (logger.isDebugEnabled()) {
+                        logger.debug("Statement '" + key + "' cached.");
                     }
                 }
             }
 
-        }
-        catch ( IOException ex ) {
-            logger.error("Could not read sql-file "+sqlfile.getAbsolutePath() );
+        } catch (IOException ex) {
+            logger.error("Could not read sql-file " + sqlfile.getAbsolutePath());
         }
 
         return sqlStatement;

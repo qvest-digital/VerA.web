@@ -49,6 +49,7 @@ package de.tarent.commons.utils;
  */
 
 import de.tarent.commons.utils.converter.*;
+
 import java.util.*;
 
 /**
@@ -60,10 +61,14 @@ public class ConverterRegistry {
 
     protected static ConverterRegistry defaultRegistry = null;
 
-    /** The default converter in a list */
+    /**
+     * The default converter in a list
+     */
     private LinkedList converterList = new LinkedList();
 
-    /** All converter by there name */
+    /**
+     * All converter by there name
+     */
     private Map converterMap = new HashMap();
 
     protected ConverterRegistry() {
@@ -109,18 +114,22 @@ public class ConverterRegistry {
      */
     public static Object convert(Object sourceData, Class targetType) throws IllegalArgumentException {
         if (sourceData == null) {
-            if (targetType.isPrimitive())
+            if (targetType.isPrimitive()) {
                 return getNullDefault(targetType);
+            }
             return null;
         }
-        if (targetType.isPrimitive())
+        if (targetType.isPrimitive()) {
             targetType = getComplexForPrimitive(targetType);
+        }
 
-        if (targetType.isAssignableFrom(sourceData.getClass()))
+        if (targetType.isAssignableFrom(sourceData.getClass())) {
             return sourceData;
+        }
         Converter converter = ConverterRegistry.getDefaultRegistry().getConverter(sourceData.getClass(), targetType);
-        if (converter == null)
-            throw new IllegalArgumentException("No suitable converter for "+ sourceData.getClass() +" => "+ targetType);
+        if (converter == null) {
+            throw new IllegalArgumentException("No suitable converter for " + sourceData.getClass() + " => " + targetType);
+        }
         return converter.convert(sourceData);
     }
 
@@ -128,11 +137,13 @@ public class ConverterRegistry {
      * Quick method for conversion over the registered converters of the default registry.
      */
     public static Object convert(Object sourceData, String converterName) throws IllegalArgumentException {
-        if (sourceData == null)
+        if (sourceData == null) {
             return null;
+        }
         Converter converter = ConverterRegistry.getDefaultRegistry().getConverter(converterName);
-        if (converter == null)
-            throw new IllegalArgumentException("No suitable converter for name "+ converterName);
+        if (converter == null) {
+            throw new IllegalArgumentException("No suitable converter for name " + converterName);
+        }
         return converter.convert(sourceData);
     }
 
@@ -144,8 +155,9 @@ public class ConverterRegistry {
      * @param useByDefault use the supplied converter by default
      */
     public void register(Converter converter, boolean useByDefault) {
-        if (useByDefault)
+        if (useByDefault) {
             converterList.addFirst(converter);
+        }
         converterMap.put(converter.getConverterName(), converter);
     }
 
@@ -155,45 +167,40 @@ public class ConverterRegistry {
      * If you need a special converter, use the getConverter(String converterName).
      */
     public Converter getConverter(Class sourceType, Class targetType) {
-        if (targetType.isPrimitive())
+        if (targetType.isPrimitive()) {
             targetType = getComplexForPrimitive(targetType);
+        }
 
-        for (Iterator iter = converterList.iterator(); iter.hasNext();) {
-            Converter converter = (Converter)iter.next();
+        for (Iterator iter = converterList.iterator(); iter.hasNext(); ) {
+            Converter converter = (Converter) iter.next();
             if (targetType.isAssignableFrom(converter.getTargetType())
-                && converter.getSourceType().isAssignableFrom(sourceType))
+                    && converter.getSourceType().isAssignableFrom(sourceType)) {
                 return converter;
+            }
         }
         return null;
     }
 
     public static Class getComplexForPrimitive(Class targetType) {
-        if (targetType == Boolean.TYPE)
+        if (targetType == Boolean.TYPE) {
             return Boolean.class;
-
-        else if (targetType == Character.TYPE)
+        } else if (targetType == Character.TYPE) {
             return Character.class;
-
-        else if (targetType == Byte.TYPE)
+        } else if (targetType == Byte.TYPE) {
             return Byte.class;
-
-        else if (targetType == Short.TYPE)
+        } else if (targetType == Short.TYPE) {
             return Short.class;
-
-        else if (targetType == Integer.TYPE)
+        } else if (targetType == Integer.TYPE) {
             return Integer.class;
-
-        else if (targetType == Long.TYPE)
+        } else if (targetType == Long.TYPE) {
             return Long.class;
-
-        else if (targetType == Float.TYPE)
+        } else if (targetType == Float.TYPE) {
             return Float.class;
-
-        else if (targetType == Double.TYPE)
+        } else if (targetType == Double.TYPE) {
             return Double.class;
-
-        else
+        } else {
             return targetType;
+        }
     }
 
     /**
@@ -201,29 +208,23 @@ public class ConverterRegistry {
      */
     public static Object getNullDefault(Class targetType) {
 
-        if (targetType == Boolean.TYPE)
+        if (targetType == Boolean.TYPE) {
             return Boolean.FALSE;
-
-        else if (targetType == Character.TYPE)
-            return new Character((char)0);
-
-        else if (targetType == Byte.TYPE)
-            return new Byte((byte)0);
-
-        else if (targetType == Short.TYPE)
-            return new Short((short)0);
-
-        else if (targetType == Integer.TYPE)
+        } else if (targetType == Character.TYPE) {
+            return new Character((char) 0);
+        } else if (targetType == Byte.TYPE) {
+            return new Byte((byte) 0);
+        } else if (targetType == Short.TYPE) {
+            return new Short((short) 0);
+        } else if (targetType == Integer.TYPE) {
             return new Integer(0);
-
-        else if (targetType == Long.TYPE)
+        } else if (targetType == Long.TYPE) {
             return new Long(0);
-
-        else if (targetType == Float.TYPE)
+        } else if (targetType == Float.TYPE) {
             return new Float(0);
-
-        else if (targetType == Double.TYPE)
+        } else if (targetType == Double.TYPE) {
             return new Double(0);
+        }
 
         return null;
     }
@@ -232,6 +233,6 @@ public class ConverterRegistry {
      * Returns a special named converter.
      */
     public Converter getConverter(String converterName) {
-        return (Converter)converterMap.get(converterName);
+        return (Converter) converterMap.get(converterName);
     }
 }

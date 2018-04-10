@@ -63,37 +63,35 @@ import javax.servlet.ServletResponse;
  * @author mirabilos (t.glaser@tarent.de)
  */
 public class DefaultUTF8Filter implements Filter {
-	/**
-	 * Sets the encoding if none is set.
-	 *
-	 * @param request ServletRequest to act upon
-	 * @param response ServletResponse to be created
-	 * @param chain current FilterChain
-	 * @exception IOException if an input/output error occurs
-	 * @exception ServletException if a servlet error occurs
-	 */
-	//@Override
-	public void doFilter(final ServletRequest request,
-	    final ServletResponse response, final FilterChain chain)
-	throws IOException, ServletException
-	{
-		if (request.getCharacterEncoding() == null ||
-		    "".equals(request.getCharacterEncoding()))
-			request.setCharacterEncoding("UTF-8");
+    /**
+     * Sets the encoding if none is set.
+     *
+     * @param request  ServletRequest to act upon
+     * @param response ServletResponse to be created
+     * @param chain    current FilterChain
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
+     */
+    //@Override
+    public void doFilter(final ServletRequest request,
+            final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
+        if (request.getCharacterEncoding() == null ||
+                "".equals(request.getCharacterEncoding())) {
+            request.setCharacterEncoding("UTF-8");
+        }
 
-		/* pass control on to the next filter */
-		chain.doFilter(request, response);
-	}
+        /* pass control on to the next filter */
+        chain.doFilter(request, response);
+    }
 
-	//@Override
-	public void init(FilterConfig config)
-	{
-		/* nothing to do here */
-	}
+    //@Override
+    public void init(FilterConfig config) {
+        /* nothing to do here */
+    }
 
-	//@Override
-	public void destroy()
-	{
-		/* nothing to do here */
-	}
+    //@Override
+    public void destroy() {
+        /* nothing to do here */
+    }
 }

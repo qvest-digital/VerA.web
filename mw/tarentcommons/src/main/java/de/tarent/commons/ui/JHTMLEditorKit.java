@@ -60,12 +60,13 @@ import javax.swing.text.html.HTMLEditorKit;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-public class JHTMLEditorKit extends HTMLEditorKit
-{
-    /** serialVersionUID */
-	private static final long serialVersionUID = 1137520399475537744L;
+public class JHTMLEditorKit extends HTMLEditorKit {
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 1137520399475537744L;
 
-	private JHTMLPanel controller = null;
+    private JHTMLPanel controller = null;
     private Map widgetMap = null;
 
     /**
@@ -87,10 +88,9 @@ public class JHTMLEditorKit extends HTMLEditorKit
      * to the JHTMLPanel implementing class via the componentCreated() method.
      *
      * @param controller HTMLPanel that hosts this HTML panel and acts as a controller for it.
-     * @param widgetMap Map containing name to component associations.
+     * @param widgetMap  Map containing name to component associations.
      */
-    public JHTMLEditorKit(JHTMLPanel controller, Map widgetMap)
-    {
+    public JHTMLEditorKit(JHTMLPanel controller, Map widgetMap) {
         super();
         this.controller = controller;
         this.widgetMap = widgetMap;
@@ -101,8 +101,7 @@ public class JHTMLEditorKit extends HTMLEditorKit
      *
      * @return Our custom ViewFactory.
      */
-    public ViewFactory getViewFactory()
-    {
+    public ViewFactory getViewFactory() {
         return new JHTMLFactory(controller, widgetMap);
     }
 }

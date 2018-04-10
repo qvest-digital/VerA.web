@@ -55,11 +55,15 @@ import java.sql.SQLException;
  * problems in a db layer model of a statement.
  */
 public class SyntaxErrorException extends SQLException {
-    /** The constructor stores an informational message. */
-	public SyntaxErrorException(String msg) {
-		super(msg);
-	}
+    /**
+     * The constructor stores an informational message.
+     */
+    public SyntaxErrorException(String msg) {
+        super(msg);
+    }
 
-    /** serialization UID */
+    /**
+     * serialization UID
+     */
     private static final long serialVersionUID = 3257848787924955441L;
 }

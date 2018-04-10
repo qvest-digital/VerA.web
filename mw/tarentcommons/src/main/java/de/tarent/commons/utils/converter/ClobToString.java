@@ -55,26 +55,29 @@ import java.sql.Clob;
 
 public class ClobToString extends AbstractConverter {
 
-	 public Class getTargetType() {
-	        return String.class;
-	    }
+    public Class getTargetType() {
+        return String.class;
+    }
 
-	    public Class getSourceType() {
-	        return Clob.class;
-	    }
-	public Object doConversion(Object sourceData) throws Exception {
-		if (sourceData == null)
-	        return  "";
+    public Class getSourceType() {
+        return Clob.class;
+    }
 
-	      StringBuffer strOut = new StringBuffer();
-	      String aux;
+    public Object doConversion(Object sourceData) throws Exception {
+        if (sourceData == null) {
+            return "";
+        }
 
-	      BufferedReader br = new BufferedReader(((Clob)sourceData).getCharacterStream());
+        StringBuffer strOut = new StringBuffer();
+        String aux;
 
-	      while ((aux=br.readLine())!=null)
-	             strOut.append(aux);
+        BufferedReader br = new BufferedReader(((Clob) sourceData).getCharacterStream());
 
-	      return strOut.toString();
-	}
+        while ((aux = br.readLine()) != null) {
+            strOut.append(aux);
+        }
+
+        return strOut.toString();
+    }
 
 }

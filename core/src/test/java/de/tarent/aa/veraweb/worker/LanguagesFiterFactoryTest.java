@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -89,7 +90,7 @@ public class LanguagesFiterFactoryTest {
 
         assertEquals(
                 "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) " +
-                 "LIKE veraweb" +
+                        "LIKE veraweb" +
                         ".upper_fix('%Deutsch%'))",
                 klaus.clauseToString());
     }
@@ -102,9 +103,9 @@ public class LanguagesFiterFactoryTest {
 
         assertEquals(
                 "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) " +
-                 "LIKE veraweb" +
+                        "LIKE veraweb" +
                         ".upper_fix('%Deutsch%')) OR (veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%English%') OR " +
-                         "veraweb.upper_fix" +
+                        "veraweb.upper_fix" +
                         "(languages_b_e1) LIKE veraweb.upper_fix('%English%'))",
                 klaus.clauseToString());
     }

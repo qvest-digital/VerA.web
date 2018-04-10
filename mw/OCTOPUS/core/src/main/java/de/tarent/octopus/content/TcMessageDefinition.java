@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,7 @@ import java.util.List;
  * Jeder Parameter wird durch eine TcMessageDefinitionPart Objekt dar gestellt.
  *
  * Eine Ausführlichere Beschreibung des Contextes ist in TcPortDefinition
+ *
  * @see TcPortDefinition
  */
 public class TcMessageDefinition {
@@ -90,6 +92,7 @@ public class TcMessageDefinition {
 
     /**
      * Erzeugt einen neuen Parameter und fügt diesen an.
+     *
      * @param newPart Der neue Parameter
      */
     public TcMessageDefinition addPart(TcMessageDefinitionPart newPart) {
@@ -107,10 +110,12 @@ public class TcMessageDefinition {
 
     /**
      * Erzeugt einen neuen Parameter und fügt diesen an.
-     * @param name Name des Parameters
-     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt werden.
-     * @param description Beschreibung des Parameters
-     * @param optional Flag, ob der Parameter optional sein soll
+     *
+     * @param name         Name des Parameters
+     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt
+     * werden.
+     * @param description  Beschreibung des Parameters
+     * @param optional     Flag, ob der Parameter optional sein soll
      */
     public TcMessageDefinition addPart(String name, String partDataType, String description, boolean optional) {
         addPart(new TcMessageDefinitionPart(name, partDataType, description, optional));
@@ -120,9 +125,11 @@ public class TcMessageDefinition {
     /**
      * Erzeugt einen neuen Parameter und fügt diesen an.
      * Optional wird auf false gesetzt.
-     * @param name Name des Parameters
-     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt werden.
-     * @param description Beschreibung des Parameters
+     *
+     * @param name         Name des Parameters
+     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt
+     * werden.
+     * @param description  Beschreibung des Parameters
      */
     public TcMessageDefinition addPart(String name, String partDataType, String description) {
         addPart(name, partDataType, description, false);
@@ -131,6 +138,7 @@ public class TcMessageDefinition {
 
     /**
      * Fügt eine Liste von neuen Parametern an.
+     *
      * @param addParts Vector mit Elementen vom Type TcMessageDefinitionPart
      */
     public TcMessageDefinition addParts(List addParts) {
@@ -143,6 +151,7 @@ public class TcMessageDefinition {
 
     /**
      * Liefert die TcMessageDefinitionParts. Also die Parameter dieser Message
+     *
      * @return Vector mit TcMessageDefinitionPart Objekten
      */
     public List getParts() {
@@ -151,14 +160,16 @@ public class TcMessageDefinition {
 
     /**
      * Liefert die den TcMessageDefinitionPart mit dem entsprechenden Namen.
+     *
      * @return TcMessageDefinitionPart mit dem Namen oder NULL,
-     *        wenn es keinen solchen gibt.
+     * wenn es keinen solchen gibt.
      */
     public TcMessageDefinitionPart getPartByName(String partName) {
         for (int i = 0; i < parts.size(); i++) {
             TcMessageDefinitionPart curr = (TcMessageDefinitionPart) parts.get(i);
-            if (curr.getName().equals(partName))
+            if (curr.getName().equals(partName)) {
                 return curr;
+            }
         }
         return null;
     }

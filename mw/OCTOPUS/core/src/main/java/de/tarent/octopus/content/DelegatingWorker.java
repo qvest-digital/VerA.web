@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Interface für Wrapperklassen von Workern,
  * um eine einheitliche Schnittstelle für das Liefern des Delegate zu bieten.
@@ -57,5 +58,5 @@ public interface DelegatingWorker {
     /**
      * Returns the target Worker
      */
-	public Object getWorkerDelegate();
+    public Object getWorkerDelegate();
 }

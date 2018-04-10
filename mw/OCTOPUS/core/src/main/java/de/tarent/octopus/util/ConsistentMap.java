@@ -47,6 +47,7 @@ package de.tarent.octopus.util;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.*;
 
 /**
@@ -55,11 +56,11 @@ import java.util.*;
  */
 public class ConsistentMap extends HashMap {
     /**
-	 * serialVersionUID = -7508966936670839920L
-	 */
-	private static final long serialVersionUID = -7508966936670839920L;
+     * serialVersionUID = -7508966936670839920L
+     */
+    private static final long serialVersionUID = -7508966936670839920L;
 
-	LinkedHashSet orderedKeySet = new LinkedHashSet();
+    LinkedHashSet orderedKeySet = new LinkedHashSet();
 
     public ConsistentMap() {
         super();

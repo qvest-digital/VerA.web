@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.request.TcRequest;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class TcContentWorkerHelper {
      *
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
+     * @param key       Schlüssel des gesuchten Parameters
      * @return Wert des Parameters
      */
     public static Object getParam(TcRequest tcRequest, TcContent tcContent, String key) {
@@ -79,22 +80,24 @@ public class TcContentWorkerHelper {
      *
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
+     * @param key       Schlüssel des gesuchten Parameters
      * @return Wert des Parameters
      */
     public static List getParamAsList(TcRequest tcRequest, TcContent tcContent, String key) {
         Object param = tcContent.get(key);
-        if (param == null)
+        if (param == null) {
             param = tcRequest.getParam(key);
+        }
         List result = null;
-        if (param instanceof List)
+        if (param instanceof List) {
             result = (List) param;
-        else if (param instanceof Object[])
+        } else if (param instanceof Object[]) {
             result = Arrays.asList((Object[]) param);
-        else {
+        } else {
             result = new ArrayList();
-            if (param != null)
+            if (param != null) {
                 result.add(param);
+            }
         }
         return result;
     }
@@ -105,7 +108,7 @@ public class TcContentWorkerHelper {
      *
      * @param tcRequest Request-Objekt
      * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
+     * @param key       Schlüssel des gesuchten Parameters
      * @return Wert des Parameters
      */
     public static String getParamAsString(TcRequest tcRequest, TcContent tcContent, String key) {
@@ -117,19 +120,20 @@ public class TcContentWorkerHelper {
      * Diese Methode liefert einen Parameter als int, wobei zunächst im
      * Content, dann im Request gesucht wird.
      *
-     * @param tcRequest Request-Objekt
-     * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
+     * @param tcRequest    Request-Objekt
+     * @param tcContent    Content-Objekt
+     * @param key          Schlüssel des gesuchten Parameters
      * @param defaultValue default-Wert für den Parameter
      * @return Wert des Parameters
      */
     public static int getParamAsInt(TcRequest tcRequest, TcContent tcContent, String key, int defaultValue) {
         String stringVal = getParamAsString(tcRequest, tcContent, key);
-        if (stringVal != null)
+        if (stringVal != null) {
             try {
                 return Integer.parseInt(stringVal);
             } catch (NumberFormatException e) {
             }
+        }
         return defaultValue;
     }
 
@@ -137,26 +141,26 @@ public class TcContentWorkerHelper {
      * Diese Methode liefert einen Parameter als boolean, wobei zunächst im
      * Content, dann im Request gesucht wird.
      *
-     * @param tcRequest Request-Objekt
-     * @param tcContent Content-Objekt
-     * @param key Schlüssel des gesuchten Parameters
+     * @param tcRequest    Request-Objekt
+     * @param tcContent    Content-Objekt
+     * @param key          Schlüssel des gesuchten Parameters
      * @param defaultValue default-Wert für den Parameter
      * @return Wert des Parameters
      */
     public static boolean getParamAsBoolean(
-        TcRequest tcRequest,
-        TcContent tcContent,
-        String key,
-        boolean defaultValue) {
+            TcRequest tcRequest,
+            TcContent tcContent,
+            String key,
+            boolean defaultValue) {
         String stringVal = getParamAsString(tcRequest, tcContent, key);
-        if (stringVal != null)
+        if (stringVal != null) {
             return Boolean.valueOf(stringVal).booleanValue();
+        }
         return defaultValue;
     }
 
     /**
      * Dieser private Konstruktor verbietet das instanziieren dieser Klasse.
-     *
      */
     private TcContentWorkerHelper() {
         super();

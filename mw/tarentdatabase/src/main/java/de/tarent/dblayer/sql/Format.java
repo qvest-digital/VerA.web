@@ -64,7 +64,7 @@ public final class Format {
      * This date format is used by the {@link #defaultFormat(Object)} method
      * to create a string representation of a date in PostgresQL SQL statements.
      */
-	static public final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static public final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * This method formats a value for the PostgresQL Database System. It handels Character,
@@ -74,7 +74,7 @@ public final class Format {
      * @deprecated Use {@link SQL#format(DBContext, Object)} instead
      */
     static public final String format(Object value) {
-	return defaultFormat(value);
+        return defaultFormat(value);
     }
 
     /**
@@ -83,20 +83,20 @@ public final class Format {
      * their respective <code>toString()</code> method.
      */
     static protected final String defaultFormat(Object value) {
-	if (value instanceof String || value instanceof Character) {
-	    String val = String.valueOf(value);
-		StringBuffer buffer = new StringBuffer(val.length() + 10).append('\'');
-	    return Escaper.escape(buffer, val).append('\'').toString();
-	}
-	else if (value == null)
-			return null;
-		else if (value instanceof Boolean)
-			return ((Boolean)value).booleanValue() ? "1" : "0";
-	else if (value instanceof Date)
-	    return "'" + DF.format(value) + "'";
-	else if (value instanceof Statement)
-	    return "(" + value.toString() + ")";
-	else
-	    return value.toString();
+        if (value instanceof String || value instanceof Character) {
+            String val = String.valueOf(value);
+            StringBuffer buffer = new StringBuffer(val.length() + 10).append('\'');
+            return Escaper.escape(buffer, val).append('\'').toString();
+        } else if (value == null) {
+            return null;
+        } else if (value instanceof Boolean) {
+            return ((Boolean) value).booleanValue() ? "1" : "0";
+        } else if (value instanceof Date) {
+            return "'" + DF.format(value) + "'";
+        } else if (value instanceof Statement) {
+            return "(" + value.toString() + ")";
+        } else {
+            return value.toString();
+        }
     }
 }

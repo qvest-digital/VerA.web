@@ -47,6 +47,7 @@ package de.tarent.octopus.jndi;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.Hashtable;
 
 import javax.naming.Context;
@@ -71,90 +72,92 @@ import de.tarent.octopus.logging.LogFactory;
  * im Verzeichnis <code>webapp/WEB-INF</code>.
  */
 public abstract class AbstractJndiFactory implements ObjectFactory {
-	protected Log logger = LogFactory.getLog(getClass());
+    protected Log logger = LogFactory.getLog(getClass());
 
-	/**
-	 * Currently only support the apache tomcat (and maby more servlet container?)
-	 * as JNDI context provider. See
-	 * <code>http://tomcat.apache.org/tomcat-5.5-doc/jndi-resources-howto.html</code>
-	 * for more informations about this configuration.
-	 *
-	 * @return naming context
-	 */
-	protected Context getContext() {
-		try {
-			return (Context) new InitialContext().lookup("java:comp/env");
-		} catch (NamingException e) {
-			logger.info("No JNDI context available. Can not bind context '" + getLookupPath() + "'.", e);
-			return null;
-		}
-	}
+    /**
+     * Currently only support the apache tomcat (and maby more servlet container?)
+     * as JNDI context provider. See
+     * <code>http://tomcat.apache.org/tomcat-5.5-doc/jndi-resources-howto.html</code>
+     * for more informations about this configuration.
+     *
+     * @return naming context
+     */
+    protected Context getContext() {
+        try {
+            return (Context) new InitialContext().lookup("java:comp/env");
+        } catch (NamingException e) {
+            logger.info("No JNDI context available. Can not bind context '" + getLookupPath() + "'.", e);
+            return null;
+        }
+    }
 
-	public boolean bind() {
-		Context context = getContext();
-		if (context == null)
-			return false;
+    public boolean bind() {
+        Context context = getContext();
+        if (context == null) {
+            return false;
+        }
 
-		try {
-			context.addToEnvironment(Context.OBJECT_FACTORIES, getClass().getName());
-		} catch (NamingException e) {
-			logger.warn(
-					"Can not add current class '" + getClass().getName() + "' " +
-					"to the object factory list.");
-		}
+        try {
+            context.addToEnvironment(Context.OBJECT_FACTORIES, getClass().getName());
+        } catch (NamingException e) {
+            logger.warn(
+                    "Can not add current class '" + getClass().getName() + "' " +
+                            "to the object factory list.");
+        }
 
-		try {
-			Object object = context.lookup(getLookupPath());
-			if (object != null && object.getClass().getName().equals(getClass().getName())) {
-				logger.info(
-						"JNDI context available. " +
-						"Context '" + getLookupPath() + "' already binded.");
-				return true;
-			} else if (object != null) {
-				logger.info(
-						"JNDI context available. " +
-						"Wrong class '" + object.getClass().getName() + "' " +
-						"for context '" + getLookupPath() + "' binded, will rebind it now.");
-			} else {
-				logger.info(
-						"JNDI context available. " +
-						"Context '" + getLookupPath() + "' not binded yet, will do it now.");
-			}
-		} catch (NamingException e) {
-			logger.info(
-					"JNDI context available. " +
-					"Exception '" + e.getLocalizedMessage() + "' while lookup " +
-					"context '" + getLookupPath() + "' catched, will rebind it now.");
-		}
+        try {
+            Object object = context.lookup(getLookupPath());
+            if (object != null && object.getClass().getName().equals(getClass().getName())) {
+                logger.info(
+                        "JNDI context available. " +
+                                "Context '" + getLookupPath() + "' already binded.");
+                return true;
+            } else if (object != null) {
+                logger.info(
+                        "JNDI context available. " +
+                                "Wrong class '" + object.getClass().getName() + "' " +
+                                "for context '" + getLookupPath() + "' binded, will rebind it now.");
+            } else {
+                logger.info(
+                        "JNDI context available. " +
+                                "Context '" + getLookupPath() + "' not binded yet, will do it now.");
+            }
+        } catch (NamingException e) {
+            logger.info(
+                    "JNDI context available. " +
+                            "Exception '" + e.getLocalizedMessage() + "' while lookup " +
+                            "context '" + getLookupPath() + "' catched, will rebind it now.");
+        }
 
-		try {
-			context.rebind(getLookupPath(), this);
-			logger.info("JNDI context '" + getLookupPath() + "' successful binded.");
-			return true;
-		} catch (NamingException e) {
-			logger.info("JNDI context available, but can not bind context '" + getLookupPath() + "'.");
-			return false;
-		}
-	}
+        try {
+            context.rebind(getLookupPath(), this);
+            logger.info("JNDI context '" + getLookupPath() + "' successful binded.");
+            return true;
+        } catch (NamingException e) {
+            logger.info("JNDI context available, but can not bind context '" + getLookupPath() + "'.");
+            return false;
+        }
+    }
 
-	public boolean unbind() {
-		Context context = getContext();
-		if (context == null)
-			return false;
+    public boolean unbind() {
+        Context context = getContext();
+        if (context == null) {
+            return false;
+        }
 
-		try {
-			context.unbind(getLookupPath());
-			logger.info("JNDI context '" + getLookupPath() + "' successful unbinded.");
-			return true;
-		} catch (NamingException e) {
-			logger.error("JNDI context available, but can not unbind context '" + getLookupPath() + "'.", e);
-			return false;
-		}
-	}
+        try {
+            context.unbind(getLookupPath());
+            logger.info("JNDI context '" + getLookupPath() + "' successful unbinded.");
+            return true;
+        } catch (NamingException e) {
+            logger.error("JNDI context available, but can not unbind context '" + getLookupPath() + "'.", e);
+            return false;
+        }
+    }
 
-	abstract protected String getLookupPath();
+    abstract protected String getLookupPath();
 
-	public Object getObjectInstance(Object object, Name name, Context context, Hashtable environment) throws Exception {
-		return this;
-	}
+    public Object getObjectInstance(Object object, Name name, Context context, Hashtable environment) throws Exception {
+        return this;
+    }
 }

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -95,12 +96,12 @@ import java.util.Date;
 @NamedNativeQueries(value = {
         @NamedNativeQuery(name = "Person.getDelegatesByUUID",
                 query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid " +
-                 "AND tperson" +
+                        "AND tperson" +
                         ".iscompany='f'",
                 resultClass = Person.class),
         @NamedNativeQuery(name = "Person.getCompanyByUUID",
                 query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid " +
-                 "AND tperson" +
+                        "AND tperson" +
                         ".iscompany='t'",
                 resultClass = Person.class),
         @NamedNativeQuery(name = "Person.getPersonNamesByUsername", query = "SELECT CASE WHEN iscompany='t' THEN company_a_e1 " +

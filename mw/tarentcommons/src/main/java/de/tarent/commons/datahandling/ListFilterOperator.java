@@ -57,12 +57,14 @@ import java.util.Arrays;
  * It will be used by {@link de.tarent.commons.datahandling.ListFilterProvider}
  * in order to distinguish and handle the filter elements inside the list, that represents a filter.
  * <p>
+ *
  * @see de.tarent.commons.datahandling.ListFilterProvider#getFilterList()
  * <p>
  */
 public class ListFilterOperator {
 
-    protected static final List VALID_OPERATOR_SYMBOLS = Arrays.asList(new String[]{"=", "!=", "<", ">", "IN", "LIKE", "ILIKE", "IS NULL", "AND", "OR", "NOT"});
+    protected static final List VALID_OPERATOR_SYMBOLS =
+            Arrays.asList(new String[] { "=", "!=", "<", ">", "IN", "LIKE", "ILIKE", "IS NULL", "AND", "OR", "NOT" });
 
     //TODO: remove if no dependences and use objects instead.
     public static final String OPERATOR_EQ = "=";
@@ -94,26 +96,33 @@ public class ListFilterOperator {
 
     /**
      * Constructor with an operator string.
-     * Only the preefined types are allowed. It is not possible to make a real enum of this, because apache-axis needs the String Contructor.
+     * Only the preefined types are allowed. It is not possible to make a real enum of this, because apache-axis needs the
+     * String Contructor.
      */
     public ListFilterOperator(String anOperator) {
-        if (!VALID_OPERATOR_SYMBOLS.contains(anOperator))
-            throw new IllegalArgumentException(anOperator +"is not a valid operator. Ony the predefined operators are allowed: "+VALID_OPERATOR_SYMBOLS);
+        if (!VALID_OPERATOR_SYMBOLS.contains(anOperator)) {
+            throw new IllegalArgumentException(
+                    anOperator + "is not a valid operator. Ony the predefined operators are allowed: " + VALID_OPERATOR_SYMBOLS);
+        }
         operator = anOperator;
     }
 
     /**
      * Returns a count of operands required for a given operator.
+     *
      * @return '1' if NOT or IS_NULL operator and '2' else.
      */
     public int getConsumingArsg() {
         if (NOT.operator.equals(operator)
-            || IS_NULL.operator.equals(operator))
+                || IS_NULL.operator.equals(operator)) {
             return 1;
+        }
         return 2;
     }
 
-    /** Checks if this operator is a connection operator.
+    /**
+     * Checks if this operator is a connection operator.
+     *
      * @return 'true' if is one of the following operators: AND, OR, NOT.
      */
     public boolean isConnectionOperator() {
@@ -126,7 +135,9 @@ public class ListFilterOperator {
         return (o instanceof ListFilterOperator) && o.toString().equals(operator);
     }
 
-    /** Returns a string representation of an encapsulated operator.*/
+    /**
+     * Returns a string representation of an encapsulated operator.
+     */
     public String toString() {
         return operator;
     }

@@ -47,6 +47,7 @@ package de.tarent.octopus.xmlrpc;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -70,25 +71,29 @@ import de.tarent.octopus.soap.TcSOAPException;
  */
 public class XmlRpcEngine {
 
-    /** Logger für diese Klasse */
+    /**
+     * Logger für diese Klasse
+     */
     private static Log logger = LogFactory.getLog(XmlRpcEngine.class);
 
     /**
      * Diese Methode analysiert eine XML-RPC-Anfrage.
      *
-     * @param inStream die XmlRPC-Anfrage
+     * @param inStream    die XmlRPC-Anfrage
      * @param requestType der Anfragetyp
-     * @param requestID die Anfrage-ID
+     * @param requestID   die Anfrage-ID
      * @return ein generiertes Anfrage-Objekt
      * @throws TcSOAPException
      */
     public static TcRequest[] readXmlRpcRequests(InputStream inStream, int requestType, String requestID) throws TcSOAPException {
-        logger.trace(XmlRpcEngine.class.getName() + " readXmlRpcRequests " + new Object[] {inStream, new Integer(requestType), requestID});
+        logger.trace(XmlRpcEngine.class.getName() + " readXmlRpcRequests " +
+                new Object[] { inStream, new Integer(requestType), requestID });
 
         XmlRpcRequest xmlRpcRequest = null;
 
         try {
-            XmlRpcRequestProcessor requestProcessor = new XmlRpcRequestProcessor() {};
+            XmlRpcRequestProcessor requestProcessor = new XmlRpcRequestProcessor() {
+            };
             xmlRpcRequest = requestProcessor.processRequest(inStream);
         } catch (Exception e) {
             throw new TcSOAPException(e);
@@ -98,8 +103,9 @@ public class XmlRpcEngine {
         List paramList = xmlRpcRequest.getParameters();
         if (paramList != null && paramList.size() > 0) {
             Iterator itParams = paramList.iterator();
-            for(int i=0; itParams.hasNext(); i++)
+            for (int i = 0; itParams.hasNext(); i++) {
                 params.put(String.valueOf(i), itParams.next());
+            }
         }
 
         Pattern pattern = Pattern.compile("[{]([^}]*)[}](.*)");
@@ -110,17 +116,20 @@ public class XmlRpcEngine {
         if (matcher.matches()) {
             module = matcher.group(1);
             method = matcher.group(2);
-        } else
+        } else {
             method = xmlRpcRequest.getMethodName();
+        }
 
         TcRequest octRequest = new TcRequest(requestID);
         octRequest.setRequestType(requestType);
         octRequest.setRequestParameters(params);
-        if (method != null && method.length() > 0)
+        if (method != null && method.length() > 0) {
             octRequest.setTask(method);
-        if (module != null && module.length() > 0)
+        }
+        if (module != null && module.length() > 0) {
             octRequest.setModule(module);
+        }
 
-        return new TcRequest[] {octRequest};
+        return new TcRequest[] { octRequest };
     }
 }

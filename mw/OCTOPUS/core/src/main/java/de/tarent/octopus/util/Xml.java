@@ -47,6 +47,7 @@ package de.tarent.octopus.util;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,7 +78,9 @@ import org.xml.sax.SAXException;
 import de.tarent.octopus.logging.LogFactory;
 
 public class Xml {
-    /** Der Logger */
+    /**
+     * Der Logger
+     */
     private static Log logger = LogFactory.getLog(Xml.class);
     private static TransformerFactory tFactory = null;
 
@@ -91,13 +94,14 @@ public class Xml {
     }
 
     public static void doXsltTransformation(Source xmlSource, Source xsltSource, Result output)
-        throws TransformerConfigurationException, TransformerException {
+            throws TransformerConfigurationException, TransformerException {
         Transformer transformer = getXSLTTransformer(xsltSource);
         logger.trace("transformiere XML-Objekt");
         transformer.transform(xmlSource, output);
     }
 
-    public static Document getParsedDocument(String filename) throws SAXException, IOException, ParserConfigurationException, FactoryConfigurationError {
+    public static Document getParsedDocument(String filename)
+            throws SAXException, IOException, ParserConfigurationException, FactoryConfigurationError {
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(filename);
     }
 
@@ -118,8 +122,9 @@ public class Xml {
 
     public static Element getFirstChildElement(Node node) {
         Node next = node.getFirstChild();
-        while (next != null && next.getNodeType() != Node.ELEMENT_NODE)
+        while (next != null && next.getNodeType() != Node.ELEMENT_NODE) {
             next = next.getNextSibling();
+        }
         return (Element) next;
     }
 
@@ -128,15 +133,17 @@ public class Xml {
      */
     public static Element getNextSiblingElement(Node node) {
         Node next = node.getNextSibling();
-        while (next != null && next.getNodeType() != Node.ELEMENT_NODE)
+        while (next != null && next.getNodeType() != Node.ELEMENT_NODE) {
             next = next.getNextSibling();
+        }
         return (Element) next;
     }
 
     public static Element getFirstChildOrSiblingElement(Node node) {
         Element child = getFirstChildElement(node);
-        if (child != null)
+        if (child != null) {
             return child;
+        }
         return getNextSiblingElement(node);
     }
 
@@ -145,17 +152,16 @@ public class Xml {
      *
      * @param parentNode Dom Knoten, der 'param' Elemente mit den 'name' und 'value' Attributen als Kinder hat.
      *                   Das 'value' Attribut kann alternativ auch als nested 'value' Element angegeben werden.
-     * 					 <ul>
+     *                   <ul>
      *                   <li>Wenn das Attribut type=array ist, kann es auch eine Liste von 'value' Kindern haben,
-     * 			 	           die dann in einem Vector abgelegt werden.</li>
+     *                   die dann in einem Vector abgelegt werden.</li>
      *
-     * 					   <li>Wenn das Attribut type=map ist, können wieder Param-Elemente
-     *                       darin enthalten sein, die dann als Map zurück geliefert werden.</li>
+     *                   <li>Wenn das Attribut type=map ist, können wieder Param-Elemente
+     *                   darin enthalten sein, die dann als Map zurück geliefert werden.</li>
      *
-     * 					   <li>Anstatt des value Attributes kann es auch ein refvalue haben, dass dann in
-     *                         dem entsprechenden Kontext aufzulösen ist.</li>
-     *                 </ul>
-     *
+     *                   <li>Anstatt des value Attributes kann es auch ein refvalue haben, dass dann in
+     *                   dem entsprechenden Kontext aufzulösen ist.</li>
+     *                   </ul>
      * @return Map mit Strings als Keys und Values
      */
     public static Map getParamMap(Node parentNode) throws DataFormatException {
@@ -180,8 +186,9 @@ public class Xml {
      */
     public static String getParamName(Element paramElement) throws DataFormatException {
         String name = paramElement.getAttribute("name");
-        if ("".equals(name))
+        if ("".equals(name)) {
             throw new DataFormatException("Ein 'param' Element muss ein nicht leeres 'name' Attribut haben ");
+        }
         return name;
     }
 
@@ -199,12 +206,11 @@ public class Xml {
             for (int j = 0; j < paramChilds.getLength(); j++) {
                 Node valueChild = paramChilds.item(j);
                 if (valueChild instanceof Element) {
-                    Element valueChildElement = (Element)paramChilds.item(j);
+                    Element valueChildElement = (Element) paramChilds.item(j);
                     if ("value".equals(valueChildElement.getTagName())) {
                         String value = valueChild.getFirstChild().getNodeValue();
                         values.add(value);
-                    }
-                    else if ("param".equals(valueChildElement.getTagName())) {
+                    } else if ("param".equals(valueChildElement.getTagName())) {
                         values.add(getParamValue(valueChildElement));
                     }
                 }
@@ -239,7 +245,8 @@ public class Xml {
                     }
                     return value;
                 } catch (NullPointerException npe) {
-                    throw new DataFormatException("Das 'param' Element '" + paramElement.getAttribute("name") + "' muss ein 'value' Attribut oder nested Element haben.");
+                    throw new DataFormatException("Das 'param' Element '" + paramElement.getAttribute("name") +
+                            "' muss ein 'value' Attribut oder nested Element haben.");
                 }
             } else {
                 return new ParamReference(refvalue);
@@ -255,13 +262,24 @@ public class Xml {
         StringBuffer buffer = new StringBuffer();
         if (source != null) {
             for (int index = 0; index < source.length(); index++) {
-                switch(source.charAt(index)) {
-                case '&': buffer.append("&amp;");  break;
-                case '<': buffer.append("&lt;");   break;
-                case '>': buffer.append("&gt;");   break;
-                case '"': buffer.append("&quot;"); break;
-                case '\'': buffer.append("&apos;"); break;
-                default:  buffer.append(source.charAt(index));
+                switch (source.charAt(index)) {
+                case '&':
+                    buffer.append("&amp;");
+                    break;
+                case '<':
+                    buffer.append("&lt;");
+                    break;
+                case '>':
+                    buffer.append("&gt;");
+                    break;
+                case '"':
+                    buffer.append("&quot;");
+                    break;
+                case '\'':
+                    buffer.append("&apos;");
+                    break;
+                default:
+                    buffer.append(source.charAt(index));
                 }
             }
         }

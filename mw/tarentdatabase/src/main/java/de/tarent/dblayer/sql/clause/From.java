@@ -73,38 +73,50 @@ public class From extends SetDbContextImpl implements Clause {
     //
     // protected members
     //
-    /** this list contains the tables of this <code>FROM</code> clause */
+    /**
+     * this list contains the tables of this <code>FROM</code> clause
+     */
     ArrayList _tables = new ArrayList();
     HashMap tableLabels = new HashMap();
 
     //
     // public constants
     //
-    /** the String "<code> FROM </code>" */
-	final static public String FROM = " FROM ";
+    /**
+     * the String "<code> FROM </code>"
+     */
+    final static public String FROM = " FROM ";
 
     //
     // public methods
     //
-    /** This method adds a table for this <code>FROM</code> clause. */
-	public void addTable(String table) {
-		_tables.add(table);
-	}
 
-	/** This method adds a table for this <code>FROM</code> clause. */
-	public void addTable(String table, String label) {
-		_tables.add(table);
-		tableLabels.put(table, label);
-	}
+    /**
+     * This method adds a table for this <code>FROM</code> clause.
+     */
+    public void addTable(String table) {
+        _tables.add(table);
+    }
 
-    /** This method returns the number of tables in this <code>FROM</code> clause. */
+    /**
+     * This method adds a table for this <code>FROM</code> clause.
+     */
+    public void addTable(String table, String label) {
+        _tables.add(table);
+        tableLabels.put(table, label);
+    }
+
+    /**
+     * This method returns the number of tables in this <code>FROM</code> clause.
+     */
     public int size() {
-	return _tables.size();
+        return _tables.size();
     }
 
     //
     // interface {@link Clause}
     //
+
     /**
      * This method generates a string representation of the clause model
      * for use in SQL statements.<br>
@@ -114,11 +126,11 @@ public class From extends SetDbContextImpl implements Clause {
      * a PostgresQL DBMS.
      *
      * @return string representation of the clause model
-	 * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
+     * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()
      * @deprecated use {@link #clauseToString(DBContext)} instead
-	 */
-	public String clauseToString() {
-	return clauseToString(getDBContext());
+     */
+    public String clauseToString() {
+        return clauseToString(getDBContext());
     }
 
     /**
@@ -130,33 +142,34 @@ public class From extends SetDbContextImpl implements Clause {
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString(de.tarent.dblayer.engine.DBContext)
      */
     public String clauseToString(DBContext dbContext) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(FROM);
-		for (Iterator it = _tables.iterator();it.hasNext();) {
-			String tablename = (String)it.next();
-			sb.append(tablename);
-			if (tableLabels.get(tablename) != null)
-				sb.append(" " + tableLabels.get(tablename).toString());
-			if (it.hasNext()) {
-				sb.append(", ");
-			}
-		}
-		return sb.toString();
-	}
+        StringBuffer sb = new StringBuffer();
+        sb.append(FROM);
+        for (Iterator it = _tables.iterator(); it.hasNext(); ) {
+            String tablename = (String) it.next();
+            sb.append(tablename);
+            if (tableLabels.get(tablename) != null) {
+                sb.append(" " + tableLabels.get(tablename).toString());
+            }
+            if (it.hasNext()) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
+    }
 
     /**
      * Returns an independent clone of this statement.
+     *
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-	try {
-	    From theClone = (From)super.clone();
-	    theClone._tables = (ArrayList)_tables.clone();
-	    theClone.tableLabels = (HashMap) tableLabels.clone();
-	    return theClone;
-	}
-	catch(CloneNotSupportedException e) {
-		throw new InternalError();
-	}
+        try {
+            From theClone = (From) super.clone();
+            theClone._tables = (ArrayList) _tables.clone();
+            theClone.tableLabels = (HashMap) tableLabels.clone();
+            return theClone;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
     }
 }

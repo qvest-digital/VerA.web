@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Person;
@@ -138,15 +139,15 @@ public class GuestWorker {
                     + "select p.pk as fk_person, {0} as fk_event, 0 as fk_category, "
                     +
                     "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as " +
-                     "reserve, 0 as " +
+                    "reserve, 0 as " +
                     "delegation, "
                     +
                     "p.notehost_a_e1 as notehost, p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as " +
-                     "gender, "
+                    "gender, "
                     + "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
                     +
                     "invitationstatus_p, p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as " +
-                     "language_p, "
+                    "language_p, "
                     + "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
                     + "''{1}'' as createdby, current_timestamp as created, p.username as osiam_login from tperson p "
                     + "where p.pk in ({2}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
@@ -364,7 +365,7 @@ public class GuestWorker {
                     + "select p.pk as fk_person, {0} as fk_event, g.fk_category as fk_category,"
                     +
                     " CASE WHEN {1} <> g.invitationtype AND {1} <> {2} THEN g.invitationtype ELSE {1} END as invitationtype, 0 " +
-                     "as invitationstatus, "
+                    "as invitationstatus, "
                     + "0 as ishost, p.diplodate_a_e1 as diplodate, g.rank as rank, g.reserve as reserve, "
                     + "g.tableno as tableno, g.seatno as seatno, g.orderno as orderno, p.notehost_a_e1 as notehost, "
                     + "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
@@ -374,9 +375,9 @@ public class GuestWorker {
                     + "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
                     +
                     "''{3}'' as createdby, current_timestamp as created, g.delegation as delegation, g.osiam_login as " +
-                     "osiam_login, g" +
+                    "osiam_login, g" +
                     ".login_required_uuid as login_required_uuid, g.image_uuid as image_uuid, g.image_uuid_p as image_uuid_p, g" +
-                     ".keywords as " +
+                    ".keywords as " +
                     "keywords from tperson p "
                     + "left join tguest g on p.pk = g.fk_person and g.fk_event = {4} "
                     + "where p.pk in (select g.fk_person from tguest g "

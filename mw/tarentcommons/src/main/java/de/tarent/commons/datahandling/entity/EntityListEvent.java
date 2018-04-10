@@ -54,15 +54,17 @@ import java.util.EventObject;
  * this class implements an Event to handle EntityListEvents
  * An EntityListEvent can be of the type INSERT, DELETE or UPDATE,
  * the type has to be specified in the contructor
- * @author Steffi Tinder, tarent GmbH
  *
+ * @author Steffi Tinder, tarent GmbH
  */
 
 public class EntityListEvent extends EventObject {
-    /** serialVersionUID */
-	private static final long serialVersionUID = 3997106056581798888L;
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 3997106056581798888L;
 
-	public final static int INSERT = 0;
+    public final static int INSERT = 0;
     public final static int DELETE = 1;
     public final static int UPDATE = 2;
 
@@ -90,7 +92,7 @@ public class EntityListEvent extends EventObject {
         return lastRow;
     }
 
-    public int getType(){
+    public int getType() {
         return type;
     }
 }

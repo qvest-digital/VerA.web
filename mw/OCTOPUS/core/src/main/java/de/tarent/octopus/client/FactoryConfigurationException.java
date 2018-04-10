@@ -47,18 +47,17 @@ package de.tarent.octopus.client;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
- *
- *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class FactoryConfigurationException extends RuntimeException {
     /**
-	 * serialVersionUID = 5571742019254783113L
-	 */
-	private static final long serialVersionUID = 5571742019254783113L;
+     * serialVersionUID = 5571742019254783113L
+     */
+    private static final long serialVersionUID = 5571742019254783113L;
 
-	public FactoryConfigurationException(String msg, Exception e) {
+    public FactoryConfigurationException(String msg, Exception e) {
         super(msg, e);
     }
 }

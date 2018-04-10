@@ -67,8 +67,7 @@ import javax.swing.text.html.HTMLEditorKit.HTMLFactory;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-public class JHTMLFactory extends HTMLFactory implements ViewFactory
-{
+public class JHTMLFactory extends HTMLFactory implements ViewFactory {
     private JHTMLPanel controller = null;
     private Map widgetMap = null;
 
@@ -77,10 +76,9 @@ public class JHTMLFactory extends HTMLFactory implements ViewFactory
      *
      * @param controller The controlling HTMLPanel.
      */
-    public JHTMLFactory(JHTMLPanel controller, Map widgetMap)
-    {
+    public JHTMLFactory(JHTMLPanel controller, Map widgetMap) {
         super();
-        this.controller  = controller;
+        this.controller = controller;
         this.widgetMap = widgetMap;
     }
 
@@ -92,13 +90,13 @@ public class JHTMLFactory extends HTMLFactory implements ViewFactory
      * @param elem Element to be created.
      * @return FormView of element.
      */
-    public View create(Element elem)
-    {
+    public View create(Element elem) {
         Object o = elem.getAttributes().getAttribute(StyleConstants.NameAttribute);
 
-        if (o == HTML.Tag.INPUT || o == HTML.Tag.SELECT || o == HTML.Tag.TEXTAREA || o instanceof HTML.UnknownTag)
+        if (o == HTML.Tag.INPUT || o == HTML.Tag.SELECT || o == HTML.Tag.TEXTAREA || o instanceof HTML.UnknownTag) {
             return new JHTMLFormView(elem, controller, widgetMap);
-        else
+        } else {
             return super.create(elem);
+        }
     }
 }

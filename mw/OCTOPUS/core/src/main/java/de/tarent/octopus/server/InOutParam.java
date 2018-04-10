@@ -47,6 +47,7 @@ package de.tarent.octopus.server;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Wrapper um ein CallByReference in Java zu realisieren.
  * TODO: Mit JDK 1.5 durch einen Generic-Type ersetzen, um nicht mehr Casten zu müssen.
@@ -55,6 +56,7 @@ package de.tarent.octopus.server;
  * @version 1.0
  */
 public interface InOutParam {
-	public Object get();
-	public void set(Object newData);
+    public Object get();
+
+    public void set(Object newData);
 }

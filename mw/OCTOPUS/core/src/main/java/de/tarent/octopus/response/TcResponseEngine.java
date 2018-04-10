@@ -47,6 +47,7 @@ package de.tarent.octopus.response;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
@@ -61,8 +62,9 @@ import de.tarent.octopus.request.TcResponse;
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
 public interface TcResponseEngine {
-    public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc, TcRequest request)
-        throws ResponseProcessingException;
+    public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
+            TcRequest request)
+            throws ResponseProcessingException;
 
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig);
 }

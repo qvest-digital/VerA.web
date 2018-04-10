@@ -60,6 +60,6 @@ public class StringToDouble extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) throws NumberFormatException {
-        return new Double((String)sourceData);
+        return new Double((String) sourceData);
     }
 }

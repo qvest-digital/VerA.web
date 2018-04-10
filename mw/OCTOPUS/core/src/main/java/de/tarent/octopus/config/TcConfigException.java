@@ -47,6 +47,7 @@ package de.tarent.octopus.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.util.RootCauseException;
 
 /**
@@ -54,11 +55,11 @@ import de.tarent.octopus.util.RootCauseException;
  */
 public class TcConfigException extends Exception implements RootCauseException {
     /**
-	 * serialVersionUID = -1986281111385526822L
-	 */
-	private static final long serialVersionUID = -1986281111385526822L;
+     * serialVersionUID = -1986281111385526822L
+     */
+    private static final long serialVersionUID = -1986281111385526822L;
 
-	/**
+    /**
      * Expection, die der eigentliche Grund ist.
      */
     Throwable rootCause;

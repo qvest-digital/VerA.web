@@ -79,8 +79,7 @@ import javax.swing.JTextPane;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-public abstract class QualityFeedbackAgent extends JDialog
-{
+public abstract class QualityFeedbackAgent extends JDialog {
     private JPanel jContentPane = null;
     private JButton sendButton = null;
     private JButton detailsButton = null;
@@ -94,29 +93,25 @@ public abstract class QualityFeedbackAgent extends JDialog
     private String message = null;
     private JScrollPane doneTextAreaPane = null;
 
-    private class ImagePanel extends JPanel
-    {
-        /** serialVersionUID */
-		private static final long serialVersionUID = -2575886879594471370L;
+    private class ImagePanel extends JPanel {
+        /**
+         * serialVersionUID
+         */
+        private static final long serialVersionUID = -2575886879594471370L;
 
-		public ImagePanel()
-        {
+        public ImagePanel() {
             super();
-            this.setBounds(new java.awt.Rectangle(0,0,120,469));
+            this.setBounds(new java.awt.Rectangle(0, 0, 120, 469));
         }
 
-        protected void paintComponent(Graphics g)
-        {
+        protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
             Image aboutImage = null;
-            try
-            {
+            try {
                 URL url = getClass().getResource("/de/tarent/commons/gfx/qfba-splash.png");
                 aboutImage = javax.imageio.ImageIO.read(url);
-            }
-            catch (IOException ioe)
-            {
+            } catch (IOException ioe) {
                 throw new RuntimeException("Can't open about image.");
             }
 
@@ -127,38 +122,34 @@ public abstract class QualityFeedbackAgent extends JDialog
     /**
      * This creates a new Quality Feedback Agent.
      *
-     * @param message Message to be displayed in the detail dialog.
+     * @param message   Message to be displayed in the detail dialog.
      * @param exception Exception that triggered the crash.
      */
-    public QualityFeedbackAgent(String message, Exception exception)
-    {
+    public QualityFeedbackAgent(String message, Exception exception) {
         super();
         this.exception = exception;
         this.message = message;
         initialize();
     }
 
-    private void initialize()
-    {
+    private void initialize() {
         this.setModal(true);
-// FIXME       this.setAlwaysOnTop(true);
+        // FIXME       this.setAlwaysOnTop(true);
         this.setTitle("tarent Quality Feedback Agent");
-        this.setSize(500,500);
- // FIXME       this.setPreferredSize(new Dimension(300, 200));
+        this.setSize(500, 500);
+        // FIXME       this.setPreferredSize(new Dimension(300, 200));
         this.setContentPane(getJContentPane());
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
-    private JPanel getJContentPane()
-    {
-        if (jContentPane == null)
-        {
+    private JPanel getJContentPane() {
+        if (jContentPane == null) {
             jLabel3 = new JLabel();
-            jLabel3.setBounds(new java.awt.Rectangle(134,190,341,21));
+            jLabel3.setBounds(new java.awt.Rectangle(134, 190, 341, 21));
             jLabel3.setText("Describe what you were doing (optional)");
             jLabel2 = new JLabel();
-            jLabel2.setBounds(new java.awt.Rectangle(134,125,219,20));
+            jLabel2.setBounds(new java.awt.Rectangle(134, 125, 219, 20));
             jLabel2.setText("Your email address (optional)");
             jContentPane = new JPanel();
             jContentPane.setLayout(null);
@@ -176,16 +167,13 @@ public abstract class QualityFeedbackAgent extends JDialog
         return jContentPane;
     }
 
-    private JButton getSendButton()
-    {
-        if (sendButton == null)
-        {
+    private JButton getSendButton() {
+        if (sendButton == null) {
             sendButton = new JButton();
             sendButton.setText("Send");
-            sendButton.setBounds(new java.awt.Rectangle(316,430,64,25));
+            sendButton.setBounds(new java.awt.Rectangle(316, 430, 64, 25));
             sendButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e)
-                {
+                public void actionPerformed(ActionEvent e) {
                     QualityFeedbackAgent.this.send(emailField.getText(), doneTextArea.getText(), message, exception);
                     QualityFeedbackAgent.this.dispose();
                     System.exit(1);
@@ -195,16 +183,13 @@ public abstract class QualityFeedbackAgent extends JDialog
         return sendButton;
     }
 
-    private JButton getDetailsButton()
-    {
-        if (detailsButton == null)
-        {
+    private JButton getDetailsButton() {
+        if (detailsButton == null) {
             detailsButton = new JButton();
             detailsButton.setText("Details");
-            detailsButton.setBounds(new java.awt.Rectangle(395,430,78,25));
+            detailsButton.setBounds(new java.awt.Rectangle(395, 430, 78, 25));
             detailsButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e)
-                {
+                public void actionPerformed(ActionEvent e) {
                     new QualityFeedbackAgentDetailDialog(message, exception);
                 }
             });
@@ -212,65 +197,56 @@ public abstract class QualityFeedbackAgent extends JDialog
         return detailsButton;
     }
 
-    private JButton getDontSendButton()
-    {
-        if (dontSendButton == null)
-        {
+    private JButton getDontSendButton() {
+        if (dontSendButton == null) {
             dontSendButton = new JButton();
             dontSendButton.setText("Don't send");
-            dontSendButton.setBounds(new java.awt.Rectangle(199,430,102,25));
-            dontSendButton.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent e)
-                        {
-                            QualityFeedbackAgent.this.setVisible(false);
-                            QualityFeedbackAgent.this.dispose();
-                            System.exit(1);
-                        }
-                    });
+            dontSendButton.setBounds(new java.awt.Rectangle(199, 430, 102, 25));
+            dontSendButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    QualityFeedbackAgent.this.setVisible(false);
+                    QualityFeedbackAgent.this.dispose();
+                    System.exit(1);
+                }
+            });
         }
         return dontSendButton;
     }
 
-    private JTextPane getJTextPane()
-    {
-        if (jTextPane == null)
-        {
+    private JTextPane getJTextPane() {
+        if (jTextPane == null) {
             jTextPane = new JTextPane();
             jTextPane.setEditable(false);
             jTextPane.setBackground(jContentPane.getBackground());
             jTextPane.setFont(new Font("Helvetica", Font.PLAIN, 12));
-            jTextPane.setText("The tarent quality feedback agent has captured information that tarent needs to improve this products quality.\n\nEnter your email address (optional), describe how you were using this product (optional), then click Send.");
-            jTextPane.setBounds(new java.awt.Rectangle(134,15,342,104));
+            jTextPane.setText(
+                    "The tarent quality feedback agent has captured information that tarent needs to improve this products " +
+                     "quality.\n\nEnter your email address (optional), describe how you were using this product (optional), " +
+                      "then click Send.");
+            jTextPane.setBounds(new java.awt.Rectangle(134, 15, 342, 104));
         }
         return jTextPane;
     }
 
-    private JTextField getEmailField()
-    {
-        if (emailField == null)
-        {
+    private JTextField getEmailField() {
+        if (emailField == null) {
             emailField = new JTextField();
-            emailField.setBounds(new java.awt.Rectangle(134,150,343,23));
+            emailField.setBounds(new java.awt.Rectangle(134, 150, 343, 23));
         }
         return emailField;
     }
 
-    private JScrollPane getDoneTextAreaPane()
-    {
-        if (doneTextAreaPane == null)
-        {
+    private JScrollPane getDoneTextAreaPane() {
+        if (doneTextAreaPane == null) {
             doneTextAreaPane = new JScrollPane(getDoneTextArea());
             doneTextAreaPane.setBorder(emailField.getBorder());
-            doneTextAreaPane.setBounds(new java.awt.Rectangle(134,215,339,195));
+            doneTextAreaPane.setBounds(new java.awt.Rectangle(134, 215, 339, 195));
         }
         return doneTextAreaPane;
     }
 
-    private JTextArea getDoneTextArea()
-    {
-        if (doneTextArea == null)
-        {
+    private JTextArea getDoneTextArea() {
+        if (doneTextArea == null) {
             doneTextArea = new JTextArea();
             doneTextArea.setAutoscrolls(true);
             doneTextArea.setWrapStyleWord(true);

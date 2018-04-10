@@ -56,42 +56,36 @@ import java.util.Map;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  * @author Nils Neumaier (n.neumaier@tarent.de)
- *
  */
-public class IntervalCronJob extends CronJob
-{
-    public static final String PROPERTIESMAP_KEY_INTERVAL  = "interval";
+public class IntervalCronJob extends CronJob {
+    public static final String PROPERTIESMAP_KEY_INTERVAL = "interval";
     private int intervalMinutes = -1;
 
     /**
      * Creates a new CronJob that runs every intervalMinutes.
      *
      * @param intervalMinutes
-     * @param alreadyRunning    responisble for the behaviour of the job if this job is already running
+     * @param alreadyRunning  responisble for the behaviour of the job if this job is already running
      */
-    public IntervalCronJob(Cron cron, int intervalMinutes)
-    {
-	super(cron);
-	this.intervalMinutes = intervalMinutes;
-	//setLastRun(new Date());
+    public IntervalCronJob(Cron cron, int intervalMinutes) {
+        super(cron);
+        this.intervalMinutes = intervalMinutes;
+        //setLastRun(new Date());
     }
 
     /**
      * Returns the type of this CronJob.
      */
-    public int getType()
-    {
-	return Cron.INTERVAL_CRONJOB;
+    public int getType() {
+        return Cron.INTERVAL_CRONJOB;
     }
 
-    public int getIntervalMinutes()
-    {
-	return intervalMinutes;
+    public int getIntervalMinutes() {
+        return intervalMinutes;
     }
 
-    public void setIntervalMinutes(int intervalMinutes)
-    {
-	this.intervalMinutes = intervalMinutes;
+    public void setIntervalMinutes(int intervalMinutes) {
+        this.intervalMinutes = intervalMinutes;
     }
 
     /**
@@ -100,14 +94,14 @@ public class IntervalCronJob extends CronJob
      * specific for interval-cronjobs
      */
 
-    public Map getCronJobMap(){
-	Map cronJobMap = super.getCronJobMap();
-	Map properties = (Map)cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
+    public Map getCronJobMap() {
+        Map cronJobMap = super.getCronJobMap();
+        Map properties = (Map) cronJobMap.get(Cron.CRONJOBMAP_KEY_PROPERTIES);
 
-	properties.put(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL, new Integer(getIntervalMinutes()));
-	cronJobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
+        properties.put(IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL, new Integer(getIntervalMinutes()));
+        cronJobMap.put(Cron.CRONJOBMAP_KEY_PROPERTIES, properties);
 
-	return cronJobMap;
+        return cronJobMap;
     }
 
 }

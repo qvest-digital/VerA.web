@@ -49,6 +49,7 @@ package de.tarent.commons.utils;
  */
 
 import junit.framework.TestCase;
+
 import java.lang.reflect.Method;
 
 public class PojoTest extends TestCase {
@@ -56,7 +57,7 @@ public class PojoTest extends TestCase {
     SimplePersonPojo pojo;
     SimplePersonPojoExt extPojo;
 
-	protected void setUp() throws Exception {
+    protected void setUp() throws Exception {
         pojo = new SimplePersonPojo();
         pojo.setName("Mancke");
         pojo.setMale(true);
@@ -68,10 +69,10 @@ public class PojoTest extends TestCase {
         extPojo.setAge(26);
     }
 
-	protected void tearDown() throws Exception {
-	}
+    protected void tearDown() throws Exception {
+    }
 
-	public void testGetter() {
+    public void testGetter() {
         Method m = Pojo.getGetMethod(pojo, "name");
         assertEquals("Right value", "Mancke", Pojo.get(pojo, m));
 
@@ -80,21 +81,21 @@ public class PojoTest extends TestCase {
 
         Method m3 = Pojo.getGetMethod(pojo, "nAmE", true);
         assertEquals("Right value", "Mancke", Pojo.get(pojo, m3));
-	}
+    }
 
-	public void testFastGetter() {
+    public void testFastGetter() {
         assertEquals("Right value", "Mancke", Pojo.get(pojo, "name"));
         assertEquals("Right value", Boolean.TRUE, Pojo.get(pojo, "male"));
         assertEquals("Right value", new Integer(26), Pojo.get(pojo, "age"));
-	}
+    }
 
-	public void testFastGetterOnExtendedPojos() {
+    public void testFastGetterOnExtendedPojos() {
         assertEquals("Right value", "Mancke", Pojo.get(extPojo, "name"));
         assertEquals("Right value", Boolean.TRUE, Pojo.get(extPojo, "male"));
         assertEquals("Right value", new Integer(26), Pojo.get(extPojo, "age"));
-	}
+    }
 
-	public void testSetter() {
+    public void testSetter() {
         Method m = Pojo.getSetMethod(pojo, "name");
         Pojo.set(pojo, m, "Meyer");
         assertEquals("Right value set", "Meyer", pojo.getName());
@@ -104,9 +105,9 @@ public class PojoTest extends TestCase {
 
         Method m3 = Pojo.getSetMethod(pojo, "nAmE", true);
         assertEquals("Right setter method", m, m3);
-	}
+    }
 
-	public void testFastSetter() {
+    public void testFastSetter() {
         Pojo.set(pojo, "name", "Meyer");
         Pojo.set(pojo, "male", Boolean.FALSE);
         Pojo.set(pojo, "age", new Integer(18));
@@ -114,9 +115,9 @@ public class PojoTest extends TestCase {
         assertEquals("Right value set", "Meyer", pojo.getName());
         assertEquals("Right value set", false, pojo.isMale());
         assertEquals("Right value set", 18, pojo.getAge());
-	}
+    }
 
-	public void testWithConversion() {
+    public void testWithConversion() {
         Pojo.set(pojo, "name", new AnyObject("Meyer"));
         Pojo.set(pojo, "male", "false");
         Pojo.set(pojo, "age", "18");
@@ -133,10 +134,10 @@ public class PojoTest extends TestCase {
         Pojo.set(pojo, "age", null);
         assertEquals("Right value set", false, pojo.isMale());
         assertEquals("Right value set", 0, pojo.getAge());
-	}
+    }
 
-	public void testErrorHandlingWrongProperty()
-        throws Exception {
+    public void testErrorHandlingWrongProperty()
+            throws Exception {
         try {
             Pojo.set(pojo, "sdcsdcsd", null);
         } catch (IllegalArgumentException e) {
@@ -145,8 +146,8 @@ public class PojoTest extends TestCase {
         throw new Exception("exception estimated");
     }
 
-	public void testErrorHandlingMissingConverter()
-        throws Exception {
+    public void testErrorHandlingMissingConverter()
+            throws Exception {
         try {
             Pojo.set(pojo, "age", new AnyObject("23"));
         } catch (IllegalArgumentException e) {
@@ -155,8 +156,8 @@ public class PojoTest extends TestCase {
         throw new Exception("exception estimated");
     }
 
-	public void testErrorHandlingTargetException()
-        throws Exception {
+    public void testErrorHandlingTargetException()
+            throws Exception {
         try {
             Pojo.set(pojo, "ExceptionDummy", null);
         } catch (RuntimeException e) {
@@ -167,9 +168,11 @@ public class PojoTest extends TestCase {
 
     public class AnyObject {
         String value;
+
         public AnyObject(String value) {
             this.value = value;
         }
+
         public String toString() {
             return value;
         }

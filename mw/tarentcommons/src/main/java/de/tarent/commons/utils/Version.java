@@ -71,103 +71,108 @@ package de.tarent.commons.utils;
  * build system (Maven works).
  *
  * @author Martin Ley
- *
  */
 public class Version {
 
-	private static String name;
+    private static String name;
 
-	private static String specificationTitle;
+    private static String specificationTitle;
 
-	private static String specificationVendor;
+    private static String specificationVendor;
 
-	private static String specificationVersion;
+    private static String specificationVersion;
 
-	private static String implementationTitle;
+    private static String implementationTitle;
 
-	private static String implementationVendor;
+    private static String implementationVendor;
 
-	private static String implementationVersion;
+    private static String implementationVersion;
 
-	/**
-	 * initializes Version with package information from itself
-	 */
-	static {
-		gatherPackageInfo(Version.class.getPackage());
+    /**
+     * initializes Version with package information from itself
+     */
+    static {
+        gatherPackageInfo(Version.class.getPackage());
 
-	}
+    }
 
-	/**
-	 * Initialize Version with Object o. All package information is retrieved from the passed
-	 * object.
-	 * @param o object to retrieve package information from
-	 */
-	public static void init(Object o) {
-		gatherPackageInfo(o.getClass().getPackage());
-	}
+    /**
+     * Initialize Version with Object o. All package information is retrieved from the passed
+     * object.
+     *
+     * @param o object to retrieve package information from
+     */
+    public static void init(Object o) {
+        gatherPackageInfo(o.getClass().getPackage());
+    }
 
-	/**
-	 * Retrieves package information from passed Package p
-	 *
-	 * If some version, title or vendor information is not available, the corresponding
-	 * String is set to ""
-	 * @param p
-	 */
-	private static void gatherPackageInfo(Package p) {
-		// name of this package.
-		name = p.getName();
+    /**
+     * Retrieves package information from passed Package p
+     *
+     * If some version, title or vendor information is not available, the corresponding
+     * String is set to ""
+     *
+     * @param p
+     */
+    private static void gatherPackageInfo(Package p) {
+        // name of this package.
+        name = p.getName();
 
-		// title of the specification of this package.
-		String s = p.getSpecificationTitle();
-		specificationTitle = s != null ? s : "";
+        // title of the specification of this package.
+        String s = p.getSpecificationTitle();
+        specificationTitle = s != null ? s : "";
 
-		// version of the specification of this package.
-		s = p.getSpecificationVersion();
-		specificationVersion = s != null ? s : "";
+        // version of the specification of this package.
+        s = p.getSpecificationVersion();
+        specificationVersion = s != null ? s : "";
 
-		// vendor of the specification of this package.
-		s = p.getSpecificationVendor();
-		specificationVendor = s != null ? s : "";
+        // vendor of the specification of this package.
+        s = p.getSpecificationVendor();
+        specificationVendor = s != null ? s : "";
 
-		// title of the implementation of this package.
-		s = p.getImplementationTitle();
-		implementationTitle = s != null ? s : "";
+        // title of the implementation of this package.
+        s = p.getImplementationTitle();
+        implementationTitle = s != null ? s : "";
 
-		// version of the implementation of this package.
-		s = p.getImplementationVersion();
-		implementationVersion = s != null ? s : "";
+        // version of the implementation of this package.
+        s = p.getImplementationVersion();
+        implementationVersion = s != null ? s : "";
 
-		// vendor of the implementation of this package.
-		s = p.getImplementationVendor();
-		implementationVendor = s != null ? s : "";
+        // vendor of the implementation of this package.
+        s = p.getImplementationVendor();
+        implementationVendor = s != null ? s : "";
 
-	}
+    }
 
-	public static String getName() {
-		return name;
-	}
+    public static String getName() {
+        return name;
+    }
 
-	public static String getVersion() {
-		return implementationTitle + " " + implementationVersion;
-	}
+    public static String getVersion() {
+        return implementationTitle + " " + implementationVersion;
+    }
 
-	public static String getSpecification() {
-		return "Package " + name + " " + specificationTitle + " "
-				+ specificationVersion + " " + specificationVendor;
-	}
+    public static String getSpecification() {
+        return "Package " + name + " " + specificationTitle + " "
+                + specificationVersion + " " + specificationVendor;
+    }
 
-	public static String getImplementation() {
-		return "Package " + name + " " + implementationTitle + " "
-				+ implementationVersion + " " + implementationVendor;
-	}
+    public static String getImplementation() {
+        return "Package " + name + " " + implementationTitle + " "
+                + implementationVersion + " " + implementationVendor;
+    }
 
-	/** Not implemated yet. */
-	public static String getCopyright() {
-		return "not available";
-	}
+    /**
+     * Not implemated yet.
+     */
+    public static String getCopyright() {
+        return "not available";
+    }
 
-	/** Not implemated yet. */
-	public static String getExtModules() {
-		return "not available";
-	}
+    /**
+     * Not implemated yet.
+     */
+    public static String getExtModules() {
+        return "not available";
+    }
 }

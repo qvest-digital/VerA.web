@@ -73,10 +73,11 @@ public class PersonDBMapping extends AbstractDBMapping {
         addField("person.geburtstag", "birthday");
 
         addField("firma.pk_firma", concatPropCol("firma", "id"), PERSON_FIRMA_FIELDS);
-        addField("firma.name", concatPropCol("firma","name"), PERSON_FIRMA_FIELDS);
+        addField("firma.name", concatPropCol("firma", "name"), PERSON_FIRMA_FIELDS);
         addField("firma.umsatz", concatPropCol("firma", "turnover"), PERSON_FIRMA_FIELDS);
 
         addQuery(STMT_SELECT_ALL, createBasicSelectAll().orderBy(Order.asc("person.vorname")), DEFAULT_FIELD_SET);
-        addQuery(STMT_PERSON_FIRMA, createBasicSelectOne().join("firma", "person.fk_firma", "firma.pk_firma"), PERSON_FIRMA_FIELDS | COMMON_FIELDS );
+        addQuery(STMT_PERSON_FIRMA, createBasicSelectOne().join("firma", "person.fk_firma", "firma.pk_firma"),
+                PERSON_FIRMA_FIELDS | COMMON_FIELDS);
     }
 }

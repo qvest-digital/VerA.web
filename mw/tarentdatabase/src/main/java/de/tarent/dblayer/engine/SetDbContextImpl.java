@@ -61,6 +61,7 @@ public class SetDbContextImpl implements SetDbContext {
     //
     // getter and setter methods
     //
+
     /**
      * This method returns the database execution context. A <code>null</code>
      * value must be interpreted as a sensible default environment.
@@ -84,25 +85,36 @@ public class SetDbContextImpl implements SetDbContext {
     //
     // protected inner classes
     //
+
     /**
      * This helper class allows to easily format a literal just in time.
      */
     protected class LiteralWrapper {
-        /** The constructor stores the given literal locally. */
+        /**
+         * The constructor stores the given literal locally.
+         */
         public LiteralWrapper(Object literal) {
             this.literal = literal;
         }
-        /** This method returns the formatted literal. */
+
+        /**
+         * This method returns the formatted literal.
+         */
         public String toString() {
             return SQL.format(getDBContext(), literal);
         }
-        /** the literal itself */
+
+        /**
+         * the literal itself
+         */
         final Object literal;
     }
 
     //
     // member variables
     //
-    /** database execution context */
+    /**
+     * database execution context
+     */
     private DBContext dbContext = null;
 }

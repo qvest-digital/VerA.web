@@ -52,6 +52,7 @@ import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContextImpl;
 import de.tarent.dblayer.sql.*;
 import de.tarent.dblayer.sql.statement.*;
+
 import java.sql.SQLException;
 import java.util.*;
 
@@ -68,18 +69,20 @@ public abstract class AbstractStatement extends SetDbContextImpl implements Stat
     }
 
     /**
-     * Helper method for adding all containing ParamValues in a the supplied <code>objectList</code> to the <code>paramList</code>.
+     * Helper method for adding all containing ParamValues in a the supplied <code>objectList</code> to the
+     * <code>paramList</code>.
      *
-     * @param paramList List for adding the ParamValue instances
+     * @param paramList  List for adding the ParamValue instances
      * @param objectList List of arbitrary objects. Some objects of this list may be ParamValue or ParamHolder instances.
      */
     protected void addParams(List paramList, List objectList) {
-        for (Iterator iter = objectList.iterator(); iter.hasNext();) {
+        for (Iterator iter = objectList.iterator(); iter.hasNext(); ) {
             Object item = iter.next();
-            if (item instanceof ParamValue)
+            if (item instanceof ParamValue) {
                 paramList.add(item);
-            else if (item instanceof ParamHolder)
-                ((ParamHolder)item).getParams(paramList);
+            } else if (item instanceof ParamHolder) {
+                ((ParamHolder) item).getParams(paramList);
+            }
         }
     }
 
@@ -101,11 +104,11 @@ public abstract class AbstractStatement extends SetDbContextImpl implements Stat
      *
      * <p><b>Attention:<b> Setting a DBContext and calling prepare() may cause errors,
      * if the same statement is used in multiple threads.</p>
-     *
      */
     public ExtPreparedStatement prepare() throws SQLException {
-        if (getDBContext() == null)
+        if (getDBContext() == null) {
             throw new IllegalStateException("The DBContext must be set before calling Statement#prepare()");
+        }
         ExtPreparedStatement stmt = new ExtPreparedStatement(this);
         stmt.prepare(getDBContext());
         return stmt;

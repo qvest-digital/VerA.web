@@ -47,6 +47,7 @@ package de.tarent.octopus.util;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Klasse zum Kapseln eines Params mit einem refvalue
  *
@@ -64,6 +65,6 @@ public class ParamReference {
     }
 
     public String toString() {
-        return "ParamReference: "+getRefvalue();
+        return "ParamReference: " + getRefvalue();
     }
 }

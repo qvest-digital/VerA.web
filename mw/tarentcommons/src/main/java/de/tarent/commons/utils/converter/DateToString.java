@@ -49,6 +49,7 @@ package de.tarent.commons.utils.converter;
  */
 
 import de.tarent.commons.utils.AbstractConverter;
+
 import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,6 +66,6 @@ public class DateToString extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) throws NumberFormatException {
-        return df.format((Date)sourceData);
+        return df.format((Date) sourceData);
     }
 }

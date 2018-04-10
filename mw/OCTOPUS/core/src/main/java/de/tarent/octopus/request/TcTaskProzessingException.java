@@ -47,6 +47,7 @@ package de.tarent.octopus.request;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Exception, die geworfen werden soll, wenn
  * Probleme, wie z.B. fehlende Attribute und Anweidsungen wärend der
@@ -56,11 +57,11 @@ package de.tarent.octopus.request;
  */
 public class TcTaskProzessingException extends Exception {
     /**
-	 * serialVersionUID = -3146183468486361425L
-	 */
-	private static final long serialVersionUID = -3146183468486361425L;
+     * serialVersionUID = -3146183468486361425L
+     */
+    private static final long serialVersionUID = -3146183468486361425L;
 
-	public TcTaskProzessingException(String message) {
+    public TcTaskProzessingException(String message) {
         super(message);
     }
 }

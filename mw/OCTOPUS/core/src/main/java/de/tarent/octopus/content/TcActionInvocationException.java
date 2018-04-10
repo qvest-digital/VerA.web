@@ -49,11 +49,11 @@ package de.tarent.octopus.content;
  */
 public class TcActionInvocationException extends TcContentProzessException {
     /**
-	 * serialVersionUID = -6094698202997450080L
-	 */
-	private static final long serialVersionUID = -6094698202997450080L;
+     * serialVersionUID = -6094698202997450080L
+     */
+    private static final long serialVersionUID = -6094698202997450080L;
 
-	public TcActionInvocationException(String msg, Throwable t) {
+    public TcActionInvocationException(String msg, Throwable t) {
         super(msg, t);
     }
 

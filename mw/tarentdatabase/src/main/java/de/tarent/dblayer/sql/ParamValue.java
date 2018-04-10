@@ -62,17 +62,17 @@ public class ParamValue extends SetDbContextImpl implements Cloneable {
     boolean optional = false;
 
     public ParamValue(String parameterName) {
-	this.name = parameterName;
+        this.name = parameterName;
     }
 
     public ParamValue(String parameterName, boolean optional) {
-	this.name = parameterName;
-	this.optional = optional;
+        this.name = parameterName;
+        this.optional = optional;
     }
 
     public ParamValue(String parameterName, Object parameterValue) {
-	this.name = parameterName;
-	setValue(parameterValue);
+        this.name = parameterName;
+        setValue(parameterValue);
     }
 
     /**
@@ -82,44 +82,44 @@ public class ParamValue extends SetDbContextImpl implements Cloneable {
      * @throws IllegalArgumentException if no value was set
      */
     public Object getValue() {
-	return value;
+        return value;
     }
 
     /**
      * Sets the parameters value. The value even may be <code>null</code>.
      */
     public void setValue(Object newValue) {
-	this.value = newValue;
-	set = true;
+        this.value = newValue;
+        set = true;
     }
 
     /**
      * Returns true, if the value was set, false otherwise
      */
     public final boolean isSet() {
-	return set;
+        return set;
     }
 
     /**
      * Returns, if the ParamValue should be treated as an optional Parameter
      */
     public boolean isOptional() {
-	return optional;
+        return optional;
     }
 
     /**
      * Clears the Parameter value
      */
     public void clear() {
-	value = null;
-	set = false;
+        value = null;
+        set = false;
     }
 
     /**
      * @return the parameters name
      */
     public String getName() {
-	return name;
+        return name;
     }
 
     /**
@@ -129,24 +129,25 @@ public class ParamValue extends SetDbContextImpl implements Cloneable {
      * back to the {@see SQL.format()} default behavior.
      */
     public String toString() {
-	if (! isSet())
-	    return "?";
+        if (!isSet()) {
+            return "?";
+        }
 
-	return SQL.format(getDBContext(), getValue());
+        return SQL.format(getDBContext(), getValue());
     }
 
     /**
      * Returns an independent clone of this statement.
      * ATTENTION: The value element of the expression will no be copied
+     *
      * @see java.lang.Object#clone()
      */
     public Object clone() {
-	try {
-	    ParamValue theClone = (ParamValue)super.clone();
-	    return theClone;
-	}
-	catch(CloneNotSupportedException e) {
-		throw new InternalError();
-	}
+        try {
+            ParamValue theClone = (ParamValue) super.clone();
+            return theClone;
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
     }
 }

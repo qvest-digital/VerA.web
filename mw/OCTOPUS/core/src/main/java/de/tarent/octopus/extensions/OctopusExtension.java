@@ -47,6 +47,7 @@ package de.tarent.octopus.extensions;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * This implements a simple extension framework for
  * the Octopus application server. An extension has to be
@@ -55,8 +56,7 @@ package de.tarent.octopus.extensions;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-public interface OctopusExtension
-{
+public interface OctopusExtension {
     /**
      * Initializes the extension. Runtime parameters are
      * encoded in the parameter.

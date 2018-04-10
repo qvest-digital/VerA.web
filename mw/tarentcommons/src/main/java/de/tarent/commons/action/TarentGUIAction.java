@@ -102,22 +102,28 @@ public interface TarentGUIAction extends Action {
 
     public String PROP_KEY_DEACTIVATION_CONTEXT = "DeactivationContext";
 
-    /** An activation list contains unique names of related actions. */
+    /**
+     * An activation list contains unique names of related actions.
+     */
     public String PROP_KEY_ACTIVATION_LIST = "ActivationList";
-    /** A deactivation list contains unique names of related actions. */
+    /**
+     * A deactivation list contains unique names of related actions.
+     */
     public String PROP_KEY_DEACTIVATION_LIST = "DeActivationList";
     /**
      * The key to store and retrieve the list of actions
      * that should be enabled because of the context of a given action.
      * <p>
-     *  @see MenuHelper#getActivationActions(AbstractGUIAction)
+     *
+     * @see MenuHelper#getActivationActions(AbstractGUIAction)
      */
     public String PROP_KEY_ACTIONS_TO_ENABLE = "actionsToEnable";
     /**
      * The key to store and retrieve the list of actions
      * that should be disabled because of the context of a given action.
      * <p>
-     *  @see MenuHelper#getDeactivationActions(AbstractGUIAction)
+     *
+     * @see MenuHelper#getDeactivationActions(AbstractGUIAction)
      */
     public String PROP_KEY_ACTIONS_TO_DISABLE = "actionsToDisable";
 

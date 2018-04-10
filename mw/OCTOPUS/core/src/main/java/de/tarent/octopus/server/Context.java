@@ -47,6 +47,7 @@ package de.tarent.octopus.server;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.LinkedList;
 
 /**
@@ -62,37 +63,41 @@ import java.util.LinkedList;
  * @version 1.1
  */
 public class Context {
-	/** Hold a stack of context informations in a {@link LinkedList}. */
-	private static ThreadLocal currentContext = new ThreadLocal() {
-		public Object initialValue() {
-			return new LinkedList();
-		}
-	};
+    /**
+     * Hold a stack of context informations in a {@link LinkedList}.
+     */
+    private static ThreadLocal currentContext = new ThreadLocal() {
+        public Object initialValue() {
+            return new LinkedList();
+        }
+    };
 
-	/**
-	 * Returns the current active OctopusContext for this thread
-	 */
-	public static OctopusContext getActive() {
-		LinkedList stack = (LinkedList) currentContext.get();
-		if (!stack.isEmpty())
-			return (OctopusContext) stack.getLast();
-		else
-			return null;
-	}
+    /**
+     * Returns the current active OctopusContext for this thread
+     */
+    public static OctopusContext getActive() {
+        LinkedList stack = (LinkedList) currentContext.get();
+        if (!stack.isEmpty()) {
+            return (OctopusContext) stack.getLast();
+        } else {
+            return null;
+        }
+    }
 
-	/**
-	 * Add the current active OctopusContext on the content stack.
-	 */
-	public static void addActive(OctopusContext context) {
-		((LinkedList) currentContext.get()).addLast(context);
-	}
+    /**
+     * Add the current active OctopusContext on the content stack.
+     */
+    public static void addActive(OctopusContext context) {
+        ((LinkedList) currentContext.get()).addLast(context);
+    }
 
-	/**
-	 * Remove one context information from the context stack.
-	 */
-	public static void clear() {
-		LinkedList stack = (LinkedList) currentContext.get();
-		if (!stack.isEmpty())
-			stack.removeLast();
-	}
+    /**
+     * Remove one context information from the context stack.
+     */
+    public static void clear() {
+        LinkedList stack = (LinkedList) currentContext.get();
+        if (!stack.isEmpty()) {
+            stack.removeLast();
+        }
+    }
 }

@@ -53,9 +53,10 @@ package de.tarent.commons.datahandling;
  * It will be used by {@link de.tarent.commons.datahandling.ListFilterProvider}
  * in order to distinguish and handle the filter elements inside the list, that represents a filter.
  * <p>
+ *
+ * @author Aleksej Palij (a.palij@tarent.de), tarent GmbH Bonn
  * @see de.tarent.commons.datahandling.ListFilterProvider#getFilterList()
  * <p>
- * @author Aleksej Palij (a.palij@tarent.de), tarent GmbH Bonn
  */
 public class ListFilterPropertyName {
 
@@ -63,13 +64,16 @@ public class ListFilterPropertyName {
 
     /**
      * Creates an instance.<p>
+     *
      * @param newPropertyName of an instance
      */
     public ListFilterPropertyName(String newPropertyName) {
         this.propertyName = newPropertyName;
     }
 
-    /** Returns an encapsulated property name. */
+    /**
+     * Returns an encapsulated property name.
+     */
     public String toString() {
         return propertyName;
     }

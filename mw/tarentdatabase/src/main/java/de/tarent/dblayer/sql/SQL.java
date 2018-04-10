@@ -76,14 +76,17 @@ import de.tarent.dblayer.mssql.MSSQLSelect;
  * @author kleinw
  */
 public class SQL {
-	//
+    //
     // non-public members
     //
-    /** logger of this class */
+    /**
+     * logger of this class
+     */
     final static Log logger = LogFactory.getLog(SQL.class);
     //
     // public static factory methods
     //
+
     /**
      * This method returns a non-distinct {@link Select} {@link Statement}
      * fitting the given execution context.
@@ -91,16 +94,17 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Select Select(DBContext context) {
-	Select statement = null;
-	if (isOracle(context)) {
-	    statement = new OracleSelect(false);
-	} else if(isMSSQL(context)) {
-	    statement = new MSSQLSelect(false);
-	} else
-	    statement = new Select(false);
-	statement.setDBContext(context);
-	return statement;
-	}
+        Select statement = null;
+        if (isOracle(context)) {
+            statement = new OracleSelect(false);
+        } else if (isMSSQL(context)) {
+            statement = new MSSQLSelect(false);
+        } else {
+            statement = new Select(false);
+        }
+        statement.setDBContext(context);
+        return statement;
+    }
 
     /**
      * This method returns a non-distinct {@link Select} {@link Statement}
@@ -110,8 +114,8 @@ public class SQL {
      * @deprecated use {@link #Select(DBContext)} instead.
      */
     static public Select Select() {
-		return new Select(false);
-	}
+        return new Select(false);
+    }
 
     /**
      * This method returns a distinct {@link Select} {@link Statement}
@@ -120,17 +124,17 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Select SelectDistinct(DBContext context) {
-	Select statement = null;
-	if (isOracle(context)) {
-	    statement = new OracleSelect(true);
-	} else if(isMSSQL(context)) {
-	    statement = new MSSQLSelect(true);
-	}
-	else
-	    statement = new Select(true);
-	statement.setDBContext(context);
-	return statement;
-	}
+        Select statement = null;
+        if (isOracle(context)) {
+            statement = new OracleSelect(true);
+        } else if (isMSSQL(context)) {
+            statement = new MSSQLSelect(true);
+        } else {
+            statement = new Select(true);
+        }
+        statement.setDBContext(context);
+        return statement;
+    }
 
     /**
      * This method returns a distinct {@link Select} {@link Statement}
@@ -140,8 +144,8 @@ public class SQL {
      * @deprecated use {@link #SelectDistinct(DBContext)} instead.
      */
     static public Select SelectDistinct() {
-		return new Select(true);
-	}
+        return new Select(true);
+    }
 
     /**
      * This method returns an {@link Insert} {@link Statement}
@@ -150,11 +154,11 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Insert Insert(DBContext context) {
-	// no db-dependent implementation switches at the moment
-		Insert statement = new Insert();
-	statement.setDBContext(context);
-	return statement;
-	}
+        // no db-dependent implementation switches at the moment
+        Insert statement = new Insert();
+        statement.setDBContext(context);
+        return statement;
+    }
 
     /**
      * This method returns an {@link Insert} {@link Statement}
@@ -164,8 +168,8 @@ public class SQL {
      * @deprecated use {@link #Insert(DBContext)} instead.
      */
     static public Insert Insert() {
-		return new Insert();
-	}
+        return new Insert();
+    }
 
     /**
      * This method returns an {@link Update} {@link Statement}
@@ -174,11 +178,11 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Update Update(DBContext context) {
-	// no db-dependent implementation swichtes at the moment
-		Update statement = new Update();
-	statement.setDBContext(context);
-	return statement;
-	}
+        // no db-dependent implementation swichtes at the moment
+        Update statement = new Update();
+        statement.setDBContext(context);
+        return statement;
+    }
 
     /**
      * This method returns an {@link Update} {@link Statement}
@@ -187,9 +191,9 @@ public class SQL {
      *
      * @deprecated use {@link #Update(DBContext)} instead.
      */
-	static public Update Update() {
-		return new Update();
-	}
+    static public Update Update() {
+        return new Update();
+    }
 
     /**
      * This method returns a {@link Delete} {@link Statement}
@@ -198,11 +202,11 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Delete Delete(DBContext context) {
-	// no db-dependent implementation swichtes at the moment
-		Delete statement = new Delete();
-	statement.setDBContext(context);
-	return statement;
-	}
+        // no db-dependent implementation swichtes at the moment
+        Delete statement = new Delete();
+        statement.setDBContext(context);
+        return statement;
+    }
 
     /**
      * This method returns a {@link Delete} {@link Statement}
@@ -211,9 +215,9 @@ public class SQL {
      *
      * @deprecated use {@link #Delete(DBContext)} instead.
      */
-	static public Delete Delete() {
-		return new Delete();
-	}
+    static public Delete Delete() {
+        return new Delete();
+    }
 
     /**
      * This method returns an {@link InsertUpdate} {@link Statement}
@@ -222,11 +226,11 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public InsertUpdate InsertUpdate(DBContext context) {
-	// no db-dependent implementation swichtes at the moment
-		InsertUpdate statement = new InsertUpdate();
-	statement.setDBContext(context);
-	return statement;
-	}
+        // no db-dependent implementation swichtes at the moment
+        InsertUpdate statement = new InsertUpdate();
+        statement.setDBContext(context);
+        return statement;
+    }
 
     /**
      * This method returns an {@link InsertUpdate} {@link Statement}
@@ -235,9 +239,9 @@ public class SQL {
      *
      * @deprecated use {@link #InsertUpdate(DBContext)} instead.
      */
-	static public InsertUpdate InsertUpdate() {
-	    return new InsertUpdate();
-	}
+    static public InsertUpdate InsertUpdate() {
+        return new InsertUpdate();
+    }
 
     /**
      * This method returns a {@link Sequence} {@link Statement}
@@ -246,11 +250,11 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Sequence Sequence(DBContext context) {
-	// no db-dependent implementation swichtes at the moment
-		Sequence statement = new Sequence();
-	statement.setDBContext(context);
-	return statement;
-	}
+        // no db-dependent implementation swichtes at the moment
+        Sequence statement = new Sequence();
+        statement.setDBContext(context);
+        return statement;
+    }
 
     /**
      * This method returns a {@link Sequence} {@link Statement}
@@ -259,9 +263,9 @@ public class SQL {
      *
      * @deprecated use {@link #Sequence(DBContext)} instead.
      */
-	static public Sequence Sequence() {
-	    return new Sequence();
-	}
+    static public Sequence Sequence() {
+        return new Sequence();
+    }
 
     /**
      * This method returns a {@link WhereList}
@@ -270,10 +274,10 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public WhereList WhereList(DBContext context) {
-	// no db-dependent implementation swichtes at the moment
-	WhereList whereList = new WhereList();
-	whereList.setDBContext(context);
-	return whereList;
+        // no db-dependent implementation swichtes at the moment
+        WhereList whereList = new WhereList();
+        whereList.setDBContext(context);
+        return whereList;
     }
 
     /**
@@ -283,9 +287,9 @@ public class SQL {
      *
      * @deprecated use {@link #WhereList(DBContext)} instead.
      */
-	static public WhereList WhereList() {
-	    return new WhereList();
-	}
+    static public WhereList WhereList() {
+        return new WhereList();
+    }
 
     /**
      * This method returns a {@link Function}
@@ -294,7 +298,7 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Function Function(DBContext context, String function) {
-	return new Function(context, function);
+        return new Function(context, function);
     }
 
     /**
@@ -304,24 +308,26 @@ public class SQL {
      *
      * @deprecated use {@link #Function(DBContext, String)} instead.
      */
-	static public Function Function(String function) {
-	    return new Function(function);
-	}
+    static public Function Function(String function) {
+        return new Function(function);
+    }
 
-	/**
-	 * This Methods returns a Procedure-Statement for the given SQL-Procedure.
-	 * You can add params via the {@link Procedure#addParam(String)}-call, they are
-	 * appended in the order you call them.
-	 * @param dbx DBContext to use.
-	 * @param name Name of the Procedure
-	 * @return Procedure
-	 */
-	static public Procedure Procedure(DBContext dbx, String name){
-		if(isPostgres(dbx))
-			return new PostgresProcedure(dbx, name);
-		else
-			return new Procedure(dbx, name);
-	}
+    /**
+     * This Methods returns a Procedure-Statement for the given SQL-Procedure.
+     * You can add params via the {@link Procedure#addParam(String)}-call, they are
+     * appended in the order you call them.
+     *
+     * @param dbx  DBContext to use.
+     * @param name Name of the Procedure
+     * @return Procedure
+     */
+    static public Procedure Procedure(DBContext dbx, String name) {
+        if (isPostgres(dbx)) {
+            return new PostgresProcedure(dbx, name);
+        } else {
+            return new Procedure(dbx, name);
+        }
+    }
 
     /**
      * This method formats a value according to the supplied db layer context.<br>
@@ -337,27 +343,29 @@ public class SQL {
      * A <code>null</code> value is returned unchanged.
      *
      * @param context db layer execution context, null is allowed here
-     * @param value value to format
+     * @param value   value to format
      */
     static public final String format(DBContext context, Object value) {
-	if (value instanceof Clause)
-	    return ((Clause)value).clauseToString(context); // maybe better in brackets?
-	if (value instanceof SetDbContext) {
-	    ((SetDbContext)value).setDBContext(context);
-	    return value.toString();
-	}
-	if (isOracle(context)){
-	    return OracleFormat.format(value);
-	}else if(isMSSQL(context)){
-		return MSSQLFormat.format(value);
-	}else{
-	    return Format.defaultFormat(value);
-	}
+        if (value instanceof Clause) {
+            return ((Clause) value).clauseToString(context); // maybe better in brackets?
+        }
+        if (value instanceof SetDbContext) {
+            ((SetDbContext) value).setDBContext(context);
+            return value.toString();
+        }
+        if (isOracle(context)) {
+            return OracleFormat.format(value);
+        } else if (isMSSQL(context)) {
+            return MSSQLFormat.format(value);
+        } else {
+            return Format.defaultFormat(value);
+        }
     }
 
     //
     // protected helper methods
     //
+
     /**
      * This method decides whether the given {@link DBContext} operates in
      * an Oracle context or not. A <code>null</code> {@link DBContext} is
@@ -365,13 +373,14 @@ public class SQL {
      * PostgresQL context.
      */
     static public boolean isOracle(DBContext context) {
-	if (context == null)
-	    return false;
-	if (context.getPool() == null) {
-	    logger.warn("DBContext contains no pool.");
-	    return false;
-	}
-	return Pool.DB_ORACLE.equals(context.getPool().getTargetDB());
+        if (context == null) {
+            return false;
+        }
+        if (context.getPool() == null) {
+            logger.warn("DBContext contains no pool.");
+            return false;
+        }
+        return Pool.DB_ORACLE.equals(context.getPool().getTargetDB());
     }
 
     /**
@@ -381,13 +390,14 @@ public class SQL {
      * PostgresQL context.
      */
     static public boolean isPostgres(DBContext context) {
-	if (context == null)
-	    return true;
-	if (context.getPool() == null) {
-	    logger.warn("DBContext contains no pool.");
-	    return true;
-	}
-	return Pool.DB_POSTGRESQL.equals(context.getPool().getTargetDB());
+        if (context == null) {
+            return true;
+        }
+        if (context.getPool() == null) {
+            logger.warn("DBContext contains no pool.");
+            return true;
+        }
+        return Pool.DB_POSTGRESQL.equals(context.getPool().getTargetDB());
     }
 
     /**
@@ -397,13 +407,14 @@ public class SQL {
      * PostgresQL context.
      */
     static public boolean isMSSQL(DBContext context) {
-	if (context == null)
-	    return false;
-	if (context.getPool() == null) {
-	    logger.warn("DBContext contains no pool.");
-	    return false;
-	}
-	return Pool.DB_MSSQL.equals(context.getPool().getTargetDB());
+        if (context == null) {
+            return false;
+        }
+        if (context.getPool() == null) {
+            logger.warn("DBContext contains no pool.");
+            return false;
+        }
+        return Pool.DB_MSSQL.equals(context.getPool().getTargetDB());
     }
 
 }

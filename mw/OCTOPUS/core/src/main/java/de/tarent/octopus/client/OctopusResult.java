@@ -47,6 +47,7 @@ package de.tarent.octopus.client;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -60,38 +61,44 @@ import java.util.Iterator;
 public interface OctopusResult {
 
     public boolean hasStreamContent();
+
     public InputStream getContent();
+
     public String getContentType();
+
     public void writeContent(OutputStream to)
-        throws IOException;
+            throws IOException;
 
     public boolean hasMoreData();
+
     public Iterator getDataKeys();
+
     public Object getData(String key);
+
     public Object nextData();
 
-//     /**
-//      * @throws java.lang.ClassCastException
-//      */
-//     public Object nextDataAs(Class type);
+    //     /**
+    //      * @throws java.lang.ClassCastException
+    //      */
+    //     public Object nextDataAs(Class type);
 
     /**
      * @throws java.lang.ClassCastException
      */
     public String nextDataAsString();
 
-//     /**
-//      * @throws java.lang.ClassCastException
-//      */
-//     public int nextDataAsInt();
+    //     /**
+    //      * @throws java.lang.ClassCastException
+    //      */
+    //     public int nextDataAsInt();
 
-//     /**
-//      * @throws java.lang.ClassCastException
-//      */
-//     public float nextDataAsFloat();
+    //     /**
+    //      * @throws java.lang.ClassCastException
+    //      */
+    //     public float nextDataAsFloat();
 
-//     /**
-//      * @throws java.lang.ClassCastException
-//      */
-//     public byte[] nextDataAsByteArray();
+    //     /**
+    //      * @throws java.lang.ClassCastException
+    //      */
+    //     public byte[] nextDataAsByteArray();
 }

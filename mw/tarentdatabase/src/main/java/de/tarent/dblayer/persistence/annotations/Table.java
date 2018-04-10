@@ -55,22 +55,23 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-/** Annotation for defined the standard table for a whole entity.
+/**
+ * Annotation for defined the standard table for a whole entity.
  * All attributes in this entity will be mapped to columns in this table
  * if no other table is defined.
  *
  * @author Martin Pelzer, tarent GmbH
- *
  */
-@Target (value = { TYPE } )
-@Retention( RUNTIME )
+@Target(value = { TYPE })
+@Retention(RUNTIME)
 @Documented
 public @interface Table {
 
-	/** the name of the table in the database
-	 *
-	 * @return
-	 */
-	String name();
+    /**
+     * the name of the table in the database
+     *
+     * @return
+     */
+    String name();
 
 }

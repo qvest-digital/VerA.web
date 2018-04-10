@@ -68,13 +68,14 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
     //
     // Konstruktor
     //
+
     /**
      * Dieser Konstruktor legt den übergebenen Kontext ab und erzeugt
      * das PreparedStatement.
      *
-     * @param update das dbLayer-Update-Statement
+     * @param update         das dbLayer-Update-Statement
      * @param fieldsInUpdate Felder für die Platzhalter im Statement
-     * @param context Ausführungskontext des PreparedStatements
+     * @param context        Ausführungskontext des PreparedStatements
      */
     BeanUpdateStatement(Update update, List fieldsInUpdate, ExecutionContext context) throws BeanException, IOException {
         super(update, context);
@@ -84,6 +85,7 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
     //
     // Schnittstelle BeanStatement
     //
+
     /**
      * Diese Methode führt das Update auf der übergebenen Bean aus.<br>
      * TODO: Falls Feld <code>null</code>, so muss (?) mit setNull, nicht setObject gearbeitet werden
@@ -92,7 +94,7 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
      * @return Anzahl Updates
      */
     public int execute(Bean bean) throws BeanException {
-        if (bean != null)
+        if (bean != null) {
             try {
                 preparedStatement.clearParameters();
                 List params = new ArrayList();
@@ -102,23 +104,30 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
                     preparedStatement.setObject(index + 1, value);
                     params.add(value);
                 }
-                if (logger.isLoggable(Level.FINE))
+                if (logger.isLoggable(Level.FINE)) {
                     logger.fine("PreparedStatement <" + sqlStatement + "> wird mit Parametern " + params + " aufgerufen.");
+                }
                 return preparedStatement.executeUpdate();
             } catch (SQLException se) {
-                throw new BeanException("Fehler beim Ausführen des PreparedUpdates <" + sqlStatement + "> mit der Bean <" + bean + ">", se);
+                throw new BeanException(
+                        "Fehler beim Ausführen des PreparedUpdates <" + sqlStatement + "> mit der Bean <" + bean + ">", se);
             }
-        else
+        } else {
             logger.warning("Aufruf ohne Bean nicht erlaubt");
+        }
         return 0;
     }
 
     //
     // geschätzte Variablen
     //
-    /** Hier sind die Felder zu den Platzhaltern im PreparedStatement aufgelistet. */
+    /**
+     * Hier sind die Felder zu den Platzhaltern im PreparedStatement aufgelistet.
+     */
     final List fields;
 
-    /** logger of this class. */
+    /**
+     * logger of this class.
+     */
     final static Logger logger = Logger.getLogger(BeanUpdateStatement.class.getName());
 }

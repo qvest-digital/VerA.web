@@ -60,6 +60,6 @@ public class StringToLong extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) throws NumberFormatException {
-        return new Long((String)sourceData);
+        return new Long((String) sourceData);
     }
 }

@@ -52,17 +52,16 @@ import junit.framework.TestCase;
 
 public class VersionTest extends TestCase {
 
-	protected void setUp() throws Exception {
-		super.setUp();
+    protected void setUp() throws Exception {
+        super.setUp();
 
-	}
+    }
 
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
 
-	public void testVersion()
-	{
+    public void testVersion() {
 		/*
 		assertTrue("initial package wrong", Version.class.getPackage().getName().equals(Version.getName()));
 
@@ -70,5 +69,5 @@ public class VersionTest extends TestCase {
 		assertTrue("set package wrong", this.getClass().getPackage().getName().equals(Version.getName()));
 		*/
 
-	}
+    }
 }

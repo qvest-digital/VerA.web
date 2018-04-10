@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -89,7 +90,7 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedNativeQuery(
                 name = "MediaRepresentativeActivation.getEntryByEmailAndEventId",
                 query = "SELECT count(m.*) FROM veraweb.tmedia_representative_activation m where m.email=:email AND m" +
-                 ".fk_event=:fk_event"
+                        ".fk_event=:fk_event"
         )
 })
 public class MediaRepresentativeActivation {

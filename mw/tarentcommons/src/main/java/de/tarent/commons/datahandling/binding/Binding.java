@@ -58,10 +58,14 @@ package de.tarent.commons.datahandling.binding;
  */
 public interface Binding {
 
-    /** Sets the data to the view according to the binding. */
+    /**
+     * Sets the data to the view according to the binding.
+     */
     public void setViewData(Object data);
 
-    /** Returns the data from the view according to the binding. */
+    /**
+     * Returns the data from the view according to the binding.
+     */
     public Object getViewData();
 
     /**

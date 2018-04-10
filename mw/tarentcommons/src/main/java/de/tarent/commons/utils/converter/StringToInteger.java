@@ -60,6 +60,6 @@ public class StringToInteger extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) throws NumberFormatException {
-        return new Integer((String)sourceData);
+        return new Integer((String) sourceData);
     }
 }

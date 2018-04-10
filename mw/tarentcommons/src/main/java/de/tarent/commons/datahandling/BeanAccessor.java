@@ -63,128 +63,137 @@ import de.tarent.commons.utils.VariableDateFormat;
  * holds information of setter and getter of a bean.
  */
 public class BeanAccessor {
-	/** Hold a list of setter. (Propertyname -> setter-method) */
-	private Map setter = new HashMap();
-	/** Hold a list of getter. (Propertyname -> getter-method) */
-	private Map getter = new HashMap();
+    /**
+     * Hold a list of setter. (Propertyname -> setter-method)
+     */
+    private Map setter = new HashMap();
+    /**
+     * Hold a list of getter. (Propertyname -> getter-method)
+     */
+    private Map getter = new HashMap();
 
-	/** format for converting a date to a string*/
-	private String dateOutputFormat = "dd.MM.yyyy";
+    /**
+     * format for converting a date to a string
+     */
+    private String dateOutputFormat = "dd.MM.yyyy";
 
-	/**
-	 * Constructor which load information about setters and getters.
-	 */
-	public BeanAccessor(Class clazz) {
-		Method methods[] = clazz.getMethods();
-		for (int i = 0; i < methods.length; i++) {
-			String methodName = methods[i].getName();
+    /**
+     * Constructor which load information about setters and getters.
+     */
+    public BeanAccessor(Class clazz) {
+        Method methods[] = clazz.getMethods();
+        for (int i = 0; i < methods.length; i++) {
+            String methodName = methods[i].getName();
 
-			if (methodName.startsWith("set") && methods[i].getParameterTypes().length == 1) {
-				String propertyName = getPropertyName(methodName, 3);
-				Tools.putIfNotNull(setter, propertyName, methods[i]);
-			} else if (methodName.startsWith("get") && methods[i].getParameterTypes().length == 0) {
-				if (methodName.equals("getClass"))
-					continue;
+            if (methodName.startsWith("set") && methods[i].getParameterTypes().length == 1) {
+                String propertyName = getPropertyName(methodName, 3);
+                Tools.putIfNotNull(setter, propertyName, methods[i]);
+            } else if (methodName.startsWith("get") && methods[i].getParameterTypes().length == 0) {
+                if (methodName.equals("getClass")) {
+                    continue;
+                }
 
-				String propertyName = getPropertyName(methodName, 3);
-				Tools.putIfNotNull(getter, propertyName, methods[i]);
-			} else if (methodName.startsWith("is") && methods[i].getParameterTypes().length == 0) {
-				String propertyName = getPropertyName(methodName, 2);
-				Tools.putIfNotNull(getter, propertyName, methods[i]);
-			}
-		}
-	}
+                String propertyName = getPropertyName(methodName, 3);
+                Tools.putIfNotNull(getter, propertyName, methods[i]);
+            } else if (methodName.startsWith("is") && methods[i].getParameterTypes().length == 0) {
+                String propertyName = getPropertyName(methodName, 2);
+                Tools.putIfNotNull(getter, propertyName, methods[i]);
+            }
+        }
+    }
 
-	/**
-	 * Get the propertyname of a setter or getter method.
-	 *
-	 * @param methodName
-	 * @param prefixLength
-	 * @return
-	 */
-	public String getPropertyName(String methodName, int prefixLength) {
-		if (methodName.length() > prefixLength)
-			return
-					methodName.substring(prefixLength, prefixLength + 1).toLowerCase() +
-					methodName.substring(prefixLength + 1);
-		else
-			return null;
-	}
+    /**
+     * Get the propertyname of a setter or getter method.
+     *
+     * @param methodName
+     * @param prefixLength
+     * @return
+     */
+    public String getPropertyName(String methodName, int prefixLength) {
+        if (methodName.length() > prefixLength) {
+            return
+                    methodName.substring(prefixLength, prefixLength + 1).toLowerCase() +
+                            methodName.substring(prefixLength + 1);
+        } else {
+            return null;
+        }
+    }
 
-	/**
-	 * Set the property of a bean.
-	 *
-	 * @param bean
-	 * @param property
-	 * @param value
-	 */
-	public void setProperty(Object bean, String property, Object value) {
-		// TODO This should be automatic transform the fields, e.g. from string to integer.
-		try {
-			Method invokeMethod = (Method)setter.get(property);
-			if (invokeMethod == null)
-				throw new RuntimeException("No setter found!");
-			if (invokeMethod.getParameterTypes()[0].equals(Date.class)) {
-				invokeMethod.invoke(bean, new Object[] {
-						value == null ? null : (new VariableDateFormat()).analyzeString((String) value) });
-			} else if (invokeMethod.getParameterTypes()[0].equals(Integer.class)) {
-				invokeMethod.invoke(bean, new Object[] {
-						value == null ? null : new Integer(value.toString()) });
-			} else {
-				invokeMethod.invoke(bean, new Object[] { value });
-			}
-		} catch (Exception e) {
-			throw new RuntimeException("Error: " +
-					" Could not set property '" + property + "' with " +
-					"'" + value + "' (" + value.getClass() + ").", e);
-		}
-	}
+    /**
+     * Set the property of a bean.
+     *
+     * @param bean
+     * @param property
+     * @param value
+     */
+    public void setProperty(Object bean, String property, Object value) {
+        // TODO This should be automatic transform the fields, e.g. from string to integer.
+        try {
+            Method invokeMethod = (Method) setter.get(property);
+            if (invokeMethod == null) {
+                throw new RuntimeException("No setter found!");
+            }
+            if (invokeMethod.getParameterTypes()[0].equals(Date.class)) {
+                invokeMethod.invoke(bean, new Object[] {
+                        value == null ? null : (new VariableDateFormat()).analyzeString((String) value) });
+            } else if (invokeMethod.getParameterTypes()[0].equals(Integer.class)) {
+                invokeMethod.invoke(bean, new Object[] {
+                        value == null ? null : new Integer(value.toString()) });
+            } else {
+                invokeMethod.invoke(bean, new Object[] { value });
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error: " +
+                    " Could not set property '" + property + "' with " +
+                    "'" + value + "' (" + value.getClass() + ").", e);
+        }
+    }
 
-	/**
-	 * Get the property of a bean.
-	 *
-	 * @param bean
-	 * @param property
-	 * @return
-	 */
-	public String getProperty(Object bean, String property) {
-		try {
-			Method invokeMethod = (Method)getter.get(property);
-			if (invokeMethod == null)
-				throw new RuntimeException("No getter found!");
-			if (invokeMethod.getReturnType().equals(Date.class)) {
-				Object result = invokeMethod.invoke(bean, new Object[] {});
-				return result == null ? null : (String) (new SimpleDateFormat(dateOutputFormat)).format(result);
-			}
-			else {
-				Object result = invokeMethod.invoke(bean, new Object[] {});
-				return result == null ? null : result.toString();
-			}
-		} catch (Exception e) {
-			throw new RuntimeException("Fehler!" +
-					" Konnte Property " + property + " nicht lesen.", e);
-		}
-	}
+    /**
+     * Get the property of a bean.
+     *
+     * @param bean
+     * @param property
+     * @return
+     */
+    public String getProperty(Object bean, String property) {
+        try {
+            Method invokeMethod = (Method) getter.get(property);
+            if (invokeMethod == null) {
+                throw new RuntimeException("No getter found!");
+            }
+            if (invokeMethod.getReturnType().equals(Date.class)) {
+                Object result = invokeMethod.invoke(bean, new Object[] {});
+                return result == null ? null : (String) (new SimpleDateFormat(dateOutputFormat)).format(result);
+            } else {
+                Object result = invokeMethod.invoke(bean, new Object[] {});
+                return result == null ? null : result.toString();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Fehler!" +
+                    " Konnte Property " + property + " nicht lesen.", e);
+        }
+    }
 
-	/**
-	 * @return Return all setable property names.
-	 */
-	public List getSetableProperties() {
-		return new ArrayList(setter.keySet());
-	}
+    /**
+     * @return Return all setable property names.
+     */
+    public List getSetableProperties() {
+        return new ArrayList(setter.keySet());
+    }
 
-	/**
-	 * @return Return all getable property names.
-	 */
-	public List getGetableProperties() {
-		return new ArrayList(getter.keySet());
-	}
+    /**
+     * @return Return all getable property names.
+     */
+    public List getGetableProperties() {
+        return new ArrayList(getter.keySet());
+    }
 
-	public String getDateOutputFormat() {
-		return dateOutputFormat;
-	}
+    public String getDateOutputFormat() {
+        return dateOutputFormat;
+    }
 
-	public void setDateOutputFormat(String dateOutputFormat) {
-		this.dateOutputFormat = dateOutputFormat;
-	}
+    public void setDateOutputFormat(String dateOutputFormat) {
+        this.dateOutputFormat = dateOutputFormat;
+    }
 }

@@ -59,8 +59,8 @@ import de.tarent.commons.datahandling.entity.*;
  *
  * <p>Examples for attribute keys:
  * <ul>
- *   <li> <code>name</code> describing a name Attribute</li>
- *   <li> <code>address.street</code> describing the field street in the name structure of the model</li>
+ * <li> <code>name</code> describing a name Attribute</li>
+ * <li> <code>address.street</code> describing the field street in the name structure of the model</li>
  * </ul>
  * </p>
  *

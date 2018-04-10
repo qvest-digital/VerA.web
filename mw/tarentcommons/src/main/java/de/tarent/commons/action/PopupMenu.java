@@ -79,11 +79,11 @@ import javax.swing.JSeparator;
 public class PopupMenu extends JPopupMenu implements ActionContainer {
 
     /**
-	 *
-	 */
-	private static final long serialVersionUID = -3371448570419300838L;
+     *
+     */
+    private static final long serialVersionUID = -3371448570419300838L;
 
-	private static final Logger logger = Logger.getLogger( PopupMenu.class.getName() );
+    private static final Logger logger = Logger.getLogger(PopupMenu.class.getName());
 
     protected String uniqueName;
     protected Map menus = new HashMap();
@@ -91,107 +91,104 @@ public class PopupMenu extends JPopupMenu implements ActionContainer {
     protected static final String DEFAULT_MENU = "Extras";
     private static final String PRIORITY_KEY = "menuBar.items.priority.key";
 
-    public PopupMenu( String uniqueName, ResourceBundle resourceBundle ) {
-	this.uniqueName = uniqueName;
-	this.resourceBundle = resourceBundle;
+    public PopupMenu(String uniqueName, ResourceBundle resourceBundle) {
+        this.uniqueName = uniqueName;
+        this.resourceBundle = resourceBundle;
     }
 
     /**
      * Returns container's unique name.
      */
     public String getContainerUniqueName() {
-	return uniqueName;
+        return uniqueName;
     }
 
     /**
      * Adds the given action to a menu bar at assigned position.
      *
-     * @param action The action to attach
+     * @param action   The action to attach
      * @param menuPath The path and rules to attach, as described above
      */
-    public void attachGUIAction( Action action, String menuPath ) {
-	JMenuItem item;
-	String actionType = (String) action.getValue( AbstractGUIAction.PROP_KEY_ACTION_TYPE );
+    public void attachGUIAction(Action action, String menuPath) {
+        JMenuItem item;
+        String actionType = (String) action.getValue(AbstractGUIAction.PROP_KEY_ACTION_TYPE);
 
-	if ( AbstractGUIAction.TYPE_CHECK.equals( actionType ) ) {
-	    item = new JCheckBoxMenuItem( action );
-	    // Adds the checkbox to the list of elements whose selection state
-	    // can be set through AbstractGUIAction.setSelected(boolean)
-	    MenuHelper.addSynchronizationComponent( action, (JCheckBoxMenuItem) item );
+        if (AbstractGUIAction.TYPE_CHECK.equals(actionType)) {
+            item = new JCheckBoxMenuItem(action);
+            // Adds the checkbox to the list of elements whose selection state
+            // can be set through AbstractGUIAction.setSelected(boolean)
+            MenuHelper.addSynchronizationComponent(action, (JCheckBoxMenuItem) item);
 
-	}
-	else if ( AbstractGUIAction.TYPE_CHOISE.equals( actionType ) ) {
-	    item = new JRadioButtonMenuItem( action );
+        } else if (AbstractGUIAction.TYPE_CHOISE.equals(actionType)) {
+            item = new JRadioButtonMenuItem(action);
 
-	}
-	else if ( AbstractGUIAction.TYPE_SEPARATOR.equals( actionType ) ) {
-	    addSeparator( menuPath );
-	    return;//READY
+        } else if (AbstractGUIAction.TYPE_SEPARATOR.equals(actionType)) {
+            addSeparator(menuPath);
+            return;//READY
 
-	}
-	else {
-	    item = new JMenuItem( action );
-	}
-	// set component name (for later ecxeption handling)
-	item.setName( (String) action.getValue( AbstractGUIAction.NAME ) );
-	addItem( item, menuPath, MenuHelper.isWithFrontSeparator( action ), MenuHelper.isWithBackSeparator( action ) );
+        } else {
+            item = new JMenuItem(action);
+        }
+        // set component name (for later ecxeption handling)
+        item.setName((String) action.getValue(AbstractGUIAction.NAME));
+        addItem(item, menuPath, MenuHelper.isWithFrontSeparator(action), MenuHelper.isWithBackSeparator(action));
     }
 
-    private void addSeparator( String menuPath ) {
-	addSeparator();
+    private void addSeparator(String menuPath) {
+        addSeparator();
     }
 
-    public void removeGUIAction( Action action ) {
-	logger.warning( "optional, not implemented method yet: removeGUIAction" );
+    public void removeGUIAction(Action action) {
+        logger.warning("optional, not implemented method yet: removeGUIAction");
     }
 
     public void initActions() {
-	Iterator mbIt = ActionRegistry.getInstance().getActions(getContainerUniqueName()).iterator();
+        Iterator mbIt = ActionRegistry.getInstance().getActions(getContainerUniqueName()).iterator();
 
-		while(mbIt.hasNext())
-		{
-			TarentGUIAction action = (TarentGUIAction)mbIt.next();
-			attachGUIAction(action, action.getMenuPath(getContainerUniqueName()));
-		}
+        while (mbIt.hasNext()) {
+            TarentGUIAction action = (TarentGUIAction) mbIt.next();
+            attachGUIAction(action, action.getMenuPath(getContainerUniqueName()));
+        }
     }
 
     /**
-     * @param item The item to attach
-     * @param menuPath The path and rules to attach, as described above
+     * @param item              The item to attach
+     * @param menuPath          The path and rules to attach, as described above
      * @param withBackSeparator
      */
-    public void addItem( JMenuItem item, String menuPath, boolean withFrontSeparator, boolean withBackSeparator ) {
-	int priority = MenuHelper.getAssignedPriority( removeMainMenuPriority(menuPath) );
+    public void addItem(JMenuItem item, String menuPath, boolean withFrontSeparator, boolean withBackSeparator) {
+        int priority = MenuHelper.getAssignedPriority(removeMainMenuPriority(menuPath));
 
-	item.getAction().putValue( PRIORITY_KEY, new Integer( priority ) );
+        item.getAction().putValue(PRIORITY_KEY, new Integer(priority));
 
-	int pos = MenuHelper.getInsertPosition( this.getComponents(), PRIORITY_KEY, new Integer( priority ) );
-	if ( withFrontSeparator )
-	    add( new JSeparator(), pos++ );
+        int pos = MenuHelper.getInsertPosition(this.getComponents(), PRIORITY_KEY, new Integer(priority));
+        if (withFrontSeparator) {
+            add(new JSeparator(), pos++);
+        }
 
-	logger.fine( "[menuBar]: " + item.getAction() + ": pos=" + String.valueOf( pos ) + " path=" + menuPath );
-	add( item, pos++ );
+        logger.fine("[menuBar]: " + item.getAction() + ": pos=" + String.valueOf(pos) + " path=" + menuPath);
+        add(item, pos++);
 
-	if ( withBackSeparator )
-	    add( new JSeparator(), pos );
+        if (withBackSeparator) {
+            add(new JSeparator(), pos);
+        }
     }
 
-    private String removeMainMenuPriority(String menuPath)
-    {
-	String[] menuPathParts = null;
-	if(menuPath != null)
-		menuPathParts = menuPath.split(":");
-	else
-		return null;
+    private String removeMainMenuPriority(String menuPath) {
+        String[] menuPathParts = null;
+        if (menuPath != null) {
+            menuPathParts = menuPath.split(":");
+        } else {
+            return null;
+        }
 
-	// check if the menuPath starts with a digit
-	if(menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0)))
-	{
-		// this menuPath contains a priority-value for the main-menu. remove it
-		return menuPath.substring(menuPath.indexOf(':')+1);
-	}
+        // check if the menuPath starts with a digit
+        if (menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0))) {
+            // this menuPath contains a priority-value for the main-menu. remove it
+            return menuPath.substring(menuPath.indexOf(':') + 1);
+        }
 
-	// does not contain a priority-value for the main-menu. return without change
-	return menuPath;
+        // does not contain a priority-value for the main-menu. return without change
+        return menuPath;
     }
 }

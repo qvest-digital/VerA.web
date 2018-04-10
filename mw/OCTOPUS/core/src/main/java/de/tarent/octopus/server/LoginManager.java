@@ -47,6 +47,7 @@ package de.tarent.octopus.server;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.Map;
 
 import de.tarent.octopus.config.TcCommonConfig;
@@ -59,7 +60,6 @@ import de.tarent.octopus.security.TcSecurityException;
  * welche Aktionen vom Benutzer ausgeführt werden dürfen.
  * <br><br>
  * Seine Hauptaufgabe ist es, eine PersonalConfig modulweit bereit zu stellen.
- *
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
@@ -84,7 +84,7 @@ public interface LoginManager {
      * @throws TcSecurityException bei einer Authentifizierung, die Fehlerhaft war
      */
     public void handleAuthentication(TcCommonConfig cConfig, TcRequest tcRequest, TcSession theSession)
-        throws TcSecurityException;
+            throws TcSecurityException;
 
     /**
      * Liefert die zuvor erstellte TcPersonalConfig dieses Moduls zurück.
@@ -95,12 +95,14 @@ public interface LoginManager {
 
     /**
      * Stellt fest, ob der LoginManager auch selber die Userverwaltung übernehmen kann.
+     *
      * @return <code>true</code> falls Userverwaltung möglich, <code>false</code> sonst.
      */
     public boolean isUserManagementSupported();
 
     /**
      * Liefert den zuständigen UserManager zurück.
+     *
      * @return UserManager oder <code>null</code>, falls LoginManager kein UserManagement unterstützt.
      */
     public UserManager getUserManager();

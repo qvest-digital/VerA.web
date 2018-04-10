@@ -72,7 +72,6 @@ public interface Converter {
      * Converts a data Item from the source to the target type.
      * If the supplied sourceData is null, a null should be returned.
      *
-     *
      * @param sourceData the convertable data. null is allowed here.
      * @throws IllegalArgumentException if the input data is not convertable by this converter
      */

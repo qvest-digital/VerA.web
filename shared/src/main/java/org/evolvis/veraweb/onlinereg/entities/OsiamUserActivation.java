@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -85,7 +86,7 @@ import java.util.Date;
                 query = "SELECT oua FROM OsiamUserActivation oua where username=:username"),
         @NamedQuery(name = "OsiamUserActivation.refreshOsiamUserActivationByUsername",
                 query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, " +
-                 "expiration_date=:expiration_date " +
+                        "expiration_date=:expiration_date " +
                         "WHERE username=:username")
 })
 public class OsiamUserActivation {

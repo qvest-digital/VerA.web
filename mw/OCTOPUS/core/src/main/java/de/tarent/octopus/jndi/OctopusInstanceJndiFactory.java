@@ -47,15 +47,16 @@ package de.tarent.octopus.jndi;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.client.OctopusConnectionFactory;
 import de.tarent.octopus.request.Octopus;
 
 public class OctopusInstanceJndiFactory extends AbstractJndiFactory implements OctopusInstanceLookup {
-	protected String getLookupPath() {
-		return "octopus/instance";
-	}
+    protected String getLookupPath() {
+        return "octopus/instance";
+    }
 
-	public Octopus getOctopusInstance() {
-		return OctopusConnectionFactory.getInstance().getInternalOctopusInstance();
-	}
+    public Octopus getOctopusInstance() {
+        return OctopusConnectionFactory.getInstance().getInternalOctopusInstance();
+    }
 }

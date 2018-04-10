@@ -77,24 +77,39 @@ import de.tarent.octopus.server.Closeable;
  */
 public class ResultList implements List, Closeable {
 
-    /** Logger of this class */
+    /**
+     * Logger of this class
+     */
     private static final Log logger = LogFactory.getLog(ResultList.class);
-    /** The {@link ResultSet} operated upon. */
-	private final ResultSet resultSet;
-	/** The single result object returned by {@link #get(int)} and {@link ResultIt#next()}. */
-	private final Object object;
-	/** The single result iterator returned by {@link #iterator()}. */
-	private final ResultIt iterator;
-    /** The {@link Runnable} to run upon finalisation. */
+    /**
+     * The {@link ResultSet} operated upon.
+     */
+    private final ResultSet resultSet;
+    /**
+     * The single result object returned by {@link #get(int)} and {@link ResultIt#next()}.
+     */
+    private final Object object;
+    /**
+     * The single result iterator returned by {@link #iterator()}.
+     */
+    private final ResultIt iterator;
+    /**
+     * The {@link Runnable} to run upon finalisation.
+     */
     private final Runnable runFinally;
-    /** Flag: Was the runFinally allready called? */
+    /**
+     * Flag: Was the runFinally allready called?
+     */
     private boolean runFinallyCalled = false;
-	/** Flag: Is the ResultSet positioned on a readable position? */
-	private boolean canread = false;
+    /**
+     * Flag: Is the ResultSet positioned on a readable position?
+     */
+    private boolean canread = false;
 
     //
     // constructors
     //
+
     /**
      * This constructor creates a {@link ResultList} instance using defaults
      * for the result object and finalisation object.<br>
@@ -104,9 +119,9 @@ public class ResultList implements List, Closeable {
      *
      * @param resultSet the {@link ResultSet} to wrap
      */
-	public ResultList(ResultSet resultSet) throws SQLException {
-		this(resultSet, new ResultMap(resultSet));
-	}
+    public ResultList(ResultSet resultSet) throws SQLException {
+        this(resultSet, new ResultMap(resultSet));
+    }
 
     /**
      * This constructor creates a {@link ResultList} instance using defaults
@@ -116,7 +131,7 @@ public class ResultList implements List, Closeable {
      * entities it depends upon, too, using the {@link Runnable} parameter.
      *
      * @param runFinally the {@link Runnable} to run during finalisation
-     * @param resultSet the {@link ResultSet} to wrap
+     * @param resultSet  the {@link ResultSet} to wrap
      */
     public ResultList(Runnable runFinally, ResultSet resultSet) throws SQLException {
         this(runFinally, resultSet, new ResultMap(resultSet));
@@ -129,12 +144,12 @@ public class ResultList implements List, Closeable {
      * finalisation during garbage collection is early enough) and maybe other
      * entities it depends upon, too.
      *
-     * @param resultSet the {@link ResultSet} to wrap
+     * @param resultSet    the {@link ResultSet} to wrap
      * @param resultObject the {@link Object} representing the current result set row
      */
-	public ResultList(ResultSet resultSet, Object resultObject) throws SQLException {
+    public ResultList(ResultSet resultSet, Object resultObject) throws SQLException {
         this(null, resultSet, resultObject);
-	}
+    }
 
     /**
      * This constructor creates a {@link ResultList} instance.<br>
@@ -142,8 +157,8 @@ public class ResultList implements List, Closeable {
      * finalisation during garbage collection is early enough) and maybe other
      * entities it depends upon, too, using the {@link Runnable} parameter.
      *
-     * @param runFinally the {@link Runnable} to run during finalisation
-     * @param resultSet the {@link ResultSet} to wrap
+     * @param runFinally   the {@link Runnable} to run during finalisation
+     * @param resultSet    the {@link ResultSet} to wrap
      * @param resultObject the {@link Object} representing the current result set row
      */
     public ResultList(Runnable runFinally, ResultSet resultSet, Object resultObject) {
@@ -156,24 +171,26 @@ public class ResultList implements List, Closeable {
     //
     // public methods
     //
-	/**
-	 * This method returns the wrapped {@link ResultSet}.
-	 */
-	public ResultSet getResultSet() throws SQLException {
-		return resultSet;
-	}
+
+    /**
+     * This method returns the wrapped {@link ResultSet}.
+     */
+    public ResultSet getResultSet() throws SQLException {
+        return resultSet;
+    }
 
     /**
      * This method returns the {@link ResultSetMetaData} of the wrapped
      * {@link ResultSet}.
      */
-	public ResultSetMetaData getMetaData() throws SQLException {
-		return resultSet.getMetaData();
-	}
+    public ResultSetMetaData getMetaData() throws SQLException {
+        return resultSet.getMetaData();
+    }
 
     //
     // interface {@link List}
     //
+
     /**
      * Returns the number of elements in this {@link List}. If this {@link List}
      * contains more than <tt>Integer.MAX_VALUE</tt> elements, returns
@@ -188,27 +205,28 @@ public class ResultList implements List, Closeable {
      * @see #iterator()
      * @see List#size()
      */
-	public int size() {
-		try {
-			canread = resultSet.last();
-			if (canread)
-				return resultSet.getRow();
-		} catch (SQLException e) {
+    public int size() {
+        try {
+            canread = resultSet.last();
+            if (canread) {
+                return resultSet.getRow();
+            }
+        } catch (SQLException e) {
             logger.warn("Error calculating the size of the ResultSet", e);
-		}
-		return 0;
-	}
+        }
+        return 0;
+    }
 
     /**
      * Removes all of the elements from this collection (optional operation).<br>
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException as the <tt>clear</tt> method is
-     *         not supported by this collection.
+     *                                       not supported by this collection.
      */
-	public void clear() {
-		throw new UnsupportedOperationException();
-	}
+    public void clear() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Returns <tt>true</tt> if this collection contains no elements.<br>
@@ -222,9 +240,9 @@ public class ResultList implements List, Closeable {
      * @see #iterator()
      * @see List#isEmpty()
      */
-	public boolean isEmpty() {
-		return size() == 0;
-	}
+    public boolean isEmpty() {
+        return size() == 0;
+    }
 
     /**
      * Returns an array containing all of the elements in this collection.  If
@@ -235,9 +253,9 @@ public class ResultList implements List, Closeable {
      *
      * @return an array containing all of the elements in this collection
      */
-	public Object[] toArray() {
-		return new Object[] {};
-	}
+    public Object[] toArray() {
+        return new Object[] {};
+    }
 
     /**
      * Returns the element at the specified position in this list.<br>
@@ -254,15 +272,16 @@ public class ResultList implements List, Closeable {
      * @param index index of element to return.
      * @return the element at the specified position in this list.
      */
-	public Object get(int index) {
-		try {
-			if(resultSet.absolute(index + 1))
-			    return object;
-		} catch (SQLException e) {
-            logger.error("Error positioning ResultSet on position " + (index+1), e);
-		}
-		return null;
-	}
+    public Object get(int index) {
+        try {
+            if (resultSet.absolute(index + 1)) {
+                return object;
+            }
+        } catch (SQLException e) {
+            logger.error("Error positioning ResultSet on position " + (index + 1), e);
+        }
+        return null;
+    }
 
     /**
      * Removes the element at the specified position in this list (optional
@@ -270,11 +289,11 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException as the <tt>remove</tt> method is
-     *        not supported by this list.
+     *                                       not supported by this list.
      */
-	public Object remove(int index) {
-		throw new UnsupportedOperationException();
-	}
+    public Object remove(int index) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Inserts the specified element at the specified position in this list
@@ -282,11 +301,11 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException if the <tt>add</tt> method is not
-     *        supported by this list.
+     *                                       supported by this list.
      */
-	public void add(int index, Object element) {
-		throw new UnsupportedOperationException();
-	}
+    public void add(int index, Object element) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Returns the index in this list of the first occurrence of the specified
@@ -296,9 +315,9 @@ public class ResultList implements List, Closeable {
      * or -1 if there is no such index.<br>
      * TODO: implement properly.
      */
-	public int indexOf(Object o) {
-		return -1;
-	}
+    public int indexOf(Object o) {
+        return -1;
+    }
 
     /**
      * Returns the index in this list of the last occurrence of the specified
@@ -308,9 +327,9 @@ public class ResultList implements List, Closeable {
      * or -1 if there is no such index.<br>
      * TODO: implement properly.
      */
-	public int lastIndexOf(Object o) {
-		return -1;
-	}
+    public int lastIndexOf(Object o) {
+        return -1;
+    }
 
     /**
      * Ensures that this collection contains the specified element (optional
@@ -318,11 +337,11 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException <tt>add</tt> is not supported by
-     *         this collection.
+     *                                       this collection.
      */
-	public boolean add(Object o) {
-		throw new UnsupportedOperationException();
-	}
+    public boolean add(Object o) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Returns <tt>true</tt> if this collection contains the specified
@@ -331,9 +350,9 @@ public class ResultList implements List, Closeable {
      * <tt>(o==null ? e==null : o.equals(e))</tt>.<br>
      * TODO: implement properly
      */
-	public boolean contains(Object o) {
-		return false;
-	}
+    public boolean contains(Object o) {
+        return false;
+    }
 
     /**
      * Removes a single instance of the specified element from this
@@ -341,11 +360,11 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException remove is not supported by this
-     *         collection.
+     *                                       collection.
      */
-	public boolean remove(Object o) {
-		throw new UnsupportedOperationException();
-	}
+    public boolean remove(Object o) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Inserts all of the elements in the specified collection into this
@@ -353,11 +372,11 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException if the <tt>addAll</tt> method is
-     *        not supported by this list.
+     *                                       not supported by this list.
      */
-	public boolean addAll(int index, Collection c) {
-		throw new UnsupportedOperationException();
-	}
+    public boolean addAll(int index, Collection c) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Adds all of the elements in the specified collection to this collection
@@ -365,20 +384,20 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException as this collection does not
-     *         support the <tt>addAll</tt> method.
+     *                                       support the <tt>addAll</tt> method.
      */
-	public boolean addAll(Collection c) {
-		throw new UnsupportedOperationException();
-	}
+    public boolean addAll(Collection c) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Returns <tt>true</tt> if this collection contains all of the elements
      * in the specified collection.<br>
      * TODO: implement properly
      */
-	public boolean containsAll(Collection c) {
-		throw new UnsupportedOperationException();
-	}
+    public boolean containsAll(Collection c) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Removes all this collection's elements that are also contained in the
@@ -386,13 +405,13 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException as the <tt>removeAll</tt> method
-     *         is not supported by this collection.
+     *                                       is not supported by this collection.
      * @see #remove(Object)
      * @see #contains(Object)
      */
-	public boolean removeAll(Collection c) {
-		throw new UnsupportedOperationException();
-	}
+    public boolean removeAll(Collection c) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Retains only the elements in this collection that are contained in the
@@ -400,13 +419,13 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException as the <tt>retainAll</tt> method
-     *         is not supported by this Collection.
+     *                                       is not supported by this Collection.
      * @see #remove(Object)
      * @see #contains(Object)
      */
-	public boolean retainAll(Collection c) {
-		throw new UnsupportedOperationException();
-	}
+    public boolean retainAll(Collection c) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Returns an iterator over the elements in this collection.  There are no
@@ -431,10 +450,10 @@ public class ResultList implements List, Closeable {
      *
      * @return an <tt>Iterator</tt> over the elements in this collection
      */
-	public Iterator iterator() {
-		reset();
-		return iterator;
-	}
+    public Iterator iterator() {
+        reset();
+        return iterator;
+    }
 
     /**
      * Returns a view of the portion of this list between the specified
@@ -443,9 +462,9 @@ public class ResultList implements List, Closeable {
      * empty.)<br>
      * TODO: implement properly
      */
-	public List subList(int fromIndex, int toIndex) {
-		return null;
-	}
+    public List subList(int fromIndex, int toIndex) {
+        return null;
+    }
 
     /**
      * Returns a list iterator of the elements in this list (in proper
@@ -453,11 +472,11 @@ public class ResultList implements List, Closeable {
      * TODO: implement properly
      *
      * @return a list iterator of the elements in this list (in proper
-     *         sequence).
+     * sequence).
      */
-	public ListIterator listIterator() {
-		return null;
-	}
+    public ListIterator listIterator() {
+        return null;
+    }
 
     /**
      * Returns a list iterator of the elements in this list (in proper
@@ -468,9 +487,9 @@ public class ResultList implements List, Closeable {
      * specified index minus one.<br>
      * TODO: implement properly
      */
-	public ListIterator listIterator(int index) {
-		return null;
-	}
+    public ListIterator listIterator(int index) {
+        return null;
+    }
 
     /**
      * Replaces the element at the specified position in this list with the
@@ -478,11 +497,11 @@ public class ResultList implements List, Closeable {
      * Not supported by {@link ResultList}.
      *
      * @throws UnsupportedOperationException if the <tt>set</tt> method is not
-     *        supported by this list.
+     *                                       supported by this list.
      */
-	public Object set(int index, Object element) {
-		throw new UnsupportedOperationException();
-	}
+    public Object set(int index, Object element) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Returns an array containing all of the elements in this collection;
@@ -492,23 +511,25 @@ public class ResultList implements List, Closeable {
      * specified array and the size of this collection.<br>
      * TODO: implement properly
      */
-	public Object[] toArray(Object[] a) {
-        if (a != null && a.length > 0)
+    public Object[] toArray(Object[] a) {
+        if (a != null && a.length > 0) {
             a[0] = null;
-		return a;
-	}
+        }
+        return a;
+    }
 
     //
     // class {@link Object}
     //
+
     /**
      * Returns a string representation of the object.
      *
-     * @return  a string representation of the object.
+     * @return a string representation of the object.
      */
-	public String toString() {
-		return getClass().getName() + " " + object.toString();
-	}
+    public String toString() {
+        return getClass().getName() + " " + object.toString();
+    }
 
     /**
      * Called by the garbage collector on an object when garbage collection
@@ -526,12 +547,13 @@ public class ResultList implements List, Closeable {
     //
     // interface {@link Closeable}
     //
+
     /**
      * This may be called to release the underlying ressources.
      * The finalisation {@link Runnable} is called here if it was not called before.
      */
     public synchronized void close() {
-        if (runFinally != null && ! runFinallyCalled) {
+        if (runFinally != null && !runFinallyCalled) {
             runFinally.run();
             runFinallyCalled = true;
         }
@@ -540,6 +562,7 @@ public class ResultList implements List, Closeable {
     //
     // non-public helper methods and classes
     //
+
     /**
      * This method resets the wrapped {@link ResultSet}.
      */
@@ -555,7 +578,7 @@ public class ResultList implements List, Closeable {
     /**
      * This class is the taylored iterator for this {@link List} implementation.
      */
-	private class ResultIt implements Iterator {
+    private class ResultIt implements Iterator {
         /**
          * Returns <tt>true</tt> if the iteration has more elements. (In other
          * words, returns <tt>true</tt> if <tt>next</tt> would return an element
@@ -565,19 +588,19 @@ public class ResultList implements List, Closeable {
          *
          * @return <tt>true</tt> if the iterator has more elements.
          */
-		public boolean hasNext() {
-			try {
-				if (canread) {
-					return true;
-				} else {
-					canread = ResultList.this.resultSet.next();
-					return canread;
-				}
-			} catch (SQLException e) {
+        public boolean hasNext() {
+            try {
+                if (canread) {
+                    return true;
+                } else {
+                    canread = ResultList.this.resultSet.next();
+                    return canread;
+                }
+            } catch (SQLException e) {
                 logger.error("Error advancing ResultSet cursor", e);
-				return false;
-			}
-		}
+                return false;
+            }
+        }
 
         /**
          * Returns the next element in the iteration.<br>
@@ -588,27 +611,27 @@ public class ResultList implements List, Closeable {
          * {@link ResultSet} row.
          *
          * @return the next element in the iteration.
-         * @exception NoSuchElementException iteration has no more elements.
+         * @throws NoSuchElementException iteration has no more elements.
          */
-		public Object next() {
-			if (canread || hasNext()) {
-				canread = false;
-				return object;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
+        public Object next() {
+            if (canread || hasNext()) {
+                canread = false;
+                return object;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
 
         /**
          * Removes from the underlying collection the last element returned by the
          * iterator (optional operation).<br>
          * Not supported by {@link ResultList.ResultIt}.
          *
-         * @exception UnsupportedOperationException if the <tt>remove</tt>
-         *        operation is not supported by this Iterator.
+         * @throws UnsupportedOperationException if the <tt>remove</tt>
+         *                                       operation is not supported by this Iterator.
          */
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
-	}
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
 }

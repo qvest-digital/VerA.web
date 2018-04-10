@@ -63,7 +63,6 @@ import de.tarent.commons.utils.Tools;
  * Class for accessing attributes via reflection
  *
  * @author tim
- *
  */
 
 /*
@@ -110,51 +109,51 @@ import de.tarent.commons.utils.Tools;
 
 public class BeanMap implements Map {
 
-	private class Property {
-		String name;
-		Class type;
-		boolean canBeRead;
-		boolean canBeWritten;
+    private class Property {
+        String name;
+        Class type;
+        boolean canBeRead;
+        boolean canBeWritten;
 
-		public Property(String name, Class type, boolean canBeRead, boolean canBeWritten) {
-			this.name = name;
-			this.type = type;
-			this.canBeRead = canBeRead;
-			this.canBeWritten = canBeWritten;
-		}
+        public Property(String name, Class type, boolean canBeRead, boolean canBeWritten) {
+            this.name = name;
+            this.type = type;
+            this.canBeRead = canBeRead;
+            this.canBeWritten = canBeWritten;
+        }
 
-		public boolean isCanBeRead() {
-			return canBeRead;
-		}
+        public boolean isCanBeRead() {
+            return canBeRead;
+        }
 
-		public void setCanBeRead(boolean canBeRead) {
-			this.canBeRead = canBeRead;
-		}
+        public void setCanBeRead(boolean canBeRead) {
+            this.canBeRead = canBeRead;
+        }
 
-		public boolean isCanBeWritten() {
-			return canBeWritten;
-		}
+        public boolean isCanBeWritten() {
+            return canBeWritten;
+        }
 
-		public void setCanBeWritten(boolean canBeWritten) {
-			this.canBeWritten = canBeWritten;
-		}
+        public void setCanBeWritten(boolean canBeWritten) {
+            this.canBeWritten = canBeWritten;
+        }
 
-		public String getName() {
-			return name;
-		}
+        public String getName() {
+            return name;
+        }
 
-		public void setName(String name) {
-			this.name = name;
-		}
+        public void setName(String name) {
+            this.name = name;
+        }
 
-		public Class getType() {
-			return type;
-		}
+        public Class getType() {
+            return type;
+        }
 
-		public void setType(Class type) {
-			this.type = type;
-		}
-	}
+        public void setType(Class type) {
+            this.type = type;
+        }
+    }
 
     /**
      * Alle Methoden dieser Bean.
@@ -166,54 +165,52 @@ public class BeanMap implements Map {
      */
     protected HashMap properties;
 
-    public BeanMap()
-    {
-	super();
-	this.methods = this.getMethods();
-	this.properties = this.getPropertyMap();
+    public BeanMap() {
+        super();
+        this.methods = this.getMethods();
+        this.properties = this.getPropertyMap();
     }
 
     /**
      * Returns all methods of this class, except those that are inheritet from Map and Object.
+     *
      * @return
      */
     private Method[] getMethods() {
-	Method[] allMethods = this.getClass().getMethods();
-	Vector filteredMethods = new Vector();
-	for (int i = 0; i < allMethods.length; i++) {
-		if (!Tools.arrayContains(BeanMap.class.getMethods(), allMethods[i])) {
-			filteredMethods.add(allMethods[i]);
-		}
-	}
-	Method[] returnMethods = new Method[filteredMethods.size()];
-	for (int i = 0; i < returnMethods.length; i++) {
-		returnMethods[i] = (Method) filteredMethods.get(i);
-	}
-		return returnMethods;
-	}
+        Method[] allMethods = this.getClass().getMethods();
+        Vector filteredMethods = new Vector();
+        for (int i = 0; i < allMethods.length; i++) {
+            if (!Tools.arrayContains(BeanMap.class.getMethods(), allMethods[i])) {
+                filteredMethods.add(allMethods[i]);
+            }
+        }
+        Method[] returnMethods = new Method[filteredMethods.size()];
+        for (int i = 0; i < returnMethods.length; i++) {
+            returnMethods[i] = (Method) filteredMethods.get(i);
+        }
+        return returnMethods;
+    }
 
-	/**
+    /**
      * Returns the get method appropriate to {@code attribute}.
      *
-     * @param attribute the attribute corresponding to the searched get method
+     * @param attribute  the attribute corresponding to the searched get method
      * @param ignoreCase true, if the case should be ignored and false otherwise
      * @return the get-method appropriate to {@code attribute} or null, if none is found.
      */
-    private Method getMatchingGetMethod(String attribute, boolean ignoreCase)
-    {
-	for (int i = 0; i < methods.length; i++)
-	{
-	    String methodCandidate = methods[i].getName();
-	    if ((!ignoreCase &&
-			methodCandidate.equals("get" + StringTools.capitalizeFirstLetter(attribute))) ||
-		(ignoreCase &&
-			methodCandidate.toLowerCase().equals("get" + attribute.toLowerCase()))) {
-		//System.out.println("Returned " + methods[i].getName());
-		return methods[i];
-	    }
-	}
+    private Method getMatchingGetMethod(String attribute, boolean ignoreCase) {
+        for (int i = 0; i < methods.length; i++) {
+            String methodCandidate = methods[i].getName();
+            if ((!ignoreCase &&
+                    methodCandidate.equals("get" + StringTools.capitalizeFirstLetter(attribute))) ||
+                    (ignoreCase &&
+                            methodCandidate.toLowerCase().equals("get" + attribute.toLowerCase()))) {
+                //System.out.println("Returned " + methods[i].getName());
+                return methods[i];
+            }
+        }
 
-	return null;
+        return null;
     }
 
     /**
@@ -224,60 +221,52 @@ public class BeanMap implements Map {
      * @throws NoSuchFieldException
      * @throws SecurityException
      */
-    public Class getValueType(String attribute) throws SecurityException, NoSuchFieldException
-    {
-	if (!containsKey(attribute)) {
-	    throw new ClassCastException("Key not found.");
-	}
-	return this.getClass().getDeclaredField(attribute).getType();
+    public Class getValueType(String attribute) throws SecurityException, NoSuchFieldException {
+        if (!containsKey(attribute)) {
+            throw new ClassCastException("Key not found.");
+        }
+        return this.getClass().getDeclaredField(attribute).getType();
     }
 
     /**
      * Diese Methode gibt den korrespondierenden Wert eines übergebenen Keys
      * in der (virtuellen) Map zurück.
      *
-     *
      * @param key - Key des gesuchten Werts.
      * @return Wert, oder null, falls Key nicht gefunden.
      */
-    private Object getValue(Object key) throws NoSuchFieldException
-    {
-	return getValueCase(key, false);
+    private Object getValue(Object key) throws NoSuchFieldException {
+        return getValueCase(key, false);
     }
 
     /**
      * Returns the value of the attribute specified by {@code key}. If {@code ignoreCase}
      * is true, the case is ignored, otherwise not.
      *
-     * @param key the name of the attribute
+     * @param key        the name of the attribute
      * @param ignoreCase true, if the case schould be ignored, otherwise false.
      * @return the value of the attribute specified by {@code key}
      * @throws NoSuchFieldException if no corresponding attribtue could be found
      */
-	private Object getValueCase(Object key, boolean ignoreCase) throws NoSuchFieldException {
-		Iterator iter = properties.keySet().iterator();
-	while (iter.hasNext())
-	{
-	    String aPropertyName = (String) iter.next();
-	    if ( 	(!ignoreCase && aPropertyName.equals(key)) ||
-			(ignoreCase && aPropertyName.toLowerCase().equals(
-					((String) key).toLowerCase())))
-	    {
-		try
-		{
-		    Method thisMethod = this.getMatchingGetMethod(aPropertyName, ignoreCase);
-		    Object thisValue = thisMethod.invoke(this, new Object[] {});
-		    return thisValue;
-		}
-		catch (Exception e)
-		{
-		    throw new RuntimeException(e);
-		}
-	    }
-	}
-	// Key wurde nicht gefunden
-	throw new NoSuchFieldException();
-	}
+    private Object getValueCase(Object key, boolean ignoreCase) throws NoSuchFieldException {
+        Iterator iter = properties.keySet().iterator();
+        while (iter.hasNext()) {
+            String aPropertyName = (String) iter.next();
+            if ((!ignoreCase && aPropertyName.equals(key)) ||
+                    (ignoreCase && aPropertyName.toLowerCase().equals(
+                            ((String) key).toLowerCase()))) {
+                try {
+                    Method thisMethod = this.getMatchingGetMethod(aPropertyName, ignoreCase);
+                    Object thisValue = thisMethod.invoke(this, new Object[] {});
+                    return thisValue;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        // Key wurde nicht gefunden
+        throw new NoSuchFieldException();
+    }
 
     /**
      * Diese Methode gibt den korrespondierenden Wert eines übergebenen Keys
@@ -286,123 +275,106 @@ public class BeanMap implements Map {
      * @param key - Key des gesuchten Werts.
      * @return Wert, oder null, falls Key nicht gefunden.
      */
-    private Object getValueIgnoreCase(Object key) throws NoSuchFieldException
-    {
-	return getValueCase(key, true);
+    private Object getValueIgnoreCase(Object key) throws NoSuchFieldException {
+        return getValueCase(key, true);
     }
 
     /**
      * Setzt die Bean-Properties in ein HashSet um.
      */
-    private HashMap getPropertyMap()
-    {
-	// Erster Pass - holen der Kandidaten
-	HashMap properties = new HashMap();
-	for (int i = 0; i < methods.length; i++) {
-	    Method thisMethod = methods[i];
-	    if (thisMethod.getName().startsWith("get")) {
-		String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("get", ""));
-			properties.put(pureName, new Property(pureName, methods[i].getReturnType(), true, false));
-	    }
-	    else if (thisMethod.getName().startsWith("is")) {
-		String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("is", ""));
-			properties.put(pureName, new Property(pureName, methods[i].getReturnType(), true, false));
-	    }
-	    else if (thisMethod.getName().startsWith("set")) {
-		String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("set", ""));
-		if (properties.containsKey(pureName) &&
-				((Property) properties.get(pureName)).getType().equals(methods[i].getParameterTypes()[0])) {
-			((Property) properties.get(pureName)).setCanBeWritten(true);
-		}
-		else {
-			properties.put(pureName, new Property(pureName, methods[i].getParameterTypes()[0], false, true));
-		}
-	    }
-	}
+    private HashMap getPropertyMap() {
+        // Erster Pass - holen der Kandidaten
+        HashMap properties = new HashMap();
+        for (int i = 0; i < methods.length; i++) {
+            Method thisMethod = methods[i];
+            if (thisMethod.getName().startsWith("get")) {
+                String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("get", ""));
+                properties.put(pureName, new Property(pureName, methods[i].getReturnType(), true, false));
+            } else if (thisMethod.getName().startsWith("is")) {
+                String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("is", ""));
+                properties.put(pureName, new Property(pureName, methods[i].getReturnType(), true, false));
+            } else if (thisMethod.getName().startsWith("set")) {
+                String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("set", ""));
+                if (properties.containsKey(pureName) &&
+                        ((Property) properties.get(pureName)).getType().equals(methods[i].getParameterTypes()[0])) {
+                    ((Property) properties.get(pureName)).setCanBeWritten(true);
+                } else {
+                    properties.put(pureName, new Property(pureName, methods[i].getParameterTypes()[0], false, true));
+                }
+            }
+        }
 
-	// Zweiter Pass - Korrelieren
-	//System.out.println(properties.keySet().toString());
-	return properties;
+        // Zweiter Pass - Korrelieren
+        //System.out.println(properties.keySet().toString());
+        return properties;
     }
 
-	/**
+    /**
      * @see java.util.Map#size()
      */
-    public int size()
-    {
-	return this.properties.size();
+    public int size() {
+        return this.properties.size();
     }
 
     /**
      * @see java.util.Map#isEmpty()
      */
-    public boolean isEmpty()
-    {
-	return this.properties.isEmpty();
+    public boolean isEmpty() {
+        return this.properties.isEmpty();
     }
 
     /**
      * @see java.util.Map#containsKey(java.lang.Object)
      */
-    public boolean containsKey(Object key)
-    {
-	return this.properties.containsKey(key);
+    public boolean containsKey(Object key) {
+        return this.properties.containsKey(key);
     }
 
     /**
      * @see java.util.Map#keySet()
      */
-    public Set keySet()
-    {
-	return properties.keySet();
+    public Set keySet() {
+        return properties.keySet();
     }
 
     /**
-     *
      * @see java.util.Map#containsValue(java.lang.Object)
      */
-    public boolean containsValue(Object value)
-    {
-	if (value == null) return true;
+    public boolean containsValue(Object value) {
+        if (value == null) {
+            return true;
+        }
 
-	Iterator iter = properties.keySet().iterator();
-	while (iter.hasNext())
-	{
-	    String aPropertyName = (String) iter.next();
-	    try
-	    {
-		Method thisMethod = this.getMatchingGetMethod(aPropertyName, false);
-		if (thisMethod != null) {
-			Object thisValue = thisMethod.invoke(this, new Object[] {});
-			if (thisValue != null && thisValue.equals(value)) {
-			    return true;
-			}
-		}
-	    }
-	    catch (Exception e)
-	    {
-		throw new RuntimeException(e);
-	    }
-	}
+        Iterator iter = properties.keySet().iterator();
+        while (iter.hasNext()) {
+            String aPropertyName = (String) iter.next();
+            try {
+                Method thisMethod = this.getMatchingGetMethod(aPropertyName, false);
+                if (thisMethod != null) {
+                    Object thisValue = thisMethod.invoke(this, new Object[] {});
+                    if (thisValue != null && thisValue.equals(value)) {
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
 
-	return false;
+        return false;
     }
 
     /**
      * @see java.util.Map#get(java.lang.Object)
      */
-    public Object get(Object key)
-    {
-	Object thisValue = null;
-	try
-	{
-	    thisValue = this.getValue(key);
-	}
-	catch (NoSuchFieldException e)
-	{
-	    throw new ClassCastException("Key not found.");
-	}
-	return thisValue;
+    public Object get(Object key) {
+        Object thisValue = null;
+        try {
+            thisValue = this.getValue(key);
+        } catch (NoSuchFieldException e) {
+            throw new ClassCastException("Key not found.");
+        }
+        return thisValue;
     }
 
     /**
@@ -412,9 +384,8 @@ public class BeanMap implements Map {
      *
      * @see java.util.Map#values()
      */
-    public Collection values()
-    {
-	throw new UnsupportedOperationException();
+    public Collection values() {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -424,57 +395,48 @@ public class BeanMap implements Map {
      *
      * @see java.util.Map#entrySet()
      */
-    public Set entrySet()
-    {
-	throw new UnsupportedOperationException();
+    public Set entrySet() {
+        throw new UnsupportedOperationException();
     }
 
     /**
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
-    public Object put(Object arg0, Object arg1)
-    {
-	throw new UnsupportedOperationException();
+    public Object put(Object arg0, Object arg1) {
+        throw new UnsupportedOperationException();
     }
 
     /**
      * @see java.util.Map#remove(java.lang.Object)
      */
-    public Object remove(Object key)
-    {
-	throw new UnsupportedOperationException();
+    public Object remove(Object key) {
+        throw new UnsupportedOperationException();
     }
 
     /**
      * @see java.util.Map#putAll(java.util.Map)
      */
-    public void putAll(Map arg0)
-    {
-	throw new UnsupportedOperationException();
+    public void putAll(Map arg0) {
+        throw new UnsupportedOperationException();
     }
 
     /**
      * @see java.util.Map#clear()
      */
-    public void clear()
-    {
-	throw new UnsupportedOperationException();
+    public void clear() {
+        throw new UnsupportedOperationException();
     }
 
     /**
      * @see java.util.Map#get(java.lang.Object)
      */
-    public Object getIgnoreCase(Object key)
-    {
-	Object thisValue = null;
-	try
-	{
-	    thisValue = this.getValueIgnoreCase(key);
-	}
-	catch (NoSuchFieldException e)
-	{
-	    throw new ClassCastException("Key not found.");
-	}
-	return thisValue;
+    public Object getIgnoreCase(Object key) {
+        Object thisValue = null;
+        try {
+            thisValue = this.getValueIgnoreCase(key);
+        } catch (NoSuchFieldException e) {
+            throw new ClassCastException("Key not found.");
+        }
+        return thisValue;
     }
 }

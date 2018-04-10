@@ -62,104 +62,109 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
 public class OneFilePerLogHandler extends Handler {
-	protected LogFormatter formatter = new LogFormatter();
-	protected String path;
-	protected String encoding;
+    protected LogFormatter formatter = new LogFormatter();
+    protected String path;
+    protected String encoding;
 
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
 
-	public String getEncoding() {
-		if (encoding != null && encoding.length() != 0)
-			return encoding;
-		else
-			return "UTF-8";
-	}
+    public String getEncoding() {
+        if (encoding != null && encoding.length() != 0) {
+            return encoding;
+        } else {
+            return "UTF-8";
+        }
+    }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	public String getPath() {
-		if (path != null && path.length() != 0)
-			return path;
-		else
-			return System.getProperty("user.home");
-	}
+    public String getPath() {
+        if (path != null && path.length() != 0) {
+            return path;
+        } else {
+            return System.getProperty("user.home");
+        }
+    }
 
-	protected String getFilePrefix() {
-		return new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS_").format(new Date());
-	}
+    protected String getFilePrefix() {
+        return new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS_").format(new Date());
+    }
 
-	protected String getPlainMessage(String message) {
-		StringBuffer buffer = new StringBuffer(message.length());
+    protected String getPlainMessage(String message) {
+        StringBuffer buffer = new StringBuffer(message.length());
 
-		char c[] = message.toCharArray();
-		for (int i = 0; i < c.length; i++) {
-			if ("-_.,".indexOf(c[i]) != -1 ||
-					(c[i] >= 'a' && c[i] <= 'z') ||
-					(c[i] >= 'A' && c[i] <= 'Z') ||
-					(c[i] >= '0' && c[i] <= '9')) {
-				buffer.append(c[i]);
-			} else if (",;:@$~".indexOf(c[i]) != -1) {
-				buffer.append('.');
-			} else if (" ".indexOf(c[i]) != -1) {
-				buffer.append('_');
-			} else if ("\r\n".indexOf(c[i]) != -1) {
-				break;
-			}
-		}
-		return buffer.toString();
-	}
+        char c[] = message.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            if ("-_.,".indexOf(c[i]) != -1 ||
+                    (c[i] >= 'a' && c[i] <= 'z') ||
+                    (c[i] >= 'A' && c[i] <= 'Z') ||
+                    (c[i] >= '0' && c[i] <= '9')) {
+                buffer.append(c[i]);
+            } else if (",;:@$~".indexOf(c[i]) != -1) {
+                buffer.append('.');
+            } else if (" ".indexOf(c[i]) != -1) {
+                buffer.append('_');
+            } else if ("\r\n".indexOf(c[i]) != -1) {
+                break;
+            }
+        }
+        return buffer.toString();
+    }
 
-	protected File getNonExistingFile(String message) {
-		String filename = getFilePrefix() + getPlainMessage(message);
-		if (filename.length() > 220)
-			filename = filename.substring(0, 220);
-		File logfile = new File(getPath(), filename + ".log");
-		for (int i = 1; logfile.exists(); i++) {
-			logfile = new File(getPath(), filename + "." + i + ".log");
-		}
-		if (!logfile.getParentFile().exists()) {
-			logfile.getParentFile().mkdirs();
-		}
-		return logfile;
-	}
+    protected File getNonExistingFile(String message) {
+        String filename = getFilePrefix() + getPlainMessage(message);
+        if (filename.length() > 220) {
+            filename = filename.substring(0, 220);
+        }
+        File logfile = new File(getPath(), filename + ".log");
+        for (int i = 1; logfile.exists(); i++) {
+            logfile = new File(getPath(), filename + "." + i + ".log");
+        }
+        if (!logfile.getParentFile().exists()) {
+            logfile.getParentFile().mkdirs();
+        }
+        return logfile;
+    }
 
-	protected Writer getWriter(String message) throws IOException {
-		OutputStream out = null;
-		try {
-			File file = getNonExistingFile(message);
-			out = new FileOutputStream(file);
-			out = new BufferedOutputStream(out);
-			return new OutputStreamWriter(out, getEncoding());
-		} catch (IOException e) {
-			if (out != null)
-				out.close();
-			throw e;
-		}
-	}
+    protected Writer getWriter(String message) throws IOException {
+        OutputStream out = null;
+        try {
+            File file = getNonExistingFile(message);
+            out = new FileOutputStream(file);
+            out = new BufferedOutputStream(out);
+            return new OutputStreamWriter(out, getEncoding());
+        } catch (IOException e) {
+            if (out != null) {
+                out.close();
+            }
+            throw e;
+        }
+    }
 
-	public void publish(LogRecord record) {
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter(getWriter(record.getMessage()));
+    public void publish(LogRecord record) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(getWriter(record.getMessage()));
 
-			formatter.format(writer, record);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (writer != null)
-				writer.close();
-		}
-	}
+            formatter.format(writer, record);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
+    }
 
-	public void flush() {
-		// Nothing todo here.
-	}
+    public void flush() {
+        // Nothing todo here.
+    }
 
-	public void close() throws SecurityException {
-		// Nothing todo here.
-	}
+    public void close() throws SecurityException {
+        // Nothing todo here.
+    }
 }

@@ -48,18 +48,18 @@ package de.tarent.dblayer.persistence;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/** exception that will be thrown if there is a problem during
+/**
+ * exception that will be thrown if there is a problem during
  * operations (insert, update, delete) on entities that are not
  * SQL related
  *
  * @author Martin Pelzer, tarent GmbH
- *
  */
 public class EntityOperationException extends Exception {
 
-	private static final long serialVersionUID = -3529977685324692869L;
+    private static final long serialVersionUID = -3529977685324692869L;
 
-	public EntityOperationException() {
+    public EntityOperationException() {
         super();
     }
 

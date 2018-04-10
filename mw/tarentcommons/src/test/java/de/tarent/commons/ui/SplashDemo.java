@@ -52,10 +52,8 @@ import de.tarent.commons.utils.Config;
 
 import junit.framework.TestCase;
 
-public class SplashDemo extends TestCase
-{
-    public void testSplashScreen() throws InterruptedException
-    {
+public class SplashDemo extends TestCase {
+    public void testSplashScreen() throws InterruptedException {
         Config.parse("src/test/resources/config.xml");
 
         SplashScreen splash = null;

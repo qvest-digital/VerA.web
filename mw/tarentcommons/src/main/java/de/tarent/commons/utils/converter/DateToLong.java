@@ -49,6 +49,7 @@ package de.tarent.commons.utils.converter;
  */
 
 import de.tarent.commons.utils.AbstractConverter;
+
 import java.util.*;
 
 public class DateToLong extends AbstractConverter {
@@ -61,6 +62,6 @@ public class DateToLong extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) throws NumberFormatException {
-        return new Long(((Date)sourceData).getTime());
+        return new Long(((Date) sourceData).getTime());
     }
 }

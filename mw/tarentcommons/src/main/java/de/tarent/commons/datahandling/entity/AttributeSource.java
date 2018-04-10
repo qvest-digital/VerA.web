@@ -55,15 +55,14 @@ import java.util.List;
  * for reading and have the capability to list the attributes.
  *
  * @author Sebastian Mancke, tarent GmbH
- *
  */
 public interface AttributeSource extends ReadableAttribute {
-	/**
-	 * Return the value of the given attribute name.
+    /**
+     * Return the value of the given attribute name.
      *
      * @param attributeName
      * @return
-	 */
+     */
     public Object getAttribute(String attributeName);
 
     /**
@@ -76,6 +75,7 @@ public interface AttributeSource extends ReadableAttribute {
 
     /**
      * Returns a list the attribute names
+     *
      * @return list of Strings
      */
     public List getAttributeNames();

@@ -64,6 +64,6 @@ public class NumberToInteger extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) {
-        return new Integer(((Number)sourceData).intValue());
+        return new Integer(((Number) sourceData).intValue());
     }
 }

@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +56,7 @@ import java.util.Map;
  * Diese OperationDefinition enthält Input-, Output- und FaultMessages
  *
  * Eine Ausführlichere Beschreibung ist in TcPortDefinition
+ *
  * @see TcPortDefinition
  */
 public class TcOperationDefinition {
@@ -68,7 +70,8 @@ public class TcOperationDefinition {
 
     /**
      * Initialisiert eine OperationDefinition
-     * @param name Name der TcPortDefinition
+     *
+     * @param name        Name der TcPortDefinition
      * @param description Sinnvolle Beschreibung des Ports
      */
     public TcOperationDefinition(String name, String description) {
@@ -80,6 +83,7 @@ public class TcOperationDefinition {
 
     /**
      * Liefert den Namen, der im Constructor übergeben wurde.
+     *
      * @return String mit dem Namen
      */
     public String getName() {
@@ -88,6 +92,7 @@ public class TcOperationDefinition {
 
     /**
      * Liefert die Beschreibung, die im Constructor übergeben wurde.
+     *
      * @return String mit der Beschreibung
      */
     public String getDescription() {
@@ -96,6 +101,7 @@ public class TcOperationDefinition {
 
     /**
      * Liefert die InputMessage, das sind die Parameter, die diese Operation als Eingabe benötigt.
+     *
      * @return TcMessageDefinition mit den Inputparametern als Inhalt
      */
     public TcMessageDefinition getInputMessage() {
@@ -104,6 +110,7 @@ public class TcOperationDefinition {
 
     /**
      * Liefert die OutputMessage, das sind die Parameter, die diese Operation als Ausgabe liefert.
+     *
      * @return TcMessageDefinition mit den Ausgabeparametern als Inhalt
      */
     public TcMessageDefinition getOutputMessage() {
@@ -113,6 +120,7 @@ public class TcOperationDefinition {
     /**
      * Liefert die FaultMessages. Das ist eine Map, die für jede Fehlerrückgabe
      * der Operation einen MessageBeschreibung der Ausgabeparameter enthält.
+     *
      * @return Map mit den Namen der Fehlerzustände als String Keys, und den TcMessageDefinitions dieser Fehler als Values.
      */
     public Map getFaultMessages() {
@@ -121,6 +129,7 @@ public class TcOperationDefinition {
 
     /**
      * Liefert eine FaultMessage, zu ihrem zugehörigen Statuscode
+     *
      * @param faultStatusCode Der Fehlerstatus, zu dem die Beschreibung zurück gegeben werden soll.
      * @return Die Beschreibung der Rückgabeparameter bei einem bestimmten FaultCode
      */
@@ -131,6 +140,7 @@ public class TcOperationDefinition {
     /**
      * Liefert die Beschreibung zu einem faultStatusCode.
      * Das soll eine Beschreibung sein, die den Fehler kurz Charakterisiert.
+     *
      * @return Beschreibung der Fehlerrückgabe
      */
     public String getFaultMessageDescription(String faultStatusCode) {
@@ -140,6 +150,7 @@ public class TcOperationDefinition {
     /**
      * Setzt die InputMessage mit einem bereits existierenden Objekt.
      * Eine Operation hat genau eine InputMessage.
+     *
      * @param inputMessage Die Beschreibung der Parameter der Operation
      * @return Gibt die neu gesetzte InputMessage zurück.
      */
@@ -151,6 +162,7 @@ public class TcOperationDefinition {
     /**
      * Erzeugt ein neues InputMessage Objekt und fügt es dieser Operation hinzu.
      * Eine Operation hat genau eine InputMessage.
+     *
      * @return Gibt die neu erzeugte InputMessage zurück.
      */
     public TcMessageDefinition setInputMessage() {
@@ -160,6 +172,7 @@ public class TcOperationDefinition {
     /**
      * Setzt die OutputMessage mit einem bereits existierenden Objekt.
      * Eine Operation hat genau eine OutputMessage.
+     *
      * @param outputMessage Die Beschreibung der Ausgabeparameter der Operation
      * @return Gibt die neu gesetzte OutputMessage zurück.
      */
@@ -171,6 +184,7 @@ public class TcOperationDefinition {
     /**
      * Erzeugt ein neues OutputMessage Objekt und fügt es dieser Operation hinzu.
      * Eine Operation hat genau eine OutputMessage.
+     *
      * @return Gibt die neu erzeugte OutputMessage zurück.
      */
     public TcMessageDefinition setOutputMessage() {
@@ -179,15 +193,17 @@ public class TcOperationDefinition {
 
     /**
      * Fügt eine MessageDefinition für einen bestimmten Statuscode an.
-     * @param faultStatusCode Der Fehlercode zu der diese FaultMessage gehört.
-     * @param faultDescription Liefert die Beschreibung zu einem faultStatusCode. Das soll eine Beschreibung sein, die den Fehler kurz Charakterisiert.
-     * @param faultMessage Die Beschreibung der Ausgabeparameter der Operation bei einem Fehler mit dem faultStatusCode
+     *
+     * @param faultStatusCode  Der Fehlercode zu der diese FaultMessage gehört.
+     * @param faultDescription Liefert die Beschreibung zu einem faultStatusCode. Das soll eine Beschreibung sein, die den
+     * Fehler kurz Charakterisiert.
+     * @param faultMessage     Die Beschreibung der Ausgabeparameter der Operation bei einem Fehler mit dem faultStatusCode
      * @return Die gesetzte FaultMessage
      */
     public TcMessageDefinition addFaultMessage(
-        String faultStatusCode,
-        String faultDescription,
-        TcMessageDefinition faultMessage) {
+            String faultStatusCode,
+            String faultDescription,
+            TcMessageDefinition faultMessage) {
 
         faultMessages.put(faultStatusCode, faultMessage);
         faultMessageDescriptions.put(faultStatusCode, faultDescription);
@@ -196,8 +212,10 @@ public class TcOperationDefinition {
 
     /**
      * Erstellt eine neue MessageDefinition und fügt sie für einen bestimmten Statuscode an.
-     * @param faultStatusCode Der Fehlercode zu der diese FaultMessage gehört.
-     * @param faultDescription Liefert die Beschreibung zu einem faultStatusCode. Das soll eine Beschreibung sein, die den Fehler kurz Charakterisiert.
+     *
+     * @param faultStatusCode  Der Fehlercode zu der diese FaultMessage gehört.
+     * @param faultDescription Liefert die Beschreibung zu einem faultStatusCode. Das soll eine Beschreibung sein, die den
+     * Fehler kurz Charakterisiert.
      * @return Die neu erzeugte FaultMessage
      */
     public TcMessageDefinition addFaultMessage(String faultStatusCode, String faultDescription) {

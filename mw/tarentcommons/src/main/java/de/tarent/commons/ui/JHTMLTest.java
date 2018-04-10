@@ -51,7 +51,9 @@ package de.tarent.commons.ui;
 import javax.swing.*;
 
 import java.awt.event.*;
+
 import de.tarent.commons.datahandling.binding.*;
+
 import java.util.*;
 import java.io.File;
 import java.awt.*;
@@ -59,7 +61,6 @@ import java.net.*;
 
 /**
  * Test application for JHTML panels.
- *
  *
  * @author Sebastian Mancke, tarent GmbH
  */
@@ -70,7 +71,6 @@ public final class JHTMLTest {
 
     /**
      * Erstellt eine neue <code>HTML</code> Instanz.
-     *
      */
     private JHTMLTest(String[] args) throws Exception {
         if (args.length != 1) {
@@ -79,8 +79,9 @@ public final class JHTMLTest {
         }
 
         String fileURL = args[0];
-        if (-1 == fileURL.indexOf("://"))
+        if (-1 == fileURL.indexOf("://")) {
             fileURL = new File(args[0]).toURL().toString();
+        }
         urlField.setText(args[0]);
 
         BindingManager bindingManager = new BindingManager();
@@ -110,7 +111,7 @@ public final class JHTMLTest {
      * @param args a <code>String[]</code> value
      */
     public static void main(final String[] args)
-        throws Exception {
+            throws Exception {
         new JHTMLTest(args);
     }
 
@@ -118,17 +119,18 @@ public final class JHTMLTest {
         JPanel panel = new JPanel(new BorderLayout());
         JButton loadButton = new JButton("Load");
         ActionListener loadListener = new ActionListener() {
-                public void actionPerformed(final ActionEvent e) {
-                    try {
-                        String fileURL = urlField.getText();
-                        if (-1 == fileURL.indexOf("://"))
-                            fileURL = new File(fileURL).toURL().toString();
-                        form.load(fileURL);
-                    } catch (MalformedURLException me) {
-                        me.printStackTrace();
+            public void actionPerformed(final ActionEvent e) {
+                try {
+                    String fileURL = urlField.getText();
+                    if (-1 == fileURL.indexOf("://")) {
+                        fileURL = new File(fileURL).toURL().toString();
                     }
+                    form.load(fileURL);
+                } catch (MalformedURLException me) {
+                    me.printStackTrace();
                 }
-            };
+            }
+        };
         loadButton.addActionListener(loadListener);
         urlField.addActionListener(loadListener);
 

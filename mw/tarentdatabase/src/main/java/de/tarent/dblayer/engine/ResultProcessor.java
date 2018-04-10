@@ -61,7 +61,7 @@ public interface ResultProcessor {
      * This method will be called by the framework code for each row in the result set.
      *
      * @param rownum the current row number, <b>starting at 0<b>
-     * @param rs the result set to process, positioned at a new row.
+     * @param rs     the result set to process, positioned at a new row.
      */
     public void process(ResultSet rs) throws SQLException;
 

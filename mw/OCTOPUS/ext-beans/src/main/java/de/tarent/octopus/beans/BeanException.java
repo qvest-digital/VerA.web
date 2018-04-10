@@ -58,23 +58,26 @@ public class BeanException extends Exception {
     //
     // Konstruktoren
     //
+
     /**
      * Konstruktor mit Hinweistext
      */
-	public BeanException(String msg) {
-		super(msg);
-	}
+    public BeanException(String msg) {
+        super(msg);
+    }
 
     /**
      * Konstruktor mit Hinweistext und innerem <code>Throwable</code>.
      */
-	public BeanException(String msg, Throwable e) {
-		super(msg, e);
-	}
+    public BeanException(String msg, Throwable e) {
+        super(msg, e);
+    }
 
-	//
+    //
     // geschätzte Variablen
     //
-    /** Serialisierungs-Versions-UID */
+    /**
+     * Serialisierungs-Versions-UID
+     */
     private static final long serialVersionUID = 3978986574434481456L;
 }

@@ -57,7 +57,8 @@ import org.apache.commons.logging.Log;
  */
 public class TimeMeasureTool {
 
-    static boolean doLogging = (System.getProperty("enableTimeMeasureTool") != null && ! "false".equalsIgnoreCase(System.getProperty("enableTimeMeasureTool")));
+    static boolean doLogging = (System.getProperty("enableTimeMeasureTool") != null &&
+            !"false".equalsIgnoreCase(System.getProperty("enableTimeMeasureTool")));
 
     private static final Log defaultLogger = LogFactory.getLog(TimeMeasureTool.class);
     private static final TimeMeasureTool NOP = new TimeMeasureTool();
@@ -88,8 +89,9 @@ public class TimeMeasureTool {
      * If the logger should not log on this level, this returns a nop object.
      */
     public static TimeMeasureTool getMeasureTool(Log logger) {
-        if (doLogging)
+        if (doLogging) {
             return new TimeMeasureTool(logger);
+        }
         return NOP;
     }
 
@@ -97,11 +99,12 @@ public class TimeMeasureTool {
      * Logs the time since the last step or the beginning.
      */
     public void step(String name) {
-        if (!doLogging)
+        if (!doLogging) {
             return;
-        long time = System.currentTimeMillis()-last;
+        }
+        long time = System.currentTimeMillis() - last;
         last = System.currentTimeMillis();
-        log.info(name + " took "+ time +"ms");
+        log.info(name + " took " + time + "ms");
         steps++;
     }
 
@@ -109,10 +112,11 @@ public class TimeMeasureTool {
      * Logs the time since the beginning.
      */
     public void total(String name) {
-        if (!doLogging)
+        if (!doLogging) {
             return;
+        }
         steps++;
-        long total = System.currentTimeMillis()-start;
-        log.info(name + " took "+ (total) +"ms" + " average "+ (total/steps) +"ms per step");
+        long total = System.currentTimeMillis() - start;
+        log.info(name + " took " + (total) + "ms" + " average " + (total / steps) + "ms per step");
     }
 }

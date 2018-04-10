@@ -61,6 +61,7 @@ package de.tarent.octopus.beans.veraweb;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.ChangeLogEntry;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;

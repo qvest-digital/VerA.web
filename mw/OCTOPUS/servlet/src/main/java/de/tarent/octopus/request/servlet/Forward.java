@@ -79,22 +79,32 @@ import org.apache.commons.logging.LogFactory;
  * @author Christoph Jerolimov, tarent GmbH
  */
 public class Forward extends HttpServlet {
-	/** serialVersionUID */
-	private static final long serialVersionUID = 3256441417202218291L;
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 3256441417202218291L;
 
-	/** Logger-Instanz */
-	public final static Log logger = LogFactory.getLog(Forward.class);
+    /**
+     * Logger-Instanz
+     */
+    public final static Log logger = LogFactory.getLog(Forward.class);
 
-    /** Servlet-Parameter für den Pfad zum KontextRoot der Ziel Webanwendung */
-	public final static String INIT_PARAM_TARGET_CONTEXT = "targetContext";
-    /** Servlet-Parameter für den Pfad zum Servlet innerhalb der Ziel Webanwendung */
-	public final static String INIT_PARAM_TARGET_PATH = "targetPath";
-	/** Default-Servlet-Parameter für {@link #INIT_PARAM_TARGET_PATH} */
-	public final static String DEFAULT_TARGET_PATH = "/octopus";
+    /**
+     * Servlet-Parameter für den Pfad zum KontextRoot der Ziel Webanwendung
+     */
+    public final static String INIT_PARAM_TARGET_CONTEXT = "targetContext";
+    /**
+     * Servlet-Parameter für den Pfad zum Servlet innerhalb der Ziel Webanwendung
+     */
+    public final static String INIT_PARAM_TARGET_PATH = "targetPath";
+    /**
+     * Default-Servlet-Parameter für {@link #INIT_PARAM_TARGET_PATH}
+     */
+    public final static String DEFAULT_TARGET_PATH = "/octopus";
 
-	/**
-	 * <p>
-	 * This service method redirekt all queries to the octopus.
+    /**
+     * <p>
+     * This service method redirekt all queries to the octopus.
      * </p>
      * <p>
      * Is redirekt this <code>/&lt;modulename&gt;/do/&lt;taskname&gt;</code>
@@ -105,33 +115,37 @@ public class Forward extends HttpServlet {
      * the current context. And if the servlet parameter 'targetPath' it not
      * defined it will be use the default <code>/octopus</code>.
      * </p>
-	 *
-	 * @see HttpServlet#service(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+     *
+     * @see HttpServlet#service(HttpServletRequest, HttpServletResponse)
+     */
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String targetContextString = getInitParameter(INIT_PARAM_TARGET_CONTEXT);
-	    String targetPathString = getInitParameter(INIT_PARAM_TARGET_PATH);
+        String targetPathString = getInitParameter(INIT_PARAM_TARGET_PATH);
 
         ServletContext targetContext = (targetContextString == null)
-	        ? getServletContext()
-	        : getServletContext().getContext(targetContextString);
+                ? getServletContext()
+                : getServletContext().getContext(targetContextString);
 
-	    if (targetContext == null)
-	        throw new ServletException("can not access target context: '" + targetContextString + "'");
+        if (targetContext == null) {
+            throw new ServletException("can not access target context: '" + targetContextString + "'");
+        }
 
-	    if (targetPathString == null)
-	        targetPathString = DEFAULT_TARGET_PATH;
+        if (targetPathString == null) {
+            targetPathString = DEFAULT_TARGET_PATH;
+        }
 
-	    String target = targetPathString + request.getContextPath();
-		if (request.getPathInfo() != null)
-			target += request.getPathInfo();
+        String target = targetPathString + request.getContextPath();
+        if (request.getPathInfo() != null) {
+            target += request.getPathInfo();
+        }
 
-		if (logger.isDebugEnabled())
-			logger.debug("Forwarding URI " +
-					"<" + request.getRequestURI() + "> to" +
-					"<" + targetContext.getServletContextName() + target + ">");
+        if (logger.isDebugEnabled()) {
+            logger.debug("Forwarding URI " +
+                    "<" + request.getRequestURI() + "> to" +
+                    "<" + targetContext.getServletContextName() + target + ">");
+        }
 
-		RequestDispatcher dispatcher = targetContext.getRequestDispatcher(target);
-		dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = targetContext.getRequestDispatcher(target);
+        dispatcher.forward(request, response);
     }
 }

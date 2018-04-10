@@ -65,14 +65,18 @@ import javax.swing.text.html.HTMLEditorKit;
 import de.tarent.commons.ui.JHTMLEditorKit;
 import de.tarent.commons.ui.JHTMLPanel;
 import de.tarent.commons.datahandling.binding.BindingManager;
+
 import javax.swing.text.Element;
 import java.util.*;
 import javax.swing.text.AttributeSet;
+
 import de.tarent.commons.datahandling.binding.BeanBinding;
 import de.tarent.commons.logging.LogFactory;
 
 import javax.swing.text.*;
+
 import de.tarent.commons.utils.*;
+
 import javax.swing.text.html.HTML;
 
 import org.apache.commons.logging.Log;
@@ -80,14 +84,16 @@ import org.apache.commons.logging.Log;
 /**
  * The HTMLPanel is a special panel class that uses a extended version of HTML
  * to render the panel's UI.
+ *
  * @author Sebastian Mancke (s.mancke@tarent.de)
  */
-public class JHTMLEntityForm extends JPanel implements JHTMLPanel
-{
+public class JHTMLEntityForm extends JPanel implements JHTMLPanel {
 
-    /** serialVersionUID */
-	private static final long serialVersionUID = 1994966741308879428L;
-	public static final String ATTRIBUTE_CONVERTER = "converter";
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 1994966741308879428L;
+    public static final String ATTRIBUTE_CONVERTER = "converter";
     public static final String ATTRIBUTE_TO = "to";
     public static final String ATTRIBUTE_PROPERTY = "property";
     public static final String TAG_BIND = "bind";
@@ -103,12 +109,14 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
     private Object lastCreatedComponent;
     JEditorPane pane = null;
 
-    /** Map of lists with the component as key and a list of
-     *  the bound properties as values in the list.
+    /**
+     * Map of lists with the component as key and a list of
+     * the bound properties as values in the list.
      */
     private Map existingBindings = new HashMap();
 
-    /** List of bound ComponentElements elements
+    /**
+     * List of bound ComponentElements elements
      */
     private List existingBindingComponentElements = new ArrayList();
 
@@ -117,31 +125,28 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
      *
      * @param htmlFile HTML source for constucting the UI.
      */
-    public JHTMLEntityForm(String htmlFile)
-    {
+    public JHTMLEntityForm(String htmlFile) {
         this(htmlFile, new HashMap(), null);
     }
 
     /**
      * Constructs a new HTML panel.
      *
-     * @param htmlFile HTML source for constucting the UI.
+     * @param htmlFile       HTML source for constucting the UI.
      * @param bindingManager a BindingManager for DataBinding of the GUI-Components, null if no should be used
      */
-    public JHTMLEntityForm(String htmlFile, BindingManager bindingManager)
-    {
+    public JHTMLEntityForm(String htmlFile, BindingManager bindingManager) {
         this(htmlFile, new HashMap(), bindingManager);
     }
 
     /**
      * Constructs a new HTML panel.
      *
-     * @param htmlFile HTML source for constucting the UI.
-     * @param widgetMap a custom mapping from windget names to Class Objects for the widgets
+     * @param htmlFile       HTML source for constucting the UI.
+     * @param widgetMap      a custom mapping from windget names to Class Objects for the widgets
      * @param bindingManager a BindingManager for DataBinding of the GUI-Components, null if no should be used
      */
-    public JHTMLEntityForm(String htmlFile, Map widgetMap, BindingManager bindingManager)
-    {
+    public JHTMLEntityForm(String htmlFile, Map widgetMap, BindingManager bindingManager) {
         super();
         this.widgetMap = widgetMap;
         this.componentMap = new HashMap();
@@ -150,10 +155,9 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
         initialize();
     }
 
-    private void initialize()
-    {
+    private void initialize() {
         // Construct GUI
-        this.setLayout(new GridLayout(1,1));
+        this.setLayout(new GridLayout(1, 1));
 
         // Get HTML widget
         this.add(getHTMLPane());
@@ -174,10 +178,8 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
         }
     }
 
-    private JScrollPane getHTMLPane()
-    {
-        if (scrollPane == null)
-        {
+    private JScrollPane getHTMLPane() {
+        if (scrollPane == null) {
             pane = new JEditorPane();
             pane.setContentType("text/html");
             htmlEditorKit = new JHTMLEditorKit(this, widgetMap);
@@ -195,7 +197,7 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
     }
 
     public String toString() {
-        return "JHTMLEntityForm["+htmlUrl+"]";
+        return "JHTMLEntityForm[" + htmlUrl + "]";
     }
 
     /**
@@ -203,12 +205,11 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
      * is actually created. This is used for syncronizing the rendering thread
      * with the control (main) thread.
      *
-     * @param name Name of the component.
-     * @param component Component that was created.
+     * @param name             Name of the component.
+     * @param component        Component that was created.
      * @param componentElement The XML element for this component.
      */
-    public void componentCreated(final String name, final Component component, final Element componentElement)
-    {
+    public void componentCreated(final String name, final Component component, final Element componentElement) {
         if (component == null) {
             if (componentElement.getName().equals(TAG_BIND)) {
 
@@ -229,26 +230,29 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
                     //                     }
                     //                     System.out.println();
 
-                    createBindingFor(lastCreatedComponent, (String)attributes.getAttribute(ATTRIBUTE_PROPERTY), (String)attributes.getAttribute(ATTRIBUTE_TO), (String)attributes.getAttribute(ATTRIBUTE_CONVERTER));
+                    createBindingFor(lastCreatedComponent, (String) attributes.getAttribute(ATTRIBUTE_PROPERTY),
+                            (String) attributes.getAttribute(ATTRIBUTE_TO),
+                            (String) attributes.getAttribute(ATTRIBUTE_CONVERTER));
                 }
-            }
-            else if (logger.isDebugEnabled()) {
+            } else if (logger.isDebugEnabled()) {
                 StringBuffer attributes = new StringBuffer();
-                for (Enumeration en = componentElement.getAttributes().getAttributeNames(); en.hasMoreElements();) {
+                for (Enumeration en = componentElement.getAttributes().getAttributeNames(); en.hasMoreElements(); ) {
                     Object key = en.nextElement();
                     attributes.append(key)
-                        .append(" => ")
-                        .append(componentElement.getAttributes().getAttribute(key));
-                    if (en.hasMoreElements())
+                            .append(" => ")
+                            .append(componentElement.getAttributes().getAttribute(key));
+                    if (en.hasMoreElements()) {
                         attributes.append(", ");
+                    }
                 }
-                logger.debug("Null component created by ["+componentElement.getName() +": "+ attributes+"]");
+                logger.debug("Null component created by [" + componentElement.getName() + ": " + attributes + "]");
             }
             return;
         }
 
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()) {
             logger.debug("Component added to HTML panel: " + name + " as " + component.getClass());
+        }
         componentMap.put(name, component);
         lastCreatedComponent = component;
         this.configureComponent(name, component, componentElement);
@@ -264,11 +268,11 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
      * @param name Name of the component.
      * @return Component.
      */
-    public Component getComponentByName(String name)
-    {
-        Component out = (Component)componentMap.get(name);
-        if (out==null)
+    public Component getComponentByName(String name) {
+        Component out = (Component) componentMap.get(name);
+        if (out == null) {
             throw new RuntimeException("Component not created yet: " + name);
+        }
         return out;
     }
 
@@ -276,12 +280,13 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
      * Create a data Binding and register it on the BindingManager
      */
     public void createBindingFor(Object component, String property, String modelProperty, String converter) {
-        if (component instanceof JScrollPane)
-            component = ((JScrollPane)component).getViewport().getView();
+        if (component instanceof JScrollPane) {
+            component = ((JScrollPane) component).getViewport().getView();
+        }
 
         try {
             // ensure, that each property is only bound once
-            List boundProperties = (List)existingBindings.get(component);
+            List boundProperties = (List) existingBindings.get(component);
             if (boundProperties == null) {
                 boundProperties = new ArrayList(1);
                 existingBindings.put(component, boundProperties);
@@ -289,22 +294,30 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
             if (!boundProperties.contains(property)) {
                 if (modelProperty.startsWith("$") || modelProperty.startsWith("#")) {
                     if (bindingManager != null) {
-                        logger.debug("binding property '"+property+"' for component '"+component+"' to '"+modelProperty+"'");
+                        logger.debug(
+                                "binding property '" + property + "' for component '" + component + "' to '" + modelProperty +
+                                        "'");
                         BeanBinding binding = new BeanBinding(component, property, modelProperty.substring(1));
                         binding.setReadOnly(modelProperty.startsWith("#"));
                         bindingManager.addBinding(binding);
                         boundProperties.add(property);
-                    } else
+                    } else {
                         logger.warn("no binding manager set, but binding found");
+                    }
                 } else {
-                    logger.debug("setting property '"+property+"' for component '"+component+"' to '"+modelProperty+"'");
+                    logger.debug(
+                            "setting property '" + property + "' for component '" + component + "' to '" + modelProperty + "'");
                     Pojo.set(component, property, modelProperty, true);
                 }
             }
         } catch (IllegalArgumentException e) {
-            logger.warn("Error on setting property '"+property+"' for component '"+component+"' to '"+modelProperty+"'", e);
+            logger.warn(
+                    "Error on setting property '" + property + "' for component '" + component + "' to '" + modelProperty + "'",
+                    e);
         } catch (Exception e) {
-            logger.error("Error on setting property '"+property+"' for component '"+component+"' to '"+modelProperty+"'", e);
+            logger.error(
+                    "Error on setting property '" + property + "' for component '" + component + "' to '" + modelProperty + "'",
+                    e);
         }
     }
 
@@ -315,26 +328,27 @@ public class JHTMLEntityForm extends JPanel implements JHTMLPanel
     public void configureComponent(final String name, final Component component, final Element componentElement) {
 
         AttributeSet attributes = componentElement.getAttributes();
-        for (Enumeration en = attributes.getAttributeNames(); en.hasMoreElements();) {
+        for (Enumeration en = attributes.getAttributeNames(); en.hasMoreElements(); ) {
             Object key = en.nextElement();
             Object value = attributes.getAttribute(key);
             //System.out.println("key: "+key+" ("+key.getClass()+") => "+value);
             // string key-value attribute is used as binding.
             // all attributes handled from swing-html have other types.
-            if (key instanceof String && value instanceof String)
-                createBindingFor(component, key.toString(), (String)attributes.getAttribute(key), null);
-            else if (key instanceof HTML.Attribute && value instanceof String
-                     && ("text".equals(key.toString())
-                         || ("selected".equals(key.toString()))))
-                createBindingFor(component, key.toString(), (String)attributes.getAttribute(key), null);
+            if (key instanceof String && value instanceof String) {
+                createBindingFor(component, key.toString(), (String) attributes.getAttribute(key), null);
+            } else if (key instanceof HTML.Attribute && value instanceof String
+                    && ("text".equals(key.toString())
+                    || ("selected".equals(key.toString())))) {
+                createBindingFor(component, key.toString(), (String) attributes.getAttribute(key), null);
+            }
         }
     }
 
-	public JEditorPane getJEditorPane() {
-		return pane;
-	}
+    public JEditorPane getJEditorPane() {
+        return pane;
+    }
 
-	public void setJEditorPane(JEditorPane pane) {
-		this.pane = pane;
-	}
+    public void setJEditorPane(JEditorPane pane) {
+        this.pane = pane;
+    }
 }

@@ -75,6 +75,7 @@ public class Resources {
     /*
      * Singelton-Zugriff
      */
+
     /**
      * Diese Methode liefert ein Singleton f�r das Standardb�ndel.
      */
@@ -85,6 +86,7 @@ public class Resources {
     /*
      * Konstruktoren
      */
+
     /**
      * Dieser Konstruktor liefert eine Instanz zum Standardb�ndel ohne
      * Parent.
@@ -107,12 +109,13 @@ public class Resources {
      */
     public Resources(String bundleName, Resources parent) {
         this.parent = parent;
-        if (bundleName == null)
+        if (bundleName == null) {
             bundleName = OCTOPUS_BUNDLE_NAME;
+        }
         ResourceBundle resourceBundle = null;
         try {
             resourceBundle = ResourceBundle.getBundle(bundleName);
-        } catch(MissingResourceException mre) {
+        } catch (MissingResourceException mre) {
         }
         bundle = resourceBundle;
     }
@@ -120,6 +123,7 @@ public class Resources {
     /*
      * Methoden
      */
+
     /**
      * Diese Methode liefert den Wert zu einem Schl�ssel.
      *
@@ -127,9 +131,11 @@ public class Resources {
      * @return Wert
      */
     public String get(String key) {
-        if (bundle != null) try {
-            return bundle.getString(key);
-        } catch (MissingResourceException e) {
+        if (bundle != null) {
+            try {
+                return bundle.getString(key);
+            } catch (MissingResourceException e) {
+            }
         }
         return (parent != null) ? parent.get(key) : '!' + key + '!';
     }
@@ -139,7 +145,7 @@ public class Resources {
      * ihn als Message, in die die �bergebenen Parameter eingesetzt
      * werden, und gibt die ausgef�llte Message zur�ck.
      *
-     * @param key Schl�ssel
+     * @param key    Schl�ssel
      * @param params Parameter
      * @return ausgef�llte Message
      */
@@ -152,13 +158,13 @@ public class Resources {
      * ihn als Message, in die der �bergebene Parameter eingesetzt
      * wird, und gibt die ausgef�llte Message zur�ck.
      *
-     * @param key Schl�ssel
+     * @param key   Schl�ssel
      * @param param Parameter
      * @return ausgef�llte Message
      * @see #get(String, Object[])
      */
     public String get(String key, Object param) {
-        return get(key, new Object[]{param});
+        return get(key, new Object[] { param });
     }
 
     /**
@@ -166,14 +172,14 @@ public class Resources {
      * ihn als Message, in die die �bergebene Parameter eingesetzt
      * werden, und gibt die ausgef�llte Message zur�ck.
      *
-     * @param key Schl�ssel
+     * @param key    Schl�ssel
      * @param param1 Parameter
      * @param param2 Parameter
      * @return ausgef�llte Message
      * @see #get(String, Object[])
      */
     public String get(String key, Object param1, Object param2) {
-        return get(key, new Object[]{param1, param2});
+        return get(key, new Object[] { param1, param2 });
     }
 
     /**
@@ -181,7 +187,7 @@ public class Resources {
      * ihn als Message, in die die �bergebene Parameter eingesetzt
      * werden, und gibt die ausgef�llte Message zur�ck.
      *
-     * @param key Schl�ssel
+     * @param key    Schl�ssel
      * @param param1 Parameter
      * @param param2 Parameter
      * @param param3 Parameter
@@ -189,7 +195,7 @@ public class Resources {
      * @see #get(String, Object[])
      */
     public String get(String key, Object param1, Object param2, Object param3) {
-        return get(key, new Object[]{param1, param2, param3});
+        return get(key, new Object[] { param1, param2, param3 });
     }
 
 }

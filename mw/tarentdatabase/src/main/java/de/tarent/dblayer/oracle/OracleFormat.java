@@ -50,6 +50,7 @@ package de.tarent.dblayer.oracle;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Statement;
 
@@ -68,7 +69,7 @@ public class OracleFormat {
      * our date string. Thus both formatting strings have to be kept in sync to allow
      * this to function properly.
      */
-	static public final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static public final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * This method formats a value for the Oracle Database System. It handels Character,
@@ -76,19 +77,20 @@ public class OracleFormat {
      * their respective <code>toString()</code> method.
      */
     static public final String format(Object value) {
-	if (value instanceof String || value instanceof Character) {
-	    String val = String.valueOf(value);
-	    StringBuffer buffer = new StringBuffer(val.length() + 10).append('\'');
-	    return Escaper.escape(buffer, val).append('\'').toString();
-	} else if (value == null)
-		return null;
-	else if (value instanceof Boolean)
-			return ((Boolean)value).booleanValue() ? "'Y'" : "'N'";
-	else if (value instanceof Date)
-	    return "to_date('" + DF.format(value) + "', 'YYYY-MM-DD HH24:MI:SS')";
-	else if (value instanceof Statement)
-	    return "(" + value.toString() + ")";
-	else
-	    return value.toString();
+        if (value instanceof String || value instanceof Character) {
+            String val = String.valueOf(value);
+            StringBuffer buffer = new StringBuffer(val.length() + 10).append('\'');
+            return Escaper.escape(buffer, val).append('\'').toString();
+        } else if (value == null) {
+            return null;
+        } else if (value instanceof Boolean) {
+            return ((Boolean) value).booleanValue() ? "'Y'" : "'N'";
+        } else if (value instanceof Date) {
+            return "to_date('" + DF.format(value) + "', 'YYYY-MM-DD HH24:MI:SS')";
+        } else if (value instanceof Statement) {
+            return "(" + value.toString() + ")";
+        } else {
+            return value.toString();
+        }
     }
 }

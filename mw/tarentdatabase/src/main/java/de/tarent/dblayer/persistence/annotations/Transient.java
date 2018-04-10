@@ -55,14 +55,14 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-/** annotation for marking getter methods that shall
+/**
+ * annotation for marking getter methods that shall
  * not be persisted
  *
  * @author Martin Pelzer, tarent GmbH
- *
  */
-@Target (value = { METHOD } )
-@Retention( RUNTIME )
+@Target(value = { METHOD })
+@Retention(RUNTIME)
 @Documented
 public @interface Transient {
 

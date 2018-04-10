@@ -47,6 +47,7 @@ package de.tarent.octopus.response;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContent;
@@ -90,119 +91,122 @@ import java.util.*;
  * @see TcSimpleResponseEngine
  */
 public class TcResponseCreator implements Serializable {
-	private static final long serialVersionUID = -7351394970690540789L;
+    private static final long serialVersionUID = -7351394970690540789L;
 
-	private static final Log logger = LogFactory.getLog(TcResponseCreator.class);
-	private HashMap responseEngines;
+    private static final Log logger = LogFactory.getLog(TcResponseCreator.class);
+    private HashMap responseEngines;
 
-	/**
-	 * Initialisierung mit Logger
-	 */
-	public TcResponseCreator() {
-		responseEngines = new LinkedHashMap();
-	}
+    /**
+     * Initialisierung mit Logger
+     */
+    public TcResponseCreator() {
+        responseEngines = new LinkedHashMap();
+    }
 
-	/**
-	 * Erstellen der Response.
-	 *
-	 * Abhängig vom Rückgabewert der Methode TcResponseDescription.getResponseType()
-	 * wird über Reflaction eine entsprechende Engine geladen und die Ausgabe erzeugt.
-	 *
-	 * @param config     Konfiguration
-	 * @param tcResponse Ausgabeobjekt, für die Rückgabe an den Client
-	 * @param theContent Datencontainer mit den Ausgabedaten
-	 * @param desc       Parameter, die die Ausgabeart beeinflussen
-	 */
-	public void sendResponse(TcModuleConfig moduleConfig, TcConfig config, TcResponse tcResponse,
-	    TcContent theContent, TcResponseDescription desc, TcRequest request)
-	    throws ResponseProcessingException {
+    /**
+     * Erstellen der Response.
+     *
+     * Abhängig vom Rückgabewert der Methode TcResponseDescription.getResponseType()
+     * wird über Reflaction eine entsprechende Engine geladen und die Ausgabe erzeugt.
+     *
+     * @param config     Konfiguration
+     * @param tcResponse Ausgabeobjekt, für die Rückgabe an den Client
+     * @param theContent Datencontainer mit den Ausgabedaten
+     * @param desc       Parameter, die die Ausgabeart beeinflussen
+     */
+    public void sendResponse(TcModuleConfig moduleConfig, TcConfig config, TcResponse tcResponse,
+            TcContent theContent, TcResponseDescription desc, TcRequest request)
+            throws ResponseProcessingException {
 
-		String engineIndex = moduleConfig.getName() + desc.getResponseType();
-		TcResponseEngine engine = (TcResponseEngine)responseEngines.get(engineIndex);
-		//falls die benötgte Engine noch nicht bekannt ist, wird versucht sie zu initialisieren.
-		if (engine == null) {
-			try {
-				Class clazz =
-				    Class.forName(
-					"de.tarent.octopus.response.Tc"
-					    + desc.getResponseType().substring(0, 1).toUpperCase()
-					    + desc.getResponseType().substring(1)
-					    + "ResponseEngine");
-				engine = (TcResponseEngine)clazz.newInstance();
-				engine.init(moduleConfig, config.getCommonConfig());
-			} catch (InstantiationException e) {
-				throw new ResponseProcessingException(
-				    "Die Response-Engine \"" + desc.getResponseType() + "\" ist nicht bekannt.");
-			} catch (IllegalAccessException e) {
-				throw new ResponseProcessingException(
-				    "Die Response-Engine \"" + desc.getResponseType() + "\" ist nicht bekannt.");
-			} catch (ClassNotFoundException e) {
-				throw new ResponseProcessingException(
-				    "Die Response-Engine \"" + desc.getResponseType() + "\" ist nicht bekannt.");
-			}
-			responseEngines.put(engineIndex, engine);
-		}
+        String engineIndex = moduleConfig.getName() + desc.getResponseType();
+        TcResponseEngine engine = (TcResponseEngine) responseEngines.get(engineIndex);
+        //falls die benötgte Engine noch nicht bekannt ist, wird versucht sie zu initialisieren.
+        if (engine == null) {
+            try {
+                Class clazz =
+                        Class.forName(
+                                "de.tarent.octopus.response.Tc"
+                                        + desc.getResponseType().substring(0, 1).toUpperCase()
+                                        + desc.getResponseType().substring(1)
+                                        + "ResponseEngine");
+                engine = (TcResponseEngine) clazz.newInstance();
+                engine.init(moduleConfig, config.getCommonConfig());
+            } catch (InstantiationException e) {
+                throw new ResponseProcessingException(
+                        "Die Response-Engine \"" + desc.getResponseType() + "\" ist nicht bekannt.");
+            } catch (IllegalAccessException e) {
+                throw new ResponseProcessingException(
+                        "Die Response-Engine \"" + desc.getResponseType() + "\" ist nicht bekannt.");
+            } catch (ClassNotFoundException e) {
+                throw new ResponseProcessingException(
+                        "Die Response-Engine \"" + desc.getResponseType() + "\" ist nicht bekannt.");
+            }
+            responseEngines.put(engineIndex, engine);
+        }
 
-		String contentType = theContent.getAsString("responseParams.ContentType");
-		if (contentType == null)
-			contentType = config.getDefaultContentType();
-		tcResponse.setContentType(contentType);
+        String contentType = theContent.getAsString("responseParams.ContentType");
+        if (contentType == null) {
+            contentType = config.getDefaultContentType();
+        }
+        tcResponse.setContentType(contentType);
 
-		String cacheTime = theContent.getAsString("responseParams.CachingTime"); // millis
-		String cacheParam = theContent.getAsString("responseParams.CachingParam"); // free text
-		if (cacheTime == null && cacheParam == null) {
-			tcResponse.setCachingTime(0);
-		} else {
-			if (cacheTime == null) {
-				tcResponse.setCachingTime(0, cacheParam);
-			} else {
-				tcResponse.setCachingTime(Integer.parseInt(cacheTime), cacheParam);
-			}
-		}
+        String cacheTime = theContent.getAsString("responseParams.CachingTime"); // millis
+        String cacheParam = theContent.getAsString("responseParams.CachingParam"); // free text
+        if (cacheTime == null && cacheParam == null) {
+            tcResponse.setCachingTime(0);
+        } else {
+            if (cacheTime == null) {
+                tcResponse.setCachingTime(0, cacheParam);
+            } else {
+                tcResponse.setCachingTime(Integer.parseInt(cacheTime), cacheParam);
+            }
+        }
 
-		if (engine instanceof TcRPCResponseEngine && tcResponse instanceof TcDirectCallResponse) {
-			pushRPCOutputParams(config, (TcDirectCallResponse)tcResponse, theContent, desc);
-		} else {
-			engine.sendResponse(config, tcResponse, theContent, desc, request);
-		}
-	}
+        if (engine instanceof TcRPCResponseEngine && tcResponse instanceof TcDirectCallResponse) {
+            pushRPCOutputParams(config, (TcDirectCallResponse) tcResponse, theContent, desc);
+        } else {
+            engine.sendResponse(config, tcResponse, theContent, desc, request);
+        }
+    }
 
-	public void pushRPCOutputParams(TcConfig config, TcDirectCallResponse response, TcContent theContent,
-	    TcResponseDescription desc) {
-		// Wenn ein ContentType angegeben wurde,
-		// wurde dieser bereits im TcRequestCreator gesetzt.
-		String contentType = theContent.getAsString("responseParams.ContentType");
-		if (contentType == null)
-			response.setContentType("NONE:DirectCall");
+    public void pushRPCOutputParams(TcConfig config, TcDirectCallResponse response, TcContent theContent,
+            TcResponseDescription desc) {
+        // Wenn ein ContentType angegeben wurde,
+        // wurde dieser bereits im TcRequestCreator gesetzt.
+        String contentType = theContent.getAsString("responseParams.ContentType");
+        if (contentType == null) {
+            response.setContentType("NONE:DirectCall");
+        }
 
-		Map outputFields = refineOutputFields(
-		    theContent.getAsObject(TcRPCResponseEngine.RPC_RESPONSE_OUTPUT_FIELDS));
-		for (Iterator iter = outputFields.keySet().iterator(); iter.hasNext(); ) {
-			String fieldNameOutput = (String)iter.next();
-			String fieldNameContent = (String)outputFields.get(fieldNameOutput);
-			response.addResponseObject(fieldNameOutput, theContent.getAsObject(fieldNameContent));
-		}
+        Map outputFields = refineOutputFields(
+                theContent.getAsObject(TcRPCResponseEngine.RPC_RESPONSE_OUTPUT_FIELDS));
+        for (Iterator iter = outputFields.keySet().iterator(); iter.hasNext(); ) {
+            String fieldNameOutput = (String) iter.next();
+            String fieldNameContent = (String) outputFields.get(fieldNameOutput);
+            response.addResponseObject(fieldNameOutput, theContent.getAsObject(fieldNameContent));
+        }
 
-		logger.debug("Gebe Daten per DirectCall zurück. Antwort auf Methode");
-	}
+        logger.debug("Gebe Daten per DirectCall zurück. Antwort auf Methode");
+    }
 
-	/**
-	 */
-	public static Map refineOutputFields(Object fieldsObject) {
-		if (fieldsObject instanceof Map) {
-			return (Map)fieldsObject;
-		} else if (fieldsObject instanceof List) {
-			ConsistentMap map = new ConsistentMap();
-			for (Iterator iter = ((List)fieldsObject).iterator(); iter.hasNext(); ) {
-				Object field = iter.next();
-				map.put(field, field);
-			}
-			return map;
-		} else {
-			LinkedHashMap map = new LinkedHashMap();
-			if (fieldsObject != null && fieldsObject.toString().length() != 0)
-				map.put(fieldsObject.toString(), fieldsObject.toString());
-			return map;
-		}
-	}
+    /**
+     */
+    public static Map refineOutputFields(Object fieldsObject) {
+        if (fieldsObject instanceof Map) {
+            return (Map) fieldsObject;
+        } else if (fieldsObject instanceof List) {
+            ConsistentMap map = new ConsistentMap();
+            for (Iterator iter = ((List) fieldsObject).iterator(); iter.hasNext(); ) {
+                Object field = iter.next();
+                map.put(field, field);
+            }
+            return map;
+        } else {
+            LinkedHashMap map = new LinkedHashMap();
+            if (fieldsObject != null && fieldsObject.toString().length() != 0) {
+                map.put(fieldsObject.toString(), fieldsObject.toString());
+            }
+            return map;
+        }
+    }
 }

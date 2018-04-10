@@ -46,16 +46,19 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package de.tarent.commons.richClient;
 
 import java.util.EventObject;
 
 public class EntityEditorEvent extends EventObject {
 
-    /** serialVersionUID */
-	private static final long serialVersionUID = -2698252192716841333L;
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = -2698252192716841333L;
 
-	public EntityEditorEvent(Object sender) {
+    public EntityEditorEvent(Object sender) {
         super(sender);
     }
 

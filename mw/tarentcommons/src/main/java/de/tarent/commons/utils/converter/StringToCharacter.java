@@ -61,8 +61,9 @@ public class StringToCharacter extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) throws IllegalArgumentException {
-        if (sourceData == null || ((String)sourceData).length() != 1)
-            throw new IllegalArgumentException("Conversion String => Character not possible for '"+sourceData+"'");
-        return new Character(((String)sourceData).charAt(0));
+        if (sourceData == null || ((String) sourceData).length() != 1) {
+            throw new IllegalArgumentException("Conversion String => Character not possible for '" + sourceData + "'");
+        }
+        return new Character(((String) sourceData).charAt(0));
     }
 }

@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

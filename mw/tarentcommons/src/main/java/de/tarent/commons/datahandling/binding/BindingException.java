@@ -53,10 +53,12 @@ package de.tarent.commons.datahandling.binding;
  */
 public class BindingException extends RuntimeException {
 
-    /** serialVersionUID */
-	private static final long serialVersionUID = 2168903326018119682L;
+    /**
+     * serialVersionUID
+     */
+    private static final long serialVersionUID = 2168903326018119682L;
 
-	public BindingException(String msg) {
+    public BindingException(String msg) {
         super(msg);
     }
 

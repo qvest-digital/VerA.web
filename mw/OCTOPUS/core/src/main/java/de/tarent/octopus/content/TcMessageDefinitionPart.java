@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * Ein TcMessageDefinitionPart ist ein Parameter einer TcMessageDefinition
  *
@@ -61,10 +62,12 @@ public class TcMessageDefinitionPart {
 
     /**
      * Erzeugt einen neuen Parameter
-     * @param name Name des Parameters
-     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt werden.
-     * @param description Beschreibung des Parameters
-     * @param optional Flag, ob der Parameter optional sein soll
+     *
+     * @param name         Name des Parameters
+     * @param partDataType Datentyp des Parameters als XML-Schema-Type. Die Konstanten der Klassen können und sollen benutzt
+     * werden.
+     * @param description  Beschreibung des Parameters
+     * @param optional     Flag, ob der Parameter optional sein soll
      */
     public TcMessageDefinitionPart(String name, String partDataType, String description, boolean optional) {
         this.name = name;

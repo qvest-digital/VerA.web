@@ -61,6 +61,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import junit.framework.TestCase;
 
 import javax.naming.CommunicationException;
@@ -116,7 +117,7 @@ public class AALoginTest extends TestCase {
         cons.setSearchScope(SearchControls.ONELEVEL_SCOPE);
         String filterTemplate =
                 "(&(|(person=uid={0}@auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen," +
-                 "dc=aa)(person=uid={0}," +
+                        "dc=aa)(person=uid={0}," +
                         "ou=Personen,dc=aa))(objectclass=AARole))";
         String filter = MessageFormat.format(filterTemplate, new Object[] { "dietmar.hilbrich" });
         NamingEnumeration ergebnis = manager.lctx.search("ou=Users,ou=testav01,dc=aa", filter, cons);

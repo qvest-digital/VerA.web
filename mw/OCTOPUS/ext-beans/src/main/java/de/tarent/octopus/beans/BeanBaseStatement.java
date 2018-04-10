@@ -65,6 +65,7 @@ class BeanBaseStatement {
     //
     // Konstruktor
     //
+
     /**
      * This constructor prepares the given statement inside the given context.
      */
@@ -77,32 +78,45 @@ class BeanBaseStatement {
         } catch (SyntaxErrorException e) {
             throw new BeanException("Syntax error in SQL statement", e);
         }
-        if (logger.isLoggable(Level.FINE))
-            logger.fine("Created PreparedStatement for SQL statament <" +sqlStatement + ">.");
+        if (logger.isLoggable(Level.FINE)) {
+            logger.fine("Created PreparedStatement for SQL statament <" + sqlStatement + ">.");
+        }
     }
 
     //
     // geschätzte Variablen
     //
-    /** The statement is to be executes inside this context. */
+    /**
+     * The statement is to be executes inside this context.
+     */
     final ExecutionContext context;
 
-    /** This is the prepared form of the statement. */
+    /**
+     * This is the prepared form of the statement.
+     */
     final PreparedStatement preparedStatement;
 
-    /** This is the db layer form of the statement. */
+    /**
+     * This is the db layer form of the statement.
+     */
     final Statement dblayerStatement;
 
-    /** This is the SQL form of the statement. */
+    /**
+     * This is the SQL form of the statement.
+     */
     final String sqlStatement;
 
-    /** place holder object for variables inside the prepared statement. */
+    /**
+     * place holder object for variables inside the prepared statement.
+     */
     final static Object PLACE_HOLDER = new Object() {
         public String toString() {
             return "?";
         }
     };
 
-    /** logger of this class. */
+    /**
+     * logger of this class.
+     */
     final static Logger logger = Logger.getLogger(BeanBaseStatement.class.getName());
 }

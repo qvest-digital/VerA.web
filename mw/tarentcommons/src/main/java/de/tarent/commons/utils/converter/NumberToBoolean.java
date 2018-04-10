@@ -65,8 +65,9 @@ public class NumberToBoolean extends AbstractConverter {
     }
 
     public Object doConversion(Object sourceData) {
-        if (((Number)sourceData).intValue() == 1)
+        if (((Number) sourceData).intValue() == 1) {
             return Boolean.TRUE;
+        }
         return Boolean.FALSE;
     }
 }

@@ -63,7 +63,7 @@ public interface ActionContainer {
     /**
      * Adds an action to this Container.
      *
-     * @param action - The concrete instance may be one of TarentGUIAction
+     * @param action   - The concrete instance may be one of TarentGUIAction
      * @param menuPath - It describes where in the container this action should be attached.
      * @throws ActionContainerException if registering of a given action failed
      */
@@ -72,13 +72,14 @@ public interface ActionContainer {
     /**
      * Removes the action from this container.
      * The container may implement this feature, but it's not required.
+     *
      * @param action - The concrete instance may be one of TarentGUIAction
      */
     public void removeGUIAction(Action action);
 
     /**
-     * Initialize actions for this ActionContainer if the Container has been added to ActionRegistry after action-definition already exists
-     *
+     * Initialize actions for this ActionContainer if the Container has been added to ActionRegistry after action-definition
+     * already exists
      */
-    public void initActions() throws ActionContainerException ;
+    public void initActions() throws ActionContainerException;
 }

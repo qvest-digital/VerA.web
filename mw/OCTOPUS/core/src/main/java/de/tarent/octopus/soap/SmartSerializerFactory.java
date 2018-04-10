@@ -47,6 +47,7 @@ package de.tarent.octopus.soap;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import org.apache.axis.Constants;
 import org.apache.axis.encoding.SerializerFactory;
 
@@ -55,20 +56,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class SmartSerializerFactory implements SerializerFactory {
-	private static final long serialVersionUID = -8549318271987956766L;
+    private static final long serialVersionUID = -8549318271987956766L;
 
-	ArrayList mechanisms;
+    ArrayList mechanisms;
 
-	public SmartSerializerFactory() {
-		mechanisms = new ArrayList(1);
-		mechanisms.add(Constants.AXIS_SAX);
-	}
+    public SmartSerializerFactory() {
+        mechanisms = new ArrayList(1);
+        mechanisms.add(Constants.AXIS_SAX);
+    }
 
-	public Serializer getSerializerAs(String mechanismType) {
-		return new SmartSerializer();
-	}
+    public Serializer getSerializerAs(String mechanismType) {
+        return new SmartSerializer();
+    }
 
-	public Iterator getSupportedMechanismTypes() {
-		return mechanisms.iterator();
-	}
+    public Iterator getSupportedMechanismTypes() {
+        return mechanisms.iterator();
+    }
 }

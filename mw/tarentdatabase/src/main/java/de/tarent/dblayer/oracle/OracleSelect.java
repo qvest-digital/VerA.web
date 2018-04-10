@@ -66,6 +66,7 @@ public class OracleSelect extends Select {
     //
     // constructors
     //
+
     /**
      * This constructor sets the distinctness flag of this <code>SELECT</code>
      * statement.
@@ -79,6 +80,7 @@ public class OracleSelect extends Select {
     //
     // interface {@link Statement}
     //
+
     /**
      * This method creates the {@link DBContext} sensitive {@link String} representation
      * of the modelled SQL {@link Statement}.<br>
@@ -95,10 +97,11 @@ public class OracleSelect extends Select {
      * @see Select#statementToString()
      * @see Statement#statementToString()
      */
-	public String statementToString() throws SyntaxErrorException {
+    public String statementToString() throws SyntaxErrorException {
         String baseStatement = super.statementToString();
-        if (getLimit() == null)
+        if (getLimit() == null) {
             return baseStatement;
+        }
 
         // emulate the limit and offset using a filter on the oracle rownum
         StringBuffer sb = new StringBuffer(baseStatement.length() + 100);
@@ -120,6 +123,7 @@ public class OracleSelect extends Select {
     //
     // class {@link Select}
     //
+
     /**
      * This method appends a <code>LIMIT</code> and/or an <code>OFFSET</code>
      * part of the <code>SELECT</code> statement to the given {@link StringBuffer}.<br>
@@ -134,6 +138,7 @@ public class OracleSelect extends Select {
     //
     // protected helper methods
     //
+
     /**
      * This method appends the aliases of the columns to select in the innermost
      * <code>SELECT</code> statement to the given {@link StringBuffer}.<br>
@@ -143,10 +148,11 @@ public class OracleSelect extends Select {
      * the requested data columns from the inner ones.
      */
     protected void addColumnAliasList(StringBuffer sb) {
-        for (Iterator it = getColumnAliasList().iterator();it.hasNext();) {
+        for (Iterator it = getColumnAliasList().iterator(); it.hasNext(); ) {
             sb.append(it.next());
-            if (it.hasNext())
+            if (it.hasNext()) {
                 sb.append(", ");
+            }
         }
     }
 }

@@ -47,6 +47,7 @@ package de.tarent.octopus.content;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -68,10 +69,11 @@ public abstract class TcAbstractContentWorker implements TcContentWorker {
     private TcCommonConfig commonConfig;
 
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
-        throws TcContentProzessException {
+            throws TcContentProzessException {
 
-        if (commonConfig == null)
+        if (commonConfig == null) {
             commonConfig = tcConfig.getCommonConfig();
+        }
 
         String result = RESULT_error;
         Class workerClass = this.getClass();
@@ -80,14 +82,15 @@ public abstract class TcAbstractContentWorker implements TcContentWorker {
         Object[] arguments = new Object[] { tcConfig, tcRequest, tcContent };
         try {
             actionMethod = workerClass.getMethod(actionName, parameterTypes);
-            if (logger.isTraceEnabled())
+            if (logger.isTraceEnabled()) {
                 logger.trace("Starte Methode \"" + workerClass.getName() + "." + actionName + "(...)\"");
-//            result = (String) actionMethod.invoke(this, arguments);
+            }
+            //            result = (String) actionMethod.invoke(this, arguments);
             actionMethod.invoke(this, arguments);
             result = RESULT_ok;
         } catch (NoSuchMethodException e) {
             throw new TcContentProzessException(
-                "Nicht unterstützte Action im Worker '" + workerClass.getName() + "': " + actionName);
+                    "Nicht unterstützte Action im Worker '" + workerClass.getName() + "': " + actionName);
         } catch (IllegalAccessException e) {
             logger.error("Fehler im Worker '" + workerClass.getName() + "'", e);
             throw new TcContentProzessException(e);

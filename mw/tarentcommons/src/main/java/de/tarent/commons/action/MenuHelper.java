@@ -109,42 +109,44 @@ public class MenuHelper {
      * In such a case the component is skipped and the next one is investigated.
      * </p>
      *
-     * @param components as sorted array
+     * @param components  as sorted array
      * @param priorityKey to get position values of the sorted components
-     * @param priority to which a new component should be added
+     * @param priority    to which a new component should be added
      * @return index
      */
-    public static int getInsertPosition( Component[] components, String priorityKey, Integer priority ) {
-	if(components == null || components.length == 0) return 0;// first position
-	int lastPosition = components.length;
-	if((priority != null)
-	    && (priority.intValue() != Integer.MAX_VALUE)) {//not the least priority
-	    for(int i = 0; i < lastPosition; i++){
-		Component c = components[i];
-		Integer nextPriority = null;
-		if ( c instanceof AbstractButton ) {//get action priority
-		    AbstractButton nextButton = (AbstractButton) c;
-		    Action a = nextButton.getAction();
-		    if ( a != null ) {
-			nextPriority = (Integer) nextButton.getAction().getValue( priorityKey );
-		    }
-		}
-		else if ( c instanceof JComponent ) {//get group priority (exists in JToolBar only)
-		    JComponent nextComponent = (JComponent) c;
-		    nextPriority = (Integer) nextComponent.getClientProperty( priorityKey );
-		}
+    public static int getInsertPosition(Component[] components, String priorityKey, Integer priority) {
+        if (components == null || components.length == 0) {
+            return 0;// first position
+        }
+        int lastPosition = components.length;
+        if ((priority != null)
+                && (priority.intValue() != Integer.MAX_VALUE)) {//not the least priority
+            for (int i = 0; i < lastPosition; i++) {
+                Component c = components[i];
+                Integer nextPriority = null;
+                if (c instanceof AbstractButton) {//get action priority
+                    AbstractButton nextButton = (AbstractButton) c;
+                    Action a = nextButton.getAction();
+                    if (a != null) {
+                        nextPriority = (Integer) nextButton.getAction().getValue(priorityKey);
+                    }
+                } else if (c instanceof JComponent) {//get group priority (exists in JToolBar only)
+                    JComponent nextComponent = (JComponent) c;
+                    nextPriority = (Integer) nextComponent.getClientProperty(priorityKey);
+                }
 
-		//ignore whitespaces and separators
-		if ( nextPriority != null ) {
-		    if ( priority.compareTo( nextPriority ) >= 0 )
-			continue;//priority is still minor or equal
+                //ignore whitespaces and separators
+                if (nextPriority != null) {
+                    if (priority.compareTo(nextPriority) >= 0) {
+                        continue;//priority is still minor or equal
+                    }
 
-		    return i;//priority is greater than next priority found, thus (1 < 3), (7 < 9) etc.
-		}
-	    }
-	}
+                    return i;//priority is greater than next priority found, thus (1 < 3), (7 < 9) etc.
+                }
+            }
+        }
 
-	return lastPosition;// last position
+        return lastPosition;// last position
     }
 
     /**
@@ -163,18 +165,16 @@ public class MenuHelper {
      * @param action
      * @param component
      */
-    public static void addSynchronizationComponent(Action action, JToggleButton component)
-    {
-      assert (component != null) : "JComponent argument must not be null.";
+    public static void addSynchronizationComponent(Action action, JToggleButton component) {
+        assert (component != null) : "JComponent argument must not be null.";
 
-      List l = (List) action.getValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS);
-      if (l == null)
-	{
-	  l = new ArrayList();
-	  action.putValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS, l);
-	}
+        List l = (List) action.getValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS);
+        if (l == null) {
+            l = new ArrayList();
+            action.putValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS, l);
+        }
 
-      l.add(component);
+        l.add(component);
     }
 
     /**
@@ -189,13 +189,13 @@ public class MenuHelper {
      * @param action
      * @param component
      */
-    public static void addSynchronizationComponent(Action action, JCheckBoxMenuItem component)
-    {
-      assert (component != null) : "JComponent argument must not be null.";
-      addSynchronizationComponent(action, new DelegatingToggleButton(component));
+    public static void addSynchronizationComponent(Action action, JCheckBoxMenuItem component) {
+        assert (component != null) : "JComponent argument must not be null.";
+        addSynchronizationComponent(action, new DelegatingToggleButton(component));
     }
 
-    /** Returns an iterator allowing the traversal through the list of
+    /**
+     * Returns an iterator allowing the traversal through the list of
      * components to be synchronized.
      *
      * <p>If only the selected state of the component is to be changed
@@ -204,50 +204,48 @@ public class MenuHelper {
      * {@link de.tarent.contact.gui.action.AbstractGUIAction#setSelected(boolean)
      * method instead.<p>
      * <p>
-     * @see #addSynchronizationComponent(Action, JToggleButton)
-     * <p>
+     *
      * @param action
      * @return iterator
+     * @see #addSynchronizationComponent(Action, JToggleButton)
+     * <p>
      */
-    public static Iterator getSynchronizationComponents(Action action)
-    {
-      List l = (List) action.getValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS);
+    public static Iterator getSynchronizationComponents(Action action) {
+        List l = (List) action.getValue(TarentGUIAction.PROP_KEY_SYNCHRONIZATION_COMPONENTS);
 
-      if (l == null)
-	l = Collections.EMPTY_LIST;
+        if (l == null) {
+            l = Collections.EMPTY_LIST;
+        }
 
-      return l.iterator();
+        return l.iterator();
     }
 
-    /** A simple wrapper around a <code>JCheckBoxMenuItem</code> to make
+    /**
+     * A simple wrapper around a <code>JCheckBoxMenuItem</code> to make
      * it behave programmatically like a <code>JToggleButton</code>.
      *
      * <p>More delegating methods can be added if needed.</p>
      *
      * @see MenuHelper#addSynchronizationComponent(Action, JCheckBoxMenuItem)
      */
-    private static class DelegatingToggleButton extends JToggleButton
-    {
-      /**
-		 *
-		 */
-		private static final long serialVersionUID = -2352133760894362291L;
-	JCheckBoxMenuItem item;
+    private static class DelegatingToggleButton extends JToggleButton {
+        /**
+         *
+         */
+        private static final long serialVersionUID = -2352133760894362291L;
+        JCheckBoxMenuItem item;
 
-      DelegatingToggleButton(JCheckBoxMenuItem item)
-      {
-	this.item = item;
-      }
+        DelegatingToggleButton(JCheckBoxMenuItem item) {
+            this.item = item;
+        }
 
-      public void setSelected(boolean s)
-      {
-	item.setSelected(s);
-      }
+        public void setSelected(boolean s) {
+            item.setSelected(s);
+        }
 
-      public boolean isSelected()
-      {
-	return item.isSelected();
-      }
+        public boolean isSelected() {
+            return item.isSelected();
+        }
 
     }
 
@@ -260,22 +258,24 @@ public class MenuHelper {
      * @param action to which context some related actions should be enabled
      * @return iterator with AbstractGUIActions to enable
      */
-    public static Iterator getActivationActions( AbstractGUIAction action ) {
-	String[] array = (String[]) action.getValue(TarentGUIAction.PROP_KEY_ACTIVATION_LIST);
+    public static Iterator getActivationActions(AbstractGUIAction action) {
+        String[] array = (String[]) action.getValue(TarentGUIAction.PROP_KEY_ACTIVATION_LIST);
 
-	if (array != null){
-	    List list = (List) action.getValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_ENABLE);
-	    //retrieve if possible
-	    if(list != null) return list.iterator();//-> found
+        if (array != null) {
+            List list = (List) action.getValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_ENABLE);
+            //retrieve if possible
+            if (list != null) {
+                return list.iterator();//-> found
+            }
 
-	    //save to retrieve later
-	    list = getRelatedActions( array );
-	    action.putValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_ENABLE, list);
-	    return list.iterator();
+            //save to retrieve later
+            list = getRelatedActions(array);
+            action.putValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_ENABLE, list);
+            return list.iterator();
 
-	}
+        }
 
-	return Collections.EMPTY_LIST.iterator();
+        return Collections.EMPTY_LIST.iterator();
     }
 
     /**
@@ -287,22 +287,24 @@ public class MenuHelper {
      * @param action to which context some related actions should be disabled
      * @return iterator with AbstractGUIActions to disable
      */
-    public static Iterator getDeactivationActions( AbstractGUIAction action ) {
-	String[] array = (String[]) action.getValue(TarentGUIAction.PROP_KEY_DEACTIVATION_LIST);
+    public static Iterator getDeactivationActions(AbstractGUIAction action) {
+        String[] array = (String[]) action.getValue(TarentGUIAction.PROP_KEY_DEACTIVATION_LIST);
 
-	if (array != null){
-	    List list = (List) action.getValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_DISABLE);
-	    //retrieve if possible
-	    if(list != null) return list.iterator();//-> found
+        if (array != null) {
+            List list = (List) action.getValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_DISABLE);
+            //retrieve if possible
+            if (list != null) {
+                return list.iterator();//-> found
+            }
 
-	    //save to retrieve later
-	    list = getRelatedActions( array );
-	    action.putValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_DISABLE, list);
-	    return list.iterator();
+            //save to retrieve later
+            list = getRelatedActions(array);
+            action.putValue(AbstractGUIAction.PROP_KEY_ACTIONS_TO_DISABLE, list);
+            return list.iterator();
 
-	}
+        }
 
-	return Collections.EMPTY_LIST.iterator();
+        return Collections.EMPTY_LIST.iterator();
     }
 
     /**
@@ -310,57 +312,59 @@ public class MenuHelper {
      *
      * @return List of Actions to the given unique names
      */
-    private static List getRelatedActions( String[] array ) {
-	List list;
-	list = new ArrayList(array.length);
-	for(int i = array.length-1; i>=0; i--){//for every unique name
-	    String nextUniqueName = array[i].trim();
-	    AbstractGUIAction nextAction = ActionRegistry.getInstance().getAction(nextUniqueName);
-	    if(nextAction != null) list.add(nextAction);//get action
-	    else logger.warning("[!] action to de-/activate not found: " + nextUniqueName);
-	}
-	return list;
+    private static List getRelatedActions(String[] array) {
+        List list;
+        list = new ArrayList(array.length);
+        for (int i = array.length - 1; i >= 0; i--) {//for every unique name
+            String nextUniqueName = array[i].trim();
+            AbstractGUIAction nextAction = ActionRegistry.getInstance().getAction(nextUniqueName);
+            if (nextAction != null) {
+                list.add(nextAction);//get action
+            } else {
+                logger.warning("[!] action to de-/activate not found: " + nextUniqueName);
+            }
+        }
+        return list;
     }
 
     /**
      * Returns 'true' if a separator should be added after a given action.
      */
-    public static boolean isWithBackSeparator( Action action ) {
-	boolean withBackSeparator = false;
-	String separatorValue;
-	separatorValue = (String) action.getValue( AbstractGUIAction.PROP_KEY_WITH_BACK_SEPARATOR );
-	if ( separatorValue != null ) {
-	    withBackSeparator = Boolean.valueOf( separatorValue ).booleanValue();
-	}
-	return withBackSeparator;
+    public static boolean isWithBackSeparator(Action action) {
+        boolean withBackSeparator = false;
+        String separatorValue;
+        separatorValue = (String) action.getValue(AbstractGUIAction.PROP_KEY_WITH_BACK_SEPARATOR);
+        if (separatorValue != null) {
+            withBackSeparator = Boolean.valueOf(separatorValue).booleanValue();
+        }
+        return withBackSeparator;
     }
 
     /**
      * Returns 'true' if a separator should be added before a given action.
      */
-    public static boolean isWithFrontSeparator( Action action ) {
-	boolean withFrontSeparator = false;
-	String separatorValue = (String) action.getValue( AbstractGUIAction.PROP_KEY_WITH_FRONT_SEPARATOR );
-	if ( separatorValue != null ) {
-	    withFrontSeparator = Boolean.valueOf( separatorValue ).booleanValue();
-	}
-	return withFrontSeparator;
+    public static boolean isWithFrontSeparator(Action action) {
+        boolean withFrontSeparator = false;
+        String separatorValue = (String) action.getValue(AbstractGUIAction.PROP_KEY_WITH_FRONT_SEPARATOR);
+        if (separatorValue != null) {
+            withFrontSeparator = Boolean.valueOf(separatorValue).booleanValue();
+        }
+        return withFrontSeparator;
     }
 
     /**
      * Replaces underscores with spaces in the menu title.
      * The required spaces have been encoded because of XML entities.
      *
+     * @param currentMenu
      * @see MenuBar
      * @see SideMenuBar
-     *
-     * @param currentMenu
      */
-    public static void checkMenuNameForSpaces( JMenu currentMenu ) {
-	String menuNameToParse = currentMenu.getText();
-	if(menuNameToParse.indexOf("_") > 0){
-	    currentMenu.setText(menuNameToParse.replace('_',' '));
-	}
+    public static void checkMenuNameForSpaces(JMenu currentMenu) {
+        String menuNameToParse = currentMenu.getText();
+        if (menuNameToParse.indexOf("_") > 0) {
+            currentMenu.setText(menuNameToParse.replace('_', ' '));
+        }
     }
 
     /**
@@ -371,51 +375,40 @@ public class MenuHelper {
      * <code>Integer.MAX_VALUE</code> denoting that the element should
      * be added to the end.<p>
      */
-    public static int getAssignedPriority(String menuPath)
-    {
-      // check if position assigned
-      String[] menuPathParts = menuPath.split(":");
-      if (menuPathParts.length > 1 && !"".equals(menuPathParts[1]))
-	{
-	  try
-	    {
-	      return Integer.parseInt(menuPathParts[menuPathParts.length - 1]);
-	    }
-	  catch (NumberFormatException nfe)
-	    {
-	      logger.warning("Invalid number format for menu priority in menu path: "
-			     + menuPath);
-	    }
-	}
+    public static int getAssignedPriority(String menuPath) {
+        // check if position assigned
+        String[] menuPathParts = menuPath.split(":");
+        if (menuPathParts.length > 1 && !"".equals(menuPathParts[1])) {
+            try {
+                return Integer.parseInt(menuPathParts[menuPathParts.length - 1]);
+            } catch (NumberFormatException nfe) {
+                logger.warning("Invalid number format for menu priority in menu path: "
+                        + menuPath);
+            }
+        }
 
-      // No priority given, then return maximal possible value.
-      return Integer.MAX_VALUE;
+        // No priority given, then return maximal possible value.
+        return Integer.MAX_VALUE;
     }
 
     /**
-     *
      * Does quite the same as getAssignedPriority but for the main-menu-priority
      *
      * @param menuPath the menuPath to get the main-priority for
      * @return the priority for the assigned-main-menu or -1 if not specified
      */
 
-    public static int getAssignedMainMenuPriority(String menuPath)
-    {
-	String[] menuPathParts = menuPath.split(":");
+    public static int getAssignedMainMenuPriority(String menuPath) {
+        String[] menuPathParts = menuPath.split(":");
 
-	// check if the menuPath starts with a digit
-	if(menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0)))
-	{
-		try
-		{
-			return Integer.parseInt(menuPathParts[0]);
-		}
-		catch(NumberFormatException pExcp)
-		{
-			logger.warning("Invalid number format for main-menu priority in menu path: "+ menuPath);
-		}
-	}
-	return -1;
+        // check if the menuPath starts with a digit
+        if (menuPathParts != null && menuPathParts.length > 0 && Character.isDigit(menuPathParts[0].charAt(0))) {
+            try {
+                return Integer.parseInt(menuPathParts[0]);
+            } catch (NumberFormatException pExcp) {
+                logger.warning("Invalid number format for main-menu priority in menu path: " + menuPath);
+            }
+        }
+        return -1;
     }
 }

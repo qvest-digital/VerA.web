@@ -47,6 +47,7 @@ package de.tarent.octopus.security;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import java.net.PasswordAuthentication;
 
 import de.tarent.octopus.config.TcCommonConfig;
@@ -59,6 +60,7 @@ import de.tarent.octopus.server.PersonalConfig;
  * Diese könnte später konfigurierbar sein.
  * <br><br>
  * a
+ *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class LoginManagerAcceptAll extends AbstractLoginManager {
@@ -66,15 +68,15 @@ public class LoginManagerAcceptAll extends AbstractLoginManager {
     public static final String DEFAULT_GROUP = PersonalConfig.GROUP_USER;
 
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException {
+            throws TcSecurityException {
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
-        pConfig.setUserGroups(new String[]{DEFAULT_GROUP});
+        pConfig.setUserGroups(new String[] { DEFAULT_GROUP });
         pConfig.userLoggedIn(pwdAuth != null ? pwdAuth.getUserName() : "?");
     }
 
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-        throws TcSecurityException {
-        pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
+            throws TcSecurityException {
+        pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
         pConfig.userLoggedOut();
     }
 }

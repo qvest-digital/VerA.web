@@ -62,8 +62,7 @@ import javax.swing.text.html.HTML;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-public class JHTMLFormView extends FormView
-{
+public class JHTMLFormView extends FormView {
     private JHTMLPanel controller = null;
     private Map widgetMap = null;
     private String typeAttribute = null;
@@ -73,18 +72,17 @@ public class JHTMLFormView extends FormView
     /**
      * Constructs a new JFormView.
      *
-     * @param elem Element that should be created.
+     * @param elem       Element that should be created.
      * @param controller Controlling JHTMLPanel.
      */
-    public JHTMLFormView(Element elem, JHTMLPanel controller, Map widgetMap)
-    {
+    public JHTMLFormView(Element elem, JHTMLPanel controller, Map widgetMap) {
         super(elem);
         this.controller = controller;
         this.widgetMap = widgetMap;
         this.element = elem;
 
-        nameAttribute  = (String)elem.getAttributes().getAttribute(HTML.Attribute.NAME);
-        typeAttribute = (String)elem.getAttributes().getAttribute(HTML.Attribute.TYPE);
+        nameAttribute = (String) elem.getAttributes().getAttribute(HTML.Attribute.NAME);
+        typeAttribute = (String) elem.getAttributes().getAttribute(HTML.Attribute.TYPE);
     }
 
     /**
@@ -104,32 +102,23 @@ public class JHTMLFormView extends FormView
      *
      * @return Created component.
      */
-    protected Component createComponent()
-    {
+    protected Component createComponent() {
         Component component = null;
 
-        if (widgetMap.containsKey(typeAttribute))
-        {
+        if (widgetMap.containsKey(typeAttribute)) {
             // a tag defined or overwritten in the configuration was used
-            Class componentClass = (Class)widgetMap.get(typeAttribute);
+            Class componentClass = (Class) widgetMap.get(typeAttribute);
 
-            try
-            {
-                component = (Component)componentClass.newInstance();
-            }
-            catch (InstantiationException e)
-                {
+            try {
+                component = (Component) componentClass.newInstance();
+            } catch (InstantiationException e) {
                 throw new RuntimeException("Can't get custom widget instance: " + componentClass.getName());
-            }
-            catch (IllegalAccessException e)
-            {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException("Illegal access while creating custom widget instance: " + componentClass.getName());
             }
 
             controller.componentCreated(nameAttribute, component, element);
-        }
-        else
-        {
+        } else {
             // standard type was used - rely on standard Swing
             component = super.createComponent();
             controller.componentCreated(nameAttribute, component, element);

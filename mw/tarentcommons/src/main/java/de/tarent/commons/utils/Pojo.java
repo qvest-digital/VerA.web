@@ -50,6 +50,7 @@ package de.tarent.commons.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 import org.apache.commons.logging.Log;
 import de.tarent.commons.logging.LogFactory;
 
@@ -66,7 +67,7 @@ public class Pojo {
 
     private static final Log logger = LogFactory.getLog(Pojo.class);
 
-    static Object[] emptyObjectArray = new Object[]{};
+    static Object[] emptyObjectArray = new Object[] {};
 
     private static Map methodCache = new HashMap();
     private static Map readablePropertyTypCache = new HashMap();
@@ -81,50 +82,51 @@ public class Pojo {
      * @returns the setter for the property, or null if no mehtod matches
      */
     public static Method getSetMethod(Object pojo, String property) {
-	return getSetMethod(pojo, property, false);
+        return getSetMethod(pojo, property, false);
     }
 
     /**
      * Returns the first Method which may be a setXXX Method for the supplied pojo and property,
      * according to the Java Bean Specification
      *
-     * @param pojo target pojo for the property
+     * @param pojo     target pojo for the property
      * @param property target property
-     * @param flag, if an exact match of the metod name is forced
+     * @param flag,    if an exact match of the metod name is forced
      * @returns the setter for the property, or null if no mehtod matches
      */
     public static Method getSetMethod(Object pojo, String property, boolean ignorePropertyCase) {
-	return getSetMethod(pojo.getClass(), property, ignorePropertyCase);
+        return getSetMethod(pojo.getClass(), property, ignorePropertyCase);
     }
 
     /**
      * Returns the first Method which may be a setXXX Method for the supplied pojo and property,
      * according to the Java Bean Specification
      *
-     * @param pojo target pojo for the property
+     * @param pojo     target pojo for the property
      * @param property target property
-     * @param flag, if an exact match of the metod name is forced
+     * @param flag,    if an exact match of the metod name is forced
      * @returns the setter for the property, or null if no mehtod matches
      */
     public static Method getSetMethod(Class clazz, String property, boolean ignorePropertyCase) {
-	// try to lookup in the cache
-	String methodKey = clazz.getName() + "#set"+ property;
-	Method cachedMethod = (Method)methodCache.get(methodKey);
-	if (cachedMethod != null)
-	    return cachedMethod;
+        // try to lookup in the cache
+        String methodKey = clazz.getName() + "#set" + property;
+        Method cachedMethod = (Method) methodCache.get(methodKey);
+        if (cachedMethod != null) {
+            return cachedMethod;
+        }
 
-	// find the new one
-	Method[] methods = clazz.getMethods();
-	String set = "set"+StringTools.capitalizeFirstLetter(property);
-	for (int i = 0; i < methods.length; i++) {
-	    if (methods[i].getParameterTypes().length == 1 &&
-		((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(set))
-		 || methods[i].getName().equals(set))) {
-		methodCache.put(methodKey, methods[i]);
-		return methods[i];
-	    }
-	}
-	return null;
+        // find the new one
+        Method[] methods = clazz.getMethods();
+        String set = "set" + StringTools.capitalizeFirstLetter(property);
+        for (int i = 0; i < methods.length; i++) {
+            if (methods[i].getParameterTypes().length == 1 &&
+                    ((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(set))
+                            || methods[i].getName().equals(set))) {
+                methodCache.put(methodKey, methods[i]);
+                return methods[i];
+            }
+        }
+        return null;
     }
 
     /**
@@ -133,23 +135,25 @@ public class Pojo {
      * If the data is null and the target is a primitive, a meaningfull default is used.
      *
      * @throws IllegalArgumentException if the data conversion fails, or if the method signature does not have one parameter.
-     * @throws RuntimeException if the reflection call fails with any cause
+     * @throws RuntimeException         if the reflection call fails with any cause
      */
     public static void set(Object pojo, Method setter, Object data) {
-	Class[] params = setter.getParameterTypes();
-	if (params.length != 1)
-	    throw new IllegalArgumentException("Signature must have exactly one paraemter");
-	try {
-	    logger.trace("performing Pojo.set() '"+setter+"' with data: '"+data+"'");
-	    setter.invoke(pojo, new Object[]{ConverterRegistry.convert(data, params[0])});
-	} catch (IllegalArgumentException e) {
-	    throw e;
-	} catch (InvocationTargetException e) {
-	    throw new RuntimeException("Error on setting property of '"+ pojo.getClass() +"' with method '"+setter+"'", e.getCause());
-	} catch (Exception e) {
-	    throw new RuntimeException("Error on setting property of '"+ pojo.getClass() +"' with method '"+setter+"'", e);
-	}
-	// nothing to return
+        Class[] params = setter.getParameterTypes();
+        if (params.length != 1) {
+            throw new IllegalArgumentException("Signature must have exactly one paraemter");
+        }
+        try {
+            logger.trace("performing Pojo.set() '" + setter + "' with data: '" + data + "'");
+            setter.invoke(pojo, new Object[] { ConverterRegistry.convert(data, params[0]) });
+        } catch (IllegalArgumentException e) {
+            throw e;
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException("Error on setting property of '" + pojo.getClass() + "' with method '" + setter + "'",
+                    e.getCause());
+        } catch (Exception e) {
+            throw new RuntimeException("Error on setting property of '" + pojo.getClass() + "' with method '" + setter + "'", e);
+        }
+        // nothing to return
     }
 
     /**
@@ -160,7 +164,7 @@ public class Pojo {
      * @throws IllegalArgumentException if no such property exists, or the supplied data does not match the signature.
      */
     public static void set(Object pojo, String property, Object data) {
-	set(pojo, property, data, false);
+        set(pojo, property, data, false);
     }
 
     /**
@@ -171,10 +175,12 @@ public class Pojo {
      * @throws IllegalArgumentException if no such property exists, or the supplied data does not match the signature.
      */
     public static void set(Object pojo, String property, Object data, boolean ignorePropertyCase) {
-	Method m = getSetMethod(pojo, property, ignorePropertyCase);
-	if (m == null)
-	    throw new IllegalArgumentException("No set method for the property '"+property+"' on '"+pojo.getClass().getName()+"'");
-	set(pojo, m, data);
+        Method m = getSetMethod(pojo, property, ignorePropertyCase);
+        if (m == null) {
+            throw new IllegalArgumentException(
+                    "No set method for the property '" + property + "' on '" + pojo.getClass().getName() + "'");
+        }
+        set(pojo, m, data);
     }
 
     /**
@@ -184,7 +190,7 @@ public class Pojo {
      * @returns the getter for the property, or null if no mehtod matches
      */
     public static Method getGetMethod(Object pojo, String property) {
-	return getGetMethod(pojo, property, false);
+        return getGetMethod(pojo, property, false);
     }
 
     /**
@@ -195,53 +201,55 @@ public class Pojo {
      */
     public static Method getGetMethod(Object pojo, String property, boolean ignorePropertyCase) {
 
-	// try to lookup in the cache
-	String methodKey = pojo.getClass().getName() + "#get/is"+ property;
-	Method cachedMethod = (Method)methodCache.get(methodKey);
-	if (cachedMethod != null)
-	    return cachedMethod;
+        // try to lookup in the cache
+        String methodKey = pojo.getClass().getName() + "#get/is" + property;
+        Method cachedMethod = (Method) methodCache.get(methodKey);
+        if (cachedMethod != null) {
+            return cachedMethod;
+        }
 
-	// find the new one
-	Method[] methods = pojo.getClass().getMethods();
-	String get = "get"+StringTools.capitalizeFirstLetter(property);
-	for (int i = 0; i < methods.length; i++) {
-	    if (methods[i].getParameterTypes().length == 0 &&
-		((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(get))
-		 || methods[i].getName().equals(get))) {
-		methodCache.put(methodKey, methods[i]);
-		return methods[i];
-	    }
-	}
-	// search fo an boolean isXXX
-	String is = "is"+StringTools.capitalizeFirstLetter(property);
-	for (int i = 0; i < methods.length; i++) {
-	    if (methods[i].getParameterTypes().length == 0 &&
-		((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(is))
-		 || methods[i].getName().equals(is))) {
-		methodCache.put(methodKey, methods[i]);
-		return methods[i];
-	    }
-	}
-	return null;
+        // find the new one
+        Method[] methods = pojo.getClass().getMethods();
+        String get = "get" + StringTools.capitalizeFirstLetter(property);
+        for (int i = 0; i < methods.length; i++) {
+            if (methods[i].getParameterTypes().length == 0 &&
+                    ((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(get))
+                            || methods[i].getName().equals(get))) {
+                methodCache.put(methodKey, methods[i]);
+                return methods[i];
+            }
+        }
+        // search fo an boolean isXXX
+        String is = "is" + StringTools.capitalizeFirstLetter(property);
+        for (int i = 0; i < methods.length; i++) {
+            if (methods[i].getParameterTypes().length == 0 &&
+                    ((ignorePropertyCase && methods[i].getName().equalsIgnoreCase(is))
+                            || methods[i].getName().equals(is))) {
+                methodCache.put(methodKey, methods[i]);
+                return methods[i];
+            }
+        }
+        return null;
     }
 
     /**
      * Returns the value of the property represented by the supplied method.
      *
      * @throws IllegalArgumentException if the method signature have parameters.
-     * @throws RuntimeException if the reflection call fails with any cause
+     * @throws RuntimeException         if the reflection call fails with any cause
      */
     public static Object get(Object pojo, Method getter) {
-	if (getter.getParameterTypes().length != 0)
-	    throw new IllegalArgumentException("Signature must have no paraemters");
-	try {
-	    logger.trace("performing Pojo.get() '"+getter+"'");
-	    return getter.invoke(pojo, emptyObjectArray);
-	} catch (InvocationTargetException e) {
-	    throw new RuntimeException("Error on getting property of '"+ pojo +"' with method '"+getter+"'", e.getCause());
-	} catch (Exception e) {
-	    throw new RuntimeException("Error on getting property of '"+ pojo +"' with method '"+getter+"'", e);
-	}
+        if (getter.getParameterTypes().length != 0) {
+            throw new IllegalArgumentException("Signature must have no paraemters");
+        }
+        try {
+            logger.trace("performing Pojo.get() '" + getter + "'");
+            return getter.invoke(pojo, emptyObjectArray);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException("Error on getting property of '" + pojo + "' with method '" + getter + "'", e.getCause());
+        } catch (Exception e) {
+            throw new RuntimeException("Error on getting property of '" + pojo + "' with method '" + getter + "'", e);
+        }
     }
 
     /**
@@ -252,7 +260,7 @@ public class Pojo {
      * @throws IllegalArgumentException if no matching method was found
      */
     public static Object get(Object pojo, String property) {
-	return get(pojo, property, false);
+        return get(pojo, property, false);
     }
 
     /**
@@ -263,10 +271,12 @@ public class Pojo {
      * @throws IllegalArgumentException if no matching method was found
      */
     public static Object get(Object pojo, String property, boolean ignorePropertyCase) {
-	Method m = getGetMethod(pojo, property);
-	if (m == null)
-	    throw new IllegalArgumentException("No get method for the property '"+property+"' on '"+pojo.getClass().getName()+"'");
-	return get(pojo, m);
+        Method m = getGetMethod(pojo, property);
+        if (m == null) {
+            throw new IllegalArgumentException(
+                    "No get method for the property '" + property + "' on '" + pojo.getClass().getName() + "'");
+        }
+        return get(pojo, m);
     }
 
     /**
@@ -278,7 +288,7 @@ public class Pojo {
      * @return
      */
     public static Set getPropertyNames(Object pojo) {
-	return getPropertyTypes(pojo).keySet();
+        return getPropertyTypes(pojo).keySet();
     }
 
     /**
@@ -291,53 +301,54 @@ public class Pojo {
      * @return
      */
     public static Map getPropertyTypes(Object pojo) {
-	String className = pojo.getClass().getName();
-	Map map = (Map) allPropertyTypCache.get(className);
-	if (map != null)
-		return map;
+        String className = pojo.getClass().getName();
+        Map map = (Map) allPropertyTypCache.get(className);
+        if (map != null) {
+            return map;
+        }
 
-	map = new LinkedHashMap();
-	Method m[] = pojo.getClass().getMethods();
+        map = new LinkedHashMap();
+        Method m[] = pojo.getClass().getMethods();
 
-	for (int i = 0; i < m.length; i++) {
-		if (
-				m[i].getName().startsWith("get") &&
-				m[i].getName().length() > 3 &&
-				m[i].getParameterTypes().length == 0 && !
-				m[i].getReturnType().equals(Boolean.TYPE) && !
-				m[i].getReturnType().equals(Void.TYPE)) {
-			String property = m[i].getName().substring(3, 4).toLowerCase() +
-					m[i].getName().substring(4);
-			map.put(property, m[i].getReturnType());
-			String methodKey = m[i].getName() + "#get/is" + property;
-			methodCache.put(methodKey, m[i]);
-		} else if (
-				m[i].getName().startsWith("is") &&
-				m[i].getName().length() > 2 &&
-				m[i].getParameterTypes().length == 0 &&
-				m[i].getReturnType().equals(Boolean.TYPE)) {
-			String property = m[i].getName().substring(2, 3).toLowerCase() +
-						m[i].getName().substring(3);
-			map.put(property, Boolean.TYPE);
-				String methodKey = className + "#get/is" + property;
-				methodCache.put(methodKey, m[i]);
-		} else if (
-				m[i].getName().startsWith("set") &&
-				m[i].getName().length() > 3 &&
-				m[i].getParameterTypes().length == 1 &&
-				m[i].getReturnType().equals(Void.TYPE)) {
-			String property = m[i].getName().substring(3, 4).toLowerCase() +
-						m[i].getName().substring(4);
-			map.put(property, m[i].getParameterTypes()[0]);
-			String methodKey = className + "#set" + property;
-			methodCache.put(methodKey, m[i]);
-		}
-	}
+        for (int i = 0; i < m.length; i++) {
+            if (
+                    m[i].getName().startsWith("get") &&
+                            m[i].getName().length() > 3 &&
+                            m[i].getParameterTypes().length == 0 && !
+                            m[i].getReturnType().equals(Boolean.TYPE) && !
+                            m[i].getReturnType().equals(Void.TYPE)) {
+                String property = m[i].getName().substring(3, 4).toLowerCase() +
+                        m[i].getName().substring(4);
+                map.put(property, m[i].getReturnType());
+                String methodKey = m[i].getName() + "#get/is" + property;
+                methodCache.put(methodKey, m[i]);
+            } else if (
+                    m[i].getName().startsWith("is") &&
+                            m[i].getName().length() > 2 &&
+                            m[i].getParameterTypes().length == 0 &&
+                            m[i].getReturnType().equals(Boolean.TYPE)) {
+                String property = m[i].getName().substring(2, 3).toLowerCase() +
+                        m[i].getName().substring(3);
+                map.put(property, Boolean.TYPE);
+                String methodKey = className + "#get/is" + property;
+                methodCache.put(methodKey, m[i]);
+            } else if (
+                    m[i].getName().startsWith("set") &&
+                            m[i].getName().length() > 3 &&
+                            m[i].getParameterTypes().length == 1 &&
+                            m[i].getReturnType().equals(Void.TYPE)) {
+                String property = m[i].getName().substring(3, 4).toLowerCase() +
+                        m[i].getName().substring(4);
+                map.put(property, m[i].getParameterTypes()[0]);
+                String methodKey = className + "#set" + property;
+                methodCache.put(methodKey, m[i]);
+            }
+        }
 
-	map = Collections.unmodifiableMap(map);
-	allPropertyTypCache.put(className, map);
+        map = Collections.unmodifiableMap(map);
+        allPropertyTypCache.put(className, map);
 
-	return map;
+        return map;
     }
 
     /**
@@ -349,7 +360,7 @@ public class Pojo {
      * @return
      */
     public static Set getReadablePropertyNames(Object pojo) {
-	return getReadablePropertyTypes(pojo).keySet();
+        return getReadablePropertyTypes(pojo).keySet();
     }
 
     /**
@@ -362,44 +373,45 @@ public class Pojo {
      * @return
      */
     public static Map getReadablePropertyTypes(Object pojo) {
-	String className = pojo.getClass().getName();
-	Map map = (Map) readablePropertyTypCache.get(className);
-	if (map != null)
-		return map;
+        String className = pojo.getClass().getName();
+        Map map = (Map) readablePropertyTypCache.get(className);
+        if (map != null) {
+            return map;
+        }
 
-	map = new LinkedHashMap();
-	Method m[] = pojo.getClass().getMethods();
+        map = new LinkedHashMap();
+        Method m[] = pojo.getClass().getMethods();
 
-	for (int i = 0; i < m.length; i++) {
-		if (
-				m[i].getName().startsWith("get") &&
-				m[i].getName().length() > 3 &&
-				m[i].getParameterTypes().length == 0 && !
-				m[i].getReturnType().equals(Boolean.TYPE) && !
-				m[i].getReturnType().equals(Void.TYPE) && !
-				m[i].getReturnType().equals(Class.class)) {
-			String property = m[i].getName().substring(3, 4).toLowerCase() +
-					m[i].getName().substring(4);
-			map.put(property, m[i].getReturnType());
-			String methodKey = m[i].getName() + "#get/is" + property;
-			methodCache.put(methodKey, m[i]);
-		} else if (
-				m[i].getName().startsWith("is") &&
-				m[i].getName().length() > 2 &&
-				m[i].getParameterTypes().length == 0 &&
-				m[i].getReturnType().equals(Boolean.TYPE)) {
-			String property = m[i].getName().substring(2, 3).toLowerCase() +
-						m[i].getName().substring(4);
-			map.put(property, Boolean.TYPE);
-				String methodKey = className + "#get/is" + property;
-				methodCache.put(methodKey, m[i]);
-		}
-	}
+        for (int i = 0; i < m.length; i++) {
+            if (
+                    m[i].getName().startsWith("get") &&
+                            m[i].getName().length() > 3 &&
+                            m[i].getParameterTypes().length == 0 && !
+                            m[i].getReturnType().equals(Boolean.TYPE) && !
+                            m[i].getReturnType().equals(Void.TYPE) && !
+                            m[i].getReturnType().equals(Class.class)) {
+                String property = m[i].getName().substring(3, 4).toLowerCase() +
+                        m[i].getName().substring(4);
+                map.put(property, m[i].getReturnType());
+                String methodKey = m[i].getName() + "#get/is" + property;
+                methodCache.put(methodKey, m[i]);
+            } else if (
+                    m[i].getName().startsWith("is") &&
+                            m[i].getName().length() > 2 &&
+                            m[i].getParameterTypes().length == 0 &&
+                            m[i].getReturnType().equals(Boolean.TYPE)) {
+                String property = m[i].getName().substring(2, 3).toLowerCase() +
+                        m[i].getName().substring(4);
+                map.put(property, Boolean.TYPE);
+                String methodKey = className + "#get/is" + property;
+                methodCache.put(methodKey, m[i]);
+            }
+        }
 
-	map = Collections.unmodifiableMap(map);
-	readablePropertyTypCache.put(className, map);
+        map = Collections.unmodifiableMap(map);
+        readablePropertyTypCache.put(className, map);
 
-	return map;
+        return map;
     }
 
     /**
@@ -411,7 +423,7 @@ public class Pojo {
      * @return
      */
     public static Set getWriteablePropertyNames(Object pojo) {
-	return getWriteablePropertyTypes(pojo).keySet();
+        return getWriteablePropertyTypes(pojo).keySet();
     }
 
     /**
@@ -424,31 +436,32 @@ public class Pojo {
      * @return
      */
     public static Map getWriteablePropertyTypes(Object pojo) {
-	String className = pojo.getClass().getName();
-	Map map = (Map) writeablePropertyTypCache.get(className);
-	if (map != null)
-		return map;
+        String className = pojo.getClass().getName();
+        Map map = (Map) writeablePropertyTypCache.get(className);
+        if (map != null) {
+            return map;
+        }
 
-	map = new LinkedHashMap();
-	Method m[] = pojo.getClass().getMethods();
+        map = new LinkedHashMap();
+        Method m[] = pojo.getClass().getMethods();
 
-	for (int i = 0; i < m.length; i++) {
-		if (
-				m[i].getName().startsWith("set") &&
-				m[i].getName().length() > 3 &&
-				m[i].getParameterTypes().length == 1 &&
-				m[i].getReturnType().equals(Void.TYPE)) {
-			String property = m[i].getName().substring(3, 4).toLowerCase() +
-						m[i].getName().substring(4);
-			map.put(property, m[i].getParameterTypes()[0]);
-			String methodKey = className + "#set" + property;
-			methodCache.put(methodKey, m[i]);
-		}
-	}
+        for (int i = 0; i < m.length; i++) {
+            if (
+                    m[i].getName().startsWith("set") &&
+                            m[i].getName().length() > 3 &&
+                            m[i].getParameterTypes().length == 1 &&
+                            m[i].getReturnType().equals(Void.TYPE)) {
+                String property = m[i].getName().substring(3, 4).toLowerCase() +
+                        m[i].getName().substring(4);
+                map.put(property, m[i].getParameterTypes()[0]);
+                String methodKey = className + "#set" + property;
+                methodCache.put(methodKey, m[i]);
+            }
+        }
 
-	map = Collections.unmodifiableMap(map);
-	writeablePropertyTypCache.put(className, map);
+        map = Collections.unmodifiableMap(map);
+        writeablePropertyTypCache.put(className, map);
 
-	return map;
+        return map;
     }
 }

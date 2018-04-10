@@ -58,25 +58,25 @@ public class TestProcedure implements Runnable {
     private String ausgabe;
 
     public void run() {
-        for (int i = 0; i < 6; i++){
-            if (Thread.interrupted()){
-                logger.log(Level.WARNING,"THREAD INTERRUPTED");
+        for (int i = 0; i < 6; i++) {
+            if (Thread.interrupted()) {
+                logger.log(Level.WARNING, "THREAD INTERRUPTED");
                 break;
             }
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                logger.log(Level.WARNING,"THREAD INTERRUPTED");
+                logger.log(Level.WARNING, "THREAD INTERRUPTED");
                 break;
             }
-            logger.log(Level.INFO,"TEST " + i + ": " + ausgabe );
+            logger.log(Level.INFO, "TEST " + i + ": " + ausgabe);
             System.out.println("TEST " + i + ": " + ausgabe);
 
         }
 
     }
 
-    public void setAusgabe(String ausgabe){
+    public void setAusgabe(String ausgabe) {
         this.ausgabe = ausgabe;
     }
 

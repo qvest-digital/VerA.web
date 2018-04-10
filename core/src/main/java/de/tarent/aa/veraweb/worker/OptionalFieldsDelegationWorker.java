@@ -61,6 +61,7 @@ package de.tarent.aa.veraweb.worker;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.dblayer.engine.DB;
@@ -353,7 +354,7 @@ public class OptionalFieldsDelegationWorker {
     private String getStatementSelectOptionalDelegationField(int guestId, int eventId) {
         return "WITH w_vorhandene_labels AS ( " +
                 "SELECT DISTINCT dc.fk_guest as fk_guest, dc.fk_delegation_field as fk_delegation_field, f.fk_type as fk_type, " +
-                 "dc.value as value, " +
+                "dc.value as value, " +
                 "f.label as label " +
                 "FROM veraweb.toptional_fields_delegation_content dc " +
                 "RIGHT OUTER JOIN veraweb.toptional_fields f ON (dc.fk_delegation_field = f.pk) " +

@@ -68,15 +68,16 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
     //
     // constructor
     //
+
     /**
      * This constructor stores the given context and creates the prepared
      * statement.
      *
-     * @param insert the db layer INSERT statement using {@link BeanBaseStatement#PLACE_HOLDER}
-     *  for variables where bean field values are to be set.
+     * @param insert         the db layer INSERT statement using {@link BeanBaseStatement#PLACE_HOLDER}
+     *                       for variables where bean field values are to be set.
      * @param fieldsInInsert fields to insert in the same order as their corresponding
-     *  {@link BeanBaseStatement#PLACE_HOLDER} variables appear inside the statement
-     * @param context execution context of the PreparedStatements
+     *                       {@link BeanBaseStatement#PLACE_HOLDER} variables appear inside the statement
+     * @param context        execution context of the PreparedStatements
      */
     BeanInsertStatement(Insert insert, List fieldsInInsert, ExecutionContext context) throws BeanException {
         super(insert, context);
@@ -86,6 +87,7 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
     //
     // interface BeanStatement
     //
+
     /**
      * This method executes the insert using the given bean.
      *
@@ -94,7 +96,7 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
      * @see de.tarent.octopus.beans.BeanStatement#execute(de.tarent.octopus.beans.Bean)
      */
     public int execute(Bean bean) throws BeanException {
-        if (bean != null)
+        if (bean != null) {
             try {
                 preparedStatement.clearParameters();
                 List params = new ArrayList();
@@ -104,23 +106,30 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
                     preparedStatement.setObject(index + 1, value);
                     params.add(value);
                 }
-                if (logger.isLoggable(Level.FINE))
+                if (logger.isLoggable(Level.FINE)) {
                     logger.fine("PreparedStatement <" + sqlStatement + "> is called for parameters " + params + ".");
+                }
                 return preparedStatement.executeUpdate();
             } catch (SQLException se) {
-                throw new BeanException("Error executing the PreparedInsert <" + sqlStatement + "> using bean <" + bean + ">", se);
+                throw new BeanException("Error executing the PreparedInsert <" + sqlStatement + "> using bean <" + bean + ">",
+                        se);
             }
-        else
+        } else {
             logger.warning("execute method called without a bean instance.");
+        }
         return 0;
     }
 
     //
     // protected variables
     //
-    /** Here the fields are listed corresponding to the variables to fill in the statement. */
+    /**
+     * Here the fields are listed corresponding to the variables to fill in the statement.
+     */
     final List fields;
 
-    /** logger of this class. */
+    /**
+     * logger of this class.
+     */
     final static Logger logger = Logger.getLogger(BeanUpdateStatement.class.getName());
 }

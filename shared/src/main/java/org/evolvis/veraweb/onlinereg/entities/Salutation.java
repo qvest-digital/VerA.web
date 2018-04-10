@@ -61,6 +61,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import lombok.Data;
 
 import javax.persistence.*;
@@ -78,7 +79,7 @@ import javax.xml.bind.annotation.XmlRootElement;
                 resultClass = Salutation.class),
         @NamedNativeQuery(name = Salutation.GET_SALUTATIONS_WITHOUT_ALTERNATIVE_CONTENT,
                 query = "SELECT s.* FROM tsalutation s WHERE pk NOT IN (SELECT salutation_id FROM salutation_alternative WHERE " +
-                 "pdftemplate_id=:" +
+                        "pdftemplate_id=:" +
                         SalutationAlternative.PARAM_PDFTEMPLATE_ID + ")", resultClass = Salutation.class)
 })
 
