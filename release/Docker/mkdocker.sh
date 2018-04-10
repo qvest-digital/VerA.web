@@ -1,4 +1,9 @@
 #!/usr/bin/env mksh
+
+print -ru2 -- '[INFO] Do not forget to run…'
+print -ru2 -- '[INFO]      docker system prune --volumes || docker system prune'
+print -ru2 -- '[INFO] … for cleanup on veraweb-tools!'
+
 set -ex
 cd "$(dirname "$0")"
 tag=$1
