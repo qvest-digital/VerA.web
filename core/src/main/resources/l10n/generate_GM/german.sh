@@ -59,7 +59,6 @@ word F TASK Aufgabe
 word M USER Benutzer Benutzer
 word M WORKAREA Arbeitsbereich Arbeitsbereiche
 
-
 	neuMS=neuer neuMP=neue neuMN=neuer
 	neuFS=neue neuFP=neue neuFN=neue
 	neuNS=neues neuNP=neue neuNN=neues
