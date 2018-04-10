@@ -777,7 +777,7 @@ public class TcSecurityLDAPManager {
             }
         } catch (NamingException e) {
             throw new TcSecurityException("Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. " +
-                        "Bitte versuchen Sie es später noch einmal.");
+                    "Bitte versuchen Sie es später noch einmal.");
         }
         return dn;
     }
