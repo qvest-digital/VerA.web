@@ -61,7 +61,6 @@ import de.tarent.commons.datahandling.entity.EntityListListener;
 import de.tarent.commons.logging.LogFactory;
 import de.tarent.octopus.client.OctopusCallException;
 import de.tarent.commons.datahandling.ListFilter;
-import de.tarent.commons.ui.Messages;
 import de.tarent.commons.utils.TaskManager;
 import de.tarent.commons.datahandling.binding.DataChangedEvent;
 import de.tarent.commons.datahandling.binding.AbstractDataSubject;

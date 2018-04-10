@@ -48,8 +48,6 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.commons.ui.UnsupportedVersionComplain;
-
 /**
  * Provides system-information
  *
@@ -114,17 +112,5 @@ public class SystemInfo {
 
     public static String getArch() {
         return System.getProperty("os.arch");
-    }
-
-    /**
-     * checks the runtime for compatibility.
-     */
-    public static boolean checkForCompatibility(String appName, double minVersion, double maxVersion) {
-        double d = new Double(System.getProperty("java.specification.version", "0.0")).doubleValue();
-        if (d < minVersion || d > maxVersion || System.getProperty("java.vendor", "none").indexOf("Sun Microsystems") < 0) {
-            return UnsupportedVersionComplain.showUnsupportedVersionComplain(appName);
-        }
-
-        return true;
     }
 }
