@@ -67,8 +67,8 @@ import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcTask;
 import de.tarent.octopus.request.TcTaskList;
-import de.tarent.octopus.request.directCall.TcDirectCallResponse;
-import de.tarent.octopus.request.directCall.TcDirectCallSession;
+import de.tarent.octopus.request.directcall.TcDirectCallResponse;
+import de.tarent.octopus.request.directcall.TcDirectCallSession;
 import de.tarent.octopus.response.ResponseProcessingException;
 
 public class OctopusModuleManagement implements DynamicMBean
