@@ -47,7 +47,6 @@ package de.tarent.octopus.response;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 /**
  * MarkerInterface - Es gibt an, dass eine ResponseEngine
  * eine Antwort auf einen ProcedureCall liefert und nach folgendem Schema arbeitet.

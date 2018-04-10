@@ -47,7 +47,6 @@ package de.tarent.commons.datahandling;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 /**
  * Abstraction of the parameters for filtering, sorting and paging of result lists.
  */

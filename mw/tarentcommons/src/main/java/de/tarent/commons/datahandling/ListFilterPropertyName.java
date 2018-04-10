@@ -47,7 +47,6 @@ package de.tarent.commons.datahandling;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 /**
  * Is a wrapper class for attribute names (of any business object).<p>
  * It will be used by {@link de.tarent.commons.datahandling.ListFilterProvider}

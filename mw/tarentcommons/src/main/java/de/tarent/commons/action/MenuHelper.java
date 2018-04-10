@@ -47,7 +47,6 @@ package de.tarent.commons.action;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import java.awt.Component;
 import java.awt.MenuBar;
 import java.util.ArrayList;

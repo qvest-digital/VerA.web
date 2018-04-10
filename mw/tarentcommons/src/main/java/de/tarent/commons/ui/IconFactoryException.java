@@ -47,7 +47,6 @@ package de.tarent.commons.ui;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 public class IconFactoryException extends Exception {
 
     private static final long serialVersionUID = -5951594506802243978L;

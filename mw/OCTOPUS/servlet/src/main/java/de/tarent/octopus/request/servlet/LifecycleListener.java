@@ -47,7 +47,6 @@ package de.tarent.octopus.request.servlet;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import java.net.MalformedURLException;
 
 import javax.naming.Context;

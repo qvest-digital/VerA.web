@@ -47,7 +47,6 @@ package de.tarent.octopus.cronjobs;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.Thread.State;

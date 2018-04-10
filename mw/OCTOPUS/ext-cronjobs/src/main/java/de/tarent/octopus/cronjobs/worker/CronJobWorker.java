@@ -47,7 +47,6 @@ package de.tarent.octopus.cronjobs.worker;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Arrays;

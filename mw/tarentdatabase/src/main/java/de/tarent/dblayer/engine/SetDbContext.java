@@ -47,7 +47,6 @@ package de.tarent.dblayer.engine;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 /**
  * This interface is to be implemented by all classes that allow a
  * {@link DBContext} to be set using a fitting setter method. It is

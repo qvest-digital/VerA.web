@@ -47,7 +47,6 @@ package de.tarent.octopus.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcTaskList;
 import de.tarent.octopus.resource.Resources;

@@ -47,7 +47,6 @@ package de.tarent.octopus.client.remote;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import de.tarent.octopus.client.*;
 
 import java.rmi.RemoteException;

@@ -47,7 +47,6 @@ package de.tarent.dblayer.persistence;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import de.tarent.commons.datahandling.entity.EntityFactory;
 import de.tarent.commons.datahandling.entity.DefaultEntityFactory;
 

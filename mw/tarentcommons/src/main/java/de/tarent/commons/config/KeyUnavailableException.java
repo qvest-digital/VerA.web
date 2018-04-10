@@ -47,7 +47,6 @@ package de.tarent.commons.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 /**
  * An exception subclass denoting that a key was requested that
  * does not exist.

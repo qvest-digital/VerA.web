@@ -47,7 +47,6 @@ package de.tarent.octopus.config;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import de.tarent.octopus.content.CookieMap;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.request.TcRequest;

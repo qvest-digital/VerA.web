@@ -47,7 +47,6 @@ package de.tarent.octopus.logging;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.resource.Resources;
 import org.apache.commons.logging.Log;

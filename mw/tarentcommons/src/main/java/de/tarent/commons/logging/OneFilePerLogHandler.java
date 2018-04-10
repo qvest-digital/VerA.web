@@ -47,7 +47,6 @@ package de.tarent.commons.logging;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;

@@ -47,7 +47,6 @@ package de.tarent.commons.spreadsheet.export.csv;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;

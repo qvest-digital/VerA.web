@@ -47,7 +47,6 @@ package de.tarent.octopus.server;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 /**
  * A Closeable is a Resource, which may be closed if not needed any longer.
  * This interace ist semanticaly the same as {@link java.io.Closeable} introduced with JDK 1.5.

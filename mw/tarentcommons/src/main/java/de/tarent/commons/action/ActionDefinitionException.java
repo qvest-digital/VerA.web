@@ -47,7 +47,6 @@ package de.tarent.commons.action;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 public class ActionDefinitionException extends Exception {
 
     private static final long serialVersionUID = -5748100286171926561L;

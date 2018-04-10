@@ -47,7 +47,6 @@ package de.tarent.dblayer.octopus;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import java.sql.Connection;
 import java.sql.SQLException;
 

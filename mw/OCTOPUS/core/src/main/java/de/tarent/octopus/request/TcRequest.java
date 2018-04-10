@@ -47,7 +47,6 @@ package de.tarent.octopus.request;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 import java.net.PasswordAuthentication;
 import java.util.Collections;
 import java.util.Iterator;
