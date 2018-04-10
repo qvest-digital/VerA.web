@@ -5,11 +5,7 @@
 	<description>veraweb</description>
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
-		<filter-class>de.tarent.octopus.request.servlet.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
+		<filter-class>de.tarent.octopus.request.servlet.DefaultUTF8Filter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
