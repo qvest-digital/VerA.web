@@ -436,8 +436,8 @@ public class StatistikWorker {
      * @param octopusContext The {@link OctopusContext}
      * @param resultSet      FIXME
      * @return Map mit Stream Informationen
-     * @throws IOException
-     * @throws SQLException
+     * @throws IOException IOException
+     * @throws SQLException SQLException
      * @throws FactoryConfigurationError
      * @throws TransformerFactoryConfigurationError
      */

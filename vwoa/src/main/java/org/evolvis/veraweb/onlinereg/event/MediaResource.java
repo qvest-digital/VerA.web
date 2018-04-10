@@ -308,7 +308,7 @@ public class MediaResource {
      * @param eventId Event id
      * @param userId  User id
      * @param gender  gender
-     * @throws IOException
+     * @throws IOException IOException
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String username)
             throws IOException {

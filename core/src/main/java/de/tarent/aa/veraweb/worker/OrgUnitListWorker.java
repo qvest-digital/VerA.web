@@ -304,6 +304,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * @param orgunit        Neue Orgunit-ID
      * @throws BeanException FIXME
      * @throws IOException   FIXME
+     * @return missingorgunit
      */
     @SuppressWarnings("unchecked")
     public Map cleanupDatabase(OctopusContext octopusContext, Integer orgunit) throws BeanException, IOException {
@@ -411,8 +412,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * @param selection zu löschende Auswahl
      * @param context   TransactionContext
      * @return Anzahl erfolgreich gelöschter Beans
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
+     * @return count
      */
     @Override
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context)

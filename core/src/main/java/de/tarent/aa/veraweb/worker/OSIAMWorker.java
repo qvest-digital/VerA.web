@@ -87,7 +87,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
-/**
+/*
  * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH
  */
 public class OSIAMWorker {
@@ -142,8 +142,8 @@ public class OSIAMWorker {
      * Creates an new user in OSIAM via connector4java and the configured client
      *
      * @param octopusContext The {@link OctopusContext}
-     * @throws BeanException
-     * @throws SQLException
+     * @throws BeanException  BeanException
+     * @throws SQLException SQLException
      */
     public void createDelegationUsers(OctopusContext octopusContext) throws BeanException,
             SQLException {

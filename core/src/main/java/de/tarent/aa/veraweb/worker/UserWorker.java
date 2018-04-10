@@ -145,8 +145,8 @@ public class UserWorker {
      * @param cntx Octopus-Kontext
      * @param id   Benutzer-ID; wenn <code>null</code>, so wird <code>null</code> zurückgeliefert.
      * @return das passende {@link User}-Objekt oder <code>null</code>
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public User showDetail(OctopusContext cntx, Integer id) throws BeanException, IOException {
         return getUser(cntx, id);
@@ -170,8 +170,8 @@ public class UserWorker {
      *
      * @param octx Octopus-Kontext
      * @return {@link User}-Objekt zum aktuell eingelogten Benutzer oder <code>null</code>
-     * @throws IOException
-     * @throws BeanException
+     * @throws IOException IOException
+     * @throws BeanException  BeanException
      */
     public User showActiveUser(OctopusContext octx) throws BeanException, IOException {
         PersonalConfigAA aaConfig = (PersonalConfigAA) octx.personalConfig();
@@ -198,8 +198,8 @@ public class UserWorker {
      * @param domain Domäne der Rollen
      * @return Liste verfügbarer AA-Rollen
      * @throws TcSecurityException
-     * @throws IOException
-     * @throws BeanException
+     * @throws IOException IOException
+     * @throws BeanException BeanException
      */
     public List showAARoleList(OctopusContext octx, String domain) throws TcSecurityException, BeanException, IOException {
         LoginManagerAA loginManager = (LoginManagerAA) octx.moduleConfig().getLoginManager();

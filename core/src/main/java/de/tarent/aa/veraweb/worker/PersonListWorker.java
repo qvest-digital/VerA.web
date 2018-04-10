@@ -144,8 +144,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext Octopus-Context
      * @return Liste mit Beans, nie null.
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      * @see #getSelection(OctopusContext, Integer)
      */
     @Override
@@ -421,8 +421,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @param personIds  Liste von Personen IDs für die das entfernen der Zuordnung
      *                   gilt
      * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public void unassignWorkArea(final OctopusContext cntx, final List<Integer> personIds, final Integer workAreaId)
             throws BeanException,
@@ -453,8 +453,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @param octopusContext OctopusContext
      * @param personIds      Liste von Personen IDs für die die neue Zuordnung gilt
      * @param workAreaId     ID des Arbeitsbereiches der zugeordnet werden soll
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public void assignWorkArea(final OctopusContext octopusContext, final List<Integer> personIds, final Integer workAreaId)
             throws BeanException,
@@ -855,7 +855,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Session-Objekt. Das Ergebnis wird in der Session gesetzt.
      *
      * @param octopusContext Octopus-Kontext
-     * @throws BeanException
+     * @throws BeanException BeanException
      */
     public PersonSearch getSearch(final OctopusContext octopusContext) throws BeanException {
 
@@ -927,7 +927,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * zurück.
      *
      * @param octopusContext The {@link OctopusContext}
-     * @throws BeanException
+     * @throws BeanException BeanException
      */
     protected Clause getPersonListFilter(final OctopusContext octopusContext, final boolean status) throws BeanException {
         final WhereList list = new WhereList();
@@ -954,7 +954,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext The {@link OctopusContext}
      * @param list           FIXME
-     * @throws BeanException
+     * @throws BeanException  BeanException
      */
     private void addPersonListFilter(final OctopusContext octopusContext, final WhereList list) throws BeanException {
         final PersonSearch personSearch = getSearch(octopusContext);
@@ -1099,7 +1099,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * WhereList ist danach <strong>niemals</strong> leer.
      *
      * @param searchField FIXME
-     * @throws BeanException
+     * @throws BeanException BeanException
      */
     private void addPersonListFilterSimple(final String searchField, final WhereList list2, final boolean status)
             throws BeanException {

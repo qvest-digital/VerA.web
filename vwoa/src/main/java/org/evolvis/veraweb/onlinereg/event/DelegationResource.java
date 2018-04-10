@@ -705,7 +705,7 @@ public class DelegationResource {
      * @param type TypeReference of requested entity
      * @param <T>  Type of requested entity
      * @return requested resource
-     * @throws IOException
+     * @throws IOException IOException
      */
     private <T> T readResource(String path, TypeReference<T> type) throws IOException {
         return resourceReader.readStringResource(path, type);

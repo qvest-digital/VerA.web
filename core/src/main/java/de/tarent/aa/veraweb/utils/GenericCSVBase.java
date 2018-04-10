@@ -304,8 +304,8 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Diese Methode liefert die Menge der verfügbaren Kategorienfelder.
      *
-     * @throws IOException
-     * @throws BeanException
+     * @throws IOException IOException
+     * @throws BeanException BeanException
      */
     Set getCategoryFields() throws BeanException, IOException {
         Set result = new HashSet();

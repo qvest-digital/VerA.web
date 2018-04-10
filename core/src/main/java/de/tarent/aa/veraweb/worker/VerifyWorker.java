@@ -147,8 +147,8 @@ public class VerifyWorker {
      * Fehlern und stellt diese in den Content.
      *
      * @param cntx OctopusContext
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public void verifySchemaVersion(OctopusContext cntx) throws BeanException, IOException {
         LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();

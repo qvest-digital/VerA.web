@@ -126,7 +126,7 @@ public abstract class ListWorkerVeraWeb extends BeanListWorker {
      *
      * @param octopusContext The {@link OctopusContext}
      * @return the db column name or <code>null</code> if no jump offsets should be generated.
-     * @throws BeanException
+     * @throws BeanException beanException
      */
     protected String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException {
         return null;

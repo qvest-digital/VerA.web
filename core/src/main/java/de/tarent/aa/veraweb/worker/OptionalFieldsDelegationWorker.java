@@ -163,6 +163,7 @@ public class OptionalFieldsDelegationWorker {
      * Get the optional delegation fields by guest id.
      *
      * @param guestId Guest id
+     * @param eventId  event ID
      * @return List with all optional delegation fields for the current guest
      * @throws SQLException  FIXME
      * @throws BeanException FIXME

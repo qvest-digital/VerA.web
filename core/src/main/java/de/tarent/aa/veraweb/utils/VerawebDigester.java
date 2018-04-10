@@ -80,7 +80,7 @@ import java.util.Map;
 
 /**
  * Diese Klasse dient als Importziel für die Methode
- * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}.
+ * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
  */
 public class VerawebDigester implements ImportDigester {
     int personCount = 0;

@@ -135,8 +135,8 @@ public class ImportPersonsWorker {
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public Map importStoredRecord(OctopusContext octopusContext, Integer importId) throws BeanException, IOException {
         if (importId == null) {
@@ -258,8 +258,8 @@ public class ImportPersonsWorker {
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public Map finalise(OctopusContext octopusContext, Integer importId, List ignorePersonFields, Map importTextfieldMapping)
             throws BeanException, IOException {

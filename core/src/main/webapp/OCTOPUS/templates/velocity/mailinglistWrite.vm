@@ -118,7 +118,7 @@
                             $(function(){
                               $('#JMultiFileUpload').MultiFile({
                                 max:3,
-                                maxfile:1024,
+                                maxfile:1600,
                                 STRING: {
                                   remove:'${placeholderWithTranslation.GENERIC_DELETE}',
                                   selected:'${placeholderWithTranslation.MAILING_LIST_SELECTED_FILE}: $file',

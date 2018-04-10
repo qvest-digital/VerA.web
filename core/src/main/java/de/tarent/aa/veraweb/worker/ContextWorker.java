@@ -218,6 +218,7 @@ public class ContextWorker {
 
         /**
          * Name des Kontext-Tasks
+         * @return context
          */
         public String getContextTask() {
             return context;

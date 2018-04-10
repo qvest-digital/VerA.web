@@ -107,11 +107,11 @@ public class EventDetailWorker {
     // Octopus-Aktionen
     //
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)}
+     * Eingabe-Parameter der Octopus-Aktion {@link EventDetailWorker#showDetail(OctopusContext, Integer, Task, Integer)}
      */
     public static final String INPUT_showDetail[] = { "id", "task", "eventId" };
     /**
-     * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)}
+     * Eingabe-Parameterzwang der Octopus-Aktion {@link EventDetailWorker#showDetail(OctopusContext, Integer, Task, Integer)}
      */
     public static final boolean MANDATORY_showDetail[] = { false, false, false };
     public static final String INPUT_downloadImage[] = {};
@@ -127,6 +127,10 @@ public class EventDetailWorker {
      * @param octopusContext Octopus-Kontext
      * @param id             ID der zu ladenden Veranstaltung; falls <code>null</code> oder ungültig,
      *                       so wird nichts geliefert
+     * @param task  task
+     * @param eventId eventId
+     * @throws BeanException Bean exception
+     * @throws IOException io Exception
      */
     public void showDetail(OctopusContext octopusContext, Integer id, Task task, Integer eventId)
             throws BeanException, IOException {
@@ -182,6 +186,8 @@ public class EventDetailWorker {
      *
      * @param octopusContext Octopus-Kontext
      * @param saveevent      Flag; nur wenn dieses gesetzt ist, passiert tatsächlich etwas
+     * @throws BeanException beanException
+     * @throws IOException ioException
      */
     public void saveDetail(OctopusContext octopusContext, Boolean saveevent) throws BeanException, IOException {
         if (saveevent == null || !saveevent.booleanValue()) {
@@ -407,6 +413,7 @@ public class EventDetailWorker {
      * string. Later will be possible to handle more than two types of events.
      *
      * @param event The event
+     * @param cntx Octopus Context
      */
     private void setEventType(Event event, OctopusContext cntx) {
         if (event.eventtype != null && event.eventtype.equals("on") && OnlineRegistrationHelper.isOnlineregActive(cntx)) {
@@ -420,6 +427,7 @@ public class EventDetailWorker {
      * Set/Unset the event flag for Press. Currently (03.12.2014) we store the uuid into that new column
      *
      * @param event The event
+     * @param oldEvent the old event
      */
     private void setMediaRepresentatives(Event event, Event oldEvent) {
         if ((oldEvent == null || oldEvent.mediarepresentatives == null) && event.mediarepresentatives != null) {
@@ -506,6 +514,7 @@ public class EventDetailWorker {
      * den Octopus-Content und unter "eventtemp" in die Session.
      *
      * @param cntx Octopus-Kontext
+     * @throws BeanException bean Exception
      */
     public void saveTemp(OctopusContext cntx) throws BeanException {
         Request request = new RequestVeraWeb(cntx);
@@ -549,6 +558,8 @@ public class EventDetailWorker {
      * "saveevent" im Octopus-Content gesetzt.
      *
      * @param cntx Octopus-Kontext
+     * @throws BeanException bean Exception
+     * @throws IOException io Exception
      */
     public void setHost(OctopusContext cntx) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(cntx);
@@ -582,6 +593,8 @@ public class EventDetailWorker {
      *
      * @param cntx Octopus-Kontext, in dem Flags gesetzt werden.
      * @param id   Veranstaltungs-ID
+     * @throws BeanException beanException
+     * @throws IOException ioException
      * @return eingelesene Veranstaltung
      */
     static public Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {

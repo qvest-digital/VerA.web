@@ -246,7 +246,7 @@ public class UpdateResource {
      * @param eventId  int
      * @param username String
      * @return EventTransporter
-     * @throws IOException
+     * @throws IOException IOException
      */
     private EventTransporter getEventData(int eventId, String username) throws IOException {
 

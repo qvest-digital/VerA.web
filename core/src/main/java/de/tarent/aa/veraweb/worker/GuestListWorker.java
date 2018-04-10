@@ -232,8 +232,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext Octopus-Context
      * @return Map mit dem Key <code>count</code>
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException beanexception
+     * @throws IOException ioexception
      */
     public Map countRecipients(OctopusContext octopusContext) throws BeanException, IOException {
         final Integer countGuests;
@@ -575,6 +575,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Kontext
      * @return {@link Map} mit Gesamtzahlen unter den Schlüsseln "platz",
      * "reserve", "all", "offen", "zusagen" und "absagen".
+     * @throws BeanException beanexception
      */
     public Map getSums(OctopusContext octopusContext) throws BeanException {
         final Database database = new DatabaseVeraWeb(octopusContext);
@@ -593,7 +594,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext Octopus-Kontext
      * @return {@link GuestSearch}-Instanz zur aktuellen Gästesuche
-     * @throws BeanException
+     * @throws BeanException beanexception
      */
     public GuestSearch getSearch(OctopusContext octopusContext) throws BeanException {
         PropertiesReader propertiesReader = new PropertiesReader();
@@ -648,8 +649,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext Octopus-Kontext
      * @return eine {@link Event}-Instanz oder <code>null</code>.
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException beanexception
+     * @throws IOException ioexception
      */
     public Event getEvent(OctopusContext octopusContext) throws BeanException, IOException {
         final GuestSearch search = getSearch(octopusContext);
@@ -673,7 +674,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * // TODO
      *
      * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
-     * @throws BeanException
+     * @throws BeanException beanexception
      */
     public void getAllCategories(OctopusContext octopusContext) throws BeanException {
         final ResultList categories = getCategoriesForCurrentOrgunit(octopusContext);
@@ -709,9 +710,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}
      * -Instanz in einer WHERE-Statement-Liste.
      *
-     * @deprecated Use
-     * {@link GuestSearch#addGuestListFilter(GuestSearch, WhereList)}
-     * instead
+     * @deprecated Use {@link GuestSearch#addGuestListFilter(WhereList)}  instead
+     * @param guestSearch guestSearch
+     * @param where  werelist
      */
     public static void addGuestListFilter(GuestSearch guestSearch, WhereList where) {
         guestSearch.addGuestListFilter(where);
@@ -728,7 +729,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param data        FIXME
      * @param guestSearch The {@link GuestSearch}
      * @param selection   FIXME
-     * @throws BeanException
+     * @throws BeanException beanexception
      */
     protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection)
             throws BeanException {

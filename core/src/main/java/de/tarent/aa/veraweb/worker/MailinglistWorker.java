@@ -113,8 +113,8 @@ public class MailinglistWorker {
      * @param octopusContext The {@link OctopusContext}
      * @param mailinglist    FIXME
      * @return Map mit dem Key <code>count</code>
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public Map createMailinglist(OctopusContext octopusContext, Mailinglist mailinglist) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -185,8 +185,8 @@ public class MailinglistWorker {
      * @param octopusContext The {@link OctopusContext}
      * @param mailinglist    FIXME
      * @return FIXME
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
 
     private int createMailinglistBySelectAllOption(OctopusContext octopusContext, Mailinglist mailinglist)
@@ -219,8 +219,8 @@ public class MailinglistWorker {
      * @param locale      Zeichensatz
      * @param clause      Bedingung
      * @return Anzahl der hinzugefügten Adressen.
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException  IOException
      */
     protected int addMailinglistFromPerson(OctopusContext cntx, Mailinglist mailinglist, Integer addresstype, Integer locale,
             Clause clause)
@@ -262,8 +262,8 @@ public class MailinglistWorker {
      * @param mailinglist    Verteiler dem Gäste hinzugefügt werden sollen.
      * @param clause         Bedingung
      * @return Anzahl der hinzugefügten Adressen.
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     protected int addMailinglistFromGuest(OctopusContext octopusContext, Mailinglist mailinglist, Clause clause)
             throws BeanException, IOException {
@@ -284,7 +284,7 @@ public class MailinglistWorker {
         return addMailinglist(octopusContext, mailinglist, select);
     }
 
-    /**
+    /*
      * Hilfsfunktion für
      * addMailinglistFromPerson
      * und
@@ -395,6 +395,8 @@ public class MailinglistWorker {
      * @param mailinglist FIXME
      * @param person      FIXME
      * @param address     FIXME
+     * @throws IOException IOException
+     * @throws BeanException BeanException
      * @return True wenn ein entsprechender Eintrag gespeichert wurde.
      */
     protected boolean savePerson(Database database, Integer mailinglist, Integer person, String address)

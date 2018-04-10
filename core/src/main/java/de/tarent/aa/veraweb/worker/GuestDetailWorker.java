@@ -141,6 +141,8 @@ public class GuestDetailWorker extends GuestListWorker {
      * @param octopusContext Octopus-Kontext
      * @param guestid        ID des Gasts
      * @param offset         alternativ: Offset des Gasts in der aktuellen Gästesuche
+     * @throws BeanException beanException
+     * @throws IOException ioException
      */
     @SuppressWarnings("unchecked")
     public void showDetail(OctopusContext octopusContext, Integer guestid, Integer offset)
@@ -187,9 +189,10 @@ public class GuestDetailWorker extends GuestListWorker {
      *
      * @param database The {@link Database}
      * @param guest    The {@link Guest}
+     * @param octopusContext octupusContext
      * @return Returns list of error messages in case duplicate reservation were found
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException beanException
+     * @throws IOException ioException
      */
     public List<String> reservationDupCheck(final Database database, final Guest guest, final OctopusContext octopusContext)
             throws BeanException, IOException {
@@ -288,6 +291,7 @@ public class GuestDetailWorker extends GuestListWorker {
      * "guest" im Octopus-Content eingetragen.
      *
      * @param octopusContext Octopus-Kontext
+     * @throws BeanException bean exception
      */
     public void showTestGuest(OctopusContext octopusContext) throws BeanException {
         Guest guest = new Guest();
@@ -362,8 +366,8 @@ public class GuestDetailWorker extends GuestListWorker {
      * Getting the categories for one person/guest
      *
      * @param octopusContext OctopusContext
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     private void getPersonCategories(Integer personId, OctopusContext octopusContext)
             throws BeanException, IOException {
@@ -982,8 +986,8 @@ public class GuestDetailWorker extends GuestListWorker {
      * @param database The {@link Database}
      * @param select   FIXME
      * @return Person
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     private Person checkForDuplicateSeatPerson(Database database, Select select) throws BeanException, IOException {
         Person duplicatePersonResult = null;
@@ -1049,6 +1053,8 @@ public class GuestDetailWorker extends GuestListWorker {
      * @param eventid        Veranstaltungs-ID für Selektion über ID
      * @param guestid        Gast-ID für Selektion über ID
      * @param offset         Gast-Offset für Selektion über Offset in Suchergebnisliste
+     * @throws BeanException beanexception
+     * @throws IOException ioexception
      * @return der selektierte Gast oder <code>null</code>
      */
     protected Guest getGuest(

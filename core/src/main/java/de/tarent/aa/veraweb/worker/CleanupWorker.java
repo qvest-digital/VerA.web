@@ -106,6 +106,8 @@ public class CleanupWorker {
      * in die Kategorie <code>catname</code> übernommen.
      *
      * @param cntx Octopus context
+     * @throws BeanException beanException
+     * @throws IOException ioException
      */
     public void summarizeCategories(OctopusContext cntx) throws BeanException, IOException {
         //		summarizeCategoriesA(octopusContext, new DatabaseVeraWeb(octopusContext));
@@ -114,6 +116,9 @@ public class CleanupWorker {
 
     /**
      * @see #summarizeCategories(OctopusContext)
+     * @param cntx OctupusContext
+     * @param database database
+     * @throws BeanException beanexception
      */
     protected void summarizeCategoriesA(OctopusContext cntx, Database database) throws BeanException {
         if (logger.isInfoEnabled()) {
@@ -181,6 +186,10 @@ public class CleanupWorker {
 
     /**
      * @see #summarizeCategories(OctopusContext)
+     * @param cntx octupus context
+     * @param database database
+     * @throws BeanException beanException
+     * @throws IOException ioexception
      */
     protected void summarizeCategoriesB(OctopusContext cntx, Database database) throws BeanException, IOException {
         if (logger.isInfoEnabled()) {

@@ -144,6 +144,8 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * unter "mailinglist" in Octopus-Content und -Session.
      *
      * @param octopusContext Octopus-Kontext
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public void showDetail(final OctopusContext octopusContext) throws BeanException, IOException {
         final Database database = getDatabase(octopusContext);
@@ -175,6 +177,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * Datenbank gespeichert, ansonsten wird der Status "error" gesetzt.
      *
      * @param octopusContext Octopus-Kontext
+     * @throws Exception which one? My guess is as godd as yours!
      */
     public void saveDetail(final OctopusContext octopusContext) throws Exception {
         final Database database = getDatabase(octopusContext);
@@ -224,8 +227,8 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * @param cntx        Octopus-Kontext
      * @param mailinglist Mailingliste
      * @return Liste mit mailto-URLs zu der Mailingliste
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException BeanException
+     * @throws IOException IOException
      */
     public List getAddressList(final OctopusContext cntx, final Mailinglist mailinglist) throws BeanException,
             IOException {
