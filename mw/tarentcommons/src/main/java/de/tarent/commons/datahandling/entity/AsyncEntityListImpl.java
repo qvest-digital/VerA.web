@@ -734,7 +734,7 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                     jobQueue.notifyAll();
                     if (!loadTaskMonitor.isRunning()) {
                         TaskManager.getInstance()
-                                .register(loadTaskMonitor, Messages.getString("AsyncEntityListImpl_GetAddresses_TaskName"), true);
+                                .register(loadTaskMonitor, /*Messages.getString(*/"AsyncEntityListImpl_GetAddresses_TaskName"/*)*/, true);
                     }
 
                     if (logger.isTraceEnabled()) {
@@ -812,8 +812,8 @@ public class AsyncEntityListImpl extends AbstractDataSubject {
                 lastJob = cJob;
 
                 if (cJob != null) {
-                    ctx.setActivityDescription(Messages.getFormattedString("AsyncEntityListImpl_GetAddresses_ProgressDesc",
-                            new Integer(cJob.getOffset()), new Integer(cJob.getMaxIndex())));
+                    ctx.setActivityDescription(/*Messages.getFormattedString(*/"AsyncEntityListImpl_GetAddresses_ProgressDesc"/*,
+                            new Integer(cJob.getOffset()), new Integer(cJob.getMaxIndex()))*/);
                 }
 
                 try {
