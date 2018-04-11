@@ -1447,7 +1447,7 @@ MAILING_LIST_SELECTED_FILE=Fichier s\u00E9lectionn\u00E9
 MAILING_LIST_ALREADY_SELECTED_FILE=Ce fichier a d\u00E9j\u00E0 \u00E9t\u00E9 s\u00E9lectionn\u00E9
 MAILING_LIST_SELECTED_TOO_MANY=Trop de fichiers s\u00E9lectionn\u00E9s
 MAILING_LIST_SELECTED_TOO_BIG=Fichier est trop gros
-MAILING_LIST_SIZE_NOTICE=Fichier est trop gros; max. 1 Mo
+MAILING_LIST_SIZE_NOTICE=Fichier est trop gros; max. 1,6 Mo
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Le Client \u00E0 ins\u00E9rer ne devrait pas avoir un num\u00E9ro d\u2019identit\u00E9

@@ -1446,7 +1446,7 @@ MAILING_LIST_SELECTED_FILE=Selected file
 MAILING_LIST_ALREADY_SELECTED_FILE=This file has already been selected
 MAILING_LIST_SELECTED_TOO_MANY=Too many files selected
 MAILING_LIST_SELECTED_TOO_BIG=File is too big
-MAILING_LIST_SIZE_NOTICE=The max size of all attachments together must not excede 1 MB.
+MAILING_LIST_SIZE_NOTICE=The max size of all attachments together must not excede 1,6 MB.
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Client to be inserted must not have an id
