@@ -42,7 +42,7 @@
                         #else
                                 $!mailinglistParams.count ${placeholderWithTranslation.GENERIC_PERSON_PLURAL}<!-- this should be lowercase in most languages -->
                         #end
-                        ${placeholderWithTranslation.GENERIC_TO}
+                        ${placeholderWithTranslation.sielegeneinenneuenverteiler_rest_an}
                         </p>
 
                         <input type="hidden" name="mailinglist-event" value="$!event.id">

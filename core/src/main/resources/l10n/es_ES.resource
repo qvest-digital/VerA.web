@@ -1009,6 +1009,7 @@ sielegeneinenneuenverteilerausderpersonensuche=Se crea un nuevo distribuidor de 
 sielegeneinenneuenverteilerausderveranstaltung=Se crea un nuevo distribuidor para el evento
 mit=con
 einerperson=una persona
+sielegeneinenneuenverteiler_rest_an=
 verteilername=nombre del representante
 verteilerspeichern=Guardar representante
 markierteadressen=Direcciones seleccionadas

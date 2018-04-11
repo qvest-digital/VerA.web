@@ -1009,6 +1009,7 @@ sielegeneinenneuenverteilerausderpersonensuche=Sie legen einen neuen Verteiler a
 sielegeneinenneuenverteilerausderveranstaltung=Sie legen einen neuen Verteiler aus der Veranstaltung
 mit=mit
 einerperson=einer Person
+sielegeneinenneuenverteiler_rest_an=an
 verteilername=Verteilername
 verteilerspeichern=Verteiler speichern
 markierteadressen=Markierte Adresse(n)

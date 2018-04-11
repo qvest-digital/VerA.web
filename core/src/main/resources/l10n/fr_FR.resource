@@ -1007,6 +1007,7 @@ sielegeneinenneuenverteilerausderpersonensuche=Cr\u00E9er une nouvelle distribut
 sielegeneinenneuenverteilerausderveranstaltung=Cr\u00E9er une nouvelle distribution de l\u2019\u00E9v\u00E9nement
 mit=avec
 einerperson=une personne
+sielegeneinenneuenverteiler_rest_an=
 verteilername=Nom du distributeur
 verteilerspeichern=Sauvegarder le distributeur
 markierteadressen=Adresses s\u00E9l\u00E9ctionn\u00E9s
