@@ -20,6 +20,8 @@
   FROM THE INTERNETZ⚠
 • handle TODOs in documentation, cover upgrading, mark no-OA jumps
 • fix and check installing Docker offline works
+• Bacon macht Probleme, wird nur von ↓ verwendet (neuschreiben?)
+  core/src/main/webapp/js/vera/guest-filter-auto-commit.js
 
 Status: kann alles getestet werden, löpt
 
