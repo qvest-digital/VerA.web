@@ -48,6 +48,9 @@ package de.tarent.commons.config;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.commons.config.ConfigManager.Scope;
+import org.w3c.dom.Node;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -55,23 +58,19 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.w3c.dom.Node;
-
-import de.tarent.commons.config.ConfigManager.Scope;
-
 /**
  * Provides base functionality for configuration item
  * retrieval and value conversion.
  *
- * <p>This class is very similar to the {@link de.tarent.config.Appearance}
- * class. Please refer to it for detailed information.</p>
+ * This class is very similar to the {@link Appearance}
+ * class. Please refer to it for detailed information.
  *
- * <p><code>Environment</code> contains only parameter configuration
+ * <code>Environment</code> contains only parameter configuration
  * and you can access them via a fixed set of {@link Environment.Key}
- * instances.</p>
+ * instances.
  *
- * <p>For a general introduction to the configuration system
- * refer to the respective document on the project's website.</p>
+ * For a general introduction to the configuration system
+ * refer to the respective document on the project's website.
  */
 public final class Environment extends Base {
     private LinkedHashMap connectionDefinitions = new LinkedHashMap();
@@ -96,7 +95,6 @@ public final class Environment extends Base {
      * <p>TODO: This is just a basic implementation that is not
      * supposed to handle every possible configuration state. For
      * now this is the modifiable connection definitions only.</p>
-     *
      */
     Map /*<String, Document>*/ prepareDocuments() {
         HashMap docs = new HashMap();
@@ -128,7 +126,6 @@ public final class Environment extends Base {
     /**
      * Returns a collection of all known {@link ConnectionDefinition} instances
      * which have been defined by the configuration documents.
-     *
      */
     public Collection getConnectionDefinitions() {
         return connectionDefinitions.values();
@@ -140,7 +137,6 @@ public final class Environment extends Base {
      *
      * <p>Note: The current implementation marks every {@link ConnectionDefinition}
      * as fixed which was defined at site or installation scope.</p>
-     *
      */
     public Collection getFixedConnectionDefinitions() {
         LinkedList ll = new LinkedList();
@@ -161,7 +157,6 @@ public final class Environment extends Base {
      *
      * <p>Note: The current implementation marks every {@link ConnectionDefinition}
      * as fixed which was defined at user scope.</p>
-     *
      */
     public Collection getModifiableConnectionDefinitions() {
         LinkedList ll = new LinkedList();
@@ -201,9 +196,6 @@ public final class Environment extends Base {
     /**
      * Refer to {@link Appearance#put(String, Node)} for
      * documentation as the implementation is the same.
-     *
-     * @param name
-     * @param node
      */
     void put(String name, Node node) throws KeyUnavailableException {
         putParam(Key.getInstance(name), node);
@@ -212,9 +204,6 @@ public final class Environment extends Base {
     /**
      * Refer to {@link Appearance#get(Appearance.Key)} for
      * documentation as the implementation is the same.
-     *
-     * @param key
-     * @param node
      */
     public String get(Key key) {
         return getParamValue(key, null);
@@ -223,9 +212,6 @@ public final class Environment extends Base {
     /**
      * Refer to {@link Appearance#get(Appearance.Key, String)} for
      * documentation as the implementation is the same.
-     *
-     * @param key
-     * @param node
      */
     public String get(Key key, String defaultValue) {
         return getParamValue(key, defaultValue);
@@ -234,9 +220,6 @@ public final class Environment extends Base {
     /**
      * Refer to {@link Appearance#getAsBoolean(Appearance.Key)} for
      * documentation as the implementation is the same.
-     *
-     * @param key
-     * @param node
      */
     public boolean getAsBoolean(Key key) {
         return getParamAsBoolean(key, false);
@@ -245,9 +228,6 @@ public final class Environment extends Base {
     /**
      * Refer to {@link Appearance#getAsBoolean(Appearance.Key, boolean)} for
      * documentation as the implementation is the same.
-     *
-     * @param key
-     * @param node
      */
     public boolean getAsBoolean(Key key, boolean defaultValue) {
         return getParamAsBoolean(key, defaultValue);
@@ -256,9 +236,6 @@ public final class Environment extends Base {
     /**
      * Refer to {@link Appearance#getAsInt(Appearance.Key)} for
      * documentation as the implementation is the same.
-     *
-     * @param key
-     * @param node
      */
     public int getAsInt(Key key) {
         return getParamAsInt(key, 0);
@@ -267,9 +244,6 @@ public final class Environment extends Base {
     /**
      * Refer to {@link Appearance#getAsInt(Appearance.Key, int)} for
      * documentation as the implementation is the same.
-     *
-     * @param key
-     * @param node
      */
     public int getAsInt(Key key, int defaultValue) {
         return getParamAsInt(key, defaultValue);
@@ -278,9 +252,6 @@ public final class Environment extends Base {
     /**
      * Refer to {@link Appearance#getAsInt(Appearance.Key, int)} for
      * documentation as the implementation is the same.
-     *
-     * @param key
-     * @param node
      */
 
     public long getAsLong(Key key, long defaultValue) {
