@@ -34,3 +34,38 @@ if [[ $x = *' -Prelease '* && $x != *' -PoA '* ]]; then
 	# build without -PoA
 	build_vwoa=0
 fi
+
+has_vwoa=1
+split_oa=0
+tomcat=8
+
+function tgtck {
+	case $1 {
+	(mit/ohne)
+		split_oa=1
+		hostbase=veraweb-mit.lan.tarent.de
+		hostoa=veraweb-mit-oa.lan.tarent.de
+		hostohne=veraweb-ohne.lan.tarent.de
+		;;
+	(po)
+		hostbase=veraweb-po.lan.tarent.de
+		hostoa=$hostbase
+		;;
+	(thense)
+		hostbase=veraweb-thense.lan.tarent.de
+		hostoa=$hostbase
+		;;
+	(stadtmuenchen)
+		hostbase=veraweb-stadtmuenchen.lan.tarent.de
+		hostoa=
+		tomcat=7
+		;;
+	(*)
+		echo >&2 "[ERROR] stage '$1' unknown"
+		exit 1
+		;;
+	}
+}
+tgtck "$1"
+
+[[ -n $hostoa ]] || has_vwoa=0
