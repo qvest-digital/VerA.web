@@ -199,7 +199,7 @@ public class FieldMapping {
         int from = 0;
         while (matcher.find()) {
             buffer.append(format.substring(from, matcher.start()))
-                    .append(entity.get(matcher.group(1)));
+              .append(entity.get(matcher.group(1)));
             from = matcher.end();
         }
         if (from < format.length()) {
@@ -283,9 +283,9 @@ public class FieldMapping {
                 mappingTarget = mappingTarget.substring(1, mappingTarget.length() - 1);
             }
             if (!(
-                    mappingTarget.startsWith("CAT:") ||
-                            mappingTarget.startsWith("EVE:") ||
-                            mappingTarget.startsWith("COR:"))) {
+              mappingTarget.startsWith("CAT:") ||
+                mappingTarget.startsWith("EVE:") ||
+                mappingTarget.startsWith("COR:"))) {
                 continue;
             }
 
@@ -345,7 +345,7 @@ public class FieldMapping {
         // Einfache (Joker-freie) Mappings übertragen
         if (targetsByPrefixLength.containsKey(MINUS_ONE)) {
             for (Iterator itSimpleMappingTargets = ((Collection) targetsByPrefixLength.get(MINUS_ONE)).iterator();
-                    itSimpleMappingTargets.hasNext(); ) {
+              itSimpleMappingTargets.hasNext(); ) {
                 String targetKey = itSimpleMappingTargets.next().toString();
                 finalMappings.put(targetKey, mappingDescription.get(targetKey));
             }
@@ -357,7 +357,7 @@ public class FieldMapping {
             Arrays.sort(lengths);
             for (int index = lengths.length - 1; index >= 0; index--) {
                 for (Iterator itMappingTargets = ((Collection) targetsByPrefixLength.get(lengths[index])).iterator();
-                        itMappingTargets.hasNext(); ) {
+                  itMappingTargets.hasNext(); ) {
                     String targetKey = itMappingTargets.next().toString();
                     String format = mappingDescription.get(targetKey).toString();
                     String jokerReferencePrefix = getJokerReferencePrefix(format);
@@ -448,8 +448,8 @@ public class FieldMapping {
             if (jokerIndex >= 0) {
                 StringBuffer buffer = new StringBuffer();
                 buffer.append(formatPattern.substring(0, matcher.start(1)))
-                        .append(source)
-                        .append(formatPattern.substring(matcher.end(1)));
+                  .append(source)
+                  .append(formatPattern.substring(matcher.end(1)));
                 int colonIndex = source.indexOf(':');
                 if (colonIndex >= 0) {
                     source = source.substring(colonIndex + 1);
@@ -458,8 +458,8 @@ public class FieldMapping {
                 Object former = resolvedMappings.put(targetPattern, buffer.toString());
                 if (former != null) {
                     logger.warning(
-                            "Ersetze altes Format '" + former + "' für '" + targetPattern + "' durch '" + buffer.toString() +
-                                    "'.");
+                      "Ersetze altes Format '" + former + "' für '" + targetPattern + "' durch '" + buffer.toString() +
+                        "'.");
                 }
                 return;
             }

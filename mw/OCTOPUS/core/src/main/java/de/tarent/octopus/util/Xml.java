@@ -94,14 +94,14 @@ public class Xml {
     }
 
     public static void doXsltTransformation(Source xmlSource, Source xsltSource, Result output)
-            throws TransformerConfigurationException, TransformerException {
+      throws TransformerConfigurationException, TransformerException {
         Transformer transformer = getXSLTTransformer(xsltSource);
         logger.trace("transformiere XML-Objekt");
         transformer.transform(xmlSource, output);
     }
 
     public static Document getParsedDocument(String filename)
-            throws SAXException, IOException, ParserConfigurationException, FactoryConfigurationError {
+      throws SAXException, IOException, ParserConfigurationException, FactoryConfigurationError {
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(filename);
     }
 
@@ -246,7 +246,7 @@ public class Xml {
                     return value;
                 } catch (NullPointerException npe) {
                     throw new DataFormatException("Das 'param' Element '" + paramElement.getAttribute("name") +
-                            "' muss ein 'value' Attribut oder nested Element haben.");
+                      "' muss ein 'value' Attribut oder nested Element haben.");
                 }
             } else {
                 return new ParamReference(refvalue);

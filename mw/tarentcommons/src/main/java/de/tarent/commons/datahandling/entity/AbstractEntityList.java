@@ -84,7 +84,6 @@ public abstract class AbstractEntityList implements EntityList {
         while (iterator.hasNext()) {
             ((EntityListListener) iterator.next()).entityListChanged(event);
         }
-
     }
 
     abstract public void addEntity(Object entity);
@@ -94,5 +93,4 @@ public abstract class AbstractEntityList implements EntityList {
     abstract public Object getEntityAt(int index);
 
     abstract public int getSize();
-
 }

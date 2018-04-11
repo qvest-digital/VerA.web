@@ -112,7 +112,7 @@ class BeanInsertStatement extends BeanBaseStatement implements BeanStatement {
                 return preparedStatement.executeUpdate();
             } catch (SQLException se) {
                 throw new BeanException("Error executing the PreparedInsert <" + sqlStatement + "> using bean <" + bean + ">",
-                        se);
+                  se);
             }
         } else {
             logger.warning("execute method called without a bean instance.");

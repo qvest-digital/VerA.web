@@ -78,6 +78,6 @@ public class PersonDBMapping extends AbstractDBMapping {
 
         addQuery(STMT_SELECT_ALL, createBasicSelectAll().orderBy(Order.asc("person.vorname")), DEFAULT_FIELD_SET);
         addQuery(STMT_PERSON_FIRMA, createBasicSelectOne().join("firma", "person.fk_firma", "firma.pk_firma"),
-                PERSON_FIRMA_FIELDS | COMMON_FIELDS);
+          PERSON_FIRMA_FIELDS | COMMON_FIELDS);
     }
 }

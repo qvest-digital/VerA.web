@@ -87,7 +87,7 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
     public static final String OUTPUT_showDetail = "pdftemplate";
 
     public PdfTemplate showDetail(OctopusContext octopusContext, Integer id, PdfTemplate pdfTemplate)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         final Database database = getDatabase(octopusContext);
         if (pdfTemplate == null && id != null) {
             return (PdfTemplate) getDatabase(octopusContext).getBean("PdfTemplate", id);
@@ -129,7 +129,7 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
     }
 
     private void handleSave(OctopusContext octopusContext, PdfTemplate pdfTemplate, TransactionContext transactionContext)
-            throws BeanException {
+      throws BeanException {
         try {
             if (pdfTemplate.id == null) {
                 octopusContext.setContent("countInsert", 1);

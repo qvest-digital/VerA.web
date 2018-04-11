@@ -52,5 +52,4 @@ public interface DialogPlugin {
     public void getDialog();
 
     public void execute();
-
 }

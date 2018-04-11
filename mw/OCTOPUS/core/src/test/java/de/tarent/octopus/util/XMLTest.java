@@ -59,7 +59,7 @@ import java.io.*;
  * Tests the Parsing of List Params with nested Maps
  */
 public class XMLTest
-        extends junit.framework.TestCase {
+  extends junit.framework.TestCase {
 
     /**
      * Void Constructor for instantiation as worker
@@ -76,13 +76,13 @@ public class XMLTest
     }
 
     public void testNestedValues()
-            throws Exception {
+      throws Exception {
 
         String doc =
-                "<param name=\"nix\" type=\"list\">\n"
-                        + "     <value>Hallo</value>\n"
-                        + "     <value>Ballo</value>\n"
-                        + "</param>\n";
+          "<param name=\"nix\" type=\"list\">\n"
+            + "     <value>Hallo</value>\n"
+            + "     <value>Ballo</value>\n"
+            + "</param>\n";
 
         DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = parser.parse(new ByteArrayInputStream(doc.getBytes()));
@@ -94,17 +94,17 @@ public class XMLTest
     }
 
     public void testNestedParams()
-            throws Exception {
+      throws Exception {
 
         String doc =
-                "<param name=\"nix\" type=\"list\">\n"
-                        + "     <param value=\"Hallo\"/>\n"
-                        + "     <param value=\"Ballo\"/>\n"
-                        + "     <param type=\"map\">\n"
-                        + "        <param name=\"vorname\" value=\"Felix\"/>\n"
-                        + "        <param name=\"nachname\" value=\"Mancke\"/>\n"
-                        + "     </param>\n"
-                        + "</param>\n";
+          "<param name=\"nix\" type=\"list\">\n"
+            + "     <param value=\"Hallo\"/>\n"
+            + "     <param value=\"Ballo\"/>\n"
+            + "     <param type=\"map\">\n"
+            + "        <param name=\"vorname\" value=\"Felix\"/>\n"
+            + "        <param name=\"nachname\" value=\"Mancke\"/>\n"
+            + "     </param>\n"
+            + "</param>\n";
 
         DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = parser.parse(new ByteArrayInputStream(doc.getBytes()));

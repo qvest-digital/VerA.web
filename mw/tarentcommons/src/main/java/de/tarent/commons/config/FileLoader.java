@@ -137,8 +137,8 @@ class FileLoader extends ConfigManager.Loader {
         baseDirSite = globalDir + VARIANT + File.separator + "site";
         baseDirInstallation = globalDir + VARIANT + File.separator + "installation";
         baseDirUser = System.getProperty("user.home") + File.separator
-                + (SystemInfo.isWindowsSystem() ? "tarent-contact" : ".tarent-contact")
-                + File.separator + VARIANT;
+          + (SystemInfo.isWindowsSystem() ? "tarent-contact" : ".tarent-contact")
+          + File.separator + VARIANT;
     }
 
     private void findDirectoriesForLocalInstall() {
@@ -181,8 +181,8 @@ class FileLoader extends ConfigManager.Loader {
         baseDirSite = localDir + VARIANT + File.separator + "site";
         baseDirInstallation = localDir + VARIANT + File.separator + "installation";
         baseDirUser = System.getProperty("user.home") + File.separator
-                + (SystemInfo.isWindowsSystem() ? "tarent" : ".tarent")
-                + File.separator + VARIANT;
+          + (SystemInfo.isWindowsSystem() ? "tarent" : ".tarent")
+          + File.separator + VARIANT;
     }
 
     private void findDirectoriesForPosixInstall() {
@@ -204,7 +204,7 @@ class FileLoader extends ConfigManager.Loader {
     }
 
     protected Document getDocument(Scope scope, String docName)
-            throws ConfigManager.DocumentUnavailableException {
+      throws ConfigManager.DocumentUnavailableException {
         FileInputStream fis = null;
         File resolveBase = new File(getBaseDir(scope));
         File doc = new File(resolveBase, docName);
@@ -212,7 +212,7 @@ class FileLoader extends ConfigManager.Loader {
             fis = new FileInputStream(doc);
         } catch (FileNotFoundException fnfe) {
             throw new ConfigManager.DocumentUnavailableException(doc.getAbsolutePath(),
-                    "file not found: " + doc.getAbsolutePath());
+              "file not found: " + doc.getAbsolutePath());
         }
 
         try {
@@ -220,9 +220,8 @@ class FileLoader extends ConfigManager.Loader {
             return XmlUtil.getParsedDocument(fis, resolveBase.toURI().toString());
         } catch (XmlUtil.Exception xmlue) {
             throw new ConfigManager.DocumentUnavailableException(doc.getAbsolutePath(),
-                    "XML parse error in file: " + doc.getAbsolutePath());
+              "XML parse error in file: " + doc.getAbsolutePath());
         }
-
     }
 
     protected boolean isStoringSupported() {
@@ -230,7 +229,7 @@ class FileLoader extends ConfigManager.Loader {
     }
 
     protected void storeDocument(Scope scope, String docName, Document doc)
-            throws ConfigManager.DocumentUnavailableException {
+      throws ConfigManager.DocumentUnavailableException {
         FileOutputStream fos = null;
         File resolveBase = new File(getBaseDir(scope));
         File docFile = new File(resolveBase, docName);
@@ -264,7 +263,5 @@ class FileLoader extends ConfigManager.Loader {
                 throw (IllegalStateException) new IllegalStateException().initCause(e);
             }
         }
-
     }
-
 }

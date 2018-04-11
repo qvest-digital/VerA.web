@@ -68,14 +68,14 @@ public class LoginManagerAcceptAll extends AbstractLoginManager {
     public static final String DEFAULT_GROUP = PersonalConfig.GROUP_USER;
 
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-            throws TcSecurityException {
+      throws TcSecurityException {
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
         pConfig.setUserGroups(new String[] { DEFAULT_GROUP });
         pConfig.userLoggedIn(pwdAuth != null ? pwdAuth.getUserName() : "?");
     }
 
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-            throws TcSecurityException {
+      throws TcSecurityException {
         pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
         pConfig.userLoggedOut();
     }

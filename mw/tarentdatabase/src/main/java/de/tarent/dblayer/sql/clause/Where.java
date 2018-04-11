@@ -147,7 +147,6 @@ public class Where extends SetDbContextImpl implements Clause, ParamHolder {
         } else {
             _value = value;
         }
-
     }
 
     public Where(String column, Object value, String relation) {
@@ -328,8 +327,8 @@ public class Where extends SetDbContextImpl implements Clause, ParamHolder {
                 sb.append(where._relation);
                 //IN relation needs brackets when value does not contains an inner statement
                 if ((Expr.IN.trim().equals(where._relation.toUpperCase().trim()) ||
-                        Expr.NOTIN.trim().equals(where._relation.toUpperCase().trim())) && where._value != null &&
-                        !(where._value instanceof Clause)) {
+                  Expr.NOTIN.trim().equals(where._relation.toUpperCase().trim())) && where._value != null &&
+                  !(where._value instanceof Clause)) {
                     sb.append('(');
                     sb.append(SQL.format(context, where._value));
                     sb.append(')');
@@ -367,5 +366,4 @@ public class Where extends SetDbContextImpl implements Clause, ParamHolder {
             throw new InternalError();
         }
     }
-
 }

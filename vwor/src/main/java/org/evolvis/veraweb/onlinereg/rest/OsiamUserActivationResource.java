@@ -92,13 +92,13 @@ public class OsiamUserActivationResource extends AbstractResource {
     @POST
     @Path("/create")
     public OsiamUserActivation addOsiamUserActivationEntry(@FormParam("username") String username,
-            @FormParam("activation_token") String activationToken) {
+      @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
         session.beginTransaction();
         try {
             final Date expirationDate = getExpirationDate();
             final OsiamUserActivation osiamUserActivationEntry =
-                    new OsiamUserActivation(username, expirationDate, activationToken);
+              new OsiamUserActivation(username, expirationDate, activationToken);
             session.persist(osiamUserActivationEntry);
             session.flush();
             session.getTransaction().commit();
@@ -168,11 +168,11 @@ public class OsiamUserActivationResource extends AbstractResource {
     @POST
     @Path("/refresh/activation/data")
     public void refreshActivationdataByUsername(
-            @FormParam("email") String email,
-            @FormParam("username") String username,
-            @FormParam("activation_token") String activationToken,
-            @FormParam("endpoint") String endpoint,
-            @FormParam("language") String currentLanguageKey) throws MessagingException {
+      @FormParam("email") String email,
+      @FormParam("username") String username,
+      @FormParam("activation_token") String activationToken,
+      @FormParam("endpoint") String endpoint,
+      @FormParam("language") String currentLanguageKey) throws MessagingException {
         final Session session = openSession();
         session.beginTransaction();
         try {

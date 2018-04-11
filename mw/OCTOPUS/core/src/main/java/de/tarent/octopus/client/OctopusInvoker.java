@@ -94,8 +94,8 @@ public class OctopusInvoker {
      */
     public static Object invoke(String module, String task, Map parameters) {
         return invoke(module, task,
-                (String[]) parameters.keySet().toArray(new String[parameters.size()]),
-                parameters.values().toArray());
+          (String[]) parameters.keySet().toArray(new String[parameters.size()]),
+          parameters.values().toArray());
     }
 
     /**
@@ -115,8 +115,8 @@ public class OctopusInvoker {
      */
     public static Object invoke(String module, String task, Collection keys, Collection values) {
         return invoke(module, task,
-                (String[]) keys.toArray(new String[keys.size()]),
-                values.toArray());
+          (String[]) keys.toArray(new String[keys.size()]),
+          values.toArray());
     }
 
     /**
@@ -153,8 +153,8 @@ public class OctopusInvoker {
         // TODO Make this only one times or use a property?
         OctopusConnectionFactory ocf = OctopusConnectionFactory.getInstance();
         Map configuration = Collections.singletonMap(
-                OctopusConnectionFactory.CONNECTION_TYPE_KEY,
-                OctopusConnectionFactory.CONNECTION_TYPE_INTERNAL);
+          OctopusConnectionFactory.CONNECTION_TYPE_KEY,
+          OctopusConnectionFactory.CONNECTION_TYPE_INTERNAL);
         ocf.setConfiguration(module, configuration);
 
         // Get octopus connection for module.

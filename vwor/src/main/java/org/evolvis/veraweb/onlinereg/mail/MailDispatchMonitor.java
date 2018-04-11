@@ -114,7 +114,6 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
             }
             sb.append("\n");
         }
-
     }
 
     private void debug(ConnectionEvent e) {

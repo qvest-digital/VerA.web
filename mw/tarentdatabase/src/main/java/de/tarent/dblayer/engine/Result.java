@@ -97,7 +97,7 @@ public class Result {
 
     public ResultSet resultSet() {
         return (ResultSet) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { ResultSet.class },
-                new ResultSetProxyInvocationHandler(result));
+          new ResultSetProxyInvocationHandler(result));
     }
 
     /**

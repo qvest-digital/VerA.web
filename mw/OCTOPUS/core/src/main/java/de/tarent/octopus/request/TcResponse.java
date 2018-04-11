@@ -192,13 +192,13 @@ public interface TcResponse {
      * Diese Methode sendet gepufferte Ausgaben.
      */
     public void flush()
-            throws IOException;
+      throws IOException;
 
     /**
      * Diese Methode schließt die Ausgabe ab.
      */
     public void close()
-            throws IOException;
+      throws IOException;
 
     /**
      * Diese Methode gibt einen Fehlerstatus aus.

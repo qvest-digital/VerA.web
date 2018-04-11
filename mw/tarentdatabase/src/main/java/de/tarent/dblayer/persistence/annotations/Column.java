@@ -76,5 +76,4 @@ public @interface Column {
      * the whole bean is used
      */
     String table() default "";
-
 }

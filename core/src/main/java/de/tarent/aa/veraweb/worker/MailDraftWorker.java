@@ -127,18 +127,18 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int updateBeanList(OctopusContext octopusContext, List errors, List beanlist, TransactionContext transactionContext)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             MailDraft mailDraft = (MailDraft) it.next();
             if (mailDraft.isModified()) {
                 Database db = transactionContext.getDatabase();
                 transactionContext.execute(
-                        SQL.Update(db).
-                                table("veraweb.tmaildraft").
-                                update("name", mailDraft.name).
-                                where(Expr.equal("pk", mailDraft.id)).
-                                whereAnd(getOrgUnitFilter(octopusContext)));
+                  SQL.Update(db).
+                    table("veraweb.tmaildraft").
+                    update("name", mailDraft.name).
+                    where(Expr.equal("pk", mailDraft.id)).
+                    whereAnd(getOrgUnitFilter(octopusContext)));
                 count++;
                 transactionContext.commit();
             }
@@ -189,11 +189,11 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      * @throws IOException   IOException
      */
     public MailDraft showDetail(OctopusContext octopusContext, Integer id, MailDraft mailDraft)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         if (mailDraft == null && id != null) {
             final Select select = getDatabase(octopusContext).getSelect("MailDraft").
-                    where(Expr.equal("pk", id)).
-                    whereAnd(getOrgUnitFilter(octopusContext));
+              where(Expr.equal("pk", id)).
+              whereAnd(getOrgUnitFilter(octopusContext));
             return (MailDraft) getDatabase(octopusContext).getBean("MailDraft", select);
         }
         return mailDraft;

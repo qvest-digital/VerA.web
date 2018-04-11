@@ -87,27 +87,27 @@ import java.util.Date;
 @Entity
 @Table(name = "tperson")
 @NamedQueries(value = {
-        @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where p.username like :username"),
-        @NamedQuery(name = "Person.findByMail", query = "SELECT p FROM Person p where p.mail_a_e1=:email"),
-        @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where p.username like :username"),
-        @NamedQuery(name = "Person.findByPersonId", query = "SELECT p FROM Person p where p.pk=:personId"),
-        @NamedQuery(name = "Person.getPeopleByEventId",
-                query = "SELECT p FROM Person p where p.pk IN (SELECT g.fk_person from Guest g where g.fk_event=:eventid)")
+  @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where p.username like :username"),
+  @NamedQuery(name = "Person.findByMail", query = "SELECT p FROM Person p where p.mail_a_e1=:email"),
+  @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where p.username like :username"),
+  @NamedQuery(name = "Person.findByPersonId", query = "SELECT p FROM Person p where p.pk=:personId"),
+  @NamedQuery(name = "Person.getPeopleByEventId",
+    query = "SELECT p FROM Person p where p.pk IN (SELECT g.fk_person from Guest g where g.fk_event=:eventid)")
 })
 @NamedNativeQueries(value = {
-        @NamedNativeQuery(name = "Person.getDelegatesByUUID",
-                query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid " +
-                        "AND tperson" +
-                        ".iscompany='f'",
-                resultClass = Person.class),
-        @NamedNativeQuery(name = "Person.getCompanyByUUID",
-                query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid " +
-                        "AND tperson" +
-                        ".iscompany='t'",
-                resultClass = Person.class),
-        @NamedNativeQuery(name = "Person.getPersonNamesByUsername", query = "SELECT CASE WHEN iscompany='t' THEN company_a_e1 " +
-                "WHEN iscompany='f' THEN firstname_a_e1 || ' ' || lastname_a_e1 END " +
-                "from tperson where username like :username")
+  @NamedNativeQuery(name = "Person.getDelegatesByUUID",
+    query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid " +
+      "AND tperson" +
+      ".iscompany='f'",
+    resultClass = Person.class),
+  @NamedNativeQuery(name = "Person.getCompanyByUUID",
+    query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid " +
+      "AND tperson" +
+      ".iscompany='t'",
+    resultClass = Person.class),
+  @NamedNativeQuery(name = "Person.getPersonNamesByUsername", query = "SELECT CASE WHEN iscompany='t' THEN company_a_e1 " +
+    "WHEN iscompany='f' THEN firstname_a_e1 || ' ' || lastname_a_e1 END " +
+    "from tperson where username like :username")
 })
 public class Person {
 

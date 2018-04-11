@@ -66,7 +66,7 @@ public class GroovyWorkerFactory implements SpecialWorkerFactory {
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
     public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration)
-            throws WorkerCreationException {
+      throws WorkerCreationException {
         try {
             //GroovyClassLoader loader = new GroovyClassLoader(config.getClassLoader());
             //Object workerObject = loader.parseClass(new java.io.File
@@ -76,12 +76,12 @@ public class GroovyWorkerFactory implements SpecialWorkerFactory {
             //return new TcGroovyWorkerWrapper(workerObject);
         } catch (ClassCastException castException) {
             throw new WorkerCreationException(Resources.getInstance()
-                    .get("WORKERFACTORY_CAST_EXC_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(),
-                            workerDeclaration.getImplementationSource()));
+              .get("WORKERFACTORY_CAST_EXC_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(),
+                workerDeclaration.getImplementationSource()));
         } catch (Exception reflectionException) {
             throw new WorkerCreationException(Resources.getInstance()
-                    .get("WORKERFACTORY_EXC_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(),
-                            workerDeclaration.getImplementationSource()), reflectionException);
+              .get("WORKERFACTORY_EXC_LOADING_WORKER", getClass().getName(), workerDeclaration.getWorkerName(),
+                workerDeclaration.getImplementationSource()), reflectionException);
         }
     }
 }

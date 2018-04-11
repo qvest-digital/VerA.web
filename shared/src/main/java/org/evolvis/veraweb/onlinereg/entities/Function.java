@@ -84,10 +84,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tfunction")
 @NamedNativeQueries({
-        @NamedNativeQuery(name = "Function.getFunctions",
-                query = "SELECT functionname " +
-                        "FROM tfunction"
-        )
+  @NamedNativeQuery(name = "Function.getFunctions",
+    query = "SELECT functionname " +
+      "FROM tfunction"
+  )
 })
 public class Function {
     @Id

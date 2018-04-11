@@ -97,15 +97,15 @@ import java.util.ResourceBundle;
  */
 public class ConfigWorker extends ListWorkerVeraWeb {
     private static final String defaultSource[] = {
-            "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
-            "LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
-            "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY" };
+      "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
+      "LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
+      "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY" };
     private static final String defaultTarget[] = {
-            "private", "business", "other",
-            "latin", "extra1", "extra2",
-            "suffix1", "suffix2", "changeLogRetentionPolicy" };
+      "private", "business", "other",
+      "latin", "extra1", "extra2",
+      "suffix1", "suffix2", "changeLogRetentionPolicy" };
     private static final ResourceBundle defaultBundle =
-            ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
+      ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
 
     private Map config;
     private boolean loaded = false;
@@ -256,7 +256,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      */
     @SuppressWarnings("unchecked")
     private void saveValue(OctopusContext octopusContext, String key, String value)
-            throws BeanException, IOException, SQLException {
+      throws BeanException, IOException, SQLException {
         // wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
         boolean found = false;
         for (int i = 0; i < defaultTarget.length; i++) {
@@ -301,7 +301,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         final TransactionContext transactionContext = database.getTransactionContext();
         if (value != null && value.length() != 0) {
             Integer count = database.getCount(
-                    database.getCount("Config").where(Expr.equal("cname", key))
+              database.getCount("Config").where(Expr.equal("cname", key))
             );
 
             if (count == 0) {
@@ -315,7 +315,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void deleteConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-            throws BeanException {
+      throws BeanException {
         LOGGER.debug(" -----------------------> BEGIN DELETE CONFIG " + key + "/" + value + " <----------------------- ");
         Delete delete = SQL.Delete(database);
         delete.from("veraweb.tconfig");
@@ -326,7 +326,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-            throws BeanException {
+      throws BeanException {
         LOGGER.debug("-----------------------> BEGIN UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
         Update update = SQL.Update(database);
         update.table("veraweb.tconfig");
@@ -338,7 +338,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void insertConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-            throws BeanException {
+      throws BeanException {
         LOGGER.debug(" -----------------------> BEGIN INSERT CONFIG " + key + "/" + value + " <----------------------- ");
         Insert insert = SQL.Insert(database);
         insert.table("veraweb.tconfig");

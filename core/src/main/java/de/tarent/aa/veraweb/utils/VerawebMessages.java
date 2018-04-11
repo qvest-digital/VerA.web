@@ -230,5 +230,4 @@ public class VerawebMessages {
     public String getPersonMessageField(String columnName) {
         return languageProvider.getProperty(columnName);
     }
-
 }

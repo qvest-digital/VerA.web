@@ -102,8 +102,8 @@ public class TcSecurityLDAPManager {
         this.relative = cleanup_relative(relative);
         env = new Hashtable();
         env.put(
-                Context.INITIAL_CONTEXT_FACTORY,
-                "com.sun.jndi.ldap.LdapCtxFactory");
+          Context.INITIAL_CONTEXT_FACTORY,
+          "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, ldapurl);
     }
 
@@ -118,11 +118,11 @@ public class TcSecurityLDAPManager {
      * @throws TcSecurityException
      */
     public void login(
-            String username,
-            boolean appendBaseDN,
-            String passwort,
-            String authType)
-            throws TcSecurityException {
+      String username,
+      boolean appendBaseDN,
+      String passwort,
+      String authType)
+      throws TcSecurityException {
 
         //At first, search for uid
         logger.debug("Doing login with userid " + username);
@@ -154,16 +154,15 @@ public class TcSecurityLDAPManager {
                 logger.debug("Fehlerhafte Authenifizierung über LDAP.", e);
             }
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
-
         } catch (CommunicationException e) {
             //Falls LDAP-Server nicht erreichbar
             logger.error("Der LDAP-Server ist nicht erreichbar, bitte versuchen Sie es später noch einmal.", e);
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
         } catch (NamingException e) {
             logger.error(
-                    "Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie" +
-                            " es später noch einmal.",
-                    e);
+              "Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie" +
+                " es später noch einmal.",
+              e);
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
         }
     }
@@ -185,9 +184,9 @@ public class TcSecurityLDAPManager {
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
         } catch (NamingException e) {
             logger.error(
-                    "Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie" +
-                            " es später noch einmal.",
-                    e);
+              "Es ist ein Fehler bei der Kommunikation mit dem Authentifizierungs-Server aufgetreten, bitte versuchen Sie" +
+                " es später noch einmal.",
+              e);
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR);
         }
     }
@@ -203,12 +202,12 @@ public class TcSecurityLDAPManager {
      * @throws TcSecurityException wenn der Benutzer nicht angelegt werden konnte
      */
     public void addContactUser(
-            String userid,
-            String vorname,
-            String nachname,
-            String passwort,
-            String gruppe)
-            throws TcSecurityException {
+      String userid,
+      String vorname,
+      String nachname,
+      String passwort,
+      String gruppe)
+      throws TcSecurityException {
         logger.debug("Füge User " + userid + " hinzu.");
         if (checkuid(userid)) {
             modifyContactUser(userid, vorname, nachname, passwort, gruppe);
@@ -231,7 +230,7 @@ public class TcSecurityLDAPManager {
             try {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 String password_enc2 =
-                        byteArrayToBase64(md.digest(passwort.getBytes()), false);
+                  byteArrayToBase64(md.digest(passwort.getBytes()), false);
                 attr.put("userPassword", "{SHA}" + password_enc2);
             } catch (NoSuchAlgorithmException e) {
                 throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
@@ -255,7 +254,7 @@ public class TcSecurityLDAPManager {
      * @throws TcSecurityException
      */
     public void modifyContactUser(String userid, String vorname, String nachname, String passwort, String gruppe)
-            throws TcSecurityException {
+      throws TcSecurityException {
         gruppe = sortGroup(gruppe);
 
         logger.debug("Modifiziere LDAP-User: " + userid);
@@ -265,7 +264,7 @@ public class TcSecurityLDAPManager {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA");
             String password_enc2 =
-                    byteArrayToBase64(md.digest(passwort.getBytes()), false);
+              byteArrayToBase64(md.digest(passwort.getBytes()), false);
             password = "{SHA}" + password_enc2;
         } catch (NoSuchAlgorithmException e) {
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
@@ -344,7 +343,7 @@ public class TcSecurityLDAPManager {
         try {
             logger.debug(mods.toString());
             lctx.modifyAttributes(getUserDN(userid) + relative + baseDN,
-                    (ModificationItem[]) mods.toArray(new ModificationItem[1]));
+              (ModificationItem[]) mods.toArray(new ModificationItem[1]));
         } catch (NamingException e2) {
             throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e2);
         }
@@ -374,7 +373,7 @@ public class TcSecurityLDAPManager {
             try {
                 logger.debug(mods.toString());
                 lctx.modifyAttributes(getUserDN(userid) + relative + baseDN,
-                        (ModificationItem[]) mods.toArray(new ModificationItem[1]));
+                  (ModificationItem[]) mods.toArray(new ModificationItem[1]));
             } catch (NamingException e2) {
                 throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e2);
             }
@@ -574,71 +573,71 @@ public class TcSecurityLDAPManager {
      * in Table 1 of RFC 2045.
      */
     private final char intToBase64[] =
-            {
-                    'A',
-                    'B',
-                    'C',
-                    'D',
-                    'E',
-                    'F',
-                    'G',
-                    'H',
-                    'I',
-                    'J',
-                    'K',
-                    'L',
-                    'M',
-                    'N',
-                    'O',
-                    'P',
-                    'Q',
-                    'R',
-                    'S',
-                    'T',
-                    'U',
-                    'V',
-                    'W',
-                    'X',
-                    'Y',
-                    'Z',
-                    'a',
-                    'b',
-                    'c',
-                    'd',
-                    'e',
-                    'f',
-                    'g',
-                    'h',
-                    'i',
-                    'j',
-                    'k',
-                    'l',
-                    'm',
-                    'n',
-                    'o',
-                    'p',
-                    'q',
-                    'r',
-                    's',
-                    't',
-                    'u',
-                    'v',
-                    'w',
-                    'x',
-                    'y',
-                    'z',
-                    '0',
-                    '1',
-                    '2',
-                    '3',
-                    '4',
-                    '5',
-                    '6',
-                    '7',
-                    '8',
-                    '9',
-                    '+',
-                    '/' };
+      {
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z',
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '+',
+        '/' };
 
     /**
      * This array is a lookup table that translates 6-bit positive integer
@@ -648,71 +647,71 @@ public class TcSecurityLDAPManager {
      * designed for use in environments where "case folding" occurs.
      */
     private final char intToAltBase64[] =
-            {
-                    '!',
-                    '"',
-                    '#',
-                    '$',
-                    '%',
-                    '&',
-                    '\'',
-                    '(',
-                    ')',
-                    ',',
-                    '-',
-                    '.',
-                    ':',
-                    ';',
-                    '<',
-                    '>',
-                    '@',
-                    '[',
-                    ']',
-                    '^',
-                    '`',
-                    '_',
-                    '{',
-                    '|',
-                    '}',
-                    '~',
-                    'a',
-                    'b',
-                    'c',
-                    'd',
-                    'e',
-                    'f',
-                    'g',
-                    'h',
-                    'i',
-                    'j',
-                    'k',
-                    'l',
-                    'm',
-                    'n',
-                    'o',
-                    'p',
-                    'q',
-                    'r',
-                    's',
-                    't',
-                    'u',
-                    'v',
-                    'w',
-                    'x',
-                    'y',
-                    'z',
-                    '0',
-                    '1',
-                    '2',
-                    '3',
-                    '4',
-                    '5',
-                    '6',
-                    '7',
-                    '8',
-                    '9',
-                    '+',
-                    '?' };
+      {
+        '!',
+        '"',
+        '#',
+        '$',
+        '%',
+        '&',
+        '\'',
+        '(',
+        ')',
+        ',',
+        '-',
+        '.',
+        ':',
+        ';',
+        '<',
+        '>',
+        '@',
+        '[',
+        ']',
+        '^',
+        '`',
+        '_',
+        '{',
+        '|',
+        '}',
+        '~',
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z',
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '+',
+        '?' };
 
     public void deleteContactUser(String uid) throws TcSecurityException {
         //Wenn keine Verbindung besteht, abbruch
@@ -767,17 +766,17 @@ public class TcSecurityLDAPManager {
             NamingEnumeration ne = lctx.search(relative.substring(1) + baseDN, attr);
             if (!ne.hasMore()) {
                 throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR,
-                        "Der User ist im LDAP nicht vorhanden!");
+                  "Der User ist im LDAP nicht vorhanden!");
             }
             SearchResult search = (SearchResult) ne.next();
             dn = search.getName();
             if (ne.hasMore()) {
                 throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR,
-                        "Der User ist nicht eindeutig, bitte wählen sie einen anderen Usernamen");
+                  "Der User ist nicht eindeutig, bitte wählen sie einen anderen Usernamen");
             }
         } catch (NamingException e) {
             throw new TcSecurityException("Es ist ein Fehler beim Holen des Users aus dem LDAP aufgetreten. " +
-                    "Bitte versuchen Sie es später noch einmal.");
+              "Bitte versuchen Sie es später noch einmal.");
         }
         return dn;
     }

@@ -198,8 +198,8 @@ public class ThreadLogger {
      */
     public String toString() {
         return "Log for thread \"" + getThreadId() + "\""
-                + (disposed ? " (disposed):" : ":")
-                + StringTools.LINE_SEPARATOR + StringTools.LINE_SEPARATOR
-                + Tools.iteratorToString(methodCalls.iterator(), "", true, StringTools.LINE_SEPARATOR, true);
+          + (disposed ? " (disposed):" : ":")
+          + StringTools.LINE_SEPARATOR + StringTools.LINE_SEPARATOR
+          + Tools.iteratorToString(methodCalls.iterator(), "", true, StringTools.LINE_SEPARATOR, true);
     }
 }

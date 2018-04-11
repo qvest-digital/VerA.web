@@ -92,7 +92,7 @@ public class XMLUtil {
     }
 
     public static Document getParsedDocument(InputSource inputsource)
-            throws SAXException, IOException, ParserConfigurationException {
+      throws SAXException, IOException, ParserConfigurationException {
         return getDocumentBuilder().parse(inputsource);
     }
 

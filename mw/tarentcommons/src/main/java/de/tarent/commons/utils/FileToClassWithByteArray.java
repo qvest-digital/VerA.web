@@ -76,7 +76,7 @@ public class FileToClassWithByteArray {
     private String fieldName;
 
     public FileToClassWithByteArray(URI sourceFileURI, String destinationDir, String packageName, String className,
-            String fieldName) {
+      String fieldName) {
         this.sourceFileURI = sourceFileURI;
         setDestinationDir(destinationDir);
         setPackageName(packageName);
@@ -92,7 +92,7 @@ public class FileToClassWithByteArray {
             try {
                 System.out.println("Starting conversion ...");
                 (new FileToClassWithByteArray(new URI("file://" + args[0]), args[1], args[2], args[3], args[4]))
-                        .performConversion();
+                  .performConversion();
                 System.out.println("Successfull");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -200,8 +200,8 @@ public class FileToClassWithByteArray {
     public void setDestinationDir(String destinationDir) {
         if (destinationDir != null) {
             this.destinationDir = destinationDir.trim().endsWith((new Character(getDirSeparator())).toString())
-                    ? destinationDir.trim()
-                    : destinationDir.trim() + getDirSeparator();
+              ? destinationDir.trim()
+              : destinationDir.trim() + getDirSeparator();
         } else {
             this.destinationDir = "";
         }
@@ -222,5 +222,4 @@ public class FileToClassWithByteArray {
     public char getDirSeparator() {
         return DIR_SEPARATOR;
     }
-
 }

@@ -99,7 +99,7 @@ public class EventTransporter {
      * @param hash         FIXME
      */
     public EventTransporter(Integer pk, String shortname, Date datebegin, Date dateend,
-            Boolean isRegistered, String hash) {
+      Boolean isRegistered, String hash) {
         super();
         this.pk = pk;
         this.shortname = shortname;
@@ -172,5 +172,4 @@ public class EventTransporter {
     public void setHash(String hash) {
         this.hash = hash;
     }
-
 }

@@ -122,5 +122,4 @@ public class DurationTest extends TestCase {
         System.out.println(t);
         Assert.assertEquals("1 Jahr 0 Monate", t);
     }
-
 }

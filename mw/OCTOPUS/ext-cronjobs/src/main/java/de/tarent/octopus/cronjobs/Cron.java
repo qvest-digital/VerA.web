@@ -184,8 +184,8 @@ public class Cron implements Runnable {
 
         // If there is a cronjob, at least the parameters type, procedure and name have to be correct
         if (tmpJob.getProcedure().equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_PROCEDURE))
-                && tmpJob.getName().equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME))
-                && new Integer(tmpJob.getType()).equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_TYPE))) {
+          && tmpJob.getName().equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME))
+          && new Integer(tmpJob.getType()).equals(cronJobMap.get(Cron.CRONJOBMAP_KEY_TYPE))) {
             return tmpJob;
         }
         return null;
@@ -450,13 +450,12 @@ public class Cron implements Runnable {
             try {
                 String moduleRootPath = savePath.getAbsolutePath();
                 FileOutputStream fileOut =
-                        new FileOutputStream(moduleRootPath + System.getProperty("file.separator") + "cronJobs.backup");
+                  new FileOutputStream(moduleRootPath + System.getProperty("file.separator") + "cronJobs.backup");
                 ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 
                 objectOut.writeObject(getCronJobMaps());
                 objectOut.flush();
                 objectOut.close();
-
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -498,8 +497,8 @@ public class Cron implements Runnable {
 
                     if (tmpJob != null) {
                         logger.log(Level.INFO,
-                                "Restoring Cronjob \"" + tmpJob.getName() + "\": (type = " + tmpJob.getType() + ", procedure = " +
-                                        tmpJob.getProcedure() + ")");
+                          "Restoring Cronjob \"" + tmpJob.getName() + "\": (type = " + tmpJob.getType() + ", procedure = " +
+                            tmpJob.getProcedure() + ")");
                         addJob(tmpJob);
                     }
                 }
@@ -507,17 +506,13 @@ public class Cron implements Runnable {
                 if (getCronJobMaps().size() > 0) {
                     logger.log(Level.INFO, "Cronjobs restored from backup: " + getCronJobMaps());
                 }
-
             } catch (FileNotFoundException e) {
                 logger.log(Level.SEVERE, "No backup file found to restore old cron.\n" + e.getMessage());
-
             } catch (IOException e) {
                 logger.log(Level.SEVERE, "Error trying to restore backup of old cron.\n" + e.getMessage());
-
             } catch (ClassNotFoundException e) {
                 logger.log(Level.SEVERE, "Error trying to restore backup of old cron.\n" + e.getMessage());
             }
-
         }
     }
 
@@ -539,9 +534,9 @@ public class Cron implements Runnable {
         // Some Entries must be set or we will return null
         if (name == null || name.equals("") || procedure == null || procedure.equals("") || properties == null) {
             exceptionErrorMessage +=
-                    "Error in Task setCronJob. One of the following Map entries has not been set or could not be used: " +
-                            "name: " + name + ", procedure: " + procedure + ", properties: " + properties + ", type: " + type +
-                            ". ";
+              "Error in Task setCronJob. One of the following Map entries has not been set or could not be used: " +
+                "name: " + name + ", procedure: " + procedure + ", properties: " + properties + ", type: " + type +
+                ". ";
             throw new Exception(exceptionErrorMessage);
         }
 
@@ -582,7 +577,6 @@ public class Cron implements Runnable {
             if (hour != -1 || minute != -1 || month != -1 || dayOfMonth != -1 || dayOfWeek != -1) {
                 cronJob = new ExactCronJob(this, hour, minute, month, dayOfMonth, dayOfWeek);
             }
-
         }
 
         // If cronjob is of type interval cronjob
@@ -599,10 +593,9 @@ public class Cron implements Runnable {
                 cronJob = new IntervalCronJob(this, intervalTime);
             } else {
                 logger.log(Level.WARNING,
-                        "Error trying to create an IntervalCronJob. Entry '" + IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL +
-                                "' in properties map has not been set or is lower than one.");
+                  "Error trying to create an IntervalCronJob. Entry '" + IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL +
+                    "' in properties map has not been set or is lower than one.");
             }
-
         } else if (type.intValue() != Cron.INTERVAL_CRONJOB && type.intValue() != Cron.EXACT_CRONJOB) {
             exceptionErrorMessage += "Unknown cronjob type: " + type;
             throw new Exception(exceptionErrorMessage);
@@ -640,7 +633,7 @@ public class Cron implements Runnable {
                     }
                 } catch (Exception e) {
                     logger.log(Level.WARNING,
-                            "Error trying to parse date " + lastRun + ". Lastrun could not be set while saving cronjob.");
+                      "Error trying to parse date " + lastRun + ". Lastrun could not be set while saving cronjob.");
                 }
             }
         }
@@ -657,7 +650,7 @@ public class Cron implements Runnable {
 
         Map resultMap = input;
         Map properties = input.get(Cron.CRONJOBMAP_KEY_PROPERTIES) != null ? (Map) input.get(Cron.CRONJOBMAP_KEY_PROPERTIES) :
-                new HashMap();
+          new HashMap();
         Map propertiesToAdd = new HashMap();
 
         for (Iterator iter = input.entrySet().iterator(); iter.hasNext(); ) {
@@ -667,14 +660,13 @@ public class Cron implements Runnable {
             // if there is an entry in the cronjobmap, that doesnt belong there
             // we remove it from the cronjobmap and add it to the internal properties map
             if (!key.equals(Cron.CRONJOBMAP_KEY_NAME) && !key.equals(Cron.CRONJOBMAP_KEY_PROPERTIES)
-                    && !key.equals(Cron.CRONJOBMAP_KEY_TYPE) && !key.equals(Cron.CRONJOBMAP_KEY_STATUS)
-                    && !key.equals(Cron.CRONJOBMAP_KEY_PROCEDURE) && !key.equals(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE)
-                    && !key.equals(Cron.CRONJOBMAP_KEY_LASTRUN) && !key.equals(Cron.CRONJOBMAP_KEY_ERROR) &&
-                    !key.equals(Cron.CRONJOBMAP_KEY_ACTIVE)) {
+              && !key.equals(Cron.CRONJOBMAP_KEY_TYPE) && !key.equals(Cron.CRONJOBMAP_KEY_STATUS)
+              && !key.equals(Cron.CRONJOBMAP_KEY_PROCEDURE) && !key.equals(Cron.CRONJOBMAP_KEY_ERRORPROCEDURE)
+              && !key.equals(Cron.CRONJOBMAP_KEY_LASTRUN) && !key.equals(Cron.CRONJOBMAP_KEY_ERROR) &&
+              !key.equals(Cron.CRONJOBMAP_KEY_ACTIVE)) {
 
                 propertiesToAdd.put(entry.getKey(), entry.getValue());
                 resultMap.remove(key);
-
             }
         }
 

@@ -103,5 +103,4 @@ public class IntervalCronJob extends CronJob {
 
         return cronJobMap;
     }
-
 }

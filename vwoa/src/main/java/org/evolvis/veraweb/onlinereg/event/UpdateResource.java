@@ -175,7 +175,7 @@ public class UpdateResource {
     @POST
     @Path("/{eventId}/update")
     public String update(@PathParam("eventId") String eventId, @FormParam("notehost") String notehost,
-            @FormParam("invitationstatus") String invitationstatus) throws IOException {
+      @FormParam("invitationstatus") String invitationstatus) throws IOException {
         String username = (String) request.getAttribute(USERNAME);
 
         // checking if the user is registered on the event

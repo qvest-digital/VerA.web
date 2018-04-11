@@ -112,7 +112,6 @@ public class ToolsTest extends TestCase {
         map.put("test4", "4");
         Tools.removeNullEntries(map);
         assertEquals("Problem with nonempty ma", 3, map.size());
-
     }
 
     /**
@@ -164,7 +163,6 @@ public class ToolsTest extends TestCase {
         Tools.putIfNotNull(map, o1, o2);
         assertEquals("Problem with two existing values", true, map.containsKey(o1));
         assertEquals("Problem with two existing values", true, map.containsValue(o2));
-
     }
 
     /**
@@ -173,16 +171,16 @@ public class ToolsTest extends TestCase {
     public void testIteratortoString() {
         List linkList = new LinkedList();
         assertEquals("Problems with empty list",
-                "",
-                Tools.iteratorToString(linkList.iterator(), "-", true, "-", true));
+          "",
+          Tools.iteratorToString(linkList.iterator(), "-", true, "-", true));
         linkList.add("First element");
         linkList.add("Second element");
         assertEquals("Problems with prefix and suffix (also before first and after last)",
-                "-First element--Second element-",
-                Tools.iteratorToString(linkList.iterator(), "-", true, "-", true));
+          "-First element--Second element-",
+          Tools.iteratorToString(linkList.iterator(), "-", true, "-", true));
         assertEquals("Problems with prefix and suffix (not before first and after last)",
-                "First element--Second element",
-                Tools.iteratorToString(linkList.iterator(), "-", false, "-", false));
+          "First element--Second element",
+          Tools.iteratorToString(linkList.iterator(), "-", false, "-", false));
     }
 
     /**
@@ -191,17 +189,16 @@ public class ToolsTest extends TestCase {
     public void testMapToString() {
         Map map = new LinkedHashMap();
         assertEquals("Problems with empty list",
-                "",
-                Tools.mapToString(map, "-", true, "=", "-", true));
+          "",
+          Tools.mapToString(map, "-", true, "=", "-", true));
         map.put("Key1", "Value1");
         map.put("Key2", "Value2");
         assertEquals("Problems with prefix and suffix (also before first and after last)",
-                "-Key1=Value1--Key2=Value2-",
-                Tools.mapToString(map, "-", true, "=", "-", true));
+          "-Key1=Value1--Key2=Value2-",
+          Tools.mapToString(map, "-", true, "=", "-", true));
         assertEquals("Problems with prefix and suffix (not before first and after last)",
-                "Key1=Value1--Key2=Value2",
-                Tools.mapToString(map, "-", false, "=", "-", false));
-
+          "Key1=Value1--Key2=Value2",
+          Tools.mapToString(map, "-", false, "=", "-", false));
     }
 
     /**
@@ -210,15 +207,14 @@ public class ToolsTest extends TestCase {
     public void testArraytoString() {
         Object[] array = new Object[0];
         assertEquals("Problems with empty Array",
-                "",
-                Tools.arrayToString(array, "-", true, "-", true));
+          "",
+          Tools.arrayToString(array, "-", true, "-", true));
         array = new Object[] { "First element", "Second element" };
         assertEquals("Problems with prefix and suffix (also before first and after last)",
-                "-First element--Second element-",
-                Tools.arrayToString(array, "-", true, "-", true));
+          "-First element--Second element-",
+          Tools.arrayToString(array, "-", true, "-", true));
         assertEquals("Problems with prefix and suffix (not before first and after last)",
-                "First element--Second element",
-                Tools.arrayToString(array, "-", false, "-", false));
+          "First element--Second element",
+          Tools.arrayToString(array, "-", false, "-", false));
     }
-
 }

@@ -241,13 +241,13 @@ public class ExchangeFormat {
     public String toString() {
         StringBuffer buffer = new StringBuffer(128);
         buffer.append("ExchangeFormat (Name: ").append(name)
-                .append("; Description: ").append(description)
-                .append("; MIME-Typ: ").append(mimeType)
-                .append("; Suffix: ").append(defaultExtension)
-                .append("; Icon: ").append(iconUrl)
-                .append("; Exporter: ").append(exporterClassName)
-                .append("; Importer: ").append(importerClassName)
-                .append("; Properties: ").append(properties);
+          .append("; Description: ").append(description)
+          .append("; MIME-Typ: ").append(mimeType)
+          .append("; Suffix: ").append(defaultExtension)
+          .append("; Icon: ").append(iconUrl)
+          .append("; Exporter: ").append(exporterClassName)
+          .append("; Importer: ").append(importerClassName)
+          .append("; Properties: ").append(properties);
         return buffer.toString();
     }
 

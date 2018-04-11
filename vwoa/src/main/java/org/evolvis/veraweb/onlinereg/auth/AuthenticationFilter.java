@@ -140,7 +140,7 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+      throws IOException, ServletException {
         final HttpServletRequest webRequest = (HttpServletRequest) request;
         final String path = webRequest.getServletPath() + webRequest.getPathInfo();
         final HmacToken token = readHmacToken(webRequest);
@@ -179,11 +179,10 @@ public class AuthenticationFilter implements Filter {
         request.setAttribute(LoginResource.USERNAME, user.getUserName());
         request.setAttribute(LoginResource.ACCESS_TOKEN, token.getOsiamAccessToken());
         chain.doFilter(request, response);
-
     }
 
     private void proceed(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+      throws IOException, ServletException {
         try {
             chain.doFilter(request, response);
         } catch (WebApplicationException e) {

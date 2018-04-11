@@ -88,7 +88,7 @@ public class SystemWorker implements TcContentWorker {
      * de.tarent.octopus.request.TcRequest, de.tarent.octopus.content.TcContent)
      */
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
-            throws TcContentProzessException {
+      throws TcContentProzessException {
         // ACTION_RELOAD_MODULE
         if (ACTION_RELOAD_MODULE.equals(actionName)) {
             String moduleName = tcConfig.getModuleConfig().getName();
@@ -98,7 +98,7 @@ public class SystemWorker implements TcContentWorker {
             return moduleConfig != null ? RESULT_ok : RESULT_error;
         } else {
             throw new TcContentProzessException(
-                    "Nicht unterstützte Aktion im SystemWorker: " + actionName);
+              "Nicht unterstützte Aktion im SystemWorker: " + actionName);
         }
     }
 
@@ -111,12 +111,12 @@ public class SystemWorker implements TcContentWorker {
      */
     public TcPortDefinition getWorkerDefinition() {
         TcPortDefinition port =
-                new TcPortDefinition(
-                        SystemWorker.class.getName(),
-                        "Worker für Systemfunktionen");
+          new TcPortDefinition(
+            SystemWorker.class.getName(),
+            "Worker für Systemfunktionen");
 
         TcOperationDefinition operation = port.addOperation(ACTION_RELOAD_MODULE,
-                "Neuladen des aufrufenden Moduls");
+          "Neuladen des aufrufenden Moduls");
         operation.setInputMessage();
         operation.setOutputMessage();
         //            .addPart("url", TcMessageDefinition.TYPE_SCALAR, "Url des Systems mit Sessioninformationen.")

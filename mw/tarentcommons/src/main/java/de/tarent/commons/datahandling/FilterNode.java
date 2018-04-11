@@ -147,5 +147,4 @@ public class FilterNode {
     public void setOperator(ListFilterOperator newOperator) {
         this.operator = newOperator;
     }
-
 }

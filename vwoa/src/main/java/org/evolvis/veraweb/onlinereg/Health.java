@@ -87,5 +87,4 @@ public class Health extends HealthCheck {
 
         return "OK".equals(result) ? Result.healthy() : Result.unhealthy("VerA.web has problems: " + result);
     }
-
 }

@@ -110,7 +110,7 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
                 return preparedStatement.executeUpdate();
             } catch (SQLException se) {
                 throw new BeanException(
-                        "Fehler beim Ausführen des PreparedUpdates <" + sqlStatement + "> mit der Bean <" + bean + ">", se);
+                  "Fehler beim Ausführen des PreparedUpdates <" + sqlStatement + "> mit der Bean <" + bean + ">", se);
             }
         } else {
             logger.warning("Aufruf ohne Bean nicht erlaubt");

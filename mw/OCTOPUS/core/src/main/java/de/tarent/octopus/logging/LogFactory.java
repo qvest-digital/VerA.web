@@ -140,7 +140,7 @@ public class LogFactory {
                 }
             } catch (IOException e) {
                 log(FATAL, "Error while reading logging configuration from resource: " +
-                        TARENT_LOGGING_PROPERTIES, e);
+                  TARENT_LOGGING_PROPERTIES, e);
             }
         }
     }
@@ -259,8 +259,8 @@ public class LogFactory {
             try {
                 // TODO remove this 'aeon' hack!?
                 portLogHandler = loggingPort == 0 ?
-                        new SocketHandler() :
-                        new SocketHandler("aeon", loggingPort);
+                  new SocketHandler() :
+                  new SocketHandler("aeon", loggingPort);
                 baseLogger.addHandler(portLogHandler);
             } catch (Exception e) {
                 log(ERROR, "Konnte SocketHandler nicht initialisieren", e);
@@ -274,7 +274,7 @@ public class LogFactory {
             int xlogger_element = 0;
             for (Handler handler : loggerHandlers) {
                 if (handler != fileLogHandler &&
-                        (portLogHandler == null || handler != portLogHandler)) {
+                  (portLogHandler == null || handler != portLogHandler)) {
                     String enc = handler.getEncoding();
                     if (enc == null) {
                         enc = Charset.defaultCharset().name();
@@ -285,25 +285,25 @@ public class LogFactory {
 						} else*/
                         if (enc.equals("US-ASCII")) {
                             baseLogger.warning("Logger parent(" + xlogger_parent +
-                                    ") element(" + xlogger_element +
-                                    ") name(" + handler +
-                                    ") encoding is 7-bit ASCII (platform encoding, LC_CTYPE=C; consider export LC_CTYPE=C.UTF-8" +
-                                    " or starting the JVM with -Dfile.encoding=UTF-8 to fix this; umlauts *will* be broken)");
+                              ") element(" + xlogger_element +
+                              ") name(" + handler +
+                              ") encoding is 7-bit ASCII (platform encoding, LC_CTYPE=C; consider export LC_CTYPE=C.UTF-8" +
+                              " or starting the JVM with -Dfile.encoding=UTF-8 to fix this; umlauts *will* be broken)");
                         } else if (!enc.equals("UTF-8")) {
                             baseLogger.info("Logger parent(" + xlogger_parent +
-                                    ") element(" + xlogger_element + ") name(" + handler +
-                                    ") encoding is '" + enc +
-                                    "' (platform encoding; consider export LC_CTYPE=C.UTF-8 or starting the JVM with -Dfile" +
-                                    ".encoding=UTF-8 to fix this)");
+                              ") element(" + xlogger_element + ") name(" + handler +
+                              ") encoding is '" + enc +
+                              "' (platform encoding; consider export LC_CTYPE=C.UTF-8 or starting the JVM with -Dfile" +
+                              ".encoding=UTF-8 to fix this)");
                         }
                     } else if (enc.equals("US-ASCII")) {
                         baseLogger.warning("Logger parent(" + xlogger_parent +
-                                ") element(" + xlogger_element + ") name(" + handler +
-                                ") encoding is '" + enc + "' (manually configured)");
+                          ") element(" + xlogger_element + ") name(" + handler +
+                          ") encoding is '" + enc + "' (manually configured)");
                     } else if (!enc.equals("UTF-8")) {
                         baseLogger.info("Logger parent(" + xlogger_parent +
-                                ") element(" + xlogger_element + ") name(" + handler +
-                                ") encoding is '" + enc + "' (manually configured)");
+                          ") element(" + xlogger_element + ") name(" + handler +
+                          ") encoding is '" + enc + "' (manually configured)");
                     }
                 }
                 xlogger_element++;
@@ -328,7 +328,7 @@ public class LogFactory {
             baseLogger.setLevel(level);
         } catch (IllegalArgumentException e) {
             baseLogger.log(Level.WARNING,
-                    Resources.getInstance().get("REQUESTPROXY_LOG_INVALID_LOG_LEVEL", loggingLevel), e);
+              Resources.getInstance().get("REQUESTPROXY_LOG_INVALID_LOG_LEVEL", loggingLevel), e);
         }
     }
 
@@ -376,7 +376,7 @@ public class LogFactory {
         final Date dat = new Date();
 
         System.err.println(String.format("%1$tF %1$tT.%1$tL %2$7s (de.tarent.octopus.logging.LogFactory) [OCTOPUS] %3$s",
-                dat, level, message));
+          dat, level, message));
         if (e != null) {
             e.printStackTrace(System.err);
         }

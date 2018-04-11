@@ -153,9 +153,9 @@ public class ConnectionWorker {
         } else {
             if (logger.isDebugEnabled()) {
                 logger.debug("Can not add connection to octopus cleanup." +
-                        connection == null ?
-                        " No connection available (null)." :
-                        " Connection already closed.");
+                  connection == null ?
+                  " No connection available (null)." :
+                  " Connection already closed.");
             }
         }
     }

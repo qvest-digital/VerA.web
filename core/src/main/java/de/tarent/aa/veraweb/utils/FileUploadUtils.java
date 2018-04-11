@@ -80,7 +80,6 @@ public class FileUploadUtils {
             } else if (imageHeader.contains("data:image/png")) {
                 return "png";
             }
-
         }
         return "ERROR_PARSING_IMAGE_TYPE";
     }

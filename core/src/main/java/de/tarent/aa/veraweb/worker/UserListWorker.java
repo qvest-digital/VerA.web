@@ -220,7 +220,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
             if (bean instanceof User) {
@@ -237,14 +237,14 @@ public class UserListWorker extends ListWorkerVeraWeb {
                     }
                     Database database = new DatabaseVeraWeb(cntx);
                     User dupBean = (User) database.getBean("User",
-                            database.getSelect("User").
-                                    where(Expr.equal("username", userBean.name)), context);
+                      database.getSelect("User").
+                        where(Expr.equal("username", userBean.name)), context);
                     if (dupBean != null) {
                         OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
                         if (ou != null) {
                             errors.add(languageProvider.getProperty("USER_LIST_WARN_MANDANT_ONE") +
-                                    ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) +
-                                    languageProvider.getProperty("USER_LIST_WARN_MANDANT_TWO"));
+                              ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) +
+                              languageProvider.getProperty("USER_LIST_WARN_MANDANT_TWO"));
                         } else {
                             errors.add(languageProvider.getProperty("USER_LIST_WARN_ALREADY_USER"));
                         }
@@ -282,7 +282,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         if (bean != null && ((User) bean).id != null) {
             Integer userId = ((User) bean).id;
 

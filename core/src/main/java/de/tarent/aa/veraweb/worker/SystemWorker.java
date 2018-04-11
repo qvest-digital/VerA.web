@@ -95,8 +95,8 @@ public class SystemWorker {
      */
     public void openPool(OctopusContext cntx) throws IOException {
         File file = new File(
-                cntx.moduleConfig().getRealPath(),
-                cntx.moduleConfig().getParam("dblayer"));
+          cntx.moduleConfig().getRealPath(),
+          cntx.moduleConfig().getParam("dblayer"));
 
         Properties properties = new Properties();
         properties.load(new FileInputStream(file));

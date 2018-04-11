@@ -90,10 +90,10 @@ public class LanguagesFiterFactoryTest {
         WhereList klaus = (WhereList) factory.createLanguagesFilter(personSearch);
 
         assertEquals(
-                "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) " +
-                        "LIKE veraweb" +
-                        ".upper_fix('%Deutsch%'))",
-                klaus.clauseToString());
+          "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) " +
+            "LIKE veraweb" +
+            ".upper_fix('%Deutsch%'))",
+          klaus.clauseToString());
     }
 
     @Test
@@ -103,11 +103,11 @@ public class LanguagesFiterFactoryTest {
         Clause klaus = factory.createLanguagesFilter(personSearch);
 
         assertEquals(
-                "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) " +
-                        "LIKE veraweb" +
-                        ".upper_fix('%Deutsch%')) OR (veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%English%') OR " +
-                        "veraweb.upper_fix" +
-                        "(languages_b_e1) LIKE veraweb.upper_fix('%English%'))",
-                klaus.clauseToString());
+          "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) " +
+            "LIKE veraweb" +
+            ".upper_fix('%Deutsch%')) OR (veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%English%') OR " +
+            "veraweb.upper_fix" +
+            "(languages_b_e1) LIKE veraweb.upper_fix('%English%'))",
+          klaus.clauseToString());
     }
 }

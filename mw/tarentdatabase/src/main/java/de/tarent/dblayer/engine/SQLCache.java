@@ -81,7 +81,7 @@ public class SQLCache {
      * @return File contents as String.
      */
     private static String readTextFile(File file)
-            throws IOException {
+      throws IOException {
         StringBuffer text = new StringBuffer();
 
         BufferedReader input = null;
@@ -129,7 +129,6 @@ public class SQLCache {
                     }
                 }
             }
-
         } catch (IOException ex) {
             logger.error("Could not read sql-file " + sqlfile.getAbsolutePath());
         }
@@ -170,12 +169,10 @@ public class SQLCache {
                     }
                 }
             }
-
         } catch (IOException ex) {
             logger.error("Could not read sql-file " + sqlfile.getAbsolutePath());
         }
 
         return sqlStatement;
     }
-
 }

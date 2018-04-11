@@ -104,7 +104,7 @@ public class FileFormatAdapter implements FileFormat {
      * @param canSave     - gibt an ob die API dieses Format schreiben kann
      */
     public FileFormatAdapter(String key, String shortname, String longname, String description, Object icon, Object suffixes,
-            boolean canLoad, boolean canSave) {
+      boolean canLoad, boolean canSave) {
         m_sKey = key;
         m_sShortName = shortname;
         m_sLongName = longname;
@@ -251,5 +251,4 @@ public class FileFormatAdapter implements FileFormat {
     public boolean isXMLFormat() {
         return m_bXMLFormat;
     }
-
 }

@@ -92,5 +92,4 @@ public class MapAttributeSource implements AttributeSource {
     public void setDelegate(Map newDelegate) {
         this.delegate = newDelegate;
     }
-
 }

@@ -222,9 +222,9 @@ public class CategorieWorker extends StammdatenWorker {
 
     private void buildSelectForPerson(OctopusContext cntx, Select select, Person person, Event event) throws BeanException {
         Clause clause = Where.and(
-                Expr.isNull("fk_event"),
-                new RawClause(
-                        "pk NOT IN (SELECT fk_categorie FROM veraweb.tperson_categorie WHERE fk_person = " + person.id + ")"));
+          Expr.isNull("fk_event"),
+          new RawClause(
+            "pk NOT IN (SELECT fk_categorie FROM veraweb.tperson_categorie WHERE fk_person = " + person.id + ")"));
 
         Integer eventId = cntx.requestAsInteger("eventId");
         if (eventId.intValue() == 0) {
@@ -236,8 +236,8 @@ public class CategorieWorker extends StammdatenWorker {
         }
         if (eventId != null) {
             clause = Where.or(
-                    Expr.isNull("fk_event"),
-                    Expr.equal("fk_event", eventId)
+              Expr.isNull("fk_event"),
+              Expr.equal("fk_event", eventId)
             );
         }
 
@@ -291,7 +291,7 @@ public class CategorieWorker extends StammdatenWorker {
 
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
             if (bean instanceof Categorie) {
@@ -307,7 +307,7 @@ public class CategorieWorker extends StammdatenWorker {
 
                 List groups = Arrays.asList(cntx.personalConfig().getUserGroups());
                 boolean admin =
-                        groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
+                  groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
 
                 if (exist.intValue() != 0) {
 
@@ -316,7 +316,7 @@ public class CategorieWorker extends StammdatenWorker {
 
                     cntx.getContentObject().setField("beanToAdd", bean);
                     errors.add(languageProvider.getProperty("CATEGORY_DETAIL_ALREADY_EXISTS").toString() + bean.getField("name") +
-                            "'.");
+                      "'.");
                 } else if (admin && !cntx.requestAsBoolean("questionConfirmed").booleanValue()) {
                     cntx.getContentObject().setField("beanToAdd", bean);
                     cntx.getContentObject().setField("resortQuestion", true);
@@ -342,15 +342,15 @@ public class CategorieWorker extends StammdatenWorker {
      * @throws BeanException bean exception
      */
     protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext transactionContext)
-            throws BeanException {
+      throws BeanException {
         assert bean != null;
         assert cntx != null;
 
         if (bean.rank != null) {
             transactionContext.execute(SQL.Update(transactionContext.getDatabase()).
-                    table("veraweb.tcategorie").
-                    update("rank", new RawClause("rank + 1")).
-                    where(Expr.greaterOrEqual("rank", bean.rank)));
+              table("veraweb.tcategorie").
+              update("rank", new RawClause("rank + 1")).
+              where(Expr.greaterOrEqual("rank", bean.rank)));
             transactionContext.commit();
         }
     }
@@ -368,15 +368,15 @@ public class CategorieWorker extends StammdatenWorker {
 
     @Override
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext transactionContext)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = super.removeSelection(cntx, errors, selection, transactionContext);
 
         // now remove all stale person category assignments
         transactionContext.execute(
-                SQL.Delete(transactionContext.getDatabase()).
-                        from("veraweb.tperson_categorie").
-                        where(new RawClause("fk_categorie NOT IN (" +
-                                "SELECT pk FROM veraweb.tcategorie)")));
+          SQL.Delete(transactionContext.getDatabase()).
+            from("veraweb.tperson_categorie").
+            where(new RawClause("fk_categorie NOT IN (" +
+              "SELECT pk FROM veraweb.tcategorie)")));
         transactionContext.commit();
 
         return count;

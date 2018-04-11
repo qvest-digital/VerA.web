@@ -169,7 +169,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb {
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 
             cntx.setContent("noLogDataAvailableMessage",
-                    languageProvider.getProperty("CHANGELOG_NO_PROTOCOL_AVAILABLE").toString());
+              languageProvider.getProperty("CHANGELOG_NO_PROTOCOL_AVAILABLE").toString());
         }
     }
 
@@ -185,7 +185,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb {
     @Override
     @SuppressWarnings("unchecked")
     protected void extendWhere(OctopusContext cntx, Select select)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         Map<String, Object> map = (Map<String, Object>) cntx.sessionAsObject("changeLogReportSettings");
         Date begin = (Date) map.get("begin");
         Date end = (Date) map.get("end");
@@ -200,7 +200,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void extendColumns(OctopusContext cntx, Select select)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         if (cntx.requestContains("order")) {
             String order = cntx.requestAsString("order");
             if ("name".equals(order)) {
@@ -215,7 +215,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void extendAll(OctopusContext cntx, Select select)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         Clause clause = getWhere();
         if (clause != null) {
             select.where(clause);
@@ -223,7 +223,7 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb {
     }
 
     protected Clause getWhere()
-            throws BeanException {
+      throws BeanException {
         Clause clause = null;
         return clause;
     }

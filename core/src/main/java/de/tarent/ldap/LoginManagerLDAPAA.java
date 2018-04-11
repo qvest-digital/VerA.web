@@ -216,9 +216,9 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         params.put(LDAPManager.KEY_USER_OBJECT_CLASS, getConfigurationString(LoginManagerLDAPGeneric.KEY_USER_OBJECT_CLASS));
         params.put(LDAPManager.KEY_RECURSIVE_LOOKUPS, getConfigurationString(LoginManagerLDAPGeneric.KEY_RECURSIVE_LOOKUPS));
         ldapManager = LDAPManager.login(
-                LDAPManagerAA.class,
-                getConfigurationString(TcEnv.KEY_LDAP_URL),
-                params
+          LDAPManagerAA.class,
+          getConfigurationString(TcEnv.KEY_LDAP_URL),
+          params
         );
     }
 
@@ -300,7 +300,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 while (itRoles.hasNext()) {
                     try {
                         PasswordAuthentication newAuth =
-                                new PasswordAuthentication(itRoles.next().toString(), origAuth.getPassword());
+                          new PasswordAuthentication(itRoles.next().toString(), origAuth.getPassword());
                         tcRequest.setPasswordAuthentication(newAuth);
                         super.doLogin(commonConfig, pConfig, tcRequest);
                         pConfig.setUserLogin(origAuth.getUserName());
@@ -322,15 +322,15 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                                 }
                                 aaConfig.setRoles(null);
                                 logger.fine(
-                                        "Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle = " + aaConfig.getRole() +
-                                                ", Rollen nicht ermittelt");
+                                  "Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle = " + aaConfig.getRole() +
+                                    ", Rollen nicht ermittelt");
                                 break;
                             default:
                                 aaConfig.setRole(null);
                                 aaConfig.setRoles(new ArrayList(authorizedRoles));
                                 logger.fine("Login mittelbar: Login = " + origAuth.getUserName() +
-                                        ", Rolle nicht ermittelt, Rollen = " +
-                                        aaConfig.getRoles());
+                                  ", Rolle nicht ermittelt, Rollen = " +
+                                  aaConfig.getRoles());
                             }
                             fillInUserGroups(commonConfig, aaConfig, tcRequest);
                         }
@@ -400,8 +400,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         String systemLogin = getConfigurationString(KEY_SYSTEM_ADMIN_LOGIN);
         String systemPassword = getConfigurationString(KEY_SYSTEM_ADMIN_PASSWORD);
         return pwdAuth != null &&
-                systemLogin != null && systemLogin.equals(pwdAuth.getUserName()) &&
-                pwdAuth.getPassword() != null && new String(pwdAuth.getPassword()).equals(systemPassword);
+          systemLogin != null && systemLogin.equals(pwdAuth.getUserName()) &&
+          pwdAuth.getPassword() != null && new String(pwdAuth.getPassword()).equals(systemPassword);
     }
 
     /**
@@ -420,14 +420,14 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         }
         Collection result = new ArrayList(roles.size());
         OctopusContext cntx = new TcAll(tcRequest, new TcContent(),
-                new TcConfig(commonConfig, pConfig, tcRequest.getModule()));
+          new TcConfig(commonConfig, pConfig, tcRequest.getModule()));
         Database database = new DatabaseVeraWeb(cntx);
         Iterator itRoles = roles.iterator();
         while (itRoles.hasNext()) {
             String role = safeFirstToString(itRoles.next());
             try {
                 User user = (User) database.getBean("User",
-                        database.getSelect("User").where(Expr.equal("username", role)));
+                  database.getSelect("User").where(Expr.equal("username", role)));
                 if (user != null) {
                     result.add(role);
                 }
@@ -455,16 +455,16 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         if (pConfig.getRole() == null || pConfig.getRole().length() == 0) {
             List aaRoles = pConfig.getRoles();
             String group = (aaRoles != null && aaRoles.size() > 0) ?
-                    PersonalConfigAA.GROUP_UNCLEAR_ROLE : PersonalConfigAA.GROUP_UNAUTHORIZED;
+              PersonalConfigAA.GROUP_UNCLEAR_ROLE : PersonalConfigAA.GROUP_UNAUTHORIZED;
             pConfig.setUserGroups(new String[] { group });
         } else {
             OctopusContext cntx = new TcAll(tcRequest, new TcContent(),
-                    new TcConfig(commonConfig, pConfig, tcRequest.getModule()));
+              new TcConfig(commonConfig, pConfig, tcRequest.getModule()));
             Database database = new DatabaseVeraWeb(cntx);
             List groups = new ArrayList();
             try {
                 User user = (User) database.getBean("User",
-                        database.getSelect("User").where(Expr.equal("username", pConfig.getRole())));
+                  database.getSelect("User").where(Expr.equal("username", pConfig.getRole())));
                 if (user != null) {
                     pConfig.setVerawebId(user.id);
                     pConfig.setOrgUnitId(user.orgunit != null ? user.orgunit : new Integer(-1));

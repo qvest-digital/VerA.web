@@ -76,7 +76,7 @@ public class XMLEncoderConverter extends AbstractConverter {
     public Object doConversion(Object sourceData) throws IllegalArgumentException {
         if (sourceData != null && !sourceClass.isAssignableFrom(sourceData.getClass())) {
             throw new IllegalArgumentException(
-                    "Source data is not instance of " + sourceClass + " (" + sourceData.getClass() + ")");
+              "Source data is not instance of " + sourceClass + " (" + sourceData.getClass() + ")");
         }
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

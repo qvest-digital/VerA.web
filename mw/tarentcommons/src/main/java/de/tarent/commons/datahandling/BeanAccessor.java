@@ -112,8 +112,8 @@ public class BeanAccessor {
     public String getPropertyName(String methodName, int prefixLength) {
         if (methodName.length() > prefixLength) {
             return
-                    methodName.substring(prefixLength, prefixLength + 1).toLowerCase() +
-                            methodName.substring(prefixLength + 1);
+              methodName.substring(prefixLength, prefixLength + 1).toLowerCase() +
+                methodName.substring(prefixLength + 1);
         } else {
             return null;
         }
@@ -135,17 +135,17 @@ public class BeanAccessor {
             }
             if (invokeMethod.getParameterTypes()[0].equals(Date.class)) {
                 invokeMethod.invoke(bean, new Object[] {
-                        value == null ? null : (new VariableDateFormat()).analyzeString((String) value) });
+                  value == null ? null : (new VariableDateFormat()).analyzeString((String) value) });
             } else if (invokeMethod.getParameterTypes()[0].equals(Integer.class)) {
                 invokeMethod.invoke(bean, new Object[] {
-                        value == null ? null : new Integer(value.toString()) });
+                  value == null ? null : new Integer(value.toString()) });
             } else {
                 invokeMethod.invoke(bean, new Object[] { value });
             }
         } catch (Exception e) {
             throw new RuntimeException("Error: " +
-                    " Could not set property '" + property + "' with " +
-                    "'" + value + "' (" + value.getClass() + ").", e);
+              " Could not set property '" + property + "' with " +
+              "'" + value + "' (" + value.getClass() + ").", e);
         }
     }
 
@@ -171,7 +171,7 @@ public class BeanAccessor {
             }
         } catch (Exception e) {
             throw new RuntimeException("Fehler!" +
-                    " Konnte Property " + property + " nicht lesen.", e);
+              " Konnte Property " + property + " nicht lesen.", e);
         }
     }
 

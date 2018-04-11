@@ -150,16 +150,16 @@ public abstract class ListWorkerVeraWeb extends BeanListWorker {
         subQuery.setDistinct(false);
 
         final Select statement = SQL
-                .Select(database)
-                .setDistinct(false)
-                .selectAs("s1.letter", "letter")
-                .selectAs("min(rownum)", "rownum")
-                .from("( select upper(substring(trim(" + col + "),1,1)) as letter, row_number() over () -1 as rownum from (" +
-                        subQuery.statementToString() + " ) s0 ) ", "s1")
-                .groupBy(new GroupBy("letter"))
-                .orderBy(Order.asc("rownum"));
+          .Select(database)
+          .setDistinct(false)
+          .selectAs("s1.letter", "letter")
+          .selectAs("min(rownum)", "rownum")
+          .from("( select upper(substring(trim(" + col + "),1,1)) as letter, row_number() over () -1 as rownum from (" +
+            subQuery.statementToString() + " ) s0 ) ", "s1")
+          .groupBy(new GroupBy("letter"))
+          .orderBy(Order.asc("rownum"));
         ResultSet rs = statement
-                .getResultSet();
+          .getResultSet();
         final ArrayList<JumpOffset> offsets = new ArrayList<JumpOffset>();
         while (rs.next()) {
             offsets.add(new JumpOffset(rs.getString("letter"), rs.getInt("rownum"), start, limit));

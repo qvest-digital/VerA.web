@@ -192,7 +192,7 @@ public interface PersonalConfig extends Serializable {
      * Wenn kein Zugriff gewäht wird muss eine TcSecurityException geworfen werden.
      */
     public void testTaskAccess(TcCommonConfig config, TcRequest tcRequest)
-            throws TcSecurityException;
+      throws TcSecurityException;
 
     /**
      * @return Returns the email.

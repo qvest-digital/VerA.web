@@ -101,5 +101,4 @@ public abstract class AbstractConverter implements Converter {
      * Template method for the real conversion.
      */
     public abstract Object doConversion(Object sourceData) throws Exception;
-
 }

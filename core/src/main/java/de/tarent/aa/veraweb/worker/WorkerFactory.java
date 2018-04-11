@@ -221,10 +221,10 @@ public class WorkerFactory {
     static private Object getWorker(OctopusContext cntx, String name) {
         try {
             TcContentWorker worker = TcContentWorkerFactory.getContentWorker(
-                    cntx.moduleConfig(), name,
-                    cntx.getRequestObject().getRequestID());
+              cntx.moduleConfig(), name,
+              cntx.getRequestObject().getRequestID());
             return (worker instanceof TcReflectedWorkerWrapper) ?
-                    ((TcReflectedWorkerWrapper) worker).getWorkerDelegate() : worker;
+              ((TcReflectedWorkerWrapper) worker).getWorkerDelegate() : worker;
         } catch (WorkerCreationException e) {
         }
         return null;

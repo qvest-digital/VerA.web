@@ -98,7 +98,6 @@ public class Person {
 
     public void setGivenName(String newGivenName) {
         this.givenName = newGivenName;
-
     }
 
     public Firma getFirma() {

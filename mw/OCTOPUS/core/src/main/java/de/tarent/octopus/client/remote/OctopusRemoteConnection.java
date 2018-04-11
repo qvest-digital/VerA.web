@@ -121,7 +121,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
      * Liefert ein CallObject, dass fr den Aufruf dieses Task verwendet werden kann.
      */
     public OctopusTask getTask(String taskName)
-            throws OctopusCallException {
+      throws OctopusCallException {
         try {
             OctopusTask task = new OctopusRemoteTask(getModuleName(), taskName, this);
             if (AUTH_TYPE_CALL_PARAM.equals(getAuthType())) {
@@ -130,14 +130,13 @@ public class OctopusRemoteConnection implements OctopusConnection {
             }
 
             return task;
-
         } catch (ServiceException se) {
             throw new OctopusCallException("Error on creating OctopusRemoteTask", se);
         }
     }
 
     public OctopusResult callTask(String taskName, Map paramMap)
-            throws OctopusCallException {
+      throws OctopusCallException {
 
         OctopusTask task = getTask(taskName);
         for (Iterator iter = paramMap.keySet().iterator(); iter.hasNext(); ) {
@@ -148,22 +147,22 @@ public class OctopusRemoteConnection implements OctopusConnection {
     }
 
     public void login()
-            throws OctopusCallException {
+      throws OctopusCallException {
 
         if (userDataProvider != null) {
             loginWithUserDataProvider();
         } else {
             setIsDoingLogin(true);
             OctopusResult res = getTask(TASK_LOGIN)
-                    .add(PARAM_USERNAME, getUsername())
-                    .add(PARAM_PASSWORD, getPassword())
-                    .invoke();
+              .add(PARAM_USERNAME, getUsername())
+              .add(PARAM_PASSWORD, getPassword())
+              .invoke();
 
             Object newServiceURL = res.getData("url");
             if (!(newServiceURL instanceof String)) {
                 setIsDoingLogin(false);
                 throw new OctopusCallException(OctopusConstants.SERVER_ERROR_PREFIX, "No service url returned by login task.",
-                        null);
+                  null);
             }
             serviceURL = (String) newServiceURL;
             if (useSessionCookie) {
@@ -195,9 +194,9 @@ public class OctopusRemoteConnection implements OctopusConnection {
             hasValidLogin = true;
             try {
                 res = getTask(TASK_LOGIN)
-                        .add(PARAM_USERNAME, username)
-                        .add(PARAM_PASSWORD, password)
-                        .invoke();
+                  .add(PARAM_USERNAME, username)
+                  .add(PARAM_PASSWORD, password)
+                  .invoke();
             } catch (OctopusCallException oce) {
                 hasValidLogin = false;
                 askForUserData = true;
@@ -234,7 +233,7 @@ public class OctopusRemoteConnection implements OctopusConnection {
      * @return true, wenn eine gltige Session aufgenommen wurde, false sonst.
      */
     public boolean continueSession()
-            throws OctopusCallException {
+      throws OctopusCallException {
 
         if (!useSessionCookie) {
             return false;
@@ -312,17 +311,17 @@ public class OctopusRemoteConnection implements OctopusConnection {
     }
 
     public void logout()
-            throws OctopusCallException {
+      throws OctopusCallException {
 
         getTask(TASK_LOGOUT)
-                .invoke();
+          .invoke();
         serviceURL = startServiceURL;
     }
 
     protected void startKeepAliveTimer() {
         if (null != keepSessionAlive
-                && keepSessionAlive.intValue() != 0
-                && keepAliveTimer == null) {
+          && keepSessionAlive.intValue() != 0
+          && keepAliveTimer == null) {
 
             keepAliveTimer = new KeepAliveTimer(this, keepSessionAlive.intValue());
         }
@@ -394,9 +393,9 @@ public class OctopusRemoteConnection implements OctopusConnection {
             // Translates service URL into a proper file name by
             // replacing illegal characters with underscores.
             sessionCookieFile = System.getProperty("user.home")
-                    + File.separator
-                    + ".octopus_sessioncookie_"
-                    + startServiceURL.replaceAll("\\\\|:|/", "_");
+              + File.separator
+              + ".octopus_sessioncookie_"
+              + startServiceURL.replaceAll("\\\\|:|/", "_");
         }
 
         return sessionCookieFile;

@@ -125,13 +125,12 @@ public class ExportResource extends AbstractResource {
         } finally {
             session.close();
         }
-
     }
 
     @GET
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId, @javax.ws.rs.core.Context UriInfo ui)
-            throws NamingException, UnsupportedEncodingException {
+      throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
@@ -169,7 +168,7 @@ public class ExportResource extends AbstractResource {
         };
 
         return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode")
-                .build();
+          .build();
     }
 
     private void addOptionalFieldsSubstitutions(@PathParam("eventId") int eventId, Map<String, String> substitutions) {

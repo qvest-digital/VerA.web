@@ -93,7 +93,7 @@ public class CsvExporter {
     private final ExtractorQueryBuilder template;
 
     public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties)
-            throws UnsupportedEncodingException {
+      throws UnsupportedEncodingException {
         extractor = new Extractor(new JdbcTemplate(source));
         io = new CsvIo(reader, writer, properties);
         template = new ExtractorQueryBuilder(loadQuery(io));

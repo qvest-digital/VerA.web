@@ -209,5 +209,4 @@ public final class StatementList extends SetDbContextImpl implements Clause {
             throw new InternalError();
         }
     }
-
 }

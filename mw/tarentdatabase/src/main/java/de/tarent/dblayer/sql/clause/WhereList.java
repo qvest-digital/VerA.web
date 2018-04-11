@@ -213,5 +213,4 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
             throw new InternalError();
         }
     }
-
 }

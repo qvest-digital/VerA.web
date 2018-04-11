@@ -89,5 +89,4 @@ public class SQLFile extends File {
     public boolean isCacheable() {
         return cacheable;
     }
-
 }

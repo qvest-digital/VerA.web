@@ -84,7 +84,7 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
      * .String)
      */
     public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
-            TcRequest request) throws ResponseProcessingException {
+      TcRequest request) throws ResponseProcessingException {
         String contentType = theContent.getAsString("responseParams.ContentType");
         if (contentType == null) {
             tcResponse.setContentType("text/xml");
@@ -128,7 +128,7 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
             tcResponse.getOutputStream().write(bytes);
         } catch (Exception e) {
             logger.error("Versuche, eine XML-RPC-Fault auszugeben.",
-                    e);
+              e);
             try {
                 XmlRpcBuffer buffer = new XmlRpcBuffer();
                 buffer.appendError(0, "Fehler beim Schreiben der SOAP-Antwort: " + e.getMessage());
@@ -138,8 +138,8 @@ public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEn
                 tcResponse.getOutputStream().write(bytes);
             } catch (Exception e2) {
                 logger.error(
-                        "Es konnte auch keine XML-RPC Fehlermeldung ausgegeben werden. Schmeiße jetzt einfach eine Exception.",
-                        e2);
+                  "Es konnte auch keine XML-RPC Fehlermeldung ausgegeben werden. Schmeiße jetzt einfach eine Exception.",
+                  e2);
                 throw new ResponseProcessingException("Es ist Fehler bei der Formatierung der Ausgabe ausgetreten.", e);
             }
         }

@@ -76,5 +76,4 @@ public class DatabaseVeraWebFactoryMock extends DatabaseVeraWebFactory {
     public DatabaseVeraWeb createDatabaseVeraWeb(OctopusContext cntx) {
         return mock;
     }
-
 }

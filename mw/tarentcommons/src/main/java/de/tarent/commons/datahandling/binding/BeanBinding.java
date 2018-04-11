@@ -126,7 +126,7 @@ public class BeanBinding implements Binding, DataSubject {
         setMethod = Pojo.getSetMethod(viewComponent, viewAttributeKey, true);
         if (setMethod == null) {
             throw new IllegalArgumentException(
-                    "No method setter method found for binding '" + this + "' in class '" + viewComponent.getClass() + "'");
+              "No method setter method found for binding '" + this + "' in class '" + viewComponent.getClass() + "'");
         }
         if (getMethod == null) {
             readOnly = true;
@@ -148,7 +148,7 @@ public class BeanBinding implements Binding, DataSubject {
         } else if (viewComponent instanceof JRadioButton) {
             ((JRadioButton) viewComponent).addChangeListener(new ChangeListenerAdapter(this));
         } else if (viewComponent instanceof JComboBox &&
-                (("selectedItem".equalsIgnoreCase(viewAttributeKey) || "selectedIndex".equalsIgnoreCase(viewAttributeKey)))) {
+          (("selectedItem".equalsIgnoreCase(viewAttributeKey) || "selectedIndex".equalsIgnoreCase(viewAttributeKey)))) {
             ((JComboBox) viewComponent).addActionListener(new ActionListenerAdapter(this));
         }
     }
@@ -286,12 +286,12 @@ public class BeanBinding implements Binding, DataSubject {
         String notRo = readOnly ? "" : ">";
 
         return "("
-                + viewComponent.getClass().getName()
-                + ":"
-                + viewAttributeKey
-                + " <" + writeTo + notRo + " model:"
-                + modelAttributeKey
-                + ")";
+          + viewComponent.getClass().getName()
+          + ":"
+          + viewAttributeKey
+          + " <" + writeTo + notRo + " model:"
+          + modelAttributeKey
+          + ")";
     }
 
     protected class DocumentListenerAdapter implements DocumentListener {

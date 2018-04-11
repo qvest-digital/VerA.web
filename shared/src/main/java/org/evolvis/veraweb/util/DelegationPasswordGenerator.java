@@ -86,5 +86,4 @@ public class DelegationPasswordGenerator {
     private static String extractFirstXChars(String value, int x) {
         return value.substring(0, Math.min(value.length(), x));
     }
-
 }

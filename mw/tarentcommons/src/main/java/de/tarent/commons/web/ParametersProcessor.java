@@ -87,9 +87,9 @@ public class ParametersProcessor {
     public String encodeUrl(String url, Parameters parameters) throws UnsupportedEncodingException {
 
         String newUrl =
-                url == null
-                        ? ""
-                        : url;
+          url == null
+            ? ""
+            : url;
         if (parameters != null) {
             newUrl = parameters.encodeUrl(newUrl);
         }
@@ -102,5 +102,4 @@ public class ParametersProcessor {
 
         return newUrl;
     }
-
 }

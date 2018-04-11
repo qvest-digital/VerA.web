@@ -110,9 +110,9 @@ public class MailDispatcherTest {
     public void setUp() throws NoSuchProviderException {
         transportMock = Mockito.mock(Transport.class);
         emailConfiguration = new EmailConfiguration(PARAM_HOST, PARAM_PORT, null, PARAM_USER, PARAM_PASS, "noreply@tarent.de",
-                "Subject mit Umlat ü",
-                "Plain text content mit Umlaut ü", "HTML", "resetPwSubect", "resetPwContent", "subjectResendLogin",
-                "contentResendLogin");
+          "Subject mit Umlat ü",
+          "Plain text content mit Umlaut ü", "HTML", "resetPwSubect", "resetPwContent", "subjectResendLogin",
+          "contentResendLogin");
         classToTest = new MailDispatcher(emailConfiguration);
         classToTest.setTransport(transportMock);
     }
@@ -120,7 +120,7 @@ public class MailDispatcherTest {
     @Test
     public void sendVerificationEmail() throws Exception {
         classToTest.sendVerificationEmail("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, "http://link.de",
-                emailConfiguration.getContentType());
+          emailConfiguration.getContentType());
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Address[]> receipents = ArgumentCaptor.forClass(Address[].class);

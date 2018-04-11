@@ -106,8 +106,8 @@ public class GuestSearch extends AbstractBean {
 
         if (this.category != null && !this.category.trim().equals("")) {
             where.addAnd(
-                    new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" +
-                            Escaper.escape(this.category) + "')"));
+              new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" +
+                Escaper.escape(this.category) + "')"));
         }
 
         if (this.reserve != null) {
@@ -126,43 +126,43 @@ public class GuestSearch extends AbstractBean {
             case 1:
                 // nur Offen
                 where.addAnd(new RawClause("(" +
-                        // Mit Partner
-                        "(invitationtype = 1 AND (invitationstatus IS NULL OR invitationstatus=0 OR "
-                        + "invitationstatus_p IS NULL OR invitationstatus_p=0)) OR" +
-                        // Ohne Partner
-                        "(invitationtype = 2 AND (invitationstatus IS NULL OR invitationstatus=0)) OR" +
-                        // Nur Partner
-                        "(invitationtype = 3 AND (invitationstatus_p IS NULL OR invitationstatus_p=0))" + ")"));
+                  // Mit Partner
+                  "(invitationtype = 1 AND (invitationstatus IS NULL OR invitationstatus=0 OR "
+                  + "invitationstatus_p IS NULL OR invitationstatus_p=0)) OR" +
+                  // Ohne Partner
+                  "(invitationtype = 2 AND (invitationstatus IS NULL OR invitationstatus=0)) OR" +
+                  // Nur Partner
+                  "(invitationtype = 3 AND (invitationstatus_p IS NULL OR invitationstatus_p=0))" + ")"));
                 break;
             case 2:
                 // nur Zusagen
                 where.addAnd(new RawClause("(" +
-                        // Mit Partner
-                        "(invitationtype = 1 AND (invitationstatus=1 OR invitationstatus_p=1)) OR" +
-                        // Ohne Partner
-                        "(invitationtype = 2 AND invitationstatus=1) OR" +
-                        // Nur Partner
-                        "(invitationtype = 3 AND invitationstatus_p=1)" + ")"));
+                  // Mit Partner
+                  "(invitationtype = 1 AND (invitationstatus=1 OR invitationstatus_p=1)) OR" +
+                  // Ohne Partner
+                  "(invitationtype = 2 AND invitationstatus=1) OR" +
+                  // Nur Partner
+                  "(invitationtype = 3 AND invitationstatus_p=1)" + ")"));
                 break;
             case 3:
                 // nur Absagen
                 where.addAnd(new RawClause("(" +
-                        // Mit Partner
-                        "(invitationtype = 1 AND (invitationstatus=2 OR invitationstatus_p=2)) OR" +
-                        // Ohne Partner
-                        "(invitationtype = 2 AND invitationstatus=2) OR" +
-                        // Nur Partner
-                        "(invitationtype = 3 AND invitationstatus_p=2)" + ")"));
+                  // Mit Partner
+                  "(invitationtype = 1 AND (invitationstatus=2 OR invitationstatus_p=2)) OR" +
+                  // Ohne Partner
+                  "(invitationtype = 2 AND invitationstatus=2) OR" +
+                  // Nur Partner
+                  "(invitationtype = 3 AND invitationstatus_p=2)" + ")"));
                 break;
             case 4:
                 // nur Teilnahmen
                 where.addAnd(new RawClause("(" +
-                        // Mit Partner
-                        "(invitationtype = 1 AND (invitationstatus=3 OR invitationstatus_p=3)) OR" +
-                        // Ohne Partner
-                        "(invitationtype = 2 AND invitationstatus=3) OR" +
-                        // Nur Partner
-                        "(invitationtype = 3 AND invitationstatus_p=3)" + ")"));
+                  // Mit Partner
+                  "(invitationtype = 1 AND (invitationstatus=3 OR invitationstatus_p=3)) OR" +
+                  // Ohne Partner
+                  "(invitationtype = 2 AND invitationstatus=3) OR" +
+                  // Nur Partner
+                  "(invitationtype = 3 AND invitationstatus_p=3)" + ")"));
                 break;
             }
         }
@@ -172,6 +172,5 @@ public class GuestSearch extends AbstractBean {
                 where.addAnd(Expr.like("tguest.keywords", "%" + word + "%"));
             }
         }
-
     }
 }

@@ -73,5 +73,4 @@ class KeyUnavailableException extends Exception {
     String getKeyLabel() {
         return label;
     }
-
 }

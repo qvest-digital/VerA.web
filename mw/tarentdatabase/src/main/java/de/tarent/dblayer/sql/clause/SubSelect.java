@@ -103,8 +103,8 @@ public class SubSelect extends SetDbContextImpl implements Clause, ParamHolder {
     public String clauseToString(DBContext dbContext) {
         StringBuffer buf = new StringBuffer();
         buf.append("(")
-                .append(select)
-                .append(")");
+          .append(select)
+          .append(")");
         return buf.toString();
     }
 
@@ -122,5 +122,4 @@ public class SubSelect extends SetDbContextImpl implements Clause, ParamHolder {
             throw new InternalError();
         }
     }
-
 }

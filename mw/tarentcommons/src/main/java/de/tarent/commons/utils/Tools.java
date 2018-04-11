@@ -150,8 +150,8 @@ public class Tools {
      * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
      */
     public static String iteratorToString(Iterator iterator,
-            String prefix, boolean prefixBeforeFirst,
-            String suffix, boolean suffixBehindLast) {
+      String prefix, boolean prefixBeforeFirst,
+      String suffix, boolean suffixBehindLast) {
         boolean isFirst = true;
         StringBuffer buffer = new StringBuffer();
         while (iterator.hasNext()) {
@@ -178,9 +178,9 @@ public class Tools {
      * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
      */
     public static String mapToString(Map map,
-            String prefix, boolean prefixBeforeFirst,
-            String infix,
-            String suffix, boolean suffixBehindLast) {
+      String prefix, boolean prefixBeforeFirst,
+      String infix,
+      String suffix, boolean suffixBehindLast) {
         Iterator keysIt = map.keySet().iterator();
         LinkedList keyValueList = new LinkedList();
         while (keysIt.hasNext()) {
@@ -200,8 +200,8 @@ public class Tools {
      * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
      */
     public static String arrayToString(Object[] array,
-            String prefix, boolean prefixBeforeFirst,
-            String suffix, boolean suffixBehindLast) {
+      String prefix, boolean prefixBeforeFirst,
+      String suffix, boolean suffixBehindLast) {
         return iteratorToString(new ArrayIterator(array), prefix, prefixBeforeFirst, suffix, suffixBehindLast);
     }
 
@@ -215,11 +215,10 @@ public class Tools {
      * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
      */
     public static String beanToString(Object bean,
-            String prefix, boolean prefixBeforeFirst,
-            String infix,
-            String suffix, boolean suffixBehindLast) {
+      String prefix, boolean prefixBeforeFirst,
+      String infix,
+      String suffix, boolean suffixBehindLast) {
         return mapToString((new BeanMapTransformator()).transformBeanToMap(bean), prefix, prefixBeforeFirst, infix, suffix,
-                suffixBehindLast);
+          suffixBehindLast);
     }
-
 }

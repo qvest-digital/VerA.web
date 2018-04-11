@@ -132,5 +132,4 @@ public interface Statement extends SetDbContext, ParamHolder {
      * if the same statement is used in multiple threads.</p>
      */
     public ExtPreparedStatement prepare() throws SQLException;
-
 }

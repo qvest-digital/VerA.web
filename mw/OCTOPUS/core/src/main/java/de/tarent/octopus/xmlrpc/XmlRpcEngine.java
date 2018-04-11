@@ -87,7 +87,7 @@ public class XmlRpcEngine {
      */
     public static TcRequest[] readXmlRpcRequests(InputStream inStream, int requestType, String requestID) throws TcSOAPException {
         logger.trace(XmlRpcEngine.class.getName() + " readXmlRpcRequests " +
-                new Object[] { inStream, new Integer(requestType), requestID });
+          new Object[] { inStream, new Integer(requestType), requestID });
 
         XmlRpcRequest xmlRpcRequest = null;
 

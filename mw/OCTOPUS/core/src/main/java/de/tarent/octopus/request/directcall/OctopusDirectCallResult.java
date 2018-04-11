@@ -90,7 +90,7 @@ public class OctopusDirectCallResult implements OctopusResult {
     }
 
     public void writeContent(OutputStream to)
-            throws IOException {
+      throws IOException {
         ((ByteArrayOutputStream) response.getOutputStream()).writeTo(to);
         to.flush();
     }
@@ -121,7 +121,7 @@ public class OctopusDirectCallResult implements OctopusResult {
         Object o = response.readNextResponseObject();
         if (!type.isInstance(o)) {
             throw new ClassCastException("Can not cast <" + o.getClass().getName() +
-                    "> to <" + type.getClass().getName() + ">.");
+              "> to <" + type.getClass().getName() + ">.");
         }
         return o;
     }

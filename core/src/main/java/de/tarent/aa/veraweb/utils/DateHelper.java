@@ -194,7 +194,7 @@ public class DateHelper {
      * @param octopusContext FIXME
      */
     static public void temporary_fix_translateErrormessageEN2DE(List<String> errors,
-            final OctopusContext octopusContext) {
+      final OctopusContext octopusContext) {
         List<String> found = new ArrayList<String>();
         for (String err : errors) {
             if (err != null && err.contains("is not a valid date")) {

@@ -89,7 +89,7 @@ public class OptionalFieldTypeContent extends AbstractHistoryBean {
     }
 
     public OptionalFieldTypeContent(Integer id, Integer fk_optional_field,
-            String content) {
+      String content) {
         super();
         this.id = id;
         this.fk_optional_field = fk_optional_field;
@@ -127,5 +127,4 @@ public class OptionalFieldTypeContent extends AbstractHistoryBean {
     public void setIsSelected(Boolean isSelected) {
         this.isSelected = isSelected;
     }
-
 }

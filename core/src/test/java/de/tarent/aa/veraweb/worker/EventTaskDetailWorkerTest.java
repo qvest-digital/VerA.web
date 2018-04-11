@@ -132,9 +132,9 @@ public class EventTaskDetailWorkerTest { //extends TestCase {
     private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
     private static void putTaskInContextRequest(OctopusContext cntx, String id, String title, String startdate,
-            String created, String priority, String description, String degreeofcompletion, String fk_event,
-            String changedby, String createdby, String enddate, String changed, String modified, String starttime,
-            String endtime) {
+      String created, String priority, String description, String degreeofcompletion, String fk_event,
+      String changedby, String createdby, String enddate, String changed, String modified, String starttime,
+      String endtime) {
         doReturn(id).when(cntx).requestAsObject("task-id");
         doReturn(title).when(cntx).requestAsObject("task-title");
         doReturn(startdate).when(cntx).requestAsObject("task-startdate");

@@ -78,7 +78,7 @@ public interface TcContentWorker {
      * @return String mit einem Statuscode z.B. ok oder error
      */
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
-            throws TcContentProzessException;
+      throws TcContentProzessException;
 
     /**
      * Liefert eine Beschreibgung der Actions und deren Eingabeparameter,

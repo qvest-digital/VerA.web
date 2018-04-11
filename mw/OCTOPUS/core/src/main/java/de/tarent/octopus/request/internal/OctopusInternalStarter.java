@@ -95,7 +95,7 @@ public class OctopusInternalStarter implements OctopusStarter {
      * Startet die Abarbeitung einer Anfrage
      */
     public OctopusDirectCallResult request(Map requestParams)
-            throws TcDirectCallException {
+      throws TcDirectCallException {
 
         logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START"));
 
@@ -119,6 +119,5 @@ public class OctopusInternalStarter implements OctopusStarter {
             logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
             throw new TcDirectCallException(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
         }
-
     }
 }

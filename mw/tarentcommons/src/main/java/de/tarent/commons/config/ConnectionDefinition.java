@@ -91,7 +91,6 @@ public final class ConnectionDefinition extends Base {
                 putParam(key, subNode);
             }
         }
-
     }
 
     public String get(Key key) {
@@ -155,7 +154,5 @@ public final class ConnectionDefinition extends Base {
 
             return k;
         }
-
     }
-
 }

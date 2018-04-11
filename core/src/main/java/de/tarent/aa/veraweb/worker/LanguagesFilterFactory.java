@@ -75,8 +75,8 @@ public class LanguagesFilterFactory {
     public Clause createLanguagesFilter(PersonSearch personSearch) {
         final String[] values = personSearch.languages.split("\\W+");
         final String[] columns = {
-                "languages_a_e1",
-                "languages_b_e1" };
+          "languages_a_e1",
+          "languages_b_e1" };
         Clause clause = null;
         for (String currentLanguage : values) {
             final Clause currentWhere = DatabaseHelper.getWhere("*" + currentLanguage + "*", columns);

@@ -398,9 +398,9 @@ public class HttpHelper {
      * @throws TcSOAPException
      */
     public static TcRequest[] readSoapRequests(HttpServletRequest request, int requestType, String requestID,
-            TcSOAPEngine soapEngine) throws TcSOAPException {
+      TcSOAPEngine soapEngine) throws TcSOAPException {
         logger.trace(HttpHelper.class.getName() + " readSoapRequests " +
-                new Object[] { request, new Integer(requestType), requestID, soapEngine });
+          new Object[] { request, new Integer(requestType), requestID, soapEngine });
         try {
             InputStream inStream = request.getInputStream();
 
@@ -429,9 +429,9 @@ public class HttpHelper {
      * @throws TcSOAPException
      */
     public static TcRequest[] readXmlRpcRequests(HttpServletRequest request, int requestType, String requestID)
-            throws TcSOAPException {
+      throws TcSOAPException {
         logger.trace(HttpHelper.class.getName() + " readXmlRpcRequests " +
-                new Object[] { request, new Integer(requestType), requestID });
+          new Object[] { request, new Integer(requestType), requestID });
 
         try {
             InputStream inStream = logInput(request.getInputStream(), "INFO", "HTTPHELPER_LOG_XML_RPC_INPUT");

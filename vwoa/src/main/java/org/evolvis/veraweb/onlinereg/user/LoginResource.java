@@ -157,8 +157,8 @@ public class LoginResource {
     @POST
     @Path("/login/{username}")
     public Response login(@PathParam("username") String userName, @FormParam("password") String password,
-            @FormParam("delegation") String delegation)
-            throws IOException {
+      @FormParam("delegation") String delegation)
+      throws IOException {
         if (userName == null || password == null) {
             return null;
         }
@@ -191,7 +191,7 @@ public class LoginResource {
         // we have everything. Create a hmac token and store it in a cookie.
         final String encodedToken = new HmacToken(accessToken, System.currentTimeMillis()).toString();
         final NewCookie cookie = cookie(encodedToken,
-                600 /* i dunno...ten minutes? */);
+          600 /* i dunno...ten minutes? */);
         return Response.ok(new State(userName, displayName)).cookie(cookie).build();
     }
 
@@ -292,8 +292,8 @@ public class LoginResource {
     private OsiamUserActivation getOsiamUserActivationByUsername(String username) throws IOException {
 
         final String osiamUserActivationPath =
-                resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", "byusername",
-                        username);
+          resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", "byusername",
+            username);
         return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
 
@@ -320,5 +320,4 @@ public class LoginResource {
     private <T> T readResource(String path, TypeReference<T> type) throws IOException {
         return resourceReader.readStringResource(path, type);
     }
-
 }

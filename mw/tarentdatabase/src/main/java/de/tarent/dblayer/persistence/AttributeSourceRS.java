@@ -164,5 +164,4 @@ public class AttributeSourceRS implements AttributeSource {
 
         return attributeNames;
     }
-
 }

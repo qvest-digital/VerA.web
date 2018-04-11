@@ -105,8 +105,8 @@ public class FileUploadResource extends AbstractResource {
     @POST
     @Path("/save")
     public void saveImageIntoDataSystem(@FormParam("imageStringData") String imageStringData,
-            @FormParam("extension") String extension,
-            @FormParam("imageUUID") String imgUUID) throws IOException {
+      @FormParam("extension") String extension,
+      @FormParam("imageUUID") String imgUUID) throws IOException {
 
         if (vworPropertiesReader == null) {
             vworPropertiesReader = new VworPropertiesReader();

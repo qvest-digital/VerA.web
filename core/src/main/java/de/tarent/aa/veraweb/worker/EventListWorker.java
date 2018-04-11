@@ -274,12 +274,12 @@ public class EventListWorker extends ListWorkerVeraWeb {
 
     private void extendWhereClauseByEventName(Event search, WhereList where) {
         where.addAnd(DatabaseHelper.getWhere(search.eventname, new String[] {
-                "eventname" }));
+          "eventname" }));
     }
 
     private void extendWhereClauseByShortname(Event search, WhereList where) {
         where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[] {
-                "shortname" }));
+          "shortname" }));
     }
 
     private void extendWhereClauseByHostname(Event search, WhereList where) {
@@ -289,13 +289,13 @@ public class EventListWorker extends ListWorkerVeraWeb {
     private void extendWhereClauseByBeginDate(Event search, WhereList where) {
         Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nächster tag
         where.addAnd(Where.and(
-                Expr.greaterOrEqual("datebegin", search.begin),
-                Expr.less("datebegin", nextDay)));
+          Expr.greaterOrEqual("datebegin", search.begin),
+          Expr.less("datebegin", nextDay)));
     }
 
     private void extendWhereClauseByEndDate(WhereList where) {
         final String dateClause =
-                "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
+          "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
         where.addAnd(new RawClause(dateClause));
     }
 
@@ -304,7 +304,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int removeSelection(OctopusContext octopusContext, List errors, List selectionList, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         if (selectionList == null || selectionList.size() == 0) {
             return count;
@@ -322,20 +322,20 @@ public class EventListWorker extends ListWorkerVeraWeb {
             today.set(Calendar.MINUTE, 59);
 
             Integer countOfNotExpiredEvents =
-                    database.getCount(database.getCount("Event").
-                                    where(Where.and(
-                                            Expr.in("pk", selectionList),
-                                            Where.or(
-                                                    Expr.greaterOrEqual("datebegin", today.getTime()),
-                                                    Where.and(
-                                                            Expr.less("datebegin", today.getTime()),
-                                                            Where.or(
-                                                                    Expr.isNull("dateend"),
-                                                                    Expr.greater("dateend", today.getTime())
-                                                            )
-                                                    )
-                                            ))),
-                            context);
+              database.getCount(database.getCount("Event").
+                  where(Where.and(
+                    Expr.in("pk", selectionList),
+                    Where.or(
+                      Expr.greaterOrEqual("datebegin", today.getTime()),
+                      Where.and(
+                        Expr.less("datebegin", today.getTime()),
+                        Where.or(
+                          Expr.isNull("dateend"),
+                          Expr.greater("dateend", today.getTime())
+                        )
+                      )
+                    ))),
+                context);
 
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
@@ -382,7 +382,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         final Event event = (Event) bean;
         try {
             return isEventDeletionSuccessfull(octopusContext, transactionContext, event);
@@ -392,7 +392,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     }
 
     private boolean isEventDeletionSuccessfull(OctopusContext octopusContext, TransactionContext transactionContext, Event event)
-            throws BeanException, SQLException, IOException {
+      throws BeanException, SQLException, IOException {
         final Database database = transactionContext.getDatabase();
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
         deleteOptionalFields(transactionContext, database, optionalFieldsWorker, event);
@@ -403,8 +403,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
     }
 
     private void deleteOptionalFields(TransactionContext transactionContext, Database database,
-            OptionalFieldsWorker optionalFieldsWorker,
-            Event event) throws BeanException, SQLException {
+      OptionalFieldsWorker optionalFieldsWorker,
+      Event event) throws BeanException, SQLException {
         final List<OptionalField> optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(event.id);
         for (OptionalField optionalField : optionalFields) {
             executeOptionalFieldsDeletion(transactionContext, database, optionalField);
@@ -412,7 +412,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     }
 
     private boolean deleteLogEntriesForEvent(OctopusContext octopusContext, TransactionContext transactionContext, Event event)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         boolean result = super.removeBean(octopusContext, event, transactionContext);
         if (result) {
             final Database database = transactionContext.getDatabase();
@@ -424,32 +424,32 @@ public class EventListWorker extends ListWorkerVeraWeb {
 
     private void deleteGuests(TransactionContext transactionContext, Database database, Event event) throws BeanException {
         transactionContext.execute(
-                SQL.Delete(database).
-                        from("veraweb.tguest").
-                        where(Expr.equal("fk_event", event.id)));
+          SQL.Delete(database).
+            from("veraweb.tguest").
+            where(Expr.equal("fk_event", event.id)));
     }
 
     private void deleteEventTasks(TransactionContext transactionContext, Database database, Event event) throws BeanException {
         transactionContext.execute(
-                SQL.Delete(database)
-                        .from("veraweb.ttask")
-                        .where(Expr.equal("fk_event", event.id))
+          SQL.Delete(database)
+            .from("veraweb.ttask")
+            .where(Expr.equal("fk_event", event.id))
         );
     }
 
     private void executeOptionalFieldsDeletion(TransactionContext transactionContext, Database database,
-            OptionalField optionalField)
-            throws BeanException {
+      OptionalField optionalField)
+      throws BeanException {
         transactionContext.execute(
-                SQL.Delete(database)
-                        .from("veraweb.toptional_fields_delegation_content")
-                        .where(new Where("fk_delegation_field", optionalField.getId(), "="))
+          SQL.Delete(database)
+            .from("veraweb.toptional_fields_delegation_content")
+            .where(new Where("fk_delegation_field", optionalField.getId(), "="))
         );
 
         transactionContext.execute(
-                SQL.Delete(database)
-                        .from("veraweb.toptional_fields")
-                        .where(new Where("pk", optionalField.getId(), "="))
+          SQL.Delete(database)
+            .from("veraweb.toptional_fields")
+            .where(new Where("pk", optionalField.getId(), "="))
         );
     }
 

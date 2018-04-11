@@ -78,5 +78,4 @@ public interface EntityList {
     public boolean contains(Object entity);
 
     public void clear();
-
 }

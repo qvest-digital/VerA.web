@@ -54,5 +54,4 @@ public interface LookupContext {
     public Object getEntity(Object entityID, String entityType);
 
     public void registerEntity(Object entityID, String entityType, Object entity);
-
 }

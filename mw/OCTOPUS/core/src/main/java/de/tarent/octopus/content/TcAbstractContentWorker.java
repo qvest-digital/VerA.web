@@ -69,7 +69,7 @@ public abstract class TcAbstractContentWorker implements TcContentWorker {
     private TcCommonConfig commonConfig;
 
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
-            throws TcContentProzessException {
+      throws TcContentProzessException {
 
         if (commonConfig == null) {
             commonConfig = tcConfig.getCommonConfig();
@@ -90,7 +90,7 @@ public abstract class TcAbstractContentWorker implements TcContentWorker {
             result = RESULT_ok;
         } catch (NoSuchMethodException e) {
             throw new TcContentProzessException(
-                    "Nicht unterstützte Action im Worker '" + workerClass.getName() + "': " + actionName);
+              "Nicht unterstützte Action im Worker '" + workerClass.getName() + "': " + actionName);
         } catch (IllegalAccessException e) {
             logger.error("Fehler im Worker '" + workerClass.getName() + "'", e);
             throw new TcContentProzessException(e);

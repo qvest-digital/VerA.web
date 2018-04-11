@@ -157,5 +157,4 @@ public class ActionWorker {
         cntx.setContent(ONLINEREG_ACTIVATION, OnlineRegistrationHelper.isOnlineregActive(cntx));
         cntx.setContent(ONLINEREG_MANDANT_DEACTIVATION, OnlineRegistrationHelper.getDeactivatedMandantsAsArray(cntx));
     }
-
 }

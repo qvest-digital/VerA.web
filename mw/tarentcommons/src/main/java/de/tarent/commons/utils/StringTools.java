@@ -79,7 +79,7 @@ public class StringTools {
             return s;
         } else {
             return Character.toUpperCase(s.charAt(0)) +
-                    s.substring(1);
+              s.substring(1);
         }
     }
 
@@ -96,7 +96,7 @@ public class StringTools {
             return s;
         } else {
             return Character.toLowerCase(s.charAt(0)) +
-                    s.substring(1);
+              s.substring(1);
         }
     }
 
@@ -136,5 +136,4 @@ public class StringTools {
     public static String md5(String input) throws NoSuchAlgorithmException {
         return digest(input, "MD5");
     }
-
 }

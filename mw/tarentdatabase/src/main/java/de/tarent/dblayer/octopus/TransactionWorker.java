@@ -129,7 +129,7 @@ public class TransactionWorker extends ConnectionWorker {
                         if (!connection.isClosed()) {
                             if (logger.isWarnEnabled()) {
                                 logger.warn("Transaction is not closed until octopus cleanup mechanism is called." +
-                                        " Will know automatically ROLLBACK this transaction!");
+                                  " Will know automatically ROLLBACK this transaction!");
                             }
                             connection.rollback();
                             connection.close();
@@ -142,9 +142,9 @@ public class TransactionWorker extends ConnectionWorker {
         } else {
             if (logger.isDebugEnabled()) {
                 logger.debug("Can not add transaction to octopus cleanup." +
-                        connection == null ?
-                        " No transaction available (null)." :
-                        " Transaction already closed.");
+                  connection == null ?
+                  " No transaction available (null)." :
+                  " Transaction already closed.");
             }
         }
     }
@@ -176,9 +176,9 @@ public class TransactionWorker extends ConnectionWorker {
         } else {
             if (logger.isDebugEnabled()) {
                 logger.debug("Can not commit transaction." +
-                        connection == null ?
-                        " No transaction available (null)." :
-                        " Transaction already closed.");
+                  connection == null ?
+                  " No transaction available (null)." :
+                  " Transaction already closed.");
             }
         }
     }
@@ -210,9 +210,9 @@ public class TransactionWorker extends ConnectionWorker {
         } else {
             if (logger.isDebugEnabled()) {
                 logger.debug("Can not rollback transaction." +
-                        connection == null ?
-                        " No transaction available (null)." :
-                        " Transaction already closed.");
+                  connection == null ?
+                  " No transaction available (null)." :
+                  " Transaction already closed.");
             }
         }
     }

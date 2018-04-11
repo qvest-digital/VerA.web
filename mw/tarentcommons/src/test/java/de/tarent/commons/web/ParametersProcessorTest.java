@@ -97,5 +97,4 @@ public class ParametersProcessorTest extends TestCase {
         proc.addCommonParameters(params1);
         assertEquals("Problems with common parameters", "test?a=b", proc.encodeUrl("test", null));
     }
-
 }

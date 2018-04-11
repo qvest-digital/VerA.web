@@ -121,9 +121,9 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
         select.where(Where.and(
-                Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()), Where.and(
-                        Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-                        Expr.equal("iscompany", PersonConstants.ISCOMPANY_TRUE))));
+          Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()), Where.and(
+            Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+            Expr.equal("iscompany", PersonConstants.ISCOMPANY_TRUE))));
     }
 
     @Override
@@ -136,9 +136,9 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
         Database database = getDatabase(cntx);
 
         Where where = Where.and(
-                Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()), Where.and(
-                        Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-                        Expr.equal("iscompany", PersonConstants.ISCOMPANY_TRUE)));
+          Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()), Where.and(
+            Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+            Expr.equal("iscompany", PersonConstants.ISCOMPANY_TRUE)));
 
         StringBuffer buffer = new StringBuffer();
         buffer.append("(");
@@ -184,9 +184,9 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 
         Person person = (Person) request.getBean("Person", "person");
         Person personcompany = (Person)
-                database.getBean("Person",
-                        database.getSelect(person).
-                                where(Expr.equal("pk", company)));
+          database.getBean("Person",
+            database.getSelect(person).
+              where(Expr.equal("pk", company)));
         if (personcompany == null) {
             personcompany = new Person();
         }

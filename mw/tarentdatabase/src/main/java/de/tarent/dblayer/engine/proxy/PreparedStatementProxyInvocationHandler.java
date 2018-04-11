@@ -64,7 +64,7 @@ public class PreparedStatementProxyInvocationHandler extends StatementProxyInvoc
         String methodName = method.getName();
         if ("executeQuery".equals(methodName)) {
             result = Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { ResultSet.class },
-                    new ResultSetProxyInvocationHandler(((PreparedStatement) this.statement).executeQuery()));
+              new ResultSetProxyInvocationHandler(((PreparedStatement) this.statement).executeQuery()));
         } else {
             result = super.invoke(proxy, method, args);
         }

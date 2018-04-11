@@ -229,7 +229,5 @@ class Base {
         public final String toString() {
             return label;
         }
-
     }
-
 }

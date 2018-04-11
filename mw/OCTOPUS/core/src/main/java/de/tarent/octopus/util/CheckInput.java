@@ -92,21 +92,21 @@ public class CheckInput {
     /* EMail */
     public static String IT_EMail = new String("EMail");
     private static String ID_EMail =
-            new String("Eine gültige EMail-Adresse hat folgendes Format: adressad@Domain.TopDomain");
+      new String("Eine gültige EMail-Adresse hat folgendes Format: adressad@Domain.TopDomain");
     private static Pattern IP_EMail = Pattern.compile("[A-Za-z]*@[A-Za-z]*.[A-Za-z]{2,3}");
     /* Vorname */
     public static String IT_Vorname = new String("Vorname");
     private static String ID_Vorname =
-            new String(
-                    "Eine gültiger Vorname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste " +
-                            "Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
+      new String(
+        "Eine gültiger Vorname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste " +
+          "Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
     private static Pattern IP_Vorname = Pattern.compile("[A-Z][a-z]{1,29}");
     /* Nachname */
     public static String IT_Nachname = new String("Nachname");
     private static String ID_Nachname =
-            new String(
-                    "Eine gültiger Nachname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste " +
-                            "Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
+      new String(
+        "Eine gültiger Nachname besteht aus Buchstaben mit der maximalen \n länge von 30 Zeichen. \n Der erste " +
+          "Buchstabe ist ein Großbuchstabe alle folgenden werden klein geschrieben.");
     private static Pattern IP_Nachname = Pattern.compile("[A-Z][a-z]{1,29}");
     /* PLZ */
     public static String IT_PLZ = new String("PLZ");
@@ -170,7 +170,6 @@ public class CheckInput {
         } else {
             return result;
         }
-
     }
 
     /**

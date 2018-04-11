@@ -181,5 +181,4 @@ public class BeanMapTest extends TestCase {
     public void testGetIgnoreCase() {
         assertEquals("Wrong attribute value", "anAttributeValue", aBeanMap.getIgnoreCase("ANaTTRIBUTE"));
     }
-
 }

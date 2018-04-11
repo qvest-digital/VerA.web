@@ -69,5 +69,4 @@ public @interface ForeignKey {
      * the bean which is referenced
      */
     Class bean();
-
 }

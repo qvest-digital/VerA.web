@@ -216,7 +216,7 @@ public class TcPortDefinition {
      * @throws WSDLException Ausnahmen, die in WSDL4J aufkommen
      */
     public Definition getWsdlDefinition(boolean includeCredentials, String tns, String prefix, String locationUri)
-            throws WSDLException {
+      throws WSDLException {
         WSDLFactory factory = WSDLFactory.newInstance();
         Definition def = factory.newDefinition();
 
@@ -250,10 +250,10 @@ public class TcPortDefinition {
             TcOperationDefinition octopusOperation = (TcOperationDefinition) itOperations.next();
 
             Message inputMessage = createInputMessage(def, tns, octopusOperation.getName(), octopusOperation.getInputMessage(),
-                    includeCredentials);
+              includeCredentials);
             def.addMessage(inputMessage);
             Message outputMessage =
-                    createOutputMessage(def, tns, octopusOperation.getName(), octopusOperation.getOutputMessage());
+              createOutputMessage(def, tns, octopusOperation.getName(), octopusOperation.getOutputMessage());
             def.addMessage(outputMessage);
 
             Input input = createInput(def, inputMessage);
@@ -303,7 +303,7 @@ public class TcPortDefinition {
     }
 
     protected Message createInputMessage(Definition def, String tns, String operationName, TcMessageDefinition octopusMessage,
-            boolean includeCredentials) {
+      boolean includeCredentials) {
         Message message = def.createMessage();
         message.setQName(new QName(tns, operationName + WSDL_INPUT_MESSAGE_POSTFIX));
         List octopusParts = octopusMessage.getParts();
@@ -373,7 +373,7 @@ public class TcPortDefinition {
     }
 
     protected BindingOperation createBindingOperation(Definition def, String namespaceURI, Input input, Output output,
-            Operation operation) {
+      Operation operation) {
         BindingOperation bindingOperation = def.createBindingOperation();
 
         BindingInput bindingInput = def.createBindingInput();

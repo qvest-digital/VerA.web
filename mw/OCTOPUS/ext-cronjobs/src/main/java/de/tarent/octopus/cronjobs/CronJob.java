@@ -144,7 +144,7 @@ public abstract class CronJob implements Runnable {
                         m[i].invoke(runnableObject, new Object[] { properties.get(parameterName) });
                     } catch (Exception e) {
                         runOnError("An Error occured while trying to invoke method " + m[i].getName() + " on object " +
-                                runnableObject.getClass(), e);
+                          runnableObject.getClass(), e);
                     }
                 }
             } else if (methodname.equals("setProperties") && params.length == 1 && params[0].equals(Properties.class)) {
@@ -154,14 +154,14 @@ public abstract class CronJob implements Runnable {
                     m[i].invoke(runnableObject, new Object[] { properties });
                 } catch (Exception e) {
                     runOnError("An Error occured while trying to invoke method " + m[i].getName() + " on object " +
-                            runnableObject.getClass(), e);
+                      runnableObject.getClass(), e);
                 }
             } else if (methodname.equals("setProperties") && params.length == 1 && params[0].equals(Map.class)) {
                 try {
                     m[i].invoke(runnableObject, new Object[] { Collections.unmodifiableMap(this.properties) });
                 } catch (Exception e) {
                     runOnError("An Error occured while trying to invoke method " + m[i].getName() + " on object " +
-                            runnableObject.getClass(), e);
+                      runnableObject.getClass(), e);
                 }
             }
         }
@@ -220,7 +220,7 @@ public abstract class CronJob implements Runnable {
                     if ((lastTry.getTime() - startDate.getTime()) > maxTimeToWait) {
                         executionThread.interrupt();
                         logger.log(Level.WARNING, "Waiting time expired. Current instance of " + getName() +
-                                "will be interrupted and new instance will be started.");
+                          "will be interrupted and new instance will be started.");
                         break;
                     }
                     try {
@@ -313,13 +313,12 @@ public abstract class CronJob implements Runnable {
                     }
                     if (!methodRunStarted) {
                         errorMsg +=
-                                "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure +
-                                        ".\n No run-method found.";
+                          "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure +
+                            ".\n No run-method found.";
                     }
-
                 } catch (Exception exp) {
                     errorMsg += "\n An Error occured while trying to invoke run-method of the error procedure " + errorProcedure +
-                            ". ";
+                      ". ";
                     StringWriter sw2 = new StringWriter();
                     exp.printStackTrace(new PrintWriter(sw2));
                     String stacktrace2 = sw2.toString();

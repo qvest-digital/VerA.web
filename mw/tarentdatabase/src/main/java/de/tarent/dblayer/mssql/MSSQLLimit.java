@@ -78,5 +78,4 @@ public class MSSQLLimit extends Limit {
             throw new RuntimeException("Offsets other than zero are not supportet on MSSQL.");
         }
     }
-
 }

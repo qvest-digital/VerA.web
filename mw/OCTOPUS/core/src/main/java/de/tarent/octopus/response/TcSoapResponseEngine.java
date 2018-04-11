@@ -81,8 +81,8 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
     }
 
     public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
-            TcRequest request)
-            throws ResponseProcessingException {
+      TcRequest request)
+      throws ResponseProcessingException {
 
         TcSOAPEngine engine = tcResponse.getSoapEngine();
 
@@ -122,11 +122,11 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
             rpcResponse.writeTo(tcResponse.getOutputStream());
         } catch (Exception e) {
             logger.error("Versuche, eine SOAP-Fault auszugeben.",
-                    e);
+              e);
 
             TcSOAPException soapException;
             if (config.getModuleConfig().getParam(TcEnv.KEY_RESPONSE_ERROR_LEVEL)
-                    .equals(TcEnv.VALUE_RESPONSE_ERROR_LEVEL_DEVELOPMENT)) {
+              .equals(TcEnv.VALUE_RESPONSE_ERROR_LEVEL_DEVELOPMENT)) {
                 soapException = new TcSOAPException(e);
             } else {
                 soapException = new TcSOAPException(Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"));
@@ -136,7 +136,7 @@ public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngi
                 soapException.writeTo(tcResponse.getOutputStream());
             } catch (Exception e2) {
                 logger.error("Es konnte auch keine SOAP Fehlermeldung ausgegeben werden. Schmeiße jetzt einfach eine Exception.",
-                        e2);
+                  e2);
                 throw new ResponseProcessingException("Es ist Fehler bei der Formatierung der Ausgabe ausgetreten.", e);
             }
         }

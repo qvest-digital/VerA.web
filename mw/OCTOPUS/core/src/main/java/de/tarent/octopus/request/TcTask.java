@@ -264,7 +264,7 @@ public class TcTask {
                         errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_INPUT", getName(), inPart.getName()));
                     } else if (!isSubTypeOf(conPart.getPartDataType(), inPart.getPartDataType())) {
                         errors.add(Resources.getInstance()
-                                .get("TASK_ERROR_CONTRACT_INCOMPATIBLE_INPUT", getName(), inPart.getName()));
+                          .get("TASK_ERROR_CONTRACT_INCOMPATIBLE_INPUT", getName(), inPart.getName()));
                     }
                 }
             }
@@ -281,10 +281,10 @@ public class TcTask {
                     TcMessageDefinitionPart outPart = (TcMessageDefinitionPart) taskMap.get(conPart.getName());
                     if (outPart == null || outPart.isOptional()) {
                         errors.add(
-                                Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_OUTPUT", getName(), conPart.getName()));
+                          Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_OUTPUT", getName(), conPart.getName()));
                     } else if (!isSubTypeOf(outPart.getPartDataType(), conPart.getPartDataType())) {
                         errors.add(Resources.getInstance()
-                                .get("TASK_ERROR_CONTRACT_INCOMPATIBLE_OUTPUT", getName(), conPart.getName()));
+                          .get("TASK_ERROR_CONTRACT_INCOMPATIBLE_OUTPUT", getName(), conPart.getName()));
                     }
                 }
             }
@@ -406,9 +406,9 @@ public class TcTask {
          * Selbstständiges Ausführen der Aktionen dieser TaskNode
          */
         protected void perform(TcTaskManager manager, OctopusContext context)
-                throws TcTaskProzessingException, TcContentProzessException {
+          throws TcTaskProzessingException, TcContentProzessException {
             logger.debug(Resources.getInstance()
-                    .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), this.getClass().getName()));
+              .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), this.getClass().getName()));
         }
 
         public TcMessageDefinition out(TcMessageDefinition out) {
@@ -559,19 +559,19 @@ public class TcTask {
         }
 
         protected void perform(TcTaskManager manager, OctopusContext context)
-                throws TcTaskProzessingException, TcContentProzessException {
+          throws TcTaskProzessingException, TcContentProzessException {
             String requestID = context.getRequestObject().getRequestID();
             logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", requestID, "ActionNode",
-                    "do action action=" + name + " with worker=" + worker));
+              "do action action=" + name + " with worker=" + worker));
             try {
                 TcContentWorker workerInstance =
-                        TcContentWorkerFactory.getContentWorker(context.moduleConfig(), worker, requestID);
+                  TcContentWorkerFactory.getContentWorker(context.moduleConfig(), worker, requestID);
                 String status = workerInstance
-                        .doAction(context.getConfigObject(), name, context.getRequestObject(), context.getContentObject());
+                  .doAction(context.getConfigObject(), name, context.getRequestObject(), context.getContentObject());
                 manager.setStatus(status);
                 logger.debug(Resources.getInstance()
-                        .get("TASK_LOG_WORKER_CALLED",
-                                new Object[] { requestID, status, name, worker, workerInstance.getVersion() }));
+                  .get("TASK_LOG_WORKER_CALLED",
+                    new Object[] { requestID, status, name, worker, workerInstance.getVersion() }));
             } catch (TcContentProzessException cpe) {
                 throw cpe;
             } catch (Exception e) {
@@ -607,14 +607,14 @@ public class TcTask {
                     TcPortDefinition port = workerObject.getWorkerDefinition();
                     if (port == null) {
                         out.add(Resources.getInstance().get("TASK_ERROR_WORKER_NO_PORT",
-                                new Object[] { name, worker, workerClassName, workerObject.getVersion() }));
+                          new Object[] { name, worker, workerClassName, workerObject.getVersion() }));
                     } else if (port.getOperation(name) == null) {
                         out.add(Resources.getInstance().get("TASK_ERROR_WORKER_NO_ACTION",
-                                new Object[] { name, worker, workerClassName, workerObject.getVersion() }));
+                          new Object[] { name, worker, workerClassName, workerObject.getVersion() }));
                     }
                 } catch (Exception e) {
                     out.add(Resources.getInstance()
-                            .get("TASK_ERROR_WORKER_INSTANTIATION_ERROR", new Object[] { name, worker, workerClassName, e }));
+                      .get("TASK_ERROR_WORKER_INSTANTIATION_ERROR", new Object[] { name, worker, workerClassName, e }));
                 }
             }
             return out;
@@ -648,8 +648,8 @@ public class TcTask {
                         String partType = part.getPartDataType();
                         if (!isSubTypeOf(outPart.getPartDataType(), partType)) {
                             logger.warn(Resources.getInstance().get("TASK_ERROR_INNER_INCOMPATIBILITY",
-                                    new Object[] { TcTask.this.getName(), name, part.getName(), partType,
-                                            outPart.getPartDataType() }));
+                              new Object[] { TcTask.this.getName(), name, part.getName(), partType,
+                                outPart.getPartDataType() }));
                         }
                     } else {
                         in.addPart(part);
@@ -706,7 +706,7 @@ public class TcTask {
 
         public String toString() {
             return Resources.getInstance()
-                    .get("TASK_STRING_ACTIONNODE", new Object[] { name, worker, workerClassName, child, next });
+              .get("TASK_STRING_ACTIONNODE", new Object[] { name, worker, workerClassName, child, next });
         }
     }
 
@@ -780,7 +780,6 @@ public class TcTask {
         public String toString() {
             return Resources.getInstance().get("TASK_STRING_STATUSNODE", equalsCondition, child, next);
         }
-
     }
 
     /**
@@ -873,10 +872,10 @@ public class TcTask {
         }
 
         protected void perform(TcTaskManager manager, OctopusContext context)
-                throws TcTaskProzessingException, TcContentProzessException {
+          throws TcTaskProzessingException, TcContentProzessException {
             logger.debug(Resources.getInstance()
-                    .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ResponseNode",
-                            " type=" + type + " name=" + name));
+              .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ResponseNode",
+                " type=" + type + " name=" + name));
 
             Map mapCopy = new HashMap();
             mapCopy.putAll(paramMap);
@@ -905,11 +904,11 @@ public class TcTask {
         public TcMessageDefinition out(TcMessageDefinition out) {
             TcMessageDefinition returnDefinition;
             if (out != null && paramMap != null &&
-                    // TODO: Generische lösung ...
-                    ("soap".equalsIgnoreCase(type)
-                            || "rpc".equalsIgnoreCase(type)
-                            || "xmlrpc".equalsIgnoreCase(type))
-                    ) {
+              // TODO: Generische lösung ...
+              ("soap".equalsIgnoreCase(type)
+                || "rpc".equalsIgnoreCase(type)
+                || "xmlrpc".equalsIgnoreCase(type))
+              ) {
 
                 returnDefinition = new TcMessageDefinition();
                 Map responses = TcResponseCreator.refineOutputFields(paramMap.get("OutputFields"));
@@ -956,10 +955,10 @@ public class TcTask {
         }
 
         protected void perform(TcTaskManager manager, OctopusContext context)
-                throws TcTaskProzessingException, TcContentProzessException {
+          throws TcTaskProzessingException, TcContentProzessException {
             logger.debug(Resources.getInstance()
-                    .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ParamNode",
-                            " name=" + name + " value=" + value));
+              .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ParamNode",
+                " name=" + name + " value=" + value));
 
             // TODO: Die Params müssten eigentlich rekursiv durchlaufen werden um alle darinliegenden ParamReference auf
             // auflösen zu können
@@ -968,7 +967,7 @@ public class TcTask {
                 resolvedValue = context.getContextField(((ParamReference) value).getRefvalue());
                 if (resolvedValue == null) {
                     logger.debug(Resources.getInstance()
-                            .get("TASK_LOG_PARAM_RESOLVED_NULL", context.getRequestObject().getRequestID(), name));
+                      .get("TASK_LOG_PARAM_RESOLVED_NULL", context.getRequestObject().getRequestID(), name));
                 }
             }
 
@@ -1087,13 +1086,13 @@ public class TcTask {
                 contractOutput = new TcMessageDefinition();
             }
             for (Element child = Xml.getFirstChildElement(contractElement); child != null;
-                    child = Xml.getNextSiblingElement(child)) {
+              child = Xml.getNextSiblingElement(child)) {
                 String name = child.getAttribute(CONTRACT_PART_NAME_ATTRIBUTE_NAME);
                 String datatype = child.getAttribute(CONTRACT_PART_TYPE_ATTRIBUTE_NAME);
                 String description = child.getAttribute(CONTRACT_PART_DESCRIPTION_ATTRIBUTE_NAME);
                 String optionalString = child.getAttribute(CONTRACT_PART_OPTIONAL_ATTRIBUTE_NAME);
                 boolean optional = optionalString != null && optionalString.length() > 0 &&
-                        "1jJyYtTwW".indexOf(optionalString.charAt(0)) >= 0;
+                  "1jJyYtTwW".indexOf(optionalString.charAt(0)) >= 0;
                 // TODO: Test, ob wohlbeschrieben, ggfs übertragen in Fehlerbereich
                 TcMessageDefinitionPart part = new TcMessageDefinitionPart(name, datatype, description, optional);
                 if (CONTRACT_INPUT_ELEMENT_NAME.equals(child.getNodeName())) {
@@ -1155,10 +1154,10 @@ public class TcTask {
         }
 
         protected void perform(TcTaskManager manager, OctopusContext context)
-                throws TcTaskProzessingException, TcContentProzessException {
+          throws TcTaskProzessingException, TcContentProzessException {
             logger.debug(Resources.getInstance()
-                    .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "OnErrorNode",
-                            "set action=" + action));
+              .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "OnErrorNode",
+                "set action=" + action));
             manager.setOnErrorAction(action);
         }
 

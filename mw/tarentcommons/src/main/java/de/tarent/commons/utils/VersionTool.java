@@ -173,9 +173,9 @@ public class VersionTool {
             vt.search(prependingSearchPath.split(":"));
         }
         vt.search(new String[] {
-                cntx.moduleRootPath().getParentFile().getAbsolutePath(),
-                new File(new File(cntx.moduleRootPath().getParentFile(), "WEB-INF"), "lib").getAbsolutePath(),
-                new File(new File(cntx.moduleRootPath().getParentFile(), "OCTOPUS"), "lib").getAbsolutePath()
+          cntx.moduleRootPath().getParentFile().getAbsolutePath(),
+          new File(new File(cntx.moduleRootPath().getParentFile(), "WEB-INF"), "lib").getAbsolutePath(),
+          new File(new File(cntx.moduleRootPath().getParentFile(), "OCTOPUS"), "lib").getAbsolutePath()
         });
         if (appendingSearchPath != null) {
             vt.search(appendingSearchPath.split(":"));
@@ -248,7 +248,7 @@ public class VersionTool {
         info.setResourceName("Package: " + packageName);
         info.setName(specImplConcat(packageDescriptor.getSpecificationTitle(), packageDescriptor.getImplementationTitle()));
         info.setVersion(
-                specImplConcat(packageDescriptor.getSpecificationVersion(), packageDescriptor.getImplementationVersion()));
+          specImplConcat(packageDescriptor.getSpecificationVersion(), packageDescriptor.getImplementationVersion()));
         info.setVendor(specImplConcat(packageDescriptor.getSpecificationVendor(), packageDescriptor.getImplementationVendor()));
         return info;
     }
@@ -378,7 +378,7 @@ public class VersionTool {
 
     static String specImplConcat(String specText, String implText) {
         if ((implText == null || implText.trim().length() == 0)
-                && specText != null) {
+          && specText != null) {
             return "Specification: " + specText;
         }
         return implText;

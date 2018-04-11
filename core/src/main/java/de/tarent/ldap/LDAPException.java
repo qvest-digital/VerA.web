@@ -99,5 +99,4 @@ public class LDAPException extends Exception {
     public LDAPException(Throwable arg0) {
         super(arg0);
     }
-
 }

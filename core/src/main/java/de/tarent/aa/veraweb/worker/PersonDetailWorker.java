@@ -167,9 +167,9 @@ public class PersonDetailWorker implements PersonConstants {
     private static Database database;
     private TransactionContext transactionalContext;
     private static final Update updateEventStatement =
-            SQL.Update(database).table("veraweb.tevent").update("fk_host", null).update("hostname", null);
+      SQL.Update(database).table("veraweb.tevent").update("fk_host", null).update("hostname", null);
     private static final Update deletePerson =
-            SQL.Update(database).table("veraweb.tperson").update("deleted", PersonConstants.DELETED_TRUE);
+      SQL.Update(database).table("veraweb.tperson").update("deleted", PersonConstants.DELETED_TRUE);
     private static final Delete deleteGuest = SQL.Delete(database).from("veraweb.tguest");
     private static final Delete deletePersonTasks = SQL.Delete(database).from("veraweb.ttask");
     private static final Delete deletePersonMailinglist = SQL.Delete(database).from("veraweb.tperson_mailinglist");
@@ -256,7 +256,7 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     protected void restoreNavigation(OctopusContext octopusContext, Person person, Database database)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         final String action = octopusContext.requestAsString("action");
         final Integer personId = octopusContext.requestAsInteger("id");
 
@@ -278,8 +278,8 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private void fillNavigationWithPersonData(OctopusContext octopusContext, Person person, Database database,
-            final String action,
-            final Integer personId, Select select) throws SQLException {
+      final String action,
+      final Integer personId, Select select) throws SQLException {
         Map<String, Map<String, Object>> navigation = new HashMap<>();
         Map<String, Object> entry = new HashMap<>();
 
@@ -302,7 +302,7 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private int setPersonMapSize(final Integer personId, Map<String, Map<String, Object>> navigation, ResultList result,
-            int size) {
+      int size) {
         int i;
         for (i = 0; i < size; i++) {
             Map cur = (Map) result.get(i);
@@ -373,8 +373,8 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private Select getPersonIdAndName(OctopusContext octopusContext, Database database, final String action,
-            final Integer personId)
-            throws BeanException, IOException {
+      final Integer personId)
+      throws BeanException, IOException {
         Select select;
         // add the action and personId once again to the context
         octopusContext.setContent("action", action);
@@ -440,7 +440,7 @@ public class PersonDetailWorker implements PersonConstants {
             Request request = new RequestVeraWeb(octopusContext);
             person = (Person) request.getBean("Person", "person");
             DateHelper.addTimeToDate(person.diplodate_a_e1, octopusContext.requestAsString("person-diplotime_a_e1"),
-                    person.getErrors());
+              person.getErrors());
         }
 
         person = createNewPersonOrClearData(database, person);
@@ -667,15 +667,15 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private void savePersonDetail(final OctopusContext octopusContext, Person person, Database database,
-            TransactionContext transactionContext,
-            Integer originalPersonId) throws BeanException, IOException {
+      TransactionContext transactionContext,
+      Integer originalPersonId) throws BeanException, IOException {
         Person personOld = null;
         if (person != null && person.id != null) {
             personOld = (Person) database.getBean("Person", person.id, transactionContext);
         }
 
         DateHelper.addTimeToDate(person.diplodate_a_e1, octopusContext.requestAsString("person-diplotime_a_e1"),
-                person.getErrors());
+          person.getErrors());
         person.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
         person.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
         if (personOld != null) {
@@ -725,8 +725,8 @@ public class PersonDetailWorker implements PersonConstants {
             e2.setTimeInMillis(personOld.expire.getTime());
 
             boolean notModified =
-                    e1.get(Calendar.YEAR) == e2.get(Calendar.YEAR) && e1.get(Calendar.MONTH) == e2.get(Calendar.MONTH)
-                            && e1.get(Calendar.DAY_OF_MONTH) == e2.get(Calendar.DAY_OF_MONTH);
+              e1.get(Calendar.YEAR) == e2.get(Calendar.YEAR) && e1.get(Calendar.MONTH) == e2.get(Calendar.MONTH)
+                && e1.get(Calendar.DAY_OF_MONTH) == e2.get(Calendar.DAY_OF_MONTH);
 
             if (notModified && person.expire.getTime() < ty.getTimeInMillis()) {
                 person.expire = new Timestamp(ty.getTimeInMillis());
@@ -736,8 +736,8 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private void createOrUpdatePerson(OctopusContext octopusContext, Person person, Database database,
-            TransactionContext transactionContext,
-            Integer originalPersonId, Person personOld) throws BeanException, IOException {
+      TransactionContext transactionContext,
+      Integer originalPersonId, Person personOld) throws BeanException, IOException {
         // Commented for Bugfix #19336
         // checkConversionFromFirmaToPerson(person);
         AddressHelper.copyAddressData(octopusContext, person, personOld);
@@ -757,8 +757,8 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private void updateExistingPerson(OctopusContext octopusContext, Person person, Database database,
-            TransactionContext transactionContext,
-            Person personOld, BeanChangeLogger clogger) throws BeanException, IOException {
+      TransactionContext transactionContext,
+      Person personOld, BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countUpdate", 1);
         person.changed = new Timestamp(new Date().getTime());
         Update update = database.getUpdate(person);
@@ -777,8 +777,8 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private void createNewPerson(OctopusContext octopusContext, Person person, Database database,
-            TransactionContext transactionContext,
-            Integer originalPersonId, BeanChangeLogger clogger) throws BeanException, IOException {
+      TransactionContext transactionContext,
+      Integer originalPersonId, BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countInsert", 1);
         person.created = new Timestamp(new Date().getTime());
         database.getNextPk(person, transactionContext);
@@ -814,8 +814,8 @@ public class PersonDetailWorker implements PersonConstants {
      * @throws IOException FIXME
      */
     private void copyCategories(Integer originalPersonId, Integer newPersonId, Database database,
-            TransactionContext transactionContext)
-            throws IOException {
+      TransactionContext transactionContext)
+      throws IOException {
         assert originalPersonId != null;
         assert newPersonId != null;
         assert database != null;
@@ -1141,13 +1141,13 @@ public class PersonDetailWorker implements PersonConstants {
         final Database database = new DatabaseVeraWeb(octopusContext);
         try {
             Object object =
-                    SQL.Select(database).from("veraweb.tperson").where(Expr.equal("pk", person.id)).add("username", String.class)
-                            .getList(database).get(0);
+              SQL.Select(database).from("veraweb.tperson").where(Expr.equal("pk", person.id)).add("username", String.class)
+                .getList(database).get(0);
             if (!username.equals(object)) {
                 throw new RuntimeException("Somehow the username was not persisted?!");
             }
             if (SQL.Select(database).from("veraweb.link_uuid").select("pk").where(Expr.equal("personid", person.id))
-                    .getList(database).size() != 1) {
+              .getList(database).size() != 1) {
                 throw new RuntimeException("Somehow the link was not persisted?!");
             }
         } catch (SQLException e) {
@@ -1180,7 +1180,7 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private String executeCompanyUsernameGeneration(Person person, OsiamLoginCreator osiamLoginCreator,
-            OsiamConnector connector) {
+      OsiamConnector connector) {
         final String companyname = person.company_a_e1;
         return osiamLoginCreator.generateCompanyUsername(companyname, connector);
     }
@@ -1204,7 +1204,7 @@ public class PersonDetailWorker implements PersonConstants {
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
             transactionContext.execute(SQL.Insert(database).table("veraweb.link_uuid").insert("uuid", getNewPersonUUID())
-                    .insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
+              .insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
             transactionContext.commit();
         } catch (BeanException e) {
             LOGGER.error("Persisting uuid for link generation failed", e);
@@ -1231,8 +1231,8 @@ public class PersonDetailWorker implements PersonConstants {
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
             transactionContext
-                    .execute(SQL.Update(database).table("veraweb.tperson").update("username", person.username)
-                            .where(Expr.equal("pk", person.id)));
+              .execute(SQL.Update(database).table("veraweb.tperson").update("username", person.username)
+                .where(Expr.equal("pk", person.id)));
             transactionContext.commit();
         } catch (BeanException e) {
             LOGGER.error("Persisting username failed", e);
@@ -1243,7 +1243,7 @@ public class PersonDetailWorker implements PersonConstants {
 
         final Database database = new DatabaseVeraWeb(octopusContext);
         Integer counter = database.getCount(
-                database.getCount("Person").where(Where.and(Expr.equal("pk", personId), Expr.isNotNull("username"))));
+          database.getCount("Person").where(Where.and(Expr.equal("pk", personId), Expr.isNotNull("username"))));
 
         return (counter == 1);
     }
@@ -1274,12 +1274,12 @@ public class PersonDetailWorker implements PersonConstants {
         final Properties properties = getProperties();
 
         return new OsiamConnector.Builder()
-                .setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
-                .setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET))
-                .setClientId(properties.getProperty(OSIAM_CLIENT_ID))
-                .setAuthServerEndpoint(properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
-                .setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
-                .build();
+          .setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+          .setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET))
+          .setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+          .setAuthServerEndpoint(properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
+          .setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
+          .build();
     }
 
     /**

@@ -268,7 +268,7 @@ public class TcServletResponse implements TcResponse {
 
         if (isErrorLevelRelease()) {
             println(Resources.getInstance().get("RESPONSE_OUT_ERROR_HEAD", header,
-                    Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR")));
+              Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR")));
         } else {
             println(Resources.getInstance().get("RESPONSE_OUT_ERROR_HEAD", header, e));
             e.printStackTrace(writer);
@@ -293,10 +293,10 @@ public class TcServletResponse implements TcResponse {
         TcSOAPException soapException;
 
         if (e instanceof ResponseProcessingException &&
-                ((ResponseProcessingException) e).getRootCause() instanceof Exception) {
+          ((ResponseProcessingException) e).getRootCause() instanceof Exception) {
             e = (Exception) ((ResponseProcessingException) e).getRootCause();
         } else if (e instanceof TcContentProzessException &&
-                ((TcContentProzessException) e).getCause() instanceof Exception) {
+          ((TcContentProzessException) e).getCause() instanceof Exception) {
             e = (Exception) ((TcContentProzessException) e).getCause();
         }
 
@@ -309,7 +309,7 @@ public class TcServletResponse implements TcResponse {
         } else {
             if (isErrorLevelRelease()) {
                 soapException = new TcSOAPException(
-                        Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"));
+                  Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"));
             } else {
                 soapException = new TcSOAPException(e);
             }
@@ -337,7 +337,7 @@ public class TcServletResponse implements TcResponse {
 
         if (isErrorLevelRelease()) {
             println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_HEAD",
-                    Xml.escape(Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"))));
+              Xml.escape(Resources.getInstance().get("ERROR_MESSAGE_GENERAL_ERROR"))));
         } else {
             println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_HEAD", Xml.escape(e.toString())));
             e.printStackTrace(writer);
@@ -345,7 +345,7 @@ public class TcServletResponse implements TcResponse {
                 Throwable rootCause = ((RootCauseException) e).getRootCause();
                 if (rootCause != null) {
                     println(Resources.getInstance().get("RESPONSE_OUT_SOAPFAULT_ROOT",
-                            Xml.escape(rootCause.toString())));
+                      Xml.escape(rootCause.toString())));
                     rootCause.printStackTrace(writer);
                 }
             }

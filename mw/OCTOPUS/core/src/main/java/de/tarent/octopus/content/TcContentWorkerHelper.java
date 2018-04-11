@@ -148,10 +148,10 @@ public class TcContentWorkerHelper {
      * @return Wert des Parameters
      */
     public static boolean getParamAsBoolean(
-            TcRequest tcRequest,
-            TcContent tcContent,
-            String key,
-            boolean defaultValue) {
+      TcRequest tcRequest,
+      TcContent tcContent,
+      String key,
+      boolean defaultValue) {
         String stringVal = getParamAsString(tcRequest, tcContent, key);
         if (stringVal != null) {
             return Boolean.valueOf(stringVal).booleanValue();

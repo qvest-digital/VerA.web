@@ -141,7 +141,7 @@ public class MailingResource extends FormDataResource {
     }
 
     private String sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text,
-            final Map<String, File> files) throws MessagingException {
+      final Map<String, File> files) throws MessagingException {
         final StringBuilder sb = new StringBuilder();
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration("de_DE");
@@ -156,7 +156,7 @@ public class MailingResource extends FormDataResource {
             final String from = getFrom(recipient);
             try {
                 final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(),
-                        subject, substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
+                  subject, substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
                 sb.append(monitor.toString());
             } catch (AddressException e) {
                 LOGGER.error("Email-Adress is not valid" + recipient.getAddress(), e);

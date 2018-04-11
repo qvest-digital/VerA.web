@@ -83,9 +83,9 @@ public class AddTrailingSlashServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         final String tgt = req.getRequestURI() + "/";
         final String tgtHTML = StringUtils.replaceEach(tgt,
-                /* only those four! cf. https://stackoverflow.com/a/2083770/2171120 */
-                new String[] { "&", "\"", "<", ">" },
-                new String[] { "&amp;", "&quot;", "&lt;", "&gt;" });
+          /* only those four! cf. https://stackoverflow.com/a/2083770/2171120 */
+          new String[] { "&", "\"", "<", ">" },
+          new String[] { "&amp;", "&quot;", "&lt;", "&gt;" });
 
         resp.setStatus(301);
         resp.setContentType("text/html");

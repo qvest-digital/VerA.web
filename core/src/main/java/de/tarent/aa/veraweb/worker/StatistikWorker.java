@@ -215,7 +215,7 @@ public class StatistikWorker {
      * @param id        Abhängig vom Statistiknamen
      */
     public void getStatistik(OctopusContext cntx, String statistik, String begin, String end, Integer id)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(cntx);
 
         try {
@@ -268,7 +268,6 @@ public class StatistikWorker {
             ResultList resultList = database.getList(select, database);
             cntx.setContent("result", resultList);
             cntx.setContent("formatMessage", "no");
-
         } catch (ParseException e) {
             cntx.setContent("formatMessage", ERROR_DATE_FORMAT);
         }
@@ -284,11 +283,11 @@ public class StatistikWorker {
      */
     protected Select getEventsPerYear(Database db) {
         return SQL.Select(db).
-                from("veraweb.tevent").
-                selectAs("date(to_char(datebegin, 'YYYY-01-01'))", "year").
-                selectAs("count(*)", "events").
-                groupBy(GroupBy.groupBy("year")).
-                orderBy(Order.asc("year"));
+          from("veraweb.tevent").
+          selectAs("date(to_char(datebegin, 'YYYY-01-01'))", "year").
+          selectAs("count(*)", "events").
+          groupBy(GroupBy.groupBy("year")).
+          orderBy(Order.asc("year"));
     }
 
     /**
@@ -301,11 +300,11 @@ public class StatistikWorker {
      */
     protected Select getEventsPerMonth(Database db) {
         return SQL.Select(db).
-                from("veraweb.tevent").
-                selectAs("date(to_char(datebegin, 'YYYY-MM-01'))", "month").
-                selectAs("count(*)", "events").
-                groupBy(GroupBy.groupBy("month")).
-                orderBy(Order.asc("month"));
+          from("veraweb.tevent").
+          selectAs("date(to_char(datebegin, 'YYYY-MM-01'))", "month").
+          selectAs("count(*)", "events").
+          groupBy(GroupBy.groupBy("month")).
+          orderBy(Order.asc("month"));
     }
 
     /**
@@ -324,25 +323,25 @@ public class StatistikWorker {
      */
     protected Select getEventsGroupByHost(Database db) {
         String zusagen = "(SELECT SUM(" +
-                "(CASE WHEN (invitationtype != 3 AND invitationstatus = 1) THEN 1 ELSE 0 END) +" +
-                "(CASE WHEN (invitationtype != 2 AND invitationstatus_p = 1) THEN 1 ELSE 0 END))" +
-                " FROM veraweb.tguest g WHERE" +
-                " g.fk_event = tevent.pk)";
+          "(CASE WHEN (invitationtype != 3 AND invitationstatus = 1) THEN 1 ELSE 0 END) +" +
+          "(CASE WHEN (invitationtype != 2 AND invitationstatus_p = 1) THEN 1 ELSE 0 END))" +
+          " FROM veraweb.tguest g WHERE" +
+          " g.fk_event = tevent.pk)";
 
         return SQL.Select(db).
-                from("veraweb.tevent").
-                joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
-                joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
-                selectAs("tguest.pk", "subhead").
-                selectAs("tguest.fk_person", "person").
-                selectAs("tperson.lastname_a_e1", "lastname").
-                selectAs("tperson.firstname_a_e1", "firstname").
-                selectAs("tperson.function_a_e1", "function").
-                selectAs("tevent.shortname", "shortname").
-                selectAs("tevent.fk_location", "location").
-                selectAs("tevent.datebegin", "datebegin").
-                selectAs(zusagen, "zusagen").
-                orderBy(Order.asc("tperson.lastname_a_e1").andAsc("tperson.firstname_a_e1").andAsc("tevent.datebegin"));
+          from("veraweb.tevent").
+          joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
+          joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
+          selectAs("tguest.pk", "subhead").
+          selectAs("tguest.fk_person", "person").
+          selectAs("tperson.lastname_a_e1", "lastname").
+          selectAs("tperson.firstname_a_e1", "firstname").
+          selectAs("tperson.function_a_e1", "function").
+          selectAs("tevent.shortname", "shortname").
+          selectAs("tevent.fk_location", "location").
+          selectAs("tevent.datebegin", "datebegin").
+          selectAs(zusagen, "zusagen").
+          orderBy(Order.asc("tperson.lastname_a_e1").andAsc("tperson.firstname_a_e1").andAsc("tevent.datebegin"));
     }
 
     /**
@@ -360,21 +359,21 @@ public class StatistikWorker {
      */
     protected Select getEventsGroupByGuest(Database db) {
         return SQL.Select(db).
-                from("veraweb.tguest").
-                joinLeftOuter("veraweb.tevent", "fk_event", "tevent.pk").
-                joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
-                selectAs("tguest.fk_person", "subhead").
-                selectAs("tguest.fk_person", "person").
-                selectAs("tperson.lastname_a_e1", "lastname").
-                selectAs("tperson.firstname_a_e1", "firstname").
-                selectAs("tperson.function_a_e1", "function").
-                selectAs("tevent.shortname", "shortname").
-                selectAs("tevent.fk_location", "shortname").
-                selectAs("tevent.datebegin", "datebegin").
-                selectAs("tguest.invitationtype", "invitationtype").
-                selectAs("tguest.invitationstatus", "invitationstatus").
-                selectAs("tguest.invitationstatus_p", "invitationstatus_p").
-                orderBy(Order.asc("tperson.lastname_a_e1").andAsc("tperson.firstname_a_e1").andAsc("tevent.shortname"));
+          from("veraweb.tguest").
+          joinLeftOuter("veraweb.tevent", "fk_event", "tevent.pk").
+          joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
+          selectAs("tguest.fk_person", "subhead").
+          selectAs("tguest.fk_person", "person").
+          selectAs("tperson.lastname_a_e1", "lastname").
+          selectAs("tperson.firstname_a_e1", "firstname").
+          selectAs("tperson.function_a_e1", "function").
+          selectAs("tevent.shortname", "shortname").
+          selectAs("tevent.fk_location", "shortname").
+          selectAs("tevent.datebegin", "datebegin").
+          selectAs("tguest.invitationtype", "invitationtype").
+          selectAs("tguest.invitationstatus", "invitationstatus").
+          selectAs("tguest.invitationstatus_p", "invitationstatus_p").
+          orderBy(Order.asc("tperson.lastname_a_e1").andAsc("tperson.firstname_a_e1").andAsc("tevent.shortname"));
     }
 
     /**
@@ -392,15 +391,15 @@ public class StatistikWorker {
      */
     protected Select getEventsGroupByLocation(Database db) {
         return SQL.Select(db).
-                from("veraweb.tevent").
-                joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
-                joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
-                selectAs("tevent.fk_location", "location").
-                selectAs("tevent.shortname", "shortname").
-                selectAs("tperson.lastname_a_e1", "lastname").
-                selectAs("tperson.firstname_a_e1", "firstname").
-                selectAs("tevent.datebegin", "datebegin").
-                orderBy(Order.asc("location").andAsc("datebegin"));
+          from("veraweb.tevent").
+          joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
+          joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
+          selectAs("tevent.fk_location", "location").
+          selectAs("tevent.shortname", "shortname").
+          selectAs("tperson.lastname_a_e1", "lastname").
+          selectAs("tperson.firstname_a_e1", "firstname").
+          selectAs("tevent.datebegin", "datebegin").
+          orderBy(Order.asc("location").andAsc("datebegin"));
     }
 
     /**
@@ -417,14 +416,14 @@ public class StatistikWorker {
 
         if (filterBegin != null && filterEnd != null) {
             clause = Where.and(clause, Where.and(
-                    Expr.greaterOrEqual("datebegin", filterBegin),
-                    Expr.lessOrEqual("datebegin", filterEnd)));
+              Expr.greaterOrEqual("datebegin", filterBegin),
+              Expr.lessOrEqual("datebegin", filterEnd)));
         } else if (filterBegin != null) {
             clause = Where.and(clause,
-                    Expr.greaterOrEqual("datebegin", filterBegin));
+              Expr.greaterOrEqual("datebegin", filterBegin));
         } else if (filterEnd != null) {
             clause = Where.and(clause,
-                    Expr.lessOrEqual("datebegin", filterEnd));
+              Expr.lessOrEqual("datebegin", filterEnd));
         }
         return clause;
     }
@@ -443,7 +442,7 @@ public class StatistikWorker {
      * @throws TransformerFactoryConfigurationError
      */
     protected Map getExport(OctopusContext octopusContext, ResultSet resultSet)
-            throws IOException, SQLException, FactoryConfigurationError, TransformerFactoryConfigurationError {
+      throws IOException, SQLException, FactoryConfigurationError, TransformerFactoryConfigurationError {
         String filename = OctopusHelper.getFilename(octopusContext, "ods", "export.ods");
         final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_ODS_DOCUMENT);
         spreadSheet.init();
@@ -531,7 +530,7 @@ public class StatistikWorker {
     }
 
     protected Object getColumnValue(String name, ResultSet resultSet, Object content,
-            final LanguageProvider languageProvider) throws SQLException {
+      final LanguageProvider languageProvider) throws SQLException {
         if (name.equals("invitationtype")) {
             return VerawebUtils.getType((Integer) content);
         } else if (name.equals("invitationstatus")) {

@@ -82,8 +82,8 @@ import lombok.Data;
 @Entity
 @Table(name = "tperson_mailinglist")
 @NamedQueries(value = {
-        @NamedQuery(name = "PersonMailinglist.findByMailinglist",
-                query = "SELECT p FROM PersonMailinglist p where mailinglistId = :listId"), })
+  @NamedQuery(name = "PersonMailinglist.findByMailinglist",
+    query = "SELECT p FROM PersonMailinglist p where mailinglistId = :listId"), })
 public class PersonMailinglist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

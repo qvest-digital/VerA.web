@@ -83,9 +83,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "link_uuid")
 @NamedQueries({
-        @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l.personid FROM LinkUUID l where l.uuid = :uuid"),
-        @NamedQuery(name = "LinkUUID.deleteUUIDByPersonid", query = "DELETE FROM LinkUUID l WHERE l.personid=:personid"),
-        @NamedQuery(name = "LinkUUID.getLinkUuidByPersonid", query = "SELECT l FROM LinkUUID l WHERE l.personid=:personid")
+  @NamedQuery(name = "LinkUUID.getUserIdByUUID", query = "SELECT l.personid FROM LinkUUID l where l.uuid = :uuid"),
+  @NamedQuery(name = "LinkUUID.deleteUUIDByPersonid", query = "DELETE FROM LinkUUID l WHERE l.personid=:personid"),
+  @NamedQuery(name = "LinkUUID.getLinkUuidByPersonid", query = "SELECT l FROM LinkUUID l WHERE l.personid=:personid")
 })
 public class LinkUUID {
 

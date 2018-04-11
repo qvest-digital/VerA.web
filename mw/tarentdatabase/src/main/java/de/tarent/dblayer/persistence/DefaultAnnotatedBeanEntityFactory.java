@@ -114,5 +114,4 @@ public class DefaultAnnotatedBeanEntityFactory extends DefaultEntityFactory {
 
         return new String(asCharArray);
     }
-
 }

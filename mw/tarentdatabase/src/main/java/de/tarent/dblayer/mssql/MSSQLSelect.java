@@ -149,7 +149,7 @@ public class MSSQLSelect extends Select {
     }
 
     protected void appendColumnList(StringBuffer sb)
-            throws SyntaxErrorException {
+      throws SyntaxErrorException {
         //mssql specific limit impl
         if (getLimit() != null) {
             sb.append("TOP ");

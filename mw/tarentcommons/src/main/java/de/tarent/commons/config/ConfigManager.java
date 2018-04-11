@@ -268,7 +268,7 @@ public class ConfigManager {
     }
 
     private void loadConfiguration(String configType, String variant)
-            throws IllegalStateException {
+      throws IllegalStateException {
         // Instantiates the Loader instance to be used for retrieving the
         // configuration documents.
         if (configType.equals(BOOTSTRAP_TYPE_FILE)) {
@@ -296,23 +296,23 @@ public class ConfigManager {
         } catch (DocumentUnavailableException e) {
             addMissingDocument(e.docURL);  // site-scope appearance config is mandatory
             logger.warning(
-                    "appearance configuration at site scope not available: "
-                            + e.getReason());
+              "appearance configuration at site scope not available: "
+                + e.getReason());
         }
 
         try {
             doc = loader.getDocument(Scope.INSTALLATION,
-                    APPEARANCE_CONFIG);
+              APPEARANCE_CONFIG);
             insertElements(Scope.INSTALLATION, doc, rootTag, handler);
         } catch (DocumentUnavailableException e) {
             // installation-scope apprearance config is optional
             logger.warning(
-                    "appearance configuration at installation scope not available: "
-                            + e.getReason());
+              "appearance configuration at installation scope not available: "
+                + e.getReason());
 
             if (!appearanceConfigAvailable) {
                 throw new IllegalStateException(
-                        "No appearance configuration available at all.");
+                  "No appearance configuration available at all.");
             }
         }
 
@@ -322,27 +322,25 @@ public class ConfigManager {
             // Loads the environment configuration from site, installation and user
             // scope.
             doc = loader.getDocument(Scope.SITE,
-                    ENVIRONMENT_CONFIG);
+              ENVIRONMENT_CONFIG);
             insertElements(Scope.SITE, doc, rootTag, handler);
         } catch (DocumentUnavailableException e) {
             addMissingDocument(e.docURL);  // site-scope appearance config is mandatory
             logger.warning(
-                    "environment configuration at site scope not available: "
-                            + e.getReason());
-
+              "environment configuration at site scope not available: "
+                + e.getReason());
         }
 
         try {
             doc = loader.getDocument(Scope.INSTALLATION,
-                    ENVIRONMENT_CONFIG);
+              ENVIRONMENT_CONFIG);
             insertElements(Scope.INSTALLATION, doc, rootTag, handler);
         } catch (DocumentUnavailableException e) {
             // installation-scope environment config is optional
             addMissingDocument(e.docURL);
             logger.warning(
-                    "environment configuration at installation scope not available: "
-                            + e.getReason());
-
+              "environment configuration at installation scope not available: "
+                + e.getReason());
         }
 
         // Prevents trying to read the user scope environment configuration document.
@@ -353,20 +351,18 @@ public class ConfigManager {
 
         try {
             doc = loader.getDocument(Scope.USER,
-                    ENVIRONMENT_CONFIG);
+              ENVIRONMENT_CONFIG);
             insertElements(Scope.USER, doc, rootTag, handler);
         } catch (DocumentUnavailableException e) {
             // user-scope environment config is optional
             logger.warning(
-                    "environment configuration at user scope not available: "
-                            + e.getReason());
-
+              "environment configuration at user scope not available: "
+                + e.getReason());
         }
-
     }
 
     private void insertElements(Scope scope, Document doc, String rootTag,
-            Handler handler) throws DocumentUnavailableException {
+      Handler handler) throws DocumentUnavailableException {
         NodeList list = doc.getElementsByTagName(rootTag).item(0).getChildNodes();
         int size = list.getLength();
 
@@ -378,12 +374,11 @@ public class ConfigManager {
                 handler.handle(scope, n, n.getNodeName(), attributes);
             } catch (KeyUnavailableException e) {
                 logger.warning("The " + rootTag + " configuration of scope "
-                        + scope + " contains the unknown key: "
-                        + e.getKeyLabel());
+                  + scope + " contains the unknown key: "
+                  + e.getKeyLabel());
             } catch (ParseException pe) {
                 logger.warning(pe.getMessage());
             }
-
         }
     }
 
@@ -434,7 +429,6 @@ public class ConfigManager {
 
             return instance;
         }
-
     }
 
     /**
@@ -466,15 +460,14 @@ public class ConfigManager {
         }
 
         protected abstract Document getDocument(Scope scope, String docName)
-                throws DocumentUnavailableException;
+          throws DocumentUnavailableException;
 
         protected abstract boolean isStoringSupported();
 
         protected void storeDocument(Scope scope, String docName, Document doc)
-                throws DocumentUnavailableException, UnsupportedOperationException {
+          throws DocumentUnavailableException, UnsupportedOperationException {
             throw new UnsupportedOperationException();
         }
-
     }
 
     static class DocumentUnavailableException extends Exception {
@@ -509,7 +502,6 @@ public class ConfigManager {
         ParseException(String msg, Throwable cause) {
             super(msg, cause);
         }
-
     }
 
     /**
@@ -547,14 +539,14 @@ public class ConfigManager {
 
     private interface Handler {
         void handle(Scope scope, Node node, String nodeName, NamedNodeMap attributes)
-                throws KeyUnavailableException, DocumentUnavailableException, ParseException;
+          throws KeyUnavailableException, DocumentUnavailableException, ParseException;
     }
 
     private class AppearanceHandler implements Handler {
 
         public void handle(Scope scope, Node node, String nodeName,
-                NamedNodeMap attributes) throws KeyUnavailableException,
-                DocumentUnavailableException, ParseException {
+          NamedNodeMap attributes) throws KeyUnavailableException,
+          DocumentUnavailableException, ParseException {
             if (nodeName == null) {
                 return;
             } else if (nodeName.equals("param")) {
@@ -565,7 +557,6 @@ public class ConfigManager {
                 }
 
                 ape.put(name.getNodeValue(), node);
-
             } else if (nodeName.equals("include")) {
                 Node documentName = attributes.getNamedItem("file");
 
@@ -588,7 +579,7 @@ public class ConfigManager {
 
                 if (actionsDoc != null) {
                     insertElements(scope, actionsDoc, ROOT_TAG_ACTIONS,
-                            new ActionsHandler());
+                      new ActionsHandler());
                 }
             } else if (nodeName.equals("plugins")) {
                 Node documentName = attributes.getNamedItem("file");
@@ -601,17 +592,16 @@ public class ConfigManager {
 
                 if (pluginsDoc != null) {
                     insertElements(scope, pluginsDoc, ROOT_TAG_PLUGINS,
-                            new PluginsHandler());
+                      new PluginsHandler());
                 }
             }
         }
-
     }
 
     private class ActionsHandler implements Handler {
         public void handle(Scope scope, Node node, String nodeName,
-                NamedNodeMap attributes) throws KeyUnavailableException,
-                DocumentUnavailableException, ParseException {
+          NamedNodeMap attributes) throws KeyUnavailableException,
+          DocumentUnavailableException, ParseException {
             if (nodeName.equals("action")) {
                 String key = getId(node);
                 try {
@@ -655,15 +645,14 @@ public class ConfigManager {
             }
 
             throw new ParseException(
-                    "expected a <param> tag with an name attribute and a value of \"UniqueName\" within an <action> tag");
+              "expected a <param> tag with an name attribute and a value of \"UniqueName\" within an <action> tag");
         }
-
     }
 
     private class PluginsHandler implements Handler {
         public void handle(Scope scope, Node node, String nodeName,
-                NamedNodeMap attributes) throws KeyUnavailableException,
-                DocumentUnavailableException, ParseException {
+          NamedNodeMap attributes) throws KeyUnavailableException,
+          DocumentUnavailableException, ParseException {
             if (nodeName.equals("plugin")) {
                 String key = getId(node);
                 ape.addPluginDefinition(key, node);
@@ -705,14 +694,13 @@ public class ConfigManager {
 
             throw new ParseException("expected a <param> tag with an value attribute within a <plugin> tag");
         }
-
     }
 
     private class EnvironmentHandler implements Handler {
 
         public void handle(Scope scope, Node node, String nodeName,
-                NamedNodeMap attributes) throws KeyUnavailableException,
-                DocumentUnavailableException, ParseException {
+          NamedNodeMap attributes) throws KeyUnavailableException,
+          DocumentUnavailableException, ParseException {
             if (nodeName == null) {
                 return;
             } else if (nodeName.equals("param")) {
@@ -743,7 +731,6 @@ public class ConfigManager {
                 if (includeDoc != null) {
                     insertElements(scope, includeDoc, ROOT_TAG_CONNECTIONS, new ConnectionsHandler());
                 }
-
             } else if (nodeName.equals("userOverridable")) {
                 // Detects and handles the userOverridable tag which is only allowed in
                 // site and installation scope.
@@ -754,22 +741,17 @@ public class ConfigManager {
                 Node name = attributes.getNamedItem("value");
 
                 env.setUserOverridable(name.getNodeValue());
-
             }
         }
-
     }
 
     private class ConnectionsHandler implements Handler {
         public void handle(Scope scope, Node node, String nodeName,
-                NamedNodeMap attributes) throws KeyUnavailableException,
-                DocumentUnavailableException, ParseException {
+          NamedNodeMap attributes) throws KeyUnavailableException,
+          DocumentUnavailableException, ParseException {
             if (nodeName.equals("connection")) {
                 env.addConnectionDefinition(scope, node);
             }
-
         }
-
     }
-
 }

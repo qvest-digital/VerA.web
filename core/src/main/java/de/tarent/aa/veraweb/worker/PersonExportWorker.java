@@ -112,8 +112,8 @@ public class PersonExportWorker extends PersonListWorker {
         List selection = (List) cntx.sessionAsObject("selectionPerson");
         if (selection != null && selection.size() != 0) {
             select.where(Where.and(
-                    Expr.in("tperson.pk", selection),
-                    getPersonListFilter(cntx, false)));
+              Expr.in("tperson.pk", selection),
+              getPersonListFilter(cntx, false)));
         }
     }
 
@@ -138,7 +138,7 @@ public class PersonExportWorker extends PersonListWorker {
      */
     public String exportFormat(OctopusContext cntx) throws BeanException, IOException {
         return ExportHelper
-                .getExtension(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT).getFileExtension());
+          .getExtension(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT).getFileExtension());
     }
 
     /**
@@ -159,11 +159,11 @@ public class PersonExportWorker extends PersonListWorker {
      * {@link TcBinaryResponseEngine}
      */
     public Map export(final OctopusContext cntx)
-            throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
+      throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
         final Database database = getDatabase(cntx);
         final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT);
         final String filename = OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(),
-                "export." + spreadSheet.getFileExtension());
+          "export." + spreadSheet.getFileExtension());
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
 
@@ -211,7 +211,7 @@ public class PersonExportWorker extends PersonListWorker {
                      * cklein 2008-03-26
                      */
                     exportSelect(spreadSheet, database, ((PersonalConfigAA) cntx.personalConfig()).getGrants(),
-                            select, memberAEx, memberBEx, addressEx);
+                      select, memberAEx, memberBEx, addressEx);
 
                     // Tabelle schließen
                     spreadSheet.closeTable();
@@ -312,27 +312,27 @@ public class PersonExportWorker extends PersonListWorker {
      * @param addressEx   Attributschlüsselsuffix der Adressdaten
      */
     protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Select select, String memberAEx,
-            String memberBEx,
-            String addressEx) throws BeanException {
+      String memberBEx,
+      String addressEx) throws BeanException {
         try {
             for (Iterator it = (new ResultList(select.executeSelect(database).resultSet())).iterator(); it.hasNext(); ) {
                 Map person = (Map) it.next();
 
                 boolean showA =
-                        (person.get("lastname_a_e1") != null && ((String) person.get("lastname_a_e1")).length() != 0) ||
-                                (person.get("lastname_a_e2") != null && ((String) person.get("lastname_a_e2")).length() != 0) ||
-                                (person.get("lastname_a_e3") != null && ((String) person.get("lastname_a_e3")).length() != 0) ||
-                                (person.get("firstname_a_e1") != null && ((String) person.get("firstname_a_e1")).length() != 0) ||
-                                (person.get("firstname_a_e2") != null && ((String) person.get("firstname_a_e2")).length() != 0) ||
-                                (person.get("firstname_a_e3") != null && ((String) person.get("firstname_a_e3")).length() != 0);
+                  (person.get("lastname_a_e1") != null && ((String) person.get("lastname_a_e1")).length() != 0) ||
+                    (person.get("lastname_a_e2") != null && ((String) person.get("lastname_a_e2")).length() != 0) ||
+                    (person.get("lastname_a_e3") != null && ((String) person.get("lastname_a_e3")).length() != 0) ||
+                    (person.get("firstname_a_e1") != null && ((String) person.get("firstname_a_e1")).length() != 0) ||
+                    (person.get("firstname_a_e2") != null && ((String) person.get("firstname_a_e2")).length() != 0) ||
+                    (person.get("firstname_a_e3") != null && ((String) person.get("firstname_a_e3")).length() != 0);
 
                 boolean showB =
-                        (person.get("lastname_b_e1") != null && ((String) person.get("lastname_b_e1")).length() != 0) ||
-                                (person.get("lastname_b_e2") != null && ((String) person.get("lastname_b_e2")).length() != 0) ||
-                                (person.get("lastname_b_e3") != null && ((String) person.get("lastname_b_e3")).length() != 0) ||
-                                (person.get("firstname_b_e1") != null && ((String) person.get("firstname_b_e1")).length() != 0) ||
-                                (person.get("firstname_b_e2") != null && ((String) person.get("firstname_b_e2")).length() != 0) ||
-                                (person.get("firstname_b_e3") != null && ((String) person.get("firstname_b_e3")).length() != 0);
+                  (person.get("lastname_b_e1") != null && ((String) person.get("lastname_b_e1")).length() != 0) ||
+                    (person.get("lastname_b_e2") != null && ((String) person.get("lastname_b_e2")).length() != 0) ||
+                    (person.get("lastname_b_e3") != null && ((String) person.get("lastname_b_e3")).length() != 0) ||
+                    (person.get("firstname_b_e1") != null && ((String) person.get("firstname_b_e1")).length() != 0) ||
+                    (person.get("firstname_b_e2") != null && ((String) person.get("firstname_b_e2")).length() != 0) ||
+                    (person.get("firstname_b_e3") != null && ((String) person.get("firstname_b_e3")).length() != 0);
                 boolean showRemarks = grants.mayReadRemarkFields();
 
                 // Gleiches Dokument
@@ -362,8 +362,8 @@ public class PersonExportWorker extends PersonListWorker {
      * @param person      Map mit den Gastdaten.
      */
     protected void exportBothInOneLine(SpreadSheet spreadSheet, boolean showA, boolean showB, boolean showRemarks, Map person,
-            String memberAEx,
-            String memberBEx, String addressEx) {
+      String memberAEx,
+      String memberBEx, String addressEx) {
 
         spreadSheet.addCell(ExportHelper.getAddresstype((Integer) person.get("addresstype")));
         spreadSheet.addCell(ExportHelper.getLocale((Integer) person.get("locale")));
@@ -463,7 +463,7 @@ public class PersonExportWorker extends PersonListWorker {
      * @param person      Map mit den Gastdaten.
      */
     protected void exportOnlyPerson(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberAEx,
-            String addressEx) {
+      String addressEx) {
 
         spreadSheet.addCell(ExportHelper.getAddresstype((Integer) person.get("addresstype")));
         spreadSheet.addCell(ExportHelper.getLocale((Integer) person.get("locale")));
@@ -525,7 +525,7 @@ public class PersonExportWorker extends PersonListWorker {
      * @param person      Map mit den Personendaten.
      */
     protected void exportOnlyPartner(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberBEx,
-            String addressEx) {
+      String addressEx) {
         spreadSheet.addCell(ExportHelper.getAddresstype((Integer) person.get("addresstype")));
         spreadSheet.addCell(ExportHelper.getLocale((Integer) person.get("locale")));
 

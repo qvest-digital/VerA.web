@@ -262,5 +262,4 @@ public interface PersonMemberFacade {
      * @return combined name
      */
     String getSaveAs();
-
 }

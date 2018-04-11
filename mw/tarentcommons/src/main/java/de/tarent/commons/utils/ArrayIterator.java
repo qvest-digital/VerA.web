@@ -87,5 +87,4 @@ public class ArrayIterator implements Iterator {
     public void remove() {
         throw new UnsupportedOperationException();
     }
-
 }

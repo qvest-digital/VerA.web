@@ -70,7 +70,7 @@ public class OctopusDirectCallConnection implements OctopusConnection {
      * Liefert ein CallObject, dass für den Aufruf dieses Task verwendet werden kann.
      */
     public OctopusTask getTask(String taskName)
-            throws OctopusCallException {
+      throws OctopusCallException {
         OctopusTask task = new DirectCallTask(getOctopusStarter());
         task.add(PARAM_MODULE, getModuleName());
         task.add(PARAM_TASK, taskName);
@@ -78,7 +78,7 @@ public class OctopusDirectCallConnection implements OctopusConnection {
     }
 
     public OctopusResult callTask(String taskName, Map paramMap)
-            throws OctopusCallException {
+      throws OctopusCallException {
 
         OctopusTask task = getTask(taskName);
         if (paramMap != null) {

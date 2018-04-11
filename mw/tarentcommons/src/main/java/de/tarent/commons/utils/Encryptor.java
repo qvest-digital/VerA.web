@@ -125,7 +125,7 @@ public final class Encryptor {
      * @throws UnsupportedEncodingException
      */
     public synchronized String encrypt(String input)
-            throws NoSuchAlgorithmException, UnsupportedEncodingException {
+      throws NoSuchAlgorithmException, UnsupportedEncodingException {
         String hash = null;
         MessageDigest md = MessageDigest.getInstance(ALGORITHM_MD5);
         md.update(input.getBytes(CHAR_SET_UTF8));
@@ -134,5 +134,4 @@ public final class Encryptor {
         hash = (new BASE64Encoder()).encode(raw);
         return hash;
     }
-
 }

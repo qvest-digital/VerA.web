@@ -138,8 +138,8 @@ public class ResourceReader {
 
         try {
             return new URI(base.getScheme(), base.getUserInfo(), base.getHost(), base.getPort(), sb.toString(), base.getQuery(),
-                    base.getFragment())
-                    .toASCIIString();
+              base.getFragment())
+              .toASCIIString();
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
@@ -168,7 +168,6 @@ public class ResourceReader {
             } else {
                 throw che;
             }
-
         } catch (UniformInterfaceException uie) {
             // log.warning(uie.getResponse().getEntity(String.class));
             throw uie;

@@ -73,5 +73,4 @@ public @interface Table {
      * @return
      */
     String name();
-
 }

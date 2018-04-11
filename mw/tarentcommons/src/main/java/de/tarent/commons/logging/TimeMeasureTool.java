@@ -58,7 +58,7 @@ import org.apache.commons.logging.Log;
 public class TimeMeasureTool {
 
     static boolean doLogging = (System.getProperty("enableTimeMeasureTool") != null &&
-            !"false".equalsIgnoreCase(System.getProperty("enableTimeMeasureTool")));
+      !"false".equalsIgnoreCase(System.getProperty("enableTimeMeasureTool")));
 
     private static final Log defaultLogger = LogFactory.getLog(TimeMeasureTool.class);
     private static final TimeMeasureTool NOP = new TimeMeasureTool();

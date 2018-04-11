@@ -67,7 +67,7 @@ public interface OctopusResult {
     public String getContentType();
 
     public void writeContent(OutputStream to)
-            throws IOException;
+      throws IOException;
 
     public boolean hasMoreData();
 

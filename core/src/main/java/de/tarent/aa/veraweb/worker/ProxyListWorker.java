@@ -188,7 +188,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
         // tuser
         //
         select.joinLeftOuter("veraweb.tuser", "fk_user", "tuser.pk").selectAs("username", "userRole")
-                .selectAs("fk_orgunit", "orgunit");
+          .selectAs("fk_orgunit", "orgunit");
     }
 
     //
@@ -234,18 +234,18 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
                         continue;
                     } else if (PARAM_PROXIES_VALID_VALUE_FUTURE.equals(proxiesValid)) {
                         if ((currentProxy.validTill == null && proxy.validTill != null) ||
-                                (currentProxy.validTill != null && proxy.validTill != null &&
-                                        currentProxy.validTill.after(proxy.validTill))) {
+                          (currentProxy.validTill != null && proxy.validTill != null &&
+                            currentProxy.validTill.after(proxy.validTill))) {
                             continue;
                         }
                     } else { // if (PARAM_PROXIES_VALID_VALUE_NOW.equals(proxiesValid))
                         if (containsNow(currentProxy.validFrom, currentProxy.validTill) &&
-                                !containsNow(proxy.validFrom, proxy.validTill)) {
+                          !containsNow(proxy.validFrom, proxy.validTill)) {
                             continue;
                         }
                         if ((currentProxy.validTill == null && proxy.validTill != null) ||
-                                (currentProxy.validTill != null && proxy.validTill != null &&
-                                        currentProxy.validTill.after(proxy.validTill))) {
+                          (currentProxy.validTill != null && proxy.validTill != null &&
+                            currentProxy.validTill.after(proxy.validTill))) {
                             continue;
                         }
                     }
@@ -335,7 +335,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
                 list.addAnd(new RawClause("proxy IN (SELECT username FROM veraweb.tuser WHERE fk_orgunit IS NULL)"));
             } else {
                 list.addAnd(new RawClause(
-                        "proxy IN (SELECT username FROM veraweb.tuser WHERE fk_orgunit = " + pCfg.getOrgUnitId() + ")"));
+                  "proxy IN (SELECT username FROM veraweb.tuser WHERE fk_orgunit = " + pCfg.getOrgUnitId() + ")"));
             }
         } else if (PARAM_PROXY_VALUE_SELF.equals(proxy)) {
             if (pCfg == null || (pCfg.getRole() == null && pCfg.getRoles() == null)) {
@@ -361,20 +361,20 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
                 list.addAnd(new RawClause("fk_user IN (SELECT pk FROM veraweb.tuser WHERE fk_orgunit IS NULL)"));
             } else {
                 list.addAnd(new RawClause(
-                        "fk_user IN (SELECT pk FROM veraweb.tuser WHERE fk_orgunit = " + pCfg.getOrgUnitId() + ")"));
+                  "fk_user IN (SELECT pk FROM veraweb.tuser WHERE fk_orgunit = " + pCfg.getOrgUnitId() + ")"));
             }
         } else if (PARAM_PROXIES_FOR_VALUE_SELF.equals(proxiesFor)) { // TODO: auf Roles ausdehnen?
             if (pCfg == null || pCfg.getRole() == null) {
                 list.addAnd(new RawClause("fk_user IN (SELECT pk FROM veraweb.tuser WHERE username IS NULL)"));
             } else {
                 list.addAnd(new RawClause(
-                        "fk_user IN (SELECT pk FROM veraweb.tuser WHERE username = '" + Escaper.escape(pCfg.getRole()) + "')"));
+                  "fk_user IN (SELECT pk FROM veraweb.tuser WHERE username = '" + Escaper.escape(pCfg.getRole()) + "')"));
             }
         } else if (proxiesFor == null) {
             list.addAnd(new RawClause("fk_user IN (SELECT pk FROM veraweb.tuser WHERE username IS NULL)"));
         } else {
             list.addAnd(new RawClause(
-                    "fk_user IN (SELECT pk FROM veraweb.tuser WHERE username = '" + Escaper.escape(proxiesFor) + "')"));
+              "fk_user IN (SELECT pk FROM veraweb.tuser WHERE username = '" + Escaper.escape(proxiesFor) + "')"));
         }
         select.where(list);
     }
@@ -391,7 +391,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
             checkMandatoryFields(cntx, (Proxy) bean);
@@ -423,7 +423,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void saveBean(final OctopusContext octopusContext, Bean bean, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         Proxy proxy = (Proxy) bean;
         if (proxy.validFrom != null) {
             Calendar calendar = Calendar.getInstance();
@@ -459,7 +459,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
     private void handleAction(OctopusContext octopusContext, List errors, TransactionContext transactionContext)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         boolean doInsert = octopusContext.requestAsBoolean(INPUT_INSERT).booleanValue();
         boolean doUpdate = octopusContext.requestAsBoolean(INPUT_UPDATE).booleanValue();
         boolean doRemove = octopusContext.requestAsBoolean(INPUT_REMOVE).booleanValue();
@@ -485,7 +485,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
     private void executeDeleteReplacement(OctopusContext octopusContext, List errors, TransactionContext transactionContext)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = removeSelection(octopusContext, errors, getSelection(octopusContext, null), transactionContext);
         if (count > 0) {
             octopusContext.setContent("countRemove", new Integer(count));
@@ -493,8 +493,8 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
     private void executeUpdateReplacement(OctopusContext octopusContext, List errors, TransactionContext transactionContext,
-            Request request)
-            throws BeanException, IOException {
+      Request request)
+      throws BeanException, IOException {
         int count = updateBeanList(octopusContext, errors, request.getBeanList(BEANNAME, INPUT_LIST), transactionContext);
         if (count > 0) {
             octopusContext.setContent("countUpdate", new Integer(count));
@@ -502,8 +502,8 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
     private void executeInsertReplacement(OctopusContext octopusContext, List errors, TransactionContext transactionContext,
-            Request request)
-            throws BeanException, IOException {
+      Request request)
+      throws BeanException, IOException {
         int count = insertBean(octopusContext, errors, request.getBean(BEANNAME, INPUT_ADD), transactionContext);
         if (count > 0) {
             octopusContext.setContent("countInsert", new Integer(count));

@@ -101,7 +101,6 @@ public class HealthResourceTest extends AbstractResourceTest<HealthResource> {
         s.flush();
         s.getTransaction().commit();
         s.close();
-
     }
 
     @Test
@@ -118,7 +117,5 @@ public class HealthResourceTest extends AbstractResourceTest<HealthResource> {
         } finally {
             startH2();
         }
-
     }
-
 }

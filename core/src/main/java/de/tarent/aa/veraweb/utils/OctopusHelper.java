@@ -160,7 +160,7 @@ public class OctopusHelper {
             }
         } catch (UnsupportedEncodingException e) {
             logger.warn("Zeichenkette konnte nicht von '" + encin +
-                    "' nach '" + encout + "' konvertiert werden.", e);
+              "' nach '" + encout + "' konvertiert werden.", e);
             return in;
         }
     }

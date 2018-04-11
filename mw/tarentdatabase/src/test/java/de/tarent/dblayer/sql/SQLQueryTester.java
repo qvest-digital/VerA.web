@@ -144,7 +144,7 @@ public class SQLQueryTester {
     public void run() {
         // read settings
         if (!parseConfFile(confPath, config) || !parseConfFile(dbConfPath1, dbConfig1) ||
-                !parseConfFile(dbConfPath2, dbConfig2)) {
+          !parseConfFile(dbConfPath2, dbConfig2)) {
             if (logger.isWarnEnabled()) {
                 logger.warn("Could not parse config-files. Aborting...");
             }
@@ -174,9 +174,9 @@ public class SQLQueryTester {
         } else {
             if (logger.isInfoEnabled()) {
                 logger.info(
-                        errors + " of " + sqlQueries.size() + " queries failed.\r\nEXCEPTIONS: " + exceptions + "\r\nWARNINGS: " +
-                                warnings + "\r\nVALUE-MISMATCHES: " + valueMismatches + "\r\nTYPE-MISMATCHES: " + typeMismatches +
-                                "\r\nNULL-VALUES: " + nullValues + "\r\nHave a look into log for details");
+                  errors + " of " + sqlQueries.size() + " queries failed.\r\nEXCEPTIONS: " + exceptions + "\r\nWARNINGS: " +
+                    warnings + "\r\nVALUE-MISMATCHES: " + valueMismatches + "\r\nTYPE-MISMATCHES: " + typeMismatches +
+                    "\r\nNULL-VALUES: " + nullValues + "\r\nHave a look into log for details");
             }
             System.exit(2);
         }
@@ -250,11 +250,11 @@ public class SQLQueryTester {
             String logText = pLine.substring(pLine.indexOf('-') + 2);
 
             if (logText != null
-                    && logText.length() > 0
-                    && logText.indexOf(" ") != -1
-                    && (includes.contains("ALL")
-                    || includes.contains(logText.substring(0, logText.indexOf(" ")).toUpperCase()))
-                    ) {
+              && logText.length() > 0
+              && logText.indexOf(" ") != -1
+              && (includes.contains("ALL")
+              || includes.contains(logText.substring(0, logText.indexOf(" ")).toUpperCase()))
+              ) {
                 if (pFilterSchema) {
                     pSQLQueries.add(filterSchema(logText, pSchema));
                 } else {
@@ -273,7 +273,7 @@ public class SQLQueryTester {
             String logText = pLine.substring(pLine.indexOf(" SQL :") + 6);
 
             if (includes.contains("ALL")
-                    || includes.contains(logText.substring(0, logText.indexOf(" ")).toUpperCase())) {
+              || includes.contains(logText.substring(0, logText.indexOf(" ")).toUpperCase())) {
                 if (pFilterSchema) {
                     pSQLQueries.add(filterSchema(logText, pSchema));
                 } else {
@@ -342,8 +342,8 @@ public class SQLQueryTester {
 
         if (logger.isInfoEnabled()) {
             logger.info(
-                    "Connecting to DB...\r\nusing DRIVER <" + driverClassName + ">\r\nusing URL <" + dbURL + ">\r\nusing USER <" +
-                            username + ">\r\nusing PASSWORD <" + password + ">");
+              "Connecting to DB...\r\nusing DRIVER <" + driverClassName + ">\r\nusing URL <" + dbURL + ">\r\nusing USER <" +
+                username + ">\r\nusing PASSWORD <" + password + ">");
         }
         try {
             // Load JDBC-driver
@@ -399,8 +399,8 @@ public class SQLQueryTester {
                     if (!knownMessages.contains(pExcp.getLocalizedMessage()) || logDuplicates) {
                         if (logger.isWarnEnabled()) {
                             logger.warn(
-                                    "(" + count + "/" + sqlQueries.size() + ") " + dbConfig1.get("NAME") + ": " + sqlQuery + " " +
-                                            pExcp.getLocalizedMessage());
+                              "(" + count + "/" + sqlQueries.size() + ") " + dbConfig1.get("NAME") + ": " + sqlQuery + " " +
+                                pExcp.getLocalizedMessage());
                         }
                     }
 
@@ -425,8 +425,8 @@ public class SQLQueryTester {
                     if (!knownMessages.contains(pExcp.getLocalizedMessage()) || logDuplicates) {
                         if (logger.isWarnEnabled()) {
                             logger.warn(
-                                    "(" + count + "/" + sqlQueries.size() + ") " + dbConfig2.get("NAME") + ": " + sqlQuery + " " +
-                                            pExcp.getLocalizedMessage());
+                              "(" + count + "/" + sqlQueries.size() + ") " + dbConfig2.get("NAME") + ": " + sqlQuery + " " +
+                                pExcp.getLocalizedMessage());
                         }
                     }
 
@@ -462,7 +462,7 @@ public class SQLQueryTester {
                     warnings++;
                     if (logger.isWarnEnabled()) {
                         logger.warn("(" + count + "/" + sqlQueries.size() + ") " + dbConfig1.get("NAME") + ": " + sqlQuery + " " +
-                                queryResult1.getWarnings().getLocalizedMessage());
+                          queryResult1.getWarnings().getLocalizedMessage());
                     }
                 }
                 if (queryResult2 != null && queryResult2.getWarnings() != null) {
@@ -473,7 +473,7 @@ public class SQLQueryTester {
                     warnings++;
                     if (logger.isWarnEnabled()) {
                         logger.warn("(" + count + "/" + sqlQueries.size() + ") " + dbConfig2.get("NAME") + ": " + sqlQuery + " " +
-                                queryResult1.getWarnings().getLocalizedMessage());
+                          queryResult1.getWarnings().getLocalizedMessage());
                     }
                 }
                 if (queryResult1 != null) {
@@ -521,16 +521,16 @@ public class SQLQueryTester {
                                     typeMismatches++;
                                     if (logger.isWarnEnabled()) {
                                         logger.warn("result-set-object-types are not equal\r\n" + pSQLQuery + "\r\nTYPES " +
-                                                dbConfig1.get("NAME") + ": " + pResultSet1.getObject(i).getClass().getName() +
-                                                " <-> " + dbConfig2.get("NAME") + ": " +
-                                                pResultSet2.getObject(i).getClass().getName());
+                                          dbConfig1.get("NAME") + ": " + pResultSet1.getObject(i).getClass().getName() +
+                                          " <-> " + dbConfig2.get("NAME") + ": " +
+                                          pResultSet2.getObject(i).getClass().getName());
                                     }
                                 } else {
                                     valueMismatches++;
                                     if (logger.isWarnEnabled()) {
                                         logger.warn("result-set-object-values are not equal\r\n" + pSQLQuery + "\r\nVALUES " +
-                                                dbConfig1.get("NAME") + ": " + pResultSet1.getObject(i).toString() + " <-> " +
-                                                dbConfig2.get("NAME") + ": " + pResultSet2.getObject(i).toString());
+                                          dbConfig1.get("NAME") + ": " + pResultSet1.getObject(i).toString() + " <-> " +
+                                          dbConfig2.get("NAME") + ": " + pResultSet2.getObject(i).toString());
                                     }
                                 }
 

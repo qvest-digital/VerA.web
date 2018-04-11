@@ -71,12 +71,12 @@ public class TcSecurityException extends Exception {
     private static final String uri = "http://schemas.tarent.de/octopus";
 
     private static final QName[] soapFaultCodes = {
-            new QName(uri, "Client.authentication.unknownError"),
-            new QName(uri, "Client.authentication.needLogin"),
-            new QName(uri, "Client.authentication.authenticationFailed"),
-            new QName(uri, "Client.authentication.notEnoughRights"),
-            new QName(uri, "Client.authentication.incompleteUserData"),
-            new QName(uri, "Server.authentication.serviceFailed")
+      new QName(uri, "Client.authentication.unknownError"),
+      new QName(uri, "Client.authentication.needLogin"),
+      new QName(uri, "Client.authentication.authenticationFailed"),
+      new QName(uri, "Client.authentication.notEnoughRights"),
+      new QName(uri, "Client.authentication.incompleteUserData"),
+      new QName(uri, "Server.authentication.serviceFailed")
     };
 
     int errorCode = 0;

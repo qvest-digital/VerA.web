@@ -98,11 +98,11 @@ public class CompleteWorker {
         cntx.setContent(QUERY, query);
         Database database = new DatabaseVeraWeb(cntx);
         return database.getList(SQL.Select(database).
-                from(table).
-                selectAs(column, COLUMN).
-                where(Expr.like(column, query + '%')).
-                orderBy(Order.asc(column)).
-                Limit(LIMIT), database);
+          from(table).
+          selectAs(column, COLUMN).
+          where(Expr.like(column, query + '%')).
+          orderBy(Order.asc(column)).
+          Limit(LIMIT), database);
     }
 
     /**

@@ -167,7 +167,7 @@ public class ProxyWorker {
         for (Iterator itProxies = proxies.iterator(); itProxies.hasNext(); ) {
             Proxy proxy = (Proxy) itProxies.next();
             if (resultProxy == null || (resultProxy.validTill != null &&
-                    (proxy.validTill == null || proxy.validTill.after(resultProxy.validTill)))) {
+              (proxy.validTill == null || proxy.validTill.after(resultProxy.validTill)))) {
                 resultProxy = proxy;
             }
         }

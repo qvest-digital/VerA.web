@@ -218,8 +218,8 @@ public class PersonResourceSessionsTest {
 
         // WHEN
         personResource.createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
-                "63123", "city",
-                "country");
+          "63123", "city",
+          "country");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -243,9 +243,9 @@ public class PersonResourceSessionsTest {
 
         // WHEN
         Person personPress = personResource
-                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
-                        "63123", "city",
-                        "country");
+          .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
+            "63123", "city",
+            "country");
 
         // THEN
         assertTrue(personPress == null);
@@ -268,9 +268,9 @@ public class PersonResourceSessionsTest {
 
         // WHEN
         Person result = personResource
-                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
-                        "63123", "city",
-                        "country");
+          .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
+            "63123", "city",
+            "country");
 
         // THEN
         assertNull(result);
@@ -293,9 +293,9 @@ public class PersonResourceSessionsTest {
 
         // WHEN
         Person result = personResource
-                .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
-                        "63123", "city",
-                        "country");
+          .createPersonPress(1, "maxmustermann", "Antje", "Weber", "w", "maxmustermann@maxmustermann.de", "address",
+            "63123", "city",
+            "country");
 
         // THEN
         assertNull(result);
@@ -447,7 +447,6 @@ public class PersonResourceSessionsTest {
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
-
     }
 
     @Test
@@ -479,7 +478,7 @@ public class PersonResourceSessionsTest {
 
         // WHEN
         personResource
-                .updatePersonCoreData("username", "salutation", 1, "title", "firstname", "lastname", 1L, "de", "de", "gender");
+          .updatePersonCoreData("username", "salutation", 1, "title", "firstname", "lastname", 1L, "de", "de", "gender");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();

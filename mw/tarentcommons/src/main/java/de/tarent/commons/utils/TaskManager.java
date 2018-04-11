@@ -257,7 +257,7 @@ public class TaskManager {
     private void checkDispatchThread() {
         if (EventQueue.isDispatchThread()) {
             throw new IllegalStateException(
-                    "Task registration is not to be done on the Swing dispatch thread.");
+              "Task registration is not to be done on the Swing dispatch thread.");
         }
     }
 
@@ -405,7 +405,7 @@ public class TaskManager {
     public void register(Task t, String taskDescription, boolean cancelable, int priority) {
 
         fireTaskRegistered(register(new Context(t, false, false, cancelable, priority)),
-                taskDescription);
+          taskDescription);
     }
 
     /**
@@ -424,12 +424,12 @@ public class TaskManager {
      * completed.
      */
     public void registerBlocking(Task t, String taskDescription,
-            boolean cancelable) {
+      boolean cancelable) {
         // TODO: realy check this?
         //checkDispatchThread();
 
         fireBlockingTaskRegistered(register(new Context(t, true, false, cancelable, DEFAULT_PRIORITY)),
-                taskDescription);
+          taskDescription);
     }
 
     /**
@@ -441,11 +441,11 @@ public class TaskManager {
      * @param cancelable
      */
     public void registerExclusive(Task t, String taskDescription,
-            boolean cancelable) {
+      boolean cancelable) {
         //checkDispatchThread();
 
         fireExclusiveTaskRegistered(register(new Context(t, false, true, cancelable, DEFAULT_PRIORITY)),
-                taskDescription);
+          taskDescription);
     }
 
     /**
@@ -651,10 +651,10 @@ public class TaskManager {
                 });
             } catch (InterruptedException ie) {
                 throw (IllegalStateException) new IllegalStateException()
-                        .initCause(ie);
+                  .initCause(ie);
             } catch (InvocationTargetException ite) {
                 throw (IllegalStateException) new IllegalStateException()
-                        .initCause(ite);
+                  .initCause(ite);
             }
 
             // Runs the task directly and then 'suceeded' or 'failed' on the
@@ -671,12 +671,11 @@ public class TaskManager {
                     });
                 } catch (InterruptedException ie) {
                     throw (IllegalStateException) new IllegalStateException()
-                            .initCause(ie);
+                      .initCause(ie);
                 } catch (InvocationTargetException ite) {
                     throw (IllegalStateException) new IllegalStateException()
-                            .initCause(ite);
+                      .initCause(ite);
                 }
-
             } catch (SwingTask.Exception ste) {
                 try {
                     EventQueue.invokeAndWait(new Runnable() {
@@ -686,10 +685,10 @@ public class TaskManager {
                     });
                 } catch (InterruptedException ie) {
                     throw (IllegalStateException) new IllegalStateException()
-                            .initCause(ie);
+                      .initCause(ie);
                 } catch (InvocationTargetException ite) {
                     throw (IllegalStateException) new IllegalStateException()
-                            .initCause(ite);
+                      .initCause(ite);
                 }
             }
         }
@@ -756,7 +755,6 @@ public class TaskManager {
                 super(msg, cause);
             }
         }
-
     }
 
     /**
@@ -852,7 +850,5 @@ public class TaskManager {
          * @param t
          */
         void goalUpdated(Context t, int amount);
-
     }
-
 }

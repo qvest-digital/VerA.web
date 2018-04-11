@@ -211,10 +211,10 @@ public class TcGenericDataAccessWrapper {
                 // Verbinden mit Datenbank
                 Class.forName(dbConnection.get("driver"));
                 jdbcConnection =
-                        DriverManager.getConnection(
-                                dbConnection.get("url"),
-                                dbConnection.get("username"),
-                                dbConnection.get("password"));
+                  DriverManager.getConnection(
+                    dbConnection.get("url"),
+                    dbConnection.get("username"),
+                    dbConnection.get("password"));
             }
         }
     }
@@ -309,7 +309,7 @@ public class TcGenericDataAccessWrapper {
                     Iterator itWrappers = allDataAccessWrappers.iterator();
                     while (itWrappers.hasNext()) {
                         TcGenericDataAccessWrapper wrapper =
-                                (TcGenericDataAccessWrapper) ((WeakReference) itWrappers.next()).get();
+                          (TcGenericDataAccessWrapper) ((WeakReference) itWrappers.next()).get();
                         if (wrapper == null) {
                             itWrappers.remove();
                         } else {
@@ -363,7 +363,6 @@ public class TcGenericDataAccessWrapper {
                 return out;
             }
             throw new TcDataAccessException("Kein Datensatz mit dieser Bedingung vorhanden!");
-
         } catch (java.sql.SQLException sqle) {
             logger.error("Fehler beim DB Zugriff", sqle);
             throw new TcDataAccessException("Fehler beim DB Zugriff", sqle);
@@ -442,7 +441,7 @@ public class TcGenericDataAccessWrapper {
      * @return ResultSet der Ergebnissmenge
      */
     protected ResultSet getResultSet(String cmd, boolean cache, String dataSection)
-            throws SQLException, ClassNotFoundException {
+      throws SQLException, ClassNotFoundException {
 
         try {
             use();
@@ -482,7 +481,7 @@ public class TcGenericDataAccessWrapper {
                 removeDirtyDataSection(dataSection);
 
                 logger.trace(
-                        "resultSetCache/resultSets.size(): " + resultSetCache + "/" + resultSets.size() + "   =>" + resultSets);
+                  "resultSetCache/resultSets.size(): " + resultSetCache + "/" + resultSets.size() + "   =>" + resultSets);
                 while (resultSets.size() > resultSetCache) {
                     ResultSet oldCursor = (ResultSet) resultSets.remove(0);
                     oldCursor.close();
@@ -582,7 +581,7 @@ public class TcGenericDataAccessWrapper {
      * bei [0], wärend der erste Spalte in einem ResultSet mit 1 anfängt.
      */
     protected String[] getFieldList(ResultSet cursor, Object cacheKey)
-            throws java.sql.SQLException {
+      throws java.sql.SQLException {
 
         ResultSetMetaData rsmd = cursor.getMetaData();
         String[] out = new String[rsmd.getColumnCount()];

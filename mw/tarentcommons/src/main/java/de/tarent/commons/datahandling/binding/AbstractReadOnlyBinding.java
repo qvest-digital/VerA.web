@@ -121,5 +121,4 @@ public abstract class AbstractReadOnlyBinding implements Binding {
     public final boolean isReadOnly() {
         return true;
     }
-
 }

@@ -107,7 +107,6 @@ public class CsvExporterTest {
         private Object getBaseUrl() {
             return props != null && props.containsKey("baseUrl") ? props.get("baseUrl") : "/";
         }
-
     }
 
     @Before
@@ -121,7 +120,6 @@ public class CsvExporterTest {
         properties = new Properties();
         properties.setProperty("baseUrl", "http://fnord-west.eu/api");
         csvExporter = new CsvExporter(reader, writer, dataSource, properties);
-
     }
 
     @Test

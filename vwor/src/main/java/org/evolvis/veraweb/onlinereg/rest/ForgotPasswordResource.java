@@ -92,8 +92,8 @@ public class ForgotPasswordResource extends AbstractResource {
     @POST
     @Path("/request/reset-password-link")
     public void requestResetPasswordLink(@FormParam("username") String username,
-            @FormParam("currentLanguageKey") String currentLanguageKey,
-            @FormParam("oaEndpoint") String oaEndpoint) throws MessagingException {
+      @FormParam("currentLanguageKey") String currentLanguageKey,
+      @FormParam("oaEndpoint") String oaEndpoint) throws MessagingException {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -142,7 +142,7 @@ public class ForgotPasswordResource extends AbstractResource {
     }
 
     private void sendResetPasswordLinkEmail(String toEmail, String currentLanguageKey, String oaEndpoint, String uuid)
-            throws MessagingException {
+      throws MessagingException {
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration(currentLanguageKey);
         }
@@ -151,7 +151,7 @@ public class ForgotPasswordResource extends AbstractResource {
         }
         String link = buildLink(oaEndpoint, uuid);
         mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubjectResetPassword(),
-                emailConfiguration.getContentResetPassword(), link, emailConfiguration.getContentType());
+          emailConfiguration.getContentResetPassword(), link, emailConfiguration.getContentType());
     }
 
     private String buildLink(String oaEndpoint, String uuid) {
@@ -161,5 +161,4 @@ public class ForgotPasswordResource extends AbstractResource {
         }
         return oaEndpoint + "/" + suffix + uuid;
     }
-
 }

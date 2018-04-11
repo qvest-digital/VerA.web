@@ -76,12 +76,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tsalutation")
 @NamedNativeQueries(value = {
-        @NamedNativeQuery(name = Salutation.GET_ALL_SALUTATIONS, query = "SELECT s.* FROM tsalutation s ",
-                resultClass = Salutation.class),
-        @NamedNativeQuery(name = Salutation.GET_SALUTATIONS_WITHOUT_ALTERNATIVE_CONTENT,
-                query = "SELECT s.* FROM tsalutation s WHERE pk NOT IN (SELECT salutation_id FROM salutation_alternative WHERE " +
-                        "pdftemplate_id=:" +
-                        SalutationAlternative.PARAM_PDFTEMPLATE_ID + ")", resultClass = Salutation.class)
+  @NamedNativeQuery(name = Salutation.GET_ALL_SALUTATIONS, query = "SELECT s.* FROM tsalutation s ",
+    resultClass = Salutation.class),
+  @NamedNativeQuery(name = Salutation.GET_SALUTATIONS_WITHOUT_ALTERNATIVE_CONTENT,
+    query = "SELECT s.* FROM tsalutation s WHERE pk NOT IN (SELECT salutation_id FROM salutation_alternative WHERE " +
+      "pdftemplate_id=:" +
+      SalutationAlternative.PARAM_PDFTEMPLATE_ID + ")", resultClass = Salutation.class)
 })
 
 public class Salutation {

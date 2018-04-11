@@ -117,7 +117,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
         final Map importDuplicatesProperties = (Map) octopusContext.moduleConfig().getParams().get("importDuplicatesProperties");
         if (importDuplicatesProperties == null) {
             ImportPersonsWorker.LOGGER
-                    .warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
+              .warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
         }
         if (octopusContext.sessionAsObject("limit" + BEANNAME) == null) {
             octopusContext.setSession("limit" + BEANNAME, Integer.parseInt((String) importDuplicatesProperties.get("dsCount")));
@@ -140,8 +140,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
                 if (importPerson.getDuplicateList() == null) {
                     List dups = null;
                     StringTokenizer tokenizer = new StringTokenizer(
-                            importPerson.duplicates,
-                            Character.toString(ImportPerson.PK_SEPARATOR_CHAR)
+                      importPerson.duplicates,
+                      Character.toString(ImportPerson.PK_SEPARATOR_CHAR)
                     );
 
                     int count = 0;
@@ -174,8 +174,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
         person.setField("id", pk);
         Select select = database.getSelect(person);
         select.where(Where.and(
-                Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-                database.getWhere(person)));
+          Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+          database.getWhere(person)));
         return select;
     }
 
@@ -204,7 +204,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
                 // failed to commit
                 transactionContext.rollBack();
                 throw new BeanException(
-                        "Die \u00c4nderungen an der Duplikatliste konnten nicht \u00fcbernommen werden.", e);
+                  "Die \u00c4nderungen an der Duplikatliste konnten nicht \u00fcbernommen werden.", e);
             }
         }
     }
@@ -216,8 +216,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     }
 
     private void setDuplicateFlag(Database database, TransactionContext transactionContext, ImportPerson sample,
-            Where whereClause, List selection)
-            throws IOException, BeanException {
+      Where whereClause, List selection)
+      throws IOException, BeanException {
         // Markierungen wieder setzten.
         final Update update = SQL.Update(transactionContext);
         update.table(database.getProperty(sample, "table"));
@@ -228,8 +228,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     }
 
     private void clearDuplicateFlags(Database database, TransactionContext transactionContext, ImportPerson sample,
-            Where whereClause)
-            throws IOException, BeanException {
+      Where whereClause)
+      throws IOException, BeanException {
         // Entfernt alle markierungen in der Datenbank.
         final Update update = SQL.Update(transactionContext);
         update.table(database.getProperty(sample, "table"));

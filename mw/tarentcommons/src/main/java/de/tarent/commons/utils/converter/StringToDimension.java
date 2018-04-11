@@ -75,5 +75,4 @@ public class StringToDimension extends AbstractConverter {
         int heigth = Integer.parseInt(value.subSequence(i + 1, value.length()).toString());
         return new Dimension(width, heigth);
     }
-
 }

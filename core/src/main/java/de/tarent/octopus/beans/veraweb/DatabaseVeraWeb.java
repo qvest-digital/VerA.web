@@ -249,7 +249,7 @@ public class DatabaseVeraWeb extends Database {
      */
     @Override
     public BeanStatement prepareUpdate(Bean sample, Collection keyFields, Collection updateFields, ExecutionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         if (sample instanceof AbstractBean) {
             ((AbstractBean) sample).checkWrite(cntx);
         }

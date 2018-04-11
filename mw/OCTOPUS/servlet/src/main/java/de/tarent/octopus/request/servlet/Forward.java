@@ -123,8 +123,8 @@ public class Forward extends HttpServlet {
         String targetPathString = getInitParameter(INIT_PARAM_TARGET_PATH);
 
         ServletContext targetContext = (targetContextString == null)
-                ? getServletContext()
-                : getServletContext().getContext(targetContextString);
+          ? getServletContext()
+          : getServletContext().getContext(targetContextString);
 
         if (targetContext == null) {
             throw new ServletException("can not access target context: '" + targetContextString + "'");
@@ -141,8 +141,8 @@ public class Forward extends HttpServlet {
 
         if (logger.isDebugEnabled()) {
             logger.debug("Forwarding URI " +
-                    "<" + request.getRequestURI() + "> to" +
-                    "<" + targetContext.getServletContextName() + target + ">");
+              "<" + request.getRequestURI() + "> to" +
+              "<" + targetContext.getServletContextName() + target + ">");
         }
 
         RequestDispatcher dispatcher = targetContext.getRequestDispatcher(target);

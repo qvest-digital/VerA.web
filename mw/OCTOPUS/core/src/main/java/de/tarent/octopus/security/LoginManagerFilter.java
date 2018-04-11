@@ -63,7 +63,7 @@ import de.tarent.octopus.server.PersonalConfig;
 public class LoginManagerFilter extends AbstractLoginManager {
 
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-            throws TcSecurityException {
+      throws TcSecurityException {
 
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
         if (pwdAuth == null || pwdAuth.getUserName() == null || pwdAuth.getUserName().length() == 0) {
@@ -75,9 +75,8 @@ public class LoginManagerFilter extends AbstractLoginManager {
     }
 
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-            throws TcSecurityException {
+      throws TcSecurityException {
         pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
         pConfig.userLoggedOut();
     }
-
 }

@@ -75,5 +75,4 @@ public interface DBContext {
      * @return default Connection from pool
      */
     public Connection getDefaultConnection() throws SQLException;
-
 }

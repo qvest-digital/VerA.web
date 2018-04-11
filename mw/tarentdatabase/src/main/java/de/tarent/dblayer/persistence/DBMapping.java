@@ -122,5 +122,4 @@ public interface DBMapping {
      * If this mapping has more than one pk, the first one is returned.
      */
     public Field getPkField();
-
 }

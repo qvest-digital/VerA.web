@@ -89,5 +89,4 @@ public class WebFormatTest extends TestCase {
     public void testBrokerDateToHumanDate() throws ParseException {
         assertEquals("04.05.2006", wf.brokerDateToHumanDate("2006-05-04 00:00:00.0"));
     }
-
 }

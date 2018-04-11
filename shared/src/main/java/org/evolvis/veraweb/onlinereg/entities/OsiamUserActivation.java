@@ -81,14 +81,14 @@ import java.util.Date;
 @Entity
 @Table(name = "tosiam_user_activation")
 @NamedQueries({
-        @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByToken",
-                query = "SELECT oua FROM OsiamUserActivation oua where activation_token=:activation_token"),
-        @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByUsername",
-                query = "SELECT oua FROM OsiamUserActivation oua where username=:username"),
-        @NamedQuery(name = "OsiamUserActivation.refreshOsiamUserActivationByUsername",
-                query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, " +
-                        "expiration_date=:expiration_date " +
-                        "WHERE username=:username")
+  @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByToken",
+    query = "SELECT oua FROM OsiamUserActivation oua where activation_token=:activation_token"),
+  @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByUsername",
+    query = "SELECT oua FROM OsiamUserActivation oua where username=:username"),
+  @NamedQuery(name = "OsiamUserActivation.refreshOsiamUserActivationByUsername",
+    query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, " +
+      "expiration_date=:expiration_date " +
+      "WHERE username=:username")
 })
 public class OsiamUserActivation {
     @Id

@@ -188,7 +188,7 @@ public class Task extends AbstractHistoryBean {
         }
 
         if ((starttime != null && starttime.length() > 0 && startdate == null)
-                || (endtime != null && endtime.length() > 0 && enddate == null)) {
+          || (endtime != null && endtime.length() > 0 && enddate == null)) {
             addError(messages.getMessageTaskTimeWithoutDate());
         }
 

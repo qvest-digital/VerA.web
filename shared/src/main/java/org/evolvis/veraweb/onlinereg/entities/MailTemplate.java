@@ -82,9 +82,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tmaildraft")
 @NamedQueries({
-        @NamedQuery(name = MailTemplate.GET_MAILTEMPLATE_BY_ID,
-                query = "SELECT mt FROM MailTemplate mt WHERE pk=:templateId AND fk_orgunit=:mandantId")
-
+  @NamedQuery(name = MailTemplate.GET_MAILTEMPLATE_BY_ID,
+    query = "SELECT mt FROM MailTemplate mt WHERE pk=:templateId AND fk_orgunit=:mandantId")
 })
 public class MailTemplate {
 

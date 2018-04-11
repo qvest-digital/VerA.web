@@ -118,9 +118,9 @@ public class CommonLoggingWorker {
      */
     @WebMethod
     public void appendLoggingProperties(
-            OctopusContext octopusContext,
-            @Name("CONTENT:logging.property.file") @Optional(true) String contentFilename,
-            @Name("CONFIG:logging.property.file") @Optional(true) String configFilename) {
+      OctopusContext octopusContext,
+      @Name("CONTENT:logging.property.file") @Optional(true) String contentFilename,
+      @Name("CONFIG:logging.property.file") @Optional(true) String configFilename) {
 
         try {
             File modulePath = octopusContext.moduleRootPath();
@@ -166,9 +166,9 @@ public class CommonLoggingWorker {
 
     @WebMethod
     public void appendLoggingHandler(
-            OctopusContext octopusContext,
-            @Name("CONFIG:logging.handler") @Optional(true) Map<String, Map<String, String>> configHandler,
-            @Name("CONFIG:logging.logger") @Optional(true) Map<String, Map<String, String>> configLogger) {
+      OctopusContext octopusContext,
+      @Name("CONFIG:logging.handler") @Optional(true) Map<String, Map<String, String>> configHandler,
+      @Name("CONFIG:logging.logger") @Optional(true) Map<String, Map<String, String>> configLogger) {
 
         LogManager logManager = getLogManager();
 
@@ -208,7 +208,7 @@ public class CommonLoggingWorker {
 
     @WebMethod
     public void changeHandlerLevels(
-            @Name("CONFIG:logging.level") @Optional(true) Map<String, Map<String, String>> configLevels) {
+      @Name("CONFIG:logging.level") @Optional(true) Map<String, Map<String, String>> configLevels) {
 
         if (configLevels != null) {
             for (Map.Entry<String, Map<String, String>> entry : configLevels.entrySet()) {
@@ -219,7 +219,7 @@ public class CommonLoggingWorker {
 
                 if (logger.isLoggable(Level.INFO)) {
                     logger.log(Level.INFO,
-                            "Will change log level for handler of logger '" + loggername + "' with " + entry.getValue() + ".");
+                      "Will change log level for handler of logger '" + loggername + "' with " + entry.getValue() + ".");
                 }
 
                 List<Handler> handlers = Arrays.asList(Logger.getLogger(loggername).getHandlers());
@@ -236,15 +236,15 @@ public class CommonLoggingWorker {
                             if (handler.toString().contains(handlerpattern)) {
                                 if (logger.isLoggable(Level.INFO)) {
                                     logger.log(Level.INFO,
-                                            "Change level of handler '" + handler + "' for logger '" + loggername + "' on '" +
-                                                    level + "'.");
+                                      "Change level of handler '" + handler + "' for logger '" + loggername + "' on '" +
+                                        level + "'.");
                                 }
                                 try {
                                     handler.setLevel(Level.parse(level));
                                 } catch (IllegalArgumentException e) {
                                     logger.log(Level.WARNING,
-                                            "Bad level '" + level + "' for handler '" + handler + "' for logger '" + loggername +
-                                                    "'.");
+                                      "Bad level '" + level + "' for handler '" + handler + "' for logger '" + loggername +
+                                        "'.");
                                 }
                             }
                         }

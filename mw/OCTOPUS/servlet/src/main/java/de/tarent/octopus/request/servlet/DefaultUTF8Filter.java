@@ -74,10 +74,10 @@ public class DefaultUTF8Filter implements Filter {
      */
     //@Override
     public void doFilter(final ServletRequest request,
-            final ServletResponse response, final FilterChain chain)
-            throws IOException, ServletException {
+      final ServletResponse response, final FilterChain chain)
+      throws IOException, ServletException {
         if (request.getCharacterEncoding() == null ||
-                "".equals(request.getCharacterEncoding())) {
+          "".equals(request.getCharacterEncoding())) {
             request.setCharacterEncoding("UTF-8");
         }
 

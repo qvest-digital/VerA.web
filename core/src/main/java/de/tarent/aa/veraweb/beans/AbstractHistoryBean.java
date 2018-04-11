@@ -116,7 +116,7 @@ public class AbstractHistoryBean extends AbstractBean {
         }
         if (containsKey(HISTORY_FIELD_CREATED_BY)) {
             if (getField(HISTORY_FIELD_CREATED_BY) == null ||
-                    getField(HISTORY_FIELD_CREATED_BY).toString().trim().length() == 0) {
+              getField(HISTORY_FIELD_CREATED_BY).toString().trim().length() == 0) {
                 setField(HISTORY_FIELD_CREATED_BY, actor);
             }
         }

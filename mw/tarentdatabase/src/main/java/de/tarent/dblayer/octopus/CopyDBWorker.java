@@ -98,7 +98,7 @@ public class CopyDBWorker {
         assert poolNameTo != null;
 
         logger.info("Starting to copy database scheme " + schemeFrom + " from pool " + poolNameFrom + " to scheme " + schemeTo +
-                " in pool " + poolNameTo + " ignoring tables " + tablesToIgnore + ".");
+          " in pool " + poolNameTo + " ignoring tables " + tablesToIgnore + ".");
         StringTokenizer strTok = new StringTokenizer(tablesToIgnore != null ? tablesToIgnore : "");
         while (strTok.hasMoreTokens()) {
             ignoreList.add(strTok.nextToken());

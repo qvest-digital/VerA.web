@@ -155,7 +155,7 @@ public class UserResource {
     @POST
     @Path("/request/resend-login")
     public String resendLogin(@FormParam("email") String email, @FormParam("current_language") String currentLanguageKey)
-            throws IOException {
+      throws IOException {
         Form postBody = new Form();
         postBody.add("mail", email);
         postBody.add("currentLanguageKey", currentLanguageKey);
@@ -176,26 +176,25 @@ public class UserResource {
     @POST
     @Path("/request/reset-password-link")
     public String resetPassword(@FormParam("username") String username, @FormParam("current_language") String currentLanguageKey)
-            throws IOException {
+      throws IOException {
         final Person person = getUserData(username);
         if (person == null) {
             //send OK to not show if username was correct
             return StatusConverter.convertStatus("OK");
         } else {
             return sendEmailWithResetPasswordLink(person, currentLanguageKey, person.getPk(),
-                    config.getOnlineRegistrationEndpoint());
+              config.getOnlineRegistrationEndpoint());
         }
-
     }
 
     private String sendEmailWithResetPasswordLink(Person person, String currentLanguageKey, Integer personId, String oaEndpoint)
-            throws IOException {
+      throws IOException {
         Form postBody = new Form();
         postBody.add("username", person.getUsername());
         postBody.add("currentLanguageKey", currentLanguageKey);
         postBody.add("oaEndpoint", oaEndpoint);
         final WebResource resource =
-                client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
+          client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
         resource.post(postBody);
 
         return StatusConverter.convertStatus("OK");
@@ -236,9 +235,9 @@ public class UserResource {
     @POST
     @Path("/register/{osiam_username}")
     public String registerUser(@PathParam("osiam_username") String osiam_username,
-            @FormParam("osiam_firstname") String osiam_firstname,
-            @FormParam("osiam_secondname") String osiam_secondname, @FormParam("osiam_password1") String osiam_password1,
-            @FormParam("osiam_email") String email, @FormParam("current_language") String currentLanguageKey) throws IOException {
+      @FormParam("osiam_firstname") String osiam_firstname,
+      @FormParam("osiam_secondname") String osiam_secondname, @FormParam("osiam_password1") String osiam_password1,
+      @FormParam("osiam_email") String email, @FormParam("current_language") String currentLanguageKey) throws IOException {
 
         if (!osiam_username.matches("\\w+")) {
             return StatusConverter.convertStatus("INVALID_USERNAME");
@@ -315,8 +314,8 @@ public class UserResource {
     @POST
     @Path("/update/activation/data")
     public String refreshActivationToken(@FormParam("activation_token") String oldActivationToken,
-            @FormParam("language") String currentLanguageKey)
-            throws IOException {
+      @FormParam("language") String currentLanguageKey)
+      throws IOException {
 
         final Form postBody = new Form();
         final String activationToken = UUID.randomUUID().toString();
@@ -327,7 +326,7 @@ public class UserResource {
 
         final String osiamUsername = osiamUserActivation.getUsername();
         final User user =
-                osiamClient.getUser(osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT"), osiamUsername);
+          osiamClient.getUser(osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT"), osiamUsername);
         final String email = user.getEmails().get(0).getValue().toString();
         postBody.add("username", osiamUsername);
         postBody.add("email", email);
@@ -352,7 +351,6 @@ public class UserResource {
         } else {
             return StatusConverter.convertStatus("ERROR");
         }
-
     }
 
     private boolean isAssociatedWithEvent() {
@@ -384,18 +382,18 @@ public class UserResource {
     @POST
     @Path("/userdata/update")
     public String updateUserCoreData(@FormParam("person_fk_salutation") Integer fk_salutation,
-            @FormParam("person_salutation") String salutation,
-            @FormParam("person_title") String title, @FormParam("person_firstName") String firstName,
-            @FormParam("person_lastName") String lastName,
-            @FormParam("person_birthday") Date birthday, @FormParam("person_nationality") String nationality,
-            @FormParam("person_languages") String languages, @FormParam("person_gender") Integer gender) throws IOException {
+      @FormParam("person_salutation") String salutation,
+      @FormParam("person_title") String title, @FormParam("person_firstName") String firstName,
+      @FormParam("person_lastName") String lastName,
+      @FormParam("person_birthday") Date birthday, @FormParam("person_nationality") String nationality,
+      @FormParam("person_languages") String languages, @FormParam("person_gender") Integer gender) throws IOException {
         if (!isAssociatedWithEvent()) {
             return StatusConverter.convertStatus("USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE");
         }
         final String username = (String) request.getAttribute(LoginResource.USERNAME);
         final Form postBody =
-                createUserCoreDataPostBody(username, fk_salutation, salutation, title, firstName, lastName, birthday, nationality,
-                        languages, gender);
+          createUserCoreDataPostBody(username, fk_salutation, salutation, title, firstName, lastName, birthday, nationality,
+            languages, gender);
 
         return updateUserCoreDataWithGivenValues(postBody);
     }
@@ -437,7 +435,7 @@ public class UserResource {
     private OsiamUserActivation getOsiamUserActivationByToken(String activationToken) throws IOException {
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
         final String osiamUserActivationPath =
-                resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", activationToken);
+          resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", activationToken);
         return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
 
@@ -468,16 +466,16 @@ public class UserResource {
     }
 
     private User initUser(@PathParam("osiam_username") String osiam_username,
-            @FormParam("osiam_firstname") String osiam_firstname,
-            @FormParam("osiam_secondname") String osiam_secondname, @FormParam("osiam_password1") String osiam_password1,
-            @FormParam("email") String email, Integer personId) {
+      @FormParam("osiam_firstname") String osiam_firstname,
+      @FormParam("osiam_secondname") String osiam_secondname, @FormParam("osiam_password1") String osiam_password1,
+      @FormParam("email") String email, Integer personId) {
         User user;
         final Email userEmail = buildUserEmail(email);
         user = new User.Builder(osiam_username).setName(new Name.Builder()
-                .setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
-                .setPassword(osiam_password1).setActive(false).addEmail(userEmail)
-                .addExtension(new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(personId)).build())
-                .build();
+          .setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
+          .setPassword(osiam_password1).setActive(false).addEmail(userEmail)
+          .addExtension(new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(personId)).build())
+          .build();
         return user;
     }
 
@@ -486,8 +484,8 @@ public class UserResource {
     }
 
     private Form createUserCoreDataPostBody(String username, Integer fk_salutation, String salutation, String title,
-            String firstName,
-            String lastName, Date birthday, String nationality, String languages, Integer gender) {
+      String firstName,
+      String lastName, Date birthday, String nationality, String languages, Integer gender) {
         final Form postBody = new Form();
 
         postBody.add("username", username);

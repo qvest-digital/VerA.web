@@ -90,5 +90,4 @@ public class DAORegistry {
     public static AbstractDAO getDAOForBean(Object bean) {
         return daos.get(bean.getClass());
     }
-
 }

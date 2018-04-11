@@ -89,18 +89,18 @@ public class EmailConfiguration {
     }
 
     public EmailConfiguration(String host,
-            Integer port,
-            String security,
-            String username,
-            String password,
-            String from,
-            String subject,
-            String content,
-            String contentType,
-            String subjectResetPassword,
-            String contentResetPassword,
-            String subjectResendLogin,
-            String contentResendLogin) {
+      Integer port,
+      String security,
+      String username,
+      String password,
+      String from,
+      String subject,
+      String content,
+      String contentType,
+      String subjectResetPassword,
+      String contentResetPassword,
+      String subjectResendLogin,
+      String contentResendLogin) {
 
         this.host = host;
         this.port = port;
@@ -144,7 +144,6 @@ public class EmailConfiguration {
             this.contentResetPassword = propertiesReader.getProperty("mail.content_reset_password." + currentLanguageKey);
             this.contentResendLogin = propertiesReader.getProperty("mail.content_resend_login." + currentLanguageKey);
         }
-
     }
 
     public String getHost() {

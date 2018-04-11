@@ -78,8 +78,8 @@ public class TcRawResponseEngine implements TcResponseEngine {
     }
 
     public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
-            TcRequest request)
-            throws ResponseProcessingException {
+      TcRequest request)
+      throws ResponseProcessingException {
         String encoding = (String) theContent.getAsObject("responseParams.encoding");
         if (encoding == null || encoding.length() == 0) {
             encoding = config.getDefaultEncoding();

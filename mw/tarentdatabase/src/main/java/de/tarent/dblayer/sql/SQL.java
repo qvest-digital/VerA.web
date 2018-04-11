@@ -416,5 +416,4 @@ public class SQL {
         }
         return Pool.DB_MSSQL.equals(context.getPool().getTargetDB());
     }
-
 }

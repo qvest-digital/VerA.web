@@ -201,7 +201,7 @@ public class MailingResourceTest {
         when(entity2.getInputStream()).thenReturn(new ByteArrayInputStream("file2".getBytes(StandardCharsets.UTF_8)));
         when(session.getNamedQuery("PersonMailinglist.findByMailinglist")).thenReturn(query);
         when(mailDispatcher.sendEmailWithAttachments(isNull(), any(String.class),
-                any(String.class), any(String.class), anyMap(), isNull())).thenReturn(mailDispatchMonitor);
+          any(String.class), any(String.class), anyMap(), isNull())).thenReturn(mailDispatchMonitor);
         when(query.list()).thenReturn(ids);
 
         // WHEN
@@ -211,7 +211,7 @@ public class MailingResourceTest {
         verify(sessionFactory, times(1)).openSession();
         verify(session, times(1)).close();
         verify(mailDispatcher, times(1)).sendEmailWithAttachments(isNull(), any(String.class),
-                any(String.class), any(String.class), anyMap(), isNull());
+          any(String.class), any(String.class), anyMap(), isNull());
     }
 
     private void prepareSession() {

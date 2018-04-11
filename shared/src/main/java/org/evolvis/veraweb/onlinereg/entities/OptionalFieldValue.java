@@ -102,7 +102,7 @@ public class OptionalFieldValue extends OptionalField {
     }
 
     public void setOptionalFieldTypeContentsFacade(
-            List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade) {
+      List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade) {
         this.optionalFieldTypeContentsFacade = optionalFieldTypeContentsFacade;
     }
 

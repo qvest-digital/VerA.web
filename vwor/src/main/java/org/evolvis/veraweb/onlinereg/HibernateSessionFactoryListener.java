@@ -115,10 +115,10 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
             LOGGER.info("Hibernate Configuration created successfully");
 
             ServiceRegistry serviceRegistry =
-                    new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+              new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             LOGGER.info("ServiceRegistry created successfully");
             SessionFactory sessionFactory = configuration
-                    .buildSessionFactory(serviceRegistry);
+              .buildSessionFactory(serviceRegistry);
             LOGGER.info("SessionFactory created successfully");
 
             servletContextEvent.getServletContext().setAttribute("SessionFactory", sessionFactory);
@@ -127,5 +127,4 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
             LOGGER.error("Error", e);
         }
     }
-
 }

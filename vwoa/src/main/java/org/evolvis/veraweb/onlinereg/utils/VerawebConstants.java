@@ -107,5 +107,4 @@ public class VerawebConstants {
      * java byte size
      */
     public static final int LONG_BYTE = (Long.SIZE / 8);
-
 }

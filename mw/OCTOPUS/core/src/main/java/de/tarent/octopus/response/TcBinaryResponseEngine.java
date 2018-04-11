@@ -163,8 +163,8 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
      * @see TcResponseEngine#sendResponse(TcConfig, TcResponse, TcContent, TcResponseDescription, TcRequest)
      */
     public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc,
-            TcRequest tcRequest)
-            throws ResponseProcessingException {
+      TcRequest tcRequest)
+      throws ResponseProcessingException {
 
         try {
             Object data = tcContent.get(desc.getDescName());
@@ -193,7 +193,7 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 
                 if (isTrue(info.get(PARAM_IS_ATTACHMENT))) {
                     tcResponse.setHeader("Content-Disposition",
-                            "attachment" + (attachmentFilename != null ? "; filename=\"" + attachmentFilename + "\"" : ""));
+                      "attachment" + (attachmentFilename != null ? "; filename=\"" + attachmentFilename + "\"" : ""));
                 }
                 try {
                     tcResponse.setContentType(getContentString(attachmentFilename, mimetype));
@@ -214,7 +214,6 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
                 if (succeededRunnable != null) {
                     succeededRunnable.run();
                 }
-
             } else {
                 tcResponse.setContentType(getContentString(null, null));
                 processStream(tcResponse, data);
@@ -243,7 +242,7 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
      * @throws ParseException
      */
     protected void processFile(TcRequest tcRequest, TcResponse tcResponse, File file, String filename, String filedate)
-            throws IOException, ParseException {
+      throws IOException, ParseException {
         if (file.exists() && file.isFile()) {
             // send only if file was modified
             Date dateFileIsModified = new Date(file.lastModified() / 1000 * 1000);

@@ -101,32 +101,32 @@ public abstract class AbstractJndiFactory implements ObjectFactory {
             context.addToEnvironment(Context.OBJECT_FACTORIES, getClass().getName());
         } catch (NamingException e) {
             logger.warn(
-                    "Can not add current class '" + getClass().getName() + "' " +
-                            "to the object factory list.");
+              "Can not add current class '" + getClass().getName() + "' " +
+                "to the object factory list.");
         }
 
         try {
             Object object = context.lookup(getLookupPath());
             if (object != null && object.getClass().getName().equals(getClass().getName())) {
                 logger.info(
-                        "JNDI context available. " +
-                                "Context '" + getLookupPath() + "' already binded.");
+                  "JNDI context available. " +
+                    "Context '" + getLookupPath() + "' already binded.");
                 return true;
             } else if (object != null) {
                 logger.info(
-                        "JNDI context available. " +
-                                "Wrong class '" + object.getClass().getName() + "' " +
-                                "for context '" + getLookupPath() + "' binded, will rebind it now.");
+                  "JNDI context available. " +
+                    "Wrong class '" + object.getClass().getName() + "' " +
+                    "for context '" + getLookupPath() + "' binded, will rebind it now.");
             } else {
                 logger.info(
-                        "JNDI context available. " +
-                                "Context '" + getLookupPath() + "' not binded yet, will do it now.");
+                  "JNDI context available. " +
+                    "Context '" + getLookupPath() + "' not binded yet, will do it now.");
             }
         } catch (NamingException e) {
             logger.info(
-                    "JNDI context available. " +
-                            "Exception '" + e.getLocalizedMessage() + "' while lookup " +
-                            "context '" + getLookupPath() + "' catched, will rebind it now.");
+              "JNDI context available. " +
+                "Exception '" + e.getLocalizedMessage() + "' while lookup " +
+                "context '" + getLookupPath() + "' catched, will rebind it now.");
         }
 
         try {

@@ -75,7 +75,7 @@ public class SmartSerializer implements Serializer {
     private static final Log logger = LogFactory.getLog(SmartSerializer.class);
 
     public void serialize(QName proposedName, Attributes attributes, Object value, SerializationContext context)
-            throws IOException {
+      throws IOException {
 
         context.startElement(proposedName, null);
         try {

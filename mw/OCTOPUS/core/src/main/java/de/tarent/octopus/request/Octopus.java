@@ -141,7 +141,7 @@ public class Octopus /*implements Serializable*/ {
             params.put("config", commonConfig);
 
             jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement",
-                    params);
+              params);
         } else {
             logger.info("Optional JMX subsystem is disabled.");
         }
@@ -162,11 +162,11 @@ public class Octopus /*implements Serializable*/ {
      * damit Cleanup-Tasks abgearbeitet werden.
      */
     public void deInit()
-            throws
-            ClassCastException,
-            TcTaskProzessingException,
-            TcContentProzessException,
-            TcConfigException {
+      throws
+      ClassCastException,
+      TcTaskProzessingException,
+      TcContentProzessException,
+      TcConfigException {
 
         // shutting down the JMX subsystem
         if (jmxManagementServer != null) {
@@ -180,7 +180,7 @@ public class Octopus /*implements Serializable*/ {
      * Diese Methode führt einen Request aus.
      */
     public void dispatch(TcRequest tcRequest, TcResponse tcResponse, TcSession theSession)
-            throws ResponseProcessingException {
+      throws ResponseProcessingException {
         logger.trace(getClass().getName() + " dispatch " + new Object[] { tcRequest, tcResponse, theSession });
         dispatcher.dispatch(tcRequest, tcResponse, theSession);
         logger.trace(getClass().getName() + " dispatch");
@@ -213,16 +213,16 @@ public class Octopus /*implements Serializable*/ {
     }
 
     private void callTask(String modulename, TcCommonConfig config, String taskname)
-            throws TcContentProzessException, TcTaskProzessingException, TcConfigException {
+      throws TcContentProzessException, TcTaskProzessingException, TcConfigException {
         TcRequest tcRequest = new TcRequest(TcRequest.createRequestID());
         tcRequest.setRequestParameters(new HashMap());
         tcRequest.setModule(modulename);
         tcRequest.setTask(taskname);
 
         OctopusContext context = new TcAll(
-                tcRequest,
-                new TcContent(),
-                new TcConfig(config, config.createNewPersonalConfig(modulename), modulename));
+          tcRequest,
+          new TcContent(),
+          new TcConfig(config, config.createNewPersonalConfig(modulename), modulename));
 
         try {
             Context.addActive(context);
@@ -231,7 +231,6 @@ public class Octopus /*implements Serializable*/ {
             taskmanager.start(modulename, taskname, false);
 
             while (taskmanager.doNextStep()) { /* Do nothing here */ }
-
         } finally {
             TcRequestDispatcher.processCleanupCode(tcRequest.getRequestID(), context.getContentObject());
             Context.clear();
@@ -243,10 +242,10 @@ public class Octopus /*implements Serializable*/ {
      * @param commonConfig die Config
      */
     public void doAutostart(String modulename, TcCommonConfig commonConfig)
-            throws
-            TcTaskProzessingException,
-            TcContentProzessException,
-            TcConfigException {
+      throws
+      TcTaskProzessingException,
+      TcContentProzessException,
+      TcConfigException {
         TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
         TcTaskList tasklist = moduleconfig.getTaskList();
         TcTask task = tasklist.getTask(TASKNAME_AUTOSTART);
@@ -257,11 +256,11 @@ public class Octopus /*implements Serializable*/ {
     }
 
     protected void cleanupModules(TcRequestDispatcher dispatcher)
-            throws
-            ClassCastException,
-            TcTaskProzessingException,
-            TcContentProzessException,
-            TcConfigException {
+      throws
+      ClassCastException,
+      TcTaskProzessingException,
+      TcContentProzessException,
+      TcConfigException {
         TcCommonConfig commonConfig = dispatcher.getCommonConfig();
         Iterator it = commonConfig.getExistingModuleNames();
         //Durchlaufe alle Module
@@ -276,11 +275,11 @@ public class Octopus /*implements Serializable*/ {
      * @param commonConfig
      */
     public void doCleanup(String modulename, TcCommonConfig commonConfig)
-            throws
-            TcTaskProzessingException,
-            ClassCastException,
-            TcContentProzessException,
-            TcConfigException {
+      throws
+      TcTaskProzessingException,
+      ClassCastException,
+      TcContentProzessException,
+      TcConfigException {
         TcModuleConfig moduleconfig = commonConfig.getModuleConfig(modulename);
         TcTaskList tasklist = moduleconfig.getTaskList();
         TcTask task = tasklist.getTask(TASKNAME_CLEANUP);

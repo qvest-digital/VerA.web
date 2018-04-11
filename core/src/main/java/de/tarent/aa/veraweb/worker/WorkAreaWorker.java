@@ -103,7 +103,7 @@ public class WorkAreaWorker extends StammdatenWorker {
 
     @Override
     protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         WorkArea workArea = (WorkArea) bean;
         if (workArea.orgunit == null) {
             workArea.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
@@ -129,7 +129,7 @@ public class WorkAreaWorker extends StammdatenWorker {
 
     @Override
     protected void extendColumns(OctopusContext cntx, Select select)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         if (cntx.requestContains("order")) {
             String order = cntx.requestAsString("order");
             if ("name".equals(order)) {
@@ -149,7 +149,7 @@ public class WorkAreaWorker extends StammdatenWorker {
      * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
      */
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         Database database = transactionContext.getDatabase();
         // first remove all workArea assignments from all persons
         PersonListWorker.unassignWorkArea(transactionContext, ((WorkArea) bean).id, null);
@@ -168,7 +168,7 @@ public class WorkAreaWorker extends StammdatenWorker {
      */
     @SuppressWarnings("unchecked")
     public static void removeAllWorkAreasFromOrgUnit(TransactionContext transactionContext, Integer orgUnitId)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         Select stmt = transactionContext.getDatabase().getSelect("WorkArea");
         stmt.select("pk");
         stmt.where(Expr.equal("fk_orgunit", orgUnitId));
@@ -190,7 +190,7 @@ public class WorkAreaWorker extends StammdatenWorker {
 
     @Override
     protected void extendAll(OctopusContext cntx, Select select)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         // hide default entry with pk=0 from user, the workarea "Kein" with pk ::= 0
         // is only used internally in order to be able to use foreign key constraints
         // with individual workareas being assigned to one or multiple users.
@@ -228,7 +228,7 @@ public class WorkAreaWorker extends StammdatenWorker {
     private String getErrorMessageMissingOrgunit(OctopusContext octopusContext, WorkArea workArea) {
         final LanguageProvider languageProvider = initLanguageProvider(octopusContext);
         return languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_ONE") + workArea.name +
-                languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_TWO");
+          languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_TWO");
     }
 
     private LanguageProvider initLanguageProvider(OctopusContext octopusContext) {

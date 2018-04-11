@@ -64,7 +64,7 @@ public class ConverterRegistryTest extends TestCase {
 
     protected void setUp() throws Exception {
         ConverterRegistry.getDefaultRegistry()
-                .register(testConverter, false);
+          .register(testConverter, false);
     }
 
     protected void tearDown() throws Exception {
@@ -73,14 +73,14 @@ public class ConverterRegistryTest extends TestCase {
 
     public void testConverterLookup() {
         assertEquals("Right converter",
-                ConverterRegistry.getDefaultRegistry().getConverter(String.class, Boolean.class).getConverterName(),
-                "StringToBoolean");
+          ConverterRegistry.getDefaultRegistry().getConverter(String.class, Boolean.class).getConverterName(),
+          "StringToBoolean");
         assertEquals("Right converter",
-                ConverterRegistry.getDefaultRegistry().getConverter(Boolean.class, String.class).getConverterName(),
-                "BooleanToString");
+          ConverterRegistry.getDefaultRegistry().getConverter(Boolean.class, String.class).getConverterName(),
+          "BooleanToString");
         assertEquals("Right converter",
-                ConverterRegistry.getDefaultRegistry().getConverter(Integer.class, String.class).getConverterName(),
-                "ObjectToString");
+          ConverterRegistry.getDefaultRegistry().getConverter(Integer.class, String.class).getConverterName(),
+          "ObjectToString");
         assertEquals("Right converter", testConverter, ConverterRegistry.getDefaultRegistry().getConverter("TestConverter"));
     }
 
@@ -99,7 +99,7 @@ public class ConverterRegistryTest extends TestCase {
     }
 
     public void testErrorHandling()
-            throws Exception {
+      throws Exception {
         try {
             ConverterRegistry.convert(this, Boolean.class);
         } catch (IllegalArgumentException e) {
@@ -109,7 +109,7 @@ public class ConverterRegistryTest extends TestCase {
     }
 
     public void testErrorHandling2()
-            throws Exception {
+      throws Exception {
         try {
             ConverterRegistry.convert("XXX", Integer.class);
         } catch (IllegalArgumentException e) {

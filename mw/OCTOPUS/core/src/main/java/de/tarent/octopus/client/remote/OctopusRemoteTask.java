@@ -94,7 +94,7 @@ public class OctopusRemoteTask implements OctopusTask {
     private static OctopusRemoteLog log = null;
 
     public OctopusRemoteTask()
-            throws javax.xml.rpc.ServiceException {
+      throws javax.xml.rpc.ServiceException {
         initAxisSOAPService();
 
         axisSoapCall = (Call) axisSoapService.createCall();
@@ -106,7 +106,7 @@ public class OctopusRemoteTask implements OctopusTask {
     }
 
     public OctopusRemoteTask(String moduleName, String taskName, OctopusRemoteConnection connection)
-            throws javax.xml.rpc.ServiceException {
+      throws javax.xml.rpc.ServiceException {
         this();
         setConnection(connection);
         setModuleName(moduleName);
@@ -176,12 +176,12 @@ public class OctopusRemoteTask implements OctopusTask {
     }
 
     public OctopusResult invoke()
-            throws OctopusCallException {
+      throws OctopusCallException {
 
         axisSoapCall.setTargetEndpointAddress(connection.getServiceURL());
 
         axisSoapCall.setOperationName(new QName("http://schemas.tarent.de/"
-                + getModuleName(), getTaskName()));
+          + getModuleName(), getTaskName()));
         axisSoapCall.setReturnType(XMLType.AXIS_VOID);
         //axisSoapCall.setReturnQName(Constants.XSD_ANYTYPE);
 
@@ -203,12 +203,12 @@ public class OctopusRemoteTask implements OctopusTask {
                 }
 
                 if (connection.isAutoLogin()
-                        && !connection.isIsDoingLogin()
-                        && (OctopusConstants.SOAPF_AUTHENTICATION_UNKNOWN_ERROR.equals(faultCode)
-                        || OctopusConstants.SOAPF_AUTHENTICATION_NEED_LOGIN.equals(faultCode)
-                        || OctopusConstants.SOAPF_AUTHENTICATION_NOT_ENOUGH_RIGHTS.equals(faultCode)
-                        || (OctopusConstants.SOAPF_AXIS_HTTP_ERROR.equals(faultCode) && e.getFaultString() != null &&
-                        -1 != e.getFaultString().indexOf("401"))
+                  && !connection.isIsDoingLogin()
+                  && (OctopusConstants.SOAPF_AUTHENTICATION_UNKNOWN_ERROR.equals(faultCode)
+                  || OctopusConstants.SOAPF_AUTHENTICATION_NEED_LOGIN.equals(faultCode)
+                  || OctopusConstants.SOAPF_AUTHENTICATION_NOT_ENOUGH_RIGHTS.equals(faultCode)
+                  || (OctopusConstants.SOAPF_AXIS_HTTP_ERROR.equals(faultCode) && e.getFaultString() != null &&
+                  -1 != e.getFaultString().indexOf("401"))
                 )) {
                     // Try to Login and invoke Task again
                     connection.login();
@@ -224,7 +224,6 @@ public class OctopusRemoteTask implements OctopusTask {
                             log.commitLogEntry();
                         }
                     }
-
                 } else {
                     throw e;
                 }
@@ -232,7 +231,7 @@ public class OctopusRemoteTask implements OctopusTask {
         } catch (AxisFault e) {
             QName faultCode = e.getFaultCode();
             throw new OctopusCallException(faultCode.getLocalPart(),
-                    "Error while calling <" + getModuleName() + "#" + getTaskName() + "> with soap.", e);
+              "Error while calling <" + getModuleName() + "#" + getTaskName() + "> with soap.", e);
         } catch (RemoteException e) {
             //            e.printStackTrace();
             throw new OctopusCallException("Error while calling <" + getModuleName() + "#" + getTaskName() + "> with soap.", e);
@@ -328,7 +327,7 @@ public class OctopusRemoteTask implements OctopusTask {
     public String req() {
         try {
             return axisSoapCall.getMessageContext().getRequestMessage()
-                    .getSOAPPartAsString();
+              .getSOAPPartAsString();
         } catch (AxisFault e) {
             return "Bei der Auswertung der Request trat ein Fehler auf.";
         }

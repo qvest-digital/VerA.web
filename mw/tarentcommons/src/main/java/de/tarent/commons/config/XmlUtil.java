@@ -114,7 +114,7 @@ public class XmlUtil {
      * @throws XmlUtil.Exception
      */
     public static void storeDocument(Document doc, OutputStream dest)
-            throws XmlUtil.Exception {
+      throws XmlUtil.Exception {
         Source source = new DOMSource(doc);
         StreamResult result = new StreamResult(dest);
 
@@ -157,7 +157,6 @@ public class XmlUtil {
         } catch (IOException ioe) {
             throw new XmlUtil.Exception("Error parsing XML", ioe);
         }
-
     }
 
     public static Document createDocument() {
@@ -167,8 +166,8 @@ public class XmlUtil {
     private static boolean isEnabled(Element e) {
         String enabled = e.getAttribute(ENABLED_ATTRIBUTE);
         return !("0".equals(enabled) ||
-                "no".equalsIgnoreCase(enabled) ||
-                "false".equalsIgnoreCase(enabled));
+          "no".equalsIgnoreCase(enabled) ||
+          "false".equalsIgnoreCase(enabled));
     }
 
     private static boolean isArray(Element e) {
@@ -190,7 +189,6 @@ public class XmlUtil {
             if (e.hasAttribute("value")) {
 
                 value = e.getAttribute("value");//<param value=".."/>
-
             } else if (e.hasChildNodes()) {
 
                 Node valueChild = null;
@@ -212,7 +210,6 @@ public class XmlUtil {
             }
 
             return value;
-
         } catch (NullPointerException npe) {
             logger.info("[!] element value not found: " + e.getAttribute("name"));
             return "";
@@ -314,7 +311,6 @@ public class XmlUtil {
                     }
 
                     paramMap.put(name, values);
-
                 } else {
                     // Nur ein Value
                     paramMap.put(name, getValue(paramElement));
@@ -432,5 +428,4 @@ public class XmlUtil {
 
         return doc;
     }
-
 }

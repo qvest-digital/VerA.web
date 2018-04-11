@@ -365,17 +365,17 @@ public class LogManager {
                     // FileHandler
                     if (classname.equals("java.util.logging.FileHandler")) {
                         handler = new FileHandler(
-                                getParameter(properties, propertyPrefix, "pattern", null),
-                                getParameter(properties, propertyPrefix, "limit", 0),
-                                getParameter(properties, propertyPrefix, "limit", 1),
-                                getParameter(properties, propertyPrefix, "append", false));
+                          getParameter(properties, propertyPrefix, "pattern", null),
+                          getParameter(properties, propertyPrefix, "limit", 0),
+                          getParameter(properties, propertyPrefix, "limit", 1),
+                          getParameter(properties, propertyPrefix, "append", false));
                     } else
 
                         // SocketHandler
                         if (classname.equals("java.util.logging.SocketHandler")) {
                             handler = new SocketHandler(
-                                    getParameter(properties, propertyPrefix, "host", "127.0.0.1"),
-                                    getParameter(properties, propertyPrefix, "port", 0));
+                              getParameter(properties, propertyPrefix, "host", "127.0.0.1"),
+                              getParameter(properties, propertyPrefix, "port", 0));
                         } else
 
                             // All other classes
@@ -403,9 +403,9 @@ public class LogManager {
                                     // TODO Set attributes of a handler can also be maked over an common function.
                                     if (value != null && !(key.equals("class") || key.equals("level"))) {
                                         setter = clazz.getMethod("set" +
-                                                        key.substring(0, 1).toUpperCase() +
-                                                        key.substring(1),
-                                                new Class[] { String.class });
+                                            key.substring(0, 1).toUpperCase() +
+                                            key.substring(1),
+                                          new Class[] { String.class });
                                         if (setter != null) {
                                             setter.invoke(handler, new Object[] { value });
                                         } else {
@@ -428,7 +428,6 @@ public class LogManager {
                 logger.info("Add new handler '" + handlername + "' (" + handler + ").");
             }
             handlerPool.put(handlername, handler);
-
         } catch (Exception e) {
             logger.error(UNEXPECTED_EXCEPTION.getMessage(e.getLocalizedMessage()), e);
         }

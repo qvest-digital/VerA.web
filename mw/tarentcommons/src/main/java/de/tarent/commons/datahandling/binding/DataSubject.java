@@ -66,5 +66,4 @@ public interface DataSubject {
      * @param listener The registered listener
      */
     public void removeDataChangedListener(DataChangedListener listener);
-
 }

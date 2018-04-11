@@ -92,14 +92,14 @@ public class TcContentWorkerFactory {
      * @return Einen Worker mit dem entsprechenden Namen
      */
     public static TcContentWorker getContentWorker(TcModuleConfig config, String workerName, String requestID)
-            throws WorkerCreationException {
+      throws WorkerCreationException {
 
         ContentWorkerDeclaration workerDeclaration = config.getContentWorkerDeclaration(workerName);
         if (null == workerDeclaration) {
             logger.error(
-                    Resources.getInstance().get("WORKERFACTORY_LOG_UNDECLARED_WORKER", requestID, workerName, config.getName()));
+              Resources.getInstance().get("WORKERFACTORY_LOG_UNDECLARED_WORKER", requestID, workerName, config.getName()));
             throw new WorkerCreationException(
-                    Resources.getInstance().get("WORKERFACTORY_EXC_UNDECLARED_WORKER", workerName, config.getName()));
+              Resources.getInstance().get("WORKERFACTORY_EXC_UNDECLARED_WORKER", workerName, config.getName()));
         }
 
         // Bei einem Singleton cachen wir die Instanz,
@@ -127,7 +127,7 @@ public class TcContentWorkerFactory {
     }
 
     protected static TcContentWorker getNewWorkerInstance(TcModuleConfig config, ContentWorkerDeclaration workerDeclaration)
-            throws WorkerCreationException {
+      throws WorkerCreationException {
 
         // Da jedes Modul einen eigenen Classloader besitzt müssen
         // auch die Factorys mit diesem Classloader geladen werden.
@@ -147,8 +147,8 @@ public class TcContentWorkerFactory {
                 factory = (SpecialWorkerFactory) moduleLoader.loadClass(workerDeclaration.getFactory()).newInstance();
             } catch (Exception reflectionException) {
                 throw new WorkerCreationException(Resources.getInstance()
-                        .get("WORKERFACTORY_EXC_LOADING_FACTORY", workerDeclaration.getFactory(),
-                                workerDeclaration.getWorkerName()), reflectionException);
+                  .get("WORKERFACTORY_EXC_LOADING_FACTORY", workerDeclaration.getFactory(),
+                    workerDeclaration.getWorkerName()), reflectionException);
             }
             moduleFactorys.put(workerDeclaration.getFactory(), factory);
         }

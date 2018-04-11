@@ -77,7 +77,7 @@ public class JARLoader extends Loader {
      * .String)
      */
     protected Document getDocument(Scope scope, String docName)
-            throws DocumentUnavailableException {
+      throws DocumentUnavailableException {
 
         // FIXME: replace this hardcoded path
         String basePath = "/de/tarent/walendar/config/";
@@ -90,18 +90,18 @@ public class JARLoader extends Loader {
 
         if (is == null) {
             throw new RuntimeException(
-                    "InputStream is null, cannot resolve \"" + basePath + scope.toString().toLowerCase() + "/" + docName + "\"");
+              "InputStream is null, cannot resolve \"" + basePath + scope.toString().toLowerCase() + "/" + docName + "\"");
         }
 
         try {
             return XmlUtil.getParsedDocument(is,
-                    applicationClass.getResource(basePath + scope.toString().toLowerCase() + "/").toURI().toString());
+              applicationClass.getResource(basePath + scope.toString().toLowerCase() + "/").toURI().toString());
         } catch (XmlUtil.Exception xmlue) {
             throw new ConfigManager.DocumentUnavailableException("",
-                    "xml parsing error in \"" + basePath + scope.toString().toLowerCase() + "/" + docName + "\"");
+              "xml parsing error in \"" + basePath + scope.toString().toLowerCase() + "/" + docName + "\"");
         } catch (URISyntaxException e) {
             throw new ConfigManager.DocumentUnavailableException("",
-                    "xml parsing error in \"" + basePath + scope.toString().toLowerCase() + "/" + docName + "\"");
+              "xml parsing error in \"" + basePath + scope.toString().toLowerCase() + "/" + docName + "\"");
         }
     }
 

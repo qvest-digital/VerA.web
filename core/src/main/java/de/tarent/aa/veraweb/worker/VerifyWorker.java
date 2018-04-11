@@ -157,18 +157,18 @@ public class VerifyWorker {
         Database database = new DatabaseVeraWeb(cntx);
 
         Config config = (Config)
-                database.getBean("Config",
-                        database.getSelect("Config").
-                                where(Expr.equal("cname", "SCHEMA_VERSION")));
+          database.getBean("Config",
+            database.getSelect("Config").
+              where(Expr.equal("cname", "SCHEMA_VERSION")));
         ResourceBundle properties = (ResourceBundle) cntx.contentAsObject("properties");
 
         if (config == null || config.value == null) {
             addError(cntx, languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_NOT_DETERMINED"));
         } else if (!config.value.equals(properties.getString("schema-version"))) {
             addError(cntx, languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE") + config.value +
-                    languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO") +
-                    properties.getString("schema-version") +
-                    languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE"));
+              languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO") +
+              properties.getString("schema-version") +
+              languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE"));
         }
     }
 
@@ -273,8 +273,8 @@ public class VerifyWorker {
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
             addError(cntx, languageProvider.getProperty("VERIFY_ERROR_JAVA_ONE") +
-                    System.getProperty("java.version") +
-                    languageProvider.getProperty("VERIFY_ERROR_JAVA_TWO"));
+              System.getProperty("java.version") +
+              languageProvider.getProperty("VERIFY_ERROR_JAVA_TWO"));
         }
     }
 }

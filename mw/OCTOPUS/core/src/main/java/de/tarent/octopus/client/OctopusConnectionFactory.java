@@ -112,7 +112,7 @@ public class OctopusConnectionFactory {
      * Subsequent calls will always return a new Connection instance.
      */
     public OctopusConnection getNewConnection(String connectionName)
-            throws FactoryConfigurationException {
+      throws FactoryConfigurationException {
 
         if (configurations.get(connectionName) == null) {
             setConfiguration(connectionName, getConfigValues(connectionName));
@@ -127,8 +127,8 @@ public class OctopusConnectionFactory {
             return getInternalConnection(conf);
         }
         throw new FactoryConfigurationException(
-                "Andere Verbindungstypen als directCall, internal und remote werden von der Factory noch nicht unterstützt.",
-                null);
+          "Andere Verbindungstypen als directCall, internal und remote werden von der Factory noch nicht unterstützt.",
+          null);
     }
 
     /**
@@ -136,7 +136,7 @@ public class OctopusConnectionFactory {
      * Subsequent calls to this method with the same parameter will return the same Connection instance.
      */
     public OctopusConnection getConnection(String connectionName)
-            throws FactoryConfigurationException {
+      throws FactoryConfigurationException {
 
         if (connections.get(connectionName) != null) {
             return (OctopusConnection) connections.get(connectionName);
@@ -162,7 +162,7 @@ public class OctopusConnectionFactory {
 
             if (key.startsWith(OCTOPUS_PARAMS_KEY_PREFIX)) {
                 octopus_conf.put(key.substring(OCTOPUS_PARAMS_KEY_PREFIX.length()),
-                        conf.get(key));
+                  conf.get(key));
             }
         }
         OctopusStarter starter = new OctopusDirectCallStarter(octopus_conf);
@@ -208,14 +208,14 @@ public class OctopusConnectionFactory {
                 con.setKeepSessionAlive(new Integer((String) conf.get(OctopusRemoteConnection.KEEP_SESSION_ALIVE)));
             } catch (NumberFormatException e) {
                 logger.warn("Fehlerhafter Wert für Octopus Connection Propertie:" + OctopusRemoteConnection.KEEP_SESSION_ALIVE,
-                        e);
+                  e);
             }
         }
         return con;
     }
 
     protected Map getConfigValues(String connectionName)
-            throws FactoryConfigurationException {
+      throws FactoryConfigurationException {
         String fName = "/" + connectionName + PROPERTY_FILE_NAME_END;
         InputStream is = getClass().getResourceAsStream(fName);
         if (is == null) {

@@ -140,12 +140,12 @@ public class Main extends Application<Config> {
         jcc.setGzipEnabled(false);
 
         final Client client = new JerseyClientBuilder(environment)
-                .using(jcc)
-                .build("jerseyClient");
+          .using(jcc)
+          .build("jerseyClient");
 
         try {
             client.addFilter(new HTTPBasicAuthFilter(configuration.getRestauth().getUsername(),
-                    configuration.getRestauth().getPassword()));
+              configuration.getRestauth().getPassword()));
         } catch (NullPointerException e) {
             e.printStackTrace();
             log.warning("REST-Auth Konfiguration in config.jsn prüfen!");
@@ -154,12 +154,11 @@ public class Main extends Application<Config> {
         environment.jersey().setUrlPattern("/api/*");
 
         environment.healthChecks().register("veraweb availability",
-                health = new Health(client, configuration.getVerawebEndpoint()));
+          health = new Health(client, configuration.getVerawebEndpoint()));
 
         //        environment.jersey().register(new OsiamAuthProvider("OSIAM protected"));
 
         initAPIResources(configuration, environment, client);
-
     }
 
     /**
@@ -172,7 +171,7 @@ public class Main extends Application<Config> {
      */
     private void initAPIResources(final Config configuration, final Environment environment, final Client client) {
         environment.servlets().addFilter("AuthorizationRequestFilter", new AuthenticationFilter(configuration, client))
-                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+          .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
         environment.jersey().register(HttpSessionProvider.class);
         environment.servlets().setSessionHandler(new SessionHandler());
 

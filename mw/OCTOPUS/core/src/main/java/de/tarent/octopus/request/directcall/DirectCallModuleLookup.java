@@ -71,7 +71,7 @@ class DirectCallModuleLookup implements TcModuleLookup {
 
     public File getModulePath(String module) {
         String realPath = octopusDirectCallStarter.getEnv().getValue(
-                TcEnv.KEY_PATHS_ROOT) + "modules/" + module + "/";
+          TcEnv.KEY_PATHS_ROOT) + "modules/" + module + "/";
 
         if (realPath.length() != 0) {
             final File res = new File(realPath);

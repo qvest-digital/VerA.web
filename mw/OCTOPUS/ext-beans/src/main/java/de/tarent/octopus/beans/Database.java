@@ -218,7 +218,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         }
         if (pkColumn == null) {
             logger.info(
-                    "Kann Schlüsselfeldnamen nicht den Bean-Eigenschaften von " + beanname + " entnehmen; gehe von 'pk' aus.");
+              "Kann Schlüsselfeldnamen nicht den Bean-Eigenschaften von " + beanname + " entnehmen; gehe von 'pk' aus.");
             pkColumn = "pk";
         }
         return getBean(beanname, getSelect(beanname).where(Expr.equal(pkColumn, pk)), context);
@@ -363,7 +363,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
             // TODO: sensible delete operation even without primary key information
             // This might be done using a WHERE clause including comparisons of all column values.
             logger.warning("Instance of bean class " + bean.getClass().getName() +
-                    "could not be deleted as it has no primary key property.");
+              "could not be deleted as it has no primary key property.");
         }
     }
 
@@ -609,15 +609,15 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         // If ATTRIBUTE_SELECT_NO_DISINCT true return SQL.Select, if false SQL.SelectDistinct.
         if (attrNoDistinct != null && attrNoDistinct.length() != 0) {
             return Boolean.valueOf(attrNoDistinct).booleanValue() ?
-                    SQL.Select(this).from(getProperty(bean, "table")) :
-                    SQL.SelectDistinct(this).from(getProperty(bean, "table"));
+              SQL.Select(this).from(getProperty(bean, "table")) :
+              SQL.SelectDistinct(this).from(getProperty(bean, "table"));
             // If ATTRIBUTE_SELECT_DISINCT is true return SQL.SelectDistinct, if false SQL.Select.
         } else {
             String attrDistinct = getPropertyAttribute(bean, "table", ATTRIBUTE_SELECT_DISINCT);
             if (attrDistinct != null && attrDistinct.length() != 0) {
                 return Boolean.valueOf(attrDistinct).booleanValue() ?
-                        SQL.SelectDistinct(this).from(getProperty(bean, "table")) :
-                        SQL.Select(this).from(getProperty(bean, "table"));
+                  SQL.SelectDistinct(this).from(getProperty(bean, "table")) :
+                  SQL.Select(this).from(getProperty(bean, "table"));
             }
         }
         return SQL.SelectDistinct(this).from(getProperty(bean, "table"));
@@ -783,7 +783,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @return ein UPDATE-PreparedStatement
      */
     public BeanStatement prepareUpdate(Bean sample, Collection keyFields, Collection updateFields, ExecutionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         List fieldsInUpdate = new ArrayList();
         Update update = getPreparedUpdate(sample, keyFields, updateFields, fieldsInUpdate);
         return new BeanUpdateStatement(update, fieldsInUpdate, context);
@@ -939,7 +939,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * @return dblayer-SQL-Statement
      */
     Update getPreparedUpdate(Bean sample, Collection keyFields, Collection updateFields, List fieldsInStatement)
-            throws IOException {
+      throws IOException {
         assert keyFields != null && !keyFields.isEmpty();
         assert updateFields != null && !updateFields.isEmpty();
 

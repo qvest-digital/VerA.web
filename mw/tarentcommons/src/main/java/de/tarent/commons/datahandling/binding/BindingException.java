@@ -65,5 +65,4 @@ public class BindingException extends RuntimeException {
     public BindingException(String msg, Throwable t) {
         super(msg, t);
     }
-
 }

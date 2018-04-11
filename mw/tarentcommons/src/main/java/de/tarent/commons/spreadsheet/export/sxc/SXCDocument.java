@@ -92,8 +92,8 @@ public class SXCDocument extends SXCContent {
     }
 
     protected static void pipe(ZipOutputStream zip, String entry, InputStream inputStream)
-            throws IOException, ParserConfigurationException, FactoryConfigurationError, TransformerFactoryConfigurationError,
-            TransformerException {
+      throws IOException, ParserConfigurationException, FactoryConfigurationError, TransformerFactoryConfigurationError,
+      TransformerException {
         zip.putNextEntry(new ZipEntry(entry));
         XMLDocument doc = new XMLDocument();
         doc.loadDocument(inputStream);

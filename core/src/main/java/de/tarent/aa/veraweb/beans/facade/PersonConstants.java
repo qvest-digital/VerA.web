@@ -149,5 +149,4 @@ public interface PersonConstants {
      * Gibt an ob eine Person weiblich ist.
      */
     String SEX_FEMALE = "f";
-
 }

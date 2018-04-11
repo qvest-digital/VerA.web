@@ -75,5 +75,4 @@ public class DatabaseVeraWebFactory {
     public DatabaseVeraWeb createDatabaseVeraWeb(OctopusContext cntx) {
         return new DatabaseVeraWeb(cntx);
     }
-
 }

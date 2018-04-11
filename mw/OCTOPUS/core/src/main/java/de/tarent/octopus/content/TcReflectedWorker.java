@@ -129,34 +129,34 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                         paramTypes = method.getParameterTypes();
                         if (paramNames.length + 1 != paramTypes.length || !paramTypes[0].equals(TcAll.class)) {
                             throw new TcActionDeclarationException(
-                                    "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
-                                            "' stimmt die Anzahl der Argumente (der Methode, exkl. TcAll) nicht mit dennen des " +
-                                            "statischen String[] 'INPUT_" +
-                                            methodname + "' überein.");
+                              "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
+                                "' stimmt die Anzahl der Argumente (der Methode, exkl. TcAll) nicht mit dennen des " +
+                                "statischen String[] 'INPUT_" +
+                                methodname + "' überein.");
                         }
                     } catch (NoSuchFieldException e) {
                         throw new TcActionDeclarationException(
-                                "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
-                                        "' muss ein statisches String[] Feld 'INPUT_" + methodname + "' übergeben sein.");
+                          "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
+                            "' muss ein statisches String[] Feld 'INPUT_" + methodname + "' übergeben sein.");
                     }
                     try {
                         Field field = getClass().getField("MANDATORY_".concat(methodname));
                         mandatory = (boolean[]) field.get(null);
                     } catch (NoSuchFieldException e) {
                         throw new TcActionDeclarationException(
-                                "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
-                                        "' muss ein statisches boolean[] Feld 'MANDATORY_" + methodname + "' übergeben sein.");
+                          "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
+                            "' muss ein statisches boolean[] Feld 'MANDATORY_" + methodname + "' übergeben sein.");
                     }
                     try {
                         Field field = getClass().getField("OUTPUT_".concat(methodname));
                         output = (String) field.get(null);
                     } catch (NoSuchFieldException e) {
                         throw new TcActionDeclarationException(
-                                "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
-                                        "' muss ein statisches String Feld 'OUTPUT_" + methodname + "' übergeben sein.");
+                          "Serverfehler: Für die Action '" + method.getName() + "' im Worker '" + getClass().getName() +
+                            "' muss ein statisches String Feld 'OUTPUT_" + methodname + "' übergeben sein.");
                     }
                     _serviceActions.put(method.getName(),
-                            new WorkerAction(method, method.getName(), paramNames, paramTypes, mandatory, output));
+                      new WorkerAction(method, method.getName(), paramNames, paramTypes, mandatory, output));
                 } catch (TcActionDeclarationException e) {
                     logger.error(e.getMessage(), e);
                     _serviceActions.put(method.getName(), e);
@@ -184,7 +184,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
      * @throws TcContentProzessException
      */
     public final String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
-            throws TcContentProzessException {
+      throws TcContentProzessException {
         try {
             WorkerAction action = getAction(actionName);
             TcAll all = new TcAll(tcRequest, tcContent, tcConfig);
@@ -204,7 +204,6 @@ abstract public class TcReflectedWorker implements TcContentWorker {
 
             // return Content-Status
             return all.getStatus();
-
         } catch (TcActionDeclarationException e) { // WorkerAction#getAction
             throw new TcContentProzessException(e);
         } catch (TcActionInvocationException e) { // WorkerAction#getAction
@@ -281,8 +280,8 @@ abstract public class TcReflectedWorker implements TcContentWorker {
             throw (TcActionDeclarationException) action;
         } else {
             throw new TcActionInvocationException(
-                    "Anfragefehler: Die angegebene Action '" + actionName + "' ist im Worker '" + getClass().getName() +
-                            "' nicht definiert.");
+              "Anfragefehler: Die angegebene Action '" + actionName + "' ist im Worker '" + getClass().getName() +
+                "' nicht definiert.");
         }
     }
 
@@ -295,7 +294,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
         private final String _output;
 
         private WorkerAction(Method method, String actionName, String[] paramNames, Class[] paramTypes, boolean[] mandatory,
-                String output) {
+          String output) {
             _method = method;
             _actionName = actionName;
             _paramNames = paramNames;
@@ -305,8 +304,8 @@ abstract public class TcReflectedWorker implements TcContentWorker {
         }
 
         private Object invoke(TcAll all)
-                throws TcActionInvocationException, TcContentProzessException, IllegalArgumentException, IllegalAccessException,
-                InvocationTargetException {
+          throws TcActionInvocationException, TcContentProzessException, IllegalArgumentException, IllegalAccessException,
+          InvocationTargetException {
             int requestType = all.requestType();
             List params = new ArrayList(_paramTypes.length);
             params.add(all);
@@ -333,8 +332,8 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                         params.add((param != null) ? Boolean.valueOf(param.toString()) : Boolean.FALSE);
                     } else if (_mandatory[i] && param == null) {
                         throw new TcActionInvocationException(
-                                "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss übergeben werden. (" +
-                                        _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+                          "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss übergeben werden. (" +
+                            _method.getDeclaringClass().getName() + "#" + _actionName + ")");
                     } else if (param == null) {
                         params.add(null);
                     } else if (type.isInstance(param)) {
@@ -345,10 +344,10 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                         } catch (NumberFormatException e) {
                             if (_mandatory[i]) {
                                 throw new TcActionInvocationException(
-                                        "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() +
-                                                "' sein (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" +
-                                                param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" +
-                                                _actionName + ")");
+                                  "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() +
+                                    "' sein (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" +
+                                    param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" +
+                                    _actionName + ")");
                             } else {
                                 params.add(null);
                             }
@@ -359,9 +358,9 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                         } catch (NumberFormatException e) {
                             if (_mandatory[i]) {
                                 throw new TcActionInvocationException(
-                                        "Anfragefehler: Der Parameter '" + _paramNames[i] + "' (Wert: '" + param.toString() +
-                                                "') konnte nicht nach '" + type.getName() + "' gecastet werden. (" +
-                                                _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+                                  "Anfragefehler: Der Parameter '" + _paramNames[i] + "' (Wert: '" + param.toString() +
+                                    "') konnte nicht nach '" + type.getName() + "' gecastet werden. (" +
+                                    _method.getDeclaringClass().getName() + "#" + _actionName + ")");
                             } else {
                                 params.add(null);
                             }
@@ -372,9 +371,9 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                         } catch (NumberFormatException e) {
                             if (_mandatory[i]) {
                                 throw new TcActionInvocationException(
-                                        "Anfragefehler: Der Parameter '" + _paramNames[i] + "' (Wert: '" + param.toString() +
-                                                "') konnte nicht nach '" + type.getName() + "' gecastet werden. (" +
-                                                _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+                                  "Anfragefehler: Der Parameter '" + _paramNames[i] + "' (Wert: '" + param.toString() +
+                                    "') konnte nicht nach '" + type.getName() + "' gecastet werden. (" +
+                                    _method.getDeclaringClass().getName() + "#" + _actionName + ")");
                             } else {
                                 params.add(null);
                             }
@@ -385,10 +384,10 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                         params.add(Collections.singletonList(param));
                     } else {
                         throw new TcActionInvocationException(
-                                "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() +
-                                        "' sein (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" +
-                                        param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName +
-                                        ")");
+                          "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() +
+                            "' sein (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" +
+                            param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName +
+                            ")");
                     }
                     break;
                 /**
@@ -402,8 +401,8 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                 default:
                     if (_mandatory[i] && param == null) {
                         throw new TcActionInvocationException(
-                                "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss übergeben werden. (" +
-                                        _method.getDeclaringClass().getName() + "#" + _actionName + ")");
+                          "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss übergeben werden. (" +
+                            _method.getDeclaringClass().getName() + "#" + _actionName + ")");
                     } else if (param == null) {
                         params.add(null);
                     } else if (type.isInstance(param)) {
@@ -412,10 +411,10 @@ abstract public class TcReflectedWorker implements TcContentWorker {
                         params.add(Arrays.asList((Object[]) param));
                     } else {
                         throw new TcActionInvocationException(
-                                "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() +
-                                        "' sein. (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" +
-                                        param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName +
-                                        ")");
+                          "Anfragefehler: Der Parameter '" + _paramNames[i] + "' muss vom Typ '" + type.getName() +
+                            "' sein. (tatsächlicher Typ: '" + param.getClass().getName() + "', Wert: '" +
+                            param.toString() + "'). (" + _method.getDeclaringClass().getName() + "#" + _actionName +
+                            ")");
                     }
                     break;
                 }

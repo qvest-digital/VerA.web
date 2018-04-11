@@ -134,7 +134,7 @@ public class PersonDuplicateCheckHelper {
      * @param importInstance - the import instance
      */
     public PersonDuplicateCheckHelper(ExecutionContext context,
-            Import importInstance) {
+      Import importInstance) {
         this.context = context;
         this.database = context.getDatabase();
         this.importInstance = importInstance;
@@ -221,8 +221,8 @@ public class PersonDuplicateCheckHelper {
         select.selectAs(database.getProperty(sampleImportPerson, "lastname_a_e1"), "lastname");
 
         select.where(Expr.equal(
-                database.getProperty(sampleImportPerson, "fk_import"),
-                importInstance.id));
+          database.getProperty(sampleImportPerson, "fk_import"),
+          importInstance.id));
         return database.getList(select, context);
     }
 
@@ -236,20 +236,20 @@ public class PersonDuplicateCheckHelper {
     public Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
         // Not deleted person
         Clause clause = Where.and(Expr.equal("fk_orgunit",
-                ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
-                Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+          ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
+          Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 
         String ln = person == null || person.lastname_a_e1 == null || person.lastname_a_e1.equals("") ? ""
-                : person.lastname_a_e1;
+          : person.lastname_a_e1;
         String fn = person == null || person.firstname_a_e1 == null || person.firstname_a_e1.equals("") ? ""
-                : person.firstname_a_e1;
+          : person.firstname_a_e1;
 
         Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", fn),
-                Expr.equal("firstname_a_e1", ln));
+          Expr.equal("firstname_a_e1", ln));
         Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", ln),
-                Expr.equal("firstname_a_e1", fn));
+          Expr.equal("firstname_a_e1", fn));
         Clause checkMixChanges = Where.or(normalNamesClause,
-                revertedNamesClause);
+          revertedNamesClause);
 
         // Checking changes between first and lastname
 
@@ -278,7 +278,7 @@ public class PersonDuplicateCheckHelper {
         }
 
         Clause finalCaseQuery = getQueryOfAllDuplicatesCases(ln, fn,
-                helpFirstName, helpLastName);
+          helpFirstName, helpLastName);
 
         Clause dupCheckFinal = Where.or(checkMixChanges, finalCaseQuery);
 
@@ -296,8 +296,8 @@ public class PersonDuplicateCheckHelper {
      * @return Clause finalCaseQuery
      */
     private Clause getQueryOfAllDuplicatesCases(final String ln,
-            final String fn, final String helpFirstName,
-            final String helpLastName) {
+      final String fn, final String helpFirstName,
+      final String helpLastName) {
 
         /*
          * Clauses to allow having duplicates with the first- and lastname with
@@ -305,14 +305,14 @@ public class PersonDuplicateCheckHelper {
          */
         /* With reverted values firstname to lastname, lastname to firstname */
         Clause revertedNamesEncoding = Where.and(
-                Expr.equal("lastname_a_e1", fn),
-                Expr.equal("firstname_a_e1", ln));
+          Expr.equal("lastname_a_e1", fn),
+          Expr.equal("firstname_a_e1", ln));
         /* Without reverted values firstname to lastname, lastname to firstname */
         Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", ln),
-                Expr.equal("firstname_a_e1", fn));
+          Expr.equal("firstname_a_e1", fn));
         /* Merged clause */
         Clause checkMixPairChangesEncoding = Where.or(revertedNamesEncoding,
-                normalNamesEncoding);
+          normalNamesEncoding);
 
         /*
          * Clauses asuming that there are changes only in one of the names
@@ -324,30 +324,30 @@ public class PersonDuplicateCheckHelper {
          * Old value: firstname
          */
         Clause revertedOldFNnewLN = Where.and(
-                Expr.equal("lastname_a_e1", helpFirstName),
-                Expr.equal("firstname_a_e1", ln));
+          Expr.equal("lastname_a_e1", helpFirstName),
+          Expr.equal("firstname_a_e1", ln));
         /*
          * With reverted values firstname to lastname, lastname to firstname.
          * Old value: lastname
          */
         Clause revertedNewFNoldLN = Where.and(Expr.equal("lastname_a_e1", fn),
-                Expr.equal("firstname_a_e1", helpLastName));
+          Expr.equal("firstname_a_e1", helpLastName));
         /* Merged clause */
         Clause revertedMixChangesEncoding = Where.or(revertedOldFNnewLN,
-                revertedNewFNoldLN);
+          revertedNewFNoldLN);
         /*
          * Without reverted values firstname to lastname, lastname to firstname.
          * Old value: lastname
          */
         Clause oldLNnewFN = Where.and(
-                Expr.equal("lastname_a_e1", helpLastName),
-                Expr.equal("firstname_a_e1", fn));
+          Expr.equal("lastname_a_e1", helpLastName),
+          Expr.equal("firstname_a_e1", fn));
         /*
          * Without reverted values firstname to lastname, lastname to firstname.
          * Old value: firstname
          */
         Clause newLNoldFN = Where.and(Expr.equal("lastname_a_e1", ln),
-                Expr.equal("firstname_a_e1", helpFirstName));
+          Expr.equal("firstname_a_e1", helpFirstName));
         /* Merged clause */
         Clause checkMixChangesEncoding = Where.or(oldLNnewFN, newLNoldFN);
         /*
@@ -355,17 +355,17 @@ public class PersonDuplicateCheckHelper {
          * lastname) at the same time
          */
         Clause oldFNoldLN = Where.and(
-                Expr.equal("lastname_a_e1", helpFirstName),
-                Expr.equal("firstname_a_e1", helpLastName));
+          Expr.equal("lastname_a_e1", helpFirstName),
+          Expr.equal("firstname_a_e1", helpLastName));
 
         /* Merged clauses */
         Clause normalQueryWithReverseChecks = Where.or(
-                checkMixPairChangesEncoding, revertedMixChangesEncoding);
+          checkMixPairChangesEncoding, revertedMixChangesEncoding);
         Clause mergedValuesQuery = Where
-                .or(checkMixChangesEncoding, oldFNoldLN);
+          .or(checkMixChangesEncoding, oldFNoldLN);
         /* FINAL CLAUSE */
         Clause finalCaseQuery = Where.or(normalQueryWithReverseChecks,
-                mergedValuesQuery);
+          mergedValuesQuery);
         /* ************** */
 
         return finalCaseQuery;
@@ -380,10 +380,10 @@ public class PersonDuplicateCheckHelper {
      */
     public Clause getDuplicateExprCompany(OctopusContext octopusContext, Person person) {
         Clause clause = Where.and(Expr.equal("fk_orgunit",
-                ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId()),
-                Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+          ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId()),
+          Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         String companyName = person == null || person.company_a_e1 == null || person.company_a_e1.equals("") ? ""
-                : person.company_a_e1;
+          : person.company_a_e1;
         return Where.and(clause, Expr.equal("company_a_e1", companyName));
     }
 
@@ -396,11 +396,11 @@ public class PersonDuplicateCheckHelper {
      * @throws IOException   IOException
      */
     void setDuplicates(ImportPerson importPerson, List<Integer> duplicates)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         importPerson.duplicates = serializeDuplicates(duplicates);
         BeanStatement prepareUpdate = database.prepareUpdate(importPerson,
-                Collections.singleton("id"),
-                Collections.singleton("duplicates"), context);
+          Collections.singleton("id"),
+          Collections.singleton("duplicates"), context);
         if (prepareUpdate != null) {
             prepareUpdate.execute(importPerson);
         }

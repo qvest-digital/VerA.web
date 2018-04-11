@@ -124,7 +124,7 @@ public class PoolProxy implements Pool {
                 try {
                     while (sleep == 0L || !con.isClosed()) {
                         print("opened for " + (System.currentTimeMillis() - currentTime) + "ms.",
-                                ((sleep % 5000L) == 0L) ? trace : null);
+                          ((sleep % 5000L) == 0L) ? trace : null);
                         Thread.sleep(sleep);
                         sleep += (sleep < 10000L) ? 100L : 1000L;
                     }

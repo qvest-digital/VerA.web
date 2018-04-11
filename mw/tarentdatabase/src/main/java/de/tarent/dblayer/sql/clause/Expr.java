@@ -214,10 +214,10 @@ public class Expr {
      */
     static public Where nullOrInt0(String column) {
         return
-                Where.or(
-                        Expr.isNull(column),
-                        Expr.equal(column, new Integer(0))
-                );
+          Where.or(
+            Expr.isNull(column),
+            Expr.equal(column, new Integer(0))
+          );
     }
 
     /**
@@ -226,10 +226,10 @@ public class Expr {
      */
     static public Where nullOrString0(String column) {
         return
-                Where.or(
-                        Expr.isNull(column),
-                        Expr.equal(column, "0")
-                );
+          Where.or(
+            Expr.isNull(column),
+            Expr.equal(column, "0")
+          );
     }
 
     /**
@@ -268,7 +268,7 @@ public class Expr {
 
         if (SQL.isMSSQL(dbc) && list.size() > 500) {
             return new Where(new RawClause("(" + column + " IN (SELECT * FROM tarent_database_csvtable('" +
-                    PrimaryKeyList.toString(PrimaryKeyList.DELIM, list) + "')))"), null);
+              PrimaryKeyList.toString(PrimaryKeyList.DELIM, list) + "')))"), null);
         } else {
             return in(column, list);
         }

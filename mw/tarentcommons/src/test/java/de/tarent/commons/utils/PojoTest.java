@@ -137,7 +137,7 @@ public class PojoTest extends TestCase {
     }
 
     public void testErrorHandlingWrongProperty()
-            throws Exception {
+      throws Exception {
         try {
             Pojo.set(pojo, "sdcsdcsd", null);
         } catch (IllegalArgumentException e) {
@@ -147,7 +147,7 @@ public class PojoTest extends TestCase {
     }
 
     public void testErrorHandlingMissingConverter()
-            throws Exception {
+      throws Exception {
         try {
             Pojo.set(pojo, "age", new AnyObject("23"));
         } catch (IllegalArgumentException e) {
@@ -157,7 +157,7 @@ public class PojoTest extends TestCase {
     }
 
     public void testErrorHandlingTargetException()
-            throws Exception {
+      throws Exception {
         try {
             Pojo.set(pojo, "ExceptionDummy", null);
         } catch (RuntimeException e) {
@@ -215,5 +215,4 @@ public class PojoTest extends TestCase {
     public class SimplePersonPojoExt extends SimplePersonPojo {
 
     }
-
 }

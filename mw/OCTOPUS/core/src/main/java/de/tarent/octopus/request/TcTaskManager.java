@@ -126,7 +126,7 @@ public class TcTaskManager {
      * Wenn nicht, wird eine TcTaskProzessingException ausgelößt
      */
     public void start(String moduleName, String taskName, boolean testAccess)
-            throws TcTaskProzessingException {
+      throws TcTaskProzessingException {
 
         taskList = config.getTaskList(moduleName);
         if (taskList == null) {
@@ -146,7 +146,7 @@ public class TcTaskManager {
     }
 
     public boolean doNextStep()
-            throws TcTaskProzessingException, TcContentProzessException {
+      throws TcTaskProzessingException, TcContentProzessException {
 
         if (position instanceof TcTask.ResponseNode) {
             // createResponseDescription
@@ -183,7 +183,7 @@ public class TcTaskManager {
         logger.debug("Next called with '" + status + "' at " + position);
         if (position == null) {
             throw new TcTaskProzessingException(
-                    "Position steht nicht auf einem Node Objekt. Das verarbeiten der Tasks muss mit start() beginnen.");
+              "Position steht nicht auf einem Node Objekt. Das verarbeiten der Tasks muss mit start() beginnen.");
         }
 
         // end processing if it is a response node
@@ -218,7 +218,7 @@ public class TcTaskManager {
                     return true;
                 } else {
                     throw new TcTaskProzessingException(
-                            "Unerwartetes Ende des Tasks bei: " + position);
+                      "Unerwartetes Ende des Tasks bei: " + position);
                 }
             } while (next == null);
         }
@@ -238,17 +238,16 @@ public class TcTaskManager {
             position = doTaskNode.getReferingTask(context);
             if (position == null) {
                 throw new TcTaskProzessingException(
-                        "Undefiniertes Task '"
-                                + doTaskNode.name
-                                + "' bei: "
-                                + doTaskNode);
+                  "Undefiniertes Task '"
+                    + doTaskNode.name
+                    + "' bei: "
+                    + doTaskNode);
             }
             return true;
         } else {
             position = next;
             return true;
         }
-
     }
 
     // 	/**

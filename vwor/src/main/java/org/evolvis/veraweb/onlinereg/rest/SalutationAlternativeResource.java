@@ -167,8 +167,8 @@ public class SalutationAlternativeResource extends AbstractResource {
     @POST
     @Path("/save/{pdftemplateId}/")
     public Response saveAlternativeSalutation(@PathParam("pdftemplateId") Integer pdftemplateId,
-            @FormParam("salutationId") Integer salutationId,
-            @FormParam("content") String content) {
+      @FormParam("salutationId") Integer salutationId,
+      @FormParam("content") String content) {
 
         if (pdftemplateId == null || salutationId == null || "".equals(content)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
