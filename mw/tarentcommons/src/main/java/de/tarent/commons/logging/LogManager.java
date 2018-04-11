@@ -330,10 +330,6 @@ public class LogManager {
 
     /**
      * Return a new instance of a {@link Handler handler} for the given handlername.
-     *
-     * @param handlerPool
-     * @param handlername
-     * @param properties
      */
     public void setHandler(String handlername, Properties properties, String propertyPrefix) {
         try {
