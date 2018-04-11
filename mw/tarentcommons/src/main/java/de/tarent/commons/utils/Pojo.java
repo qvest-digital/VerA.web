@@ -285,7 +285,6 @@ public class Pojo {
      * these list, also fill the {@link #methodCache method cache}.
      *
      * @param pojo
-     * @return
      */
     public static Set getPropertyNames(Object pojo) {
         return getPropertyTypes(pojo).keySet();
@@ -298,7 +297,6 @@ public class Pojo {
      * these list, also fill the {@link #methodCache method cache}.
      *
      * @param pojo
-     * @return
      */
     public static Map getPropertyTypes(Object pojo) {
         String className = pojo.getClass().getName();
@@ -357,7 +355,6 @@ public class Pojo {
      * these list, also fill the {@link #methodCache method cache}.
      *
      * @param pojo
-     * @return
      */
     public static Set getReadablePropertyNames(Object pojo) {
         return getReadablePropertyTypes(pojo).keySet();
@@ -370,7 +367,6 @@ public class Pojo {
      * these list, also fill the {@link #methodCache method cache}.
      *
      * @param pojo
-     * @return
      */
     public static Map getReadablePropertyTypes(Object pojo) {
         String className = pojo.getClass().getName();
@@ -420,7 +416,6 @@ public class Pojo {
      * these list, also fill the {@link #methodCache method cache}.
      *
      * @param pojo
-     * @return
      */
     public static Set getWriteablePropertyNames(Object pojo) {
         return getWriteablePropertyTypes(pojo).keySet();
@@ -433,7 +428,6 @@ public class Pojo {
      * these list, also fill the {@link #methodCache method cache}.
      *
      * @param pojo
-     * @return
      */
     public static Map getWriteablePropertyTypes(Object pojo) {
         String className = pojo.getClass().getName();

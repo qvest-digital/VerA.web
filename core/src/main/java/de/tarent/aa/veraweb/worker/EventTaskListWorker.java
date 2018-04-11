@@ -99,7 +99,6 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
      *
      * @param oc
      * @param eventId
-     * @return
      */
     /**
      * Default-Kontruktor der den Beannamen festlegt.

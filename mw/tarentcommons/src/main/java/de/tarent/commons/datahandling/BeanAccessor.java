@@ -107,7 +107,6 @@ public class BeanAccessor {
      *
      * @param methodName
      * @param prefixLength
-     * @return
      */
     public String getPropertyName(String methodName, int prefixLength) {
         if (methodName.length() > prefixLength) {
@@ -154,7 +153,6 @@ public class BeanAccessor {
      *
      * @param bean
      * @param property
-     * @return
      */
     public String getProperty(Object bean, String property) {
         try {

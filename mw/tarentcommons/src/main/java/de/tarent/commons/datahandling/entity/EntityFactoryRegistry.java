@@ -86,7 +86,6 @@ public class EntityFactoryRegistry {
      * {@link DefaultEntityFactory} instance.
      *
      * @param instantiationClass
-     * @return
      */
     public static EntityFactory getEntityFactory(Class instantiationClass) {
         if (instantiationClass == null) {
@@ -108,7 +107,6 @@ public class EntityFactoryRegistry {
      * <code>keyName</code>.
      *
      * @param instantiationClass
-     * @return
      */
     public static EntityFactory getEntityFactory(Class instantiationClass, String keyName) {
         if (instantiationClass == null) {

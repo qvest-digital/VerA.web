@@ -75,7 +75,6 @@ public class DAORegistry {
      * returns the appropriate DAO for a given bean
      *
      * @param bean
-     * @return
      */
     public static AbstractDAO getDAOForBean(Class bean) {
         return daos.get(bean);
@@ -85,7 +84,6 @@ public class DAORegistry {
      * returns the appropriate DAO for a given bean
      *
      * @param bean
-     * @return
      */
     public static AbstractDAO getDAOForBean(Object bean) {
         return daos.get(bean.getClass());

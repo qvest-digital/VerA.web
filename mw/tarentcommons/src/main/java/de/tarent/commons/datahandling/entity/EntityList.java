@@ -52,7 +52,6 @@ public interface EntityList {
     /**
      * returns the size of the list
      *
-     * @return
      */
     public int getSize();
 

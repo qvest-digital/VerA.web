@@ -76,7 +76,6 @@ public interface Message {
      * Return the current message in a plain format, incl. <code>{0}</code>
      * as placeholder for arguments.
      *
-     * @return
      */
     public String getPlainMessage();
 

@@ -200,7 +200,6 @@ public class TaskManager {
     /**
      * Returns the one and only instance of the <code>TaskManager</code>
      *
-     * @return
      */
     public static TaskManager getInstance() {
         return instance;
@@ -492,7 +491,6 @@ public class TaskManager {
         /**
          * Returns whether the context's task has been cancelled.
          *
-         * @return
          */
         public boolean isCancelled() {
             return cancelled;

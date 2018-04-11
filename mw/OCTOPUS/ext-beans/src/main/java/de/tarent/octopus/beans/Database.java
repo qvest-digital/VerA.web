@@ -600,7 +600,6 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * and {@value #ATTRIBUTE_SELECT_NO_DISINCT}.
      *
      * @param bean
-     * @return
      * @throws BeanException
      * @throws IOException
      */

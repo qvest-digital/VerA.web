@@ -240,7 +240,6 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
      * is.
      * NOTE: the input parameter has to be in camelCase.
      *
-     * @return
      */
     private String mapToDbConventions(String string) {
         MappingType mappingType = (MappingType) this.associatedBean.getAnnotation(MappingType.class);

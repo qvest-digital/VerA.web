@@ -95,7 +95,6 @@ public class TransactionWorker extends ConnectionWorker {
      * @param cntx       The current octopus-context.
      * @param connection Optional database connection.
      * @param poolname   Optional poolname.
-     * @return
      * @throws SQLException
      */
     public Connection start(OctopusContext cntx, Connection connection, String poolname) throws SQLException {

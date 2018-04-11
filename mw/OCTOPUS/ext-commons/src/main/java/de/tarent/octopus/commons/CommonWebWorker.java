@@ -62,7 +62,6 @@ public class CommonWebWorker {
     /**
      * Set a {@link WebFormat} instance into the octopus content.
      *
-     * @return
      */
     @WebMethod
     @Result("format")
@@ -73,7 +72,6 @@ public class CommonWebWorker {
     /**
      * Set a {@link ParametersProcessor} instance into the octopus content.
      *
-     * @return
      */
     @WebMethod
     @Result("parametersProcessor")

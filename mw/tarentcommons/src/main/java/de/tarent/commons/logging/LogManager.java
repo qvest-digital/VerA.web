@@ -314,7 +314,6 @@ public class LogManager {
      * <code>handlername</code> is available. False otherwise.
      *
      * @param handlername
-     * @return
      */
     public boolean isHandlerAvailable(String handlername) {
         return handlerPool.containsKey(handlername);
@@ -325,7 +324,6 @@ public class LogManager {
      * logmanager pool. Null if no handler for this name is available.
      *
      * @param handlername
-     * @return
      */
     public Handler getHandler(String handlername) {
         return (Handler) handlerPool.get(handlername);
@@ -337,7 +335,6 @@ public class LogManager {
      * @param handlerPool
      * @param handlername
      * @param properties
-     * @return
      */
     public void setHandler(String handlername, Properties properties, String propertyPrefix) {
         try {

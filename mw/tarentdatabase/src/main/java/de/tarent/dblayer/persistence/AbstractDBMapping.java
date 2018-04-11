@@ -206,7 +206,6 @@ public abstract class AbstractDBMapping implements DBMapping {
      * if the name is not defined yet, it will be defined
      *
      * @param name
-     * @return
      */
     protected int getFieldDefinitionValue(String name) {
         Integer value = this.fields.get(name);

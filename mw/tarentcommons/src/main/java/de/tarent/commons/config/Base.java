@@ -131,7 +131,6 @@ class Base {
      *
      * @param key
      * @param defaultValue
-     * @return
      */
     final protected String getParamValue(Key key, String defaultValue) {
         Object o = getParamAsObject(key);

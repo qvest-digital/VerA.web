@@ -103,7 +103,6 @@ public abstract class EntityProperty {
      * user readable label translated into the respective
      * language.
      *
-     * @return
      */
     public abstract String getLabel();
 }

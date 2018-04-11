@@ -367,7 +367,6 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
      * Return true if the Parameter is "true".
      *
      * @param o
-     * @return
      */
     private boolean isTrue(Object o) {
         return o != null && o.toString().equals("true");

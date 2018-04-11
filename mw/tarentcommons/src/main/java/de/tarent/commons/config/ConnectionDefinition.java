@@ -131,7 +131,6 @@ public final class ConnectionDefinition extends Base {
          * </p>
          *
          * @param label
-         * @return
          */
         private static Key make(String label) {
             return new Key(label);
@@ -142,7 +141,6 @@ public final class ConnectionDefinition extends Base {
          * if it does not exist.
          *
          * @param label
-         * @return
          * @throws KeyUnavailableException if the key does not exist.
          */
         private static Key getInstance(String label) throws KeyUnavailableException {

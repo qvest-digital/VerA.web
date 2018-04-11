@@ -61,7 +61,6 @@ public interface AttributeSource extends ReadableAttribute {
      * Return the value of the given attribute name.
      *
      * @param attributeName
-     * @return
      */
     public Object getAttribute(String attributeName);
 
@@ -69,7 +68,6 @@ public interface AttributeSource extends ReadableAttribute {
      * Return the type of the given attribute name.
      *
      * @param attributeName
-     * @return
      */
     public Class getAttributeType(String attributeName);
 

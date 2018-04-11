@@ -151,7 +151,6 @@ public class Procedure extends AbstractStatement {
      * Sets the name of the Procedure to call
      *
      * @param name Name of Procedure
-     * @return
      */
     public Procedure call(String name) {
         _name = name;
@@ -163,7 +162,6 @@ public class Procedure extends AbstractStatement {
      * in the order they are added via {@link Procedure#addParam(String)}.
      *
      * @param value Value of the Param
-     * @return
      */
     public Procedure addParam(Object value) {
         _params.add(value);

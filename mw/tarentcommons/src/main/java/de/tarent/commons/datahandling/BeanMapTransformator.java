@@ -154,7 +154,6 @@ public class BeanMapTransformator {
      * Return a cached {@link BeanAccessor} for the given <code>clazz</code>.
      *
      * @param clazz
-     * @return
      */
     private BeanAccessor getBeanAccessor(Class clazz) {
         BeanAccessor accessor = (BeanAccessor) beanAccessorCache.get(clazz.getName());

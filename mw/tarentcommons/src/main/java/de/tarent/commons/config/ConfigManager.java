@@ -256,7 +256,6 @@ public class ConfigManager {
      *
      * <p>The list is empty of no documents are missing.</p>
      *
-     * @return
      */
     public static List getMissingDocuments() {
         ConfigManager instance = getInstance();
@@ -395,7 +394,6 @@ public class ConfigManager {
      * @param loader
      * @param scope
      * @param docName
-     * @return
      */
     private Document getLinkedDocument(Loader loader, Scope scope, String docName) {
         try {

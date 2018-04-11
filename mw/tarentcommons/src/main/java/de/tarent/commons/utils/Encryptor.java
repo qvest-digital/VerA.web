@@ -107,7 +107,6 @@ public final class Encryptor {
     /**
      * Get an instance of the Encryptor class
      *
-     * @return
      */
     public static synchronized Encryptor getInstance() {
         if (instance == null) {
@@ -120,7 +119,6 @@ public final class Encryptor {
      * Returns an MD5 hash of the (plain text) input string
      *
      * @param input
-     * @return
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */

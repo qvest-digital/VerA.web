@@ -89,7 +89,6 @@ public final class Appearance extends Base {
      * Returns the XML nodes specifying the action
      * definitions (it's parameters)
      *
-     * @return
      */
     public Iterator getActionDefinitions() {
         return actions.values().iterator();
@@ -112,7 +111,6 @@ public final class Appearance extends Base {
      * Returns the XML nodes specifying the plugin
      * definitions (it's parameters)
      *
-     * @return
      */
     public Iterator getPluginDefinitions() {
         return plugins.values().iterator();
@@ -160,7 +158,6 @@ public final class Appearance extends Base {
      * if the value is not set.
      *
      * @param key
-     * @return
      */
     public String get(Key key) {
         return getParamValue(key, null);
@@ -172,7 +169,6 @@ public final class Appearance extends Base {
      * if the value is not set.
      *
      * @param key
-     * @return
      */
     public String get(Key key, String defaultValue) {
         return getParamValue(key, defaultValue);
@@ -184,7 +180,6 @@ public final class Appearance extends Base {
      * or <code>false</code> if the value is not set.
      *
      * @param key
-     * @return
      */
     public boolean getAsBoolean(Key key) {
         return getParamAsBoolean(key, false);
@@ -196,7 +191,6 @@ public final class Appearance extends Base {
      * or <code>defaultValue</code> if the value is not set.
      *
      * @param key
-     * @return
      */
     public boolean getAsBoolean(Key key, boolean defaultValue) {
         return getParamAsBoolean(key, defaultValue);
@@ -208,7 +202,6 @@ public final class Appearance extends Base {
      * or <code>0</code> if the value is not set.
      *
      * @param key
-     * @return
      */
     public int getAsInt(Key key) {
         return getParamAsInt(key, 0);
@@ -220,7 +213,6 @@ public final class Appearance extends Base {
      * or <code>defaultValue</code> if the value is not set.
      *
      * @param key
-     * @return
      */
     public int getAsInt(Key key, int defaultValue) {
         return getParamAsInt(key, defaultValue);
@@ -232,7 +224,6 @@ public final class Appearance extends Base {
      * value is not set.
      *
      * @param key
-     * @return
      */
     public Element getAsElement(Key key) {
         return (Element) getParamAsObject(key);
@@ -345,7 +336,6 @@ public final class Appearance extends Base {
          * future additions.</p>
          *
          * @param label
-         * @return
          */
         private static Key make(String label) {
             return new Key(label);
@@ -356,7 +346,6 @@ public final class Appearance extends Base {
          * a {@KeyUnavailableException} if it does not exist.
          *
          * @param label
-         * @return
          * @throws KeyUnavailableException if the key does not exist.
          */
         private static Key getInstance(String label)

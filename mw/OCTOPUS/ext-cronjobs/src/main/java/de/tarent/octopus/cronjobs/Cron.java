@@ -327,7 +327,6 @@ public class Cron implements Runnable {
      * starts a cronjob immediately if it is runnable
      *
      * @param job
-     * @return
      */
     public boolean forceRun(CronJob job) {
         return forceRun(job, false);
@@ -337,7 +336,6 @@ public class Cron implements Runnable {
      * starts a cronjob immediately if it is runnable
      *
      * @param job
-     * @return
      */
     public boolean forceRun(CronJob job, boolean ignoreDeactived) {
 
@@ -408,7 +406,6 @@ public class Cron implements Runnable {
      *
      * @param cronJobMap:  Map that specifies a cronjob
      * @param cronJobName: Name of the cronjob
-     * @return
      */
     public Map mergeCronJobMapAndName(Map cronJobMap, String cronJobName) {
 

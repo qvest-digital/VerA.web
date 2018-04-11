@@ -146,7 +146,6 @@ public class XmlUtil {
      *
      * @param is
      * @param baseURI
-     * @return
      * @throws XmlUtil.Exception
      */
     public static Document getParsedDocument(InputStream is, String baseURI) throws XmlUtil.Exception {
@@ -371,7 +370,6 @@ public class XmlUtil {
      *
      * <p>TODO: Get replaced.</p>
      *
-     * @return
      */
     static Document createQnDEnvironmentDocument() {
         Document doc = createDocument();
@@ -395,7 +393,6 @@ public class XmlUtil {
      * <p>TODO: Get replaced.</p>
      *
      * @param connectionDefinitions
-     * @return
      */
     static Document createQnDConnectionsDocument(Collection connectionDefinitions) {
         Document doc = createDocument();

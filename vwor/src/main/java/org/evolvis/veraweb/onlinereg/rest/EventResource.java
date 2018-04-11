@@ -292,7 +292,6 @@ public class EventResource extends AbstractResource {
      *
      * @param eventId
      * @param namedQuery
-     * @return
      */
     private Boolean isListFull(Integer eventId, String namedQuery) {
         final Session session = openSession();

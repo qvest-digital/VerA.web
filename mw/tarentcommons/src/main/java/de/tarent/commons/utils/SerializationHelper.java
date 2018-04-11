@@ -74,7 +74,6 @@ public class SerializationHelper {
      * argument is null.</p>
      *
      * @param serializedList
-     * @return
      * @throws IllegalStateException if something goes wrong.
      */
     public static List deserializeList(byte[] serializedList) {
@@ -101,7 +100,6 @@ public class SerializationHelper {
      * Serializes the given {@link List} instance into a byte array.
      *
      * @param l
-     * @return
      * @throws IllegalStateException if something goes wrong.
      */
     public static byte[] serializeList(List l) {

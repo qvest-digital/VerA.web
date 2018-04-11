@@ -97,7 +97,6 @@ public final class Environment extends Base {
      * supposed to handle every possible configuration state. For
      * now this is the modifiable connection definitions only.</p>
      *
-     * @return
      */
     Map /*<String, Document>*/ prepareDocuments() {
         HashMap docs = new HashMap();
@@ -130,7 +129,6 @@ public final class Environment extends Base {
      * Returns a collection of all known {@link ConnectionDefinition} instances
      * which have been defined by the configuration documents.
      *
-     * @return
      */
     public Collection getConnectionDefinitions() {
         return connectionDefinitions.values();
@@ -143,7 +141,6 @@ public final class Environment extends Base {
      * <p>Note: The current implementation marks every {@link ConnectionDefinition}
      * as fixed which was defined at site or installation scope.</p>
      *
-     * @return
      */
     public Collection getFixedConnectionDefinitions() {
         LinkedList ll = new LinkedList();
@@ -165,7 +162,6 @@ public final class Environment extends Base {
      * <p>Note: The current implementation marks every {@link ConnectionDefinition}
      * as fixed which was defined at user scope.</p>
      *
-     * @return
      */
     public Collection getModifiableConnectionDefinitions() {
         LinkedList ll = new LinkedList();
@@ -401,7 +397,6 @@ public final class Environment extends Base {
          * future additions.</p>
          *
          * @param label
-         * @return
          */
         private static Key make(String label) {
             return new Key(label);
@@ -412,7 +407,6 @@ public final class Environment extends Base {
          * a {@KeyUnavailableException} if it does not exist.
          *
          * @param label
-         * @return
          * @throws KeyUnavailableException if the key does not exist.
          */
         private static Key getInstance(String label)
