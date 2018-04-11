@@ -26,14 +26,8 @@ hn=$(hostname)
 PS4="(${hn%%.*})+++ "
 set -e
 set -o pipefail
+set -x
 cd "$(dirname "$0")"
-
-build_vwoa=1 # assume by default
-x=" ${MAVEN_CMD_LINE_ARGS//	/ } "
-if [[ $x = *' -Prelease '* && $x != *' -PoA '* ]]; then
-	# build without -PoA
-	build_vwoa=0
-fi
 
 has_vwoa=1
 split_oa=0
@@ -61,7 +55,7 @@ function tgtck {
 		tomcat=7
 		;;
 	(*)
-		echo >&2 "[ERROR] stage '$1' unknown"
+		print -ru2 -- "[ERROR] stage '$1' unknown"
 		exit 1
 		;;
 	}
@@ -69,3 +63,8 @@ function tgtck {
 tgtck "$1"
 
 [[ -n $hostoa ]] || has_vwoa=0
+
+if (( has_vwoa )) && [[ ! -s vwoa/target/vw-online-registration.jar ]]; then
+	print -ru2 -- '[WARNING] Online-Anmeldung not built, not uploading it'
+	has_vwoa=0
+fi
