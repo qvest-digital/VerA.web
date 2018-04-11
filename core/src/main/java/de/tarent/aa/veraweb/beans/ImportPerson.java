@@ -141,8 +141,8 @@ public class ImportPerson extends Person {
     }
 
     /**
-     * Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de
-     * .tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim
+     * Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in
+     * {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim
      * Zusammenstellen gesetzt
      *
      * @return FIXME
@@ -153,9 +153,8 @@ public class ImportPerson extends Person {
 
     /**
      * @param moreDuplicates FIXME
-     *                       Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de
-     *                       .tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server
-     *                       .OctopusContext)} beim
+     *                       Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in
+     *                       {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim
      *                       Zusammenstellen gesetzt
      */
     public void setMoreDuplicates(boolean moreDuplicates) {
@@ -169,8 +168,8 @@ public class ImportPerson extends Person {
      */
     private List dups;
     /**
-     * Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de
-     * .tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim
+     * Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in
+     * {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim
      * Zusammenstellen gesetzt
      */
     private boolean moreDuplicates;

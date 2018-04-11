@@ -235,9 +235,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @param pConfig      persönliche Konfiguration des einzuloggenden Benutzers
      * @param tcRequest    Benutzeranfrage mit Authentisierungsdaten
      * @throws TcSecurityException bei fehlgeschlagener Authorisierung
-     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server
-     * .PersonalConfig, de
-     * .tarent.octopus.request.TcRequest)
+     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogin(de.tarent.octopus.config.TcCommonConfig,
+     * de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
      */
     @Override
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) throws TcSecurityException {
@@ -375,9 +374,8 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      * @param commonConfig Konfigurationsdaten des Octopus
      * @param pConfig      persönliche Konfiguration des auszuloggenden Benutzers
      * @param tcRequest    Benutzeranfrage
-     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig, de.tarent.octopus.server
-     * .PersonalConfig, de
-     * .tarent.octopus.request.TcRequest)
+     * @see de.tarent.ldap.LoginManagerLDAPGeneric#doLogout(de.tarent.octopus.config.TcCommonConfig,
+     * de.tarent.octopus.server.PersonalConfig, de.tarent.octopus.request.TcRequest)
      */
     @Override
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) {

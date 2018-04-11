@@ -269,8 +269,8 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      * @param cntx   Octopus-Context
      * @param select Select-Statement
      * @see #extendColumns(Select)
-     * @see de.tarent.octopus.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext, de.tarent.dblayer.sql
-     * .statement.Select)
+     * @see de.tarent.octopus.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext,
+     * de.tarent.dblayer.sql.statement.Select)
      */
     @Override
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
@@ -303,8 +303,8 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      *
      * @param cntx   Octopus-Context
      * @param select Select-Statement
-     * @see de.tarent.octopus.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext, de.tarent.dblayer.sql
-     * .statement.Select)
+     * @see de.tarent.octopus.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext,
+     * de.tarent.dblayer.sql.statement.Select)
      */
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
