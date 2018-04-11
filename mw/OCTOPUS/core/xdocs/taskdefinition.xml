@@ -100,7 +100,7 @@
 				</tr>
 				<tr>
 					<td>CachingParam</td>
-					<td>Comma seperated parameter without spaces. Allowed parameter are:</td>
+					<td>Comma-separated parameter without spaces. Allowed parameter are:</td>
 					<td>ALL</td>
 					<td></td>
 				</tr>

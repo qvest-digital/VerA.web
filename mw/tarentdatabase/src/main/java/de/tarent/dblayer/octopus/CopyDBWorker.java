@@ -91,7 +91,7 @@ public class CopyDBWorker {
      * @param schemeFrom     scheme name of the data donating tables
      * @param poolNameTo     pool name of the database where the data should go to
      * @param schemeTo       scheme name of the data recieving tables
-     * @param tablesToIgnore names of tables (space seperated), that should be ignored
+     * @param tablesToIgnore names of tables (space-separated) that should be ignored
      */
     public void copy(String poolNameFrom, String schemeFrom, String poolNameTo, String schemeTo, String tablesToIgnore) {
         assert poolNameFrom != null;

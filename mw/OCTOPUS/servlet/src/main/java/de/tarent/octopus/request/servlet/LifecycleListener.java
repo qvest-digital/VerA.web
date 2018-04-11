@@ -48,7 +48,10 @@ package de.tarent.octopus.request.servlet;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.net.MalformedURLException;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.request.Octopus;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -56,21 +59,15 @@ import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.net.MalformedURLException;
 
 /**
- * This lifecycle listener will be notified if a servlet context has just
- * been created and is available to service its first request,
- * or the servlet context is about to be shutdown.
+ * This lifecycle listener will be notified if a servlet context has just been created and is available to service its first
+ * request, or the servlet context is about to be shutdown.
  *
- * It will be used for realize that new octopus modules will be available.
- * So we can implement
- * the {@link Octopus#doAutostart(String, CommonConfig))} and
- * the {@link Octopus#doCleanup(String, CommonConfig)} also if one module
- * will loaded after the octopus webapplication. (Only in seperate
- * installations.)
+ * It will be used for realize that new octopus modules will be available. So we can implement
+ * {@link Octopus#doAutostart(String, TcCommonConfig)} and {@link Octopus#doCleanup(String, TcCommonConfig)}  also if one
+ * module will loaded after the octopus webapplication. (Only in separate installations.)
  *
  * @author Christoph Jerolimov, tarent GmbH
  */

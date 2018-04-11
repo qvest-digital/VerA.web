@@ -35,5 +35,10 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>octopus-core</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>

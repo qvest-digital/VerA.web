@@ -430,7 +430,7 @@ public class TaskManager {
      * The {@link TaskManager} hands out <code>Context</code> instance to its
      * listeners allowing them to cancel tasks which support this feature.
      * </p>
-     * TODO: Seperate Task->Context and Listener->Context through two interfaces
+     * TODO: Separate Task->Context and Listener->Context through two interfaces
      * which Context will implement.
      */
     public final class Context {

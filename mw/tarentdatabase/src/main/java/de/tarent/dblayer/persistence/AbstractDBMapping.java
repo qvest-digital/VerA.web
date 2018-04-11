@@ -113,7 +113,7 @@ public abstract class AbstractDBMapping implements DBMapping {
     DBContext contextWithPoolInformation = null;
 
     /**
-     * Default constructor doing nothing. The DBContext has to be set seperately
+     * Default constructor doing nothing. The DBContext has to be set separately
      * and the configure and init method has to be called from outside.
      */
     public AbstractDBMapping() {

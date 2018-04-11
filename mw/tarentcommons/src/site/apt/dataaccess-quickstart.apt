@@ -18,8 +18,8 @@ Dataaccess quickstart
   For first tests you can direct put an <<<DataAccessBackend>>> into the
   configuration. Here we will use an in memory backend which need no more
   settings. It's only needful to call the once a time. The configuration
-  will be hold in an internal static cache. If you need seperate configurations
-  please use this API in seperate classpaths.
+  will be hold in an internal static cache. If you need separate configurations
+  please use this API in separate classpaths.
 
 +-----------------------------------------------------------------------------+
     import de.tarent.commons.dataaccess.DataAccessConfiguration;
