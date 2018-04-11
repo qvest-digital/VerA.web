@@ -49,6 +49,10 @@ package de.tarent.commons.logging;
  * exception statement from your version.
  */
 
+import de.tarent.commons.messages.Message;
+import de.tarent.commons.messages.MessageHelper;
+import org.apache.commons.logging.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -63,11 +67,6 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SocketHandler;
-
-import org.apache.commons.logging.Log;
-
-import de.tarent.commons.messages.Message;
-import de.tarent.commons.messages.MessageHelper;
 
 /**
  * Better ;-) implementation of the {@link java.util.logging.LogManager},
@@ -118,7 +117,7 @@ public class LogManager {
      */
     public static Message NO_PARAMETER_AVAILABLE;
     /**
-     * Will be syserr'ed if a new configuration file will be read. (1th param is full filename.)
+     * Will be syserr'ed if a new configuration file will be read. (1st param is full filename.)
      */
     public static Message READ_CONFIGURATION_FILE;
     /**
