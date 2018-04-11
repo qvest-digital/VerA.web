@@ -7,24 +7,24 @@ package de.tarent.commons.io;
  * tarent-database, jdbc database library
  * tarent-doctor, Document Generation Platform
  * tarent-octopus, Webservice Data Integrator and Application Server
- *  © 2005, 2006, 2007 asteban <s.mancke@tarent.de>
- *  © 2007 David Goemans <d.goemans@tarent.de>
- *  © 2006, 2007, 2010 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2005, 2006, 2007 Christoph Jerolimov <c.jerolimov@tarent.de>
- *  © 2006 Philipp Kirchner <p.kirchner@tarent.de>
- *  © 2010 Carsten Klein <c.klein@tarent.de>
- *  © 2006 Michael Kleinhenz <m.kleinhenz@tarent.de>
- *  © 2006 Michael Klink <m.klink@tarent.de>
- *  © 2007 Fabian Köster <f.koester@tarent.de>
- *  © 2006 Martin Ley <m.ley@tarent.de>
- *  © 2007 Alex Maier <a.maier@tarent.de>
- *  © 2007, 2015, 2017, 2018 mirabilos <t.glaser@tarent.de>
- *  © 2006, 2007 Jens Neumaier <j.neumaier@tarent.de>
- *  © 2006 Nils Neumaier <n.neumaier@tarent.de>
- *  © 2007, 2008 Martin Pelzer <m.pelzer@tarent.de>
- *  © 2008, 2009 Christian Preilowski <c.thiel@tarent.de>
- *  © 2006, 2008, 2009 Thomas Schmitz <t.schmitz@tarent.de>
- *  © 2007 Robert Schuster <r.schuster@tarent.de>
+ *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
+ *  © 2007 David Goemans (d.goemans@tarent.de)
+ *  © 2006, 2007, 2010 Hendrik Helwich (h.helwich@tarent.de)
+ *  © 2005, 2006, 2007 Christoph Jerolimov (c.jerolimov@tarent.de)
+ *  © 2006 Philipp Kirchner (p.kirchner@tarent.de)
+ *  © 2010 Carsten Klein (c.klein@tarent.de)
+ *  © 2006 Michael Kleinhenz (m.kleinhenz@tarent.de)
+ *  © 2006 Michael Klink (m.klink@tarent.de)
+ *  © 2007 Fabian Köster (f.koester@tarent.de)
+ *  © 2006 Martin Ley (m.ley@tarent.de)
+ *  © 2007 Alex Maier (a.maier@tarent.de)
+ *  © 2007, 2015, 2017, 2018 mirabilos (t.glaser@tarent.de)
+ *  © 2006, 2007 Jens Neumaier (j.neumaier@tarent.de)
+ *  © 2006 Nils Neumaier (n.neumaier@tarent.de)
+ *  © 2007, 2008 Martin Pelzer (m.pelzer@tarent.de)
+ *  © 2008, 2009 Christian Preilowski (c.thiel@tarent.de)
+ *  © 2006, 2008, 2009 Thomas Schmitz (t.schmitz@tarent.de)
+ *  © 2007 Robert Schuster (r.schuster@tarent.de)
  * and older code, Copyright © 2001–2007 ⮡ tarent GmbH and contributors.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
