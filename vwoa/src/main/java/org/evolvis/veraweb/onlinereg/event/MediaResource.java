@@ -112,8 +112,8 @@ public class MediaResource {
     private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
     };
     private static final TypeReference<MediaRepresentativeActivation> MEDIA_REPRESENTATIVE_ACTIVATION =
-            new TypeReference<MediaRepresentativeActivation>() {
-            };
+      new TypeReference<MediaRepresentativeActivation>() {
+      };
     private static final String INVITATION_TYPE = "2";
 
     /**
@@ -155,16 +155,16 @@ public class MediaResource {
     @POST
     @Path("/{uuid}/register")
     public String registerDelegateForEvent(
-            @PathParam("uuid") String uuid,
-            @FormParam("nachname") String nachname,
-            @FormParam("vorname") String vorname,
-            @FormParam("gender") String gender,
-            @FormParam("email") String email,
-            @FormParam("address") String address,
-            @FormParam("plz") String plz,
-            @FormParam("city") String city,
-            @FormParam("country") String country,
-            @FormParam("current_language") String currentLanguageKey) throws IOException {
+      @PathParam("uuid") String uuid,
+      @FormParam("nachname") String nachname,
+      @FormParam("vorname") String vorname,
+      @FormParam("gender") String gender,
+      @FormParam("email") String email,
+      @FormParam("address") String address,
+      @FormParam("plz") String plz,
+      @FormParam("city") String city,
+      @FormParam("country") String country,
+      @FormParam("current_language") String currentLanguageKey) throws IOException {
 
         final Boolean emailValid = EmailValidator.isValidEmailAddress(email);
 
@@ -180,11 +180,10 @@ public class MediaResource {
                 }
 
                 addMediaRepresentativeActivationEntry(
-                        nachname, vorname, gender, email, address, plz, city, country, activationToken, eventId
+                  nachname, vorname, gender, email, address, plz, city, country, activationToken, eventId
                 );
                 sendEmailVerification(email, activationToken, currentLanguageKey);
                 return StatusConverter.convertStatus("OK");
-
             }
 
             return StatusConverter.convertStatus("WRONG_EVENT");
@@ -198,9 +197,9 @@ public class MediaResource {
     @Path("/activation/confirm/{pressUserActivationToken}")
     public String activateMediaUser(@PathParam("pressUserActivationToken") String expectedActivationToken) throws IOException {
         final MediaRepresentativeActivation mediaRepresentativeActivation =
-                getPressUserByActivationToken(expectedActivationToken);
+          getPressUserByActivationToken(expectedActivationToken);
         if (mediaRepresentativeActivation != null &&
-                mediaRepresentativeActivation.getActivated().equals(VerawebConstants.MEDIA_REPRESENTATIVE_INACTIVE)) {
+          mediaRepresentativeActivation.getActivated().equals(VerawebConstants.MEDIA_REPRESENTATIVE_INACTIVE)) {
             setMediaUserAsActive(mediaRepresentativeActivation.getEmail(), mediaRepresentativeActivation.getFk_event());
             final Event event = getEvent(mediaRepresentativeActivation.getFk_event());
             final PressTransporter transporter = initPressTransporter(mediaRepresentativeActivation, event);
@@ -221,16 +220,16 @@ public class MediaResource {
 
     private PressTransporter initPressTransporter(MediaRepresentativeActivation mediaRepresentativeActivation, Event event) {
         return new PressTransporter(
-                event.getMediarepresentatives(),
-                mediaRepresentativeActivation.getLastname(),
-                mediaRepresentativeActivation.getFirstname(),
-                mediaRepresentativeActivation.getGender(),
-                mediaRepresentativeActivation.getEmail(),
-                mediaRepresentativeActivation.getAddress(),
-                mediaRepresentativeActivation.getZip().toString(),
-                mediaRepresentativeActivation.getCity(),
-                mediaRepresentativeActivation.getCountry(),
-                usernameGenerator()
+          event.getMediarepresentatives(),
+          mediaRepresentativeActivation.getLastname(),
+          mediaRepresentativeActivation.getFirstname(),
+          mediaRepresentativeActivation.getGender(),
+          mediaRepresentativeActivation.getEmail(),
+          mediaRepresentativeActivation.getAddress(),
+          mediaRepresentativeActivation.getZip().toString(),
+          mediaRepresentativeActivation.getCity(),
+          mediaRepresentativeActivation.getCountry(),
+          usernameGenerator()
         );
     }
 
@@ -255,16 +254,16 @@ public class MediaResource {
     }
 
     private void addMediaRepresentativeActivationEntry(
-            final String lastname,
-            final String firstname,
-            final String gender,
-            final String email,
-            final String address,
-            final String zip,
-            final String city,
-            final String country,
-            final String activationToken,
-            final Integer eventId) {
+      final String lastname,
+      final String firstname,
+      final String gender,
+      final String email,
+      final String address,
+      final String zip,
+      final String city,
+      final String country,
+      final String activationToken,
+      final Integer eventId) {
 
         final Form postBody = new Form();
         postBody.add("activationToken", activationToken);
@@ -297,7 +296,7 @@ public class MediaResource {
             return "NO_EVENT_DATA";
         }
         addGuestToEvent(transporter.getUuid(), String.valueOf(eventId), String.valueOf(personId),
-                transporter.getGender(), transporter.getUsername());
+          transporter.getGender(), transporter.getUsername());
 
         return "OK";
     }
@@ -312,7 +311,7 @@ public class MediaResource {
      * @throws IOException IOException
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String username)
-            throws IOException {
+      throws IOException {
         final Integer categoryID = getCategoryIdFromCatname(uuid);
 
         final WebResource resource = getAddGuestResource(uuid);
@@ -403,5 +402,4 @@ public class MediaResource {
 
         return dbGender;
     }
-
 }

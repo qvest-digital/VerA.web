@@ -142,7 +142,7 @@ public class MethodCall {
             return;
         }
         throw new RuntimeException("Illegal stacktrace depth. Want get logpos "
-                + logpos + " from this stack: " + Arrays.asList(ste));
+          + logpos + " from this stack: " + Arrays.asList(ste));
     }
 
     /**

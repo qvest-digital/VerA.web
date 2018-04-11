@@ -231,8 +231,8 @@ public class PersonGuestListWorker extends PersonListWorker {
             Clause clause = getPersonListFilter(octopusContext, false);
             if (event.invitationtype.intValue() != EventConstants.TYPE_NURPARTNER) {
                 select.where(Where.and(clause, Where.or(
-                        Expr.greater("lastname_a_e1", ""),
-                        Expr.greater("firstname_a_e1", ""))));
+                  Expr.greater("lastname_a_e1", ""),
+                  Expr.greater("firstname_a_e1", ""))));
             }
             /*
              * modified to support searching for persons that have no categories assigned as per change request for version 1.2.0
@@ -244,8 +244,8 @@ public class PersonGuestListWorker extends PersonListWorker {
             }
             if (event.invitationtype.intValue() != EventConstants.TYPE_OHNEPARTNER) {
                 select.where(Where.and(clause, Where.or(
-                        Expr.greater("lastname_b_e1", ""),
-                        Expr.greater("firstname_b_e1", ""))));
+                  Expr.greater("lastname_b_e1", ""),
+                  Expr.greater("firstname_b_e1", ""))));
                 extendSelectByMultipleCategorySearch(octopusContext, search, select);
                 for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
                     invitepartner.add(((Map) it.next()).get("id"));
@@ -286,7 +286,6 @@ public class PersonGuestListWorker extends PersonListWorker {
                 } else {
                     selectdelegation.remove(id);
                 }
-
             }
         }
 
@@ -365,13 +364,13 @@ public class PersonGuestListWorker extends PersonListWorker {
 
             try {
                 return
-                        database.getList(
-                                database.getSelect("PersonCategorie").
-                                        joinLeftOuter("veraweb.tcategorie", "tperson_categorie.fk_categorie", "tcategorie.pk").
-                                        selectAs("tcategorie.rank", "catrank").
-                                        selectAs("tcategorie.catname", "name").
-                                        selectAs("tcategorie.flags", "flags").
-                                        where(Expr.equal("fk_person", personId)), database);
+                  database.getList(
+                    database.getSelect("PersonCategorie").
+                      joinLeftOuter("veraweb.tcategorie", "tperson_categorie.fk_categorie", "tcategorie.pk").
+                      selectAs("tcategorie.rank", "catrank").
+                      selectAs("tcategorie.catname", "name").
+                      selectAs("tcategorie.flags", "flags").
+                      where(Expr.equal("fk_person", personId)), database);
             } catch (BeanException e) {
                 e.printStackTrace();
             } catch (IOException e) {

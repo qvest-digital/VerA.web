@@ -86,16 +86,16 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     @POST
     @Path("/create")
     public MediaRepresentativeActivation addMediaRepresentativeActivationEntry(
-            @FormParam("activationToken") String activationToken,
-            @FormParam("email") String email,
-            @FormParam("eventId") Integer eventId,
-            @FormParam("gender") String gender,
-            @FormParam("address") String address,
-            @FormParam("city") String city,
-            @FormParam("country") String country,
-            @FormParam("firstname") String firstname,
-            @FormParam("lastname") String lastname,
-            @FormParam("zip") Integer zip
+      @FormParam("activationToken") String activationToken,
+      @FormParam("email") String email,
+      @FormParam("eventId") Integer eventId,
+      @FormParam("gender") String gender,
+      @FormParam("address") String address,
+      @FormParam("city") String city,
+      @FormParam("country") String country,
+      @FormParam("firstname") String firstname,
+      @FormParam("lastname") String lastname,
+      @FormParam("zip") Integer zip
     ) {
 
         final Session session = openSession();
@@ -103,7 +103,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         try {
 
             final MediaRepresentativeActivation mediaRepresentativeActivation = initMediaRepresentativeActivation(
-                    activationToken, email, eventId, gender, address, city, country, firstname, lastname, zip
+              activationToken, email, eventId, gender, address, city, country, firstname, lastname, zip
             );
             session.persist(mediaRepresentativeActivation);
             session.flush();
@@ -117,7 +117,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     @GET
     @Path("/exists/{encodedAddress}/{eventId}")
     public Boolean existEventIdByDelegation(@PathParam("encodedAddress") String encodedAddress,
-            @PathParam("eventId") String eventId) {
+      @PathParam("eventId") String eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId");
@@ -136,7 +136,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     @GET
     @Path("/exists/{mediaRepresentativeActivationToken}")
     public MediaRepresentativeActivation getMediaRepresentativeActivationByToken(
-            @PathParam("mediaRepresentativeActivationToken") String mediaRepresentativeActivationToken) {
+      @PathParam("mediaRepresentativeActivationToken") String mediaRepresentativeActivationToken) {
 
         final Session session = openSession();
         try {
@@ -166,16 +166,16 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     }
 
     private MediaRepresentativeActivation initMediaRepresentativeActivation(
-            String activationToken,
-            String email,
-            Integer eventId,
-            String gender,
-            String address,
-            String city,
-            String country,
-            String firstname,
-            String lastname,
-            Integer zip) {
+      String activationToken,
+      String email,
+      Integer eventId,
+      String gender,
+      String address,
+      String city,
+      String country,
+      String firstname,
+      String lastname,
+      Integer zip) {
         final MediaRepresentativeActivation mediaRepresentativeActivation = new MediaRepresentativeActivation();
         mediaRepresentativeActivation.setActivation_token(activationToken);
         mediaRepresentativeActivation.setEmail(email);

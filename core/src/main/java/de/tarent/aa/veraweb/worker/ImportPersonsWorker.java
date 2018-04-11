@@ -154,8 +154,8 @@ public class ImportPersonsWorker {
         ////////
 
         Clause clause = Where.and(
-                Expr.equal("fk_orgunit", ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId()),
-                Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+          Expr.equal("fk_orgunit", ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId()),
+          Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 
         String firstname = sample.firstname_a_e1;
         String lastname = sample.lastname_a_e1;
@@ -215,12 +215,12 @@ public class ImportPersonsWorker {
         select = database.getCount(sample);
         where = new WhereList();
         where.addAnd(
-                Where.or(
-                        //Bed: Es existieren keine Duplikate zu dem Datensatz
-                        Expr.isNull(database.getProperty(sample, "duplicates")),
-                        //Bed: Datensatz explizit zum speichern gekennzeichnet
-                        Expr.equal(database.getProperty(sample, "dupcheckstatus"), ImportPerson.TRUE)
-                ));
+          Where.or(
+            //Bed: Es existieren keine Duplikate zu dem Datensatz
+            Expr.isNull(database.getProperty(sample, "duplicates")),
+            //Bed: Datensatz explizit zum speichern gekennzeichnet
+            Expr.equal(database.getProperty(sample, "dupcheckstatus"), ImportPerson.TRUE)
+          ));
         //Bed: Datensatz wurde noch nicht festgeschrieben
         where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
         //Bed: Nur Datensätze von dem aktuellen Importvorgang
@@ -237,7 +237,7 @@ public class ImportPersonsWorker {
      * Octopus-Eingabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)}
      */
     public static final String[] INPUT_finalise =
-            { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
+      { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
     /**
      * Octopus-Eingabe-Parameter-Pflicht für {@link #finalise(OctopusContext, Integer, List, Map)}
      */
@@ -263,7 +263,7 @@ public class ImportPersonsWorker {
      * @throws IOException   IOException
      */
     public Map finalise(OctopusContext octopusContext, Integer importId, List ignorePersonFields, Map importTextfieldMapping)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         //Initialisiere Datenbank und lese die ID für den Importvorgang
         if (importId == null) {
             importId = getImportIdFromSession(octopusContext);
@@ -284,12 +284,12 @@ public class ImportPersonsWorker {
             //Bed: Nur Datensätze von dem aktuellen Importvorgang
             where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "fk_import"), importId));
             where.addAnd(
-                    Where.or(
-                            //Bed: Es existieren keine Duplikate zu dem Datensatz (NULL wird gefordert!!!)
-                            Expr.isNull(database.getProperty(sampleImportPerson, "duplicates")),
-                            //Bed: Datensatz explizit zum speichern gekennzeichnet
-                            Expr.equal(database.getProperty(sampleImportPerson, "dupcheckstatus"), ImportPerson.TRUE)
-                    ));
+              Where.or(
+                //Bed: Es existieren keine Duplikate zu dem Datensatz (NULL wird gefordert!!!)
+                Expr.isNull(database.getProperty(sampleImportPerson, "duplicates")),
+                //Bed: Datensatz explizit zum speichern gekennzeichnet
+                Expr.equal(database.getProperty(sampleImportPerson, "dupcheckstatus"), ImportPerson.TRUE)
+              ));
             //Bed: Datensatz wurde noch nicht festgeschrieben
             where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "dupcheckaction"), ImportPerson.FALSE));
             select.where(where);
@@ -334,19 +334,19 @@ public class ImportPersonsWorker {
 
                     if (importPerson.get("category") != null && ((String) importPerson.get("category")).length() != 0) {
                         createPersonCategories(database, transactionContext, ((String) importPerson.get("category")).split("\n"),
-                                person,
-                                new Integer(Categorie.FLAG_DEFAULT));
+                          person,
+                          new Integer(Categorie.FLAG_DEFAULT));
                     }
 
                     if (importPerson.get("occasion") != null && ((String) importPerson.get("occasion")).length() != 0) {
                         createPersonCategories(database, transactionContext, ((String) importPerson.get("occasion")).split("\n"),
-                                person,
-                                new Integer(Categorie.FLAG_EVENT));
+                          person,
+                          new Integer(Categorie.FLAG_EVENT));
                     }
 
                     // Datensatz als festgeschrieben markieren
                     transactionContext.execute(database.getUpdate("ImportPerson").update("dupcheckaction", ImportPerson.TRUE).
-                            where(Expr.equal(database.getProperty(sampleImportPerson, "id"), ipID)));
+                      where(Expr.equal(database.getProperty(sampleImportPerson, "id"), ipID)));
                     transactionContext.commit();
                     // Datensatz erfolgreich bearbeitet
                     dsCount++;
@@ -399,17 +399,17 @@ public class ImportPersonsWorker {
      * @param flags         Art der gesuchten und gegebenenfalls erzeugten Kategorie
      */
     private static void createPersonCategories(Database database, ExecutionContext executionContext,
-            String[] categoryNames, Person person, Integer flags)
-            throws BeanException, IOException {
+      String[] categoryNames, Person person, Integer flags)
+      throws BeanException, IOException {
         final TransactionContext transactionContext = executionContext.getDatabase().getTransactionContext();
         for (int i = 0; i < categoryNames.length; i++) {
             String categoryName = categoryNames[i].trim();
             if (categoryName.length() != 0) {
                 Categorie category = (Categorie) database.getBean("Categorie",
-                        database.getSelect("Categorie").where(Where.and(
-                                Expr.equal("catname", categoryName), Where.and(
-                                        Expr.equal("flags", flags),
-                                        Expr.equal("fk_orgunit", person.orgunit)))), executionContext);
+                  database.getSelect("Categorie").where(Where.and(
+                    Expr.equal("catname", categoryName), Where.and(
+                      Expr.equal("flags", flags),
+                      Expr.equal("fk_orgunit", person.orgunit)))), executionContext);
                 if (category == null) {
                     category = (Categorie) database.createBean("Categorie");
                     category.flags = flags;
@@ -437,8 +437,8 @@ public class ImportPersonsWorker {
      * @param person         Person, als die die ImportPerson importiert wird
      */
     private static void createPersonCategories(Database database, ExecutionContext executionContext,
-            Integer importPersonId, Person person)
-            throws BeanException, IOException {
+      Integer importPersonId, Person person)
+      throws BeanException, IOException {
         ImportPersonCategorie sample = new ImportPersonCategorie();
         Select select = database.getSelect(sample);
         select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
@@ -450,9 +450,9 @@ public class ImportPersonsWorker {
             ImportPersonCategorie importPersonCategorie = (ImportPersonCategorie) itImportPersonCategories.next();
             if (importPersonCategorie.name != null) {
                 Categorie category = (Categorie) database.getBean("Categorie",
-                        database.getSelect("Categorie").where(Where.and(
-                                Expr.equal("catname", importPersonCategorie.name),
-                                Expr.equal("fk_orgunit", person.orgunit))), executionContext);
+                  database.getSelect("Categorie").where(Where.and(
+                    Expr.equal("catname", importPersonCategorie.name),
+                    Expr.equal("fk_orgunit", person.orgunit))), executionContext);
                 if (category == null) {
                     category = (Categorie) database.createBean("Categorie");
                     category.flags = importPersonCategorie.flags;

@@ -112,13 +112,13 @@ public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
             }
             if (action.method == null) {
                 throw new TcActionDeclarationException(
-                        "Serverfehler: Keine passende Methode für die Action " + actionName + " im Worker " +
-                                workerClass.getName() + " gefunden.");
+                  "Serverfehler: Keine passende Methode für die Action " + actionName + " im Worker " +
+                    workerClass.getName() + " gefunden.");
             }
 
             action.args = action.method.getParameterTypes();
             action.passOctopusContext = action.args.length > 0
-                    && OctopusContext.class.equals(action.args[0]);
+              && OctopusContext.class.equals(action.args[0]);
 
             action.genericArgsCount = action.args.length;
             if (action.passOctopusContext) {
@@ -136,13 +136,13 @@ public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
                 for (int i = 0; i < fields.length; i++) {
                     String fNameLower = fields[i].getName().toLowerCase();
                     if (inpNameLower.equals(fNameLower)
-                            && TYPE_STRING_ARRAY.equals(fields[i].getType())) {
+                      && TYPE_STRING_ARRAY.equals(fields[i].getType())) {
                         action.inputParams = (String[]) fields[i].get(workerDelegate);
                     } else if (outNameLower.equals(fNameLower)
-                            && TYPE_STRING.equals(fields[i].getType())) {
+                      && TYPE_STRING.equals(fields[i].getType())) {
                         action.outputParam = (String) fields[i].get(workerDelegate);
                     } else if (manNameLower.equals(fNameLower)
-                            && TYPE_BOOLEAN_ARRAY.equals(fields[i].getType()))
+                      && TYPE_BOOLEAN_ARRAY.equals(fields[i].getType()))
 
                     {
                         action.mandatoryFlags = (boolean[]) fields[i].get(workerDelegate);
@@ -153,19 +153,19 @@ public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
             }
             if (action.inputParams == null) {
                 throw new TcActionDeclarationException(
-                        "Serverfehler: Kein Feld " + FIELD_NAME_PREFIX_INPUT + actionName + " vom Typ String[] im Worker " +
-                                workerClass.getName() + " gefunden.");
+                  "Serverfehler: Kein Feld " + FIELD_NAME_PREFIX_INPUT + actionName + " vom Typ String[] im Worker " +
+                    workerClass.getName() + " gefunden.");
             }
             if (action.inputParams.length != action.genericArgsCount) {
                 throw new TcActionDeclarationException(
-                        "Serverfehler: Das Feld " + FIELD_NAME_PREFIX_INPUT + actionName + " in der Klasse " +
-                                workerClass.getName() + " hat eine falsche Länge.");
+                  "Serverfehler: Das Feld " + FIELD_NAME_PREFIX_INPUT + actionName + " in der Klasse " +
+                    workerClass.getName() + " hat eine falsche Länge.");
             }
 
             if (action.mandatoryFlags != null && action.mandatoryFlags.length != action.genericArgsCount) {
                 throw new TcActionDeclarationException(
-                        "Serverfehler: Das Feld " + FIELD_NAME_PREFIX_MANDORITY + actionName + " in der Klasse " +
-                                workerClass.getName() + " hat eine falsche Länge.");
+                  "Serverfehler: Das Feld " + FIELD_NAME_PREFIX_MANDORITY + actionName + " in der Klasse " +
+                    workerClass.getName() + " hat eine falsche Länge.");
             }
 
             if (action.mandatoryFlags == null) {
@@ -176,17 +176,17 @@ public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
             }
 
             if (action.outputParam == null
-                    && !Void.TYPE.equals(action.method.getReturnType())) {
+              && !Void.TYPE.equals(action.method.getReturnType())) {
                 throw new TcActionDeclarationException(
-                        "Serverfehler: Kein Feld " + FIELD_NAME_PREFIX_OUTPUT + actionName + " vom Typ String im " +
-                                workerClass.getName() + " gefunden. Der Returnwert der entsprechenden Methode ist aber != void.");
+                  "Serverfehler: Kein Feld " + FIELD_NAME_PREFIX_OUTPUT + actionName + " vom Typ String im " +
+                    workerClass.getName() + " gefunden. Der Returnwert der entsprechenden Methode ist aber != void.");
             }
 
             if (action.outputParam != null
-                    && Void.TYPE.equals(action.method.getReturnType())) {
+              && Void.TYPE.equals(action.method.getReturnType())) {
                 throw new TcActionDeclarationException(
-                        "Serverfehler: Das Feld " + FIELD_NAME_PREFIX_OUTPUT + actionName + " ist in " + workerClass.getName() +
-                                " definiert. Der Returnwert der entsprechenden Methode ist aber void.");
+                  "Serverfehler: Das Feld " + FIELD_NAME_PREFIX_OUTPUT + actionName + " ist in " + workerClass.getName() +
+                    " definiert. Der Returnwert der entsprechenden Methode ist aber void.");
             }
 
             actionDataLookup.put(actionName, action);
@@ -216,7 +216,7 @@ public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new TcActionDeclarationException("Fehler beim Ermitteln der Selbstbeschreibung von " + workerClass.getName(),
-                    e);
+              e);
         }
         return (String[]) out.toArray(new String[] {});
     }

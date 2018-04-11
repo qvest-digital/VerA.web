@@ -109,8 +109,8 @@ public class DB {
         if (info.containsKey(Pool.DEBUG_POOL_CLASS)) {
             try {
                 pool = (Pool) Class.forName((String) info.get(Pool.DEBUG_POOL_CLASS))
-                        .getConstructor(new Class[] { Pool.class })
-                        .newInstance(new Object[] { pool });
+                  .getConstructor(new Class[] { Pool.class })
+                  .newInstance(new Object[] { pool });
             } catch (Exception e) {
                 logger.error(Resources.getInstance().get("ERROR_INIT_POOL_PROXY", (String) info.get(Pool.DEBUG_POOL_CLASS)), e);
             }
@@ -253,7 +253,7 @@ public class DB {
      * to by the SQLFile.
      */
     static public ResultSet getResultSet(String poolname, SQLFile sqlfile)
-            throws SQLException {
+      throws SQLException {
         String sql = "";
         try {
             sql = SQLCache.getSQLFromFile(poolname, sqlfile);
@@ -269,7 +269,7 @@ public class DB {
      * to by the SQLFile.
      */
     static public ResultSet getResultSet(DBContext dbx, SQLFile sqlfile)
-            throws SQLException {
+      throws SQLException {
         String sql = "";
         try {
             sql = SQLCache.getSQLFromFile(dbx, sqlfile);
@@ -292,7 +292,7 @@ public class DB {
      *              must not contain these {}, they will be added automaticaly.
      */
     static public ResultSet getResultSet(String poolname, SQLFile sqlfile, Map subst)
-            throws SQLStatementException {
+      throws SQLStatementException {
         String sql = "";
         sql = SQLCache.getSQLFromFile(poolname, sqlfile);
         // replace all defined variables
@@ -324,7 +324,7 @@ public class DB {
      *              must not contain these {}, they will be added automaticaly.
      */
     static public ResultSet getResultSet(DBContext dbx, SQLFile sqlfile, Map subst)
-            throws SQLStatementException {
+      throws SQLStatementException {
         String sql = "";
         sql = SQLCache.getSQLFromFile(dbx, sqlfile);
         // replace all defined variables
@@ -558,7 +558,6 @@ public class DB {
             } else {
                 logger.trace("statement was null");
             }
-
         } catch (SQLException e) {
             logger.warn(Resources.getInstance().get("ERROR_CLOSING_STATEMENT"), e);
         }
@@ -568,7 +567,7 @@ public class DB {
         InsertKeys result = new InsertKeys();
         Connection con = stmt.getConnection();
         if (con.getMetaData()
-                .supportsGetGeneratedKeys()) {//checks whether the function getGeneratedKeys is supported by the JDBC driver
+          .supportsGetGeneratedKeys()) {//checks whether the function getGeneratedKeys is supported by the JDBC driver
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 ResultSetMetaData md = rs.getMetaData();
@@ -597,7 +596,7 @@ public class DB {
                 String table_name = rs.getString("table_name");
                 String schema_name = rs.getString("table_schem");
                 String sql = "SELECT currval(pg_get_serial_sequence('" + schema_name + "." + table_name + "','" + column_name +
-                        "')) AS value";
+                  "')) AS value";
                 //ResultSet rs2 = stmt.executeQuery(sql);
                 //getResultSet(dbx, sql);
                 ResultSet rs2 = DB.getResultSet(dbx, sql);
@@ -641,7 +640,7 @@ public class DB {
             Log.logStatement(insert);
             statement = getStatement(dbx);
             boolean supportsGetGeneratedKeys = (!SQL.isPostgres(dbx))
-                    && statement.getConnection().getMetaData().supportsGetGeneratedKeys();
+              && statement.getConnection().getMetaData().supportsGetGeneratedKeys();
             if (!supportsGetGeneratedKeys) {
                 statement.executeUpdate(insert);
             } else {

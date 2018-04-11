@@ -547,12 +547,12 @@ public class TcRequest {
         StringBuffer sb = new StringBuffer();
 
         sb.append("TcRequest: ")
-                .append(getModule())
-                .append('.')
-                .append(getTask())
-                .append(" by ")
-                .append(getPasswordAuthentication() != null ? getPasswordAuthentication().getUserName() : "?")
-                .append('\n');
+          .append(getModule())
+          .append('.')
+          .append(getTask())
+          .append(" by ")
+          .append(getPasswordAuthentication() != null ? getPasswordAuthentication().getUserName() : "?")
+          .append('\n');
 
         for (Iterator e = requestParameters.keySet().iterator(); e.hasNext(); ) {
             String key = (String) e.next();

@@ -249,11 +249,11 @@ public class WebFormat {
             return null;
         }
         return string
-                .replaceAll("\u0026", "&amp;")
-                .replaceAll("\u005c\u0022", "&quot;")
-                //			.replaceAll("\u0027", "&apos;")
-                .replaceAll("\u003c", "&lt;")
-                .replaceAll("\u003e", "&gt;");
+          .replaceAll("\u0026", "&amp;")
+          .replaceAll("\u005c\u0022", "&quot;")
+          //			.replaceAll("\u0027", "&apos;")
+          .replaceAll("\u003c", "&lt;")
+          .replaceAll("\u003e", "&gt;");
         //			.replaceAll("\u00e4", "&auml;")
         //			.replaceAll("\u00c4", "&Auml;")
         //			.replaceAll("\u00fc", "&uuml;")
@@ -274,19 +274,19 @@ public class WebFormat {
             return null;
         }
         return string
-                .replaceAll("&quot;", "\u005c\u0022")
-                //			.replaceAll("&apos;", "\u0027")
-                .replaceAll("&lt;", "\u003c")
-                .replaceAll("&gt;", "\u003e")
-                //			.replaceAll("&auml;", "\u00e4")
-                //			.replaceAll("&Auml;", "\u00c4")
-                //			.replaceAll("&uuml;", "\u00fc")
-                //			.replaceAll("&Uuml;", "\u00dc")
-                //			.replaceAll("&ouml;", "\u00f6")
-                //			.replaceAll("&Ouml;", "\u00d6")
-                //			.replaceAll("&szlig;", "\u00df")
-                .replaceAll("&amp;", "\u0026")
-                .replaceAll("<br>", "\n");
+          .replaceAll("&quot;", "\u005c\u0022")
+          //			.replaceAll("&apos;", "\u0027")
+          .replaceAll("&lt;", "\u003c")
+          .replaceAll("&gt;", "\u003e")
+          //			.replaceAll("&auml;", "\u00e4")
+          //			.replaceAll("&Auml;", "\u00c4")
+          //			.replaceAll("&uuml;", "\u00fc")
+          //			.replaceAll("&Uuml;", "\u00dc")
+          //			.replaceAll("&ouml;", "\u00f6")
+          //			.replaceAll("&Ouml;", "\u00d6")
+          //			.replaceAll("&szlig;", "\u00df")
+          .replaceAll("&amp;", "\u0026")
+          .replaceAll("<br>", "\n");
     }
 
     static {

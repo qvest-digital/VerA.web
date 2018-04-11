@@ -76,9 +76,9 @@ public class ParametersTest extends TestCase {
         String paramString2 = "key2=value2";
         assertEquals("General problems", url + "?" + paramString1 + "&amp;" + paramString2, parameters.encodeUrl(url));
         assertEquals("Problems when already parameters exists in URL", url + "?a=b&amp;" + paramString1 + "&amp;" + paramString2,
-                parameters.encodeUrl(url + "?a=b"));
+          parameters.encodeUrl(url + "?a=b"));
         assertEquals("Problems with withespaces", url + "?" + paramString1 + "&amp;" + paramString2,
-                parameters.encodeUrl(" " + url + " "));
+          parameters.encodeUrl(" " + url + " "));
         parameters.put("key2", "v alue2");
         assertEquals("Problems with string encoding", url + "?" + paramString1 + "&amp;key2=v+alue2", parameters.encodeUrl(url));
         parameters = new Parameters();
@@ -111,15 +111,15 @@ public class ParametersTest extends TestCase {
         parameters.put("key2", "value2");
 
         assertEquals("General problems",
-                "<input type=\"hidden\" name=\"key1\" value=\"value1\">" + StringTools.LINE_SEPARATOR +
-                        "<input type=\"hidden\" name=\"key2\" value=\"value2\">" + StringTools.LINE_SEPARATOR,
-                parameters.getHiddenHTMLFormFields());
+          "<input type=\"hidden\" name=\"key1\" value=\"value1\">" + StringTools.LINE_SEPARATOR +
+            "<input type=\"hidden\" name=\"key2\" value=\"value2\">" + StringTools.LINE_SEPARATOR,
+          parameters.getHiddenHTMLFormFields());
         parameters.put("key2", "v alue2");
         parameters.put("key2", "v alue2");
         assertEquals("Problems with string encoding",
-                "<input type=\"hidden\" name=\"key1\" value=\"value1\">" + StringTools.LINE_SEPARATOR +
-                        "<input type=\"hidden\" name=\"key2\" value=\"v+alue2\">" + StringTools.LINE_SEPARATOR,
-                parameters.getHiddenHTMLFormFields());
+          "<input type=\"hidden\" name=\"key1\" value=\"value1\">" + StringTools.LINE_SEPARATOR +
+            "<input type=\"hidden\" name=\"key2\" value=\"v+alue2\">" + StringTools.LINE_SEPARATOR,
+          parameters.getHiddenHTMLFormFields());
         parameters = new Parameters();
         assertEquals("Problems with empty parameter set", "", parameters.getHiddenHTMLFormFields());
     }

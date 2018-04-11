@@ -105,10 +105,10 @@ public class PersonReplaceWorker extends PersonListWorker {
      * Replace-Gruppen-Parameter
      */
     private static final String PARAM_GROUPS[] = {
-            "snr-group01", "snr-group02", "snr-group03",
-            "snr-group04", "snr-group05", "snr-group06",
-            "snr-group07", "snr-group08", "snr-group09",
-            "snr-group10", "snr-group20" };
+      "snr-group01", "snr-group02", "snr-group03",
+      "snr-group04", "snr-group05", "snr-group06",
+      "snr-group07", "snr-group08", "snr-group09",
+      "snr-group10", "snr-group20" };
     /**
      * Vorname der Hauptperson und des Partners
      */
@@ -278,8 +278,8 @@ public class PersonReplaceWorker extends PersonListWorker {
         boolean wildcardPre = search.charAt(0) == '*';
         boolean wildcardPost = search.charAt(search.length() - 1) == '*';
         search = search.substring(
-                wildcardPre ? 1 : 0, search.length() - (
-                        wildcardPost ? 1 : 0));
+          wildcardPre ? 1 : 0, search.length() - (
+            wildcardPost ? 1 : 0));
 
         if (fields.size() > 0) {
             list.addOr(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
@@ -451,8 +451,8 @@ public class PersonReplaceWorker extends PersonListWorker {
         boolean wildcardPre = search.charAt(0) == '*';
         boolean wildcardPost = search.charAt(search.length() - 1) == '*';
         search = search.substring(
-                wildcardPre ? 1 : 0, search.length() - (
-                        wildcardPost ? 1 : 0));
+          wildcardPre ? 1 : 0, search.length() - (
+            wildcardPost ? 1 : 0));
 
         final TransactionContext transactionContext = database.getTransactionContext();
         if (fields.size() > 0) {
@@ -462,7 +462,7 @@ public class PersonReplaceWorker extends PersonListWorker {
             where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 
             transactionContext
-                    .execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
+              .execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
             transactionContext.commit();
         }
     }
@@ -494,8 +494,8 @@ public class PersonReplaceWorker extends PersonListWorker {
         boolean wildcardPre = search.charAt(0) == '*';
         boolean wildcardPost = search.charAt(search.length() - 1) == '*';
         search = search.substring(
-                wildcardPre ? 1 : 0, search.length() - (
-                        wildcardPost ? 1 : 0));
+          wildcardPre ? 1 : 0, search.length() - (
+            wildcardPost ? 1 : 0));
 
         final TransactionContext transactionContext = database.getTransactionContext();
         if (fields.size() > 0) {
@@ -506,7 +506,7 @@ public class PersonReplaceWorker extends PersonListWorker {
             where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 
             transactionContext
-                    .execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
+              .execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
             transactionContext.commit();
         }
     }
@@ -580,7 +580,7 @@ public class PersonReplaceWorker extends PersonListWorker {
      * @return Update
      */
     protected Update getReplaceUpdate(Database db, List fields, String search, String replace, boolean wildcardPre,
-            boolean wildcardPost) {
+      boolean wildcardPost) {
         Update update = SQL.Update(db).table("veraweb.tperson");
         for (int i = 0; i < fields.size(); i++) {
             String field = (String) fields.get(i);
@@ -592,13 +592,13 @@ public class PersonReplaceWorker extends PersonListWorker {
     protected Clause getReplaceClause(String field, String search, String replace, boolean wildcardPre, boolean wildcardPost) {
         if (wildcardPre || wildcardPost) {
             return new RawClause("replace(" + field +
-                    ", '" + Escaper.escape(search) + "'" +
-                    ", '" + Escaper.escape(replace) + "')");
+              ", '" + Escaper.escape(search) + "'" +
+              ", '" + Escaper.escape(replace) + "')");
         } else {
             return new RawClause("CASE WHEN " +
-                    field + "='" + Escaper.escape(search) + "' THEN '" +
-                    Escaper.escape(replace) + "'" + "ELSE " +
-                    field + " END");
+              field + "='" + Escaper.escape(search) + "' THEN '" +
+              Escaper.escape(replace) + "'" + "ELSE " +
+              field + " END");
         }
     }
 }

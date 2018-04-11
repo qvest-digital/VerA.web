@@ -129,7 +129,7 @@ public class FileUploadResource {
     @POST
     @Path("/save")
     public String saveTempImage(@FormParam("file") String imageString,
-            @FormParam("imgUUID") String imgUUID) throws IOException {
+      @FormParam("imgUUID") String imgUUID) throws IOException {
 
         String extension = getImageType(imageString);
         String imageStringData = removeHeaderFromImage(imageString);
@@ -144,7 +144,7 @@ public class FileUploadResource {
     public String downloadGuestImage(@PathParam("imgUUID") String imgUUID) throws IOException {
 
         WebResource resource = client.resource(config.getVerawebEndpoint() + BASE_RESOURCE +
-                "/fileupload/download/" + imgUUID);
+          "/fileupload/download/" + imgUUID);
 
         String encodedImage;
         try {
@@ -175,7 +175,7 @@ public class FileUploadResource {
 
     private String removeHeaderFromImage(String imageString) {
         if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPG) ||
-                getImageType(imageString).equals(VerawebConstants.EXTENSION_PNG)) {
+          getImageType(imageString).equals(VerawebConstants.EXTENSION_PNG)) {
             return imageString.substring(22);
         }
         if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPEG)) {

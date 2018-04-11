@@ -84,7 +84,7 @@ public class SmartDeserializer extends DeserializerImpl {
                 containerList.set(pos, value);
             } else {
                 throw new SAXException("Unsupported type for SmartDeserializer: " +
-                        containerObject.getClass().getName());
+                  containerObject.getClass().getName());
             }
         }
     }
@@ -102,9 +102,9 @@ public class SmartDeserializer extends DeserializerImpl {
      * @param context    is the DeserializationContext
      */
     public void onStartElement(String namespace, String localName,
-            String prefix, Attributes attributes,
-            DeserializationContext context)
-            throws SAXException {
+      String prefix, Attributes attributes,
+      DeserializationContext context)
+      throws SAXException {
         QName type = getDefaultType();
         if (type == null) {
             type = context.getTypeFromAttributes(namespace, localName, attributes);
@@ -116,7 +116,7 @@ public class SmartDeserializer extends DeserializerImpl {
         }
         if (!Serializable.class.isAssignableFrom(clazz)) {
             throw new SAXException("configured java type '" +
-                    clazz.getName() + "' for '" + type + "' not serialisable");
+              clazz.getName() + "' for '" + type + "' not serialisable");
         }
         try {
             value = containerObject = (Serializable) clazz.newInstance();
@@ -145,9 +145,9 @@ public class SmartDeserializer extends DeserializerImpl {
      * be performed.
      */
     public SOAPHandler onStartChild(String namespace, String localName,
-            String prefix, Attributes attributes,
-            DeserializationContext context)
-            throws SAXException {
+      String prefix, Attributes attributes,
+      DeserializationContext context)
+      throws SAXException {
         QName itemType = context.getTypeFromAttributes(namespace, localName, attributes);
 
         if (itemType == null) {

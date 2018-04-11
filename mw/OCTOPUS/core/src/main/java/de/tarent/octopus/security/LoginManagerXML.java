@@ -82,7 +82,7 @@ public class LoginManagerXML extends AbstractLoginManager {
     public static final String DEFAULT_USER_FILE_NAME = "user.xml";
 
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-            throws TcSecurityException {
+      throws TcSecurityException {
 
         File userFile = null;
         File base = commonConfig.getModuleConfig(tcRequest.getModule()).getRealPath();
@@ -98,10 +98,10 @@ public class LoginManagerXML extends AbstractLoginManager {
             SAXParserFactory.newInstance().newSAXParser().parse(fileUrl, ch);
         } catch (SAXParseException e) {
             logger.warn(Resources.getInstance().get(
-                    "LOGINMANAGERXML_LOG_USER_PARSE_SAX_EXCEPTION",
-                    new Integer(e.getLineNumber()),
-                    new Integer(e.getColumnNumber())),
-                    e);
+              "LOGINMANAGERXML_LOG_USER_PARSE_SAX_EXCEPTION",
+              new Integer(e.getLineNumber()),
+              new Integer(e.getColumnNumber())),
+              e);
             throw new TcSecurityException(Resources.getInstance().get("LOGINMANAGERXML_EXC_USER_PARSE_ERROR", userFile));
         } catch (Exception e) {
             logger.warn(Resources.getInstance().get("LOGINMANAGERXML_LOG_USER_PARSE_ERROR"), e);
@@ -110,8 +110,8 @@ public class LoginManagerXML extends AbstractLoginManager {
 
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
         if (pwdAuth == null
-                || !ch.getUsermap().containsKey(pwdAuth.getUserName())
-                || !ch.getUsermap().get(pwdAuth.getUserName()).toString().equals(new String(pwdAuth.getPassword()))) {
+          || !ch.getUsermap().containsKey(pwdAuth.getUserName())
+          || !ch.getUsermap().get(pwdAuth.getUserName()).toString().equals(new String(pwdAuth.getPassword()))) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
         }
 
@@ -120,7 +120,7 @@ public class LoginManagerXML extends AbstractLoginManager {
     }
 
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-            throws TcSecurityException {
+      throws TcSecurityException {
         pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
         pConfig.userLoggedOut();
     }

@@ -120,7 +120,6 @@ public class HmacToken {
         } catch (ShortBufferException | IllegalStateException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public HmacToken(byte[] token) throws InvalidTokenException {
@@ -157,7 +156,6 @@ public class HmacToken {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public HmacToken(String base64encodedToken) throws InvalidTokenException {
@@ -186,5 +184,4 @@ public class HmacToken {
     public String toString() {
         return Base64.encodeBase64String(token);
     }
-
 }

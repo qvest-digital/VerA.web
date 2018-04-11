@@ -169,38 +169,38 @@ public class GuestReportWorker {
         }
 
         Select select = SQL.Select(database).
-                from("veraweb.tguest").
-                selectAs("tguest.pk", "id").
-                selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").
-                select("reserve").
-                select("lastname_a_e1").
-                select("title_a_e1").
-                select("firstname_a_e1").
-                select("lastname_b_e1").
-                select("title_b_e1").
-                select("firstname_b_e1").
-                select("invitationtype").
-                select("invitationstatus").
-                select("invitationstatus_p").
-                select("orderno").
-                select("orderno_p").
-                select("notehost").
-                select("notehost_p").
-                select("ishost").
-                select("fon_a_e1").
-                select("fon_b_e1").
-                select("fon_c_e1").
-                select("fax_a_e1").
-                select("fax_b_e1").
-                select("fax_c_e1").
-                select("mobil_a_e1").
-                select("mobil_b_e1").
-                select("mobil_c_e1").
-                select("function_a_e1").
-                select("company_a_e1").
-                selectAs("tcategorie.catname", "category").
-                joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
-                joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
+          from("veraweb.tguest").
+          selectAs("tguest.pk", "id").
+          selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").
+          select("reserve").
+          select("lastname_a_e1").
+          select("title_a_e1").
+          select("firstname_a_e1").
+          select("lastname_b_e1").
+          select("title_b_e1").
+          select("firstname_b_e1").
+          select("invitationtype").
+          select("invitationstatus").
+          select("invitationstatus_p").
+          select("orderno").
+          select("orderno_p").
+          select("notehost").
+          select("notehost_p").
+          select("ishost").
+          select("fon_a_e1").
+          select("fon_b_e1").
+          select("fon_c_e1").
+          select("fax_a_e1").
+          select("fax_b_e1").
+          select("fax_c_e1").
+          select("mobil_a_e1").
+          select("mobil_b_e1").
+          select("mobil_c_e1").
+          select("function_a_e1").
+          select("company_a_e1").
+          selectAs("tcategorie.catname", "category").
+          joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
+          joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
 
         /*
          * modified to support ordering by workarea as per change request for version 1.2.0
@@ -212,7 +212,7 @@ public class GuestReportWorker {
         if (orderByWorkArea.booleanValue()) {
             select.joinLeftOuter("veraweb.tworkarea", "tperson.fk_workarea", "tworkarea.pk");
             select.selectAs("CASE WHEN tworkarea.name <> 'Kein' THEN tworkarea.name ELSE 'Kein Arbeitsbereich' END",
-                    "workarea_name");
+              "workarea_name");
         }
         cntx.setContent("orderByWorkArea", orderByWorkArea);
 

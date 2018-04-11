@@ -263,5 +263,4 @@ public final class WhereTerm extends SetDbContextImpl implements Clause {
             throw new InternalError();
         }
     }
-
 }

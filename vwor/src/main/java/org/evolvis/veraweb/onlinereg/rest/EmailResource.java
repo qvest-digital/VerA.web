@@ -86,11 +86,11 @@ public class EmailResource extends AbstractResource {
     @POST
     @Path("/confirmation/send")
     public void sendEmailVerification(
-            @FormParam("email") String email,
-            @FormParam("endpoint") String endpoint,
-            @FormParam("activation_token") String activationToken,
-            @FormParam("language") String currentLanguageKey,
-            @FormParam("usertype") Boolean isPressUser) throws MessagingException {
+      @FormParam("email") String email,
+      @FormParam("endpoint") String endpoint,
+      @FormParam("activation_token") String activationToken,
+      @FormParam("language") String currentLanguageKey,
+      @FormParam("usertype") Boolean isPressUser) throws MessagingException {
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration(currentLanguageKey);
         }
@@ -101,7 +101,7 @@ public class EmailResource extends AbstractResource {
     }
 
     private void executeSendEmail(String email, String endpoint, String activationToken, Boolean isPressUser)
-            throws MessagingException {
+      throws MessagingException {
 
         final String activationLink = getActivationLink(endpoint, activationToken, isPressUser);
         final String from = emailConfiguration.getFrom();

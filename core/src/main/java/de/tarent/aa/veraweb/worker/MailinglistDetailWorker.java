@@ -153,11 +153,11 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 
         final Integer id = octopusContext.requestAsInteger("id");
         Mailinglist mailinglist = (Mailinglist) database.getBean(
-                "Mailinglist",
-                database.getSelect("Mailinglist").selectAs("tuser.username", "username").selectAs("tevent.shortname", "eventname")
-                        .joinLeftOuter("veraweb.tuser", "tmailinglist.fk_user", "tuser.pk")
-                        .joinLeftOuter("veraweb.tevent", "tmailinglist.fk_vera", "tevent.pk")
-                        .where(Expr.equal("tmailinglist.pk", id)));
+          "Mailinglist",
+          database.getSelect("Mailinglist").selectAs("tuser.username", "username").selectAs("tevent.shortname", "eventname")
+            .joinLeftOuter("veraweb.tuser", "tmailinglist.fk_user", "tuser.pk")
+            .joinLeftOuter("veraweb.tevent", "tmailinglist.fk_vera", "tevent.pk")
+            .where(Expr.equal("tmailinglist.pk", id)));
         if (mailinglist == null) {
             mailinglist = (Mailinglist) octopusContext.sessionAsObject("mailinglist");
         }
@@ -232,7 +232,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * @throws IOException   IOException
      */
     public List getAddressList(final OctopusContext cntx, final Mailinglist mailinglist) throws BeanException,
-            IOException {
+      IOException {
         final Database database = getDatabase(cntx);
 
         final Select select = database.getSelect(BEANNAME);
@@ -252,7 +252,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
             if (str != null && str.length() != 0) {
                 // Länge der URL darf nicht zu groß werden
                 if (MAX_MAIL_TO_LENGTH.intValue() != -1 && !first &&
-                        addresses.length() + str.length() + 5 > MAX_MAIL_TO_LENGTH.intValue()) {
+                  addresses.length() + str.length() + 5 > MAX_MAIL_TO_LENGTH.intValue()) {
                     addressList.add(addresses.toString());
                     addresses = new StringBuffer();
                     first = true;

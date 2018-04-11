@@ -126,15 +126,15 @@ public class TarWhereClause {
             }
             if (stack.size() > 1) {
                 throw new TarMalformedWhereClauseException(
-                        "Der Ausdruck ist keine gültige Postfix Notation. Es sind zu wehnig Operatoren für die Operanden " +
-                                "vorhanden.");
+                  "Der Ausdruck ist keine gültige Postfix Notation. Es sind zu wehnig Operatoren für die Operanden " +
+                    "vorhanden.");
             }
 
             return (TarWhereNode) stack.remove(0);
         } catch (java.lang.ArrayIndexOutOfBoundsException e) {
             throw new TarMalformedWhereClauseException(
-                    "Der Ausdruck ist keine gültige Postfix Notation. Es sind nicht genügend Operanden für die Operatoren " +
-                            "vorhanden.");
+              "Der Ausdruck ist keine gültige Postfix Notation. Es sind nicht genügend Operanden für die Operatoren " +
+                "vorhanden.");
         }
     }
 

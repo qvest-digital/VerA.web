@@ -106,7 +106,7 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
         verawebProperties = reader.getProperties();
 
         implicitProperties.setProperty(P_TARGET_URI,
-                verawebProperties.getProperty(VWOR_ENDPOINT) + getServletConfig().getInitParameter(P_TARGET_PATH));
+          verawebProperties.getProperty(VWOR_ENDPOINT) + getServletConfig().getInitParameter(P_TARGET_PATH));
         implicitProperties.setProperty(P_USER, verawebProperties.getProperty(VWOR_AUTH_USER));
         implicitProperties.setProperty(P_PASSWORD, verawebProperties.getProperty(VWOR_AUTH_PASSWORD));
         implicitProperties.setProperty(P_REQUIRED_GROUP, PersonalConfig.GROUP_ADMINISTRATOR);
@@ -143,7 +143,7 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
             }
         };
         final HttpClientBuilder builder =
-                HttpClientBuilder.create().disableAutomaticRetries().addInterceptorLast(itcp).disableRedirectHandling();
+          HttpClientBuilder.create().disableAutomaticRetries().addInterceptorLast(itcp).disableRedirectHandling();
 
         final String username = getConfigParam(P_USER);
         final String password = getConfigParam(P_PASSWORD);

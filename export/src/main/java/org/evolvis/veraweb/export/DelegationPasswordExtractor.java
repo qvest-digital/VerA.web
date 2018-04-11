@@ -90,7 +90,6 @@ public class DelegationPasswordExtractor implements ResultSetValueExtractor {
         final String eventBeginProperty = properties.getProperty("eventBeginPropertyName", "event.begin");
         eventName = properties.getProperty(eventNameProperty);
         eventBegin = new Date(Long.parseLong(properties.getProperty(eventBeginProperty)));
-
     }
 
     public Object extractValue(ResultSet rs, int col) throws SQLException {

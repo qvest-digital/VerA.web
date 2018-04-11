@@ -197,5 +197,4 @@ public class Resources {
     public String get(String key, Object param1, Object param2, Object param3) {
         return get(key, new Object[] { param1, param2, param3 });
     }
-
 }

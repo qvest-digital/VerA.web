@@ -74,5 +74,4 @@ public @interface Reference {
      * the field referenced in the bean
      */
     String[] fields() default "commonFields";
-
 }

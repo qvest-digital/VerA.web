@@ -172,11 +172,11 @@ public class TcCommonConfig /*implements Serializable*/ {
      */
     protected void parseConfigFile() throws TcConfigException {
         String filename =
-                Resources.getInstance().get(
-                        "COMMONCONFIG_URL_CONFIG_FILE",
-                        env.get(TcEnv.KEY_PATHS_ROOT),
-                        env.get(TcEnv.KEY_PATHS_CONFIG_ROOT),
-                        env.get(TcEnv.KEY_PATHS_CONFIG_FILE));
+          Resources.getInstance().get(
+            "COMMONCONFIG_URL_CONFIG_FILE",
+            env.get(TcEnv.KEY_PATHS_ROOT),
+            env.get(TcEnv.KEY_PATHS_CONFIG_ROOT),
+            env.get(TcEnv.KEY_PATHS_CONFIG_FILE));
         Document document = null;
         try {
             logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_CONFIG_FILE", filename));
@@ -185,10 +185,10 @@ public class TcCommonConfig /*implements Serializable*/ {
             logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_STOP"));
         } catch (SAXParseException se) {
             logger.error(Resources.getInstance().get(
-                    "COMMONCONFIG_LOG_PARSE_SAX_EXCEPTION",
-                    new Integer(se.getLineNumber()),
-                    new Integer(se.getColumnNumber())),
-                    se);
+              "COMMONCONFIG_LOG_PARSE_SAX_EXCEPTION",
+              new Integer(se.getLineNumber()),
+              new Integer(se.getColumnNumber())),
+              se);
             throw new TcConfigException(Resources.getInstance().get("COMMONCONFIG_EXC_PARSE_ERROR"), se);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_ERROR"), e);
@@ -204,7 +204,7 @@ public class TcCommonConfig /*implements Serializable*/ {
                     env.setAllValues(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
                     String msg = Resources.getInstance().get(
-                            "COMMONCONFIG_LOG_PARSE_APPLICATION_ERROR");
+                      "COMMONCONFIG_LOG_PARSE_APPLICATION_ERROR");
                     logger.error(msg, dfe);
                     throw new TcConfigException(msg, dfe);
                 }
@@ -213,7 +213,7 @@ public class TcCommonConfig /*implements Serializable*/ {
                     configLoginManager.putAll(Xml.getParamMap(currNode));
                 } catch (DataFormatException dfe) {
                     String msg = Resources.getInstance().get(
-                            "COMMONCONFIG_LOG_PARSE_APPLICATION_ERROR");
+                      "COMMONCONFIG_LOG_PARSE_APPLICATION_ERROR");
                     logger.error(msg, dfe);
                     throw new TcConfigException(msg, dfe);
                 }
@@ -242,10 +242,10 @@ public class TcCommonConfig /*implements Serializable*/ {
      * angegebener Subtype von TcGenericDataAccessWrapper oder TcGenericDataAccessWrapper als Default
      */
     public TcGenericDataAccessWrapper getDataAccess(String moduleName, String dataAccessName)
-            throws TcDataAccessException {
+      throws TcDataAccessException {
 
         String dataAccessKey =
-                Resources.getInstance().get("COMMONCONFIG_KEY_ACCESS_WRAPPER", moduleName, dataAccessName);
+          Resources.getInstance().get("COMMONCONFIG_KEY_ACCESS_WRAPPER", moduleName, dataAccessName);
 
         TcGenericDataAccessWrapper accessWrapper;
 
@@ -255,10 +255,10 @@ public class TcCommonConfig /*implements Serializable*/ {
             try {
                 accessWrapper.disconnect();
                 logger.debug(Resources.getInstance()
-                        .get("COMMONCONFIG_LOG_CLOSED_ACCESS_WRAPPER", dataAccessKey));
+                  .get("COMMONCONFIG_LOG_CLOSED_ACCESS_WRAPPER", dataAccessKey));
             } catch (SQLException e) {
                 logger.warn(Resources.getInstance()
-                        .get("COMMONCONFIG_LOG_ERROR_CLOSING_WRAPPER", dataAccessKey), e);
+                  .get("COMMONCONFIG_LOG_ERROR_CLOSING_WRAPPER", dataAccessKey), e);
             }
             accessWrapper = null;
         }
@@ -266,7 +266,7 @@ public class TcCommonConfig /*implements Serializable*/ {
         if (accessWrapper == null) {
             // Neu erstellen
             logger.debug(
-                    Resources.getInstance().get("COMMONCONFIG_LOG_CREATING_ACCESS_WRAPPER", dataAccessKey));
+              Resources.getInstance().get("COMMONCONFIG_LOG_CREATING_ACCESS_WRAPPER", dataAccessKey));
             Map source = null;
 
             TcModuleConfig module = getModuleConfig(moduleName);
@@ -282,7 +282,7 @@ public class TcCommonConfig /*implements Serializable*/ {
             logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_DATA", source));
             if (module == null || source == null) {
                 String msg = Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_NO_DATA",
-                        dataAccessKey);
+                  dataAccessKey);
                 logger.error(msg);
                 throw new TcDataAccessException(msg);
             }
@@ -290,15 +290,15 @@ public class TcCommonConfig /*implements Serializable*/ {
             TarDBConnection dbConnection = new TarDBConnection(source);
             try {
                 Class clazz = module.getClassLoader().loadClass(
-                        dbConnection.getAccessWrapperClassName());
+                  dbConnection.getAccessWrapperClassName());
                 accessWrapper = (TcGenericDataAccessWrapper) clazz.newInstance();
                 accessWrapper.setDBConnection(dbConnection);
                 logger.debug(Resources.getInstance().get(
-                        "COMMONCONFIG_LOG_CREATED_ACCESS_WRAPPER",
-                        dbConnection.getAccessWrapperClassName()));
+                  "COMMONCONFIG_LOG_CREATED_ACCESS_WRAPPER",
+                  dbConnection.getAccessWrapperClassName()));
             } catch (Exception e) {
                 String msg = Resources.getInstance().get("COMMONCONFIG_LOG_ACCESS_WRAPPER_ERROR",
-                        dataAccessKey);
+                  dataAccessKey);
                 logger.error(msg, e);
                 throw new TcDataAccessException(msg, e);
             }
@@ -318,7 +318,7 @@ public class TcCommonConfig /*implements Serializable*/ {
             return;
         }
         MessageFormat format = new MessageFormat(
-                Resources.getInstance().get("COMMONCONFIG_KEY_ACCESS_WRAPPER"));
+          Resources.getInstance().get("COMMONCONFIG_KEY_ACCESS_WRAPPER"));
         StringBuffer buffer = new StringBuffer();
         Iterator itAccessWrappers = bufferedDataAccessWrappers.entrySet().iterator();
         int i;
@@ -330,12 +330,12 @@ public class TcCommonConfig /*implements Serializable*/ {
                 Object[] refs = format.parse(key);
                 if (moduleName.equals(refs[0])) {
                     TcGenericDataAccessWrapper wrapper =
-                            (TcGenericDataAccessWrapper) entry.getValue();
+                      (TcGenericDataAccessWrapper) entry.getValue();
                     try {
                         wrapper.disconnect();
                     } catch (SQLException e) {
                         logger.warn(Resources.getInstance()
-                                .get("COMMONCONFIG_LOG_ERROR_CLOSING_WRAPPER", key), e);
+                          .get("COMMONCONFIG_LOG_ERROR_CLOSING_WRAPPER", key), e);
                     }
                     itAccessWrappers.remove();
                     if (buffer.length() > 0) {
@@ -345,11 +345,11 @@ public class TcCommonConfig /*implements Serializable*/ {
                 }
             } catch (ParseException pe) {
                 logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_INVALID_ACCESS_KEY", key),
-                        pe);
+                  pe);
             }
         }
         logger.debug(Resources.getInstance()
-                .get("COMMONCONFIG_LOG_REMOVED_ACCESS_WRAPPERS", moduleName, new Integer(i), buffer));
+          .get("COMMONCONFIG_LOG_REMOVED_ACCESS_WRAPPERS", moduleName, new Integer(i), buffer));
     }
 
     /**
@@ -372,7 +372,7 @@ public class TcCommonConfig /*implements Serializable*/ {
     public File getTemplateRootPath(String moduleName) {
         TcModuleConfig config = getModuleConfig(moduleName);
         if (config.getParam(TcEnv.KEY_PATHS_TEMPLATE_ROOT) == null ||
-                config.getParam(TcEnv.KEY_PATHS_TEMPLATE_ROOT).length() == 0) {
+          config.getParam(TcEnv.KEY_PATHS_TEMPLATE_ROOT).length() == 0) {
             return config.getRealPath();
         } else {
             return new File(config.getRealPath(), config.getParam(TcEnv.KEY_PATHS_TEMPLATE_ROOT));
@@ -415,7 +415,7 @@ public class TcCommonConfig /*implements Serializable*/ {
         synchronized (moduleConfigs) {
             if (moduleLookup == null) {
                 logger.error(
-                        Resources.getInstance().get("COMMONCONFIG_LOG_MODULELOOKUP_NA", moduleName));
+                  Resources.getInstance().get("COMMONCONFIG_LOG_MODULELOOKUP_NA", moduleName));
                 return null;
             }
 
@@ -426,7 +426,7 @@ public class TcCommonConfig /*implements Serializable*/ {
             }
             if (!configFile.exists()) {
                 String configEnvFile = (String) env.getValue(
-                        TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName);
+                  TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName);
                 if (configEnvFile != null) {
                     if (File.separatorChar != '/') {
                         configEnvFile = configEnvFile.replace('/', File.separatorChar);
@@ -440,31 +440,31 @@ public class TcCommonConfig /*implements Serializable*/ {
             }
             if (!configFile.exists()) {
                 logger.error(Resources.getInstance()
-                        .get("OCTOPUS_STARTER_LOG_MODULE_CONFIG_PATH_INVALID", moduleName, configFile));
+                  .get("OCTOPUS_STARTER_LOG_MODULE_CONFIG_PATH_INVALID", moduleName, configFile));
                 return null;
             }
 
             try {
                 logger.debug(Resources.getInstance()
-                        .get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, moduleName));
+                  .get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, moduleName));
                 Document document = Xml.getParsedDocument(Resources.getInstance()
-                        .get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
+                  .get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
                 TcModuleConfig moduleConfig = new TcModuleConfig(moduleName, modulePath, document);
                 moduleConfigs.put(moduleName, moduleConfig);
 
                 env.setValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName,
-                        configFile.getAbsolutePath());
+                  configFile.getAbsolutePath());
 
                 registerModule(moduleName, moduleConfig);
 
                 return moduleConfig;
             } catch (SAXParseException e) {
                 logger.error(Resources.getInstance()
-                        .get("REQUESTPROXY_LOG_MODULE_PARSE_SAX_EXCEPTION", new Integer(e.getLineNumber()),
-                                new Integer(e.getColumnNumber())), e);
+                  .get("REQUESTPROXY_LOG_MODULE_PARSE_SAX_EXCEPTION", new Integer(e.getLineNumber()),
+                    new Integer(e.getColumnNumber())), e);
             } catch (DataFormatException e) {
                 logger.error(
-                        Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_FORMAT_EXCEPTION"), e);
+                  Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_FORMAT_EXCEPTION"), e);
             } catch (Exception e) {
                 logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_EXCEPTION"), e);
             }
@@ -497,14 +497,14 @@ public class TcCommonConfig /*implements Serializable*/ {
                 Object task = taskErrors.getKey();
                 if (!(taskErrors.getValue() instanceof List)) {
                     logger.warn(Resources.getInstance()
-                            .get("COMMONCONFIG_LOG_TASK_ERROR_INVALID", moduleName, task,
-                                    taskErrors.getValue()));
+                      .get("COMMONCONFIG_LOG_TASK_ERROR_INVALID", moduleName, task,
+                        taskErrors.getValue()));
                     continue;
                 }
                 Iterator itErrors = ((List) taskErrors.getValue()).iterator();
                 while (itErrors.hasNext()) {
                     logger.warn(Resources.getInstance()
-                            .get("COMMONCONFIG_LOG_TASK_ERROR", moduleName, task, itErrors.next()));
+                      .get("COMMONCONFIG_LOG_TASK_ERROR", moduleName, task, itErrors.next()));
                 }
             }
         }
@@ -526,13 +526,13 @@ public class TcCommonConfig /*implements Serializable*/ {
                 octopus.doCleanup(moduleName, this);
             } catch (Exception e) {
                 logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_CLEANUP_ERROR", moduleName),
-                        e);
+                  e);
             }
             try {
                 dropModuleDataAccess(moduleName);
             } catch (Exception e) {
                 logger.warn(Resources.getInstance().get("COMMONCONFIG_LOG_CLEANUP_ERROR", moduleName),
-                        e);
+                  e);
             }
             moduleConfigs.remove(moduleName);
         }
@@ -682,7 +682,7 @@ public class TcCommonConfig /*implements Serializable*/ {
      * @return Default-LoginManager
      */
     public synchronized LoginManager getLoginManager()
-            throws TcSecurityException {
+      throws TcSecurityException {
         if (loginManager == null) {
             Map loginManagerParams = getConfigLoginManager();
             if (!loginManagerParams.isEmpty()) {
@@ -699,7 +699,7 @@ public class TcCommonConfig /*implements Serializable*/ {
                     } catch (Exception e) {
                         logger.error("Fehler beim Laden des LoginManagers." + e.getMessage());
                         throw new TcSecurityException(
-                                TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
+                          TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
                     }
                 }
             }
@@ -715,7 +715,7 @@ public class TcCommonConfig /*implements Serializable*/ {
                     loginManager = new LoginManagerAcceptAll();
                 } else {
                     String msg = Resources.getInstance().get("COMMONCONFIG_LOG_INVALID_AUTH_METHOD",
-                            authType);
+                      authType);
                     logger.error(msg);
                     throw new TcSecurityException(msg);
                 }

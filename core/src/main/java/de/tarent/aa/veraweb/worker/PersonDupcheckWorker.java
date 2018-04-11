@@ -202,11 +202,11 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
     //
     protected Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
         Clause clause = Where.and(
-                Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
-                Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+          Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
+          Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         String ln = person == null || person.lastname_a_e1 == null || person.lastname_a_e1.equals("") ? "" : person.lastname_a_e1;
         String fn =
-                person == null || person.firstname_a_e1 == null || person.firstname_a_e1.equals("") ? "" : person.firstname_a_e1;
+          person == null || person.firstname_a_e1 == null || person.firstname_a_e1.equals("") ? "" : person.firstname_a_e1;
 
         Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
         Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
@@ -242,10 +242,10 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 
     protected Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
         Clause clause = Where.and(
-                Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
-                Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+          Expr.equal("fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
+          Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         String companyName =
-                person == null || person.company_a_e1 == null || person.company_a_e1.equals("") ? "" : person.company_a_e1;
+          person == null || person.company_a_e1 == null || person.company_a_e1.equals("") ? "" : person.company_a_e1;
         return Where.and(clause, Expr.equal("company_a_e1", companyName));
     }
 }

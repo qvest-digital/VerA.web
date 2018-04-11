@@ -149,7 +149,6 @@ public class SXCContent extends XMLDocument implements SpreadSheet {
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:table", "http://openoffice.org/2000/table");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:text", "http://openoffice.org/2000/text");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
-
         } catch (Exception e) {
             throwIOException(e);
         }

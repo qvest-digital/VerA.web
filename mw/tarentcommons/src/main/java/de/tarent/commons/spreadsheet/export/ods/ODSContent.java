@@ -136,40 +136,39 @@ public class ODSContent extends XMLDocument implements SpreadSheet {
 
             Element element = (Element) getNode("office:document-content");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:chart",
-                    "urn:oasis:names:tc:opendocument:xmlns:chart:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:chart:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:dc", "http://purl.org/dc/elements/1.1/");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:dom", "http://www.w3.org/2001/xml-events");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:dr3d",
-                    "urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:draw",
-                    "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:fo", "http://www.w3.org/1999/XSL/Format");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:form",
-                    "urn:oasis:names:tc:opendocument:xmlns:form:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:form:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:math", "http://www.w3.org/1998/Math/MathML");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:meta",
-                    "urn:oasis:names:tc:opendocument:xmlns:meta:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:meta:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:number",
-                    "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:office",
-                    "urn:oasis:names:tc:opendocument:xmlns:office:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:office:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:ooo", "http://openoffice.org/2004/office");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:oooc", "http://openoffice.org/2004/calc");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:ooow", "http://openoffice.org/2004/writer");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:script",
-                    "urn:oasis:names:tc:opendocument:xmlns:script:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:script:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:style",
-                    "urn:oasis:names:tc:opendocument:xmlns:style:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:style:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:svg", "http://www.w3.org/2000/svg");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:table",
-                    "urn:oasis:names:tc:opendocument:xmlns:table:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:table:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:text",
-                    "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
+              "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xforms", "http://www.w3.org/2002/xforms");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
             element.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-
         } catch (Exception e) {
             throwIOException(e);
         }

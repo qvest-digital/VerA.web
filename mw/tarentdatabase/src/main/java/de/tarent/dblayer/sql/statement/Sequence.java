@@ -78,9 +78,9 @@ public class Sequence extends AbstractStatement {
      */
     public Sequence currVal(String sequence) {
         _sequence = new StringBuffer("SELECT CURRVAL ('")
-                .append(sequence)
-                .append("')")
-                .toString();
+          .append(sequence)
+          .append("')")
+          .toString();
         return this;
     }
 
@@ -93,9 +93,9 @@ public class Sequence extends AbstractStatement {
      */
     public Sequence nextVal(String sequence) {
         _sequence = new StringBuffer("SELECT NEXTVAL ('")
-                .append(sequence)
-                .append("')")
-                .toString();
+          .append(sequence)
+          .append("')")
+          .toString();
         return this;
     }
 

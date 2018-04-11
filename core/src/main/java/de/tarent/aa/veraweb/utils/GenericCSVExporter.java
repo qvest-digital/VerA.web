@@ -257,12 +257,12 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
                 Bean sampleCategory = database.createBean("Categorie");
                 Bean samplePersonCategory = database.createBean("PersonCategorie");
                 Select select = new Select(false).from(database.getProperty(samplePersonCategory, "table")).join(
-                        database.getProperty(sampleCategory, "table"), database.getProperty(sampleCategory, "id"),
-                        database.getProperty(samplePersonCategory, "categorie"))
-                        .selectAs(database.getProperty(sampleCategory, "name"), "name")
-                        .selectAs(database.getProperty(sampleCategory, "rank"), "rankDefault")
-                        .selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
-                        .where(Expr.equal(database.getProperty(samplePersonCategory, "person"), person.id));
+                  database.getProperty(sampleCategory, "table"), database.getProperty(sampleCategory, "id"),
+                  database.getProperty(samplePersonCategory, "categorie"))
+                  .selectAs(database.getProperty(sampleCategory, "name"), "name")
+                  .selectAs(database.getProperty(sampleCategory, "rank"), "rankDefault")
+                  .selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
+                  .where(Expr.equal(database.getProperty(samplePersonCategory, "person"), person.id));
                 final List entries = database.getList(select, database);
                 for (Object currentEntry : entries) {
                     final Map entry = (Map) currentEntry;

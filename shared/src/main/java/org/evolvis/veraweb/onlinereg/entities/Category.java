@@ -84,20 +84,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tcategorie")
 @NamedNativeQueries({
-        @NamedNativeQuery(name = "Category.findIdByCatname",
-                query = "SELECT c.pk " +
-                        "FROM tcategorie c " +
-                        "where catname=:catname " +
-                        "and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)"),
-        @NamedNativeQuery(name = "Category.getCategoryIdByCategoryName",
-                query = "SELECT c.pk " +
-                        "FROM tcategorie c " +
-                        "where catname=:catname"),
-        @NamedNativeQuery(name = "Category.findCatnameByUserAndDelegation",
-                query = "SELECT c.catname " +
-                        "FROM tcategorie c " +
-                        "WHERE c.pk = (SELECT g.fk_category FROM tguest g WHERE g.fk_person=:personId AND g.delegation=:uuid)"
-        )
+  @NamedNativeQuery(name = "Category.findIdByCatname",
+    query = "SELECT c.pk " +
+      "FROM tcategorie c " +
+      "where catname=:catname " +
+      "and fk_orgunit=(SELECT fk_orgunit from tevent where mediarepresentatives=:uuid)"),
+  @NamedNativeQuery(name = "Category.getCategoryIdByCategoryName",
+    query = "SELECT c.pk " +
+      "FROM tcategorie c " +
+      "where catname=:catname"),
+  @NamedNativeQuery(name = "Category.findCatnameByUserAndDelegation",
+    query = "SELECT c.catname " +
+      "FROM tcategorie c " +
+      "WHERE c.pk = (SELECT g.fk_category FROM tguest g WHERE g.fk_person=:personId AND g.delegation=:uuid)"
+  )
 })
 public class Category {
 

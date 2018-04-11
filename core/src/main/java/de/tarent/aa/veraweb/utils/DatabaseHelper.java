@@ -114,16 +114,16 @@ public class DatabaseHelper {
         if (search.indexOf('*') == -1 && search.indexOf('?') == -1) {
             for (int i = 0; i < column.length; i++) {
                 list.addOr(Expr.equal(
-                        UPPER_PRE + column[i] + UPPER_POST, new RawClause(
-                                UPPER_PRE + Format.format(search) + UPPER_POST)));
+                  UPPER_PRE + column[i] + UPPER_POST, new RawClause(
+                    UPPER_PRE + Format.format(search) + UPPER_POST)));
             }
         } else {
             search = search.replaceAll("[*]", "%").replaceAll("[?]", "_");
             search = search.replaceAll("\\\\%", "*").replaceAll("\\\\_", "?");
             for (int i = 0; i < column.length; i++) {
                 list.addOr(Expr.like(
-                        UPPER_PRE + column[i] + UPPER_POST, new RawClause(
-                                UPPER_PRE + Format.format(search) + UPPER_POST)));
+                  UPPER_PRE + column[i] + UPPER_POST, new RawClause(
+                    UPPER_PRE + Format.format(search) + UPPER_POST)));
             }
         }
         return list;

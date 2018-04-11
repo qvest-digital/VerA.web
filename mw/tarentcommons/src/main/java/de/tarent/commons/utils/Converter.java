@@ -76,5 +76,4 @@ public interface Converter {
      * @throws IllegalArgumentException if the input data is not convertable by this converter
      */
     public Object convert(Object sourceData) throws IllegalArgumentException;
-
 }

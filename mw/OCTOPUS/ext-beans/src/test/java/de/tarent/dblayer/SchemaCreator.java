@@ -119,7 +119,7 @@ public class SchemaCreator {
         String enabled = System.getProperty("beans.test.enabled");
         if (!Boolean.parseBoolean(enabled)) {
             System.err.println("\t\tTEST DISABLED! To enable this test set the system property " +
-                    "\"beans.test.enabled\" to \"true\". ");
+              "\"beans.test.enabled\" to \"true\". ");
             return null;
         }
 
@@ -139,7 +139,7 @@ public class SchemaCreator {
      * @param force if false, this is only done once by this singleton.
      */
     public void setUp(boolean force)
-            throws SQLException {
+      throws SQLException {
         if (force || (!isSchemaSetUp)) {
             openPool();
             dropSchema();
@@ -237,33 +237,33 @@ public class SchemaCreator {
      */
     protected void createSchema() throws SQLException {
         DB.update(TEST_POOL,
-                "CREATE TABLE firma ("
-                        + " pk_firma integer not null,"
-                        + " name varchar(50),"
-                        + " umsatz integer,"
-                        + " CONSTRAINT firma_pkey PRIMARY KEY (pk_firma)"
-                        + ")");
+          "CREATE TABLE firma ("
+            + " pk_firma integer not null,"
+            + " name varchar(50),"
+            + " umsatz integer,"
+            + " CONSTRAINT firma_pkey PRIMARY KEY (pk_firma)"
+            + ")");
 
         DB.update(TEST_POOL,
-                "CREATE TABLE person ("
-                        + " pk_person integer not null,"
-                        + " fk_firma integer,"
-                        + " vorname varchar(50),"
-                        + " nachname varchar(50),"
-                        + " geburtstag date,"
-                        + " CONSTRAINT person_pkey PRIMARY KEY (pk_person),"
-                        + " CONSTRAINT firma_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
-                        + ")");
+          "CREATE TABLE person ("
+            + " pk_person integer not null,"
+            + " fk_firma integer,"
+            + " vorname varchar(50),"
+            + " nachname varchar(50),"
+            + " geburtstag date,"
+            + " CONSTRAINT person_pkey PRIMARY KEY (pk_person),"
+            + " CONSTRAINT firma_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
+            + ")");
 
         if (isSupportingSerials()) {
             DB.update(TEST_POOL,
-                    "CREATE TABLE produkt ("
-                            + " pk_produkt serial not null,"
-                            + " fk_firma integer,"
-                            + " name varchar(50),"
-                            + " CONSTRAINT produkt_pkey PRIMARY KEY (pk_produkt),"
-                            + " CONSTRAINT produkt_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
-                            + ")");
+              "CREATE TABLE produkt ("
+                + " pk_produkt serial not null,"
+                + " fk_firma integer,"
+                + " name varchar(50),"
+                + " CONSTRAINT produkt_pkey PRIMARY KEY (pk_produkt),"
+                + " CONSTRAINT produkt_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
+                + ")");
         }
     }
 
@@ -278,60 +278,60 @@ public class SchemaCreator {
         try {
             DBContext dbc = DB.getDefaultContext(TEST_POOL);
             SQL.Insert(dbc).table("firma")
-                    .insert("pk_firma", new Integer(1))
-                    .insert("name", "Dagoberts Geldspeicher")
-                    .insert("umsatz", new Integer(100000))
-                    .execute();
+              .insert("pk_firma", new Integer(1))
+              .insert("name", "Dagoberts Geldspeicher")
+              .insert("umsatz", new Integer(100000))
+              .execute();
 
             SQL.Insert(dbc).table("firma")
-                    .insert("pk_firma", new Integer(2))
-                    .insert("name", "Donalds Frittenbude")
-                    .insert("umsatz", new Integer(30))
-                    .execute();
+              .insert("pk_firma", new Integer(2))
+              .insert("name", "Donalds Frittenbude")
+              .insert("umsatz", new Integer(30))
+              .execute();
 
             SQL.Insert(dbc).table("firma")
-                    .insert("pk_firma", new Integer(3))
-                    .insert("name", "Düsentriebs Werkstatt")
-                    .insert("umsatz", new Integer(3000))
-                    .execute();
+              .insert("pk_firma", new Integer(3))
+              .insert("name", "Düsentriebs Werkstatt")
+              .insert("umsatz", new Integer(3000))
+              .execute();
 
             SQL.Insert(dbc).table("person")
-                    .insert("pk_person", new Integer(1))
-                    .insert("fk_firma", new Integer(1))
-                    .insert("vorname", "Dagobert")
-                    .insert("nachname", "Duck")
-                    .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("31.03.80"))
-                    .execute();
+              .insert("pk_person", new Integer(1))
+              .insert("fk_firma", new Integer(1))
+              .insert("vorname", "Dagobert")
+              .insert("nachname", "Duck")
+              .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("31.03.80"))
+              .execute();
 
             SQL.Insert(dbc).table("person")
-                    .insert("pk_person", new Integer(2))
-                    .insert("fk_firma", new Integer(1))
-                    .insert("vorname", "Daisy")
-                    .insert("nachname", "Duck")
-                    .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("11.03.80"))
-                    .execute();
+              .insert("pk_person", new Integer(2))
+              .insert("fk_firma", new Integer(1))
+              .insert("vorname", "Daisy")
+              .insert("nachname", "Duck")
+              .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("11.03.80"))
+              .execute();
 
             SQL.Insert(dbc).table("person")
-                    .insert("pk_person", new Integer(3))
-                    .insert("fk_firma", new Integer(2))
-                    .insert("vorname", "Donald")
-                    .insert("nachname", "Duck")
-                    .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("28.01.80"))
-                    .execute();
+              .insert("pk_person", new Integer(3))
+              .insert("fk_firma", new Integer(2))
+              .insert("vorname", "Donald")
+              .insert("nachname", "Duck")
+              .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("28.01.80"))
+              .execute();
 
             SQL.Insert(dbc).table("person")
-                    .insert("pk_person", new Integer(4))
-                    .insert("fk_firma", null)
-                    .insert("vorname", "Gustav")
-                    .insert("nachname", "Gans")
-                    .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("26.11.80"))
-                    .execute();
+              .insert("pk_person", new Integer(4))
+              .insert("fk_firma", null)
+              .insert("vorname", "Gustav")
+              .insert("nachname", "Gans")
+              .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("26.11.80"))
+              .execute();
 
             if (isSupportingSerials()) {
                 SQL.Insert(dbc).table("produkt")
-                        .insert("fk_firma", new Integer(2))
-                        .insert("name", "Currywurst-Pommes rot-weiß")
-                        .execute();
+                  .insert("fk_firma", new Integer(2))
+                  .insert("name", "Currywurst-Pommes rot-weiß")
+                  .execute();
             }
         } catch (Exception e) {
             throw new RuntimeException("Error on reading date strings", e);

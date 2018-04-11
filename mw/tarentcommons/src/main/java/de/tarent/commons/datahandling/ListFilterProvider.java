@@ -64,5 +64,4 @@ public interface ListFilterProvider {
      * The operators are from the type ListFilterOperator.
      */
     public List getFilterList();
-
 }

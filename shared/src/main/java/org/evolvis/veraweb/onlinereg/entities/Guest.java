@@ -87,52 +87,52 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tguest")
 @NamedQueries({
-        @NamedQuery(name = "Guest.findByEventAndUser",
-                query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
-        @NamedQuery(name = "Guest.findByNoLoginUUID",
-                query = "SELECT g FROM Guest g where login_required_uuid = :noLoginRequiredUUID"),
-        @NamedQuery(name = "Guest.findByDelegationAndUser",
-                query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = :userId"),
-        @NamedQuery(name = "Guest.findIdByEventAndUser",
-                query = "SELECT g.pk FROM Guest g where fk_event = :eventId and fk_person = :userId"),
-        @NamedQuery(name = "Guest.findImageByDelegationAndUser",
-                query = "SELECT g.image_uuid FROM Guest g where delegation=:delegationUUID and fk_person = :userId"),
-        @NamedQuery(name = "Guest.getGuestByNoLoginRequiredUUID",
-                query = "SELECT g.pk FROM Guest g where login_required_uuid = :noLoginRequiredUUID"),
-        @NamedQuery(name = "Guest.getGuestById",
-                query = "SELECT g FROM Guest g where pk=:guestId"),
-        @NamedQuery(name = "Guest.isReserve",
-                query = "SELECT g.reserve FROM Guest g WHERE g.fk_event=:eventId AND g.osiam_login=:username")
+  @NamedQuery(name = "Guest.findByEventAndUser",
+    query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+  @NamedQuery(name = "Guest.findByNoLoginUUID",
+    query = "SELECT g FROM Guest g where login_required_uuid = :noLoginRequiredUUID"),
+  @NamedQuery(name = "Guest.findByDelegationAndUser",
+    query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = :userId"),
+  @NamedQuery(name = "Guest.findIdByEventAndUser",
+    query = "SELECT g.pk FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+  @NamedQuery(name = "Guest.findImageByDelegationAndUser",
+    query = "SELECT g.image_uuid FROM Guest g where delegation=:delegationUUID and fk_person = :userId"),
+  @NamedQuery(name = "Guest.getGuestByNoLoginRequiredUUID",
+    query = "SELECT g.pk FROM Guest g where login_required_uuid = :noLoginRequiredUUID"),
+  @NamedQuery(name = "Guest.getGuestById",
+    query = "SELECT g FROM Guest g where pk=:guestId"),
+  @NamedQuery(name = "Guest.isReserve",
+    query = "SELECT g.reserve FROM Guest g WHERE g.fk_event=:eventId AND g.osiam_login=:username")
 })
 @NamedNativeQueries({
-        @NamedNativeQuery(name = "Event.list.userevents",
-                query = "SELECT e.* " +
-                        "FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
-                        "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
-                        "AND tp.pk = :fk_person ORDER BY e.datebegin ASC", resultClass = Event.class),
-        @NamedNativeQuery(name = "Event.count.userevents",
-                query = "SELECT count(e.*) " +
-                        "FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
-                        "WHERE tp.pk = :fk_person "),
-        @NamedNativeQuery(name = "Guest.guestByUUID",
-                query = "SELECT count(g.*) FROM tguest g LEFT JOIN tperson on tperson.pk=g.fk_person " +
-                        "WHERE delegation=:uuid AND tperson.iscompany='t'"),
-        @NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID",
-                query = "SELECT g.* FROM tguest g  LEFT JOIN tperson on tperson.pk=g.fk_person " +
-                        "WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass = Guest.class),
-        @NamedNativeQuery(name = "Guest.checkUserRegistration",
-                query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username "),
-        @NamedNativeQuery(name = "Guest.checkUserRegistrationToAccept",
-                query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username " +
-                        "AND invitationstatus=1"),
-        @NamedNativeQuery(name = "Guest.checkUserRegistrationWithoutLogin",
-                query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.login_required_uuid " +
-                        "LIKE :noLoginRequiredUUID AND invitationstatus=1 "), // TODO invitation status as parameter?
-        @NamedNativeQuery(name = "Guest.findByDelegationUUID",
-                query = "SELECT g.* FROM tguest g LEFT JOIN tperson p ON g.fk_person=p.pk WHERE g.delegation=:delegation " +
-                        "AND p.isCompany='t'", resultClass = Guest.class),
-        @NamedNativeQuery(name = "Guest.isGuestForEvent",
-                query = "SELECT COUNT(*) FROM tguest g WHERE g.osiam_login=:osiam_login AND g.delegation=:delegation")
+  @NamedNativeQuery(name = "Event.list.userevents",
+    query = "SELECT e.* " +
+      "FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
+      "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
+      "AND tp.pk = :fk_person ORDER BY e.datebegin ASC", resultClass = Event.class),
+  @NamedNativeQuery(name = "Event.count.userevents",
+    query = "SELECT count(e.*) " +
+      "FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
+      "WHERE tp.pk = :fk_person "),
+  @NamedNativeQuery(name = "Guest.guestByUUID",
+    query = "SELECT count(g.*) FROM tguest g LEFT JOIN tperson on tperson.pk=g.fk_person " +
+      "WHERE delegation=:uuid AND tperson.iscompany='t'"),
+  @NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID",
+    query = "SELECT g.* FROM tguest g  LEFT JOIN tperson on tperson.pk=g.fk_person " +
+      "WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass = Guest.class),
+  @NamedNativeQuery(name = "Guest.checkUserRegistration",
+    query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username "),
+  @NamedNativeQuery(name = "Guest.checkUserRegistrationToAccept",
+    query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username " +
+      "AND invitationstatus=1"),
+  @NamedNativeQuery(name = "Guest.checkUserRegistrationWithoutLogin",
+    query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.login_required_uuid " +
+      "LIKE :noLoginRequiredUUID AND invitationstatus=1 "), // TODO invitation status as parameter?
+  @NamedNativeQuery(name = "Guest.findByDelegationUUID",
+    query = "SELECT g.* FROM tguest g LEFT JOIN tperson p ON g.fk_person=p.pk WHERE g.delegation=:delegation " +
+      "AND p.isCompany='t'", resultClass = Guest.class),
+  @NamedNativeQuery(name = "Guest.isGuestForEvent",
+    query = "SELECT COUNT(*) FROM tguest g WHERE g.osiam_login=:osiam_login AND g.delegation=:delegation")
 })
 public class Guest {
 

@@ -89,5 +89,4 @@ public class PostgresProcedure extends Procedure {
         sb.append(")");
         return sb.toString();
     }
-
 }

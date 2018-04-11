@@ -75,11 +75,11 @@ public class GenericPojoTest extends TestCase {
             }
         });
         personWithManager =
-                (PersonI) GenericPojo.implementPojo(PersonI.class, new HashMapPojoStorage(), new GenericPojoManager() {
-                    public Object methodCalled(Object pojo, GenericPojo theGenericPojo, Method method, Object[] args) {
-                        return args[0];
-                    }
-                });
+          (PersonI) GenericPojo.implementPojo(PersonI.class, new HashMapPojoStorage(), new GenericPojoManager() {
+              public Object methodCalled(Object pojo, GenericPojo theGenericPojo, Method method, Object[] args) {
+                  return args[0];
+              }
+          });
     }
 
     protected void tearDown() throws Exception {
@@ -126,5 +126,4 @@ public class GenericPojoTest extends TestCase {
     public void testCustomStorage() {
         assertEquals("custom storage works", "name", personCustomStorage.getName());
     }
-
 }

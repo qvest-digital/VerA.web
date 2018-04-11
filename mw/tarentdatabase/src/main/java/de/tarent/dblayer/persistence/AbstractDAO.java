@@ -135,7 +135,7 @@ public abstract class AbstractDAO {
      * Helper method for retrieving a single Entity identified by a single-field primary key.
      */
     protected Object getEntityByIdFilter(DBContext dbc, String queryID, String idPropertyName, Object idValue)
-            throws SQLException {
+      throws SQLException {
         ExtPreparedStatement eps = getDbMapping().getQuery(queryID).prepare(dbc);
         ;
         try {
@@ -292,7 +292,7 @@ public abstract class AbstractDAO {
     }
 
     protected List getEntityList(DBContext dbc, String queryID, ListFilter listFilterParams, ParamList params)
-            throws SQLException {
+      throws SQLException {
         return getEntityList(dbc, (Select) getDbMapping().getQuery(queryID).clone(), listFilterParams, params);
     }
 
@@ -309,7 +309,7 @@ public abstract class AbstractDAO {
      * object, if needed.
      */
     protected List getEntityList(DBContext dbc, Select select, ListFilter listFilterParams, ParamList params)
-            throws SQLException {
+      throws SQLException {
         return getEntityList_LimitImplementation(dbc, select, listFilterParams, params);
     }
 
@@ -325,7 +325,7 @@ public abstract class AbstractDAO {
      * object, if needed.
      */
     protected List getEntityList_LimitImplementation(DBContext dbc, Select select, ListFilter listFilterParams, ParamList params)
-            throws SQLException {
+      throws SQLException {
 
         if (select.getUniqueColumn() == null && (select.getLimit() != null || listFilterParams.useLimit())) {
             select.setUniqueColumn(getDbMapping().getPkField().getColumnName());
@@ -397,7 +397,7 @@ public abstract class AbstractDAO {
 
         if (listFilterParams.getSortField() != null) {
             String orderByColumn = getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) != null ?
-                    getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) : listFilterParams.getSortField();
+              getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) : listFilterParams.getSortField();
             if (listFilterParams.getSortDirection() == ListFilter.DIRECTION_ASC) {
                 select.orderBy(Order.asc(orderByColumn));
             } else {
@@ -437,7 +437,7 @@ public abstract class AbstractDAO {
      * that no additional count() select is needed.
      */
     protected List getEntityList_CursorImplementation(DBContext dbc, Select select, ListFilter listFilterParams)
-            throws SQLException {
+      throws SQLException {
 
         if (select.getUniqueColumn() == null && (select.getLimit() != null || listFilterParams.useLimit())) {
             select.setUniqueColumn(getDbMapping().getPkField().getColumnName());
@@ -453,7 +453,7 @@ public abstract class AbstractDAO {
         if (listFilterParams.getSortField() != null) {
 
             String orderByColumn = getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) != null ?
-                    getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) : listFilterParams.getSortField();
+              getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) : listFilterParams.getSortField();
 
             if (listFilterParams.getSortDirection() == ListFilter.DIRECTION_ASC) {
                 select.orderBy(Order.asc(orderByColumn));
@@ -528,7 +528,7 @@ public abstract class AbstractDAO {
         if (listFilterParams.getSortField() != null) {
 
             String orderByColumn = getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) != null ?
-                    getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) : listFilterParams.getSortField();
+              getDbMapping().getColumnNameByProperty(listFilterParams.getSortField()) : listFilterParams.getSortField();
 
             if (listFilterParams.getSortDirection() == ListFilter.DIRECTION_ASC) {
                 select.orderBy(Order.asc(orderByColumn));
@@ -1075,5 +1075,4 @@ public abstract class AbstractDAO {
     public void setDbMapping(DBMapping newDbMapping) {
         this.dbMapping = newDbMapping;
     }
-
 }

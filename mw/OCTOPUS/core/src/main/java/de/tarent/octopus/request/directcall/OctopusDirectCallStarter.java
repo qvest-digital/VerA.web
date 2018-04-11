@@ -175,14 +175,14 @@ public class OctopusDirectCallStarter implements OctopusStarter {
                     try {
                         Level level = Level.parse(logLevel);
                         baseLogger.config(Resources.getInstance()
-                                .get("REQUESTPROXY_LOG_NEW_LOG_LEVEL", level));
+                          .get("REQUESTPROXY_LOG_NEW_LOG_LEVEL", level));
                         baseLogger.setLevel(level);
                     } catch (IllegalArgumentException iae) {
                         baseLogger.log(
-                                Level.WARNING,
-                                Resources.getInstance()
-                                        .get("REQUESTPROXY_LOG_INVALID_LOG_LEVEL", logLevel),
-                                iae);
+                          Level.WARNING,
+                          Resources.getInstance()
+                            .get("REQUESTPROXY_LOG_INVALID_LOG_LEVEL", logLevel),
+                          iae);
                     }
                 }
             }
@@ -220,7 +220,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
      * Startet die Abarbeitung einer Anfrage
      */
     public OctopusDirectCallResult request(Map requestParams)
-            throws TcDirectCallException {
+      throws TcDirectCallException {
 
         logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START"));
 
@@ -243,9 +243,8 @@ public class OctopusDirectCallStarter implements OctopusStarter {
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
             throw new TcDirectCallException(
-                    Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
+              Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION"), e);
         }
-
     }
 
     /**

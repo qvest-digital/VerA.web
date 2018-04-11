@@ -89,8 +89,8 @@ public class TcXsltResponseEngine implements TcResponseEngine {
      * TcRequest)
      */
     public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
-            TcRequest request)
-            throws ResponseProcessingException {
+      TcRequest request)
+      throws ResponseProcessingException {
         String name = (String) theContent.getAsObject("responseParams.name");
         File templateFile = new File(new File(config.getTemplateRootPath(), subdir), desc.getDescName() + suffix);
 
@@ -99,12 +99,12 @@ public class TcXsltResponseEngine implements TcResponseEngine {
 
             TcCommonConfig cc = config.getCommonConfig();
             File defaultTemplateFile =
-                    new File(new File(cc.getTemplateRootPath(cc.getDefaultModuleName()), subdir), desc.getDescName() + suffix);
+              new File(new File(cc.getTemplateRootPath(cc.getDefaultModuleName()), subdir), desc.getDescName() + suffix);
             if (defaultTemplateFile.exists()) {
                 templateFile = defaultTemplateFile;
             } else {
                 throw new ResponseProcessingException(
-                        Resources.getInstance().get("XSLTRESPONSE_EXC_NO_TEMPLATE", templateFile, defaultTemplateFile));
+                  Resources.getInstance().get("XSLTRESPONSE_EXC_NO_TEMPLATE", templateFile, defaultTemplateFile));
             }
         }
 
@@ -122,7 +122,7 @@ public class TcXsltResponseEngine implements TcResponseEngine {
             transformer.transform(new StreamSource(new StringReader(xmlDef)), new StreamResult(tcResponse.getWriter()));
         } catch (TransformerException e) {
             logger.warn(Resources.getInstance().get("XSLTRESPONSE_LOG_TRANSFORM_EXCEPTION", request.getRequestID(), templateFile),
-                    e);
+              e);
         }
     }
 

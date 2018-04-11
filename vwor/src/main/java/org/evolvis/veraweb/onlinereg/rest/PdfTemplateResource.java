@@ -111,7 +111,7 @@ import java.util.UUID;
 public class PdfTemplateResource extends FormDataResource {
     private final String currentExportFileName = "pdfexport-" + new Date().getTime() + ".pdf";
     private final String OUTPUT_FILENAME =
-            FileUtils.getTempDirectoryPath() + File.separator + UUID.randomUUID().toString() + "_" + currentExportFileName;
+      FileUtils.getTempDirectoryPath() + File.separator + UUID.randomUUID().toString() + "_" + currentExportFileName;
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
     private final Integer DAYS_BACK = 1;
     private final long PURGE_TIME = System.currentTimeMillis() - (DAYS_BACK * 24 * 60 * 60 * 1000);
@@ -153,8 +153,8 @@ public class PdfTemplateResource extends FormDataResource {
     @POST
     @Path("/edit")
     public Response editPdfTemplateWithoutFile(@FormParam("pdftemplate-id") Integer id,
-            @FormParam("pdftemplate-name") String name,
-            @FormParam("pdftemplate-orgunit") Integer mandantId) {
+      @FormParam("pdftemplate-name") String name,
+      @FormParam("pdftemplate-orgunit") Integer mandantId) {
         //catch when id is null (create new template) and content is null(which is implicit because of @consumes)
         if (id == null) {
             //create: without content
@@ -184,7 +184,6 @@ public class PdfTemplateResource extends FormDataResource {
         } finally {
             session.close();
         }
-
     }
 
     @GET
@@ -208,7 +207,7 @@ public class PdfTemplateResource extends FormDataResource {
     @Path("/export")
     @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId)
-            throws IOException, DocumentException {
+      throws IOException, DocumentException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
@@ -225,7 +224,7 @@ public class PdfTemplateResource extends FormDataResource {
 
         final File outputFile = new File(OUTPUT_FILENAME);
         return Response.ok(outputFile)
-                .header("Content-Disposition", "attachment;filename=" + currentExportFileName + ";charset=Unicode").build();
+          .header("Content-Disposition", "attachment;filename=" + currentExportFileName + ";charset=Unicode").build();
     }
 
     private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
@@ -243,7 +242,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private List<String> getFileList(List<Person> people, Integer pdfTemplateId, UUID uuid)
-            throws IOException, DocumentException {
+      throws IOException, DocumentException {
         deleteOldPdfFiles();
         final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, uuid);
         final List<String> filesList = new ArrayList<>();
@@ -310,7 +309,7 @@ public class PdfTemplateResource extends FormDataResource {
         final PdfTemplate pdfTemplate = getPdfTemplate(pdfTemplateId);
         final byte[] content = pdfTemplate.getContent();
         final File tempFileForPdfTemplate =
-                File.createTempFile(uuid.toString() + "-pdfexport-template" + new Date().getTime(), ".pdf");
+          File.createTempFile(uuid.toString() + "-pdfexport-template" + new Date().getTime(), ".pdf");
         final OutputStream outputStream = new FileOutputStream(tempFileForPdfTemplate);
         outputStream.write(content);
         outputStream.close();
@@ -319,12 +318,12 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private String writePersonalOutputFile(String pdfTemplateFilename, Person person, UUID uuid)
-            throws IOException, DocumentException {
+      throws IOException, DocumentException {
         final PdfReader pdfReader = new PdfReader(pdfTemplateFilename);
         final String path =
-                FileUtils.getTempDirectoryPath() + File.separator + uuid.toString() + "-personal-pdf-file-" + person.getPk() +
-                        "-" +
-                        new Date().getTime() + ".pdf";
+          FileUtils.getTempDirectoryPath() + File.separator + uuid.toString() + "-personal-pdf-file-" + person.getPk() +
+            "-" +
+            new Date().getTime() + ".pdf";
         final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
 
         final HashMap<String, String> substitutions = getSubstitutions(person);

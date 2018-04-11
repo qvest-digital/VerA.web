@@ -279,5 +279,4 @@ public class Order extends SetDbContextImpl implements Clause {
             throw new InternalError();
         }
     }
-
 }

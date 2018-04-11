@@ -83,8 +83,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tperson_categorie")
 @NamedQueries(value = {
-        @NamedQuery(name = "PersonCategory.personCategoryExists",
-                query = "SELECT pc FROM PersonCategory pc where fk_person=:personId and fk_categorie=:categoryId")
+  @NamedQuery(name = "PersonCategory.personCategoryExists",
+    query = "SELECT pc FROM PersonCategory pc where fk_person=:personId and fk_categorie=:categoryId")
 })
 public class PersonCategory {
 

@@ -63,8 +63,8 @@ import de.tarent.octopus.request.TcResponse;
  */
 public interface TcResponseEngine {
     public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
-            TcRequest request)
-            throws ResponseProcessingException;
+      TcRequest request)
+      throws ResponseProcessingException;
 
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig);
 }

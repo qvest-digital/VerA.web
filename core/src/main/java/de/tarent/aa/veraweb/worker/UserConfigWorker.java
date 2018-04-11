@@ -93,10 +93,10 @@ import java.util.Map;
  */
 public class UserConfigWorker {
     public static final String PARAMS_STRING[] = {
-            "personTab", "personMemberTab",
-            "personAddresstypeTab", "personLocaleTab" };
+      "personTab", "personMemberTab",
+      "personAddresstypeTab", "personLocaleTab" };
     private static final String PARAMS_BOOLEAN[] = {
-            "guestListFunction", "guestListCity", "guestListPhone", "personListState" };
+      "guestListFunction", "guestListCity", "guestListPhone", "personListState" };
 
     /**
      * Octopus-Eingabe-Parameter für {@link #init(OctopusContext)}
@@ -253,15 +253,15 @@ public class UserConfigWorker {
     }
 
     protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         String old = (String) userConfig.get(key);
         if (old != null) {
 
             final TransactionContext transactionContext = database.getTransactionContext();
             transactionContext.execute(database.getDelete("UserConfig").
-                    where(Where.and(
-                            Expr.equal("fk_user", userId),
-                            Expr.equal("name", key))));
+              where(Where.and(
+                Expr.equal("fk_user", userId),
+                Expr.equal("name", key))));
             transactionContext.commit();
 
             userConfig.remove(key);
@@ -269,7 +269,7 @@ public class UserConfigWorker {
     }
 
     protected void setUserSetting(Database database, Integer userId, Map userConfig, String key, String value)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         String old = (String) userConfig.get(key);
         if (value == null) {
             removeUserSetting(database, userId, userConfig, key);
@@ -284,10 +284,10 @@ public class UserConfigWorker {
 
             final TransactionContext transactionContext = database.getTransactionContext();
             transactionContext.execute(database.getUpdate("UserConfig").
-                    update("value", value).
-                    where(Where.and(
-                            Expr.equal("fk_user", userId),
-                            Expr.equal("name", key))));
+              update("value", value).
+              where(Where.and(
+                Expr.equal("fk_user", userId),
+                Expr.equal("name", key))));
             transactionContext.commit();
 
             userConfig.put(key, value);

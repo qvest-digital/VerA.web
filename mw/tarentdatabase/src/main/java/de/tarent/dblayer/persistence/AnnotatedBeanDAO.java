@@ -74,5 +74,4 @@ public class AnnotatedBeanDAO extends AbstractDAO {
         dbMapping.init();
         setDbMapping(dbMapping);
     }
-
 }

@@ -195,7 +195,7 @@ public class DelegationResourceTest {
 
         Query findTypeContentsByOptionalFieldQuery = mock(Query.class);
         when(mockitoSession.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField"))
-                .thenReturn(findTypeContentsByOptionalFieldQuery);
+          .thenReturn(findTypeContentsByOptionalFieldQuery);
         when(findTypeContentsByOptionalFieldQuery.list()).thenReturn(getDummyOptionalFieldTypeContents());
         when(resourceContext.getResource(any(Class.class))).thenReturn(optionalFieldResource);
         when(optionalFieldResource.getOptionalFields(any(Integer.class))).thenReturn(getDummyOptionalFields());
@@ -211,7 +211,7 @@ public class DelegationResourceTest {
         prepareSession();
         Query findByEventAndLabelQuery = mock(Query.class);
         when(mockitoSession.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL))
-                .thenReturn(findByEventAndLabelQuery);
+          .thenReturn(findByEventAndLabelQuery);
         when(findByEventAndLabelQuery.uniqueResult()).thenReturn(1);
 
         Integer labelId = delegationResource.getLabelIdfromEventAndLabel(1, "Label 1");

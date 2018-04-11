@@ -79,5 +79,4 @@ public class ClobToString extends AbstractConverter {
 
         return strOut.toString();
     }
-
 }

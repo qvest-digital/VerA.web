@@ -58,7 +58,7 @@ public interface OctopusTask {
     public OctopusTask add(String paramName, Object paramValue);
 
     public OctopusResult invoke()
-            throws OctopusCallException;
+      throws OctopusCallException;
 
     public void setConnectionTracking(boolean contrack);
 

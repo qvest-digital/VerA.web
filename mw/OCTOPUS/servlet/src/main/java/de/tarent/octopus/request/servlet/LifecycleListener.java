@@ -87,12 +87,12 @@ public class LifecycleListener implements ServletContextListener {
 
         if (octopus == null) {
             logger.info(
-                    "Webapplication context '" + module + "' initialized, " +
-                            "but octopus is not available (yet).");
+              "Webapplication context '" + module + "' initialized, " +
+                "but octopus is not available (yet).");
         } else {
             logger.info(
-                    "Webapplication context '" + module + "' initialized, " +
-                            "will be register it at internal octopus.");
+              "Webapplication context '" + module + "' initialized, " +
+                "will be register it at internal octopus.");
             // TODO
         }
     }
@@ -104,12 +104,12 @@ public class LifecycleListener implements ServletContextListener {
 
         if (octopus == null) {
             logger.info(
-                    "Webapplication context '" + module + "' destroyed, " +
-                            "but octopus is not available (at the moment).");
+              "Webapplication context '" + module + "' destroyed, " +
+                "but octopus is not available (at the moment).");
         } else {
             logger.info(
-                    "Webapplication context '" + module + "' destroyed, " +
-                            "will be unregister it at internal octopus.");
+              "Webapplication context '" + module + "' destroyed, " +
+                "will be unregister it at internal octopus.");
             // TODO
         }
     }

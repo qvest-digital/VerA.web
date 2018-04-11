@@ -67,5 +67,5 @@ public interface SpecialWorkerFactory {
      * @param workerDeclaration Beschreibung zur Instanziierung des Workers.
      */
     public TcContentWorker createInstance(ClassLoader classLoader, ContentWorkerDeclaration workerDeclaration)
-            throws WorkerCreationException;
+      throws WorkerCreationException;
 }

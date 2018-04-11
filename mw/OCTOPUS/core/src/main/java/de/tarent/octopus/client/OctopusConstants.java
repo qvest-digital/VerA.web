@@ -71,6 +71,6 @@ public interface OctopusConstants {
     public static final QName SOAPF_AUTHENTICATION_UNKNOWN_ERROR = new QName(OCTOPUS_NAMESPACE, AUTHENTICATION_UNKNOWN_ERROR);
     public static final QName SOAPF_AUTHENTICATION_NEED_LOGIN = new QName(OCTOPUS_NAMESPACE, AUTHENTICATION_NEED_LOGIN);
     public static final QName SOAPF_AUTHENTICATION_NOT_ENOUGH_RIGHTS =
-            new QName(OCTOPUS_NAMESPACE, AUTHENTICATION_NOT_ENOUGH_RIGHTS);
+      new QName(OCTOPUS_NAMESPACE, AUTHENTICATION_NOT_ENOUGH_RIGHTS);
     public static final QName SOAPF_AXIS_HTTP_ERROR = new QName("http://xml.apache.org/axis/", "HTTP");
 }

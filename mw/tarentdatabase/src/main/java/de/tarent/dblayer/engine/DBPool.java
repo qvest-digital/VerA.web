@@ -206,7 +206,7 @@ public class DBPool implements Pool {
 
         logger.trace("Connection requested from pool.");
         return (Connection) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { Connection.class },
-                new ConnectionProxyInvocationHandler(result));
+          new ConnectionProxyInvocationHandler(result));
     }
 
     protected void configurePool(GenericObjectPool pool, Map properties) {

@@ -130,7 +130,7 @@ public class CSVFileReader extends CSVFile {
      * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(String inputFileName, String charsetName) throws FileNotFoundException,
-            UnsupportedEncodingException {
+      UnsupportedEncodingException {
         this(inputFileName, charsetName, DEFAULT_FIELD_SEPARATOR);
     }
 
@@ -177,7 +177,7 @@ public class CSVFileReader extends CSVFile {
      * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(String inputFileName, String charsetName, char sep) throws FileNotFoundException,
-            UnsupportedEncodingException {
+      UnsupportedEncodingException {
         this(inputFileName, charsetName, sep, DEFAULT_TEXT_QUALIFIER);
     }
 
@@ -228,7 +228,7 @@ public class CSVFileReader extends CSVFile {
      * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(String inputFileName, String charsetName, char sep, char qual) throws FileNotFoundException,
-            UnsupportedEncodingException {
+      UnsupportedEncodingException {
         this(new FileInputStream(inputFileName), charsetName, sep, qual);
     }
 

@@ -90,10 +90,10 @@ public class SerializationHelper {
             return (List) ois.readObject();
         } catch (IOException e) {
             throw (IllegalStateException) new IllegalStateException(
-                    "Unable to deserialize list").initCause(e);
+              "Unable to deserialize list").initCause(e);
         } catch (ClassNotFoundException e) {
             throw (IllegalStateException) new IllegalStateException(
-                    "Unable to deserialize list").initCause(e);
+              "Unable to deserialize list").initCause(e);
         }
     }
 
@@ -115,9 +115,7 @@ public class SerializationHelper {
             return baos.toByteArray();
         } catch (IOException e) {
             throw (IllegalStateException) new IllegalStateException(
-                    "Unable to serialize list").initCause(e);
-
+              "Unable to serialize list").initCause(e);
         }
     }
-
 }

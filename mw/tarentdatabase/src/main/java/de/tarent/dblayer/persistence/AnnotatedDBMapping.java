@@ -136,7 +136,6 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
                     DBMapping dbMapping = DAORegistry.getDAOForBean(reference.bean()).getDbMapping();
 
                     addFields((AbstractDBMapping) dbMapping, attributeName, includeBitMask, fieldSet);
-
                 } else {
                     // standard column mapping
 
@@ -168,12 +167,12 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
                     if (method.isAnnotationPresent(Id.class)) {
                         // this attribute shall be the primary key
                         fieldSet = fieldSet | super.getFieldDefinitionValue("primaryKeyFields") |
-                                super.getFieldDefinitionValue("minimalFields") | super.getFieldDefinitionValue("commonFields");
+                          super.getFieldDefinitionValue("minimalFields") | super.getFieldDefinitionValue("commonFields");
                     }
 
                     // add field mapping
                     addField(this.mapToDbConventions(tableName) + PROPERTY_SEPARATOR + this.mapToDbConventions(columnName),
-                            attributeName, fieldSet);
+                      attributeName, fieldSet);
                 }
             }
         }
@@ -271,5 +270,4 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
             return string;
         }
     }
-
 }

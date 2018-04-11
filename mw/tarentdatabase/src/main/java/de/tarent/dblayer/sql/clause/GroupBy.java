@@ -181,5 +181,4 @@ public class GroupBy {
             throw new InternalError();
         }
     }
-
 }

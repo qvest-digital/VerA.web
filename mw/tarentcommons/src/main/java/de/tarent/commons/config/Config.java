@@ -84,12 +84,11 @@ public abstract class Config {
 
         // if we are running a development-build show as many information as possible
         if (APPLICATION_VERSION == null || APPLICATION_VERSION.equals("n/a") ||
-                APPLICATION_VERSION.toLowerCase().indexOf("snapshot") != -1) {
+          APPLICATION_VERSION.toLowerCase().indexOf("snapshot") != -1) {
             return APPLICATION_CAPTION + " " + APPLICATION_VERSION + " (" + APPLICATION_BUILD + ")";
         }
 
         // if we are running on a final build, do not show build ID
         return APPLICATION_CAPTION + " " + APPLICATION_VERSION;
     }
-
 }

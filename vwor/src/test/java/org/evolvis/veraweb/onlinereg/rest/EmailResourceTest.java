@@ -97,14 +97,14 @@ public class EmailResourceTest {
         emailResource.setMailDispatcher(mailDispatcher);
         emailResource.setEmailConfiguration(emailConfiguration);
         doNothing().when(mailDispatcher).sendVerificationEmail(isNull(), any(String.class),
-                isNull(), isNull(), any(String.class), isNull());
+          isNull(), isNull(), any(String.class), isNull());
 
         // WHEN
         emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token", "de_DE", false);
 
         // THEN
         verify(mailDispatcher, times(1)).sendVerificationEmail(isNull(), any(String.class),
-                isNull(), isNull(), any(String.class), isNull());
+          isNull(), isNull(), any(String.class), isNull());
         verify(emailConfiguration, times(1)).getSubject();
         verify(emailConfiguration, times(1)).getContent();
     }

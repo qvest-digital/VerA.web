@@ -121,5 +121,4 @@ public class FunctionWorker extends StammdatenWorker {
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
         return super.showList(octopusContext);
     }
-
 }

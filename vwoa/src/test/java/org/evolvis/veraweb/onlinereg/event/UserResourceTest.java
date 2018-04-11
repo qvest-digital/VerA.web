@@ -104,9 +104,9 @@ public class UserResourceTest {
         long zeit = Calendar.getInstance().getTimeInMillis();
 
         String result =
-                ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit,
-                        "email" + zeit,
-                        "language");
+          ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit,
+            "email" + zeit,
+            "language");
         assertEquals(StatusConverter.convertStatus("OK"), result);
     }
 
@@ -121,7 +121,6 @@ public class UserResourceTest {
         try {
             Person person = r.post(Person.class);
             assertTrue(person instanceof Person);
-
         } catch (UniformInterfaceException uie) {
             ClientResponse response = uie.getResponse();
             if (response.getStatus() == 404) {
@@ -144,5 +143,4 @@ public class UserResourceTest {
         String result = ur.registerUser("existing", "firstname", "secondname", "password", "email", "language");
         assertEquals(StatusConverter.convertStatus("USER_EXISTS"), result);
     }
-
 }

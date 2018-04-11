@@ -80,7 +80,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tconfig")
 @NamedQueries(value = {
-        @NamedQuery(name = "Config.find", query = "SELECT c FROM Config c where cname = :key")
+  @NamedQuery(name = "Config.find", query = "SELECT c FROM Config c where cname = :key")
 })
 public class Config {
 

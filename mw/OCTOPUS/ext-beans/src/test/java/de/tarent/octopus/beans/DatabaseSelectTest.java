@@ -120,7 +120,7 @@ public class DatabaseSelectTest extends TestCase {
      * collection of all person ids
      */
     public final static Set ALL_PERSON_IDS =
-            new TreeSet(Arrays.asList(new Integer[] { INTEGER_1, INTEGER_2, INTEGER_3, INTEGER_4 }));
+      new TreeSet(Arrays.asList(new Integer[] { INTEGER_1, INTEGER_2, INTEGER_3, INTEGER_4 }));
 
     //
     // constructors and Testcase overrides

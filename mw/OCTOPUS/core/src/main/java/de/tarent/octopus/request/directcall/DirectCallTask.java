@@ -90,7 +90,7 @@ public class DirectCallTask implements OctopusTask {
     }
 
     public OctopusResult invoke()
-            throws OctopusCallException {
+      throws OctopusCallException {
 
         OctopusDirectCallResult res = null;
         try {

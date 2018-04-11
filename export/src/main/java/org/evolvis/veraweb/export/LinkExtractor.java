@@ -88,5 +88,4 @@ public class LinkExtractor implements ResultSetValueExtractor {
         }
         return prefix + "/" + value;
     }
-
 }

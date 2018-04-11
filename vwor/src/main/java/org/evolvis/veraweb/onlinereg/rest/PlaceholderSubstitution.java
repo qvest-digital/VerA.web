@@ -81,7 +81,6 @@ public class PlaceholderSubstitution {
 
     public PlaceholderSubstitution(Person person) {
         this(createMap(person));
-
     }
 
     private static Map<String, String> createMap(Person person) {

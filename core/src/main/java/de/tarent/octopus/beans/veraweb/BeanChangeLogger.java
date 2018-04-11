@@ -162,10 +162,10 @@ public class BeanChangeLogger {
             Comparable ov = (Comparable) o.getField(k);
             try {
                 if
-                        (
-                        ((ov != null) && (ov.compareTo(nv) != 0))
-                                || ((ov == null) && (nv != null))
-                        ) {
+                  (
+                  ((ov != null) && (ov.compareTo(nv) != 0))
+                    || ((ov == null) && (nv != null))
+                  ) {
                     if (changedAttributes.length() > 0) {
                         changedAttributes.append(',');
                     }
@@ -179,8 +179,8 @@ public class BeanChangeLogger {
         // are there any differences from o to n?
         if (changedAttributes.length() > 0) {
             ChangeLogEntry entry =
-                    this.createNewChangeLogEntryInstance("update", username, determineObjectName(o), o.getClass().getName(),
-                            (Integer) o.getField("id"), changedAttributes.toString());
+              this.createNewChangeLogEntryInstance("update", username, determineObjectName(o), o.getClass().getName(),
+                (Integer) o.getField("id"), changedAttributes.toString());
             this.insertLogEntry(entry);
         }
     }
@@ -198,9 +198,9 @@ public class BeanChangeLogger {
             return;
         }
         ChangeLogEntry entry =
-                this.createNewChangeLogEntryInstance("insert", username, determineObjectName(o), o.getClass().getName(),
-                        (Integer) o.getField("id"),
-                        "*");
+          this.createNewChangeLogEntryInstance("insert", username, determineObjectName(o), o.getClass().getName(),
+            (Integer) o.getField("id"),
+            "*");
         this.insertLogEntry(entry);
     }
 
@@ -217,9 +217,9 @@ public class BeanChangeLogger {
             return;
         }
         ChangeLogEntry entry =
-                this.createNewChangeLogEntryInstance("delete", username, determineObjectName(o), o.getClass().getName(),
-                        (Integer) o.getField("id"),
-                        "*");
+          this.createNewChangeLogEntryInstance("delete", username, determineObjectName(o), o.getClass().getName(),
+            (Integer) o.getField("id"),
+            "*");
         this.insertLogEntry(entry);
     }
 
@@ -255,7 +255,7 @@ public class BeanChangeLogger {
     }
 
     private void insertLogEntry(ChangeLogEntry entry)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         entry.verify();
         if (entry.isCorrect()) {
             ExecutionContext c = this.database;
@@ -270,8 +270,8 @@ public class BeanChangeLogger {
     }
 
     private ChangeLogEntry createNewChangeLogEntryInstance(String op, String username, String oname, String otype, Integer oid,
-            String attributes)
-            throws BeanException, IOException {
+      String attributes)
+      throws BeanException, IOException {
         ChangeLogEntry result = new ChangeLogEntry();
         result.username = username;
         result.objectname = oname;

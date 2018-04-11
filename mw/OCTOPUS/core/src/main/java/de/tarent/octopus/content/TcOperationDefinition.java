@@ -201,9 +201,9 @@ public class TcOperationDefinition {
      * @return Die gesetzte FaultMessage
      */
     public TcMessageDefinition addFaultMessage(
-            String faultStatusCode,
-            String faultDescription,
-            TcMessageDefinition faultMessage) {
+      String faultStatusCode,
+      String faultDescription,
+      TcMessageDefinition faultMessage) {
 
         faultMessages.put(faultStatusCode, faultMessage);
         faultMessageDescriptions.put(faultStatusCode, faultDescription);

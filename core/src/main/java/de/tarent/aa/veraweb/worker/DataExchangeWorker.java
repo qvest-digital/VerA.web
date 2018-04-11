@@ -234,13 +234,13 @@ public class DataExchangeWorker {
      * @throws IOException               ioException
      */
     public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter,
-            final Integer event,
-            final Integer category, final String domain) throws TcContentProzessException, IOException {
+      final Integer event,
+      final Integer category, final String domain) throws TcContentProzessException, IOException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
         final ExchangeFormat format =
-                getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
+          getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null) {
             throw new TcContentProzessException("Unbekannter Exportformatschlüssel '" + formatKey + "'.");
         }
@@ -357,7 +357,7 @@ public class DataExchangeWorker {
      * Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
      */
     public static final String[] INPUT_importToTransit =
-            { "importfile", "format", "filenc", "importSource", "orgUnit", "targetOrgUnit", "CONFIG:importProperties" };
+      { "importfile", "format", "filenc", "importSource", "orgUnit", "targetOrgUnit", "CONFIG:importProperties" };
     /**
      * Octopus-Eingabe-Parameter-Pflicht für
      * {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
@@ -388,14 +388,14 @@ public class DataExchangeWorker {
      * @throws BeanException             beanException
      */
     public Map importToTransit(OctopusContext octopusContext,
-            Map stream,
-            String formatKey,
-            String filenc,
-            String importSource,
-            Integer orgUnit,
-            Integer targetOrgUnit,
-            Map importProperties)
-            throws BeanException, IOException, TcContentProzessException {
+      Map stream,
+      String formatKey,
+      String filenc,
+      String importSource,
+      Integer orgUnit,
+      Integer targetOrgUnit,
+      Map importProperties)
+      throws BeanException, IOException, TcContentProzessException {
         stream = getStream(octopusContext, stream);
         if (!octopusContext.getStatus().equals("streamClose")) {
             formatKey = getFormatKey(octopusContext, formatKey);
@@ -412,7 +412,7 @@ public class DataExchangeWorker {
             assert moduleConfig != null;
             // Zunächst mal die benötigten Objekte erstellen
             ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey,
-                    octopusContext.getRequestObject().getRequestParameters());
+              octopusContext.getRequestObject().getRequestParameters());
             if (format == null) {
                 throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" + formatKey + "'.");
             }
@@ -426,7 +426,7 @@ public class DataExchangeWorker {
             String filename = (String) stream.get("ContentName");
             if (filename != null && filename.length() != 0) {
                 String suffix = filename.lastIndexOf(".") == -1 ? null :
-                        filename.substring(filename.lastIndexOf(".") + 1);
+                  filename.substring(filename.lastIndexOf(".") + 1);
                 if (suffix != null) {
                     suffix.toLowerCase();
                 }
@@ -436,12 +436,12 @@ public class DataExchangeWorker {
                         LOGGER.debug("Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
                     }
                 } else if (
-                        suffix.equals("ods") ||
-                                suffix.equals("sxc") ||
-                                suffix.equals("xls") ||
-                                suffix.equals("pdf") ||
-                                suffix.equals("zip") ||
-                                suffix.equals("exe")) {
+                  suffix.equals("ods") ||
+                    suffix.equals("sxc") ||
+                    suffix.equals("xls") ||
+                    suffix.equals("pdf") ||
+                    suffix.equals("zip") ||
+                    suffix.equals("exe")) {
                     Map<String, String> status = new HashMap<>();
                     status.put("invalidData", "fileExtension");
                     status.put("fileextension", suffix);
@@ -537,8 +537,8 @@ public class DataExchangeWorker {
                     } else if (!Charset.isSupported("cp1252")) {
                         // default to closest thing to cp1252
                         LOGGER.error(
-                                "JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters " +
-                                        "will be lost!");
+                          "JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters " +
+                            "will be lost!");
                         ics = StandardCharsets.ISO_8859_1;
                     } else {
                         // default to cp1252
@@ -560,7 +560,7 @@ public class DataExchangeWorker {
                 Importer importer = createImporter(format, transactionContext, istream, ics);
                 Import importInstance = createImport(transactionContext, formatKey, importSource, mandantId);
                 VerawebDigester digester =
-                        new VerawebDigester(octopusContext, transactionContext, importProperties, importSource, importInstance);
+                  new VerawebDigester(octopusContext, transactionContext, importProperties, importSource, importInstance);
 
                 importer.importAll(digester, transactionContext);
 
@@ -570,7 +570,6 @@ public class DataExchangeWorker {
                 System.gc();
 
                 return digester.getImportStats();
-
             } catch (Exception e) {
                 LOGGER.error("Fehler beim Import aufgetreten.", e);
                 CharArrayWriter caw = new CharArrayWriter();
@@ -719,7 +718,7 @@ public class DataExchangeWorker {
      * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
      */
     static Exporter createExporter(ExchangeFormat format, Database database, OutputStream os, Charset cs)
-            throws TcContentProzessException {
+      throws TcContentProzessException {
         assert format != null;
         assert database != null;
         try {
@@ -759,8 +758,8 @@ public class DataExchangeWorker {
 
         Select outer = database.getSelect("Person");
         Select inner = new Select(false).
-                from(database.getProperty(sampleGuest, "table")).
-                selectAs(database.getProperty(sampleGuest, "person"), "person");
+          from(database.getProperty(sampleGuest, "table")).
+          selectAs(database.getProperty(sampleGuest, "person"), "person");
 
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
@@ -776,19 +775,19 @@ public class DataExchangeWorker {
          */
         if (event == null || event == 0) {
             outerWhere.addAnd(Expr.in(
-                    database.getProperty(samplePerson, "id"),
-                    new RawClause('(' + inner.toString() + ')')));
+              database.getProperty(samplePerson, "id"),
+              new RawClause('(' + inner.toString() + ')')));
         } else if (event == -1) {
             outerWhere.addAnd(new RawClause("NOT " + Expr.in(
-                    database.getProperty(samplePerson, "id"),
-                    new RawClause('(' + inner.toString() + ')')).clauseToString()));
+              database.getProperty(samplePerson, "id"),
+              new RawClause('(' + inner.toString() + ')')).clauseToString()));
         } else {
             inner.where(Expr.equal(
-                    database.getProperty(sampleGuest, "event"),
-                    event));
+              database.getProperty(sampleGuest, "event"),
+              event));
             outerWhere.addAnd(Expr.in(
-                    database.getProperty(samplePerson, "id"),
-                    new RawClause('(' + inner.toString() + ')')));
+              database.getProperty(samplePerson, "id"),
+              new RawClause('(' + inner.toString() + ')')));
         }
 
         exportSelect(database, outer.where(outerWhere), exporter);
@@ -808,7 +807,7 @@ public class DataExchangeWorker {
      * @param orgUnit  Mandanten-ID, wenn danach gefiltert werden soll
      */
     void exportCategory(Database database, Integer category, Exporter exporter, Integer orgUnit)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         assert database != null;
         assert exporter != null;
         Bean samplePerson = database.createBean("Person");
@@ -816,8 +815,8 @@ public class DataExchangeWorker {
 
         Select outer = database.getSelect(samplePerson);
         Select inner = new Select(false).
-                from(database.getProperty(samplePersonCategory, "table")).
-                selectAs(database.getProperty(samplePersonCategory, "person"), "person");
+          from(database.getProperty(samplePersonCategory, "table")).
+          selectAs(database.getProperty(samplePersonCategory, "person"), "person");
 
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
@@ -833,19 +832,19 @@ public class DataExchangeWorker {
          */
         if (category == null || category == 0) {
             outerWhere.addAnd(Expr.in(
-                    database.getProperty(samplePerson, "id"),
-                    new RawClause('(' + inner.toString() + ')')));
+              database.getProperty(samplePerson, "id"),
+              new RawClause('(' + inner.toString() + ')')));
         } else if (category == -1) {
             outerWhere.addAnd(new RawClause("NOT " + Expr.in(
-                    database.getProperty(samplePerson, "id"),
-                    new RawClause('(' + inner.toString() + ')')).clauseToString()));
+              database.getProperty(samplePerson, "id"),
+              new RawClause('(' + inner.toString() + ')')).clauseToString()));
         } else {
             inner.where(Expr.equal(
-                    database.getProperty(samplePersonCategory, "categorie"),
-                    category));
+              database.getProperty(samplePersonCategory, "categorie"),
+              category));
             outerWhere.addAnd(Expr.in(
-                    database.getProperty(samplePerson, "id"),
-                    new RawClause('(' + inner.toString() + ')')));
+              database.getProperty(samplePerson, "id"),
+              new RawClause('(' + inner.toString() + ')')));
         }
 
         exportSelect(database, outer.where(outerWhere).orderBy(Order.asc("tperson.pk")), exporter);
@@ -914,7 +913,7 @@ public class DataExchangeWorker {
      * @throws TcContentProzessException FIXME
      */
     static Import createImport(TransactionContext context, String formatKey, String importSource, Integer orgunit)
-            throws TcContentProzessException {
+      throws TcContentProzessException {
         try {
             Database database = context.getDatabase();
             Import importInstance = (Import) database.createBean("Import");
@@ -938,7 +937,7 @@ public class DataExchangeWorker {
      * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
      */
     static Importer createImporter(ExchangeFormat format, TransactionContext context, InputStream is, final Charset cs)
-            throws TcContentProzessException {
+      throws TcContentProzessException {
         assert format != null;
         assert context != null;
         try {

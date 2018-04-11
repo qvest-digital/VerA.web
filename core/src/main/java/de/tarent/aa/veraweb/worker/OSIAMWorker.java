@@ -121,17 +121,17 @@ public class OSIAMWorker {
         if (propertiesReader.propertiesAreAvailable()) {
             this.properties = propertiesReader.getProperties();
             this.connector = new OsiamConnector.Builder()
-                    .setClientRedirectUri(
-                            properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
-                    .setClientSecret(
-                            properties.getProperty(OSIAM_CLIENT_SECRET))
-                    .setClientId(properties.getProperty(OSIAM_CLIENT_ID))
-                    .setAuthServerEndpoint(
-                            properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
-                    .setResourceServerEndpoint(
-                            properties
-                                    .getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
-                    .build();
+              .setClientRedirectUri(
+                properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+              .setClientSecret(
+                properties.getProperty(OSIAM_CLIENT_SECRET))
+              .setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+              .setAuthServerEndpoint(
+                properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
+              .setResourceServerEndpoint(
+                properties
+                  .getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
+              .build();
         }
     }
 
@@ -147,7 +147,7 @@ public class OSIAMWorker {
      * @throws SQLException  SQLException
      */
     public void createDelegationUsers(OctopusContext octopusContext) throws BeanException,
-            SQLException {
+      SQLException {
         if (!checkIfOnlineRegistrationIsAvailable(octopusContext)) {
             return;
         }
@@ -162,7 +162,7 @@ public class OSIAMWorker {
         }
         if (correctOSIAMProperties) {
             List selectdelegation = (List) octopusContext
-                    .sessionAsObject("addguest-selectdelegation");
+              .sessionAsObject("addguest-selectdelegation");
             Map event = (Map) octopusContext.getContextField("event");
 
             for (Object id : selectdelegation) {
@@ -172,16 +172,16 @@ public class OSIAMWorker {
                 String password = generatePassword(event, companyName);
                 createOsiamUser(accessToken, login, password);
                 saveOsiamLogin(database, login,
-                        Integer.parseInt(event.get("id").toString()),
-                        Integer.parseInt(id.toString()));
+                  Integer.parseInt(event.get("id").toString()),
+                  Integer.parseInt(id.toString()));
             }
         }
     }
 
     private void createOsiamUser(AccessToken accessToken, String login,
-            String password) {
+      String password) {
         User delegationUser = new User.Builder(login).setActive(true)
-                .setPassword(password).build();
+          .setPassword(password).build();
 
         // create User in osiam
         this.connector.createUser(delegationUser, accessToken);
@@ -194,7 +194,7 @@ public class OSIAMWorker {
         passwordBuilder.append(extractFirstXChars(shortName, 3));
         passwordBuilder.append(extractFirstXChars(companyName, 3));
         passwordBuilder.append(extractFirstXChars(
-                event.get("begin").toString(), 10));
+          event.get("begin").toString(), 10));
 
         return passwordBuilder.toString();
     }
@@ -208,19 +208,19 @@ public class OSIAMWorker {
     }
 
     private ResultSet getPersons(Database database, Object id)
-            throws BeanException {
+      throws BeanException {
         WhereList filter = new WhereList();
         filter.add(new Where("pk", Integer.parseInt(id.toString()), "="));
 
         Select selectPerson = SQL.Select(database).from("veraweb.tperson")
-                .where(filter);
+          .where(filter);
         selectPerson.select("*");
         return database.result(selectPerson);
     }
 
     private void saveOsiamLogin(Database db, String login, int eventId,
-            int personId) throws BeanException,
-            SQLException {
+      int personId) throws BeanException,
+      SQLException {
         final TransactionContext context = db.getTransactionContext();
         final WhereList whereCriterias = new WhereList();
         whereCriterias.addAnd(new Where("fk_person", personId, "="));
@@ -242,7 +242,7 @@ public class OSIAMWorker {
 
     private String generateUsername() {
         char[] symbols = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                .toCharArray();
+          .toCharArray();
         int length = OSIAM_USERNAME_LENGTH;
         Random random = new SecureRandom();
         StringBuilder sb = new StringBuilder(length);
@@ -252,5 +252,4 @@ public class OSIAMWorker {
         }
         return sb.toString();
     }
-
 }

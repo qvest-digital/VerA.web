@@ -149,7 +149,7 @@ public class GuestResource extends AbstractResource {
     @GET
     @Path("/image/{delegationUUID}/{personId}")
     public String getGuestImageUUID(@PathParam(PARAM_DELEGATION_UUID) String delegationUUID,
-            @PathParam("personId") int userId) {
+      @PathParam("personId") int userId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findImageByDelegationAndUser");
@@ -176,10 +176,10 @@ public class GuestResource extends AbstractResource {
     @POST
     @Path("/{eventId}/{userId}")
     public Guest saveGuest(@PathParam(PARAM_EVENT_ID) int eventId,
-            @PathParam(PARAM_USER_ID) int userId,
-            @QueryParam("invitationstatus") int invitationstatus,
-            @QueryParam("notehost") String notehost,
-            @QueryParam("reserve") int reserve) {
+      @PathParam(PARAM_USER_ID) int userId,
+      @QueryParam("invitationstatus") int invitationstatus,
+      @QueryParam("notehost") String notehost,
+      @QueryParam("reserve") int reserve) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -239,9 +239,9 @@ public class GuestResource extends AbstractResource {
     @POST
     @Path("/update/{eventId}/{userId}")
     public void updateGuest(@PathParam(PARAM_EVENT_ID) int eventId,
-            @PathParam(PARAM_USER_ID) int userId,
-            @FormParam("invitationstatus") int invitationstatus,
-            @FormParam("notehost") String notehost) {
+      @PathParam(PARAM_USER_ID) int userId,
+      @FormParam("invitationstatus") int invitationstatus,
+      @FormParam("notehost") String notehost) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -279,9 +279,9 @@ public class GuestResource extends AbstractResource {
     @POST
     @Path("/update/nologin/{noLoginRequiredUUID}")
     public void updateGuestWithoutLogin(
-            @PathParam(PARAM_NO_LOGIN_REQUIRED_UUID) String noLoginRequiredUUID,
-            @FormParam("invitationstatus") int invitationstatus,
-            @FormParam("notehost") String notehost) {
+      @PathParam(PARAM_NO_LOGIN_REQUIRED_UUID) String noLoginRequiredUUID,
+      @FormParam("invitationstatus") int invitationstatus,
+      @FormParam("notehost") String notehost) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -396,7 +396,7 @@ public class GuestResource extends AbstractResource {
     @GET
     @Path("/registered/delegation/{username}/{delegation}")
     public Boolean isUserRegisteredintoEventByDelegation(@PathParam(PARAM_USERNAME) String username,
-            @PathParam(PARAM_DELEGATION) String delegation) {
+      @PathParam(PARAM_DELEGATION) String delegation) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.isGuestForEvent");
@@ -423,7 +423,7 @@ public class GuestResource extends AbstractResource {
     @GET
     @Path("/registered/{username}/{eventId}")
     public Boolean isUserRegisteredintoEvent(@PathParam(PARAM_USERNAME) String username,
-            @PathParam(PARAM_EVENT_ID) Integer eventId) {
+      @PathParam(PARAM_EVENT_ID) Integer eventId) {
         return isUserRegistered(username, eventId, "Guest.checkUserRegistration");
     }
 
@@ -437,7 +437,7 @@ public class GuestResource extends AbstractResource {
     @GET
     @Path("/registered/accept/{username}/{eventId}")
     public Boolean isUserRegisteredintoEventToAccept(@PathParam(PARAM_USERNAME) String username,
-            @PathParam(PARAM_EVENT_ID) Integer eventId) {
+      @PathParam(PARAM_EVENT_ID) Integer eventId) {
         return isUserRegistered(username, eventId, "Guest.checkUserRegistrationToAccept");
     }
 
@@ -476,7 +476,7 @@ public class GuestResource extends AbstractResource {
     @GET
     @Path("/registered/nologin/{noLoginRequiredUUID}/{eventId}")
     public Boolean isUserRegisteredintoEventByUUID(@PathParam(PARAM_NO_LOGIN_REQUIRED_UUID) String noLoginRequiredUUID,
-            @PathParam(PARAM_EVENT_ID) Integer eventId) {
+      @PathParam(PARAM_EVENT_ID) Integer eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.checkUserRegistrationWithoutLogin");
@@ -515,20 +515,20 @@ public class GuestResource extends AbstractResource {
     @POST
     @Path("/{uuid}/register")
     public Guest addGuestToEvent(@PathParam(PARAM_UUID) String uuid,
-            @FormParam(PARAM_EVENT_ID) Integer eventId,
-            @FormParam(PARAM_USER_ID) Integer userId,
-            @FormParam("invitationstatus") Integer invitationstatus,
-            @FormParam("invitationtype") Integer invitationtype,
-            @FormParam("gender") String gender,
-            @FormParam("category") Integer category,
-            @FormParam("hostNode") String hostNode,
-            @FormParam(PARAM_USERNAME) String username) {
+      @FormParam(PARAM_EVENT_ID) Integer eventId,
+      @FormParam(PARAM_USER_ID) Integer userId,
+      @FormParam("invitationstatus") Integer invitationstatus,
+      @FormParam("invitationtype") Integer invitationtype,
+      @FormParam("gender") String gender,
+      @FormParam("category") Integer category,
+      @FormParam("hostNode") String hostNode,
+      @FormParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         session.beginTransaction();
         try {
             //0 = not in reserve list
             final Guest guest = initGuest(uuid, eventId, userId, invitationstatus, invitationtype, gender, category,
-                    username, hostNode, 0);
+              username, hostNode, 0);
 
             session.save(guest);
             session.flush();
@@ -562,21 +562,21 @@ public class GuestResource extends AbstractResource {
     @POST
     @Path("/register")
     public Guest addGuestToEvent(
-            @FormParam(PARAM_EVENT_ID) Integer eventId,
-            @FormParam(PARAM_USER_ID) Integer userId,
-            @FormParam("invitationstatus") Integer invitationstatus,
-            @FormParam("invitationtype") Integer invitationtype,
-            @FormParam("gender") String gender,
-            @FormParam("category") Integer category,
-            @FormParam(PARAM_USERNAME) String username,
-            @FormParam("hostNode") String nodeHost,
-            @FormParam("reserve") Integer reserve) {
+      @FormParam(PARAM_EVENT_ID) Integer eventId,
+      @FormParam(PARAM_USER_ID) Integer userId,
+      @FormParam("invitationstatus") Integer invitationstatus,
+      @FormParam("invitationtype") Integer invitationtype,
+      @FormParam("gender") String gender,
+      @FormParam("category") Integer category,
+      @FormParam(PARAM_USERNAME) String username,
+      @FormParam("hostNode") String nodeHost,
+      @FormParam("reserve") Integer reserve) {
         final Session session = openSession();
         session.beginTransaction();
 
         try {
             final Guest guest = initGuest(null, eventId, userId, invitationstatus, invitationtype, gender, category,
-                    username, nodeHost, reserve);
+              username, nodeHost, reserve);
 
             final Query query = session.getNamedQuery("Guest.findIdByEventAndUser");
             query.setInteger(PARAM_EVENT_ID, eventId);
@@ -606,7 +606,7 @@ public class GuestResource extends AbstractResource {
     @GET
     @Path("/isreserve/{eventId}/{username}")
     public Boolean isReserve(@PathParam(PARAM_EVENT_ID) final Integer eventId,
-            @PathParam(PARAM_USERNAME) final String username) {
+      @PathParam(PARAM_USERNAME) final String username) {
 
         final Session session = openSession();
         try {
@@ -629,8 +629,8 @@ public class GuestResource extends AbstractResource {
      * Initialize guest with event information
      */
     private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus,
-            Integer invitationtype, String gender, Integer category, String username,
-            String hostNode, Integer reserve) {
+      Integer invitationtype, String gender, Integer category, String username,
+      String hostNode, Integer reserve) {
         final Guest guest = new Guest();
         guest.setDelegation(uuid);
         guest.setFk_person(userId);

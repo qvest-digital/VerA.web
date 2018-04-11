@@ -84,7 +84,7 @@ public class OsiamLoginCreator {
      */
     public static final String CONDITIONS = ".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*";
     private static final String CHARS_FOR_PASSWORD_GENERATION =
-            "abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
+      "abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
 
     private Database database;
 
@@ -114,8 +114,8 @@ public class OsiamLoginCreator {
      * @return String username
      */
     public String generatePersonUsername(final String firstname,
-            final String lastname,
-            final OsiamConnector connector) {
+      final String lastname,
+      final OsiamConnector connector) {
 
         final String username = generateShortPersonUsername(firstname, lastname);
         return getResultList(username, connector);
@@ -129,7 +129,7 @@ public class OsiamLoginCreator {
      * @return String username
      */
     public String generateCompanyUsername(final String companyname,
-            final OsiamConnector connector) {
+      final OsiamConnector connector) {
 
         final String username = generateShortCompanyUsername(companyname);
         return getResultList(username, connector);

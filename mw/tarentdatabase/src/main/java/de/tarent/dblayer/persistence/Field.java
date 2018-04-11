@@ -58,5 +58,4 @@ public interface Field {
      * Returns objects property name for this field
      */
     public String getPropertyName();
-
 }

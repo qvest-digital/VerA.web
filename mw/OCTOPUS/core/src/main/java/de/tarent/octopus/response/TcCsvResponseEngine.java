@@ -65,8 +65,8 @@ import de.tarent.octopus.request.TcResponse;
 
 public class TcCsvResponseEngine implements TcResponseEngine {
     public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc,
-            TcRequest tcRequest)
-            throws ResponseProcessingException {
+      TcRequest tcRequest)
+      throws ResponseProcessingException {
         tcResponse.setContentType("text/plain");
 
         // Daten fuer die Ausgabe holen
@@ -82,7 +82,7 @@ public class TcCsvResponseEngine implements TcResponseEngine {
                 generateCSV(os, (List) data);
             } else {
                 throw new ResponseProcessingException(
-                        "Given data in response field " + desc.getDescName() + " has to be either List or Array.");
+                  "Given data in response field " + desc.getDescName() + " has to be either List or Array.");
             }
 
             os.close();
@@ -128,7 +128,7 @@ public class TcCsvResponseEngine implements TcResponseEngine {
             generateCSVLine(os, (List) input);
         } else {
             throw new ResponseProcessingException(
-                    "Given second level data in response field has to be either List, Map or Array.");
+              "Given second level data in response field has to be either List, Map or Array.");
         }
     }
 

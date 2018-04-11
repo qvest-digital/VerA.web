@@ -112,7 +112,7 @@ public class VerawebDigester implements ImportDigester {
      * @param importSource     FIXME
      */
     public VerawebDigester(OctopusContext cntx, ExecutionContext context, Map importProperties, String importSource,
-            Import importInstance) {
+      Import importInstance) {
         assert context != null;
         this.cntx = cntx;
         this.importSource = importSource;
@@ -142,7 +142,7 @@ public class VerawebDigester implements ImportDigester {
      */
     public Map getImportStats() {
         return DataExchangeWorker.createImportStats(incorrectCount, personCount,
-                duplicateCount, importableCount, importInstance.id);
+          duplicateCount, importableCount, importInstance.id);
     }
 
     //

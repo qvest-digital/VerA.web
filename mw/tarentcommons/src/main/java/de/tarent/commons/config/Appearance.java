@@ -104,7 +104,7 @@ public final class Appearance extends Base {
      * @param node
      */
     void addActionDefinition(String key, Node node)
-            throws DataFormatException {
+      throws DataFormatException {
         actions.put(key, XmlUtil.getParamMap(node));
     }
 
@@ -360,7 +360,7 @@ public final class Appearance extends Base {
          * @throws KeyUnavailableException if the key does not exist.
          */
         private static Key getInstance(String label)
-                throws KeyUnavailableException {
+          throws KeyUnavailableException {
             Key k = (Key) instances.get(label);
 
             if (k == null) {
@@ -369,7 +369,5 @@ public final class Appearance extends Base {
 
             return k;
         }
-
     }
-
 }

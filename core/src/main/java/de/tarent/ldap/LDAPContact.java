@@ -428,7 +428,6 @@ public class LDAPContact {
             //Wenn Fehler, setze Mail auf null
             arbeitEmail = "";
         }
-
     }
 
     /**
@@ -720,7 +719,7 @@ public class LDAPContact {
         }
         if (users.size() == 0) {
             throw new NoMemberException(
-                    "Es muß mindestens ein User Rechte auf diese Adresse haben, damit Sie exportiert werden kann.");
+              "Es muß mindestens ein User Rechte auf diese Adresse haben, damit Sie exportiert werden kann.");
         }
         attr.put(users);
         return attr;
@@ -747,9 +746,9 @@ public class LDAPContact {
             }
         } catch (Exception e) {
             throw new LDAPException(
-                    Messages.getString("LDAPManager.getter_not_found_01") + attribut +
-                            Messages.getString("LDAPManager.getter_not_found_02") +
-                            e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+              Messages.getString("LDAPManager.getter_not_found_01") + attribut +
+                Messages.getString("LDAPManager.getter_not_found_02") +
+                e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
         } //$NON-NLS-1$
 
         return value;
@@ -813,13 +812,11 @@ public class LDAPContact {
                 InternetAddress address = new InternetAddress(privatEmail);
                 address.validate();
                 this.privatEmail = privatEmail;
-
             }
         } catch (AddressException e) {
             //Wenn Fehler, setze Mail auf null
             this.privatEmail = "";
         }
-
     }
 
     /**

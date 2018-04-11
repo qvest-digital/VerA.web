@@ -96,8 +96,8 @@ public class PressTransporter {
      * @param username Username
      */
     public PressTransporter(String uuid, String nachname, String vorname,
-            String gender, String email, String address, String plz,
-            String city, String country, String username) {
+      String gender, String email, String address, String plz,
+      String city, String country, String username) {
         super();
         this.uuid = uuid;
         this.nachname = nachname;

@@ -114,7 +114,6 @@ public class ResultMap implements Map {
                         return true;
                     }
                 }
-
             } else {
                 for (int i = 1; i <= size; i++) {
                     if (value.equals(resultSet.getObject(i))) {

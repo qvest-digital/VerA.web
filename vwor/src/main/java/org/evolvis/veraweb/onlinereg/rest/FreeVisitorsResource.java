@@ -101,6 +101,5 @@ public class FreeVisitorsResource extends AbstractResource {
         } finally {
             session.close();
         }
-
     }
 }

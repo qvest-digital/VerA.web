@@ -150,10 +150,10 @@ public class Operator extends SetDbContextImpl implements Clause {
         setDBContext(dbContext); // for LiteralWrappers
         StringBuffer buffer = new StringBuffer();
         buffer.append(left)
-                .append(' ')
-                .append(operator)
-                .append(' ')
-                .append(right);
+          .append(' ')
+          .append(operator)
+          .append(' ')
+          .append(right);
         return buffer.toString();
     }
 
@@ -171,5 +171,4 @@ public class Operator extends SetDbContextImpl implements Clause {
             throw new InternalError();
         }
     }
-
 }

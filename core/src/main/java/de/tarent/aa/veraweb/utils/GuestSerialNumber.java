@@ -121,10 +121,10 @@ public class GuestSerialNumber {
 
         protected void clearSerialNumber() throws BeanException {
             Update update = SQL.Update(executionContext).
-                    table("veraweb.tguest").
-                    update("orderno", null).
-                    update("orderno_p", null).
-                    where(Expr.equal("fk_event", event.id));
+              table("veraweb.tguest").
+              update("orderno", null).
+              update("orderno_p", null).
+              where(Expr.equal("fk_event", event.id));
             executionContext.execute(update);
         }
 
@@ -165,10 +165,10 @@ public class GuestSerialNumber {
             }
 
             executionContext.execute(SQL.Update(executionContext).
-                    table("veraweb.tguest").
-                    update("tguest.orderno", orderno_a).
-                    update("tguest.orderno_p", orderno_b).
-                    where(Expr.equal("pk", guest.get("id"))));
+              table("veraweb.tguest").
+              update("tguest.orderno", orderno_a).
+              update("tguest.orderno_p", orderno_b).
+              where(Expr.equal("pk", guest.get("id"))));
         }
 
         protected void setSerialNumber(Select select) throws BeanException, IOException {
@@ -179,14 +179,14 @@ public class GuestSerialNumber {
 
         protected Select getSelect() {
             return SQL.Select(executionContext).
-                    from("veraweb.tguest").
-                    selectAs("tguest.pk", "id").
-                    selectAs("tguest.invitationtype", "invitationtype").
-                    selectAs("invitationstatus", "invitationstatus_a").
-                    selectAs("invitationstatus_p", "invitationstatus_b").
-                    selectAs("CASE WHEN tcategorie.flags = 99 THEN diplodate_a_e1 ELSE NULL END", "diplodate").
-                    joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
-                    joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
+              from("veraweb.tguest").
+              selectAs("tguest.pk", "id").
+              selectAs("tguest.invitationtype", "invitationtype").
+              selectAs("invitationstatus", "invitationstatus_a").
+              selectAs("invitationstatus_p", "invitationstatus_b").
+              selectAs("CASE WHEN tcategorie.flags = 99 THEN diplodate_a_e1 ELSE NULL END", "diplodate").
+              joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
+              joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
         }
     }
 
@@ -226,10 +226,10 @@ public class GuestSerialNumber {
             calcSerialNumberForGuestRank();
 
             Select select = SQL.Select(executionContext).
-                    from("veraweb.tcategorie").
-                    selectAs("pk", "id").
-                    selectAs("flags", "flag").
-                    orderBy(Order.asc("rank").andAsc("catname"));
+              from("veraweb.tcategorie").
+              selectAs("pk", "id").
+              selectAs("flags", "flag").
+              orderBy(Order.asc("rank").andAsc("catname"));
             for (Iterator it = executionContext.getDatabase().getList(select, executionContext).iterator(); it.hasNext(); ) {
                 Map map = (Map) it.next();
                 if (((Integer) map.get("flag")).intValue() == Categorie.FLAG_DIPLO_CORPS) {
@@ -346,17 +346,17 @@ public class GuestSerialNumber {
             // Auf Platz
             where.addAnd(Expr.notEqual("reserve", new Integer(1)));
             where.addAnd(new RawClause("(NOT(" +
-                    "(invitationtype = 1" +
-                    " AND invitationstatus IS NOT NULL" +
-                    " AND invitationstatus = 2" +
-                    " AND invitationstatus_p IS NOT NULL" +
-                    " AND invitationstatus_p = 2) OR " +
-                    "(invitationtype = 2" +
-                    " AND invitationstatus IS NOT NULL" +
-                    " AND invitationstatus = 2) OR " +
-                    "(invitationtype = 3" +
-                    " AND invitationstatus_p IS NOT NULL" +
-                    " AND invitationstatus_p = 2)))"));
+              "(invitationtype = 1" +
+              " AND invitationstatus IS NOT NULL" +
+              " AND invitationstatus = 2" +
+              " AND invitationstatus_p IS NOT NULL" +
+              " AND invitationstatus_p = 2) OR " +
+              "(invitationtype = 2" +
+              " AND invitationstatus IS NOT NULL" +
+              " AND invitationstatus = 2) OR " +
+              "(invitationtype = 3" +
+              " AND invitationstatus_p IS NOT NULL" +
+              " AND invitationstatus_p = 2)))"));
 
             List order = new ArrayList();
             order.add("tcategorie.rank");

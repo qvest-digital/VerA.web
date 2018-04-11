@@ -142,8 +142,8 @@ public class Join extends SetDbContextImpl {
         }
         StringBuffer buffer = new StringBuffer(joinHead);
         buffer.append("ON (")
-                .append(clause.clauseToString(getDBContext()))
-                .append(") ");
+          .append(clause.clauseToString(getDBContext()))
+          .append(") ");
         return buffer.toString();
     }
 

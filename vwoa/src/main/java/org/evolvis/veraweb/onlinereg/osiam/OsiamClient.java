@@ -95,10 +95,10 @@ public class OsiamClient {
      */
     public OsiamClient(OsiamConfig config, Client client) {
         this.connector = new OsiamConnector.Builder()
-                .setEndpoint(config.getEndpoint())
-                .setClientId(config.getClientId())
-                .setClientSecret(config.getClientSecret())
-                .build();
+          .setEndpoint(config.getEndpoint())
+          .setClientId(config.getClientId())
+          .setClientSecret(config.getClientSecret())
+          .build();
     }
 
     /**

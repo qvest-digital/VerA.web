@@ -72,5 +72,4 @@ public class FirmaEntityFactory extends DefaultEntityFactory {
         }
         return null;
     }
-
 }

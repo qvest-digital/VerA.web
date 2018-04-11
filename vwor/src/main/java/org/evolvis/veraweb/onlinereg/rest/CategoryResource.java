@@ -138,7 +138,7 @@ public class CategoryResource extends AbstractResource {
     @GET
     @Path("/catname/{uuid}/{personId}")
     public String getCatnameByPersonIdAndDelegationUUID(@PathParam("uuid") String uuid,
-            @PathParam(PERSON_ID) String personId) {
+      @PathParam(PERSON_ID) String personId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Category.findCatnameByUserAndDelegation");
@@ -153,7 +153,7 @@ public class CategoryResource extends AbstractResource {
     @GET
     @Path("person/data")
     public Integer getCategoryByCatnameAndOrgunit(@QueryParam(CATEGORY_NAME) String categoryName,
-            @QueryParam(PERSON_ID) String personId) {
+      @QueryParam(PERSON_ID) String personId) {
         final Session session = openSession();
         try {
             final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");

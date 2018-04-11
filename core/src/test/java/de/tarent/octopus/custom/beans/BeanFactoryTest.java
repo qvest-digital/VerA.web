@@ -100,16 +100,16 @@ public class BeanFactoryTest extends TestCase {
     public void testGetDateTwoDigitsGerman() throws Exception {
         for (int i = 0; i <= 99; i++) {
             assertDate(
-                    "01.01." + (i < 10 ? "0" + i : "" + i),
-                    "01.01." + (i < 10 ? "0" + i : "" + i));
+              "01.01." + (i < 10 ? "0" + i : "" + i),
+              "01.01." + (i < 10 ? "0" + i : "" + i));
         }
     }
 
     public void testGetDateTwoDigitsEnglish() throws Exception {
         for (int i = 0; i <= 99; i++) {
             assertDate(
-                    "01.01." + (i < 10 ? "0" + i : "" + i),
-                    "01-01-" + (i < 10 ? "0" + i : "" + i));
+              "01.01." + (i < 10 ? "0" + i : "" + i),
+              "01-01-" + (i < 10 ? "0" + i : "" + i));
         }
     }
 

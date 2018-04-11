@@ -129,5 +129,4 @@ class MainExtra1 extends AbstractMember {
     public String getCompany() {
         return person.company_a_e2;
     }
-
 }

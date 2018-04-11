@@ -69,13 +69,13 @@ public class ConnectionProxyInvocationHandler implements InvocationHandler {
         String methodName = method.getName();
         if ("createStatement".equals(methodName)) {
             return Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { Statement.class },
-                    new StatementProxyInvocationHandler((Statement) result));
+              new StatementProxyInvocationHandler((Statement) result));
         } else if ("prepareStatement".equals(methodName)) {
             return Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { PreparedStatement.class },
-                    new PreparedStatementProxyInvocationHandler((PreparedStatement) result));
+              new PreparedStatementProxyInvocationHandler((PreparedStatement) result));
         } else if ("prepareCall".equals(methodName)) {
             return Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { CallableStatement.class },
-                    new CallableStatementProxyInvocationHandler((CallableStatement) result));
+              new CallableStatementProxyInvocationHandler((CallableStatement) result));
         }
 
         return result;

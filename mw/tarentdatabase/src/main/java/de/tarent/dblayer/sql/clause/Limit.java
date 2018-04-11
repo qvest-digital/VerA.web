@@ -177,5 +177,4 @@ public class Limit extends SetDbContextImpl implements Clause {
             throw new InternalError();
         }
     }
-
 }

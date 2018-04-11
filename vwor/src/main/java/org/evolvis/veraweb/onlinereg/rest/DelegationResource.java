@@ -167,7 +167,7 @@ public class DelegationResource extends AbstractResource {
     @POST
     @Path("/field/save")
     public Delegation saveOptionalField(@FormParam("guestId") Integer guestId, @FormParam("fieldId") Integer fieldId,
-            @FormParam("fieldContent") String fieldContent) {
+      @FormParam("fieldContent") String fieldContent) {
         final Session session = openSession();
         session.beginTransaction();
         try {
@@ -181,7 +181,6 @@ public class DelegationResource extends AbstractResource {
             session.getTransaction().commit();
 
             return delegation;
-
         } finally {
             session.close();
         }
@@ -192,7 +191,7 @@ public class DelegationResource extends AbstractResource {
     }
 
     private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(final Integer guestId, final List<OptionalField> fields,
-            final Session session) {
+      final Session session) {
 
         final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
         for (OptionalField field : fields) {
@@ -223,7 +222,7 @@ public class DelegationResource extends AbstractResource {
     }
 
     private OptionalFieldValue initDropdown(OptionalField field, List<Delegation> delegationContents,
-            List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+      List<OptionalFieldTypeContentFacade> typeContentsFacade) {
         OptionalFieldValue newOptionalFieldValue = new OptionalFieldValue(field, null);
         markOptionsAsSelected(delegationContents, typeContentsFacade);
         newOptionalFieldValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);
@@ -238,7 +237,7 @@ public class DelegationResource extends AbstractResource {
     }
 
     private void markOptionsAsSelected(final List<Delegation> delegationContents,
-            final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+      final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
         for (Delegation delegationContent : delegationContents) {
             for (int i = 0; i < typeContentsFacade.size(); i++) {
                 if (delegationContent.getValue().equals(typeContentsFacade.get(i).getContent())) {

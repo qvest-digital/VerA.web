@@ -98,7 +98,7 @@ public class OctopusModuleManagement implements DynamicMBean {
     private static Logger logger = Logger.getLogger(OctopusModuleManagement.class.getName());
 
     public OctopusModuleManagement(Octopus octopus, TcCommonConfig commonconfig, String module)
-            throws MalformedObjectNameException, NullPointerException {
+      throws MalformedObjectNameException, NullPointerException {
         octopusOperationMap = new HashMap();
 
         this.octopusConfig = commonconfig;
@@ -137,8 +137,8 @@ public class OctopusModuleManagement implements DynamicMBean {
         // Check whether used attribute name is null
         if (attribute == null) {
             throw new RuntimeOperationsException(
-                    new IllegalArgumentException("Attribute name cannot be null"),
-                    "Cannot invoke a getter with null attribute name");
+              new IllegalArgumentException("Attribute name cannot be null"),
+              "Cannot invoke a getter with null attribute name");
         }
 
         if (octopusAttributeAvailable(attribute)) {
@@ -151,12 +151,12 @@ public class OctopusModuleManagement implements DynamicMBean {
     }
 
     public void setAttribute(Attribute attribute)
-            throws AttributeNotFoundException, InvalidAttributeValueException, MBeanException, ReflectionException {
+      throws AttributeNotFoundException, InvalidAttributeValueException, MBeanException, ReflectionException {
         // Check whether used attribute name is null
         if (attribute == null) {
             throw new RuntimeOperationsException(
-                    new IllegalArgumentException("Attribute name cannot be null"),
-                    "Cannot invoke a setter with null attribute name");
+              new IllegalArgumentException("Attribute name cannot be null"),
+              "Cannot invoke a setter with null attribute name");
         }
 
         if (octopusAttributeAvailable(attribute.getName())) {
@@ -172,8 +172,8 @@ public class OctopusModuleManagement implements DynamicMBean {
         // Check whether used attribute name is null
         if (attributeNames == null) {
             throw new RuntimeOperationsException(
-                    new IllegalArgumentException("Attribute name cannot be null"),
-                    "Cannot invoke a setter with null attribute name");
+              new IllegalArgumentException("Attribute name cannot be null"),
+              "Cannot invoke a setter with null attribute name");
         }
 
         AttributeList resultList = new AttributeList();
@@ -190,7 +190,7 @@ public class OctopusModuleManagement implements DynamicMBean {
                 resultList.add(new Attribute(attributeNames[i], value));
             } catch (Exception e) {
                 throw new RuntimeOperationsException(
-                        new IllegalArgumentException("Error getting value for " + attributeNames[i] + " attribute."));
+                  new IllegalArgumentException("Error getting value for " + attributeNames[i] + " attribute."));
             }
         }
 
@@ -201,8 +201,8 @@ public class OctopusModuleManagement implements DynamicMBean {
         // Check whether used attribute name is null
         if (attributeNames == null) {
             throw new RuntimeOperationsException(
-                    new IllegalArgumentException("Attribute name cannot be null"),
-                    "Cannot invoke a setter with null attribute name");
+              new IllegalArgumentException("Attribute name cannot be null"),
+              "Cannot invoke a setter with null attribute name");
         }
 
         AttributeList resultList = new AttributeList();
@@ -233,8 +233,8 @@ public class OctopusModuleManagement implements DynamicMBean {
         // check whether the operation name is null
         if (actionName == null) {
             throw new RuntimeOperationsException(
-                    new IllegalArgumentException("Operation name cannot be null"),
-                    "Cannot invoke a null operation.");
+              new IllegalArgumentException("Operation name cannot be null"),
+              "Cannot invoke a null operation.");
         }
 
         if (octopusTaskAvailable(actionName)) {
@@ -243,8 +243,8 @@ public class OctopusModuleManagement implements DynamicMBean {
         // Unknown operation
         {
             throw new ReflectionException(
-                    new NoSuchMethodException(actionName),
-                    "Cannot find the operation " + actionName);
+              new NoSuchMethodException(actionName),
+              "Cannot find the operation " + actionName);
         }
     }
 
@@ -330,8 +330,8 @@ public class OctopusModuleManagement implements DynamicMBean {
         // allow only available tasks
         if (!octopusTaskAvailable(task)) {
             throw new ReflectionException(
-                    new NoSuchMethodException(task),
-                    "Cannot find the operation " + task);
+              new NoSuchMethodException(task),
+              "Cannot find the operation " + task);
         }
 
         // retrieve parameter names and other info
@@ -386,11 +386,11 @@ public class OctopusModuleManagement implements DynamicMBean {
             iter = octopusConfig.getConfigKeys();
             while (iter.hasNext()) {
                 temp.add(new MBeanAttributeInfo((String) iter.next(),
-                        "java.lang.String",
-                        "Generic Octopus configuration parameter.",
-                        true,
-                        false,
-                        false));
+                  "java.lang.String",
+                  "Generic Octopus configuration parameter.",
+                  true,
+                  false,
+                  false));
             }
 
             tempA = temp.toArray();
@@ -413,11 +413,11 @@ public class OctopusModuleManagement implements DynamicMBean {
                 MBeanParameterInfo[] thisParameters = parseParameters(thisTask.getInputMessage());
 
                 MBeanOperationInfo thisOperation = new MBeanOperationInfo(
-                        thisTaskName,
-                        thisTask.getDescription(),
-                        thisParameters,
-                        "java.util.Map",
-                        MBeanOperationInfo.ACTION);
+                  thisTaskName,
+                  thisTask.getDescription(),
+                  thisParameters,
+                  "java.util.Map",
+                  MBeanOperationInfo.ACTION);
                 temp.add(thisOperation);
                 octopusOperationMap.put(thisTaskName, thisParameters);
             }
@@ -438,11 +438,11 @@ public class OctopusModuleManagement implements DynamicMBean {
         */
 
         octopusMBeanInfo = new MBeanInfo(module + "OctopusModuleManagement",
-                "tarent Octopus JMX MBean for module " + module,
-                octopusAttributes,
-                new MBeanConstructorInfo[] {},
-                octopusOperations,
-                octopusNotifications);
+          "tarent Octopus JMX MBean for module " + module,
+          octopusAttributes,
+          new MBeanConstructorInfo[] {},
+          octopusOperations,
+          octopusNotifications);
     }
 
     private MBeanParameterInfo[] parseParameters(TcMessageDefinition inputMessage) {

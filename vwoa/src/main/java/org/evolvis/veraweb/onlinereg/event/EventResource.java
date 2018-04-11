@@ -231,8 +231,8 @@ public class EventResource {
     @GET
     @Path("/{eventId}/register/{userId}")
     public Guest getRegistration(
-            @PathParam("eventId") int eventId,
-            @PathParam("userId") int userId) throws IOException {
+      @PathParam("eventId") int eventId,
+      @PathParam("userId") int userId) throws IOException {
         return readResource(path("guest", eventId, userId), GUEST);
     }
 
@@ -248,9 +248,9 @@ public class EventResource {
     @POST
     @Path("/{eventId}/register")
     public String register(
-            @PathParam("eventId") String eventId,
-            @FormParam("notehost") String notehost,
-            @FormParam("guestStatus") String guestStatus) throws IOException {
+      @PathParam("eventId") String eventId,
+      @FormParam("notehost") String notehost,
+      @FormParam("guestStatus") String guestStatus) throws IOException {
         final String username = (String) request.getAttribute(USERNAME);
 
         // checking if the user is registered on the event
@@ -274,9 +274,9 @@ public class EventResource {
     @POST
     @Path("/{eventId}/register/nologin")
     public String registerGuestWithoutLogin(
-            @PathParam("eventId") String eventId,
-            @FormParam("notehost") String notehost,
-            @FormParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
+      @PathParam("eventId") String eventId,
+      @FormParam("notehost") String notehost,
+      @FormParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
 
         // checking if the user is registered on the event
         if (!isUserWithoutLoginRegistered(noLoginRequiredUUID, eventId)) {
@@ -334,7 +334,7 @@ public class EventResource {
     @GET
     @Path("/registered/{eventId}")
     public Boolean isUserRegisteredIntoEvent(
-            @PathParam("eventId") final Integer eventId) throws IOException {
+      @PathParam("eventId") final Integer eventId) throws IOException {
         final String username = (String) request.getAttribute(LoginResource.USERNAME);
         return readResource(path("guest", "registered", username, eventId), BOOLEAN);
     }
@@ -358,14 +358,14 @@ public class EventResource {
     }
 
     private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID,
-            final Integer invitationstatus,
-            final String notehost) {
+      final Integer invitationstatus,
+      final String notehost) {
         final Form postBodyForUpdate = new Form();
         postBodyForUpdate.add("invitationstatus", invitationstatus);
         postBodyForUpdate.add("notehost", notehost);
 
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/nologin/" +
-                noLoginRequiredUUID);
+          noLoginRequiredUUID);
         resource.post(postBodyForUpdate);
     }
 
@@ -389,13 +389,13 @@ public class EventResource {
      * @throws IOException IOException
      */
     private Guest addGuestToEvent(String eventId,
-            String userId,
-            String gender,
-            String lastName,
-            String firstName,
-            String username,
-            String nodeHost,
-            Integer reserve) throws IOException {
+      String userId,
+      String gender,
+      String lastName,
+      String firstName,
+      String username,
+      String nodeHost,
+      Integer reserve) throws IOException {
         final WebResource resource = client.resource(path("guest", "register"));
         final Form postBody = new Form();
 
@@ -426,12 +426,12 @@ public class EventResource {
         final Event event = (Event) iterator.next();
         final String eventId = String.valueOf(event.getPk());
         return new EventTransporter(
-                event.getPk(),
-                event.getShortname(),
-                event.getDatebegin(),
-                event.getDateend(),
-                isUserRegistered(username, eventId),
-                event.getHash()
+          event.getPk(),
+          event.getShortname(),
+          event.getDatebegin(),
+          event.getDateend(),
+          isUserRegistered(username, eventId),
+          event.getHash()
         );
     }
 
@@ -469,19 +469,19 @@ public class EventResource {
     }
 
     private void registerUserAsGuestForEvent(String eventId, String notehost, String guestStatus, String username)
-            throws IOException {
+      throws IOException {
         final Person person = getUserData(username);
         final Integer userId = person.getPk();
 
         if (person != null && userId != null) {
             addGuestToEvent(eventId,
-                    userId.toString(),
-                    person.getSex_a_e1(),
-                    person.getFirstname_a_e1(),
-                    person.getLastname_a_e1(),
-                    username,
-                    notehost,
-                    getGuestReservationStatus(guestStatus)
+              userId.toString(),
+              person.getSex_a_e1(),
+              person.getFirstname_a_e1(),
+              person.getLastname_a_e1(),
+              username,
+              notehost,
+              getGuestReservationStatus(guestStatus)
             );
 
             updatePersonOrgunit(eventId, userId);

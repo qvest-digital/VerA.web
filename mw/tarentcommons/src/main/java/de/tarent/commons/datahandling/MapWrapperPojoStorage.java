@@ -55,7 +55,7 @@ import java.util.Map;
  * With this class it is possible to use an existing Map as a storage without copying it to a new data structure.
  */
 public class MapWrapperPojoStorage
-        implements GenericPojoStorage {
+  implements GenericPojoStorage {
 
     Map dataContainer;
 

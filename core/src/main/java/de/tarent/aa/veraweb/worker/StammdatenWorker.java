@@ -138,7 +138,7 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 
     @Override
     protected int insertBean(OctopusContext octopusContext, List errors, Bean bean, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
             if (bean instanceof WorkArea) {
@@ -150,23 +150,23 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 
                 String orgunit = database.getProperty(bean, "orgunit");
                 Clause clause = Expr.equal(
-                        database.getProperty(bean, "name"),
-                        bean.getField("name"));
+                  database.getProperty(bean, "name"),
+                  bean.getField("name"));
                 if (orgunit != null) {
                     clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()),
-                            clause);
+                      clause);
                 }
 
                 Integer exist =
-                        database.getCount(
-                                database.getCount(bean).
-                                        where(clause), context);
+                  database.getCount(
+                    database.getCount(bean).
+                      where(clause), context);
                 if (exist.intValue() != 0) {
                     LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
                     LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
                     errors.add(languageProvider.getProperty("MAIN_DATA_WARN_ALREADY_EXISTS") +
-                            " '" + bean.getField("name") + "'.");
+                      " '" + bean.getField("name") + "'.");
                 } else {
                     count += super.insertBean(octopusContext, errors, bean, context);
                 }
@@ -179,7 +179,7 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
     }
 
     protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             Bean bean = (Bean) it.next();

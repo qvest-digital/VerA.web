@@ -411,7 +411,7 @@ public class GuestResourceSessionsTest {
 
         // WHEN
         Boolean isUserRegisteredintoEventByDelegation = guestResource.isUserRegisteredintoEventByDelegation(username,
-                delegation);
+          delegation);
 
         // THEN
         assertTrue(isUserRegisteredintoEventByDelegation);
@@ -431,7 +431,7 @@ public class GuestResourceSessionsTest {
 
         // WHEN
         Boolean isUserRegisteredintoEventByDelegation = guestResource.isUserRegisteredintoEventByDelegation(username,
-                delegation);
+          delegation);
 
         // THEN
         assertFalse(isUserRegisteredintoEventByDelegation);

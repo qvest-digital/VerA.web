@@ -77,5 +77,4 @@ public class ListFilterPropertyName {
     public String toString() {
         return propertyName;
     }
-
 }

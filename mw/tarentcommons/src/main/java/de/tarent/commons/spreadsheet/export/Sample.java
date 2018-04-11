@@ -134,8 +134,8 @@ public class Sample {
     protected static File getFilename(String extension) {
         // Sollte unter Windows + KDE + Gnome funktionieren.
         return new File(
-                System.getProperty("user.home") + "/Desktop/" +
-                        new SimpleDateFormat("MM-dd_HH-mm").format(new Date()) +
-                        '.' + extension);
+          System.getProperty("user.home") + "/Desktop/" +
+            new SimpleDateFormat("MM-dd_HH-mm").format(new Date()) +
+            '.' + extension);
     }
 }

@@ -83,13 +83,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "toptional_fields_delegation_content")
 @NamedQueries({
-        @NamedQuery(name = Delegation.QUERY_FIND_BY_GUEST,
-                query = "select d from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" +
-                        Delegation.PARAM_FIELD_ID),
-        @NamedQuery(name = Delegation.DELETE_OPTIONAL_FIELDS,
-                query = "delete from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" +
-                        Delegation.PARAM_FIELD_ID)
-
+  @NamedQuery(name = Delegation.QUERY_FIND_BY_GUEST,
+    query = "select d from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" +
+      Delegation.PARAM_FIELD_ID),
+  @NamedQuery(name = Delegation.DELETE_OPTIONAL_FIELDS,
+    query = "delete from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" +
+      Delegation.PARAM_FIELD_ID)
 })
 public class Delegation {
 

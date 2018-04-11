@@ -92,6 +92,5 @@ public class HealthResource extends AbstractResource {
         } finally {
             session.close();
         }
-
     }
 }

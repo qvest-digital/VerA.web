@@ -134,7 +134,7 @@ public class Parameters extends LinkedHashMap {
                 }
 
                 urlBuffer.append(encodeName(key) + "="
-                        + encodeValue(this.get(key)));
+                  + encodeValue(this.get(key)));
             }
 
             return urlBuffer.toString();
@@ -153,7 +153,7 @@ public class Parameters extends LinkedHashMap {
         while (keysIterator.hasNext()) {
             String key = (String) keysIterator.next();
             fields.append("<input type=\"hidden\" name=\"" + encodeName(key)
-                    + "\" value=\"" + encodeValue(this.get(key)) + "\">" + StringTools.LINE_SEPARATOR);
+              + "\" value=\"" + encodeValue(this.get(key)) + "\">" + StringTools.LINE_SEPARATOR);
         }
 
         return fields.toString();
@@ -213,5 +213,4 @@ public class Parameters extends LinkedHashMap {
     public void setDefaultEncoding(String defaultEncoding) {
         this.defaultEncoding = defaultEncoding;
     }
-
 }

@@ -107,9 +107,9 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
      * ExpiringMap für Login Versuch beschränkung
      */
     private final static Map<UUID, String> LOGIN_ATTEMPT_HISTORY = ExpiringMap.builder()
-            .expiration(1, TimeUnit.MINUTES)
-            .expirationPolicy(ExpirationPolicy.CREATED)
-            .build();
+      .expiration(1, TimeUnit.MINUTES)
+      .expirationPolicy(ExpirationPolicy.CREATED)
+      .build();
 
     /**
      * LDAP-Konnektor
@@ -149,9 +149,9 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
         params.put(LDAPManager.KEY_USER_OBJECT_CLASS, getConfigurationString(LoginManagerLDAPGeneric.KEY_USER_OBJECT_CLASS));
         params.put(LDAPManager.KEY_RECURSIVE_LOOKUPS, getConfigurationString(LoginManagerLDAPGeneric.KEY_RECURSIVE_LOOKUPS));
         ldapManager = LDAPManager.login(
-                LDAPManager.class,
-                getConfigurationString(TcEnv.KEY_LDAP_URL),
-                params
+          LDAPManager.class,
+          getConfigurationString(TcEnv.KEY_LDAP_URL),
+          params
         );
     }
 
@@ -170,7 +170,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
      */
     @Override
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-            throws TcSecurityException {
+      throws TcSecurityException {
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
         if (pwdAuth == null) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
@@ -228,9 +228,9 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
     }
 
     private void handleLoginErrors(PasswordAuthentication pwdAuth,
-            PersonalConfig pConfig,
-            boolean repeat,
-            LDAPException e) throws TcSecurityException {
+      PersonalConfig pConfig,
+      boolean repeat,
+      LDAPException e) throws TcSecurityException {
         LOGGER.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
         if (e.getCause() instanceof AuthenticationException) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR, e);

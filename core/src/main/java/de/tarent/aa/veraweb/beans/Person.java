@@ -571,9 +571,9 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
                 addError(messages.getMessagePersonNoCompanyName());
             }
         } else if (
-                (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
-                        (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)
-                ) {
+          (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
+            (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)
+          ) {
             addError(messages.getMessageBothNameFieldsAreEmpty());
         } else if (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) {
             addError(messages.getMessageNameFieldEmpty());
@@ -662,16 +662,16 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         PartnerExtra2 p2 = (PartnerExtra2) this.getMemberFacade(LOCALE_EXTRA2);
         // partner is always expected to have a lastname or a firstname
         return
-                (
-                        ((p.getLastname() != null || !p.getLastname().equals("")) && (p.getLastname().length() > 0))
-                                || ((p.getFirstname() != null || !p.getFirstname().equals("")) && (p.getFirstname().length() > 0))
-                                || ((p1.getLastname() != null || !p1.getLastname().equals("")) && (p1.getLastname().length() > 0))
-                                ||
-                                ((p1.getFirstname() != null || !p1.getFirstname().equals("")) && (p1.getFirstname().length() > 0))
-                                || ((p2.getLastname() != null || !p2.getLastname().equals("")) && (p2.getLastname().length() > 0))
-                                ||
-                                ((p2.getFirstname() != null || !p2.getFirstname().equals("")) && (p2.getFirstname().length() > 0))
-                );
+          (
+            ((p.getLastname() != null || !p.getLastname().equals("")) && (p.getLastname().length() > 0))
+              || ((p.getFirstname() != null || !p.getFirstname().equals("")) && (p.getFirstname().length() > 0))
+              || ((p1.getLastname() != null || !p1.getLastname().equals("")) && (p1.getLastname().length() > 0))
+              ||
+              ((p1.getFirstname() != null || !p1.getFirstname().equals("")) && (p1.getFirstname().length() > 0))
+              || ((p2.getLastname() != null || !p2.getLastname().equals("")) && (p2.getLastname().length() > 0))
+              ||
+              ((p2.getFirstname() != null || !p2.getFirstname().equals("")) && (p2.getFirstname().length() > 0))
+          );
     }
 
     private PersonMemberFacade getMemberFacade(Integer locale) {

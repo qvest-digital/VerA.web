@@ -97,11 +97,9 @@ public class EventResource extends AbstractResource {
         try {
             final Query query = session.getNamedQuery("Event.list");
             return (List<Event>) query.list();
-
         } finally {
             session.close();
         }
-
     }
 
     /**
@@ -172,7 +170,6 @@ public class EventResource extends AbstractResource {
         } finally {
             session.close();
         }
-
     }
 
     /**
@@ -192,7 +189,6 @@ public class EventResource extends AbstractResource {
         } finally {
             session.close();
         }
-
     }
 
     /**
@@ -233,7 +229,6 @@ public class EventResource extends AbstractResource {
             query.setString(PARAM_UUID, uuid);
 
             return (Integer) query.uniqueResult();
-
         } finally {
             session.close();
         }
@@ -256,7 +251,6 @@ public class EventResource extends AbstractResource {
             final BigInteger counter = (BigInteger) query.uniqueResult();
 
             return counter.longValue() > 0;
-
         } finally {
             session.close();
         }
@@ -312,7 +306,6 @@ public class EventResource extends AbstractResource {
                 return true;
             }
             return false;
-
         } finally {
             session.close();
         }

@@ -89,7 +89,7 @@ public class CallableStatementProxyInvocationHandler extends PreparedStatementPr
     private void fetchResultSet() throws Throwable {
         if (this.resultSet == null) {
             this.resultSet = (ResultSet) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { ResultSet.class },
-                    new ResultSetProxyInvocationHandler(this.statement.getResultSet()));
+              new ResultSetProxyInvocationHandler(this.statement.getResultSet()));
         }
     }
 }

@@ -281,7 +281,7 @@ public class TcPersonalConfig implements PersonalConfig {
      * Wenn kein Zugriff gewäht wird muss eine TcSecurityException geworfen werden.
      */
     public void testTaskAccess(TcCommonConfig config, TcRequest tcRequest)
-            throws TcSecurityException {
+      throws TcSecurityException {
         TcTaskList taskList = config.getTaskList(tcRequest.getModule());
         TcTask task = taskList.getTask(tcRequest.getTask());
         String[] taskGroups = task.getGroups();

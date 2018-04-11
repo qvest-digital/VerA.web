@@ -64,5 +64,4 @@ public interface ResultProcessor {
      * @param rs     the result set to process, positioned at a new row.
      */
     public void process(ResultSet rs) throws SQLException;
-
 }

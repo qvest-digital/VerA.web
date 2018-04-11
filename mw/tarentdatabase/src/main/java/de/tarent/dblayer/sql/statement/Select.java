@@ -228,10 +228,10 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      */
     public Select add(String column, Class type) {
         _listColumns.add(
-                new Object[] {
-                        column,
-                        column + " AS \"" + column + "\"",
-                        type }
+          new Object[] {
+            column,
+            column + " AS \"" + column + "\"",
+            type }
         );
         _columnAliasList.add(column);
         return this;
@@ -825,7 +825,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * to the given {@link StringBuffer}.
      */
     protected void appendColumnList(StringBuffer sb)
-            throws SyntaxErrorException {
+      throws SyntaxErrorException {
 
         if (_selectColumns.isEmpty() && _listColumns.isEmpty()) {
             throw new SyntaxErrorException("Es muss mindestens eine Spalte selektiert werden.");
@@ -898,9 +898,9 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     public String clauseToString(DBContext dbContext) {
         setDBContext(dbContext);
         return new StringBuffer()
-                .append("(")
-                .append(toString())
-                .append(")").toString();
+          .append("(")
+          .append(toString())
+          .append(")").toString();
     }
 
     /**

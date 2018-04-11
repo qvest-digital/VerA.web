@@ -196,8 +196,8 @@ public class DefaultEntityFactory implements EntityFactory {
                 }
                 if (ef == null) {
                     throw new RuntimeException(
-                            "No factory configured for property '" + propertyName + "' (in factory " + getClass().getName() +
-                                    ").");
+                      "No factory configured for property '" + propertyName + "' (in factory " + getClass().getName() +
+                        ").");
                 }
                 PrefixedAttributeSource pas = new PrefixedAttributeSource(propertyName + PROPERTY_SEPARATOR, as);
                 if (!pas.hasNotNullFields()) {
@@ -240,19 +240,19 @@ public class DefaultEntityFactory implements EntityFactory {
                     // TODO: speed up with caching of the method lookup
                     try {
                         Method addMethod = instantiationClass.getMethod("add" + StringTools.capitalizeFirstLetter(propertyName),
-                                new Class[] { referredEntity.getClass() });
+                          new Class[] { referredEntity.getClass() });
                         // TODO: all assignable datatypes should be accepted and not just the one specified by referredEntity
                         // .getClass()
                         if (logger.isTraceEnabled()) {
                             logger.trace(
-                                    "add value to entity property list '" + propertyName + "' value: '" + referredEntity + "'");
+                              "add value to entity property list '" + propertyName + "' value: '" + referredEntity + "'");
                         }
 
                         Pojo.set(entity, addMethod, referredEntity);
                     } catch (NoSuchMethodException nsme) {
                         throw new RuntimeException(
-                                "No suitable set or add method in class " + instantiationClass + " for property '" +
-                                        propertyName + "' with argument type " + referredEntity.getClass() + " found.");
+                          "No suitable set or add method in class " + instantiationClass + " for property '" +
+                            propertyName + "' with argument type " + referredEntity.getClass() + " found.");
                     }
                 }
 
@@ -304,8 +304,8 @@ public class DefaultEntityFactory implements EntityFactory {
                     target.setAttribute(attributeName, null);
                     if (logger.isDebugEnabled()) {
                         logger.debug(
-                                "No instance for property " + propertyName + " found in entity " + entity.getClass().getName() +
-                                        ".");
+                          "No instance for property " + propertyName + " found in entity " + entity.getClass().getName() +
+                            ".");
                     }
                 }
             } else {

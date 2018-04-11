@@ -208,8 +208,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
         final String lastname2 = cpr.convertUmlauts((String) tmp2.get("lastname_a_e1"));
 
         return (firstname1.equalsIgnoreCase(firstname2) && lastname1.equals(lastname2))
-                || (firstname1.equalsIgnoreCase(lastname2) && lastname1.equals(firstname2));
-
+          || (firstname1.equalsIgnoreCase(lastname2) && lastname1.equals(firstname2));
     }
 
     @Override
@@ -219,8 +218,8 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
 
         // replicated from PersonListWorker.
         return result.select("firstname_a_e1").select("lastname_a_e1").select("firstname_b_e1").select("lastname_b_e1")
-                .select("function_a_e1")
-                .select("company_a_e1").select("street_a_e1").select("zipcode_a_e1").select("city_a_e1");
+          .select("function_a_e1")
+          .select("company_a_e1").select("street_a_e1").select("zipcode_a_e1").select("city_a_e1");
     }
 
     @Override
@@ -262,9 +261,9 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
         subselect.from("veraweb.TPERSON_NORMALIZED person2");
 
         subselect.whereAnd(getClauseForOrgunit(cntx)).whereAnd(getClausePersonNotDeleted())
-                .whereAnd(getClausePkIsDifferentOrgunitIsSame())
-                .whereAnd(Where.or(getClauseFirstnameAndLastnameEquals(), getClauseFirstAndLastnameSwapped()))
-                .whereAnd(getClauseFirstOrLastnameNotEmpty());
+          .whereAnd(getClausePkIsDifferentOrgunitIsSame())
+          .whereAnd(Where.or(getClauseFirstnameAndLastnameEquals(), getClauseFirstAndLastnameSwapped()))
+          .whereAnd(getClauseFirstOrLastnameNotEmpty());
     }
 
     /**
@@ -300,29 +299,29 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
 
     private Where getClauseForOrgunit(final OctopusContext cntx) {
         return Where.and(Expr.equal("TPERSON_NORMALIZED.fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
-                Expr.equal("TPERSON_NORMALIZED.deleted", PersonConstants.DELETED_FALSE));
+          Expr.equal("TPERSON_NORMALIZED.deleted", PersonConstants.DELETED_FALSE));
     }
 
     private Where getClausePkIsDifferentOrgunitIsSame() {
         return Where.and(new RawClause("TPERSON_NORMALIZED.pk!=person2.pk"),
-                new RawClause("TPERSON_NORMALIZED.fk_orgunit=person2.fk_orgunit"));
+          new RawClause("TPERSON_NORMALIZED.fk_orgunit=person2.fk_orgunit"));
     }
 
     private Where getClauseFirstOrLastnameNotEmpty() {
         return Where.and(new RawClause("TPERSON_NORMALIZED.lastname_a_e1<>''"),
-                new RawClause("TPERSON_NORMALIZED.firstname_a_e1<>''"));
+          new RawClause("TPERSON_NORMALIZED.firstname_a_e1<>''"));
     }
 
     private Where getClauseFirstAndLastnameSwapped() {
         return Where.and( // Reverted names
-                new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.lastname_normalized"), new RawClause(
-                        "veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.firstname_normalized"));
+          new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.lastname_normalized"), new RawClause(
+            "veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.firstname_normalized"));
     }
 
     private Where getClauseFirstnameAndLastnameEquals() {
         return Where
-                .and(new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.firstname_normalized"), new RawClause(
-                        "veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.lastname_normalized"));
+          .and(new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.firstname_normalized"), new RawClause(
+            "veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.lastname_normalized"));
     }
 
     private Where getClausePersonNotDeleted() {

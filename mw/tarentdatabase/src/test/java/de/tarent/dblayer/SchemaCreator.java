@@ -82,7 +82,7 @@ public abstract class SchemaCreator {
      * Returns a default instance
      */
     public static SchemaCreator getInstance()
-            throws SQLException {
+      throws SQLException {
         if (instance == null) {
             openPool();
             DBContext dbc = DB.getDefaultContext(TEST_POOL);
@@ -96,7 +96,7 @@ public abstract class SchemaCreator {
     }
 
     public static void openPool()
-            throws SQLException {
+      throws SQLException {
 
         Properties info = new Properties();
         try {
@@ -150,5 +150,4 @@ public abstract class SchemaCreator {
     protected abstract void createSchema() throws SQLException;
 
     protected abstract void dropSchema() throws SQLException;
-
 }

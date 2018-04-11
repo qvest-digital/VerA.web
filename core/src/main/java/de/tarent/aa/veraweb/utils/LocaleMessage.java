@@ -291,11 +291,11 @@ public class LocaleMessage {
             return null;
         }
         return string
-                .replaceAll("&", "&amp;")
-                .replaceAll("\"", "&quot;")
-                //			.replaceAll("'", "&apos;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;");
+          .replaceAll("&", "&amp;")
+          .replaceAll("\"", "&quot;")
+          //			.replaceAll("'", "&apos;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
     }
 
     /**
@@ -309,11 +309,11 @@ public class LocaleMessage {
             return null;
         }
         return string
-                .replaceAll("&quot;", "\"")
-                //			.replaceAll("&apos;", "'")
-                .replaceAll("&lt;", "<")
-                .replaceAll("&gt;", ">")
-                .replaceAll("&amp;", "&")
-                .replaceAll("<br>", "\n");
+          .replaceAll("&quot;", "\"")
+          //			.replaceAll("&apos;", "'")
+          .replaceAll("&lt;", "<")
+          .replaceAll("&gt;", ">")
+          .replaceAll("&amp;", "&")
+          .replaceAll("<br>", "\n");
     }
 }

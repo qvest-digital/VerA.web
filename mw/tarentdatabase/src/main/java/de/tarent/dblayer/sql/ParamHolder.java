@@ -63,5 +63,4 @@ public interface ParamHolder {
      * @param list A list to take up ParamValue ebjects.
      */
     public void getParams(List list);
-
 }

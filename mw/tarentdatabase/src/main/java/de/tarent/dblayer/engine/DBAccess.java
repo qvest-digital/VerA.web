@@ -130,5 +130,4 @@ public class DBAccess {
     public static AbstractDAO getDAOForBean(Object bean) {
         return DAORegistry.getDAOForBean(bean);
     }
-
 }

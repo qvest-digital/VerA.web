@@ -82,5 +82,4 @@ public class DelegationPasswordGeneratorTest {
         final String password = new DelegationPasswordGenerator().generatePassword(eventName, eventBegin, companyName);
         assertEquals("3. tar1978-01-09", password);
     }
-
 }

@@ -123,5 +123,4 @@ public class PrefixedAttributeSource implements AttributeSource {
     public void setDelegate(AttributeSource newDelegate) {
         this.delegate = newDelegate;
     }
-
 }

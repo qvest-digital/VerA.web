@@ -85,19 +85,19 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "pdftemplate")
 @NamedQueries({
-        @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE,
-                query = "select p from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
-        @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE_LIST_BY_ORGUNIT,
-                query = "select p.pk, p.name from PdfTemplate p where p.fk_orgunit=:" + PdfTemplate.PARAM_PDF_ORGUNIT),
-        @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE,
-                query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + " where p.pk=:" +
-                        PdfTemplate.PARAM_PDF_ID),
-        @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE_CONTENT,
-                query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + ", content=:" +
-                        PdfTemplate.PARAM_PDF_CONTENT +
-                        " where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
-        @NamedQuery(name = PdfTemplate.DELETE_PDF_TEMPLATE,
-                query = "delete from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID)
+  @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE,
+    query = "select p from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
+  @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE_LIST_BY_ORGUNIT,
+    query = "select p.pk, p.name from PdfTemplate p where p.fk_orgunit=:" + PdfTemplate.PARAM_PDF_ORGUNIT),
+  @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE,
+    query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + " where p.pk=:" +
+      PdfTemplate.PARAM_PDF_ID),
+  @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE_CONTENT,
+    query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + ", content=:" +
+      PdfTemplate.PARAM_PDF_CONTENT +
+      " where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
+  @NamedQuery(name = PdfTemplate.DELETE_PDF_TEMPLATE,
+    query = "delete from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID)
 })
 public class PdfTemplate {
 

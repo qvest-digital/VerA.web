@@ -386,7 +386,7 @@ public abstract class BeanListWorker {
      * @see #saveBean(OctopusContext, Bean)
      */
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         if (bean.isModified() && bean.isCorrect()) {
             saveBean(cntx, bean, context);
@@ -413,7 +413,7 @@ public abstract class BeanListWorker {
      * @see #saveBean(OctopusContext, Bean)
      */
     protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             Bean bean = (Bean) it.next();
@@ -444,7 +444,7 @@ public abstract class BeanListWorker {
      * @see #removeBean(OctopusContext, Bean)
      */
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         Bean bean = getRequest(cntx).createBean(BEANNAME);
         for (Iterator it = selection.iterator(); it.hasNext(); ) {
@@ -612,10 +612,10 @@ public abstract class BeanListWorker {
             start = new Integer(0);
         } else {
             pages = (count.intValue() - (count.intValue() % limit.intValue())) / limit.intValue() +
-                    (count.intValue() % limit.intValue() == 0 ? 0 : 1);
+              (count.intValue() % limit.intValue() == 0 ? 0 : 1);
             first = 0;
             last = count.intValue() - (count.intValue() % limit.intValue()) -
-                    (count.intValue() != 0 && count.intValue() % limit.intValue() == 0 ? limit.intValue() : 0);
+              (count.intValue() != 0 && count.intValue() % limit.intValue() == 0 ? limit.intValue() : 0);
             if (start.intValue() > last) {
                 start = new Integer(last);
             }

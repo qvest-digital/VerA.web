@@ -134,7 +134,7 @@ public class LocationDetailWorker {
     public static final boolean MANDATORY_saveDetail[] = { false };
 
     public void saveDetail(final OctopusContext octopusContext, Boolean savelocation)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         if (savelocation == null || !savelocation.booleanValue()) {
             return;
         }
@@ -160,7 +160,7 @@ public class LocationDetailWorker {
 
             if (location.isModified() && location.isCorrect()) {
                 BeanChangeLogger clogger = new BeanChangeLogger(database,
-                        transactionContext);
+                  transactionContext);
                 if (location.getId() == null) {
                     octopusContext.setContent("countInsert", Integer.valueOf(1));
                     database.getNextPk(location, transactionContext);
@@ -190,7 +190,7 @@ public class LocationDetailWorker {
             transactionContext.rollBack();
             // must report error to user
             throw new BeanException(
-                    "Die location details konnten nicht gespeichert werden.", e);
+              "Die location details konnten nicht gespeichert werden.", e);
         }
     }
 }

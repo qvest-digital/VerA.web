@@ -134,13 +134,13 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
             properties.setProperty("file.resource.loader.path", rootPath.getAbsolutePath());
             properties.setProperty("velocimacro.library", commonConfig.getConfigData("velocity.macro.library"));
             properties.setProperty("velocimacro.permissions.allow.inline",
-                    commonConfig.getConfigData("velocity.macro.permissions.allow.inline"));
+              commonConfig.getConfigData("velocity.macro.permissions.allow.inline"));
             properties.setProperty("velocimacro.permissions.allow.inline.to.replace.global",
-                    commonConfig.getConfigData("velocity.macro.permissions.allow.inline.to.replace.global"));
+              commonConfig.getConfigData("velocity.macro.permissions.allow.inline.to.replace.global"));
             properties.setProperty("velocimacro.permissions.allow.inline.local.scope",
-                    commonConfig.getConfigData("velocity.macro.permissions.allow.inline.local.scope"));
+              commonConfig.getConfigData("velocity.macro.permissions.allow.inline.local.scope"));
             properties.setProperty("velocimacro.context.localscope",
-                    commonConfig.getConfigData("velocity.macro.context.localscope"));
+              commonConfig.getConfigData("velocity.macro.context.localscope"));
 
             String loggerClass = commonConfig.getConfigData("velocity.log.system.class");
             if (loggerClass != null && loggerClass.trim().length() > 0) {
@@ -157,13 +157,13 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
      * Return a response.
      */
     public void sendResponse(TcConfig tcConfig, TcResponse tcResponse, TcContent tcContent, TcResponseDescription desc,
-            TcRequest tcRequest)
-            throws ResponseProcessingException {
+      TcRequest tcRequest)
+      throws ResponseProcessingException {
 
         // adding cookies (e.g. set by PersonalConfig)
         Map cookiesSettings = new HashMap(1);
         cookiesSettings.put(CookieMap.CONFIG_MAXAGE,
-                tcConfig.getModuleConfig().getParam(CookieMap.PREFIX_CONFIG_MAP + "." + CookieMap.CONFIG_MAXAGE));
+          tcConfig.getModuleConfig().getParam(CookieMap.PREFIX_CONFIG_MAP + "." + CookieMap.CONFIG_MAXAGE));
         Map cookiesMap = (Map) tcContent.getAsObject(CookieMap.PREFIX_COOKIE_MAP);
         if (cookiesMap != null) {
             Iterator iter = cookiesMap.keySet().iterator();
@@ -195,8 +195,8 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
             logger.debug(Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING", tcRequest.getRequestID(), encoding));
         } catch (UnsupportedEncodingException e) {
             logger.warn(
-                    Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING_UNSUPPORTED", tcRequest.getRequestID(), encoding),
-                    e);
+              Resources.getInstance().get("VELOCITYRESPONSE_LOG_ENCODING_UNSUPPORTED", tcRequest.getRequestID(), encoding),
+              e);
             writer = tcResponse.getWriter();
             doClose = false;
         }
@@ -237,10 +237,10 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
      */
     static public void mergeTemplate(OctopusContext cntx, Reader reader) throws Exception {
         TcVelocityResponseEngine responseEngine =
-                (TcVelocityResponseEngine) cntx.contentAsObject(OCTOPUS_RESPONSEENGINE);
+          (TcVelocityResponseEngine) cntx.contentAsObject(OCTOPUS_RESPONSEENGINE);
         responseEngine.engine.evaluate(
-                (VelocityContext) cntx.contentAsObject(OCTOPUS_RESPONSECONTEXT),
-                (Writer) cntx.contentAsObject(OCTOPUS_RESPONSESTREAM),
-                reader.toString(), reader);
+          (VelocityContext) cntx.contentAsObject(OCTOPUS_RESPONSECONTEXT),
+          (Writer) cntx.contentAsObject(OCTOPUS_RESPONSESTREAM),
+          reader.toString(), reader);
     }
 }

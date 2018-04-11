@@ -128,9 +128,9 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
         params.put(LDAPManagerTarentContact.KEY_GOSASUPPORT, getConfigurationString(LDAPManagerTarentContact.KEY_GOSASUPPORT));
         params.put(LDAPManagerTarentContact.KEY_REALLYDELETE, getConfigurationString(LDAPManagerTarentContact.KEY_REALLYDELETE));
         ldapManager = LDAPManager.login(
-                LDAPManagerTarentContact.class,
-                getConfigurationString(TcEnv.KEY_LDAP_URL),
-                params
+          LDAPManagerTarentContact.class,
+          getConfigurationString(TcEnv.KEY_LDAP_URL),
+          params
         );
     }
 
@@ -152,12 +152,12 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
             params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
             params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
             return (UserManager) LDAPManager.login(
-                    LDAPManagerTarentContact.class,
-                    getConfigurationString(TcEnv.KEY_LDAP_URL),
-                    params,
-                    getConfigurationString(TcEnv.KEY_LDAP_USER),
-                    getConfigurationString(TcEnv.KEY_LDAP_PWD),
-                    getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION)
+              LDAPManagerTarentContact.class,
+              getConfigurationString(TcEnv.KEY_LDAP_URL),
+              params,
+              getConfigurationString(TcEnv.KEY_LDAP_USER),
+              getConfigurationString(TcEnv.KEY_LDAP_PWD),
+              getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION)
             );
         } catch (LDAPException e) {
             LOGGER.warning(e.getLocalizedMessage());

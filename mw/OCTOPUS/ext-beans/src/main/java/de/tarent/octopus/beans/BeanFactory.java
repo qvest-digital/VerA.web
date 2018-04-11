@@ -103,7 +103,7 @@ public abstract class BeanFactory {
             return (Bean) clazz.newInstance();
         } catch (Exception e) {
             throw new BeanException(
-                    MessageFormat.format("Failed to instantiate ''{0}.{1}''.", new Object[] { BEANPACKAGE, beanname }), e);
+              MessageFormat.format("Failed to instantiate ''{0}.{1}''.", new Object[] { BEANPACKAGE, beanname }), e);
         }
     }
 
@@ -350,11 +350,11 @@ public abstract class BeanFactory {
             }
         } catch (Exception e) {
             throw new BeanException(MessageFormat
-                    .format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }), e);
+              .format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }), e);
         }
 
         throw new BeanException(
-                MessageFormat.format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }));
+          MessageFormat.format("''{0}'' is not a valid date, please use the format DD.MM.YYYY.", new Object[] { input }));
     }
 
     /**
@@ -383,8 +383,8 @@ public abstract class BeanFactory {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return (d == calendar.get(Calendar.DAY_OF_MONTH) &&
-                m == calendar.get(Calendar.MONTH) + 1 &&
-                y == calendar.get(Calendar.YEAR));
+          m == calendar.get(Calendar.MONTH) + 1 &&
+          y == calendar.get(Calendar.YEAR));
     }
 
     //

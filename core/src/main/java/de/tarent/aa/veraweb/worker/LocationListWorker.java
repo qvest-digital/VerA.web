@@ -101,16 +101,16 @@ public class LocationListWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void extendWhere(final OctopusContext octopusContext, final Select select)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         select.where(Expr.equal("tlocation.fk_orgunit",
-                ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()));
+          ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()));
     }
 
     @Override
     protected void extendAll(final OctopusContext octopusContext, final Select select)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         select.where(Expr.equal("tlocation.fk_orgunit",
-                ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()));
+          ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()));
     }
 
     protected Integer getAlphaStart(OctopusContext octopusContext, String start) throws BeanException, IOException {
@@ -130,7 +130,7 @@ public class LocationListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
-            TransactionContext transactionContext) throws BeanException, IOException {
+      TransactionContext transactionContext) throws BeanException, IOException {
 
         int count = 0;
         if (selection == null || selection.size() == 0) {
@@ -156,15 +156,15 @@ public class LocationListWorker extends ListWorkerVeraWeb {
 
             if (countReferences != null && countReferences > 0) {
                 errors.add(languageProvider.getProperty("HINT_DELETE_NOT_POSSIBLE_ONE") +
-                        location.name +
-                        languageProvider.getProperty("HINT_DELETE_NOT_POSSIBLE_TWO"));
+                  location.name +
+                  languageProvider.getProperty("HINT_DELETE_NOT_POSSIBLE_TWO"));
             } else if (octopusContext.requestAsBoolean("remove-location" + location.id).booleanValue()) {
                 removeLocations.add(location.id);
             } else {
                 questions.put("remove-location" + location.id,
-                        languageProvider.getProperty("CONFIRMATION_CREATE_LOCATION_ONE") +
-                                location.name +
-                                languageProvider.getProperty("CONFIRMATION_CREATE_LOCATION_TWO"));
+                  languageProvider.getProperty("CONFIRMATION_CREATE_LOCATION_ONE") +
+                    location.name +
+                    languageProvider.getProperty("CONFIRMATION_CREATE_LOCATION_TWO"));
             }
         }
 
@@ -211,7 +211,7 @@ public class LocationListWorker extends ListWorkerVeraWeb {
      * @throws IOException   exception
      */
     protected void insertBean(final OctopusContext octopusContext, final List<String> errors, final Location location,
-            final TransactionContext transactionContext) throws BeanException, IOException {
+      final TransactionContext transactionContext) throws BeanException, IOException {
         if (location.isModified() && location.isCorrect()) {
             Database database = transactionContext.getDatabase();
 
@@ -219,13 +219,13 @@ public class LocationListWorker extends ListWorkerVeraWeb {
             Clause clause = Expr.equal(database.getProperty(location, "name"), location.getField("name"));
             if (orgunit != null) {
                 clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()),
-                        clause);
+                  clause);
             }
 
             Integer exist = database.getCount(database.getCount(location).where(clause), transactionContext);
             if (exist.intValue() != 0) {
                 errors.add("Es existiert bereits ein Veranstaltungsort unter dem Namen '" + location.getField("name")
-                        + "'.");
+                  + "'.");
             } else {
                 transactionContext.getDatabase().saveBean(location, transactionContext, location.isModified());
             }
@@ -259,8 +259,8 @@ public class LocationListWorker extends ListWorkerVeraWeb {
             }
         }
         if (octopusContext.getRequestObject().get("remove") != null
-                && !octopusContext.getRequestObject().get("remove").equals("Ja")
-                && !noneChecked) {
+          && !octopusContext.getRequestObject().get("remove").equals("Ja")
+          && !noneChecked) {
             Boolean noMessage = null;
             octopusContext.setContent("countRemove", noMessage);
         }

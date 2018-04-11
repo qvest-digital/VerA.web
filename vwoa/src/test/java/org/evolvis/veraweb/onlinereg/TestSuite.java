@@ -76,18 +76,17 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        EventResourceTest.class,
-        UserResourceTest.class,
-        HealthTest.class,
-        DelegationResourceTest.class
+  EventResourceTest.class,
+  UserResourceTest.class,
+  HealthTest.class,
+  DelegationResourceTest.class
 })
 public class TestSuite {
 
     @ClassRule
     public static final DropwizardAppRule<Config> DROPWIZARD =
-            new DropwizardAppRule<Config>(Main.class, TestSuite.class.getResource("/test_config.jsn").getPath());
+      new DropwizardAppRule<Config>(Main.class, TestSuite.class.getResource("/test_config.jsn").getPath());
 
     @ClassRule
     public static final WiremockRule WIREMOCK = new WiremockRule();
-
 }

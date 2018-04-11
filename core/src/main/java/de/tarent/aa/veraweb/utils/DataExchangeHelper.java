@@ -117,7 +117,7 @@ public class DataExchangeHelper {
      *                                {@link Importer}-Instanz verhindert haben.
      */
     public static Importer getImporter(OctopusContext octopusContext, String key)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+      throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         ExchangeFormat format = getFormat(octopusContext, key);
         if (format != null) {
             Class importerClass = format.getImporterClass();
@@ -146,7 +146,7 @@ public class DataExchangeHelper {
      *                                {@link Exporter}-Instanz verhindert haben.
      */
     public static Exporter getExporter(OctopusContext octopusContext, String key)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+      throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         ExchangeFormat format = getFormat(octopusContext, key);
         if (format != null) {
             Class exporterClass = format.getExporterClass();

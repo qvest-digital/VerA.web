@@ -160,12 +160,12 @@ public class OptionalFieldsWorker {
     }
 
     private void createOptionalFieldTypeContents(OptionalField optionalField, TransactionContext context)
-            throws SQLException, BeanException {
+      throws SQLException, BeanException {
         final Boolean selectStatement = getStatementCheckOptionalFieldTypeContentExists(optionalField);
 
         if ((optionalField.getFkType() == OptionalFieldTypeFacade.simple_combobox.getValue()
-                || optionalField.getFkType() == OptionalFieldTypeFacade.multiple_combobox.getValue())
-                && !selectStatement) {
+          || optionalField.getFkType() == OptionalFieldTypeFacade.multiple_combobox.getValue())
+          && !selectStatement) {
             initTypeContents(optionalField, context);
         }
     }
@@ -225,7 +225,7 @@ public class OptionalFieldsWorker {
     }
 
     private void deleteOptionalFieldDependencies(TransactionContext context,
-            OptionalField optionalField) throws BeanException, SQLException {
+      OptionalField optionalField) throws BeanException, SQLException {
         final Delete deleteStatement = getDeleteDependenciesStatement(optionalField);
         deleteStatement.executeDelete(context);
         context.commit();
@@ -243,7 +243,7 @@ public class OptionalFieldsWorker {
     }
 
     private void deleteOptionalFieldFromDB(OptionalField optionalField, TransactionContext context)
-            throws SQLException, BeanException {
+      throws SQLException, BeanException {
         final Delete deleteStatement = getDeleteStatement(optionalField);
         deleteStatement.executeDelete(context);
         context.commit();
@@ -350,20 +350,20 @@ public class OptionalFieldsWorker {
     }
 
     public Boolean isFieldRegisterForTheEvent(final Integer eventId, final Integer fieldId)
-            throws IOException, BeanException {
+      throws IOException, BeanException {
         Clause labelNotNullClause = Expr.notEqual("label", "");
 
         Integer counter = this.database.getCount(this.database.getCount("OptionalField").
-                whereAndEq("fk_event", eventId).
-                whereAndEq("pk", fieldId).
-                whereAnd(labelNotNullClause)).intValue();
+          whereAndEq("fk_event", eventId).
+          whereAndEq("pk", fieldId).
+          whereAnd(labelNotNullClause)).intValue();
         return counter > 0;
     }
 
     public List<OptionalField> getTotalEventsFromEvent(final Integer eventId)
-            throws IOException, BeanException, SQLException {
+      throws IOException, BeanException, SQLException {
         Select selectStatement = SQL.Select(database).from("veraweb.toptional_fields").select("*").
-                whereAndEq("fk_event", eventId);
+          whereAndEq("fk_event", eventId);
 
         final ResultSet resultSet = database.result(selectStatement);
 

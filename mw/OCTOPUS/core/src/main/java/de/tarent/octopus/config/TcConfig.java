@@ -79,9 +79,9 @@ public class TcConfig {
      *                          werden.
      */
     public TcConfig(
-            TcCommonConfig commonConfig,
-            PersonalConfig personalConfig,
-            String currentModuleName) {
+      TcCommonConfig commonConfig,
+      PersonalConfig personalConfig,
+      String currentModuleName) {
         this.commonConfig = commonConfig;
         this.personalConfig = personalConfig;
         this.currentModuleName = currentModuleName;

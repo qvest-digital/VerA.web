@@ -164,7 +164,7 @@ public class TcModuleConfig implements Serializable {
         try {
             logger.debug("Exportiere WSDL-Darstellung des Moduls");
             wsdlDefinition = taskList.getPortDefinition().getWsdlDefinition(true,
-                    "http://schema.tarent.de/" + name, name, "http://localhost:8080/octopus");
+              "http://schema.tarent.de/" + name, name, "http://localhost:8080/octopus");
             OutputStream os = new FileOutputStream(new File(realPath, "module.wsdl"));
             WSDLFactory factory;
             factory = WSDLFactory.newInstance();
@@ -177,7 +177,6 @@ public class TcModuleConfig implements Serializable {
         } catch (IOException e) {
             logger.error("IO-Fehler", e);
         }
-
     }
 
     /**
@@ -205,17 +204,17 @@ public class TcModuleConfig implements Serializable {
 
                     if (attributes.getNamedItem("systempath") != null) {
                         File configFileSystem = new File(
-                                attributes.getNamedItem("systempath").getNodeValue(),
-                                path);
+                          attributes.getNamedItem("systempath").getNodeValue(),
+                          path);
                         if (configFileSystem.exists()) {
                             cfgPath = configFileSystem.getAbsolutePath();
                             logger.info("Loading file '" + cfgPath + "'.");
                         } else if (configFile.exists()) {
                             cfgPath = configFile.getAbsolutePath();
                             logger.info("Loading file '" + cfgPath +
-                                    "', no system override exists in '" +
-                                    attributes.getNamedItem("systempath").getNodeValue() +
-                                    "'.");
+                              "', no system override exists in '" +
+                              attributes.getNamedItem("systempath").getNodeValue() +
+                              "'.");
                         }
                     } else if (configFile.exists()) {
                         cfgPath = configFile.getAbsolutePath();
@@ -225,72 +224,70 @@ public class TcModuleConfig implements Serializable {
                     if (cfgPath != null) {
                         try {
                             includeDocument = Xml.getParsedDocument(Resources.getInstance()
-                                    .get("REQUESTPROXY_URL_MODULE_CONFIG", cfgPath));
+                              .get("REQUESTPROXY_URL_MODULE_CONFIG", cfgPath));
                         } catch (Exception e) {
                             logger.error("Error while loading config file '" + cfgPath +
-                                    "'. Parsing aborted.", e);
+                              "'. Parsing aborted.", e);
                         }
                     } else {
                         logger.warn("Config file '" + configFile +
-                                "' not found. Will be ignored.");
+                          "' not found. Will be ignored.");
                     }
                 } else if (attributes.getNamedItem("packagename") != null ||
-                        attributes.getNamedItem("classpath") != null) {
+                  attributes.getNamedItem("classpath") != null) {
                     // classpath
                     String resource;
                     if (attributes.getNamedItem("packagename") != null) {
                         resource = attributes.getNamedItem("packagename").getNodeValue()
-                                .replace('.', '/');
+                          .replace('.', '/');
                         resource += "/config.xml";
                     } else {
                         resource = attributes.getNamedItem("classpath").getNodeValue()
-                                .replace('.', '/');
+                          .replace('.', '/');
                     }
 
                     try {
                         logger.info("Loading file '" + resource + "' from module classpath.");
 
                         InputStream inputStream =
-                                getClassLoader().getResourceAsStream(resource);
+                          getClassLoader().getResourceAsStream(resource);
 
                         if (inputStream != null) {
                             includeDocument = DocumentBuilderFactory.newInstance()
-                                    .newDocumentBuilder().parse(inputStream);
+                              .newDocumentBuilder().parse(inputStream);
                         } else {
                             logger.info("Config file '" + resource +
-                                    "' not found in module classpath. Try octopus classpath.");
+                              "' not found in module classpath. Try octopus classpath.");
 
                             inputStream =
-                                    getClass().getClassLoader().getResourceAsStream(resource);
+                              getClass().getClassLoader().getResourceAsStream(resource);
 
                             if (inputStream != null) {
                                 includeDocument = DocumentBuilderFactory.newInstance()
-                                        .newDocumentBuilder().parse(inputStream);
+                                  .newDocumentBuilder().parse(inputStream);
                             } else {
                                 logger.warn("Config file '" + resource +
-                                        "' not found in module nor octopus classpath.");
+                                  "' not found in module nor octopus classpath.");
                             }
                         }
-
                     } catch (SAXException e) {
                         logger.error("Error while parsing included config file from classpath.",
-                                e);
+                          e);
                     } catch (ParserConfigurationException e) {
                         logger.error("Error while parsing included config file from classpath.",
-                                e);
+                          e);
                     } catch (IOException e) {
                         logger.error("Error while loading included config file from classpath.",
-                                e);
+                          e);
                     }
                 } else {
                     logger.error(
-                            "Illegal include attributes. No 'file', 'packagename' or 'classpath' found.");
+                      "Illegal include attributes. No 'file', 'packagename' or 'classpath' found.");
                 }
 
                 if (includeDocument != null) {
                     collectSectionsFromDocument(includeDocument);
                 }
-
             } else if ("params".equals(currNode.getNodeName())) {
                 try {
                     rawConfigParams.putAll(Xml.getParamMap(currNode));
@@ -348,19 +345,19 @@ public class TcModuleConfig implements Serializable {
                     // TODO: richtig machen.
                     // Joh watt dän?
                     Class javaClass = getClassLoader().loadClass(
-                            "de.tarent.schemas.Groupware_xsd.OptionMapType");
+                      "de.tarent.schemas.Groupware_xsd.OptionMapType");
                     QName qname = new QName("http://schemas.tarent.de/Groupware.xsd",
-                            "OptionMapType");
+                      "OptionMapType");
                     TypeMappingRegistry reg = TcSOAPEngine.engine.getTypeMappingRegistry();
                     reg.getDefaultTypeMapping().register(javaClass, qname,
-                            new org.apache.axis.encoding.ser.BeanSerializerFactory(javaClass, qname),
-                            new org.apache.axis.encoding.ser.BeanDeserializerFactory(javaClass, qname));
+                      new org.apache.axis.encoding.ser.BeanSerializerFactory(javaClass, qname),
+                      new org.apache.axis.encoding.ser.BeanDeserializerFactory(javaClass, qname));
                     javaClass = getClassLoader().loadClass(
-                            "de.tarent.schemas.Groupware_xsd.EntryType");
+                      "de.tarent.schemas.Groupware_xsd.EntryType");
                     qname = new QName("http://schemas.tarent.de/Groupware.xsd", "EntryType");
                     reg.getDefaultTypeMapping().register(javaClass, qname,
-                            new org.apache.axis.encoding.ser.BeanSerializerFactory(javaClass, qname),
-                            new org.apache.axis.encoding.ser.BeanDeserializerFactory(javaClass, qname));
+                      new org.apache.axis.encoding.ser.BeanSerializerFactory(javaClass, qname),
+                      new org.apache.axis.encoding.ser.BeanDeserializerFactory(javaClass, qname));
                 } catch (ClassNotFoundException e1) {
                     logger.error("Typenübergabe", e1);
                 }
@@ -394,7 +391,7 @@ public class TcModuleConfig implements Serializable {
      * Auslesen der Content Worker Deklarationen
      */
     protected Map parseContentWorkerDeklarations(Node context)
-            throws DataFormatException {
+      throws DataFormatException {
         Map declarationMap = new HashMap();
 
         // Es gibt einen Default-Worker,
@@ -420,7 +417,7 @@ public class TcModuleConfig implements Serializable {
                 Attr name = workerElement.getAttributeNode("name");
                 if (name == null) {
                     throw new DataFormatException(
-                            "Eine Worker-Deklaration muss ein name-Attribut haben.");
+                      "Eine Worker-Deklaration muss ein name-Attribut haben.");
                 }
                 workerDek.setWorkerName(name.getValue());
 
@@ -428,7 +425,7 @@ public class TcModuleConfig implements Serializable {
                 Attr implementation = workerElement.getAttributeNode("implementation");
                 if (implementation == null) {
                     throw new DataFormatException(
-                            "Eine Worker-Deklaration muss ein implementation-Attribut haben.");
+                      "Eine Worker-Deklaration muss ein implementation-Attribut haben.");
                 }
                 workerDek.setImplementationSource(implementation.getValue());
 
@@ -436,7 +433,7 @@ public class TcModuleConfig implements Serializable {
                 Attr singleton = workerElement.getAttributeNode("singleton");
                 if (singleton != null) {
                     workerDek.setSingletonInstantiation(
-                            new Boolean(singleton.getValue()).booleanValue());
+                      new Boolean(singleton.getValue()).booleanValue());
                 }
 
                 // factory
@@ -458,7 +455,7 @@ public class TcModuleConfig implements Serializable {
                 Attr name = workerElement.getAttributeNode("name");
                 if (name == null) {
                     throw new DataFormatException(
-                            "Eine param-Element muss ein name-Attribut haben.");
+                      "Eine param-Element muss ein name-Attribut haben.");
                 }
                 workerDek.setWorkerName(name.getValue());
 
@@ -466,7 +463,7 @@ public class TcModuleConfig implements Serializable {
                 Attr value = workerElement.getAttributeNode("value");
                 if (value == null) {
                     throw new DataFormatException(
-                            "Ein param-Element muss ein value-Attribut haben.");
+                      "Ein param-Element muss ein value-Attribut haben.");
                 }
                 workerDek.setImplementationSource(value.getValue());
 
@@ -492,7 +489,7 @@ public class TcModuleConfig implements Serializable {
     protected String getExpandedWorkerFactoryName(String shortname) {
         if (shortname.indexOf(".") < 0) {
             return "de.tarent.octopus.content." + shortname.substring(0, 1).toUpperCase() +
-                    shortname.substring(1).toLowerCase() + "WorkerFactory";
+              shortname.substring(1).toLowerCase() + "WorkerFactory";
         }
         return shortname;
     }
@@ -517,7 +514,7 @@ public class TcModuleConfig implements Serializable {
                 }
                 if (name == null) {
                     throw new DataFormatException(
-                            "Ein dataSource-Element muss ein name-Element haben.");
+                      "Ein dataSource-Element muss ein name-Element haben.");
                 }
 
                 Map currentSource = Xml.getParamMap(currNode);
@@ -720,12 +717,12 @@ public class TcModuleConfig implements Serializable {
                 appendJars(urlSet, new File(getRealPath(), "../OCTOPUS/lib"));
             } else {
                 logger.warn("Modulverzeichnis '" + getRealPath() + "' des Moduls '" + getName() +
-                        "' existiert nicht.");
+                  "' existiert nicht.");
             }
 
             classLoader = new URLClassLoader(
-                    (URL[]) urlSet.toArray(new URL[urlSet.size()]),
-                    getClass().getClassLoader());
+              (URL[]) urlSet.toArray(new URL[urlSet.size()]),
+              getClass().getClassLoader());
         }
 
         return classLoader;
@@ -737,7 +734,7 @@ public class TcModuleConfig implements Serializable {
                 urlSet.add(classesDir.toURI().toURL());
             } catch (MalformedURLException e) {
                 logger.warn("Fehler beim Wandeln des Modul-classes-Pfads '" +
-                        classesDir + "' in eine URL.");
+                  classesDir + "' in eine URL.");
             }
         }
     }
@@ -753,7 +750,7 @@ public class TcModuleConfig implements Serializable {
                         }
                     } catch (MalformedURLException e) {
                         logger.warn("Fehler beim Wandeln des Modul-lib-Pfads '" + libs[i] +
-                                "' in eine URL.");
+                          "' in eine URL.");
                     }
                 }
             }
@@ -832,13 +829,13 @@ public class TcModuleConfig implements Serializable {
                     try {
                         //Eintrag ist angegeben...
                         Class loginManagerClass = getClassLoader().loadClass(
-                                loginManagerClassName);
+                          loginManagerClassName);
                         loginManager = (LoginManager) loginManagerClass.newInstance();
                         loginManager.setConfiguration(loginManagerParams);
                     } catch (Exception e) {
                         logger.error("Fehler beim Laden des LoginManagers.", e);
                         throw new TcSecurityException(
-                                TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
+                          TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
                     }
                 }
             }
@@ -859,10 +856,10 @@ public class TcModuleConfig implements Serializable {
                 try {
                     String className = getParam(CONFIG_PARAM_PERSONAL_CONFIG_CLASS);
                     Class classClass = className != null ? getClassLoader().loadClass(className) :
-                            TcPersonalConfig.class;
+                      TcPersonalConfig.class;
                     if (!PersonalConfig.class.isAssignableFrom(classClass)) {
                         String msg = "Fehler beim Laden des Konstruktors für PersonalConfigs; " +
-                                "angegebene Klasse implementiert nicht PersonalConfig.";
+                          "angegebene Klasse implementiert nicht PersonalConfig.";
                         logger.error(msg);
                         throw new TcConfigException(msg);
                     }

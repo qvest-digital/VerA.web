@@ -100,9 +100,9 @@ public class OneFilePerLogHandler extends Handler {
         char c[] = message.toCharArray();
         for (int i = 0; i < c.length; i++) {
             if ("-_.,".indexOf(c[i]) != -1 ||
-                    (c[i] >= 'a' && c[i] <= 'z') ||
-                    (c[i] >= 'A' && c[i] <= 'Z') ||
-                    (c[i] >= '0' && c[i] <= '9')) {
+              (c[i] >= 'a' && c[i] <= 'z') ||
+              (c[i] >= 'A' && c[i] <= 'Z') ||
+              (c[i] >= '0' && c[i] <= '9')) {
                 buffer.append(c[i]);
             } else if (",;:@$~".indexOf(c[i]) != -1) {
                 buffer.append('.');

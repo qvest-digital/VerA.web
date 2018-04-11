@@ -128,7 +128,6 @@ public class DelegationPasswordExtractorTest {
         Object extractedValue = new DelegationPasswordExtractor(properties, generator).extractValue(rs, 42);
         verify(generator, times(0)).generatePassword(eventName, eventBegin, companyName);
         assertNull(extractedValue);
-
     }
 
     @Test

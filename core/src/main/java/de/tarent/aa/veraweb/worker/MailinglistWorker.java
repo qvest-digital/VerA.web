@@ -157,7 +157,7 @@ public class MailinglistWorker {
     }
 
     private int countSavedAddresses(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype, Integer locale,
-            Integer freitextfeld, List selection) throws BeanException, IOException {
+      Integer freitextfeld, List selection) throws BeanException, IOException {
         if (octopusContext.contentAsObject("search") instanceof PersonSearch) {
             return countSavedAddressesOnPersonSearch(octopusContext, mailinglist, addresstype, locale, selection);
         } else if (octopusContext.contentAsObject("search") instanceof GuestSearch) {
@@ -167,14 +167,14 @@ public class MailinglistWorker {
     }
 
     private int countSavedAddressesOnPersonSearch(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype,
-            Integer locale,
-            List selection) throws BeanException, IOException {
+      Integer locale,
+      List selection) throws BeanException, IOException {
         final Clause clause = Expr.in("tperson.pk", selection);
         return addMailinglistFromPerson(octopusContext, mailinglist, addresstype, locale, clause);
     }
 
     private int countSavedAddressesOnGuestSearch(OctopusContext octopusContext, Mailinglist mailinglist, List selection)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         final GuestSearch search = (GuestSearch) octopusContext.contentAsObject("search");
         final Clause clause = Where.and(Expr.equal("tguest.fk_event", search.event), Expr.in("tguest.pk", selection));
         return addMailinglistFromGuest(octopusContext, mailinglist, clause);
@@ -191,7 +191,7 @@ public class MailinglistWorker {
      */
 
     private int createMailinglistBySelectAllOption(OctopusContext octopusContext, Mailinglist mailinglist)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
 
         if (octopusContext.contentAsObject("search") instanceof GuestSearch) {
             final GuestSearch search = (GuestSearch) octopusContext.contentAsObject("search");
@@ -224,26 +224,26 @@ public class MailinglistWorker {
      * @throws IOException   IOException
      */
     protected int addMailinglistFromPerson(OctopusContext cntx, Mailinglist mailinglist, Integer addresstype, Integer locale,
-            Clause clause)
-            throws BeanException, IOException {
+      Clause clause)
+      throws BeanException, IOException {
         final Database database = new DatabaseVeraWeb(cntx);
         final String personMail = getMailColumn(addresstype, locale);
         final String personFax = getFaxColumn(addresstype, locale);
         final Select select = SQL.Select(database).setDistinct(true).
-                from("veraweb.tperson").
-                selectAs("tperson.pk", "person").
-                selectAs(personMail, "mail2").
-                selectAs(personFax, "fax2").
-                selectAs("tperson.mail_a_e1", "mail3").
-                selectAs("tperson.fax_a_e1", "fax3");
+          from("veraweb.tperson").
+          selectAs("tperson.pk", "person").
+          selectAs(personMail, "mail2").
+          selectAs(personFax, "fax2").
+          selectAs("tperson.mail_a_e1", "mail3").
+          selectAs("tperson.fax_a_e1", "fax3");
         select.selectAs("NULL", "mail1");
         select.selectAs("NULL", "fax1");
 
         select.where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
-                "length(" + personMail + ") != 0 OR " +
-                "length(" + personFax + ") != 0 OR " +
-                "length(tperson.mail_a_e1) != 0 OR " +
-                "length(tperson.fax_a_e1) != 0)"));
+          "length(" + personMail + ") != 0 OR " +
+          "length(" + personFax + ") != 0 OR " +
+          "length(tperson.mail_a_e1) != 0 OR " +
+          "length(tperson.fax_a_e1) != 0)"));
 
         return addMailinglist(cntx, mailinglist, select);
     }
@@ -267,20 +267,20 @@ public class MailinglistWorker {
      * @throws IOException   IOException
      */
     protected int addMailinglistFromGuest(OctopusContext octopusContext, Mailinglist mailinglist, Clause clause)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
         Select select = SQL.Select(database).setDistinct(true).
-                from("veraweb.tguest").
-                selectAs("tguest.pk", "guest").
-                selectAs("tperson.pk", "person").
-                selectAs("tperson.mail_a_e1", "mail3").
-                selectAs("tperson.fax_a_e1", "fax3").
-                selectAs("NULL", "mail1").
-                selectAs("NULL", "fax1").
-                joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person").
-                where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
-                        "length(tperson.mail_a_e1) != 0 OR " +
-                        "length(tperson.fax_a_e1) != 0)"));
+          from("veraweb.tguest").
+          selectAs("tguest.pk", "guest").
+          selectAs("tperson.pk", "person").
+          selectAs("tperson.mail_a_e1", "mail3").
+          selectAs("tperson.fax_a_e1", "fax3").
+          selectAs("NULL", "mail1").
+          selectAs("NULL", "fax1").
+          joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person").
+          where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
+            "length(tperson.mail_a_e1) != 0 OR " +
+            "length(tperson.fax_a_e1) != 0)"));
 
         return addMailinglist(octopusContext, mailinglist, select);
     }
@@ -292,7 +292,7 @@ public class MailinglistWorker {
      * addMailinglistFromGuest
      */
     protected int addMailinglist(OctopusContext octopusContext, Mailinglist mailinglist, Select select)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
         int savedAddresses = 0;
 
@@ -401,7 +401,7 @@ public class MailinglistWorker {
      * @throws BeanException BeanException
      */
     protected boolean savePerson(Database database, Integer mailinglist, Integer person, String address)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         final MailinglistAddress mailinglistAddress = new MailinglistAddress();
         mailinglistAddress.mailinglist = mailinglist;
         mailinglistAddress.person = person;

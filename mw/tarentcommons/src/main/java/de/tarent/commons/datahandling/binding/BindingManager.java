@@ -202,11 +202,11 @@ public class BindingManager implements DataChangedListener {
                             //   changes in the children (update to "main.employees" updates "main.employees.count"
                             //   & "main.employees.whatever", too)
                             if (path == null
-                                    || path.equals(bindingModelAttributeKey)
-                                    || (path.startsWith(bindingModelAttributeKey) &&
-                                    path.charAt(bindingModelAttributeKey.length()) == '.')
-                                    || (bindingModelAttributeKey.startsWith(path) &&
-                                    (bindingModelAttributeKey.charAt(path.length()) == '.' || path.endsWith(".")))) {
+                              || path.equals(bindingModelAttributeKey)
+                              || (path.startsWith(bindingModelAttributeKey) &&
+                              path.charAt(bindingModelAttributeKey.length()) == '.')
+                              || (bindingModelAttributeKey.startsWith(path) &&
+                              (bindingModelAttributeKey.charAt(path.length()) == '.' || path.endsWith(".")))) {
                                 read(binding);
                             }
                         }
@@ -220,7 +220,7 @@ public class BindingManager implements DataChangedListener {
                 for (Iterator iter = bindings.iterator(); iter.hasNext(); ) {
                     Binding binding = (Binding) iter.next();
                     if (path == null || path.startsWith(binding.getModelAttributeKey()) ||
-                            binding.getModelAttributeKey().startsWith(path)) {
+                      binding.getModelAttributeKey().startsWith(path)) {
                         read(binding);
                     }
                 }
@@ -254,5 +254,4 @@ public class BindingManager implements DataChangedListener {
         this.model = newModel;
         model.addDataChangedListener(this);
     }
-
 }

@@ -90,7 +90,7 @@ public class OctopusRemoteResult implements OctopusResult {
     }
 
     public void writeContent(OutputStream to)
-            throws IOException {
+      throws IOException {
         byte[] buff = new byte[1024];
         int len = -1;
         while (-1 != (len = streamContent.read(buff))) {

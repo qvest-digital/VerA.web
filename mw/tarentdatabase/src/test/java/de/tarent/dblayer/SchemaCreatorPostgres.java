@@ -61,7 +61,7 @@ import de.tarent.dblayer.sql.SQL;
 public class SchemaCreatorPostgres extends SchemaCreator {
 
     protected void dropSchema()
-            throws SQLException {
+      throws SQLException {
 
         try {
             DB.update(dbx, "DROP TABLE person");
@@ -100,109 +100,107 @@ public class SchemaCreatorPostgres extends SchemaCreator {
     }
 
     protected void createSchema()
-            throws SQLException {
+      throws SQLException {
         DB.update(dbx,
-                "CREATE TABLE firma ("
-                        + " pk_firma serial PRIMARY KEY,"
-                        + " name varchar(50),"
-                        + " umsatz integer"
-                        + ")");
+          "CREATE TABLE firma ("
+            + " pk_firma serial PRIMARY KEY,"
+            + " name varchar(50),"
+            + " umsatz integer"
+            + ")");
 
         DB.update(dbx,
-                "CREATE TABLE person ("
-                        + " pk_person serial PRIMARY KEY,"
-                        + " fk_firma integer,"
-                        + " vorname varchar(50),"
-                        + " nachname varchar(50),"
-                        + " geburtstag date"
-                        + ")");
+          "CREATE TABLE person ("
+            + " pk_person serial PRIMARY KEY,"
+            + " fk_firma integer,"
+            + " vorname varchar(50),"
+            + " nachname varchar(50),"
+            + " geburtstag date"
+            + ")");
 
         DB.update(dbx,
-                "CREATE TABLE insert_test ("
-                        + " pk serial PRIMARY KEY,"
-                        + " data varchar(50)"
-                        + ")");
+          "CREATE TABLE insert_test ("
+            + " pk serial PRIMARY KEY,"
+            + " data varchar(50)"
+            + ")");
 
         DB.update(dbx,
-                "CREATE OR REPLACE FUNCTION public.unit_test(param1_in varchar, OUT param1 varchar) "
-                        + " AS\n" +
-                        "'\n"
-                        + "BEGIN "
-                        + "	param1:=param1_in; "
-                        + "END;\n" +
-                        "'\n"
-                        + "LANGUAGE 'plpgsql' VOLATILE; "
-                        + "ALTER FUNCTION public.unit_test(varchar, OUT varchar) OWNER TO postgres;");
+          "CREATE OR REPLACE FUNCTION public.unit_test(param1_in varchar, OUT param1 varchar) "
+            + " AS\n" +
+            "'\n"
+            + "BEGIN "
+            + "	param1:=param1_in; "
+            + "END;\n" +
+            "'\n"
+            + "LANGUAGE 'plpgsql' VOLATILE; "
+            + "ALTER FUNCTION public.unit_test(varchar, OUT varchar) OWNER TO postgres;");
 
         DB.update(dbx,
-                "CREATE OR REPLACE FUNCTION public.unit_test2() RETURNS void"
-                        + " AS '\n"
-                        + "BEGIN "
-                        + "END;'\n"
-                        + "LANGUAGE 'plpgsql' VOLATILE; "
-                        + "ALTER FUNCTION public.unit_test2() OWNER TO postgres;");
-
+          "CREATE OR REPLACE FUNCTION public.unit_test2() RETURNS void"
+            + " AS '\n"
+            + "BEGIN "
+            + "END;'\n"
+            + "LANGUAGE 'plpgsql' VOLATILE; "
+            + "ALTER FUNCTION public.unit_test2() OWNER TO postgres;");
     }
 
     protected void doInserts()
-            throws SQLException {
+      throws SQLException {
 
         try {
             SQL.Insert(dbx).table("firma")
-                    // SERIAL: .insert("pk_firma", new Integer(1))
-                    .insert("name", "Dagoberts Geldspeicher")
-                    .insert("umsatz", new Integer(100000))
-                    .execute();
+              // SERIAL: .insert("pk_firma", new Integer(1))
+              .insert("name", "Dagoberts Geldspeicher")
+              .insert("umsatz", new Integer(100000))
+              .execute();
 
             SQL.Insert(dbx).table("firma")
-                    // SERIAL: .insert("pk_firma", new Integer(2))
-                    .insert("name", "Donalds Frittenbude")
-                    .insert("umsatz", new Integer(30))
-                    .execute();
+              // SERIAL: .insert("pk_firma", new Integer(2))
+              .insert("name", "Donalds Frittenbude")
+              .insert("umsatz", new Integer(30))
+              .execute();
 
             SQL.Insert(dbx).table("firma")
-                    // SERIAL: .insert("pk_firma", new Integer(3))
-                    .insert("name", "Duesentriebs Werkstatt")
-                    .insert("umsatz", new Integer(3000))
-                    .execute();
+              // SERIAL: .insert("pk_firma", new Integer(3))
+              .insert("name", "Duesentriebs Werkstatt")
+              .insert("umsatz", new Integer(3000))
+              .execute();
 
             SQL.Insert(dbx).table("person")
-                    // SERIAL: .insert("pk_person", new Integer(1))
-                    .insert("fk_firma", new Integer(1))
-                    .insert("vorname", "Dagobert")
-                    .insert("nachname", "Duck")
-                    .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("31.03.80"))
-                    .execute();
+              // SERIAL: .insert("pk_person", new Integer(1))
+              .insert("fk_firma", new Integer(1))
+              .insert("vorname", "Dagobert")
+              .insert("nachname", "Duck")
+              .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("31.03.80"))
+              .execute();
 
             SQL.Insert(dbx).table("person")
-                    // SERIAL: .insert("pk_person", new Integer(2))
-                    .insert("fk_firma", new Integer(1))
-                    .insert("vorname", "Daisy")
-                    .insert("nachname", "Duck")
-                    .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("11.03.80"))
-                    .execute();
+              // SERIAL: .insert("pk_person", new Integer(2))
+              .insert("fk_firma", new Integer(1))
+              .insert("vorname", "Daisy")
+              .insert("nachname", "Duck")
+              .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("11.03.80"))
+              .execute();
 
             SQL.Insert(dbx).table("person")
-                    // SERIAL: .insert("pk_person", new Integer(3))
-                    .insert("fk_firma", new Integer(2))
-                    .insert("vorname", "Donald")
-                    .insert("nachname", "Duck")
-                    .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("28.01.80"))
-                    .execute();
+              // SERIAL: .insert("pk_person", new Integer(3))
+              .insert("fk_firma", new Integer(2))
+              .insert("vorname", "Donald")
+              .insert("nachname", "Duck")
+              .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("28.01.80"))
+              .execute();
 
             SQL.Insert(dbx).table("person")
-                    // SERIAL: .insert("pk_person", new Integer(4))
-                    .insert("fk_firma", null)
-                    .insert("vorname", "Gustav")
-                    .insert("nachname", "Gans")
-                    .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("26.11.80"))
-                    .execute();
+              // SERIAL: .insert("pk_person", new Integer(4))
+              .insert("fk_firma", null)
+              .insert("vorname", "Gustav")
+              .insert("nachname", "Gans")
+              .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("26.11.80"))
+              .execute();
 
             //        } catch (java.text.ParseException e) {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Error on reading date strings", e);
         }
-
     }
 }

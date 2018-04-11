@@ -88,9 +88,9 @@ public class OctopusRemoteLog {
         taskParams = params;
         try {
             conlog = new PrintWriter(
-                    new FileOutputStream(new File(System.getProperty("user.home") + File.separator + "ContactClient.con.log")));
+              new FileOutputStream(new File(System.getProperty("user.home") + File.separator + "ContactClient.con.log")));
             condumplog = new PrintWriter(new FileOutputStream(
-                    new File(System.getProperty("user.home") + File.separator + "ContactClient.condump.log")));
+              new File(System.getProperty("user.home") + File.separator + "ContactClient.condump.log")));
         } catch (FileNotFoundException e) {
             logger.warn("Fehler beim Dateizugriff!", e);
         }
@@ -136,7 +136,7 @@ public class OctopusRemoteLog {
         taskDataTransfer += resultSize;
         Date duration = new Date(taskEnd.getTime() - taskStart.getTime());
         String message = MessageFormat.format("Task: {0}, Duration: {1}, Size: {2}, Params: {3}",
-                new Object[] { taskName, new Long(duration.getTime()), new Long(taskDataTransfer), taskParams });
+          new Object[] { taskName, new Long(duration.getTime()), new Long(taskDataTransfer), taskParams });
         conlog.println(message);
         condumplog.println("==========");
         condumplog.println(message);

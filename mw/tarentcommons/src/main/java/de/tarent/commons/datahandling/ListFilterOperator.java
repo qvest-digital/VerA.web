@@ -64,7 +64,7 @@ import java.util.Arrays;
 public class ListFilterOperator {
 
     protected static final List VALID_OPERATOR_SYMBOLS =
-            Arrays.asList(new String[] { "=", "!=", "<", ">", "IN", "LIKE", "ILIKE", "IS NULL", "AND", "OR", "NOT" });
+      Arrays.asList(new String[] { "=", "!=", "<", ">", "IN", "LIKE", "ILIKE", "IS NULL", "AND", "OR", "NOT" });
 
     //TODO: remove if no dependences and use objects instead.
     public static final String OPERATOR_EQ = "=";
@@ -102,7 +102,7 @@ public class ListFilterOperator {
     public ListFilterOperator(String anOperator) {
         if (!VALID_OPERATOR_SYMBOLS.contains(anOperator)) {
             throw new IllegalArgumentException(
-                    anOperator + "is not a valid operator. Ony the predefined operators are allowed: " + VALID_OPERATOR_SYMBOLS);
+              anOperator + "is not a valid operator. Ony the predefined operators are allowed: " + VALID_OPERATOR_SYMBOLS);
         }
         operator = anOperator;
     }
@@ -114,7 +114,7 @@ public class ListFilterOperator {
      */
     public int getConsumingArsg() {
         if (NOT.operator.equals(operator)
-                || IS_NULL.operator.equals(operator)) {
+          || IS_NULL.operator.equals(operator)) {
             return 1;
         }
         return 2;
@@ -127,8 +127,8 @@ public class ListFilterOperator {
      */
     public boolean isConnectionOperator() {
         return (AND.operator.equals(operator)
-                || OR.operator.equals(operator)
-                || NOT.operator.equals(operator));
+          || OR.operator.equals(operator)
+          || NOT.operator.equals(operator));
     }
 
     public boolean equals(Object o) {

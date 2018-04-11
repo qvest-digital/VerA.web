@@ -76,5 +76,4 @@ public class StringToolsTest extends TestCase {
         assertEquals("Wrong return value!", "ab", StringTools.minusculizeFirstLetter("ab"));
         assertEquals("Wrong return value!", "ab", StringTools.minusculizeFirstLetter("Ab"));
     }
-
 }

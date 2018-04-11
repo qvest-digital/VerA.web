@@ -160,7 +160,7 @@ public class TcDirectCallResponse implements TcResponse {
      * Diese Methode sendet gepufferte Ausgaben.
      */
     public void flush()
-            throws IOException {
+      throws IOException {
         if (printWriter != null) {
             printWriter.flush();
         }
@@ -173,7 +173,7 @@ public class TcDirectCallResponse implements TcResponse {
      * Diese Methode schließt die Ausgaben ab.
      */
     public void close()
-            throws IOException {
+      throws IOException {
         if (printWriter != null) {
             printWriter.close();
         }
@@ -272,19 +272,19 @@ public class TcDirectCallResponse implements TcResponse {
     }
 
     class EmptyIterator
-            implements Iterator {
+      implements Iterator {
 
         public boolean hasNext() {
             return false;
         }
 
         public Object next()
-                throws NoSuchElementException {
+          throws NoSuchElementException {
             throw new NoSuchElementException();
         }
 
         public void remove()
-                throws UnsupportedOperationException {
+          throws UnsupportedOperationException {
             throw new UnsupportedOperationException();
         }
     }

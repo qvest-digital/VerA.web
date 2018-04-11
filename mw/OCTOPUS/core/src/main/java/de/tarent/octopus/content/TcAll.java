@@ -123,14 +123,14 @@ public class TcAll implements OctopusContext {
         } else if (fieldName.startsWith(REQUEST_FIELD_PREFIX)) {
             // In den Request - IST NICHT ERLAUBT
             throw new RuntimeException(
-                    "Anfragefehler: Setzen von Parametern im Request ist nicht erlaubt.");
+              "Anfragefehler: Setzen von Parametern im Request ist nicht erlaubt.");
         } else if (fieldName.startsWith(SESSION_FIELD_PREFIX)) {
             // In die Session
             setSession(fieldName.substring(SESSION_FIELD_PREFIX.length()), value);
         } else if (fieldName.startsWith(CONFIG_FIELD_PREFIX)) {
             // In die Config - IST NICHT ERLAUBT
             throw new RuntimeException(
-                    "Anfragefehler: Setzen von Parametern der Config ist nicht erlaubt.");
+              "Anfragefehler: Setzen von Parametern der Config ist nicht erlaubt.");
         } else {
             // DEFAULT, ohne Prefix:
             // In den Content

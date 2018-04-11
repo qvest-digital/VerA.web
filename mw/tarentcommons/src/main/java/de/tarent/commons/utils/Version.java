@@ -93,7 +93,6 @@ public class Version {
      */
     static {
         gatherPackageInfo(Version.class.getPackage());
-
     }
 
     /**
@@ -141,7 +140,6 @@ public class Version {
         // vendor of the implementation of this package.
         s = p.getImplementationVendor();
         implementationVendor = s != null ? s : "";
-
     }
 
     public static String getName() {
@@ -154,12 +152,12 @@ public class Version {
 
     public static String getSpecification() {
         return "Package " + name + " " + specificationTitle + " "
-                + specificationVersion + " " + specificationVendor;
+          + specificationVersion + " " + specificationVendor;
     }
 
     public static String getImplementation() {
         return "Package " + name + " " + implementationTitle + " "
-                + implementationVersion + " " + implementationVendor;
+          + implementationVersion + " " + implementationVendor;
     }
 
     /**

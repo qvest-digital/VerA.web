@@ -174,7 +174,7 @@ public class ConverterRegistry {
         for (Iterator iter = converterList.iterator(); iter.hasNext(); ) {
             Converter converter = (Converter) iter.next();
             if (targetType.isAssignableFrom(converter.getTargetType())
-                    && converter.getSourceType().isAssignableFrom(sourceType)) {
+              && converter.getSourceType().isAssignableFrom(sourceType)) {
                 return converter;
             }
         }

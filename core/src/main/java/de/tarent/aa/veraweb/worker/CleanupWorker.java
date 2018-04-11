@@ -127,8 +127,8 @@ public class CleanupWorker {
         }
 
         Select orgunitsSelect = SQL.SelectDistinct(database).
-                selectAs("fk_orgunit", "fk_orgunit").
-                from("veraweb.tcategorie");
+          selectAs("fk_orgunit", "fk_orgunit").
+          from("veraweb.tcategorie");
 
         List orgunits = database.getList(orgunitsSelect, database);
         for (Iterator orgunitIt = orgunits.iterator(); orgunitIt.hasNext(); ) {
@@ -136,31 +136,31 @@ public class CleanupWorker {
 
             if (logger.isInfoEnabled()) {
                 logger.info("Fasse automatisch mehrere Kategorien / Ereignisse für " +
-                        "den Mandanten #" + orgunit + " zusammen.");
+                  "den Mandanten #" + orgunit + " zusammen.");
             }
 
             Select subcategoriesSelect = SQL.Select(database).
-                    selectAs("c1.pk", "subcategorypk").
-                    selectAs("c1.catname", "subcategoryname").
-                    selectAs("c2.pk", "topcategorypk").
-                    selectAs("c2.catname", "topcategoryname").
-                    from("veraweb.tcategorie c1").
-                    join(new Join(Join.INNER, "veraweb.tcategorie c2", new RawClause(
-                            "c1.pk != c2.pk AND (" +
-                                    "c1.catname = c2.catname OR " +
-                                    "c1.catname = c2.catname || ' 0' OR c1.catname = c2.catname || ' 1' OR " +
-                                    "c1.catname = c2.catname || ' 2' OR c1.catname = c2.catname || ' 3' OR " +
-                                    "c1.catname = c2.catname || ' 4' OR c1.catname = c2.catname || ' 5' OR " +
-                                    "c1.catname = c2.catname || ' 6' OR c1.catname = c2.catname || ' 7' OR " +
-                                    "c1.catname = c2.catname || ' 8' OR c1.catname = c2.catname || ' 9')")));
+              selectAs("c1.pk", "subcategorypk").
+              selectAs("c1.catname", "subcategoryname").
+              selectAs("c2.pk", "topcategorypk").
+              selectAs("c2.catname", "topcategoryname").
+              from("veraweb.tcategorie c1").
+              join(new Join(Join.INNER, "veraweb.tcategorie c2", new RawClause(
+                "c1.pk != c2.pk AND (" +
+                  "c1.catname = c2.catname OR " +
+                  "c1.catname = c2.catname || ' 0' OR c1.catname = c2.catname || ' 1' OR " +
+                  "c1.catname = c2.catname || ' 2' OR c1.catname = c2.catname || ' 3' OR " +
+                  "c1.catname = c2.catname || ' 4' OR c1.catname = c2.catname || ' 5' OR " +
+                  "c1.catname = c2.catname || ' 6' OR c1.catname = c2.catname || ' 7' OR " +
+                  "c1.catname = c2.catname || ' 8' OR c1.catname = c2.catname || ' 9')")));
             if (orgunit == null) {
                 subcategoriesSelect.where(Where.and(
-                        Expr.isNull("c1.fk_orgunit"),
-                        Expr.isNull("c2.fk_orgunit")));
+                  Expr.isNull("c1.fk_orgunit"),
+                  Expr.isNull("c2.fk_orgunit")));
             } else {
                 subcategoriesSelect.where(Where.and(
-                        Expr.equal("c1.fk_orgunit", orgunit),
-                        Expr.equal("c2.fk_orgunit", orgunit)));
+                  Expr.equal("c1.fk_orgunit", orgunit),
+                  Expr.equal("c2.fk_orgunit", orgunit)));
             }
 
             List subcategories = database.getList(subcategoriesSelect, database);
@@ -174,8 +174,8 @@ public class CleanupWorker {
                 assert subcategorypk != null && topcategorypk != null;
 
                 addMessage(cntx, "\u00DCberf\u00FChre Daten " +
-                        "aus Kategorie \"" + subcategoryname + "\" (" + subcategorypk + ")" +
-                        " in Kategorie \"" + topcategoryname + "\" (" + topcategorypk + ").");
+                  "aus Kategorie \"" + subcategoryname + "\" (" + subcategorypk + ")" +
+                  " in Kategorie \"" + topcategoryname + "\" (" + topcategorypk + ").");
 
                 if (isActivated(cntx)) {
                     conferCategorie(cntx, database, subcategorypk, topcategorypk);
@@ -227,8 +227,8 @@ public class CleanupWorker {
                 } else {
                     whereList = new WhereList();
                     whereList.addAnd(Where.or(
-                            Expr.isNull("fk_orgunit"),
-                            Expr.in("fk_orgunit", cleanupOrgunits)));
+                      Expr.isNull("fk_orgunit"),
+                      Expr.in("fk_orgunit", cleanupOrgunits)));
                     whereList.addAnd(wl);
                 }
             } else if (!cleanupOrgunits.isEmpty()) {
@@ -239,9 +239,9 @@ public class CleanupWorker {
         }
 
         List illegalCategories =
-                database.getList(
-                        database.getSelect("Categorie").where(
-                                whereList), database);
+          database.getList(
+            database.getSelect("Categorie").where(
+              whereList), database);
 
         for (Iterator it = illegalCategories.iterator(); it.hasNext(); ) {
             Map illegalCategory = (Map) it.next();
@@ -258,32 +258,31 @@ public class CleanupWorker {
             Categorie topcategorie;
             if (orgunit == null) {
                 topcategorie = (Categorie)
-                        database.getBean("Categorie",
-                                database.getSelect("Categorie").where(Where.and(
-                                        Expr.equal("catname", plainname),
-                                        Expr.isNull("fk_orgunit"))));
+                  database.getBean("Categorie",
+                    database.getSelect("Categorie").where(Where.and(
+                      Expr.equal("catname", plainname),
+                      Expr.isNull("fk_orgunit"))));
             } else {
                 topcategorie = (Categorie)
-                        database.getBean("Categorie",
-                                database.getSelect("Categorie").where(Where.and(
-                                        Expr.equal("catname", plainname),
-                                        Expr.equal("fk_orgunit", orgunit))));
+                  database.getBean("Categorie",
+                    database.getSelect("Categorie").where(Where.and(
+                      Expr.equal("catname", plainname),
+                      Expr.equal("fk_orgunit", orgunit))));
             }
 
             if (topcategorie != null) {
                 addMessage(cntx, "\u00DCberf\u00FChre Daten " +
-                        "aus Kategorie \"" + catname + "\" (" + catpk + ")" +
-                        " in Kategorie \"" + topcategorie.name + "\" (" + topcategorie.id + ").");
+                  "aus Kategorie \"" + catname + "\" (" + catpk + ")" +
+                  " in Kategorie \"" + topcategorie.name + "\" (" + topcategorie.id + ").");
 
                 if (isActivated(cntx)) {
                     conferCategorie(cntx, database, catpk, topcategorie.id);
                     cntx.setContent("cleanupdone", Boolean.TRUE);
                 }
-
             } else {
                 addMessage(cntx, "Korrigiere Kategorienamen von " +
-                        " \"" + catname + "\" (" + catpk + ")" +
-                        " nach \"" + plainname + "\".");
+                  " \"" + catname + "\" (" + catpk + ")" +
+                  " nach \"" + plainname + "\".");
 
                 if (isActivated(cntx)) {
                     renameCategorie(database, catpk, plainname);
@@ -294,29 +293,29 @@ public class CleanupWorker {
     }
 
     protected void conferCategorie(OctopusContext cntx, Database database,
-            Integer subcategorypk, Integer topcategorypk)
-            throws BeanException {
+      Integer subcategorypk, Integer topcategorypk)
+      throws BeanException {
 
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
             transactionContext.execute(SQL.Update(database).
-                    table("veraweb.tguest").
-                    update("fk_category", topcategorypk).
-                    where(Expr.equal("fk_category", subcategorypk)));
+              table("veraweb.tguest").
+              update("fk_category", topcategorypk).
+              where(Expr.equal("fk_category", subcategorypk)));
             transactionContext.execute(SQL.Update(database).
-                    table("veraweb.tperson_categorie").
-                    update("fk_categorie", topcategorypk).
-                    where(Expr.equal("fk_categorie", subcategorypk)));
+              table("veraweb.tperson_categorie").
+              update("fk_categorie", topcategorypk).
+              where(Expr.equal("fk_categorie", subcategorypk)));
             transactionContext.execute(SQL.Delete(database).from("veraweb.tperson_categorie").where(
-                    Expr.in("pk", new RawClause("(" +
-                            "SELECT tpc1.pk FROM veraweb.tperson_categorie tpc1" +
-                            " JOIN veraweb.tperson_categorie tpc2 ON (" +
-                            "tpc1.fk_person = tpc2.fk_person AND " +
-                            "tpc1.fk_categorie = tpc2.fk_categorie AND " +
-                            "tpc1.pk < tpc2.pk))"))));
+              Expr.in("pk", new RawClause("(" +
+                "SELECT tpc1.pk FROM veraweb.tperson_categorie tpc1" +
+                " JOIN veraweb.tperson_categorie tpc2 ON (" +
+                "tpc1.fk_person = tpc2.fk_person AND " +
+                "tpc1.fk_categorie = tpc2.fk_categorie AND " +
+                "tpc1.pk < tpc2.pk))"))));
             transactionContext.execute(SQL.Delete(database).
-                    from("veraweb.tcategorie").
-                    where(Expr.equal("pk", subcategorypk)));
+              from("veraweb.tcategorie").
+              where(Expr.equal("pk", subcategorypk)));
             transactionContext.commit();
         } catch (BeanException e) {
             logger.error("Persisting username failed", e);
@@ -327,9 +326,9 @@ public class CleanupWorker {
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
             transactionContext.execute(SQL.Update(database).
-                    table("veraweb.tcategorie").
-                    update("catname", newname).
-                    where(Expr.equal("pk", categorypk)));
+              table("veraweb.tcategorie").
+              update("catname", newname).
+              where(Expr.equal("pk", categorypk)));
             transactionContext.commit();
         } catch (BeanException e) {
             logger.error("Updating category failed", e);

@@ -159,17 +159,17 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
         final WhereList whereCriterias = new WhereList();
         whereCriterias.addAnd(new Where("fk_event", eventId, "="));
         final Select select = SQL.Select(database).
-                select("*").
-                from(TASK_TABLE_NAME).
-                where(whereCriterias).
-                orderBy(Order.asc("pk"));
+          select("*").
+          from(TASK_TABLE_NAME).
+          where(whereCriterias).
+          orderBy(Order.asc("pk"));
 
         return select;
     }
 
     private void sendNoChangesMessage(OctopusContext octopusContext) {
         if (octopusContext.getContextField("remove-task") != null &&
-                octopusContext.getContextField("remove-task").equals("true")) {
+          octopusContext.getContextField("remove-task").equals("true")) {
             octopusContext.setContent("isEntityModified", true);
         } else if (octopusContext.getContextField("remove-task") != null) {
             octopusContext.setContent("isEntityModified", false);
@@ -193,7 +193,7 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
-            TransactionContext transactionContext) throws BeanException, IOException {
+      TransactionContext transactionContext) throws BeanException, IOException {
 
         int count = 0;
         if (selection == null || selection.size() == 0) {

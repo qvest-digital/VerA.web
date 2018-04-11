@@ -135,7 +135,6 @@ public class AbstractResourceTest<T extends AbstractResource> {
      */
     public static void startH2() {
         new HibernateSessionFactoryListener().contextInitialized(contextEventMock);
-
     }
 
     /**
@@ -144,5 +143,4 @@ public class AbstractResourceTest<T extends AbstractResource> {
     public static void stopH2() {
         new HibernateSessionFactoryListener().contextDestroyed(contextEventMock);
     }
-
 }

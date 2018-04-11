@@ -124,7 +124,7 @@ public class GenericPojo implements InvocationHandler {
      */
     public static Object implementPojo(Class pojoInterface, GenericPojoStorage storage, GenericPojoManager manager) {
         return Proxy.newProxyInstance(pojoInterface.getClassLoader(), new Class[] { pojoInterface },
-                new GenericPojo(storage, manager));
+          new GenericPojo(storage, manager));
     }
 
     /**

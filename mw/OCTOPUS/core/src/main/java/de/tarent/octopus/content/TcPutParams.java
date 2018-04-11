@@ -76,7 +76,7 @@ public class TcPutParams implements TcContentWorker {
     }
 
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
-            throws TcContentProzessException {
+      throws TcContentProzessException {
 
         String returnStatus = RESULT_error;
 
@@ -86,7 +86,7 @@ public class TcPutParams implements TcContentWorker {
             returnStatus = putAll(tcConfig, tcRequest, tcContent);
         } else {
             throw new TcContentProzessException(
-                    "Nicht unterstützte action im Worker 'TcPutParams': " + actionName);
+              "Nicht unterstützte action im Worker 'TcPutParams': " + actionName);
         }
         return returnStatus;
     }
@@ -102,7 +102,7 @@ public class TcPutParams implements TcContentWorker {
         paths.put("staticWeb", tcConfig.getRelativeWebRootPath());
         if (commonConfig.getDefaultModuleName() != null) {
             paths.put("defaultStaticWeb",
-                    commonConfig.getRelativeWebRootPath(commonConfig.getDefaultModuleName()));
+              commonConfig.getRelativeWebRootPath(commonConfig.getDefaultModuleName()));
         }
         tcContent.setField("paths", paths);
 
@@ -116,26 +116,26 @@ public class TcPutParams implements TcContentWorker {
 
     public TcPortDefinition getWorkerDefinition() {
         TcPortDefinition port =
-                new TcPortDefinition(
-                        "de.tarent.octopus.content.TcPutRequestParams",
-                        "Worker, der die Felder des TcRequests in den Content schieben kann.");
+          new TcPortDefinition(
+            "de.tarent.octopus.content.TcPutRequestParams",
+            "Worker, der die Felder des TcRequests in den Content schieben kann.");
 
         TcOperationDefinition putMinimal = port.addOperation("putMinimal",
-                "Setzen weniger notwendiger Felder.");
+          "Setzen weniger notwendiger Felder.");
 
         putMinimal.setInputMessage();
         putMinimal
-                .setOutputMessage()
-                .addPart("url", TcMessageDefinition.TYPE_SCALAR, "Url des Systems mit Sessioninformationen.")
-                .addPart("jsessionid", TcMessageDefinition.TYPE_SCALAR, "Die Session Id.")
-                .addPart("paths", TcMessageDefinition.TYPE_STRUCT, "Pfade z.B. zu den Templateverzeichnissen.");
+          .setOutputMessage()
+          .addPart("url", TcMessageDefinition.TYPE_SCALAR, "Url des Systems mit Sessioninformationen.")
+          .addPart("jsessionid", TcMessageDefinition.TYPE_SCALAR, "Die Session Id.")
+          .addPart("paths", TcMessageDefinition.TYPE_STRUCT, "Pfade z.B. zu den Templateverzeichnissen.");
 
         TcOperationDefinition putAll = port.addOperation("putAll",
-                "Setzen aller Felder des TcRequest Objektes.");
+          "Setzen aller Felder des TcRequest Objektes.");
 
         putAll.setInputMessage();
         putAll.setOutputMessage().addPart(CONTENT_PREFIX, TcMessageDefinition.TYPE_STRUCT,
-                "Parameter des Request.");
+          "Parameter des Request.");
 
         return port;
     }

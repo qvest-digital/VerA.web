@@ -87,14 +87,14 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
     }
 
     public void sendResponse(TcConfig config, TcResponse tcResponse, TcContent theContent, TcResponseDescription desc,
-            TcRequest request)
-            throws ResponseProcessingException {
+      TcRequest request)
+      throws ResponseProcessingException {
 
         TcPageDescription pageDescription =
-                (TcPageDescription) getResponseDescription(desc.getDescName(), null, config);
+          (TcPageDescription) getResponseDescription(desc.getDescName(), null, config);
         if (pageDescription == null) {
             throw new ResponseProcessingException(
-                    "Die Page Description zu '" + desc.getDescName() + "' kann nicht erstellt werden.");
+              "Die Page Description zu '" + desc.getDescName() + "' kann nicht erstellt werden.");
         }
 
         Map fieldAssignment = pageDescription.getFieldAssignment();
@@ -108,7 +108,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
     }
 
     public TarParsedTemplate createTemplateTree(TcTemplateSystemParams systemParams, TarTemplateDescription node)
-            throws ResponseProcessingException {
+      throws ResponseProcessingException {
 
         Map childs = node.getChildTemplateDescriptions();
         Map parsedChilds = new HashMap();
@@ -116,7 +116,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
         for (Iterator e = childs.keySet().iterator(); e.hasNext(); ) {
             String position = (String) e.next();
             TarParsedTemplate parsedChild =
-                    createTemplateTree(systemParams, (TarTemplateDescription) childs.get(position));
+              createTemplateTree(systemParams, (TarTemplateDescription) childs.get(position));
             parsedChilds.put(position, parsedChild);
         }
 
@@ -144,13 +144,13 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
             logger.debug("PageDescription '" + filename + "' Datei geparst.");
         } catch (SAXParseException se) {
             logger.error(" SaxExeption beim Parsen der PageDescription '"
-                            + filename
-                            + "' Datei (Zeile "
-                            + se.getLineNumber()
-                            + ",  Spalte "
-                            + se.getColumnNumber()
-                            + ")",
-                    se);
+                + filename
+                + "' Datei (Zeile "
+                + se.getLineNumber()
+                + ",  Spalte "
+                + se.getColumnNumber()
+                + ")",
+              se);
             return null;
         } catch (Exception e) {
             logger.error("Fehler beim Parsen der PageDescription '" + filename + "' Datei.", e);
@@ -177,7 +177,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
      * einem TcPageDescription herunter gecastet werden.
      */
     public TcResponseDescription getResponseDescription(String descName, String responseType, TcConfig config)
-            throws ResponseProcessingException {
+      throws ResponseProcessingException {
 
         if (responseType == null) {
             responseType = config.getDefaultResponseType();
@@ -192,9 +192,9 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
 
         if (desc == null) {
             logger.error("PageDescription '"
-                    + templateFile
-                    + "' konnte nicht erzeugt werden. Nehme jetzt 'pageDescriptionError'"
-                    + suffix);
+              + templateFile
+              + "' konnte nicht erzeugt werden. Nehme jetzt 'pageDescriptionError'"
+              + suffix);
 
             templatePath = getTemplatePath("pageDescriptionError", config, suffix);
             templateFile = templatePath + descName + suffix;
@@ -212,7 +212,7 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
      * Liefert den Verzeichnispfad zurück, indem die Pagedescription enthalten ist.
      */
     private String getTemplatePath(String descName, TcConfig config, String suffix)
-            throws ResponseProcessingException {
+      throws ResponseProcessingException {
 
         String templateFile = config.getTemplateRootPath() + "simple/" + descName + suffix;
 
@@ -221,21 +221,21 @@ public class TcSimpleResponseEngine implements TcResponseEngine {
 
         if (!(new File(templateFile)).exists()) {
             String defaultTemplateFile =
-                    config.getCommonConfig().getTemplateRootPath(config.getCommonConfig().getDefaultModuleName())
-                            + "simple/"
-                            + descName
-                            + suffix;
+              config.getCommonConfig().getTemplateRootPath(config.getCommonConfig().getDefaultModuleName())
+                + "simple/"
+                + descName
+                + suffix;
 
             if ((new File(defaultTemplateFile)).exists()) {
                 return config.getCommonConfig().getTemplateRootPath(config.getCommonConfig().getDefaultModuleName())
-                        + "simple/";
+                  + "simple/";
             } else {
                 throw new ResponseProcessingException(
-                        "Weder Template '"
-                                + templateFile
-                                + "' noch ein gleichnamiges Template des Default Modules '"
-                                + defaultTemplateFile
-                                + "' kann gefunden werden.");
+                  "Weder Template '"
+                    + templateFile
+                    + "' noch ein gleichnamiges Template des Default Modules '"
+                    + defaultTemplateFile
+                    + "' kann gefunden werden.");
             }
         }
         return config.getTemplateRootPath() + "simple/";
@@ -272,7 +272,7 @@ class TarParsedTemplate {
     private Map childs = null;
 
     public TarParsedTemplate(TcTemplateSystemParams systemParams, TarTemplateDescription description)
-            throws ResponseProcessingException {
+      throws ResponseProcessingException {
         templatePath = systemParams.getTemplateRootPath();
         template = getParsedTemplate(description.getName());
     }
@@ -529,10 +529,10 @@ class TcPageDescription extends TcResponseDescription {
      */
     public String toString() {
         return (new StringBuffer())
-                .append("TcPageDescription:\n")
-                .append("RootTemplate: " + rootTemplate + "\n")
-                .append("FieldAssignment: " + fieldAssignment + "\n")
-                .toString();
+          .append("TcPageDescription:\n")
+          .append("RootTemplate: " + rootTemplate + "\n")
+          .append("FieldAssignment: " + fieldAssignment + "\n")
+          .toString();
     }
 
     /**
@@ -547,8 +547,8 @@ class TcPageDescription extends TcResponseDescription {
                 if ("field".equals(curr.getNodeName())) {
                     NamedNodeMap attr = curr.getAttributes();
                     fieldAssignment.put(
-                            attr.getNamedItem("name").getNodeValue(),
-                            attr.getNamedItem("value").getNodeValue());
+                      attr.getNamedItem("name").getNodeValue(),
+                      attr.getNamedItem("value").getNodeValue());
                 }
             } catch (Exception e) { //Vor allem NullPointerExceptions, wenn Attrubute nicht da sind
                 appendMessage("Ein Field Tag muss die Attribute name, value haben");

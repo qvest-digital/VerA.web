@@ -71,13 +71,10 @@ public class TestProcedure implements Runnable {
             }
             logger.log(Level.INFO, "TEST " + i + ": " + ausgabe);
             System.out.println("TEST " + i + ": " + ausgabe);
-
         }
-
     }
 
     public void setAusgabe(String ausgabe) {
         this.ausgabe = ausgabe;
     }
-
 }

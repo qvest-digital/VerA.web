@@ -280,8 +280,8 @@ public class EventTaskDetailWorker {
     }
 
     private void createOrUpdateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext,
-            Task task, Task oldTask)
-            throws BeanException, IOException {
+      Task task, Task oldTask)
+      throws BeanException, IOException {
         BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
         if (task.getId() == null) {
             createTask(octopusContext, database, transactionContext, task, clogger);
@@ -291,7 +291,7 @@ public class EventTaskDetailWorker {
     }
 
     private void createTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task,
-            BeanChangeLogger clogger) throws BeanException, IOException {
+      BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countInsert", Integer.valueOf(1));
         database.getNextPk(task, transactionContext);
         task.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
@@ -310,8 +310,8 @@ public class EventTaskDetailWorker {
     }
 
     private void updateTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task,
-            Task existingTask,
-            BeanChangeLogger clogger) throws BeanException, IOException {
+      Task existingTask,
+      BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countUpdate", Integer.valueOf(1));
         final Update update = database.getUpdate(task);
         if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
@@ -363,5 +363,4 @@ public class EventTaskDetailWorker {
 
         return person;
     }
-
 }

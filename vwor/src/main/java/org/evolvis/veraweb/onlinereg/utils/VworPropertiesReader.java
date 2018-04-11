@@ -121,5 +121,4 @@ public class VworPropertiesReader {
 
         return properties;
     }
-
 }

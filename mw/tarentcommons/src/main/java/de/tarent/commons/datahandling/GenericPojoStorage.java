@@ -71,5 +71,4 @@ public interface GenericPojoStorage {
      * @param return the value of the propertie
      */
     public abstract Object get(Object key);
-
 }

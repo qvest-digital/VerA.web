@@ -80,15 +80,15 @@ public class LanguageHelper {
 
     @Deprecated
     public String createMessage(String entity,
-            String action,
-            String count,
-            Map<String, String> placeholderWithTranslation) {
+      String action,
+      String count,
+      Map<String, String> placeholderWithTranslation) {
         return createMessage(entity, action, count);
     }
 
     public String createMessage(String entity,
-            String action,
-            String count) {
+      String action,
+      String count) {
 
         String message;
         // singular or plural

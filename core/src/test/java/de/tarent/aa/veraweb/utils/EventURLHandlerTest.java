@@ -114,7 +114,7 @@ public class EventURLHandlerTest {
 
         // THEN
         verify(octopusContext, times(1))
-                .setContent("eventUrl", "https://localhost:8443/#/freevisitors/44cf712d-90f5-4958-ae49-a2155b63e1c1");
+          .setContent("eventUrl", "https://localhost:8443/#/freevisitors/44cf712d-90f5-4958-ae49-a2155b63e1c1");
     }
 
     @Test

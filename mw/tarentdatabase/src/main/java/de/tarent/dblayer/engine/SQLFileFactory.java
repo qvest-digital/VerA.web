@@ -157,5 +157,4 @@ public class SQLFileFactory {
     public boolean getCachable() {
         return cacheable;
     }
-
 }

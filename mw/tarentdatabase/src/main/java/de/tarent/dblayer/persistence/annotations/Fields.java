@@ -69,5 +69,4 @@ public @interface Fields {
 
     // an array of all field sets (given by their name as string)
     String[] value();
-
 }

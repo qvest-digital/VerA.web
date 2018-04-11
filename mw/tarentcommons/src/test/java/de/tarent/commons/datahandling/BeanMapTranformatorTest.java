@@ -125,5 +125,4 @@ public class BeanMapTranformatorTest extends TestCase {
         this.beanMapTransformator.transformMapToBean(map, bean);
         assertEquals("aNewAttributeValue", bean.getAnAttribute());
     }
-
 }

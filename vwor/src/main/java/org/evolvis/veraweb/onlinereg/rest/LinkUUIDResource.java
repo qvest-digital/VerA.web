@@ -96,7 +96,6 @@ public class LinkUUIDResource extends AbstractResource {
             } else {
                 return (int) query.uniqueResult();
             }
-
         } finally {
             session.close();
         }

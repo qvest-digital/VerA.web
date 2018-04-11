@@ -202,9 +202,9 @@ public class BeanMap implements Map {
         for (int i = 0; i < methods.length; i++) {
             String methodCandidate = methods[i].getName();
             if ((!ignoreCase &&
-                    methodCandidate.equals("get" + StringTools.capitalizeFirstLetter(attribute))) ||
-                    (ignoreCase &&
-                            methodCandidate.toLowerCase().equals("get" + attribute.toLowerCase()))) {
+              methodCandidate.equals("get" + StringTools.capitalizeFirstLetter(attribute))) ||
+              (ignoreCase &&
+                methodCandidate.toLowerCase().equals("get" + attribute.toLowerCase()))) {
                 //System.out.println("Returned " + methods[i].getName());
                 return methods[i];
             }
@@ -253,8 +253,8 @@ public class BeanMap implements Map {
         while (iter.hasNext()) {
             String aPropertyName = (String) iter.next();
             if ((!ignoreCase && aPropertyName.equals(key)) ||
-                    (ignoreCase && aPropertyName.toLowerCase().equals(
-                            ((String) key).toLowerCase()))) {
+              (ignoreCase && aPropertyName.toLowerCase().equals(
+                ((String) key).toLowerCase()))) {
                 try {
                     Method thisMethod = this.getMatchingGetMethod(aPropertyName, ignoreCase);
                     Object thisValue = thisMethod.invoke(this, new Object[] {});
@@ -296,7 +296,7 @@ public class BeanMap implements Map {
             } else if (thisMethod.getName().startsWith("set")) {
                 String pureName = StringTools.minusculizeFirstLetter(thisMethod.getName().replaceFirst("set", ""));
                 if (properties.containsKey(pureName) &&
-                        ((Property) properties.get(pureName)).getType().equals(methods[i].getParameterTypes()[0])) {
+                  ((Property) properties.get(pureName)).getType().equals(methods[i].getParameterTypes()[0])) {
                     ((Property) properties.get(pureName)).setCanBeWritten(true);
                 } else {
                     properties.put(pureName, new Property(pureName, methods[i].getParameterTypes()[0], false, true));

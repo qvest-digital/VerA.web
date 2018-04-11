@@ -82,12 +82,12 @@ public class ListFilterImpl implements ListFilter {
      */
     public ListFilterImpl init(OctopusContext cntx, String prefix) {
         if (cntx.requestAsString(prefix + "." + PARAM_RESET) != null &&
-                !"".equals(cntx.requestAsString(prefix + "." + PARAM_RESET))) {
+          !"".equals(cntx.requestAsString(prefix + "." + PARAM_RESET))) {
             resetSession(cntx, prefix);
         }
 
         if (cntx.requestAsString(prefix + "." + PARAM_RESET_FILTER) != null &&
-                !"".equals(cntx.requestAsString(prefix + "." + PARAM_RESET_FILTER))) {
+          !"".equals(cntx.requestAsString(prefix + "." + PARAM_RESET_FILTER))) {
             resetFilter(cntx, prefix);
         }
 
@@ -408,7 +408,7 @@ public class ListFilterImpl implements ListFilter {
             }
         }
         if (requestFilterList != null && requestFilterList.size() > 0
-                && possibleAndFilterParams != null && possibleAndFilterParams.size() > 0) {
+          && possibleAndFilterParams != null && possibleAndFilterParams.size() > 0) {
             filterList.add(ListFilterOperator.AND);
         }
 

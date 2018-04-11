@@ -65,5 +65,4 @@ public abstract class PluginAdapter implements Plugin {
     public abstract List getSupportedTypes();
 
     public abstract boolean isTypeSupported(Class type);
-
 }

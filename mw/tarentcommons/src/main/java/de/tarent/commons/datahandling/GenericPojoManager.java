@@ -67,5 +67,4 @@ public interface GenericPojoManager {
      * @return the result for the call
      */
     public Object methodCalled(Object pojo, GenericPojo theGenericPojo, Method method, Object[] args);
-
 }

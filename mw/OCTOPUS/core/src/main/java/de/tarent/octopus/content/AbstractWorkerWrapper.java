@@ -157,7 +157,7 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
      * Aufruf einer Action des Workers
      */
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
-            throws TcContentProzessException {
+      throws TcContentProzessException {
         try {
 
             ActionData actionData = getActionDataCached(actionName);
@@ -184,26 +184,26 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     Object paramValue = octopusContext.getContextField(actionData.inputParams[i]);
                     if (logger.isTraceEnabled()) {
                         logger.trace("Filling " + i + ". generic param with context-field: " + actionData.inputParams[i] +
-                                " paramValue=" + paramValue);
+                          " paramValue=" + paramValue);
                     }
 
                     if (paramValue == null && actionData.mandatoryFlags[i]) {
                         throw new TcActionInvocationException(Resources.getInstance()
-                                .get("WORKER_WRAPPER_EXC_MISSING_PARAM",
-                                        new Object[] {
-                                                tcRequest.getRequestID(),
-                                                actionData.inputParams[i],
-                                                actionData.getArgTargetType(argsPos).getName(),
-                                                workerClass.getName(),
-                                                actionName
-                                        }));
+                          .get("WORKER_WRAPPER_EXC_MISSING_PARAM",
+                            new Object[] {
+                              tcRequest.getRequestID(),
+                              actionData.inputParams[i],
+                              actionData.getArgTargetType(argsPos).getName(),
+                              workerClass.getName(),
+                              actionName
+                            }));
                     }
                     // type conversion
                     if (!actionData.getArgTargetType(argsPos).isInstance(paramValue)) {
                         paramValue = tryToConvert(paramValue, actionData.getArgTargetType(argsPos));
                         if (logger.isTraceEnabled()) {
                             logger.trace("Applying type conversion for param " + actionData.inputParams[i] + " to type " +
-                                    actionData.getArgTargetType(argsPos));
+                              actionData.getArgTargetType(argsPos));
                             logger.trace("New value: " + paramValue);
                         }
                     }
@@ -239,25 +239,25 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             }
 
             return (octopusContext.getStatus() != null) ?
-                    octopusContext.getStatus() : TcContentWorker.RESULT_ok;
+              octopusContext.getStatus() : TcContentWorker.RESULT_ok;
         } catch (TcContentProzessException e) {
             throw e;
         } catch (IllegalArgumentException e) {
             throw new TcActionInvocationException(
-                    "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName + ")",
-                    e);
+              "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName + ")",
+              e);
         } catch (IllegalAccessException e) {
             throw new TcActionInvocationException(
-                    "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName + ")",
-                    e);
+              "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName + ")",
+              e);
         } catch (InvocationTargetException e) {
             Throwable t = e.getTargetException();
             if (t instanceof TcContentProzessException) {
                 throw (TcContentProzessException) t;
             } else {
                 throw new TcActionInvocationException(
-                        "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName +
-                                ")", t);
+                  "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName +
+                    ")", t);
             }
         }
     }
@@ -323,13 +323,13 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                 } catch (Exception e) {
                     logger.warn("Fehler beim Konvertieren eines Übergabeparamters (Map nach " + targetType.getName() + ")", e);
                     throw new TcContentProzessException(
-                            "Fehler beim Konvertieren eines Übergabeparamters (Map nach " + targetType.getName() + ")", e);
+                      "Fehler beim Konvertieren eines Übergabeparamters (Map nach " + targetType.getName() + ")", e);
                 }
             }
         } catch (NumberFormatException e) {
             logger.warn("Formatfehler beim Konvertieren eines Übergabeparamters (von " +
-                    ((param != null) ? param.getClass().toString() : "null") + " nach " +
-                    ((targetType != null) ? targetType.getName() : "null") + ")", e);
+              ((param != null) ? param.getClass().toString() : "null") + " nach " +
+              ((targetType != null) ? targetType.getName() : "null") + ")", e);
             //Altes Verhalten wird wiederhergestellt, die TcContentProcessException
             //Macht z.b. im Broker(evtl. alle anderen SBK-Projekte) Probleme
             //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param
@@ -337,8 +337,8 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             return null;
         }
         throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von " +
-                (param != null ? param.getClass() : null) +
-                " nach " + targetType.getName() + " vorhanden.");
+          (param != null ? param.getClass() : null) +
+          " nach " + targetType.getName() + " vorhanden.");
     }
 
     /**

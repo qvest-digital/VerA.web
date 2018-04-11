@@ -84,7 +84,7 @@ public interface LoginManager {
      * @throws TcSecurityException bei einer Authentifizierung, die Fehlerhaft war
      */
     public void handleAuthentication(TcCommonConfig cConfig, TcRequest tcRequest, TcSession theSession)
-            throws TcSecurityException;
+      throws TcSecurityException;
 
     /**
      * Liefert die zuvor erstellte TcPersonalConfig dieses Moduls zurück.

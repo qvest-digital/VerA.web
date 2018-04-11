@@ -84,9 +84,9 @@ import lombok.Data;
 @Entity
 @Table(name = "toptional_field_type_content")
 @NamedQueries({
-        @NamedQuery(name = "OptionalFieldTypeContent.findTypeContentsByOptionalField",
-                query = "SELECT oftc from OptionalFieldTypeContent oftc WHERE oftc.fk_optional_field=:optionalFieldId "
-                        + "AND ((oftc.content not like '') AND oftc.content is not null) order by oftc.fk_optional_field")
+  @NamedQuery(name = "OptionalFieldTypeContent.findTypeContentsByOptionalField",
+    query = "SELECT oftc from OptionalFieldTypeContent oftc WHERE oftc.fk_optional_field=:optionalFieldId "
+      + "AND ((oftc.content not like '') AND oftc.content is not null) order by oftc.fk_optional_field")
 })
 public class OptionalFieldTypeContent {
 
