@@ -29,9 +29,25 @@ set -o pipefail
 set -x
 cd "$(dirname "$0")"
 
+usage() {
+	print -ru2 -- "[ERROR] usage: $0 [-n]"
+	print -ru2 -- "[INFO] -n = do not upload Online-Anmeldung"
+	exit ${1:-1}
+}
+
 has_vwoa=1
 split_oa=0
 tomcat=8
+
+while getopts "hn" ch; do
+	case $ch {
+	(h) usage 0 ;;
+	(n) has_vwoa=0 ;;
+	(+n) has_vwoa=1 ;;
+	(*) usage ;;
+	}
+done
+shift $(($OPTIND - 1))
 
 function tgtck {
 	case $1 {
@@ -56,7 +72,7 @@ function tgtck {
 		;;
 	(*)
 		print -ru2 -- "[ERROR] stage '$1' unknown"
-		exit 1
+		usage
 		;;
 	}
 }
