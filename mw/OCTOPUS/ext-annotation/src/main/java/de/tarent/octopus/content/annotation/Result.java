@@ -59,8 +59,8 @@ import java.lang.annotation.Target;
  * Dieser Annotation ist gleichbedeutend mit dem name-Attribut von WebResult,
  * hat jedoch eine einfachere Schreibweise.
  *
- * @see javax.jws.WebResult;
- * @see javax.jws.WebMethod;
+ * @see javax.jws.WebResult
+ * @see javax.jws.WebMethod
  * @see <a href="https://jcp.org/aboutJava/communityprocess/final/jsr181/index.html">JSR-000181
  * Web Services Metadata for the Java Platform — Final Release</a>
  */

@@ -57,7 +57,7 @@ import java.lang.annotation.Target;
  * Element zur Beschreibung der Version eines Objektes z.B. eines octopus ContentWorkers.
  * Kann in Verbindung mit JSR181 Annotations (WebService Meta Data) zur Beschreibung von Workern verwendet werden.
  *
- * @see javax.jws.WebMethod;
+ * @see javax.jws.WebMethod
  * @see <a href="https://jcp.org/aboutJava/communityprocess/final/jsr181/index.html">JSR-000181
  * Web Services Metadata for the Java Platform — Final Release</a>
  */
