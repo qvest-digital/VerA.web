@@ -32,6 +32,7 @@ cd "$(dirname "$0")"
 usage() {
 	set +x
 	print -ru2 -- "[ERROR] usage: $0 [-n] <stage>"
+	print -ru2 -- "[INFO] -f = tail -F the tomcat logs after running, press ^C to abort"
 	print -ru2 -- "[INFO] -n = do not upload Online-Anmeldung"
 	exit ${1:-1}
 }
@@ -39,9 +40,11 @@ usage() {
 has_vwoa=1
 split_oa=0
 tomcat=8
-
-while getopts "hn" ch; do
+tailf=0
+while getopts "fhn" ch; do
 	case $ch {
+	(f) tailf=1 ;;
+	(+f) tailf=0 ;;
 	(h) usage 0 ;;
 	(n) has_vwoa=0 ;;
 	(+n) has_vwoa=1 ;;
@@ -67,6 +70,10 @@ function tgtck {
 		hostbase=veraweb-mit.lan.tarent.de
 		hostoa=veraweb-mit-oa.lan.tarent.de
 		hostohne=veraweb-ohne.lan.tarent.de
+		if (( tailf )); then
+			print -ru2 -- '[WARNING] cannot tail two systems, -f ignored'
+			tailf=0
+		fi
 		;;
 	(po)
 		hostbase=veraweb-po.lan.tarent.de
@@ -155,4 +162,13 @@ test -z "$hostoa" && sleep 5 || ssh root@$hostoa "
 	svstat /service/vwoa
     "
 set +x
+if (( tailf )); then
+	trap : INT
+	set +e
+	ssh root@$hostbase "
+		PS4='(${hostbase%%.*})++++ '
+		set -x
+		exec tail -F /var/log/tomcat$tomcat/catalina.out
+	    "
+fi
 print -ru2 -- "[INFO] installing to stage $stage finished successfully"
