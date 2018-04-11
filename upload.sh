@@ -52,6 +52,14 @@ shift $(($OPTIND - 1))
 
 function tgtck {
 	case $1 {
+	(mit)
+		hostbase=veraweb-mit.lan.tarent.de
+		hostoa=veraweb-mit-oa.lan.tarent.de
+		;;
+	(ohne)
+		hostbase=veraweb-ohne.lan.tarent.de
+		hostoa=
+		;;
 	(mit/ohne)
 		split_oa=1
 		hostbase=veraweb-mit.lan.tarent.de
