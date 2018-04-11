@@ -191,6 +191,8 @@
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<compilerArgs>
 							<arg>-Xlint</arg>
+							<!-- for now: -->
+							<arg>-Xlint:-unchecked</arg>
 						</compilerArgs>
 					</configuration>
 				</plugin>
