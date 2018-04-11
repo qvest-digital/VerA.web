@@ -48,7 +48,8 @@ package de.tarent.commons.datahandling;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.commons.datahandling.entity.*;
+import de.tarent.commons.datahandling.entity.Entity;
+import de.tarent.commons.datahandling.entity.WritableEntity;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -68,7 +69,6 @@ import java.lang.reflect.Proxy;
  * @author Sebastian Mancke, tarent GmbH
  */
 public class GenericPojo implements InvocationHandler {
-
     GenericPojoManager pojoManager = null;
     GenericPojoStorage pojoStorage = null;
 

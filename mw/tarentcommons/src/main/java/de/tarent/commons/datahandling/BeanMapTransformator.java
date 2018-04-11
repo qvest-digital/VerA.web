@@ -91,7 +91,7 @@ public class BeanMapTransformator {
      * @param map
      * @param clazz
      * @return Bean, never null.
-     * @throw NullPointerException, if map or clazz are null.
+     * @throws NullPointerException, if map or clazz are null.
      */
     public Object transformMapToBean(Map map, Class clazz) {
         try {

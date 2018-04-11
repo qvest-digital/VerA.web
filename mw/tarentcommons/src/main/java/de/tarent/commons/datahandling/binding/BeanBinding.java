@@ -48,46 +48,42 @@ package de.tarent.commons.datahandling.binding;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.lang.reflect.Method;
-import java.util.*;
+import de.tarent.commons.utils.Converter;
+import de.tarent.commons.utils.ConverterRegistry;
+import de.tarent.commons.utils.Pojo;
 
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
-
-import de.tarent.commons.utils.*;
-
-import javax.swing.JCheckBox;
-import javax.swing.event.ChangeListener;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
-import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This is a binding implementation for usage of normal swing components or other bean like classes as view.
  * To use this binding, the view must only have a matching get/set pair to the viewAttributeKey. If the
  * view has only a set-method, then the BeanBinding defaults to readOnly binding.
  *
- * <p>There are two methods of data conversion for the get an set to the model: explicit DataConverter and an automatic data
+ * There are two methods of data conversion for the get an set to the model: explicit DataConverter and an automatic data
  * conversion.
  * <h3>explicit DataConverter</h3>
  * If the getViewDataConverter or the setViewDataConverter are set, they are used to convert the data before setting or after
  * getting from the view.
  * <h3>automatic data conversion</h3>
- * If no setViewDataConverter is set, the data is automaticly converted before setting by the {@see de.tarent.commons.utils
- * .Pojo} and {@see de.tarent.commons.utils.ConverterRegistry} api ot the target type of the pojo property.
+ * If no setViewDataConverter is set, the data is automaticly converted before setting by the
+ * {@see de.tarent.commons.utils.Pojo} and {@see de.tarent.commons.utils.ConverterRegistry} api ot the target type of the pojo
+ * property.
  * If no getViewDataConverter is set, the data is automaticly converted after retrieving from the view, to the type of data in
  * the first setViewData() operation. It is possible to force this datatype with the forceDataType attribute.
- * </p>
- *
  *
  * TODO: Support the modified flag e.g. by listenting to the right event
  */
 public class BeanBinding implements Binding, DataSubject {
-
     static final Object[] emptyArgs = new Object[] {};
 
     Object viewComponent;

@@ -48,7 +48,7 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -63,7 +63,6 @@ import java.util.List;
  * @author Robert Schuster
  */
 public class TaskManager {
-
     public static final int DEFAULT_PRIORITY = 10;
 
     private List taskListeners = new ArrayList();
@@ -93,23 +92,22 @@ public class TaskManager {
 
     /**
      * Processes all scheduled tasks or waits for them to be scheduled.
-     * <p>
+     *
      * This method is called on the <code<TaskManager</code>'s dispatch
      * thread.
-     * <p>
-     * It processes the tasks in the following way:<lu>
+     *
+     * It processes the tasks in the following way:<ul>
      * <li>look up whether tasks to be run exist</li>
      * <li>if not go to sleep and check again after wakeup</li>
      * <li>if there is a task, run it according to its properties blocking,
      * exclusive or normal</li>
      * <li>start over again</li>
-     * </lu>
-     * <p>
+     * </ul>
+     *
      * A check for ending the taskmanager itself is done right before sleeping
      * because of no pending tasks. This means that the taskmanager will always
      * process all tasks before going out of service. This behavior should
      * guarantee that work given to the taskmanager is really completed.
-     * </p>
      */
     private void processTasks() {
         Context ctx = null;
@@ -199,7 +197,6 @@ public class TaskManager {
 
     /**
      * Returns the one and only instance of the <code>TaskManager</code>
-     *
      */
     public static TaskManager getInstance() {
         return instance;
@@ -333,9 +330,6 @@ public class TaskManager {
     /**
      * Notifies all registered {@link TaskManager.TaskListener} instances about
      * an update of a task's current progress.
-     *
-     * @param t
-     * @param description
      */
     private void fireCurrentUpdated(Context t, int amount) {
         Iterator ite = taskListeners.iterator();
@@ -347,8 +341,6 @@ public class TaskManager {
     /**
      * Notifies all registered {@link TaskManager.TaskListener} instances about
      * a task being completed.
-     *
-     * @param t
      */
     private void fireTaskCompleted(Context t) {
         Iterator ite = taskListeners.iterator();
@@ -360,8 +352,6 @@ public class TaskManager {
     /**
      * Notifies all registered {@link TaskManager.TaskListener} instances about
      * a task being cancelled.
-     *
-     * @param t
      */
     private void fireTaskCancelled(Context t) {
         Iterator ite = taskListeners.iterator();
@@ -373,8 +363,6 @@ public class TaskManager {
     /**
      * Notifies all registered {@link TaskManager.TaskListener} instances about
      * a task being started.
-     *
-     * @param t
      */
     private void fireTaskStarted(Context t) {
         Iterator ite = taskListeners.iterator();
@@ -396,10 +384,6 @@ public class TaskManager {
     /**
      * Registers a normal (concurrent) task with the supplied priotiry.
      * The has no effect to the computation order of the Tasks, but is supplied for e.g. the view order.
-     *
-     * @param t
-     * @param taskDescription
-     * @param cancelable
      */
     public void register(Task t, String taskDescription, boolean cancelable, int priority) {
 
@@ -409,10 +393,6 @@ public class TaskManager {
 
     /**
      * Registers a normal (concurrent) task.
-     *
-     * @param t
-     * @param taskDescription
-     * @param cancelable
      */
     public void register(Task t, String taskDescription, boolean cancelable) {
         register(t, taskDescription, cancelable, DEFAULT_PRIORITY);
@@ -434,10 +414,6 @@ public class TaskManager {
     /**
      * Registers a task which can be run only when all other tasks have been
      * completed and then blocks running following tasks until it is completed.
-     *
-     * @param t
-     * @param taskDescription
-     * @param cancelable
      */
     public void registerExclusive(Task t, String taskDescription,
       boolean cancelable) {
@@ -490,7 +466,6 @@ public class TaskManager {
 
         /**
          * Returns whether the context's task has been cancelled.
-         *
          */
         public boolean isCancelled() {
             return cancelled;
@@ -522,11 +497,10 @@ public class TaskManager {
 
         /**
          * Cancels the underlying task if it is cancelable.
-         * <p>
+         *
          * This method <em>blocks</em> until the task has finished its
          * cancelation. For this reason it is wrong to call the method from
          * within the Swing dispatch thread as it may freeze the UI.
-         * </p>
          *
          * @throws IllegalStateException if the task is not cancelable or the method is called
          *                               from the Swing dispatch thread
@@ -569,30 +543,28 @@ public class TaskManager {
      * This is the interface to be implemented for long running background tasks
      * which should be subject to a specific scheduling policy.
      *
-     * <p>Cancellation can be implemented in two ways:
-     * <p>
+     * Cancellation can be implemented in two ways:
+     *
      * The first variant regularly checks the {@link TaskManager.Context#isCancelled()}
      * method from inside the {@link #run(Context)} method. This is suitable for tasks
      * which perform a loop or iterate through the work units.
-     * </p>
-     * <p>The second variant involves reacting to a call to the {@link #cancel()} method.
+     *
+     * The second variant involves reacting to a call to the {@link #cancel()} method.
      * Which should wakeup the {@link #run(Context)} method (e.g. via {@link Thread#interrupt()}).
      * This variant is suitable for tasks which enter a blocking system call in their <code>run</code>
-     * method and cannot regulary check the <code>Context</code> object.</p>
-     * </p>
+     * method and cannot regulary check the <code>Context</code> object.
      */
     public static interface Task {
-
         /**
          * This method should do the tasks work.
-         * <p>
-         * Keep the following threading issues in mind: <lu>
+         *
+         * Keep the following threading issues in mind: <ul>
          * <li>you are not on the Swing dispatch thread (use
          * {@link EventQueue#invokeLater} for GUI manipulations)
          * </p>
          * <li>you are on an arbitrary thread, not the one that started the
          * application</li>
-         * </lu>
+         * </ul>
          *
          * @param ctx
          */
@@ -601,10 +573,9 @@ public class TaskManager {
         /**
          * Cancelable tasks should implement this method in a way that stops the
          * work done by {@link #run(Context)} quickly.
-         * <p>
+         *
          * If cancelation is not possible just provide an empty implementation.
          * It will not be called.
-         * </p>
          */
         void cancel();
     }
@@ -625,17 +596,14 @@ public class TaskManager {
 
     /**
      * Simple task implementation for tasks that interact with Swing components.
-     * <p>
+     *
      * The implementation provides all the infrastructure for dealing correctly
      * with the Swing event dispatch thread.
-     * </p>
-     * <p>
+     *
      * Access Swing components only from {@link #prepare(Context)},
      * {@link #succeeded(Context)} and {@link #failed(Context)} method.
-     * </p>
-     * <p>
+     *
      * Do time consuming task in the {@link #runImpl(Context)} method.
-     * </p>
      */
     public static abstract class SwingTask extends AbstractTask {
 
@@ -693,50 +661,36 @@ public class TaskManager {
 
         /**
          * Override this implementation for task setup.
-         * <p>
+         *
          * This method is called right before the task is run and should be used
          * to set up everything to run the task.
-         * </p>
-         *
-         * @param ctx
          */
         protected void prepare(Context ctx) {
         }
 
         /**
          * Implement this method according to the task you want to run.
-         * <p>
+         *
          * This method is <em>not</em> being run on the Swing thread and is
          * allowed to be time consuming.
-         * </p>
-         * <p>
-         * Throw a {@link SwingTask.Exception} to indicate that the task failed.
-         * </p>
          *
-         * @param ctx
-         * @throws SwingTask.Exception
+         * Throw a {@link SwingTask.Exception} to indicate that the task failed.
          */
         protected abstract void runImpl(Context ctx) throws SwingTask.Exception;
 
         /**
          * Implement this method with the necessary behavior when the task has
          * succeeded.
-         * <p>
-         * This method is called on the Swing thread.
-         * </p>
          *
-         * @param ctx
+         * This method is called on the Swing thread.
          */
         protected abstract void succeeded(Context ctx);
 
         /**
          * Implement this method with the necessary behavior when the task has
          * failed.
-         * <p>
-         * This method is called on the Swing thread.
-         * </p>
          *
-         * @param ctx
+         * This method is called on the Swing thread.
          */
         protected abstract void failed(Context ctx);
 
@@ -758,59 +712,42 @@ public class TaskManager {
     /**
      * This interface is to be implemented when information about the
      * {@link TaskManager}s activity is wanted.
-     * <p>
+     *
      * A usual implementation would be a graphical representation of the
      * {@link TaskManager}.
-     * </p>
-     * <p>
+     *
      * Via the {@link Context} instances an implementor can issue cancellation
      * of tasks supporting this.
-     * </p>
      *
      * @author Robert Schuster
      */
     public static interface TaskListener {
-
         /**
          * This method is called whenever a new concurrent task
          * is registered at the <code>TaskManager</code>.
-         *
-         * @param t
-         * @param description
          */
         void taskRegistered(Context t, String description);
 
         /**
          * This method is called whenever a new blocking task
          * is registered at the <code>TaskManager</code>.
-         *
-         * @param t
-         * @param description
          */
         void blockingTaskRegistered(Context t, String description);
 
         /**
          * This method is called whenever a new exclusive task
          * is registered at the <code>TaskManager</code>.
-         *
-         * @param t
-         * @param description
          */
         void exclusiveTaskRegistered(Context t, String description);
 
         /**
          * This method is called whenever a task's activity description
          * changes.
-         *
-         * @param t
-         * @param description
          */
         void activityDescriptionSet(Context t, String description);
 
         /**
          * This method is called whenever a task starts.
-         *
-         * @param t
          */
         void taskStarted(Context t);
 
@@ -819,8 +756,6 @@ public class TaskManager {
          *
          * <p>A task is completed after its {@link TaskManager.Task#run(Context)}
          * method returns.</p>
-         *
-         * @param t
          */
         void taskCompleted(Context t);
 
@@ -830,22 +765,16 @@ public class TaskManager {
          * <p>A task is cancelled when the <code>cancel</code> method of the
          * task's <code>Context</code> was called and after that returns from
          * the {@link TaskManager.Task#run(Context)} method.
-         *
-         * @param t
          */
         void taskCancelled(Context t);
 
         /**
          * This method is called whenever a task's progress is updated.
-         *
-         * @param t
          */
         void currentUpdated(Context t, int amount);
 
         /**
          * This method is called whenever a task's progress goal is updated.
-         *
-         * @param t
          */
         void goalUpdated(Context t, int amount);
     }

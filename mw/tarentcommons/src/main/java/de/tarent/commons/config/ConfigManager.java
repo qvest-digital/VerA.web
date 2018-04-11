@@ -48,6 +48,11 @@ package de.tarent.commons.config;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -55,11 +60,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * The <code>ConfigManager</code> handles the configuration loading mechanism
@@ -255,7 +255,6 @@ public class ConfigManager {
      * missing.
      *
      * <p>The list is empty of no documents are missing.</p>
-     *
      */
     public static List getMissingDocuments() {
         ConfigManager instance = getInstance();

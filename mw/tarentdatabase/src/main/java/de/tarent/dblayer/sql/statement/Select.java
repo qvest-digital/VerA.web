@@ -544,7 +544,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * <p>For execution, the previous set DBContext will be used.</p>
      *
      * @throws IllegalStateException if no DBContext was set.
-     * @returns the number of iterations
+     * @return the number of iterations
      */
     public int iterate(ResultProcessor processor) throws SQLException {
         if (getDBContext() == null) {
@@ -559,7 +559,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      *
      * <p>For execution, the supplied DBContext will be used.</p>
      *
-     * @returns the number of iterations
+     * @return the number of iterations
      */
     public int iterate(DBContext dbc, ResultProcessor processor) throws SQLException {
         return executeSelect(dbc).iterate(processor);

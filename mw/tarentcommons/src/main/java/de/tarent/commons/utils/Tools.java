@@ -48,11 +48,11 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.commons.datahandling.BeanMapTransformator;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
-
-import de.tarent.commons.datahandling.BeanMapTransformator;
 
 /**
  * Contains various helper methods
@@ -60,7 +60,6 @@ import de.tarent.commons.datahandling.BeanMapTransformator;
  * @author Tim Steffens
  */
 public class Tools {
-
     /**
      * Sets all entries from {@code map} that contain the empty String, only whitespaces or null to null
      */
@@ -147,7 +146,7 @@ public class Tools {
      * @param prefix            is a string that is put in front of each item
      * @param prefixBeforeFirst is false, iff the prefix should not be put before the first item
      * @param suffix            is a string that is put behind each item
-     * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
+     * @param suffixBehindLast  is false, iff the prefix should not be put behind the last item
      */
     public static String iteratorToString(Iterator iterator,
       String prefix, boolean prefixBeforeFirst,
@@ -175,7 +174,7 @@ public class Tools {
      * @param prefixBeforeFirst is false, iff the prefix should not be put before the first item
      * @param infix             string, that is put between key and value
      * @param suffix            string that is put behind each item
-     * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
+     * @param suffixBehindLast  is false, iff the prefix should not be put behind the last item
      */
     public static String mapToString(Map map,
       String prefix, boolean prefixBeforeFirst,
@@ -197,7 +196,7 @@ public class Tools {
      * @param prefix            is a string that is put in front of each item
      * @param prefixBeforeFirst is false, iff the prefix should not be put before the first item
      * @param suffix            is a string that is put behind each item
-     * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
+     * @param suffixBehindLast  is false, iff the prefix should not be put behind the last item
      */
     public static String arrayToString(Object[] array,
       String prefix, boolean prefixBeforeFirst,
@@ -212,7 +211,7 @@ public class Tools {
      * @param prefixBeforeFirst is false, iff the prefix should not be put before the first item
      * @param infix             string, that is put between key and value
      * @param suffix            string that is put behind each item
-     * @param suffixBeforeFirst is false, iff the prefix should not be put behind the first item
+     * @param suffixBehindLast  is false, iff the prefix should not be put behind the last item
      */
     public static String beanToString(Object bean,
       String prefix, boolean prefixBeforeFirst,

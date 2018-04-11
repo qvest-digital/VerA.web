@@ -79,7 +79,7 @@ public class Pojo {
      * Returns the first Method which may be a setXXX Method for the supplied pojo and property,
      * according to the Java Bean Specification
      *
-     * @returns the setter for the property, or null if no mehtod matches
+     * @return the setter for the property, or null if no mehtod matches
      */
     public static Method getSetMethod(Object pojo, String property) {
         return getSetMethod(pojo, property, false);
@@ -92,7 +92,7 @@ public class Pojo {
      * @param pojo     target pojo for the property
      * @param property target property
      * @param flag,    if an exact match of the metod name is forced
-     * @returns the setter for the property, or null if no mehtod matches
+     * @return the setter for the property, or null if no mehtod matches
      */
     public static Method getSetMethod(Object pojo, String property, boolean ignorePropertyCase) {
         return getSetMethod(pojo.getClass(), property, ignorePropertyCase);
@@ -105,7 +105,7 @@ public class Pojo {
      * @param pojo     target pojo for the property
      * @param property target property
      * @param flag,    if an exact match of the metod name is forced
-     * @returns the setter for the property, or null if no mehtod matches
+     * @return the setter for the property, or null if no mehtod matches
      */
     public static Method getSetMethod(Class clazz, String property, boolean ignorePropertyCase) {
         // try to lookup in the cache
@@ -187,7 +187,7 @@ public class Pojo {
      * Returns the first Method which may be a getXXX Method for the supplied pojo and property,
      * according to the Java Bean Specification
      *
-     * @returns the getter for the property, or null if no mehtod matches
+     * @return the getter for the property, or null if no mehtod matches
      */
     public static Method getGetMethod(Object pojo, String property) {
         return getGetMethod(pojo, property, false);
@@ -197,7 +197,7 @@ public class Pojo {
      * Returns the first Method which may be a getXXX Method for the supplied pojo and property,
      * according to the Java Bean Specification
      *
-     * @returns the getter for the property, or null if no mehtod matches
+     * @return the getter for the property, or null if no mehtod matches
      */
     public static Method getGetMethod(Object pojo, String property, boolean ignorePropertyCase) {
 

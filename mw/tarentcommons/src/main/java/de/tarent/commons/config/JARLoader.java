@@ -48,14 +48,13 @@ package de.tarent.commons.config;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.InputStream;
-import java.net.URISyntaxException;
-
-import org.w3c.dom.Document;
-
 import de.tarent.commons.config.ConfigManager.DocumentUnavailableException;
 import de.tarent.commons.config.ConfigManager.Loader;
 import de.tarent.commons.config.ConfigManager.Scope;
+import org.w3c.dom.Document;
+
+import java.io.InputStream;
+import java.net.URISyntaxException;
 
 /**
  * A loader capable of loading documents in classpath over a class loader.
@@ -63,7 +62,6 @@ import de.tarent.commons.config.ConfigManager.Scope;
  * @author Fabian K&ouml;ster (f.koester@tarent.de) tarent GmbH Bonn
  */
 public class JARLoader extends Loader {
-
     Class applicationClass;
 
     JARLoader(String variant, Class applicationClass) {
@@ -73,12 +71,10 @@ public class JARLoader extends Loader {
     }
 
     /**
-     * @see de.tarent.commons.config.ConfigManager.Loader#getDocument(de.tarent.commons.config.ConfigManager.Scope, java.lang
-     * .String)
+     * @see ConfigManager.Loader#getDocument(Scope, String)
      */
     protected Document getDocument(Scope scope, String docName)
       throws DocumentUnavailableException {
-
         // FIXME: replace this hardcoded path
         String basePath = "/de/tarent/walendar/config/";
 
@@ -89,8 +85,8 @@ public class JARLoader extends Loader {
         InputStream is = applicationClass.getResourceAsStream(basePath + scope.toString().toLowerCase() + "/" + docName);
 
         if (is == null) {
-            throw new RuntimeException(
-              "InputStream is null, cannot resolve \"" + basePath + scope.toString().toLowerCase() + "/" + docName + "\"");
+            throw new RuntimeException("InputStream is null, cannot resolve \"" + basePath + scope.toString().toLowerCase() +
+              "/" + docName + "\"");
         }
 
         try {

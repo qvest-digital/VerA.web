@@ -104,7 +104,7 @@ public class Result {
      * Iterates over the result set and calles the process method for each row.
      * Afterwards, the result set will be closed.
      *
-     * @returns the number of iterations
+     * @return the number of iterations
      */
     public int iterate(ResultProcessor processor) throws SQLException {
         int i = 0;

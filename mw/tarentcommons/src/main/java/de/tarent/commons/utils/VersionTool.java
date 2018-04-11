@@ -195,7 +195,7 @@ public class VersionTool {
     /**
      * Returns the main VersionInfo (first in the path);
      *
-     * @returns list of VersionInfo objects from the search path.
+     * @return list of VersionInfo objects from the search path.
      */
     public VersionInfo getMainVersionInfo() {
         return mainVersionInfo;
@@ -204,7 +204,7 @@ public class VersionTool {
     /**
      * Returns the list off all VersionInfos
      *
-     * @returns list of VersionInfo objects from the search path.
+     * @return list of VersionInfo objects from the search path.
      */
     public List getVersionInfos() {
         return versionInfos;

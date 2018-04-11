@@ -195,7 +195,7 @@ public class ExtPreparedStatement implements ParamSet {
      * For querys only, executes the Statement and iterates over the result set and calles the process method for each row.
      * Afterwards, the result set will be closed.
      *
-     * @returns the number of iterations
+     * @return the number of iterations
      */
     public int iterate(ResultProcessor processor) throws SQLException {
         int i = 0;
