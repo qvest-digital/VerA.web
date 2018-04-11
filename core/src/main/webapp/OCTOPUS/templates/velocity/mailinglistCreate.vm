@@ -40,7 +40,7 @@
                         #if($mailinglistParams.count == 1)
                                 ${placeholderWithTranslation.einerperson}
                         #else
-                                $!mailinglistParams.count ${placeholderWithTranslation.GENERIC_PERSON_PLURAL}
+                                $!mailinglistParams.count ${placeholderWithTranslation.GENERIC_PERSON_PLURAL}<!-- this should be lowercase in most languages -->
                         #end
                         ${placeholderWithTranslation.GENERIC_TO}
                         </p>
