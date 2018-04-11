@@ -111,6 +111,15 @@ fi
 (( split_oa )) && dontsplitoa=false || dontsplitoa=true
 (( has_vwoa )) || hostoa=
 
+if (( tailf )); then
+	tcsleep=2
+	oasleep=1
+else
+	tcsleep=5
+	oasleep=5
+	test -n "$hostoa" || tcsleep=10
+fi
+
 ssh root@$hostbase "
 	PS4='(${hostbase%%.*})++++ '
 	set -ex
@@ -150,15 +159,15 @@ $dontsplitoa || ssh root@$hostohne "
 	set -ex
 	service tomcat$tomcat start
     "
-sleep 5
-test -z "$hostoa" && sleep 5 || ssh root@$hostoa "
+sleep $tcsleep
+test -z "$hostoa" || ssh root@$hostoa "
 	PS4='(${hostoa%%.*})++++ '
 	set -ex
 	cd /service/vwoa
 	rm -f vwoa.jar
 	mv vw-online-registration.jar vwoa.jar
 	svc -t /service/vwoa
-	sleep 5
+	sleep $oasleep
 	svstat /service/vwoa
     "
 set +x
