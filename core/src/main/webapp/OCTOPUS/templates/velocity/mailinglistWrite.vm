@@ -32,7 +32,7 @@
         <input type="hidden" id="loaddraft" name="loaddraft" value="false">
         <input type="hidden" id="savedraft" name="savedraft" value="false">
 
-        #if($errors.size() > 0)
+        #if($errors && $errors.size() > 0)
         <vera-warn>
                 $!message.plain($errors.get(0))<br>
         ##      #foreach($error in $errors)
