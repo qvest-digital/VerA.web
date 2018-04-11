@@ -15,17 +15,17 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -156,84 +156,7 @@ set -ex
 if test x&quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
 	: not installing to a proper system
 else
-	oa=true
-	tomcat=8
-	case $VWJENKINS_PROPER_INSTALL_STAGE in
-	(mit/ohne)
-		oa=false
-		hostbase=veraweb-mit.lan.tarent.de
-		hostoa=veraweb-mit-oa.lan.tarent.de
-		hostohne=veraweb-ohne.lan.tarent.de
-		;;
-	(po)
-		hostbase=veraweb-po.lan.tarent.de
-		hostoa=$hostbase
-		;;
-	(thense)
-		hostbase=veraweb-thense.lan.tarent.de
-		hostoa=$hostbase
-		;;
-	(stadtmuenchen)
-		hostbase=veraweb-stadtmuenchen.lan.tarent.de
-		hostoa=
-		tomcat=7
-		;;
-	(*)
-		echo &gt;&amp;2 &quot;E: stage &apos;$VWJENKINS_PROPER_INSTALL_STAGE&apos; unknown&quot;
-		exit 1
-		;;
-	esac
-
-	ssh root@$hostbase &quot;
-		PS4=&apos;(${hostbase%%.*})+++ &apos;
-		set -ex
-		(service tomcat$tomcat stop || :)
-	    &quot;
-	$oa || ssh root@$hostohne &quot;
-		PS4=&apos;(${hostohne%%.*})+++ &apos;
-		set -ex
-		(service tomcat$tomcat stop || :)
-	    &quot;
-	test -z &quot;$hostoa&quot; || \
-	    scp vwoa/target/vw-online-registration.jar root@$hostoa:/service/vwoa/
-	sleep 5
-	ssh root@$hostbase &quot;
-		PS4=&apos;(${hostbase%%.*})+++ &apos;
-		set -ex
-		psql -U veraweb -h 127.0.0.1 veraweb
-		rm -rf /var/lib/tomcat$tomcat/webapps/v*
-	    &quot; &lt;core/src/main/files/upgrade.sql
-	$oa || ssh root@$hostohne &quot;
-		PS4=&apos;(${hostohne%%.*})+++ &apos;
-		set -ex
-		psql -U veraweb -h 127.0.0.1 veraweb
-		rm -rf /var/lib/tomcat$tomcat/webapps/v*
-	    &quot; &lt;core/src/main/files/upgrade.sql
-	scp core/target/veraweb.war vwor/target/vwor.war \
-	    root@$hostbase:/var/lib/tomcat$tomcat/webapps/
-	$oa || scp core/target/veraweb.war vwor/target/vwor.war \
-	    root@$hostohne:/var/lib/tomcat$tomcat/webapps/
-	ssh root@$hostbase &quot;
-		PS4=&apos;(${hostbase%%.*})+++ &apos;
-		set -ex
-		service tomcat$tomcat start
-	    &quot;
-	$oa || ssh root@$hostohne &quot;
-		PS4=&apos;(${hostohne%%.*})+++ &apos;
-		set -ex
-		service tomcat$tomcat start
-	    &quot;
-	sleep 5
-	test -z &quot;$hostoa&quot; &amp;&amp; sleep 5 || ssh root@$hostoa &quot;
-		PS4=&apos;(${hostoa%%.*})+++ &apos;
-		set -ex
-		cd /service/vwoa
-		rm -f vwoa.jar
-		mv vw-online-registration.jar vwoa.jar
-		svc -t /service/vwoa
-		sleep 5
-		svstat /service/vwoa
-	    &quot;
+	./upload.sh &quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot;
 	: finished installing to a proper system
 fi
 #git gc # rsync time of packs is rather high, so best to do this only rarely
