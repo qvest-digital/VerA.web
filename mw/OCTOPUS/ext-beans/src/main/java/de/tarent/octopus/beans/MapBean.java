@@ -313,8 +313,7 @@ public class MapBean extends AbstractMap implements Bean {
     }
 
     /**
-     * Returns <tt>true</tt> if this map contains a mapping for the specified
-     * key. <p>
+     * Returns <tt>true</tt> if this map contains a mapping for the specified key.
      *
      * @see java.util.AbstractMap#containsKey(java.lang.Object)
      */

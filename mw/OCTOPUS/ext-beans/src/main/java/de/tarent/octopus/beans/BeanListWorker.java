@@ -48,9 +48,15 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.sql.Statement;
+import de.tarent.dblayer.sql.clause.Limit;
+import de.tarent.dblayer.sql.clause.Where;
+import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.server.OctopusContext;
+
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -58,13 +64,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import de.tarent.dblayer.helper.ResultList;
-import de.tarent.dblayer.sql.Statement;
-import de.tarent.dblayer.sql.clause.Limit;
-import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Abstrakter Worker der Seitenweise Listen von Datenbankinhalten darstallen
@@ -378,12 +377,7 @@ public abstract class BeanListWorker {
      * Kann überladen werden falls zusätzliche Sicherheitsabfragen oder
      * sonstige Kontrollen (z.B. existiert bereit) ausgeführt werden sollen.
      *
-     * @param cntx
-     * @param errors
-     * @param bean
-     * @throws BeanException
-     * @throws IOException
-     * @see #saveBean(OctopusContext, Bean)
+     * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
       throws BeanException, IOException {
@@ -404,13 +398,8 @@ public abstract class BeanListWorker {
      * Kann überladen werden falls zusätzliche Sicherheitsabfragen oder
      * sonstige Kontrollen auf die vollständige Liste ausgeführt werden müssen.
      *
-     * @param cntx
-     * @param errors   Liste in die Warnungen als Strings hinzugefügt werden können.
-     * @param beanlist
-     * @param context
-     * @throws BeanException
-     * @throws IOException
-     * @see #saveBean(OctopusContext, Bean)
+     * @param errors Liste in die Warnungen als Strings hinzugefügt werden können.
+     * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context)
       throws BeanException, IOException {
@@ -430,18 +419,13 @@ public abstract class BeanListWorker {
     /**
      * Wird von saveList aufgerufen und soll die übergebene Liste von Bean-IDs
      * löschen. Ruft in der Standard-Implementierung für jede ID
-     * <code>removeBean(cntx, bean);</code> auf.<br><br>
+     * <code>removeBean(cntx, bean);</code> auf.
      *
      * Kann überladen werden falls zusätzliche Sicherheitsabfragen und
      * sonstige Kontrollen auf die vollständige Liste ausgeführt werden müssen.
      *
-     * @param cntx
-     * @param errors    Liste in die Warnungen als Strings hinzugefügt werden können.
-     * @param selection
-     * @param context
-     * @throws BeanException
-     * @throws IOException
-     * @see #removeBean(OctopusContext, Bean)
+     * @param errors Liste in die Warnungen als Strings hinzugefügt werden können.
+     * @see #removeBean(OctopusContext, Bean, TransactionContext)
      */
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context)
       throws BeanException, IOException {
@@ -460,10 +444,6 @@ public abstract class BeanListWorker {
     /**
      * Methode die von abgeleiteten Klassen überschrieben werden kann,
      * um das Select-Statement um Spalten zu erweitern.
-     *
-     * @param cntx
-     * @param select
-     * @throws BeanException
      */
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
     }
@@ -471,10 +451,6 @@ public abstract class BeanListWorker {
     /**
      * Methode die von abgeleiteten Klassen überschrieben werden kann,
      * um das Select-Statement um Bedingungen zu erweitern.
-     *
-     * @param cntx
-     * @param select
-     * @throws BeanException
      */
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
     }
@@ -482,10 +458,6 @@ public abstract class BeanListWorker {
     /**
      * Methode die von abgeleiteten Klassen überschrieben werden kann,
      * um das Select-Statement um Bedingungen zu erweitern.
-     *
-     * @param cntx
-     * @param select
-     * @throws BeanException
      */
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
     }
@@ -495,12 +467,6 @@ public abstract class BeanListWorker {
      * um ggf. abhängige Datenbankeinträge ebenfalls zu löschen.<br><br>
      *
      * Standardimplemtierung: <code>getDatabase(cntx).removeBean(bean, context);</code>
-     *
-     * @param cntx
-     * @param bean
-     * @param context
-     * @throws BeanException
-     * @throws IOException
      */
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
         context.getDatabase().removeBean(bean, context);
@@ -514,12 +480,6 @@ public abstract class BeanListWorker {
      * Die Implementierung wurde dahingehend geändert, dass nun ein ExecutionContext
      * übergeben werden muss, in dessen Kontext die Anfrage an die Datenbank gestellt wird.
      * Dies kann z.B. eine Database sein, oder aber ein TransactionContext.
-     *
-     * @param cntx
-     * @param bean
-     * @param context
-     * @throws BeanException
-     * @throws IOException
      */
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
         context.getDatabase().saveBean(bean, context, bean.isModified());
@@ -530,11 +490,8 @@ public abstract class BeanListWorker {
      * vom Benutzer getroffenen Auswahl und gibt eine Liste der nun aktuellen
      * Einträge zurück.
      *
-     * @param cntx
      * @param count Gibt die erwartete Größe der Liste an.
      * @return neue Liste mit selektierten Listeneinträgen (ID's als Integer).
-     * @throws BeanException
-     * @throws IOException
      */
     public List getSelection(OctopusContext cntx, Integer count) throws BeanException, IOException {
         // Alte auswahl

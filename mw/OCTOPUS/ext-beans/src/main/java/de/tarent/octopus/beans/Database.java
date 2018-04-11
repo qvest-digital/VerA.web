@@ -48,25 +48,6 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Pool;
 import de.tarent.dblayer.helper.ResultList;
@@ -81,6 +62,25 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Konkrete {@link BeanFactory}, die Beans aus einer Datenbank ausliest.
@@ -585,8 +585,6 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      *
      * @param bean Bean, zu deren Typ Datensatz-IDs abgefragt werden sollen
      * @return Select-Statment zum Abfragen von IDs von Datensätzen zum Typ der übergebenen Bean.
-     * @throws BeanException
-     * @throws IOException
      */
     public Select getSelectIds(Bean bean) throws BeanException, IOException {
         Select select = getEmptySelect(bean);
@@ -598,10 +596,6 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * Return a new emtry select statement with only the given from-table.
      * It also heed the parameters {@value #ATTRIBUTE_SELECT_DISINCT}
      * and {@value #ATTRIBUTE_SELECT_NO_DISINCT}.
-     *
-     * @param bean
-     * @throws BeanException
-     * @throws IOException
      */
     public Select getEmptySelect(Bean bean) throws BeanException, IOException {
         String attrNoDistinct = getPropertyAttribute(bean, "table", ATTRIBUTE_SELECT_NO_DISINCT);

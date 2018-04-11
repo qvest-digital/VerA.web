@@ -48,14 +48,13 @@ package de.tarent.dblayer.sql;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContextImpl;
 
 /**
  * Named parameter for insert into statements.
  */
 public class ParamValue extends SetDbContextImpl implements Cloneable {
-
     String name;
     Object value;
     boolean set = false;
@@ -126,7 +125,7 @@ public class ParamValue extends SetDbContextImpl implements Cloneable {
      * Returns the formated value, if this parameter was set.
      * Otherwise the SQL param symbol '?' will be returned for usage in an prepared statement.
      * This method relies on an previous set DBContext. It no context was set, it will fall
-     * back to the {@see SQL.format()} default behavior.
+     * back to the {#see {@link SQL#format(DBContext, Object)} default behavior.
      */
     public String toString() {
         if (!isSet()) {
