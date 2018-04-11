@@ -48,16 +48,16 @@ package de.tarent.dblayer.sql.statement;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SyntaxErrorException;
+
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Statement for encapsultion of a Stored Procedure-Call
@@ -65,7 +65,6 @@ import de.tarent.dblayer.sql.SyntaxErrorException;
  * @author kirchner
  */
 public class Procedure extends AbstractStatement {
-
     protected String _name;
 
     protected List _params = new LinkedList();
@@ -85,7 +84,6 @@ public class Procedure extends AbstractStatement {
      * Executes the procedure on the given Context.
      *
      * @param dbx DBContext
-     * @return Result of SQL-Operation
      * @throws SQLException if a problem occurs
      */
     public void executeVoidProcedure(DBContext dbx) throws SQLException {
@@ -159,7 +157,7 @@ public class Procedure extends AbstractStatement {
 
     /**
      * Adds Parameter to call. Parameters are applied
-     * in the order they are added via {@link Procedure#addParam(String)}.
+     * in the order they are added via {@link Procedure#addParam(Object)}.
      *
      * @param value Value of the Param
      */

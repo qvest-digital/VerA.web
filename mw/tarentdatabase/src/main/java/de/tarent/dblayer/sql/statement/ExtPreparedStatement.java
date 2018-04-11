@@ -54,27 +54,31 @@ import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.InsertKeys;
-import de.tarent.dblayer.sql.*;
+import de.tarent.dblayer.engine.ResultProcessor;
+import de.tarent.dblayer.sql.ParamValue;
+import de.tarent.dblayer.sql.ParamValueList;
+import de.tarent.dblayer.sql.Statement;
+import de.tarent.dblayer.sql.SyntaxErrorException;
+import org.apache.commons.logging.Log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.*;
-import java.sql.Timestamp;
-
-import de.tarent.dblayer.engine.ResultProcessor;
-
 import java.sql.ResultSet;
-
-import org.apache.commons.logging.Log;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is an holder for an java.sql.PreparedStatement,
  * where the Parameters can be set by String keys.
  */
 public class ExtPreparedStatement implements ParamSet {
-
     private static final Log logger = LogFactory.getLog(ExtPreparedStatement.class);
 
     String sqlCode;
@@ -94,8 +98,8 @@ public class ExtPreparedStatement implements ParamSet {
     /**
      * Creates a new ExtPreparedStatement.
      *
-     * @param sqlCode   The code of the sql statement
-     * @param paramList A list of the parameter names of the PrepareStatement with the same order as they occur in the Statement.
+     * @param sqlCode The code of the sql statement
+     * @param params  A list of the parameter names of the PrepareStatement with the same order as they occur in the Statement.
      */
     public ExtPreparedStatement(String sqlCode, List params) {
         this.sqlCode = sqlCode;

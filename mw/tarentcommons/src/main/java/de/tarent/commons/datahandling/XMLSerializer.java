@@ -48,6 +48,8 @@ package de.tarent.commons.datahandling;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.commons.utils.Log;
+
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
@@ -61,8 +63,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-
-import de.tarent.commons.utils.Log;
 
 // TODO: This should also support XML DOM i/o
 
@@ -120,7 +120,7 @@ public class XMLSerializer {
      * Deserializes an object from a xml file representation created with the
      * corresponding serialize method of this class.
      *
-     * @param encodedXML Encoded XML file.
+     * @param xmlFile Encoded XML file.
      * @return Re-created object instance.
      */
     public Serializable deserialize(File xmlFile) {

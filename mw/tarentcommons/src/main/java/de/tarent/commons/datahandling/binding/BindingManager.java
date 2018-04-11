@@ -48,22 +48,21 @@ package de.tarent.commons.datahandling.binding;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.awt.EventQueue;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * This is a controller class for synchronizing a set of views with a model.
  *
- * <p>This impementation was done with two different threads in mind: A background
+ * This impementation was done with two different threads in mind: A background
  * thread for data loading within the model and an AWT/Swing thread for the views.
  * Actions started in consequence of model events are executed in the AWT thread by
- * {@see java.awt.EventQueue.invokeLater()}.
- * </p>
+ * {@link java.awt.EventQueue#invokeLater(Runnable)}
  *
  * The controller supports different policies for updating.
  * <ul>
@@ -77,7 +76,6 @@ import org.apache.commons.logging.LogFactory;
  * called by gui events.
  */
 public class BindingManager implements DataChangedListener {
-
     private static final Log logger = LogFactory.getLog(BindingManager.class);
 
     /**

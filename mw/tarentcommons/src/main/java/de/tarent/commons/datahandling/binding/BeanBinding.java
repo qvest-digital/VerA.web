@@ -76,7 +76,7 @@ import java.util.List;
  * getting from the view.
  * <h3>automatic data conversion</h3>
  * If no setViewDataConverter is set, the data is automaticly converted before setting by the
- * {@see de.tarent.commons.utils.Pojo} and {@see de.tarent.commons.utils.ConverterRegistry} api ot the target type of the pojo
+ * {@link de.tarent.commons.utils.Pojo} and {@link de.tarent.commons.utils.ConverterRegistry} api ot the target type of the pojo
  * property.
  * If no getViewDataConverter is set, the data is automaticly converted after retrieving from the view, to the type of data in
  * the first setViewData() operation. It is possible to force this datatype with the forceDataType attribute.

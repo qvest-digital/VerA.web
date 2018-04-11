@@ -51,17 +51,16 @@ package de.tarent.dblayer.sql.clause;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContext;
 import de.tarent.dblayer.engine.SetDbContextImpl;
+import de.tarent.dblayer.sql.ParamHolder;
+import de.tarent.dblayer.sql.ParamValue;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.List;
-import java.util.Iterator;
-
-import de.tarent.dblayer.sql.ParamValue;
-import de.tarent.dblayer.sql.ParamHolder;
 
 /**
  * This {@link Clause} represents a collection of {@link Clause Clauses}
@@ -70,7 +69,6 @@ import de.tarent.dblayer.sql.ParamHolder;
  * keys connected by whitespaces, brackets, '&', '|' or '!'.
  */
 public final class WhereTerm extends SetDbContextImpl implements Clause {
-
     /**
      * regular expression pattern for parsing the {@link #_term term}
      */
@@ -118,7 +116,12 @@ public final class WhereTerm extends SetDbContextImpl implements Clause {
     }
 
     /**
-     * {@see ParamHolder#getParams(List)}
+     * Appends the parameters of the paramHolder to the supplied list.
+     * The order of the params is determined by the order of appearance
+     * of the params in the holder object.
+     *
+     * @param paramList A list to take up ParamValue ebjects.
+     * @see ParamHolder#getParams(List)
      */
     public void getParams(List paramList) {
         for (Iterator iter = _values.values().iterator(); iter.hasNext(); ) {

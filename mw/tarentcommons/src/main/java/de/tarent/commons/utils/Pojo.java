@@ -48,12 +48,11 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.apache.commons.logging.Log;
-import de.tarent.commons.logging.LogFactory;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -61,10 +60,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Util class for dealing with plain old java objects (Pojo's)
+ * Util class for dealing with plain old java objects (POJOs)
  */
 public class Pojo {
-
     private static final Log logger = LogFactory.getLog(Pojo.class);
 
     static Object[] emptyObjectArray = new Object[] {};
@@ -89,9 +87,9 @@ public class Pojo {
      * Returns the first Method which may be a setXXX Method for the supplied pojo and property,
      * according to the Java Bean Specification
      *
-     * @param pojo     target pojo for the property
-     * @param property target property
-     * @param flag,    if an exact match of the metod name is forced
+     * @param pojo               target pojo for the property
+     * @param property           target property
+     * @param ignorePropertyCase if an exact case match of the metod name is forced
      * @return the setter for the property, or null if no mehtod matches
      */
     public static Method getSetMethod(Object pojo, String property, boolean ignorePropertyCase) {
@@ -102,9 +100,8 @@ public class Pojo {
      * Returns the first Method which may be a setXXX Method for the supplied pojo and property,
      * according to the Java Bean Specification
      *
-     * @param pojo     target pojo for the property
-     * @param property target property
-     * @param flag,    if an exact match of the metod name is forced
+     * @param property           target property
+     * @param ignorePropertyCase if an exact case match of the metod name is forced
      * @return the setter for the property, or null if no mehtod matches
      */
     public static Method getSetMethod(Class clazz, String property, boolean ignorePropertyCase) {

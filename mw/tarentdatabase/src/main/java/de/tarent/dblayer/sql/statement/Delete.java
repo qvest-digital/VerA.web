@@ -48,11 +48,10 @@ package de.tarent.dblayer.sql.statement;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.sql.SQLException;
-
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContext;
+import de.tarent.dblayer.sql.ParamHolder;
 import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -60,9 +59,8 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.From;
 import de.tarent.dblayer.sql.clause.Where;
 
+import java.sql.SQLException;
 import java.util.List;
-
-import de.tarent.dblayer.sql.ParamHolder;
 
 /**
  * This {@link Statement} models SQL <code>DELETE</code> statements.
@@ -70,7 +68,6 @@ import de.tarent.dblayer.sql.ParamHolder;
  * @author Wolfgang Klein
  */
 public class Delete extends AbstractStatement {
-
     //
     // protected member variables
     //
@@ -84,7 +81,12 @@ public class Delete extends AbstractStatement {
     private Clause _whereClause;
 
     /**
-     * {@see ParamHolder#getParams(List)}
+     * Appends the parameters of the paramHolder to the supplied list.
+     * The order of the params is determined by the order of appearance
+     * of the params in the holder object.
+     *
+     * @param list A list to take up ParamValue ebjects.
+     * @see ParamHolder#getParams(List)
      */
     public void getParams(List list) {
         if (_whereClause instanceof ParamHolder) {

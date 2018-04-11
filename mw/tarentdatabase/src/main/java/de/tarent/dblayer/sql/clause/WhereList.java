@@ -48,18 +48,14 @@ package de.tarent.dblayer.sql.clause;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContext;
 import de.tarent.dblayer.engine.SetDbContextImpl;
 import de.tarent.dblayer.sql.ParamHolder;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import de.tarent.dblayer.sql.ParamHolder;
 
 /**
  * This {@link Clause} represents a collection of {@link Clause Clauses}
@@ -69,7 +65,6 @@ import de.tarent.dblayer.sql.ParamHolder;
  * @author Wolfgang Klein
  */
 public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
-
     //
     // protected members
     //
@@ -83,7 +78,12 @@ public class WhereList extends SetDbContextImpl implements Clause, ParamHolder {
     //
 
     /**
-     * {@see ParamHolder#getParams(List)}
+     * Appends the parameters of the paramHolder to the supplied list.
+     * The order of the params is determined by the order of appearance
+     * of the params in the holder object.
+     *
+     * @param paramList A list to take up ParamValue ebjects.
+     * @see ParamHolder#getParams(List)
      */
     public void getParams(List paramList) {
         for (Iterator iter = _list.iterator(); iter.hasNext(); ) {

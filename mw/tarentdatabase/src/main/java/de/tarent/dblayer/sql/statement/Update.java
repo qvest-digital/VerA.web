@@ -48,21 +48,21 @@ package de.tarent.dblayer.sql.statement;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContext;
+import de.tarent.dblayer.sql.ParamHolder;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Clause;
+import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.From;
 import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.dblayer.sql.ParamHolder;
-import de.tarent.dblayer.sql.clause.Expr;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * This {@link Statement} models SQL <code>UPDATE</code> statements.
@@ -70,7 +70,6 @@ import de.tarent.dblayer.sql.clause.Expr;
  * @author Wolfgang Klein
  */
 public class Update extends AbstractStatement {
-
     //
     // protected constants
     //
@@ -127,7 +126,12 @@ public class Update extends AbstractStatement {
     }
 
     /**
-     * {@see ParamHolder#getParams(List)}
+     * Appends the parameters of the paramHolder to the supplied list.
+     * The order of the params is determined by the order of appearance
+     * of the params in the holder object.
+     *
+     * @param paramList A list to take up ParamValue ebjects.
+     * @see ParamHolder#getParams(List)
      */
     public void getParams(List paramList) {
         addParams(paramList, _values);

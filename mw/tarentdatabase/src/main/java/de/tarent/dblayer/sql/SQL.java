@@ -48,12 +48,18 @@ package de.tarent.dblayer.sql;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.commons.logging.Log;
-
 import de.tarent.commons.logging.LogFactory;
+import de.tarent.dblayer.engine.DBContext;
+import de.tarent.dblayer.engine.Pool;
+import de.tarent.dblayer.engine.SetDbContext;
+import de.tarent.dblayer.mssql.MSSQLFormat;
+import de.tarent.dblayer.mssql.MSSQLSelect;
+import de.tarent.dblayer.oracle.OracleFormat;
+import de.tarent.dblayer.oracle.OracleSelect;
+import de.tarent.dblayer.postgres.PostgresProcedure;
 import de.tarent.dblayer.sql.clause.Clause;
-import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.clause.Function;
+import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.InsertUpdate;
@@ -61,14 +67,7 @@ import de.tarent.dblayer.sql.statement.Procedure;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Sequence;
 import de.tarent.dblayer.sql.statement.Update;
-import de.tarent.dblayer.engine.DBContext;
-import de.tarent.dblayer.engine.SetDbContext;
-import de.tarent.dblayer.mssql.MSSQLFormat;
-import de.tarent.dblayer.oracle.OracleSelect;
-import de.tarent.dblayer.oracle.OracleFormat;
-import de.tarent.dblayer.postgres.PostgresProcedure;
-import de.tarent.dblayer.engine.Pool;
-import de.tarent.dblayer.mssql.MSSQLSelect;
+import org.apache.commons.logging.Log;
 
 /**
  * This class serves as a factory for SQL statements and parts thereof.
@@ -314,7 +313,7 @@ public class SQL {
 
     /**
      * This Methods returns a Procedure-Statement for the given SQL-Procedure.
-     * You can add params via the {@link Procedure#addParam(String)}-call, they are
+     * You can add params via the {@link Procedure#addParam(Object)} call, they are
      * appended in the order you call them.
      *
      * @param dbx  DBContext to use.
@@ -330,16 +329,19 @@ public class SQL {
     }
 
     /**
-     * This method formats a value according to the supplied db layer context.<br>
+     * This method formats a value according to the supplied db layer context.
+     *
      * It formats {@link Clause Clauses} using their {@link Clause#clauseToString(DBContext)}
      * method. Other {@link SetDbContext} implementing classes are handled by first setting
      * their {@link DBContext} attribute and then calling their {@link Object#toString()}
-     * method.<br>
+     * method.
+     *
      * All remaining classes are formatted using the helper methods of the classes
      * {@link Format} or {@link OracleFormat} which know explicitely how to handle
      * Characters, Strings, Boolean, Date, Statement, and some collection framework
      * classes, while all other Objects are formatted using their respective
-     * <code>.toString()</code> method.<br>
+     * <code>.toString()</code> method.
+     *
      * A <code>null</code> value is returned unchanged.
      *
      * @param context db layer execution context, null is allowed here

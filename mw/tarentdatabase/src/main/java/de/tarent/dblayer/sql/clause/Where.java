@@ -51,13 +51,11 @@ package de.tarent.dblayer.sql.clause;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContext;
 import de.tarent.dblayer.engine.SetDbContextImpl;
-import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.ParamHolder;
+import de.tarent.dblayer.sql.ParamValue;
+import de.tarent.dblayer.sql.SQL;
 
 import java.util.List;
-
-import de.tarent.dblayer.sql.ParamValue;
-import de.tarent.dblayer.sql.ParamHolder;
 
 /**
  * This {@link Clause} represents the <code>WHERE</code> part of a
@@ -186,7 +184,12 @@ public class Where extends SetDbContextImpl implements Clause, ParamHolder {
     }
 
     /**
-     * {@see ParamHolder#getParams(List)}
+     * Appends the parameters of the paramHolder to the supplied list.
+     * The order of the params is determined by the order of appearance
+     * of the params in the holder object.
+     *
+     * @param paramList A list to take up ParamValue ebjects.
+     * @see ParamHolder#getParams(List)
      */
     public void getParams(List paramList) {
         addObjectToParamList(paramList, _value);

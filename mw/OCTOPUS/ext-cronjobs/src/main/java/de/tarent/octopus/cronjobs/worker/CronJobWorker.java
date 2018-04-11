@@ -48,6 +48,13 @@ package de.tarent.octopus.cronjobs.worker;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.cronjobs.Cron;
+import de.tarent.octopus.cronjobs.CronJob;
+import de.tarent.octopus.cronjobs.ExactCronJob;
+import de.tarent.octopus.cronjobs.IntervalCronJob;
+import de.tarent.octopus.server.Context;
+import de.tarent.octopus.server.OctopusContext;
+
 import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,36 +65,23 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.tarent.octopus.cronjobs.Cron;
-import de.tarent.octopus.cronjobs.CronJob;
-import de.tarent.octopus.cronjobs.ExactCronJob;
-import de.tarent.octopus.cronjobs.IntervalCronJob;
-import de.tarent.octopus.server.Context;
-import de.tarent.octopus.server.OctopusContext;
-
 public class CronJobWorker {
-
     private Cron cronjobQueue;
     private Thread cronThread;
     private static long cronThreadCount = 0L;
     private static Logger logger = Logger.getLogger(CronJobWorker.class.getName());
 
-    /**
-     * this method creates a new cronjob. If a cronjob with the same name already exists,
-     * the old one isreplaced by the new cronjob.
-     *
-     * @param name : can be set to get the name of a single cronjob and check if it exists
-     * @param type: can be set to get names of just one type of cronjobs
-     * @param sort: optional flag to sort the returned list alphabetically
-     * @return cronjob: cronjob-map of edited or created cronjob
-     */
-
     final static public String[] INPUT_setCronJob = { "cronjob" };
     final static public boolean[] MANDATORY_setCronJob = { true };
     final static public String OUTPUT_setCronJob = "cronjob";
 
+    /**
+     * this method creates a new cronjob. If a cronjob with the same name already exists,
+     * the old one is replaced by the new cronjob.
+     *
+     * @return cronjob: cronjob-map of edited or created cronjob
+     */
     public Map setCronJob(Map cronJobMap) {
-
         // If cronjob already exists and "active" or "errormessage" are not set in the new cronjobmap
         // we take the entries of the old cronjob that should get overwritten
         CronJob oldCronJob = cronjobQueue.getCronJobByName(cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME).toString());
@@ -118,20 +112,18 @@ public class CronJobWorker {
         return null;
     }
 
-    /**
-     * this method returns a List of the cronjob-names as simple Strings
-     *
-     * @param name : can be set to get the name of a single cronjob and check if it exists
-     * @param type: can be set to get names of just one type of cronjobs
-     * @param sort: optional flag to sort the returned list alphabetically
-     */
-
     final static public String[] INPUT_GETCRONJOBNAMES = { "name", "type", "sort" };
     final static public boolean[] MANDATORY_GETCRONJOBNAMES = { false, false, false };
     final static public String OUTPUT_GETCRONJOBNAMES = "cronjobnames";
 
+    /**
+     * this method returns a List of the cronjob-names as simple Strings
+     *
+     * @param name can be set to get the name of a single cronjob and check if it exists
+     * @param type can be set to get names of just one type of cronjobs
+     * @param sort optional flag to sort the returned list alphabetically
+     */
     public List getCronJobNames(String name, Integer type, Boolean sort) {
-
         try {
             List cronjobnames = new ArrayList();
             Map cronJobMaps = cronjobQueue.getCronJobMaps();
@@ -159,19 +151,17 @@ public class CronJobWorker {
         }
     }
 
-    /**
-     * This action returns a list of cronjob-maps
-     *
-     * @param name : can be set to get the cronjob-map of a single cronjob
-     * @param type: can be set to get cronjob-maps of just one type of cronjobs
-     */
-
     final static public String[] INPUT_GETCRONJOBS = { "name", "type" };
     final static public boolean[] MANDATORY_GETCRONJOBS = { false, false };
     final static public String OUTPUT_GETCRONJOBS = "cronjobs";
 
+    /**
+     * This action returns a list of cronjob-maps
+     *
+     * @param name can be set to get the cronjob-map of a single cronjob
+     * @param type can be set to get cronjob-maps of just one type of cronjobs
+     */
     public List getCronJobs(String name, Integer type) {
-
         try {
             List filteredCronJobMaps = new ArrayList();
 
@@ -195,34 +185,24 @@ public class CronJobWorker {
         }
     }
 
-    /**
-     * This action returns a cronjob-maps for a secific cronjob
-     *
-     * @param name : the name of the specified cronjob
-     */
-
     final static public String[] INPUT_GETCRONJOB = { "cronjobname" };
     final static public boolean[] MANDATORY_GETCRONJOB = { true };
     final static public String OUTPUT_GETCRONJOB = "cronjob";
 
-    public Map getCronJob(String name) {
-
-        return cronjobQueue.getCronJobMapByName(name);
-    }
-
     /**
      * This action returns a cronjob-maps for a specific cronjob
      *
-     * @param cronjob: cronjobmap that specifies the cronjob
-     * @param name : the name of the specified cronjob
+     * @param name the name of the specified cronjob
      */
+    public Map getCronJob(String name) {
+        return cronjobQueue.getCronJobMapByName(name);
+    }
 
     final static public String[] INPUT_RUNCRONJOB = { "cronjob", "cronjobname" };
     final static public boolean[] MANDATORY_RUNCRONJOB = { false, false };
     final static public String OUTPUT_RUNCRONJOB = "cronjob";
 
     public Map runCronJob(Map inputCronJobMap, String cronJobName) {
-
         String errMsg = "";
         try {
             Map cronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
@@ -249,16 +229,14 @@ public class CronJobWorker {
         return null;
     }
 
-    /**
-     * This action returns the status of a cronjob as String representing an object of Thread.State
-     */
-
     final static public String[] INPUT_GETCRONJOBSTATUS = { "cronjob", "cronjobname" };
     final static public boolean[] MANDATORY_GETCRONJOBSTATUS = { false, false };
     final static public String OUTPUT_GETCRONJOBSTATUS = "status";
 
+    /**
+     * This action returns the status of a cronjob as String representing an object of Thread.State
+     */
     public String getCronJobStatus(Map inputCronJobMap, String cronJobName) {
-
         String errMsg = "";
         try {
             Map cronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
@@ -281,19 +259,17 @@ public class CronJobWorker {
         return null;
     }
 
-    /**
-     * This action removes a cronjob from the cronjobqueue
-     *
-     * @param cronjob : cronjobmap that specifies the cronjob
-     * @param name: name of the cronjob as String
-     */
-
     final static public String[] INPUT_REMOVECRONJOB = { "cronjob", "cronjobname" };
     final static public boolean[] MANDATORY_REMOVECRONJOB = { false, false };
     final static public String OUTPUT_REMOVECRONJOB = "cronjob";
 
+    /**
+     * This action removes a cronjob from the cronjobqueue
+     *
+     * @param cronjob cronjobmap that specifies the cronjob
+     * @param name    name of the cronjob as String
+     */
     public Map removeCronJob(Map inputCronJobMap, String cronJobName) {
-
         String errMsg = "";
         try {
             Map cronJobMap = cronjobQueue.mergeCronJobMapAndName(inputCronJobMap, cronJobName);
@@ -325,25 +301,22 @@ public class CronJobWorker {
     final static public String OUTPUT_GETAVAILABLECRONJOBTYPES = "availableTypes";
 
     public List getAvailableCronJobTypes() {
-
         List types = new ArrayList();
         types.add(new Integer(Cron.EXACT_CRONJOB));
         types.add(new Integer(Cron.INTERVAL_CRONJOB));
         return types;
     }
 
+    final static public String[] INPUT_GETAVAILABLECRONJOBPROPERTIES = { "type" };
+    final static public boolean[] MANDATORY_GETAVAILABLECRONJOBPROPERTIES = { true };
+    final static public String OUTPUT_GETAVAILABLECRONJOBPROPERTIES = "availableProperties";
+
     /**
      * This action returns a map that contains the available properties for a special type of cronjob
      *
      * @return Map availableProperties: key = the name of the property, value = the type of the property
      */
-
-    final static public String[] INPUT_GETAVAILABLECRONJOBPROPERTIES = { "type" };
-    final static public boolean[] MANDATORY_GETAVAILABLECRONJOBPROPERTIES = { true };
-    final static public String OUTPUT_GETAVAILABLECRONJOBPROPERTIES = "availableProperties";
-
     public Map getAvailableCronJobProperties(Integer type) {
-
         Map properties = new HashMap();
 
         properties.put(CronJob.PROPERTIESMAP_KEY_ALREADYRUNNING, Integer.class.getName());
@@ -360,19 +333,17 @@ public class CronJobWorker {
         return properties;
     }
 
-    /**
-     * This action activates a cronjob
-     *
-     * @param cronjob : cronjobmap that specifies the cronjob
-     * @param name: name of the cronjob as String
-     */
-
     final static public String[] INPUT_ACTIVATECRONJOB = { "cronjob", "cronjobname" };
     final static public boolean[] MANDATORY_ACTIVATECRONJOB = { false, false };
     final static public String OUTPUT_ACTIVATECRONJOB = "cronjob";
 
+    /**
+     * This action activates a cronjob
+     *
+     * @param cronjob cronjobmap that specifies the cronjob
+     * @param name    name of the cronjob as String
+     */
     public Map activateCronJob(Map inputCronJobMap, String cronJobName) {
-
         String errMsg = "";
 
         try {
@@ -403,7 +374,6 @@ public class CronJobWorker {
     final static public String OUTPUT_DEACTIVATECRONJOB = "cronjob";
 
     public Map deactivateCronJob(Map inputCronJobMap, String cronJobName) {
-
         String errMsg = "";
 
         try {

@@ -56,13 +56,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * This is an generic implementation for pojos using the {@see java.lang.reflect.Proxy}.
+ * This is an generic implementation for pojos using the {@link java.lang.reflect.Proxy}.
  * With this implementation it is possible to provide an implementation for a pojo-Object by runtime,
  * using the interface of the pojo.
  *
- * <p>GenericPojos delegeate calls to the pojo to two different members: All property access is
+ * GenericPojos delegeate calls to the pojo to two different members: All property access is
  * controled by a GenericPojoStorage and all other calls are controled by a GenericPojoManager.
- * The last one is optional.</p>
+ * The last one is optional.
  *
  * TODO: Implement default values depending on the type of the propertie
  *

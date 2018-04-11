@@ -48,6 +48,8 @@ package de.tarent.octopus.cronjobs;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.server.OctopusContext;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -67,9 +69,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import de.tarent.octopus.cronjobs.CronJob;
-import de.tarent.octopus.server.OctopusContext;
 
 /**
  * This implements a Unix(tm) style cron job system. To submit a job, subclass
@@ -171,7 +170,7 @@ public class Cron implements Runnable {
     /**
      * returns a CronJob Object corresponding to the given cronjobmap
      *
-     * @param cronJobMap: specifies the wanted cronjob
+     * @param cronJobMap specifies the wanted cronjob
      * @return cronJob: the corresponding cronjob or null if there is no
      */
     public CronJob getCronJobByCronJobMap(Map cronJobMap) {
@@ -195,7 +194,7 @@ public class Cron implements Runnable {
      * Removes a job from the list of jobs.
      * returns true if job could be delted or false if not
      *
-     * @param jobMap: cronjobmap that specifies the job
+     * @param jobMap cronjobmap that specifies the job
      */
     public boolean removeJob(Map jobMap) {
         // First check if there is a cronjob with the correct name
@@ -300,7 +299,6 @@ public class Cron implements Runnable {
      * returns the cronjobp corresponding to the given name
      * returns null if there is no corresponding job in queue
      *
-     * @param name
      * @return cronjob
      */
 
@@ -312,7 +310,6 @@ public class Cron implements Runnable {
      * returns the cronjobmap corresponding to the given name
      * returns null if there is no corresponding job in queue
      *
-     * @param name
      * @return Map: cronjobmap of the cronjob
      */
     public Map getCronJobMapByName(String name) {
@@ -325,8 +322,6 @@ public class Cron implements Runnable {
 
     /**
      * starts a cronjob immediately if it is runnable
-     *
-     * @param job
      */
     public boolean forceRun(CronJob job) {
         return forceRun(job, false);
@@ -334,8 +329,6 @@ public class Cron implements Runnable {
 
     /**
      * starts a cronjob immediately if it is runnable
-     *
-     * @param job
      */
     public boolean forceRun(CronJob job, boolean ignoreDeactived) {
 
@@ -366,7 +359,7 @@ public class Cron implements Runnable {
      * activates a cronjob
      * cronjob will be possibly runnable next time its started
      *
-     * @param cronJobMap: specifies the cronjob
+     * @param cronJobMap specifies the cronjob
      * @return activated: flag to show if activation was succesful
      */
 
@@ -384,7 +377,7 @@ public class Cron implements Runnable {
      * deactivates a cronjob
      * cronjob wont stop immediately but wont be runnable until it is activated again.
      *
-     * @param cronJobMap: specifies the cronjob
+     * @param cronJobMap specifies the cronjob
      * @return deactivated: flag to show if deactivation was succesful
      */
     public boolean deactivateCronJob(Map cronJobMap) {
@@ -404,8 +397,8 @@ public class Cron implements Runnable {
      * If only a name is given, the corresponding job is found and its map returned.
      * If only a map is given, it will be returned instantly.
      *
-     * @param cronJobMap:  Map that specifies a cronjob
-     * @param cronJobName: Name of the cronjob
+     * @param cronJobMap  Map that specifies a cronjob
+     * @param cronJobName Name of the cronjob
      */
     public Map mergeCronJobMapAndName(Map cronJobMap, String cronJobName) {
 

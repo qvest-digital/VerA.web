@@ -49,18 +49,22 @@ package de.tarent.commons.utils;
  */
 
 import de.tarent.commons.logging.LogFactory;
+import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.logging.Log;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
+import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
-import java.io.*;
-import java.util.*;
-import java.util.jar.Attributes;
-
-import de.tarent.octopus.server.OctopusContext;
-
-import java.util.Collections;
 
 /**
  * This is again an Implementation of a generic tool for collecting version information.
@@ -70,7 +74,6 @@ import java.util.Collections;
  * @author Sebastian Mancke (s.mancke@tarent.de) tarent GmbH Bonn
  */
 public class VersionTool {
-
     private static final Log log = LogFactory.getLog(VersionTool.class);
 
     public static final String PREFIX_PACKAGE = "package:";
@@ -165,7 +168,7 @@ public class VersionTool {
      *
      * @param prependingSearchPath Path string with ':' as delimiter, prepended for the default path, may be null
      * @param appendingSearchPath  Path string with ':' as delimiter, appended for the default path, may be null
-     * @params cntx the octopus context
+     * @param cntx                 the octopus context
      */
     public static VersionTool getVersions(OctopusContext cntx, String prependingSearchPath, String appendingSearchPath) {
         VersionTool vt = new VersionTool();
