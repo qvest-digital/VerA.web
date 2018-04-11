@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -230,7 +230,7 @@ public class DataExchangeWorker {
      * @param domain    Domäne, aus der die Personen stammen ("all" oder "ou")
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ungültigen Parameterwerten.
-     * @throws IOException ioException
+     * @throws IOException               ioException
      */
     public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter,
             final Integer event,
@@ -384,7 +384,7 @@ public class DataExchangeWorker {
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws IOException               FIXME
      * @throws TcContentProzessException FIXME
-     * @throws BeanException beanException
+     * @throws BeanException             beanException
      */
     public Map importToTransit(OctopusContext octopusContext,
             Map stream,
@@ -537,7 +537,7 @@ public class DataExchangeWorker {
                         // default to closest thing to cp1252
                         LOGGER.error(
                                 "JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters " +
-                                 "will be lost!");
+                                        "will be lost!");
                         ics = StandardCharsets.ISO_8859_1;
                     } else {
                         // default to cp1252
@@ -962,9 +962,9 @@ public class DataExchangeWorker {
      * Diese Methode erzeugt eine <code>Map</code>, in der Statistiken zu einem Import
      * kodiert sind.
      *
-     * @param dsCount  Anzahl Datensätze insgesamt
-     * @param dupCount Anzahl Duplikate
-     * @param id       Import-ID
+     * @param dsCount   Anzahl Datensätze insgesamt
+     * @param dupCount  Anzahl Duplikate
+     * @param id        Import-ID
      * @param saveCount save Count
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
@@ -984,10 +984,10 @@ public class DataExchangeWorker {
      * kodiert sind. In dieser Variante werden auch die Datensätze gezählt, die wegen
      * Unkorrektheit ignoriert wurden.
      *
-     * @param igCount  Anzahl ignorierter (unkorrekter) Datensätze
-     * @param dsCount  Anzahl nicht ignorierter Datensätze insgesamt
-     * @param dupCount Anzahl Duplikate
-     * @param id       Import-ID
+     * @param igCount   Anzahl ignorierter (unkorrekter) Datensätze
+     * @param dsCount   Anzahl nicht ignorierter Datensätze insgesamt
+     * @param dupCount  Anzahl Duplikate
+     * @param id        Import-ID
      * @param saveCount saveCount
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tcModuleConfig>
+	<description>Test Config 3</description>
+	<params>
+		<param name="Testparameter3" value="3"/>
+	</params>
+	<tasks/>
+</tcModuleConfig>

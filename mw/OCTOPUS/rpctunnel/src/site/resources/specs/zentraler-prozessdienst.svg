@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="595.27559pt"
+   height="841.88975pt"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.42"
+   sodipodi:docbase="/home/kleinhenz/workspace/WFMS Pilot/src/site/resources/specs"
+   sodipodi:docname="zentraler-prozessdienst.svg"
+   inkscape:export-filename="/home/kleinhenz/Desktop/zpl.png"
+   inkscape:export-xdpi="180.00000"
+   inkscape:export-ydpi="180.00000">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lstart"
+       style="overflow:visible">
+      <path
+         sodipodi:nodetypes="cccc"
+         id="path6767"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) translate(-5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path6784"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         sodipodi:nodetypes="cccc"
+         id="path6776"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(-5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.82957522"
+     inkscape:cx="599.79071"
+     inkscape:cy="633.37046"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1392"
+     inkscape:window-height="974"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.9000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 530.39192,294.46677 L 374.89066,210.08625"
+       id="path6804"
+       sodipodi:nodetypes="cc" />
+    <text
+       sodipodi:linespacing="125.00000%"
+       xml:space="preserve"
+       style="font-size:12.193100px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="356.96527"
+       y="682.14136"
+       id="text9825"
+       transform="scale(0.996355,1.003659)"><tspan
+         sodipodi:role="line"
+         x="356.96527"
+         y="682.14136"
+         id="tspan2467">Anfrage BPEL-gesteuerte Prozesse</tspan></text>
+    <g
+       id="g1515"
+       transform="translate(-4.940489,81.96966)">
+      <rect
+         y="47.951839"
+         x="275.19388"
+         height="70.479240"
+         width="162.26241"
+         id="rect1503"
+         style="fill:#f4c142;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000" />
+      <text
+         transform="scale(0.996355,1.003659)"
+         id="text1505"
+         y="78.447212"
+         x="357.05688"
+         style="font-size:16.270374px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+         xml:space="preserve"
+         sodipodi:linespacing="125.00000%"><tspan
+           y="78.447212"
+           x="357.05688"
+           id="tspan1507"
+           sodipodi:role="line">Zentraler</tspan><tspan
+           y="98.785180"
+           x="357.05688"
+           sodipodi:role="line"
+           id="tspan1509">Prozessdienst</tspan></text>
+    </g>
+    <g
+       id="g1685"
+       transform="translate(-62.68268,33.75221)">
+      <rect
+         y="432.77267"
+         x="466.13684"
+         height="110.89069"
+         width="162.26241"
+         id="rect1523"
+         style="fill:#f4c142;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.2543448;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000" />
+      <text
+         transform="scale(0.996355,1.003659)"
+         id="text1525"
+         y="512.58423"
+         x="506.56488"
+         style="font-size:16.270340px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="512.58423"
+           x="506.56488"
+           id="tspan1527"
+           sodipodi:role="line">ActiveBPEL</tspan></text>
+      <rect
+         y="432.69614"
+         x="467.30798"
+         height="36.806351"
+         width="159.92014"
+         id="rect2053"
+         style="fill:#f4731b;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:8.0000000 4.0000000 ;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000" />
+      <text
+         sodipodi:linespacing="125.00000%"
+         id="text1556"
+         y="447.56268"
+         x="547.11774"
+         style="font-size:7.7928634px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="447.56268"
+           x="547.11774"
+           id="tspan1558"
+           sodipodi:role="line">Prozesssteuerungs</tspan><tspan
+           id="tspan1560"
+           y="457.30376"
+           x="547.11774"
+           sodipodi:role="line">API</tspan></text>
+    </g>
+    <g
+       id="g1562"
+       transform="translate(172.8613,245.3064)">
+      <rect
+         y="47.951839"
+         x="275.19388"
+         height="70.479240"
+         width="162.26241"
+         id="rect1564"
+         style="fill:#f4c142;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000" />
+      <text
+         transform="scale(0.996355,1.003659)"
+         id="text1566"
+         y="78.447212"
+         x="357.05688"
+         style="font-size:16.270374px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+         xml:space="preserve"
+         sodipodi:linespacing="125.00000%"><tspan
+           y="78.447212"
+           x="357.05689"
+           sodipodi:role="line"
+           id="tspan1570">CRM</tspan><tspan
+           y="98.785180"
+           x="357.05688"
+           sodipodi:role="line"
+           id="tspan1572">Sicht</tspan></text>
+    </g>
+    <g
+       id="g1574"
+       transform="translate(-182.7423,245.3064)">
+      <rect
+         y="47.951839"
+         x="275.19388"
+         height="70.479240"
+         width="162.26241"
+         id="rect1576"
+         style="fill:#f4c142;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000" />
+      <text
+         transform="scale(0.996355,1.003659)"
+         id="text1578"
+         y="78.447212"
+         x="357.05688"
+         style="font-size:16.270374px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+         xml:space="preserve"
+         sodipodi:linespacing="125.00000%"><tspan
+           y="78.447212"
+           x="357.05689"
+           sodipodi:role="line"
+           id="tspan1582">Intranet</tspan><tspan
+           y="98.785180"
+           x="357.05688"
+           sodipodi:role="line"
+           id="tspan1584">Sicht</tspan></text>
+    </g>
+    <g
+       id="g1647">
+      <g
+         transform="translate(7.232617,48.21745)"
+         id="g1586">
+        <rect
+           style="fill:#f4c142;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.2543448;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1534"
+           width="162.26241"
+           height="110.89069"
+           x="156.33975"
+           y="423.12924" />
+        <text
+           xml:space="preserve"
+           style="font-size:16.270357px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="185.95598"
+           y="499.37335"
+           id="text1536"
+           transform="scale(0.996355,1.003659)"><tspan
+             sodipodi:role="line"
+             id="tspan1538"
+             x="185.95598"
+             y="499.37335">Drittapplikation</tspan></text>
+        <rect
+           style="fill:#f4731b;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:8.0000000 4.0000000 ;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1540"
+           width="76.745041"
+           height="36.806351"
+           x="157.09750"
+           y="424.25815" />
+        <rect
+           style="fill:#f4731b;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:8.0000000 4.0000000 ;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1542"
+           width="76.745041"
+           height="36.806351"
+           x="240.08325"
+           y="424.00830" />
+        <text
+           xml:space="preserve"
+           style="font-size:7.7928634px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="195.25591"
+           y="439.40656"
+           id="text1544"
+           sodipodi:linespacing="125.00000%"><tspan
+             sodipodi:role="line"
+             id="tspan1546"
+             x="195.25591"
+             y="439.40656">Prozesssteuerungs</tspan><tspan
+             sodipodi:role="line"
+             x="195.25590"
+             y="449.14763"
+             id="tspan1548">API</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:7.7928634px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="278.71634"
+           y="439.4541"
+           id="text1550"
+           sodipodi:linespacing="125.00000%"><tspan
+             sodipodi:role="line"
+             id="tspan1552"
+             x="278.71634"
+             y="439.45410">RPC</tspan><tspan
+             sodipodi:role="line"
+             x="278.71634"
+             y="449.19518"
+             id="tspan1554">API</tspan></text>
+      </g>
+      <g
+         transform="translate(-1.205456,39.77935)"
+         id="g1599">
+        <rect
+           style="fill:#f4c142;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.2543448;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1601"
+           width="162.26241"
+           height="110.89069"
+           x="156.33975"
+           y="423.12924" />
+        <text
+           xml:space="preserve"
+           style="font-size:16.270357px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="185.95598"
+           y="499.37335"
+           id="text1603"
+           transform="scale(0.996355,1.003659)"><tspan
+             sodipodi:role="line"
+             id="tspan1605"
+             x="185.95598"
+             y="499.37335">Drittapplikation</tspan></text>
+        <rect
+           style="fill:#f4731b;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:8.0000000 4.0000000 ;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1607"
+           width="76.745041"
+           height="36.806351"
+           x="157.09750"
+           y="424.25815" />
+        <rect
+           style="fill:#f4731b;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:8.0000000 4.0000000 ;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1609"
+           width="76.745041"
+           height="36.806351"
+           x="240.08325"
+           y="424.00830" />
+        <text
+           xml:space="preserve"
+           style="font-size:7.7928634px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="195.25591"
+           y="439.40656"
+           id="text1611"
+           sodipodi:linespacing="125.00000%"><tspan
+             sodipodi:role="line"
+             id="tspan1613"
+             x="195.25591"
+             y="439.40656">Prozesssteuerungs</tspan><tspan
+             sodipodi:role="line"
+             x="195.25590"
+             y="449.14763"
+             id="tspan1615">API</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:7.7928634px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="278.71634"
+           y="439.4541"
+           id="text1617"
+           sodipodi:linespacing="125.00000%"><tspan
+             sodipodi:role="line"
+             id="tspan1619"
+             x="278.71634"
+             y="439.45410">RPC</tspan><tspan
+             sodipodi:role="line"
+             x="278.71634"
+             y="449.19518"
+             id="tspan1621">API</tspan></text>
+      </g>
+      <g
+         transform="translate(-9.643513,31.34131)"
+         id="g1623">
+        <rect
+           style="fill:#f4c142;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.2543448;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1625"
+           width="162.26241"
+           height="110.89069"
+           x="156.33975"
+           y="423.12924" />
+        <text
+           xml:space="preserve"
+           style="font-size:16.270357px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="185.95598"
+           y="499.37335"
+           id="text1627"
+           transform="scale(0.996355,1.003659)"><tspan
+             sodipodi:role="line"
+             id="tspan1629"
+             x="185.95598"
+             y="499.37335">Drittapplikation</tspan></text>
+        <rect
+           style="fill:#f4731b;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:8.0000000 4.0000000 ;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1631"
+           width="76.745041"
+           height="36.806351"
+           x="157.09750"
+           y="424.25815" />
+        <rect
+           style="fill:#f4731b;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:8.0000000 4.0000000 ;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000"
+           id="rect1633"
+           width="76.745041"
+           height="36.806351"
+           x="240.08325"
+           y="424.00830" />
+        <text
+           xml:space="preserve"
+           style="font-size:7.7928634px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="195.25591"
+           y="439.40656"
+           id="text1635"
+           sodipodi:linespacing="125.00000%"><tspan
+             sodipodi:role="line"
+             id="tspan1637"
+             x="195.25591"
+             y="439.40656">Prozesssteuerungs</tspan><tspan
+             sodipodi:role="line"
+             x="195.25590"
+             y="449.14763"
+             id="tspan1639">API</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:7.7928634px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+           x="278.71634"
+           y="439.4541"
+           id="text1641"
+           sodipodi:linespacing="125.00000%"><tspan
+             sodipodi:role="line"
+             id="tspan1643"
+             x="278.71634"
+             y="439.45410">RPC</tspan><tspan
+             sodipodi:role="line"
+             x="278.71634"
+             y="449.19518"
+             id="tspan1645">API</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.9000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 174.18553,291.73193 L 345.35748,209.76228"
+       id="path1694"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.9000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 173.58280,362.85267 L 182.02087,440.00060"
+       id="path1696"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.9000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 530.39192,363.45539 L 491.81798,452.65769"
+       id="path1698"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.9000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 173.58281,363.45538 L 468.91469,459.89030"
+       id="path1700"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.9000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 529.18648,363.45538 L 200.10242,449.04138"
+       id="path1702"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/kleinhenz/Desktop/zpl.png"
+       inkscape:export-xdpi="180.00000"
+       inkscape:export-ydpi="180.00000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.9000000;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 483.37992,577.62715 L 483.02685,667.85313 L 229.88525,667.85313 L 229.88525,597.93783"
+       id="path1704"
+       sodipodi:nodetypes="cccc" />
+    <text
+       sodipodi:linespacing="125.00000%"
+       xml:space="preserve"
+       style="font-size:12.193108px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="544.21704"
+       y="238.57626"
+       id="text2455"
+       transform="scale(0.996355,1.003659)"><tspan
+         sodipodi:role="line"
+         x="544.21704"
+         y="238.57626"
+         id="tspan2457">1. Anfrage Liste der Prozessquellen</tspan></text>
+    <text
+       sodipodi:linespacing="125.00000%"
+       xml:space="preserve"
+       style="font-size:12.193115px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="169.13763"
+       y="238.57626"
+       id="text2459"
+       transform="scale(0.996355,1.003659)"><tspan
+         sodipodi:role="line"
+         x="169.13763"
+         y="238.57626"
+         id="tspan2461">1. Anfrage Liste der Prozessquellen</tspan></text>
+    <text
+       sodipodi:linespacing="125.00000%"
+       xml:space="preserve"
+       style="font-size:12.193127px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="581.69531"
+       y="416.33041"
+       id="text2463"
+       transform="scale(0.996355,1.003659)"><tspan
+         sodipodi:role="line"
+         x="581.69531"
+         y="416.33041"
+         id="tspan2465">2. Anfrage Prozessliste</tspan></text>
+    <text
+       sodipodi:linespacing="125.00000%"
+       xml:space="preserve"
+       style="font-size:12.193133px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="307.3786"
+       y="380.2991"
+       id="text2469"
+       transform="scale(0.996355,1.003659)"><tspan
+         sodipodi:role="line"
+         x="307.37860"
+         y="380.29910"
+         id="tspan2471">2. Anfrage Prozessliste</tspan></text>
+    <text
+       sodipodi:linespacing="125.00000%"
+       xml:space="preserve"
+       style="font-size:12.193145px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="439.25189"
+       y="417.53152"
+       id="text2473"
+       transform="scale(0.996355,1.003659)"><tspan
+         sodipodi:role="line"
+         x="439.25189"
+         y="417.53152"
+         id="tspan2475">3. Anfrage Prozessliste</tspan></text>
+    <text
+       sodipodi:linespacing="125.00000%"
+       xml:space="preserve"
+       style="font-size:12.193145px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="107.75394"
+       y="424.73776"
+       id="text2477"
+       transform="scale(0.996355,1.003659)"><tspan
+         sodipodi:role="line"
+         x="107.75394"
+         y="424.73776"
+         id="tspan2479">3. Anfrage Prozessliste</tspan></text>
+  </g>
+</svg>

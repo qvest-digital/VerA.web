@@ -1,0 +1,1957 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Octopus Beans Framework quickstart</title>
+    <author email="M.Klink@tarent.de">Michael Klink</author>
+  </properties>
+  <head>
+    <!-- <meta ... /> -->
+  </head>
+  <body>
+    <section name="Objective">
+      <p>
+        The objective of this document is to present a quick introduction
+        into the usage of the octopus beans framework.
+      </p>
+      <p>
+        The bean framework is built upon the db layer database access abstraction
+        library. Therefore we talk a bit about using that library, too.
+      </p>
+      <p>
+        As this bean framework is foremost intended to operate inside an octopus
+        module this quickstart also assumes such a scenario.
+      </p>
+    </section>
+
+    <section name="Preparations">
+      <p>
+        There are a number of steps required to prepare an octopus module to make
+        use of this bean framework:
+      </p>
+      <subsection name="Required libraries">
+        <p>
+          The following Maven jar artifacts are required in the module's lib folder:
+        </p>
+        <ul>
+          <li>de.tarent.octopus.octopus-ext-beans: version <code>HEAD-SNAPSHOT</code></li>
+          <li>de.tarent.utils.tarent-database: version <code>HEAD-SNAPSHOT</code></li>
+          <li>commons-dbcp.commons-dbcp: version <code>1.2.1</code></li>
+          <li>commons-pool.commons-pool: version <code>1.3</code></li>
+          <li>commons-collections.commons-collections: version <code>3.1</code></li>
+        </ul>
+        <p>
+          Newer versions of the tarent artifacts may require newer commons artifacts.
+        </p>
+      </subsection>
+      <subsection name="Bean property folder">
+        <p>
+          The framework requires a folder in which to find bean properties containing
+          the actual mapping of bean attributes to database table fields. The default
+          used by constructors initialising from an <code>OctopusContext</code> instance
+          is the subfolder <code>beans</code> of the module's <code>OCTOPUS</code>
+          folder.
+        </p>
+        <p>
+          If your application accesses more than one database you should create different
+          directories for each database pool.
+        </p>
+      </subsection>
+      <subsection name="Bean property file">
+        <p>
+          A typical property file for a bean may look like this:
+	    </p>
+        <source>
+table = k_user
+pk = id
+order = username ASC
+sequence.nextval =  kusr_seq.nextval
+sequence.nextval.table = dual
+
+id = k_user.kusr_id
+userName = k_user.username
+password = k_user.passwort
+surname = k_user.name
+forename = k_user.vorname
+department = k_user.abteilung
+eMail = k_user.email
+telephone = k_user.telefon
+disabled = k_user.gesperrt
+lastLoginDate = k_user.login_datum
+created = k_user.cr_date
+createdby = k_user.cr_user
+changed = k_user.upd_date
+changedby = k_user.upd_user
+        </source>
+	    <p>
+          In the first section some general settings are defined like the database table,
+          primary key and order. If your database does not support automagic ID incremention
+          the options sequence.nextval and sequence.nextval.table should be used for primary
+          key creation. <code>sequence.nextval</code> contains the expression to select to
+          retrieve the next id and <code>sequence.nextval.table</code> names the table to
+          use in this operation.
+          The remaining properties are mapping the bean field names to the database table
+          column names.
+	    </p>
+	    <p>
+	      You can find more detailled information on this
+	      <a href="#Mapping_bean_attributes_to_table_columns">here</a>.
+	    </p>
+      </subsection>
+      <subsection name="Data source configuration">
+        <p>
+          As the beans are intended to be loaded from and stored into database tables
+          we have to configure the connection pool and database to use here. This is
+          actually configuration specific to the db layer library, thus we have to use
+          methods of that library.
+        </p>
+        <p>
+          As pools and database connections should already be configured before the
+          first action of the bean framework takes place, configuration should happen
+          as one of the first actions called in the octopus task <code>autostart</code>.
+        </p>
+        <p>
+          Fortunately db layer includes a worker we can use to configure it. This
+          <code>PoolWorker</code> expects the configuration to be associated to the
+          key "poolDefinitions" in the octopus content. If we store the configuration
+          data as an octopus module parameter inside the module <code>config.xml</code>
+          we just have to change this file like this:
+        </p>
+        <source>
+<![CDATA[  <params>
+    [...]
+    <param name="defaultPool" value="NAME"/>
+
+    <param name="dblayerPoolDefinitions" type="array">
+       <param type="map">
+         <param name="poolName" value="NAME"/>
+
+         <param name="user" value="scott"/>
+         <param name="password" value="tiger"/>
+
+         <param name="targetDBType" value="oracle"/>
+         <param name="dataSourceClass"
+                value="oracle.jdbc.pool.OracleConnectionPoolDataSource"/>
+         <param name="databaseName" value="develop"/>
+         <param name="serverName" value="127.0.0.1"/>
+         <param name="portNumber" value="1521"/>
+         <param name="driverType" value="thin"/>
+
+         <param name="poolMaxActive" value="20"/>
+         <param name="poolMaxWait" value="4000"/>
+         <param name="poolMinIdle" value="1"/>
+         <param name="poolMaxIdle" value="3"/>
+         <param name="poolTimeBetweenEvictionRuns" value="10000"/>
+         <param name="poolMinEvictableIdleTime" value="30000"/>
+       </param>
+    </param>
+  </params>
+  [...]
+  <contentWorkerDeklaration>
+    [...]
+    <worker name="PoolWorker"
+            implementation="de.tarent.dblayer.engine.PoolWorker"
+            singleton="true" factory="reflected"/>
+  </contentWorkerDeklaration>
+  [...]
+  <tasks>
+    <task name="autostart" access="public">
+      <description>
+        This task is executed upon startup of the module.
+      </description>
+      <param name="poolDefinitions" refvalue="CONFIG:dblayerPoolDefinitions"/>
+      <action name="openPools" worker="PoolWorker"/>
+      [...]
+      <response type="none" name="none"/>
+    </task>
+    [...]
+  </tasks>]]>
+        </source>
+        <p>
+          Obviously you likely have to change the database connection properties
+          to suite your needs. Also you may want to change the pooling properties.
+          For more information on these items please consult the documentation
+          of the db layer library itself.
+        </p>
+        <p>
+          You can define more than one database connection pool if your application
+          connects to more than one database at a time: Simply create another
+          parameter map inside the dblayerPoolDefinitions parameter list defining
+          the traits of the other database connection. The poolName parameter values
+          of the parameter maps must be different.
+        </p>
+        <p>
+          If you require to connect to only one database it is a good idea to name
+          the parameter map describing this connection pool the same as your module
+          as this is the default pool name used by constructors initialising from
+          an <code>OctopusContext</code> instance.
+        </p>
+      </subsection>
+      <p>
+        In the followiong sections a simple scenario is assumed; bean properties are
+        stored in their default location, there is but one database to connect to
+        and its pool is named the same as the module this all happens in.
+      </p>
+    </section>
+
+    <section name="Bean classes">
+      <p>
+        This section deals with the bean classes themselves and the requirements for
+        them to be used with this framework.
+      </p>
+      <subsection name="Class hierarchy">
+        <p>
+          Bean classes must implement the interface
+          <a href="xref/de/tarent/octopus/beans/Bean.html">Bean</a>. The easiest
+          way to do this is to have your bean class derive from
+          <a href="xref/de/tarent/octopus/beans/MapBean.html">MapBean</a> which
+          implements both this interface and the interface <code>java.util.Map</code>.
+          It uses reflection to scan your bean class for public fields and treats
+          these as the bean attributes to manage. For reading it always accesses
+          the field values directly while for writing it first checks whether there
+          is a corresponding setter method; if there is it uses this method, otherwise
+          it writes directly to the field. Thus you should do nothing fancy inside
+          the setters that you don't want to happen during bean loading.
+        </p>
+        <p>
+          You are not required to derive your bean classes directly from
+          <code>MapBean</code> but there can be classes inbetween. If you have, e.g.,
+          a number of beans having some common history fields (date and user of the
+          creation and most recent change) you can already define them in a base
+          <code>HistoryBean</code> derived from <code>MapBean</code> and have all
+          your classes with these common fields derive from <code>HistoryBean</code>.
+          As you will see <a href="#The_Database_class">later</a> you can then customize
+          the <a href="xref/de/tarent/octopus/beans/Database.html">Database</a> class
+          to automatically set these fields when creating or updating data records.
+        </p>
+        <p>
+          In the following subsections and sections we assume you create your bean
+          classes as (direct or indirect) subclasses of <code>MapBean</code>.
+        </p>
+      </subsection>
+      <subsection name="Class package">
+        <p>
+          All bean classes that the bean framework should be able to handle at the
+          same time, i.e. that are handled by the same <a href="#The_Database_class">Database</a>
+          implementation, must share the same Java package.
+        </p>
+        <p>
+          Intermediary classes as explained in the subsection before don't have to be
+          in this shared package, and beans representing data from different databases,
+          i.e. different pools, even should not share the same package.
+        </p>
+      </subsection>
+      <subsection name="Class members">
+        <p>
+          We already mentioned that --- when you create a bean class deriving it from
+          <code>MapBean</code> --- the public member variables are considered to be the
+          bean attributes to manage. For obvious reasons static and final members are
+          exempt from this.
+        </p>
+        <p>
+          If the bean framework finds a setter for the attribute it uses it. Thus do nothing
+          fancy inside the setter unless you also want it to happen whenever a bean is simply
+          loaded from a datasource.
+        </p>
+        <p>
+          Also for obvious reasons you are expected to override most <code>MapBean</code>
+          methods only if you know what you are doing, while you actually should override
+          the method <code>verify()</code> if there is any way to do some checks for
+          completeness of the bean values.
+        </p>
+        <p>
+          Aside from this you are free to define additional member variables and methods
+          to your liking. There just might be quite a lot of functionality most naturally
+          associated with your bean.
+        </p>
+      </subsection>
+      <subsection name="Mapping bean attributes to table columns">
+        <p>
+          Ok, there we are with our bean class on the one hand and the database table
+          on the other. All there's missing is the link between them.
+        </p>
+        <p>
+          The actual mapping between bean attributes and table columns happens using
+          property files which are saved in the
+          <a href="Bean_property_folder">bean property folder</a>. The property files
+          are named as their associated bean class and contain the following entries:
+        </p>
+        <ul>
+          <li>table: this entry contains the name of the table associated with the bean</li>
+          <li>pk: this entry contains the name of the Java bean attribute that represents
+            the primary key of the table</li>
+          <li>order: this entry contains the ORDER parameters for the default sort order
+            of beans of this class</li>
+          <li>sequence.nextval: this entry contains the expression to select from the
+            database to retrieve an id to use as content of the primary key bean attribute
+            when inserting a new entry into the table backing this bean class. If no such
+            entry is given no primary key value is used upon insertion, while afterwards
+            the maximum value of the primary key column is selected and considered to be
+            the id of the saved bean.</li>
+          <li>sequence.nextval.table: this entry contains the 'table' the expression
+            <code>sequence.nextval</code> is selected from. If only the expression is given
+            the select will contain no FROM clause.</li>
+          <li><em>bean attribute name</em>: name of the column represented by this bean
+            attribute; if you intend to make joins leading to possible ambiguities you
+            should use the extended table.column name.</li>
+          <li><em>bean attribute name</em>(<em>property</em>): property value of the
+            named bean attribute; as of now there is but one property, 'ro', marking
+            read-only attributes. Such attributes might be introduced via joins or
+            might be calculated from other columns.</li>
+        </ul>
+      </subsection>
+      <subsection name="Example bean">
+        <p>
+          Here we present you with an example bean and mapping for a given table. Consider
+          the table K_USER in combination with the sequence KUSR_SEQ for the primary key
+          KUSR_ID of the table:
+        </p>
+        <source>
+CREATE TABLE K_USER
+(
+  KUSR_ID      NUMBER(14)             NOT NULL,
+  USERNAME     VARCHAR2(40 BYTE)      NOT NULL,
+  PASSWORT     VARCHAR2(50 BYTE),
+  NAME         VARCHAR2(200 BYTE),
+  VORNAME      VARCHAR2(200 BYTE),
+  ABTEILUNG    VARCHAR2(200 BYTE),
+  EMAIL        VARCHAR2(200 BYTE),
+  TELEFON      VARCHAR2(50 BYTE),
+  GESPERRT     CHAR(1 BYTE)           DEFAULT 'N'  NOT NULL,
+  LOGIN_DATUM  DATE,
+  CR_DATE      DATE                   NOT NULL,
+  UPD_DATE     DATE,
+  CR_USER      VARCHAR2(20 BYTE),
+  UPD_USER     VARCHAR2(20 BYTE),
+  CONSTRAINT   KUSR_PK                PRIMARY KEY (KUSR_ID)
+)
+
+CREATE SEQUENCE KUSR_SEQ
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 100
+  NOORDER;
+        </source>
+        <p>
+          This table represents the users of an application containing historisation
+          data. As probably other tables in the same database have these fields, too,
+          we create an intermediate bean class containing the historisation fields
+          and then a bean class for the users.
+        </p>
+        <source>
+<![CDATA[package de.tarent.demo.beans;
+
+import java.util.Date;
+
+import de.tarent.octopus.beans.MapBean;
+
+public abstract class AbstractHistory extends MapBean {
+    public Date created;
+    public String createdby;
+    public Date changed;
+    public String changedby;
+
+    public Date getChanged() {
+        return changed;
+    }
+    public void setChanged(Date changed) {
+        this.changed = changed;
+    }
+
+    public String getChangedby() {
+        return changedby;
+    }
+    public void setChangedby(String changedby) {
+        this.changedby = changedby;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public String getCreatedby() {
+        return createdby;
+    }
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
+}]]>
+        </source>
+        <p>
+          Nothing fancy as you can see. Now the actual <code>User</code> bean.
+        </p>
+        <source>
+<![CDATA[package de.tarent.demo.beans;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+
+/**
+ * This bean class represents users persisted in the database table K_USER.
+ */
+public class User extends AbstractHistory {
+    //
+    // bean attributes
+    //
+    /**
+     * KUSR_ID NUMBER(14) NOT NULL<br>
+     * CONSTRAINT KUSR_PK PRIMARY KEY (KUSR_ID)
+     */
+    public Integer id;
+    /**
+     * USERNAME VARCHAR2(40 BYTE) NOT NULL<br>
+     * CONSTRAINT USERNAME_UK UNIQUE (USERNAME)
+     */
+    public String userName;
+    /** PASSWORT VARCHAR2(50 BYTE) */
+    public String password;
+    /** NAME VARCHAR2(200 BYTE) */
+    public String surname;
+    /** VORNAME VARCHAR2(200 BYTE) */
+    public String forename;
+    /** ABTEILUNG VARCHAR2(200 BYTE) */
+    public String department;
+    /** EMAIL VARCHAR2(200 BYTE) */
+    public String eMail;
+    /** TELEFON VARCHAR2(50 BYTE) */
+    public String telephone;
+    /** GESPERRT CHAR(1 BYTE) DEFAULT 'N' NOT NULL */
+    public Character disabled;
+    /** LOGIN_DATUM DATE */
+    public Date lastLoginDate;
+
+    //
+    // public methods
+    //
+    /**
+     * This method checks whether the given password char sequence
+     * represents a valid password for this user.
+     *
+     * @param password a password char sequence
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+    public boolean checkPassword(char[] password)
+            throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (this.password == null)
+            return password == null;
+        return this.password.equals(digest(password));
+    }
+
+    /**
+     * This method updates the password of this user. This method is not
+     * made a setter method as the bean framework would use it, too, to
+     * set the password member of this bean and thus infer a digest of
+     * the digest of the password.
+     *
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+    public void updatePassword(char[] password)
+            throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        this.password = digest(password);
+    }
+
+    //
+    // getter and setter methods
+    //
+    /** id of this user */
+    public Integer getId() {
+        return id;
+    }
+
+    /** department of this user */
+    public String getDepartment() {
+        return department;
+    }
+    /** department of this user */
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    /**
+     * character flag of this user for his disabled state,
+     * 'N' equivalent to enabled
+     */
+    public Character getDisabled() {
+        return disabled;
+    }
+    /**
+     * character flag of this user for his disabled state,
+     * 'N' equivalent to enabled
+     */
+    public void setDisabled(Character disabled) {
+        this.disabled = disabled;
+    }
+
+    /** e-mail address of this user */
+    public String getEMail() {
+        return eMail;
+    }
+    /** e-mail address of this user */
+    public void setEMail(String mail) {
+        eMail = mail;
+    }
+
+    /**
+     * flag of this user for his enabled state,
+     * a boolean representaion of {@link #getDisabled()}
+     */
+    public boolean isEnabled() {
+        return DISABLED_VALUE_FALSE.equals(getDisabled());
+    }
+    /**
+     * flag of this user for his enabled state, a boolean
+     * representation of {@link #setDisabled(Character)} which uses
+     * {@link #DISABLED_VALUE_TRUE} and {@link #DISABLED_VALUE_FALSE}
+     * respectively to represent a disabled or enabled user.
+     */
+    public void setEnabled(boolean enabled) {
+        this.disabled = enabled ? DISABLED_VALUE_FALSE : DISABLED_VALUE_TRUE;
+    }
+
+    /** forename of this user */
+    public String getForename() {
+        return forename;
+    }
+    /** forename of this user */
+    public void setForename(String forename) {
+        this.forename = forename;
+    }
+
+    /** most recent login date of this user */
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+    /** most recent login date of this user */
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    /** surname of this user */
+    public String getSurname() {
+        return surname;
+    }
+    /** surname of this user */
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    /** telephone number of this user */
+    public String getTelephone() {
+        return telephone;
+    }
+    /** telephone number of this user */
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    /** login name of this user */
+    public String getUserName() {
+        return userName;
+    }
+    /** login name of this user */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    //
+    // public constants
+    //
+    /**
+     * This instance can be taken as a sample {@link User} bean
+     * whereever an anonymous bean instance is needed for calls of
+     * {@link de.tarent.octopus.beans.Database} methods.
+     */
+    public final static User SAMPLE = new User();
+
+    /**
+     * This Character is the one value of the {@link #disabled} attribute
+     * representing an enabled user entry.
+     */
+    public final static Character DISABLED_VALUE_FALSE = new Character('N');
+    /**
+     * This Character is a possible value of the {@link #disabled} attribute
+     * representing a disabled user entry.
+     */
+    public final static Character DISABLED_VALUE_TRUE = new Character('J');
+
+    //
+    // Helper methods
+    //
+    /**
+     * This static method creates an MD5 digest of the source. The source
+     * parameter is chosen to be of type <code>char[]</code> instead of
+     * <code>String</code> to allow for better security as character
+     * arrays can be overwritten after usage.
+     */
+    static String digest(char[] source) throws UnsupportedEncodingException,
+            NoSuchAlgorithmException {
+        if (source == null)
+            return null;
+        Charset cs = Charset.forName("UTF8");
+        ByteBuffer bb = cs.encode(CharBuffer.wrap(source));
+        MessageDigest md = MessageDigest.getInstance( "MD5" );
+        md.update(bb.array());
+        byte[] digest = md.digest();
+        StringBuffer buffer = new StringBuffer();
+        for(int i = 0; i < digest.length; i++)
+            buffer.append(Integer.toHexString(digest[i] & 0xff));
+        return buffer.toString();
+    }
+}]]>
+        </source>
+        <p>
+          As you can see there are a number of additional methods that should not
+          interfere with the mapping work of the framework. Note especially that the
+          method to set a new password is <em>not</em> <code>setPassword</code> but
+          <code>updatePassword</code>! Otherwise each time a User bean is loaded
+          a MD5 digest of the current password value (already a digest of the real
+          password) would be put into the password member variable.
+        </p>
+        <p>
+          Now the bean property file:
+        </p>
+        <source>
+table = k_user
+pk = id
+order = username ASC
+sequence.nextval = kusr_seq.nextval
+sequence.nextval.table = dual
+
+id = k_user.kusr_id
+userName = k_user.username
+password = k_user.passwort
+surname = k_user.name
+forename = k_user.vorname
+department = k_user.abteilung
+eMail = k_user.email
+telephone = k_user.telefon
+disabled = k_user.gesperrt
+lastLoginDate = k_user.login_datum
+created = k_user.cr_date
+createdby = k_user.cr_user
+changed = k_user.upd_date
+changedby = k_user.upd_user
+        </source>
+        <p>
+          As you can see we use <code>sequence.nextval</code> and
+          <code>sequence.nextval.table</code> properties to tell the
+          bean framework about the sequence backing the primary key.
+        </p>
+      </subsection>
+    </section>
+    <section name="The Database class">
+      <p>
+        The previous sections showed us how to create bean classes, how to configure the
+        mapping of bean attributes to table columns, and how to configure the database
+        connection properties. Still missing is the component that actually uses all this
+        to read beans from and write beans to the configured database. This missing link
+        is the <a href="xref/de/tarent/octopus/beans/Database.html">Database</a> class.
+      </p>
+      <p>
+        This class is abstract, thus you have to create a class derived from it.
+        Having an own variant of the Database class actually will turn out to be
+        quite handy as you can easily customize the behaviour of the Database.
+      </p>
+      <subsection name="Creating a Database instance">
+        <p>
+          As mentioned above you have to derive from the abstract class Database.
+          Database has two constructors; your class should support at least one of them.
+          As we try to use defaults here as often as possible we will use the constructor
+          gathering the required information from OctopusContext data.
+        </p>
+        <source>
+<![CDATA[package de.tarent.demo.beans.custom;
+
+import java.io.IOException;
+import java.util.Date;
+
+import de.tarent.demo.beans.AbstractHistory;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.BeanFactory;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.server.OctopusContext;
+import de.tarent.dblayer.sql.statement.*;
+
+/**
+ * This class is a taylored version of the {@link Database}
+ * {@link BeanFactory}. It especially updates the history fields
+ * of beans derived from {@link AbstractHistory}.
+ */
+public class DatabaseDemo extends Database {
+    //
+    // constants
+    //
+    /** package of the demo bean implementation classes */
+    public static final String BEANPACKAGE = "de.tarent.demo.beans";
+
+    //
+    // constructors
+    //
+    /**
+     * This constructor derives the required {@link Database} initialization
+     * data from an {@link OctopusContext}. The db layer pool name and the
+     * path of the bean mapping files for this object thus are the module
+     * name of the context and the beans subfolder of the module folder
+     * respectively.
+     */
+    public DatabaseDemo(OctopusContext cntx) {
+        super(cntx, BEANPACKAGE);
+        this.cntx = cntx;
+    }
+
+    [...]
+
+    //
+    // member variables
+    //
+    /** octopus context of this class */
+    final OctopusContext cntx;
+}]]>
+        </source>
+        <p>
+          You might wonder why we store the OctopusContext in a member variable
+          and what might actually be concealed by the ellipsis. We'll get to that
+          <a href="#Customisations">later</a>.
+        </p>
+        <p>
+          Now to instantiate a Database derived instance in an octopus worker action
+          all we have to do in the worker is this...
+        </p>
+        <source>
+<![CDATA[    public static final String[] INPUT_readUser = { "userId" };
+    public static final boolean[] MANDATORY_readUser = { true };
+    public static final String OUTPUT_readUser = "user";
+    /**
+     * This octopus action returns a {@link User} object.
+     *
+     * @param cntx octopus context
+     * @param userId user ID
+     * @return {@link User} bean containing the data of the user having the
+     *  given id
+     */
+    public User readUser(OctopusContext cntx, Integer userId)
+            throws BeanException, IOException {
+        // initialise Database object
+        Database database = new DatabaseDemo(cntx);
+        [...]
+    }]]>
+        </source>
+        <p>
+          Ok, let us use the Database!
+        </p>
+      </subsection>
+      <subsection name="Reading a bean">
+        <p>
+          The main method for reading a single bean from the database is this:
+        </p>
+        <source>
+    public Bean getBean(String beanname, Select select) throws BeanException;
+        </source>
+        <p>
+          It requires the bean name (the name of the bean class without the package)
+          and a db layer <code>Select</code> instance modelling the SQL request.
+          Database has helper methods to easily create such a model.
+        </p>
+        <p>
+          We will use this to complete the example above:
+        </p>
+        <source>
+<![CDATA[    public User readUser(OctopusContext cntx, Integer userId)
+            throws BeanException, IOException {
+        Database database = new DatabaseDemo(cntx);
+        Select select = database.getSelect(User.SAMPLE);
+        select.where(
+            Expr.equal(database.getProperty(User.SAMPLE, "id"), userId));
+        User user = (User)database.getBean("User", select);
+        return user;
+    }]]>
+        </source>
+        <p>
+          The Database method getProperty() allows us to access bean attribute to
+          table column mapping data, and the db layer helper class Expr is a factory
+          for expressions used in the WHERE clause of a statement.
+        </p>
+        <p>
+          Actually there is a shortcut for selecting a bean by its numerical primary
+          key (the bean attribute referenced with the key "pk" in the bean property file):
+        </p>
+        <source>
+    public Bean getBean(String beanname, Integer pk)
+        throws BeanException, IOException;
+        </source>
+        <p>
+          Using this shortcut method we can alternatively implement the readUser action
+          like this:
+        </p>
+        <source>
+<![CDATA[    public User readUser(OctopusContext cntx, Integer userId)
+            throws BeanException, IOException {
+        Database database = new DatabaseDemo(cntx);
+        User user = (User)database.getBean("User", userId);
+        return user;
+    }]]>
+        </source>
+      </subsection>
+      <subsection name="Writing a bean">
+        <p>
+          Writing a bean is even easier than reading it. There is one Database method
+          that does it all:
+        </p>
+        <source>
+    public void saveBean(Bean bean) throws BeanException, IOException;
+        </source>
+        <p>
+          This method can be used both to create and to change database table entries for
+          beans. It considers beans having a <code>null</code> primary key entry (the
+          primary key bean attribute being the value of the "pk" key in the bean property
+          file) to be new and therefore to be inserted into the database while all others
+          are considered to have existing database entries which will be updated.
+        </p>
+        <p>
+          When inserting a bean this method either (if the bean properties contain sequence
+          information) retrieves the value for the primary key from the sequence first and
+          then inserts a data row containing the primary key value or it first inserts a
+          data row without a primary key value and then selects the maximum primary key
+          value in the table and assumes it to be the newest one. Either way this method
+          eventually writes it into the primary key bean attribute.
+        </p>
+        <p>
+          In our example we have read a User bean from the database by its primary key.
+          If after some manipulation we want to save it again we can use the following action:
+        </p>
+        <source>
+<![CDATA[    public static final String[] INPUT_writeUser = { "user" };
+    public static final boolean[] MANDATORY_writeUser = { true };
+    public static final String OUTPUT_writeUser = "user";
+    /**
+     * This octopus action writes a {@link User} bean into the database.
+     * If this implies an database INSERT the bean primary key attribute
+     * is also updated.
+     *
+     * @param cntx octopus context
+     * @param user User instance to save
+     * @return probably updated {@link User} bean
+     */
+    public User writeUser(OctopusContext cntx, User user)
+            throws BeanException, IOException {
+        Database database = new DatabaseDemo(cntx);
+        database.saveBean(user);
+        return user;
+    }]]>
+        </source>
+      </subsection>
+      <subsection name="Deleting a bean">
+        <p>
+          Deleting a bean is as easy as writing it. There is one Database method
+          that does it all:
+        </p>
+        <source>
+    public void removeBean(Bean bean) throws BeanException, IOException;
+        </source>
+        <p>
+          This method deletes the table entry corresponding to the given bean using
+          a primary key WHERE condition. Beware using the bean after deleting it as
+          this method does not (yet?) clear the primary key attribute!
+        </p>
+        <p>
+          In our example we have read a User bean from the database by its primary key.
+          If we want to remove it we can use the following action and even rectify the
+          the primary key attribute value:
+        </p>
+        <source>
+<![CDATA[    public static final String[] INPUT_deleteUser = { "user" };
+    public static final boolean[] MANDATORY_deleteUser = { true };
+    public static final String OUTPUT_deleteUser = "user";
+    /**
+     * This octopus action deletes the database record corresponding to
+     * the given {@link User} bean. It then clears the primary key
+     * attribute value.
+     *
+     * @param cntx octopus context
+     * @param user User instance to remove from the database
+     * @return updated {@link User} bean
+     */
+    public User deleteUser(OctopusContext cntx, User user)
+            throws BeanException, IOException {
+        Database database = new DatabaseDemo(cntx);
+        database.removeBean(user);
+        user.id = null;
+        return user;
+    }]]>
+        </source>
+      </subsection>
+      <subsection name="Mass queries">
+        <p>
+          Queries often have more than one result, thus there is a need for
+          methods returning more than one bean. Again there is one Database
+          method doing this:
+        </p>
+        <source>
+    public List getBeanList(String beanname, Select select) throws BeanException;
+        </source>
+        <p>
+          It returns a list of beans of the given type selected using the given
+          Select model.
+        </p>
+        <p>
+          In our example we might need a method returning all users to display them
+          in a list.
+        </p>
+        <source>
+<![CDATA[    public static final String[] INPUT_readAllUsers = { };
+    public static final boolean[] MANDATORY_readAllUsers = { };
+    public static final String OUTPUT_readAllUsers = "userList";
+    /**
+     * This octopus action reads all user data and returns them as
+     * a list of {@link User} beans.
+     *
+     * @param cntx octopus context
+     * @return List of {@link User} bean
+     */
+    public List readAllUsers(OctopusContext cntx)
+            throws BeanException, IOException {
+        Database database = new DatabaseDemo(cntx);
+        List userList = database.getBeanList("User",
+           database.getSelect(User.SAMPLE));
+        return userList;
+    }]]>
+        </source>
+        <p>
+          This is all fine as long as there aren't too many data rows in the result set.
+          Otherwise though this call might read more and more data and put it into new
+          User instances until all the memory is exhausted and the applications goes down
+          the drain. For circumstances like this there is another method:
+        </p>
+        <source>
+    public List getList(Select statement) throws BeanException;
+        </source>
+        <p>
+          This method does not iterate over the whole result set to read all data and put
+          it into beans filling some standard List implementation. Instead it instantiates
+          a custom List implemention class that itself is based upon the result set. This
+          class allows access to a list entry by positioning the result set cursor on the
+          desired data row and returning a custom Map implementation that reads its
+          contents from the current result set row.
+        </p>
+        <source>
+<![CDATA[    public static final String[] INPUT_readAllUsersData = { };
+    public static final boolean[] MANDATORY_readAllUsersData = { };
+    public static final String OUTPUT_readAllUsersData = "userDataList";
+    /**
+     * This octopus action returns a custom list based on a result set
+     * that offers access to all users' data using a custom Map implementation.
+     *
+     * @param cntx octopus context
+     * @return List of user data Maps
+     */
+    public List readAllUsersData(OctopusContext cntx)
+            throws BeanException, IOException {
+        Database database = new DatabaseDemo(cntx);
+        List userDataList = database.getList(database.getSelect(User.SAMPLE));
+        cntx.addCleanupCode(userDataList);
+        return userDataList;
+    }]]>
+        </source>
+        <p>
+          As this sounds very much like what we want to have anyway you might wonder
+          why we also have the other method mentioned above. Well, on the one hand
+          there are quite a lot of situations in which we want to play around with the
+          list (reordering, removing or adding entries) or its entries without actually changing anything
+          in the database backing the list, and there are some operations intensively
+          accessing data that we definitely want to take place in real memory only.
+        </p>
+        <p>
+          On the other hand there are quite a number of shortcoming of the very
+          implementation of this list. It supports only one concurrent iterator
+          whose state also goes haywire whenever you directly access list members
+          using get or even when you just check whether the list is empty. And aside
+          from being very fragile and incomplete it also blocks a database connection
+          until being closed after the requested tasks execution.
+        </p>
+        <p>
+          Therefore take care when you use this method. Restrict yourself to as small a
+          number of these lists as sensible and access it in a very well mannered way.
+          And read carefully the warnings given in the Javadoc comments of the getList
+          method of <a href="xref/de/tarent/octopus/beans/Database.html">Database</a>.
+        </p>
+        <p>
+          You might notice the call of the method addCleanupCode of the OctopusContext.
+          As a list wrapping a ResultSet keeps some resources locked until the ResultSet
+          and probably other objects it depends upon are closed there is a need for a
+          close method. It is hard to count on some other action later to close the
+          list, thus we register the list with the octopus for automatic closing after
+          execution of the requested task. Obviously this is not what you want if you
+          want to put the list into the session, but that would be a bad idea anyways
+          as it would block resources, especially database connections from the pool
+          for good.
+        </p>
+      </subsection>
+      <subsection name="Transactions">
+        <p>
+          All the methods we have looked at yet are fine when you only read data or want
+          to do simple changes requiring but one statement. There are situations though
+          that require transaction handling executing a number of statements as if they
+          were only one, either succeeding or failing completely.
+        </p>
+        <p>
+          Database has a way to do this, too. Whenever you need to execute a number of
+          statements as a transaction, first use the following method to get a
+          <a href="xref/de/tarent/octopus/beans/TransactionContext.html">TransactionContext</a>:
+        </p>
+        <source>
+    public TransactionContext getTransactionContext();
+        </source>
+        <p>
+          Then execute the statements in this context. To do this there are variants
+          of the methods mentioned above that take an additional parameter, an
+          <a href="xref/de/tarent/octopus/beans/ExecutionContext.html">ExecutionContext</a>
+          which TransactionContext implements.
+        </p>
+        <source>
+    public Bean getBean(String beanname, Integer pk, ExecutionContext context)
+        throws BeanException, IOException;
+    public Bean getBean(String beanname, Select select, ExecutionContext context)
+        throws BeanException;
+    public List getBeanList(String beanname, Select select,
+        ExecutionContext context) throws BeanException;
+    public List getList(Select statement, final ExecutionContext context)
+        throws BeanException;
+    public void removeBean(Bean bean, ExecutionContext context)
+        throws BeanException, IOException
+    public void saveBean(Bean bean, ExecutionContext context, boolean updateID)
+        throws BeanException, IOException;
+        </source>
+        <p>
+          As you might have noticed the saveBean variant also has an additional
+          boolean parameter. It allows you to tell the method whether or not you
+          require it to update the beans primary key attribute; it is just a hint:
+          The primary key attribute may be updated even if this parameter is false.
+          As getting to know the new primary key an inserted bean got requires an
+          additional select this can be used to tweak performance. If you use
+          <code>false</code> here you obviously should not continue using the
+          saved bean instance as it may still represent a new bean.
+        </p>
+        <p>
+          After completing your transaction there are two TransactionContext
+          methods to choose from to end it:
+        </p>
+        <source>
+    public void commit() throws BeanException;
+    public void rollBack() throws BeanException;
+        </source>
+        <p>
+          The former one tells the database to accept the changes made during the
+          transaction while the latter tells it to discard them. If you do neither
+          the transaction will be rolled back during finalisation of the
+          <a href="xref/de/tarent/octopus/beans/TransactionContext.html">TransactionContext</a>.
+        </p>
+      </subsection>
+      <subsection name="Prepared Statements">
+        <p>
+          If you want to operate more or less the same way on a large number of beans
+          database management systems generally allow for optimisations using so called
+          prepared statements. Database supports this concept, too, currently though
+          only for update statements. Using the following method you can prepare an update:
+        </p>
+        <source>
+    public BeanStatement prepareUpdate(Bean sample, Collection keyFields,
+        Collection updateFields, ExecutionContext context)
+        throws BeanException, IOException;
+        </source>
+        <p>
+          As you can see this method requires an
+          <a href="xref/de/tarent/octopus/beans/ExecutionContext.html">ExecutionContext</a>.
+          Thus you can easily use prepared statements inside transaction contexts. If there
+          is no need for an transaction you can use your Database instance here: Database
+          also implements this interface.
+        </p>
+        <p>
+          The meaning of the other parameters is quite straight forward, too: sample
+          contains a sample of the bean class the statement is to operate on; keyFields
+          contains the bean fields to use in the WHERE clause to identify the data rows
+          to update; and updateFields contains the bean fields to change in the SET
+          assignments.
+        </p>
+        <p>
+          The method returns a <a href="xref/de/tarent/octopus/beans/BeanStatement.html">BeanStatement</a>
+          instance which you can use to update the data rows represented by beans using
+          its execute(Bean) method.
+        </p>
+        <p>
+          As an example using our sample User bean there might be a need to often reassign
+          users to new departments. This might be done retrieving the user list using the
+          action readAllUsers, then updating the department attributes of the User beans,
+          and finally storing the changed values using this action:
+        </p>
+        <source>
+<![CDATA[    public static final String[] INPUT_saveUserDepartments = { "userList" };
+    public static final boolean[] MANDATORY_saveUserDepartments = { true };
+    public static final String OUTPUT_saveUserDepartments = "userList";
+    /**
+     * This octopus action updates the department entry in the database for
+     * the {@link User} beans listed in the userList parameter. These users
+     * should be existing in the database already as we only update existing
+     * data rows.
+     *
+     * @param cntx octopus context
+     * @param userList list of {@link User} beans having possibly changed
+     *  department values.
+     * @return List of {@link User} beans
+     */
+    public List saveUserDepartments(OctopusContext cntx, List userList)
+            throws BeanException, IOException {
+        Database database = new DatabaseDemo(cntx);
+        Collection keyFields = Collections.singleton("id");
+        Collection updateFields = Arrays.asList(
+            new String[]{ "department", "changed", "changedby" });
+        BeanStatement updateDepartment = database.prepareUpdate(User.SAMPLE,
+            keyFields, updateFields, database);
+        final Date now = new Date();
+        for (Iterator itUsers; itUsers.hasNext(); ) {
+            User user = (User) itUsers.next();
+            user.setChanged(now);
+            user.setChangedBy(cntx.personalConfig().getUserLogin());
+            updateDepartment.execute(user);
+        }
+        return userList;
+    }]]>
+        </source>
+        <p>
+          A possibly less far fetched use case would be updating some columns
+          containing statistics on the user behaviour.
+        </p>
+      </subsection>
+      <subsection name="Customisations">
+        <p>
+          As promissed <a href="#Creating_a_Database_instance">above</a> we will show
+          here a way to tweak Database behaviour a bit to do some things automatically
+          behind the scenes.
+        </p>
+        <p>
+          When we introduced the <a href="#Example_bean">example User bean</a> we went
+          to some lengths to create a bean hierarchy having a base bean class containing
+          history fields. In all the examples in this section but the last one we completely
+          ignored these fields, though, so no history data was filled in.
+        </p>
+        <p>
+          The reason for this is, of course, that we don't want to code such generic stuff
+          again and again for each single bean class. This is where we can do a little bit
+          of magic using our Database variant. The method saveBean handles inserts and
+          updates, i.e. all actions changing history fields, all we have to do is change
+          this method (or other ones it calls) to do the historisation work. One possible
+          way to do this is changing the methods getInsert and getUpdate which produce the
+          statement models:
+        </p>
+        <source>
+<![CDATA[    //
+    // {@link Database} overrides
+    //
+    /**
+     * This method creates a db layer {@link Insert} statement for the given
+     * bean into the table backing it. If this bean derives from
+     * {@link AbstractHistory} creation data are changed to the current
+     * date and user.<br>
+     * As only the history fields of the created {@link Insert} are changed
+     * the bean object itself doesn't fully represent the inserted dataset.
+     * Therefore the bean has to be updated accordingly.
+     */
+    public Insert getInsert(Bean bean) throws BeanException, IOException {
+        Insert insert = super.getInsert(bean);
+        if (bean instanceof AbstractHistory) {
+            insert.remove("cr_user");
+            insert.remove("cr_date");
+            insert.insert("cr_user", cntx.personalConfig().getUserLogin());
+            insert.insert("cr_date", new Date());
+        }
+        return insert;
+    }
+
+    /**
+     * This method creates a db layer {@link Update} statement for the given
+     * bean in the table backing it. If this bean derives from
+     * {@link AbstractHistory} update data are changed to the current
+     * date and user while create data changes are discarded.<br>
+     * As only the history fields of the created {@link Update} are changed
+     * the bean object itself doesn't fully represent the updated dataset.
+     * Therefore the bean has to be updated accordingly.
+     */
+    public Update getUpdate(Bean bean) throws BeanException, IOException {
+        Update update = super.getUpdate(bean);
+        if (bean instanceof AbstractHistory) {
+            update.remove("cr_user");
+            update.remove("cr_date");
+            update.remove("upd_user");
+            update.remove("upd_date");
+            update.update("upd_user", cntx.personalConfig().getUserLogin());
+            update.update("upd_date", new Date());
+        }
+        return update;
+    }]]>
+        </source>
+        <p>
+          Beware: Prepared statements are a different matter altogether. This is why
+          we updated history fields in the example <a href="#Prepared_Statements">here</a>
+          explicitely. This might change in the future, though.
+        </p>
+      </subsection>
+    </section>
+    <section name="The Request class">
+      <p>
+        We've had a look at the Database class which is the interface between our beans
+        and the database. Wouldn't it be nice to have something similar between the
+        beans and the data received in a request? Well, there is, and this is the section
+        that introduces this interface. Its Java implementation is the class
+        <a href="xref/de/tarent/octopus/beans/Request.html">Request</a>.
+      </p>
+      <p>
+        Just like Database this class is abstract, thus you have to create a class derived
+        from it. Having an own variant again can turn out to be handy for some automagical
+        behaviour.
+      </p>
+      <subsection name="Creating a Request instance">
+        <p>
+          As mentioned above you have to derive from the abstract class Request.
+          There is less to do in our derived version than there is in a derived
+          Database:
+        </p>
+        <source>
+<![CDATA[package de.tarent.demo.beans.custom;
+
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.server.OctopusContext;
+
+public class RequestDemo extends Request {
+    public static final String BEANPACKAGE = "de.tarent.demo.beans";
+
+    public RequestDemo(OctopusContext cntx) {
+        super(cntx, BEANPACKAGE);
+    }
+}]]>
+        </source>
+        <p>
+          Now to instantiate a Request derived instance in an octopus worker action
+          all we have to do in the worker is this...
+        </p>
+        <source>
+<![CDATA[    public static final String[] INPUT_assembleUser = { "prefix" };
+    public static final boolean[] MANDATORY_assembleUser = { false };
+    public static final String OUTPUT_assembleUser = "user";
+    /**
+     * This octopus action returns a {@link User} object.
+     *
+     * @param cntx octopus context
+     * @param prefix prefix of user data in request
+     * @return {@link User} assembled from request data using the given prefix
+     */
+    public User assembleUser(OctopusContext cntx, String prefix)
+            throws BeanException, IOException {
+        // initialise Request object
+        Request request = new RequestDemo(cntx);
+        [...]
+    }]]>
+        </source>
+        <p>
+          Ok, let us use the Request!
+        </p>
+      </subsection>
+      <subsection name="Reading a bean">
+        <p>
+          The main method for reading a single bean from the request is this:
+        </p>
+        <source>
+    public Bean getBean(String beanname, String prefix) throws BeanException;
+        </source>
+        <p>
+          It requires the bean name (the name of the bean class without the package)
+          and a prefix String. This prefix can be used if you have details of more
+          than one user in the request or if certain field names collide with other
+          parameters. It is an optional parameter.
+        </p>
+        <p>
+          We will use this to complete the example above:
+        </p>
+        <source>
+<![CDATA[    public User assembleUser(OctopusContext cntx, String prefix)
+            throws BeanException {
+        Request request = new RequestDemo(cntx);
+        return request.getBean("User", prefix);
+    }]]>
+        </source>
+        <p>
+          You may wonder which request parameters actually are used to fill the newly
+          created bean. It's quite simple: The attribute names of the bean are used!
+          If the prefix is not null it and a dash are prepended to the name.
+        </p>
+        <p>
+          In our case this means the User bean gets its attributes from the request
+          parameters "id", "userName", "password", "surname", "forename", "department",
+          "eMail", "telephone", "disabled", "lastLoginDate", "created", "createdby",
+          "changed", and "changedby" possibly prepended with some prefix. This by
+          the way is a good example why a prefix might be necessary as octopus
+          considers a combination of request parameters "username" and "password" to
+          be an attempt to authenticate the current user which most probably is not
+          what we intend to do with these parameters in our example.
+        </p>
+        <p>
+          Actually there is another request parameter read here: "modified" with a
+          possible prefix is interpreted as the modified state of the Bean instance.
+          Therefore if you read data from a form that allows modification of a user's
+          data you should set this parameter, too, using some JavaScript magic. Also
+          you should keep from using a bean attribute called "modified"...
+        </p>
+      </subsection>
+      <subsection name="Reading many beans">
+        <p>
+          There might be data of a list of beans in a request, e.g. when displaying
+          an editable list of users' attributes. There is a Request way to turn these
+          request parameters into beans:
+        </p>
+        <source>
+    public List getBeanList(String beanname, String listname)
+        throws BeanException;
+        </source>
+        <p>
+          It requires the bean name (the name of the bean class without the package)
+          and a listname String. The latter argument actually is taken as a key of
+          a request parameter whose content is interpreted as a list of prefixes.
+          For each of these prefixes a bean of the given bean type is created, filled
+          from the request data and put into the result list.
+        </p>
+        <p>
+          If we really have an editable list of user attributes we can read the list
+          like this:
+        </p>
+        <source>
+<![CDATA[    public static final String[] INPUT_assembleUserList = { "listName" };
+    public static final boolean[] MANDATORY_assembleUserList = { true };
+    public static final String OUTPUT_assembleUserList = "userList";
+    /**
+     * This octopus action returns a {@link List} of {@link User} objects.
+     *
+     * @param cntx octopus context
+     * @param listName name of the request parameter containing a list
+     *  of prefixes.
+     * @return {@link List} of {@link User} beans assembled from request
+     *  data using the prefixes from the given parameter
+     */
+    public List assembleUserList(OctopusContext cntx, String listName)
+            throws BeanException {
+        Request request = new RequestDemo(cntx);
+        return request.getBeanList("User", listName);
+    }]]>
+        </source>
+        <p>
+          The names of the parameters containing data for the attributes of the
+          beans are built the same way as shown above, they are a concatenation
+          of the associated prefix, a dash '-' and the name of the bean attribute
+          in question.
+        </p>
+        <p>
+          A good choice for the prefixes of listed existing beans is the id.
+        </p>
+      </subsection>
+      <p>
+        As requests are handled as a read only context here that's all the
+        functionality currently implemented in Request.
+      </p>
+    </section>
+    <section name="The BeanListWorker">
+      <p>
+        Ok, so we have a custom Database class to read beans from and write them
+        to a database, and we have a custom Request class to read beans from the
+        request. What about something already putting these both together to
+        automatically do what our requests imply? At least for certain standard
+        situations this should be possible.
+      </p>
+      <p>
+        And it is! At least for the standard situation of a potentially editable
+        list of beans there is a an abstract basic octopus worker class that
+        does all the heavy lifting while we only have to customise it a little bit,
+        the <a href="xref/de/tarent/octopus/beans/BeanListWorker.html">BeanListWorker</a>.
+      </p>
+      <subsection name="Creating a BeanListWorker for a Bean type">
+        <p>
+          As we already have got used to concerning classes of the bean framework
+          this worker class again is abstract, therefore we have to derive an own
+          worker class from it allowing for customisations. In the most simple
+          cases such a worker class looks like this:
+        </p>
+        <source>
+<![CDATA[package de.tarent.demo.worker;
+
+public class UserListWorker extends BeanListWorker {
+    public UserListWorker() {
+        super("User");
+    }
+
+    protected Database getDatabase(OctopusContext cntx) {
+        return new DatabaseDemo(cntx);
+    }
+
+    protected Request getRequest(OctopusContext cntx) {
+        return new RequestDemo(cntx);
+    }
+}]]>
+        </source>
+        <p>
+          Sometimes it might be necessary to extend the fields returned by actions
+          of this worker using database joins or to restrict the accesible list entries
+          using database where clause conditions. Read more about the possible
+          worker customisations <a href="#BeanListWorker_customisations">below</a>.
+        </p>
+        <p>
+          Now we already have a number of octopus actions accessible for bean list
+          management...
+        </p>
+      </subsection>
+      <subsection name="Action 'getAll'">
+        <p>
+          Use this action whenever you need a complete list of the entries of the
+          database table backing this worker's bean type, e.g. if there is a drop
+          down box containing all the entries on your output form; a form for
+          selecting one's proxy would be an example use case.
+        </p>
+        <p>
+          This method assigns a list of maps of bean attributes to the octopus
+          content key resulting from the concatenation of "all" and the bean name,
+          e.g. "allUser".
+        </p>
+        <p>
+          Please read carefully the warnings in the Javadoc comments of this action
+          <a href="apidocs/de/tarent/octopus/beans/BeanListWorker.html#getAll(de.tarent.octopus.server.OctopusContext)">here</a>.
+        </p>
+      </subsection>
+      <subsection name="Action 'getMap'">
+        <p>
+          Use this action whenever you need a complete map of the beans from the
+          database table having their ids as keys., e.g. if there is a field on your
+          output form you only have the key for, not the value; a form showing
+          all users' proxies would be an example use case.
+        </p>
+        <p>
+          This method assigns a mapping ids to beans to the octopus content key
+          resulting from the concatenation of "map" and the bean name, e.g.
+          "mapUser".
+        </p>
+        <p>
+          As this method requires all table entries to be loaded as beans, use this
+          method only if you are sure there is only a small number of entries in
+          the table backing the bean. Otherwise you might quickly run out of memory.
+        </p>
+      </subsection>
+      <subsection name="showList">
+        <p>
+          Use this action whenever you need to display a list of the entries in
+          the table backing the worker's bean. It supports paging through the list.
+        </p>
+        <p>
+          This method assigns a List of the beans to be displayed on the current
+          page to the octopus content key "list". Furthermore
+          it assigns a map containing entries for the keys "start", "limit", "count",
+          "pages", "first", "prev", "next", and "last" to the octopus content key
+          "listparam"; these entries contain numbers describing the current and the
+          available pages. It also assigns the list of the ids of the selected entries
+          of the whole list to the octopus content key "listselection". It additionally
+          stores a flag "getSelection" in the content marking that it already has merged
+          selection changes.
+        </p>
+        <p>
+          It also stores some data in the session: It associates the start index and
+          the length of the current page and the list of the ids of the currently
+          selected list entries to the concatenation of "start", "limit" or "selection"
+          respectively and the bean name, e.g. "startUser", "limitUser" and "selectionUser".
+        </p>
+        <p>
+          It takes the values for the current page to show from the request values
+          "start" and "limit" defaulting to the corresponding session entries and
+          again defaulting to 0 and 10 respectively. It takes the request value
+          "list" as the list of ids displayed before. For these ids it updates the
+          collection of selected ids of the whole list according to the boolean
+          interpretation of the request values associated to the keys built by
+          concatenating the respective id and "-select". If the boolean interpretation
+          of the request value of "selectNone" is true, it clears the list of selected
+          ids before that update. If that of "selectAll" is true, all ids of the
+          whole list are put into the list of selected entries instead.
+        </p>
+        <p>
+          This action is complemented by the action "saveList".
+        </p>
+      </subsection>
+      <subsection name="saveList">
+        <p>
+          This action is a companion action to "showList". If a list produced using
+          "showList" is editable the task called in it should first call "saveList"
+          and then "showList" again to display the list containing the requested
+          updates done by this action.
+        </p>
+        <p>
+          This action is controlled by a number of flags. The boolean interpretation
+          of the request parameters "doInsert", "doUpdate" and "doRemove" controls
+          which of the activities of inserting a new entry, updating existing entries
+          and deleting existing entries should be carried out. Additionally the flag
+          parameters "save" and "remove" are additional masks for "doInsert" and
+          "doUpdate" on the one hand and "doRemove" on the other; they represent
+          which button ("save" or "delete") on the form was pressed.
+        </p>
+        <p>
+          If this action attempts to insert a new entry, it tries and assembles a bean
+          from the request parameters named "add-" concatenated with the bean attribute
+          names. If the bean is flagged as modified (don't forget to set "add-modified"
+          as soon as the user starts to edit the new bean form fields) and considers
+          itself correct, this action tries and inserts it into the database. It then
+          sets the content value of "countInsert" to the number of inserted data rows.
+        </p>
+        <p>
+          If this action attempts to update existing entries, it reassembles the beans
+          displayed by taking the request parameter "list" as list of their ids and
+          reading the parameters built by concatenating the respective id, a dash and
+          the name of the bean attribute in question into bean instances. Those beans
+          marked modified (don't forget to set "ID-modified" for the IDs of the entries
+          the user changed in the form!) are updated into the database if they consider
+          themselves correct. It then sets the content value of "countUpdate" to the
+          number of updated data rows.
+        </p>
+        <p>
+          If this action attempts to delete existing entries, it removes the currently
+          selected entries. It then sets the context value of "countRemove" to the
+          number of deleted data rows. This action calls the action "getSelection"
+          as a subaction before to merge selection changes into the list of selected
+          ids.
+        </p>
+        <p>
+          If errors were encountered during all this (like a new or updated bean calling
+          itself incorrect) a list of error messages is inserted into the content using
+          the key "listerrors".
+        </p>
+      </subsection>
+      <subsection name="getSelection">
+        <p>
+          This action merges the selection changes made in the form with the selection
+          kept in the session data. It is called as a subaction inside the "showList"
+          and "saveList" action implementations.
+        </p>
+        <p>
+          It takes the request value "list" as the list of ids of the beans displayed
+          before. For these ids it updates the collection of selected ids of the whole
+          list according to the boolean interpretation of the request values associated
+          with the keys built by concatenating the respective id and "-select". If the
+          boolean interpretation of the request value of "selectNone" is true, it clears
+          the list of selected ids before that update. If that of "selectAll" is true,
+          all ids of the whole list are put into the list of selected entries instead.
+        </p>
+        <p>
+          The list of ids of the selected entries is read from the session using the key
+          built by concatenating "selection" and the bean name and stored there again
+          after the merger. Additionally the action assigns the merged list to the octopus
+          content key "listselection". It uses  the content entry "getSelection" as a flag
+          to prevent itself from repeating the merger unnecessarily.
+        </p>
+      </subsection>
+      <subsection name="An example user list">
+        <p>
+          As especially the actions "showList", "saveList" and the implicitely called
+          "getSelection" interact quite intensely and have quite a number of relevant
+          request parameters we will show an example user list here.
+        </p>
+        <p>
+          Assuming the UserListWorker is registered as "UserListWorker" the task in question
+          looks like this:
+        </p>
+        <source>
+<![CDATA[<task name="User" access="public" groups="Administrator">
+  <action name="saveList" worker="UserListWorker" />
+  <action name="showList" worker="UserListWorker" />
+  <response type="velocity" name="user">
+    <param name="ContentType" value="text/html;charset=UTF-8"/>
+  </response>
+</task>]]>
+        </source>
+        <p>
+          Nothing surprising, really... now the script user.vm:
+        </p>
+        <source>
+<![CDATA[<form id="formlist" name="formlist" action="User" method="POST">
+<input type="hidden" name="doInsert" value="true">
+<input type="hidden" name="doUpdate" value="true">
+<input type="hidden" name="doRemove" value="true">
+<input type="hidden" name="start" value="">
+<input type="hidden" name="selectAll" value="false">
+<input type="hidden" name="selectNone" value="false">
+
+#if($listerrors.size() > 0)
+<div style="border: 2px solid #ff0000;">
+  #foreach($error in $listerrors)
+    $error<br>
+  #end
+</div>
+#end
+
+#foreach($bean in $list)
+<input type="hidden" name="list" value="$bean.id">
+#end
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>ID</th>
+    <th>login</th>
+    <th>password</th>
+    <th>surname</th>
+    <th>forename</th>
+    <th>department</th>
+    <th>e-mail</th>
+    <th>telephone</th>
+    <th>disabled</th>
+    <th>last login</th>
+  </tr>
+  <tr>
+    <td>
+      <input type="hidden" id="add-modified" name="add-modified" value="false">
+      <input type="checkbox" name="add-select" value="true"
+        style="display: none;">
+    </td>
+    <td><input type="hidden" name="add-id" value=""><em>new</em></td>
+    <td>
+      <input type="text" name="add-userName" value=""
+        onchange="setModified('add')">
+    </td>
+    <td>
+      <input type="text" name="add-password" value=""
+        onchange="setModified('add')">
+    </td>
+    <td>
+      <input type="text" name="add-surname" value=""
+        onchange="setModified('add')">
+    </td>
+    <td>
+      <input type="text" name="add-forename" value=""
+        onchange="setModified('add')">
+    </td>
+    <td>
+      <input type="text" name="add-department" value=""
+        onchange="setModified('add')">
+    </td>
+    <td>
+      <input type="text" name="add-eMail" value=""
+        onchange="setModified('add')">
+    </td>
+    <td>
+      <input type="text" name="add-telephone" value=""
+        onchange="setModified('add')">
+    </td>
+    <td>
+      <input type="text" name="add-disabled" value="N"
+        onchange="setModified('add')">
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  #foreach($bean in $list)
+    <tr>
+      <td>
+        <input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified"
+          value="false">
+        <input type="checkbox" name="${bean.id}-select" value="true"
+          #if($listselection.indexOf($bean.id) != -1) checked#end>
+      </td>
+      <td>
+        <input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-userName"
+          value="$!bean.userName" onchange="setModified('$!bean.id')">
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-password"
+          value="$!bean.password" onchange="setModified('$!bean.id')">
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-surname"
+          value="$!bean.surname" onchange="setModified('$!bean.id')">
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-forename"
+          value="$!bean.forename" onchange="setModified('$!bean.id')">
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-department"
+          value="$!bean.department" onchange="setModified('$!bean.id')">
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-eMail"
+          value="$!bean.eMail" onchange="setModified('$!bean.id')">
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-telephone"
+          value="$!bean.telephone" onchange="setModified('$!bean.id')">
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-disabled"
+          value="$!bean.disabled" onchange="setModified('$!bean.id')">
+      </td>
+      <td>
+        <input type="text" name="${bean.id}-lastLoginDate"
+          value="$!bean.lastLoginDate" onchange="setModified('$!bean.id')">
+      </td>
+    </tr>
+  #end
+</table>
+#if ($listparam.count == 0)
+  <br>No users found.
+#end
+
+#parse("inc/list-navi.vm")
+
+<input type="submit" name="save" value="Save" class="submit"> &nbsp;
+<input type="submit" name="remove" value="Delete" class="button"
+  title="delete selected users"> &nbsp;
+
+</form>]]>
+        </source>
+        <p>
+          As list navigation switches are the same for all lists of this kind, they
+          are stored in a separate script included into the script above. This is
+          "inc/list-navi.vm":
+        </p>
+        <source>
+<![CDATA[#if ($listparam.count > 0)
+
+#set($start = $listparam.start + 1)
+#set($stop = $listparam.start + $list.size())
+
+<table cellspacing="0" cellpadding="0"
+  style="width: 100%; margin-bottom: 5px;">
+<tr><td>
+<span style="margin-right: 15px;">
+  $start - $stop out of $listparam.count
+</span>
+
+#if($listparam.start == $listparam.first)
+  <a ctitle="first page">&laquo;&laquo;</a>
+#else
+  <a href="javascript:navigateList($listparam.first);" title="first page">
+    &laquo;&laquo;
+  </a>
+#end
+#if($listparam.start == $listparam.prev)
+  <a title="previous page">&laquo;</a>
+#else
+  <a href="javascript:navigateList($listparam.prev);" title="previous page">
+    &laquo;
+  </a>
+#end
+
+#set($ol = $listparam.start + ($listparam.limit * -5))
+#set($or = $listparam.start + ($listparam.limit *  5))
+#if($ol < 0)
+  #set($or = $or - $ol - $listparam.limit)
+  #set($ol = 0)
+#elseif($or > $listparam.last)
+  #set($ol = $ol - ($or - $listparam.last) + $listparam.limit)
+  #set($or = $listparam.last)
+#end
+
+#foreach($p in [1..$listparam.pages])
+  #set($s = ($p - 1) * $listparam.limit)
+  #if($listparam.pages < 10 || ($s >= $ol && $s <= $or))
+    #if ($s == $listparam.start)
+      <a href="javascript:navigateList($s);"
+        style="background-color: #ffff80">
+        <strong>$p</strong>
+      </a>
+    #else
+      <a href="javascript:navigateList($s);">$p</a>
+    #end
+  #end
+#end
+
+#if($listparam.start == $listparam.next)
+  <a title="next page">&raquo;</a>
+#else
+  <a href="javascript:navigateList($listparam.next);" title="next page">
+    &raquo;
+  </a>
+#end
+#if($listparam.start == $listparam.last)
+  <a title="last page">&raquo;&raquo;</a>
+#else
+  <a href="javascript:navigateList($listparam.last);" title="last page">
+    &raquo;&raquo;
+  </a>
+#end
+
+#if(!$disableListSelect)
+<nobr>
+<a href="javascript:navigateSelectAll();" style="margin-left: 15px;">
+  Select all
+</a>
+<span style="margin-left: 5px; margin-right: 5px;">|</span>
+<a href="javascript:navigateSelectNone();">Deselect all</a></nobr>
+#end
+</td></tr></table>
+
+#end]]>
+        </source>
+        <p>
+          Additionally some JavaScript is required. Include this:
+        </p>
+        <source>
+<![CDATA[function setModified(id) {
+  id = (id == null) ? 'modified' : id + '-modified';
+  document.getElementById(id).value = 'true';
+}
+
+function navigateList(start) {
+  var form = document.getElementById('formlist');
+  if (form && form.elements['start']) {
+    form.elements['start'].value = start;
+    form.submit();
+  } else {
+    alert('form or field start NOT FOUND!');
+  }
+}
+
+function navigateSelectAll() {
+  var form = document.getElementById('formlist');
+  if (form && form.elements['selectAll']) {
+    form.elements['selectAll'].value = 'true';
+    form.submit();
+  } else {
+    alert('form or field selectAll NOT FOUND!');
+  }
+}
+
+function navigateSelectNone() {
+  var form = document.getElementById('formlist');
+  var fields = form.elements;
+  for (var i = 0; i < fields.length; i++) {
+    if (fields[i].type == 'checkbox') {
+      fields[i].checked = false;
+    }
+  }
+  if (form && form.elements['selectNone']) {
+    form.elements['selectNone'].value = 'true';
+    form.submit();
+  } else {
+    alert('form or field selectNone NOT FOUND!');
+  }
+}]]>
+        </source>
+        <p>
+          There are a number of imperfections in this example. They are left as exercise
+          for the reader... ;*)
+        </p>
+      </subsection>
+      <subsection name="BeanListWorker customisations">
+        <p>
+          If your bean has some read only attributes joined from other tables you need
+          to tell this worker about the required joins. You do this in this method:
+        </p>
+        <source>
+  protected void extendColumns(OctopusContext cntx, Select select)
+    throws BeanException, IOException;
+        </source>
+        <p>
+          In some contexts the user only has access to a subset of the table entries.
+          The following methods allow you to add appropriate WHERE conditions:
+        </p>
+        <source>
+  protected void extendWhere(OctopusContext cntx, Select select)
+    throws BeanException, IOException;
+  protected void extendAll(OctopusContext cntx, Select select)
+    throws BeanException, IOException;
+        </source>
+        <p>
+          The latter is used by the getAll action, the former by all others. There
+          is an extra method for the getAll action to allow for use with filters:
+          all actions but getAll should see only the filtered entries, while getAll
+          generally requires all accessible ones. Read more about filters
+          <a href="#Filtered_lists">here</a>.
+        </p>
+        <p>
+          If some dependent data has to be changed, too, when saving or deleting
+          beans, this can be done overriding the following methods:
+        </p>
+        <source>
+  protected boolean removeBean(OctopusContext cntx, Bean bean)
+    throws BeanException, IOException;
+  protected void saveBean(OctopusContext cntx, Bean bean)
+    throws BeanException, IOException;
+        </source>
+      </subsection>
+      <subsection name="Filtered lists">
+        <p>
+          If you have a lot of users you want to be able to filter the user
+          list... paging all the way through all the users is not really
+          user friendly here. We'll show here how to filter on the userName
+          attribute. A more generic filter is left as an exercise. ;*)
+        </p>
+        <p>
+          As mentioned above we have to override the extendWhere method of the
+          BeanListWorker to get a filtered list. And we have to make sure the list
+          remembers the filter at least as long as we navigate inside this list.
+          We could add more request parameters and send the filter criteria each
+          time we want to rediplay the list. This is quite burdensome though, so
+          we will put them into the session.
+        </p>
+        <p>
+          The following has to be added to the body of the UserListWorker class:
+        </p>
+        <source>
+<![CDATA[    protected void extendWhere(OctopusContext cntx, Select select)
+            throws BeanException {
+        Where userFilter = (Where) cntx.sessionAsObject("User.filter");
+        if (userFilter != null) {
+            select.where(userFilter);
+    }
+
+    public static final String INPUT_setUserNameFilter[] =
+        { "filter-userName" };
+    public void setUserNameFilter(OctopusContext cntx,
+            String userNameFilter) throws BeanException {
+        Database database = new DatabaseDemo(cntx);
+        Where condition = null;
+        if (userNameFilter != null && userNameFilter.length() != 0) {
+            condition = Expr.like(database.getProperty(User.SAMPLE,
+                "userName"), userNameFilter.replace('*','%'));
+        }
+        cntx.setSession("User.filter", condition);
+    }]]>
+        </source>
+        <p>
+          Now we need a task setting the filter and showing the filtered list:
+        </p>
+        <source>
+<![CDATA[<task name="FilterUser" access="public" groups="Administrator">
+  <action name="setUserNameFilter" worker="UserListWorker" />
+  <doTask name="User"/>
+</task>]]>
+        </source>
+        <p>
+          And now the form for entering the filter criteria:
+        </p>
+        <source>
+<![CDATA[
+<form action="FilterUser" method="POST">
+  user name (use '*' as wildcard)
+  <input type="text" name="filter-userName">
+</form>
+]]>
+        </source>
+        <p>
+          There you are! We have a list filtered by user name.
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

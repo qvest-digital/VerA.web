@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -146,7 +146,7 @@ public class UserWorker {
      * @param id   Benutzer-ID; wenn <code>null</code>, so wird <code>null</code> zurückgeliefert.
      * @return das passende {@link User}-Objekt oder <code>null</code>
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public User showDetail(OctopusContext cntx, Integer id) throws BeanException, IOException {
         return getUser(cntx, id);
@@ -170,8 +170,8 @@ public class UserWorker {
      *
      * @param octx Octopus-Kontext
      * @return {@link User}-Objekt zum aktuell eingelogten Benutzer oder <code>null</code>
-     * @throws IOException IOException
-     * @throws BeanException  BeanException
+     * @throws IOException   IOException
+     * @throws BeanException BeanException
      */
     public User showActiveUser(OctopusContext octx) throws BeanException, IOException {
         PersonalConfigAA aaConfig = (PersonalConfigAA) octx.personalConfig();
@@ -198,8 +198,8 @@ public class UserWorker {
      * @param domain Domäne der Rollen
      * @return Liste verfügbarer AA-Rollen
      * @throws TcSecurityException
-     * @throws IOException IOException
-     * @throws BeanException BeanException
+     * @throws IOException         IOException
+     * @throws BeanException       BeanException
      */
     public List showAARoleList(OctopusContext octx, String domain) throws TcSecurityException, BeanException, IOException {
         LoginManagerAA loginManager = (LoginManagerAA) octx.moduleConfig().getLoginManager();

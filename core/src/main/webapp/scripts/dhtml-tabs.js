@@ -57,11 +57,12 @@
 	}
 
 	function changeTab(activate, deactivate, disable) {
+		var i;
 		if (disable)
-			for (var i = 0; i < disable.length; i++)
+			for (i = 0; i < disable.length; i++)
 				disableTab(document.getElementById(disable[i] + '-tab'), document.getElementById(disable[i] + '-link'));
 		if (deactivate)
-			for (var i = 0; i < deactivate.length; i++)
+			for (i = 0; i < deactivate.length; i++)
 				deactivateTab(document.getElementById(deactivate[i] + '-tab'), document.getElementById(deactivate[i] + '-link'));
 		if (activate)
 			activateTab(document.getElementById(activate + '-tab'), document.getElementById(activate + '-link'));

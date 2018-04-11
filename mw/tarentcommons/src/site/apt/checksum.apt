@@ -1,0 +1,13 @@
+			   ------
+			 ChecksumTool
+			   ------
+				Fabian Köster
+			   ------
+		       Date 15.09.2006
+
+ChecksumTool
+
+  The class {{{apidocs/de/tarent/commons/utils/ChecksumTool.html}<ChecksumTool>}} enables you to create checksums of a given file.\
+
+  For generating an initial checksum you call the static method {{{apidocs/de/tarent/commons/utils/ChecksumTool.html#createChecksum(java.lang.String)}<ChecksumTool.createChecksum(String pFileName)>}}\
+  For validating a file with a previously stored checksum-string you can call {{{apidocs/de/tarent/commons/utils/ChecksumTool.html#validateFile(java.lang.String, java.lang.String)}<ChecksumTool.validateFile(String pFileName, String pChecksum)>}}

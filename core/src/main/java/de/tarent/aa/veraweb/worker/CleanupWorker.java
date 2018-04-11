@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -107,7 +107,7 @@ public class CleanupWorker {
      *
      * @param cntx Octopus context
      * @throws BeanException beanException
-     * @throws IOException ioException
+     * @throws IOException   ioException
      */
     public void summarizeCategories(OctopusContext cntx) throws BeanException, IOException {
         //		summarizeCategoriesA(octopusContext, new DatabaseVeraWeb(octopusContext));
@@ -115,10 +115,10 @@ public class CleanupWorker {
     }
 
     /**
-     * @see #summarizeCategories(OctopusContext)
-     * @param cntx OctupusContext
+     * @param cntx     OctupusContext
      * @param database database
      * @throws BeanException beanexception
+     * @see #summarizeCategories(OctopusContext)
      */
     protected void summarizeCategoriesA(OctopusContext cntx, Database database) throws BeanException {
         if (logger.isInfoEnabled()) {
@@ -185,11 +185,11 @@ public class CleanupWorker {
     }
 
     /**
-     * @see #summarizeCategories(OctopusContext)
-     * @param cntx octupus context
+     * @param cntx     octupus context
      * @param database database
      * @throws BeanException beanException
-     * @throws IOException ioexception
+     * @throws IOException   ioexception
+     * @see #summarizeCategories(OctopusContext)
      */
     protected void summarizeCategoriesB(OctopusContext cntx, Database database) throws BeanException, IOException {
         if (logger.isInfoEnabled()) {

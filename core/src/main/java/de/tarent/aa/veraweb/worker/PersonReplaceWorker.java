@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -205,7 +205,7 @@ public class PersonReplaceWorker extends PersonListWorker {
      * @param cntx Octopus-Context
      * @return Liste mit Beans, nie null.
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @see #getSelection(OctopusContext, Integer)
      */
     public List showList(OctopusContext cntx) throws BeanException, IOException {
@@ -404,7 +404,7 @@ public class PersonReplaceWorker extends PersonListWorker {
      *
      * @param octopusContext The {@link OctopusContext}
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public Integer countData(OctopusContext octopusContext) throws BeanException, IOException {
         Database database = getDatabase(octopusContext);
@@ -476,7 +476,7 @@ public class PersonReplaceWorker extends PersonListWorker {
      *
      * @param octopusContext The {@link OctopusContext}
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public void replaceSelectedData(OctopusContext octopusContext) throws BeanException, IOException {
         List selection = getSelection(octopusContext, null);

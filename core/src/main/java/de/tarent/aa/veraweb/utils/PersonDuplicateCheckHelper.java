@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.utils;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -206,7 +206,7 @@ public class PersonDuplicateCheckHelper {
      * Identified by fk_import from the importInstance.id
      *
      * @return a list of {@link ResultList}
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @throws BeanException BeanException
      */
     @SuppressWarnings("unchecked")
@@ -392,7 +392,7 @@ public class PersonDuplicateCheckHelper {
      * @param importPerson - the imported person to update
      * @param duplicates   - the duplicate ids
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     void setDuplicates(ImportPerson importPerson, List<Integer> duplicates)
             throws BeanException, IOException {
@@ -407,7 +407,7 @@ public class PersonDuplicateCheckHelper {
 
     /**
      * Creates a string from the given duplicate ids with the
-     * {@link ImportPerson#PK_SEPERATOR_CHAR} character.
+     * {@link ImportPerson#PK_SEPARATOR_CHAR} character.
      *
      * @param duplicates - the duplicate list
      * @return the duplicates as string
@@ -419,7 +419,7 @@ public class PersonDuplicateCheckHelper {
         final StringBuffer buffer = new StringBuffer();
         for (Iterator<Integer> itDuplicates = duplicates.iterator(); itDuplicates.hasNext(); ) {
             if (buffer.length() > 0) {
-                buffer.append(ImportPerson.PK_SEPERATOR_CHAR);
+                buffer.append(ImportPerson.PK_SEPARATOR_CHAR);
             }
             buffer.append(itDuplicates.next());
         }

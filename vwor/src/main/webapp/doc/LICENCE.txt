@@ -21,11 +21,11 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 │  © 2015 Viktor Hamm <v.hamm@tarent.de>                                   │
 │  © 2013 Katja Hapke <k.hapke@tarent.de>                                  │
 │  © 2013 Hendrik Helwich <h.helwich@tarent.de>                            │
-│  © 2007 jan <jan@evolvis.org>                                            │
 │  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>         │
 │  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>                    │
 │  © 2014 Martin Ley <m.ley@tarent.de>                                     │
 │  © 2014, 2015 Max Marche <m.marche@tarent.de>                            │
+│  © 2007 Jan Meyer <jan@evolvis.org>                                      │
 │  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>     │
 │  © 2016 Cristian Molina <c.molina@tarent.de>                             │
 │  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>                          │
@@ -50,15 +50,6 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 │ and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.    │
 │ Licensor is tarent solutions GmbH, http://www.tarent.de/                 │
 │                                                                          │
-│ VerA.web is based on tarent-octopus, an Open Source webservice and       │
-│ webapplication framework, which is:                                      │
-│ Copyright © 2001–2007 tarent GmbH                                        │
-│ Copyright © 2014–2017 tarent solutions GmbH                              │
-│                                                                          │
-│ VerA.web is based on tarent-contact, a platform-independent              │
-│ webservice-based contact management, which is                            │
-│ Copyright © 2002 tarent GmbH                                             │
-│                                                                          │
 │ This program is free software; you can redistribute it and/or modify     │
 │ it under the terms of the GNU General Public License as published by     │
 │ the Free Software Foundation; either version 2 of the License, or        │
@@ -73,6 +64,102 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 │ with this program; if not, see: http://www.gnu.org/licenses/             │
 └──────────────────────────────────────────────────────────────────────────┘
 
+┌──┤ VerA.web-Middleware (MIT, GPLv2+ w. Classpath exception) ├────────────┐
+│                                                                          │
+│ VerA.web-Middleware, newly MIT licenced, is comprised of:                │
+│ tarent-commons, a set of common components and solutions                 │
+│ tarent-contact, platform-independent webservice-based contact management │
+│ tarent-database, jdbc database library                                   │
+│ tarent-doctor, Document Generation Platform                              │
+│ tarent-octopus, Webservice Data Integrator and Application Server        │
+│  © 2005, 2006, 2007 asteban <s.mancke@tarent.de>                         │
+│  © 2007 David Goemans <d.goemans@tarent.de>                              │
+│  © 2006, 2007, 2010 Hendrik Helwich <h.helwich@tarent.de>                │
+│  © 2005, 2006, 2007 Christoph Jerolimov <c.jerolimov@tarent.de>          │
+│  © 2006 Philipp Kirchner <p.kirchner@tarent.de>                          │
+│  © 2010 Carsten Klein <c.klein@tarent.de>                                │
+│  © 2006 Michael Kleinhenz <m.kleinhenz@tarent.de>                        │
+│  © 2006 Michael Klink <m.klink@tarent.de>                                │
+│  © 2007 Fabian Köster <f.koester@tarent.de>                              │
+│  © 2006 Martin Ley <m.ley@tarent.de>                                     │
+│  © 2007 Alex Maier <a.maier@tarent.de>                                   │
+│  © 2007, 2015, 2017, 2018 mirabilos <t.glaser@tarent.de>                 │
+│  © 2006, 2007 Jens Neumaier <j.neumaier@tarent.de>                       │
+│  © 2006 Nils Neumaier <n.neumaier@tarent.de>                             │
+│  © 2007, 2008 Martin Pelzer <m.pelzer@tarent.de>                         │
+│  © 2008, 2009 Christian Preilowski <c.thiel@tarent.de>                   │
+│  © 2006, 2008, 2009 Thomas Schmitz <t.schmitz@tarent.de>                 │
+│  © 2007 Robert Schuster <r.schuster@tarent.de>                           │
+│ and older code, Copyright © 2001–2007 ⮡ tarent GmbH and contributors.    │
+│ Licensor is tarent solutions GmbH, http://www.tarent.de/                 │
+│                                                                          │
+│ Permission is hereby granted, free of charge, to any person obtaining a  │
+│ copy of this software and associated documentation files (the            │
+│ "Software"), to deal in the Software without restriction, including      │
+│ without limitation the rights to use, copy, modify, merge, publish,      │
+│ distribute, sublicense, and/or sell copies of the Software, and to       │
+│ permit persons to whom the Software is furnished to do so, subject to    │
+│ the following conditions:                                                │
+│                                                                          │
+│ The above copyright notice and this permission notice shall be included  │
+│ in all copies or substantial portions of the Software.                   │
+│                                                                          │
+│ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  │
+│ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               │
+│ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   │
+│ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY     │
+│ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,     │
+│ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE        │
+│ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
+├──────────────────────────────────────────────────────────────────────────┤
+│ tarent-commons LogManager                                                │
+│                                                                          │
+│ Copyright © 2005, 2006 Christoph Jerolimov <c.jerolimov@tarent.de>       │
+│ Licensor is tarent solutions GmbH, http://www.tarent.de/                 │
+│                                                                          │
+│ Derived from LogManager.java (a class for maintaining Loggers and        │
+│ managing configuration properties), part of GNU Classpath, and           │
+│ published under the same terms (GNU GPLv2+ with Classpath exception)     │
+│ as GNU Classpath, by licensor understanding that “this library”          │
+│ below means this Java™ class which is merely aggregated into             │
+│ tarent-commons a.k.a. VerA.web-Middleware.                               │
+│                                                                          │
+│ Copyright (C) 2002, 2005 Free Software Foundation, Inc.                  │
+│ contributed by Sascha Brawer <brawer@acm.org>                            │
+│                                                                          │
+│ GNU Classpath is free software; you can redistribute it and/or modify    │
+│ it under the terms of the GNU General Public License as published by     │
+│ the Free Software Foundation; either version 2, or (at your option)      │
+│ any later version.                                                       │
+│                                                                          │
+│ GNU Classpath is distributed in the hope that it will be useful, but     │
+│ WITHOUT ANY WARRANTY; without even the implied warranty of               │
+│ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU        │
+│ General Public License for more details.                                 │
+│                                                                          │
+│ You should have received a copy of the GNU General Public License        │
+│ along with GNU Classpath; see the file COPYING.  If not, write to the    │
+│ Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,         │
+│ Boston, MA 02110-1301 USA.                                               │
+│                                                                          │
+│ Linking this library statically or dynamically with other modules is     │
+│ making a combined work based on this library.  Thus, the terms and       │
+│ conditions of the GNU General Public License cover the whole             │
+│ combination.                                                             │
+│                                                                          │
+│ As a special exception, the copyright holders of this library give you   │
+│ permission to link this library with independent modules to produce an   │
+│ executable, regardless of the license terms of these independent         │
+│ modules, and to copy and distribute the resulting executable under       │
+│ terms of your choice, provided that you also meet, for each linked       │
+│ independent module, the terms and conditions of the license of that      │
+│ module.  An independent module is a module which is not derived from     │
+│ or based on this library.  If you modify this library, you may extend    │
+│ this exception to your version of the library, but you are not           │
+│ obligated to do so.  If you do not wish to do so, delete this            │
+│ exception statement from your version.                                   │
+└──────────────────────────────────────────────────────────────────────────┘
+
 Summary of individual licences used, including all dependencies:
 ⚠ (unlicenced)
 • 3-clause BSD
@@ -80,6 +167,7 @@ Summary of individual licences used, including all dependencies:
 ⚠ Creative Commons CC-BY-SA 1.0
 • Creative Commons CC-BY 3.0 (unported)
 • GNU GPLv2 or later
+• GNU GPLv2 or later with Classpath exception
 • GNU GPLv3 or later
 • GNU LGPLv2.0 (only)
 • GNU LGPLv2.1 or later
@@ -596,7 +684,7 @@ External code found in the Java™ backend part includes:
 │ Copyright © Ian F. Darwin                                                │
 │ Copyright © Ben Ballard                                                  │
 │ Copyright © Fabrizio Fazzino                                             │
-│ Copyright © Mikel                                                        │
+│ Copyright © Michael Klink <m.klink@tarent.de>                            │
 │                                                                          │
 │ CSVFile is published by Fabrizio Fazzino under the terms of the          │
 │ GNU Library or Lesser General Public License version 2.0 (LGPLv2).       │

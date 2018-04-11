@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<document url="./status.xml">
+	<properties>
+		<title>Status</title>
+	</properties>
+	<body>
+		<section href="status" name="Status">
+			<p>
+				Status: TODO
+			</p>
+		</section>
+
+		<section href="roadmap" name="Development Roadmap">
+			<p>
+				Project Roadmap: TODO
+			</p>
+		</section>
+	</body>
+</document>

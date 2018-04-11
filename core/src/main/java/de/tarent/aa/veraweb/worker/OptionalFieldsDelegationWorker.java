@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -163,7 +163,7 @@ public class OptionalFieldsDelegationWorker {
      * Get the optional delegation fields by guest id.
      *
      * @param guestId Guest id
-     * @param eventId  event ID
+     * @param eventId event ID
      * @return List with all optional delegation fields for the current guest
      * @throws SQLException  FIXME
      * @throws BeanException FIXME
@@ -355,7 +355,7 @@ public class OptionalFieldsDelegationWorker {
     private String getStatementSelectOptionalDelegationField(int guestId, int eventId) {
         return "WITH w_vorhandene_labels AS ( " +
                 "SELECT DISTINCT dc.fk_guest as fk_guest, dc.fk_delegation_field as fk_delegation_field, f.fk_type as fk_type, " +
-                 "dc.value as value, " +
+                "dc.value as value, " +
                 "f.label as label " +
                 "FROM veraweb.toptional_fields_delegation_content dc " +
                 "RIGHT OUTER JOIN veraweb.toptional_fields f ON (dc.fk_delegation_field = f.pk) " +

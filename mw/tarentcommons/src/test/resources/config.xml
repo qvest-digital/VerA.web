@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<configuration>
+		<version>
+			<release>ALPHA</release>
+			<major>0</major>
+			<minor>0</minor>
+			<micro>1</micro>
+			<name>tarent Doctor 2 Demo</name>
+			<description>tarent Document Generation Platform Demo</description>
+			<copyright>see top-level doc/LICENCE.txt file</copyright>
+			<extmodules>tarent-commons / DocTor</extmodules>
+		</version>
+	</configuration>
+</config>

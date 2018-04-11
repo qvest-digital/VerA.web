@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -142,7 +142,7 @@ public class GuestDetailWorker extends GuestListWorker {
      * @param guestid        ID des Gasts
      * @param offset         alternativ: Offset des Gasts in der aktuellen Gästesuche
      * @throws BeanException beanException
-     * @throws IOException ioException
+     * @throws IOException   ioException
      */
     @SuppressWarnings("unchecked")
     public void showDetail(OctopusContext octopusContext, Integer guestid, Integer offset)
@@ -187,12 +187,12 @@ public class GuestDetailWorker extends GuestListWorker {
      * or its partner (or both) were found in the database table tguest. Duplicate reservation applies if an seat
      * (with empty or 0 table) or table and seat is alreadyreserved by another guest or its partner.
      *
-     * @param database The {@link Database}
-     * @param guest    The {@link Guest}
+     * @param database       The {@link Database}
+     * @param guest          The {@link Guest}
      * @param octopusContext octupusContext
      * @return Returns list of error messages in case duplicate reservation were found
      * @throws BeanException beanException
-     * @throws IOException ioException
+     * @throws IOException   ioException
      */
     public List<String> reservationDupCheck(final Database database, final Guest guest, final OctopusContext octopusContext)
             throws BeanException, IOException {
@@ -367,7 +367,7 @@ public class GuestDetailWorker extends GuestListWorker {
      *
      * @param octopusContext OctopusContext
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     private void getPersonCategories(Integer personId, OctopusContext octopusContext)
             throws BeanException, IOException {
@@ -987,7 +987,7 @@ public class GuestDetailWorker extends GuestListWorker {
      * @param select   FIXME
      * @return Person
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     private Person checkForDuplicateSeatPerson(Database database, Select select) throws BeanException, IOException {
         Person duplicatePersonResult = null;
@@ -1053,9 +1053,9 @@ public class GuestDetailWorker extends GuestListWorker {
      * @param eventid        Veranstaltungs-ID für Selektion über ID
      * @param guestid        Gast-ID für Selektion über ID
      * @param offset         Gast-Offset für Selektion über Offset in Suchergebnisliste
-     * @throws BeanException beanexception
-     * @throws IOException ioexception
      * @return der selektierte Gast oder <code>null</code>
+     * @throws BeanException beanexception
+     * @throws IOException   ioexception
      */
     protected Guest getGuest(
             OctopusContext octopusContext,

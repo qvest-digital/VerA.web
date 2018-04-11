@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>The task definition</title>
+	</properties>
+	<body>
+		<section href="intro" name="The task definition">
+			<p>
+				Tasks will be defined in the <code>config.xml</code> of your OCTOPUS module,
+				e.g. under <code>src/main/webapp/OCTOPUS/config.xml</code>
+				in your OCTOPUS webapplication.
+				Decisive is the <code>tcModuleConfig.tasks</code> section.
+			</p>
+		</section>
+		<section href="response-common" name="Response tag and parameters">
+			<p>
+				A response tag in your task defines the end of the task.
+				It expect the two attributes <code>type</code> and <code>name</code>.
+			</p>
+			<pre>	&lt;response type="responseEngine" name="responseName"/&gt;</pre>
+			<p>
+				The following response types are available:
+			</p>
+			<table>
+				<tr>
+					<th>Name (type)</th>
+					<th>Documentation</th>
+					<th>Descrption</th>
+				</tr>
+				<tr>
+					<td>binary</td>
+					<td><a href="#Response_engine_&quot;binary&quot;">Documentation</a></td>
+					<td>The <a href="xref/de/tarent/octopus/response/TcBinaryResponseEngine.html">TcBinaryResponseEngine</a> transfer plain streams.</td>
+				</tr>
+				<tr>
+					<td>raw</td>
+					<td>n/a</td>
+					<td>The <a href="xref/de/tarent/octopus/response/TcRawResponseEngine.html">TcRawResponseEngine</a> transfer a plain string.</td>
+				</tr>
+				<tr>
+					<td>simple</td>
+					<td>n/a</td>
+					<td><!-- <strong>Deprecated: </strong> ??? -->The <a href="xref/de/tarent/octopus/response/TcSimpleResponseEngine.html">TcSimpleResponseEngine</a> use an alternative template engine.</td>
+				</tr>
+				<tr>
+					<td>soap</td>
+					<td>n/a</td>
+					<td>The <a href="xref/de/tarent/octopus/response/TcSoapResponseEngine.html">TcSoapResponseEngine</a> use <code>SOAP</code> to transfer data.</td>
+				</tr>
+				<tr>
+					<td>velocity</td>
+					<td><a href="#Response_engine_&quot;velocity&quot;">Documentation</a></td>
+					<td>The <a href="xref/de/tarent/octopus/response/TcVelocityResponseEngine.html">TcVelocityResponseEngine</a> use velocity as template engine.</td>
+				</tr>
+				<tr>
+					<td>xmlrpc</td>
+					<td>n/a</td>
+					<td>The <a href="xref/de/tarent/octopus/response/TcXmlrpcResponseEngine.html">TcXmlrpcResponseEngine</a> use <code>XML-RPC</code> to transfer data.</td>
+				</tr>
+				<tr>
+					<td>xslt</td>
+					<td>n/a</td>
+					<td>The <a href="xref/de/tarent/octopus/response/TcXsltResponseEngine.html">TcXsltResponseEngine</a> use <code>XSLT</code> to transfer the data in every other format.</td>
+				</tr>
+			</table>
+			<p>
+				The response tag can contain additional parameters:
+			</p>
+			<pre>	&lt;response type="responseEngine" name="responseName"&gt;
+		&lt;param name="key" value="value"/&gt;
+	&lt;/response&gt;</pre>
+			<p>
+				Some response parameters will be allowed in every response type and some will only be supported by special response engines.
+				(no support for direct connect):
+			</p>
+			<table>
+				<tr>
+					<th>Key</th>
+					<th>Value</th>
+					<th>Engines</th>
+					<th>Since</th>
+				</tr>
+				<tr>
+					<td>ContentType</td>
+					<td>MimeType, e.g. <code>text/html;charset=UTF-8</code>. If not present, the ContentType will be used from the module-wide or server-wide parameter <code>defaultContentType</code>.</td>
+					<td>ALL</td>
+					<td>OCTOPUS 1.2</td>
+				</tr>
+				<tr>
+					<td>encoding</td>
+					<td>The used encoding for the writer, e.g. <code>UTF-8</code>. If not present, the encoding will be used from the module-wide or server-wide parameter <code>defaultEncoding</code>.</td>
+					<td>velocity,raw</td>
+					<td>OCTOPUS 1.2</td>
+				</tr>
+				<tr>
+					<td>CachingTime</td>
+					<td>Time in milliseconds, default is zero (no caching allowed).</td>
+					<td>ALL</td>
+					<td>OCTOPUS 1.3.3</td>
+				</tr>
+				<tr>
+					<td>CachingParam</td>
+					<td>Comma seperated parameter without spaces. Allowed parameter are:</td>
+					<td>ALL</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><code>nocachecontrol</code> disable the
+						<code>Cache-Control</code>-Header in the HTTP-Response.<br/>
+						Note: Use this in your all your "download tasks",
+						this fix some problems with the MSIE 6 which was specified in
+						<a href="http://support.microsoft.com/kb/812935/EN-US/">KB 812935</a> and
+						<a href="http://support.microsoft.com/kb/316431/EN-US/">KB 316431</a>.</td>
+					<td>ALL</td>
+					<td>OCTOPUS 1.3.3</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><code>nopragma</code> disable the
+						<code>Pragma</code>-Header in the HTTP-Response.<br/>
+						Note: Use this in your all your "download tasks",
+						this fix some problems with the MSIE 6 which was specified in
+						<a href="http://support.microsoft.com/kb/812935/EN-US/">KB 812935</a> and
+						<a href="http://support.microsoft.com/kb/316431/EN-US/">KB 316431</a>.</td>
+					<td>ALL</td>
+					<td>OCTOPUS 1.3.5</td>
+				</tr>
+			</table>
+		</section>
+		<section name="Response engine &quot;binary&quot;">
+			<p>
+				This response engine use the <code>name</code> attribute of the task tag
+				for getting the "response object". It can handle different types of objects:
+			</p>
+			<table>
+				<tr>
+					<th>FQCN</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>java.lang.String</td>
+					<td>Handle the string as filename and pipe the file.</td>
+				</tr>
+				<tr>
+					<td>java.io.File</td>
+					<td>Pipe this file as stream to the response.</td>
+				</tr>
+				<tr>
+					<td>java.io.InputStream</td>
+					<td>Pipe this inputstream to the response.</td>
+				</tr>
+				<tr>
+					<td>java.io.Reader</td>
+					<td>Pipe this reader to the response.</td>
+				</tr>
+				<tr>
+					<td>java.lang.Map</td>
+					<td>
+						This map contain different keys with parameters, please watch the
+						<a href="apidocs/de/tarent/octopus/response/TcBinaryResponseEngine.html">java doc</a>.
+					</td>
+				</tr>
+			</table>
+		</section>
+		<section name="Response engine &quot;velocity&quot;">
+			<p>
+				This response engine use the <code>name</code> attribute of the task tag
+				+ the extension <code>.vm</code> for the filename and parse this
+				<a href="http://jakarta.apache.org/velocity/">velocity</a>
+				file with the whole OCTOPUS content.
+			</p>
+		</section>
+	</body>
+</document>

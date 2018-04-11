@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -139,15 +139,15 @@ public class GuestWorker {
                     + "select p.pk as fk_person, {0} as fk_event, 0 as fk_category, "
                     +
                     "0 as invitationtype, 0 as invitationstatus, 0 as ishost, p.diplodate_a_e1 as diplodate, 0 as rank, 0 as " +
-                     "reserve, 0 as " +
+                    "reserve, 0 as " +
                     "delegation, "
                     +
                     "p.notehost_a_e1 as notehost, p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as " +
-                     "gender, "
+                    "gender, "
                     + "p.nationality_a_e1 as nationality, p.domestic_a_e1 as domestic_a, 0 as "
                     +
                     "invitationstatus_p, p.notehost_b_e1 as notehost_p, p.noteorga_b_e1 as noteorga_p, p.languages_b_e1 as " +
-                     "language_p, "
+                    "language_p, "
                     + "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
                     + "''{1}'' as createdby, current_timestamp as created, p.username as osiam_login from tperson p "
                     + "where p.pk in ({2}) and p.deleted=''f'' and p.pk not in (select g.fk_person from tguest g "
@@ -365,7 +365,7 @@ public class GuestWorker {
                     + "select p.pk as fk_person, {0} as fk_event, g.fk_category as fk_category,"
                     +
                     " CASE WHEN {1} <> g.invitationtype AND {1} <> {2} THEN g.invitationtype ELSE {1} END as invitationtype, 0 " +
-                     "as invitationstatus, "
+                    "as invitationstatus, "
                     + "0 as ishost, p.diplodate_a_e1 as diplodate, g.rank as rank, g.reserve as reserve, "
                     + "g.tableno as tableno, g.seatno as seatno, g.orderno as orderno, p.notehost_a_e1 as notehost, "
                     + "p.noteorga_a_e1 as noteorga, p.languages_a_e1 as \"language\", p.sex_a_e1 as gender, "
@@ -375,9 +375,9 @@ public class GuestWorker {
                     + "p.sex_b_e1 as gender_p, p.nationality_b_e1 as nationality_p, p.domestic_b_e1 as domestic_b, "
                     +
                     "''{3}'' as createdby, current_timestamp as created, g.delegation as delegation, g.osiam_login as " +
-                     "osiam_login, g" +
+                    "osiam_login, g" +
                     ".login_required_uuid as login_required_uuid, g.image_uuid as image_uuid, g.image_uuid_p as image_uuid_p, g" +
-                     ".keywords as " +
+                    ".keywords as " +
                     "keywords from tperson p "
                     + "left join tguest g on p.pk = g.fk_person and g.fk_event = {4} "
                     + "where p.pk in (select g.fk_person from tguest g "
@@ -626,23 +626,22 @@ public class GuestWorker {
      * Gast angelegt wenn dieser noch nicht dieser Veranstaltung zugeordnet
      * war. Wenn die Gast-ID übergeben wird, wird dieser Gast aktuallisiert!
      *
-     * @param cntx           Octopus-Context
-     * @param database       Datenbank
+     * @param cntx             Octopus-Context
+     * @param database         Datenbank
      * @param executionContext executionContext
-     * @param event          Veranstaltung
-     * @param guestId        Gast der bearbeitet werden soll, null zum hinzufügen.
-     * @param personId       Person mit dessen Daten der Gast gefüllt werden soll.
-     * @param categoryId     Kategorie nach der gefiltert wurde.
-     * @param reserve        Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
-     * @param invitationtype Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
-     * @param ishost         Gibt an ob dieser Gast gleichzeitig Gastgeber ist.
-     * @throws BeanException beanexception
-     * @throws IOException ioexceoption
-     *
+     * @param event            Veranstaltung
+     * @param guestId          Gast der bearbeitet werden soll, null zum hinzufügen.
+     * @param personId         Person mit dessen Daten der Gast gefüllt werden soll.
+     * @param categoryId       Kategorie nach der gefiltert wurde.
+     * @param reserve          Gibt an ob dieser Gast auf Reserve gesetzt werden soll.
+     * @param invitationtype   Gibt an ob dieser Gast mit/ohne Partner eingeladen werden soll.
+     * @param ishost           Gibt an ob dieser Gast gleichzeitig Gastgeber ist.
      * @return true if save successful
      * 2009-05-12 cklein
      *
      * fixed as part of issue #1531 - personCategorie was always null due to malformed query
+     * @throws BeanException beanexception
+     * @throws IOException   ioexceoption
      */
     protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext executionContext, Event event,
             Integer guestId, Integer personId, Integer categoryId, Boolean reserve,

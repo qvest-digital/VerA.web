@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -281,7 +281,7 @@ public class CategorieWorker extends StammdatenWorker {
      * of the above roles and processing continues as normal.
      *
      * @throws BeanException in case that the user is not authorized to save the list
-     * @throws IOException in case of an IOException
+     * @throws IOException   in case of an IOException
      */
     @Override
     public void saveList(OctopusContext cntx) throws BeanException, IOException {
@@ -335,8 +335,8 @@ public class CategorieWorker extends StammdatenWorker {
      * Die Kategorie bean innerhalb der bestehenden Kategorieen einsortieren. Dazu werden alle bestehenden Kategorien mit
      * Rang greater equal bean.rank in ihrem Rang um eins erhoeht.
      *
-     * @param cntx {@link OctopusContext}
-     * @param bean {@link Categorie}
+     * @param cntx               {@link OctopusContext}
+     * @param bean               {@link Categorie}
      * @param transactionContext {@link TransactionContext}
      * @throws BeanException bean exception
      */

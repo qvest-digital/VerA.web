@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.beans.facade;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -125,66 +125,77 @@ public interface GuestMemberFacade extends EventConstants {
 
     /**
      * Ändert Einladungstyp
+     *
      * @param value invitationType
      */
     void setInvitationType(Integer value);
 
     /**
      * Ändert Einlatungsstatus
+     *
      * @param value invitationStatus
      */
     void setInvitationStatus(Integer value);
 
     /**
      * Ändert Tisch-Nummer
+     *
      * @param value tableNumber
      */
     void setTableNo(Integer value);
 
     /**
      * Ändert Sitz-Nummer
+     *
      * @param value seatNumber
      */
     void setSeatNo(Integer value);
 
     /**
      * Ändert Laufende Nummer
+     *
      * @param value orderNumber
      */
     void setOrderNo(Integer value);
 
     /**
      * Ändert Bemerkung für die Orga
+     *
      * @param value orgaNote
      */
     void setNoteOrga(String value);
 
     /**
      * Ändert Bemerkung für den Gastgeber
+     *
      * @param value noteHost
      */
     void setNoteHost(String value);
 
     /**
      * Ändert Sprachen
+     *
      * @param value language
      */
     void setLanguages(String value);
 
     /**
      * Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich}
+     *
      * @param value sex
      */
     void setSex(String value);
 
     /**
      * Ändert Nationalität
+     *
      * @param value nationality
      */
     void setNationality(String value);
 
     /**
      * Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland}
+     *
      * @param value domestic
      */
     void setDomestic(String value);

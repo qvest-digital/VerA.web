@@ -19,11 +19,11 @@ package org.evolvis.veraweb.onlinereg.entities;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -86,7 +86,7 @@ import java.util.Date;
                 query = "SELECT oua FROM OsiamUserActivation oua where username=:username"),
         @NamedQuery(name = "OsiamUserActivation.refreshOsiamUserActivationByUsername",
                 query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, " +
-                 "expiration_date=:expiration_date " +
+                        "expiration_date=:expiration_date " +
                         "WHERE username=:username")
 })
 public class OsiamUserActivation {

@@ -33,7 +33,6 @@ word() {
 	eval g_$1=\$gender kwS$1=\$singular kwP$1=\$plural kwN$1=\$plural
 }
 
-
 #ADDED SECTION
 . ./added.sh
 
@@ -56,7 +55,6 @@ word SALUTATION salutation
 word TASK task
 word USER user
 word WORKAREA "work area"
-
 
 for x in $allwords; do
 	for y in MODIFY DELETE INSERT ADD; do

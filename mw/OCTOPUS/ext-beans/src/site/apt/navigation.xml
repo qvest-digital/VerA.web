@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="OctopusBeans">
+	<body>
+		<menu name="User Documentation">
+			<item name="FAQ" href="faq.html"/>
+			<item name="Quickstart" href="quickstart.html"/>
+		</menu>
+	</body>
+</project>

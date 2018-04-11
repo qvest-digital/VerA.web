@@ -19,11 +19,11 @@ package de.tarent.ldap;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -117,7 +117,7 @@ public class AALoginTest extends TestCase {
         cons.setSearchScope(SearchControls.ONELEVEL_SCOPE);
         String filterTemplate =
                 "(&(|(person=uid={0}@auswaertiges-amt.de,ou=Personen,dc=aa)(person=uid={0}.auswaertiges-amt.de,ou=Personen," +
-                 "dc=aa)(person=uid={0}," +
+                        "dc=aa)(person=uid={0}," +
                         "ou=Personen,dc=aa))(objectclass=AARole))";
         String filter = MessageFormat.format(filterTemplate, new Object[] { "dietmar.hilbrich" });
         NamingEnumeration ergebnis = manager.lctx.search("ou=Users,ou=testav01,dc=aa", filter, cons);

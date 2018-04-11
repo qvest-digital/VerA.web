@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -127,10 +127,10 @@ public class EventDetailWorker {
      * @param octopusContext Octopus-Kontext
      * @param id             ID der zu ladenden Veranstaltung; falls <code>null</code> oder ungültig,
      *                       so wird nichts geliefert
-     * @param task  task
-     * @param eventId eventId
+     * @param task           task
+     * @param eventId        eventId
      * @throws BeanException Bean exception
-     * @throws IOException io Exception
+     * @throws IOException   io Exception
      */
     public void showDetail(OctopusContext octopusContext, Integer id, Task task, Integer eventId)
             throws BeanException, IOException {
@@ -187,7 +187,7 @@ public class EventDetailWorker {
      * @param octopusContext Octopus-Kontext
      * @param saveevent      Flag; nur wenn dieses gesetzt ist, passiert tatsächlich etwas
      * @throws BeanException beanException
-     * @throws IOException ioException
+     * @throws IOException   ioException
      */
     public void saveDetail(OctopusContext octopusContext, Boolean saveevent) throws BeanException, IOException {
         if (saveevent == null || !saveevent.booleanValue()) {
@@ -413,7 +413,7 @@ public class EventDetailWorker {
      * string. Later will be possible to handle more than two types of events.
      *
      * @param event The event
-     * @param cntx Octopus Context
+     * @param cntx  Octopus Context
      */
     private void setEventType(Event event, OctopusContext cntx) {
         if (event.eventtype != null && event.eventtype.equals("on") && OnlineRegistrationHelper.isOnlineregActive(cntx)) {
@@ -426,7 +426,7 @@ public class EventDetailWorker {
     /**
      * Set/Unset the event flag for Press. Currently (03.12.2014) we store the uuid into that new column
      *
-     * @param event The event
+     * @param event    The event
      * @param oldEvent the old event
      */
     private void setMediaRepresentatives(Event event, Event oldEvent) {
@@ -559,7 +559,7 @@ public class EventDetailWorker {
      *
      * @param cntx Octopus-Kontext
      * @throws BeanException bean Exception
-     * @throws IOException io Exception
+     * @throws IOException   io Exception
      */
     public void setHost(OctopusContext cntx) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(cntx);
@@ -593,9 +593,9 @@ public class EventDetailWorker {
      *
      * @param cntx Octopus-Kontext, in dem Flags gesetzt werden.
      * @param id   Veranstaltungs-ID
-     * @throws BeanException beanException
-     * @throws IOException ioException
      * @return eingelesene Veranstaltung
+     * @throws BeanException beanException
+     * @throws IOException   ioException
      */
     static public Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
         if (id == null) {

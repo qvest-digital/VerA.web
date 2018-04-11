@@ -19,11 +19,11 @@ package org.evolvis.veraweb.onlinereg.entities;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -105,7 +105,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedNativeQueries(value = {
         @NamedNativeQuery(name = SalutationAlternative.GET_SALUTATION_ALTERNATIVE_FACADE_BY_PDF_ID,
                 query = "SELECT sa.pk, sa.salutation_id, sa.pdftemplate_id, sa.content as salutation_alternative, s.salutation " +
-                 "as " +
+                        "as " +
                         "salutation_default FROM salutation_alternative sa LEFT JOIN tsalutation s on s.pk = sa.salutation_id " +
                         "WHERE sa.pdftemplate_id =:" + SalutationAlternative.PARAM_PDFTEMPLATE_ID,
                 resultSetMapping = "salutationMapping")

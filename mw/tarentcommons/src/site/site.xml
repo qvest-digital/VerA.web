@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tarent-commons">
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+		<version>1.0.1</version>
+	</skin>
+
+	<body>
+		<head>
+			<link rel="shortcut icon" type="image/x-icon" href="images/evolvis-favicon.ico" />
+		</head>
+
+		<links>
+			<item name="evolvis" href="http://evolvis.org/" />
+			<item name="evolvis project homepage" href="http://evolvis.org/projects/tarentcommons/" />
+		</links>
+
+		<menu name="tarent-commons">
+			<item name="Introduction" href="index.html" />
+		</menu>
+
+		<menu name="Utils">
+			<item name="ChecksumTool" href="checksum.html" />
+			<item name="MailTool" href="mailtool.html" />
+			<item name="ByteHandler" href="bytehandler.html" />
+		</menu>
+
+		<menu name="UI-Components">
+			<item name="MouseWheelNavigator" href="mouse_wheel_navigator.html" />
+		</menu>
+
+		<menu ref="modules" />
+
+		${reports}
+
+		<menu name="Supported by">
+			<item name="evolvis" href="http://evolvis.org/" />
+			<item name="tarent GmbH" href="http://www.tarent.de/" />
+		</menu>
+
+		<menu name="">
+			<item name="Impressum" href="http://evolvis.org/impress/" />
+		</menu>
+	</body>
+</project>

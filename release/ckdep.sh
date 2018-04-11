@@ -50,6 +50,7 @@ fi
     tee /dev/stderr | sed -n \
     -e '/:test$/d' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
+    -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
     -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
     >ckdep.tmp
 if (( build_vwoa )); then
@@ -58,6 +59,7 @@ if (( build_vwoa )); then
 	    tee /dev/stderr | sed -n \
 	    -e '/:test$/d' \
 	    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
+	    -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
 	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
 	    >ckdep-vwoa.tmp
 	# analyse NPM and Bower dependencies

@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -145,7 +145,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @return Liste mit Beans, nie null.
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      * @see #getSelection(OctopusContext, Integer)
      */
     @Override
@@ -422,7 +422,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      *                   gilt
      * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public void unassignWorkArea(final OctopusContext cntx, final List<Integer> personIds, final Integer workAreaId)
             throws BeanException,
@@ -454,7 +454,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @param personIds      Liste von Personen IDs für die die neue Zuordnung gilt
      * @param workAreaId     ID des Arbeitsbereiches der zugeordnet werden soll
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public void assignWorkArea(final OctopusContext octopusContext, final List<Integer> personIds, final Integer workAreaId)
             throws BeanException,
@@ -954,7 +954,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext The {@link OctopusContext}
      * @param list           FIXME
-     * @throws BeanException  BeanException
+     * @throws BeanException BeanException
      */
     private void addPersonListFilter(final OctopusContext octopusContext, final WhereList list) throws BeanException {
         final PersonSearch personSearch = getSearch(octopusContext);

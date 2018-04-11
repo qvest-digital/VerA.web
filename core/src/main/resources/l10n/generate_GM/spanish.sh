@@ -55,7 +55,6 @@ word f TASK tarea
 word m USER usuario
 word f WORKAREA "área de trabajo" "áreas de trabajo"
 
-
 for x in $allwords; do
 	eval g=\$g_$x
 	if test $g = m; then

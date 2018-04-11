@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.beans.facade;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -152,96 +152,112 @@ public interface PersonMemberFacade {
 
     /**
      * Ändert Anrede
+     *
      * @param value salutation
      */
     void setSalutation(String value);
 
     /**
      * Ändert Anrede-ID
+     *
      * @param value salutation id
      */
     void setSalutationFK(Integer value);
 
     /**
      * Ändert Akad. Titel
+     *
      * @param value title
      */
     void setTitle(String value);
 
     /**
      * Ändert Vorname
+     *
      * @param value first name
      */
     void setFirstname(String value);
 
     /**
      * Ändert Nachname
+     *
      * @param value last name
      */
     void setLastname(String value);
 
     /**
      * Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland}
+     *
      * @param value domestic or international
      */
     void setDomestic(String value);
 
     /**
      * Ändert Flag für {@link PersonConstants#SEX_MALE männlich} oder {@link PersonConstants#SEX_FEMALE weiblich}
+     *
      * @param value gender
      */
     void setSex(String value);
 
     /**
      * Ändert Geburtsdatum
+     *
      * @param value birthday
      */
     void setBirthday(Timestamp value);
 
     /**
      * aendert Geburtsort
+     *
      * @param birthplace birthplace
      */
     void setBirthplace(String birthplace);
 
     /**
      * Ändert Akkretierungsdatum
+     *
      * @param value Akkretierungsdatum
      */
     void setDiplodate(Timestamp value);
 
     /**
      * Ändert Sprachen
+     *
      * @param value language
      */
     void setLanguages(String value);
 
     /**
      * Ändert Nationalität
+     *
      * @param value nationality
      */
     void setNationality(String value);
 
     /**
      * Ändert Bemerkung
+     *
      * @param value note
      */
     void setNote(String value);
 
     /**
      * Ändert Bemerkung für die Orga
+     *
      * @param value orga
      */
     void setNoteOrga(String value);
 
     /**
      * Ändert Bemerkung für den Gastgeber
+     *
      * @param value note host
      */
     void setNoteHost(String value);
 
     /**
      * Gibt einen zusammengesetzten Namen zurück.
+     *
      * @return combined name
      */
     String getSaveAs();

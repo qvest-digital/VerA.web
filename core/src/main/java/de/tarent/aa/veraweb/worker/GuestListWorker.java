@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -233,7 +233,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @return Map mit dem Key <code>count</code>
      * @throws BeanException beanexception
-     * @throws IOException ioexception
+     * @throws IOException   ioexception
      */
     public Map countRecipients(OctopusContext octopusContext) throws BeanException, IOException {
         final Integer countGuests;
@@ -650,7 +650,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Kontext
      * @return eine {@link Event}-Instanz oder <code>null</code>.
      * @throws BeanException beanexception
-     * @throws IOException ioexception
+     * @throws IOException   ioexception
      */
     public Event getEvent(OctopusContext octopusContext) throws BeanException, IOException {
         final GuestSearch search = getSearch(octopusContext);
@@ -710,9 +710,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}
      * -Instanz in einer WHERE-Statement-Liste.
      *
-     * @deprecated Use {@link GuestSearch#addGuestListFilter(WhereList)}  instead
      * @param guestSearch guestSearch
-     * @param where  werelist
+     * @param where       werelist
+     * @deprecated Use {@link GuestSearch#addGuestListFilter(WhereList)}  instead
      */
     public static void addGuestListFilter(GuestSearch guestSearch, WhereList where) {
         guestSearch.addGuestListFilter(where);

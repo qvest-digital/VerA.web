@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -118,7 +118,7 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
      * @param mailOutbox eMail-Entwurf aus dem Content.
      * @return eMail-Entwurf oder null
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public MailOutbox showDetail(OctopusContext cntx, Integer id, MailOutbox mailOutbox) throws BeanException, IOException {
         if (mailOutbox == null && id != null) {
@@ -147,8 +147,8 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
      * @param octopusContext Octopus-Context
      * @param save           Gibt an ob eMail-Entwurf gespeichert werden soll.
      * @return eMail
-     * @throws BeanException  BeanException
-     * @throws IOException  IOException
+     * @throws BeanException BeanException
+     * @throws IOException   IOException
      */
     public MailOutbox saveDetail(final OctopusContext octopusContext, Boolean save) throws BeanException, IOException {
         if (save != null && save.booleanValue()) {

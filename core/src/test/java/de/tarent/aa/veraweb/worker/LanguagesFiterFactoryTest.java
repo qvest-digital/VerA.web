@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -90,7 +90,7 @@ public class LanguagesFiterFactoryTest {
 
         assertEquals(
                 "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) " +
-                 "LIKE veraweb" +
+                        "LIKE veraweb" +
                         ".upper_fix('%Deutsch%'))",
                 klaus.clauseToString());
     }
@@ -103,9 +103,9 @@ public class LanguagesFiterFactoryTest {
 
         assertEquals(
                 "(veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%Deutsch%') OR veraweb.upper_fix(languages_b_e1) " +
-                 "LIKE veraweb" +
+                        "LIKE veraweb" +
                         ".upper_fix('%Deutsch%')) OR (veraweb.upper_fix(languages_a_e1) LIKE veraweb.upper_fix('%English%') OR " +
-                         "veraweb.upper_fix" +
+                        "veraweb.upper_fix" +
                         "(languages_b_e1) LIKE veraweb.upper_fix('%English%'))",
                 klaus.clauseToString());
     }

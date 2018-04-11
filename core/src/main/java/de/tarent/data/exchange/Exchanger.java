@@ -19,11 +19,11 @@ package de.tarent.data.exchange;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -82,36 +82,42 @@ public interface Exchanger {
 
     /**
      * Das zu verwendende Austauschformat
+     *
      * @return exchange Format
      */
     ExchangeFormat getExchangeFormat();
 
     /**
      * Das zu verwendende Austauschformat
+     *
      * @param format exchange Format
      */
     void setExchangeFormat(ExchangeFormat format);
 
     /**
      * Der zu verwendende Eingabedatenstrom
+     *
      * @return input Stream
      */
     InputStream getInputStream();
 
     /**
      * Der zu verwendende Eingabedatenstrom
+     *
      * @param stream input stream
      */
     void setInputStream(InputStream stream);
 
     /**
      * Der zu verwendende Ausgabedatenstrom
+     *
      * @return output Stream
      */
     OutputStream getOutputStream();
 
     /**
      * Der zu verwendende Ausgabedatenstrom
+     *
      * @param stream outputStream
      */
     void setOutputStream(OutputStream stream);

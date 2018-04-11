@@ -19,11 +19,11 @@ package de.tarent.aa.veraweb.worker;
  *  © 2015 Viktor Hamm <v.hamm@tarent.de>
  *  © 2013 Katja Hapke <k.hapke@tarent.de>
  *  © 2013 Hendrik Helwich <h.helwich@tarent.de>
- *  © 2007 jan <jan@evolvis.org>
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
+ *  © 2007 Jan Meyer <jan@evolvis.org>
  *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
@@ -136,7 +136,7 @@ public class ImportPersonsWorker {
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public Map importStoredRecord(OctopusContext octopusContext, Integer importId) throws BeanException, IOException {
         if (importId == null) {
@@ -259,7 +259,7 @@ public class ImportPersonsWorker {
      * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      * @throws BeanException BeanException
-     * @throws IOException IOException
+     * @throws IOException   IOException
      */
     public Map finalise(OctopusContext octopusContext, Integer importId, List ignorePersonFields, Map importTextfieldMapping)
             throws BeanException, IOException {
