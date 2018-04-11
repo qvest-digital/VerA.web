@@ -30,7 +30,8 @@ set -x
 cd "$(dirname "$0")"
 
 usage() {
-	print -ru2 -- "[ERROR] usage: $0 [-n]"
+	set +x
+	print -ru2 -- "[ERROR] usage: $0 [-n] <stage>"
 	print -ru2 -- "[INFO] -n = do not upload Online-Anmeldung"
 	exit ${1:-1}
 }
@@ -71,7 +72,11 @@ function tgtck {
 		tomcat=7
 		;;
 	(*)
+		set +x
+		systems=$(typeset -f tgtck | sed -n \
+		    -e '/([*])$/,$d' -e '/^	*(\(.*\))$/s//\1/p')
 		print -ru2 -- "[ERROR] stage '$1' unknown"
+		print -ru2 -- "[INFO] known stages: ${systems//$'\n'/, }"
 		usage
 		;;
 	}
