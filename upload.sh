@@ -179,5 +179,6 @@ if (( tailf )); then
 		set -x
 		exec tail -F /var/log/tomcat$tomcat/catalina.out
 	    "
+	print -u2
 fi
 print -ru2 -- "[INFO] installing to stage $stage finished successfully"
