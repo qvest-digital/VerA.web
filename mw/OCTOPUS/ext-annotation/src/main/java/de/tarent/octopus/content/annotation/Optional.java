@@ -48,7 +48,10 @@ package de.tarent.octopus.content.annotation;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Element Kennzeichnung eines Parameters als optionalen Parameter.
@@ -58,12 +61,12 @@ import java.lang.annotation.*;
  * zur Beschreibung von Workern verwendet werden.
  *
  * @see javax.jws.WebMethod;
- * @see http://jcp.org/aboutJava/communityprocess/final/jsr181/index.html
+ * @see <a href="https://jcp.org/aboutJava/communityprocess/final/jsr181/index.html">JSR-000181
+ * Web Services Metadata for the Java Platform — Final Release</a>
  */
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.PARAMETER })
 public @interface Optional {
-
     /**
      * Beschreibung des Objektes
      */
