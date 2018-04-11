@@ -301,7 +301,7 @@ public class MapBean extends AbstractMap implements Bean {
     /**
      * Der Aufruf dieser Methode entspricht einem <code>return getFields()</code>.
      *
-     * @return eine Sammlung von {@link Map.Entry}-Instanzen
+     * @return eine Sammlung von {@link java.util.Map.Entry}-Instanzen
      */
     public Set entrySet() {
         Set set = new HashSet();
