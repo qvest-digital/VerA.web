@@ -22,6 +22,8 @@
 • fix and check installing Docker offline works
 • Bacon macht Probleme, wird nur von ↓ verwendet (neuschreiben?)
   core/src/main/webapp/js/vera/guest-filter-auto-commit.js
+• mw/tarentcommons/src/main/java/de/tarent/commons/utils/Encryptor.java:
+  import sun.misc.BASE64Encoder; // internal proprietary API, removed soon
 
 Status: kann alles getestet werden, löpt
 
