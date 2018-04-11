@@ -326,7 +326,7 @@ public class MapBean extends AbstractMap implements Bean {
     //
 
     /**
-     * Diese Klasse implementiert {@link Map.Entry} für die {@link MapBean}.
+     * Diese Klasse implementiert {@link java.util.Map.Entry} für die {@link MapBean}.
      */
     class SimpleEntry implements Map.Entry {
         // Membervariablen
