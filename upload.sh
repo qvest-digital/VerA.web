@@ -51,7 +51,9 @@ done
 shift $(($OPTIND - 1))
 
 function tgtck {
-	case $1 {
+	stage=$1
+
+	case $stage {
 	(mit)
 		hostbase=veraweb-mit.lan.tarent.de
 		hostoa=veraweb-mit-oa.lan.tarent.de
@@ -81,10 +83,10 @@ function tgtck {
 		;;
 	(*)
 		set +x
-		systems=$(typeset -f tgtck | sed -n \
+		local stages=$(typeset -f tgtck | sed -n \
 		    -e '/([*])$/,$d' -e '/^	*(\(.*\))$/s//\1/p')
-		print -ru2 -- "[ERROR] stage '$1' unknown"
-		print -ru2 -- "[INFO] known stages: ${systems//$'\n'/, }"
+		print -ru2 -- "[ERROR] stage '$stage' unknown"
+		print -ru2 -- "[INFO] known stages: ${stages//$'\n'/, }"
 		usage
 		;;
 	}
@@ -97,3 +99,60 @@ if (( has_vwoa )) && [[ ! -s vwoa/target/vw-online-registration.jar ]]; then
 	print -ru2 -- '[WARNING] Online-Anmeldung not built, not uploading it'
 	has_vwoa=0
 fi
+
+# glue for the following old code
+(( split_oa )) && dontsplitoa=false || dontsplitoa=true
+(( has_vwoa )) || hostoa=
+
+ssh root@$hostbase "
+	PS4='(${hostbase%%.*})++++ '
+	set -ex
+	(service tomcat$tomcat stop || :)
+    "
+$dontsplitoa || ssh root@$hostohne "
+	PS4='(${hostohne%%.*})++++ '
+	set -ex
+	(service tomcat$tomcat stop || :)
+    "
+test -z "$hostoa" || \
+    scp vwoa/target/vw-online-registration.jar root@$hostoa:/service/vwoa/
+sleep 5
+ssh root@$hostbase "
+	PS4='(${hostbase%%.*})++++ '
+	set -ex
+	psql -U veraweb -h 127.0.0.1 veraweb
+	rm -rf /var/lib/tomcat$tomcat/webapps/v*
+    " <core/src/main/files/upgrade.sql
+$dontsplitoa || ssh root@$hostohne "
+	PS4='(${hostohne%%.*})++++ '
+	set -ex
+	psql -U veraweb -h 127.0.0.1 veraweb
+	rm -rf /var/lib/tomcat$tomcat/webapps/v*
+    " <core/src/main/files/upgrade.sql
+scp core/target/veraweb.war vwor/target/vwor.war \
+    root@$hostbase:/var/lib/tomcat$tomcat/webapps/
+$dontsplitoa || scp core/target/veraweb.war vwor/target/vwor.war \
+    root@$hostohne:/var/lib/tomcat$tomcat/webapps/
+ssh root@$hostbase "
+	PS4='(${hostbase%%.*})++++ '
+	set -ex
+	service tomcat$tomcat start
+    "
+$dontsplitoa || ssh root@$hostohne "
+	PS4='(${hostohne%%.*})++++ '
+	set -ex
+	service tomcat$tomcat start
+    "
+sleep 5
+test -z "$hostoa" && sleep 5 || ssh root@$hostoa "
+	PS4='(${hostoa%%.*})++++ '
+	set -ex
+	cd /service/vwoa
+	rm -f vwoa.jar
+	mv vw-online-registration.jar vwoa.jar
+	svc -t /service/vwoa
+	sleep 5
+	svstat /service/vwoa
+    "
+set +x
+print -ru2 -- "[INFO] installing to stage $stage finished successfully"
