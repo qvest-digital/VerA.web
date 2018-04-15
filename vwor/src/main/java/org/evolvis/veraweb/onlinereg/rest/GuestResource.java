@@ -377,10 +377,7 @@ public class GuestResource extends AbstractResource {
             query.setString(PARAM_UUID, uuid);
 
             final BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
-            if (numberFoundDelegations.intValue() == 1) {
-                return true;
-            }
-            return false;
+            return numberFoundDelegations.intValue() == 1;
         } finally {
             session.close();
         }
@@ -404,10 +401,7 @@ public class GuestResource extends AbstractResource {
             query.setString(PARAM_DELEGATION, delegation);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
-            if (numberOfGuestsFound.intValue() > 0) {
-                return true;
-            }
-            return false;
+            return numberOfGuestsFound.intValue() > 0;
         } finally {
             session.close();
         }
@@ -457,10 +451,7 @@ public class GuestResource extends AbstractResource {
             query.setInteger(PARAM_EVENT_ID, eventId);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
-            if (numberOfGuestsFound.intValue() > 0) {
-                return true;
-            }
-            return false;
+            return numberOfGuestsFound.intValue() > 0;
         } finally {
             session.close();
         }
@@ -484,10 +475,7 @@ public class GuestResource extends AbstractResource {
             query.setInteger(PARAM_EVENT_ID, eventId);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
-            if (numberOfGuestsFound.intValue() > 0) {
-                return true;
-            }
-            return false;
+            return numberOfGuestsFound.intValue() > 0;
         } finally {
             session.close();
         }
@@ -616,10 +604,7 @@ public class GuestResource extends AbstractResource {
             query.setString(PARAM_USERNAME, username);
             Integer reserve = (Integer) query.uniqueResult();
 
-            if (reserve != null && reserve.equals(1)) {
-                return true;
-            }
-            return false;
+            return reserve != null && reserve.equals(1);
         } finally {
             session.close();
         }
