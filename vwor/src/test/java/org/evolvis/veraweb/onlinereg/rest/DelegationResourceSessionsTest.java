@@ -173,6 +173,8 @@ public class DelegationResourceSessionsTest {
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(mockitoSession, times(1)).close();
     }
 
@@ -186,6 +188,8 @@ public class DelegationResourceSessionsTest {
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(mockitoSession, times(1)).close();
     }
 

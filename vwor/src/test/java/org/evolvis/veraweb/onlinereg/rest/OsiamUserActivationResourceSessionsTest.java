@@ -123,6 +123,8 @@ public class OsiamUserActivationResourceSessionsTest {
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(session, times(1)).close();
     }
 
@@ -141,6 +143,8 @@ public class OsiamUserActivationResourceSessionsTest {
         // THEN
         verify(sessionFactory, times(2)).openSession();
         verify(session, times(2)).close();
+        verify(session, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
     }
 
     @Test
@@ -193,6 +197,8 @@ public class OsiamUserActivationResourceSessionsTest {
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(session, times(1)).close();
     }
 
