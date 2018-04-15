@@ -222,6 +222,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(session, times(1)).close();
     }
 
@@ -306,6 +308,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(session, times(1)).close();
     }
 
@@ -324,6 +328,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(session, times(1)).close();
     }
 
@@ -360,6 +366,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(session, times(1)).close();
     }
 
@@ -469,6 +477,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).beginTransaction();
+        verify(mockitoTransaction, times(1)).commit();
         verify(session, times(1)).close();
         verify(session, times(1)).flush();
         verify(session, times(1)).update(anyObject());
