@@ -724,7 +724,7 @@ BEGIN
 		    changed timestamptz
 		) WITH OIDS;
 
-		DROP VIEW veraweb.TPERSON_NORMALIZED;
+		DROP VIEW IF EXISTS veraweb.TPERSON_NORMALIZED;
 
 		ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e1 TYPE VARCHAR(300);
 		ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e1 TYPE VARCHAR(300);
@@ -800,7 +800,7 @@ BEGIN
 			ALTER COLUMN content
 			TYPE VARCHAR(100);
 
-		DROP VIEW veraweb.TPERSON_NORMALIZED;
+		DROP VIEW IF EXISTS veraweb.TPERSON_NORMALIZED;
 
 		ALTER TABLE veraweb.tperson ALTER COLUMN salutation_a_e1 TYPE varchar(100);
 		ALTER TABLE veraweb.tperson ALTER COLUMN salutation_a_e2 TYPE varchar(100);
@@ -895,7 +895,7 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
 		-- fixup the view so it works with PostgreSQL 8.4
-		DROP VIEW veraweb.aggregated_field_content;
+		DROP VIEW IF EXISTS veraweb.aggregated_field_content;
 		IF (psqlvsn < 90000) THEN
 			CREATE OR REPLACE VIEW veraweb.aggregated_field_content AS (
 				SELECT c.fk_guest, c.fk_delegation_field,
