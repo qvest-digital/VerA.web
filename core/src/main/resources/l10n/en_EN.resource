@@ -214,6 +214,7 @@ MENU_ADMINISTRATION=Administration
 LOGIN_ERROR=An error occurred during the login process. Please check your username and password.
 GENERIC_PASSWORD=Password
 LOGIN_REPRESENTATION=Login as representative
+GENERIC_ACCOUNT=Account
 GENERIC_LOGIN=Login
 GENERIC_CLEAR_FIELDS=Clear fields
 HINT_LOGIN_ORGANISATION_ONE=Please use your organizational ID or

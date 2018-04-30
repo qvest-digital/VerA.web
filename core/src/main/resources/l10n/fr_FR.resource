@@ -213,6 +213,7 @@ MENU_ADMINISTRATION=Administration
 LOGIN_ERROR=Il y avait une erreur lors de l\u2019inscription. S\u2019il vous pla\u00EEt v\u00E9rifier votre nom d\u2019utilisateur et mot de passe.
 GENERIC_PASSWORD=Mot de passe
 LOGIN_REPRESENTATION=Ouvrir comme suppl\u00E9ance
+GENERIC_ACCOUNT=Utilisateur
 GENERIC_LOGIN=Ouvrir
 GENERIC_CLEAR_FIELDS=vider les champs
 HINT_LOGIN_ORGANISATION_ONE=Utiliser votre signe d\u2019organisation ou

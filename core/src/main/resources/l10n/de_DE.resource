@@ -214,6 +214,7 @@ MENU_ADMINISTRATION=Administration
 LOGIN_ERROR=Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte \u00FCberprufen Sie Ihren Benutzernamen und Ihr Passwort.
 GENERIC_PASSWORD=Passwort
 LOGIN_REPRESENTATION=In Vertretung anmelden
+GENERIC_ACCOUNT=Benutzerkürzel
 GENERIC_LOGIN=Anmelden
 GENERIC_CLEAR_FIELDS=Felder leeren
 HINT_LOGIN_ORGANISATION_ONE=Bitte verwenden Sie Ihr Organisationskennzeichen oder

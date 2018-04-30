@@ -214,6 +214,7 @@ MENU_ADMINISTRATION=Administraci\u00F3n
 LOGIN_ERROR=El nombre de usuario y contrase\u00F1a son incorrectos. Por favor, vuelva a introducir los datos de acceso.
 GENERIC_PASSWORD=Contrase\u00F1a
 LOGIN_REPRESENTATION=Acceder como representante
+GENERIC_ACCOUNT=Usuario
 GENERIC_LOGIN=Acceder
 GENERIC_CLEAR_FIELDS=Reiniciar
 HINT_LOGIN_ORGANISATION_ONE=Por favor, utilice el nombre de su organizaci\u00F3n o

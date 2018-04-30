@@ -109,7 +109,7 @@
                 <col width="$column1%" />
 
         <tr>
-                <td class="width15 bold">${placeholderWithTranslation.GENERIC_LOGIN}:</td>
+                <td class="width15 bold">${placeholderWithTranslation.GENERIC_ACCOUNT}:</td>
                 <td>$!octopusConfig.personalConfig.userLogin</td>
         </tr><tr>
                 <td class="width15 bold">${placeholderWithTranslation.GENERIC_ROLE}:</td>
