@@ -79,9 +79,9 @@ Der durch Debian bereits gestartete Tomcat ist so lieb, die für uns sofort zu e
 
 Damit der Tomcat auch vom Apachen angesprochen werden kann, muß in '''/etc/tomcat7/server.xml''' noch folgender Abschnitt <nowiki>durch '<!--' und '-->' auskommentiert</nowiki> werden:
      <Connector port="8080" protocol="HTTP/1.1"
-                connectionTimeout="20000"
-                URIEncoding="UTF-8"
-                redirectPort="8443" />
+		connectionTimeout="20000"
+		URIEncoding="UTF-8"
+		redirectPort="8443" />
 
 Dafür müssen etwas weiter unten die Kommentarzeichen rund um diesen Abschnitt entfernt werden:
      <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />

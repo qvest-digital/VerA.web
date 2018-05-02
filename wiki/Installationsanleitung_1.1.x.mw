@@ -141,18 +141,18 @@ und die Datei /etc/phpldapadmin/apache.conf wie folgt anpassen:
     Allow from all
 
     <IfModule mod_mime.c>
-        AddType application/x-httpd-php .php
-        php_flag magic_quotes_gpc Off
-        php_flag track_vars On
-        php_flag register_globals On
-        php_value include_path
+	AddType application/x-httpd-php .php
+	php_flag magic_quotes_gpc Off
+	php_flag track_vars On
+	php_flag register_globals On
+	php_value include_path
     </IfModule>
 
     <IfModule !mod_php4.c>
     <IfModule mod_actions.c>
     <IfModule mod_cgi.c>
-        AddType application/x-httpd-php .php
-        Action application/x-httpd-php /cgi-bin/php4
+	AddType application/x-httpd-php .php
+	Action application/x-httpd-php /cgi-bin/php4
     </IfModule>
     </IfModule>
     </IfModule>
