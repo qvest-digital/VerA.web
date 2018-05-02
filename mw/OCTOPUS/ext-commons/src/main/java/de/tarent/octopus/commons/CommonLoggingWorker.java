@@ -280,7 +280,6 @@ public class CommonLoggingWorker {
     /**
      * Return one {@link LogManager} instance for all octopus actions
      * in this worker.
-     *
      */
     protected LogManager getLogManager() {
         return logManagerInstance;

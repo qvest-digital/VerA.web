@@ -239,7 +239,6 @@ public abstract class AnnotatedDBMapping extends AbstractDBMapping {
      * MappingType is not defined, the string is returned as
      * is.
      * NOTE: the input parameter has to be in camelCase.
-     *
      */
     private String mapToDbConventions(String string) {
         MappingType mappingType = (MappingType) this.associatedBean.getAnnotation(MappingType.class);

@@ -69,7 +69,6 @@ public @interface Table {
 
     /**
      * the name of the table in the database
-     *
      */
     String name();
 }

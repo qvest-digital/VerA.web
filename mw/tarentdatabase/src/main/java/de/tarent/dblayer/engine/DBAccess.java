@@ -104,7 +104,6 @@ public class DBAccess {
 
     /**
      * returns the default database context
-     *
      */
     public static DBContext getDefaultContext() {
         return DB.getDefaultContext(poolName);

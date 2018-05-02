@@ -369,7 +369,6 @@ public class XmlUtil {
      * copy and paste. Just survive the release (2.0) and get replaced.</p>
      *
      * <p>TODO: Get replaced.</p>
-     *
      */
     static Document createQnDEnvironmentDocument() {
         Document doc = createDocument();

@@ -88,7 +88,6 @@ public final class Appearance extends Base {
     /**
      * Returns the XML nodes specifying the action
      * definitions (it's parameters)
-     *
      */
     public Iterator getActionDefinitions() {
         return actions.values().iterator();
@@ -110,7 +109,6 @@ public final class Appearance extends Base {
     /**
      * Returns the XML nodes specifying the plugin
      * definitions (it's parameters)
-     *
      */
     public Iterator getPluginDefinitions() {
         return plugins.values().iterator();

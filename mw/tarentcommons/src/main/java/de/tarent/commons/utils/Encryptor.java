@@ -106,7 +106,6 @@ public final class Encryptor {
 
     /**
      * Get an instance of the Encryptor class
-     *
      */
     public static synchronized Encryptor getInstance() {
         if (instance == null) {

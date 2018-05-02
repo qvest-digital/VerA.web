@@ -252,7 +252,6 @@ public class Order extends SetDbContextImpl implements Clause {
 
     /**
      * Returns list of sorting directions where true means ascending and false means descending
-     *
      */
     public List getSortDirections() {
         ArrayList list = new ArrayList(orderby.size());

@@ -25,6 +25,7 @@
 --  © 2007 Jan Meyer (jan@evolvis.org)
 --  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos (t.glaser@tarent.de)
 --  © 2016 Cristian Molina (c.molina@tarent.de)
+--  © 2018 Yorka Neumann (y.neumann@tarent.de)
 --  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
 --  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
 --  © 2014, 2015 Jon Nunez Alvarez (j.nunez-alvarez@tarent.de)
@@ -65,7 +66,7 @@
 
 -- Entwicklernotiz: bei Hinzufügen einer neuen Version muß an drei
 -- Stellen was geändert werden:
--- ① vversion in Zeile 87
+-- ① vversion in Zeile 88
 -- ② recht nah am Ende der Datei (vor „-- end“)
 -- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
 

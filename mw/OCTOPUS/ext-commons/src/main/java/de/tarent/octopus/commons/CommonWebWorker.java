@@ -61,7 +61,6 @@ import de.tarent.octopus.content.annotation.Result;
 public class CommonWebWorker {
     /**
      * Set a {@link WebFormat} instance into the octopus content.
-     *
      */
     @WebMethod
     @Result("format")
@@ -71,7 +70,6 @@ public class CommonWebWorker {
 
     /**
      * Set a {@link ParametersProcessor} instance into the octopus content.
-     *
      */
     @WebMethod
     @Result("parametersProcessor")

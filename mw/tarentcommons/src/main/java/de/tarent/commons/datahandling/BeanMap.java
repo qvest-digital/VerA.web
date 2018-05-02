@@ -173,7 +173,6 @@ public class BeanMap implements Map {
 
     /**
      * Returns all methods of this class, except those that are inheritet from Map and Object.
-     *
      */
     private Method[] getMethods() {
         Method[] allMethods = this.getClass().getMethods();
