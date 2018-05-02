@@ -1,0 +1,94 @@
+Kurzzusammenfassung Schnellinstallation VerA.web
+
+== Empfohlene Systemausstattung ==
+
+* VM, 1 vCPU (amd64), 2 GiB RAM, 5 GiB HDD
+* Debian wheezy
+* Pakete: postgresql-contrib openjdk-7-jre-headless tomcat7 apache2 libapache2-mod-jk
+* SSL-Zertifikate für den Apachen
+
+== Download ==
+
+* Im [https://evolvis.org/frs/?group_id=17 File Release System] alle zu einer Version, z.B. das veraweb 1.3.15 Release, zugehörigen Dateien herunterladen
+
+== Installation ==
+
+Als normaler User mit sudo(8)-Rechten werden die folgenden Schritte ausgeführt.
+
+=== Datenbanksetup ===
+
+Wechsel zum PostgreSQL-Admin und Anlegen von VerA.web-Benutzer und Datenbank:
+
+ $ sudo -u postgres createuser --no-superuser --no-createdb --no-createrole --pwprompt veraweb
+ $ sudo -u postgres createdb --encoding=UTF-8 --owner=veraweb veraweb
+
+Als DB-User „veraweb“ die Funktion zum Anlegen des Datenbankschemas importieren und dann ausführen:
+
+ $ psql -U veraweb -h 127.0.0.1 -W veraweb
+ veraweb=> \i veraweb-schema.sql
+ veraweb=> SELECT serv_verawebschema(1);
+
+Die Ausgabe von vielen Warnungen, daß Indizēs implizit angelegt werden, kann ignoriert werden; am Ende sollte die Ausgabe ähnlich der folgenden sein:
+
+ PL/pgSQL function "serv_verawebschema" line 2415 at SQL statement
+       serv_verawebschema
+ -------------------------------
+  2013-04-15 12:45:10.358873+02
+ (1 row)
+
+Nun sind die Standardstammdaten zu importieren:
+
+ veraweb=> \i veraweb-stammdaten.sql
+
+Als nächstes muß mindestens ein Nutzer mit administrativen Rechten angelegt werden; als Benutzername soll der LDAP Unix-Username (hier: vnnnnn) verwendet werden.
+
+ veraweb=> INSERT INTO tuser (username, role) VALUES ('vnnnnn', 5);
+
+Abschließend müssen die Sequenzen aktualisiert werden; dann kann der PostgreSQL-Client beendet werden:
+
+ veraweb=> SELECT veraweb.serv_build_sequences();
+ veraweb=> \quit
+
+=== Apache-Konfiguration ===
+
+Zunächst muß eine SSL-Konfiguration durchgeführt werden, welche site-spezifisch ist; idealerweise im Debian wheezy Standard-SSL-vhost:
+ $ sudo a2enmod ssl
+ $ sudo a2ensite default-ssl
+
+Jetzt ist im übrigen auch in /etc/apache2/sites-enabled/default-ssl das Zertifikat einzubinden.
+
+Dann muß der Nicht-SSL-vhost auf den SSL-vhost umleiten (erste Zeile optional, zweite immer hinzufügen, Reihenfolge wichtig):
+ #RedirectMatch 301 ^/*(.*)$ https://veraweb.lan.tarent.de/$1
+ RedirectMatch 301 . https://veraweb.lan.tarent.de/veraweb/
+
+Der SSL-vhost muß auch eine Weiterleitung erhalten, allerdings nur konditional:
+ RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
+
+Desweiteren muß mod_jk dazu angehalten werden, mit dem Tomcat zu sprechen; die Debian-Standardeinstellungen reichen schon fast, bis auf:
+ JkMount /?* ajp13_worker
+
+=== Tomcat-Konfiguration ===
+
+Die '''veraweb.war''' muß ins Verzeichnis '''/var/lib/tomcat7/webapps/''' kopiert werden:
+ $ cd /var/lib/tomcat7/webapps
+ $ sudo cp /path/to/veraweb-*.war veraweb.war
+
+Hierbei ist '''der Zieldateiname wichtig''', da sich durch ihn der URI ergibt.
+
+Der durch Debian bereits gestartete Tomcat ist so lieb, die für uns sofort zu entpacken, sodaß wir LDAP konfigurieren können. Ein '''lynx http://127.0.0.1:8080/veraweb/''' sollte bereits die Loginmaske zeigen.
+
+Damit der Tomcat auch vom Apachen angesprochen werden kann, muß in '''/etc/tomcat7/server.xml''' noch folgender Abschnitt <nowiki>durch '<!--' und '-->' auskommentiert</nowiki> werden:
+     <Connector port="8080" protocol="HTTP/1.1"
+                connectionTimeout="20000"
+                URIEncoding="UTF-8"
+                redirectPort="8443" />
+
+Dafür müssen etwas weiter unten die Kommentarzeichen rund um diesen Abschnitt entfernt werden:
+     <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+
+Außerdem muß die Zeile geändert werden in:
+     <Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+
+=== LDAP-Konfiguration ===
+
+In '''/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config_ldap_access.xml''' findet sich die entsprechende Konfiguration; die Parameter '''ldapurl''', '''ldapbasedn''', '''ldaprelative''' sind mindestens anzupassen; '''ldappwd''' ist bei anonymem Bind nicht nötig.

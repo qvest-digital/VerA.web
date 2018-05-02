@@ -1,0 +1,53 @@
+== fehlender Eintrag in FROM-Klausel für Tabelle »tguest_doctype« ==
+
+'''Fehler'''
+
+  Fehler
+  Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Bitte melden Sie dies Ihrem Administrator.
+
+  Details
+  de.tarent.dblayer.sql.SQLStatementException
+  FEHLER: '''fehlender Eintrag in FROM-Klausel für Tabelle »tguest_doctype«''' [SQL: ...]
+
+'''Problembehebung'''
+
+Dieser Fehler tritt auf wenn die Einstellung "Freitextfeld" vom Administrator noch nicht gesetzt ist.
+Durch einen Fehler in der Version 1.1.16 wird beim Anlegen eines Gastes ein ungültiges SQL generiert.
+Zur Behebung dieses Fehlers wählen Sie als Administrator unter Einstellungen bitte ein gültiges "Freitextfeld" aus.
+
+== duplizierter Schlüssel verletzt Unique-Constraint ==
+
+'''Fehler'''
+
+  Fehler
+  Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Bitte melden Sie dies Ihrem Administrator.
+
+  Details
+  de.tarent.dblayer.sql.SQLStatementException
+  FEHLER: '''duplizierter Schlüssel verletzt Unique-Constraint''' »tcategorie_pkey« [SQL: ...]
+
+'''Problembehebung'''
+
+Sollte es zu diesem oder einem vergleichbaren Unique-Constraint Datenbankfehler kommen,
+so stimmen der Datenbank Inhalt und Seqenznummern der automatisch erstellten IDs nicht mehr überein.
+Dieses Problem kann nach manuellen Veränderungen oder dem Einspielen von Stammdaten auftreten.
+Nach jeder Veränderung der Datenbank von außen sollte daher die mitgelieferten Datenbank-Funktion
+serv_build_sequences ausgeführt werden, welche diese Sequenzen korrigiert:
+
+  SELECT serv_build_sequences();
+
+== veraweb-schema.sql: Nicht standardkonforme Verwendung von \' in Zeichenkettenkonstante ==
+
+'''Fehler'''
+
+   PostgreSQL 8.2.x quittiert das Absenden des CREATE OR REPLACE FUNCTION serv_verawebschema(int4) ...
+   mit der Fehlermeldung: nicht standardkonforme Verwendung von \' in Zeichenkettenkonstante.
+
+'''Problembehebung'''
+
+   Die Verwendung von \' ist veraltet und führt unter PostgreSQL zu genannter Fehlermeldung.
+   Die Funktion wird jedoch vollständig angelegt und kann ohne weiteres durch SELECT * FROM serv_verawebschema(0);
+   getestet werden bzw. durch SELECT * FROM serv_verawebschema(1); ausgeführt werden.
+   Um die Fehlermeldung abzustellen, muss die Konfiguration von PostgreSQL geändert werden.
+   Dies geschieht über die Konfigurationsdatei /etc/postgresql/8.2/main/postgresql.conf.
+   Suchen Sie dort den Schlüssel "escape_string_warning" und setzen Sie diesen von "on" auf "off".

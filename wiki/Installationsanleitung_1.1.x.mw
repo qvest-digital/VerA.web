@@ -1,0 +1,242 @@
+Installationsanleitung veraweb
+
+== Benötigte Software ==
+
+Siehe [[Systemvoraussetzungen]].
+
+== Installation veraweb ==
+
+Laden Sie sich die letzte Version von veraweb 1.1.x herunter. Die Releases
+enthalten jeweils auch eine Version des Webframeworks tarent-octopus.
+
+Deployen Sie die veraweb.war sowie octopus.war Verzeichnisse in einem
+beliebigen Servlet Container oder das gemeinsame Archiv als EAR in einem
+Enterprise Server.
+
+Beachten Sie die Besonderheit, dass die beiden Webanwendungen miteinander
+kommunizieren müssen und Sie hierfür in der Webapplikationsbeschreibung
+den Parameter crossContext auf true setzen müssen. Fertige Konfigurationsdateien finden sie
+unter veraweb.war/WEB-INF/veraweb.xml
+sowie octopus.war/WEB-INF/octopus.xml.
+Diese Konfigurationsdateien kopieren Sie im Tomcat z.B. in den Ordner conf/Catalina/localhost/.
+
+== Installation PostgreSql ==
+
+Sie benötigen für den Betrieb von veraweb eine PostgreSql Datenbank in der Version 8.0 oder höher.
+Installieren Sie diese über die Paketverwaltung Ihres Betriebssystem oder besuchen Sie die
+[http://www.postgresql.org/download/ Downloadseite von PostgreSql]. Hier finden Sie weitere
+[http://www.postgresql.org/docs/8.3/interactive/installation.html Allgemeine Informationen] sowie
+Informationen zur [http://www.postgresql.org/docs/8.3/interactive/install-win32.html Installation unter Windows].
+
+Bei der Installation sollten Sie evtl. verfügbare Scriptsprachen direkt mitinstallieren.
+
+=== Benutzer und Datenbank erstellen ===
+
+Legen Sie einen Benutzer veraweb sowie eine Datenbank veraweb an, welche diesem Benutzer gehört.
+Aktivieren Sie ggf. die Scriptsprache pgsql für die Datenbank falls dies noch nicht der Fall ist.
+
+Unter Linux können Sie dies in etwa wie folgt machen. (Eingaben sind hierbei fett geschrieben.)
+
+Wechseln Sie den Benutzer zu ''postgres'':
+
+  youruser $ '''sudo su - postgres'''
+
+Erstellen Sie einen neuen Datenbankuser:
+
+  postgres $ '''createuser --no-superuser --no-createdb --no-createrole --pwprompt veraweb'''
+
+Erstellen Sie eine neue Datenbank:
+
+  postgres $ '''createdb --encoding=UTF-8 --owner=veraweb veraweb'''
+
+Aktivieren Sie ggf. die Scriptsprache pgsql:
+
+  postgres $ '''createlang -dbname=veraweb plpgsql'''
+
+Die nachfolgenden Schritte müssen dann mit dem Benutzer veraweb auf der Datenbank veraweb direkt ausgeführt werden.
+Verwenden Sie hierfür zum Beispiel den Grafischen PostgreSql Client pgAdmin.
+
+# Führen Sie anschließend das Script '''veraweb-schema.sql''' aus welches die nachfolgende Funktion anlegt.
+# Erstellen Sie mit der Funktion '''SELECT serv_verawebschema(1);''' das eigentliche Datenbankschema.
+# Fügen Sie die nötigen Stammdaten mit dem Script '''veraweb-stammdaten.sql''' ein.
+# Lesen Sie in der Tabelle '''veraweb.tuser''' Ihre Benutzer an.
+# Aktualisieren Sie alle veraweb Datenbank Sequenzen mit der Funktion '''SELECT serv_build_sequences();'''
+
+== Installation LDAP ==
+
+veraweb verwendet zur Authentifizierung einen LDAP-Service. In der
+Webanwendung (veraweb.war) finden Sie unter OCTOPUS/config.xml eine
+Konfigurationsdatei, in der Sie den entsprechenden Server einstellen können.
+Beispielkonfigurationen sind bereits enthalten.
+
+Installieren Sie die Pakete "slapd" und "ldap-utils". Während der
+Installation werden Sie nach dem Administrator-Passwort für den
+LDAP-Benutzer gefragt, dieses wird später noch benötigt.
+Kopieren Sie die Schemadateien  AA-2005-03-23.schema und samba.schema nach
+/etc/ldap/schema/
+
+Machen Sie nun den Ldapserver durch folgende Einträge in
+der Datei /etc/ldap/slapd.conf bekannt:
+
+  include /etc/ldap/schema/samba.schema
+  include /etc/ldap/schema/AA-2005-03-23.schema
+
+Alle Zeilen die mit "access" starten auskommentieren.
+Mit "/etc/init.d/slapd restart" den LDAP Server neu starten.
+Die Datei /etc/ldap/ldap.conf mit folgenden Daten füllen:
+
+  BASE dc=tarent, dc=de
+  URI ldap://veraweb-ldap.tarent.de
+
+Mit "ldapsearch -x" testen, ob der LDAP Daten zurückliefert:
+
+  root@veraweb-ldap:/etc/ldap# ldapsearch -x
+
+  # extended LDIF
+  #
+  # LDAPv3
+  # base  with scope subtree
+  # filter: (objectclass=*)
+  # requesting: ALL
+  #
+  # tarent.de
+  dn: dc=tarent,dc=de
+  objectClass: top
+  objectClass: dcObject
+  objectClass: organization
+  o: tarent.de
+  dc: tarent
+  # admin, tarent.de
+  dn: cn=admin,dc=tarent,dc=de
+  objectClass: simpleSecurityObject
+  objectClass: organizationalRole
+  cn: admin
+  description: LDAP administrator
+  userPassword:: e2NyeXB0fVpnYk5tdmowbGJYMXM=
+  #  search result
+  search: 2
+  result: 0 Success
+  # numResponses: 3
+  # numEntries: 2
+
+==== phpldapadmin ====
+Um die ersten initialen Daten einfach in den Ldap zu bekommen, kann man
+z.B. das Paket "phpldapadmin" installieren "apt-get install phpldapadmin"
+und die Datei /etc/phpldapadmin/apache.conf wie folgt anpassen:
+
+<source lang="xml">
+<VirtualHost *:*>
+    ServerName veraweb-ldap.tarent.de
+    ServerAdmin root@tarent.de
+    DocumentRoot /usr/share/phpldapadmin
+    ErrorLog /var/log/apache2/veraweb-ldap.tarent.de-error.log
+    CustomLog /var/log/apache2/veraweb-ldap.tarent.de-access.log common
+</VirtualHost>
+
+<Directory /usr/share/phpldapadmin/htdocs/>
+    DirectoryIndex index.php
+    Options +FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+
+    <IfModule mod_mime.c>
+        AddType application/x-httpd-php .php
+        php_flag magic_quotes_gpc Off
+        php_flag track_vars On
+        php_flag register_globals On
+        php_value include_path
+    </IfModule>
+
+    <IfModule !mod_php4.c>
+    <IfModule mod_actions.c>
+    <IfModule mod_cgi.c>
+        AddType application/x-httpd-php .php
+        Action application/x-httpd-php /cgi-bin/php4
+    </IfModule>
+    </IfModule>
+    </IfModule>
+</Directory>
+</source>
+
+Diese Datei nach /etc/apache2/sites-enabled/000-default verlinken (evtl.
+vorherigen Link löschen). Mit "/etc/init.d/apache2 restart" den Apache2
+Webserver neu starten
+
+==== LDAP mit Daten füllen ====
+Nun kann man über ''http://localhost'' auf phpldapadmin zugreifen und
+sich als "cn=admin,dc=tarent,dc=de" mit dem bei der Installation von
+slapd abgefragten Passwort einloggen. Nun wird die für VeraWeb benötigte
+Ldapstruktur erstellt.
+
+Auf "dc=tarent,dc=de" klicken und "* Neuen Eintrag erzeugen" auswählen.
+=> "Organisational Unit" => Name: "Users"
+Diesen Vorgang wiederholen, aber diesmal die "Organisational Unit"
+"Groups" anlegen.
+Unterhalb der Organizational-Unit "Groups" wieder auf "* Neuen Eintrag
+erzeugen" klicken, und als Typ
+"Posix-Group" auswählen.
+Das einzige Feld was hier angegeben werden muss ist: "Group"
+Hier wählt man als Wert: "veragroup".
+Unterhalb der Organizational-Unit "Users" auf "* Neuen Eintrag erzeugen"
+klicken und einen Eintrag vom Typ
+"User Account" anlegen.
+
+Folgende Felder müssen ausgefüllt werden:
+* Last Name (verawebadmin)
+* Common Name (verawebadmin)
+* User ID (verawebadmin)
+* Home directory (/home/verawebadmin)
+
+Ein Passwort sollte vergeben werden (z. B. "test").
+Nachdem der Benutzer angelegt wurde, wählen Sie diesen wiederum aus (in
+der Menustruktur links anklicken). Im rechten Frame öffnet sich nun der Benutzer.
+
+Jetzt nachunten scrollen bis Sie als Überschrift "objectClass" sehen und
+dort "Wert hinzufügen" anklicken.
+In der Auswahlliste wählen Sie AARole
+Um Abhängigkeiten zu erfüllen,  müssen nun noch ein paar Werte ausgefüllt werden.
+* mail (verawebadmin@tarent.de)
+* mailbox (verawebadmin@tarent.de)
+* rid (1000)
+Dies Eingaben speichern und nun wiederum den Benutzer auswählen. Dann "Neues Attribut hinzufügen"
+anwählen und als Attribut "Person" anklicken und dort auf den eigenen "Common Name" verlinken
+(cn=verawebadmin,ou=Users,dc=tarent,dc=de)
+
+== Konfiguration Datenbank ==
+
+Bei der Datenbank müssen Sie diese je nach Betriebsystem über die
+Paketverwaltung oder einen Installer installieren. Scriptsprachen sollten
+dabei direkt mit installiert werden. Dann muss ein Benutzer "veraweb" mit
+dem Passwort "veraweb" angelegt werden. Mit diesem erzeugen Sie dann die
+Datenbank "veraweb". Die folgenden Scripte / SQL-Befehle müssen bereits
+mit diesem Benutzer ausgeführt werden und dürfen nicht als "postgres"
+Benutzer direkt nach dem Anlegen der Tabelle mit ausgeführt werden.
+
+Das SQL-Script "veraweb-schema.sql" muss ausgeführt und anschließnd
+das Schema mit dem Befehl "SELECT serv_verawebschema(1);" erzeugt werden.
+
+Wenn dies fehlerfrei funktioniert hat, erhalten Sie das aktuelle Datum
+von dem Script als Bestätigung zurück.
+
+Nun müssen Sie die Datenbank nur noch mit den Stammdaten aus dem Script
+"veraweb-stammdaten.sql" befüllt werden.
+
+Nachdem nun die grundlegenden Strukturen angelegt werden fehlt nur noch ein
+Benutzer. Diesen müssen Sie in der Tabelle "veraweb.tuser" manuell anlegen
+da dessen Kennung dennen Ihres LDAPs entsprechenden muss.
+
+Verwenden Sie bitte in dem Feld rights eine 5 (für Adminrechte) und keine
+Organistationseinheit (fk_orgunit = NULL).
+
+== Login ==
+
+Wenn all diese Punkte abgearbeitet wurden, können Sie ihrer Server bzw.
+Container nun starten und über die URL /veraweb sich über die Anmeldemaske
+an veraweb anmelden.
+
+== Probleme ==
+
+Sollte Sie weitergehende Probleme zur Installation haben können diese
+in dem evolvis [http://evolvis.org/forum/forum.php?forum_id=24 Forum]
+gestellt werden.

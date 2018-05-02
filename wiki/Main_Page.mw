@@ -1,0 +1,39 @@
+== Veranstaltungsmanagment veraweb ==
+
+Veraweb ist eine OpenSource Software für Veranstaltungsmanagment und wurde im Auftrag des
+[http://www.auswaertiges-amt.de/ Auswärtigen Amtes] von der [http://www.tarent.de/ tarent GmbH] entwickelt.
+
+Die vollständige Software inkl. Benutzerhandbuch wird auf den Seiten von [http://evolvis.org/ evolvis] zur freien Verfügung bereitgestellt.
+
+Bitte beachten Sie, daß diese Seite für Entwickler und Administratoren gedacht ist und Informationen zur Installation und Wartung bereitstellt,
+eine anwenderorientierte Produktseite finden Sie unter [http://veraweb.tarent.com veraweb.tarent.com].
+
+== Funktionsauszug ==
+
+* Vollständige Adreßverwaltung
+
+* Verwaltungsmöglichkeit von Veranstaltungen
+
+* Inkl. Einladungslisten und E-Mailverteiler
+
+* Verwaltung von Zusagen, Absagen, und Nachrückern
+
+* Teilnehmer in verschiedenen Rollen
+
+* MS- und OpenOffice-Schnittstelle
+
+== OpenSource ==
+
+* Lizenziert unter GNU GENERAL PUBLIC LICENSE, Version 3.
+
+* Vollständig verfügbar als [[Downloads|Binary]] sowie als [http://evolvis.org/scm/?group_id=17 Sourcecode].
+
+== Dokumentation ==
+* [https://evolvis.org/plugins/mediawiki/wiki/veraweb/index.php/Entwicklung Entwicklung]
+
+== Download ==
+
+* Letzte stabile Version: '''1.2.2''' ([[Downloads|Download]])
+
+<rss number="3" time="1800" desc="true">http://evolvis.org/export/rss_sfnews.php?group_id=17</rss>
+<rss number="3" time="1800" desc="true">http://evolvis.org/export/rss20_newreleases.php?group_id=17</rss>

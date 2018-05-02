@@ -1,0 +1,39 @@
+== Systemvoraussetzungen für die Laufzeit ==
+
+* Java 5 (JRE) oder höher (Sun JDK 5 oder 6 mit erhöhtem Speicher für Heap und Stack empfohlen.)
+
+* PostgreSQL 8.0 oder höher (Alternative Datenbanken auf Anfrage möglich.)
+
+* LDAP directory (z.B. OpenLDAP)
+
+* beliebigen Java Enterprise Server, z.B. JBoss Application Server (Details siehe unten.)
+
+* beliebigen Java Webapplication Container, z.B. Apache Tomcat (Details siehte unten.)
+
+== Voraussetzungen für die Entwicklung ==
+
+* Java 5 (JRE) oder höher (Sun JDK 5 oder 6 mit erhöhtem Speicher für Heap und Stack empfohlen.)
+
+* PostgreSQL 8.0 oder höher (Alternative Datenbanken auf Anfrage möglich)
+
+* LDAP directory (z.B. OpenLDAP)
+
+* beliebigen Java Enterprise Server, z.B. JBoss Application Server (Details siehe unten.)
+
+* beliebigen Java Webapplication Container, z.B. Apache Tomcat (Details siehte unten.)
+
+* Apache Maven 3
+
+== Webapplication Container ==
+
+veraweb ist eine Java (tm) Webanwendung, die generell innerhalb beliebiger Java Enterprise Server sowie Java Webapplication Container läuft.
+
+Vorrausgesetzt wird die Servlet API 2.4 oder höher.
+
+== Getestete Umgebungen ==
+
+* Sun Java 5 JRE, Apache Tomcat 5.5.x, PostgreSQL 8.0 sowie 8.1
+
+* Sun Java 5 JRE, JBoss Application Server 4.2, PostgreSQL 8.0
+
+* Sun Java 5 JRE, Maven 3 Jetty Integration, PostgreSQL 8.0
