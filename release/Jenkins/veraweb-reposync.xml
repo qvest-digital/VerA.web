@@ -8,9 +8,9 @@
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Delete:tglase</permission>
       <permission>hudson.model.Item.Configure:tglase</permission>
-      <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Build:tglase</permission>
       <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Item.Read:tglase</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
@@ -42,7 +42,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>rv=0
+      <command>set +ex
+rv=0
 git remote remove evolvis
 if ! git remote add -f evolvis git+ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git; then
 	echo &gt;&amp;2 &quot;E: cannot fetch from evolvis&quot;
