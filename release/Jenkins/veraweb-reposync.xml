@@ -44,7 +44,7 @@
     <hudson.tasks.Shell>
       <command>set +ex
 rv=0
-git remote remove evolvis
+git remote remove evolvis 2&gt;/dev/null
 if ! git remote add -f evolvis git+ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git; then
 	echo &gt;&amp;2 &quot;E: cannot fetch from evolvis&quot;
 	exit 1
@@ -53,7 +53,7 @@ if ! git merge --ff-only evolvis/master; then
 	echo &gt;&amp;2 &quot;E: cannot ff-merge evolvis master; resolve manually!&quot;
 	exit 1
 fi
-git remote remove gitlab
+git remote remove gitlab 2&gt;/dev/null
 if ! git remote add -f gitlab git@gitlab.tarent.de:veraweb-int/veraweb.git; then
 	echo &gt;&amp;2 &quot;E: cannot fetch from gitlab&quot;
 	exit 1
