@@ -9,8 +9,10 @@
       <permission>hudson.model.Item.Delete:tglase</permission>
       <permission>hudson.model.Item.Configure:tglase</permission>
       <permission>hudson.model.Item.Build:tglase</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
       <permission>hudson.model.Item.Workspace:tglase</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
@@ -73,6 +75,12 @@ fi
 exit $rv</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.11">
+      <recipients>t.glaser@tarent.de</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
   <buildWrappers/>
 </project>
