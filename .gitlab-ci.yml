@@ -1,0 +1,50 @@
+variables:
+  MAVEN_OPTS: "-Xmx2048m -XX:+UseG1GC -XX:+UseCompressedOops"
+
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  tags:
+    - veraweb
+  only:
+    - branches
+  except:
+    - master@veraweb-int/veraweb
+  script:
+    - mvn verify sonar:sonar -Dsonar.host.url=https://ci-busyapps.lan.tarent.de/sonar/ -Dsonar.analysis.mode=preview -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_BUILD_REF -Dsonar.gitlab.ref_name=$CI_BUILD_REF_NAME
+  artifacts:
+    paths:
+    - core/target/surefire-reports/
+    - export/target/surefire-reports/
+    - mw/OCTOPUS/core/target/surefire-reports/
+    - mw/OCTOPUS/ext-beans/target/surefire-reports/
+    - mw/tarentcommons/target/surefire-reports/
+    - shared/target/surefire-reports/
+    - vwor/target/surefire-reports/
+    name: reports
+    when: on_failure
+    expire_in: 4 weeks
+
+build:
+  stage: build
+  tags:
+    - veraweb
+  only:
+    - master@veraweb-int/veraweb
+  script:
+    - mvn verify sonar:sonar -Dsonar.host.url=https://ci-busyapps.lan.tarent.de/sonar/
+  artifacts:
+    paths:
+    - core/target/surefire-reports/
+    - export/target/surefire-reports/
+    - mw/OCTOPUS/core/target/surefire-reports/
+    - mw/OCTOPUS/ext-beans/target/surefire-reports/
+    - mw/tarentcommons/target/surefire-reports/
+    - shared/target/surefire-reports/
+    - vwor/target/surefire-reports/
+    name: reports
+    when: on_failure
+    expire_in: 4 weeks
