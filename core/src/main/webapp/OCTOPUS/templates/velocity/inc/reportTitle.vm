@@ -93,7 +93,7 @@
             Ort:
         </td>
 		<td>
-            $location.
+            $location.name
         </td>
 	</tr>
 </table>
