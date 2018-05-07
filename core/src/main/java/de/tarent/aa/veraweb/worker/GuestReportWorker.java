@@ -147,7 +147,7 @@ public class GuestReportWorker {
         }
 
         if (location == null ) {
-            logger.warning("Could not get location name by: " + cntx.getTaskName());
+            logger.warning("Could not get location name by task: " + cntx.getTaskName());
             return;
         }
 

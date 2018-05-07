@@ -1357,6 +1357,7 @@
 				Exportiert einen Report und zeigt diesen als HTML-Bericht an.
 			</description>
 			<doTask name="Load"/>
+			<action name="getLocation" worker="LocationDetailWorker"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker"/>
 			<action name="createReport" worker="GuestReportWorker"/>
