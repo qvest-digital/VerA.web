@@ -66,6 +66,7 @@ package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -81,6 +82,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Dieser Worker stellt entsprechende Funktionen zur Erstellung von
@@ -96,6 +98,7 @@ public class GuestReportWorker {
      * Octopus-Eingabeparameter für {@link #createReport(OctopusContext)}
      */
     public static final String INPUT_createReport[] = {};
+    private static Logger logger = Logger.getLogger(GuestReportWorker.class.getName());
 
     /**
      * Diese Octopus-Aktion erzeugt Daten für einen Bericht. Hierbei wird auf
@@ -135,10 +138,17 @@ public class GuestReportWorker {
     public void createReport(OctopusContext cntx) throws BeanException {
         Database database = new DatabaseVeraWeb(cntx);
         Event event = (Event) cntx.contentAsObject("event");
+        Location location = (Location)  cntx.contentAsObject("location");
         GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
         List selection = (List) cntx.sessionAsObject("selectionGuest");
 
         if (event == null) {
+            return;
+        }
+
+        if (location == null ) {
+            logger.warning("Could not get location name by creating Report.");
+            location.setLocation("");
             return;
         }
 

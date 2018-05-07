@@ -93,7 +93,7 @@
             Ort:
         </td>
 		<td>
-            $!event.location
+            $location.
         </td>
 	</tr>
 </table>
