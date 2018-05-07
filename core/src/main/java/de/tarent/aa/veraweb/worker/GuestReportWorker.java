@@ -138,7 +138,7 @@ public class GuestReportWorker {
     public void createReport(OctopusContext cntx) throws BeanException {
         Database database = new DatabaseVeraWeb(cntx);
         Event event = (Event) cntx.contentAsObject("event");
-        Location location = (Location)  cntx.contentAsObject("location");
+        Location location = (Location) cntx.contentAsObject("location");
         GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
         List selection = (List) cntx.sessionAsObject("selectionGuest");
 
@@ -147,8 +147,7 @@ public class GuestReportWorker {
         }
 
         if (location == null ) {
-            logger.warning("Could not get location name by creating Report.");
-            location.setLocation("");
+            logger.warning("Could not get location name by: " + cntx.getTaskName());
             return;
         }
 
@@ -165,53 +164,8 @@ public class GuestReportWorker {
         boolean kategorie = type.startsWith("Kat");
         boolean alphabetisch = type.startsWith("Alpha");
 
-        String titel;
-        if (search.invitationstatus != null && search.invitationstatus.intValue() == 1) {
-            titel = "Offenliste";
-        } else if (search.invitationstatus != null && search.invitationstatus.intValue() == 2) {
-            titel = "Zusagenliste";
-        } else if (search.invitationstatus != null && search.invitationstatus.intValue() == 3) {
-            titel = "Absagenliste";
-        } else {
-            titel = "Gästeliste";
-        }
-        if (alphabetisch) {
-            titel += " (alphabetisch)";
-        }
-
-        Select select = SQL.Select(database).
-          from("veraweb.tguest").
-          selectAs("tguest.pk", "id").
-          selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").
-          select("reserve").
-          select("lastname_a_e1").
-          select("title_a_e1").
-          select("firstname_a_e1").
-          select("lastname_b_e1").
-          select("title_b_e1").
-          select("firstname_b_e1").
-          select("invitationtype").
-          select("invitationstatus").
-          select("invitationstatus_p").
-          select("orderno").
-          select("orderno_p").
-          select("notehost").
-          select("notehost_p").
-          select("ishost").
-          select("fon_a_e1").
-          select("fon_b_e1").
-          select("fon_c_e1").
-          select("fax_a_e1").
-          select("fax_b_e1").
-          select("fax_c_e1").
-          select("mobil_a_e1").
-          select("mobil_b_e1").
-          select("mobil_c_e1").
-          select("function_a_e1").
-          select("company_a_e1").
-          selectAs("tcategorie.catname", "category").
-          joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
-          joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
+        String titel = validateTitle(search, alphabetisch);
+        Select select = selectDatabaseFields(database);
 
         /*
          * modified to support ordering by workarea as per change request for version 1.2.0
@@ -220,6 +174,7 @@ public class GuestReportWorker {
          * 2008-02-20
          */
         Boolean orderByWorkArea = cntx.requestAsBoolean("orderByWorkArea");
+
         if (orderByWorkArea.booleanValue()) {
             select.joinLeftOuter("veraweb.tworkarea", "tperson.fk_workarea", "tworkarea.pk");
             select.selectAs("CASE WHEN tworkarea.name <> 'Kein' THEN tworkarea.name ELSE 'Kein Arbeitsbereich' END",
@@ -271,6 +226,72 @@ public class GuestReportWorker {
     //
     // Hilfsmethoden
     //
+
+    /**
+     * Diese Methode überprüft und setzt den validen Title anhand der GuestSearch Bean
+     *
+     * @param search
+     * @param alphabetisch
+     * @return
+     */
+    private String validateTitle(GuestSearch search, boolean alphabetisch) {
+        String titel;
+        if (search.invitationstatus != null && search.invitationstatus.intValue() == 1) {
+            titel = "Offenliste";
+        } else if (search.invitationstatus != null && search.invitationstatus.intValue() == 2) {
+            titel = "Zusagenliste";
+        } else if (search.invitationstatus != null && search.invitationstatus.intValue() == 3) {
+            titel = "Absagenliste";
+        } else {
+            titel = "Gästeliste";
+        }
+        if (alphabetisch) {
+            titel += " (alphabetisch)";
+        }
+        return titel;
+    }
+
+    /**
+     * Diese Methode gibt ein select mit den benötigten Feldern zurück.
+     *
+     * @param database
+     * @return
+     */
+    private Select selectDatabaseFields(Database database) {
+        return SQL.Select(database).
+              from("veraweb.tguest").
+              selectAs("tguest.pk", "id").
+              selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").
+              select("reserve").
+              select("lastname_a_e1").
+              select("title_a_e1").
+              select("firstname_a_e1").
+              select("lastname_b_e1").
+              select("title_b_e1").
+              select("firstname_b_e1").
+              select("invitationtype").
+              select("invitationstatus").
+              select("invitationstatus_p").
+              select("orderno").
+              select("orderno_p").
+              select("notehost").
+              select("notehost_p").
+              select("ishost").
+              select("fon_a_e1").
+              select("fon_b_e1").
+              select("fon_c_e1").
+              select("fax_a_e1").
+              select("fax_b_e1").
+              select("fax_c_e1").
+              select("mobil_a_e1").
+              select("mobil_b_e1").
+              select("mobil_c_e1").
+              select("function_a_e1").
+              select("company_a_e1").
+              selectAs("tcategorie.catname", "category").
+              joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
+              joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
+    }
 
     /**
      * Diese Methode fügt gemäß einem übergebenen Sortierkriterium ("orderno",
