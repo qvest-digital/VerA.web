@@ -112,12 +112,6 @@
 			<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-	<repositories>
-		<repository>
-			<id>tarent-repo</id>
-			<url>https://repo-bn-01.lan.tarent.de/repository/maven-all/</url>
-		</repository>
-	</repositories>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
