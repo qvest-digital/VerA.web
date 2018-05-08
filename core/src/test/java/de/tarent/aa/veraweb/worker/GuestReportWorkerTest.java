@@ -6,7 +6,8 @@ import org.junit.Ignore;
 //@RunWith(PowerMockRunner.class)
 //@PrepareForTest(WorkerFactory.class)
 public class GuestReportWorkerTest {
-    
+
+    //TODO: VERA-607
     @Ignore
     public void testCreateReport() throws BeanException {
 
