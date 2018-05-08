@@ -108,6 +108,9 @@ public class PlaceholderSubstitution {
         map.put("mobile", person.getMobil_a_e1());
         map.put("email", person.getMail_a_e1());
         map.put("url", person.getUrl_a_e1());
+        map.put("remark", person.getNote_a_e1());
+        map.put("hintforhost", person.getNotehost_a_e1());
+        map.put("hintfororga", person.getNoteForOrga());
         return map;
     }
 

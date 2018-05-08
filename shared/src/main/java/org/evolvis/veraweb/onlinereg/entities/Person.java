@@ -69,15 +69,7 @@ package org.evolvis.veraweb.onlinereg.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
@@ -131,6 +123,10 @@ public class Person {
 
     private String note_a_e1;
     private String notehost_a_e1;
+
+    @Column(name = "noteorga_a_e1")
+    private String noteForOrga;
+
     private String firstname_a_e1;
     private String firstname_a_e2;
     private String firstname_a_e3;
@@ -162,6 +158,7 @@ public class Person {
     private String mobil_a_e1;
     private String mail_a_e1;
     private String url_a_e1;
+
     /* Username for the Onlinereg service */
     private String username;
 
@@ -427,5 +424,13 @@ public class Person {
 
     public String getNationality_a_e1() {
         return nationality_a_e1;
+    }
+
+    public String getNoteForOrga() {
+        return noteForOrga;
+    }
+
+    public void setNoteForOrga(String noteForOrga) {
+        this.noteForOrga = noteForOrga;
     }
 }
