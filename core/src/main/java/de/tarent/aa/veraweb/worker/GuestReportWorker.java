@@ -212,7 +212,8 @@ public class GuestReportWorker {
         select.orderBy(DatabaseHelper.getOrder(order));
 
         Map data = new HashMap();
-        WorkerFactory.getGuestListWorker(cntx).getSums(database, data, search, selection);
+        GuestListWorker guestListWorker = WorkerFactory.getGuestListWorker(cntx);
+        guestListWorker.getSums(database, data, search, selection);
 
         cntx.setContent("datum", new Date());
         cntx.setContent("titel", titel);
