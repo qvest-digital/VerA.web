@@ -18,10 +18,10 @@
         <script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript"><!--//--><![CDATA[//><!--
 		/* assign translated strings to global JS variables */
-		$paths_staticWeb = "${paths.staticWeb}";
-		$errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}";
-		$errorMsgAddress = "${placeholderWithTranslation.ADDRESS_ERROR}";
-		$errorMsgVerteiler = "${placeholderWithTranslation.verteilerfehler}";
+		V_paths_staticWeb = "${paths.staticWeb}";
+		V_errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}";
+		V_errorMsgAddress = "${placeholderWithTranslation.ADDRESS_ERROR}";
+		V_errorMsgVerteiler = "${placeholderWithTranslation.verteilerfehler}";
 	//--><!]]></script>
         <script src="${paths.staticWeb}js/vera/veraweb-mailinglistwrite.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-mailtemplate.js"></script>
