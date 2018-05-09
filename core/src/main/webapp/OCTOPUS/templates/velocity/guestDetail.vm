@@ -313,7 +313,6 @@
 
 <script type="text/javascript" src="${paths.staticWeb}js/vera/guest-detail-tabs.js"></script>
 <script type="text/javascript"><!--//--><![CDATA[//><!--
-false
     function setGuestInvitationtype(type) {
         if (type == 1) {
             changeBlock('detail-2-data', new Array('detail-2-reload'));
