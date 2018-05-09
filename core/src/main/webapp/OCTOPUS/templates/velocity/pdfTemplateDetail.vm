@@ -146,6 +146,7 @@
 
         $(document).ready(function() {
     //TODO: umbauen in veraweb-pdftemplate-detail.js wie bei pdfTemplateList.vm mit veraweb-pdftemplate-list.js
+	//XXX besser nicht…
             var options = {
                 beforeSubmit: function() {
                 disableSubmitButton();

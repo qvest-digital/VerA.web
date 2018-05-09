@@ -4,9 +4,6 @@
 #set($entity="DISTRIBUTOR")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
-#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}")
-#set($errorMsgAddress = "${placeholderWithTranslation.ADDRESS_ERROR}")
-#set($errorMsgVerteiler = "${placeholderWithTranslation.verteilerfehler}")
 
 #parse("inc/header.vm")
 
@@ -19,6 +16,12 @@
 <div id="content_container">
         <script src="${paths.staticWeb}js/ext/jquery-form/jquery.form.js"></script>
         <script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
+		/* assign translated strings to global JS variables */
+		$errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}";
+		$errorMsgAddress = "${placeholderWithTranslation.ADDRESS_ERROR}";
+		$errorMsgVerteiler = "${placeholderWithTranslation.verteilerfehler}";
+	//--><!]]></script>
         <script src="${paths.staticWeb}js/vera/veraweb-mailinglistwrite.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-mailtemplate.js"></script>
 
