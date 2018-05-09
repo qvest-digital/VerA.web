@@ -101,7 +101,7 @@
 	</form>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 	function clearFields() {
 		document.getElementById('snr-search').value = '';
 		document.getElementById('snr-replace').value = '';
@@ -117,6 +117,6 @@
 		document.getElementById('snr-group10').checked = false;
 		document.getElementById('snr-group20').checked = false;
 	}
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

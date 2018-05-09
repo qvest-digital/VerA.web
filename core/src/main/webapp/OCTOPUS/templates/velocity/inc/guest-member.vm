@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         function readImage(input) {
                 if ( input.files && input.files[0] ) {
                         var FR= new FileReader();
@@ -79,7 +79,7 @@
                         }
                 }
         }
-</script>
+//--><!]]></script>
 
 <div class="table width100">
         <div>

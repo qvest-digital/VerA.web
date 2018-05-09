@@ -12,7 +12,7 @@
         <script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 
-        <script type="text/javascript">
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
             var showCategory = function () {
             $(".errormsg").remove();
             $(".successmsg").remove();
@@ -169,7 +169,7 @@
                 }
                 window.resizeTo( newWidth, document.body.offsetHeight + 20 );
             }
-        </script>
+	//--><!]]></script>
     </head>
 
     <body onload="adjustSize();" id="popUp">
@@ -198,13 +198,14 @@
                             <input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
                         </div>
                     #elseif ( $assignmentAction == "unassign")
-                        <h1> ${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}:</h1>
-                        <script type="text/javascript">$(function(){
+                        <h1>${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}:</h1>
+			<script type="text/javascript"><!--//--><![CDATA[//><!--
+			$(function(){
                             window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
 
                                 showRemoveCategory();
-                        });</script>
-
+                        });
+			//--><!]]></script>
                                 #end
             </div>
         </form>

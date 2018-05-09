@@ -118,7 +118,7 @@
                         <br/><br/>
 
                         <input type="file" id="JMultiFileUpload" name="files"/>
-                        <script>
+			<script type="text/javascript"><!--//--><![CDATA[//><!--
                             $(function(){
                               $('#JMultiFileUpload').MultiFile({
                                 max:3,
@@ -132,7 +132,7 @@
                                 }
                               });
                             });
-                        </script>
+			//--><!]]></script>
                         <div style="margin-top: 4px;">${placeholderWithTranslation.MAILING_LIST_SIZE_NOTICE}</div>
                                         </div>
                                 </div>

@@ -312,7 +312,7 @@
 </div> <!-- End id="content_container" -->
 
 <script type="text/javascript" src="${paths.staticWeb}js/vera/guest-detail-tabs.js"></script>
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 false
     function setGuestInvitationtype(type) {
         if (type == 1) {
@@ -364,6 +364,6 @@ false
     #elseif($tab == 'detail-3') showTab('detail-3');
          $('input#tab').val("detail-3");
     #end
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

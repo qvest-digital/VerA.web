@@ -53,7 +53,7 @@
 								<div class="calenderContainer">
 									<input type="text" name="begin" value="" id="begin" class="datepicker">
 									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"></span>
-									<script type="text/javascript">
+									<script type="text/javascript"><!--//--><![CDATA[//><!--
 									    Calendar.setup({
 											inputField     :    "begin",
 											button         :    "show-begin",
@@ -65,7 +65,7 @@
 										input.focus(function () {
 											span.trigger('click');
 										});
-									</script>
+									//--><!]]></script>
 								</div>
 							</div>
 							<div class="tableCell width30">

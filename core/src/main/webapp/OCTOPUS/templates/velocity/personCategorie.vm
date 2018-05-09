@@ -70,8 +70,8 @@
                                 <input type="hidden" id="tab" name="tab" value = "$!{octopusRequest.tab}"/>
                                 <input type="hidden" id="show" name="show" value = "$!{octopusRequest.show}"/>
                 </form>
-            <script type="text/javascript">
 
+		<script type="text/javascript"><!--//--><![CDATA[//><!--
                 function addToGuestList() {
                         htmlConfirm('${placeholderWithTranslation.solldiesergastaufplatzgesetztwerden}', new Array('${placeholderWithTranslation.GENERIC_YES}', '${placeholderWithTranslation.GENERIC_NO}'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
                 }
@@ -136,8 +136,7 @@
                                                 '${placeholderWithTranslation.abbrechen}'
                                         );
                 }
-
-            </script>
+		//--><!]]></script>
         </div>
     </div>
 

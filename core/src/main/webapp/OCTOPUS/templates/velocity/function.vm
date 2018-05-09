@@ -94,7 +94,7 @@
         </form>
 </div>
 
-<script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 var emptyInputs=[];
 $(function () {
     $('[name=add-name]').keydown(function (event) {
@@ -139,6 +139,6 @@ function checkIfEmpty(e){
                 document.getElementById('buttonSave').disabled=false;
         }
  };
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

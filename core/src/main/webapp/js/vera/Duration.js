@@ -235,7 +235,7 @@ Duration.prototype.toFormattedString = function( fmt )
 
 /*
 Test Cases
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 var d = new Duration();
 alert( d.toString() );
 
@@ -243,5 +243,5 @@ d = Duration.fromString( "P14Y5M" );
 alert( d.toString() );
 
 alert( d.toFormattedString( "Et duurt %Y, %M un %d bis het suwig is." ) );
-</script>
+//--><!]]></script>
 */

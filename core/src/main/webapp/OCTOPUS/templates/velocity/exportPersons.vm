@@ -180,7 +180,7 @@
                 #set($style = 'style="display:none;"')
             #end
 
-            <script type="text/javascript">
+	    <script type="text/javascript"><!--//--><![CDATA[//><!--
                 function formatChanged() {
                     #foreach($formatKey in $formats.keySet())
                         document.getElementById('format-$formatKey').style.display = 'none';
@@ -189,7 +189,7 @@
 
                     return true;
                 }
-            </script>
+	    //--><!]]></script>
 
             ## see DataExchangeWorker#export
 
@@ -201,7 +201,7 @@
     </form>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
     document.formExport.exportFilter[0].click();
     function filterChanged() {
         if (document.formExport.exportFilter[0].checked) {
@@ -215,6 +215,6 @@
         }
         return true;
     }
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

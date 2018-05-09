@@ -169,8 +169,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
-
+<script type="text/javascript"><!--//--><![CDATA[//><!--
     function upload(){
         document.getElementById('importfile').click();
     }
@@ -189,8 +188,7 @@
         htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
         document.getElementById('formImport').submit();
     }
-
-</script>
+//--><!]]></script>
 
 ##<!-- Bug 1362: Die Möglichkeit, einen bestehenden Exportvorgang zu laden, ist vom AA nicht gewünscht -->
 ##<br>

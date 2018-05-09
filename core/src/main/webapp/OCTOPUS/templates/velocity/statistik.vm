@@ -23,32 +23,34 @@
 						<span id="showBegin" class="datepickerContainer">
 						<input type="text" name="begin" placeholder="${placeholderWithTranslation.PLACEHOLDER_DATE_FORMAT}" id="begin" class="datepicker">
 						<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
-						<script type="text/javascript">
+						<script type="text/javascript"><!--//--><![CDATA[//><!--
 							Calendar.setup({
 								inputField	 :	"begin",
 								button		 :	"showBegin",
 								ifFormat	 :	"%d.%m.%Y",
 								showsTime	 :	false
 							});
-						</script></span>
+						//--><!]]></script>
+						</span>
 				##		&nbsp; &nbsp;
 				##		(<a href="javascript:document.getElementById('begin').value='$!message.date("DATE", $firstDayInMonth)'; document.getElementById('end').value='$!message.date("DATE", $lastDayInMonth)';">${placeholderWithTranslation.GENERIC_INSERT_CURRENT_MONTH}</a>)
 						<label for="end">${placeholderWithTranslation.zeitrahmenende}</label>
 						<span id="showEnd" class="datepickerContainer">
 						<input type="text" name="end" placeholder="${placeholderWithTranslation.PLACEHOLDER_DATE_FORMAT}" id="end" class="datepicker">
 						<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
-						<script type="text/javascript">
+						<script type="text/javascript"><!--//--><![CDATA[//><!--
 							Calendar.setup({
 								inputField	 :	"end",
 								button		 :	"showEnd",
 								ifFormat	 :	"%d.%m.%Y",
 								showsTime	 :	false
 							});
-						</script></span>
+						//--><!]]></script>
+						</span>
 					</div>
 
 					<div class="tableCell width50 inlineLabel statisticsType">
-						<script type="text/javascript">
+						<script type="text/javascript"><!--//--><![CDATA[//><!--
 							function exportStatistik() {
 
 								re = /^\d{1,2}\.\d{1,2}\.\d{4}$/;
@@ -118,7 +120,7 @@
 									return false;
 								}
 							}
-						</script>
+						//--><!]]></script>
 
 						<h2>${placeholderWithTranslation.statistiktypauswahlen}:</h2>
 

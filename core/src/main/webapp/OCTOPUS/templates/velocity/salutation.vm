@@ -103,7 +103,7 @@
                                                         #end
 
                             ##Rueckfrage beim Loeschen
-                            <script type="text/javascript">
+			<script type="text/javascript"><!--//--><![CDATA[//><!--
                             function askDelete() {
                                 htmlConfirm(' ${placeholderWithTranslation.QUESTION_DELETE} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askDeleteYes();", "askDeleteNo();"));
                             }
@@ -116,15 +116,14 @@
                                 hideDialogs();
                                 showComboboxes();
                             }
-                            </script>
+			//--><!]]></script>
                                                         <input type="hidden" name="egal" value="egal" id="presave">
          </div>
     </form>
 </div>
-</script>
-<script type="text/javascript">
 #if(!$grants.isAdmin())
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         disableForm(document.getElementById('formlist'));
+//--><!]]></script>
 #end
-</script>
 #parse("inc/footer.vm")

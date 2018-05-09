@@ -24,13 +24,12 @@
 #else
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/lang/calendar-${placeholderWithTranslation.language_short}.js"></script>
 #end
-
-                <script>
+		<script type="text/javascript"><!--//--><![CDATA[//><!--
                         document.createElement("header");
                         document.createElement("nav");
                         document.createElement("section");
                         document.createElement("footer");
-                </script>
+		//--><!]]></script>
                 <link rel="stylesheet" type="text/css" href="${paths.staticWeb}js/ext/jscalendar/calendar-win2k-cold-1.css" media="all" />
                 <script type="text/javascript" src="${paths.staticWeb}js/vera/vera-tabs.js"></script>
 ##              Style
@@ -187,73 +186,69 @@
                                 </vera-success>
                         #end
 
-            <script type="text/javascript">
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
                 function changeLanguage(selectedLanguage) {
                     document.getElementById("languageSelectForm").submit();
                 }
-            </script>
 
-                        <script type="text/javascript">
-                                $(document).ready(function(){
+		$(document).ready(function(){
 
-                                        var octopusLanguage = "${language}";
-                                        var previousLanguage = "${octopusRequest.loginlanguage}";
-                                        if (octopusLanguage == "en_EN" || octopusLanguage == "es_ES" || octopusLanguage == "de_DE" || octopusLanguage == "fr_FR") {
-                                                previousLanguage = octopusLanguage;
-                                        }
+			var octopusLanguage = "${language}";
+			var previousLanguage = "${octopusRequest.loginlanguage}";
+			if (octopusLanguage == "en_EN" || octopusLanguage == "es_ES" || octopusLanguage == "de_DE" || octopusLanguage == "fr_FR") {
+				previousLanguage = octopusLanguage;
+			}
 
-                                        if (previousLanguage == 'de_DE' || (previousLanguage != 'de_DE' && previousLanguage != 'en_EN' && previousLanguage != 'es_ES' && previousLanguage != 'fr_FR')) {
-                                                $("#french").hide();
-                                                $("#spanish").hide();
-                                                $("#english").hide();
-                                                $("#german").show();
-                                                $("#languagefr").hide();
-                                                $("#languagees").hide();
-                                                $("#languageen").hide();
-                                                $("#languagede").show();
+			if (previousLanguage == 'de_DE' || (previousLanguage != 'de_DE' && previousLanguage != 'en_EN' && previousLanguage != 'es_ES' && previousLanguage != 'fr_FR')) {
+				$("#french").hide();
+				$("#spanish").hide();
+				$("#english").hide();
+				$("#german").show();
+				$("#languagefr").hide();
+				$("#languagees").hide();
+				$("#languageen").hide();
+				$("#languagede").show();
 
-                                                $("#languageSelectorLogin").val('de_DE');
-                                        }
-                                        else if (previousLanguage == 'en_EN') {
-                                                $("#french").hide();
-                                                $("#spanish").hide();
-                                                $("#english").show();
-                                                $("#german").hide();
-                                                $("#languagefr").hide();
-                                                $("#languagees").hide();
-                                                $("#languageen").show();
-                                                $("#languagede").hide();
+				$("#languageSelectorLogin").val('de_DE');
+			}
+			else if (previousLanguage == 'en_EN') {
+				$("#french").hide();
+				$("#spanish").hide();
+				$("#english").show();
+				$("#german").hide();
+				$("#languagefr").hide();
+				$("#languagees").hide();
+				$("#languageen").show();
+				$("#languagede").hide();
 
-                                                $("#languageSelectorLogin").val('en_EN');
-                                        }
-                                        else if (previousLanguage == 'es_ES') {
-                                                $("#french").hide();
-                                                $("#spanish").show();
-                                                $("#english").hide();
-                                                $("#german").hide();
-                                                $("#languagefr").hide();
-                                                $("#languagees").show();
-                                                $("#languageen").hide();
-                                                $("#languagede").hide();
+				$("#languageSelectorLogin").val('en_EN');
+			}
+			else if (previousLanguage == 'es_ES') {
+				$("#french").hide();
+				$("#spanish").show();
+				$("#english").hide();
+				$("#german").hide();
+				$("#languagefr").hide();
+				$("#languagees").show();
+				$("#languageen").hide();
+				$("#languagede").hide();
 
-                                                $("#languageSelectorLogin").val('es_ES');
-                                        }
-                                        else if (previousLanguage == 'fr_FR') {
-                                                $("#french").show();
-                                                $("#spanish").hide();
-                                                $("#english").hide();
-                                                $("#german").hide();
-                                                $("#languagefr").show();
-                                                $("#languagees").hide();
-                                                $("#languageen").hide();
-                                                $("#languagede").hide();
+				$("#languageSelectorLogin").val('es_ES');
+			}
+			else if (previousLanguage == 'fr_FR') {
+				$("#french").show();
+				$("#spanish").hide();
+				$("#english").hide();
+				$("#german").hide();
+				$("#languagefr").show();
+				$("#languagees").hide();
+				$("#languageen").hide();
+				$("#languagede").hide();
 
-                                                $("#languageSelectorLogin").val('fr_FR');
-                                        }
-                });
-                        </script>
+				$("#languageSelectorLogin").val('fr_FR');
+			}
+		});
 
-                        <script type="text/javascript">
                 function changeLoginLanguage(selectedLanguage) {
                         $(".errormsg").remove();
                         var lang = selectedLanguage.value;
@@ -298,5 +293,5 @@
                                                 $("#languagede").hide();
                         }
                 }
-            </script>
+	//--><!]]></script>
                         #parse("inc/check-oa-active.vm")

@@ -14,7 +14,7 @@
 
 #parse("inc/header.vm")
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
     function openNewEmail() {
         var check = confirm("${placeholderWithTranslation.GM_CONFIRMATION_EMAIL_DISTRIBUTOR}");
         if (check == true) {
@@ -31,7 +31,7 @@
             });
         }
     }
-</script>
+//--><!]]></script>
 
 <div id="content_container">
         <div id="breadcrumb" class="textRight marginBottom10">
@@ -114,7 +114,7 @@
         </form>
     <div class="clear"></div>
 </div>
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
     #if($maildispatchParams && $maildispatchParams.count)
         #if($maildispatchParams.count == 0)
                 showWarning(' ${placeholderWithTranslation.eswurdekeineemailzumversendengespeichert} ');
@@ -124,6 +124,6 @@
                 showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $maildispatchParams.count ${placeholderWithTranslation.emailszumversendengespeichertdiesewerdennunautomatischversendet} ');
         #end
     #end
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

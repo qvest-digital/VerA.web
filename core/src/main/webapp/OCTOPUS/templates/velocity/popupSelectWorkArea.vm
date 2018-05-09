@@ -13,7 +13,7 @@
         <script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 
-        <script type="text/javascript">
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
                 var showDeleteAllocate = function () {
                 var selectionOfOption = $('option[name$="nix"]:selected');
                         if(selectionOfOption.length === 1) {
@@ -174,7 +174,7 @@
                         }
                         window.resizeTo( newWidth, document.body.offsetHeight + 20 );
                 }
-        </script>
+	//--><!]]></script>
 </head>
 
 <body onload="adjustSize();" id="popUp">

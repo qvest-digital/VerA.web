@@ -32,7 +32,7 @@
                         </div>
                 </div>
 
-                        <script>
+			<script type="text/javascript"><!--//--><![CDATA[//><!--
                                 $(function(){
                                         $('#type').change(function(){
                                                 if($(this).val() === 'Alpha01'){
@@ -44,7 +44,7 @@
                                                 }
                                         });
                                 });
-            </script>
+			//--><!]]></script>
 
                 <!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
                 <h3 class="marginBottom10 marginTop30" id="sortHeadline" style="display:none">${placeholderWithTranslation.SORT_CRITERIA}</h3>

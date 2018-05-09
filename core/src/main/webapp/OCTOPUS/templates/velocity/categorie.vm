@@ -211,7 +211,7 @@
         </form>
 </div>
 
-<script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
     $(function() {
                 $('#button\\.resortYes').click(function (e) {
                         $('#resort').val('true');
@@ -228,6 +228,6 @@
                                 .submit();
                 });
     });
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

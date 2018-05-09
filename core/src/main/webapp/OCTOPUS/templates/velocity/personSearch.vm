@@ -219,14 +219,15 @@
                                                         <span id="showGueltigDate" class="datepickerContainer">
                                                                 <input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="datepicker">
                                                                 <img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswaehlen}" title="${placeholderWithTranslation.datumauswaehlen}">
-                                                                <script type="text/javascript">
+								<script type="text/javascript"><!--//--><![CDATA[//><!--
                                                                     Calendar.setup({
                                                                                 inputField     :    "validdate",
                                                                                 button         :    "showGueltigDate",
                                                                                 ifFormat       :    "%d.%m.%Y",
                                                                                 showsTime      :    false
                                                                         });
-                                                                </script></span>
+								//--><!]]></script>
+							</span>
                                                         </div>
                         </div>
                         <div class="tableCell width30"></div>
@@ -265,7 +266,7 @@
     </vera-info>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         var clearForm = function () {
         $ .each(['firstname', 'lastname', 'function', 'company', 'street', 'zipcode', 'city', 'country', 'importsource',
                 'validdate', 'state', 'workarea'], function(idx, field) {
@@ -297,6 +298,6 @@
                         }
                 }
         };
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

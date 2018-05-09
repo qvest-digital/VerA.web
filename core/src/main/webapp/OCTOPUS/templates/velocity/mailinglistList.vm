@@ -16,7 +16,7 @@
 
 #parse("inc/header.vm")
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
     function deleteMailinglist() {
         var n = 0; //Anzahl der markierten Verteiler
         for (var i = 0; i < document.formlist.length; i++) {
@@ -35,7 +35,7 @@
                 document.formlist.submit();
         }
     }
-</script>
+//--><!]]></script>
 
 <div id="content_container">
         <div id="breadcrumb" class="textRight marginBottom10">

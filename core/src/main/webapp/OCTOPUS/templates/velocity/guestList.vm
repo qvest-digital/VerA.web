@@ -240,7 +240,7 @@
                         </div>
 
                         ## Handler für selektierte Aktion
-                        <script>
+			<script type="text/javascript"><!--//--><![CDATA[//><!--
                                 var removeGuestabfrage = function () {
                                                 #if(!$grants.mayWrite())
                                                         showWarning('${placeholderWithTranslation.siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen}.');
@@ -342,7 +342,7 @@
                                                 document.getElementById('formlist').action = action;
                                                 document.formlist.submit();
                                 }
-                        </script>
+			//--><!]]></script>
                                 <div id="guestListWrapper">
                                         <table class="sortable">
                                                 ##Set column size
@@ -670,7 +670,7 @@
 
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         function orderGuestList(column) {
                 document.getElementById('search-listorder').value = column;
                 document.getElementById('guestListFilter').submit();
@@ -710,7 +710,6 @@
                         icons.addClass( "invisible" );
                 }
         };
-
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

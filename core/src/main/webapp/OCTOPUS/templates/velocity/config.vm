@@ -214,7 +214,7 @@
                                 <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
                                 <script type="text/javascript" src="${paths.staticWeb}js/vera/Duration.js"></script>
                                 <script type="text/javascript" src="${paths.staticWeb}js/vera/DurationInputDialog.js"></script>
-                                <script type="text/javascript">
+				<script type="text/javascript"><!--//--><![CDATA[//><!--
                                         DurationInputDialog.setup(
                                                 {
                                                         display : "changeLogRetentionPolicyDisplay",
@@ -223,7 +223,7 @@
                                                         title : "${placeholderWithTranslation.HINT_GIVE_THE_RETENTION_PERIOD}:"
                                                 }
                                         );
-                                </script>
+				//--><!]]></script>
                                 </td>
                         </tr>
                 </table>
@@ -243,10 +243,10 @@
 
 </form>
 
-<script type="text/javascript">
 #if(!$grants.isAdmin())
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         disableForm(document.getElementById('formlist'));
+//--><!]]></script>
 #end
-</script>
 
 #parse("inc/footer.vm")

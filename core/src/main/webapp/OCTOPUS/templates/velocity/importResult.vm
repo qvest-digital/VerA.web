@@ -68,7 +68,7 @@
 </div>
 
 #if($imported)
-    <script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
      #if($imported == 0)
         showSuccess(' ${placeholderWithTranslation.siehabenkeinendatensatzimportiert} ');
      #elseif($imported == 1)
@@ -76,7 +76,7 @@
      #elseif($imported > 1)
         showSuccess(' ${placeholderWithTranslation.siehaben} $imported ${placeholderWithTranslation.datensatzeimportiert} ');
      #end
-    </script>
+//--><!]]></script>
 #end
 
 #parse("inc/footer.vm")

@@ -73,7 +73,7 @@
  *  <input name="myDurationInputFieldValue" id="myDurationInputFieldValue" type="hidden" value="P1Y4M"></input>
  *  <input name="myDurationInputFieldDisplay" id="myDurationInputFieldDisplay" type="text" readonly="readonly" value="1 Jahr 4 Monate"></input>
  *  <span><img src="/images/duration.gif"></span>
- *  <script type="text/javascript">
+ *  <script type="text/javascript"><!--//--><![CDATA[//><!--
  *    DurationInputDialog.setup(
  *      {
  *        value : "myDurationInputFieldValue",
@@ -82,7 +82,7 @@
  *        title : "Aufbewahrungsfrist:"
  *      }
  *    );
- *  </script>
+ *  //--><!]]></script>
  * </pre>
  *
  * @author cklein

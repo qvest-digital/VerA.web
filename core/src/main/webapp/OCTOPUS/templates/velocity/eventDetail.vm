@@ -142,14 +142,14 @@
 												<span class="datepickerContainer" id="show-begin">
 													<input type="text" class="datepicker" id="event-begin" value="$!message.date("DATE", $event.begin)" name="event-begin" onchange="setModified();">
 													<img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
-													<script type="text/javascript">
+													<script type="text/javascript"><!--//--><![CDATA[//><!--
 														Calendar.setup({
 															inputField: "event-begin",
 															button:     "show-begin",
 															ifFormat:   "%d.%m.%Y",
 															showsTime:  false
 														});
-													</script>
+													//--><!]]></script>
 												</span>
 											#end
 										${placeholderWithTranslation.GENERIC_AT} <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-begintime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
@@ -162,14 +162,14 @@
 												<input type="text" class="datepicker" id="event-end" value="$!message.date("DATE", $event.end)" name="event-end" onchange="setModified();">
 													<img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
 
-													<script type="text/javascript">
+													<script type="text/javascript"><!--//--><![CDATA[//><!--
 														Calendar.setup({
 															inputField: "event-end",
 															button:     "show-end",
 															ifFormat:   "%d.%m.%Y",
 															showsTime:  false
 														});
-													</script>
+													//--><!]]></script>
 												</span>
 											#end
 										${placeholderWithTranslation.GENERIC_AT} <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-endtime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
@@ -225,7 +225,7 @@
 							<div class="tableRow">
 								<div class="tableCell width50">
 									<label for="event-location">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_SINGULAR}</label>
-									<script type="text/javascript">
+									<script type="text/javascript"><!--//--><![CDATA[//><!--
 										function addCity() {
 											var city = document.getElementById('addcity').value;
 											var select = document.getElementById('event-location');
@@ -261,7 +261,7 @@
 											hideDialogs();
 											showComboboxes();
 										}
-									</script>
+									//--><!]]></script>
 									<input type="hidden" id="addcity-masterdata" name="addcity-masterdata" #if($addcity-masterdata) value="true" #else value="false" #end>
 									<input type="hidden" id="addcity" name="addcity" value="">
 									<select onchange="setModified();" name="event-location" id="event-location">
@@ -330,7 +330,7 @@
 			#end
 		</span>
 
-		<script type="text/javascript">
+		<script type="text/javascript"><!--//--><![CDATA[//><!--
 			function removeHost() {
 				##showSuccess('Bitte beachten Sie das der Gastgeber dieser Veranstaltung weiterhin als normaler Gast zugeordenet ist.');
 				document.getElementById('event-host').value='';
@@ -351,7 +351,7 @@
 			#if(!$grants.mayWrite())
 				disableForm(document.getElementById('formlist'));
 			#end
-		</script>
+		//--><!]]></script>
 
 	</form>
 	<div class="clear"></div>

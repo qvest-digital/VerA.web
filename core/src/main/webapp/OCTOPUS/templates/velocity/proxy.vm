@@ -135,14 +135,15 @@
 					<span id="show-add-from" class="datepickerContainer">
 					<input type="text" name="add-validFrom" id="add-validFrom" value="" class="datepicker width80" onchange="setModified('add')">
 					<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswaehlen}" title="${placeholderWithTranslation.datumauswaehlen}">
-					<script type="text/javascript">
+					<script type="text/javascript"><!--//--><![CDATA[//><!--
 						Calendar.setup({
 							inputField	 :	"add-validFrom",
 							button		 :	"show-add-from",
 							ifFormat	 :	"%d.%m.%Y",
 							showsTime	 :	false
 						});
-					</script></span>
+					//--><!]]></script>
+					</span>
 				</div>
 			</td>
 			<td class="textCenter">
@@ -150,14 +151,15 @@
 					<span id="show-add-till" class="datepickerContainer">
 					<input type="text" name="add-validTill" id="add-validTill" value="" class="datepicker width80" onchange="setModified('add')">
 					<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswaehlen}" title="${placeholderWithTranslation.datumauswaehlen}">
-					<script type="text/javascript">
+					<script type="text/javascript"><!--//--><![CDATA[//><!--
 						Calendar.setup({
 							inputField	 :	"add-validTill",
 							button		 :	"show-add-till",
 							ifFormat	 :	"%d.%m.%Y",
 							showsTime	 :	false
 						});
-					</script></span>
+					//--><!]]></script>
+					</span>
 				</div>
 			</td>
 		</tr>
@@ -185,14 +187,15 @@
 					<span id="show-${bean.id}-from" class="datepickerContainer">
 					<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="datepicker width80" onchange="setModified('$!bean.id')">
 					<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswaehlen}" title="${placeholderWithTranslation.datumauswaehlen}">
-					<script type="text/javascript">
+					<script type="text/javascript"><!--//--><![CDATA[//><!--
 						Calendar.setup({
 							inputField	 :	"${bean.id}-validFrom",
 							button		 :	"show-${bean.id}-from",
 							ifFormat	 :	"%d.%m.%Y",
 							showsTime	 :	false
 						});
-					</script></span>
+					//--><!]]></script>
+					</span>
 				</div>
 			</td>
 			<td class="textCenter">
@@ -200,14 +203,15 @@
 					<span id="show-${bean.id}-till" class="datepickerContainer">
 					<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="datepicker width80" onchange="setModified('$!bean.id')">
 					<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswaehlen}" title="${placeholderWithTranslation.datumauswaehlen}">
-					<script type="text/javascript">
+					<script type="text/javascript"><!--//--><![CDATA[//><!--
 						Calendar.setup({
 							inputField	 :	"${bean.id}-validTill",
 							button		 :	"show-${bean.id}-till",
 							ifFormat	 :	"%d.%m.%Y",
 							showsTime	 :	false
 						});
-					</script></span>
+					//--><!]]></script>
+					</span>
 				</div>
 			</td>
 		</tr>

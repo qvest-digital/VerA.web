@@ -10,11 +10,11 @@
     </vera-warn>
 #end
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
     function saveCategoriesPerson() {
         $('#entity').val('CATEGORY');
     }
-</script>
+//--><!]]></script>
 
 <input type="hidden" name="doInsert" value="true">
 <input type="hidden" name="doUpdate" value="true">
