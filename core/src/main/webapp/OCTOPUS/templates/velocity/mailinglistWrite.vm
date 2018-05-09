@@ -18,6 +18,7 @@
         <script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript"><!--//--><![CDATA[//><!--
 		/* assign translated strings to global JS variables */
+		$paths_staticWeb = "${paths.staticWeb}";
 		$errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}";
 		$errorMsgAddress = "${placeholderWithTranslation.ADDRESS_ERROR}";
 		$errorMsgVerteiler = "${placeholderWithTranslation.verteilerfehler}";

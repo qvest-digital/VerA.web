@@ -113,7 +113,7 @@
 	$(document).ready(function () {
 		$('#formlist').ajaxForm({
 			beforeSubmit: function (arr, $form, options) {
-				$("#formlist").attr("action", "${paths.staticWeb}mailing");
+				$("#formlist").attr("action", $paths_staticWeb + "mailing");
 				displaySpinner();
 				disableSubmitButton();
 			},
@@ -121,7 +121,7 @@
 				$(".errormsg").remove();
 				if (response.status === 400) {
 					var arr = response.responseText.split("\n");
-					var text = '$errorMsgAddress' + "<br><br>";
+					var text = $errorMsgAddress + "<br><br>";
 					for (i = 0; i < arr.length; i++) {
 						var syntax = arr[i].indexOf("ADDRESS_SYNTAX_NOT_CORRECT:");
 						if (syntax != -1) {
@@ -131,9 +131,9 @@
 					}
 					showWarning(text);
 				} else if (response.status === 502) {
-					showWarning('$errorMsgVerteiler');
+					showWarning($errorMsgVerteiler);
 				} else {
-					showWarning('$errorMsg');
+					showWarning($errorMsg);
 				}
 				hideSpinner();
 				enableSubmitButton();
