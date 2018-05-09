@@ -153,13 +153,14 @@
     <div class="clear"></div>
 </div>
 
-<style>
-        .delegationFields {
-                margin-left: 10px;
-        }
+<style type="text/css"><!--/*--><![CDATA[/*><!--*/
+	.delegationFields {
+		margin-left: 10px;
+	}
 
-        .delegationFields>li {
-                margin:10px;
-        }
-</style>
+	.delegationFields>li {
+		margin:10px;
+	}
+/*]]>*/--></style>
+
 #parse("inc/footer.vm")
