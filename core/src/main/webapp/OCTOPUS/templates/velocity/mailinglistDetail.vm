@@ -71,7 +71,7 @@
                         </span>
                         #end
 
-                <table class="marginBottom10 fixed
+                <table class="marginBottom10 fixed">
                         ##Set column size
                                 <col width="$column0%" />
                                 <col width="$column1%" />
