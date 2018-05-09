@@ -81,10 +81,12 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.evolvis.veraweb.common.Placeholder;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Dieser Octopus-Worker repräsentiert eine übersichtsseite
@@ -131,18 +133,18 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int updateBeanList(OctopusContext octopusContext, List errors, List beanlist, TransactionContext transactionContext)
-      throws BeanException, IOException {
+            throws BeanException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             MailDraft mailDraft = (MailDraft) it.next();
             if (mailDraft.isModified()) {
                 Database db = transactionContext.getDatabase();
                 transactionContext.execute(
-                  SQL.Update(db).
-                    table("veraweb.tmaildraft").
-                    update("name", mailDraft.name).
-                    where(Expr.equal("pk", mailDraft.id)).
-                    whereAnd(getOrgUnitFilter(octopusContext)));
+                        SQL.Update(db).
+                                table("veraweb.tmaildraft").
+                                update("name", mailDraft.name).
+                                where(Expr.equal("pk", mailDraft.id)).
+                                whereAnd(getOrgUnitFilter(octopusContext)));
                 count++;
                 transactionContext.commit();
             }
@@ -151,12 +153,12 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
     }
 
     @Override
-    protected void extendAll(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+    protected void extendAll(OctopusContext octopusContext, Select select) {
         select.where(getOrgUnitFilter(octopusContext));
     }
 
     @Override
-    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+    protected void extendWhere(OctopusContext octopusContext, Select select) {
         select.where(getOrgUnitFilter(octopusContext));
     }
 
@@ -170,11 +172,11 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
     /**
      * Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)}
      */
-    public static final String INPUT_showDetail[] = { "id", "maildraft" };
+    public static final String INPUT_showDetail[] = {"id", "maildraft"};
     /**
      * Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)}
      */
-    public static final boolean MANDATORY_showDetail[] = { false, false };
+    public static final boolean MANDATORY_showDetail[] = {false, false};
     /**
      * Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, MailDraft)}
      */
@@ -193,11 +195,11 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      * @throws IOException   IOException
      */
     public MailDraft showDetail(OctopusContext octopusContext, Integer id, MailDraft mailDraft)
-      throws BeanException, IOException {
+            throws BeanException, IOException {
         if (mailDraft == null && id != null) {
             final Select select = getDatabase(octopusContext).getSelect("MailDraft").
-              where(Expr.equal("pk", id)).
-              whereAnd(getOrgUnitFilter(octopusContext));
+                    where(Expr.equal("pk", id)).
+                    whereAnd(getOrgUnitFilter(octopusContext));
             return (MailDraft) getDatabase(octopusContext).getBean("MailDraft", select);
         }
         return mailDraft;
@@ -206,11 +208,11 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
     /**
      * Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)}
      */
-    public static final String INPUT_saveDetail[] = { "save" };
+    public static final String INPUT_saveDetail[] = {"save"};
     /**
      * Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)}
      */
-    public static final boolean MANDATORY_saveDetail[] = { false };
+    public static final boolean MANDATORY_saveDetail[] = {false};
     /**
      * Octopus-Ausgabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)}
      */
@@ -225,9 +227,8 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
      * @param save           Gibt an ob eMail-Entwurf gespeichert werden soll.
      * @return eMail-Entwurf
      * @throws BeanException BeanException
-     * @throws IOException   IOException
      */
-    public MailDraft saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException, IOException {
+    public MailDraft saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException {
         if (save != null && save.booleanValue()) {
             MailDraft mailDraft = (MailDraft) getRequest(octopusContext).getBean("MailDraft", "maildraft");
             mailDraft.text = octopusContext.requestAsString("maildrafttext");
@@ -255,4 +256,22 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
         }
         return null;
     }
+
+    /**
+     * Octopus-Eingabe-Parameter für {@link #addPlaceholderMap(OctopusContext)}
+     */
+    public static final String[] INPUT_addPlaceholderMap = {};
+    /**
+     * Octopus-Eingabe-Parameter für {@link #addPlaceholderMap(OctopusContext)}
+     */
+    public static final boolean[] MANDATORY_addPlaceholderMap = {};
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #addPlaceholderMap(OctopusContext)}
+     */
+    public static final String OUTPUT_addPlaceholderMap = "placeholder";
+
+    public Map<String, String> addPlaceholderMap(OctopusContext context) {
+        return Placeholder.toStringMap();
+    }
+
 }

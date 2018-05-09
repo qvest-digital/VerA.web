@@ -58,30 +58,30 @@
                 <td>
                         <div class="">
                                 <select id="platzhalter" name="platzhalter" class="width15" >
-                                        <option value="firstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</option>
-                                        <option value="lastname">${placeholderWithTranslation.GENERIC_LASTNAME}</option>
-                                        <option value="salutation">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}</option>
-                                        <option value="title">${placeholderWithTranslation.GENERIC_ACAD_TITLE}</option>
-                                        <option value="function">${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SHORT}./${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</option>
-                                        <option value="company">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</option>
-                                        <option value="street">${placeholderWithTranslation.GENERIC_STREET}</option>
-                                        <option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
-                                        <option value="city">${placeholderWithTranslation.GENERIC_CITY}</option>
-                                        <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
-                                        <option value="poboxzipcode">${placeholderWithTranslation.postfachplz}</option>
-                                        <option value="pobox">${placeholderWithTranslation.postfachnummer}</option>
-                                        <option value="suffix1">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</option>
-                                        <option value="suffix2">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</option>
-                                        <option value="phone">${placeholderWithTranslation.GENERIC_TELEFON}</option>
-                                        <option value="fax">${placeholderWithTranslation.GENERIC_FAX}</option>
-                                        <option value="mobile">${placeholderWithTranslation.GENERIC_MOBILE}</option>
-                                        <option value="email">${placeholderWithTranslation.email}</option>
-                                        <option value="url">${placeholderWithTranslation.LETTERS_WWW}</option>
-                                        <option value="hintfororga">${placeholderWithTranslation.GENERIC_HINT_FOR_ORGA}</option>
-                                        <option value="hintforhost">${placeholderWithTranslation.GENERIC_HINT_FOR_HOST}</option>
-                                        <option value="remark">${placeholderWithTranslation.GENERIC_REMARK}</option>
+                                        <option value="${placeholder.FIRSTNAME}">${placeholderWithTranslation.GENERIC_FIRSTNAME}</option>
+                                        <option value="${placeholder.LASTNAME}">${placeholderWithTranslation.GENERIC_LASTNAME}</option>
+                                        <option value="${placeholder.SALUTATION}">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}</option>
+                                        <option value="${placeholder.TITLE}">${placeholderWithTranslation.GENERIC_ACAD_TITLE}</option>
+                                        <option value="${placeholder.FUNCTION}">${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SHORT}./${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</option>
+                                        <option value="${placeholder.COMPANY}">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</option>
+                                        <option value="${placeholder.STREET}">${placeholderWithTranslation.GENERIC_STREET}</option>
+                                        <option value="${placeholder.ZIPCODE}">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                                        <option value="${placeholder.CITY}">${placeholderWithTranslation.GENERIC_CITY}</option>
+                                        <option value="${placeholder.COUNTRY}">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                                        <option value="${placeholder.POSTALBOX_ZIPCODE}">${placeholderWithTranslation.postfachplz}</option>
+                                        <option value="${placeholder.POSTALBOX}">${placeholderWithTranslation.postfachnummer}</option>
+                                        <option value="${placeholder.SUFFIX_1}">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</option>
+                                        <option value="${placeholder.SUFFIX_2}">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</option>
+                                        <option value="${placeholder.PHONE}">${placeholderWithTranslation.GENERIC_TELEFON}</option>
+                                        <option value="${placeholder.FAX}">${placeholderWithTranslation.GENERIC_FAX}</option>
+                                        <option value="${placeholder.MOBILE}">${placeholderWithTranslation.GENERIC_MOBILE}</option>
+                                        <option value="${placeholder.EMAIL}">${placeholderWithTranslation.email}</option>
+                                        <option value="${placeholder.URL}">${placeholderWithTranslation.LETTERS_WWW}</option>
+                                        <option value="${placeholder.HINT_FOR_ORGA}">${placeholderWithTranslation.GENERIC_HINT_FOR_ORGA}</option>
+                                        <option value="${placeholder.HINT_FOR_HOST}">${placeholderWithTranslation.GENERIC_HINT_FOR_HOST}</option>
+                                        <option value="${placeholder.REMARK}">${placeholderWithTranslation.GENERIC_REMARK}</option>
                                 </select>
-                                        <input type="button" name="add" value="${placeholderWithTranslation.GENERIC_ADD}" onclick="addPlatzhalter(this);"/>
+                                        <input type="button" name="add" value="${placeholder.REMARK}" onclick="addPlatzhalter(this);"/>
                         </div>
                 </td>
                 </tr>
