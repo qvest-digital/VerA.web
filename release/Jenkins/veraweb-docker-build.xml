@@ -1,7 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>⚠ do not use, WIP</description>
+  <description>&lt;p&gt;Job to build Docker images for a VerA.web release&#xd;
+  or the last snapshot build (HEAD)&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;Can also trigger installation on a Docker stage.&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;⚠ WIP&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -38,9 +43,9 @@
           </choices>
         </hudson.model.ChoiceParameterDefinition>
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
-          <name>VWJENKINS_DOCKER_RELEASE_VERSION</name>
+          <name>VWJENKINS_DOCKER_RELEASE_TO_BUILD</name>
           <description>VerA.web release to create a set of Docker images for</description>
-          <randomName>choice-parameter-359146716048774</randomName>
+          <randomName>choice-parameter-362488643033104</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/show-releases.sh&quot;.execute().text
 
@@ -63,7 +68,41 @@ return list.reverse()</script>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <builders/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>PS4=&quot;(ci-busyapps)++ &quot;
+set -ex
+
+ssh -l root veraweb-tools.lan.tarent.de &quot;
+	PS4=&apos;(veraweb-tools)+++ &apos;
+	set -ex
+	rm -rf /root/jenkins-tmp/docker-build
+	mkdir /root/jenkins-tmp/docker-build
+	cd /root/jenkins-tmp/docker-build
+	if test x&apos;$VWJENKINS_DOCKER_RELEASE_VERSION&apos; = x&apos;(HEAD)&apos;; then
+		ln ~/jenkins-tmp/latest/veraweb-parent-*-release.tgz x
+	else
+		wget -O x &apos;https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-parent/$VWJENKINS_DOCKER_RELEASE_VERSION/veraweb-parent-$VWJENKINS_DOCKER_RELEASE_VERSION-release.tgz&quot;
+	fi
+	tar -xzf x
+	cd */Docker/
+	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./mkdocker.sh &apos;$VWJENKINS_DOCKER_RELEASE_VERSION&apos;
+    &quot;
+
+if test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+	: this blocks the triggering of the next job
+	rm -f jenkins-parm.prop
+elif test x&quot;$VWJENKINS_DOCKER_RELEASE_TO_BUILD&quot; = x&quot;(HEAD)&quot;; then
+	: trigger Docker install of snapshot build
+	echo &quot;VWJENKINS_DOCKER_TAG_TO_INSTALL=latest&quot; \
+	    &gt;jenkins-parm.prop
+else
+	: trigger Docker install of named version
+	echo &quot;VWJENKINS_DOCKER_TAG_TO_INSTALL=$VWJENKINS_DOCKER_RELEASE_TO_BUILD&quot; \
+	    &gt;jenkins-parm.prop
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
   <publishers>
     <hudson.tasks.Mailer plugin="mailer@1.11">
       <recipients>veraweb-commits@lists.evolvis.org</recipients>
@@ -75,6 +114,12 @@ return list.reverse()</script>
         <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
           <configs>
             <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+            <hudson.plugins.parameterizedtrigger.FileBuildParameters>
+              <propertiesFile>jenkins-parm.prop</propertiesFile>
+              <failTriggerOnMissing>true</failTriggerOnMissing>
+              <useMatrixChild>false</useMatrixChild>
+              <onlyExactRuns>false</onlyExactRuns>
+            </hudson.plugins.parameterizedtrigger.FileBuildParameters>
           </configs>
           <projects>veraweb-docker-install</projects>
           <condition>SUCCESS</condition>
@@ -83,5 +128,11 @@ return list.reverse()</script>
       </configs>
     </hudson.plugins.parameterizedtrigger.BuildTrigger>
   </publishers>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.28">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
 </project>

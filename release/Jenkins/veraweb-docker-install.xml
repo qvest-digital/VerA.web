@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>⚠ do not use, WIP</description>
+  <description>&lt;p&gt;Job to install a Docker tag (release or “latest”) on a stage&lt;/p&gt;&#xd;
+&#xd;
+&#xd;
+&lt;p&gt;⚠ WIP&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -38,14 +41,14 @@
           </choices>
         </hudson.model.ChoiceParameterDefinition>
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
-          <name>VWJENKINS_DOCKER_RELEASE_VERSION</name>
+          <name>VWJENKINS_DOCKER_TAG_TO_INSTALL</name>
           <description>Docker image set for VerA.web to install</description>
-          <randomName>choice-parameter-359145565684337</randomName>
+          <randomName>choice-parameter-362399678851717</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/Docker/show-images.sh&quot;.execute().text
 
 def list = versions.readLines()
-list &lt;&lt; &quot;(HEAD)&quot;
+list &lt;&lt; &quot;latest&quot;
 return list.reverse()</script>
             <fallbackScript></fallbackScript>
           </script>
@@ -86,7 +89,23 @@ return list.reverse()</script>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <builders/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>PS4=&quot;(ci-busyapps)++ &quot;
+set -ex
+
+rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/environment/
+
+ssh -Al root veraweb-tools.lan.tarent.de &quot;
+	PS4=&apos;(veraweb-tools)+++ &apos;
+	set -ex
+	cd /root/jenkins-tmp/environment
+	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./dockerdeploy.sh \
+	    &apos;$VWJENKINS_DOCKER_INSTALL_STAGE&apos; \
+	    &apos;$VWJENKINS_DOCKER_TAG_TO_INSTALL&apos;
+    &quot;</command>
+    </hudson.tasks.Shell>
+  </builders>
   <publishers>
     <hudson.tasks.Mailer plugin="mailer@1.11">
       <recipients>veraweb-commits@lists.evolvis.org</recipients>

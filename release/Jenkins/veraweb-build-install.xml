@@ -1,7 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset plugin="maven-plugin@2.10">
   <actions/>
-  <description>⚠ do not use, WIP</description>
+  <description>&lt;p&gt;Job to build VerA.web and install on a proper stage.&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;Can also trigger Docker image build and installation.&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;Handles Maven release builds and Sonar invocation.&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;⚠ WIP&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -193,14 +199,14 @@ rsync --delete-before -zavPHK target/.d/ \
 if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
 	: trigger Docker build of release, whether or not an
 	: installation of these is requested
-	echo &quot;VWJENKINS_DOCKER_RELEASE_VERSION=$MVN_RELEASE_VERSION&quot; \
+	echo &quot;VWJENKINS_DOCKER_RELEASE_TO_BUILD=$MVN_RELEASE_VERSION&quot; \
 	    &gt;target/jenkins-parm.prop
 elif test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
 	: this blocks the triggering of the Docker jobs
 	rm -f target/jenkins-parm.prop
 else
 	: trigger Docker build + install of :latest
-	echo &apos;VWJENKINS_DOCKER_RELEASE_VERSION=(HEAD)&apos; \
+	echo &apos;VWJENKINS_DOCKER_RELEASE_TO_BUILD=(HEAD)&apos; \
 	    &gt;target/jenkins-parm.prop
 fi</command>
     </hudson.tasks.Shell>
