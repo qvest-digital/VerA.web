@@ -1,10 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>&lt;p&gt;Job to install a Docker tag (release or “latest”) on a stage&lt;/p&gt;&#xd;
-&#xd;
-&#xd;
-&lt;p&gt;⚠ WIP&lt;/p&gt;</description>
+  <description>&lt;p&gt;Job to install a Docker tag (release or “latest”) of VerA.web on a stage&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -43,7 +40,7 @@
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
           <name>VWJENKINS_DOCKER_TAG_TO_INSTALL</name>
           <description>Docker image set for VerA.web to install</description>
-          <randomName>choice-parameter-362399678851717</randomName>
+          <randomName>choice-parameter-366463430639911</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/Docker/show-images.sh&quot;.execute().text
 
@@ -100,7 +97,7 @@ ssh -Al root veraweb-tools.lan.tarent.de &quot;
 	PS4=&apos;(veraweb-tools)+++ &apos;
 	set -ex
 	cd /root/jenkins-tmp/environment
-	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./dockerdeploy.sh \
+	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./dockerdeploy.sh -d \
 	    &apos;$VWJENKINS_DOCKER_INSTALL_STAGE&apos; \
 	    &apos;$VWJENKINS_DOCKER_TAG_TO_INSTALL&apos;
     &quot;</command>

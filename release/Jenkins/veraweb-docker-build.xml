@@ -4,9 +4,7 @@
   <description>&lt;p&gt;Job to build Docker images for a VerA.web release&#xd;
   or the last snapshot build (HEAD)&lt;/p&gt;&#xd;
 &#xd;
-&lt;p&gt;Can also trigger installation on a Docker stage.&lt;/p&gt;&#xd;
-&#xd;
-&lt;p&gt;⚠ WIP&lt;/p&gt;</description>
+&lt;p&gt;Can also trigger installation on a Docker stage.&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -45,7 +43,7 @@
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
           <name>VWJENKINS_DOCKER_RELEASE_TO_BUILD</name>
           <description>VerA.web release to create a set of Docker images for</description>
-          <randomName>choice-parameter-363926378420702</randomName>
+          <randomName>choice-parameter-366239956804828</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/show-releases.sh&quot;.execute().text
 

@@ -5,9 +5,7 @@
 &#xd;
 &lt;p&gt;Can also trigger Docker image build and installation.&lt;/p&gt;&#xd;
 &#xd;
-&lt;p&gt;Handles Maven release builds and Sonar invocation.&lt;/p&gt;&#xd;
-&#xd;
-&lt;p&gt;⚠ WIP&lt;/p&gt;</description>
+&lt;p&gt;Handles Maven release builds and Sonar invocation.&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
