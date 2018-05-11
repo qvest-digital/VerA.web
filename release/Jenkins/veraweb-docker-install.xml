@@ -11,17 +11,17 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
       <permission>hudson.model.Item.Release:veraweb</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -40,7 +40,7 @@
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
           <name>VWJENKINS_DOCKER_TAG_TO_INSTALL</name>
           <description>Docker image set for VerA.web to install</description>
-          <randomName>choice-parameter-366463430639911</randomName>
+          <randomName>choice-parameter-374321305414045</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/Docker/show-images.sh&quot;.execute().text
 
@@ -91,6 +91,7 @@ return list.reverse()</script>
       <command>PS4=&quot;(ci-busyapps)++ &quot;
 set -ex
 
+git repack -d -l
 rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/environment/
 
 ssh -Al root veraweb-tools.lan.tarent.de &quot;

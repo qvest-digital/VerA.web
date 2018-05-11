@@ -16,7 +16,6 @@
   FROM THE INTERNETZ⚠ (even pip itself…)
   ‣ ansibel docker plugin is also deprecated…
 • handle TODOs in documentation, cover upgrading, mark no-OA jumps
-• fix and check installing Docker offline works
 • Bacon macht Probleme, wird nur von ↓ verwendet (neuschreiben?)
   core/src/main/webapp/js/vera/guest-filter-auto-commit.js
 
