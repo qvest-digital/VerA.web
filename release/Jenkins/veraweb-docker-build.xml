@@ -45,7 +45,7 @@
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
           <name>VWJENKINS_DOCKER_RELEASE_TO_BUILD</name>
           <description>VerA.web release to create a set of Docker images for</description>
-          <randomName>choice-parameter-362488643033104</randomName>
+          <randomName>choice-parameter-363926378420702</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/show-releases.sh&quot;.execute().text
 
@@ -73,33 +73,34 @@ return list.reverse()</script>
       <command>PS4=&quot;(ci-busyapps)++ &quot;
 set -ex
 
+if test x&quot;$VWJENKINS_DOCKER_RELEASE_TO_BUILD&quot; = x&quot;(HEAD)&quot;; then
+	tag=latest
+else
+	tag=$VWJENKINS_DOCKER_RELEASE_TO_BUILD
+fi
+
 ssh -l root veraweb-tools.lan.tarent.de &quot;
 	PS4=&apos;(veraweb-tools)+++ &apos;
 	set -ex
 	rm -rf /root/jenkins-tmp/docker-build
 	mkdir /root/jenkins-tmp/docker-build
 	cd /root/jenkins-tmp/docker-build
-	if test x&apos;$VWJENKINS_DOCKER_RELEASE_VERSION&apos; = x&apos;(HEAD)&apos;; then
+	if test x&apos;$tag&apos; = x&apos;latest&apos;; then
 		ln ~/jenkins-tmp/latest/veraweb-parent-*-release.tgz x
 	else
-		wget -O x &apos;https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-parent/$VWJENKINS_DOCKER_RELEASE_VERSION/veraweb-parent-$VWJENKINS_DOCKER_RELEASE_VERSION-release.tgz&quot;
+		wget -O x &apos;https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-parent/$tag/veraweb-parent-$tag-release.tgz&apos;
 	fi
 	tar -xzf x
 	cd */Docker/
-	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./mkdocker.sh &apos;$VWJENKINS_DOCKER_RELEASE_VERSION&apos;
+	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./mkdocker.sh &apos;$tag&apos;
     &quot;
 
 if test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
 	: this blocks the triggering of the next job
 	rm -f jenkins-parm.prop
-elif test x&quot;$VWJENKINS_DOCKER_RELEASE_TO_BUILD&quot; = x&quot;(HEAD)&quot;; then
-	: trigger Docker install of snapshot build
-	echo &quot;VWJENKINS_DOCKER_TAG_TO_INSTALL=latest&quot; \
-	    &gt;jenkins-parm.prop
 else
-	: trigger Docker install of named version
-	echo &quot;VWJENKINS_DOCKER_TAG_TO_INSTALL=$VWJENKINS_DOCKER_RELEASE_TO_BUILD&quot; \
-	    &gt;jenkins-parm.prop
+	: trigger Docker install
+	echo &quot;VWJENKINS_DOCKER_TAG_TO_INSTALL=$tag&quot; &gt;jenkins-parm.prop
 fi</command>
     </hudson.tasks.Shell>
   </builders>

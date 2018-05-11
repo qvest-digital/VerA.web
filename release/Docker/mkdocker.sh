@@ -13,14 +13,14 @@ doone() (
 	cd "$1"
 	docker build -t veraweb-tools.lan.tarent.de:5000/"$2" .
 	docker push veraweb-tools.lan.tarent.de:5000/"$2"
-	[[ -n $tag ]] || return 0
+	[[ $tag = latest ]] && return 0
 	docker tag veraweb-tools.lan.tarent.de:5000/"$2" \
 	    veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 	docker push veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 	set -A ours -- "${ours[@]}" veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 )
 
-if [[ $tag = '(HEAD)' ]]; then
+if [[ $tag = latest ]]; then
 	ln ~/jenkins-tmp/latest/veraweb.war core/
 	ln ~/jenkins-tmp/latest/vw-online-registration.jar vwoa/
 	ln ~/jenkins-tmp/latest/vwor.war vwor/
@@ -48,7 +48,7 @@ doone httpd veraweb-httpd
 doone ldap veraweb-ldap
 
 # release export
-[[ -n $tag ]] || exit 0
+[[ $tag = latest ]] && exit 0
 
 set -A externals -- \
     burberius/osiam-simple:2.5.1 \
