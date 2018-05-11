@@ -65,4 +65,6 @@ for x in "${ours[@]}" "${externals[@]}"; do
 	gzip -n9 "/var/www/html/$tag/${x##*/}.img" &
 done
 wait
-ls -l "/var/www/html/$tag/"
+chmod 444 "/var/www/html/$tag/"*
+chmod 555 "/var/www/html/$tag"
+ls -la "/var/www/html/$tag/"
