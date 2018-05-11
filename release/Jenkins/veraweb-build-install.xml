@@ -11,11 +11,17 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Read:tglase</permission>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -77,6 +83,7 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(Inherit From Job)</jdk>
   <triggers>
     <hudson.triggers.SCMTrigger>
       <spec># alle Viertelstunde
@@ -131,6 +138,16 @@
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
       </configs>
     </hudson.plugins.parameterizedtrigger.BuildTrigger>
+    <hudson.plugins.sonar.SonarPublisher plugin="sonar@2.1">
+      <jdk>(Inherit From Job)</jdk>
+      <branch></branch>
+      <language></language>
+      <mavenOpts></mavenOpts>
+      <jobAdditionalProperties></jobAdditionalProperties>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.plugins.sonar.SonarPublisher>
   </publishers>
   <buildWrappers>
     <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper plugin="m2release@0.14.0">
@@ -148,12 +165,44 @@
   <prebuilders/>
   <postbuilders>
     <hudson.tasks.Shell>
-      <command>if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
-	vsn=$MVN_RELEASE_VERSION
+      <command>PS4=&quot;(ci-busyapps)++ &quot;
+set -ex
+
+# install to stage
+if test x&quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+	: not installing to a proper system
 else
-	vsn=&apos;(HEAD)&apos;
+	./upload.sh &quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot;
+	: finished installing to a proper system
 fi
-echo &quot;VWJENKINS_DOCKER_RELEASE_VERSION=$vsn&quot; &gt;target/jenkins-parm.prop</command>
+
+# store latest build results away for Docker jobs
+rm -rf target/.d
+mkdir target/.d
+ln \
+    core/target/veraweb.war \
+    vwoa/target/vw-online-registration.jar \
+    vwor/target/vwor.war \
+    core/target/veraweb-core-*-files.tgz \
+    target/veraweb-parent-*-release.tgz \
+    target/.d/
+rsync --delete-before -zavPHK target/.d/ \
+    root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/latest/
+
+# note down whether we release in this build and, if so, what version
+if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
+	: trigger Docker build of release, whether or not an
+	: installation of these is requested
+	echo &quot;VWJENKINS_DOCKER_RELEASE_VERSION=$MVN_RELEASE_VERSION&quot; \
+	    &gt;target/jenkins-parm.prop
+elif test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+	: this blocks the triggering of the Docker jobs
+	rm -f target/jenkins-parm.prop
+else
+	: trigger Docker build + install of :latest
+	echo &apos;VWJENKINS_DOCKER_RELEASE_VERSION=(HEAD)&apos; \
+	    &gt;target/jenkins-parm.prop
+fi</command>
     </hudson.tasks.Shell>
   </postbuilders>
   <runPostStepsIfResult>

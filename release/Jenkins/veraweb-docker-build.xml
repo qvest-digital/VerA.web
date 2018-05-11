@@ -2,14 +2,26 @@
 <project>
   <actions/>
   <description>⚠ do not use, WIP</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>5</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Read:tglase</permission>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -28,7 +40,7 @@
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
           <name>VWJENKINS_DOCKER_RELEASE_VERSION</name>
           <description>VerA.web release to create a set of Docker images for</description>
-          <randomName>choice-parameter-356709774604225</randomName>
+          <randomName>choice-parameter-359146716048774</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/show-releases.sh&quot;.execute().text
 
@@ -53,13 +65,18 @@ return list.reverse()</script>
   <concurrentBuild>false</concurrentBuild>
   <builders/>
   <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.11">
+      <recipients>veraweb-commits@lists.evolvis.org</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
     <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
       <configs>
         <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
           <configs>
             <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
           </configs>
-          <projects>veraweb-docker-install, </projects>
+          <projects>veraweb-docker-install</projects>
           <condition>SUCCESS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>

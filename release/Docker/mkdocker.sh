@@ -20,14 +20,25 @@ doone() (
 	set -A ours -- "${ours[@]}" veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 )
 
-ln -f ../../core/target/veraweb.war core/
-ln -f ../../vwoa/target/vw-online-registration.jar vwoa/
-ln -f ../../vwor/target/vwor.war vwor/
+if [[ $tag = '(HEAD)' ]]; then
+	ln ~/jenkins-tmp/latest/veraweb.war core/
+	ln ~/jenkins-tmp/latest/vw-online-registration.jar vwoa/
+	ln ~/jenkins-tmp/latest/vwor.war vwor/
+	ln ~/jenkins-tmp/latest/veraweb-core-*-files.tgz files.tgz
+else
+	wget -O core/veraweb.war \
+	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$tag/veraweb-core-$tag.war"
+	wget -O vwoa/vw-online-registration.jar \
+	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/online-anmeldung/$tag/online-anmeldung-$tag.jar"
+	wget -O vwor/vwor.war \
+	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/rest-api/$tag/rest-api-$tag.war"
+	wget -O files.tgz \
+	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$tag/veraweb-core-$tag-files.tgz"
+fi
 
-tar -xzf ../../core/target/veraweb-core-*-files.tgz \
-    -O $(tar -tzf ../../core/target/veraweb-core-*-files.tgz | \
-    fgrep postgresql-jdbc4.jar) >core/postgresql-jdbc4.jar
-ln -f core/postgresql-jdbc4.jar vwor/
+tar -xzf files.tgz -O $(tar -tzf files.tgz | fgrep postgresql-jdbc4.jar) \
+    >core/postgresql-jdbc4.jar
+ln core/postgresql-jdbc4.jar vwor/
 
 doone core veraweb-core
 doone vwoa veraweb-oa
