@@ -48,18 +48,19 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.io.UnsupportedEncodingException;
-
-import sun.misc.BASE64Encoder;
+import java.util.Base64;
 
 /**
  * Singleton for encryption of string values (e.g. passwords)
  * Currently, always uses MD5
  *
  * @author pralph
+ * @deprecated insecure: MD5 is *broken*
  */
+@Deprecated
 public final class Encryptor {
     private static Encryptor instance = null;
 
@@ -117,18 +118,16 @@ public final class Encryptor {
     /**
      * Returns an MD5 hash of the (plain text) input string
      *
-     * @param input
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
+     * @param input string to hash
+     * @deprecated insecure: MD5 is broken
      */
+    @Deprecated
     public synchronized String encrypt(String input)
       throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String hash = null;
         MessageDigest md = MessageDigest.getInstance(ALGORITHM_MD5);
         md.update(input.getBytes(CHAR_SET_UTF8));
 
         byte raw[] = md.digest();
-        hash = (new BASE64Encoder()).encode(raw);
-        return hash;
+        return Base64.getEncoder().encodeToString(raw);
     }
 }
