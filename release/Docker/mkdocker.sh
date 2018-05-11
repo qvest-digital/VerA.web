@@ -60,9 +60,9 @@ for x in "${externals[@]}"; do
 done
 
 mkdir -p "/var/www/html/$tag"
-
 for x in "${ours[@]}" "${externals[@]}"; do
 	docker save -o "/var/www/html/$tag/${x##*/}.img" "$x"
 	gzip -n9 "/var/www/html/$tag/${x##*/}.img" &
 done
 wait
+ls -l "/var/www/html/$tag/"
