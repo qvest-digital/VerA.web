@@ -1,11 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset plugin="maven-plugin@2.10">
   <actions/>
-  <description>&lt;p&gt;&lt;i&gt;do not use productively yet, will be replaced later…&lt;/i&gt;&lt;/p&gt;&#xd;
-&#xd;
-&lt;h2&gt;Regular builds of VerA.web with Sonar&lt;/h2&gt;&#xd;
-&lt;p&gt;Installs to one proper and one Docker system.&lt;/p&gt;&#xd;
-&lt;p&gt;Upon maven release, also tags and exports Docker stuff.&lt;/p&gt;</description>
+  <description>⚠ do not use, WIP</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -15,17 +11,11 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.model.Item.Build:tglase</permission>
+      <permission>hudson.model.Item.Read:tglase</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
+      <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -87,11 +77,10 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <jdk>(Inherit From Job)</jdk>
   <triggers>
     <hudson.triggers.SCMTrigger>
       <spec># alle Viertelstunde
-H/15 * * * *</spec>
+#H/15 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
   </triggers>
@@ -124,16 +113,24 @@ H/15 * * * *</spec>
     </hudson.maven.reporters.MavenMailer>
   </reporters>
   <publishers>
-    <hudson.plugins.sonar.SonarPublisher plugin="sonar@2.1">
-      <jdk>(Inherit From Job)</jdk>
-      <branch></branch>
-      <language></language>
-      <mavenOpts></mavenOpts>
-      <jobAdditionalProperties></jobAdditionalProperties>
-      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
-      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
-      <usePrivateRepository>false</usePrivateRepository>
-    </hudson.plugins.sonar.SonarPublisher>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+            <hudson.plugins.parameterizedtrigger.FileBuildParameters>
+              <propertiesFile>target/jenkins-parm.prop</propertiesFile>
+              <failTriggerOnMissing>true</failTriggerOnMissing>
+              <useMatrixChild>false</useMatrixChild>
+              <onlyExactRuns>false</onlyExactRuns>
+            </hudson.plugins.parameterizedtrigger.FileBuildParameters>
+          </configs>
+          <projects>veraweb-docker-build</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
   </publishers>
   <buildWrappers>
     <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper plugin="m2release@0.14.0">
@@ -151,78 +148,12 @@ H/15 * * * *</spec>
   <prebuilders/>
   <postbuilders>
     <hudson.tasks.Shell>
-      <command>PS4=&quot;(ci-busyapps)++ &quot;
-set -ex
-if test x&quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
-	: not installing to a proper system
+      <command>if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
+	vsn=$MVN_RELEASE_VERSION
 else
-	./upload.sh &quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot;
-	: finished installing to a proper system
+	vsn=&apos;(HEAD)&apos;
 fi
-#git gc # rsync time of packs is rather high, so best to do this only rarely
-rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/monorepo/
-vsn=
-if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
-	vsn=$(xmlstarlet sel -N pom=http://maven.apache.org/POM/4.0.0 \
-	    -T -t -c /pom:project/pom:version &lt;pom.xml)
-	case x$vsn in
-	(x)
-		echo &gt;&amp;2 &quot;E: could not determine POM version&quot;
-		exit 1
-		;;
-	(x*SNAPSHOT*)
-		echo &gt;&amp;2 &quot;W: not tagging snapshot&quot;
-		vsn=
-		;;
-	(*\&apos;*|*/*)
-		echo &gt;&amp;2 &quot;E: invalid POM version: $vsn&quot;
-		exit 1
-		;;
-	(*)
-		echo &gt;&amp;2 &quot;I: tagging release $vsn&quot;
-		;;
-	esac
-else
-	: no Maven release build
-fi
-ssh -l root veraweb-tools.lan.tarent.de &quot;
-	PS4=&apos;(veraweb-tools)+++ &apos;
-	set -ex
-	exec env PS4=&apos;(veraweb-tools)++++ &apos; \
-	    /root/jenkins-tmp/monorepo/release/Docker/mkdocker.sh &apos;$vsn&apos;
-    &quot;
-if test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
-	: not installing to a Docker system
-else
-	case $VWJENKINS_DOCKER_INSTALL_STAGE in
-	(dev|test|ref) ;;
-	(*)
-		echo &gt;&amp;2 &quot;E: stage &apos;$VWJENKINS_DOCKER_INSTALL_STAGE&apos; unknown&quot;
-		exit 1
-		;;
-	esac
-	ssh-agent sh -c &quot;
-		PS4=\&quot;(ci-busyapps)+++ \&quot;
-		set -ex
-		ssh-add &lt;/dev/null
-		ssh -Al root veraweb-tools.lan.tarent.de \&quot;
-			PS4=&apos;(veraweb-tools)++++ &apos;
-			set -ex
-			cd /srv/environment
-			git fetch origin
-			git checkout origin/master
-			git branch -D master
-			git checkout -b master origin/master
-			if test x&apos;$vsn&apos; = x&apos;&apos;; then :; else
-				git tag -a -m &apos;tag VerA.web release $vsn&apos; &apos;$vsn&apos;
-				git push --tags origin
-			fi
-			env PS4=&apos;(veraweb-tools)+++++ &apos; ./dockerdeploy.sh $VWJENKINS_DOCKER_INSTALL_STAGE
-		    \&quot;
-	    &quot;
-	: finished installing to a Docker system
-fi
-exit 0</command>
+echo &quot;VWJENKINS_DOCKER_RELEASE_VERSION=$vsn&quot; &gt;target/jenkins-parm.prop</command>
     </hudson.tasks.Shell>
   </postbuilders>
   <runPostStepsIfResult>

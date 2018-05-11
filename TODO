@@ -80,13 +80,13 @@ im Basiscontainer oder so); 5, wenn schon gebaute Images auf
 (weitere?) Stages installiert werden sollen.
 
 Probleme:
-• Versionsliste bei 4 und 5 (ggfs. einfach Textfeld?)
-  (oder Verzeichnislisting von v-tools parsen)
 • Offline-Install ist anders
 • taggen wir v-environment überhaupt?
   wo? wann?
   nutzen wir die Tags (z.B. beim Reply in 4? 5?)?
   oder brauchen wir das vielleicht einfach gar nicht mehr?
+Ideën:
+• env-Repo in einen der Jobs tun, das rüber-rsyncen (oder beide?)
 
 monorepo status:
 • de.tarent.extract:extract-tool		1.4	[VERA-591]
