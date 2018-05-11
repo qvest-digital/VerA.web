@@ -61,8 +61,10 @@ done
 
 mkdir -p "/var/www/html/$tag"
 for x in "${ours[@]}" "${externals[@]}"; do
-	docker save -o "/var/www/html/$tag/${x##*/}.img" "$x"
-	gzip -n9 "/var/www/html/$tag/${x##*/}.img" &
+	img=${x##*/}
+	img=${img//:/-}
+	docker save -o "/var/www/html/$tag/$img.img" "$x"
+	gzip -n9 "/var/www/html/$tag/$img.img" &
 done
 wait
 chmod 444 "/var/www/html/$tag/"*
