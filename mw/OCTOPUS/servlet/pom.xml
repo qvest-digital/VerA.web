@@ -3,14 +3,14 @@
 	<parent>
 		<groupId>org.evolvis.veraweb.middleware</groupId>
 		<artifactId>octopus-parent</artifactId>
-		<version>1.8.58-SNAPSHOT</version>
+		<version>1.8.57.9.1</version>
 	</parent>
 	<artifactId>octopus-servlet</artifactId>
 	<packaging>jar</packaging>
 	<name>OCTOPUS servlet</name>
 	<description>tarent OCTOPUS application framework, servlet part</description>
 	<properties>
-		<sonar.tests></sonar.tests>
+		<sonar.tests />
 		<java.version>1.4</java.version>
 	</properties>
 	<build>
