@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>veraweb-parent</artifactId>
-		<version>1.8.58-SNAPSHOT</version>
+		<version>1.8.57.9.2</version>
 	</parent>
 	<artifactId>online-anmeldung</artifactId>
 	<packaging>jar</packaging>
