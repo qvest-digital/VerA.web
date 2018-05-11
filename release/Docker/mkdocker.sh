@@ -9,16 +9,17 @@ cd "$(dirname "$0")"
 tag=$1
 set -A ours
 
-doone() (
+doone() {
 	cd "$1"
 	docker build -t veraweb-tools.lan.tarent.de:5000/"$2" .
+	cd -
 	docker push veraweb-tools.lan.tarent.de:5000/"$2"
 	[[ $tag = latest ]] && return 0
 	docker tag veraweb-tools.lan.tarent.de:5000/"$2" \
 	    veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 	docker push veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 	set -A ours -- "${ours[@]}" veraweb-tools.lan.tarent.de:5000/"$2:$tag"
-)
+}
 
 if [[ $tag = latest ]]; then
 	ln ~/jenkins-tmp/latest/veraweb.war core/
