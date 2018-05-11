@@ -11,7 +11,6 @@
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }"/>
 		#end
-		<input type="button" name="export" class="mainButton"value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 	</div>
 #elseif($action == "host")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
