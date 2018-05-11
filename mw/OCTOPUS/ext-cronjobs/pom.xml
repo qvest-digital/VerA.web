@@ -10,7 +10,7 @@
 	<name>OCTOPUS cronjob extension</name>
 	<description>tarent OCTOPUS application framework, cronjob extension</description>
 	<properties>
-		<sonar.tests></sonar.tests>
+		<sonar.tests />
 		<java.version>1.5</java.version>
 	</properties>
 	<build>
