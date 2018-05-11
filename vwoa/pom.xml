@@ -98,11 +98,7 @@
 								<id>exec-npm-audit</id>
 								<phase>compile</phase>
 								<configuration>
-									<workingDirectory>src/main/webroot-src/</workingDirectory>
-									<executable>npm</executable>
-									<arguments>
-										<argument>audit</argument>
-									</arguments>
+									<executable>npm-audit.sh</executable>
 								</configuration>
 								<goals>
 									<goal>exec</goal>
