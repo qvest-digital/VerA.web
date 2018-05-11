@@ -98,7 +98,7 @@
 								<id>exec-npm-audit</id>
 								<phase>compile</phase>
 								<configuration>
-									<executable>npm-audit.sh</executable>
+									<executable>./npm-audit.sh</executable>
 								</configuration>
 								<goals>
 									<goal>exec</goal>
