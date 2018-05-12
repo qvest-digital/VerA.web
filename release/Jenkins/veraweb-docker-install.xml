@@ -1,7 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>&lt;p&gt;Job to install a Docker tag (release or “latest”) of VerA.web on a stage&lt;/p&gt;</description>
+  <description>&lt;p&gt;Job to install a Docker tag (release or “latest”) of VerA.web on a stage&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;Jenkins jobs: &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-build-install/&quot;&gt;build install&lt;/a&gt; → &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-docker-build/&quot;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-docker-install/&quot;&gt;install&lt;/a&gt;&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>

@@ -4,7 +4,12 @@
   <description>&lt;p&gt;Job to build Docker images for a VerA.web release&#xd;
   or the last snapshot build (HEAD)&lt;/p&gt;&#xd;
 &#xd;
-&lt;p&gt;Can also trigger installation on a Docker stage.&lt;/p&gt;</description>
+&lt;p&gt;Can also trigger installation on a Docker stage.&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;Jenkins jobs: &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-build-install/&quot;&gt;build install&lt;/a&gt; → &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-docker-build/&quot;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-docker-install/&quot;&gt;install&lt;/a&gt;&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -14,17 +19,17 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
       <permission>hudson.model.Item.Release:veraweb</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -52,7 +57,7 @@ list &lt;&lt; &quot;(HEAD)&quot;
 return list.reverse()</script>
             <fallbackScript></fallbackScript>
           </script>
-          <visibleItemCount>1</visibleItemCount>
+          <visibleItemCount>7</visibleItemCount>
           <choiceType>PT_SINGLE_SELECT</choiceType>
           <filterable>false</filterable>
         </org.biouno.unochoice.ChoiceParameter>
