@@ -48,7 +48,7 @@
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
           <name>VWJENKINS_DOCKER_RELEASE_TO_BUILD</name>
           <description>VerA.web release to create a set of Docker images for</description>
-          <randomName>choice-parameter-366239956804828</randomName>
+          <randomName>choice-parameter-377931027512486</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/show-releases.sh&quot;.execute().text
 
@@ -57,12 +57,15 @@ list &lt;&lt; &quot;(HEAD)&quot;
 return list.reverse()</script>
             <fallbackScript></fallbackScript>
           </script>
-          <visibleItemCount>7</visibleItemCount>
+          <visibleItemCount>1</visibleItemCount>
           <choiceType>PT_SINGLE_SELECT</choiceType>
           <filterable>false</filterable>
         </org.biouno.unochoice.ChoiceParameter>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.7">
+      <resourceNames>mr_veraweb</resourceNames>
+    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
