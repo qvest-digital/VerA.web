@@ -59,7 +59,8 @@ for x in "${externals[@]}"; do
 	docker pull "$x"
 done
 
-mkdir -p "/var/www/html/$tag"
+rm -rf "/var/www/html/$tag"
+mkdir "/var/www/html/$tag"
 for x in "${ours[@]}" "${externals[@]}"; do
 	img=${x##*/}
 	img=${img//:/-}
