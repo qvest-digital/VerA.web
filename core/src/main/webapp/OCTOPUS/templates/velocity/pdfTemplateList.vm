@@ -54,7 +54,7 @@
                                 <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
                                 <th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
                         </tr>
->
+
                         <tr class="colspan">
                                 <td colspan="3">
                                         <span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> ${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
