@@ -118,7 +118,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(QUERY_FIND_PERSON_ID_BY_USERNAME);
-            query.setString(PARAM_USERNAME, username);
+            query.setParameter(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return null;
@@ -143,7 +143,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(QUERY_FIND_PERSON_ID_BY_USERNAME);
-            query.setString(PARAM_USERNAME, username);
+            query.setParameter(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return false;
@@ -163,7 +163,7 @@ public class EventResource extends AbstractResource {
 
         try {
             final Query query = session.getNamedQuery(QUERY_FIND_PERSON_ID_BY_USERNAME);
-            query.setString(PARAM_USERNAME, username);
+            query.setParameter(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 // MUST NOT HAPPEN, BUT IT IS A PREVENTION
@@ -188,7 +188,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.getEvent");
-            query.setInteger("pk", eventId);
+            query.setParameter("pk", eventId);
             return (Event) query.uniqueResult();
         } finally {
             session.close();
@@ -207,7 +207,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.guestByUUID");
-            query.setString(PARAM_UUID, uuid);
+            query.setParameter(PARAM_UUID, uuid);
             final BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
             if (numberFoundDelegations.intValue() >= 1) {
                 return true;
@@ -230,7 +230,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.getEventByUUID");
-            query.setString(PARAM_UUID, uuid);
+            query.setParameter(PARAM_UUID, uuid);
 
             return (Integer) query.uniqueResult();
         } finally {
@@ -250,7 +250,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.isOpen");
-            query.setInteger(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_EVENT_ID, eventId);
 
             final BigInteger counter = (BigInteger) query.uniqueResult();
 
@@ -284,7 +284,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.getEventByHash");
-            query.setString("hash", uuid);
+            query.setParameter("hash", uuid);
             return (Event) query.uniqueResult();
         } finally {
             session.close();
@@ -301,7 +301,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(namedQuery);
-            query.setInteger(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_EVENT_ID, eventId);
 
             final BigInteger counter = (BigInteger) query.uniqueResult();
 
@@ -323,7 +323,7 @@ public class EventResource extends AbstractResource {
      */
     private List<Event> getUsersEvents(Session session, int personId) {
         final Query query = session.getNamedQuery("Event.list.userevents");
-        query.setInteger("fk_person", personId);
+        query.setParameter("fk_person", personId);
 
         return query.list();
     }
@@ -337,7 +337,7 @@ public class EventResource extends AbstractResource {
      */
     private Boolean hasUserRegistrationToEvents(Session session, int personId) {
         final Query query = session.getNamedQuery("Event.count.userevents");
-        query.setInteger("fk_person", personId);
+        query.setParameter("fk_person", personId);
         final BigInteger isUserRegisteredToEvent = (BigInteger) query.uniqueResult();
 
         return isUserRegisteredToEvent.signum() == 1;

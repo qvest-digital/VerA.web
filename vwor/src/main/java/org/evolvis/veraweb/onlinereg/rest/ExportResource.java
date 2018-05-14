@@ -124,7 +124,7 @@ public class ExportResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.getEvent");
-            query.setInteger("pk", eventId);
+            query.setParameter("pk", eventId);
             return (Event) query.uniqueResult();
         } finally {
             session.close();

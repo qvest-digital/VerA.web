@@ -94,8 +94,8 @@ public class MailTemplateResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(MailTemplate.GET_MAILTEMPLATE_BY_ID);
-            query.setInteger("templateId", templateId);
-            query.setInteger("mandantId", mandantId);
+            query.setParameter("templateId", templateId);
+            query.setParameter("mandantId", mandantId);
             final MailTemplate template = (MailTemplate) query.uniqueResult();
             if (template != null) {
                 return Response.ok(template).build();

@@ -133,7 +133,7 @@ public class OsiamUserActivationResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("OsiamUserActivation.getOsiamUserActivationEntryByToken");
-            query.setString("activation_token", activationToken);
+            query.setParameter("activation_token", activationToken);
             final OsiamUserActivation osiamUserActivation = (OsiamUserActivation) query.uniqueResult();
             if (osiamUserActivation != null) {
                 return osiamUserActivation;
@@ -150,7 +150,7 @@ public class OsiamUserActivationResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("OsiamUserActivation.getOsiamUserActivationEntryByUsername");
-            query.setString("username", username);
+            query.setParameter("username", username);
             final OsiamUserActivation osiamUserActivation = (OsiamUserActivation) query.uniqueResult();
             if (osiamUserActivation != null) {
                 return osiamUserActivation;
@@ -181,9 +181,9 @@ public class OsiamUserActivationResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername");
-            query.setString("username", username);
-            query.setString("activation_token", activationToken);
-            query.setDate("expiration_date", getExpirationDate());
+            query.setParameter("username", username);
+            query.setParameter("activation_token", activationToken);
+            query.setParameter("expiration_date", getExpirationDate());
             query.executeUpdate();
             session.getTransaction().commit();
 

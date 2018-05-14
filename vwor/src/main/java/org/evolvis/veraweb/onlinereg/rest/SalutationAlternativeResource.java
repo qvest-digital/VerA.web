@@ -105,7 +105,7 @@ public class SalutationAlternativeResource extends AbstractResource {
 
         try {
             final Query query = session.getNamedQuery(SalutationAlternative.GET_SALUTATION_ALTERNATIVE_FACADE_BY_PDF_ID);
-            query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdftemplateId);
+            query.setParameter(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdftemplateId);
 
             return query.list();
         } finally {
@@ -126,7 +126,7 @@ public class SalutationAlternativeResource extends AbstractResource {
 
         try {
             final Query query = session.getNamedQuery(Salutation.GET_SALUTATIONS_WITHOUT_ALTERNATIVE_CONTENT);
-            query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdftemplateId);
+            query.setParameter(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdftemplateId);
 
             return query.list();
         } finally {
@@ -148,7 +148,7 @@ public class SalutationAlternativeResource extends AbstractResource {
 
         try {
             final Query query = session.getNamedQuery(SalutationAlternative.DELETE_SALUTATION_ALTERNATIVE_BY_ID);
-            query.setInteger(SalutationAlternative.PARAM_PK, salutationId);
+            query.setParameter(SalutationAlternative.PARAM_PK, salutationId);
 
             query.executeUpdate();
             session.flush();

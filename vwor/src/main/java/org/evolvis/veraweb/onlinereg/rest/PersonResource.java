@@ -176,7 +176,7 @@ public class PersonResource extends AbstractResource {
         try {
 
             final Query query = session.getNamedQuery("Person.findByPersonId");
-            query.setInteger(PARAM_PERSON_ID, personId);
+            query.setParameter(PARAM_PERSON_ID, personId);
 
             final Person person = (Person) query.uniqueResult();
 
@@ -285,7 +285,7 @@ public class PersonResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getPersonNamesByUsername");
-            query.setString(PARAM_USERNAME, username);
+            query.setParameter(PARAM_USERNAME, username);
             return (String) query.uniqueResult();
         } finally {
             session.close();
@@ -304,7 +304,7 @@ public class PersonResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getDelegatesByUUID");
-            query.setString(PARAM_UUID, uuid);
+            query.setParameter(PARAM_UUID, uuid);
             return (List<Person>) query.list();
         } finally {
             session.close();
@@ -323,7 +323,7 @@ public class PersonResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getCompanyByUUID");
-            query.setString(PARAM_UUID, uuid);
+            query.setParameter(PARAM_UUID, uuid);
 
             return (Person) query.uniqueResult();
         } finally {
@@ -343,7 +343,7 @@ public class PersonResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findByUsername");
-            query.setString(PARAM_USERNAME, username);
+            query.setParameter(PARAM_USERNAME, username);
 
             return (Person) query.uniqueResult();
         } finally {
@@ -363,7 +363,7 @@ public class PersonResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
-            query.setString(PARAM_USERNAME, username);
+            query.setParameter(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return null;
@@ -389,7 +389,7 @@ public class PersonResource extends AbstractResource {
 
         try {
             final Query query = session.getNamedQuery("Person.findByPersonId");
-            query.setInteger(PARAM_PERSON_ID, personId);
+            query.setParameter(PARAM_PERSON_ID, personId);
 
             final Person person = (Person) query.uniqueResult();
             person.setFk_orgunit(orgunit);
@@ -415,7 +415,7 @@ public class PersonResource extends AbstractResource {
 
         try {
             final Query query = session.getNamedQuery("Person.findByPersonId");
-            query.setInteger(PARAM_PERSON_ID, personId);
+            query.setParameter(PARAM_PERSON_ID, personId);
 
             return (Person) query.uniqueResult();
         } finally {
@@ -425,7 +425,7 @@ public class PersonResource extends AbstractResource {
 
     private Integer getOrgUnitId(Session session, Integer eventId) {
         final Query query = session.getNamedQuery("Event.getEvent");
-        query.setInteger("pk", eventId);
+        query.setParameter("pk", eventId);
 
         return ((Event) query.uniqueResult()).getFk_orgunit();
     }
@@ -463,7 +463,7 @@ public class PersonResource extends AbstractResource {
 
     private Query getSelectPersonByUsernameQuery(String username, Session session) {
         final Query query = session.getNamedQuery("Person.findByUsername");
-        query.setString(PARAM_USERNAME, username);
+        query.setParameter(PARAM_USERNAME, username);
 
         return query;
     }

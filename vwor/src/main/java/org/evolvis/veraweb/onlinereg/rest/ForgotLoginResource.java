@@ -96,7 +96,7 @@ public class ForgotLoginResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Person.findByMail");
-            query.setString("email", mail);
+            query.setParameter("email", mail);
             final List<Person> personList = query.list();
 
             if (personList != null && !personList.isEmpty()) {

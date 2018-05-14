@@ -91,7 +91,7 @@ public class OptionalFieldResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID);
-            query.setInteger("eventId", eventId);
+            query.setParameter("eventId", eventId);
             return (List<OptionalField>) query.list();
         } finally {
             session.close();

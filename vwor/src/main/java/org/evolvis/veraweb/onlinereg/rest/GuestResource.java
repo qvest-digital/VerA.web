@@ -113,8 +113,8 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(QUERY_FIND_BY_EVENT_AND_USER);
-            query.setInteger(PARAM_EVENT_ID, eventId);
-            query.setInteger(PARAM_USER_ID, userId);
+            query.setParameter(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_USER_ID, userId);
 
             return (Guest) query.uniqueResult();
         } finally {
@@ -135,8 +135,8 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findIdByEventAndUser");
-            query.setInteger(PARAM_EVENT_ID, eventId);
-            query.setInteger(PARAM_USER_ID, userId);
+            query.setParameter(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_USER_ID, userId);
             return (Integer) query.uniqueResult();
         } finally {
             session.close();
@@ -157,8 +157,8 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findImageByDelegationAndUser");
-            query.setString(PARAM_DELEGATION_UUID, delegationUUID);
-            query.setInteger(PARAM_USER_ID, userId);
+            query.setParameter(PARAM_DELEGATION_UUID, delegationUUID);
+            query.setParameter(PARAM_USER_ID, userId);
 
             return (String) query.uniqueResult();
         } finally {
@@ -188,8 +188,8 @@ public class GuestResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query query = session.getNamedQuery(QUERY_FIND_BY_EVENT_AND_USER);
-            query.setInteger(PARAM_EVENT_ID, eventId);
-            query.setInteger(PARAM_USER_ID, userId);
+            query.setParameter(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_USER_ID, userId);
 
             final Guest guest = (Guest) query.uniqueResult();
             guest.setNotehost(notehost);
@@ -220,7 +220,7 @@ public class GuestResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Guest.getGuestById");
-            query.setInteger(PARAM_GUEST_ID, guestId);
+            query.setParameter(PARAM_GUEST_ID, guestId);
             final Guest guest = (Guest) query.uniqueResult();
             guest.setImage_uuid(imgUUID);
 
@@ -250,13 +250,13 @@ public class GuestResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query checkMaxGuestLimit = session.getNamedQuery("Event.checkMaxGuestLimit");
-            checkMaxGuestLimit.setInteger(PARAM_EVENT_ID, eventId);
+            checkMaxGuestLimit.setParameter(PARAM_EVENT_ID, eventId);
 
             BigInteger maxGuestLimit = (BigInteger) checkMaxGuestLimit.uniqueResult();
 
             final Query getGuest = session.getNamedQuery(QUERY_FIND_BY_EVENT_AND_USER);
-            getGuest.setInteger(PARAM_EVENT_ID, eventId);
-            getGuest.setInteger(PARAM_USER_ID, userId);
+            getGuest.setParameter(PARAM_EVENT_ID, eventId);
+            getGuest.setParameter(PARAM_USER_ID, userId);
 
             final Guest guest = (Guest) getGuest.uniqueResult();
             guest.setInvitationstatus(invitationstatus);
@@ -290,7 +290,7 @@ public class GuestResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Guest.findByNoLoginUUID");
-            query.setString(PARAM_NO_LOGIN_REQUIRED_UUID, noLoginRequiredUUID);
+            query.setParameter(PARAM_NO_LOGIN_REQUIRED_UUID, noLoginRequiredUUID);
 
             final Guest guest = (Guest) query.uniqueResult();
             guest.setInvitationstatus(invitationstatus);
@@ -316,7 +316,7 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUID");
-            query.setString(PARAM_UUID, uuid);
+            query.setParameter(PARAM_UUID, uuid);
 
             return (Guest) query.uniqueResult();
         } finally {
@@ -337,8 +337,8 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findByDelegationAndUser");
-            query.setString(PARAM_DELEGATION, uuid);
-            query.setInteger(PARAM_USER_ID, userId);
+            query.setParameter(PARAM_DELEGATION, uuid);
+            query.setParameter(PARAM_USER_ID, userId);
 
             return (Guest) query.uniqueResult();
         } finally {
@@ -358,7 +358,7 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findByDelegationUUID");
-            query.setString(PARAM_DELEGATION, uuid);
+            query.setParameter(PARAM_DELEGATION, uuid);
 
             return (Guest) query.uniqueResult();
         } finally {
@@ -378,7 +378,7 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.guestByUUID");
-            query.setString(PARAM_UUID, uuid);
+            query.setParameter(PARAM_UUID, uuid);
 
             final BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
             return numberFoundDelegations.intValue() == 1;
@@ -401,8 +401,8 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.isGuestForEvent");
-            query.setString("osiam_login", username);
-            query.setString(PARAM_DELEGATION, delegation);
+            query.setParameter("osiam_login", username);
+            query.setParameter(PARAM_DELEGATION, delegation);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
             return numberOfGuestsFound.intValue() > 0;
@@ -451,8 +451,8 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(namedQuery);
-            query.setString(PARAM_USERNAME, username);
-            query.setInteger(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_USERNAME, username);
+            query.setParameter(PARAM_EVENT_ID, eventId);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
             return numberOfGuestsFound.intValue() > 0;
@@ -475,8 +475,8 @@ public class GuestResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.checkUserRegistrationWithoutLogin");
-            query.setString(PARAM_NO_LOGIN_REQUIRED_UUID, noLoginRequiredUUID);
-            query.setInteger(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_NO_LOGIN_REQUIRED_UUID, noLoginRequiredUUID);
+            query.setParameter(PARAM_EVENT_ID, eventId);
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
             return numberOfGuestsFound.intValue() > 0;
@@ -571,8 +571,8 @@ public class GuestResource extends AbstractResource {
               username, nodeHost, reserve);
 
             final Query query = session.getNamedQuery("Guest.findIdByEventAndUser");
-            query.setInteger(PARAM_EVENT_ID, eventId);
-            query.setInteger(PARAM_USER_ID, userId);
+            query.setParameter(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_USER_ID, userId);
             Integer guestId = (Integer) query.uniqueResult();
             if (guestId != null) {
                 guest.setPk(guestId);
@@ -604,8 +604,8 @@ public class GuestResource extends AbstractResource {
         try {
 
             final Query query = session.getNamedQuery("Guest.isReserve");
-            query.setInteger(PARAM_EVENT_ID, eventId);
-            query.setString(PARAM_USERNAME, username);
+            query.setParameter(PARAM_EVENT_ID, eventId);
+            query.setParameter(PARAM_USERNAME, username);
             Integer reserve = (Integer) query.uniqueResult();
 
             return reserve != null && reserve.equals(1);
