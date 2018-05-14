@@ -99,6 +99,9 @@ public class GuestReportWorker {
      * Octopus-Eingabeparameter für {@link #createReport(OctopusContext)}
      */
     public static final String INPUT_createReport[] = {};
+    public static final String INPUT_getLocationForReport[] = {};
+    public static final String OUTPUT_getLocationForReport = "location";
+
     private static Logger logger = Logger.getLogger(GuestReportWorker.class.getName());
 
     /**
@@ -141,8 +144,7 @@ public class GuestReportWorker {
         Event event = (Event) cntx.contentAsObject("event");
         GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
         List selection = (List) cntx.sessionAsObject("selectionGuest");
-
-
+        
         if (event == null) {
             return;
         }
@@ -334,6 +336,7 @@ public class GuestReportWorker {
         if (location == null || location.name == null) {
             logger.warning("Could not get location name by task: " + cntx.getTaskName());
         }
+
 
         return location;
     }
