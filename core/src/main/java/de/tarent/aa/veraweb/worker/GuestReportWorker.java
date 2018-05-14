@@ -77,6 +77,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -138,16 +139,11 @@ public class GuestReportWorker {
     public void createReport(OctopusContext cntx) throws BeanException {
         Database database = new DatabaseVeraWeb(cntx);
         Event event = (Event) cntx.contentAsObject("event");
-        Location location = (Location) cntx.contentAsObject("location");
         GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
         List selection = (List) cntx.sessionAsObject("selectionGuest");
 
-        if (event == null) {
-            return;
-        }
 
-        if (location == null ) {
-            logger.warning("Could not get location name by task: " + cntx.getTaskName());
+        if (event == null) {
             return;
         }
 
@@ -329,5 +325,16 @@ public class GuestReportWorker {
              */
             order.add("tworkarea.name");
         }
+    }
+
+    public Location getLocationForReport(OctopusContext cntx) throws IOException, BeanException {
+        Event event = (Event) cntx.contentAsObject("event");
+        Location location = LocationDetailWorker.getLocation(cntx, event.location);
+
+        if (location == null || location.name == null) {
+            logger.warning("Could not get location name by task: " + cntx.getTaskName());
+        }
+
+        return location;
     }
 }
