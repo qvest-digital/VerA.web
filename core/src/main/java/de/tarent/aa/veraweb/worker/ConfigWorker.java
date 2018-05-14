@@ -70,6 +70,7 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
+import de.tarent.aa.veraweb.beans.ViewConfig;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -114,6 +115,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     private Map config;
     private boolean loaded = false;
     private final PropertiesReader propertiesReader = new PropertiesReader();
+    private final ViewConfig verawebViewConfig = new ViewConfig(propertiesReader.getProperties());
 
     final Logger LOGGER = LogManager.getLogger(ConfigWorker.class.getCanonicalName());
 
@@ -194,6 +196,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 
         //FIXME: here is as good as anywhere else, I guess?
         cntx.setContent("url", new URLGenerator(propertiesReader.getProperties()));
+        cntx.setContent("viewConfig", verawebViewConfig);
     }
 
     /**
