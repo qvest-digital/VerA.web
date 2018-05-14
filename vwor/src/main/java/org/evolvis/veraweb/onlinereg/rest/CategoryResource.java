@@ -100,8 +100,8 @@ public class CategoryResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Category.findIdByCatname");
-            query.setString(CATEGORY_NAME, catname);
-            query.setString("uuid", uuid);
+            query.setParameter(CATEGORY_NAME, catname);
+            query.setParameter("uuid", uuid);
             final Integer categoryId = (Integer) query.uniqueResult();
             if (categoryId != null) {
                 return categoryId;
@@ -124,7 +124,7 @@ public class CategoryResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Category.getCategoryIdByCategoryName");
-            query.setString(CATEGORY_NAME, catname);
+            query.setParameter(CATEGORY_NAME, catname);
 
             return (Integer) query.uniqueResult();
         } finally {
@@ -146,8 +146,8 @@ public class CategoryResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Category.findCatnameByUserAndDelegation");
-            query.setString("uuid", uuid);
-            query.setInteger(PERSON_ID, Integer.parseInt(personId));
+            query.setParameter("uuid", uuid);
+            query.setParameter(PERSON_ID, Integer.parseInt(personId));
             return (String) query.uniqueResult();
         } finally {
             session.close();
@@ -161,8 +161,8 @@ public class CategoryResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
-            queryCategory.setString(CATEGORY_NAME, categoryName);
-            queryCategory.setInteger(PERSON_ID, Integer.valueOf(personId));
+            queryCategory.setParameter(CATEGORY_NAME, categoryName);
+            queryCategory.setParameter(PERSON_ID, Integer.valueOf(personId));
             return (Integer) queryCategory.uniqueResult();
         } finally {
             session.close();

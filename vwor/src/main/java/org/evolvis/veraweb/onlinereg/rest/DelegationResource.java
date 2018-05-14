@@ -128,8 +128,8 @@ public class DelegationResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Delegation.deleteOptionalFieldsByGuestId");
-            query.setInteger("guestId", guestId);
-            query.setInteger("fieldId", fieldId);
+            query.setParameter("guestId", guestId);
+            query.setParameter("fieldId", fieldId);
             query.executeUpdate();
             session.getTransaction().commit();
         } finally {
@@ -151,8 +151,8 @@ public class DelegationResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL);
-            query.setInteger("eventId", eventId);
-            query.setString("label", label);
+            query.setParameter("eventId", eventId);
+            query.setParameter("label", label);
 
             return (Integer) query.uniqueResult();
         } finally {
@@ -263,14 +263,14 @@ public class DelegationResource extends AbstractResource {
 
     private List<OptionalFieldTypeContent> getTypeContentsByField(final Session session, final OptionalField field) {
         final Query getTypeContentsQuery = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
-        getTypeContentsQuery.setInteger("optionalFieldId", field.getPk());
+        getTypeContentsQuery.setParameter("optionalFieldId", field.getPk());
         return (List<OptionalFieldTypeContent>) getTypeContentsQuery.list();
     }
 
     private List<Delegation> getDelegationContentsByGuest(int guestId, Session session, OptionalField field) {
         final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
-        query.setInteger(Delegation.PARAM_GUEST_ID, guestId);
-        query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
+        query.setParameter(Delegation.PARAM_GUEST_ID, guestId);
+        query.setParameter(Delegation.PARAM_FIELD_ID, field.getPk());
 
         return (List<Delegation>) query.list();
     }

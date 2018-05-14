@@ -93,7 +93,7 @@ public class LinkUUIDResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("LinkUUID.getUserIdByUUID");
-            query.setString("uuid", uuid);
+            query.setParameter("uuid", uuid);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return null;
@@ -112,7 +112,7 @@ public class LinkUUIDResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("LinkUUID.deleteUUIDByPersonid");
-            query.setInteger("personid", personId);
+            query.setParameter("personid", personId);
             query.executeUpdate();
             session.getTransaction().commit();
         } finally {

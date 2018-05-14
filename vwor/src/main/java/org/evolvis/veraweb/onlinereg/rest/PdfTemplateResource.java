@@ -179,7 +179,7 @@ public class PdfTemplateResource extends FormDataResource {
         try {
             final Query query = session.getNamedQuery(PdfTemplate.DELETE_PDF_TEMPLATE);
             for (Integer id : idList) {
-                query.setInteger(PdfTemplate.PARAM_PDF_ID, id);
+                query.setParameter(PdfTemplate.PARAM_PDF_ID, id);
                 query.executeUpdate();
             }
             session.flush();
@@ -196,7 +196,7 @@ public class PdfTemplateResource extends FormDataResource {
         Session session = openSession();
         try {
             final Query query = session.getNamedQuery(PdfTemplate.GET_PDF_TEMPLATE_LIST_BY_ORGUNIT);
-            query.setInteger(PdfTemplate.PARAM_PDF_ORGUNIT, mandantId);
+            query.setParameter(PdfTemplate.PARAM_PDF_ORGUNIT, mandantId);
             final List<PdfTemplate> pdfTemplates = query.list();
             if (pdfTemplates.isEmpty()) {
                 return Response.status(Status.NO_CONTENT).build();
@@ -402,7 +402,7 @@ public class PdfTemplateResource extends FormDataResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(SalutationAlternative.GET_SALUTATION_ALTERNATIVE_BY_PDF_ID);
-            query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdfTemplateId);
+            query.setParameter(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdfTemplateId);
             if (query.list().isEmpty()) {
                 return new ArrayList<>();
             }
@@ -431,7 +431,7 @@ public class PdfTemplateResource extends FormDataResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(PdfTemplate.GET_PDF_TEMPLATE);
-            query.setInteger(PdfTemplate.PARAM_PDF_ID, pdfTemplateId);
+            query.setParameter(PdfTemplate.PARAM_PDF_ID, pdfTemplateId);
             return (PdfTemplate) query.uniqueResult();
         } finally {
             session.close();
@@ -442,7 +442,7 @@ public class PdfTemplateResource extends FormDataResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getPeopleByEventId");
-            query.setInteger("eventid", eventId);
+            query.setParameter("eventid", eventId);
             return (List<Person>) query.list();
         } finally {
             session.close();
@@ -494,7 +494,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private PdfTemplate getExistingTemplate(Integer id, Session session) {
         final Query query = session.getNamedQuery(PdfTemplate.GET_PDF_TEMPLATE);
-        query.setInteger(PdfTemplate.PARAM_PDF_ID, id);
+        query.setParameter(PdfTemplate.PARAM_PDF_ID, id);
         return (PdfTemplate) query.uniqueResult();
     }
 
@@ -514,13 +514,13 @@ public class PdfTemplateResource extends FormDataResource {
 
     private void updatePdfTemplateWithContent(Session session, Integer id, String name, byte[] content) {
         final Query query = session.getNamedQuery(PdfTemplate.UPDATE_PDF_TEMPLATE_CONTENT);
-        query.setBinary(PdfTemplate.PARAM_PDF_CONTENT, content);
+        query.setParameter(PdfTemplate.PARAM_PDF_CONTENT, content);
         setAndExecuteQuery(query, id, name);
     }
 
     private void setAndExecuteQuery(Query query, Integer id, String name) {
-        query.setInteger(PdfTemplate.PARAM_PDF_ID, id);
-        query.setString(PdfTemplate.PARAM_PDF_NAME, name);
+        query.setParameter(PdfTemplate.PARAM_PDF_ID, id);
+        query.setParameter(PdfTemplate.PARAM_PDF_NAME, name);
         query.executeUpdate();
     }
 }

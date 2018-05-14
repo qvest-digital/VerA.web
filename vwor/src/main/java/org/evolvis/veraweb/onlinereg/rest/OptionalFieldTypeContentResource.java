@@ -95,7 +95,7 @@ public class OptionalFieldTypeContentResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
-            query.setInteger("optionalFieldId", optionalFieldId);
+            query.setParameter("optionalFieldId", optionalFieldId);
             return (List<OptionalFieldTypeContent>) query.list();
         } finally {
             session.close();

@@ -125,8 +125,8 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId");
-            query.setInteger("fk_event", Integer.parseInt(eventId));
-            query.setString("email", encodedAddress);
+            query.setParameter("fk_event", Integer.parseInt(eventId));
+            query.setParameter("email", encodedAddress);
             final BigInteger activations = (BigInteger) query.uniqueResult();
             if (activations != null && activations.intValue() >= 1) {
                 return true;
@@ -145,7 +145,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.getActivationByActivationToken");
-            query.setString("activation_token", mediaRepresentativeActivationToken);
+            query.setParameter("activation_token", mediaRepresentativeActivationToken);
             return (MediaRepresentativeActivation) query.uniqueResult();
         } finally {
             session.close();
@@ -160,8 +160,8 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.activate");
-            query.setString("email", email);
-            query.setInteger("fk_event", eventId);
+            query.setParameter("email", email);
+            query.setParameter("fk_event", eventId);
             query.executeUpdate();
             session.getTransaction().commit();
         } finally {
