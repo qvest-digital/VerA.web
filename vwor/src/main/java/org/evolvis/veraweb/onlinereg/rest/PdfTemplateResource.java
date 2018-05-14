@@ -118,7 +118,8 @@ public class PdfTemplateResource extends FormDataResource {
       FileUtils.getTempDirectoryPath() + File.separator + UUID.randomUUID().toString() + "_" + currentExportFileName;
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
     private final Integer DAYS_BACK = 1;
-    private final long PURGE_TIME = System.currentTimeMillis() - (DAYS_BACK * 24 * 60 * 60 * 1000);
+    private static final long MILLISECONDS_PER_DAY = 24L * 60 * 60 * 1000;
+    private final long PURGE_TIME = System.currentTimeMillis() - (DAYS_BACK * MILLISECONDS_PER_DAY);
     private List<SalutationAlternative> alternativeSalutations;
 
     @POST
@@ -315,8 +316,11 @@ public class PdfTemplateResource extends FormDataResource {
         final File tempFileForPdfTemplate =
           File.createTempFile(uuid.toString() + "-pdfexport-template" + new Date().getTime(), ".pdf");
         final OutputStream outputStream = new FileOutputStream(tempFileForPdfTemplate);
-        outputStream.write(content);
-        outputStream.close();
+        try {
+            outputStream.write(content);
+        } finally {
+            outputStream.close();
+        }
 
         return tempFileForPdfTemplate.toString();
     }

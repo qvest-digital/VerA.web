@@ -108,10 +108,13 @@ public class FormDataResource extends AbstractResource {
         final byte[] bytes = new byte[1024];
 
         final OutputStream out = new FileOutputStream(destination);
-        while ((read = uploadedInputStream.read(bytes)) != -1) {
-            out.write(bytes, 0, read);
+        try {
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+        } finally {
+            out.close();
         }
-        out.flush();
-        out.close();
     }
 }

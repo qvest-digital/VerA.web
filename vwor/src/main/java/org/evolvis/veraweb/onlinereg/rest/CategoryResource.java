@@ -162,7 +162,7 @@ public class CategoryResource extends AbstractResource {
         try {
             final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
             queryCategory.setString(CATEGORY_NAME, categoryName);
-            queryCategory.setInteger(PERSON_ID, Integer.valueOf(personId));
+            queryCategory.setInteger(PERSON_ID, Integer.parseInt(personId));
             return (Integer) queryCategory.uniqueResult();
         } finally {
             session.close();
