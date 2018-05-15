@@ -131,6 +131,7 @@
     };
 
     var initHide = function () {
+        $('.none').show();
         $('#upID').hide();
         $('#downID').hide();
         $('#upTemplateName').hide();
@@ -160,6 +161,7 @@
 
         var flagID = false;
         $('#ID').click(function () {
+            $('.noneID').hide();
             if (flagID === false) {
                 $('#upID').show();
                 $('#downID').hide();
@@ -174,6 +176,7 @@
 
         var flagTemplateNate = false;
         $('#templateName').click(function () {
+            $('.noneTemplateName').hide();
             if (flagTemplateNate === false) {
                 $('#upTemplateName').show();
                 $('#downTemplateName').hide();

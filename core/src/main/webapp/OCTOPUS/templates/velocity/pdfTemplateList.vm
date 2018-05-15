@@ -65,6 +65,8 @@
                                                           src="${paths.staticWeb}images/sort_up.gif"></img></span>
                     <span id="downID" class="floatRight"><img border="0" alt="ASC"
                                                             src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                    <span class="noneID" class="floatRight"><img border="0" alt="ASC"
+                                                              src="${paths.staticWeb}images/sort_none.gif"></img></span>
                 </th>
                 <th id="templateName">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}
 
@@ -72,6 +74,8 @@
                                                            src="${paths.staticWeb}images/sort_up.gif"></img></span>
                     <span id="downTemplateName" class="floatRight"><img border="0" alt="ASC"
                                                              src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                    <span class="noneTemplateName" class="floatRight"><img border="0" alt="ASC"
+                                                            src="${paths.staticWeb}images/sort_none.gif"></img></span>
                 </th>
             </tr>
 
