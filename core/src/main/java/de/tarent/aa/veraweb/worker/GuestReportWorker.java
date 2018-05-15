@@ -69,6 +69,7 @@ package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -79,11 +80,13 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Dieser Worker stellt entsprechende Funktionen zur Erstellung von
@@ -99,6 +102,10 @@ public class GuestReportWorker {
      * Octopus-Eingabeparameter für {@link #createReport(OctopusContext)}
      */
     public static final String INPUT_createReport[] = {};
+    public static final String INPUT_getLocationForReport[] = {};
+    public static final String OUTPUT_getLocationForReport = "location";
+
+    private static Logger logger = Logger.getLogger(GuestReportWorker.class.getName());
 
     /**
      * Diese Octopus-Aktion erzeugt Daten für einen Bericht. Hierbei wird auf
@@ -158,53 +165,8 @@ public class GuestReportWorker {
         boolean kategorie = type.startsWith("Kat");
         boolean alphabetisch = type.startsWith("Alpha");
 
-        String titel;
-        if (search.invitationstatus != null && search.invitationstatus.intValue() == 1) {
-            titel = "Offenliste";
-        } else if (search.invitationstatus != null && search.invitationstatus.intValue() == 2) {
-            titel = "Zusagenliste";
-        } else if (search.invitationstatus != null && search.invitationstatus.intValue() == 3) {
-            titel = "Absagenliste";
-        } else {
-            titel = "Gästeliste";
-        }
-        if (alphabetisch) {
-            titel += " (alphabetisch)";
-        }
-
-        Select select = SQL.Select(database).
-          from("veraweb.tguest").
-          selectAs("tguest.pk", "id").
-          selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").
-          select("reserve").
-          select("lastname_a_e1").
-          select("title_a_e1").
-          select("firstname_a_e1").
-          select("lastname_b_e1").
-          select("title_b_e1").
-          select("firstname_b_e1").
-          select("invitationtype").
-          select("invitationstatus").
-          select("invitationstatus_p").
-          select("orderno").
-          select("orderno_p").
-          select("notehost").
-          select("notehost_p").
-          select("ishost").
-          select("fon_a_e1").
-          select("fon_b_e1").
-          select("fon_c_e1").
-          select("fax_a_e1").
-          select("fax_b_e1").
-          select("fax_c_e1").
-          select("mobil_a_e1").
-          select("mobil_b_e1").
-          select("mobil_c_e1").
-          select("function_a_e1").
-          select("company_a_e1").
-          selectAs("tcategorie.catname", "category").
-          joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
-          joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
+        String titel = validateTitel(search, alphabetisch);
+        Select select = selectDatabaseFields(database);
 
         /*
          * modified to support ordering by workarea as per change request for version 1.2.0
@@ -213,6 +175,7 @@ public class GuestReportWorker {
          * 2008-02-20
          */
         Boolean orderByWorkArea = cntx.requestAsBoolean("orderByWorkArea");
+
         if (orderByWorkArea.booleanValue()) {
             select.joinLeftOuter("veraweb.tworkarea", "tperson.fk_workarea", "tworkarea.pk");
             select.selectAs("CASE WHEN tworkarea.name <> 'Kein' THEN tworkarea.name ELSE 'Kein Arbeitsbereich' END",
@@ -266,6 +229,71 @@ public class GuestReportWorker {
     //
 
     /**
+     * Diese Methode überprüft und setzt den validen Title anhand der GuestSearch Bean
+     *
+     * @param alphabetisch
+     * @return
+     */
+    private String validateTitel(GuestSearch search, boolean alphabetisch) {
+        String titel;
+        if (search.invitationstatus != null && search.invitationstatus.intValue() == 1) {
+            titel = "Offenliste";
+        } else if (search.invitationstatus != null && search.invitationstatus.intValue() == 2) {
+            titel = "Zusagenliste";
+        } else if (search.invitationstatus != null && search.invitationstatus.intValue() == 3) {
+            titel = "Absagenliste";
+        } else {
+            titel = "Gästeliste";
+        }
+        if (alphabetisch) {
+            titel += " (alphabetisch)";
+        }
+        return titel;
+    }
+
+    /**
+     * Diese Methode gibt ein select mit den benötigten Feldern zurück.
+     *
+     * @param database
+     * @return
+     */
+    private Select selectDatabaseFields(Database database) {
+        return SQL.Select(database).
+              from("veraweb.tguest").
+              selectAs("tguest.pk", "id").
+              selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").
+              select("reserve").
+              select("lastname_a_e1").
+              select("title_a_e1").
+              select("firstname_a_e1").
+              select("lastname_b_e1").
+              select("title_b_e1").
+              select("firstname_b_e1").
+              select("invitationtype").
+              select("invitationstatus").
+              select("invitationstatus_p").
+              select("orderno").
+              select("orderno_p").
+              select("notehost").
+              select("notehost_p").
+              select("ishost").
+              select("fon_a_e1").
+              select("fon_b_e1").
+              select("fon_c_e1").
+              select("fax_a_e1").
+              select("fax_b_e1").
+              select("fax_c_e1").
+              select("mobil_a_e1").
+              select("mobil_b_e1").
+              select("mobil_c_e1").
+              select("function_a_e1").
+              select("company_a_e1").
+              selectAs("tcategorie.catname", "category").
+              joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
+              joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
+    }
+
+    /**
      * Diese Methode fügt gemäß einem übergebenen Sortierkriterium ("orderno",
      * "name", "country", "zipcode", "category", "rank" oder "table") passende
      * ORDER-BY-Spaltennamen in die übergebene Liste ein.
@@ -300,5 +328,15 @@ public class GuestReportWorker {
              */
             order.add("tworkarea.name");
         }
+    }
+
+    public Location getLocationForReport(OctopusContext cntx) throws IOException, BeanException {
+        Event event = (Event) cntx.contentAsObject("event");
+        Location location = LocationDetailWorker.getLocation(cntx, event.location);
+
+        if (location == null || location.name == null) {
+            logger.warning("Could not get location name by task: " + cntx.getTaskName());
+        }
+        return location;
     }
 }

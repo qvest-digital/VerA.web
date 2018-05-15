@@ -1361,6 +1361,7 @@
 			<doTask name="Load"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker"/>
+			<action name="getLocationForReport" worker="GuestReportWorker"/>
 			<action name="createReport" worker="GuestReportWorker"/>
 			<response type="velocity" name="reportGuestList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
