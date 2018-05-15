@@ -162,7 +162,7 @@ public class GuestReportWorker {
         boolean kategorie = type.startsWith("Kat");
         boolean alphabetisch = type.startsWith("Alpha");
 
-        String titel = validateTitle(search, alphabetisch);
+        String titel = validateTitel(search, alphabetisch);
         Select select = selectDatabaseFields(database);
 
         /*
@@ -210,8 +210,7 @@ public class GuestReportWorker {
         select.orderBy(DatabaseHelper.getOrder(order));
 
         Map data = new HashMap();
-        GuestListWorker guestListWorker = WorkerFactory.getGuestListWorker(cntx);
-        guestListWorker.getSums(database, data, search, selection);
+        WorkerFactory.getGuestListWorker(cntx).getSums(database, data, search, selection);
 
         cntx.setContent("datum", new Date());
         cntx.setContent("titel", titel);
@@ -229,11 +228,10 @@ public class GuestReportWorker {
     /**
      * Diese Methode überprüft und setzt den validen Title anhand der GuestSearch Bean
      *
-     * @param search
      * @param alphabetisch
      * @return
      */
-    private String validateTitle(GuestSearch search, boolean alphabetisch) {
+    private String validateTitel(GuestSearch search, boolean alphabetisch) {
         String titel;
         if (search.invitationstatus != null && search.invitationstatus.intValue() == 1) {
             titel = "Offenliste";
@@ -336,8 +334,6 @@ public class GuestReportWorker {
         if (location == null || location.name == null) {
             logger.warning("Could not get location name by task: " + cntx.getTaskName());
         }
-
-
         return location;
     }
 }
