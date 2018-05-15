@@ -83,11 +83,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Dieser Octopus-Worker stellt die übersichtliste eines Verteilers bereit.
@@ -117,7 +113,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
     @Override
-    protected void extendColumns(final OctopusContext cntx, final Select select) throws BeanException {
+    protected void extendColumns(final OctopusContext cntx, final Select select) {
         select.joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk");
         select.selectAs("lastname_a_e1", "lastname");
         select.selectAs("firstname_a_e1", "firstname");
@@ -125,13 +121,13 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     }
 
     @Override
-    protected void extendWhere(final OctopusContext cntx, final Select select) throws BeanException {
+    protected void extendWhere(final OctopusContext cntx, final Select select) {
         final Mailinglist mailinglist = (Mailinglist) cntx.contentAsObject("mailinglist");
         select.where(Expr.equal("fk_mailinglist", mailinglist.id));
     }
 
     @Override
-    protected List getResultList(final Database database, final Select select) throws BeanException, IOException {
+    protected List getResultList(final Database database, final Select select) throws BeanException {
         return database.getList(select, database);
     }
 
