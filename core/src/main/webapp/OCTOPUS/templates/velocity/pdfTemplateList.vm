@@ -50,8 +50,8 @@
 
         <table id="pdftemplate-list-overview" class="fixed">
         ##Set column size
-        <col width="$column0%"/>
-        <col width="$column1%"/>
+            <col width="$column0%"/>
+            <col width="$column1%"/>
 
             <tr>
                 <th class="smallCell textCenter">
@@ -59,8 +59,20 @@
                            title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size())
                            checked#end/>
                 </th>
-                <th id="ID">${placeholderWithTranslation.GENERIC_ID}</th>
-                <th id="templateName">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
+                <th id="ID">${placeholderWithTranslation.GENERIC_ID}
+
+                    <span id="upID" class="floatRight"><img border="0" alt="ASC"
+                                                          src="${paths.staticWeb}images/sort_up.gif"></img></span>
+                    <span id="downID" class="floatRight"><img border="0" alt="ASC"
+                                                            src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                </th>
+                <th id="templateName">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}
+
+                    <span id="upTemplateName" class="floatRight"><img border="0" alt="ASC"
+                                                           src="${paths.staticWeb}images/sort_up.gif"></img></span>
+                    <span id="downTemplateName" class="floatRight"><img border="0" alt="ASC"
+                                                             src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                </th>
             </tr>
 
             <tr class="colspan"></tr>
@@ -68,7 +80,7 @@
 
     </form>
     <span class="amount" id="listnavitext"><span
-            id="pdftemplates-count"></span> ${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
+            id="pdftemplates-count"></span>${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
 </div>
 
 #parse("inc/footer.vm")
