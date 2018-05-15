@@ -159,6 +159,8 @@ public class Person {
     private String mail_a_e1;
     private String url_a_e1;
 
+    private String internal_id;
+
     /* Username for the Onlinereg service */
     private String username;
 
@@ -432,5 +434,13 @@ public class Person {
 
     public void setNoteForOrga(String noteForOrga) {
         this.noteForOrga = noteForOrga;
+    }
+
+    public String getInternalId() {
+        return internal_id;
+    }
+
+    public void setInternalId(String internalId) {
+        this.internal_id = internalId;
     }
 }

@@ -457,6 +457,7 @@ GENERIC_DISCARD_CHANGES=Discard changes?
 GENERIC_DATE=Date
 GENERIC_LASTNAME=last name
 GENERIC_FIRSTNAME=first name
+GENERIC_INTERNAL_ID=internal ID
 akwritemtsbezeichnung=Official title
 GENERIC_COMPANY_INSTITUTION=Company / Institution
 GENERIC_STREET=Street

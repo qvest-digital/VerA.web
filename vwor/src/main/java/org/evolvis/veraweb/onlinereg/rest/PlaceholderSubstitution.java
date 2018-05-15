@@ -112,6 +112,7 @@ public class PlaceholderSubstitution {
         map.put(Placeholder.REMARK.key, person.getNote_a_e1());
         map.put(Placeholder.HINT_FOR_HOST.key, person.getNotehost_a_e1());
         map.put(Placeholder.HINT_FOR_ORGA.key, person.getNoteForOrga());
+        map.put(Placeholder.INTERNAL_ID.key, person.getInternalId());
         return map;
     }
 

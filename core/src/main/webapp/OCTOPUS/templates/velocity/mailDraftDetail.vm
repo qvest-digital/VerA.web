@@ -80,6 +80,7 @@
                                         <option value="${placeholder.HINT_FOR_ORGA}">${placeholderWithTranslation.GENERIC_HINT_FOR_ORGA}</option>
                                         <option value="${placeholder.HINT_FOR_HOST}">${placeholderWithTranslation.GENERIC_HINT_FOR_HOST}</option>
                                         <option value="${placeholder.REMARK}">${placeholderWithTranslation.GENERIC_REMARK}</option>
+                                        <option value="${placeholder.INTERNAL_ID}">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</option>
                                 </select>
                                         <input type="button" name="add" value="${placeholder.REMARK}" onclick="addPlatzhalter(this);"/>
                         </div>

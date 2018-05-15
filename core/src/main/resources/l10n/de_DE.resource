@@ -458,6 +458,7 @@ GENERIC_DISCARD_CHANGES=Bearbeitung verwerfen?
 GENERIC_DATE=Datum
 GENERIC_LASTNAME=Nachname
 GENERIC_FIRSTNAME=Vorname
+GENERIC_INTERNAL_ID=Interne ID
 amtsbezeichnung=Amtsbezeichnung
 GENERIC_COMPANY_INSTITUTION=Firma / Institution
 GENERIC_STREET=Stra\u00DFe
