@@ -67,6 +67,10 @@ package de.tarent.aa.veraweb.utils;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import de.tarent.aa.veraweb.worker.ConfigWorker;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -78,6 +82,8 @@ import java.util.Properties;
  * @author Max Marche, tarent solutions GmbH
  */
 public class PropertiesReader {
+
+    final Logger LOGGER = LogManager.getLogger(PropertiesReader.class.getCanonicalName());
 
     private static final String PROPERTY_FILE = "/etc/veraweb/veraweb.properties";
 
@@ -107,7 +113,8 @@ public class PropertiesReader {
             inputStream = new FileInputStream(PROPERTY_FILE);
             properties.load(inputStream);
         } catch (IOException e) {
-            return null;
+            LOGGER.warn("Exception occured while reading properties from {}. Return empty properties",PROPERTY_FILE, e);
+            return properties;
         } finally {
             try {
                 inputStream.close();
