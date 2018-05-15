@@ -56,18 +56,18 @@
                                 <th class="smallCell textCenter">
                                         <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
                                 </th>
-                                <th>${placeholderWithTranslation.GENERIC_ID}
-                                    #if($personSearchField == 'id')
+                                <th id="ID">${placeholderWithTranslation.GENERIC_ID}
+##                                    #if($personSearchField == 'id')
                                         #if ($personSearchOrder == 'ASC')
                                             <span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
                                         #else
                                             <span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
                                         #end
-                                    #else
-                                        <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-                                    #end
+##                                    #else
+##                                        <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+##                                    #end
                                 </th>
-                                <th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
+                                <th id="templateName">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
                         </tr>
 
                         <tr class="colspan"></tr>
