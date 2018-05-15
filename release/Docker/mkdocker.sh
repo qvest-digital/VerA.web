@@ -9,25 +9,37 @@ cd "$(dirname "$0")"
 tag=$1
 set -A ours
 
-doone() (
+doone() {
 	cd "$1"
 	docker build -t veraweb-tools.lan.tarent.de:5000/"$2" .
+	cd -
 	docker push veraweb-tools.lan.tarent.de:5000/"$2"
-	[[ -n $tag ]] || return 0
+	[[ $tag = latest ]] && return 0
 	docker tag veraweb-tools.lan.tarent.de:5000/"$2" \
 	    veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 	docker push veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 	set -A ours -- "${ours[@]}" veraweb-tools.lan.tarent.de:5000/"$2:$tag"
-)
+}
 
-ln -f ../../core/target/veraweb.war core/
-ln -f ../../vwoa/target/vw-online-registration.jar vwoa/
-ln -f ../../vwor/target/vwor.war vwor/
+if [[ $tag = latest ]]; then
+	ln ~/jenkins-tmp/latest/veraweb.war core/
+	ln ~/jenkins-tmp/latest/vw-online-registration.jar vwoa/
+	ln ~/jenkins-tmp/latest/vwor.war vwor/
+	ln ~/jenkins-tmp/latest/veraweb-core-*-files.tgz files.tgz
+else
+	wget -O core/veraweb.war \
+	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$tag/veraweb-core-$tag.war"
+	wget -O vwoa/vw-online-registration.jar \
+	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/online-anmeldung/$tag/online-anmeldung-$tag.jar"
+	wget -O vwor/vwor.war \
+	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/rest-api/$tag/rest-api-$tag.war"
+	wget -O files.tgz \
+	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$tag/veraweb-core-$tag-files.tgz"
+fi
 
-tar -xzf ../../core/target/veraweb-core-*-files.tgz \
-    -O $(tar -tzf ../../core/target/veraweb-core-*-files.tgz | \
-    fgrep postgresql-jdbc4.jar) >core/postgresql-jdbc4.jar
-ln -f core/postgresql-jdbc4.jar vwor/
+tar -xzf files.tgz -O $(tar -tzf files.tgz | fgrep postgresql-jdbc4.jar) \
+    >core/postgresql-jdbc4.jar
+ln core/postgresql-jdbc4.jar vwor/
 
 doone core veraweb-core
 doone vwoa veraweb-oa
@@ -37,7 +49,7 @@ doone httpd veraweb-httpd
 doone ldap veraweb-ldap
 
 # release export
-[[ -n $tag ]] || exit 0
+[[ $tag = latest ]] && exit 0
 
 set -A externals -- \
     burberius/osiam-simple:2.5.1 \
@@ -47,10 +59,15 @@ for x in "${externals[@]}"; do
 	docker pull "$x"
 done
 
-mkdir -p "/var/www/html/$tag"
-
+rm -rf "/var/www/html/$tag"
+mkdir "/var/www/html/$tag"
 for x in "${ours[@]}" "${externals[@]}"; do
-	docker save -o "/var/www/html/$tag/${x##*/}.img" "$x"
-	gzip -n9 "/var/www/html/$tag/${x##*/}.img" &
+	img=${x##*/}
+	img=${img//:/-}
+	docker save -o "/var/www/html/$tag/$img.img" "$x"
+	gzip -n9 "/var/www/html/$tag/$img.img" &
 done
 wait
+chmod 444 "/var/www/html/$tag/"*
+chmod 555 "/var/www/html/$tag"
+ls -la "/var/www/html/$tag/"

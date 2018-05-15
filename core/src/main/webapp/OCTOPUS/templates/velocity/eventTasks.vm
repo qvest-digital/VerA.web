@@ -205,8 +205,8 @@
         </form>
         <div class="clear"></div>
 </div>
-<script type="text/javascript">
 
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 $(function () {
 
         #if(!$grants.mayWrite())
@@ -237,6 +237,6 @@ $(function () {
         $('#eventTop input, textarea').prop('disabled', true);
 
 });
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

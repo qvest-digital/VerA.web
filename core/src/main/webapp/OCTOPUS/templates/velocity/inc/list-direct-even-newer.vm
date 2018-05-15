@@ -20,7 +20,7 @@
                                         </li>
                                 #end
                         </ul>
-                        <script type="text/javascript">
+			<script type="text/javascript"><!--//--><![CDATA[//><!--
                                 // magic for jumping to results on different pages
                                 $("a.jump.different-page").click(function(ev){
 
@@ -47,8 +47,7 @@
                                 }
                                 $(window).on('hashchange', highlightRow);
                                 highlightRow();
-
-                        </script>
+			//--><!]]></script>
                 </td>
         </tr>
 #end

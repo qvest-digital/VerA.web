@@ -26,7 +26,7 @@
 	<a href="javascript:saveTitle2();" class="dontprint" style="text-align: right; margin-bottom: 3px;">(Speichern)</a>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 	function replaceAll(s, from, to) {
 		while (s.search(from) != -1) {
 			s = s.replace(from, to);
@@ -73,7 +73,7 @@
 		st.innerHTML = replaceAll(et.value, /\n/, '<BR>');
 		showBlock(stb);
 	}
-</script>
+//--><!]]></script>
 
 <table style="width: 100%;">
 	<tr>

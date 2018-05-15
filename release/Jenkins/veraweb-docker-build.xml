@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>&lt;p&gt;Job to build Docker images for a VerA.web release&#xd;
+  or the last snapshot build (HEAD)&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;Can also trigger installation on a Docker stage.&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;Jenkins jobs: &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-build-install/&quot;&gt;build install&lt;/a&gt; → &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-docker-build/&quot;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
+  href=&quot;/jenkins/job/veraweb-docker-install/&quot;&gt;install&lt;/a&gt;&lt;/p&gt;</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>5</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>VWJENKINS_DOCKER_INSTALL_STAGE</name>
+          <description>Docker stage to install VerA.web on</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>dev</string>
+              <string>test</string>
+              <string>ref</string>
+              <string>(keine)</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@0.23-SNAPSHOT">
+          <name>VWJENKINS_DOCKER_RELEASE_TO_BUILD</name>
+          <description>VerA.web release to create a set of Docker images for</description>
+          <randomName>choice-parameter-377931027512486</randomName>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/show-releases.sh&quot;.execute().text
+
+def list = versions.readLines()
+list &lt;&lt; &quot;(HEAD)&quot;
+return list.reverse()</script>
+            <fallbackScript></fallbackScript>
+          </script>
+          <visibleItemCount>1</visibleItemCount>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+        </org.biouno.unochoice.ChoiceParameter>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.7">
+      <resourceNames>mr_veraweb</resourceNames>
+    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>PS4=&quot;(ci-busyapps)++ &quot;
+set -ex
+
+if test x&quot;$VWJENKINS_DOCKER_RELEASE_TO_BUILD&quot; = x&quot;(HEAD)&quot;; then
+	tag=latest
+else
+	tag=$VWJENKINS_DOCKER_RELEASE_TO_BUILD
+fi
+
+ssh -l root veraweb-tools.lan.tarent.de &quot;
+	PS4=&apos;(veraweb-tools)+++ &apos;
+	set -ex
+	rm -rf /root/jenkins-tmp/docker-build
+	mkdir /root/jenkins-tmp/docker-build
+	cd /root/jenkins-tmp/docker-build
+	if test x&apos;$tag&apos; = x&apos;latest&apos;; then
+		ln ~/jenkins-tmp/latest/veraweb-parent-*-release.tgz x
+	else
+		wget -O x &apos;https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-parent/$tag/veraweb-parent-$tag-release.tgz&apos;
+	fi
+	tar -xzf x
+	cd */Docker/
+	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./mkdocker.sh &apos;$tag&apos;
+    &quot;
+
+if test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+	: this blocks the triggering of the next job
+	rm -f jenkins-parm.prop
+else
+	: trigger Docker install
+	echo &quot;VWJENKINS_DOCKER_TAG_TO_INSTALL=$tag&quot; &gt;jenkins-parm.prop
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.11">
+      <recipients>veraweb-commits@lists.evolvis.org</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+            <hudson.plugins.parameterizedtrigger.FileBuildParameters>
+              <propertiesFile>jenkins-parm.prop</propertiesFile>
+              <failTriggerOnMissing>true</failTriggerOnMissing>
+              <useMatrixChild>false</useMatrixChild>
+              <onlyExactRuns>false</onlyExactRuns>
+            </hudson.plugins.parameterizedtrigger.FileBuildParameters>
+          </configs>
+          <projects>veraweb-docker-install</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.28">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

@@ -10,83 +10,16 @@
   ‣ to Java™ via IntelliJ
 • test everything
 • ensure releasing works
-• split Jenkins jobs: Ansi-Bell takes way too long
-  ‣ Add post-build step: Trigger/call builds on other projects
-    ☻ Add parameters ⇒ current build parameters
 • ensure MTA is set up on all Docker hosts, on 172.17.0.1
   cf. commit 2551bbe21b9723ede478f3bc0261a5cebb2f9d1f in env
 • replace ANSI-Bell: it installs stuff into /usr/local with pip
-  FROM THE INTERNETZ⚠
+  FROM THE INTERNETZ⚠ (even pip itself…)
+  ‣ ansibel docker plugin is also deprecated…
 • handle TODOs in documentation, cover upgrading, mark no-OA jumps
-• fix and check installing Docker offline works
 • Bacon macht Probleme, wird nur von ↓ verwendet (neuschreiben?)
   core/src/main/webapp/js/vera/guest-filter-auto-commit.js
-• mw/tarentcommons/src/main/java/de/tarent/commons/utils/Encryptor.java:
-  import sun.misc.BASE64Encoder; // internal proprietary API, removed soon
 
 Status: kann alles getestet werden, löpt
-
-Release: Bug:
-(ci-busyapps)++ vsn=
-(ci-busyapps)++ test xtrue '=' xtrue
-(ci-busyapps)++ <pom.xml
-(ci-busyapps)++ xmlstarlet sel -N 'pom=http://maven.apache.org/POM/4.0.0' -T -t -c /pom:project/pom:version
-(ci-busyapps)++ vsn=1.8.58-SNAPSHOT
-(ci-busyapps)++ >&2
-(ci-busyapps)++ echo 'W: not tagging snapshot'
-W: not tagging snapshot
-(ci-busyapps)++ vsn=
-⇒ sollte vsn=1.8.57 gewesen sein
-(vielleicht aus core/target/maven-archiver/pom.properties holen?)
-
-Jenkins-Jobs, vielleicht drei wie folgt:
-• build-install
-  PARM: normal-stage, docker-stage
-• docker-build
-  PARM: docker-stage, version
-• docker-install
-  PARM: docker-stage, version
-
-Unsere Usecases sind wie folgt:
-① Dev triggert build-install, um HEAD zu bauen:
-  ‣ baut HEAD und installiert -SNAPSHOT im lokalen .m2
-  ‣ installiert Artefakte auf mit/ohne/po/… Stage
-  ‣ kopiert Artefakte auf Seite
-  ‣ triggert docker-build mit version=latest
-  ⇒ baut Docker :latest aus auf Seite geschobenen Artefakten
-  ‣ triggert docker-install
-  ⇒ installiert :latest auf dev/ref/test-{full,min}
-② git push triggert build-install
-  ⇒ genau wie 1, nur mit vorgegebenen Hostnamen
-③ Dev triggert build-install als Release-Job
-  ‣ taggt, baut, installiert Release im lokalen .m2 und auf Nexus
-  ‣ installiert Artefakte auf mit/ohne/po/… Stage
-  ‣ kopiert Artefakte auf Seite (unnötig)
-  ‣ triggert docker-build mit version=1.X.YY
-  ⇒ baut Docker :1.X.YY aus Artefakten vom Nexus [COMEFROM 4]
-  ‣ erzeugt *.img.gz
-  ‣ triggert docker-install [COMEFROM 5]
-  ⇒ installiert :1.X.YY (aus Registry?) auf dev/ref/test-{full,min}
-④ Ops triggert docker-build
-  ⇒ genau wie [GOTO 4] ab dort
-⑤ Ops triggert docker-install
-  ⇒ genau wie [GOTO 5] dadrunter
-
-2 ist normale Entwicklung, 1 auch.
-3 ist normales Release.
-
-4 ist, wenn Images c.p. neugebaut werden müssen (Security-Fix
-im Basiscontainer oder so); 5, wenn schon gebaute Images auf
-(weitere?) Stages installiert werden sollen.
-
-Probleme:
-• Versionsliste bei 4 und 5 (ggfs. einfach Textfeld?)
-  (oder Verzeichnislisting von v-tools parsen)
-• Offline-Install ist anders
-• taggen wir v-environment überhaupt?
-  wo? wann?
-  nutzen wir die Tags (z.B. beim Reply in 4? 5?)?
-  oder brauchen wir das vielleicht einfach gar nicht mehr?
 
 monorepo status:
 • de.tarent.extract:extract-tool		1.4	[VERA-591]

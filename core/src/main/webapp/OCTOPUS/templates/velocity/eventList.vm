@@ -307,7 +307,7 @@
         </form>
 </div>
 
-<script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         $(function() {
                 $('#button\\.remove').click(function (e) {
                         var checkBoxes = $('input:checkbox[name$="-select"]:checked');
@@ -324,6 +324,6 @@
                         $('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" />').submit();
                 });
         });
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

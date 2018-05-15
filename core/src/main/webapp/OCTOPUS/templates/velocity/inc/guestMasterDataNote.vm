@@ -12,7 +12,7 @@
 	#end
 </span>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 	function reloadGuestData() {
 		var url = '${paths.staticWeb}do/ReloadGuestData'
 		url += '?guest-id=$!guest.id';
@@ -83,4 +83,4 @@
         document.getElementById('fetchRankFromMasterData').value=fetchRankFromMasterData;
         document.getElementById('GuestForm').submit();
     }
-</script>
+//--><!]]></script>

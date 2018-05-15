@@ -7,7 +7,7 @@
 #parse("inc/header.vm")
 #set($formurl = "SaveDelegationFields")
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         $(function() {
                 var types = document.getElementById('typeSelect');
                 if (types != null) {
@@ -21,7 +21,7 @@
                         }
                 }
         });
-</script>
+//--><!]]></script>
 
 <div id="content_container">
 
@@ -153,17 +153,14 @@
     <div class="clear"></div>
 </div>
 
-<script type="text/javascript">
+<style type="text/css"><!--/*--><![CDATA[/*><!--*/
+	.delegationFields {
+		margin-left: 10px;
+	}
 
-</script>
+	.delegationFields>li {
+		margin:10px;
+	}
+/*]]>*/--></style>
 
-<style>
-        .delegationFields {
-                margin-left: 10px;
-        }
-
-        .delegationFields>li {
-                margin:10px;
-        }
-</style>
 #parse("inc/footer.vm")

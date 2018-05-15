@@ -35,7 +35,7 @@ build:
   only:
     - master@veraweb-int/veraweb
   script:
-    - mvn verify sonar:sonar -Dsonar.host.url=https://ci-busyapps.lan.tarent.de/sonar/
+    - mvn verify
   artifacts:
     paths:
     - core/target/surefire-reports/

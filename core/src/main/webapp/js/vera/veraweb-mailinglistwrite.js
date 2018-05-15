@@ -14,11 +14,14 @@
  *  © 2014 Dominik George (d.george@tarent.de)
  *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
  *  © 2008 David Goemans (d.goemans@tarent.de)
+ *  © 2018 Christian Gorski (c.gorski@tarent.de)
  *  © 2015 Viktor Hamm (v.hamm@tarent.de)
  *  © 2013 Katja Hapke (k.hapke@tarent.de)
  *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018 Titian Horvath (t.horvath@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
+ *  © 2018 Timo Kanera (t.kanera@tarent.de)
  *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
  *  © 2014 Martin Ley (m.ley@tarent.de)
  *  © 2014, 2015 Max Marche (m.marche@tarent.de)
@@ -28,7 +31,7 @@
  *  © 2018 Yorka Neumann (y.neumann@tarent.de)
  *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
  *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
- *  © 2014, 2015 Jon Nunez Alvarez (j.nunez-alvarez@tarent.de)
+ *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
  *  © 2016 Jens Oberender (j.oberender@tarent.de)
  *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
  *  © 2009 Martin Pelzer (m.pelzer@tarent.de)
@@ -113,7 +116,7 @@
 	$(document).ready(function () {
 		$('#formlist').ajaxForm({
 			beforeSubmit: function (arr, $form, options) {
-				$("#formlist").attr("action", "${paths.staticWeb}mailing");
+				$("#formlist").attr("action", V_paths_staticWeb + "mailing");
 				displaySpinner();
 				disableSubmitButton();
 			},
@@ -121,7 +124,7 @@
 				$(".errormsg").remove();
 				if (response.status === 400) {
 					var arr = response.responseText.split("\n");
-					var text = '$errorMsgAddress' + "<br><br>";
+					var text = V_errorMsgAddress + "<br><br>";
 					for (i = 0; i < arr.length; i++) {
 						var syntax = arr[i].indexOf("ADDRESS_SYNTAX_NOT_CORRECT:");
 						if (syntax != -1) {
@@ -131,9 +134,9 @@
 					}
 					showWarning(text);
 				} else if (response.status === 502) {
-					showWarning('$errorMsgVerteiler');
+					showWarning(V_errorMsgVerteiler);
 				} else {
-					showWarning('$errorMsg');
+					showWarning(V_errorMsg);
 				}
 				hideSpinner();
 				enableSubmitButton();

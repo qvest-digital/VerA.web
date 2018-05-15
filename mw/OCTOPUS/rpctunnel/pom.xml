@@ -3,14 +3,14 @@
 	<parent>
 		<groupId>org.evolvis.veraweb.middleware</groupId>
 		<artifactId>octopus-parent</artifactId>
-		<version>1.8.58-SNAPSHOT</version>
+		<version>1.8.59-SNAPSHOT</version>
 	</parent>
 	<artifactId>octopus-rpctunnel</artifactId>
 	<packaging>jar</packaging>
 	<name>OCTOPUS rpctunnel</name>
 	<description>tarent OCTOPUS application framework, rpctunnel part</description>
 	<properties>
-		<sonar.tests></sonar.tests>
+		<sonar.tests />
 	</properties>
 	<dependencies>
 		<dependency>

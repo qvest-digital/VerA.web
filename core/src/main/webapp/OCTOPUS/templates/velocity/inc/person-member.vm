@@ -40,7 +40,7 @@
 				<input type="text" name="person-expire$!message.plain($ext)" id="person-expire$!message.plain($ext)" value="$!message.date("DATE", $person.expire)" class="datepicker personExpiredDate" onchange="setModified(); updateExpiredDate(this.value);" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 				#if($grants.mayWrite() && !$createNewPerson)
 					<span id="show-expire$!message.plain($ext)" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"/></span>
-					<script type="text/javascript">
+					<script type="text/javascript"><!--//--><![CDATA[//><!--
 						$(function () {
 							Calendar.setup({
 								inputField	 :	"person-expire$ext",
@@ -54,7 +54,7 @@
 								span.trigger('click');
 							});
 						});
-					</script>
+					//--><!]]></script>
 				#end
 			</div>
 		</div>
@@ -72,7 +72,7 @@
 					<input  type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday, false)" id="person-birthday$!message.plain($ext)" class="datepicker" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 					#if($grants.mayWrite() && !$createNewPerson)
 						<span id="show-birthday$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"/></span>
-						<script type="text/javascript">
+						<script type="text/javascript"><!--//--><![CDATA[//><!--
 							$(function () {
 								Calendar.setup({
 									inputField	 :	"person-birthday$ext",
@@ -86,7 +86,7 @@
 									span.trigger('click');
 								});
 							});
-						</script>
+						//--><!]]></script>
 					#end
 				#end
 			</div>
@@ -186,7 +186,7 @@
                             <img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"/>
                         </span>
                         &nbsp; ${placeholderWithTranslation.GENERIC_AT} &nbsp;
-						<script type="text/javascript">
+						<script type="text/javascript"><!--//--><![CDATA[//><!--
 							$(function () {
 								Calendar.setup({
 									inputField	 :	"person-diplodate$ext",
@@ -200,7 +200,7 @@
 									span.trigger('click');
 								});
 							});
-						</script>
+						//--><!]]></script>
 					#end
 					<input type="text" class="width15" name="person-diplotime${ext}" id="person-diplotime${ext}" #if($person-diplodatetime) value="$!message.date("TIME", $facade.Diplodate)" #else value="" #end onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/> <label class="inline" for="person-diplotime$!message.plain($ext)">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
 				#end

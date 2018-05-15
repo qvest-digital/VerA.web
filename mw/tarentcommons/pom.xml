@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>middleware</artifactId>
-		<version>1.8.58-SNAPSHOT</version>
+		<version>1.8.59-SNAPSHOT</version>
 	</parent>
 	<groupId>org.evolvis.veraweb.middleware</groupId>
 	<artifactId>tarent-commons</artifactId>
@@ -20,9 +20,6 @@
 			<url>http://opensource.org/licenses/MIT</url>
 		</license>
 	</licenses>
-	<properties>
-		<java.version>1.5</java.version>
-	</properties>
 	<build>
 		<plugins>
 			<plugin>

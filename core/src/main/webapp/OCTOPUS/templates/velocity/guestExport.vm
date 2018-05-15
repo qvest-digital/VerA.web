@@ -81,8 +81,7 @@
 
 </div> <!--content_container-->
 
-<script type="text/javascript">
-
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 	$(function () {
         $('li#gaesteliste').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowGuestList?selectNone=true';
@@ -91,7 +90,6 @@
 			window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
 		});
 	});
-
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

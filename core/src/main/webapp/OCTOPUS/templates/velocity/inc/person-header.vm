@@ -11,7 +11,6 @@
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }"/>
 		#end
-		<input type="button" name="export" class="mainButton"value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 	</div>
 #elseif($action == "host")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
@@ -121,7 +120,7 @@
 	</div>
 </div>
 
-<script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 	//In case the person detail view was called in the Event/Guest context ("Stammdaten bearbeiten"), we need to add the
 	//the initial tab in order to redirect the user back to the given guest detail tab from any person tab.
 	function getGuestTabId(){
@@ -144,4 +143,4 @@
 		form.attr('action', '${paths.staticWeb}do/CreateOsiamUser?personId='+$person.id);
 		form.submit();
 	}
-</script>
+//--><!]]></script>

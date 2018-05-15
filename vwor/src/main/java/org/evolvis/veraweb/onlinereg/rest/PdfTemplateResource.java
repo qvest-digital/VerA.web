@@ -16,11 +16,14 @@ package org.evolvis.veraweb.onlinereg.rest;
  *  © 2014 Dominik George (d.george@tarent.de)
  *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
  *  © 2008 David Goemans (d.goemans@tarent.de)
+ *  © 2018 Christian Gorski (c.gorski@tarent.de)
  *  © 2015 Viktor Hamm (v.hamm@tarent.de)
  *  © 2013 Katja Hapke (k.hapke@tarent.de)
  *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018 Titian Horvath (t.horvath@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
+ *  © 2018 Timo Kanera (t.kanera@tarent.de)
  *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
  *  © 2014 Martin Ley (m.ley@tarent.de)
  *  © 2014, 2015 Max Marche (m.marche@tarent.de)
@@ -30,7 +33,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  *  © 2018 Yorka Neumann (y.neumann@tarent.de)
  *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
  *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
- *  © 2014, 2015 Jon Nunez Alvarez (j.nunez-alvarez@tarent.de)
+ *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
  *  © 2016 Jens Oberender (j.oberender@tarent.de)
  *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
  *  © 2009 Martin Pelzer (m.pelzer@tarent.de)
@@ -72,6 +75,7 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.evolvis.veraweb.common.Placeholder;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
@@ -327,7 +331,7 @@ public class PdfTemplateResource extends FormDataResource {
             new Date().getTime() + ".pdf";
         final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
 
-        final HashMap<String, String> substitutions = getSubstitutions(person);
+        final Map<String, String> substitutions = getSubstitutions(person);
         //iterate over all field in "pdfTemplateFilename"
         final AcroFields acroFields = pdfStamper.getAcroFields();
         final List<String> tempFieldList = new ArrayList<>();
@@ -354,29 +358,14 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-    private HashMap<String, String> getSubstitutions(Person person) {
-        final HashMap<String, String> substitutions = new HashMap<>();
+    private Map<String, String> getSubstitutions(Person person) {
+        final Map<String, String> substitutions;
         updateSalutation(person);
 
-        substitutions.put("salutation", person.getSalutation_a_e1());
-        substitutions.put("firstname", person.getFirstname_a_e1());
-        substitutions.put("lastname", person.getLastname_a_e1());
+        substitutions = PlaceholderSubstitution.createMap(person);
+        //TODO check if using titel instead of 'title' works or it is an unknown bug
         substitutions.put("titel", person.getTitle_a_e1());
-        substitutions.put("function", person.getFunction_a_e1());
-        substitutions.put("company", person.getCompany_a_e1());
-        substitutions.put("street", person.getStreet_a_e1());
-        substitutions.put("zipcode", person.getZipcode_a_e1());
-        substitutions.put("city", person.getCity_a_e1());
-        substitutions.put("country", person.getCountry_a_e1());
-        substitutions.put("poboxzipcode", person.getPoboxzipcode_a_e1());
-        substitutions.put("pobox", person.getPobox_a_e1());
-        substitutions.put("suffix 1", person.getSuffix1_a_e1());
-        substitutions.put("suffix 2", person.getSuffix2_a_e1());
-        substitutions.put("phone", person.getFon_a_e1());
-        substitutions.put("fax", person.getFax_a_e1());
-        substitutions.put("mobile", person.getMobil_a_e1());
-        substitutions.put("email", person.getMail_a_e1());
-        substitutions.put("url", person.getUrl_a_e1());
+
         final String salutationCompleteOne = getSalutationCompleteOne(person);
         substitutions.put("salutationComplete1", salutationCompleteOne);
         final String salutationCompleteTwo = getSalutationCompleteTwo(person);

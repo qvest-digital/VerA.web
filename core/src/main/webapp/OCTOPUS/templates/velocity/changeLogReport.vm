@@ -36,14 +36,14 @@
 			<span id="show-begin" class="datepickerContainer">
 				<input type="text" name="begin" value="${begin}" id="begin" class="datepicker width80">
 				<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
-				<script type="text/javascript">
+				<script type="text/javascript"><!--//--><![CDATA[//><!--
 					Calendar.setup({
 						inputField: "begin",
 						button:     "show-begin",
 						ifFormat:   "%d.%m.%Y",
 						showsTime:  false
 					});
-				</script>
+				//--><!]]></script>
 			</span>
 		</div>
 	</div>
@@ -55,14 +55,14 @@
 		<span id="show-end" class="datepickerContainer">
 			<input type="text" name="end" value="${end}" id="end" class="datepicker width80">
 			<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
-			<script type="text/javascript">
+			<script type="text/javascript"><!--//--><![CDATA[//><!--
 				Calendar.setup({
 					inputField: "end",
 					button:     "show-end",
 					ifFormat:   "%d.%m.%Y",
 					showsTime:  false
 				});
-			</script>
+			//--><!]]></script>
 		</span>
 	</div>
 </div>

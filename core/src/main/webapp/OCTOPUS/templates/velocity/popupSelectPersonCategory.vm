@@ -12,7 +12,7 @@
         <script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 
-        <script type="text/javascript">
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
             var showCategory = function () {
             $(".errormsg").remove();
             $(".successmsg").remove();
@@ -171,7 +171,7 @@
                 }
                 window.resizeTo( newWidth, document.body.offsetHeight + 20 );
             }
-        </script>
+	//--><!]]></script>
     </head>
 
     <body onload="adjustSize();" id="popUp">

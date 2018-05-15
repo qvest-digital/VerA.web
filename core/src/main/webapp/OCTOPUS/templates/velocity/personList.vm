@@ -180,7 +180,7 @@
         #end
 
         #if($workareaAssigned )
-                <script>
+		<script type="text/javascript"><!--//--><![CDATA[//><!--
                         #if($workareaAssigned == "assign")
                                 $(".errormsg").remove();
                                 $(".successmsg").remove();
@@ -190,11 +190,11 @@
                                 $(".successmsg").remove();
                                 showSuccess(' ${placeholderWithTranslation.diearbeitsbereichewurdenerfolgreichentfernt} ');
                         #end
-                </script>
+		//--><!]]></script>
         #end
 
         #if($categoryAssigned )
-                <script>
+		<script type="text/javascript"><!--//--><![CDATA[//><!--
                         #if($categoryAssigned == "assign")
                                 $(".errormsg").remove();
                                 $(".successmsg").remove();
@@ -204,7 +204,7 @@
                                 $(".successmsg").remove();
                                 showSuccess(' ${placeholderWithTranslation.diekategorienwurdenerfolgreichentfernt} ');
                         #end
-                </script>
+		//--><!]]></script>
         #end
 
         <form id="personListFilter" name="personListFilter" action="${paths.staticWeb}do/$octopusRequest.task" method="POST" class="marginTop25">
@@ -244,7 +244,7 @@
         #end
 
                         ## Handler für selektierte Aktion
-<script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         var personModel = (function () {
                 var now = Date.now();
                 // parse a date in yyyy-mm-dd format
@@ -431,7 +431,7 @@
         document.getElementById('formlist').action = action;
         document.formlist.submit();
     }
-</script>
+//--><!]]></script>
 
                         #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
                                 #set($save = false)
@@ -458,12 +458,11 @@
                                 </vera-warn>
                                 #end
                                 #if($listquestions && $listquestions.size() > 0)
-                                        <script>
+					<script type="text/javascript"><!--//--><![CDATA[//><!--
                                                 $(function () {
                                                         showDeleteMessages();
                                                 });
-                                        </script>
-
+					//--><!]]></script>
                                 #end
 
                         #end
@@ -480,7 +479,7 @@
                                         </label>
                                 </span>
 
-                                <script language="JavaScript">
+				<script type="text/javascript"><!--//--><![CDATA[//><!--
                                         function hasNoMain(box) {
                                                 if (document.getElementById(box).checked) {
                                                         $(".errormsg").remove();
@@ -539,8 +538,7 @@
                                                         }
                                                 }
                                         }
-
-                                </script>
+				//--><!]]></script>
 
                         #elseif($action == "host")
 
@@ -571,8 +569,7 @@
                                         #end
                                 #end
                                 <input type="hidden" id="remove-person" name="remove-person" value="false">
-                                <script language="JavaScript" type="text/javascript">
-                                <!--
+				<script type="text/javascript"><!--//--><![CDATA[//><!--
                                         var selectedCount = ${listselection.size()};
                                         function hasSelection() {
                                                 return ( selectedCount > 0 );
@@ -633,8 +630,7 @@
                                                         showWarning( "${placeholderWithTranslation.waehlensiebittezunaechsteineodermehrerepersonenaus}" );
                                                 }
                                         }
-                                -->
-                                </script>
+				//--><!]]></script>
 
                                 <span id="actionPanel" class="inlineLabel">
                                         <label>
@@ -1305,11 +1301,11 @@ i                                                       ${placeholderWithTransla
         <div class="clear"></div>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
         function orderPersonList(column) {
                 document.getElementById('search-listorder').value = column;
                 document.getElementById('personListFilter').submit();
         }
-</script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")

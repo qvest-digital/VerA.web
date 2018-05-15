@@ -16,11 +16,14 @@ package org.evolvis.veraweb.onlinereg.rest;
  *  © 2014 Dominik George (d.george@tarent.de)
  *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
  *  © 2008 David Goemans (d.goemans@tarent.de)
+ *  © 2018 Christian Gorski (c.gorski@tarent.de)
  *  © 2015 Viktor Hamm (v.hamm@tarent.de)
  *  © 2013 Katja Hapke (k.hapke@tarent.de)
  *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018 Titian Horvath (t.horvath@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
+ *  © 2018 Timo Kanera (t.kanera@tarent.de)
  *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
  *  © 2014 Martin Ley (m.ley@tarent.de)
  *  © 2014, 2015 Max Marche (m.marche@tarent.de)
@@ -30,7 +33,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  *  © 2018 Yorka Neumann (y.neumann@tarent.de)
  *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
  *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
- *  © 2014, 2015 Jon Nunez Alvarez (j.nunez-alvarez@tarent.de)
+ *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
  *  © 2016 Jens Oberender (j.oberender@tarent.de)
  *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
  *  © 2009 Martin Pelzer (m.pelzer@tarent.de)
@@ -69,6 +72,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -76,7 +80,7 @@ import static org.junit.Assert.assertEquals;
 public class PlaceholderSubstitutionTest {
 
     @Test
-    public void test() throws IllegalArgumentException, IllegalAccessException {
+    public void testPersonBasicFieldSubstitutions() throws IllegalArgumentException, IllegalAccessException {
         //GIVEN
         Person person = createPerson();
         PlaceholderSubstitution subst = new PlaceholderSubstitution(person);
@@ -85,7 +89,7 @@ public class PlaceholderSubstitutionTest {
             "country", "poboxzipcode", "pobox", "suffix1", "suffix2", "phone", "fax", "mobile", "email", "url");
 
         final String template = createTemplate(words);
-        final String expectedOutput = createExpectedOutput(words);
+        final String expectedOutput = createExpectedOutputByTableColumnNames(words);
 
         // WHEN
         String actualOutput = subst.apply(template);
@@ -94,8 +98,28 @@ public class PlaceholderSubstitutionTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
-    private String createExpectedOutput(final List<String> words) {
-        final StringBuilder sb2 = new StringBuilder();
+    @Test
+    public void testHintFieldPlaceholderSubstition() throws IllegalArgumentException, IllegalAccessException {
+        final List<String> words = Arrays.asList("remark", "hintfororga", "hintforhost");
+        final List<String> expectedSubstitutions = Arrays.asList("note_a_e1","noteForOrga", "notehost_a_e1");
+        //GIVEN
+        Person person = createPerson();
+        PlaceholderSubstitution subst = new PlaceholderSubstitution(person);
+
+
+        final String template = createTemplate(words);
+        final String expectedOutput = createExpectedSubstitute(words, expectedSubstitutions);
+
+        // WHEN
+        String actualOutput = subst.apply(template);
+
+        // THEN
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+
+    private String createExpectedOutputByTableColumnNames(final List<String> words) {
+        final List<String> expectedSubstitutes = new LinkedList<>();
         for (String word : words) {
             String expectedValue = word;
             if (word.equals("phone")) {
@@ -107,17 +131,27 @@ public class PlaceholderSubstitutionTest {
             if (word.equals("mobile")) {
                 expectedValue = "mobil";
             }
-            sb2.append(word + ": '" + expectedValue + "_a_e1'\n");
+            expectedSubstitutes.add(expectedValue + "_a_e1");
         }
 
-        final String expectedOutput = sb2.toString();
-        return expectedOutput;
+        return createExpectedSubstitute(words,expectedSubstitutes);
     }
+
+
 
     private String createTemplate(final List<String> words) {
         final StringBuilder sb1 = new StringBuilder();
         for (String word : words) {
             sb1.append(word + ": '&lt;" + word + "&gt;'\n");
+        }
+        final String template = sb1.toString();
+        return template;
+    }
+
+    private String createExpectedSubstitute(final List<String> words, final List<String> expectedSubstitutes) {
+        final StringBuilder sb1 = new StringBuilder();
+        for (int i=0;i< words.size(); i++) {
+            sb1.append(words.get(i) + ": '" + expectedSubstitutes.get(i) + "'\n");
         }
         final String template = sb1.toString();
         return template;
