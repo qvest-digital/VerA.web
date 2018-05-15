@@ -18,9 +18,14 @@
 <div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_LIST_NOT_LOAD}" id="pdfetemplate-list-load-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_DELETE_FAILED}" id="pdfetemplate-delete-errormsg"></div>
 
+
+
 <script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-pdftemplate-list.js"></script>
 
 <div id="content_container">
+##    <script src="${paths.staticWeb}js/ext/jquery-tablesorter/jquery-latest.js"></script>
+##    <script src="${paths.staticWeb}js/ext/jquery-tablesorter/jquery.tablesorter.js"></script>
+
     <form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/delete" method="POST">
         <input type="hidden" name="limit" value=""/>
         <input type="hidden" name="start" value=""/>
@@ -51,18 +56,25 @@
                                 <th class="smallCell textCenter">
                                         <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
                                 </th>
-                                <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                                <th>${placeholderWithTranslation.GENERIC_ID}
+                                    #if($personSearchField == 'id')
+                                        #if ($personSearchOrder == 'ASC')
+                                            <span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+                                        #else
+                                            <span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                                        #end
+                                    #else
+                                        <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                    #end
+                                </th>
                                 <th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
                         </tr>
 
-                        <tr class="colspan">
-                                <td colspan="3">
-                                        <span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> ${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
-                                </td>
-                        </tr>
+                        <tr class="colspan"></tr>
                 </table>
 
     </form>
+    <span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> ${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
 </div>
 
 #parse("inc/footer.vm")
