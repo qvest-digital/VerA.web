@@ -18,7 +18,6 @@
      id="pdfetemplate-list-load-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_DELETE_FAILED}" id="pdfetemplate-delete-errormsg"></div>
 
-
 <script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-pdftemplate-list.js"></script>
 
 <div id="content_container">
@@ -65,7 +64,7 @@
                                                           src="${paths.staticWeb}images/sort_up.gif"></img></span>
                     <span id="downID" class="floatRight"><img border="0" alt="ASC"
                                                             src="${paths.staticWeb}images/sort_down.gif"></img></span>
-                    <span class="noneID" class="floatRight"><img border="0" alt="ASC"
+                    <span class="noneID floatRight"><img border="0" alt="ASC"
                                                               src="${paths.staticWeb}images/sort_none.gif"></img></span>
                 </th>
                 <th id="templateName">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}
@@ -74,7 +73,7 @@
                                                            src="${paths.staticWeb}images/sort_up.gif"></img></span>
                     <span id="downTemplateName" class="floatRight"><img border="0" alt="ASC"
                                                              src="${paths.staticWeb}images/sort_down.gif"></img></span>
-                    <span class="noneTemplateName" class="floatRight"><img border="0" alt="ASC"
+                    <span class="noneTemplateName floatRight"><img border="0" alt="ASC"
                                                             src="${paths.staticWeb}images/sort_none.gif"></img></span>
                 </th>
             </tr>
