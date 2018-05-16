@@ -138,6 +138,19 @@
         $('#downTemplateName').hide();
     };
 
+    var hideTemplateName = function () {
+        $('.noneTemplateName').show();
+        $('#upTemplateName').hide();
+        $('#downTemplateName').hide();
+
+    };
+
+    var hideID = function () {
+        $('.noneID').show();
+        $('#upID').hide();
+        $('#downID').hide();
+    };
+
     var getCellValue = function (row, index) {
         return $(row).children('td').eq(index).text()
     };
@@ -162,6 +175,7 @@
         var flagID = false;
         $('#ID').click(function () {
             $('.noneID').hide();
+            hideTemplateName();
             if (flagID === false) {
                 $('#upID').show();
                 $('#downID').hide();
@@ -177,6 +191,7 @@
         var flagTemplateNate = false;
         $('#templateName').click(function () {
             $('.noneTemplateName').hide();
+            hideID();
             if (flagTemplateNate === false) {
                 $('#upTemplateName').show();
                 $('#downTemplateName').hide();
