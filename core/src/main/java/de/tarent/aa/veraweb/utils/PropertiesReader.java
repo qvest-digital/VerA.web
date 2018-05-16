@@ -67,7 +67,11 @@ package de.tarent.aa.veraweb.utils;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -78,6 +82,8 @@ import java.util.Properties;
  * @author Max Marche, tarent solutions GmbH
  */
 public class PropertiesReader {
+
+    final Logger LOGGER = LogManager.getLogger(PropertiesReader.class);
 
     private static final String PROPERTY_FILE = "/etc/veraweb/veraweb.properties";
 
@@ -106,8 +112,12 @@ public class PropertiesReader {
         try {
             inputStream = new FileInputStream(PROPERTY_FILE);
             properties.load(inputStream);
+        } catch (FileNotFoundException e) {
+            LOGGER.fatal("Elementary configuration file {} not found!",PROPERTY_FILE);
+            return properties;
         } catch (IOException e) {
-            return null;
+            LOGGER.fatal("Exception occured while reading properties from elementary configuration file {}!", PROPERTY_FILE, e);
+            return properties;
         } finally {
             try {
                 inputStream.close();

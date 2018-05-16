@@ -79,7 +79,7 @@
 		<osiam.connector4java.version>1.8</osiam.connector4java.version>
 		<postgresql.version>42.2.1</postgresql.version>
 		<slf4j.version>1.7.12</slf4j.version>
-		<spock-core.version>1.0-groovy-2.4</spock-core.version>
+		<spock-core.version>1.1-groovy-2.4</spock-core.version>
 		<spring.version>4.2.6.RELEASE</spring.version>
 	</properties>
 	<organization>
