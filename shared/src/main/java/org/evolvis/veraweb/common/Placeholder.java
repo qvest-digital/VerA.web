@@ -29,7 +29,8 @@ public enum Placeholder {
     REMARK("remark"),
     COMPLETE_SALUTATION_1("salutationComplete1"),
     COMPLETE_SALUTATION_2("salutationComplete2"),
-    ENVELOPE_ONE("envelope1");
+    ENVELOPE_ONE("envelope1"),
+    INTERNAL_ID("internalID");
 
     public String key;
 
