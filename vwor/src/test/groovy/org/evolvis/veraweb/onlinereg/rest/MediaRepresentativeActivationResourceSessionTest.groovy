@@ -66,91 +66,117 @@
  */
 package org.evolvis.veraweb.onlinereg.rest
 
-import org.evolvis.veraweb.onlinereg.entities.Person
-import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration
-import org.evolvis.veraweb.onlinereg.mail.MailDispatcher
 import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.Transaction
+import org.junit.Before
 import spock.lang.Specification
 
-import javax.mail.Transport
 import javax.servlet.ServletContext
 
 /**
- * @author Max Weierstall, tarent solutions GmbH
+ * @author Atanas Alexandrov, tarent solutions GmbH
  */
-class ForgotLoginResourceTest extends Specification {
+class MediaRepresentativeActivationResourceSessionTest extends Specification {
 
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
     Transaction mockTxn = Mock(Transaction)
 
-    def dispatcher
-    def forgotLoginResource
+    private resource
 
-    def transport = Mock(Transport)
+    /* "setuo" below is *NOT* a typo but required */
 
-    void setup() {
-        def emailConfiguration = new EmailConfiguration("host", 465, "ssl", "username", "password", "from@tarent.de", "subjectForVerificationEmail", "contentForVerificationEmail", "plaintext", "resetPasswordSubect", "resetPasswordContext", "subjectResendLogin", "contentResendLogin")
-        dispatcher = new MailDispatcher(emailConfiguration)
-        dispatcher.setTransport(transport)
+    @Before
+    void setuo() {
+        resource = new MediaRepresentativeActivationResource(context: context)
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
         session.getTransaction() >> mockTxn
-        forgotLoginResource = new ForgotLoginResource(mailDispatcher: dispatcher, context: context, emailConfiguration: emailConfiguration)
     }
 
-    public void testResendLogin() {
-        given:
-            Query query = Mock(Query)
-            Person person = Mock(Person)
-            List resultList = new ArrayList()
-            resultList.add(person)
-            session.getNamedQuery("Person.findByMail") >> query
-            person.getUsername() >> "username"
-            query.list() >> resultList
-
+    void testAddMediaRepresentativeActivationEntry() {
         when:
-            forgotLoginResource.resendLogin("recipient@email.com", "de_DE")
+            resource.addMediaRepresentativeActivationEntry("token", "email", 1, "herr", "address", "city", "country", "vorname", "nachname", 22222);
 
         then:
-            1 * transport.connect('host', 'username', 'password')
-            1 * transport.close()
             session != null
             1 * session.close()
     }
 
-    public void testResendLoginNoResult() {
+    void testExistEventIdByDelegationTheFirst() {
+
         given:
-            Query query = Mock(Query)
-            session.getNamedQuery("Person.findByMail") >> query
-            query.list() >> new ArrayList()
+            def query = Mock(Query)
+            session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId") >> query
+            query.uniqueResult() >> (BigInteger) 1
 
         when:
-            forgotLoginResource.resendLogin("recipient@email.com", "de_DE")
+            def result = resource.existEventIdByDelegation("email", "1")
 
         then:
-            0 * transport.connect('host', 'username', 'password')
-            0 * transport.close()
+            assert result
             session != null
             1 * session.close()
     }
 
-    public void testResendLoginResultIsNull() {
+    void testExistEventIdByDelegationTheSecond() {
+
         given:
-            Query query = Mock(Query)
-            session.getNamedQuery("Person.findByMail") >> query
-            query.list() >> null
+            def query = Mock(Query)
+            session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId") >> query
+            query.uniqueResult() >> (BigInteger) 0
 
         when:
-            forgotLoginResource.resendLogin("recipient@email.com", "de_DE")
+            def result = resource.existEventIdByDelegation("email", "1")
 
         then:
-            0 * transport.connect('host', 'username', 'password')
-            0 * transport.close()
+            assert !result
+            session != null
+            1 * session.close()
+    }
+
+    void testExistEventIdByDelegationTheThird() {
+
+        given:
+            def query = Mock(Query)
+            session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId") >> query
+            query.uniqueResult() >> null
+
+        when:
+            def result = resource.existEventIdByDelegation("email", "1")
+
+        then:
+            assert !result
+            session != null
+            1 * session.close()
+    }
+
+    void testGetMediaRepresentativeActivationByToken() {
+        given:
+            def query = Mock(Query)
+            session.getNamedQuery("MediaRepresentativeActivation.getActivationByActivationToken") >> query
+
+        when:
+            resource.getMediaRepresentativeActivationByToken("token");
+
+        then:
+            session != null
+            1 * session.close()
+    }
+
+    void testActivatePressUser() {
+        given:
+            def query = Mock(Query)
+            session.getNamedQuery("MediaRepresentativeActivation.activate") >> query
+
+        when:
+            resource.activatePressUser("email", 1);
+
+        then:
+            1 * query.executeUpdate()
             session != null
             1 * session.close()
     }

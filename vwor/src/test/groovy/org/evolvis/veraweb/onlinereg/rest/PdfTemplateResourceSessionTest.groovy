@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response
 /**
  * Created by Atanas Alexandrov on 13.05.18.
  */
-class PdfTemplateResourceTest extends Specification {
+class PdfTemplateResourceSessionTest extends Specification {
 
     PdfTemplateResource subject
     SessionFactory sessionFactory
