@@ -66,118 +66,107 @@
  */
 package org.evolvis.veraweb.onlinereg.rest
 
+import org.evolvis.veraweb.onlinereg.entities.LinkUUID
+import org.evolvis.veraweb.onlinereg.entities.Person
+import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration
+import org.evolvis.veraweb.onlinereg.mail.MailDispatcher
 import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.Transaction
-import org.junit.Before
 import spock.lang.Specification
 
+import javax.mail.Transport
 import javax.servlet.ServletContext
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-class MediaRepresentativeActivationResourceTest extends Specification {
+class ForgotPasswordResourceSessionTest extends Specification {
 
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
     Transaction mockTxn = Mock(Transaction)
 
-    private resource
+    def dispatcher
+    def forgotPasswordResource
 
-    /* "setuo" below is *NOT* a typo but required */
+    def transport = Mock(Transport)
 
-    @Before
-    void setuo() {
-        resource = new MediaRepresentativeActivationResource(context: context)
+    void setup() {
+        def emailConfiguration = new EmailConfiguration("host", 465, "ssl", "username", "password", "from@tarent.de", "subjectForVerificationEmail", "contentForVerificationEmail", "plaintext", "resetPasswordSubect", "resetPasswordContext", "subjectResendLogin", "contentResendLogin")
+        dispatcher = new MailDispatcher(emailConfiguration)
+        dispatcher.setTransport(transport)
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
         session.getTransaction() >> mockTxn
+        forgotPasswordResource = new ForgotPasswordResource(mailDispatcher: dispatcher, context: context, emailConfiguration: emailConfiguration)
     }
 
-    void testAddMediaRepresentativeActivationEntry() {
-        when:
-            resource.addMediaRepresentativeActivationEntry("token", "email", 1, "herr", "address", "city", "country", "vorname", "nachname", 22222);
-
-        then:
-            session != null
-            1 * session.close()
-    }
-
-    void testExistEventIdByDelegationTheFirst() {
-
+    public void "request reset password link successfull first time"() {
         given:
-            def query = Mock(Query)
-            session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId") >> query
-            query.uniqueResult() >> (BigInteger) 1
+            Query query1 = Mock(Query)
+            Query query2 = Mock(Query)
+            Person person = Mock(Person)
+
+            session.getNamedQuery("Person.findByUsername") >> query1
+            session.getNamedQuery("LinkUUID.getLinkUuidByPersonid") >> query2
+
+            query1.uniqueResult() >> person
+            person.getMail_a_e1() >> "recipient@email.com"
+            query2.uniqueResult() >> null
 
         when:
-            def result = resource.existEventIdByDelegation("email", "1")
+            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
 
         then:
-            assert result
+            1 * transport.connect('host', 'username', 'password')
+            1 * transport.close()
             session != null
             1 * session.close()
+            1 * session.flush()
     }
 
-    void testExistEventIdByDelegationTheSecond() {
-
+    public void "request reset password link successfull second time"() {
         given:
-            def query = Mock(Query)
-            session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId") >> query
-            query.uniqueResult() >> (BigInteger) 0
+            Query query1 = Mock(Query)
+            Query query2 = Mock(Query)
+            Person person = Mock(Person)
+            LinkUUID linkUUID = Mock(LinkUUID)
+
+            session.getNamedQuery("Person.findByUsername") >> query1
+            session.getNamedQuery("LinkUUID.getLinkUuidByPersonid") >> query2
+
+            query1.uniqueResult() >> person
+            person.getMail_a_e1() >> "recipient@email.com"
+            query2.uniqueResult() >> linkUUID
 
         when:
-            def result = resource.existEventIdByDelegation("email", "1")
+            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
 
         then:
-            assert !result
+            1 * transport.connect('host', 'username', 'password')
+            1 * transport.close()
             session != null
             1 * session.close()
+            1 * session.flush()
     }
 
-    void testExistEventIdByDelegationTheThird() {
-
+    public void "request reset password link failed"() {
         given:
-            def query = Mock(Query)
-            session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId") >> query
+            Query query = Mock(Query)
+            session.getNamedQuery("Person.findByUsername") >> query
             query.uniqueResult() >> null
 
         when:
-            def result = resource.existEventIdByDelegation("email", "1")
+            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
 
         then:
-            assert !result
+            0 * transport.connect('host', 'username', 'password')
+            0 * transport.close()
             session != null
             1 * session.close()
     }
 
-    void testGetMediaRepresentativeActivationByToken() {
-        given:
-            def query = Mock(Query)
-            session.getNamedQuery("MediaRepresentativeActivation.getActivationByActivationToken") >> query
-
-        when:
-            resource.getMediaRepresentativeActivationByToken("token");
-
-        then:
-            session != null
-            1 * session.close()
-    }
-
-    void testActivatePressUser() {
-        given:
-            def query = Mock(Query)
-            session.getNamedQuery("MediaRepresentativeActivation.activate") >> query
-
-        when:
-            resource.activatePressUser("email", 1);
-
-        then:
-            1 * query.executeUpdate()
-            session != null
-            1 * session.close()
-    }
 }

@@ -214,8 +214,7 @@ class PdfTemplateResourceTest extends Specification {
             0 * session.save(_)
             1 * session.flush()
 
-            1 * query.setString(_,_)
-            1 * query.setBinary(_,_)
+            4 * query.setParameter(_,_)
 
             assert result.status  == Response.Status.OK.statusCode
     }
@@ -260,8 +259,7 @@ class PdfTemplateResourceTest extends Specification {
             0 * session.save(_)
             1 * session.flush()
 
-            1 * query.setString(_,_)
-            0 * query.setBinary(_,_)
+            3 * query.setParameter(_,_)
 
             assert result.status  == Response.Status.OK.statusCode
             assert result.context.entity == pdfTemplateFromDb
@@ -295,7 +293,7 @@ class PdfTemplateResourceTest extends Specification {
             session != null
             1 * session.close()
             1 * session.flush()
-            3 * query.setInteger(_,_);
+            3 * query.setParameter(_,_);
             3 * query.executeUpdate();
             assert result.context.entity.size() == 3
             assert result.status  == Response.Status.OK.statusCode

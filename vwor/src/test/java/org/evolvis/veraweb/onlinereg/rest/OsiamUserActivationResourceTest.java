@@ -154,8 +154,7 @@ public class OsiamUserActivationResourceTest {
         osiamUserActivationResource.refreshActivationdataByUsername("email", "username", "token", "endpoint", "de_DE");
 
         // THEN
-        verify(query, times(2)).setString(any(String.class), any(String.class));
-        verify(query, times(1)).setDate(any(String.class), (Date) anyObject());
+        verify(query, times(3)).setParameter(any(String.class), anyObject());
         verify(query, times(1)).executeUpdate();
     }
 
