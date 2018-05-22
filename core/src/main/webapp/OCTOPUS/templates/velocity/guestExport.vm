@@ -289,7 +289,7 @@
                         </div>
                     </div>
 
-                    <input class="mainButton autoWidth" type="submit" id="save_value" name="save_value" value="Save"/>
+                    <input class="mainButton autoWidth" type="submit" id="save_value" name="save_value" value="${placeholderWithTranslation.exportieren}"/>
                 </form>
             </div>
 
