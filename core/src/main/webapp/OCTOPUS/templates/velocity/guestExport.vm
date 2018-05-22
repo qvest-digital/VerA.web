@@ -316,8 +316,8 @@
 
 </div> <!--content_container-->
 
-<script type="text/javascript"><!--//-->
-<![CDATA[//><!--
+
+<script type="text/javascript"><!--//--><![CDATA[//><!--
 $(function () {
     $('li#gaesteliste').click(function () {
         window.location.href = '${paths.staticWeb}do/ShowGuestList?selectNone=true';
@@ -342,6 +342,7 @@ $(function () {
             },
             type: 'POST',
             success: function (data) {
+                alert('Tmp: 200');
 
             },
             error: function (data) {
@@ -354,7 +355,6 @@ $(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 });
-//--><!
-]]></script>
+//--><!]]></script>
 
 #parse("inc/footer.vm")
