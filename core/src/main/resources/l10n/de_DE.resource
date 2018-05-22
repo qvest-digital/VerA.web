@@ -605,6 +605,7 @@ HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von
 HINT_EXPORT_CSVPERSDATA_ADDRESS=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA=Es werden nur die Felder aus dem Karteireiter \u201EPersonendaten\u201C und den untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EKategorien\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+SELECTION_CSV=Alle makieren
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import von Personendaten

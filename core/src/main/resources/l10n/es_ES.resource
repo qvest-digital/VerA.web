@@ -606,6 +606,7 @@ HINT_EXPORT_CSV=Dependiendo de la cantidad de datos exportados (mediante el n\u0
 HINT_EXPORT_CSVPERSDATA_ADDRESS=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as \u00ABDatos de personas\u00BB, \u00ABDirecciones\u00BB y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados, MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 HINT_EXPORT_CSVPERSDATA=Se exportar\u00E1n \u00FAnicamente los campos ubicados en la pesta\u00F1a \u00ABDatos de personas\u00BB y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados, MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportar\u00E1n \u00FAnicamente los campos ubicados en la pesta\u00F1a \u00ABDatos de personas\u00BB y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+SELECTION_CSV=Marcar todo
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importaci\u00F3n de datos de personas
