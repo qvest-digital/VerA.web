@@ -130,7 +130,8 @@ public class ExportResource extends AbstractResource {
     @POST
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId,
-                                 @javax.ws.rs.core.Context UriInfo ui)
+                                 @javax.ws.rs.core.Context UriInfo ui,
+                                 @FormParam("selectedFields[]") List<String> selList)
       throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
