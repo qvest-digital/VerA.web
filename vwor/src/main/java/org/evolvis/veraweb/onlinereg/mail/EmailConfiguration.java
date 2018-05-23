@@ -209,10 +209,6 @@ public class EmailConfiguration {
         return contentType;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
     public String getFrom(int fk_orgunit) {
         final String fromProperty = getVworPropertiesReader().getProperty("mail.smtp.from." + fk_orgunit);
         if (fromProperty != null) {

@@ -94,7 +94,6 @@ public class PersonResource extends AbstractResource {
     private static final String PARAM_PERSON_ID = "personId";
     private static final String PARAM_UUID = "uuid";
     private static final String PARAM_USERNAME = "username";
-    private static final String PARAM_EMAIL = "email";
 
     /**
      * Create person.

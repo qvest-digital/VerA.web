@@ -115,78 +115,7 @@ public class CleanupWorker {
      * @throws IOException   ioException
      */
     public void summarizeCategories(OctopusContext cntx) throws BeanException, IOException {
-        //		summarizeCategoriesA(octopusContext, new DatabaseVeraWeb(octopusContext));
         summarizeCategoriesB(cntx, new DatabaseVeraWeb(cntx));
-    }
-
-    /**
-     * @param cntx     OctupusContext
-     * @param database database
-     * @throws BeanException beanexception
-     * @see #summarizeCategories(OctopusContext)
-     */
-    protected void summarizeCategoriesA(OctopusContext cntx, Database database) throws BeanException {
-        if (logger.isInfoEnabled()) {
-            logger.info("Fasse automatisch mehrere Kategorien / Ereignisse zusammen. (summarizeCategoriesA)");
-        }
-
-        Select orgunitsSelect = SQL.SelectDistinct(database).
-          selectAs("fk_orgunit", "fk_orgunit").
-          from("veraweb.tcategorie");
-
-        List orgunits = database.getList(orgunitsSelect, database);
-        for (Iterator orgunitIt = orgunits.iterator(); orgunitIt.hasNext(); ) {
-            Integer orgunit = (Integer) ((Map) orgunitIt.next()).get("fk_orgunit");
-
-            if (logger.isInfoEnabled()) {
-                logger.info("Fasse automatisch mehrere Kategorien / Ereignisse für " +
-                  "den Mandanten #" + orgunit + " zusammen.");
-            }
-
-            Select subcategoriesSelect = SQL.Select(database).
-              selectAs("c1.pk", "subcategorypk").
-              selectAs("c1.catname", "subcategoryname").
-              selectAs("c2.pk", "topcategorypk").
-              selectAs("c2.catname", "topcategoryname").
-              from("veraweb.tcategorie c1").
-              join(new Join(Join.INNER, "veraweb.tcategorie c2", new RawClause(
-                "c1.pk != c2.pk AND (" +
-                  "c1.catname = c2.catname OR " +
-                  "c1.catname = c2.catname || ' 0' OR c1.catname = c2.catname || ' 1' OR " +
-                  "c1.catname = c2.catname || ' 2' OR c1.catname = c2.catname || ' 3' OR " +
-                  "c1.catname = c2.catname || ' 4' OR c1.catname = c2.catname || ' 5' OR " +
-                  "c1.catname = c2.catname || ' 6' OR c1.catname = c2.catname || ' 7' OR " +
-                  "c1.catname = c2.catname || ' 8' OR c1.catname = c2.catname || ' 9')")));
-            if (orgunit == null) {
-                subcategoriesSelect.where(Where.and(
-                  Expr.isNull("c1.fk_orgunit"),
-                  Expr.isNull("c2.fk_orgunit")));
-            } else {
-                subcategoriesSelect.where(Where.and(
-                  Expr.equal("c1.fk_orgunit", orgunit),
-                  Expr.equal("c2.fk_orgunit", orgunit)));
-            }
-
-            List subcategories = database.getList(subcategoriesSelect, database);
-            for (Iterator it = subcategories.iterator(); it.hasNext(); ) {
-                Map entry = (Map) it.next();
-                Integer subcategorypk = (Integer) entry.get("subcategorypk");
-                String subcategoryname = (String) entry.get("subcategoryname");
-                Integer topcategorypk = (Integer) entry.get("topcategorypk");
-                String topcategoryname = (String) entry.get("topcategoryname");
-
-                assert subcategorypk != null && topcategorypk != null;
-
-                addMessage(cntx, "\u00DCberf\u00FChre Daten " +
-                  "aus Kategorie \"" + subcategoryname + "\" (" + subcategorypk + ")" +
-                  " in Kategorie \"" + topcategoryname + "\" (" + topcategorypk + ").");
-
-                if (isActivated(cntx)) {
-                    conferCategorie(cntx, database, subcategorypk, topcategorypk);
-                    cntx.setContent("cleanupdone", Boolean.TRUE);
-                }
-            }
-        }
     }
 
     /**
@@ -202,18 +131,6 @@ public class CleanupWorker {
         }
 
         WhereList whereList = new WhereList();
-
-        //		whereList.addOr(Expr.like("catname", "% 0"));
-        //		whereList.addOr(Expr.like("catname", "% 1"));
-        //		whereList.addOr(Expr.like("catname", "% 2"));
-        //		whereList.addOr(Expr.like("catname", "% 3"));
-        //		whereList.addOr(Expr.like("catname", "% 4"));
-        //		whereList.addOr(Expr.like("catname", "% 5"));
-        //		whereList.addOr(Expr.like("catname", "% 6"));
-        //		whereList.addOr(Expr.like("catname", "% 7"));
-        //		whereList.addOr(Expr.like("catname", "% 8"));
-        //		whereList.addOr(Expr.like("catname", "% 9"));
-
         whereList.addAnd(Expr.greater("length(catname)", new Integer(2)));
         whereList.addAnd(Expr.equal("substr(catname, length(catname) - 1, 1)", " "));
         whereList.addAnd(Expr.greaterOrEqual("substr(catname, length(catname), 1)", "0"));
@@ -280,7 +197,7 @@ public class CleanupWorker {
                   " in Kategorie \"" + topcategorie.name + "\" (" + topcategorie.id + ").");
 
                 if (isActivated(cntx)) {
-                    conferCategorie(cntx, database, catpk, topcategorie.id);
+                    conferCategorie(database, catpk, topcategorie.id);
                     cntx.setContent("cleanupdone", Boolean.TRUE);
                 }
             } else {
@@ -296,8 +213,7 @@ public class CleanupWorker {
         }
     }
 
-    protected void conferCategorie(OctopusContext cntx, Database database,
-      Integer subcategorypk, Integer topcategorypk)
+    protected void conferCategorie(Database database, Integer subcategorypk, Integer topcategorypk)
       throws BeanException {
 
         final TransactionContext transactionContext = database.getTransactionContext();

@@ -119,18 +119,6 @@ public class ActionWorker {
     }
 
     /**
-     * Octopus-Eingabe-Parameter für {@link #remove(OctopusContext, String)}
-     */
-    public static final String[] INPUT_remove = { "action" };
-    /**
-     * Octopus-Eingabepflicht-Parameter für {@link #remove(OctopusContext, String)}
-     */
-    public static final boolean[] MANDATORY_remove = { false };
-    /**
-     * Octopus-Ausgabe-Parameter für {@link #remove(OctopusContext, String)}
-     */
-    public static final String OUTPUT_remove = "action";
-    /**
      * Octopus-Config for Online Registration plattform activation
      */
     public static final String ONLINEREG_ACTIVATION = "online-registration.activated";
@@ -138,19 +126,6 @@ public class ActionWorker {
      * Octopus-Config for Online Registration mandant deactivation
      */
     public static final String ONLINEREG_MANDANT_DEACTIVATION = "mandanten-online-registration.deactivated";
-
-    /**
-     * Diese Methode löscht die aktuelle Aktion und ersetzt sie gegebenenfalls
-     * durch die übergebene.
-     *
-     * @param cntx   Octopus-Kontext
-     * @param action optionaler Parameter "action"
-     * @return aktuelle Aktion
-     */
-    public String remove(OctopusContext cntx, String action) {
-        cntx.setSession("action", action);
-        return action;
-    }
 
     /*
      * Setting Online Registration Config
