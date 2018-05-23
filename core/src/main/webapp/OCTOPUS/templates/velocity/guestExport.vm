@@ -10,7 +10,7 @@
 <div data-pdfexport="${paths.staticWeb}pdftemplate/list" id="pdfetemplate-list"></div>
 <div data-orgunit="$!octopusConfig.personalConfig.orgUnitId" id="pdfetemplate-orgunit"></div>
 <div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_LIST_NOT_LOAD}" id="pdfetemplate-list-errormsg"></div>
-<div data-csvexport="${paths.staticWeb}csvexport" id="csv-export"></div>
+<div data-csvexport="${paths.staticWeb}csvexport/$event.id" id="csv-export"></div>
 
 <script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-pdfexport.js"></script>
 <style>
