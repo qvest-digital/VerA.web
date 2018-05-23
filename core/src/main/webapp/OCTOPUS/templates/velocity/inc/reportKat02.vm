@@ -2,29 +2,18 @@
 #set($showPartner = false)
 
 <table class="kategorie">
-	<tr>
-		<td class="kategorieNo">
-            &nbsp;
-        </td>
-		<td class="kategorieName">
-            &nbsp;
-        </td>
-		<td class="kategorieZusage">
-            <nobr>
-                <strong>${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</strong>
-            </nobr>
-        </td>
-		<td class="kategorieAbsage">
-            <nobr>
-                <strong>${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</strong>
-            </nobr>
-        </td>
-		<td class="kategorieTeilnahme">
-            <nobr>
-                <strong>${placeholderWithTranslation.GENERIC_PARTICIPATION}</strong>
-            </nobr>
-        </td>
-	</tr>
+    <tr>
+        <td class="kategorieNo"><strong>${placeholderWithTranslation.lfdnr}</strong></td>
+        <td class="kategorieInternalId"><strong>${placeholderWithTranslation.INTERNAL_ID}</strong></td>
+        <td class="kategorieSpace">&nbsp;</td>
+        <td class="kategorieName"><strong>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</strong></td>
+        <td class="kategorieZusage"><nobr><strong>${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</strong></nobr></td>
+        <td class="kategorieAbsage"><nobr><strong>${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</strong></nobr></td>
+        <td class="kategorieTeilnahme"><nobr><strong>${placeholderWithTranslation.GENERIC_PARTICIPATION}</strong></nobr></td>
+    </tr>
+    <tr>
+        <td colspan="7" style="vertical-align: middle;"><hr class="kategorie" /></td>
+    </tr>
 </table>
 
 #set($o = 0)#set($z = 0)#set($a = 0)#set( $t = 0 )
@@ -86,6 +75,9 @@
                     #else
                         $!bean.orderno
                     #end
+                </td>
+                <td class="kategorieInternalId">
+                    $!bean.internal_id
                 </td>
                 <td class="kategorieSpace">
                     &nbsp;
@@ -192,7 +184,7 @@
                 #end
             </tr>
         #end
-        #if($showPartner && $bean.invitationtype != 2)
+        #if($showPartner && $bean.invitationtype != 2 && ($bean.lastname_b_gd.length() > 0 || $bean.lastname_b_e1.length > 0 || $bean.firstname_b_gd.length > 0 || $bean.firstname_b_e1.length() > 0))
             #if($bean.invitationstatus_p == 1)
                 #set($z = $z + 1)
             #elseif($bean.invitationstatus_p == 2)
@@ -205,7 +197,14 @@
             #set($partnerShown=true)
         <tr>
             <td class="kategorieNo">
-                $!bean.orderno_p
+                #if($bean.initationtype == 3)
+                    $!bean.orderno_p
+                #end
+            </td>
+            <td class="kategorieInternalId">
+                #if($bean.invitationtype == 3)
+                    $!bean.internal_id
+                #end
             </td>
             <td class="kategorieSpace">
                 &nbsp;
@@ -262,9 +261,7 @@
         #end
         #if($mainShown || $partnerShown)
             <tr>
-                <td class="kategorieNo">&nbsp;</td>
-                <td class="kategorieSpace">&nbsp;</td>
-                <td colspan="3" style="vertical-align: middle;"><hr class="kategorie" /></td>
+                <td colspan="7" style="vertical-align: middle;"><hr class="kategorieDotted" /></td>
             </tr>
         #end
     </table>

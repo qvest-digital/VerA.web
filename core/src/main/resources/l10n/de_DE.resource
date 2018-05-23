@@ -1132,6 +1132,7 @@ listenachkategoriengruppiertmitpartner=Liste nach Kategorien gruppiert\u200A\u20
 listenachkategoriengruppiertmittelundmobiltelefon=Liste nach Kategorien gruppiert\u200A\u2014\u200Amit Tel. und Mobiltelefon
 listenachkategoriengruppiertmitpartnerundfax=Liste nach Kategorien gruppiert\u200A\u2014\u200Amit Partner und Fax
 listenachsortierungmitpartnertelundmobiltelefon=Liste nach Sortierung\u200A\u2014\u200Amit Partner, Tel. und Mobiltelefon
+listenachsortierungmitinterneridundadresse=Liste nach Sortierung\u200A\u2014\u200Amit interne ID und Adresse
 tisch=Tisch
 zusaetzlichesortierungnach=Zus\u00E4tzliche Sortierung nach
 zurueckzurgaesteverwaltung=Zur\u00FCck zur G\u00E4steverwaltung
