@@ -54,8 +54,6 @@ commons-io:commons-io 2.5 TODO
 commons-lang:commons-lang 2.6 TODO
 commons-logging:commons-logging 1.2 TODO
 commons-pool:commons-pool 1.5.4 TODO
-de.tarent.dfg-commons:background-jobs 1.15 TODO
-de.tarent.extract:extract-tool 1.4 TODO
 dom4j:dom4j 1.6.1 TODO
 font::glyphicons-halflings-regular 1.009 TODO
 github::HubSpot/vex 3.0.0 ok
@@ -142,6 +140,8 @@ org.eclipse.jetty:jetty-server 9.0.7.v20131107 TODO
 org.eclipse.jetty:jetty-servlet 9.0.7.v20131107 TODO
 org.eclipse.jetty:jetty-servlets 9.0.7.v20131107 TODO
 org.eclipse.jetty:jetty-util 9.0.7.v20131107 TODO
+org.evolvis.tartools:background-jobs 1.17 TODO
+org.evolvis.tartools:extract-tool 1.5 TODO
 org.glassfish.hk2.external:aopalliance-repackaged 2.4.0-b34 TODO
 org.glassfish.hk2.external:javax.inject 2.4.0-b34 TODO
 org.glassfish.hk2:hk2-api 2.4.0-b34 TODO
