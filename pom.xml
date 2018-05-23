@@ -49,7 +49,7 @@
 		<maven.surefire.version>2.13</maven.surefire.version>
 		<maven.war.version>2.1.1</maven.war.version>
 		<!-- dependency management -->
-		<background-jobs.version>1.17</background-jobs.version>
+		<background-jobs.version>1.18</background-jobs.version>
 		<cglib-nodep.version>3.2.1</cglib-nodep.version>
 		<commons-codec.version>1.6</commons-codec.version>
 		<commons-csv.version>1.2</commons-csv.version>
@@ -57,7 +57,7 @@
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<commons-lang2.version>2.6</commons-lang2.version>
 		<dropwizard.version>0.7.1</dropwizard.version>
-		<extract-tool.version>1.5</extract-tool.version>
+		<extract-tool.version>1.6</extract-tool.version>
 		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
 		<!-- this is not the latest groovy version, but it is the most recent one I could find that worked with eclipse -->
 		<groovy-all.version>2.4.3</groovy-all.version>
