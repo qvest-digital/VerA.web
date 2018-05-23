@@ -7,14 +7,19 @@
 
 ##Values in per cent for table columns width
 #set($column0 = 5)
-#set($column1 = 14)
+#if ($viewConfig.SHOW_INTERNAL_ID)
+        #set($column1 = 7)
+        #set($column6 = 15)
+#else
+        #set($column6 = 20)
+#end
 #set($column2 = 14)
-#set($column3 = 15)
-#set($column4 = 17)
-#set($column5 = 20)
-#set($column6 = 7)
-#set($column7 = 20)
-#set($column8 = 8)
+#set($column3 = 14)
+#set($column4 = 15)
+#set($column5 = 17)
+#set($column7 = 7)
+#set($column8 = 20)
+#set($column9 = 8)
 
 #parse("inc/header.vm")
 
@@ -75,17 +80,21 @@
                 <table class="sortable fixed">
                         ##Set column size
                         <col width="$column0%" />
-                <col width="$column1%" />
+                #if ($viewConfig.SHOW_INTERNAL_ID)
+                        <col width="$column1%" />
+                #end
                 <col width="$column2%" />
                 <col width="$column3%" />
                 <col width="$column4%" />
                 <col width="$column5%" />
                 <col width="$column6%" />
                 <col width="$column7%" />
-                        <col width="$column8%" />
+                <col width="$column8%" />
+                        <col width="$column9%" />
 
                         <tr>
                                 <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+#if ($viewConfig.SHOW_INTERNAL_ID) <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</th> #end
                                 <th>${placeholderWithTranslation.GENERIC_NAME}</th>
                                 <th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
                                 <th>${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
@@ -98,6 +107,7 @@
                         <tr>
                                 <td class="textCenter"><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
                                 ##additional parameters action cf. issue #2091
+#if ($viewConfig.SHOW_INTERNAL_ID) <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.internal_id)</td> #end
                                 <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.lastname_a_e1)</td>
                                 <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.firstname_a_e1)</td>
                                 <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.function_a_e1)</td>
@@ -111,6 +121,7 @@
                         <tr>
                                 ##additional parameters action cf. issue #2091
                                 <td class="textCenter" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                                #if ($viewConfig.SHOW_INTERNAL_ID) <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.internal_id)</td> #end
                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.lastname_a_e1)</td>
                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.firstname_a_e1)</td>
                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.function_a_e1)</td>
