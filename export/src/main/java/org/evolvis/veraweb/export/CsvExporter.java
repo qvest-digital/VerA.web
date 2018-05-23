@@ -72,6 +72,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -97,10 +98,15 @@ public class CsvExporter {
     private final ExtractorQueryBuilder template;
 
     public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties)
+            throws UnsupportedEncodingException {
+        this(reader, writer, source, properties, null);
+    }
+
+    public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties, List<String> selectedColumns)
       throws UnsupportedEncodingException {
         extractor = new Extractor(new JdbcTemplate(source));
         io = new CsvIo(reader, writer, properties);
-        template = new ExtractorQueryBuilder(loadQuery(io));
+        template = new ExtractorQueryBuilder(loadQuery(io, selectedColumns));
     }
 
     public void export(Map<String, String> substitutions) {
@@ -117,9 +123,10 @@ public class CsvExporter {
         return mapper;
     }
 
-    private ExtractorQuery loadQuery(ExtractIo io) {
+    private ExtractorQuery loadQuery(ExtractIo io, List<String> selectedColumns) {
         try {
-            ExtractorQuery query = this.mapper().readValue(io.reader(), ExtractorQuery.class);
+            DynamicExtractorQuery query = this.mapper().readValue(io.reader(), DynamicExtractorQuery.class);
+            query.setSelectedColumns(selectedColumns);
             return query;
         } catch (JsonParseException e1) {
             LOGGER.error("Couldn\'t parse json", e1);

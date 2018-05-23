@@ -67,6 +67,8 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.evolvis.veraweb.export.CsvExporter;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
@@ -111,6 +113,8 @@ public class ExportResource extends AbstractResource {
     @javax.ws.rs.core.Context
     ResourceContext resourceContext;
 
+    Log logger = LogFactory.getLog(ExportResource.class);
+
     private InitialContext initContext;
     private static final String CONFIG_FILE_NAME = "config.jsn";
     private static final String CONFIG_FILE_NAME_GUEST_LIST_SHORT = "configGuestListShort.jsn";
@@ -127,12 +131,14 @@ public class ExportResource extends AbstractResource {
         }
     }
 
-    @POST
+    @GET
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId,
                                  @javax.ws.rs.core.Context UriInfo ui,
-                                 @FormParam("selectedFields[]") List<String> selList)
+                                 @QueryParam("selectedFields[]") List<String> selList)
       throws NamingException, UnsupportedEncodingException {
+
+        logger.info("getGuestlist called with sellist (size: "+selList.size()+")");
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
@@ -144,6 +150,10 @@ public class ExportResource extends AbstractResource {
         final Properties properties = new Properties();
         properties.setProperty("event.shortname", event.getShortname());
         properties.setProperty("event.begin", String.valueOf(event.getDatebegin().getTime()));
+
+
+
+
 
         final InputStream configFileAsStream = getConfigFileAsStream(ui);
         final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
@@ -161,7 +171,7 @@ public class ExportResource extends AbstractResource {
             @Override
             public void write(OutputStream os) throws IOException {
                 final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
-                final CsvExporter csvExporter = new CsvExporter(reader, new KeepOpenWriter(writer), dataSource, properties);
+                final CsvExporter csvExporter = new CsvExporter(reader, new KeepOpenWriter(writer), dataSource, properties, selList);
 
                 csvExporter.export(substitutions);
 
