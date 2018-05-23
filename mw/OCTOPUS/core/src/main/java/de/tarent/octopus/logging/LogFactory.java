@@ -123,11 +123,11 @@ public class LogFactory {
     }
 
     private static void loadProperties() {
-        InputStream in = LogFactory.class.getResourceAsStream(TARENT_LOGGING_PROPERTIES);
-        if (in != null) {
+        InputStream loggingProperties = LogFactory.class.getResourceAsStream(TARENT_LOGGING_PROPERTIES);
+        if (loggingProperties != null) {
             Properties properties = new Properties();
             try {
-                properties.load(in);
+                properties.load(loggingProperties);
                 Object value = properties.get(LOGGING_API);
                 if (LOGGING_API_JDK14.equals(value)) {
                     CHOSEN_LOGGER = JDK14_LOGGER;
@@ -141,6 +141,8 @@ public class LogFactory {
             } catch (IOException e) {
                 log(FATAL, "Error while reading logging configuration from resource: " +
                   TARENT_LOGGING_PROPERTIES, e);
+            } finally {
+                closeStream(loggingProperties);
             }
         }
     }
@@ -153,6 +155,14 @@ public class LogFactory {
             initJdkOctopusLogging(env);
         } else if (useLog4jLogger()) {
             initLog4jOctopusLogging(env);
+        }
+    }
+
+    private static void closeStream(InputStream in) {
+        try {
+            in.close();
+        } catch (IOException e) {
+            log(FATAL, "Error while closing input stream with the logging properties", e);
         }
     }
 
