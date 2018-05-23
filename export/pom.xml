@@ -10,11 +10,11 @@
 	<name>VerA.web export module</name>
 	<dependencies>
 		<dependency>
-			<groupId>de.tarent.extract</groupId>
+			<groupId>org.evolvis.tartools</groupId>
 			<artifactId>extract-tool</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.tarent.dfg-commons</groupId>
+			<groupId>org.evolvis.tartools</groupId>
 			<artifactId>background-jobs</artifactId>
 		</dependency>
 		<dependency>
