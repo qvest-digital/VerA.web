@@ -99,10 +99,6 @@ public class VworPropertiesReader {
         return null;
     }
 
-    public boolean propertiesAreAvailable() {
-        return (this.properties == null) ? false : true;
-    }
-
     private Properties loadProperties() {
         properties = new Properties();
 
