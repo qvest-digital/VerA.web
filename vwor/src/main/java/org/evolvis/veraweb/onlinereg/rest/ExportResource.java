@@ -79,11 +79,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
@@ -131,9 +127,10 @@ public class ExportResource extends AbstractResource {
         }
     }
 
-    @GET
+    @POST
     @Path("/guestList/{eventId}")
-    public Response getGuestList(@PathParam("eventId") final int eventId, @javax.ws.rs.core.Context UriInfo ui)
+    public Response getGuestList(@PathParam("eventId") final int eventId,
+                                 @javax.ws.rs.core.Context UriInfo ui)
       throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
