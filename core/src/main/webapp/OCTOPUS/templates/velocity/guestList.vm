@@ -8,13 +8,16 @@
 ##Values in per cent for table columns width
 #set($column0 = 3)
 #set($column1 = 8)
-#set($column2 = 4)
-#set($column3 = 20)
+#if ($viewConfig.SHOW_INTERNAL_ID)
+        #set($column2 = 8)
+#end
+#set($column3 = 4)
 #set($column4 = 20)
 #set($column5 = 20)
 #set($column6 = 20)
-#set($column7 = 13)
+#set($column7 = 20)
 #set($column8 = 13)
+#set($column9 = 13)
 
 #parse("inc/header.vm")
 
@@ -348,13 +351,14 @@
                                                 ##Set column size
                                                 <col width="$column0%" />
                                                 <col width="$column1%" />
-                                                <col width="$column2%" />
+                                                #if ($viewConfig.SHOW_INTERNAL_ID) <col width="$column2%" /> #end
                                                 <col width="$column3%" />
                                                 <col width="$column4%" />
                                                 <col width="$column5%" />
                                                 <col width="$column6%" />
                                                 <col width="$column7%" />
                                                 <col width="$column8%" />
+                                                <col width="$column9%" />
                                                 <tr >
                                                         <!-- BEGIN OF COLUMNS TO ORDER -->
                                                                 <th class="textCenter smallCell"></th>
@@ -370,6 +374,21 @@
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                         #end
                                                                 </a></th>
+
+                                                                #if ($viewConfig.SHOW_INTERNAL_ID)
+                                                                        <th><a href="javascript:orderGuestList('internal_id');"
+                                                                                #if($search.listorder && $search.listorder == "internal_id")
+                                                                               style="color: #000000;"
+                                                                                #end
+                                                                        ><nobr>${placeholderWithTranslation.GENERIC_INTERNAL_ID}</nobr>
+                                                                                #if($search.listorder && $search.listorder == 'internal_id')
+                                                                                        #showSortArrows($search.sortDirection)
+                                                                                #else
+                                                                                    <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                                #end
+                                                                        </a></th>
+                                                                #end
+
 
                                                                 <th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 
@@ -466,6 +485,14 @@
                                                                         <em>${placeholderWithTranslation.keine}</em>
                                                                 #end
                                                         </td>
+
+                                                        #if ($viewConfig.SHOW_INTERNAL_ID)
+                                                                #if($bean.internal_id != "")
+                                                                    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">$bean.internal_id</td>
+                                                                #else
+                                                                    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">&nbsp;</td>
+                                                                #end
+                                                        #end
 
                                                         #if($bean.reserve == 1)
                                                                 <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>

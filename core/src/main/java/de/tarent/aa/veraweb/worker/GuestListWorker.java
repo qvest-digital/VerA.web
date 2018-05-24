@@ -368,6 +368,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
           "CASE WHEN tguest.orderno IS NOT NULL THEN NULLIF(tguest.orderno, 0) " + "ELSE NULLIF(tguest.orderno_p, 0) END",
           "someorderno");
         select.selectAs("tcategorie.rank", "catrank");
+        select.select("internal_id");
         select.select("firstname_a_e1");
         select.select("lastname_a_e1");
         select.select("firstname_b_e1");

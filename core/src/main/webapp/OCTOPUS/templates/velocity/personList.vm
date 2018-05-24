@@ -47,15 +47,20 @@
         ##Values in per cent for table columns width
         #set($column0 = 3)
         #set($column1 = 5)
-        #set($column2 = 7)
-        #set($column3 = 13)
+        #if ($viewConfig.SHOW_INTERNAL_ID)
+            #set($column2 = 5)
+            #set($column3 = 7)
+        #else
+            #set($column3 = 12)
+        #end
         #set($column4 = 13)
-        #set($column5 = 9)
-        #set($column6 = 14)
-        #set($column7 = 18)
-        #set($column8 = 7)
-        #set($column9 = 13)
-        #set($column10 = 0)
+        #set($column5 = 13)
+        #set($column6 = 9)
+        #set($column7 = 14)
+        #set($column8 = 18)
+        #set($column9 = 7)
+        #set($column10 = 13)
+        #set($column11 = 0)
 
 #elseif($action == "duplicateSearch")
         #set($activeMenu = "Personen")
@@ -64,8 +69,12 @@
         ##Values in per cent for table columns width
         #set($column0 = 3)
         #set($column1 = 5)
-        #set($column2 = 10)
+    #if ($viewConfig.SHOW_INTERNAL_ID)
+        #set($column2 = 5)
         #set($column3 = 7)
+    #else
+        #set($column3 = 12)
+    #end
         #set($column4 = 11)
         #set($column5 = 11)
         #set($column6 = 9)
@@ -73,6 +82,7 @@
         #set($column8 = 18)
         #set($column9 = 7)
         #set($column10 = 13)
+        #set($column11 = 0)
 
 #elseif($action == "taskReferencePerson")
         #set($activeMenu = "Veranstaltungen")
@@ -97,15 +107,20 @@
         ##Values in per cent for table columns width
         #set($column0 = 3)
         #set($column1 = 5)
-        #set($column2 = 7)
-        #set($column3 = 13)
+    #if ($viewConfig.SHOW_INTERNAL_ID)
+        #set($column2 = 5)
+        #set($column3 = 7)
+    #else
+        #set($column3 = 12)
+    #end
         #set($column4 = 13)
-        #set($column5 = 9)
-        #set($column6 = 14)
-        #set($column7 = 18)
-        #set($column8 = 7)
-        #set($column9 = 13)
-        #set($column10 = 0)
+        #set($column5 = 13)
+        #set($column6 = 9)
+        #set($column7 = 14)
+        #set($column8 = 18)
+        #set($column9 = 7)
+        #set($column10 = 13)
+        #set($column11 = 0)
 
         #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
                 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_DELETE}")
@@ -695,16 +710,20 @@ i                                                       ${placeholderWithTransla
                                 <table class="sortable">
                                         ##Set column size
                                         <col width="$column0%" />
-                                <col width="$column1%" />
-                                <col width="$column2%" />
-                                <col width="$column3%" />
-                                <col width="$column4%" />
-                                <col width="$column5%" />
-                                <col width="$column6%" />
-                                <col width="$column7%" />
+                                        <col width="$column1%" />
+                                        #if ($viewConfig.SHOW_INTERNAL_ID)
+                                            <col width="$column2%" />
+                                        #end
+
+                                        <col width="$column3%" />
+                                        <col width="$column4%" />
+                                        <col width="$column5%" />
+                                        <col width="$column6%" />
+                                        <col width="$column7%" />
                                         <col width="$column8%" />
                                         <col width="$column9%" />
                                         <col width="$column10%" />
+                                        <col width="$column11%" />
 
                                         #if($action == "guest")
                                                 <tr>
@@ -727,6 +746,23 @@ i                                                       ${placeholderWithTransla
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                 #end
                                                         </a></th>
+
+                                                    #if ($viewConfig.SHOW_INTERNAL_ID)
+                                                        <th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}
+                                                                #if($personSearchField == 'internal_id')
+                                                                        #if ($personSearchOrder == 'ASC')
+                                                                                <span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+                                                                        #else
+                                                                                <span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                                                                        #end
+                                                                #else
+                                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                #end
+                                                        </a></th>
+                                                    #end
+
+
+
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME_WITH_SOFT_HYPHEN}
                                                                 #if($personSearchField == 'lastname_a_e1')
                                                                         #if ($personSearchOrder == 'ASC')
@@ -778,6 +814,7 @@ i                                                       ${placeholderWithTransla
                                         #elseif($action == "host")
                                                 <tr>
                                                         <th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+                                            #if ($viewConfig.SHOW_INTERNAL_ID) <th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</a></th> #end
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
                                                         <th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</a></th>
@@ -794,6 +831,7 @@ i                                                       ${placeholderWithTransla
                                         #elseif($action == "statistikHost")
                                                 <tr>
                                                         <th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+                                            #if ($viewConfig.SHOW_INTERNAL_ID) <th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</a></th> #end
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 
@@ -812,6 +850,7 @@ i                                                       ${placeholderWithTransla
                                         #elseif($action == "statistikGuest")
                                                 <tr>
                                                         <th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+                                            #if ($viewConfig.SHOW_INTERNAL_ID) <th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</a></th> #end
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
                                                         <th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</a></th>
@@ -828,6 +867,7 @@ i                                                       ${placeholderWithTransla
                                         #elseif($action == "taskReferencePerson")
                                                 <tr>
                                                         <th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+                                            #if ($viewConfig.SHOW_INTERNAL_ID) <th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</a></th> #end
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}
                                                                 #if($personSearchField == 'lastname_a_e1')
                                                                         #if ($personSearchOrder == 'ASC')
@@ -931,6 +971,7 @@ i                                                       ${placeholderWithTransla
                                                                 <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
                                                         #end
                                                         <th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+                                            #if ($viewConfig.SHOW_INTERNAL_ID) <th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</a></th> #end
                                                         <th title="Datum"><a href="javascript:orderPersonList('created');">${placeholderWithTranslation.GENERIC_DATE}</a></span></th>
                                                         <th title="${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}</a></th>
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
@@ -962,6 +1003,19 @@ i                                                       ${placeholderWithTransla
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                         #end
                                                         </a></th>
+                                                #if ($viewConfig.SHOW_INTERNAL_ID)
+                                                        <th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}
+                                                                #if($personSearchField == 'internal_id')
+                                                                                #if ($personSearchOrder == 'ASC')
+                                                                                        <span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+                                                                                #else
+                                                                                        <span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                                                                                #end
+                                                                #else
+                                                                                        <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                #end
+                                                    </a></th>
+                                                #end
                                                         <th title="${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}
                                                                         #if($personSearchField == 'workarea_name')
                                                                                 #if ($personSearchOrder == 'ASC')
@@ -1112,6 +1166,7 @@ i                                                       ${placeholderWithTransla
                                                                 #end
 
                                                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                                                    #if ($viewConfig.SHOW_INTERNAL_ID) <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.internal_id)</td> #end
                                                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.lastname_a_e1)</td>
                                                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
                                                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.function_a_e1)</td>
@@ -1213,7 +1268,12 @@ i                                                       ${placeholderWithTransla
                                                                         <td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
                                                                 #end
                                                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                                                                <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.date("DATE", $bean.created)</td>
+
+                                                                #if ($viewConfig.SHOW_INTERNAL_ID)
+                                                                    <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.internal_id)</td>
+                                                                #end
+
+                                                                    <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.date("DATE", $bean.created)</td>
 
                                                                 #if ($bean.workarea_name == "Kein")
                                                                         <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">${placeholderWithTranslation.GENERIC_NO_WORKAREA_TEXT}</td>
@@ -1237,6 +1297,9 @@ i                                                       ${placeholderWithTransla
                                                                 #end
                                                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 
+                                                        #if ($viewConfig.SHOW_INTERNAL_ID)
+                                                            <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.internal_id)</td>
+                                                        #end
                                                                 #if ($bean.workarea_name == "Kein")
                                                                         <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">${placeholderWithTranslation.GENERIC_NO_WORKAREA_TEXT}</td>
                                                                 #else
