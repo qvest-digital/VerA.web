@@ -67,15 +67,13 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.evolvis.veraweb.export.CsvExporter;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -87,21 +85,9 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by mweier on 23.03.16.
@@ -112,8 +98,6 @@ public class ExportResource extends AbstractResource {
 
     @javax.ws.rs.core.Context
     ResourceContext resourceContext;
-
-    Log logger = LogFactory.getLog(ExportResource.class);
 
     private InitialContext initContext;
     private static final String CONFIG_FILE_NAME = "config.jsn";
