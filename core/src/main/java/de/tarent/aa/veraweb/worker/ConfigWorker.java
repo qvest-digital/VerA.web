@@ -200,17 +200,15 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     /**
-     * Input-Parameter der Octopus-Aktion {@link #clean(OctopusContext)}
+     * Input-Parameter der Octopus-Aktion {@link #clean()}
      */
     static public final String INPUT_clean[] = {};
 
     /**
      * Diese Octopus-Aktion deinitialisiert die Map der Konfig-Einträge dieses
      * Workers.
-     *
-     * @param cntx Octopus-Kontext
      */
-    public void clean(OctopusContext cntx) {
+    public void clean() {
         config = null;
         loaded = false;
     }

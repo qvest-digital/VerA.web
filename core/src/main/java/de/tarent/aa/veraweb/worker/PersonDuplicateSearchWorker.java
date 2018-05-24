@@ -221,7 +221,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
         final Select result = database.getSelectIds(template);
 
         // replicated from PersonListWorker.
-        return result.select("firstname_a_e1").select("lastname_a_e1").select("firstname_b_e1").select("lastname_b_e1")
+        return result.select("firstname_a_e1").select("internal_id").select("lastname_a_e1").select("firstname_b_e1").select("lastname_b_e1")
           .select("function_a_e1")
           .select("company_a_e1").select("street_a_e1").select("zipcode_a_e1").select("city_a_e1");
     }

@@ -123,16 +123,8 @@ public class EmailResource extends AbstractResource {
         return endpoint + "user/activate/" + activationToken;
     }
 
-    public EmailConfiguration getEmailConfiguration() {
-        return emailConfiguration;
-    }
-
     public void setEmailConfiguration(EmailConfiguration emailConfiguration) {
         this.emailConfiguration = emailConfiguration;
-    }
-
-    public MailDispatcher getMailDispatcher() {
-        return mailDispatcher;
     }
 
     public void setMailDispatcher(MailDispatcher mailDispatcher) {

@@ -73,7 +73,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Properties;
 
-import de.tarent.dfg.commons.backgroundjobs.BackgroundJobMonitor;
+import org.evolvis.tartools.backgroundjobs.BackgroundJobMonitor;
 import de.tarent.extract.DummyMonitor;
 import de.tarent.extract.ExtractIo;
 
