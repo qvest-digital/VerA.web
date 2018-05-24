@@ -73,6 +73,7 @@ import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.Transaction
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import javax.naming.Context
@@ -87,6 +88,7 @@ import javax.ws.rs.core.UriInfo
 /**
  * Created by mweier on 26.04.16.
  */
+@Ignore
 class ExportResourceTest extends Specification {
 
     ServletContext context = Mock(ServletContext)
