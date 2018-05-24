@@ -151,10 +151,6 @@ public class ExportResource extends AbstractResource {
         properties.setProperty("event.shortname", event.getShortname());
         properties.setProperty("event.begin", String.valueOf(event.getDatebegin().getTime()));
 
-
-
-
-
         final InputStream configFileAsStream = getConfigFileAsStream(ui);
         final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
         final Map<String, String> substitutions = new HashMap<String, String>();

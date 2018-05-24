@@ -67,7 +67,7 @@
             <div class="notBold grayBorder contentBox marginBottom20 bgWhite clear">
                 <h3>${placeholderWithTranslation.EXPORT_TITLE_CSV}-${placeholderWithTranslation.GENERIC_EXPORT}</h3>
                 <input type="button" class="check mainButton autoWidth" value="${placeholderWithTranslation.SELECTION_CSV}"/>
-                <form>
+                <form id="ExportGuestlistShot" onsubmit="myFunction()">
                     <div class="row">
                         <div class="column">
                             <input type="checkbox" value="p_pk"/>p_pk<br>
@@ -287,28 +287,29 @@
                             <input type="checkbox" value="passwordResetLink"/>passwordResetLink<br>
                         </div>
                     </div>
-
-                    <input class="mainButton autoWidth" type="submit" id="save_value" name="save_value" value="${placeholderWithTranslation.exportieren}"/>
-                </form>
-            </div>
-
-
-
-            <div class="notBold grayBorder contentBox marginBottom20 bgWhite clear">
-                <h3>${placeholderWithTranslation.EXPORT_TITLE_CSV}-${placeholderWithTranslation.GENERIC_EXPORT}</h3>
-
-                <form id="ExportForm" action="${paths.staticWeb}csvexport/$event.id" method="GET" class="floatLeft marginRight5">
-                    <input type="hidden" name="oa.path.delegation" value="$url.urlForDelegation" />
-                    <input type="hidden" name="oa.path.media" value="$url.urlForMediaRepresentatives" />
-                    <input type="hidden" name="oa.path.event" value="$url.urlForFreeVisitors" />
-                    <input type="hidden" name="oa.path.passwordReset" value="$url.urlForPasswordReset" />
-                    <input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV}" title="${placeholderWithTranslation.EXPORT_AS_CSV}" class="mainButton autoWidth" />
-                </form>
-                <form id="ExportGuestlistShot" action="${paths.staticWeb}csvexport/$event.id" method="GET">
                     <input type="hidden" name="guestListShortExport" value="true" />
                     <input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV_SHORT}" title="${placeholderWithTranslation.EXPORT_AS_CSV_SHORT}" class="mainButton autoWidth" />
+##                    <input class="mainButton autoWidth" type="submit" id="save_value" name="save_value" value="${placeholderWithTranslation.exportieren}"/>
                 </form>
             </div>
+
+
+
+##            <div class="notBold grayBorder contentBox marginBottom20 bgWhite clear">
+##                <h3>${placeholderWithTranslation.EXPORT_TITLE_CSV}-${placeholderWithTranslation.GENERIC_EXPORT}</h3>
+##
+##                <form id="ExportForm" action="${paths.staticWeb}csvexport/$event.id" method="GET" class="floatLeft marginRight5">
+##                    <input type="hidden" name="oa.path.delegation" value="$url.urlForDelegation" />
+##                    <input type="hidden" name="oa.path.media" value="$url.urlForMediaRepresentatives" />
+##                    <input type="hidden" name="oa.path.event" value="$url.urlForFreeVisitors" />
+##                    <input type="hidden" name="oa.path.passwordReset" value="$url.urlForPasswordReset" />
+##                    <input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV}" title="${placeholderWithTranslation.EXPORT_AS_CSV}" class="mainButton autoWidth" />
+##                </form>
+##                <form id="ExportGuestlistShot" action="${paths.staticWeb}csvexport/$event.id" method="GET">
+##                    <input type="hidden" name="guestListShortExport" value="true" />
+##                    <input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV_SHORT}" title="${placeholderWithTranslation.EXPORT_AS_CSV_SHORT}" class="mainButton autoWidth" />
+##                </form>
+##            </div>
 
 
             <div class="notBold grayBorder contentBox marginBottom20 bgWhite">
@@ -333,6 +334,67 @@
     </div> <!--main_content-->
 
 </div> <!--content_container-->
+
+<script>
+    function myFunction() {
+        var sel = $('input[type=checkbox]:checked').map(function (_, el) {
+            return $(el).val();
+        }).get();
+
+        // Enable to see marked fields by sending
+        // alert(sel);
+
+        jQuery.ajax({
+            url: $("#csv-export").data("csvexport"),
+            data: {
+                selectedFields: sel
+            },
+            type: 'GET',
+            success: function(response, status, xhr) {
+                // check for a filename
+                var filename = "";
+                var disposition = xhr.getResponseHeader('Content-Disposition');
+                if (disposition && disposition.indexOf('attachment') !== -1) {
+                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                    var matches = filenameRegex.exec(disposition);
+                    if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                }
+
+                var type = xhr.getResponseHeader('Content-Type');
+                var blob = new Blob([response], { type: type });
+
+                if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                    // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+                    window.navigator.msSaveBlob(blob, filename);
+                } else {
+                    var URL = window.URL || window.webkitURL;
+                    var downloadUrl = URL.createObjectURL(blob);
+
+                    if (filename) {
+                        // use HTML5 a[download] attribute to specify filename
+                        var a = document.createElement("a");
+                        // safari doesn't support this yet
+                        if (typeof a.download === 'undefined') {
+                            window.location = downloadUrl;
+                        } else {
+                            a.href = downloadUrl;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                        }
+                    } else {
+                        window.location = downloadUrl;
+                    }
+
+                    setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
+                }
+            },
+            error: function (data) {
+                alert('Tmp: 500');
+            }
+        });
+    }
+</script>
 
 
 <script type="text/javascript"><!--//--><![CDATA[//><!--
@@ -360,7 +422,7 @@ $(function () {
             },
             type: 'GET',
             success: function (data) {
-                alert('Tmp: 200');
+                alert('Tmp: 200' + data);
 
             },
             error: function (data) {
