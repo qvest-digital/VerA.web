@@ -602,6 +602,7 @@ HINT_EXPORT_CSV=Selon la quantit\u00E9 de champs export\u00E9s (cela d\u00E9pend
 HINT_EXPORT_CSVPERSDATA_ADDRESS=Il sera export\u00E9 que les blancs avec les onglets \u00ABdonn\u00E9es personnelles\u00BB, \u00ABadresses\u00BB, \u00ABtypes de documents\u00BB et leurs onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA=Il sera export\u00E9 que les blancs avec le onglet \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB, et son onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB , \u00ABCat\u00E9gories\u00BB et ses onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela est export\u00E9 \u00E0 partir du nombre de cat\u00E9gories en fonction), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
+SELECTION_CSV=Marquer tout
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importer des donn\u00E9es personnelles
