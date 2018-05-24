@@ -23,7 +23,7 @@ public class DynamicExtractorQuery extends ExtractorQuery {
         this.sql = sql;
     }
 
-    public void setSelectedColumns(final List<String> selectedColumns){
+    public void setSelectedColumns(final List<String> selectedColumns) {
         this.selectedColumns = selectedColumns;
     }
 
@@ -32,12 +32,12 @@ public class DynamicExtractorQuery extends ExtractorQuery {
     }
 
     public Map<String, ColumnMapping> getMappings() {
-        if(selectedColumns == null || selectedColumns.isEmpty()) {
+        if (selectedColumns == null || selectedColumns.isEmpty()) {
             return mappings;
         }
         Map<String, ColumnMapping> mappingsToKeep = new HashMap<>();
 
-        for(String selectedColumn : selectedColumns){
+        for (String selectedColumn : selectedColumns) {
             mappingsToKeep.put(selectedColumn, mappings.get(selectedColumn));
         }
         return mappingsToKeep;

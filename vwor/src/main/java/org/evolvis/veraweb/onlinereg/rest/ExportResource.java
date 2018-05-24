@@ -137,8 +137,6 @@ public class ExportResource extends AbstractResource {
                                  @javax.ws.rs.core.Context UriInfo ui,
                                  @QueryParam("selectedFields[]") List<String> selList)
       throws NamingException, UnsupportedEncodingException {
-
-        logger.info("getGuestlist called with sellist (size: "+selList.size()+")");
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
