@@ -27,6 +27,7 @@
                                         <option value="Kat02">${placeholderWithTranslation.listenachkategoriengruppiertmittelundmobiltelefon}</option>
                                         <option value="Kat03">${placeholderWithTranslation.listenachkategoriengruppiertmitpartnerundfax}</option>
                                         <option value="Alpha01">${placeholderWithTranslation.listenachsortierungmitpartnertelundmobiltelefon}</option>
+                                        <option value="Alpha02">${placeholderWithTranslation.listenachsortierungmitinterneridundadresse}</option>
                                 </select>
                                 </div>
                         </div>
@@ -35,7 +36,7 @@
 			<script type="text/javascript"><!--//--><![CDATA[//><!--
                                 $(function(){
                                         $('#type').change(function(){
-                                                if($(this).val() === 'Alpha01'){
+                                                if($(this).val() === 'Alpha01' || $(this).val() === 'Alpha02'){
                                                         $('#sortHeadline').css('display','block');
                                                         $('#sort').css('display','block');
                                                 } else {
@@ -64,6 +65,9 @@
                                                 <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                                                 <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                                                 <option value="table">${placeholderWithTranslation.tisch}</option>
+                                                <option value="accept">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+                                                <option value="decline">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+                                                <option value="internal_id">${placeholderWithTranslation.INTERNAL_ID}</option>
                             #else
                                                 <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                                                 <option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
@@ -72,6 +76,9 @@
                                                 <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                                                 <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                                                 <option value="table">${placeholderWithTranslation.tisch}</option>
+                                                <option value="accept">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+                                                <option value="decline">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+                                                <option value="internal_id">${placeholderWithTranslation.INTERNAL_ID}</option>
                             #end
                         </select>
                                 </div>
@@ -89,6 +96,9 @@
                                                 <option value="category" selected>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                                                 <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                                                 <option value="table">${placeholderWithTranslation.tisch}</option>
+                                                <option value="accept">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+                                                <option value="decline">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+                                                <option value="internal_id">${placeholderWithTranslation.INTERNAL_ID}</option>
                             #else
                                                 <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                                                 <option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
@@ -97,6 +107,9 @@
                                                 <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                                                 <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                                                 <option value="table">${placeholderWithTranslation.tisch}</option>
+                                                <option value="accept">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+                                                <option value="decline">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+                                                <option value="internal_id">${placeholderWithTranslation.INTERNAL_ID}</option>
                             #end
                                 </select>
                                 </div>
@@ -114,6 +127,9 @@
                                                 <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                                                 <option value="rank" selected>${placeholderWithTranslation.GENERIC_RANK}</option>
                                                 <option value="table">${placeholderWithTranslation.tisch}</option>
+                                                <option value="accept">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+                                                <option value="decline">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+                                                <option value="internal_id">${placeholderWithTranslation.INTERNAL_ID}</option>
                             #else
                                                 <option value="" selected></option>
                                                 <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
@@ -123,6 +139,9 @@
                                                 <option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                                                 <option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                                                 <option value="table">${placeholderWithTranslation.tisch}</option>
+                                                <option value="accept">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+                                                <option value="decline">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+                                                <option value="internal_id">${placeholderWithTranslation.INTERNAL_ID}</option>
                             #end
                         </select>
                                 </div>

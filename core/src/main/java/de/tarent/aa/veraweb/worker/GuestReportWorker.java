@@ -22,6 +22,7 @@ package de.tarent.aa.veraweb.worker;
  *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
  *  © 2018 Titian Horvath (t.horvath@tarent.de)
+ *  © 2018 Benedict Höger (b.hoeger@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
  *  © 2018 Timo Kanera (t.kanera@tarent.de)
  *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
@@ -157,8 +158,9 @@ public class GuestReportWorker {
         //   kat02 = Kategorien mit Telefon und Mobiltelefon
         //   kat03 = Kategorien mit Partner und Fax
         //   alpha01 = Alphabetisch mit Partner, Telefon und Mobiltelefon
+        //   alpha02 = Alphabetisch mit interner ID und Adresse
         String type = cntx.requestAsString("type");
-        if (!("Kat02".equals(type) || "Kat03".equals(type) || "Alpha01".equals(type))) {
+        if (!("Kat02".equals(type) || "Kat03".equals(type) || "Alpha01".equals(type) || "Alpha02".equals(type))) {
             type = "Kat01";
         }
 
@@ -288,6 +290,17 @@ public class GuestReportWorker {
               select("mobil_c_e1").
               select("function_a_e1").
               select("company_a_e1").
+              select("street_a_e1").
+              select("zipcode_a_e1").
+              select("state_a_e1").
+              select("city_a_e1").
+              select("country_a_e1").
+              select("street_b_e1").
+              select("zipcode_b_e1").
+              select("city_b_e1").
+              select("internal_id").
+              select("note_a_e1").
+              select("note_b_e1").
               selectAs("tcategorie.catname", "category").
               joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
               joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
@@ -327,6 +340,18 @@ public class GuestReportWorker {
              * 2008-02-21
              */
             order.add("tworkarea.name");
+        } else if(sort.equals("accept")) {
+            order.add("tguest.invitationstatus = 0");
+            order.add("ASC");
+            order.add("tguest.invitationstatus");
+        } else if(sort.equals("decline")) {
+            order.add("tguest.invitationstatus = 0");
+            order.add("ASC");
+            order.add("tguest.invitationstatus = 2");
+            order.add("DESC");
+            order.add("tguest.invitationstatus");
+        } else if(sort.equals("internal_id")) {
+            order.add("tperson.internal_id");
         }
     }
 
