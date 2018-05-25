@@ -14,7 +14,7 @@
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 
-#if($personTab == "1" || $personTab == "2" || $entityOverwrite == "PERSON")
+#if(($personTab && ($personTab == "1" || $personTab == "2")) || ($entityOverwrite && $entityOverwrite == "PERSON"))
   ## impelemented to show message when person are changed
   #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
   #set($entity="PERSON")
