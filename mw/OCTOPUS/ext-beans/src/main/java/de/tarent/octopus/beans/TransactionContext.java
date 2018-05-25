@@ -126,7 +126,7 @@ public class TransactionContext implements ExecutionContext {
         }
         try {
             ensureValidConnection();
-            connection.createStatement().execute(sql.statementToString());
+            connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).execute(sql.statementToString());
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
@@ -148,7 +148,7 @@ public class TransactionContext implements ExecutionContext {
         }
         try {
             ensureValidConnection();
-            return connection.createStatement().executeQuery(sql.statementToString());
+            return connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql.statementToString());
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
@@ -180,7 +180,7 @@ public class TransactionContext implements ExecutionContext {
      */
     public PreparedStatement prepare(Statement statement) throws BeanException {
         try {
-            return connection.prepareStatement(statement.statementToString());
+            return connection.prepareStatement(statement.statementToString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
         }
