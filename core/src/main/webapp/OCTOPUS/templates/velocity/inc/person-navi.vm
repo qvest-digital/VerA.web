@@ -2,7 +2,7 @@
 ## cklein
 ## 2008-02-22
 
-#set( $current = ${navigation.current.offset} + 1 )
+#set( $current = ${navigation.meta.offset} + 1 )
 
 <span class="paging">
 	<ul>
