@@ -72,38 +72,22 @@ import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by mweier on 23.03.16.
@@ -133,7 +117,9 @@ public class ExportResource extends AbstractResource {
 
     @GET
     @Path("/guestList/{eventId}")
-    public Response getGuestList(@PathParam("eventId") final int eventId, @javax.ws.rs.core.Context UriInfo ui)
+    public Response getGuestList(@PathParam("eventId") final int eventId,
+                                 @javax.ws.rs.core.Context UriInfo ui,
+                                 @QueryParam("selectedFields[]") List<String> selList)
       throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
@@ -163,7 +149,7 @@ public class ExportResource extends AbstractResource {
             @Override
             public void write(OutputStream os) throws IOException {
                 final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
-                final CsvExporter csvExporter = new CsvExporter(reader, new KeepOpenWriter(writer), dataSource, properties);
+                final CsvExporter csvExporter = new CsvExporter(reader, new KeepOpenWriter(writer), dataSource, properties, selList);
 
                 csvExporter.export(substitutions);
 

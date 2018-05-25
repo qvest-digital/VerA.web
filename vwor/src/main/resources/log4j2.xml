@@ -4,10 +4,16 @@
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %7level (%thread) [%logger] %msg%n"/>
 		</Console>
+		<File name="File" fileName="${sys:catalina.base}/logs/veraweb-vwor.log">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %7level (%thread) [%logger] %msg%n"/>
+		</File>
 	</Appenders>
 	<Loggers>
 		<Root level="INFO">
 			<appender-ref ref="Console"/>
+		</Root>
+		<Root level="all">
+			<appender-ref ref="File"/>
 		</Root>
 	</Loggers>
 </Configuration>
