@@ -21,7 +21,7 @@
         ${placeholderWithTranslation.GENERIC_IMPORT_FROM_PERSONS_DATA}
     </h1>
 
-    #if($errors.size() > 0 || $importStatus.invalidData)
+    #if($errors && $errors.size() > 0 || $importStatus.invalidData)
         <vera-warn>
             #if($importStatus.invalidData == "importSource")
                 ${placeholderWithTranslation.siehabenkeinedatenherkunftangegeben}

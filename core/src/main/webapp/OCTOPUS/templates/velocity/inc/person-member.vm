@@ -24,11 +24,11 @@
 				<select  class="width30" id="person-salutation$!message.plain($ext)" name="person-salutation$!message.plain($ext)" onchange="setModified(); setSex('person-salutation$!message.plain($ext)', 'person-sex${ext}');" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
 					#if($ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3")
 						#foreach($s in $allSalutation)
-							<option value="$!s.id" #if(($facade.SalutationFK && $s.id == $facade.SalutationFK) || ($facade.Salutation && $s.name == $facade.Salutation) || ((!$facade || !$facade.Salutation) && $s.name == $config.anrede)) selected #set($sel = true)#end>$!message.text($s.name)</option>
+							<option value="$!s.id" #if(($facade.SalutationFK && $s.id == $facade.SalutationFK) || ($facade.Salutation && $s.name == $facade.Salutation) || ((!$facade || !$facade.Salutation) && ($config.anrede && $s.name == $config.anrede))) selected #set($sel = true)#end>$!message.text($s.name)</option>
 						#end
 					#else
 						#foreach($s in $allSalutation)
-							<option value="$!s.id" #if(($facade.SalutationFK && $s.id == $facade.SalutationFK) || ($facade.Salutation && $s.name == $facade.Salutation) || ((!$facade || !$facade.Salutation) && $s.name == $config.anrede_p)) selected #set($sel = true)#end>$!message.text($s.name)</option>
+							<option value="$!s.id" #if(($facade.SalutationFK && $s.id == $facade.SalutationFK) || ($facade.Salutation && $s.name == $facade.Salutation) || ((!$facade || !$facade.Salutation) && ($config.anrede_p && $s.name == $config.anrede_p))) selected #set($sel = true)#end>$!message.text($s.name)</option>
 						#end
 					#end
 					<option value=""#if(!$sel) selected #end>${placeholderWithTranslation.GENERIC_PLEASE_CHOOSE}</option>

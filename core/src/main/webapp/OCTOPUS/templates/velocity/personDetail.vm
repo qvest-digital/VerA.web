@@ -36,13 +36,15 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #parse("inc/header.vm")
 
-#if($person.orgunit != $orgUnit.id)
+#if($person && $orgUnit && $person.orgunit != $orgUnit.id)
     <div class="msg errormsg"><span>
         ${placeholderWithTranslation.eswurdenkeinedatengefunden}<br>
     </span></div>
 #else
 
-    #set($searchTask = $octopusRequest.searchTask)
+    #if($octopusRequest.searchTask)
+        #set($searchTask = $octopusRequest.searchTask)
+    #end
 
     #if($newPersonErrors || !$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
         #set($createNewPerson = true)
@@ -147,9 +149,9 @@
         <input type="hidden" name="selectNone" value="true"/>
         <input type="hidden" name="originalPersonId" value="$!originalPersonId"/>
 
-        <input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $person.expire)"/>
+        <input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $!person.expire)"/>
 
-        #if($person.deleted == "t")
+        #if($person && $person.deleted == "t")
             <vera-warn>
                 ${placeholderWithTranslation.diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt}
             </vera-warn>
@@ -160,7 +162,7 @@
         #elseif($newPersonErrors)
             #set( $errors = $newPersonErrors )
         #end
-        #if($errors.size() > 0)
+        #if($errors && $errors.size() > 0)
             <vera-warn>
                 $!message.plain($errors.get(0))<br>
                 ##	#foreach($error in $errors)
@@ -247,37 +249,37 @@
             #set($personPartner = "hauptperson")
             #set($extEncoding = "$extEncoding1")
             #set($ext = "_a$extEncoding")
-            #set($facade = $person.MainLatin)
+            #if($person) #set($facade = $person.MainLatin) #end
             #parse("inc/person-member.vm")
 
             #set($personPartner = "hauptperson")
             #set($extEncoding = "$extEncoding2")
             #set($ext = "_a$extEncoding")
-            #set($facade = $person.MainExtra1)
+            #if($person) #set($facade = $person.MainExtra1) #end
             #parse("inc/person-member.vm")
 
             #set($personPartner = "hauptperson")
             #set($extEncoding = "$extEncoding3")
             #set($ext = "_a$extEncoding")
-            #set($facade = $person.MainExtra2)
+            #if($person) #set($facade = $person.MainExtra2) #end
             #parse("inc/person-member.vm")
 
             #set($personPartner = "partner")
             #set($extEncoding = "$extEncoding1")
             #set($ext = "_b$extEncoding")
-            #set($facade = $person.PartnerLatin)
+            #if($person)#set($facade = $person.PartnerLatin) #end
             #parse("inc/person-member.vm")
 
             #set($personPartner = "partner")
             #set($extEncoding = "$extEncoding2")
             #set($ext = "_b$extEncoding")
-            #set($facade = $person.PartnerExtra1)
+            #if($person)#set($facade = $person.PartnerExtra1) #end
             #parse("inc/person-member.vm")
 
             #set($personPartner = "partner")
             #set($extEncoding = "$extEncoding3")
             #set($ext = "_b$extEncoding")
-            #set($facade = $person.PartnerExtra2)
+            #if($person) #set($facade = $person.PartnerExtra2) #end
             #parse("inc/person-member.vm")
 
         </div>
@@ -314,55 +316,55 @@
             #set($addressType = "geschaeftlich")
             #set($extEncoding = "$extEncoding1")
             #set($ext = "_a$extEncoding")
-            #set($facade = $person.BusinessLatin)
+            #if($person) #set($facade = $person.BusinessLatin) #end
             #parse("inc/person-address.vm")
 
             #set($addressType = "geschaeftlich")
             #set($extEncoding = "$extEncoding2")
             #set($ext = "_a$extEncoding")
-            #set($facade = $person.BusinessExtra1)
+            #if($person) #set($facade = $person.BusinessExtra1) #end
             #parse("inc/person-address.vm")
 
             #set($addressType = "geschaeftlich")
             #set($extEncoding = "$extEncoding3")
             #set($ext = "_a$extEncoding")
-            #set($facade = $person.BusinessExtra2)
+            #if($person) #set($facade = $person.BusinessExtra2) #end
             #parse("inc/person-address.vm")
 
             #set($addressType = "privat")
             #set($extEncoding = "$extEncoding1")
             #set($ext = "_b$extEncoding")
-            #set($facade = $person.PrivateLatin)
+            #if($person) #set($facade = $person.PrivateLatin) #end
             #parse("inc/person-address.vm")
 
             #set($addressType = "privat")
             #set($extEncoding = "$extEncoding2")
             #set($ext = "_b$extEncoding")
-            #set($facade = $person.PrivateExtra1)
+            #if($person) #set($facade = $person.PrivateExtra1) #end
             #parse("inc/person-address.vm")
 
             #set($addressType = "privat")
             #set($extEncoding = "$extEncoding3")
             #set($ext = "_b$extEncoding")
-            #set($facade = $person.PrivateExtra2)
+            #if($person) #set($facade = $person.PrivateExtra2) #end
             #parse("inc/person-address.vm")
 
             #set($addressType = "weitere")
             #set($extEncoding = "$extEncoding1")
             #set($ext = "_c$extEncoding")
-            #set($facade = $person.OtherLatin)
+            #if($person) #set($facade = $person.OtherLatin) #end
             #parse("inc/person-address.vm")
 
             #set($addressType = "weitere")
             #set($extEncoding = "$extEncoding2")
             #set($ext = "_c$extEncoding")
-            #set($facade = $person.OtherExtra1)
+            #if($person) #set($facade = $person.OtherExtra1) #end
             #parse("inc/person-address.vm")
 
             #set($addressType = "weitere")
             #set($extEncoding = "$extEncoding3")
             #set($ext = "_c$extEncoding")
-            #set($facade = $person.OtherExtra2)
+            #if($person) #set($facade = $person.OtherExtra2) #end
             #parse("inc/person-address.vm")
 
         </div>

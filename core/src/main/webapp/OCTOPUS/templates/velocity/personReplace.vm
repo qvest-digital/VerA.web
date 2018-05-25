@@ -54,7 +54,7 @@
 			</div>
 
 			##IMPLEMENTNEWMESSAGEMETHOD
-			#if($snr-action == "replace" || $snr-action == "replaceAll")
+			#if($snr-action && ($snr-action == "replace" || $snr-action == "replaceAll"))
 				#if(!$snr-count)
 					<vera-warn>
 					#if($noSearchParam)
@@ -70,7 +70,7 @@
 				#else
 					<vera-success>${placeholderWithTranslation.MESSAGE_REPLACED_PERSON_ONE} $!snr-count ${placeholderWithTranslation.MESSAGE_REPLACED_PERSON_TWO}</vera-success>
 				#end
-			#elseif($snr-action == "count")
+			#elseif($snr-action && $snr-action == "count")
 				#if(!$snr-count)
 					<vera-warn>
 					#if($noSearchParam)
