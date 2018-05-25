@@ -87,7 +87,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -101,53 +100,115 @@ import java.util.logging.Logger;
  * @author mikel
  */
 public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
-    //
-    // Konstanten
-    //
     /**
      * Property-Schlüssel für das Export-Mapping der Felder
      */
-    public static final String PROPERTY_EXPORT_MAPPING = "exportMapping";
+    private static final String PROPERTY_EXPORT_MAPPING = "exportMapping";
 
     /**
      * Property-Schlüssel für das Feldtrennzeichen
      */
-    public final static String PROPERTY_FIELD_SEPARATOR = "fieldSeparator";
+    private final static String PROPERTY_FIELD_SEPARATOR = "fieldSeparator";
 
     /**
      * Property-Schlüssel für das Quote-Zeichen
      */
-    public final static String PROPERTY_TEXT_QUALIFIER = "textQualifier";
+    private final static String PROPERTY_TEXT_QUALIFIER = "textQualifier";
 
     /**
      * Property-Schlüssel für das Datumsformatmuster
      */
-    public final static String PROPERTY_DATE_FORMAT = "dateFormat";
+    private final static String PROPERTY_DATE_FORMAT = "dateFormat";
 
     /**
      * Vorgabewert: Feldtrennzeichen
      */
-    public final static char DEFAULT_FIELD_SEPARATOR = ';';
+    private final static char DEFAULT_FIELD_SEPARATOR = ';';
 
     /**
      * Vorgabewert: Feldtrennzeichen Alternative 1
      */
-    public final static char ALT1_FIELD_SEPARATOR = '|';
+    private final static char ALT1_FIELD_SEPARATOR = '|';
 
     /**
      * Vorgabewert: Feldtrennzeichen Alternative 2
      */
-    public final static char ALT2_FIELD_SEPARATOR = '~';
+    private final static char ALT2_FIELD_SEPARATOR = '~';
 
     /**
      * Vorgabewert: Quote-Zeichen
      */
-    public final static char DEFAULT_TEXT_QUALIFIER = '"';
+    private final static char DEFAULT_TEXT_QUALIFIER = '"';
 
     /**
      * Default-Kategorie-Rang, wenn alle Rang-Einträge <code>null</code> sind.
      */
-    protected static final String DEFAULT_RANK = "X";
+    private static final String DEFAULT_RANK = "X";
+    /**
+     * Format zum Erstellen von Personenstammdaten-Feldbezeichnern
+     */
+    private final static MessageFormat PERSON_FIELD_FORMAT = new MessageFormat(":{0}");
+    /**
+     * Format zum Erstellen von Kategorie-Feldbezeichnern
+     */
+    private final static MessageFormat CATEGORY_FIELD_FORMAT = new MessageFormat("CAT:{0}");
+    /**
+     * Format zum Erstellen von Ereignis-Feldbezeichnern
+     */
+    private final static MessageFormat EVENT_FIELD_FORMAT = new MessageFormat("EVE:{0}");
+    /**
+     * Format zum Erstellen von Dipl.-Corps-Feldbezeichnern
+     */
+    private final static MessageFormat CORPS_FIELD_FORMAT = new MessageFormat("COR:{0}");
+    /**
+     * Simples 1:1-Mapping don Quell- und Zielspalten
+     */
+    private final static Map SIMPLE_FIELD_MAPPING = Collections.singletonMap("*", "*");
+    /**
+     * Logger dieser Klasse
+     */
+    private final static Logger LOGGER = Logger.getLogger(GenericCSVBase.class.getName());
+
+    /**
+     * Die zu nutzende Datenbank
+     */
+    Database database = null;
+    /**
+     * Das zu verwendende Austauschformat
+     */
+    ExchangeFormat exchangeFormat = null;
+    /**
+     * Das zu nutzende Feld-Mapping
+     */
+    FieldMapping fieldMapping = null;
+    /**
+     * Der zu verwendende Ausgabedatenstrom
+     */
+    OutputStream outputStream = null;
+    /**
+     * Der zu verwendende Eingabedatenstrom
+     */
+    InputStream inputStream = null;
+    /**
+     * Unix-Encoding der Ströme
+     */
+    Charset fileEncoding = StandardCharsets.UTF_8;
+    /**
+     * Bezeichner der CSV-Spalten
+     */
+    private List csvFieldNames = null;
+    /**
+     * Der zu verwendende Feldtrenner
+     */
+    private char fieldSeparator = DEFAULT_FIELD_SEPARATOR;
+    /**
+     * Der zu verwendende Quote-Zeichen
+     */
+    private char textQualifier = DEFAULT_TEXT_QUALIFIER;
+    /**
+     * Das zu verwendende Datumsformat
+     */
+    final private SimpleDateFormat dateFormat = new SimpleDateFormat();
 
     //
     // Schnittstelle DatabaseUtilizer
@@ -254,13 +315,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      */
     protected void parseFormat(boolean export) throws MappingException, BeanException, IOException {
         assert exchangeFormat != null;
-        Map mappingDescription = simpleFieldMapping;
-        if (exchangeFormat.getProperties() != null) {
-            Object mappingObject = exchangeFormat.getProperties().get(PROPERTY_EXPORT_MAPPING);
-            if (mappingObject instanceof Map) {
-                mappingDescription = (Map) mappingObject;
-            }
-        }
+        final Map mappingDescription = getMappingDescription();
         fieldMapping = new FieldMapping(getAvailableFields(), mappingDescription);
         csvFieldNames = new ArrayList(fieldMapping.getTargets());
         Collections.sort(csvFieldNames);
@@ -273,6 +328,25 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
         if (!export) {
             fieldMapping = fieldMapping.invert();
         }
+    }
+
+    private Map getMappingDescription() {
+        Map mappingDescription = null;
+        if (exchangeFormat.getProperties() != null) {
+            Object mappingObject = exchangeFormat.getProperties().get(PROPERTY_EXPORT_MAPPING);
+            mappingDescription = setMappingDescription(mappingObject);
+        }
+        return mappingDescription;
+    }
+
+    private Map setMappingDescription(Object mappingObject) {
+        Map mappingDescription = null;
+        if (mappingObject instanceof Map) {
+            mappingDescription = (Map) mappingObject;
+        } else {
+            mappingDescription = SIMPLE_FIELD_MAPPING;
+        }
+        return mappingDescription;
     }
 
     private char getAlternativeFieldSeparator() {
@@ -297,11 +371,11 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Diese Methode liefert die Menge der verfügbaren Personenstammdatenfelder.
      */
-    Set getPersonDataFields() throws BeanException {
-        Set result = new HashSet();
-        Bean sample = database.createBean("Person");
-        for (Iterator itFields = sample.getFields().iterator(); itFields.hasNext(); ) {
-            result.add(personFieldFormat.format(new Object[] { itFields.next() }));
+    private Set getPersonDataFields() throws BeanException {
+        final Set result = new HashSet();
+        final Bean person = database.createBean("Person");
+        for (Object currentField : person.getFields()) {
+            result.add(PERSON_FIELD_FORMAT.format(new Object[] { currentField }));
         }
         return result;
     }
@@ -312,28 +386,25 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      * @throws IOException   IOException
      * @throws BeanException BeanException
      */
-    Set getCategoryFields() throws BeanException, IOException {
-        Set result = new HashSet();
-        List categories = getCategoriesFromDB();
+    private Set getCategoryFields() throws BeanException, IOException {
+        final Set result = new HashSet();
+        final List categories = getCategoriesFromDB();
         if (categories == null) {
             return result; //keine Kategorien
         }
-
-        for (Iterator itCategories = categories.iterator(); itCategories.hasNext(); ) {
-            Map categoryData = (Map) itCategories.next();
-            Object nameObject = categoryData.get("name");
-            Integer flags = (Integer) categoryData.get("flags");
-
+        for (Object category : categories) {
+            Object nameObject = ((Map) category).get("name");
+            Integer flags = (Integer) ((Map) category).get("flags");
             if (nameObject == null) {
                 continue;
             }
 
             if (flags == null || flags.intValue() == Categorie.FLAG_DEFAULT) {
-                result.add(categoryFieldFormat.format(new Object[] { nameObject }));
+                result.add(CATEGORY_FIELD_FORMAT.format(new Object[] { nameObject }));
             } else if (flags.intValue() == Categorie.FLAG_DIPLO_CORPS) {
-                result.add(corpsFieldFormat.format(new Object[] { nameObject }));
+                result.add(CORPS_FIELD_FORMAT.format(new Object[] { nameObject }));
             } else if (flags.intValue() == Categorie.FLAG_EVENT) {
-                result.add(eventFieldFormat.format(new Object[] { nameObject }));
+                result.add(EVENT_FIELD_FORMAT.format(new Object[] { nameObject }));
             } else {
                 assert false;
             }
@@ -376,77 +447,11 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
                 try {
                     dateFormat.applyPattern(property.toString());
                 } catch (IllegalArgumentException iae) {
-                    logger.log(Level.WARNING, "Fehler beim Anwenden des Datumformats " + property, iae);
+                    LOGGER.log(Level.WARNING, "Fehler beim Anwenden des Datumformats " + property, iae);
                 }
             }
         }
     }
 
-    //
-    // geschützte Membervariablen
-    //
-    /**
-     * Die zu nutzende Datenbank
-     */
-    Database database = null;
-    /**
-     * Das zu verwendende Austauschformat
-     */
-    ExchangeFormat exchangeFormat = null;
-    /**
-     * Das zu nutzende Feld-Mapping
-     */
-    FieldMapping fieldMapping = null;
-    /**
-     * Der zu verwendende Ausgabedatenstrom
-     */
-    OutputStream outputStream = null;
-    /**
-     * Der zu verwendende Eingabedatenstrom
-     */
-    InputStream inputStream = null;
-    /**
-     * Unix-Encoding der Ströme
-     */
-    Charset fileEncoding = StandardCharsets.UTF_8;
-    /**
-     * Bezeichner der CSV-Spalten
-     */
-    protected List csvFieldNames = null;
-    /**
-     * Der zu verwendende Feldtrenner
-     */
-    protected char fieldSeparator = DEFAULT_FIELD_SEPARATOR;
-    /**
-     * Der zu verwendende Quote-Zeichen
-     */
-    protected char textQualifier = DEFAULT_TEXT_QUALIFIER;
-    /**
-     * Das zu verwendende Datumsformat
-     */
-    final protected SimpleDateFormat dateFormat = new SimpleDateFormat();
-    /**
-     * Format zum Erstellen von Personenstammdaten-Feldbezeichnern
-     */
-    final static MessageFormat personFieldFormat = new MessageFormat(":{0}");
-    /**
-     * Format zum Erstellen von Kategorie-Feldbezeichnern
-     */
-    final static MessageFormat categoryFieldFormat = new MessageFormat("CAT:{0}");
-    /**
-     * Format zum Erstellen von Ereignis-Feldbezeichnern
-     */
-    final static MessageFormat eventFieldFormat = new MessageFormat("EVE:{0}");
-    /**
-     * Format zum Erstellen von Dipl.-Corps-Feldbezeichnern
-     */
-    final static MessageFormat corpsFieldFormat = new MessageFormat("COR:{0}");
-    /**
-     * Simples 1:1-Mapping don Quell- und Zielspalten
-     */
-    static final Map simpleFieldMapping = Collections.singletonMap("*", "*");
-    /**
-     * Logger dieser Klasse
-     */
-    final static Logger logger = Logger.getLogger(GenericCSVBase.class.getName());
+
 }
