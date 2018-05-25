@@ -69,11 +69,10 @@ package org.evolvis.veraweb.onlinereg.rest
 import org.evolvis.veraweb.onlinereg.entities.Event
 import org.evolvis.veraweb.onlinereg.entities.OptionalField
 import org.evolvis.veraweb.onlinereg.utils.VworConstants
-import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.Transaction
-import spock.lang.Ignore
+import org.hibernate.query.Query
 import spock.lang.Specification
 
 import javax.naming.Context
@@ -88,7 +87,7 @@ import javax.ws.rs.core.UriInfo
 /**
  * Created by mweier on 26.04.16.
  */
-@Ignore
+
 class ExportResourceTest extends Specification {
 
     ServletContext context = Mock(ServletContext)
@@ -128,7 +127,7 @@ class ExportResourceTest extends Specification {
             ]
 
         when:
-            Response response = exportResource.getGuestList(1, uriInfo)
+        Response response = exportResource.getGuestList(1, uriInfo, [])
 
         then:
             assert response.status == VworConstants.HTTP_OK
