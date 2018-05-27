@@ -341,7 +341,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
 
     private Map setMappingDescription(Object mappingObject) {
-        Map mappingDescription = null;
+        Map mappingDescription;
         if (mappingObject instanceof Map) {
             mappingDescription = (Map) mappingObject;
         } else {
@@ -400,11 +400,11 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
                 continue;
             }
 
-            if (flags == null || flags.intValue() == Categorie.FLAG_DEFAULT) {
+            if (flags == null || flags == Categorie.FLAG_DEFAULT) {
                 result.add(CATEGORY_FIELD_FORMAT.format(new Object[] { nameObject }));
-            } else if (flags.intValue() == Categorie.FLAG_DIPLO_CORPS) {
+            } else if (flags == Categorie.FLAG_DIPLO_CORPS) {
                 result.add(CORPS_FIELD_FORMAT.format(new Object[] { nameObject }));
-            } else if (flags.intValue() == Categorie.FLAG_EVENT) {
+            } else if (flags == Categorie.FLAG_EVENT) {
                 result.add(EVENT_FIELD_FORMAT.format(new Object[] { nameObject }));
             } else {
                 assert false;
