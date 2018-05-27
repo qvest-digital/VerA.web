@@ -1,0 +1,266 @@
+#set($showMain = true)
+#set($showPartner = true)
+
+<table class="kategorie">
+    <tr>
+        <td class="kategorieInternalIdAlpha02"><strong>${placeholderWithTranslation.INTERNAL_ID}</strong></td>
+        <td class="kategorieNameAlpha02"><strong>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</strong></td>
+        <td class="kategorieBemerkungAlpha02"><strong>${placeholderWithTranslation.GENERIC_REMARK}</strong></td>
+        <td class="kategorieAdresseAlpha02"><strong>${placeholderWithTranslation.GENERIC_ADDRESSES}</strong></td>
+        <td class="kategorieZusageAlpha02"><nobr><strong>${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</strong></nobr></td>
+        <td class="kategorieAbsageAlpha02"><nobr><strong>${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</strong></nobr></td>
+        <td class="kategorieTeilnahmeAlpha02"><nobr><strong>${placeholderWithTranslation.GENERIC_PARTICIPATION}</strong></nobr></td>
+    </tr>
+    <tr>
+        <td colspan="7" style="vertical-align: middle;"><hr class="kategorie" /></td>
+    </tr>
+</table>
+
+#set($o = 0)#set($z = 0)#set($a = 0)#set( $t = 0 )
+#set($category = "")
+#set($workarea = "")
+#foreach($bean in $guestlist)
+    #if( $orderByWorkArea && ( $showMain && $bean.invitationtype != 3 || $showPartner && $bean.invitationtype != 2 ) )
+        #if( $bean.workarea_name != $workarea )
+            #if( $bean.workarea_name == "Kein Arbeitsbereich" && $workarea != "" )
+                #set($workarea = "")
+            <div class="kategorie" style="margin-left: 1em;"><em>${placeholderWithTranslation.GENERIC_NOT_ASSIGNED_TO_WORKAREA}</em></div>
+            #else
+                #set($workarea = $bean.workarea_name)
+            <div class="kategorie" style="margin-left: 1em;">$!message.plain($workarea)</div>
+            #end
+        #end
+    #end
+
+    #set($mainShown=false)
+    #set($partnerShown=false)
+<table class="kategorie">
+    #if($showMain && $bean.invitationtype != 3)
+        #if($bean.invitationstatus == 1)
+            #set($z = $z + 1)
+        #elseif($bean.invitationstatus == 2)
+            #set($a = $a + 1)
+        #elseif($bean.invitationstatus == 3)
+            #set($t = $t + 1)
+        #else
+            #set($o = $o + 1)
+        #end
+        #set($mainShown=true)
+        <tr>
+            <td class="kategorieInternalIdAlpha02">
+                $!bean.internal_id
+            </td>
+            <td class="kategorieNameAlpha02">
+                #if($bean.showdoctype)
+                    <strong>
+                        $!message.plain($bean.lastname_a_gd)
+                        #if($bean.lastname_a_gd.length() > 0 && ($bean.title_a_gd.length() > 0 || $bean.firstname_a_gd.length() > 0))
+                            ,
+                        #end
+                        $!message.plain($bean.title_a_e1)
+                        $!message.plain($bean.firstname_a_gd)
+                    </strong>
+                    #if($bean.function_a_gd.length() > 0 || $bean.company_a_gd.length() > 0)
+                        <br>
+                        $!message.plain($bean.function_a_gd)
+                        #if($bean.function_a_gd.length() > 0 && $bean.company_a_gd.length() > 0)
+                            -
+                        #end
+                        $!message.plain($bean.company_a_gd)
+                    #end
+                #else
+                    <strong>
+                        $!message.plain($bean.lastname_a_e1)
+                        #if($bean.lastname_a_e1.length() > 0 && ($bean.title_a_e1.length() > 0 || $bean.firstname_a_e1.length() > 0))
+                            ,
+                        #end
+                        $!message.plain($bean.title_a_e1)
+                        $!message.plain($bean.firstname_a_e1)
+                    </strong>
+                    #if($bean.function_a_e1.length() > 0 || $bean.company_a_e1.length() > 0)
+                        <br>$!message.plain($bean.function_a_e1)
+                        #if($bean.function_a_e1.length() > 0 && $bean.company_a_e1.length() > 0)
+                            -
+                        #end
+                        $!message.plain($bean.company_a_e1)
+                    #end
+                #end
+                #if($bean.textfield && $bean.textfield.length() > 0)
+                    <br>$!message.plain($bean.textfield)
+                #end
+                #if($bean.notehost && $bean.notehost.length() > 0)
+                    <br>$!message.plain($bean.notehost)
+                #end
+            </td>
+
+            <td class="kategorieBemerkungAlpha02">
+                #if($bean.note_a_e1.length() > 0)
+                    $!message.plain($bean.note_a_e1)
+                #end
+            </td>
+            <td class="kategorieAdresseAlpha02">
+                #if($bean.street_a_e1.length() > 0)
+                    $!message.plain($bean.street_a_e1)<br>
+                #end
+                #if($bean.city_a_e1.length() > 0 || $bean.zipcode_a_e1.length() > 0)
+                    $!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)
+                #end
+            </td>
+
+            #if($bean.invitationstatus == 1)
+                <td class="kategorieZusageAlpha02"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+            #else
+                <td class="kategorieZusageAlpha02"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+            #end
+            #if($bean.invitationstatus == 2)
+                <td class="kategorieAbsageAlpha02"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+            #else
+                <td class="kategorieAbsageAlpha02"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+            #end
+            #if($bean.invitationstatus == 3)
+                <td class="kategorieTeilnahmeAlpha02"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+            #else
+                <td class="kategorieTeilnahmeAlpha02"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+            #end
+        </tr>
+    #end
+
+    #if($showPartner && $bean.invitationtype != 2 && ($bean.lastname_b_gd.length() > 0 || $bean.lastname_b_e1.length > 0 || $bean.firstname_b_gd.length > 0 || $bean.firstname_b_e1.length() > 0))
+        #if($bean.invitationstatus_p == 1)
+            #set($z = $z + 1)
+        #elseif($bean.invitationstatus_p == 2)
+            #set($a = $a + 1)
+        #elseif($bean.invitationstatus_p == 3)
+            #set($t = $t + 1)
+        #else
+            #set($o = $o + 1)
+        #end
+        #set($partnerShown=true)
+        <tr>
+            <td class="kategorieInternalId">
+                #if($bean.invitationtype == 3)
+                    $!bean.internal_id
+                #end
+            </td>
+            <td class="kategorieNameAlpha02">
+                <strong>
+                    #if($bean.showdoctype)
+                        $!message.plain($bean.lastname_b_gd)
+                        #if($bean.lastname_b_gd.length() > 0 && ($bean.title_b_gd.length() > 0 || $bean.firstname_b_gd.length() > 0))
+                            ,
+                        #end
+                        $!message.plain($bean.title_b_gd)
+                        $!message.plain($bean.firstname_b_gd)
+                    #else
+                        $!message.plain($bean.lastname_b_e1)
+                        #if($bean.lastname_b_e1.length() > 0 && ($bean.title_b_e1.length() > 0 || $bean.firstname_b_e1.length() > 0))
+                            ,
+                        #end
+                        $!message.plain($bean.title_b_e1)
+                        $!message.plain($bean.firstname_b_e1)
+                    #end
+                </strong>
+                #if($bean.textfield_p && $bean.textfield_p.length() > 0)
+                    <br>$!message.plain($bean.textfield_p)
+                #end
+                #if($bean.notehost_p && $bean.notehost_p.length() > 0)
+                    <br>$!message.plain($bean.notehost_p)
+                #end
+            </td>
+
+            <td class="kategorieBemerkungAlpha02">
+                #if($bean.note_b_e1.length() > 0)
+                    $!message.plain($bean.note_b_e1)
+                #end
+            </td>
+            <td class="kategorieAdresseAlpha02">
+                #if($bean.street_b_e1.length() > 0)
+                    $!message.plain($bean.street_b_e1)<br>
+                #end
+                #if($bean.city_b_e1.length() > 0 || $bean.zipcode_b_e1.length() > 0)
+                    $!message.plain($bean.zipcode_b_e1) $!message.plain($bean.city_b_e1)
+                #end
+            </td>
+
+            #if($bean.invitationstatus_p == 1)
+                <td class="kategorieZusageAlpha02"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+            #else
+                <td class="kategorieZusageAlpha02"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+            #end
+            #if($bean.invitationstatus_p == 2)
+                <td class="kategorieAbsageAlpha02"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+            #else
+                <td class="kategorieAbsageAlpha02"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+            #end
+            #if($bean.invitationstatus_p == 3)
+                <td class="kategorieTeilnahmeAlpha02"><img src="${paths.staticWeb}images/checkbox_on.gif" alt="An"></td>
+            #else
+                <td class="kategorieTeilnahmeAlpha02"><img src="${paths.staticWeb}images/checkbox_off.gif" alt="Aus"></td>
+            #end
+        </tr>
+    #end
+    #if($mainShown || $partnerShown)
+        <tr>
+            <td colspan="7" style="vertical-align: middle;"><hr class="kategorieDotted" /></td>
+        </tr>
+    #end
+</table>
+#end
+
+<table style="width: 100%;">
+    <tr>
+        <td style="text-align: right;">
+            <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Offen):</h2>
+        </td>
+        <td style="width: 15px;">
+            &nbsp;
+        </td>
+        <td style="width: 100px">
+            <h3 style="text-align: left;">$o</h3>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">
+            <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Zusagen):</h2>
+        </td>
+        <td style="width: 15px;">
+            &nbsp;
+        </td>
+        <td style="width: 100px">
+            <h3 style="text-align: left;">$z</h3>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">
+            <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Absagen):</h2>
+        </td>
+        <td style="width: 15px;">
+            &nbsp;
+        </td>
+        <td style="width: 100px">
+            <h3 style="text-align: left;">$a</h3>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">
+            <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Teilnahmen):</h2>
+        </td>
+        <td style="width: 15px;">
+            &nbsp;
+        </td>
+        <td style="width: 100px">
+            <h3 style="text-align: left;">$t</h3>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">
+            <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Gesamt):</h2>
+        </td>
+        <td style="width: 15px;">
+            &nbsp;
+        </td>
+        <td style="width: 100px">
+            <h3 style="text-align: left;">#set($g = $o + $z + $a + $t)$g</h3>
+        </td>
+    </tr>
+</table>
