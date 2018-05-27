@@ -143,7 +143,8 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Default-Kategorie-Rang, wenn alle Rang-Einträge <code>null</code> sind.
      */
-    private static final String DEFAULT_RANK = "X";
+    public static final String DEFAULT_RANK = "X";
+
     /**
      * Format zum Erstellen von Personenstammdaten-Feldbezeichnern
      */
@@ -196,19 +197,19 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Bezeichner der CSV-Spalten
      */
-    private List csvFieldNames = null;
+    public List csvFieldNames = null;
     /**
      * Der zu verwendende Feldtrenner
      */
-    private char fieldSeparator = DEFAULT_FIELD_SEPARATOR;
+    public char fieldSeparator = DEFAULT_FIELD_SEPARATOR;
     /**
      * Der zu verwendende Quote-Zeichen
      */
-    private char textQualifier = DEFAULT_TEXT_QUALIFIER;
+    public char textQualifier = DEFAULT_TEXT_QUALIFIER;
     /**
      * Das zu verwendende Datumsformat
      */
-    final private SimpleDateFormat dateFormat = new SimpleDateFormat();
+    public final SimpleDateFormat dateFormat = new SimpleDateFormat();
 
     //
     // Schnittstelle DatabaseUtilizer
