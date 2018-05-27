@@ -83,15 +83,11 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import java.lang.reflect.Constructor;
-import java.math.BigInteger;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,7 +109,7 @@ public class LDAPManager {
      * LDAP definierten Benutzern implementiert wird.
      */
     public final static String KEY_USER_OBJECT_CLASS = "user-object-class";
-    protected String defaultUserObjectClass = null;
+    protected String defaultUserObjectClass;
 
     /**
      * Schluessel des Konfigurationseintrags fuer rekursive LDAP lookups.
@@ -180,8 +176,8 @@ public class LDAPManager {
      * @return LDAPManager
      */
     public static LDAPManager instantiate(Class managerClass, Hashtable env, Map params) throws LDAPException {
-        LDAPManager result = null;
-        InitialLdapContext lctx = null;
+        LDAPManager result;
+        InitialLdapContext lctx;
 
         try {
             lctx = new InitialLdapContext(env, null);
@@ -242,16 +238,6 @@ public class LDAPManager {
     //
 
     /**
-     * Diese Methode liefert die aktuellen Vorgabe-Objektklassen für Benutzer.
-     *
-     * @return Vorgabe-Objektklassen für Benutzer
-     * @see #fullUserDN(String)
-     */
-    protected String[] getDefaultObjectClasses() {
-        return defaultObjectClasses;
-    }
-
-    /**
      * Diese Methode setzt die aktuellen Vorgabe-Objektklassen für Benutzer.
      *
      * @param newDefault neue Vorgabe-Objektklassen für Benutzer
@@ -283,24 +269,6 @@ public class LDAPManager {
     }
 
     /**
-     * @param ou ou in der Form "ou=blahbla"
-     * @throws LDAPException
-     */
-    public void createOU(String ou) throws LDAPException {
-        //angegebene ou anlegen
-        try {
-            BasicAttributes attr = new BasicAttributes();
-            BasicAttribute objectclass = new BasicAttribute("objectclass", "top"); //$NON-NLS-1$ //$NON-NLS-2$
-            objectclass.add("organizationalUnit"); //$NON-NLS-1$
-            attr.put(objectclass);
-            lctx.createSubcontext(ou + relative + baseDN, attr);
-        } catch (Exception e) {
-            throw new LDAPException(Messages.getString("LDAPManager.Konnte_OU_nicht_anlegen_01") + e.getMessage(),
-              e); //$NON-NLS-1$
-        }
-    }
-
-    /**
      * Legt eine OU an
      *
      * @param ou   ou, die angelegt werden soll
@@ -318,15 +286,14 @@ public class LDAPManager {
             attr.put("cn", ou); //$NON-NLS-1$
             attr.put("ou", ou); //$NON-NLS-1$
             BasicAttribute users = new BasicAttribute("member"); //$NON-NLS-1$
-            Iterator it = user.iterator();
-            while (it.hasNext()) {
-                String adduser = (String) it.next();
+            for (Object anUser : user) {
+                String adduser = (String) anUser;
                 try {
                     String adduser2 = fullUserDN(adduser);
                     users.add(adduser2);
                 } catch (LDAPException le) {
                     logger.log(Level.WARNING, Messages.getString("LDAPManager.76") + adduser
-                      + Messages.getString("LDAPManager.77")); //$NON-NLS-1$
+                            + Messages.getString("LDAPManager.77")); //$NON-NLS-1$
                 }
             }
             attr.put(users);
@@ -384,7 +351,7 @@ public class LDAPManager {
             Attributes attributes = lctx.getAttributes(fullUserDN(name));
             //hole Attrbute
             Attribute tester = attributes.get(attribute);
-            NamingEnumeration liste = null;
+            NamingEnumeration liste;
             if (tester != null) {
                 //hole alle
                 liste = tester.getAll();
@@ -396,91 +363,8 @@ public class LDAPManager {
                     }
                 }
             }
-        } catch (NamingException e) {
+        } catch (NamingException | LDAPException e) {
             // Im Fehlerfall ist der Wert natürlich nicht vorhanden
-            vorhanden = false;
-        } catch (LDAPException e) {
-            // Im Fehlerfall ist der Wert natürlich nicht vorhanden
-            vorhanden = false;
-        }
-        return vorhanden;
-    }
-
-    /**
-     * Methode, die testet, ob OU name im LDAP das bestimmte Attribut mit dem
-     * bestimmten Wert hat.
-     *
-     * @param name      ou des Objekts
-     * @param attribute zu suchendes Attribut
-     * @param wert      Wert des Attributes
-     * @return true, wenn Wert vorhanden, false sonst, auch bei anderen Fehlern
-     */
-    private boolean checkAttributeOU(String name, String attribute, String wert) {
-        boolean vorhanden = false;
-        try {
-            //Zu suchende Attribute zusammenbauen
-            Attributes attributes = lctx.getAttributes("ou=" + name + relative + baseDN); //$NON-NLS-1$
-            //hole Attrbute
-            Attribute tester = attributes.get(attribute);
-            NamingEnumeration liste = null;
-            if (tester != null) {
-                //hole alle
-                liste = tester.getAll();
-                while (liste.hasMore()) {
-                    String testwert = (String) liste.next();
-                    //Teste durch, ob wert vorhanden
-                    if (testwert.equals(wert)) {
-                        vorhanden = true;
-                    }
-                }
-            }
-        } catch (NamingException e) {
-            // Im Fehlerfall ist der Wert natürlich nicht vorhanden
-            vorhanden = false;
-        }
-        return vorhanden;
-    }
-
-    /**
-     * Testet, ob userid im LDAP vorhanden
-     *
-     * @param userid UserID, die getestet werden soll
-     * @return true, wenn vorhanden, false sonst
-     * @throws LDAPException
-     */
-    public boolean checkUid(String userid) throws LDAPException {
-        boolean vorhanden = false;
-        try {
-            BasicAttributes zusuchendeAttribute = new BasicAttributes(true);
-            zusuchendeAttribute.put("uid", userid); //$NON-NLS-1$
-            NamingEnumeration ergebnis = lctx.search(relative.substring(1) + baseDN, zusuchendeAttribute);
-            if (ergebnis.hasMore()) {
-                vorhanden = true;
-            }
-        } catch (NamingException e) {
-            vorhanden = false;
-        }
-        return vorhanden;
-    }
-
-    /**
-     * Testet, ob userid im LDAP vorhanden
-     *
-     * @param userid    UserID, die getestet werden soll
-     * @param kategorie Kategorie, in der der Kontakt gesucht werden soll
-     * @return true, wenn vorhanden, false sonst
-     * @throws LDAPException
-     */
-    public boolean checkContact(String userid, String kategorie) throws LDAPException {
-        boolean vorhanden = false;
-        try {
-            BasicAttributes zusuchendeAttribute = new BasicAttributes(true);
-            zusuchendeAttribute.put("uid", userid); //$NON-NLS-1$
-            NamingEnumeration ergebnis = lctx.search("ou=" + kategorie + relative + baseDN, zusuchendeAttribute); //$NON-NLS-1$
-            if (ergebnis.hasMore()) {
-                vorhanden = true;
-            }
-        } catch (NamingException e) {
             vorhanden = false;
         }
         return vorhanden;
@@ -491,9 +375,8 @@ public class LDAPManager {
      *
      * @param ou ou, die getestet werden soll
      * @return true, wenn vorhanden, false sonst
-     * @throws LDAPException
      */
-    public boolean checkOu(String ou) throws LDAPException {
+    public boolean checkOu(String ou) {
         boolean vorhanden = false;
         try {
             BasicAttributes zusuchendeAttribute = new BasicAttributes(true);
@@ -503,29 +386,6 @@ public class LDAPManager {
             if (ergebnis.hasMore()) {
                 vorhanden = true;
                 //System.out.print(" - gefunden!");
-            }
-        } catch (NamingException e) {
-            //System.out.print("Test ou=" + ou + relative + baseDN);
-            vorhanden = false;
-        }
-        //System.out.println();
-        return vorhanden;
-    }
-
-    /**
-     * Stellt fest, ob gegebener DN vorhanden ist
-     *
-     * @param dn FIXME
-     * @return FIXME
-     * @throws LDAPException
-     */
-    public boolean checkDN(String dn) throws LDAPException {
-        boolean vorhanden = false;
-        try {
-            Object test = lctx.lookup(dn);
-            //System.out.print("Test ou=" + ou + relative + baseDN);
-            if (test != null) {
-                vorhanden = true;
             }
         } catch (NamingException e) {
             //System.out.print("Test ou=" + ou + relative + baseDN);
@@ -577,7 +437,7 @@ public class LDAPManager {
         boolean vorhanden = false;
         //hole Attribute
         Attribute tester = contact.get(attribute);
-        NamingEnumeration liste = null;
+        NamingEnumeration liste;
         if (tester != null) {
             //hole alle
             try {
@@ -619,99 +479,6 @@ public class LDAPManager {
         return string;
     }
 
-    /**
-     * getter für Relative
-     *
-     * @return relativen DN
-     */
-    public String getRelative() {
-        return relative;
-    }
-
-    /**
-     * Setze Relative
-     *
-     * @param string neuer relativer DN
-     */
-    public void setRelative(String string) {
-        relative = surroundWithCommas(string);
-    }
-
-    /**
-     * Modifiert eine OU
-     *
-     * @param value Name der OU
-     * @param user  Liste mit Usern, die Zugriff erhalten sollen
-     */
-    public void modifyOU(String value, List user) throws LDAPException {
-        List modifications = new ArrayList();
-        //Hole objectclass aus dem LDAP
-        Attribute objectclass = null;
-        String[] objectClassList = { "top", "groupOfNames" }; //$NON-NLS-1$ //$NON-NLS-2$
-        try {
-            String[] objectClassA = { "objectclass" }; //$NON-NLS-1$
-            objectclass = lctx.getAttributes("ou=" + value + relative + baseDN, objectClassA)
-              .get("objectClass"); //$NON-NLS-1$ //$NON-NLS-2$
-        } catch (NamingException e) {
-            throw new LDAPException(Messages.getString("LDAPManager.Konnte_objectClass_nicht_sichern_01")
-              + e.getMessage(), e);
-        }
-        boolean modified = false;
-        //Checke objectclass
-        for (int i = 0; i < objectClassList.length; i++) {
-            if (!checkAttributeOU(value, "objectClass", objectClassList[i])) { //$NON-NLS-1$
-                modified = true;
-                objectclass.add(objectClassList[i]);
-            }
-        }
-        if (modified) {
-            //Ersetze Objectclass
-            modifications.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, objectclass));
-        }
-        Attribute member = new BasicAttribute("member"); //$NON-NLS-1$
-        //member neu bauen
-        for (int i = 0; i < user.size(); i++) {
-            try {
-                member.add(fullUserDN(user.get(i).toString()));
-            } catch (LDAPException le) {
-                logger.log(Level.WARNING, Messages.getString("LDAPManager.87")); //$NON-NLS-1$
-            }
-        }
-        modifications.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, member));
-        //System.out.println(modifications);
-        //Führe Änderungen durch
-        try {
-            lctx.modifyAttributes("ou=" + value + relative + baseDN, (ModificationItem[]) modifications
-              .toArray(new ModificationItem[1]));
-        } catch (NamingException e2) {
-            throw new LDAPException(Messages.getString("LDAPManager.OU_konnte_nicht_modifiziert_werden_01")
-              + e2.toString(), e2);
-        }
-    }
-
-    /**
-     * Getter für alle OU's
-     *
-     * @param base Basis unter der gesucht werden soll
-     * @return Liste mit allen OU's
-     * @throws LDAPException wenn etwas schief läuft
-     */
-    public List getOUs(String base) throws LDAPException {
-        List ou = new ArrayList();
-        try {
-            SearchControls cons = new SearchControls();
-            this.initializeSearchControls(cons);
-            NamingEnumeration en = lctx.search(base, "(&(objectClass=groupOfNames))", cons); //$NON-NLS-1$
-            while (en.hasMoreElements()) {
-                Attributes result = ((SearchResult) en.nextElement()).getAttributes();
-                ou.add(result.get("ou").toString().substring(4)); //$NON-NLS-1$
-            }
-        } catch (Exception e) {
-            throw new LDAPException(e.getMessage(), e);
-        }
-        return ou;
-    }
-
     protected void initializeSearchControls(SearchControls cons) {
         int scope = Boolean.parseBoolean((String) params.get(KEY_RECURSIVE_LOOKUPS)) ? SearchControls.SUBTREE_SCOPE :
           SearchControls.ONELEVEL_SCOPE;
@@ -723,9 +490,8 @@ public class LDAPManager {
      *
      * @param base Basis, unterhalb der gesucht werden sollen
      * @return Liste mit uid's der Kontakte
-     * @throws LDAPException
      */
-    public List getUIDs(String base) throws LDAPException {
+    public List getUIDs(String base) {
         List uid = new ArrayList();
         try {
             SearchControls cons = new SearchControls();
@@ -736,21 +502,13 @@ public class LDAPManager {
                 uid.add(result.get("uid").toString().substring(4)); //$NON-NLS-1$
             }
         } catch (Exception e) {
+            // FIXME Maybe log message?
         }
         return uid;
     }
 
-    /**
-     * liest den BaseDN aus
-     *
-     * @return BaseDN
-     */
-    public String getBaseDN() {
-        return baseDN;
-    }
-
     public Attributes getEntry(String dn) throws LDAPException {
-        Attributes attrs = null;
+        Attributes attrs;
         try {
             attrs = lctx.getAttributes(dn);
         } catch (NamingException e) {
@@ -764,13 +522,13 @@ public class LDAPManager {
     }
 
     public String fullUserDN(String uid, String[] objectClasses) throws LDAPException {
-        String dn = null;
+        String dn;
         Attributes attr = new BasicAttributes();
         attr.put("uid", uid); //$NON-NLS-1$
         if (objectClasses != null && objectClasses.length > 0) {
             Attribute att = new BasicAttribute("objectclass");
-            for (int i = 0; i < objectClasses.length; i++) {
-                att.add(objectClasses[i]);
+            for (String objectClass : objectClasses) {
+                att.add(objectClass);
             }
             attr.put(att);
         }
@@ -801,233 +559,17 @@ public class LDAPManager {
         return dn;
     }
 
-    public String searchSystemPreferenceNode(String key, String value) throws LDAPException {
-        String dn = null;
-        Attributes attr = new BasicAttributes();
-        attr.put(key, value);
-        try {
-            NamingEnumeration ne = lctx.search(relative.substring(1) + baseDN, attr);
-            if (ne.hasMoreElements()) {
-                SearchResult search = (SearchResult) ne.next();
-                if (!ne.hasMoreElements()) {
-                    dn = search.getName();
-                }
-            }
-        } catch (NamingException e) {
-            throw new LDAPException("Es ist ein Fehler bei der Suche nach " + key + "=" + value + " aufgetreten!", e);
-        }
-        return dn;
-    }
-
-    public void createSystemPreferenceNode(String dn) throws LDAPException {
-        //angegebene ou anlegen
-        try {
-            BasicAttributes attr = new BasicAttributes();
-            BasicAttribute objectclass = new BasicAttribute("objectclass", "Preference"); //$NON-NLS-1$ //$NON-NLS-2$
-            objectclass.add("PreferenceNode");
-            attr.put(objectclass);
-            StringTokenizer st = new StringTokenizer(dn, "=");
-            attr.put(st.nextToken(), st.nextToken());
-            lctx.createSubcontext(dn + relative + baseDN, attr);
-        } catch (Exception e) {
-            throw new LDAPException(Messages.getString("Konnte Preference nicht anlegen"), e); //$NON-NLS-1$
-        }
-    }
-
-    /**
-     * @param key   FIXME
-     * @param value FIXME
-     */
-    public void updateOrCreateSystemPreferenceKey(String key, String value, BigInteger modified) throws LDAPException {
-        //Feststellen, ob Preference schon existiert...
-        Attributes attr = null;
-        try {
-            attr = getSystemPreferenceKey(key);
-        } catch (NamingException e) {
-            //Key gibt es noch nicht...
-        }
-        if (attr == null) {
-            createSystemPreferenceKey(key, value, modified);
-        } else {
-            //Stelle letzte änderung fest
-            BigInteger lastmodified = null;
-            try {
-                String modifieds = (String) attr.get("PreferenceLastModified").get(0);
-                lastmodified = new BigInteger(modifieds);
-            } catch (NamingException e1) {
-                throw new LDAPException(e1);
-            }
-            if (!modified.equals(lastmodified)) {
-                updateSystemPreferenceKey(key, value, modified);
-            }
-        }
-    }
-
-    /**
-     * @param key   FIXME
-     * @param value FIXME
-     */
-    private void updateSystemPreferenceKey(String key, String value, BigInteger modified) throws LDAPException {
-        ModificationItem[] mods = new ModificationItem[2];
-        mods[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("PreferenceLastModified",
-          modified.toString()));
-        mods[1] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("PreferenceValue", value));
-        try {
-            lctx.modifyAttributes("PreferenceKey=" + key + relative + baseDN, mods);
-        } catch (NamingException e) {
-            throw new LDAPException(e);
-        }
-    }
-
-    /**
-     * @param key FIXME
-     */
-    public Attributes getSystemPreferenceKey(String key) throws NamingException {
-        Attributes attr = null;
-        attr = lctx.getAttributes("PreferenceKey=" + key + relative + baseDN);
-        return attr;
-    }
-
-    /**
-     * @param key   FIXME
-     * @param value FIXME
-     * @throws LDAPException
-     */
-    public void createSystemPreferenceKey(String key, String value, BigInteger modified) throws LDAPException {
-        //angegebene Preference anlegen
-        try {
-            BasicAttributes attr = new BasicAttributes();
-            BasicAttribute objectclass = new BasicAttribute("objectclass", "Preference"); //$NON-NLS-1$ //$NON-NLS-2$
-            objectclass.add("PreferenceAttribute");
-            attr.put(objectclass);
-            attr.put("PreferenceKey", key);
-            attr.put("PreferenceValue", value);
-            attr.put("PreferenceLastModified", String.valueOf(modified));
-            lctx.createSubcontext("PreferenceKey=" + key + relative + baseDN, attr);
-        } catch (Exception e) {
-            throw new LDAPException(Messages.getString("Konnte Preference nicht anlegen"), e); //$NON-NLS-1$
-        }
-    }
-
-    /**
-     * @param key FIXME
-     */
-    public String getSystemPreferenceValue(String key) throws LDAPException {
-        String result = null;
-        try {
-            Attributes attr = getSystemPreferenceKey(key);
-            result = (String) attr.get("PreferenceValue").get(0);
-        } catch (NamingException e) {
-            throw new LDAPException(e);
-        }
-        return result;
-    }
-
-    public String[] getSystemPreferenceKeys() throws LDAPException {
-        BasicAttributes search = new BasicAttributes();
-        search.put("objectclass", "PreferenceAttribute");
-        Vector result = new Vector();
-        try {
-            NamingEnumeration ne = lctx.search(relative.substring(1) + baseDN, search);
-            while (ne.hasMoreElements()) {
-                SearchResult sr = (SearchResult) ne.nextElement();
-                result.add(sr.getAttributes().get("PreferenceKey").get(0));
-            }
-        } catch (NamingException e) {
-            throw new LDAPException("Es ist ein Fehler beim Suchen der Keys aufgetreten!", e);
-        }
-        int count = result.size();
-        String returnString[] = new String[count];
-        for (int i = 0; i < count; i++) {
-            returnString[i] = (String) result.get(i);
-        }
-        return returnString;
-    }
-
-    public String[] getSystemPreferenceChildren() throws LDAPException {
-        BasicAttributes search = new BasicAttributes();
-        search.put("objectclass", "PreferenceNode");
-        Vector result = new Vector();
-        try {
-            NamingEnumeration ne = lctx.search(relative.substring(1) + baseDN, search);
-            while (ne.hasMoreElements()) {
-                SearchResult sr = (SearchResult) ne.nextElement();
-                result.add(sr.getAttributes().get("PreferenceKey").get(0));
-            }
-        } catch (NamingException e) {
-            throw new LDAPException("Es ist ein Fehler beim Suchen der Keys aufgetreten!", e);
-        }
-        int count = result.size();
-        String returnString[] = new String[count];
-        for (int i = 0; i < count; i++) {
-            returnString[i] = (String) result.get(i);
-        }
-        return returnString;
-    }
-
-    /**
-     * @param key FIXME
-     */
-    public void deleteSystemPreferenceKey(String key) throws LDAPException {
-        try {
-            lctx.destroySubcontext("PreferenceKey=" + key + relative + baseDN);
-        } catch (NamingException e) {
-            throw new LDAPException("Es ist ein Fehler beim Löschen der Preference aufgetreten", e);
-        }
-    }
-
-    /**
-     *
-     */
-    public void deleteSystemPreferenceNode() throws LDAPException {
-        try {
-            lctx.destroySubcontext(relative.substring(1) + baseDN);
-        } catch (NamingException e) {
-            throw new LDAPException("Fehler beim Löschen des PreferenceNode!", e);
-        }
-    }
-
-    /**
-     * @return Returns the relativeUser.
-     */
-    public String getRelativeUser() {
-        return relativeUser;
-    }
-
-    /**
-     * @param relativeUser The relativeUser to set.
-     */
-    public void setRelativeUser(String relativeUser) {
-        this.relativeUser = surroundWithCommas(relativeUser);
-    }
-
     /**
      * Testet, ob userid im LDAP vorhanden
      *
      * @param userid UserID, die getestet werden soll
      * @return true, wenn vorhanden, false sonst
-     * @throws LDAPException
      */
-    public boolean checkuid(String userid) throws LDAPException {
+    public boolean checkuid(String userid) {
         boolean vorhanden = false;
         try {
             BasicAttributes zusuchendeAttribute = new BasicAttributes(true);
             zusuchendeAttribute.put("uid", userid);
-            NamingEnumeration ergebnis = lctx.search(relative.substring(1) + baseDN, zusuchendeAttribute);
-            if (ergebnis.hasMore()) {
-                vorhanden = true;
-            }
-        } catch (NamingException e) {
-            vorhanden = false;
-        }
-        return vorhanden;
-    }
-
-    public boolean checkcn(String vorname, String nachname) {
-        boolean vorhanden = false;
-        try {
-            BasicAttributes zusuchendeAttribute = new BasicAttributes(true);
-            zusuchendeAttribute.put("cn", nachname + " " + vorname);
             NamingEnumeration ergebnis = lctx.search(relative.substring(1) + baseDN, zusuchendeAttribute);
             if (ergebnis.hasMore()) {
                 vorhanden = true;
