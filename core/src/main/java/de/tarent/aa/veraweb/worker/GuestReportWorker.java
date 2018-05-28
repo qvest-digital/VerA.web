@@ -22,7 +22,6 @@ package de.tarent.aa.veraweb.worker;
  *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
  *  © 2018 Titian Horvath (t.horvath@tarent.de)
- *  © 2018 Benedict Höger (b.hoeger@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
  *  © 2018 Timo Kanera (t.kanera@tarent.de)
  *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
