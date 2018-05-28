@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>middleware</artifactId>
-		<version>1.8.59-SNAPSHOT</version>
+		<version>1.8.59</version>
 	</parent>
 	<groupId>org.evolvis.veraweb.middleware</groupId>
 	<artifactId>octopus-parent</artifactId>
