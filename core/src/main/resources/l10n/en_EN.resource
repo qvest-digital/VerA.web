@@ -1132,6 +1132,7 @@ listenachkategoriengruppiertmitpartner=List grouped by categories\u200A\u2014\u2
 listenachkategoriengruppiertmittelundmobiltelefon=List grouped by kategories\u200A\u2014\u200Awith phone and mobile
 listenachkategoriengruppiertmitpartnerundfax=List grouped by categories\u200A\u2014\u200Awith partner and fax
 listenachsortierungmitpartnertelundmobiltelefon=Sorted list\u200A\u2014\u200Awith partner, phone and mobile
+listenachsortierungmitinterneridundadresse=Sorted list\u200A\u2014\u200Awith internal ID and address
 tisch=Table
 zusaetzlichesortierungnach=Additionaly sorted by
 zurueckzurgaesteverwaltung=Back to guest management
