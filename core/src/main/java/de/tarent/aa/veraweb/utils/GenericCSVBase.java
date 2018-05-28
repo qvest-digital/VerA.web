@@ -453,6 +453,4 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
             }
         }
     }
-
-
 }

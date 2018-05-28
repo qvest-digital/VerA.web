@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Placeholder {
-
     SALUTATION("salutation"),
     FIRSTNAME("firstname"),
     LASTNAME("lastname"),
@@ -33,7 +32,6 @@ public enum Placeholder {
     INTERNAL_ID("internalID");
 
     public String key;
-
 
     Placeholder(String key) {
         this.key = key;

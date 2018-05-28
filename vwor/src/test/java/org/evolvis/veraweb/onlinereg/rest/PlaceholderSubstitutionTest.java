@@ -78,7 +78,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class PlaceholderSubstitutionTest {
-
     @Test
     public void testPersonBasicFieldSubstitutions() throws IllegalArgumentException, IllegalAccessException {
         //GIVEN
@@ -106,7 +105,6 @@ public class PlaceholderSubstitutionTest {
         Person person = createPerson();
         PlaceholderSubstitution subst = new PlaceholderSubstitution(person);
 
-
         final String template = createTemplate(words);
         final String expectedOutput = createExpectedSubstitute(words, expectedSubstitutions);
 
@@ -116,7 +114,6 @@ public class PlaceholderSubstitutionTest {
         // THEN
         assertEquals(expectedOutput, actualOutput);
     }
-
 
     private String createExpectedOutputByTableColumnNames(final List<String> words) {
         final List<String> expectedSubstitutes = new LinkedList<>();
@@ -136,8 +133,6 @@ public class PlaceholderSubstitutionTest {
 
         return createExpectedSubstitute(words,expectedSubstitutes);
     }
-
-
 
     private String createTemplate(final List<String> words) {
         final StringBuilder sb1 = new StringBuilder();

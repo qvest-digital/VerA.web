@@ -2,7 +2,6 @@ import de.tarent.aa.veraweb.beans.ViewConfig
 import spock.lang.Specification
 
 class ViewConfigTest extends Specification {
-
     Properties properties
 
     def setup() {

@@ -389,7 +389,6 @@
                                                                         </a></th>
                                                                 #end
 
-
                                                                 <th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 
                                                                 <th><a href="javascript:orderGuestList('companyname');"

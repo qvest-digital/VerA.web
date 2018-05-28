@@ -900,7 +900,7 @@
 			<doTask name="Load"/>
 			<action name="showDetail" worker="MailinglistDetailWorker"/>
 			<action name="getAll" worker="MailDraftWorker"/>
-			<action name="addPlaceholderMap" worker="MailDraftWorker" />
+			<action name="addPlaceholderMap" worker="MailDraftWorker"/>
 			<response type="velocity" name="mailinglistWrite">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -931,7 +931,7 @@
 			<doTask name="Load"/>
 			<action name="saveDetail" worker="MailDraftWorker"/>
 			<action name="showDetail" worker="MailDraftWorker"/>
-			<action name="addPlaceholderMap" worker="MailDraftWorker" />
+			<action name="addPlaceholderMap" worker="MailDraftWorker"/>
 			<response type="velocity" name="mailDraftDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
