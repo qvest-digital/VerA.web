@@ -678,20 +678,20 @@ CSV_MOBIL=Mobile
 CSV_MAIL=E-Mail
 CSV_WWW=www
 
-CSV_PERSON_CREATE=Person Erstellt
-CSV_PERSON_CREATE_BY=Person erstellt durch
-CSV_PERSON_CHANGED=Person verändert
-CSV_PERSON_CHANGED_BY=Person verändert durch
-CSV_PERSON_DELETED=Person gelöscht
-CSV_PERSON_DATE_OVER=Person Datum abgelaufen
-CSV_PERSON_SOURCE_IMPORT=Person Quelle importieren
+CSV_PERSON_CREATE=Person created
+CSV_PERSON_CREATE_BY=Person created by
+CSV_PERSON_CHANGED=Person changed
+CSV_PERSON_CHANGED_BY=Person changed by
+CSV_PERSON_DELETED=Person deleted
+CSV_PERSON_DATE_OVER=Person Date expired
+CSV_PERSON_SOURCE_IMPORT=Person Source import
 CSV_W_NAME=w Name
-CSV_DELEGATION_LINK=Delegierungs Link
-CSV_DELEGATION_USER=Delegierungs Benutzer
-CSV_DELEGATION_PW=Delegierungs Passwort
-CSV_DELEGATION_PW_RESET_LINK=Delegierungs Passwort zurücksetzen Link
+CSV_DELEGATION_LINK=Delegate Link
+CSV_DELEGATION_USER=Delegate User
+CSV_DELEGATION_PW=Delegate Password
+CSV_DELEGATION_PW_RESET_LINK=Delegate Password reset Link
 
-CSV_OPTIONAL_FIELD=Optionales Feld
+CSV_OPTIONAL_FIELD=Optional Field
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import of persons data

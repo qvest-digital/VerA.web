@@ -609,6 +609,93 @@ HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportar\u00E1n \u00FAnicamente los campos u
 SELECTION_CSV=Marcar todo
 SELECTION_ONE=Marc
 
+# CSV SELEKTIONS FELDER
+CSV_IS_COMPANY=Es compañia
+CSV_SALUTATION=Saludo
+CSV_ACADEMIC_TITLE=Académica. título
+CSV_FIRSTNAME=Primer nombre
+CSV_NAME=Apellido
+CSV_INLAND=Tierra adentro
+CSV_GENDER=Sexo
+CSV_BIRTHDAY=Fecha de nacimiento
+CSV_PLACE_OF_BIRTH=Lugar de nacimiento
+CSV_ACC_DATE=Fecha de acreditación
+CSV_LANGUAGES=Idiomas
+CSV_NATIONALITY=Nacionalidad
+CSV_COMMENT=Observación
+CSV_HINT_ORGA=Nota para Orga
+CSV_HINT_GUEST=Nota para los anfitriones
+CSV_INTERNAL_ID=ID Interno
+
+CSV_CHANGE=Modificado
+CSV_CHANGE_BY=Modificado por
+CSV_CREATE=Creado
+CSV_CREATE_BY=Creado por
+CSV_DELEGATE=Delegación
+CSV_DIPLO=Fecha de acreditación
+CSV_INLAND_ONE=Doméstico 1
+CSV_INLAND_TWO=Doméstico 2
+CSV_GENDER_GUEST=Invitado de género
+CSV_GENDER_PERSON=Persona de género
+CSV_PICTURE_GAST=Imagen uuid invitado
+CSV_PICTURE_PERSON=Persona de imagen uuid
+CSV_INVITE_GUEST=Invitación estado invitado
+CSV_INVITE_PERSON=Persona de estado de invitación
+CSV_INVITE_TYPE=Tipo de invitación
+CSV_HOST=Anfitrión
+CSV_KEY_WORD=Palabras clave
+CSV_SPEAK_GAST=Idioma invitado
+CSV_SPEAK_PERSON=Idioma invitado
+CSV_LOGIN_NES=Inicia sesión requerida
+CSV_STATE_GUEST=Nacionalidad Huésped
+CSV_STATE_PERSON=Persona de nacionalidad
+CSV_NOTE_GUEST=Invitado de Notehost
+CSV_NOTE_PERSON=Persona de Notehost
+CSV_NOTE_ORGA_GUEST=Noteorga invitado
+CSV_NOTE_ORGA_PERSON=Persona Noteorga
+CSV_ORDER_NR_GUEST=Número de orden invitado
+CSV_ORDER_NR_PERSON=Número de orden Persona
+CSV_OSIAM_LOGIN=Osiam acceder
+CSV_RANK=Rango
+CSV_RESERVE=Reserva
+CSV_SEAT_GUEST=Asiento de invitado
+CSV_SEAT_PERSON=Asiento de la persona
+CSV_TABLE_NR_GUEST=Número de invitado de la mesa
+CSV_TABLE_NR_PERSON=Número de tabla persona
+
+CSV_FUNCTION=Título oficial / función
+CSV_COMPANY=Empresa / Institución
+CSV_STREET=Calle
+CSV_PLZ_PLACE=CP / Ciudad
+CSV_PLACE=Lugar
+CSV_FEDERAL_STATE=estadoE
+CSV_STATE=País
+CSV_FEDERAL_STATE_POBOX=Zip / código postal
+CSV_POBOX=Apartado de correos
+CSV_IBAN=IBAN
+CSV_BIC=BIC
+CSV_FON=Teléfono
+CSV_FAX=Fax
+CSV_MOBIL=Móvil
+CSV_MAIL=E-Mail
+CSV_WWW=www
+
+CSV_PERSON_CREATE=Persona creada
+CSV_PERSON_CREATE_BY=Persona creada por
+CSV_PERSON_CHANGED=Persona cambiada
+CSV_PERSON_CHANGED_BY=Persona cambiada por
+CSV_PERSON_DELETED=Persona eliminada
+CSV_PERSON_DATE_OVER=Fecha de persona expirada
+CSV_PERSON_SOURCE_IMPORT=Fuente de persona importada
+CSV_W_NAME=w nombre
+CSV_DELEGATION_LINK=Enlace de delegación
+CSV_DELEGATION_USER=Usuario de Delegación
+CSV_DELEGATION_PW=Contraseña de delegación
+CSV_DELEGATION_PW_RESET_LINK=Restablecer enlace de contraseña de delegación
+
+CSV_OPTIONAL_FIELD=Campo opcional
+
+
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importaci\u00F3n de datos de personas
 HINT_IMPORT_SHORT_CONTENT=Aviso: Al importar los datos, es posible que los datos de mayor longitud sean acortados para su visualizaci\u00F3n en VerA.web.
