@@ -81,6 +81,7 @@ import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.evolvis.veraweb.onlinereg.utils.PdfTemplateUtilities;
+import org.evolvis.veraweb.onlinereg.utils.PersonComparator;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.query.Query;
@@ -102,12 +103,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -434,7 +430,12 @@ public class PdfTemplateResource extends FormDataResource {
         try {
             final Query query = session.getNamedQuery("Person.getPeopleByEventId");
             query.setParameter("eventid", eventId);
-            return (List<Person>) query.list();
+
+            PersonComparator comparator = new PersonComparator();
+            List<Person> personList = (List<Person>) query.list();
+
+            Collections.sort(personList, comparator);
+            return personList;
         } finally {
             session.close();
         }
