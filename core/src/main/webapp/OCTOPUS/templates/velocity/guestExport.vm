@@ -279,43 +279,6 @@
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_mobil_b_e3"/>${placeholderWithTranslation.CSV_MOBIL}<br>
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_mail_b_e3"/>${placeholderWithTranslation.CSV_MAIL}<br>
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_url_b_e3"/>${placeholderWithTranslation.CSV_WWW}<br>
-                            <div style="margin-top: 20px"><strong>Personendaten c e2</strong>
-                                <input type="button" class="personCE2Check autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
-                            </div>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_function_c_e2"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_company_c_e2"/>${placeholderWithTranslation.CSV_COMPANY}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_street_c_e2"/>${placeholderWithTranslation.CSV_STREET}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_zipcode_c_e2"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_state_c_e2"/>${placeholderWithTranslation.CSV_FEDERAL_STATE}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_city_c_e2"/>${placeholderWithTranslation.CSV_PLACE}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_country_c_e2"/>${placeholderWithTranslation.CSV_STATE}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_pobox_c_e2"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_poboxzipcode_c_e2"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_suffix1_c_e2"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_suffix2_c_e2"/>${placeholderWithTranslation.CSV_BIC}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_fon_c_e2"/>${placeholderWithTranslation.CSV_FON}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_fax_c_e2"/>${placeholderWithTranslation.CSV_FAX}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_mobil_c_e2"/>${placeholderWithTranslation.CSV_MOBIL}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_mail_c_e2"/>${placeholderWithTranslation.CSV_MAIL}<br>
-                            <input type="checkbox" class="checkbox-margin personCE2" value="p_url_c_e2"/>${placeholderWithTranslation.CSV_WWW}<br>
-                            <div style="margin-top: 20px"><strong>Personendaten c e3</strong>
-                                <input type="button" class="personCE3Check autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
-                            </div>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_function_c_e3"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_company_c_e3"/>${placeholderWithTranslation.CSV_COMPANY}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_street_c_e3"/>${placeholderWithTranslation.CSV_STREET}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_zipcode_c_e3"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_state_c_e3"/>${placeholderWithTranslation.CSV_STATE}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_city_c_e3"/>${placeholderWithTranslation.CSV_PLACE}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_country_c_e3"/>${placeholderWithTranslation.CSV_STATE}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_pobox_c_e3"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_poboxzipcode_c_e3"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_suffix1_c_e3"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_suffix2_c_e3"/>${placeholderWithTranslation.CSV_BIC}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_fon_c_e3"/>${placeholderWithTranslation.CSV_FON}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_fax_c_e3"/>${placeholderWithTranslation.CSV_FAX}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_mobil_c_e3"/>${placeholderWithTranslation.CSV_MOBIL}<br>
-                            <input type="checkbox" class="checkbox-margin personCE3" value="p_mail_c_e3"/>${placeholderWithTranslation.CSV_WWW}<br>
                         </div>
                         <div class="column">
                             <div style="margin-top: 20px"><strong>Anschriften Weitere</strong><input type="button" class="anschriftWeitereCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br></div>
@@ -533,7 +496,7 @@ $(function () {
 
                     setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100);
                 }
-            // $('input:checkbox').removeAttr('checked');
+            $('input:checkbox').removeAttr('checked');
             },
             error: function (data) {
                 $('.exportErr').show();
