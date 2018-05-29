@@ -1221,6 +1221,7 @@ listenachkategoriengruppiertmitpartner=Liste regroup\u00E9es par cat\u00E9gories
 listenachkategoriengruppiertmittelundmobiltelefon=Liste regroup\u00E9es par cat\u00E9gories\u200A\u2014\u200Aavec t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
 listenachkategoriengruppiertmitpartnerundfax=Liste regroup\u00E9es par cat\u00E9gories\u200A\u2014\u200Aavec partenaire et fax
 listenachsortierungmitpartnertelundmobiltelefon=Liste tri\u00E9e\u200A\u2014\u200Aavec les partenaires, t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
+listenachsortierungmitinterneridundadresse=Liste tri\u00E9e\u200A\u2014\u200Aavec ID interne et adresse
 tisch=Table
 zusaetzlichesortierungnach=Un tri suppl\u00E9mentaire
 zurueckzurgaesteverwaltung=Gestion des invit\u00E9s

@@ -7,10 +7,12 @@ package de.tarent.octopus.beans;
  * tarent-database, jdbc database library
  * tarent-doctor, Document Generation Platform
  * tarent-octopus, Webservice Data Integrator and Application Server
+ *  © 2018 Атанас Александров (sirakov@gmail.com)
  *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
  *  © 2007 David Goemans (d.goemans@tarent.de)
  *  © 2006, 2007, 2010 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2005, 2006, 2007 Christoph Jerolimov (c.jerolimov@tarent.de)
+ *  © 2018 Timo Kanera (t.kanera@tarent.de)
  *  © 2006 Philipp Kirchner (p.kirchner@tarent.de)
  *  © 2010 Carsten Klein (c.klein@tarent.de)
  *  © 2006 Michael Kleinhenz (m.kleinhenz@tarent.de)
@@ -126,7 +128,7 @@ public class TransactionContext implements ExecutionContext {
         }
         try {
             ensureValidConnection();
-            connection.createStatement().execute(sql.statementToString());
+            connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).execute(sql.statementToString());
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
@@ -148,7 +150,7 @@ public class TransactionContext implements ExecutionContext {
         }
         try {
             ensureValidConnection();
-            return connection.createStatement().executeQuery(sql.statementToString());
+            return connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql.statementToString());
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
@@ -180,7 +182,7 @@ public class TransactionContext implements ExecutionContext {
      */
     public PreparedStatement prepare(Statement statement) throws BeanException {
         try {
-            return connection.prepareStatement(statement.statementToString());
+            return connection.prepareStatement(statement.statementToString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
         }

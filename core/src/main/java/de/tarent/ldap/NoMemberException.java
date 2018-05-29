@@ -21,6 +21,7 @@ package de.tarent.ldap;
  *  © 2013 Katja Hapke (k.hapke@tarent.de)
  *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
  *  © 2018 Titian Horvath (t.horvath@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
  *  © 2018 Timo Kanera (t.kanera@tarent.de)
@@ -66,6 +67,7 @@ package de.tarent.ldap;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 public class NoMemberException extends LDAPException {
     private static final long serialVersionUID = 6191825942458988785L;
 

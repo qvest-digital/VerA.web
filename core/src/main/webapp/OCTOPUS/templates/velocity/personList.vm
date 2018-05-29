@@ -761,8 +761,6 @@ i                                                       ${placeholderWithTransla
                                                         </a></th>
                                                     #end
 
-
-
                                                         <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME_WITH_SOFT_HYPHEN}
                                                                 #if($personSearchField == 'lastname_a_e1')
                                                                         #if ($personSearchOrder == 'ASC')

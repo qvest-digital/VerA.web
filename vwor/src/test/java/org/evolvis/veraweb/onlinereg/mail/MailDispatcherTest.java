@@ -21,6 +21,7 @@ package org.evolvis.veraweb.onlinereg.mail;
  *  © 2013 Katja Hapke (k.hapke@tarent.de)
  *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
  *  © 2018 Titian Horvath (t.horvath@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
  *  © 2018 Timo Kanera (t.kanera@tarent.de)

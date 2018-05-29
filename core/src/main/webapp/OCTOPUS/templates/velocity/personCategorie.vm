@@ -14,7 +14,7 @@
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 
-#if($personTab == "1" || $personTab == "2" || $entityOverwrite == "PERSON")
+#if(($personTab && ($personTab == "1" || $personTab == "2")) || ($entityOverwrite && $entityOverwrite == "PERSON"))
   ## impelemented to show message when person are changed
   #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
   #set($entity="PERSON")
@@ -39,13 +39,13 @@
     <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
         <div id="tabsMain">
                 <ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-                        <li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1&offset=${navigation.current.offset}'+getGuestTabId();">
+                        <li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1&offset=${navigation.meta.offset}'+getGuestTabId();">
                                 <div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div>
                         </li>
-                        <li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2&offset=${navigation.current.offset}'+getGuestTabId();">
+                        <li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2&offset=${navigation.meta.offset}'+getGuestTabId();">
                                 <div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
                         </li>
-                        <li class="active" id="kategorien" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();">
+                        <li class="active" id="kategorien" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.meta.offset}'+getGuestTabId();">
                                 <div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
                         </li>
                 </ul>

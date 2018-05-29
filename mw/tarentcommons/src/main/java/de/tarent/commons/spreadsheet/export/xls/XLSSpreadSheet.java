@@ -7,10 +7,12 @@ package de.tarent.commons.spreadsheet.export.xls;
  * tarent-database, jdbc database library
  * tarent-doctor, Document Generation Platform
  * tarent-octopus, Webservice Data Integrator and Application Server
+ *  © 2018 Атанас Александров (sirakov@gmail.com)
  *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
  *  © 2007 David Goemans (d.goemans@tarent.de)
  *  © 2006, 2007, 2010 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2005, 2006, 2007 Christoph Jerolimov (c.jerolimov@tarent.de)
+ *  © 2018 Timo Kanera (t.kanera@tarent.de)
  *  © 2006 Philipp Kirchner (p.kirchner@tarent.de)
  *  © 2010 Carsten Klein (c.klein@tarent.de)
  *  © 2006 Michael Kleinhenz (m.kleinhenz@tarent.de)

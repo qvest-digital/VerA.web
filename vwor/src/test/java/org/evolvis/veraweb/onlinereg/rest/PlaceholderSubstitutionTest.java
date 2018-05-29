@@ -21,6 +21,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  *  © 2013 Katja Hapke (k.hapke@tarent.de)
  *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
  *  © 2018 Titian Horvath (t.horvath@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
  *  © 2018 Timo Kanera (t.kanera@tarent.de)
@@ -78,7 +79,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class PlaceholderSubstitutionTest {
-
     @Test
     public void testPersonBasicFieldSubstitutions() throws IllegalArgumentException, IllegalAccessException {
         //GIVEN
@@ -106,7 +106,6 @@ public class PlaceholderSubstitutionTest {
         Person person = createPerson();
         PlaceholderSubstitution subst = new PlaceholderSubstitution(person);
 
-
         final String template = createTemplate(words);
         final String expectedOutput = createExpectedSubstitute(words, expectedSubstitutions);
 
@@ -116,7 +115,6 @@ public class PlaceholderSubstitutionTest {
         // THEN
         assertEquals(expectedOutput, actualOutput);
     }
-
 
     private String createExpectedOutputByTableColumnNames(final List<String> words) {
         final List<String> expectedSubstitutes = new LinkedList<>();
@@ -136,8 +134,6 @@ public class PlaceholderSubstitutionTest {
 
         return createExpectedSubstitute(words,expectedSubstitutes);
     }
-
-
 
     private String createTemplate(final List<String> words) {
         final StringBuilder sb1 = new StringBuilder();

@@ -1221,6 +1221,7 @@ listenachkategoriengruppiertmitpartner=Lista agrupada por categor\u00EDa\u200A\u
 listenachkategoriengruppiertmittelundmobiltelefon=Lista agrupada por categor\u00EDa\u200A\u2014\u200Acon tel\u00E9fono y m\u00F3vil
 listenachkategoriengruppiertmitpartnerundfax=Lista agrupada por categor\u00EDa\u200A\u2014\u200Acon partner y fax
 listenachsortierungmitpartnertelundmobiltelefon=Lista agrupada\u200A\u2014\u200Acon partner, tel\u00E9fono y m\u00F3vil
+listenachsortierungmitinterneridundadresse=Lista agrupada\u200A\u2014\u200Acon ID interno y direcci\u00F3n
 tisch=Mesa
 zusaetzlichesortierungnach=Filtrado adicional porZus\u00E4tzliche Sortierung nach
 zurueckzurgaesteverwaltung=Volver a gesti\u00F3n de invitados
