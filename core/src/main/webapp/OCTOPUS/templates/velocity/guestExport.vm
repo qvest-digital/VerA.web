@@ -203,7 +203,7 @@
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_title_a_e2"/>${placeholderWithTranslation.CSV_ACADEMIC_TITLE}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_firstname_a_e2"/>${placeholderWithTranslation.CSV_FIRSTNAME}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_lastname_a_e2"/>${placeholderWithTranslation.CSV_NAME}<br>
-                            <input type="checkbox" class="checkbox-margin personHE2" value="p_function_a_e2"/>/${placeholderWithTranslation.CSV_FUNCTION}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_function_a_e2"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_company_a_e2"/>${placeholderWithTranslation.CSV_COMPANY}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_street_a_e2"/>${placeholderWithTranslation.CSV_STREET}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_zipcode_a_e2"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
