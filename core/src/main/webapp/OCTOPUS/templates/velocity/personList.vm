@@ -250,8 +250,10 @@
                         <input type="hidden" name="doRemove" value="true" />
                         <input type="hidden" name="categoryAssignmentAction" value="" />
                         <input type="hidden" name="categoryAssignmentId" value="" />
+                        <input type="hidden" name="categoryAssigned" value="">
                         <input type="hidden" name="workareaAssignmentAction" value="" />
                         <input type="hidden" name="workareaAssignmentId" value="" />
+                        <input type="hidden" name="workareaAssigned" value="">
                         <input type="hidden" name="searchTask" value="$!searchTask" />
 
         #if ($octopusRequest.getParam("searchField"))

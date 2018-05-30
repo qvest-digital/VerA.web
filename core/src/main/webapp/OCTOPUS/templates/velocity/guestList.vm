@@ -184,18 +184,19 @@
                         #end
 
                         <form id="formlist" name="formlist" action="ShowGuestList" method="POST">
-                        <input type="hidden" name="start" value="">
-                        <input type="hidden" name="limit" value="" />
-                        <input type="hidden" name="filter" value="" />
+                            <input type="hidden" name="start" value="">
+                            <input type="hidden" name="limit" value="" />
+                            <input type="hidden" name="filter" value="" />
 
-                        <input type="hidden" name="selectNone" id="selectNone" value="true">
-                        <input type="hidden" name="doInsert" value="false">
-                        <input type="hidden" name="doUpdate" value="true">
-                        <input type="hidden" name="doRemove" value="true">
-                        <input type="hidden" name="categoryAssignmentAction" value="">
-                        <input type="hidden" name="categoryAssignmentId" value="">
-                        <input type="hidden" name="workareaAssignmentAction" value="">
-                        <input type="hidden" name="workareaAssignmentId" value="">
+                            <input type="hidden" name="selectNone" id="selectNone" value="true">
+                            <input type="hidden" name="doInsert" value="false">
+                            <input type="hidden" name="doUpdate" value="true">
+                            <input type="hidden" name="doRemove" value="true">
+                            <input type="hidden" name="categoryAssignmentAction" value="">
+                            <input type="hidden" name="categoryAssignmentId" value="">
+                            <input type="hidden" name="categoryAssigned" value="">
+                            <input type="hidden" name="workareaAssignmentAction" value="">
+                            <input type="hidden" name="workareaAssignmentId" value="">
 
                         #foreach($bean in $list)
                                 <input type="hidden" name="list" value="$bean.id">
