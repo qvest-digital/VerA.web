@@ -695,6 +695,20 @@ CSV_DELEGATION_PW_RESET_LINK=Restablecer enlace de contraseña de delegación
 
 CSV_OPTIONAL_FIELD=Campo opcional
 
+# SELECTION HEADLINES
+CSV_HEADLINE_MORE_FIELDS=Más campos
+CSV_HEADLINE_OPTIONAL_FIELDS=Campos opcionales
+CSV_HEADLINE_FUTHER_ADDRESSES=Direcciones adicionales
+CSV_HEADLINE_PERSON_B_E3=Datos personales que acompañan a la persona e3
+CSV_HEADLINE_PERSON_B_E2=Datos personales que acompañan a la persona e2
+CSV_HEADLINE_PERSON_H_E3=Datos personales principal e3
+CSV_HEADLINE_PERSON_H_E2=Datos personales principal e2
+CSV_HEADLINE_FUTHER_ADDRESSES_PRIVAT=Direcciones privadas
+CSV_HEADLINE_FUTHER_ADDRESSES_BUISNESS=Direcciones comerciales
+CSV_HEADLINE_PERSON_GUEST_DATA=Datos personales invitados
+CSV_HEADLINE_PERSON_PARTNER=Socio de datos personales
+CSV_HEADLINE_PERSON_H_PARTNER=Principal de datos personales
+
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importaci\u00F3n de datos de personas

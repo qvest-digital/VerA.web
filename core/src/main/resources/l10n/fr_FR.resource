@@ -691,6 +691,19 @@ CSV_DELEGATION_PW_RESET_LINK=Réinitialiser le mot de passe de délégation
 
 CSV_OPTIONAL_FIELD=Champ facultatif
 
+# SELECTION HEADLINES
+CSV_HEADLINE_MORE_FIELDS=Plus de champs
+CSV_HEADLINE_OPTIONAL_FIELDS=Champs optionnels
+CSV_HEADLINE_FUTHER_ADDRESSES=Adresses plus loin
+CSV_HEADLINE_PERSON_B_E3=Données personnelles accompagnant la personne e3
+CSV_HEADLINE_PERSON_B_E2=Données personnelles accompagnant la personne e2
+CSV_HEADLINE_PERSON_H_E3=Principal des données personnelles e3
+CSV_HEADLINE_PERSON_H_E2=Données personnelles principal e2
+CSV_HEADLINE_FUTHER_ADDRESSES_PRIVAT=Adresses privées
+CSV_HEADLINE_FUTHER_ADDRESSES_BUISNESS=Adresses Affaires
+CSV_HEADLINE_PERSON_GUEST_DATA=Invités de données personnelles
+CSV_HEADLINE_PERSON_PARTNER=Partenaire de données personnelles
+CSV_HEADLINE_PERSON_H_PARTNER=Données personnelles principales
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importer des donn\u00E9es personnelles

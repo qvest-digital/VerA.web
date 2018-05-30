@@ -610,8 +610,8 @@ SELECTION_ONE=Mark
 # CSV SELEKTIONS FELDER
 CSV_IS_COMPANY=Is Company
 CSV_SALUTATION=Salutation
-CSV_ACADEMIC_TITLE=Academic. Title
-CSV_FIRSTNAME=Firstname
+CSV_ACADEMIC_TITLE=Academic Title
+CSV_FIRSTNAME=First name
 CSV_NAME=Name
 CSV_INLAND=Inland
 CSV_GENDER=Gender
@@ -651,8 +651,8 @@ CSV_NOTE_GUEST=Notehost Guest
 CSV_NOTE_PERSON=Notehost Person
 CSV_NOTE_ORGA_GUEST=Noteorga Guest
 CSV_NOTE_ORGA_PERSON=Noteorga Person
-CSV_ORDER_NR_GUEST=Order.-Nr Guest
-CSV_ORDER_NR_PERSON=Best.-Nr Person
+CSV_ORDER_NR_GUEST=Order no. guest
+CSV_ORDER_NR_PERSON=Order no. person
 CSV_OSIAM_LOGIN=Osiam Login
 CSV_RANK=Rank
 CSV_RESERVE=Reserve
@@ -692,6 +692,20 @@ CSV_DELEGATION_PW=Delegate Password
 CSV_DELEGATION_PW_RESET_LINK=Delegate Password reset Link
 
 CSV_OPTIONAL_FIELD=Optional Field
+
+# SELECTION HEADLINES
+CSV_HEADLINE_MORE_FIELDS=More fields
+CSV_HEADLINE_OPTIONAL_FIELDS=Optional fields
+CSV_HEADLINE_FUTHER_ADDRESSES=Addresses Further
+CSV_HEADLINE_PERSON_B_E3=Personal data accompanying person e3
+CSV_HEADLINE_PERSON_B_E2=Personal data accompanying person e2
+CSV_HEADLINE_PERSON_H_E3=Personal data principal e3
+CSV_HEADLINE_PERSON_H_E2=Personal data principal e2
+CSV_HEADLINE_FUTHER_ADDRESSES_PRIVAT=Addresses Private
+CSV_HEADLINE_FUTHER_ADDRESSES_BUISNESS=Addresses Business
+CSV_HEADLINE_PERSON_GUEST_DATA=Personal data guests
+CSV_HEADLINE_PERSON_PARTNER=Personal data partner
+CSV_HEADLINE_PERSON_H_PARTNER=Personal data principal
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import of persons data
@@ -1970,7 +1984,7 @@ GM_PDF_TEMPLATE_INSERT_N=No new PDF templates were created.
 PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=Name of template can not be empty
 PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=A PDF File can not be empty
 PDF_TEMPLATE_LIST_NOT_LOAD=PDF templates list could not be load
-PDF_GENERATE_BUTTON=Generate PDF35
+PDF_GENERATE_BUTTON=Generate PDF
 PDF_GENERATE_LABEL=PDF-Export
 
 LOAD_MAILTEMPLATE_FAILED = Loading e-mail template failed

@@ -679,6 +679,20 @@ CSV_MOBIL=Mobil
 CSV_MAIL=E-Mail
 CSV_WWW=www
 
+# SELECTION HEADLINES
+CSV_HEADLINE_MORE_FIELDS=Weitere Felder
+CSV_HEADLINE_OPTIONAL_FIELDS=Optionale Felder
+CSV_HEADLINE_FUTHER_ADDRESSES=Anschriften Weitere
+CSV_HEADLINE_PERSON_B_E3=Personendaten Begleitperson e3
+CSV_HEADLINE_PERSON_B_E2=Personendaten Begleitperson e2
+CSV_HEADLINE_PERSON_H_E3=Personendaten Hauptperson e3
+CSV_HEADLINE_PERSON_H_E2=Personendaten Hauptperson e2
+CSV_HEADLINE_FUTHER_ADDRESSES_PRIVAT=Anschriften Privat
+CSV_HEADLINE_FUTHER_ADDRESSES_BUISNESS=Anschriften Geschäftlich
+CSV_HEADLINE_PERSON_GUEST_DATA=Personendaten Gäste
+CSV_HEADLINE_PERSON_PARTNER=Personendaten Partner
+CSV_HEADLINE_PERSON_H_PARTNER=Personendaten Hauptperson
+
 CSV_PERSON_CREATE=Person Erstellt
 CSV_PERSON_CREATE_BY=Person erstellt durch
 CSV_PERSON_CHANGED=Person verändert
