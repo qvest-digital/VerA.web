@@ -31,7 +31,12 @@
     .checkbox-margin {
         margin: 9px 5px 9px 0;
     }
-/*]]>*/--></style>
+    .mainButtonCheck,
+    input.active {
+        color: #8b0f08 !important;
+        margin-left:5px;
+    }
+</style>
 
 <div id="content_container">
 
@@ -77,221 +82,251 @@
                 <form id="ExportGuestlistShot">
                     <div class="row">
                         <div class="column">
-                            <input type="checkbox" class="checkbox-margin" value="p_pk"/>p_pk<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fk_orgunit"/>p_fk_orgunit<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_created"/>p_created<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_createdby"/>p_createdby<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_changed"/>p_changed<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_changedby"/>p_changedby<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_deleted"/>p_deleted<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_dateexpire"/>p_dateexpire<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_iscompany"/>p_iscompany<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_importsource"/>p_importsource<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fk_workarea"/>p_fk_workarea<br>
-                            <input type="checkbox" class="checkbox-margin" value="w_name"/>w_name<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_internal_id"/>p_internal_id<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_salutation_a_e1"/>p_salutation_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fk_salutation_a_e1"/>p_fk_salutation_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_title_a_e1"/>p_title_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_firstname_a_e1"/>p_firstname_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_lastname_a_e1"/>p_lastname_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_domestic_a_e1"/>p_domestic_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_sex_a_e1"/>p_sex_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_birthday_a_e1"/>p_birthday_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_birthplace_a_e1"/>p_birthplace_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_diplodate_a_e1"/>p_diplodate_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_languages_a_e1"/>p_languages_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_nationality_a_e1"/>p_nationality_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_note_a_e1"/>p_note_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_noteorga_a_e1"/>p_noteorga_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_notehost_a_e1"/>p_notehost_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_salutation_a_e2"/>p_salutation_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fk_salutation_a_e2"/>p_fk_salutation_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_birthplace_a_e2"/>p_birthplace_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_title_a_e2"/>p_title_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_firstname_a_e2"/>p_firstname_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_firstname_a_e2"/>p_firstname_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_lastname_a_e2"/>p_lastname_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_salutation_a_e3"/>p_salutation_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fk_salutation_a_e3"/>p_fk_salutation_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_birthplace_a_e3"/>p_birthplace_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_title_a_e3"/>p_title_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_firstname_a_e3"/>p_firstname_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_lastname_a_e3"/>p_lastname_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_salutation_b_e1"/>p_salutation_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fk_salutation_b_e1"/>p_fk_salutation_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_title_b_e1"/>p_title_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_firstname_b_e1"/>p_firstname_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_lastname_b_e1"/>p_lastname_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_domestic_b_e1"/>p_domestic_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_sex_b_e1"/>p_sex_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_birthday_b_e1"/>p_birthday_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_diplodate_b_e1"/>p_diplodate_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_languages_b_e1"/>p_languages_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_nationality_b_e1"/>p_nationality_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_note_b_e1"/>p_note_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_noteorga_b_e1"/>p_noteorga_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_notehost_b_e1"/>p_notehost_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_salutation_b_e2"/>p_salutation_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fk_salutation_b_e2"/>p_fk_salutation_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_title_b_e2"/>p_title_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_firstname_b_e2"/>p_firstname_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_lastname_b_e2"/>p_lastname_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_salutation_b_e3"/>p_salutation_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fk_salutation_b_e3"/>p_fk_salutation_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_title_b_e3"/>p_title_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_firstname_b_e3"/>p_firstname_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_lastname_b_e3"/>p_lastname_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_a_e1"/>p_function_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_a_e1"/>p_company_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_a_e1"/>p_street_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_a_e1"/>p_zipcode_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_a_e1"/>p_state_a_e1<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_PERSON_H_PARTNER}</strong>
+                                <input type="button" class="partnerHCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_iscompany"/>${placeholderWithTranslation.CSV_IS_COMPANY}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_salutation_a_e1"/>${placeholderWithTranslation.CSV_SALUTATION}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_title_a_e1"/>${placeholderWithTranslation.CSV_ACADEMIC_TITLE}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_firstname_a_e1"/>${placeholderWithTranslation.CSV_FIRSTNAME}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_lastname_a_e1"/>${placeholderWithTranslation.CSV_NAME}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_domestic_a_e1"/>${placeholderWithTranslation.CSV_INLAND}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_sex_a_e1"/>${placeholderWithTranslation.CSV_GENDER}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_birthday_a_e1"/>${placeholderWithTranslation.CSV_BIRTHDAY}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_birthplace_a_e1"/>${placeholderWithTranslation.CSV_PLACE_OF_BIRTH}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_diplodate_a_e1"/>${placeholderWithTranslation.CSV_ACC_DATE}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_languages_a_e1"/>${placeholderWithTranslation.CSV_LANGUAGES}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_nationality_a_e1"/>${placeholderWithTranslation.CSV_NATIONALITY}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_note_a_e1"/>${placeholderWithTranslation.CSV_COMMENT}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_noteorga_a_e1"/>${placeholderWithTranslation.CSV_HINT_ORGA}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_notehost_a_e1"/>${placeholderWithTranslation.CSV_HINT_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin partnerH" value="p_internal_id"/>${placeholderWithTranslation.CSV_INTERNAL_ID}<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_PERSON_PARTNER}</strong>
+                                <input type="button" class="partnerCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_salutation_b_e1"/>${placeholderWithTranslation.CSV_SALUTATION}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_title_b_e1"/>${placeholderWithTranslation.CSV_ACADEMIC_TITLE}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_firstname_b_e1"/>${placeholderWithTranslation.CSV_FIRSTNAME}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_lastname_b_e1"/>${placeholderWithTranslation.CSV_NAME}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_domestic_b_e1"/>${placeholderWithTranslation.CSV_INLAND}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_sex_b_e1"/>${placeholderWithTranslation.CSV_GENDER}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_birthday_b_e1"/>${placeholderWithTranslation.CSV_BIRTHDAY}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_diplodate_b_e1"/>${placeholderWithTranslation.CSV_ACC_DATE}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_languages_b_e1"/>${placeholderWithTranslation.CSV_LANGUAGES}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_nationality_b_e1"/>${placeholderWithTranslation.CSV_NATIONALITY}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_note_b_e1"/>${placeholderWithTranslation.CSV_COMMENT}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_noteorga_b_e1"/>${placeholderWithTranslation.CSV_HINT_ORGA}<br>
+                            <input type="checkbox" class="checkbox-margin partner" value="p_notehost_b_e1"/>${placeholderWithTranslation.CSV_HINT_GUEST}<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_PERSON_GUEST_DATA}</strong>
+                                <input type="button" class="guestPCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_changed"/>${placeholderWithTranslation.CSV_CHANGE}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_changedby"/>${placeholderWithTranslation.CSV_CHANGE_BY}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_created"/>${placeholderWithTranslation.CSV_CREATE}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_createdby"/>${placeholderWithTranslation.CSV_CREATE_BY}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_delegation"/>${placeholderWithTranslation.CSV_DELEGATE}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_diplodate"/>${placeholderWithTranslation.CSV_DIPLO}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_domestic_a"/>${placeholderWithTranslation.CSV_INLAND_ONE}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_domestic_b"/>${placeholderWithTranslation.CSV_INLAND_TWO}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_gender"/>${placeholderWithTranslation.CSV_GENDER_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_gender_p"/>${placeholderWithTranslation.CSV_GENDER_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_image_uuid"/>${placeholderWithTranslation.CSV_PICTURE_GAST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_image_uuid_p"/>${placeholderWithTranslation.CSV_PICTURE_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_invitationstatus"/>${placeholderWithTranslation.CSV_INVITE_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_invitationstatus_p"/>${placeholderWithTranslation.CSV_INVITE_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_invitationtype"/>${placeholderWithTranslation.CSV_INVITE_TYPE}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_ishost"/>${placeholderWithTranslation.CSV_HOST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_keywords"/>${placeholderWithTranslation.CSV_KEY_WORD}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_language">${placeholderWithTranslation.CSV_SPEAK_GAST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_language_p"/>${placeholderWithTranslation.CSV_SPEAK_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_login_required_uuid"/>${placeholderWithTranslation.CSV_LOGIN_NES}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_nationality"/>${placeholderWithTranslation.CSV_STATE_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_nationality_p"/>${placeholderWithTranslation.CSV_STATE_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_notehost"/>${placeholderWithTranslation.CSV_NOTE_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_notehost_p"/>${placeholderWithTranslation.CSV_NOTE_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_noteorga"/>${placeholderWithTranslation.CSV_NOTE_ORGA_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_noteorga_p"/>${placeholderWithTranslation.CSV_NOTE_ORGA_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_orderno"/>${placeholderWithTranslation.CSV_ORDER_NR_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_orderno_p"/>${placeholderWithTranslation.CSV_ORDER_NR_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_osiam_login"/>${placeholderWithTranslation.CSV_OSIAM_LOGIN}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_rank"/>${placeholderWithTranslation.CSV_RANK}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_reserve"/>${placeholderWithTranslation.CSV_RESERVE}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_seatno"/>${placeholderWithTranslation.CSV_SEAT_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_seatno_p"/>${placeholderWithTranslation.CSV_SEAT_PERSON}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_tableno"/>${placeholderWithTranslation.CSV_TABLE_NR_GUEST}<br>
+                            <input type="checkbox" class="checkbox-margin guestP" value="g_tableno_p"/>${placeholderWithTranslation.CSV_TABLE_NR_PERSON}<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_FUTHER_ADDRESSES_BUISNESS}</strong>
+                                <input type="button" class="geschaeftCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_function_a_e1"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_company_a_e1"/>${placeholderWithTranslation.CSV_COMPANY}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_street_a_e1"/>${placeholderWithTranslation.CSV_STREET}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_zipcode_a_e1"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_city_a_e1"/>${placeholderWithTranslation.CSV_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_state_a_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_country_a_e1"/>${placeholderWithTranslation.CSV_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_pobox_a_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_poboxzipcode_a_e1"/>${placeholderWithTranslation.CSV_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_suffix1_a_e1"/>${placeholderWithTranslation.CSV_IBAN}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_suffix2_a_e1"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_fon_a_e1"/>${placeholderWithTranslation.CSV_FON}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_fax_a_e1"/>${placeholderWithTranslation.CSV_FAX}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_mobil_a_e1"/>${placeholderWithTranslation.CSV_MOBIL}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_mail_a_e1"/>${placeholderWithTranslation.CSV_MAIL}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_url_a_e1"/>${placeholderWithTranslation.CSV_WWW}<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_FUTHER_ADDRESSES_PRIVAT}</strong>
+                                <input type="button" class="privCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_function_b_e1"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_company_b_e1"/>${placeholderWithTranslation.CSV_COMPANY}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_street_b_e1"/>${placeholderWithTranslation.CSV_STREET}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_zipcode_b_e1"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_state_b_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_city_b_e1"/>${placeholderWithTranslation.CSV_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_country_b_e1"/>${placeholderWithTranslation.CSV_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_pobox_b_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_poboxzipcode_b_e1"/>${placeholderWithTranslation.CSV_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_suffix1_b_e1"/>${placeholderWithTranslation.CSV_IBAN}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_suffix2_b_e1"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_fon_b_e1"/>${placeholderWithTranslation.CSV_FON}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_fax_b_e1"/>${placeholderWithTranslation.CSV_FAX}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_mobil_b_e1"/>${placeholderWithTranslation.CSV_MOBIL}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_mail_b_e1"/>${placeholderWithTranslation.CSV_MAIL}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_url_b_e1"/>${placeholderWithTranslation.CSV_WWW}<br>
                         </div>
                         <div class="column">
-                            <input type="checkbox" class="checkbox-margin" value="p_city_a_e1"/>p_city_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_a_e1"/>p_country_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_a_e1"/>p_pobox_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_a_e1"/>p_poboxzipcode_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_a_e1"/>p_suffix1_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_a_e1"/>p_suffix2_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_a_e1"/>p_fon_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fax_a_e1"/>p_fax_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_a_e1"/>p_mobil_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_a_e1"/>p_mail_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_url_a_e1"/>p_url_a_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_a_e2"/>p_function_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_a_e2"/>p_company_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_a_e2"/>p_street_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_a_e2"/>p_zipcode_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_a_e2"/>p_state_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_city_a_e2"/>p_city_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_a_e2"/>p_country_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_a_e2"/>p_pobox_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_a_e2"/>p_poboxzipcode_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_a_e2"/>p_suffix1_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_a_e2"/>p_suffix2_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_a_e2"/>p_fon_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fax_a_e2"/>p_fax_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_a_e2"/>p_mobil_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_a_e2"/>p_mail_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_url_a_e2"/>p_url_a_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_a_e3"/>p_function_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_a_e3"/>p_company_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_a_e3"/>p_street_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_a_e3"/>p_zipcode_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_a_e3"/>p_state_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_city_a_e3"/>p_city_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_a_e3"/>p_country_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_a_e3"/>p_pobox_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_a_e3"/>p_poboxzipcode_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_a_e3"/>p_suffix1_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_a_e3"/>p_suffix2_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_a_e3"/>p_fon_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fax_a_e3"/>p_fax_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_a_e3"/>p_mobil_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_a_e3"/>p_mail_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_url_a_e3"/>p_url_a_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_b_e1"/>p_function_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_b_e1"/>p_company_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_b_e1"/>p_street_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_b_e1"/>p_zipcode_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_b_e1"/>p_state_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_city_b_e1"/>p_city_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_b_e1"/>p_country_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_b_e1"/>p_pobox_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_b_e1"/>p_poboxzipcode_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_b_e1"/>p_suffix1_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_b_e1"/>p_suffix2_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_b_e1"/>p_fon_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fax_b_e1"/>p_fax_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_b_e1"/>p_mobil_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_b_e1"/>p_mail_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_url_b_e1"/>p_url_b_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_b_e2"/>p_function_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_b_e2"/>p_company_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_b_e2"/>p_street_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_b_e2"/>p_zipcode_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_b_e2"/>p_state_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_city_b_e2"/>p_city_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_b_e2"/>p_country_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_b_e2"/>p_pobox_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_b_e2"/>p_poboxzipcode_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_b_e2"/>p_suffix1_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_b_e2"/>p_suffix2_b_e2<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_PERSON_H_E2}</strong>
+                                <input type="button" class="personHE2Check autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_salutation_a_e2"/>${placeholderWithTranslation.CSV_SALUTATION}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_birthplace_a_e2"/>${placeholderWithTranslation.CSV_PLACE_OF_BIRTH}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_title_a_e2"/>${placeholderWithTranslation.CSV_ACADEMIC_TITLE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_firstname_a_e2"/>${placeholderWithTranslation.CSV_FIRSTNAME}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_lastname_a_e2"/>${placeholderWithTranslation.CSV_NAME}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_function_a_e2"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_company_a_e2"/>${placeholderWithTranslation.CSV_COMPANY}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_street_a_e2"/>${placeholderWithTranslation.CSV_STREET}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_zipcode_a_e2"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_state_a_e2"/>${placeholderWithTranslation.CSV_FEDERAL_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_city_a_e2"/>${placeholderWithTranslation.CSV_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_country_a_e2"/>${placeholderWithTranslation.CSV_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_pobox_a_e2"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_poboxzipcode_a_e2"/>${placeholderWithTranslation.CSV_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_suffix1_a_e2"/>${placeholderWithTranslation.CSV_IBAN}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_suffix2_a_e2"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_fon_a_e2"/>${placeholderWithTranslation.CSV_FON}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_fax_a_e2"/>${placeholderWithTranslation.CSV_FAX}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_mobil_a_e2"/>${placeholderWithTranslation.CSV_MOBIL}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_mail_a_e2"/>${placeholderWithTranslation.CSV_MAIL}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_url_a_e2"/>${placeholderWithTranslation.CSV_WWW}<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_PERSON_H_E3}</strong>
+                                <input type="button" class="personHE3Check autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_function_a_e3"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_company_a_e3"/>${placeholderWithTranslation.CSV_COMPANY}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_street_a_e3"/>${placeholderWithTranslation.CSV_STREET}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_zipcode_a_e3"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_state_a_e3"/>${placeholderWithTranslation.CSV_FEDERAL_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_city_a_e3"/>${placeholderWithTranslation.CSV_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_country_a_e3"/>${placeholderWithTranslation.CSV_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_pobox_a_e3"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_poboxzipcode_a_e3"/>${placeholderWithTranslation.CSV_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_suffix1_a_e3"/>${placeholderWithTranslation.CSV_IBAN}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_suffix2_a_e3"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_fon_a_e3"/>${placeholderWithTranslation.CSV_FON}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_fax_a_e3"/>${placeholderWithTranslation.CSV_FAX}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_mobil_a_e3"/>${placeholderWithTranslation.CSV_MOBIL}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_mail_a_e3"/>${placeholderWithTranslation.CSV_MAIL}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_url_a_e3"/>${placeholderWithTranslation.CSV_WWW}<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_PERSON_H_E2}</strong>
+                                <input type="button" class="personBE2Check autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_function_b_e2"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_company_b_e2"/>${placeholderWithTranslation.CSV_COMPANY}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_salutation_b_e2"/>${placeholderWithTranslation.CSV_SALUTATION}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_title_b_e2"/>${placeholderWithTranslation.CSV_ACADEMIC_TITLE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_firstname_b_e2"/>${placeholderWithTranslation.CSV_FIRSTNAME}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_lastname_b_e2"/>${placeholderWithTranslation.CSV_NAME}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_street_b_e2"/>${placeholderWithTranslation.CSV_STREET}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_zipcode_b_e2"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_state_b_e2"/>${placeholderWithTranslation.CSV_FEDERAL_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_city_b_e2"/>${placeholderWithTranslation.CSV_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_country_b_e2"/>${placeholderWithTranslation.CSV_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_pobox_b_e2"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_poboxzipcode_b_e2"/>${placeholderWithTranslation.CSV_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_suffix1_b_e2"/>${placeholderWithTranslation.CSV_IBAN}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_suffix2_b_e2"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_fon_b_e2"/>${placeholderWithTranslation.CSV_FON}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_mobil_b_e2"/>${placeholderWithTranslation.CSV_MOBIL}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_mail_b_e2"/>${placeholderWithTranslation.CSV_MAIL}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_url_b_e2"/>${placeholderWithTranslation.CSV_WWW}<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_PERSON_B_E3}</strong>
+                                <input type="button" class="personBE3Check autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br>
+                            </div>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_function_b_e3"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_company_b_e3"/>${placeholderWithTranslation.CSV_COMPANY}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_street_b_e3"/>${placeholderWithTranslation.CSV_STREET}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_zipcode_b_e3"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_state_b_e3"/>${placeholderWithTranslation.CSV_FEDERAL_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_city_b_e3"/>${placeholderWithTranslation.CSV_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_country_b_e3"/>${placeholderWithTranslation.CSV_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_pobox_b_e3"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_poboxzipcode_b_e3"/>${placeholderWithTranslation.CSV_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_suffix1_b_e3"/>${placeholderWithTranslation.CSV_IBAN}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_suffix2_b_e3"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_fon_b_e3"/>${placeholderWithTranslation.CSV_FON}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_fax_b_e3"/>${placeholderWithTranslation.CSV_FAX}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_mobil_b_e3"/>${placeholderWithTranslation.CSV_MOBIL}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_mail_b_e3"/>${placeholderWithTranslation.CSV_MAIL}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_url_b_e3"/>${placeholderWithTranslation.CSV_WWW}<br>
                         </div>
                         <div class="column">
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_b_e2"/>p_fon_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_b_e2"/>p_mobil_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_b_e2"/>p_mail_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_url_b_e2"/>p_url_b_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_b_e3"/>p_function_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_b_e3"/>p_company_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_b_e3"/>p_street_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_b_e3"/>p_zipcode_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_b_e3"/>p_state_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_city_b_e3"/>p_city_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_b_e3"/>p_country_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_b_e3"/>p_pobox_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_b_e3"/>p_poboxzipcode_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_b_e3"/>p_suffix1_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_b_e3"/>p_suffix2_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_b_e3"/>p_fon_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fax_b_e3"/>p_fax_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_b_e3"/>p_mobil_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_b_e3"/>p_mail_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_url_b_e3"/>p_url_b_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_c_e1"/>p_function_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_c_e1"/>p_company_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_c_e1"/>p_street_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_c_e1"/>p_zipcode_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_c_e1"/>p_state_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_city_c_e1"/>p_city_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_c_e1"/>p_country_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_c_e1"/>p_pobox_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_c_e1"/>p_poboxzipcode_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_c_e1"/>p_suffix1_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_c_e1"/>p_suffix2_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_c_e1"/>p_fon_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fax_c_e1"/>p_fax_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_c_e1"/>p_mobil_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_c_e1"/>p_mail_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_url_c_e1"/>p_url_c_e1<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_c_e2"/>p_function_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_c_e2"/>p_company_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_c_e2"/>p_street_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_c_e2"/>p_zipcode_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_c_e2"/>p_state_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_city_c_e2"/>p_city_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_c_e2"/>p_country_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_c_e2"/>p_pobox_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_c_e2"/>p_poboxzipcode_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_c_e2"/>p_suffix1_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_c_e2"/>p_suffix2_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_c_e2"/>p_fon_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fax_c_e2"/>p_fax_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_c_e2"/>p_mobil_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_c_e2"/>p_mail_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_url_c_e2"/>p_url_c_e2<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_function_c_e3"/>p_function_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_company_c_e3"/>p_company_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_street_c_e3"/>p_street_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_zipcode_c_e3"/>p_zipcode_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_state_c_e3"/>p_state_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_city_c_e3"/>p_city_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_country_c_e3"/>p_country_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_pobox_c_e3"/>p_pobox_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_poboxzipcode_c_e3"/>p_poboxzipcode_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix1_c_e3"/>p_suffix1_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_suffix2_c_e3"/>p_suffix2_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fon_c_e3"/>p_fon_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_fax_c_e3"/>p_fax_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mobil_c_e3"/>p_mobil_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="p_mail_c_e3"/>p_mail_c_e3<br>
-                            <input type="checkbox" class="checkbox-margin" value="delegationLink"/>delegationLink<br>
-                            <input type="checkbox" class="checkbox-margin" value="delegationUser"/>delegationUser<br>
-                            <input type="checkbox" class="checkbox-margin" value="delegationPassword"/>delegationPassword<br>
-                            <input type="checkbox" class="checkbox-margin" value="passwordResetLink"/>passwordResetLink<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_FUTHER_ADDRESSES}</strong><input type="button" class="anschriftWeitereCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br></div>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_function_c_e1"/>${placeholderWithTranslation.CSV_FUNCTION}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_company_c_e1"/>${placeholderWithTranslation.CSV_COMPANY}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_street_c_e1"/>${placeholderWithTranslation.CSV_STREET}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_zipcode_c_e1"/>${placeholderWithTranslation.CSV_PLZ_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_state_c_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_city_c_e1"/>${placeholderWithTranslation.CSV_PLACE}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_country_c_e1"/>${placeholderWithTranslation.CSV_STATE}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_pobox_c_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_poboxzipcode_c_e1"/>${placeholderWithTranslation.CSV_POBOX}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_suffix1_c_e1"/>${placeholderWithTranslation.CSV_IBAN}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_suffix2_c_e1"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_fon_c_e1"/>${placeholderWithTranslation.CSV_FON}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_fax_c_e1"/>${placeholderWithTranslation.CSV_FAX}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_mobil_c_e1"/>${placeholderWithTranslation.CSV_MOBIL}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_mail_c_e1"/>${placeholderWithTranslation.CSV_MAIL}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_url_c_e1"/>${placeholderWithTranslation.CSV_WWW}<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_OPTIONAL_FIELDS}</strong><input type="button" class="optionFieldCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br></div>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_00"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 00<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_01"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 01<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_02"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 02<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_03"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 03<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_04"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 04<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_05"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 05<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_06"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 06<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_07"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 07<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_08"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 08<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_09"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 09<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_10"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 10<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_11"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 11<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_12"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 12<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_13"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 13<br>
+                            <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_14"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 14<br>
+                            <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_MORE_FIELDS}</strong><input type="button" class="extraFieldCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br></div>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="p_created"/>${placeholderWithTranslation.CSV_PERSON_CREATE}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="p_createdby"/>${placeholderWithTranslation.CSV_PERSON_CREATE_BY}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="p_changed"/>${placeholderWithTranslation.CSV_PERSON_CHANGED}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="p_changedby"/>${placeholderWithTranslation.CSV_PERSON_CHANGED_BY}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="p_deleted"/>${placeholderWithTranslation.CSV_PERSON_DELETED}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="p_dateexpire"/>${placeholderWithTranslation.CSV_PERSON_DATE_OVER}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="p_importsource"/>${placeholderWithTranslation.CSV_PERSON_SOURCE_IMPORT}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="w_name"/>${placeholderWithTranslation.CSV_W_NAME}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="delegationLink"/>${placeholderWithTranslation.CSV_DELEGATION_LINK}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="delegationUser"/>${placeholderWithTranslation.CSV_DELEGATION_USER}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="delegationPassword"/>${placeholderWithTranslation.CSV_DELEGATION_PW}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="passwordResetLink"/>${placeholderWithTranslation.CSV_DELEGATION_PW_RESET_LINK}<br>
                         </div>
                     </div>
                     <input type="hidden" name="guestListShortExport" value="true" />
@@ -339,6 +374,77 @@ $(function () {
     $('.check:button').click(function(){
         var checked = !$(this).data('checked');
         $('input:checkbox').prop('checked', checked);
+        $(this).data('checked', checked);
+    });
+
+    $('.extraFieldCheck:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.extraFields').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.optionFieldCheck:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.optionFields').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.anschriftWeitereCheck:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.anschriftWeitere').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.personCE3Check:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.personCE3').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.personCE2Check:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.personCE2').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.personBE3Check:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.personBE3').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.personBE2Check:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.personBE2').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.personHE3Check:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.personHE3').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.personHE2Check:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.personHE2').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.privCheck:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.priv').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.geschaeftCheck:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.geschaeft').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.guestPCheck:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.guestP').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.partnerCheck:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.partner').prop('checked',checked);
+        $(this).data('checked', checked);
+    });
+    $('.partnerHCheck:button').click(function(){
+        var checked = !$(this).data('checked');
+        $('input:checkbox.partnerH').prop('checked',checked);
         $(this).data('checked', checked);
     });
 

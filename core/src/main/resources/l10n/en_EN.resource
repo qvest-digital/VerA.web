@@ -605,6 +605,107 @@ HINT_EXPORT_CSVPERSDATA_ADDRESS=Only the fields from the \u201CPersonal data\u20
 HINT_EXPORT_CSVPERSDATA=Only the fields from the \u201CPersonal data\u201D tab with its subtabs will be exported. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the \u201CPersonal data\u201D and \u201CCategories\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
 SELECTION_CSV=Mark all
+SELECTION_ONE=Mark
+
+# CSV SELEKTIONS FELDER
+CSV_IS_COMPANY=Is Company
+CSV_SALUTATION=Salutation
+CSV_ACADEMIC_TITLE=Academic Title
+CSV_FIRSTNAME=First name
+CSV_NAME=Name
+CSV_INLAND=Inland
+CSV_GENDER=Gender
+CSV_BIRTHDAY=Date of Birth
+CSV_PLACE_OF_BIRTH=Place of Birth
+CSV_ACC_DATE=Accreditation Date
+CSV_LANGUAGES=Languages
+CSV_NATIONALITY=Nationality
+CSV_COMMENT=Comment
+CSV_HINT_ORGA=Note for Orga
+CSV_HINT_GUEST=Note for hosts
+CSV_INTERNAL_ID=Internal ID
+
+CSV_CHANGE=Changed
+CSV_CHANGE_BY=Changed by
+CSV_CREATE=Created
+CSV_CREATE_BY=Created by
+CSV_DELEGATE=Delegation
+CSV_DIPLO=Accreditation Date
+CSV_INLAND_ONE=Inland 1
+CSV_INLAND_TWO=Inland 2
+CSV_GENDER_GUEST=Gender Guest
+CSV_GENDER_PERSON=Gender Person
+CSV_PICTURE_GAST=Picture uuid Guest
+CSV_PICTURE_PERSON=Picture uuid Person
+CSV_INVITE_GUEST=Invitation Status Guest
+CSV_INVITE_PERSON=Invitation Status Person
+CSV_INVITE_TYPE=Invitation Type
+CSV_HOST=Host
+CSV_KEY_WORD=Keywords
+CSV_SPEAK_GAST=Language Guest
+CSV_SPEAK_PERSON=Language Person
+CSV_LOGIN_NES=Login required
+CSV_STATE_GUEST=Nationality Guest
+CSV_STATE_PERSON=Nationality Person
+CSV_NOTE_GUEST=Notehost Guest
+CSV_NOTE_PERSON=Notehost Person
+CSV_NOTE_ORGA_GUEST=Noteorga Guest
+CSV_NOTE_ORGA_PERSON=Noteorga Person
+CSV_ORDER_NR_GUEST=Order no. guest
+CSV_ORDER_NR_PERSON=Order no. person
+CSV_OSIAM_LOGIN=Osiam Login
+CSV_RANK=Rank
+CSV_RESERVE=Reserve
+CSV_SEAT_GUEST=Seat Guest
+CSV_SEAT_PERSON=Seat Person
+CSV_TABLE_NR_GUEST=Table Number Guest
+CSV_TABLE_NR_PERSON=Table Number Person
+
+CSV_FUNCTION=Official title / function
+CSV_COMPANY=Company / Institution
+CSV_STREET=Street
+CSV_PLZ_PLACE=Postcode/Town
+CSV_PLACE=Town
+CSV_FEDERAL_STATE=Federal State
+CSV_STATE=State
+CSV_FEDERAL_STATE_POBOX=Zip/Postal code
+CSV_POBOX=P.O. Box
+CSV_IBAN=IBAN
+CSV_BIC=BIC
+CSV_FON=Fon
+CSV_FAX=Fax
+CSV_MOBIL=Mobile
+CSV_MAIL=E-Mail
+CSV_WWW=www
+
+CSV_PERSON_CREATE=Person created
+CSV_PERSON_CREATE_BY=Person created by
+CSV_PERSON_CHANGED=Person changed
+CSV_PERSON_CHANGED_BY=Person changed by
+CSV_PERSON_DELETED=Person deleted
+CSV_PERSON_DATE_OVER=Person Date expired
+CSV_PERSON_SOURCE_IMPORT=Person Source import
+CSV_W_NAME=w Name
+CSV_DELEGATION_LINK=Delegate Link
+CSV_DELEGATION_USER=Delegate User
+CSV_DELEGATION_PW=Delegate Password
+CSV_DELEGATION_PW_RESET_LINK=Delegate Password reset Link
+
+CSV_OPTIONAL_FIELD=Optional Field
+
+# SELECTION HEADLINES
+CSV_HEADLINE_MORE_FIELDS=More fields
+CSV_HEADLINE_OPTIONAL_FIELDS=Optional fields
+CSV_HEADLINE_FUTHER_ADDRESSES=Addresses Further
+CSV_HEADLINE_PERSON_B_E3=Personal data accompanying person e3
+CSV_HEADLINE_PERSON_B_E2=Personal data accompanying person e2
+CSV_HEADLINE_PERSON_H_E3=Personal data principal e3
+CSV_HEADLINE_PERSON_H_E2=Personal data principal e2
+CSV_HEADLINE_FUTHER_ADDRESSES_PRIVAT=Addresses Private
+CSV_HEADLINE_FUTHER_ADDRESSES_BUISNESS=Addresses Business
+CSV_HEADLINE_PERSON_GUEST_DATA=Personal data guests
+CSV_HEADLINE_PERSON_PARTNER=Personal data partner
+CSV_HEADLINE_PERSON_H_PARTNER=Personal data principal
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import of persons data
@@ -1883,7 +1984,7 @@ GM_PDF_TEMPLATE_INSERT_N=No new PDF templates were created.
 PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=Name of template can not be empty
 PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=A PDF File can not be empty
 PDF_TEMPLATE_LIST_NOT_LOAD=PDF templates list could not be load
-PDF_GENERATE_BUTTON=Generate PDF35
+PDF_GENERATE_BUTTON=Generate PDF
 PDF_GENERATE_LABEL=PDF-Export
 
 LOAD_MAILTEMPLATE_FAILED = Loading e-mail template failed

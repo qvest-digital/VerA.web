@@ -605,7 +605,109 @@ HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von
 HINT_EXPORT_CSVPERSDATA_ADDRESS=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA=Es werden nur die Felder aus dem Karteireiter \u201EPersonendaten\u201C und den untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EKategorien\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-SELECTION_CSV=Alle makieren
+SELECTION_CSV=Alle markieren
+SELECTION_ONE=Markieren
+
+# CSV SELEKTIONS FELDER
+CSV_IS_COMPANY=Ist Firma
+CSV_SALUTATION=Anrede
+CSV_ACADEMIC_TITLE=Akad. Titel
+CSV_FIRSTNAME=Vorname
+CSV_NAME=Nachname
+CSV_INLAND=Inland
+CSV_GENDER=Geschlecht
+CSV_BIRTHDAY=Geburtsdatum
+CSV_PLACE_OF_BIRTH=Geburtsort
+CSV_ACC_DATE=Akkreditierungsdatum
+CSV_LANGUAGES=Sprachen
+CSV_NATIONALITY=Nationalität
+CSV_COMMENT=Bemerkung
+CSV_HINT_ORGA=Hinweis für Orga
+CSV_HINT_GUEST=Hinweis für Gastgeber
+CSV_INTERNAL_ID=Interne ID
+
+CSV_CHANGE=Geändert
+CSV_CHANGE_BY=Geändert durch
+CSV_CREATE=Erstellt
+CSV_CREATE_BY=Erstellt durch
+CSV_DELEGATE=Delegation
+CSV_DIPLO=Akkreditierungsdatum
+CSV_INLAND_ONE=Inländisch 1
+CSV_INLAND_TWO=inländisch 2
+CSV_GENDER_GUEST=Geschlecht Gast
+CSV_GENDER_PERSON=Geschlecht Person
+CSV_PICTURE_GAST=Bild uuid Gast
+CSV_PICTURE_PERSON=Bild uuid Person
+CSV_INVITE_GUEST=Einladungsstatus Gast
+CSV_INVITE_PERSON=Einladungsstatus Person
+CSV_INVITE_TYPE=Einladungstyp
+CSV_HOST=Gastgeber
+CSV_KEY_WORD=Schlüsselwörter
+CSV_SPEAK_GAST=Sprache Gast
+CSV_SPEAK_PERSON=Sprache Person
+CSV_LOGIN_NES=Einloggen erforderlich
+CSV_STATE_GUEST=Staatsangehörigkeit Gast
+CSV_STATE_PERSON=Staatsangehörigkeit Person
+CSV_NOTE_GUEST=Notehost Gast
+CSV_NOTE_PERSON=Notehost Person
+CSV_NOTE_ORGA_GUEST=Noteorga Gast
+CSV_NOTE_ORGA_PERSON=Noteorga Person
+CSV_ORDER_NR_GUEST=Best.-Nr Gast
+CSV_ORDER_NR_PERSON=Best.-Nr Person
+CSV_OSIAM_LOGIN=Osiam Login
+CSV_RANK=Rang
+CSV_RESERVE=Reservieren
+CSV_SEAT_GUEST=Sitzplatz Gast
+CSV_SEAT_PERSON=Sitzplatz Person
+CSV_TABLE_NR_GUEST=Tischnummer Gast
+CSV_TABLE_NR_PERSON=Tischnummer Person
+
+CSV_FUNCTION=Amtsbezeichnung/Funktion
+CSV_COMPANY=Firma/Institution
+CSV_STREET=Straße
+CSV_PLZ_PLACE=PLZ/Ort
+CSV_PLACE=Ort
+CSV_FEDERAL_STATE=Bundesland
+CSV_STATE=Land
+CSV_FEDERAL_STATE_POBOX=PLZ/Postfach
+CSV_POBOX=Postfach
+CSV_IBAN=IBAN
+CSV_BIC=BIC
+CSV_FON=Telefon
+CSV_FAX=Fax
+CSV_MOBIL=Mobil
+CSV_MAIL=E-Mail
+CSV_WWW=www
+
+# SELECTION HEADLINES
+CSV_HEADLINE_MORE_FIELDS=Weitere Felder
+CSV_HEADLINE_OPTIONAL_FIELDS=Optionale Felder
+CSV_HEADLINE_FUTHER_ADDRESSES=Anschriften Weitere
+CSV_HEADLINE_PERSON_B_E3=Personendaten Begleitperson e3
+CSV_HEADLINE_PERSON_B_E2=Personendaten Begleitperson e2
+CSV_HEADLINE_PERSON_H_E3=Personendaten Hauptperson e3
+CSV_HEADLINE_PERSON_H_E2=Personendaten Hauptperson e2
+CSV_HEADLINE_FUTHER_ADDRESSES_PRIVAT=Anschriften Privat
+CSV_HEADLINE_FUTHER_ADDRESSES_BUISNESS=Anschriften Geschäftlich
+CSV_HEADLINE_PERSON_GUEST_DATA=Personendaten Gäste
+CSV_HEADLINE_PERSON_PARTNER=Personendaten Partner
+CSV_HEADLINE_PERSON_H_PARTNER=Personendaten Hauptperson
+
+CSV_PERSON_CREATE=Person Erstellt
+CSV_PERSON_CREATE_BY=Person erstellt durch
+CSV_PERSON_CHANGED=Person verändert
+CSV_PERSON_CHANGED_BY=Person verändert durch
+CSV_PERSON_DELETED=Person gelöscht
+CSV_PERSON_DATE_OVER=Person Datum abgelaufen
+CSV_PERSON_SOURCE_IMPORT=Person Quelle importieren
+CSV_W_NAME=w Name
+CSV_DELEGATION_LINK=Delegierungs Link
+CSV_DELEGATION_USER=Delegierungs Benutzer
+CSV_DELEGATION_PW=Delegierungs Passwort
+CSV_DELEGATION_PW_RESET_LINK=Delegierungs Passwort zurücksetzen Link
+
+CSV_OPTIONAL_FIELD=Optionales Feld
+
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import von Personendaten

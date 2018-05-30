@@ -603,6 +603,107 @@ HINT_EXPORT_CSVPERSDATA_ADDRESS=Il sera export\u00E9 que les blancs avec les ong
 HINT_EXPORT_CSVPERSDATA=Il sera export\u00E9 que les blancs avec le onglet \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB, et son onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB , \u00ABCat\u00E9gories\u00BB et ses onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela est export\u00E9 \u00E0 partir du nombre de cat\u00E9gories en fonction), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 SELECTION_CSV=Marquer tout
+SELECTION_ONE=Marquer
+
+# CSV SELEKTIONS FELDER
+CSV_IS_COMPANY=Est une entreprise
+CSV_SALUTATION=Salutation
+CSV_ACADEMIC_TITLE=Titre académique
+CSV_FIRSTNAME=Prénom
+CSV_NAME=Nom de famille
+CSV_INLAND=Intérieur
+CSV_GENDER=Sexe
+CSV_BIRTHDAY=Date de naissance
+CSV_PLACE_OF_BIRTH=Lieu de naissance
+CSV_ACC_DATE=Date d'accréditation
+CSV_LANGUAGES=Langues
+CSV_NATIONALITY=Nationalité
+CSV_COMMENT=Remarque
+CSV_HINT_ORGA=Note pour Orga
+CSV_HINT_GUEST=Note pour les hôtes
+CSV_INTERNAL_ID=ID interne
+
+CSV_CHANGE=Modifié
+CSV_CHANGE_BY=Modifié par
+CSV_CREATE=Etabli
+CSV_CREATE_BY=Créé par
+CSV_DELEGATE=Délégation
+CSV_DIPLO=Date d'accréditation
+CSV_INLAND_ONE=Domestique 1
+CSV_INLAND_TWO=Domestique 2
+CSV_GENDER_GUEST=Invité de genre
+CSV_GENDER_PERSON=Personne du genre
+CSV_PICTURE_GAST=Photo uuid invité
+CSV_PICTURE_PERSON=Photo uuid personne
+CSV_INVITE_GUEST=Invitation statut invité
+CSV_INVITE_PERSON=Invitation personne de statut
+CSV_INVITE_TYPE=Type d'invitation
+CSV_HOST=Hôte
+CSV_KEY_WORD=Mots-clés
+CSV_SPEAK_GAST=Invité de langue
+CSV_SPEAK_PERSON=Personne de langue
+CSV_LOGIN_NES=Connexion requise
+CSV_STATE_GUEST=Nationalité Invité
+CSV_STATE_PERSON=Personne de nationalité
+CSV_NOTE_GUEST=Notehost invité
+CSV_NOTE_PERSON=Notehost personne
+CSV_NOTE_ORGA_GUEST=Noteorga invité
+CSV_NOTE_ORGA_PERSON=Noteorga personne
+CSV_ORDER_NR_GUEST=Numéro de commande
+CSV_ORDER_NR_PERSON=Numéro de commande
+CSV_OSIAM_LOGIN=Osiam Se connecter
+CSV_RANK=Rang
+CSV_RESERVE=Réserve
+CSV_SEAT_GUEST=Invité au siège
+CSV_SEAT_PERSON=Personne assise
+CSV_TABLE_NR_GUEST=Numéro de table invité
+CSV_TABLE_NR_PERSON=Numéro de table
+
+CSV_FUNCTION=Titre officiel / fonction
+CSV_COMPANY=Société / Institution
+CSV_STREET=Rue
+CSV_PLZ_PLACE=Code postal / Ville
+CSV_PLACE=Lieu
+CSV_FEDERAL_STATE=Etat
+CSV_STATE=Pays
+CSV_FEDERAL_STATE_POBOX=Zip / code postal
+CSV_POBOX=Boîte de bureau de poste
+CSV_IBAN=
+CSV_BIC=BIC
+CSV_FON=Téléphone
+CSV_FAX=Fax
+CSV_MOBIL=Mobile
+CSV_MAIL=
+CSV_WWW=www
+
+CSV_PERSON_CREATE=Personne créée
+CSV_PERSON_CREATE_BY=Personne créée par
+CSV_PERSON_CHANGED=Personne changée
+CSV_PERSON_CHANGED_BY=Personne changée par
+CSV_PERSON_DELETED=Personne supprimée
+CSV_PERSON_DATE_OVER=Date de la personne expirée
+CSV_PERSON_SOURCE_IMPORT=Importer une source de personne
+CSV_W_NAME=w nom
+CSV_DELEGATION_LINK=Lien de délégation
+CSV_DELEGATION_USER=Utilisateur de délégation
+CSV_DELEGATION_PW=Mot de passe
+CSV_DELEGATION_PW_RESET_LINK=Réinitialiser le mot de passe de délégation
+
+CSV_OPTIONAL_FIELD=Champ facultatif
+
+# SELECTION HEADLINES
+CSV_HEADLINE_MORE_FIELDS=Plus de champs
+CSV_HEADLINE_OPTIONAL_FIELDS=Champs optionnels
+CSV_HEADLINE_FUTHER_ADDRESSES=Adresses plus loin
+CSV_HEADLINE_PERSON_B_E3=Données personnelles accompagnant la personne e3
+CSV_HEADLINE_PERSON_B_E2=Données personnelles accompagnant la personne e2
+CSV_HEADLINE_PERSON_H_E3=Principal des données personnelles e3
+CSV_HEADLINE_PERSON_H_E2=Données personnelles principal e2
+CSV_HEADLINE_FUTHER_ADDRESSES_PRIVAT=Adresses privées
+CSV_HEADLINE_FUTHER_ADDRESSES_BUISNESS=Adresses Affaires
+CSV_HEADLINE_PERSON_GUEST_DATA=Invités de données personnelles
+CSV_HEADLINE_PERSON_PARTNER=Partenaire de données personnelles
+CSV_HEADLINE_PERSON_H_PARTNER=Données personnelles principales
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importer des donn\u00E9es personnelles
