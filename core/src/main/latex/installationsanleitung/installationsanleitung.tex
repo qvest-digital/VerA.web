@@ -3472,6 +3472,13 @@ vwor.endpoint=https://「veraweb.lan.tarent.de」/vwor
 vwor.auth.user=「veraweb」
 vwor.auth.password=〔veraweb〕
 
+# Die folgenden Einstellungen beeinflussen die Benutzeransicht:
+
+# Die interne ID einer Person wird mit angezeigt (Standard: false)
+veraweb.show.person.internalId=false
+# Die technische ID einer Person wird mit angezeigt (Standard: true)
+veraweb.show.person.verawebId=true
+
 # Die folgenden Einstellungen sind nur bei Benutzung der
 # Online-Anmeldung relevant; andernfalls ignorieren oder
 # entfernen:
@@ -3484,13 +3491,6 @@ osiam.server.auth=https://「veraweb.lan.tarent.de」/osiam-auth-server/
 veraweb.onlinereg.protocol=https
 veraweb.onlinereg.host=「veraweb.lan.tarent.de」
 veraweb.onlinereg.port=443/vwor-app
-
-# Die folgenden Einstellungen beeinflussen die Benutzeransicht:
-
-# Die interne ID einer Person wird mit angezeigt (Standard: false)
-veraweb.show.person.internalId=false
-# Die technische ID einer Person wird mit angezeigt (Standard: true)
-veraweb.show.person.verawebId=true
 \end{lstdump}
 
 \subsection{/etc/veraweb/vwor.properties}\label{subsec:refcfg-vw-vworprop}
