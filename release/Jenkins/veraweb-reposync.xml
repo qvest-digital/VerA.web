@@ -14,11 +14,11 @@
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Build:tglase</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
       <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
@@ -50,35 +50,48 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>set +ex
+      <command>timeout --kill-after=20m 18m sh -c &apos;
+
+set +ex
+echo &gt;&amp;2 &quot;I: preparing…&quot;
 rv=0
 git remote remove evolvis 2&gt;/dev/null
+echo &gt;&amp;2 &quot;I: fetching from Evolvis…&quot;
 if ! git remote add -f evolvis git+ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git; then
 	echo &gt;&amp;2 &quot;E: cannot fetch from evolvis&quot;
 	exit 1
 fi
+echo &gt;&amp;2 &quot;I: merging from Evolvis…&quot;
 if ! git merge --ff-only evolvis/master; then
 	echo &gt;&amp;2 &quot;E: cannot ff-merge evolvis master; resolve manually!&quot;
 	exit 1
 fi
+echo &gt;&amp;2 &quot;I: preparing…&quot;
 git remote remove gitlab 2&gt;/dev/null
+echo &gt;&amp;2 &quot;I: fetching from Gitlab…&quot;
 if ! git remote add -f gitlab git@gitlab.tarent.de:veraweb-int/veraweb.git; then
 	echo &gt;&amp;2 &quot;E: cannot fetch from gitlab&quot;
 	exit 1
 fi
+echo &gt;&amp;2 &quot;I: merging from Gitlab…&quot;
 if ! git merge --ff-only gitlab/master; then
 	echo &gt;&amp;2 &quot;E: cannot ff-merge gitlab master, WTF?&quot;
 	exit 1
 fi
+echo &gt;&amp;2 &quot;I: pushing to Gitlab…&quot;
 if ! git push gitlab master; then
 	echo &gt;&amp;2 &quot;E: cannot push to gitlab; resolve manually!&quot;
 	rv=$(($rv+1))
 fi
+echo &gt;&amp;2 &quot;I: pushing to Evolvis…&quot;
 if ! git push evolvis master; then
 	echo &gt;&amp;2 &quot;E: cannot push to evolvis; resolve manually!&quot;
 	rv=$(($rv+1))
 fi
-exit $rv</command>
+echo &gt;&amp;2 &quot;I: all done&quot;
+exit $rv
+
+: end of script run under timeout&apos;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
