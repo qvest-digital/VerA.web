@@ -59,15 +59,17 @@ for x in "${externals[@]}"; do
 	docker pull "$x"
 done
 
-rm -rf "/var/www/html/$tag"
-mkdir "/var/www/html/$tag"
+rm -rf "/var/www/html/$tag~"
+mkdir "/var/www/html/$tag~"
 for x in "${ours[@]}" "${externals[@]}"; do
 	img=${x##*/}
 	img=${img//:/-}
-	docker save -o "/var/www/html/$tag/$img.img" "$x"
-	gzip -n9 "/var/www/html/$tag/$img.img" &
+	docker save -o "/var/www/html/$tag~/$img.img" "$x"
+	gzip -n9 "/var/www/html/$tag~/$img.img" &
 done
 wait
+rm -rf "/var/www/html/$tag"
+mv "/var/www/html/$tag~" "/var/www/html/$tag"
 chmod 444 "/var/www/html/$tag/"*
 chmod 555 "/var/www/html/$tag"
 ls -la "/var/www/html/$tag/"
