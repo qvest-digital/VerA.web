@@ -8,15 +8,9 @@
   ‣ to Groovy++ first, to check types
     cf. https://stackoverflow.com/a/5941495/2171120
   ‣ to Java™ via IntelliJ
-• test everything
-• ensure releasing works
 • ensure MTA is set up on all Docker hosts, on 172.17.0.1
   cf. commit 2551bbe21b9723ede478f3bc0261a5cebb2f9d1f in env
 • replace ANSI-Bell: it installs stuff into /usr/local with pip
   FROM THE INTERNETZ⚠ (even pip itself…)
   ‣ ansibel docker plugin is also deprecated…
-• handle TODOs in documentation, cover upgrading, mark no-OA jumps
-• Bacon macht Probleme, wird nur von ↓ verwendet (neuschreiben?)
-  core/src/main/webapp/js/vera/guest-filter-auto-commit.js
-
-Status: kann alles getestet werden, löpt
+• Bacon.js entfernen [VERA-635]
