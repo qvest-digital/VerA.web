@@ -1477,18 +1477,27 @@ Sie bitte nun die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
-\begin{minipage}{\linewidth}
 Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
-\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
-Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
-als Absenderadresse verwendet wird.
+\texttt{mail.smtp.from} an; tragen Sie hier eine eMail-Adresse ein,
+die als Standard-Absenderadresse beim Versenden von Verteilernachrichten
+von VerA.web und Bestätigungsnachrichten der Online-Anmeldung verwendet wird.
 
-Der Parameter \texttt{mail.smtp.from} setzt die Standard-Absenderadresse.
 Mit den Parametern \texttt{mail.smtp.from.ID} können für die IDs der einzelnen
 Mandaten spezielle Absenderadressen gesetzt werden. Die Zuordnung der IDs zu
 den Mandanten finden Sie als Benutzer mit Administratorenrechten im Menüpunkt
 Administration → Mandanten; die ID des eigenen zugeordneten Mandanten kann
-im Menüpunk Verwaltung → Info eingesehen werden.
+im Menüpunkt Verwaltung → Info eingesehen werden.
+
+Für die Online-Anmeldung relevant enthalten die \texttt{subject}‑
+und \texttt{content}-Parameter den Nachrichtenbetreff und -inhalt;
+diese können Sie bei Bedarf anpassen; stellen Sie dabei sicher,
+daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
+Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen nach Unicode kodiert
+werden (z.B. wird \texttt{ä} zu \texttt{\textbackslash{}u00E4}).
+
+\begin{minipage}{\linewidth}
+Auch das Impressum der Online-Anmeldung können Sie hier setzen,
+vgl. Kapitel \ref{sec:imprint-oa}.
 
 \begin{lstdump}{Adresse für einzelne Mandanten setzen}
 # sender address for all emails sent out
@@ -1498,18 +1507,6 @@ mail.smtp.from=noreply@example.com
 #mail.smtp.from.1=mandant1@example.edu
 #mail.smtp.from.5=noreply-mandant5@example.com
 \end{lstdump}
-
-Für die Online-Anmeldung relevant enthalten die \texttt{subject}‑
-und \texttt{content}-Parameter enthalten den Nachrichtenbetreff und
--inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
-sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
-Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen nach Unicode kodiert
-werden (z.B. wird \texttt{ä} zu \texttt{\textbackslash{}u00E4}).
-Auch das Impressum der Online-Anmeldung können Sie hier setzen,
-vgl. Kapitel \ref{sec:imprint-oa}.
-
-%XXX nicht so viel in eine minipage
-
 \end{minipage}
 
 \subsection{LDAP-Anbindung VerA.web-core}\label{subsec:setup-core-ldap}
@@ -1531,7 +1528,12 @@ benutzen zu können. Dies sind insbesondere die folgenden Parameter:\keinumbruch
   innehaben; Standardwert: \texttt{person}}
 \end{itemize}
 
-%TODO: Online-Anmeldung aktivieren
+\subsection{Online-Anmeldung aktivieren}\label{subsec:setup-core-oa}
+
+Falls Sie nicht ohne Online-Anmeldung installieren bearbeiten Sie
+nun die Datei \texttt{config\_vwoa.xml}, indem Sie dort in der
+Einstellung \texttt{online-registration.activated} den \texttt{value}
+auf \texttt{true} setzen.
 
 \subsection{Applikationsserver VerA.web-core und REST-API}\label{subsec:setup-core-tomcat}
 
@@ -1677,7 +1679,8 @@ INFO: Deployment of web application archive
 Falls OSIAM (oder andere Webanwendungen) auf demselben System
 installiert werden kann der Startvorgang deutlich länger dauern.
 
-%TODO: ggfs. Tomcat neustarten bei seltsamen Fehlern
+Falls Sie an dieser Stelle seltsame Fehler erhalten kann es unter
+Umständen helfen, Tomcat einfach neuzustarten.
 
 \subsection{Webserver VerA.web-core und REST-API}\label{subsec:setup-core-apache}
 
