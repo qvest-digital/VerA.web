@@ -91,7 +91,7 @@ GENDER_TYPE_TASK=Female
 GENDER_TYPE_USER=Male
 GENDER_TYPE_WORKAREA=Male
 
-# REPETITIVE OBJECTS IN THER SINGULAR- AND PLURAL-TYPE
+# REPETITIVE OBJECTS IN THEIR SINGULAR- AND PLURAL-TYPE
 GENERIC_ADDRESS_DATA_PLURAL=Address data
 GENERIC_CATEGORY_SINGULAR=Category
 GENERIC_KEYWORDS=Keywords
@@ -528,7 +528,7 @@ GENERIC_SEARCH_PERSON=Search for person
 GENERIC_SEARCH=Search
 GENERIC_VALIDITY_DATE=Validity date
 GENERIC_ADVANCED_SEARCH=Advanced search
-HINT_PLACEHOLDER=Hint With the Search, you can use Placeholder, where * stands for several and the Question mark ? for singular. This search could be used in Surnames, Last names, City, Zip code, Street, Company/Institution, telefon, fax, mobile, E-mail, remarks, categories, work areas and employment title/function.
+HINT_PLACEHOLDER=Hint: With the Search, you can use placeholders, where the asterisk \u201C*\u201D stands for an arbitrary amount of characters and the question mark \u201C?\u201D for a single character. Fields searched are first and last name, City, Zip code, Street, Company/Institution, telefon, fax, mobile, E-mail, remarks, categories, work areas and employment title/function.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=The login credentials have been created successfully.
@@ -543,7 +543,7 @@ sir=Sir
 GENERIC_PLEASE_CHOOSE=Please choose
 GENERIC_ACAD_TITLE=Acad. title
 GENERIC_IN_COUNTRY=home country
-GENERIC_HINT_FOR_ORGA=Hint for Orga
+GENERIC_HINT_FOR_ORGA=Hint for organisation team
 GENERIC_COUNTRY=Country
 plz/postfach=Zip code/ post office box
 GENERIC_POST_OFFICE_BOX=Post office box
@@ -621,7 +621,7 @@ CSV_ACC_DATE=Accreditation Date
 CSV_LANGUAGES=Languages
 CSV_NATIONALITY=Nationality
 CSV_COMMENT=Comment
-CSV_HINT_ORGA=Note for Orga
+CSV_HINT_ORGA=Note for organisation team
 CSV_HINT_GUEST=Note for hosts
 CSV_INTERNAL_ID=Internal ID
 
@@ -635,8 +635,8 @@ CSV_INLAND_ONE=Inland 1
 CSV_INLAND_TWO=Inland 2
 CSV_GENDER_GUEST=Gender Guest
 CSV_GENDER_PERSON=Gender Person
-CSV_PICTURE_GAST=Picture uuid Guest
-CSV_PICTURE_PERSON=Picture uuid Person
+CSV_PICTURE_GAST=Picture UUID Guest
+CSV_PICTURE_PERSON=Picture UUID Person
 CSV_INVITE_GUEST=Invitation Status Guest
 CSV_INVITE_PERSON=Invitation Status Person
 CSV_INVITE_TYPE=Invitation Type
@@ -2089,8 +2089,8 @@ note_a_e1=Comment mustn\u2019t be longer than 2000 characters.
 note_b_e1=Comment mustn\u2019t be longer than 2000 characters.
 notehost_a_e1=Hint for host mustn\u2019t be longer than 2000 characters.
 notehost_b_e1=Hint for host mustn\u2019t be longer than 2000 characters.
-noteorga_a_e1=Hint for Orga mustn\u2019t be longer than 2000 characters.
-noteorga_b_e1=Hint for Orga mustn\u2019t be longer than 2000 characters.
+noteorga_a_e1=Hint for organisation team mustn\u2019t be longer than 2000 characters.
+noteorga_b_e1=Hint for organisation team mustn\u2019t be longer than 2000 characters.
 pobox_a_e1=Post office box mustn\u2019t be longer than 50 characters
 pobox_a_e2=Post office box mustn\u2019t be longer than 50 characters
 pobox_a_e3=Post office box mustn\u2019t be longer than 50 characters
