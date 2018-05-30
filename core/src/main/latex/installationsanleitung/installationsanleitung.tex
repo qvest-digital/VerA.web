@@ -43,19 +43,15 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{5.1}
-\newcommand{\vwiaversfassungmonat}{April}
+\newcommand{\vwiaversfassungnr}{5.2}
+\newcommand{\vwiaversfassungmonat}{Mai}
 \newcommand{\vwiaversfassungjahr}{2018}
 
 % VerA.web Version
-\newcommand{\vwiaverssw}{1.8.59}
+\newcommand{\vwiaverssw}{1.8.61}
 
 % OSIAM-Version
 \newcommand{\vwiaversosiam}{2.5}
-
-% später entfernen
-\newif\ifoa
-\oatrue
 
 \begin{document}
 \tarentanleitung{Installationsanleitung VerA.web}{\vwiaverssw}
@@ -520,7 +516,7 @@ Die weiteren Schritte, die auf dem Server durchzuführen sind,
 involvieren:\keinumbruch
 
 \begin{itemize}
- \item{Entpacken der \texttt{files}-Archive}
+ \item{Entpacken des \texttt{files}-Tarballs}
  \item{Wechseln in ein spezifisches Unterverzeichnis \dash
   alle weiteren Schritte nehmen an, daß dieses Unterverzeichnis
   Ihr aktuelles Arbeitsverzeichnis ist; sollten Sie zwischendurch
@@ -1985,8 +1981,6 @@ Sie können nun im Kapitel \nameref{sec:test} fortfahren.
 % Seitenumbruch zwischen Installation und Upgrade forçieren
 \newpage
 
-\ifoa
-
 \section{Upgrade OSIAM-System}\label{sec:upgrade-osiam}
 
 VerA.web benötigt aktuell OSIAM auth-server und resource-server in
@@ -2036,34 +2030,33 @@ und Verfügbarkeit\Hair\footnote{\label{fn:osiamcheck}mit:
 } des OSIAM-Dienstes\Hair\footnote{\label{fn:osiamsvcchk}nur der
 Resource-Server; der Auth-Server bietet aktuell keine einfache Prüfmethode an}.
 
-\fi% oa
-
 \section{Upgrade internes VerA.web-System}\label{sec:upgrade-int}
 
-Im folgenden wird beschrieben, wie Sie die Installation von
-VerA.web-core auf den neuesten Stand bringen.
-Hierbei wird davon ausgegangen, daß VerA.web gemäß
-  dem Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung,
-  oder einer ähnlich aufgebauten Anleitung einer Vorgängerversion,
-auf einem Debian 8 „jessie“-System eingerichtet
-wurde. Installationen gemäß früherer Anleitungen der tarent solutions,
-die abweichende Verfahren z.B. in der Webserverkonfiguration benutzten,
-werden ebenfalls unterstützt, benötigen aber ggfs. Anpassungen.
+Im folgenden wird beschrieben, wie Sie die Installation von VerA.web
+auf den aktuellen Stand bringen, sofern es gemäß dem Abschnitt
+\nameref{sec:setup-int} der vorliegenden Anleitung, oder einer ähnlich
+aufgebauten Anleitung einer Vorgängerversion, auf einem Debian-System
+eingerichtet wurde.
 
 Falls Sie weitergehende Anpassungen, z.B. an den Velocity-Templates
 für die Webseiten, vorgenommen haben müssen Sie die Änderungen
 manuell nachpflegen.
-
-Diese Anleitung behandelt Upgrades von VerA.web 1.5.1.4 und neuer;
-falls Sie eine ältere Version (mindestens jedoch 1.3.15) installiert
-haben wenden Sie sich bitte an unseren Support \dash siehe Kapitel
-\nameref{sec:outro} und den folgenden Absatz.
 
 Für weitergehenden Installationssupport, insbesondere bei Systemen,
 die nicht nach dieser oder einer ähnlichen Anleitung installiert
 wurden, kontaktieren Sie bitte unseren Produktvertrieb oder, falls
 Sie bereits einen bestehenden Wartungsvertrag haben, unser Service-
 und Wartungsteam.
+
+\subsection{Upgrade von Versionen vor 1.8.61}\label{subsec:upgrade-core-before-monorepo}
+
+Aufgrund der Umstellung auf Debian 9 „stretch“, Tomcat 8, usw.
+führen Sie bitte in diesem Fall eine Neuinstallation gemäß dem
+Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung
+durch. Hierbei können Sie die Änderungen der bestehenden
+Konfigurationsdateien, insbesondere aus \texttt{/etc/veraweb/},
+aber auch der von Apache und Tomcat, größtenteils übernehmen;
+dies muß allerdings als manueller Prozeß geschehen.
 
 \subsection{Bevor Sie beginnen}\label{subsec:upgrade-core-pre}
 
@@ -2086,15 +2079,8 @@ prüfen Sie explizit, ob noch \texttt{java}-Prozesse laufen.
 
 \subsection{Dateien VerA.web-core}\label{subsec:upgrade-core-files}
 
-\ifoa
-Kopieren Sie bitte zunächst die „\texttt{files}-Dateien“
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz} und\linebreak[1]
-\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
-\else% !oa
-Kopieren Sie bitte zunächst die Datei
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
-\fi% !oa
-sowie die
+Kopieren Sie bitte zunächst das \texttt{files}-Archiv
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz} sowie die
 Installationsarchive \texttt{veraweb-core-\vwiaverssw{}.war}
 und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
@@ -2103,17 +2089,6 @@ Benennen Sie die Applikationsdateien in später leicher zu
 verwendende Namen um, entpacken Sie das Zusatzarchiv und
 wechseln Sie in das Unterverzeichnis mit den core-Dateien:
 
-\ifoa
-\begin{lstdump}{Entpacken}
-mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
-mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
-tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
-tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
-chmod go-rwx .
-\end{lstdump}
-\else% !oa
 \begin{lstdump}{Entpacken}
 mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
 mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
@@ -2121,7 +2096,6 @@ tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
 chmod go-rwx .
 \end{lstdump}
-\fi% !oa
 \end{minipage}
 
 Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
@@ -2131,270 +2105,6 @@ Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
 eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
 verweigern während Sie sie bearbeiten, da sie später Paßwörter
 enthalten werden.
-
-\subsection{Upgrade von Versionen vor 1.6.32}\label{subsec:upgrade-1632}
-
-Die neu hinzugekommene Komponente REST-API muß konfiguriert werden.
-
-Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
-in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
-\texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
-REST-API erreichbar ist, üblicherweise also den Hostnamen vom
-core-System) und tragen Sie von Ihnen gewählte Zugangsdaten für
-die REST-API (siehe Kapitel \ref{subsec:intro-restapi}) als
-\texttt{vwor.auth.user} und \texttt{vwor.auth.password} ein.
-\ifoa
-Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
-\texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
-des OSIAM- bzw. des Online-Anmeldungssystems. Schließlich
-tragen Sie für \texttt{osiam.client.secret} denselben Wert
-ein, den Sie bei der
-  \nameref{subsec:setup-osiam-register}
-als \texttt{vwsecret} gesetzt hatten.
-\fi% oa
-
-\begin{minipage}{\linewidth}
-Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
-Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
-sodaß es später möglich ist, weitere Strukturen aufzubauen), und
-machen Sie es für den Tomcat-Nutzer schreibbar:
-
-\begin{lstdump}{Uploaded anlegen}
-sudo mkdir -p /var/lib/veraweb/uploaded
-sudo chgrp tomcat8 /var/lib/veraweb/uploaded
-sudo chmod 2770 /var/lib/veraweb/uploaded
-\end{lstdump}
-
-Falls Sie ein anderes Verzeichnis als das obige verwenden passen
-Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei
-\texttt{vwor.properties} an; bitte achten Sie darauf, daß der
-Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
-\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
-Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
-als Absenderadresse verwendet wird.
-
-Der Parameter \texttt{mail.smtp.from} setzt die Standard-Absenderadresse.
-Mit den Parametern \texttt{mail.smtp.from.ID} können für die IDs der einzelnen
-Mandaten spezielle Absenderadressen gesetzt werden.
-
-\begin{lstdump}{Adresse für einzelne Mandanten setzen}
-# address verification
-mail.smtp.from=noreply@example.com
-# to use specific addresses for individual organisational units set
-# property mail.smtp.from.{id} like the following two lines are showing
-#mail.smtp.from.1=mandant1@example.edu
-#mail.smtp.from.5=noreply-mandant5@example.com
-\end{lstdump}
-
-\ifoa
-
-Die \texttt{subject}- und
-\texttt{content}-Parameter enthalten den Nachrichtenbetreff und
--inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
-sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
-
-\fi% oa
-
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Installieren Sie nun die Konfigurationsdateien für die REST-API:
-
-\begin{lstdump}{/etc/veraweb/*.properties}
-sudo install -c -o 0 -g tomcat8 -m 640 *.properties /etc/veraweb/
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Fügen Sie folgende Zeile der Apache-vhost-Konfiguration hinzu:
-
-\begin{lstdump}{AJP Worker VWOR}
-JkMount /vwor* ajp13_worker
-\end{lstdump}
-\end{minipage}
-
-Starten Sie den Webserver neu, um die Änderungen wirksam zu machen.
-
-Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
-einige Zeilen ein, um weitere JVM-Startoptionen zu setzen, die
-in alten Installationen ggfs. noch nicht gesetzt waren.
-
-\begin{minipage}{\linewidth}
-Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
-Kodierung von Dateien, Logs und internen Abläufen zu gewährleisten:
-
-\begin{lstdump}{Tomcat Encoding setzen}
-JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Diese (Linux-spezifische) Option spart u.a. beim Starten Zeit,
-indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
-
-\begin{lstdump}{Tomcat /dev/urandom}
-JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
-Zeilen an:
-
-\begin{lstdump}[breaklines=false]{Tomcat Logging}
-java.util.logging.SimpleFormatter.format=%1$tF %1$tT.%1$tL %4$7s (%2$s) [%3$s] %5$s%6$s%n
-org.apache.juli.OneLineFormatter.timeFormat=yyyy-MM-dd HH:mm:ss
-java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
-\end{lstdump}
-\end{minipage}
-
-Nun muß noch die Konfiguration von Tomcat für die neu hinzugekommene
-REST-API vorgenommen werden.
-
-\begin{minipage}{\linewidth}
-Fügen Sie bitte am Ende der Datei\texttt{/etc/tomcat8/context.xml} vor
-das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
-  \nameref{subsec:setup-core-db}
-für die REST-API verfügbar zu machen:
-
-\begin{lstdump}[language=XML]{Tomcat VWOR JDBC}
-<Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
- driverClassName="org.postgresql.Driver" username="veraweb" password="veraweb"
- url="jdbc:postgresql://localhost:5432/veraweb" maxTotal="8" maxIdle="4" />
-\end{lstdump}
-
-Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
-Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
-  in Kapitel \ref{subsec:setup-core-db}
-abgewichen sind.
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat8/tomcat-users.xml} vor
-das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
-aber die von Ihnen am Anfang dieses Unterkapitels gewählten Zugangsdaten der
-REST-API ein:
-
-\begin{lstdump}[language=XML]{Tomcat VWOR Auth}
-<role rolename="veraweb" />
-<user roles="veraweb" username="veraweb" password="veraweb" />
-\end{lstdump}
-\end{minipage}
-
-\subsection{Upgrade von Versionen vor 1.8.1}\label{subsec:upgrade-181}
-
-Passen Sie bitte die mitgelieferte \texttt{vwor.properties} so an,
-daß sie der \texttt{/etc/veraweb/vwor.properties} für die
-dort bereits enthaltenen Einträge entspricht. Dann passen Sie noch
-die neuen Einträge an:
-
-\begin{minipage}{\linewidth}
-Passen Sie in der \texttt{vwor.properties} die Eigenschaft
-\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
-Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
-als Absenderadresse verwendet wird.
-
-Der Parameter \texttt{mail.smtp.from} setzt die Standard-Absenderadresse.
-Mit den Parametern \texttt{mail.smtp.from.ID} können für die IDs der einzelnen
-Mandaten spezielle Absenderadressen gesetzt werden.
-
-\begin{lstdump}{Adresse für einzelne Mandanten setzen}
-# address verification
-mail.smtp.from=noreply@example.com
-# to use specific addresses for individual organisational units set
-# property mail.smtp.from.{id} like the following two lines are showing
-#mail.smtp.from.1=mandant1@example.edu
-#mail.smtp.from.5=noreply-mandant5@example.com
-\end{lstdump}
-
-\ifoa
-
-Die \texttt{subject}- und
-\texttt{content}-Parameter enthalten den Nachrichtenbetreff und
--inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
-sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
-
-\fi% oa
-
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Installieren Sie nun die angepaßte Konfigurationsdatei:
-
-\begin{lstdump}{/etc/veraweb/*.properties}
-sudo install -c -o 0 -g tomcat8 -m 640 vwor.properties /etc/veraweb/
-\end{lstdump}
-\end{minipage}
-
-\subsection{Upgrade von Versionen vor 1.8.27}\label{subsec:upgrade-1827}
-
-\begin{minipage}{\linewidth}
-In der Version 1.8 wurden die Übersetzungsdateien des Core in die
-\texttt{war}-Datei integriert. Wenn keine Anpassungen an diesen Dateien
-gemacht wurden, müssen diese entfernt werden.
-
-\begin{lstdump}{Sprachdateien entfernen}
-sudo rm -f /etc/veraweb/l10n/*
-\end{lstdump}
-\end{minipage}
-
-\iffalse
-Wenn Anpassungen gemacht wurden, müssen diese entsprechend angepasst
-werden, wie es in \nameref{sec:l10n} beschrieben ist.
-\fi
-
-\subsection{Upgrade von Tomcat 7 auf Tomcat 8}
-
-Übertragen Sie alle Änderungen an den Konfigurationsdateien
-unterhalb von \texttt{/etc/tomcat7/} auf ihre Äquivalente
-unterhalb von \texttt{/etc/tomcat8/} sowie von
-\texttt{/etc/default/tomcat7} nach \texttt{/etc/default/tomcat8}
-\dash es ist am besten, wenn Sie einfach die diesbezüglichen
-Schritte der Installationsanleitung für Tomcat 8 nochmals
-durchgehen und die alten Konfigurationsdateien nur als Referenz
-betrachten.
-
-Außerdem müssen die WARs nach \texttt{/var/lib/tomcat8/webapps/}
-umgezogen werden, während die Tomcat-Applikationsserver nicht laufen.
-
-\ifoa% oa
-
-\subsection{Ausbau einer bestehenden Basisinstallation um die Online-Anmeldung}
-
-Richten Sie zunächst die Systeme für OSIAM und die Online-Anmeldung
-äquivalent zu einer Neuinstallation \dash wie in den Kapiteln
-\nameref{sec:setup-osiam} und \nameref{sec:setup-oa} beschrieben
-\dash ein. Dann können Sie VerA.web-core um die Funktionalität der
-Online-Anmeldung ergänzen:
-
-Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
-in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
-\texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
-REST-API erreichbar ist, üblicherweise also den Hostnamen vom
-core-System) und tragen Sie die Zugangsdaten für die REST-API
-(siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
-und \texttt{vwor.auth.password} ein.
-Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
-\texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
-des OSIAM- bzw. des Online-Anmeldungssystems. Schließlich
-tragen Sie für \texttt{osiam.client.secret} denselben Wert
-ein, den Sie bei der \nameref{subsec:setup-osiam-register}
-als \texttt{vwsecret} gesetzt haben.
-
-\begin{minipage}{\linewidth}
-Schließlich installieren Sie die neuen Konfigurationsdateien:
-
-\begin{lstdump}{core add OA}
-sudo install -c -o 0 -g tomcat8 -m 640 config_vwoa.xml /etc/veraweb/
-sudo install -c -o 0 -g tomcat8 -m 640 veraweb.properties /etc/veraweb/
-\end{lstdump}
-\end{minipage}
-
-\fi% oa
 
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 
@@ -2450,16 +2160,14 @@ REST-API (im Format {\itshape Benutzername + Doppelpunkt + Paßwort +
 Klammeraffe})}, und, über die Weboberfläche, die Verfügbarkeit von
 VerA.web-core.
 
-\ifoa
-
 \section{Upgrade Online-Anmeldung}\label{sec:upgrade-oa}
 
 Im folgenden wird beschrieben, wie Sie die Installation der
 VerA.web-Online-Anmeldung auf den neuesten Stand bringen.
-Hierbei wird davon ausgegangen, daß diese gemäß
-  dem Abschnitt \nameref{sec:setup-oa} der vorliegenden Anleitung,
-  mindestens Version 1.7.4,
-auf einem Debian 8 „jessie“-System eingerichtet wurde.
+Hierbei wird davon ausgegangen, daß diese gemäß dem Abschnitt
+\nameref{sec:setup-oa} der vorliegenden Anleitung, mindestens
+in Version 1.7.4, auf einem Debian-System eingerichtet wurde.
+
 Falls Sie eine ältere Installation der Online-Anmeldung besitzen
 empfehlen wir Ihnen stattdessen eine Neuinstallation, da die
 Installationsmethode seinerzeit noch nicht ausgereift war.
@@ -2480,10 +2188,14 @@ auf den Server, auf dem die Online-Anmeldung betrieben wird, und führen
 Sie dort folgende Befehle aus:
 
 \begin{lstdump}{Upgrade OA}
-sudo install -c -o 0 -g 0 -m 644 online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar /service/vwoa/vwoa.jar
+sudo install -c -o 0 -g 0 -m 644 online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar /service/vwoa/vwoa.new
+sudo rm -f /service/vwoa/vwoa.jar
+sudo mv /service/vwoa/vwoa.new /service/vwoa/vwoa.jar
 sudo svc -t /service/vwoa
 rm -f online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar
 \end{lstdump}
+
+Das Löschen und Umbenennen wirkt Fehlermeldungen beim Beenden vor.
 \end{minipage}
 
 Mit dem Befehl \texttt{sudo svstat /service/vwoa} sollten Sie
@@ -2502,8 +2214,6 @@ der Regel reicht es, ihn zu beenden und neuzustarten, ggfs.
 auch (z.B. bei Mozilla™ Firefox™) die \inlinekasten{F5}-Taste
 zu drücken.
 
-\fi% oa
-
 Damit ist das Upgrade abgeschlossen.
 Sie können nun mit dem Kapitel \nameref{sec:test} fortfahren.
 
@@ -2517,9 +2227,7 @@ an die fachliche Administration des Veranstaltungsmanagements. Er wird
 üblicherweise nur nach Änderungen an der Netzwerkstruktur sowie wenn
 Komponenten hinzugekommen sind oder verändert wurden durchgeführt.
 
-\ifoa
 \subsection{VerA.web core und REST-API}
-\fi% oa
 
 Öffnen Sie die Startseite des VerA.web Veranstaltungsmanagements mit
 einem Webbrowser\Hair\footnote{falls diese nicht erscheint prüfen Sie
