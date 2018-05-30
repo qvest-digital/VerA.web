@@ -21,37 +21,29 @@
                                         showWarning(msg);
                         }else {
                                 #if( $count == 1 )
-                                                showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen}',
-                                                function () { // Ja
-                                var form = window.opener.document.forms[ "formlist" ];
-                                 var input = window.document.createElement('input');
-                                 input.type = 'hidden';
-                                 input.name = 'workareaAssigned';
-                                 input.value = 'assign';
-                                 form.appendChild(input);
-                                 form.submit();
-                                                }, function () { //nein
-                                                        showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichzugeordnet}');
-                                                },
-                                                '${placeholderWithTranslation.GENERIC_ASSIGN}',
-                                                '${placeholderWithTranslation.GENERIC_CANCEL}'
-                                );
+                                    showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen}',
+                                            function () { // Ja
+                                                var form = window.opener.document.forms[ "formlist" ];
+                                                window.opener.document.getElementsByName('workareaAssigned')[0].value = 'assign';
+                                                form.submit();
+                                            }, function () { //nein
+                                                showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichzugeordnet}');
+                                            },
+                                            '${placeholderWithTranslation.GENERIC_ASSIGN}',
+                                            '${placeholderWithTranslation.GENERIC_CANCEL}'
+                                    );
                                 #else
-                                        showAllocateAssign('${placeholderWithTranslation.wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen}',
-                                                function () { // Ja
-                                                        var form = window.opener.document.forms[ "formlist" ];
-                                 var input = window.document.createElement('input');
-                                 input.type = 'hidden';
-                                 input.name = 'workareaAssigned';
-                                 input.value = 'assign';
-                                 form.appendChild(input);
-                                 form.submit();
-                                                }, function () { //nein
-                                                        showSuccess('${placeholderWithTranslation.eswurdenkeinearbeitsbereichzugeordnet}');
-                                                },
-                                '${placeholderWithTranslation.GENERIC_ASSIGN}',
-                                '${placeholderWithTranslation.GENERIC_CANCEL}'
-                            );
+                                    showAllocateAssign('${placeholderWithTranslation.wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen}',
+                                            function () { // Ja
+                                                var form = window.opener.document.forms[ "formlist" ];
+                                                window.opener.document.getElementsByName('workareaAssigned')[0].value = 'assign';
+                                                form.submit();
+                                            }, function () { //nein
+                                                showSuccess('${placeholderWithTranslation.eswurdenkeinearbeitsbereichzugeordnet}');
+                                            },
+                                            '${placeholderWithTranslation.GENERIC_ASSIGN}',
+                                            '${placeholderWithTranslation.GENERIC_CANCEL}'
+                                    );
                                 #end
                         };
                 };
@@ -62,37 +54,29 @@
                                         showWarning(msg);
                         }else {
                                 #if( $count == 1 )
-                                                showAllocateRemove('${placeholderWithTranslation.wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben}',
-                                                function () { // Ja
-                                var form = window.opener.document.forms[ "formlist" ];
-                                 var input = window.document.createElement('input');
-                                 input.type = 'hidden';
-                                 input.name = 'workareaAssigned';
-                                 input.value = 'unassign';
-                                 form.appendChild(input);
-                                 form.submit();
-                                                }, function () { //nein
-                                                        showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
-                                                },
-                                                '${placeholderWithTranslation.GENERIC_DELETE}',
-                                                '${placeholderWithTranslation.GENERIC_CANCEL}'
-                                        );
+                                    showAllocateRemove('${placeholderWithTranslation.wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben}',
+                                            function () { // Ja
+                                                var form = window.opener.document.forms[ "formlist" ];
+                                                window.opener.document.getElementsByName('workareaAssigned')[0].value = 'unassign';
+                                                form.submit();
+                                            }, function () { //nein
+                                                showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
+                                            },
+                                            '${placeholderWithTranslation.GENERIC_DELETE}',
+                                            '${placeholderWithTranslation.GENERIC_CANCEL}'
+                                    );
                                 #else
-                                                showAllocateRemove('${placeholderWithTranslation.wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben}',
-                                                function () { // Ja
-                                                        var form = window.opener.document.forms[ "formlist" ];
-                                 var input = window.document.createElement('input');
-                                 input.type = 'hidden';
-                                 input.name = 'workareaAssigned';
-                                 input.value = 'unassign';
-                                 form.appendChild(input);
-                                 form.submit();
-                                                }, function () { //nein
-                                                        showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
-                                                },
-                                                '${placeholderWithTranslation.GENERIC_DELETE}',
-                                                '${placeholderWithTranslation.GENERIC_CANCEL}'
-                                                );
+                                    showAllocateRemove('${placeholderWithTranslation.wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben}',
+                                            function () { // Ja
+                                                var form = window.opener.document.forms[ "formlist" ];
+                                                window.opener.document.getElementsByName('workareaAssigned')[0].value = 'unassign';
+                                                form.submit();
+                                            }, function () { //nein
+                                                showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
+                                            },
+                                            '${placeholderWithTranslation.GENERIC_DELETE}',
+                                            '${placeholderWithTranslation.GENERIC_CANCEL}'
+                                    );
                                 #end
                         };
                 };

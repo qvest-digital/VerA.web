@@ -27,12 +27,8 @@
                             showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
-                                 var input = window.document.createElement('input');
-                                 input.type = 'hidden';
-                                 input.name = 'categoryAssigned';
-                                 input.value = 'assign';
-                                 form.appendChild(input);
-                                 form.submit();
+                                window.opener.document.getElementsByName('categoryAssigned')[0].value = 'assign';
+                                form.submit();
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdekeinekategoriezugeordnet}');
                             },
@@ -43,12 +39,8 @@
                             showAllocateAssign('${helper.l10n("wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen", $count)}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
-                                 var input = window.document.createElement('input');
-                                 input.type = 'hidden';
-                                 input.name = 'categoryAssigned';
-                                 input.value = 'assign';
-                                 form.appendChild(input);
-                                 form.submit();
+                                window.opener.document.getElementsByName('categoryAssigned')[0].value = 'assign';
+                                form.submit();
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienzugeordnet}');
                             },
@@ -68,12 +60,8 @@
                             showAllocateRemove('${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
-                                 var input = window.document.createElement('input');
-                                 input.type = 'hidden';
-                                 input.name = 'categoryAssigned';
-                                 input.value = 'unassign';
-                                 form.appendChild(input);
-                                 form.submit();
+                                window.opener.document.getElementsByName('categoryAssigned')[0].value = 'unassign';
+                                form.submit();
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdekeinekategorieentfernt}');
                             },
@@ -83,12 +71,8 @@
                             showAllocateRemove('${helper.l10n("wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen", $count)}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
-                                 var input = window.document.createElement('input');
-                                 input.type = 'hidden';
-                                 input.name = 'categoryAssigned';
-                                 input.value = 'unassign';
-                                 form.appendChild(input);
-                                 form.submit();
+                                window.opener.document.getElementsByName('categoryAssigned')[0].value = 'unassign';
+                                form.submit();
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienentfernt}');
                             },
