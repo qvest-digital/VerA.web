@@ -35,7 +35,7 @@
 
                 <div id="main_content">
 
-                        #if($listerrors.size() > 0)
+                        #if($listerrors && $listerrors.size() > 0)
                         <vera-warn>
                                 #foreach($error in $listerrors)
                                         $error<br>

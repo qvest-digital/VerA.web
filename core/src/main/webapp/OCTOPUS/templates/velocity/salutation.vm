@@ -33,7 +33,7 @@
                 <input type="button" name="remove" onclick="askDelete()"  value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markierteanredenloschen}" #if($grants.isAdmin()) #else vera-disabled #end>
             </span>
 
-            #if($listerrors.size() > 0)
+            #if($listerrors && $listerrors.size() > 0)
             <vera-warn>
                 #foreach($error in $listerrors)
                         $error<br>

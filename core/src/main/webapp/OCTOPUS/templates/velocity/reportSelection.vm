@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="tableCell">
                                         <select name="sort1" id="sort1">
-                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            #if($search.listorder && ($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1"))
                                                 <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                                                 <option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
                                                 <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
@@ -88,7 +88,7 @@
                                 <div class="tableCell">
                                 <select name="sort2" id="sort2">
                                                 <option value=""></option>
-                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            #if($search.listorder && ($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1"))
                                                 <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                                                 <option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
                                                 <option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
@@ -118,7 +118,7 @@
                                 <div class="tableCell"><label for="sort3">${placeholderWithTranslation.anschliesendnach}</label></div>
                                 <div class="tableCell">
                                         <select name="sort3" id="sort3" >
-                            #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
+                            #if($search.listorder && ($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1"))
                                                 <option value=""></option>
                                                 <option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                                                 <option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>

@@ -42,7 +42,7 @@
 			</vera-warn>
 		#end
 
-		#if($event.errors.size() > 0)
+		#if($event.errors && $event.errors.size() > 0)
 
 			<div style="width: 99%; background-color: #ffffff;">
 				<vera-warn>
@@ -265,7 +265,7 @@
 									<input type="hidden" id="addcity-masterdata" name="addcity-masterdata" #if($addcity-masterdata) value="true" #else value="false" #end>
 									<input type="hidden" id="addcity" name="addcity" value="">
 									<select onchange="setModified();" name="event-location" id="event-location">
-										#if((!$event.location) || $event.location == "")
+										#if(!$event.location)
 											#set ($exists = 1)
 										#else
 											#set ($exists = 0)

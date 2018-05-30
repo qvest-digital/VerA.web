@@ -118,7 +118,7 @@
                                         <select name="anrede" class="combox">
                                                 <option></option>
                                                 #foreach($salutation in $allSalutation)
-                                                        <option #if($salutation.name == $config.anrede) selected#end>$!message.text($salutation.name)</option>
+                                                        <option #if($config.anrede && $salutation.name == $config.anrede) selected#end>$!message.text($salutation.name)</option>
                                                 #end
                                         </select>
                                 </td>
@@ -129,7 +129,7 @@
                                         <select name="anrede_p" >
                                                 <option></option>
                                                 #foreach($salutation in $allSalutation)
-                                                        <option #if($salutation.name == $config.anrede_p) selected#end>$!message.text($salutation.name)</option>
+                                                        <option #if($config.anrede_p && $salutation.name == $config.anrede_p) selected#end>$!message.text($salutation.name)</option>
                                                 #end
                                         </select>
                                 </td>
@@ -192,8 +192,8 @@
                                         <select name="helptarget" >
                                                 $config.helptarget
                                                 <option value="">${placeholderWithTranslation.OPTION_HELP_WINDOW_1}.</option>
-                                                <option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_2}.</option>
-                                                <option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_3}.</option>
+                                                <option value="_blank"      #if($config.helptarget && $config.helptarget == "_blank") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_2}.</option>
+                                                <option value="verawebhelp" #if($config.helptarget && $config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_3}.</option>
                                         </select>
                                 </td>
                         </tr>

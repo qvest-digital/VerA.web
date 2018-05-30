@@ -36,7 +36,7 @@
 		<input type="hidden" name="limit" value="">
 		<input type="hidden" name="selectNone" value="true">
 
-		#if($listerrors.size() > 0)
+		#if($listerrors && $listerrors.size() > 0)
 			<vera-warn>
 			#foreach($error in $listerrors)
 				$error<br>
