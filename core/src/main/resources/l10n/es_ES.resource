@@ -709,7 +709,6 @@ CSV_HEADLINE_PERSON_GUEST_DATA=Datos personales invitados
 CSV_HEADLINE_PERSON_PARTNER=Socio de datos personales
 CSV_HEADLINE_PERSON_H_PARTNER=Principal de datos personales
 
-
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importaci\u00F3n de datos de personas
 HINT_IMPORT_SHORT_CONTENT=Aviso: Al importar los datos, es posible que los datos de mayor longitud sean acortados para su visualizaci\u00F3n en VerA.web.

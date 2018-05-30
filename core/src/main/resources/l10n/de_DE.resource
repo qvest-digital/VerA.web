@@ -708,7 +708,6 @@ CSV_DELEGATION_PW_RESET_LINK=Delegierungs Passwort zurücksetzen Link
 
 CSV_OPTIONAL_FIELD=Optionales Feld
 
-
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import von Personendaten
 HINT_IMPORT_SHORT_CONTENT=Hinweis Beim Import k\u00E4nnen Feldinhalte, die l\u00E4nger als bei VerA.web vorgesehen sind, gek\u00FCrzt \u00FCbernommen werden.
