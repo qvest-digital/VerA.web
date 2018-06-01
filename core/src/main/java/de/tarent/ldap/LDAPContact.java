@@ -68,6 +68,7 @@ package de.tarent.ldap;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -87,44 +88,47 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.apache.commons.lang.StringUtils.isBlank;
+
 /**
  * Objekt, welches ungefähr das repräsentiert, was inetOrgPerson im LDAP ist...
  *
  * @author philipp
  */
 public class LDAPContact {
-    private String vorname = new String("");
-    private String mittelname = new String("");
-    private String nachname = new String("");
-    private String spitzname = new String("");
-    private String userid = new String("");
-    private String arbeitOrt = new String("");
-    private String arbeitPLZ = new String("");
-    private String arbeitStrasse = new String("");
-    private String arbeitBundesstaat = new String("");
-    private String arbeitLand = new String("");
-    private String arbeitFirma = new String("");
-    private String arbeitJob = new String("");
-    private String arbeitFax = new String("");
-    private String arbeitTelefon = new String("");
-    private String arbeitAbteilung = new String("");
-    private String arbeitHandy = new String("");
-    private String pager = new String("");
-    private String privatTelefon = new String("");
-    private String privatStrasse = new String("");
-    private String arbeitEmail = new String("");
-    private String beschreibung = new String("");
+    private static final String EMPTY_STRING = "";
+    private String vorname = EMPTY_STRING;
+    private String mittelname = EMPTY_STRING;
+    private String nachname = EMPTY_STRING;
+    private String spitzname = EMPTY_STRING;
+    private String userid = EMPTY_STRING;
+    private String arbeitOrt = EMPTY_STRING;
+    private String arbeitPLZ = EMPTY_STRING;
+    private String arbeitStrasse = EMPTY_STRING;
+    private String arbeitBundesstaat = EMPTY_STRING;
+    private String arbeitLand = EMPTY_STRING;
+    private String arbeitFirma = EMPTY_STRING;
+    private String arbeitJob = EMPTY_STRING;
+    private String arbeitFax = EMPTY_STRING;
+    private String arbeitTelefon = EMPTY_STRING;
+    private String arbeitAbteilung = EMPTY_STRING;
+    private String arbeitHandy = EMPTY_STRING;
+    private String pager = EMPTY_STRING;
+    private String privatTelefon = EMPTY_STRING;
+    private String privatStrasse = EMPTY_STRING;
+    private String arbeitEmail = EMPTY_STRING;
+    private String beschreibung = EMPTY_STRING;
 
     private Map verteilergruppe = new HashMap();
     private Map allUsers;
-    private List Users;
-    private static Logger logger = Logger.getLogger(LDAPContact.class.getName());
-    private String privatLand = new String("");
-    private String privatOrt = new String("");
-    private String privatPLZ = new String("");
-    private String privatFax = new String("");
-    private String privatHandy = new String("");
-    private String privatEmail = new String("");
+    private List users;
+    private static final Logger LOGGER = Logger.getLogger(LDAPContact.class.getName());
+    private String privatLand = EMPTY_STRING;
+    private String privatOrt = EMPTY_STRING;
+    private String privatPLZ = EMPTY_STRING;
+    private String privatFax = EMPTY_STRING;
+    private String privatHandy = EMPTY_STRING;
+    private String privatEmail = EMPTY_STRING;
 
     public LDAPContact() {
     }
@@ -141,11 +145,7 @@ public class LDAPContact {
     }
 
     private String get(Map address, String key) {
-        String wert = new String();
-        if (address.get(key) != null) {
-            wert = address.get(key).toString();
-        }
-        return wert;
+        return address.get(key) == null ? EMPTY_STRING : address.get(key).toString();
     }
 
     /**
@@ -157,7 +157,7 @@ public class LDAPContact {
         setVorname(get(address, "a4"));
         setNachname(get(address, "a5"));
         setArbeitFirma(get(address, "a7"));
-        if ((getArbeitFirma() == null) || "".equals(getArbeitFirma())) {
+        if ((getArbeitFirma() == null) || isBlank(getArbeitFirma())) {
             //PrivatAdresse
             setPrivatStrasse(get(address, "a8") + get(address, "a9"));
             setPrivatPLZ(get(address, "a10"));
@@ -191,12 +191,12 @@ public class LDAPContact {
      *
      */
     private void checkNachName() {
-        if (NullOrEmpty(nachname)) {
+        if (isBlank(nachname)) {
             //Nachname leer, versuche Firma
-            if (NullOrEmpty(arbeitFirma)) {
+            if (isBlank(arbeitFirma)) {
                 //Firma auch leer, versuche Vorname
-                if (NullOrEmpty(vorname)) {
-                    nachname = "";
+                if (isBlank(vorname)) {
+                    nachname = EMPTY_STRING;
                 } else {
                     nachname = "Vorname: vorname";
                 }
@@ -206,41 +206,33 @@ public class LDAPContact {
         }
     }
 
-    private boolean NullOrEmpty(String string) {
-        if (string == null) {
-            return true;
-        } else {
-            return string.equals("");
-        }
-    }
-
     public String toString() {
-        String ruckgabe = new String();
-        ruckgabe += "Vorname: " + vorname + "\n";
-        ruckgabe += "Mittlerer Name: " + mittelname + "\n";
-        ruckgabe += "Nachname:" + nachname + "\n";
-        ruckgabe += "Spitzname:" + spitzname + "\n";
-        ruckgabe += "UserID:" + userid + "\n";
-        ruckgabe += "Geschäftlich:\n";
-        ruckgabe += "Firma: " + arbeitFirma + "\n";
-        ruckgabe += "Abteilung: " + arbeitAbteilung + "\n";
-        ruckgabe += "Strasse: " + arbeitStrasse + "\n";
-        ruckgabe += "PLZ/Ort: " + arbeitPLZ + " " + arbeitOrt + "\n";
-        ruckgabe += "Staat: " + arbeitBundesstaat + "\n";
-        ruckgabe += "Land: " + arbeitLand + "\n";
-        ruckgabe += "Job: " + arbeitJob + "\n";
-        ruckgabe += "EMail: " + arbeitEmail + "\n";
-        ruckgabe += "Telefon: " + arbeitTelefon + "\n";
-        ruckgabe += "Fax: " + arbeitFax + "\n";
-        ruckgabe += "Pager: " + pager + "\n";
-        ruckgabe += "Handy: " + arbeitHandy + "\n";
-        ruckgabe += "Privat: \n";
-        ruckgabe += "Strasse: " + privatStrasse + "\n";
-        ruckgabe += "Telefon: " + privatTelefon + "\n";
-        ruckgabe += "\n";
-        ruckgabe += "Beschreibung: " + beschreibung + "\n";
+        StringBuffer ruckgabe = new StringBuffer(240)
+                .append("Vorname: " + vorname + "\n")
+                .append("Mittlerer Name: " + mittelname + "\n")
+                .append("Nachname:" + nachname + "\n")
+                .append("Spitzname:" + spitzname + "\n")
+                .append("UserID:" + userid + "\n")
+                .append("Geschäftlich:\n")
+                .append("Firma: " + arbeitFirma + "\n")
+                .append("Abteilung: " + arbeitAbteilung + "\n")
+                .append("Strasse: " + arbeitStrasse + "\n")
+                .append("PLZ/Ort: " + arbeitPLZ + " " + arbeitOrt + "\n")
+                .append("Staat: " + arbeitBundesstaat + "\n")
+                .append("Land: " + arbeitLand + "\n")
+                .append("Job: " + arbeitJob + "\n")
+                .append("EMail: " + arbeitEmail + "\n")
+                .append("Telefon: " + arbeitTelefon + "\n")
+                .append("Fax: " + arbeitFax + "\n")
+                .append("Pager: " + pager + "\n")
+                .append("Handy: " + arbeitHandy + "\n")
+                .append("Privat: \n")
+                .append("Strasse: " + privatStrasse + "\n")
+                .append("Telefon: " + privatTelefon + "\n")
+                .append("\n")
+                .append("Beschreibung: " + beschreibung + "\n");
 
-        return ruckgabe;
+        return ruckgabe.toString();
     }
 
     /**
@@ -250,7 +242,7 @@ public class LDAPContact {
      */
     public String getNachname() {
         checkNachName();
-        return "".equals(nachname) ? "unbekannt" : nachname;
+        return isBlank(nachname) ? "unbekannt" : nachname;
     }
 
     /**
@@ -431,7 +423,7 @@ public class LDAPContact {
             }
         } catch (AddressException e) {
             //Wenn Fehler, setze Mail auf null
-            arbeitEmail = "";
+            arbeitEmail = EMPTY_STRING;
         }
     }
 
@@ -665,14 +657,14 @@ public class LDAPContact {
      * @return Returns the users.
      */
     public List getUsers() {
-        return Users;
+        return users;
     }
 
     /**
      * @param users The users to set.
      */
     public void setUsers(List users) {
-        Users = users;
+        this.users = users;
     }
 
     /**
@@ -683,7 +675,7 @@ public class LDAPContact {
      * @see de.tarent.ldap.LDAPContact
      * @see javax.naming.directory.BasicAttributes
      */
-    public BasicAttributes generate_Attributes_restricted(LDAPManager manager) throws LDAPException {
+    public BasicAttributes generateAttributesRestricted(LDAPManager manager) throws LDAPException {
         BasicAttributes attr = new BasicAttributes();
         Element mapping = null;
         //Hole XML-Mapping
@@ -707,7 +699,7 @@ public class LDAPContact {
         for (int i = 0; i < childs.getLength(); i++) {
             String attribut = childs.item(i).getAttributes().item(0).getNodeValue();
             String value = getValue(childs.item(i).getAttributes());
-            if ((value != null) && (!value.equals(""))) { //$NON-NLS-1$
+            if ((value != null) && (StringUtils.isNotBlank(value))) { //$NON-NLS-1$
                 attr.put(attribut, value);
             }
         }
@@ -719,7 +711,7 @@ public class LDAPContact {
                 String adduser2 = manager.fullUserDN(adduser); //$NON-NLS-1$
                 users.add(adduser2);
             } catch (LDAPException le) {
-                logger.log(Level.WARNING, "User " + adduser + " existiert im LDAP leider nicht! Bitte bereinigen Sie die User.");
+                LOGGER.log(Level.WARNING, "User " + adduser + " existiert im LDAP leider nicht! Bitte bereinigen Sie die User.");
             }
         }
         if (users.size() == 0) {
@@ -820,7 +812,7 @@ public class LDAPContact {
             }
         } catch (AddressException e) {
             //Wenn Fehler, setze Mail auf null
-            this.privatEmail = "";
+            this.privatEmail = EMPTY_STRING;
         }
     }
 
