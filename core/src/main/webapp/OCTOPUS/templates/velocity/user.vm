@@ -31,6 +31,12 @@
         <h1>${placeholderWithTranslation.GENERIC_USER}</h1>
 
         <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
+
+            <span id="buttonPanel-top" class="textRight floatRight" style="margin-bottom: 10px;">
+                #*TODO: button path; *#
+                <input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.neuenbenutzererstellen}" title="${placeholderWithTranslation.neuenbenutzererstellen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
+            </span>
+
                 #if($listerrors && $listerrors.size() > 0)
                 <vera-warn>
                         #foreach($error in $listerrors)
@@ -60,7 +66,6 @@
                         <input type="hidden" name="list" value="$bean.id">
                         #end
 
-                        <div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
                         <table class="fixed">
                                 ##Set column size
                                 <col width="$column0%" />
@@ -78,51 +83,8 @@
                                         <th>${placeholderWithTranslation.GENERIC_USERNAME}</th>
                                         <th>${placeholderWithTranslation.GENERIC_USER_RIGHTS}</th>
                                 </tr>
-                                <tr>
-                                        <td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
-                                        <td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
-                        #if($domain == 'all')
-                                        <td>
-                         #if($allOrgUnit)
-                                                <select id="add-orgunit" name="add-orgunit" onchange="setModified('add')">
-                                                        <option value="">${placeholderWithTranslation.bitteauswaehlen}</option>
-                          #foreach($orgunit in $allOrgUnit)
-                                                        <option value="$orgunit.id">$!message.plain($orgunit.name)</option>
-                          #end
-                                                </select>
-                         #else
-                                                <input type="text" name="add-orgunit" value="" onchange="setModified('add')">
-                         #end
-                                        </td>
-                        #else
-                                        <input type="hidden" name="add-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
-                        #end
-                                        <td>
-                        #if($roleList)
-                                                <select id="add-name" name="add-name" onchange="setModified('add')">
-                                                        <option value="">${placeholderWithTranslation.bitteauswaehlen}</option>
-                         #foreach($role in $roleList)
-                                                        <option value="$role">$!message.plain($role)</option>
-                         #end
-                                                </select>
-                        #else
-                                                <input type="text" name="add-name" value="" onchange="setModified('add')">
-                        #end
-                                        </td>
-                                        <td>
-                                                <select id="add-role" name="add-role" onchange="setModified('add')">
-                                                        <option value="">${placeholderWithTranslation.bitteauswaehlen}</option>
-                                                        <option value="1">${placeholderWithTranslation.leseneingeschraenkt}</option>
-                                                        <option value="2">${placeholderWithTranslation.lesenuneingeschraenkt}</option>
-                                                        <option value="6">${placeholderWithTranslation.lesenundschreibeneingeschraenkt}</option>
-                                                        <option value="3">${placeholderWithTranslation.lesenundschreibenuneingeschraenkt}</option>
-                                                        <option value="4">${placeholderWithTranslation.mandantadministrieren}</option>
-                        #if($domain == 'all')
-                                                        <option value="5">${placeholderWithTranslation.administrieren}</option>
-                        #end
-                                                </select>
-                                        </td>
-                                </tr>
+
+
                         #foreach($bean in $list)
                                 <tr>
                          #if(!$bean.role || 5 != $bean.role || $domain == 'all')

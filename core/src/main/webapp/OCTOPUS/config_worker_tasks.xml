@@ -1643,8 +1643,8 @@
 			<param name="domain" value="ou"/>
 			<!-- wird auch von user.vm genutzt -->
 			<param name="order" refvalue="order"/>
-			<action name="showList" worker="UserListWorker"/>
-			<action name="getAll" worker="OrgUnitListWorker"/>
+            <action name="showList" worker="UserListWorker"/>
+            <action name="getAll" worker="OrgUnitListWorker"/>
 			<response type="velocity" name="user">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1658,7 +1658,6 @@
 			<doTask name="Load"/>
 			<action name="saveList" worker="UserListWorker"/>
 			<param name="domain" value="unassigned"/>
-			<action name="showAARoleList" worker="UserWorker"/>
 			<param name="domain" value="all"/>
 			<!-- wird auch von user.vm genutzt -->
 			<param name="order" refvalue="order"/>
