@@ -839,6 +839,14 @@ STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=Vue d\u2019ensemble de tous les \u00E9v\u
 statistikerstellen=Cr\u00E9er Statistiques
 
 # GAESTEVERWALTUNG DER VERANSTALTUNG
+MAIN_PERSON_STATUS_ACCEPT = Personnage principal-R\u00E9ponse positive
+MAIN_PERSON_STATUS_DECLINE = Personnage principal-R\u00E9ponse negative
+MAIN_PERSON_STATUS_PARTICIPATED = Personnage principal-Particip\u00E9
+MAIN_PERSON_STATUS_OPEN = Personnage principal-Ouvert
+PARTNER_STATUS_ACCEPT = Partenaire-R\u00E9ponse positive
+PARTNER_STATUS_DECLINE = Partenaire-R\u00E9ponse negative
+PARTNER_STATUS_PARTICIPATED = Partenaire-Particip\u00E9
+PARTNER_STATUS_OPEN = Partenaire-Ouvert
 gasteverwaltungderveranstaltung=L\u2019administration des clients de l\u2019\u00E9v\u00E9nement
 maxanzahlgaste=Nombre maximum des invit\u00E9s
 gastedetails=Invit\u00E9 D\u00E9tails
