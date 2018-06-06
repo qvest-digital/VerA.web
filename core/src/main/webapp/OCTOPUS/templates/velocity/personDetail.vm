@@ -548,10 +548,12 @@
         $("#person-iscompany:not([vera-disabled])").click(function() {
             if (this.checked) {
                 $('#company-row').show();
+                $('#div-update-employees').show();
                 $('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}');
                 $('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}');
             } else {
                 $('#company-row').hide();
+                $('#div-update-employees').hide();
                 $('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}*');
                 $('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}*');
             }

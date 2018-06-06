@@ -74,14 +74,7 @@ import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
-import de.tarent.aa.veraweb.utils.AddressHelper;
-import de.tarent.aa.veraweb.utils.DateHelper;
-import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
-import de.tarent.aa.veraweb.utils.OsiamLoginCreator;
-import de.tarent.aa.veraweb.utils.OsiamLoginRemover;
-import de.tarent.aa.veraweb.utils.PersonNameTrimmer;
-import de.tarent.aa.veraweb.utils.PropertiesReader;
-import de.tarent.aa.veraweb.utils.VerawebMessages;
+import de.tarent.aa.veraweb.utils.*;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.Statement;
@@ -95,7 +88,6 @@ import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
@@ -112,15 +104,7 @@ import org.osiam.client.oauth.Scope;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Octopus-Worker der Aktionen zur Detailansicht von Personen bereitstellt, wie
@@ -131,10 +115,6 @@ import java.util.UUID;
  * @author Stefan Weiz, tarent solutions GmbH
  */
 public class PersonDetailWorker implements PersonConstants {
-    /**
-     * Logger dieser Klasse
-     */
-    private static final Logger LOGGER = LogManager.getLogger(PersonDetailWorker.class);
 
     /**
      * Example Property file: client.id=example-client client.secret=secret
@@ -692,8 +672,13 @@ public class PersonDetailWorker implements PersonConstants {
 
         // must reverify due to above changes
         person.verify(octopusContext);
+
         if (person.isModified() && person.isCorrect()) {
             createOrUpdatePerson(octopusContext, person, database, transactionContext, originalPersonId, personOld);
+            if ("t".equals(person.iscompany)
+                    && Boolean.parseBoolean(octopusContext.requestAsString("updateEmployees"))) {
+                updateEmployeeCompanyAddress(person, database, transactionContext);
+            }
         } else if (person.isModified()) {
             octopusContext.setStatus("notcorrect");
         }
@@ -710,6 +695,25 @@ public class PersonDetailWorker implements PersonConstants {
          * cklein 2008-03-12
          */
         this.restoreNavigation(octopusContext, person, database);
+    }
+
+    /*
+     * Aktualisiert die Firmenadressen aller Mitarbeiter basierend auf den Daten der übergebenen Firma.
+     */
+    private void updateEmployeeCompanyAddress(Person company, Database database, TransactionContext transactionContext)
+            throws IOException, BeanException {
+
+        List<Person> employees = database.getBeanList("Person", database.getSelect(company)
+                .where(Where.and(Expr.equal("company_a_e1", company.company_a_e1), Expr.notEqual("pk", company.id))));
+
+        for (Person person: employees) {
+            AddressHelper.copyAddressData(company.getBusinessLatin(), person.getBusinessLatin(), true, true, true, true);
+            AddressHelper.copyAddressData(company.getBusinessExtra1(), person.getBusinessExtra1(), true, true, true, true);
+            AddressHelper.copyAddressData(company.getBusinessExtra2(), person.getBusinessExtra2(), true, true, true, true);
+
+            Update update = database.getUpdate(person);
+            transactionContext.execute(update);
+        }
     }
 
     private void setEntityCreationData(Person person, Person personOld) {
@@ -776,7 +780,6 @@ public class PersonDetailWorker implements PersonConstants {
             update.remove("noteorga_b_e1");
         }
         transactionContext.execute(update);
-        transactionContext.commit();
 
         clogger.logUpdate(octopusContext.personalConfig().getLoginname(), personOld, person);
     }
@@ -798,7 +801,6 @@ public class PersonDetailWorker implements PersonConstants {
             insert.remove("noteorga_b_e1");
         }
         transactionContext.execute(insert);
-        transactionContext.commit();
 
         // Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
         // original Person an neue Person kopieren
@@ -847,10 +849,9 @@ public class PersonDetailWorker implements PersonConstants {
                  */
                 Insert insert = database.getInsert(bean);
                 transactionContext.execute(insert);
-                transactionContext.commit();
             }
         } catch (BeanException e) {
-            LOGGER.warn("Beim Kopieren einer Person konnten Kategorien nicht uebernommen werden", e);
+            logger.warn("Beim Kopieren einer Person konnten Kategorien nicht uebernommen werden", e);
         }
     }
 
@@ -1028,8 +1029,8 @@ public class PersonDetailWorker implements PersonConstants {
      */
     void removePerson(OctopusContext octopusContext, Person person, String username) throws BeanException, IOException {
         // Datenbank-Einträge inkl. Abhängigkeiten löschen.
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Person l\u00f6schen: Person #" + person.id + " wird vollst\u00e4ndig gel\u00f6scht.");
+        if (logger.isDebugEnabled()) {
+            logger.debug("Person l\u00f6schen: Person #" + person.id + " wird vollst\u00e4ndig gel\u00f6scht.");
         }
 
         executeDeleteStatements(octopusContext, person.id, username);
@@ -1212,7 +1213,7 @@ public class PersonDetailWorker implements PersonConstants {
               .insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
             transactionContext.commit();
         } catch (BeanException e) {
-            LOGGER.error("Persisting uuid for link generation failed", e);
+            logger.error("Persisting uuid for link generation failed", e);
         }
     }
 
@@ -1240,7 +1241,7 @@ public class PersonDetailWorker implements PersonConstants {
                 .where(Expr.equal("pk", person.id)));
             transactionContext.commit();
         } catch (BeanException e) {
-            LOGGER.error("Persisting username failed", e);
+            logger.error("Persisting username failed", e);
         }
     }
 

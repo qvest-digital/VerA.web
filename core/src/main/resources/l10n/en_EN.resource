@@ -1134,6 +1134,7 @@ solldiesergastaufplatzgesetztwerden=Should this guest get a seat?
 solldiepartnerinderpartnermiteingeladenwerden=Should the partner be invited?
 aktuellepersonwirklichentfernen=Delete updated person?
 personspeichern=Save person
+mitarbeiteraktualisieren=Update all employees
 zurpersonenliste=To persons List
 zurpersonenuebersicht=To persons summary
 zurueckzurveranstaltung=Back to Event
