@@ -56,6 +56,7 @@
 		<commons-io.version>2.5</commons-io.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<commons-lang2.version>2.6</commons-lang2.version>
+		<commons-collections.version>3.2.2</commons-collections.version>
 		<dropwizard.version>0.7.1</dropwizard.version>
 		<extract-tool.version>1.6</extract-tool.version>
 		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>

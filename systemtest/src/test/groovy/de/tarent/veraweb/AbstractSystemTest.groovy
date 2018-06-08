@@ -31,8 +31,6 @@ abstract class AbstractSystemTest extends Specification {
     }
 
     def isCoreRunning() {
-        println('Waiting for vera.web application to be available.')
-
         def response = httpBuilder.request( ENDPOINT, Method.GET, ContentType.TEXT ) { req ->
             uri.path = PATH
         }
