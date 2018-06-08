@@ -1,0 +1,122 @@
+#set($activeMenu = "Administration")
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_USER}")
+#set($entity="USER")
+
+
+#parse("inc/header.vm")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.chosen-select').chosen({
+            max_shown_results: 10,
+            width: 500
+        });
+    });
+</script>
+
+
+<div id="content_container" style="overflow: visible"#*for chosen menu*#>
+
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/"
+                                                                                      title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_USER} > ${placeholderWithTranslation.neuenbenutzererstellen}</span>
+    </div>
+
+    <h1>${placeholderWithTranslation.neuenbenutzererstellen}</h1>
+
+    <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
+
+        #if($listerrors && $listerrors.size() > 0)
+            <vera-warn>
+                #foreach($error in $listerrors)
+                    $error<br>
+                #end
+            </vera-warn>
+        #end
+
+        <input type="hidden" name="start" value="">
+        <input type="hidden" name="selectNone" value="true">
+        <input type="hidden" name="doInsert" value="true">
+        <input type="hidden" name="doUpdate" value="true">
+        <input type="hidden" name="doRemove" value="true">
+        <input type="hidden" name="limit" value=""/>
+        #if($order)
+            <input type="hidden" name="order" value="$order">
+        #end
+
+        <div id="main_content">
+
+            #foreach($bean in $list)
+                <input type="hidden" name="list" value="$bean.id">
+            #end
+
+            <table>
+
+                <tr>
+                    <td>
+                        ${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}
+                    </td>
+                    <td>
+                        #if($domain == 'all')
+                            #if($allOrgUnit)
+                                <select class="chosen-select" name="add-orgunit" onchange="setModified('add')">
+                                    <option value="">${placeholderWithTranslation.bitteauswaehlen}</option>
+                                    #foreach($orgunit in $allOrgUnit)
+                                        <option value="$orgunit.id">$!message.plain($orgunit.name)</option>
+                                    #end
+                                </select>
+                            #else
+                                <input type="text" name="add-orgunit" value="" onchange="setModified('add')">
+                            #end
+                        #else
+                            <input type="hidden" name="add-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
+                        #end
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ${placeholderWithTranslation.GENERIC_USERNAME}
+                    </td>
+                    <td>
+                        #if($roleList)
+
+                            <select class="chosen-select" name="add-name" onchange="setModified('add')">
+                                <option value="">${placeholderWithTranslation.bitteauswaehlen}</option>
+                                #foreach($role in $roleList)
+                                    <option value="$role">$!message.plain($role)</option>
+                                #end
+                            </select>
+                        #else
+                            <input type="text" name="add-name" value="" onchange="setModified('add')">
+                        #end
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ${placeholderWithTranslation.GENERIC_USER_RIGHTS}
+                    </td>
+                    <td>
+                        <select class="chosen-select" name="add-role" onchange="setModified('add')">
+                            <option value="">${placeholderWithTranslation.bitteauswaehlen}</option>
+                            <option value="1">${placeholderWithTranslation.leseneingeschraenkt}</option>
+                            <option value="2">${placeholderWithTranslation.lesenuneingeschraenkt}</option>
+                            <option value="6">${placeholderWithTranslation.lesenundschreibeneingeschraenkt}</option>
+                            <option value="3">${placeholderWithTranslation.lesenundschreibenuneingeschraenkt}</option>
+                            <option value="4">${placeholderWithTranslation.mandantadministrieren}</option>
+                            #if($domain == 'all')
+                                <option value="5">${placeholderWithTranslation.administrieren}</option>
+                            #end
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+            <div class="textRight marginTop10" id="buttonPanel-bottom">
+                <input type="submit" name="save" value="${placeholderWithTranslation.speichern}"
+                       title="${placeholderWithTranslation.speichern}" class="mainButton"/>
+            </div>
+        </div>
+    </form>
+</div>
+#parse("inc/footer.vm")

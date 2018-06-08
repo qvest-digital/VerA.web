@@ -1681,6 +1681,24 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
+        <!-- administration -> benutzer -> neuen benutzer erstellen -->
+        <task name="UserCreate" access="public" groups="Administrator,SystemUser">
+            <description>
+                Dieser Task ist zum erstellen neuer Nutzer.
+                Eine Liste wird aus dem LDAP geladen und abgeglichen.
+            </description>
+            <doTask name="Load"/>
+            <param name="domain" value="unassigned"/>
+            <param name="domain" value="all"/>
+            <action name="showAARoleList" worker="UserWorker"/>
+            <action name="saveList" worker="OrgUnitListWorker"/>
+            <action name="showList" worker="OrgUnitListWorker"/>
+            <action name="getAll" worker="OrgUnitListWorker"/>
+
+            <response type="velocity" name="userCreate">
+                <param name="ContentType" value="text/html;charset=UTF-8"/>
+            </response>
+        </task>
 		<task name="OrgunitCleanup" access="public" groups="Administrator,SystemUser">
 			<description>
 				Dieser Task zeigt Mandanten-unabhängige Daten an und

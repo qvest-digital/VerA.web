@@ -2,11 +2,11 @@
 
 ## $Id$
 #if($domain == 'ou')
-#set($title = "${placeholderWithTranslation.verwaltungallebenutzerimmandanten}")
+    #set($title = "${placeholderWithTranslation.verwaltungallebenutzerimmandanten}")
 #elseif($domain == 'all')
-#set($title = "${placeholderWithTranslation.verwaltungallebenutzer}")
+    #set($title = "${placeholderWithTranslation.verwaltungallebenutzer}")
 #else
-#set($title = "${placeholderWithTranslation.GENERIC_USER}")
+    #set($title = "${placeholderWithTranslation.GENERIC_USER}")
 #end
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_USER}")
 #set($entity="USER")
@@ -24,128 +24,155 @@
 
 <div id="content_container">
 
-        <div id="breadcrumb" class="textRight marginBottom10">
-                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_USER}</span>
-        </div>
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/"
+                                                                                      title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_USER}</span>
+    </div>
 
-        <h1>${placeholderWithTranslation.GENERIC_USER}</h1>
+    <h1>${placeholderWithTranslation.GENERIC_USER}</h1>
 
-        <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
+    <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
 
             <span id="buttonPanel-top" class="textRight floatRight" style="margin-bottom: 10px;">
-                #*TODO: button path; *#
-                <input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.neuenbenutzererstellen}" title="${placeholderWithTranslation.neuenbenutzererstellen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
+                <input type="button" id="button.newPerson" name="button.newPerson"
+                       value="${placeholderWithTranslation.neuenbenutzererstellen}"
+                       title="${placeholderWithTranslation.neuenbenutzererstellen}" class="mainButton"
+                       onclick="window.location.href='UserCreate';"/>
             </span>
 
-                #if($listerrors && $listerrors.size() > 0)
-                <vera-warn>
-                        #foreach($error in $listerrors)
-                                $error<br>
-                        #end
-                </vera-warn>
+        #if($listerrors && $listerrors.size() > 0)
+            <vera-warn>
+                #foreach($error in $listerrors)
+                    $error<br>
                 #end
+            </vera-warn>
+        #end
 
-                <input type="hidden" name="start" value="">
-                <input type="hidden" name="selectNone" value="true">
-                <input type="hidden" name="doInsert" value="true">
-                <input type="hidden" name="doUpdate" value="true">
-                <input type="hidden" name="doRemove" value="true">
-                <input type="hidden" name="limit" value="" />
-                #if($order)
-                        <input type="hidden" name="order" value="$order">
-                #end
+        <input type="hidden" name="start" value="">
+        <input type="hidden" name="selectNone" value="true">
+        <input type="hidden" name="doInsert" value="true">
+        <input type="hidden" name="doUpdate" value="true">
+        <input type="hidden" name="doRemove" value="true">
+        <input type="hidden" name="limit" value=""/>
+        #if($order)
+            <input type="hidden" name="order" value="$order">
+        #end
 
-                <span class="inlineLabel" id="actionPanel">
+        <span class="inlineLabel" id="actionPanel">
                         <strong>${placeholderWithTranslation.markiertenbenutzer}</strong>
-                        <input type="submit" name="remove" value="${placeholderWithTranslation.loeschen}" class="button" title="${placeholderWithTranslation.markiertenbenutzerloeschen}" />
+                        <input type="submit" name="remove" value="${placeholderWithTranslation.loeschen}" class="button"
+                               title="${placeholderWithTranslation.markiertenbenutzerloeschen}"/>
                 </span>
 
-                <div id="main_content">
+        <div id="main_content">
 
-                        #foreach($bean in $list)
-                        <input type="hidden" name="list" value="$bean.id">
-                        #end
+            #foreach($bean in $list)
+                <input type="hidden" name="list" value="$bean.id">
+            #end
 
-                        <table class="fixed">
-                                ##Set column size
-                                <col width="$column0%" />
-                        <col width="$column1%" />
-                        <col width="$column2%" />
-                        <col width="$column3%" />
-                        <col width="$column4%" />
+            <table class="fixed">
+            ##Set column size
+                <col width="$column0%"/>
+                <col width="$column1%"/>
+                <col width="$column2%"/>
+                <col width="$column3%"/>
+                <col width="$column4%"/>
 
-                                <tr style="height: 20px;">
-                                        <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-                                        <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
-                        #if($domain == 'all')
-                                        <th>${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}</th>
-                        #end
-                                        <th>${placeholderWithTranslation.GENERIC_USERNAME}</th>
-                                        <th>${placeholderWithTranslation.GENERIC_USER_RIGHTS}</th>
-                                </tr>
+                <tr style="height: 20px;">
+                    <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect"
+                                                            title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size())
+                                                            checked#end/></th>
+                    <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                    #if($domain == 'all')
+                        <th>${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}</th>
+                    #end
+                    <th>${placeholderWithTranslation.GENERIC_USERNAME}</th>
+                    <th>${placeholderWithTranslation.GENERIC_USER_RIGHTS}</th>
+                </tr>
 
 
-                        #foreach($bean in $list)
-                                <tr>
-                         #if(!$bean.role || 5 != $bean.role || $domain == 'all')
-                                        <td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-                                        <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
-                          #if($domain == 'all')
-                                        <td>
-                           #if($allOrgUnit)
-                                                <select id="${bean.id}-orgunit" name="${bean.id}-orgunit" onchange="setModified('${bean.id}')">
-                                                        <option value="">${placeholderWithTranslation.bitteauswahlen}</option>
-                            #foreach($orgunit in $allOrgUnit)
-                                                        <option value="$orgunit.id" #if($orgunit.id==$bean.orgunit)selected#end>$!message.plain($orgunit.name)</option>
-                            #end
-                                                </select>
-                           #else
-                                                <input type="text" name="${bean.id}-orgunit" value="$!message.plain($bean.orgunit)" onchange="setModified('${bean.id}')">
-                           #end
-                                        </td>
-                          #else
-                                        <input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
-                          #end
-                                        <td><input type="hidden" name="${bean.id}-name" value="$!message.plain($bean.name)"/>$!message.plain($bean.name)</td>
-                                        <td>
-                                                <select id="${bean.id}-role" name="${bean.id}-role"  onchange="setModified('${bean.id}')">
-                                                        <option value="">${placeholderWithTranslation.inaktiv}</option>
-                                                        <option value="1" #if(1==$bean.role)selected#end>${placeholderWithTranslation.leseneingeschraenkt}</option>
-                                                        <option value="2" #if(2==$bean.role)selected#end>${placeholderWithTranslation.lesenuneingeschraenkt}</option>
-                                                        <option value="6" #if(6==$bean.role)selected#end>${placeholderWithTranslation.lesenundschreibeneingeschraenkt}</option>
-                                                        <option value="3" #if(3==$bean.role)selected#end>${placeholderWithTranslation.lesenundschreibenuneingeschraenkt}</option>
-                                                        <option value="4" #if(4==$bean.role)selected#end>${placeholderWithTranslation.mandantadministrieren}</option>
-                          #if($domain == 'all')
-                                                        <option value="5" #if(5==$bean.role)selected#end>${placeholderWithTranslation.administrieren}</option>
-                          #end
-                                                </select>
-                                        </td>
-                         #else
-                                        <td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"  vera-disabled></td>
-                                        <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!{bean.id}</td>
-                                        <input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
-                                        <td><input type="hidden" name="${bean.id}-name" value="$!message.plain($bean.name)"/>$!message.plain($bean.name)</td>
-                                        <td class="textCenter"><input type="hidden" name="${bean.id}-role" value="5"><input type="text" name="${bean.id}-role-text" value="Administrieren" vera-disabled></td>
-                         #end
-                                </tr>
-                        #end
-
-                        #if ($listparam.count == 0)
+                #foreach($bean in $list)
                     <tr>
-                                                <td colspan="99">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
-                                        </tr>
+                        #if(!$bean.role || 5 != $bean.role || $domain == 'all')
+                            <td class="textCenter"><input type="hidden" id="${bean.id}-modified"
+                                                          name="${bean.id}-modified" value="false"><input
+                                    type="checkbox" name="${bean.id}-select" value="true"></td>
+                            <td class="textCenter"><input type="hidden" name="${bean.id}-id"
+                                                          value="$!bean.id">$!{bean.id}</td>
+                            #if($domain == 'all')
+                                <td>
+                                    #if($allOrgUnit)
+                                        <select id="${bean.id}-orgunit" name="${bean.id}-orgunit"
+                                                onchange="setModified('${bean.id}')">
+                                            <option value="">${placeholderWithTranslation.bitteauswahlen}</option>
+                                            #foreach($orgunit in $allOrgUnit)
+                                                <option value="$orgunit.id"
+                                                        #if($orgunit.id==$bean.orgunit)selected#end>$!message.plain($orgunit.name)</option>
+                                            #end
+                                        </select>
+                                    #else
+                                        <input type="text" name="${bean.id}-orgunit"
+                                               value="$!message.plain($bean.orgunit)"
+                                               onchange="setModified('${bean.id}')">
+                                    #end
+                                </td>
+                            #else
+                                <input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
+                            #end
+                            <td><input type="hidden" name="${bean.id}-name"
+                                       value="$!message.plain($bean.name)"/>$!message.plain($bean.name)</td>
+                            <td>
+                                <select id="${bean.id}-role" name="${bean.id}-role"
+                                        onchange="setModified('${bean.id}')">
+                                    <option value="">${placeholderWithTranslation.inaktiv}</option>
+                                    <option value="1"
+                                            #if(1==$bean.role)selected#end>${placeholderWithTranslation.leseneingeschraenkt}</option>
+                                    <option value="2"
+                                            #if(2==$bean.role)selected#end>${placeholderWithTranslation.lesenuneingeschraenkt}</option>
+                                    <option value="6"
+                                            #if(6==$bean.role)selected#end>${placeholderWithTranslation.lesenundschreibeneingeschraenkt}</option>
+                                    <option value="3"
+                                            #if(3==$bean.role)selected#end>${placeholderWithTranslation.lesenundschreibenuneingeschraenkt}</option>
+                                    <option value="4"
+                                            #if(4==$bean.role)selected#end>${placeholderWithTranslation.mandantadministrieren}</option>
+                                    #if($domain == 'all')
+                                        <option value="5"
+                                                #if(5==$bean.role)selected#end>${placeholderWithTranslation.administrieren}</option>
+                                    #end
+                                </select>
+                            </td>
+                        #else
+                            <td class="textCenter"><input type="hidden" id="${bean.id}-modified"
+                                                          name="${bean.id}-modified" value="false"><input
+                                    type="checkbox" name="${bean.id}-select" value="true" vera-disabled></td>
+                            <td class="textCenter"><input type="hidden" name="${bean.id}-id"
+                                                          value="$!bean.id">$!{bean.id}</td>
+                            <input type="hidden" name="${bean.id}-orgunit" value="$bean.orgunit">
+                            <td><input type="hidden" name="${bean.id}-name"
+                                       value="$!message.plain($bean.name)"/>$!message.plain($bean.name)</td>
+                            <td class="textCenter"><input type="hidden" name="${bean.id}-role" value="5"><input
+                                    type="text" name="${bean.id}-role-text" value="Administrieren" vera-disabled></td>
                         #end
+                    </tr>
+                #end
 
-                        #set($itemName = "${placeholderWithTranslation.GENERIC_USER_PLURAL}")
-                        #tableFooter(5)
-                        #parse("inc/list-direct-new.vm")
+                #if ($listparam.count == 0)
+                    <tr>
+                        <td colspan="99">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
+                    </tr>
+                #end
 
-                        </table>
+                #set($itemName = "${placeholderWithTranslation.GENERIC_USER_PLURAL}")
+                #tableFooter(5)
+                #parse("inc/list-direct-new.vm")
 
-                        <div class="textRight marginTop10" id="buttonPanel-bottom">
-                                <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-                        </div>
-                </div>
-        </form>
+            </table>
+
+            <div class="textRight marginTop10" id="buttonPanel-bottom">
+                <input type="submit" name="save" value="${placeholderWithTranslation.speichern}"
+                       title="${placeholderWithTranslation.speichern}" class="mainButton"/>
+            </div>
+        </div>
+    </form>
 </div>
 #parse("inc/footer.vm")
