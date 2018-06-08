@@ -707,9 +707,9 @@ public class PersonDetailWorker implements PersonConstants {
                 .where(Where.and(Expr.equal("company_a_e1", company.company_a_e1), Expr.notEqual("pk", company.id))));
 
         for (Person person: employees) {
-            AddressHelper.copyAddressData(company.getBusinessLatin(), person.getBusinessLatin(), true, true, true, true);
-            AddressHelper.copyAddressData(company.getBusinessExtra1(), person.getBusinessExtra1(), true, true, true, true);
-            AddressHelper.copyAddressData(company.getBusinessExtra2(), person.getBusinessExtra2(), true, true, true, true);
+            AddressHelper.copyAddressData(company.getBusinessLatin(), person.getBusinessLatin(), true, true, true, false, true);
+            AddressHelper.copyAddressData(company.getBusinessExtra1(), person.getBusinessExtra1(), true, true, true, false, true);
+            AddressHelper.copyAddressData(company.getBusinessExtra2(), person.getBusinessExtra2(), true, true, true, false, true);
 
             Update update = database.getUpdate(person);
             transactionContext.execute(update);

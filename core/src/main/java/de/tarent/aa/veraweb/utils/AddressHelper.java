@@ -343,11 +343,27 @@ public class AddressHelper implements PersonConstants {
      * @param forceCopy   Kopiert auch wenn ihm Zielfeld bereits was steht.
      * @param copyCompany Kopiert wenn wahr den Firmennamen
      * @param copyAddress Kopiert wenn wahr entsprechende Adressdaten.
-     * @param copyContact Kopiert wenn wahr entsprechende Kommunikationsdaten.
+     * @param copyContact Kopiert wenn wahr entsprechende Kommunikationsdaten inkl. WWW-Adresse
      */
     public static void copyAddressData(PersonAddressFacade source, PersonAddressFacade target, boolean forceCopy,
-      boolean copyCompany,
-      boolean copyAddress, boolean copyContact) {
+                                       boolean copyCompany, boolean copyAddress, boolean copyContact) {
+        copyAddressData(source, target, forceCopy, copyCompany, copyAddress, copyContact, copyContact);
+    }
+
+    /**
+     * Kopiert alle Adress- und Kommunikationsdaten einer AddressFacade
+     * in eine andere, wenn das entsprechende Feld dort nicht gefüllt ist.
+     *
+     * @param source      FIXME
+     * @param target      FIXME
+     * @param forceCopy   Kopiert auch wenn ihm Zielfeld bereits was steht.
+     * @param copyCompany Kopiert wenn wahr den Firmennamen
+     * @param copyAddress Kopiert wenn wahr entsprechende Adressdaten.
+     * @param copyContact Kopiert wenn wahr entsprechende Kommunikationsdaten.
+     * @param copyURL Kopiert wenn wahr die WWW-Adresse
+     */
+    public static void copyAddressData(PersonAddressFacade source, PersonAddressFacade target, boolean forceCopy,
+      boolean copyCompany, boolean copyAddress, boolean copyContact, boolean copyURL) {
         assert source != null && target != null;
 
         if (copyCompany) {
@@ -397,6 +413,8 @@ public class AddressHelper implements PersonConstants {
             if (forceCopy || empty(target.getEMail())) {
                 target.setEMail(source.getEMail());
             }
+        }
+        if (copyURL) {
             if (forceCopy || empty(target.getUrl())) {
                 target.setUrl(source.getUrl());
             }
