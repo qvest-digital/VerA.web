@@ -69,6 +69,7 @@ package de.tarent.aa.veraweb.worker;
  */
 
 import de.tarent.aa.veraweb.beans.Duration;
+import de.tarent.aa.veraweb.beans.SearchConfig;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.aa.veraweb.beans.ViewConfig;
@@ -117,6 +118,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     private boolean loaded = false;
     private final PropertiesReader propertiesReader = new PropertiesReader();
     private final ViewConfig verawebViewConfig = new ViewConfig(propertiesReader.getProperties());
+    private final SearchConfig verawebSearchConfig = new SearchConfig(propertiesReader.getProperties());
 
     final Logger LOGGER = LogManager.getLogger(ConfigWorker.class.getCanonicalName());
 
@@ -198,6 +200,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         //FIXME: here is as good as anywhere else, I guess?
         cntx.setContent("url", new URLGenerator(propertiesReader.getProperties()));
         cntx.setContent("viewConfig", verawebViewConfig);
+        cntx.setContent("searchConfig", verawebSearchConfig);
     }
 
     /**

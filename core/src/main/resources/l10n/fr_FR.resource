@@ -1371,6 +1371,7 @@ verawebdetailansicht=VerA.web :: Vue de d\u00E9tail
 datensatzbearbeiten=Modifier enregistrement
 zuruecksetzen=r\u00E9initialisation
 datensatzloeschen=Supprimer l\u2019enregistrement
+PERSON_PART_SEARCH_HINT=Les r\u00E9sultats contenant une partie de votre donn\u00E9e sont \u00E9galement affich\u00E9s.
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=Vous pouvez utiliser soi-disant wildcards dans la recherche, le * repr\u00E9sente un chiffre, et le ? les caract\u00E8res individuels.
 undamtsbezeichnungfunktion=et titre/fonction
 HINT_SEARCH_WHERE=La recherche s\u2019effectue dans les pr\u00E9nom, nom, ville, code postal, rue, soci\u00E9t\u00E9, t\u00E9l\u00E9phone, fax, e-mail mobile, commentaires, cat\u00E9gories, espaces de travail.

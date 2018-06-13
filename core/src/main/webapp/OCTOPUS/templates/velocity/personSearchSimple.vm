@@ -40,10 +40,13 @@
         </form>
     </div>
     <vera-info vera-stay>
-	    ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}.
+        ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}.
+        #if($searchConfig.personPartSearch)
+            ${placeholderWithTranslation.PERSON_PART_SEARCH_HINT}
+        #end
         ${placeholderWithTranslation.HINT_SEARCH_WHERE}
-		${placeholderWithTranslation.undamtsbezeichnungfunktion}.
-		<img src="../images/dialog_close.png" id="close-info" style="top:-28px;" onclick="$(this).parent().get(0).remove()" />
+        ${placeholderWithTranslation.undamtsbezeichnungfunktion}.
+        <img src="../images/dialog_close.png" id="close-info" style="top:-28px;" onclick="$(this).parent().get(0).remove()" />
     </vera-info>
 </div>
 
