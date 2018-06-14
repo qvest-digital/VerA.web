@@ -14,7 +14,7 @@ test:
   except:
     - master@veraweb-int/veraweb
   script:
-    - mvn verify sonar:sonar -Psystemtest -Dsonar.host.url=https://ci-busyapps.lan.tarent.de/sonar/ -Dsonar.analysis.mode=preview -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_BUILD_REF -Dsonar.gitlab.ref_name=$CI_BUILD_REF_NAME
+    - xvfb-run mvn verify sonar:sonar -Psystemtest -Dsonar.host.url=https://ci-busyapps.lan.tarent.de/sonar/ -Dsonar.analysis.mode=preview -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_BUILD_REF -Dsonar.gitlab.ref_name=$CI_BUILD_REF_NAME
   artifacts:
     paths:
     - core/target/surefire-reports/
@@ -25,6 +25,7 @@ test:
     - shared/target/surefire-reports/
     - vwor/target/surefire-reports/
     - systemtest/target/failsafe-reports
+    - systemtest/target/geb-reports
     name: reports
     when: on_failure
     expire_in: 4 weeks
@@ -36,7 +37,7 @@ build:
   only:
     - master@veraweb-int/veraweb
   script:
-    - mvn verify -Psystemtest
+    - xvfb-run mvn verify -Psystemtest
   artifacts:
     paths:
     - core/target/surefire-reports/
@@ -47,6 +48,7 @@ build:
     - shared/target/surefire-reports/
     - vwor/target/surefire-reports/
     - systemtest/target/failsafe-reports
+    - systemtest/target/geb-reports
     name: reports
     when: on_failure
     expire_in: 4 weeks
