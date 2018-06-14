@@ -101,7 +101,19 @@ public class UserConfigWorker {
       "personTab", "personMemberTab",
       "personAddresstypeTab", "personLocaleTab" };
     private static final String PARAMS_BOOLEAN[] = {
-      "guestListFunction", "guestListCity", "guestListPhone", "personListState" };
+        "guestListFunction", "guestListCity",
+        "guestListPhone", "guestLfdNr",
+        "guestReserve", "guestCompany",
+        "guestFirstname", "guestLastname",
+        "guestEmail", "guestMainPerson",
+        "guestPartner", "personListState",
+        "personID", "personWorkarea",
+        "personFirstname", "personLastname",
+        "personFunction", "personCompany",
+        "personStreet", "personStreet",
+        "personPostCode", "personCity",
+        "personCategory"
+    };
 
     /**
      * Octopus-Eingabe-Parameter für {@link #init(OctopusContext)}
