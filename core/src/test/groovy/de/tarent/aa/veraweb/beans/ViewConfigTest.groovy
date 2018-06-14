@@ -80,7 +80,7 @@ class ViewConfigTest extends Specification {
         ViewConfig testObject = new ViewConfig(properties)
 
         then:
-        testObject.SHOW_INTERNAL_ID == Boolean.FALSE
+        testObject.showInternalId == Boolean.FALSE
     }
 
     def 'if show veraweb id property is not given the default will be used'() {
@@ -88,18 +88,26 @@ class ViewConfigTest extends Specification {
         ViewConfig testObject = new ViewConfig(properties)
 
         then:
-        testObject.SHOW_VERAWEB_ID == Boolean.TRUE
+        testObject.showVerawebId == Boolean.TRUE
+    }
+
+    def 'if show global open tab property is not given the default will be used'() {
+        when: 'no properties are given at all'
+        ViewConfig testObject = new ViewConfig(properties)
+
+        then:
+        testObject.showGlobalOpenTab == Boolean.FALSE
     }
 
     def 'if show veraweb id property is given this value will be used'() {
         given: 'property is given and is not equal to default'
-        properties.put(ViewConfig.SHOW_VERWEB_ID_KEY, 'false')
+        properties.put(ViewConfig.SHOW_VERAWEB_ID_KEY, 'false')
 
         when: 'no properties are given at all'
         ViewConfig testObject = new ViewConfig(properties)
 
         then:
-        testObject.SHOW_VERAWEB_ID == Boolean.FALSE
+        testObject.showVerawebId == Boolean.FALSE
     }
 
     def 'if show internal id property is given this value will be used'() {
@@ -110,6 +118,17 @@ class ViewConfigTest extends Specification {
         ViewConfig testObject = new ViewConfig(properties)
 
         then:
-        testObject.SHOW_VERAWEB_ID == Boolean.TRUE
+        testObject.showInternalId == Boolean.TRUE
+    }
+
+    def 'if show open tab property is given this value will be used'() {
+        given: 'property is given and is not equal to default'
+        properties.put(ViewConfig.SHOW_GLOBAL_OPENTAB_KEY, 'true')
+
+        when: 'no properties are given at all'
+        ViewConfig testObject = new ViewConfig(properties)
+
+        then:
+        testObject.showGlobalOpenTab == Boolean.TRUE
     }
 }

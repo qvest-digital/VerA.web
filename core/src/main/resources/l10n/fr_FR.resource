@@ -176,6 +176,7 @@ HEADER_ELEMENT_ONE_RECORD_SINGULAR=un enregistrement
 HEADER_ELEMENT_ONE_NEW_RECORD_SINGULAR=un enregistrement nouvel
 HEADER_ELEMENT_PLURAL=Enregistrements
 HEADER_ELEMENT_NEW_PLURAL=Nouveaux Enregistrements
+HEADER_ELEMENT_NEW_TAB_HINT=ouvrir la page dans un nouvel onglet
 
 # FIXES
 GENERIC_EDIT=Modifier
