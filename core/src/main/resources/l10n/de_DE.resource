@@ -1244,6 +1244,7 @@ verwaltungallebenutzerimmandanten=Verwaltung\u200A\u2014\u200Aalle Benutzer im M
 verwaltungallebenutzer=Verwaltung\u200A\u2014\u200Aalle Benutzer
 markiertenbenutzer=Markierte(n) Benutzer
 markiertenbenutzerloeschen=Markierte(n) Benutzer l\u00D6schen
+neuenbenutzererstellen=Neuen Benutzer erstellen
 leseneingeschraenkt=Lesen eingeschr\u00E4nkt
 lesenuneingeschraenkt=Lesen uneingeschr\u00E4nkt
 lesenundschreibeneingeschraenkt=Lesen und Schreiben eingeschr\u00E4nkt

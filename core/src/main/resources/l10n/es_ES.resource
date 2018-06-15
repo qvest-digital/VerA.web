@@ -1244,6 +1244,7 @@ verwaltungallebenutzerimmandanten=Gesti\u00F3n\u200A\u2014\u200Ausuarios en mand
 verwaltungallebenutzer=Gesti\u00F3n\u200A\u2014\u200Atodos los usuarios
 markiertenbenutzer=Usuario(s) seleccionado(s)
 markiertenbenutzerloeschen=Eliminar usuario(s) seleccionado(s)
+neuenbenutzererstellen=Crear nuevo usuario
 leseneingeschraenkt=Lectura restringida
 lesenuneingeschraenkt=Lectura permitida
 lesenundschreibeneingeschraenkt=Lectura y escritura restringidas

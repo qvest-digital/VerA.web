@@ -1243,6 +1243,7 @@ verwaltungallebenutzerimmandanten=Management\u200A\u2014\u200Aall users in Clien
 verwaltungallebenutzer=Management\u200A\u2014\u200Aall users
 markiertenbenutzer=Selected user(s)
 markiertenbenutzerloeschen=Delete selected user(s)
+neuenbenutzererstellen=Create a new user
 leseneingeschraenkt=Read only
 lesenuneingeschraenkt=Read only unrestrained
 lesenundschreibeneingeschraenkt=Read and write only

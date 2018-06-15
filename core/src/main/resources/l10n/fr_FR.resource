@@ -1244,6 +1244,7 @@ verwaltungallebenutzerimmandanten=Gestion\u200A\u2014\u200Atous les utilisateurs
 verwaltungallebenutzer=Gestion\u200A\u2014\u200Atous les utilisateurs
 markiertenbenutzer=Utilisateur(s) s\u00E9l\u00E9ctionn\u00E9(s)
 markiertenbenutzerloeschen=Supprimer l\u2019utilisateur s\u00E9lectionn\u00E9
+neuenbenutzererstellen=Cr\u00E9er un nouvel utilisateur
 leseneingeschraenkt=Lecture restreinte
 lesenuneingeschraenkt=Lecture plein
 lesenundschreibeneingeschraenkt=Lire et \u00E9crire restreint

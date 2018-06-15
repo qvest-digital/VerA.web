@@ -19,6 +19,8 @@
                 ##              Calendar (http://www.dynarch.com/projects/calendar/)
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/calendar.js"></script>
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/calendar-setup.js"></script>
+                <script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-chosen/chosen.jquery.min.js"></script>
+
 #if("$!{placeholderWithTranslation.language_short}" == "")
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/lang/calendar-de.js"></script>
 #else
@@ -35,6 +37,7 @@
 ##              Style
                 <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
                 <link rel="stylesheet" type="text/css" href="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.css" media="all" />
+                <link rel="stylesheet" type="text/css" href="${paths.staticWeb}js/ext/jquery-chosen/chosen.min.css" media="all" />
                 <!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all"-->
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/bacon/dist/Bacon.min.js"></script>
                 <script type="text/javascript" src="${paths.staticWeb}js/vera/guest-filter-auto-commit.js"></script>
