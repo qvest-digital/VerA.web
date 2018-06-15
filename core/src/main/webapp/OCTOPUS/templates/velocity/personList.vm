@@ -152,60 +152,7 @@
     </vera-success>
 #end
 
-<style>
-    /** PopUp */
-    /* Outer */
-    .popup {
-        width:100%;
-        height:100%;
-        display:none;
-        position:fixed;
-        top:0px;
-        left:0px;
-    }
-    /* Inner */
-    .popup-inner {
-        max-width:500px;
-        width:90%;
-        padding:30px;
-        position:absolute;
-        top:50%;
-        left:50%;
-        -webkit-transform:translate(-50%, -50%);
-        transform:translate(-50%, -50%);
-        box-shadow:0px 2px 6px rgba(0,0,0,1);
-        border-radius:3px;
-        background:#fff;
-    }
-    /* Close Button */
-    .popup-close {
-        width: 30px;
-        height: 30px;
-        padding-top: 4px;
-        display: inline-block;
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        background: rgba(0,0,0,0.8);
-        font-size: 20px;
-        text-align: center;
-        line-height: 100%;
-        color: #fff;
-    }
-
-    .titleH2 {
-        text-align: left;
-    }
-
-    .checkbox-margin {
-        margin: 9px 5px 9px 0;
-    }
-
-    .hideEle {
-        display: none;
-    }
-</style>
-
+<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/popup.css" media="all" />
 <script src="${paths.staticWeb}js/vera/veraweb-popup.js"></script>
 
 <div id="content_container">
@@ -774,7 +721,7 @@ i                                                       ${placeholderWithTransla
                                                         <div class="popup-inner">
                                                             <div style="text-align: left;">
                                                                 <form action="UserConfig" method="POST">
-                                                                    #parse("inc/userConfigGuestColumns.vm")
+                                                                    #parse("inc/userConfigPersonColumns.vm")
                                                                 </form>
                                                             </div>
                                                             <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
