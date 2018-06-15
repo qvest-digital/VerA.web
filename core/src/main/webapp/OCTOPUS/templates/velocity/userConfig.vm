@@ -83,73 +83,8 @@
 				</div>
 
 				<div style="width:44%" class="floatRight">
-					<h3>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</h3>
-							<fieldset class="marginTop20">
-								<legend>${placeholderWithTranslation.zusaetzlichefelder}</legend>
-								<div class="table inlineLabel marginBottom5 marginTop5">
-									<div class="tableRow">
-										<div class="tableCell"><input type="checkbox" name="guestListFunction" id="guestListFunction" value="true" #if($userConfig.guestListFunction) checked #end> <label for="guestListFunction">&nbsp;${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div>
-										<div class="tableCell"><input type="checkbox" name="guestListCity" id="guestListCity" value="true" #if($userConfig.guestListCity) checked #end> <label for="guestListCity">&nbsp;${placeholderWithTranslation.GENERIC_POSTNUMBER_AND_CITY}</label></div>
-										<div class="tableCell"><input type="checkbox" name="guestListPhone" id="guestListPhone" value="true" #if($userConfig.guestListPhone) checked #end> <label for="guestListPhone">&nbsp;${placeholderWithTranslation.GENERIC_TELEFON}</label></div>
-									</div>
-								</div>
-                                <div class="table inlineLabel marginBottom5 marginTop5"">
-                                    <div class="tableRow">
-                                        <div class="tableCell"><input type="checkbox" name="guestLfdNr" id="guestLfdNr" value="true" #if($userConfig.guestLfdNr) checked #end> <label for="guestLfdNr">${placeholderWithTranslation.lfdnr}</label></div>
-                                        <div class="tableCell"><input type="checkbox" name="guestReserve" id="guestReserve" value="true" #if($userConfig.guestReserve) checked #end> <label for="guestReserve">${placeholderWithTranslation.GUEST_LIST_RESERVE}</label></div>
-                                        <div class="tableCell"><input type="checkbox" name="guestCompany" id="guestCompany" value="true" #if($userConfig.guestCompany) checked #end> <label for="guestCompany">${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</label></div>
-                                    </div>
-                                </div>
-                                <div class="table inlineLabel marginBottom5 marginTop5"">
-                                    <div class="tableRow">
-                                        <div class="tableCell"><input type="checkbox" name="guestFirstname" id="guestFirstname" value="true" #if($userConfig.guestFirstname) checked #end> <label for="guestFirstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div>
-                                        <div class="tableCell"><input type="checkbox" name="guestLastname" id="guestLastname" value="true" #if($userConfig.guestLastname) checked #end> <label for="guestLastname">${placeholderWithTranslation.GENERIC_NAME}</label></div>
-                                        <div class="tableCell"><input type="checkbox" name="guestEmail" id="guestEmail" value="true" #if($userConfig.guestEmail) checked #end> <label for="guestEmail">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</label></div>
-                                    </div>
-                                </div>
-                                <div class="table inlineLabel marginBottom5 marginTop5"">
-                                    <div class="tableRow">
-                                        <div class="tableCell"><input type="checkbox" name="guestMainPerson" id="guestMainPerson" value="true" #if($userConfig.guestMainPerson) checked #end> <label for="guestMainPerson">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</label></div>
-                                        <div class="tableCell"><input type="checkbox" name="guestPartner" id="guestPartner" value="true" #if($userConfig.guestPartner) checked #end> <label for="guestPartner">${placeholderWithTranslation.GENERIC_PARTNER}</label></div>
-                                    </div>
-                                </div>
-
-
-
-							</fieldset>
-							<h3>${placeholderWithTranslation.GENERIC_LIST_OF_PERSONS}</h3>
-							<fieldset class="marginTop20">
-								<legend>${placeholderWithTranslation.zusaetzlichefelder}</legend>
-								<div class="table inlineLabel">
-									<div class="tableRow">
-										<div class="tableCell"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end> <label for="personListState">&nbsp;${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label></div>
-                                        <div class="tableCell"><input type="checkbox" name="personID" id="personID" value="true" #if($userConfig.personID) checked #end> <label for="personID">${placeholderWithTranslation.GENERIC_ID}</label></div>
-									</div>
-								</div>
-                                <div class="table inlineLabel marginBottom5 marginTop5"">
-                                <div class="tableRow">
-                                    #if($action == "host")
-									#end
-									<div class="tableCell"><input type="checkbox" name="personWorkarea" id="personWorkarea" value="true" #if($userConfig.personWorkarea) checked #end> <label for="personWorkarea">${placeholderWithTranslation.arbeitsshybereich}</label></div>
-                                    <div class="tableCell"><input type="checkbox" name="personFirstname" id="personFirstname" value="true" #if($userConfig.personFirstname) checked #end> <label for="personFirstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div>
-                                    <div class="tableCell"><input type="checkbox" name="personCategory" id="personCategory" value="true" #if($userConfig.personCategory) checked #end> <label for="personCategory">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label></div>
-                                </div>
-                                </div>
-                                <div class="table inlineLabel marginBottom5 marginTop5"">
-                                <div class="tableRow">
-                                    <div class="tableCell"><input type="checkbox" name="personLastname" id="personLastname" value="true" #if($userConfig.personLastname) checked #end> <label for="personLastname">${placeholderWithTranslation.GENERIC_LASTNAME}</label></div>
-                                    <div class="tableCell"><input type="checkbox" name="personFunction" id="personFunction" value="true" #if($userConfig.personFunction) checked #end> <label for="personFunction">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div>
-                                    <div class="tableCell"><input type="checkbox" name="personCompany" id="personCompany" value="true" #if($userConfig.personCompany) checked #end> <label for="personCompany">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</label></div>
-                                </div>
-                                </div>
-                                <div class="table inlineLabel marginBottom5 marginTop5"">
-                                <div class="tableRow">
-                                    <div class="tableCell"><input type="checkbox" name="personStreet" id="personStreet" value="true" #if($userConfig.personStreet) checked #end> <label for="personStreet">${placeholderWithTranslation.GENERIC_STREET}</label></div>
-                                    <div class="tableCell"><input type="checkbox" name="personPostCode" id="personPostCode" value="true" #if($userConfig.personPostCode) checked #end> <label for="personPostCode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label></div>
-                                    <div class="tableCell"><input type="checkbox" name="personCity" id="personCity" value="true" #if($userConfig.personCity) checked #end> <label for="personCity">${placeholderWithTranslation.GENERIC_CITY}</label></div>
-                                </div>
-                                </div>
-							</fieldset>
+							#parse("inc/userConfigGuestColumns.vm")
+                            #parse("inc/userConfigPersonColumns.vm")
 				</div>
 
 				<div class="clear"></div>
