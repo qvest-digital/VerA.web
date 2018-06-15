@@ -1133,6 +1133,7 @@ solldiesergastaufplatzgesetztwerden=Doit \u00EAtre utilis\u00E9 ce guest sur un 
 solldiepartnerinderpartnermiteingeladenwerden=Les partenaires devraient \u00EAtre invit\u00E9s?
 aktuellepersonwirklichentfernen=Supprimer personne actuelle?
 personspeichern=Sauvegarder la personne
+mitarbeiteraktualisieren=Mettre \u00E0 jour tous les employ\u00E9s
 zurpersonenliste=\u00C0 la liste de personne
 zurpersonenuebersicht=Vue d\u2019ensemble des Personnes
 zurueckzurveranstaltung=Retour \u00E0 l\u2019\u00E9v\u00E9nement

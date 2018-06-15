@@ -1135,6 +1135,7 @@ solldiesergastaufplatzgesetztwerden=Soll dieser Gast auf Platz gesetzt werden?
 solldiepartnerinderpartnermiteingeladenwerden=Soll die Partnerin / der Partner mit eingeladen werden?
 aktuellepersonwirklichentfernen=Aktuelle Person wirklich entfernen?
 personspeichern=Person speichern
+mitarbeiteraktualisieren=Alle Mitarbeiter aktualisieren
 zurpersonenliste=Zur Personenliste
 zurpersonenuebersicht=Zur Personen\u00FCbersicht
 zurueckzurveranstaltung=Zur\u00FCck zur Veranstaltung

@@ -1437,7 +1437,7 @@
 		</task>
 		<task name="popupSelectCompany" access="public" groups="StandardFieldsReader">
 			<description>
-				Zeigt ein Popup zur Auswahl einer Funktion an.
+				Zeigt ein Popup zur Auswahl einer Firma an.
 			</description>
 			<doTask name="Load"/>
 			<action name="showList" worker="CompanyListWorker"/>

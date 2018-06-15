@@ -61,6 +61,7 @@
 		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
 		<!-- this is not the latest groovy version, but it is the most recent one I could find that worked with eclipse -->
 		<groovy-all.version>2.4.3</groovy-all.version>
+		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
 		<guava.version>18.0</guava.version>
 		<h2.version>1.4.191</h2.version>
 		<hibernate.version>5.2.13.Final</hibernate.version>
@@ -81,6 +82,11 @@
 		<slf4j.version>1.7.12</slf4j.version>
 		<spock-core.version>1.1-groovy-2.4</spock-core.version>
 		<spring.version>4.2.6.RELEASE</spring.version>
+		<dockerfile-maven.version>1.4.3</dockerfile-maven.version>
+		<docker-compose-maven-plugin.version>1.0.3</docker-compose-maven-plugin.version>
+		<awaitility.version>3.1.0</awaitility.version>
+
+		<docker.registry>veraweb-tools.lan.tarent.de:5000</docker.registry>
 	</properties>
 	<organization>
 		<name>tarent solutions GmbH, Germany</name>
@@ -1050,6 +1056,12 @@
 			<id>oA</id>
 			<modules>
 				<module>vwoa</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>systemtest</id>
+			<modules>
+				<module>systemtest</module>
 			</modules>
 		</profile>
 		<profile>

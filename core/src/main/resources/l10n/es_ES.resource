@@ -1135,6 +1135,7 @@ solldiesergastaufplatzgesetztwerden=\u00BFDebe el invitado actual obtener una pl
 solldiepartnerinderpartnermiteingeladenwerden=\u00BFDebe el partner ser invitado?
 aktuellepersonwirklichentfernen=\u00BFDesea realmente eliminar la persona actual?
 personspeichern=Guardar persona
+mitarbeiteraktualisieren=Actualizar todos los empleados
 zurpersonenliste=Volver a personas
 zurpersonenuebersicht=Lista de personas
 zurueckzurveranstaltung=Volver a eventos

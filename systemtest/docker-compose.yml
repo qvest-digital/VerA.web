@@ -1,0 +1,92 @@
+version: '2.3'
+
+services:
+
+  veraweb-db:
+    image: postgres:9.3
+    mem_limit: 256m
+    environment:
+      POSTGRES_PASSWORD: veraweb
+      POSTGRES_USER: veraweb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /docker/veraweb/postgres/psql-schema:/docker-entrypoint-initdb.d:ro
+      - /docker/veraweb/postgres/psql-database:/var/lib/postgresql/data:rw
+    ports:
+      - 15432:5432
+
+  veraweb-ldap:
+    image: veraweb-tools.lan.tarent.de:5000/veraweb-ldap:latest
+    environment:
+      SLAPD_PASSWORD: manager
+      SLAPD_CONFIG_PASSWORD: cfgmanager
+      SLAPD_DOMAIN: veraweb.example.org
+      SLAPD_ORGANIZATION: 'VerA.web user LDAP container'
+      SLAPD_BOOTSTRAP_DATA_FILES: veraweb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /docker/veraweb/ldap/bootstrap:/bootstrap/data:ro
+      - /docker/veraweb/ldap/etc:/etc/ldap:rw
+      - /docker/veraweb/ldap/lib:/var/lib/ldap:rw
+    ports:
+      - 389:389
+
+  veraweb-rest-api:
+    image: veraweb-rest-api-dev:latest
+    #image: veraweb-tools.lan.tarent.de:5000/veraweb-rest-api:latest
+    environment:
+      JAVA_OPTS: '-Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom'
+      JPDA_ADDRESS: 8000
+      JPDA_TRANSPORT: dt_socket
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /docker/veraweb/vwor/cfg/veraweb:/etc/veraweb:ro
+      - /docker/veraweb/vwor/cfg/context.xml:/usr/local/tomcat/conf/context.xml
+      - /docker/veraweb/vwor/cfg/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - /docker/veraweb/vwor/logs:/usr/local/tomcat/logs:rw
+      - /docker/veraweb/vwor/files:/var/lib/veraweb:rw
+    depends_on:
+      - veraweb-db
+    ports:
+      - 19080:8080
+      - 19009:8009
+      - 19000:8000
+
+  veraweb-core:
+    image: veraweb-core-dev:latest
+    #image: veraweb-tools.lan.tarent.de:5000/veraweb-core:latest
+    environment:
+      JAVA_OPTS: '-Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom'
+      JPDA_ADDRESS: 8000
+      JPDA_TRANSPORT: dt_socket
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /docker/veraweb/core/cfg/veraweb:/etc/veraweb:ro
+      - /docker/veraweb/core/logs:/usr/local/tomcat/logs:rw
+    ports:
+      - 18080:8080
+      - 18009:8009
+      - 18000:8000
+    depends_on:
+      - veraweb-db
+      - veraweb-ldap
+      - veraweb-rest-api
+
+  veraweb-apache:
+    image: veraweb-tools.lan.tarent.de:5000/veraweb-httpd:latest
+    depends_on:
+      - veraweb-core
+      - veraweb-ldap
+      - veraweb-rest-api
+    ports:
+      - 443:443
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /docker/veraweb/httpd/cfg-apache2:/etc/apache2:rw
+      - /docker/veraweb/httpd/cfg-modjk:/etc/libapache2-mod-jk:ro
+      - /docker/veraweb/httpd/cfg-lam:/var/lib/ldap-account-manager/config:rw
