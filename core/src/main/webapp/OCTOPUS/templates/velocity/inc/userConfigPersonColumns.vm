@@ -1,8 +1,6 @@
-<div id="content_container">
     <h3>${placeholderWithTranslation.GENERIC_LIST_OF_PERSONS}</h3>
     <fieldset class="marginTop20">
-        <legend>${placeholderWithTranslation.zusaetzlichefelder}</legend>
-        <div class="table inlineLabel">
+        <div class="table inlineLabel marginBottom5 marginTop5">
             <div class="tableRow">
                 <div class="tableCell"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end> <label for="personListState">&nbsp;${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label></div>
                 <div class="tableCell"><input type="checkbox" name="personID" id="personID" value="true" #if($userConfig.personID) checked #end> <label for="personID">${placeholderWithTranslation.GENERIC_ID}</label></div>
@@ -30,5 +28,9 @@
             </div>
         </div>
     </fieldset>
-
-</div>
+    #if($activeMenu == "Verwaltung")
+        #else
+        <div class="textRight marginTop10" id="buttonPanel-bottom">
+            <input type="submit" class="mainButton" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" name="save" />
+        </div>
+    #end

@@ -21,8 +21,64 @@
 
 #parse("inc/header.vm")
 
+<style>
+    /** PopUp */
+    /* Outer */
+    .popup {
+        width:100%;
+        height:100%;
+        display:none;
+        position:fixed;
+        top:0px;
+        left:0px;
+    }
+    /* Inner */
+    .popup-inner {
+        max-width:500px;
+        width:90%;
+        padding:30px;
+        position:absolute;
+        top:50%;
+        left:50%;
+        -webkit-transform:translate(-50%, -50%);
+        transform:translate(-50%, -50%);
+        box-shadow:0px 2px 6px rgba(0,0,0,1);
+        border-radius:3px;
+        background:#fff;
+    }
+    /* Close Button */
+    .popup-close {
+        width: 30px;
+        height: 30px;
+        padding-top: 4px;
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        background: rgba(0,0,0,0.8);
+        font-size: 20px;
+        text-align: center;
+        line-height: 100%;
+        color: #fff;
+    }
+
+    .titleH2 {
+        text-align: left;
+    }
+
+    .checkbox-margin {
+        margin: 9px 5px 9px 0;
+    }
+
+    .hideEle {
+        display: none;
+    }
+</style>
+
 <div id="content_container">
     <script src="${paths.staticWeb}js/vera/veraweb-back-to-top.js"></script>
+    <script src="${paths.staticWeb}js/vera/veraweb-popup.js"></script>
+
     <script src="${paths.staticWeb}js/ext/Scroll-to-Top/jquery.gotop.js"></script>
         <div id="breadcrumb" class="textRight marginBottom10">
                 <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
@@ -44,6 +100,10 @@
                 #elseif($group == "Administrator")
                         #set($isAdmin = true)
                 #end
+        #end
+
+        #if($saveSuccess)
+            <vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
         #end
 
         ##IMPLEMENTNEWMESSAGEMETHOD
@@ -236,6 +296,20 @@
                                 </div>
                                 <div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
                                         #if($grants.mayWrite())
+                                                    <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a>
+                                                    <form id="formlist" name="formlist" action="" method="POST">
+                                                        <input type="hidden" name="saveColumns" value="true">
+                                                        <div class="popup" data-popup="popup-1">
+                                                            <div class="popup-inner">
+                                                                <div style="text-align: left;">
+                                                                    <form action="UserConfig" method="POST">
+                                                                        #parse("inc/userConfigGuestColumns.vm")
+                                                                    </form>
+                                                                </div>
+                                                                <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 <input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
                                                 <input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
                                                 <input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
