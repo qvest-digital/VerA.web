@@ -259,10 +259,34 @@ public class UserConfigWorker {
         for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
             String key = PARAMS_BOOLEAN[i];
             boolean value = octopusContext.requestAsBoolean(key).booleanValue();
-            if (value) {
-                setUserSetting(database, userId, userConfig, key, "true");
-            } else {
-                removeUserSetting(database, userId, userConfig, key);
+            String type = octopusContext.getRequestObject().getTask();
+
+            switch(type){
+                case "SearchPerson":
+                    if(key.contains("person")) {
+                        if(value){
+                            setUserSetting(database, userId, userConfig, key, "true");
+                        } else {
+                            removeUserSetting(database, userId, userConfig, key);
+                        }
+                    }
+                    break;
+                case "ShowGuestList":
+                    if(key.contains("guest")) {
+                        if(value){
+                            setUserSetting(database, userId, userConfig, key, "true");
+                        } else {
+                            removeUserSetting(database, userId, userConfig, key);
+                        }
+                    }
+                    break;
+                case "UserConfig":
+                    if (value) {
+                        setUserSetting(database, userId, userConfig, key, "true");
+                    } else {
+                        removeUserSetting(database, userId, userConfig, key);
+                    }
+                    break;
             }
         }
 
