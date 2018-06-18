@@ -689,7 +689,7 @@ i                                                       ${placeholderWithTransla
                                         <span id="buttonPanel-top" class="textRight floatRight" style="margin-bottom: 10px;">
                                 #end
                                 #if($action != "guest")
-                                        <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a>
+                                        <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
                                         <form id="formlist" name="formlist" action="" method="POST">
                                                     <input type="hidden" name="saveColumns" value="true">
                                                     <div class="popup" data-popup="popup-1">
@@ -714,7 +714,7 @@ i                                                       ${placeholderWithTransla
                         #if ($action == "guest")
                                 <div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
                                         <div class="tableRow">
-                                                <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a>
+                                                <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
                                                 <form id="formlist" name="formlist" action="" method="POST">
                                                     <input type="hidden" name="saveColumns" value="true">
                                                     <div class="popup" data-popup="popup-1">

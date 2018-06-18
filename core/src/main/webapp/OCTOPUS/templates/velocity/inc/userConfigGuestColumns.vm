@@ -1,32 +1,21 @@
 <h3>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</h3>
-<fieldset class="marginTop20">
-    <div class="table inlineLabel marginBottom5 marginTop5">
+<fieldset>
+    <div class="table width100 inlineLabel">
         <div class="tableRow">
-            <div class="tableCell"><input type="checkbox" name="guestListFunction" id="guestListFunction" value="true" #if($userConfig.guestListFunction) checked #end> <label for="guestListFunction">&nbsp;${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div>
-            <div class="tableCell"><input type="checkbox" name="guestListCity" id="guestListCity" value="true" #if($userConfig.guestListCity) checked #end> <label for="guestListCity">&nbsp;${placeholderWithTranslation.GENERIC_POSTNUMBER_AND_CITY}</label></div>
-            <div class="tableCell"><input type="checkbox" name="guestListPhone" id="guestListPhone" value="true" #if($userConfig.guestListPhone) checked #end> <label for="guestListPhone">&nbsp;${placeholderWithTranslation.GENERIC_TELEFON}</label></div>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestListFunction" id="guestListFunction" value="true" #if($userConfig.guestListFunction) checked #end> <label for="guestListFunction">&nbsp;${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestListCity" id="guestListCity" value="true" #if($userConfig.guestListCity) checked #end> <label for="guestListCity">&nbsp;${placeholderWithTranslation.GENERIC_POSTNUMBER_AND_CITY}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestListPhone" id="guestListPhone" value="true" #if($userConfig.guestListPhone) checked #end> <label for="guestListPhone">&nbsp;${placeholderWithTranslation.GENERIC_TELEFON}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestLfdNr" id="guestLfdNr" value="true" #if($userConfig.guestLfdNr) checked #end> <label for="guestLfdNr">${placeholderWithTranslation.lfdnr}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestReserve" id="guestReserve" value="true" #if($userConfig.guestReserve) checked #end> <label for="guestReserve">${placeholderWithTranslation.GUEST_LIST_RESERVE}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestCompany" id="guestCompany" value="true" #if($userConfig.guestCompany) checked #end> <label for="guestCompany">${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestFirstname" id="guestFirstname" value="true" #if($userConfig.guestFirstname) checked #end> <label for="guestFirstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestLastname" id="guestLastname" value="true" #if($userConfig.guestLastname) checked #end> <label for="guestLastname">${placeholderWithTranslation.GENERIC_NAME}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestEmail" id="guestEmail" value="true" #if($userConfig.guestEmail) checked #end> <label for="guestEmail">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestMainPerson" id="guestMainPerson" value="true" #if($userConfig.guestMainPerson) checked #end> <label for="guestMainPerson">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestPartner" id="guestPartner" value="true" #if($userConfig.guestPartner) checked #end> <label for="guestPartner">${placeholderWithTranslation.GENERIC_PARTNER}</label></div>
         </div>
     </div>
-    <div class="table inlineLabel marginBottom5 marginTop5"">
-        <div class="tableRow">
-        <div class="tableCell"><input type="checkbox" name="guestLfdNr" id="guestLfdNr" value="true" #if($userConfig.guestLfdNr) checked #end> <label for="guestLfdNr">${placeholderWithTranslation.lfdnr}</label></div>
-        <div class="tableCell"><input type="checkbox" name="guestReserve" id="guestReserve" value="true" #if($userConfig.guestReserve) checked #end> <label for="guestReserve">${placeholderWithTranslation.GUEST_LIST_RESERVE}</label></div>
-        <div class="tableCell"><input type="checkbox" name="guestCompany" id="guestCompany" value="true" #if($userConfig.guestCompany) checked #end> <label for="guestCompany">${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</label></div>
-    </div>
-    </div>
-    <div class="table inlineLabel marginBottom5 marginTop5"">
-        <div class="tableRow">
-            <div class="tableCell"><input type="checkbox" name="guestFirstname" id="guestFirstname" value="true" #if($userConfig.guestFirstname) checked #end> <label for="guestFirstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div>
-            <div class="tableCell"><input type="checkbox" name="guestLastname" id="guestLastname" value="true" #if($userConfig.guestLastname) checked #end> <label for="guestLastname">${placeholderWithTranslation.GENERIC_NAME}</label></div>
-            <div class="tableCell"><input type="checkbox" name="guestEmail" id="guestEmail" value="true" #if($userConfig.guestEmail) checked #end> <label for="guestEmail">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</label></div>
-        </div>
-    </div>
-    <div class="table inlineLabel marginBottom5 marginTop5"">
-        <div class="tableRow">
-            <div class="tableCell"><input type="checkbox" name="guestMainPerson" id="guestMainPerson" value="true" #if($userConfig.guestMainPerson) checked #end> <label for="guestMainPerson">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</label></div>
-            <div class="tableCell"><input type="checkbox" name="guestPartner" id="guestPartner" value="true" #if($userConfig.guestPartner) checked #end> <label for="guestPartner">${placeholderWithTranslation.GENERIC_PARTNER}</label></div>
-        </div>
-    </div>
+
 </fieldset>
 
     #if($activeMenu == "Verwaltung")

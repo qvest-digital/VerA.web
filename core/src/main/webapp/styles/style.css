@@ -1091,6 +1091,11 @@ td[onclick]
     padding-right: 0;
 }
 
+.tableCellMarginBottom {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
 .width5, .tabsContent .width5 {width: 5%;}
 
 .width10, .tabsContent .width10 {width: 10% !important;}

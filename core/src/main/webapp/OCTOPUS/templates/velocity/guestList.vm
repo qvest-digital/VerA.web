@@ -242,7 +242,7 @@
                                 </div>
                                 <div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
                                         #if($grants.mayWrite())
-                                                    <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a>
+                                                    <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
                                                     <form id="formlist" name="formlist" action="" method="POST">
                                                         <input type="hidden" name="saveColumns" value="true">
                                                         <div class="popup" data-popup="popup-1">
