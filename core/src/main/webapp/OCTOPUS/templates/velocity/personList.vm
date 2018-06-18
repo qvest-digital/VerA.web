@@ -690,19 +690,14 @@ i                                                       ${placeholderWithTransla
                                 #end
                                 #if($action != "guest")
                                         <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
-                                        <form id="formlist" name="formlist" action="" method="POST">
-                                                    <input type="hidden" name="saveColumns" value="true">
                                                     <div class="popup" data-popup="popup-1">
                                                         <div class="popup-inner">
                                                             <div style="text-align: left;">
-                                                                <form action="UserConfig" method="POST">
-                                                                    #parse("inc/userConfigPersonColumns.vm")
-                                                                </form>
+                                                                #parse("inc/userConfigPersonColumns.vm")
                                                             </div>
                                                             <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
                                                         </div>
                                                     </div>
-                                                </form>
                                         <input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.GENERIC_CREATE_PERSON}" title="${placeholderWithTranslation.GENERIC_CREATE_PERSON}" class="mainButton" onclick="window.location.href='CreatePerson';" />
                                         <input type="button" id="button.searchPerson" name="button.searchPerson" value="${placeholderWithTranslation.GENERIC_SEARCH_PERSONS}" title="${placeholderWithTranslation.GENERIC_SEARCH_PERSONS}" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
                                         #if($grants.mayWrite())
@@ -715,19 +710,19 @@ i                                                       ${placeholderWithTransla
                                 <div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
                                         <div class="tableRow">
                                                 <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
-                                                <form id="formlist" name="formlist" action="" method="POST">
+
                                                     <input type="hidden" name="saveColumns" value="true">
                                                     <div class="popup" data-popup="popup-1">
                                                         <div class="popup-inner">
                                                             <div style="text-align: left;">
-                                                                <form action="UserConfig" method="POST">
+
                                                                     #parse("inc/userConfigPersonColumns.vm")
-                                                                </form>
+
                                                             </div>
                                                             <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
                                                         </div>
                                                     </div>
-                                                </form>
+
                                                 <div class="tableCell"><strong>${placeholderWithTranslation.LETTER_MAIN_PERSON}</strong> = ${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}</div>
                                                 <div class="tableCell"><strong>${placeholderWithTranslation.LETTER_PARTNER}</strong> = ${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}</div>
                                                 <div class="tableCell"><strong>${placeholderWithTranslation.LETTER_RESERVE}</strong> = ${placeholderWithTranslation.aufreservesetzen}</div>

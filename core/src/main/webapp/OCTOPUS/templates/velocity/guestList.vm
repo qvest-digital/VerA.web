@@ -242,23 +242,18 @@
                                 </div>
                                 <div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
                                         #if($grants.mayWrite())
-                                                    <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
-                                                    <form id="formlist" name="formlist" action="" method="POST">
-                                                        <input type="hidden" name="saveColumns" value="true">
-                                                        <div class="popup" data-popup="popup-1">
-                                                            <div class="popup-inner">
-                                                                <div style="text-align: left;">
-                                                                    <form action="UserConfig" method="POST">
-                                                                        #parse("inc/userConfigGuestColumns.vm")
-                                                                    </form>
-                                                                </div>
-                                                                <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
-                                                            </div>
+                                            <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
+                                            <div class="popup" data-popup="popup-1">
+                                                    <div class="popup-inner">
+                                                        <div style="text-align: left;">
+                                                                #parse("inc/userConfigGuestColumns.vm")
                                                         </div>
-                                                    </form>
-                                                <input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
-                                                <input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
-                                                <input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+                                                        <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                                                    </div>
+                                            </div>
+                                            <input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+                                            <input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+                                            <input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
                                         #end
                                 </div>
                         </div>
