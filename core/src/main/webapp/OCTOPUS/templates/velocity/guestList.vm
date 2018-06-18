@@ -398,7 +398,7 @@
                                                                 </a></th>
                                                                 #end
 
-                                                                #if ($viewConfig.showInternalId)
+                                                                #if($userConfig.guestInternalId)
                                                                         <th><a href="javascript:orderGuestList('internal_id');"
                                                                                 #if($search.listorder && $search.listorder == "internal_id")
                                                                                style="color: #000000;"
@@ -526,7 +526,7 @@
                                                         </td>
                                                         #end
 
-                                                        #if ($viewConfig.showInternalId)
+                                                        #if($userConfig.guestInternalId)
                                                                 #if($bean.internal_id != "")
                                                                     <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">$bean.internal_id</td>
                                                                 #else

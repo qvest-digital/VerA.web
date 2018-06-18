@@ -3,6 +3,7 @@
     <div class="table width100 inlineLabel">
         <div class="tableRow">
             <div class="tableCellMarginBottom"><input type="checkbox" name="guestListFunction" id="guestListFunction" value="true" #if($userConfig.guestListFunction) checked #end> <label for="guestListFunction">&nbsp;${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div><br>
+            <div class="tableCellMarginBottom"><input type="checkbox" name="guestInternalId" id="guestInternalId" value="true" #if($userConfig.guestInternalId) checked #end> <label for="guestListFunction">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</label></div><br>
             <div class="tableCellMarginBottom"><input type="checkbox" name="guestListCity" id="guestListCity" value="true" #if($userConfig.guestListCity) checked #end> <label for="guestListCity">&nbsp;${placeholderWithTranslation.GENERIC_POSTNUMBER_AND_CITY}</label></div><br>
             <div class="tableCellMarginBottom"><input type="checkbox" name="guestListPhone" id="guestListPhone" value="true" #if($userConfig.guestListPhone) checked #end> <label for="guestListPhone">&nbsp;${placeholderWithTranslation.GENERIC_TELEFON}</label></div><br>
             <div class="tableCellMarginBottom"><input type="checkbox" name="guestLfdNr" id="guestLfdNr" value="true" #if($userConfig.guestLfdNr) checked #end> <label for="guestLfdNr">${placeholderWithTranslation.lfdnr}</label></div><br>

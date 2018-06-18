@@ -112,7 +112,8 @@ public class UserConfigWorker {
         "personFunction", "personCompany",
         "personStreet", "personStreet",
         "personPostCode", "personCity",
-        "personCategory"
+        "personCategory", "guestInternalId",
+        "personInternalId"
     };
 
     /**
