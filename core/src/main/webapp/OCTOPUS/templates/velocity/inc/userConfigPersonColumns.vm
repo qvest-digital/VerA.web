@@ -1,0 +1,28 @@
+    <h3>${placeholderWithTranslation.GENERIC_LIST_OF_PERSONS}</h3>
+    <fieldset>
+        <div class="table width100 inlineLabel">
+            <div class="tableRow">
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end> <label for="personListState">&nbsp;${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personInternalId" id="personInternalId" value="true" #if($userConfig.personInternalId) checked #end> <label for="personInternalId">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personID" id="personID" value="true" #if($userConfig.personID) checked #end> <label for="personID">${placeholderWithTranslation.GENERIC_ID}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personWorkarea" id="personWorkarea" value="true" #if($userConfig.personWorkarea) checked #end> <label for="personWorkarea">${placeholderWithTranslation.arbeitsshybereich}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personFirstname" id="personFirstname" value="true" #if($userConfig.personFirstname) checked #end> <label for="personFirstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personCategory" id="personCategory" value="true" #if($userConfig.personCategory) checked #end> <label for="personCategory">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personLastname" id="personLastname" value="true" #if($userConfig.personLastname) checked #end> <label for="personLastname">${placeholderWithTranslation.GENERIC_LASTNAME}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personFunction" id="personFunction" value="true" #if($userConfig.personFunction) checked #end> <label for="personFunction">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personCompany" id="personCompany" value="true" #if($userConfig.personCompany) checked #end> <label for="personCompany">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personStreet" id="personStreet" value="true" #if($userConfig.personStreet) checked #end> <label for="personStreet">${placeholderWithTranslation.GENERIC_STREET}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personPostCode" id="personPostCode" value="true" #if($userConfig.personPostCode) checked #end> <label for="personPostCode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personCity" id="personCity" value="true" #if($userConfig.personCity) checked #end> <label for="personCity">${placeholderWithTranslation.GENERIC_CITY}</label></div>
+            </div>
+        </div>
+
+    </fieldset>
+
+
+    #if($activeMenu == "Verwaltung")
+        #else
+        <div class="textRight marginTop10" id="buttonPanel-bottom">
+            <input type="submit" class="mainButton" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" name="save" />
+        </div>
+    #end
