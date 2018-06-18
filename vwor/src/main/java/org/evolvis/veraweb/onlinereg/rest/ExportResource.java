@@ -75,6 +75,7 @@ import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.jboss.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -120,7 +121,11 @@ public class ExportResource extends AbstractResource {
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId,
                                  @javax.ws.rs.core.Context UriInfo ui,
-                                 @QueryParam("selectedFields[]") List<String> selList)
+                                 @QueryParam("selectedFields[]") List<String> selList,
+                                 @QueryParam("filterCategory") String filterCategory,
+                                 @QueryParam("filterWord") String filterWord,
+                                 @QueryParam("filterInvStatus") String filterInvStatus,
+                                 @QueryParam("filterReserve") String filterReserve)
       throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";

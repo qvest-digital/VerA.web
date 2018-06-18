@@ -209,7 +209,12 @@ public class PdfTemplateResource extends FormDataResource {
     @GET
     @Path("/export")
     @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
-    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId)
+    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
+                                @QueryParam("eventId") Integer eventId,
+                                @QueryParam("filterCategory") String filterCategory,
+                                @QueryParam("filterWord") String filterWord,
+                                @QueryParam("filterInvStatus") String filterInvStatus,
+                                @QueryParam("filterReserve") String filterReserve)
       throws IOException, DocumentException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();

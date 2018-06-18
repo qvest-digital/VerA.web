@@ -128,7 +128,7 @@ class ExportResourceTest extends Specification {
             ]
 
         when:
-        Response response = exportResource.getGuestList(1, uriInfo, [])
+        Response response = exportResource.getGuestList(1, uriInfo, [], "", "", "", "")
 
         then:
             assert response.status == VworConstants.HTTP_OK

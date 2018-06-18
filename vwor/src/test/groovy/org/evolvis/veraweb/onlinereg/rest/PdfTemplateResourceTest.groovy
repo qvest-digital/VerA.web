@@ -376,7 +376,7 @@ class PdfTemplateResourceTest extends Specification {
             assert new String(response.context.entity.bytes,0,4).equals("%PDF");
             assert response.context.entity.size() > 1000
     }
-
+//TODO WHEN OCTOPUS STUFF IS IMPLEMENTED VERA-650
     void testGeneratePdfReturnNoContent() {
         given:
             def pdfTemplateId = 1
@@ -384,7 +384,7 @@ class PdfTemplateResourceTest extends Specification {
             query.list() >> new ArrayList()
 
         when:
-            def response = resource.generatePdf(pdfTemplateId, eventId)
+            def response = resource.generatePdf(pdfTemplateId, eventId, "", "", "", "")
 
         then:
             session != null
@@ -398,7 +398,7 @@ class PdfTemplateResourceTest extends Specification {
             def pdfTemplateId = 1
 
         when:
-            def response = resource.generatePdf(pdfTemplateId, null)
+            def response = resource.generatePdf(pdfTemplateId, null, "", "", "", "")
 
         then:
             assert response.status == Response.Status.BAD_REQUEST.statusCode
@@ -409,7 +409,7 @@ class PdfTemplateResourceTest extends Specification {
             def eventId = 1
 
         when:
-            def response = resource.generatePdf(null, eventId)
+            def response = resource.generatePdf(null, eventId, "", "", "", "")
 
         then:
             assert response.status == Response.Status.BAD_REQUEST.statusCode
