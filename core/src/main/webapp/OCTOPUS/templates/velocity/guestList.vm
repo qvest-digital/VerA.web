@@ -22,7 +22,9 @@
 #parse("inc/header.vm")
 
 <div id="content_container">
+    <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/popup.css" media="all" />
     <script src="${paths.staticWeb}js/vera/veraweb-back-to-top.js"></script>
+    <script src="${paths.staticWeb}js/vera/veraweb-popup.js"></script>
     <script src="${paths.staticWeb}js/ext/Scroll-to-Top/jquery.gotop.js"></script>
         <div id="breadcrumb" class="textRight marginBottom10">
                 <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
@@ -44,6 +46,10 @@
                 #elseif($group == "Administrator")
                         #set($isAdmin = true)
                 #end
+        #end
+
+        #if($saveSuccess)
+            <vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
         #end
 
         ##IMPLEMENTNEWMESSAGEMETHOD
@@ -236,9 +242,18 @@
                                 </div>
                                 <div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
                                         #if($grants.mayWrite())
-                                                <input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
-                                                <input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
-                                                <input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+                                            <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
+                                            <div class="popup" data-popup="popup-1">
+                                                    <div class="popup-inner">
+                                                        <div style="text-align: left;">
+                                                                #parse("inc/userConfigGuestColumns.vm")
+                                                        </div>
+                                                        <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                                                    </div>
+                                            </div>
+                                            <input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+                                            <input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+                                            <input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
                                         #end
                                 </div>
                         </div>
@@ -364,6 +379,7 @@
                                                         <!-- BEGIN OF COLUMNS TO ORDER -->
                                                                 <th class="textCenter smallCell"></th>
 
+                                                                #if($userConfig.guestLfdNr)
                                                                 <th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
                                                                         #if($search.listorder && $search.listorder == "orderno")
                                                                                 style="color: #000000;"
@@ -375,8 +391,9 @@
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                         #end
                                                                 </a></th>
+                                                                #end
 
-                                                                #if ($viewConfig.showInternalId)
+                                                                #if($userConfig.guestInternalId)
                                                                         <th><a href="javascript:orderGuestList('internal_id');"
                                                                                 #if($search.listorder && $search.listorder == "internal_id")
                                                                                style="color: #000000;"
@@ -390,8 +407,11 @@
                                                                         </a></th>
                                                                 #end
 
+                                                                #if($userConfig.guestReserve)
                                                                 <th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+                                                                #end
 
+                                                                #if($userConfig.guestCompany)
                                                                 <th><a href="javascript:orderGuestList('companyname');"
                                                                         #if($search.listorder && $search.listorder == "companyname")
                                                                                 style="color: #000000;"
@@ -403,7 +423,9 @@
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                         #end
                                                                 </a></th>
+                                                                #end
 
+                                                                #if($userConfig.guestLastname)
                                                                 <th><a href="javascript:orderGuestList('lastname_a_e1');"
                                                                         #if($search.listorder && $search.listorder == "lastname_a_e1")
                                                                                 style="color: #000000;"
@@ -415,7 +437,9 @@
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                         #end
                                                                 </a></th>
+                                                                #end
 
+                                                                #if($userConfig.guestFirstname)
                                                                 <th><a href="javascript:orderGuestList('firstname_a_e1');"
                                                                         #if($search.listorder && $search.listorder == "firstname_a_e1")
                                                                                 style="color: #000000;"
@@ -427,7 +451,9 @@
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                         #end
                                                                 </a></th>
+                                                                #end
 
+                                                                #if($userConfig.guestEmail)
                                                                 <th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');"
                                                                         #if($search.listorder && $search.listorder == "mail_a_e1")
                                                                                 style="color: #000000;"
@@ -440,21 +466,28 @@
                                                                 #end
 
                                                                 </a></th>
+                                                                #end
                                                         <!-- END OF COLUMNS TO ORDER -->
 
-                                        #if($userConfig.guestListFunction)
-                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</th>
-                                        #end
+                                                        #if($userConfig.guestListFunction)
+                                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</th>
+                                                        #end
 
-                                        #if($userConfig.guestListCity)
-                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_POST_NUMBER} / ${placeholderWithTranslation.GENERIC_CITY}</th>
-                                        #end
+                                                        #if($userConfig.guestListCity)
+                                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_POST_NUMBER} / ${placeholderWithTranslation.GENERIC_CITY}</th>
+                                                        #end
 
-                                        #if($userConfig.guestListPhone)
-                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
-                                        #end
-                                                        <th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</span></th>
-                                                        <th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_PARTNER}</span></th>
+                                                        #if($userConfig.guestListPhone)
+                                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
+                                                        #end
+
+                                                #if($userConfig.guestMainPerson)
+                                                <th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</span></th>
+                                                #end
+
+                                                #if($userConfig.guestPartner)
+                                                <th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_PARTNER}</span></th>
+                                                #end
                                                 </tr>
 
                                                 #set($deletedperson = false)
@@ -476,6 +509,7 @@
                                                                 <img title="ich bin eine tolle Überschrift" src="${paths.staticWeb}images/checked_disabled.png" class="invisible invisibleselector"/>
                                                                 <input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
                                                         </td>
+                                                        #if($userConfig.guestLfdNr)
                                                         <td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
                                                                 #if($bean.ishost && $bean.ishost == 1)
                                                                         <em>${placeholderWithTranslation.GENERIC_HOST}</em>
@@ -485,8 +519,9 @@
                                                                         <em>${placeholderWithTranslation.keine}</em>
                                                                 #end
                                                         </td>
+                                                        #end
 
-                                                        #if ($viewConfig.showInternalId)
+                                                        #if($userConfig.guestInternalId)
                                                                 #if($bean.internal_id != "")
                                                                     <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">$bean.internal_id</td>
                                                                 #else
@@ -494,16 +529,20 @@
                                                                 #end
                                                         #end
 
-                                                        #if($bean.reserve == 1)
-                                                                <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
-                                                        #else
-                                                                <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
+                                                        #if($userConfig.guestReserve)
+                                                                #if($bean.reserve == 1)
+                                                                        <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
+                                                                #else
+                                                                        <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
+                                                                #end
                                                         #end
 
-                                                        #if($bean.company_a_e1 != "")
-                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
-                                                        #else
-                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
+                                                        #if($userConfig.guestCompany)
+                                                                #if($bean.company_a_e1 != "")
+                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
+                                                                #else
+                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
+                                                                #end
                                                         #end
 
                                                         #if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
@@ -524,6 +563,7 @@
                                                                 <td></td>
                                                                 <td></td>
                                                         #else
+                                                                #if($userConfig.guestLastname)
                                                                 <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
                                                                         #if($bean.invitationtype != 3)
                                                                                 #if($bean.showdoctype)
@@ -539,6 +579,9 @@
                                                                                 #end
                                                                         #end
                                                                 </td>
+                                                                #end
+
+                                                                #if($userConfig.guestFirstname)
                                                                 <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
                                                                         #if($bean.invitationtype != 3)
                                                                                 #if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
@@ -546,6 +589,9 @@
                                                                                 #if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
                                                                         #end
                                                                 </td>
+                                                                #end
+
+                                                                #if($userConfig.guestEmail)
                                                                 <td class="textCenter">
                                                                         <div class="cutOff">
                                                                                 #if($bean.showdoctype)
@@ -563,6 +609,8 @@
                                                                                 #end
                                                                         </div>
                                                                 </td>
+                                                                #end
+
                                                                 #if($userConfig.guestListFunction)
                                                                         <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
                                                                 #end
@@ -572,6 +620,8 @@
                                                                 #if($userConfig.guestListPhone)
                                                                         <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
                                                                 #end
+
+                                                                #if($userConfig.guestMainPerson)
                                                                 <td class="textCenter">
                                                                         #if($bean.invitationtype != 3)
                                                                                 #if($grants.mayWrite())
@@ -596,7 +646,9 @@
                                                                                 <input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">${placeholderWithTranslation.nichteingeladen}</input>
                                                                         #end
                                                                 </td>
+                                                                #end
 
+                                                                #if($userConfig.guestPartner)
                                                                 <td class="textCenter">
                                                                         #if($bean.invitationtype != 2)
                                                                                 #if($grants.mayWrite())
@@ -621,6 +673,7 @@
                                                                                 <input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">${placeholderWithTranslation.nichteingeladen}</input>
                                                                         #end
                                                                 </td>
+                                                                #end
                                                         #end
                                                 </tr>
                                                 #end

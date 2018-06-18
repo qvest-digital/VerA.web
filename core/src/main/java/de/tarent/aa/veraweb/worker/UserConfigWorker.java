@@ -101,7 +101,20 @@ public class UserConfigWorker {
       "personTab", "personMemberTab",
       "personAddresstypeTab", "personLocaleTab" };
     private static final String PARAMS_BOOLEAN[] = {
-      "guestListFunction", "guestListCity", "guestListPhone", "personListState" };
+        "guestListFunction", "guestListCity",
+        "guestListPhone", "guestLfdNr",
+        "guestReserve", "guestCompany",
+        "guestFirstname", "guestLastname",
+        "guestEmail", "guestMainPerson",
+        "guestPartner", "personListState",
+        "personID", "personWorkarea",
+        "personFirstname", "personLastname",
+        "personFunction", "personCompany",
+        "personStreet", "personStreet",
+        "personPostCode", "personCity",
+        "personCategory", "guestInternalId",
+        "personInternalId"
+    };
 
     /**
      * Octopus-Eingabe-Parameter für {@link #init(OctopusContext)}
@@ -247,10 +260,34 @@ public class UserConfigWorker {
         for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
             String key = PARAMS_BOOLEAN[i];
             boolean value = octopusContext.requestAsBoolean(key).booleanValue();
-            if (value) {
-                setUserSetting(database, userId, userConfig, key, "true");
-            } else {
-                removeUserSetting(database, userId, userConfig, key);
+            String type = octopusContext.getRequestObject().getTask();
+
+            switch(type){
+                case "SearchPerson":
+                    if(key.contains("person")) {
+                        if(value){
+                            setUserSetting(database, userId, userConfig, key, "true");
+                        } else {
+                            removeUserSetting(database, userId, userConfig, key);
+                        }
+                    }
+                    break;
+                case "ShowGuestList":
+                    if(key.contains("guest")) {
+                        if(value){
+                            setUserSetting(database, userId, userConfig, key, "true");
+                        } else {
+                            removeUserSetting(database, userId, userConfig, key);
+                        }
+                    }
+                    break;
+                case "UserConfig":
+                    if (value) {
+                        setUserSetting(database, userId, userConfig, key, "true");
+                    } else {
+                        removeUserSetting(database, userId, userConfig, key);
+                    }
+                    break;
             }
         }
 

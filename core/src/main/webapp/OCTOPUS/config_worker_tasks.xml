@@ -469,6 +469,7 @@
 			<action name="getSearch" worker="PersonListWorker"/>
 			<action name="showList" worker="PersonListWorker"/>
 			<action name="exportFormat" worker="PersonExportWorker"/>
+			<action name="save" worker="UserConfigWorker"/>
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="personList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -1130,6 +1131,7 @@
 			<action name="getJumpOffsets" worker="GuestListWorker"/>
 			<action name="getSums" worker="GuestListWorker"/>
 			<action name="getAllCategories" worker="GuestListWorker"/>
+			<action name="save" worker="UserConfigWorker"/>
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="guestList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
