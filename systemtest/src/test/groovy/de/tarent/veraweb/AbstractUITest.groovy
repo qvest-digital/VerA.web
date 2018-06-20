@@ -3,7 +3,6 @@ package de.tarent.veraweb
 import de.tarent.veraweb.pages.LoginPage
 import de.tarent.veraweb.pages.MainPage
 import de.tarent.veraweb.util.SystemtestHelper
-import geb.navigator.Navigator
 import geb.spock.GebReportingSpec
 import spock.lang.Shared
 
@@ -17,8 +16,6 @@ abstract class AbstractUITest extends GebReportingSpec {
 
     def mainPage
 
-    def navigationBar
-
     def setupSpec() {
         SystemtestHelper.waitForContainers(ENDPOINT, PATH)
     }
@@ -27,12 +24,7 @@ abstract class AbstractUITest extends GebReportingSpec {
         LoginPage loginPage = to LoginPage
         loginPage.loginAsAdmin()
         mainPage = at MainPage
-        navigationBar = mainPage.navigationBar
         mainPage
-    }
-
-    def navigateTo(Navigator menu, Navigator menuItem) {
-        navigationBar.navigateTo(menu, menuItem, driver)
     }
 
     def logout() {
