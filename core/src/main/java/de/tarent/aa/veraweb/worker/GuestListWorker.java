@@ -82,10 +82,7 @@ import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.clause.Clause;
-import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.RawClause;
-import de.tarent.dblayer.sql.clause.WhereList;
+import de.tarent.dblayer.sql.clause.*;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -434,11 +431,24 @@ public class GuestListWorker extends ListWorkerVeraWeb {
           .selectAs("orderno_p", "orderno_b");
     }
 
-    protected List getResultList(Database database, Select select) throws BeanException, IOException {
+    protected List getResultListForGuestList(Database database, Select select, OctopusContext cntx) throws BeanException, IOException {
         final List allGuests = getAllGuests(database, select);
         final List<Map> modifiedList = new ArrayList<Map>();
         for (Object guest : allGuests) {
             modifiedList.add((Map) guest);
+        }
+
+        for(int i=0; i < modifiedList.size(); i++) {
+            String guestid = modifiedList.get(i).get("id").toString();
+            String eventid = cntx.getRequestObject().getRequestParameters().get("search-event").toString();
+
+            int newguest = Integer.parseInt(guestid);
+            int newevent = Integer.parseInt(eventid);
+
+            GuestDetailWorker guestDetailWorker = new GuestDetailWorker();
+            Guest guest = guestDetailWorker.getGuest(cntx, newevent, newguest, null);
+
+            modifiedList.get(i).put("personId", guest.person);
         }
         return modifiedList;
     }

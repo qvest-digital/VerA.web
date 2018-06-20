@@ -796,7 +796,7 @@ public class GuestWorker {
               where(Expr.equal("pk", personId)), context);
     }
 
-    private Guest getGuestById(Database database, ExecutionContext context, Integer guestId) throws BeanException, IOException {
+    public Guest getGuestById(Database database, ExecutionContext context, Integer guestId) throws BeanException, IOException {
         Guest guest;
         guest = (Guest)
           database.getBean("Guest",
