@@ -144,6 +144,7 @@ GENERIC_USER_PLURAL=Usuarios
 GENERIC_WORKAREA_SINGULAR=\u00C1rea de trabajo
 GENERIC_WORKAREA_PLURAL=\u00C1reas de trabajo
 GENERIC_SELECT_ALL=Seleccionar todo
+GENERIC_ADD_SELECTION=agregar selección
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=En representaci\u00F3n de
@@ -900,6 +901,7 @@ GUEST_LIST_ONLY_PARTICIPATE=s\u00F3lo participantes
 GUEST_LIST_PERSON_DATA_RELOAD=Recargar todos los datos maestros
 GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Buscar personas y a\u00F1adirlas a la lista de invitados
+GUEST_LIST_ADD_GUEST_FROM_EVENT=Tomar invitados del evento
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=Generar lista de invitados

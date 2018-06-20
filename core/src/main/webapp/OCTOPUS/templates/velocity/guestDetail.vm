@@ -6,6 +6,11 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
 #parse("inc/header.vm")
 
+#set($basicEventLinkSuffix = '')
+#if($basicEventId && $basicEventId != 'noBasicEvent')
+    #set($basicEventLinkSuffix = "&basicEvent=${basicEventId}")
+#end
+
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
             <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
@@ -54,9 +59,11 @@
                 <li id="gastdetails" #if($responseTab == "detail") vera-tab-default #end class="active">
                     <div>${placeholderWithTranslation.gastedetails}</div>
                 </li>
-                <li id="export" class="inactive">
-                    <div>${placeholderWithTranslation.GENERIC_EXPORT}</div>
-                </li>
+                #if($basicEventId=='noBasicEvent')
+                    <li id="export" class="inactive">
+                        <div>${placeholderWithTranslation.GENERIC_EXPORT}</div>
+                    </li>
+                #end
             </ul>
         </div>
 
@@ -337,7 +344,7 @@
 
     $(function () {
         $('li#gaesteliste').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowGuestList?selectNone=true';
+            window.location.href = '${paths.staticWeb}do/ShowGuestList?selectNone=true${basicEventLinkSuffix}';
         });
         $('li#export').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowExportGuest';
