@@ -365,6 +365,16 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
             where(Where.or(_whereClause, additionalClause));
         return this;
 	}
+
+
+    /**
+     * This method adds a LIKE expression to the current where list, connected by an OR operator.
+     * It is the same as .whereAnd(Expr.like(columnName, value))
+     */
+	public Select whereOrLike(String columnName, Object value) {
+        whereOr(Expr.like(columnName, value));
+        return this;
+	}
 	
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
