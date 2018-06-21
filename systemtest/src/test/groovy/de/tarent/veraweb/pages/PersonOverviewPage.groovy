@@ -36,7 +36,9 @@ class PersonOverviewPage extends Page {
         }
         if (row != null) {
             row.checkbox.click()
+            return true
         }
+        return false
     }
 
     def performDeletion() {
