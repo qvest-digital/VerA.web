@@ -36,6 +36,28 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.gebish</groupId>
+            <artifactId>geb-spock</artifactId>
+            <version>${geb.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <testSourceDirectory>src/test/groovy/</testSourceDirectory>
@@ -236,6 +258,9 @@
                                 <include>**/*Test.class</include>
                                 <include>**/*Spec.class</include>
                             </includes>
+                            <systemPropertyVariables>
+                                <geb.build.reportsDir>target/geb-reports</geb.build.reportsDir>
+                            </systemPropertyVariables>
                         </configuration>
                     </execution>
                 </executions>
@@ -246,6 +271,37 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.webdriverextensions</groupId>
+                <artifactId>webdriverextensions-maven-plugin</artifactId>
+                <version>${webdriverextensions.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install-drivers</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <drivers>
+                        <driver>
+                            <name>chromedriver</name>
+                            <version>${chromedriver.version}</version>
+                            <platform>mac</platform>
+                        </driver>
+                        <driver>
+                            <name>chromedriver</name>
+                            <version>${chromedriver.version}</version>
+                            <platform>linux</platform>
+                        </driver>
+                        <driver>
+                            <name>chromedriver</name>
+                            <version>${chromedriver.version}</version>
+                            <platform>windows</platform>
+                        </driver>
+                    </drivers>
                 </configuration>
             </plugin>
         </plugins>
