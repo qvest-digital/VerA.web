@@ -68,10 +68,7 @@ package de.tarent.aa.veraweb.worker;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import de.tarent.aa.veraweb.beans.OrgUnit;
-import de.tarent.aa.veraweb.beans.Proxy;
-import de.tarent.aa.veraweb.beans.User;
-import de.tarent.aa.veraweb.beans.UserConfig;
+import de.tarent.aa.veraweb.beans.*;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -89,6 +86,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige
@@ -259,20 +257,39 @@ public class UserListWorker extends ListWorkerVeraWeb {
                 saveBean(cntx, bean, context);
                 count++;
 
-                /* set default user tab configuration for new user */
-                for (String configParamString : UserConfigWorker.PARAMS_STRING) {
-                    UserConfig userConfig = new UserConfig();
-                    userConfig.user = ((User) bean).id;
-                    userConfig.key = configParamString;
-                    userConfig.value = "1";
-                    context.getDatabase().saveBean(userConfig);
-                }
+                setupAndSaveUserConfig(cntx, (User) bean, context);
+
             } else {
                 errors.addAll(bean.getErrors());
             }
         }
 
         return count;
+    }
+
+    private void setupAndSaveUserConfig(OctopusContext cntx, User bean, TransactionContext context) throws BeanException, IOException {
+        /* set default user tab configuration for new user */
+        for (String configParamString : UserConfigWorker.PARAMS_STRING) {
+            UserConfig userConfig = new UserConfig();
+            userConfig.user = bean.id;
+            userConfig.key = configParamString;
+            userConfig.value = "1";
+            context.getDatabase().saveBean(userConfig);
+        }
+
+        Map config = (Map) cntx.contentAsObject("config");
+        for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
+            UserConfig userConfig = new UserConfig();
+            userConfig.user = bean.id;
+            userConfig.key = viewConfigKey.key;
+
+            if(config.containsKey(viewConfigKey.key)) {
+                userConfig.value = (String) config.get(viewConfigKey.key);
+            } else {
+                userConfig.value = viewConfigKey.defaultValue;
+            }
+            context.getDatabase().saveBean(userConfig);
+        }
     }
 
     /**

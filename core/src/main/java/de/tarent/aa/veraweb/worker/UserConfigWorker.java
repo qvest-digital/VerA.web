@@ -71,6 +71,7 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.aa.veraweb.beans.UserConfig;
+import de.tarent.aa.veraweb.beans.ViewConfigKey;
 import de.tarent.aa.veraweb.utils.LocaleMessage;
 import de.tarent.aa.veraweb.utils.VworConstants;
 import de.tarent.aa.veraweb.utils.VworUtils;
@@ -98,23 +99,8 @@ import java.util.Map;
  */
 public class UserConfigWorker {
     public static final String PARAMS_STRING[] = {
-      "personTab", "personMemberTab",
-      "personAddresstypeTab", "personLocaleTab" };
-    private static final String PARAMS_BOOLEAN[] = {
-        "guestListFunction", "guestListCity",
-        "guestListPhone", "guestLfdNr",
-        "guestReserve", "guestCompany",
-        "guestFirstname", "guestLastname",
-        "guestEmail", "guestMainPerson",
-        "guestPartner", "personListState",
-        "personID", "personWorkarea",
-        "personFirstname", "personLastname",
-        "personFunction", "personCompany",
-        "personStreet", "personStreet",
-        "personPostCode", "personCity",
-        "personCategory", "guestInternalId",
-        "personInternalId"
-    };
+            "personTab", "personMemberTab",
+            "personAddresstypeTab", "personLocaleTab"};
 
     /**
      * Octopus-Eingabe-Parameter für {@link #init(OctopusContext)}
@@ -197,9 +183,37 @@ public class UserConfigWorker {
             orgUnit = (OrgUnit) database.getBean("OrgUnit", user.orgunit);
         }
 
+        completeUserViewConfigEntries(database, userId, octopusContext, result);
+
         octopusContext.setContent("orgUnit", orgUnit);
         octopusContext.setSession("userConfig", result);
         return result;
+    }
+
+    /**
+     * Checks view config property entries in user config. Settings of common config will be used for missing entries
+     * in user config and persisted
+     * @param database database
+     * @param userId id of current user
+     * @param octopusContext the context
+     * @param result user
+     * @throws IOException
+     * @throws BeanException
+     */
+    private void completeUserViewConfigEntries(Database database, Integer userId, OctopusContext octopusContext, Map result) throws IOException, BeanException {
+        Map config = (Map) octopusContext.contentAsObject("config");
+        for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
+            if (!result.containsKey(viewConfigKey.key)) {
+                String value;
+                if (config.containsKey(viewConfigKey.key)) {
+                    value = (String) config.get(viewConfigKey.key);
+                } else {
+                    value = viewConfigKey.defaultValue;
+                }
+                insertNewUserConfigEntry(database, userId, viewConfigKey.key, value);
+                result.put(viewConfigKey.key, value);
+            }
+        }
     }
 
     /**
@@ -257,53 +271,39 @@ public class UserConfigWorker {
             setUserSetting(database, userId, userConfig, key, value);
         }
 
-        for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
-            String key = PARAMS_BOOLEAN[i];
+        for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
+            String key = viewConfigKey.key;
             boolean value = octopusContext.requestAsBoolean(key).booleanValue();
             String type = octopusContext.getRequestObject().getTask();
-
-            switch(type){
+            switch (type) {
                 case "SearchPerson":
-                    if(key.contains("person")) {
-                        if(value){
-                            setUserSetting(database, userId, userConfig, key, "true");
-                        } else {
-                            removeUserSetting(database, userId, userConfig, key);
-                        }
+                    if (key.contains("person")) {
+                        setUserSetting(database, userId, userConfig, key, Boolean.toString(value));
                     }
                     break;
                 case "ShowGuestList":
-                    if(key.contains("guest")) {
-                        if(value){
-                            setUserSetting(database, userId, userConfig, key, "true");
-                        } else {
-                            removeUserSetting(database, userId, userConfig, key);
-                        }
+                    if (key.contains("guest")) {
+                        setUserSetting(database, userId, userConfig, key, Boolean.toString(value));
                     }
                     break;
                 case "UserConfig":
-                    if (value) {
-                        setUserSetting(database, userId, userConfig, key, "true");
-                    } else {
-                        removeUserSetting(database, userId, userConfig, key);
-                    }
+                    setUserSetting(database, userId, userConfig, key, Boolean.toString(value));
                     break;
             }
         }
-
         octopusContext.setContent("saveSuccess", true);
     }
 
     protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key)
-      throws BeanException, IOException {
+            throws BeanException, IOException {
         String old = (String) userConfig.get(key);
         if (old != null) {
 
             final TransactionContext transactionContext = database.getTransactionContext();
             transactionContext.execute(database.getDelete("UserConfig").
-              where(Where.and(
-                Expr.equal("fk_user", userId),
-                Expr.equal("name", key))));
+                    where(Where.and(
+                            Expr.equal("fk_user", userId),
+                            Expr.equal("name", key))));
             transactionContext.commit();
 
             userConfig.remove(key);
@@ -311,31 +311,38 @@ public class UserConfigWorker {
     }
 
     protected void setUserSetting(Database database, Integer userId, Map userConfig, String key, String value)
-      throws BeanException, IOException {
+            throws BeanException, IOException {
         String old = (String) userConfig.get(key);
         if (value == null) {
             removeUserSetting(database, userId, userConfig, key);
-        } else if (old == null) {
-            final TransactionContext transactionContext = database.getTransactionContext();
-            UserConfig config = new UserConfig();
-            config.user = userId;
-            config.key = key;
-            config.value = value;
-            database.saveBean(config, transactionContext, true);
-            transactionContext.commit();
-
+            return;
+        }
+        if (old == null) {
+            insertNewUserConfigEntry(database, userId, key, value);
             userConfig.put(key, value);
         } else if (!value.equals(old)) {
-
-            final TransactionContext transactionContext = database.getTransactionContext();
-            transactionContext.execute(database.getUpdate("UserConfig").
-              update("value", value).
-              where(Where.and(
-                Expr.equal("fk_user", userId),
-                Expr.equal("name", key))));
-            transactionContext.commit();
-
+            updateUserConfigEntry(database, userId, key, value);
             userConfig.put(key, value);
         }
+    }
+
+    private void updateUserConfigEntry(Database database, Integer userId, String key, String value) throws BeanException, IOException {
+        final TransactionContext transactionContext = database.getTransactionContext();
+        transactionContext.execute(database.getUpdate("UserConfig").
+                update("value", value).
+                where(Where.and(
+                        Expr.equal("fk_user", userId),
+                        Expr.equal("name", key))));
+        transactionContext.commit();
+    }
+
+    private void insertNewUserConfigEntry(Database database, Integer userId, String key, String value) throws BeanException, IOException {
+        final TransactionContext transactionContext = database.getTransactionContext();
+        UserConfig config = new UserConfig();
+        config.user = userId;
+        config.key = key;
+        config.value = value;
+        database.saveBean(config, transactionContext, true);
+        transactionContext.commit();
     }
 }
