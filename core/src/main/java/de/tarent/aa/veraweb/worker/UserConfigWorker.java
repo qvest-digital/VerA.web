@@ -316,11 +316,14 @@ public class UserConfigWorker {
         if (value == null) {
             removeUserSetting(database, userId, userConfig, key);
         } else if (old == null) {
+            final TransactionContext transactionContext = database.getTransactionContext();
             UserConfig config = new UserConfig();
             config.user = userId;
             config.key = key;
             config.value = value;
-            database.saveBean(config);
+            database.saveBean(config, transactionContext, true);
+            transactionContext.commit();
+
             userConfig.put(key, value);
         } else if (!value.equals(old)) {
 
