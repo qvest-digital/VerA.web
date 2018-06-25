@@ -4,20 +4,13 @@ import de.tarent.veraweb.pages.LoginPage
 import de.tarent.veraweb.pages.MainPage
 import de.tarent.veraweb.util.SystemtestHelper
 import geb.spock.GebReportingSpec
-import spock.lang.Shared
 
 abstract class AbstractUITest extends GebReportingSpec {
-
-    @Shared
-    def ENDPOINT = 'https://localhost'
-
-    @Shared
-    def PATH = '/veraweb/do/Main'
 
     def mainPage
 
     def setupSpec() {
-        SystemtestHelper.waitForContainers(ENDPOINT, PATH)
+        SystemtestHelper.waitForContainers(AbstractSystemTest.ENDPOINT, AbstractSystemTest.PATH)
     }
 
     def loginAsAdmin() {

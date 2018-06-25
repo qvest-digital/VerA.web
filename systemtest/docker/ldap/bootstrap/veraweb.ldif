@@ -1,0 +1,31 @@
+dn: ou=Users,dc=veraweb,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Users
+
+dn: ou=group,dc=veraweb,dc=example,dc=org
+objectClass: organizationalUnit
+ou: group
+
+dn: ou=machines,dc=veraweb,dc=example,dc=org
+objectClass: organizationalUnit
+ou: machines
+
+dn: cn=Nutzer,ou=group,dc=veraweb,dc=example,dc=org
+objectClass: posixGroup
+gidNumber: 10000
+cn: Nutzer
+
+dn: uid=admin,ou=Users,dc=veraweb,dc=example,dc=org
+objectClass: posixAccount
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+homeDirectory: /home/admin
+loginShell: /bin/ksh
+uid: admin
+cn: admin
+uidNumber: 10000
+gidNumber: 10000
+sn: admin
+userPassword: admin
+
