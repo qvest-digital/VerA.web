@@ -1371,6 +1371,7 @@ verawebdetailansicht=VerA.web :: Detailansicht
 datensatzbearbeiten=Datensatz bearbeiten
 zuruecksetzen=Zur\u00FCcksetzen
 datensatzloeschen=Datensatz l\u00F6schen
+PERSON_PART_SEARCH_HINT=Es werden automatisch auch Ergebnisse zur\u00FCckgeliefert, in denen Ihre Eingabe als Wortteil vorkommt.
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere und das ? f\u00FCr einzelne Zeichen
 undamtsbezeichnungfunktion=und Amtsbezeichnung/Funktion
 HINT_SEARCH_WHERE=Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00DFe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche
