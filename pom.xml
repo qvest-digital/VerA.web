@@ -27,7 +27,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.5.5</version>
+	<version>1.5.6-SNAPSHOT</version>
 	<url>http://tarentdatabase.evolvis.org/</url>
 	<licenses>
 		<license>
