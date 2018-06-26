@@ -58,6 +58,8 @@ public class Expr {
 	final static public String GREATEROREQUAL = ">=";
     /** the String "<code> LIKE </code>" */
 	final static public String LIKE = " LIKE ";
+    /** the String "<code> ~* </code>" */
+	final static public String REGEX_I = " ~* ";
     /** the String "<code> NOT LIKE </code>" */
 	final static public String NOTLIKE = " NOT LIKE ";
     /** the String "<code> IS NULL</code>" */
@@ -138,6 +140,14 @@ public class Expr {
      */
 	static public Where like(String column, Object value) {
 		return new Where(column, value, LIKE);
+	}
+
+    /**
+     * This method returns a {@link Where} {@link Clause} testing whether
+     * a column's content matches a regular expression, case-insensitively.
+     */
+	static public Where regexI(String column, Object value) {
+		return new Where(column, value, REGEX_I);
 	}
 
     /**
