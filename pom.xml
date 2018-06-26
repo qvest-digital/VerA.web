@@ -32,7 +32,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.5.5-SNAPSHOT</version>
+	<version>1.5.5</version>
 
 	<url>http://tarentdatabase.evolvis.org/</url>
 
@@ -317,27 +317,13 @@
 
 	<!-- this section is required for deployment -->
 	<distributionManagement>
-		<repository>
-			<id>evolvis-release-repository</id>
-			<name>evolvis.org release repository</name>
-			<url>
-				scpexe://maven-repo.evolvis.org:/var/www/maven_repo/releases
-			</url>
-		</repository>
-		<snapshotRepository>
-			<id>evolvis-snapshot-repository</id>
-			<name>evolvis.org snapshot repository</name>
-			<url>
-				scpexe://maven-repo.evolvis.org:/var/www/maven_repo/snapshots
-			</url>
-		</snapshotRepository>
-		<site>
-			<id>evolvis-site-repository</id>
-			<name>evolvis.org site repository</name>
-			<url>
-				scpexe://maven@svn.evolvis.org:/site/tarentdatabase/htdocs/site
-			</url>
-		</site>
+	    <repository>
+		<id>tarent-repo</id>
+		<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
+	    </repository>
+	    <snapshotRepository>
+		<id>tarent-repo</id>
+		<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
+	    </snapshotRepository>
 	</distributionManagement>
-
 </project>
