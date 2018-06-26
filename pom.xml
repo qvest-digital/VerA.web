@@ -27,7 +27,7 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT 
 	-->
-	<version>1.5.6-SNAPSHOT</version>
+	<version>1.5.6</version>
 	<url>http://tarentdatabase.evolvis.org/</url>
 	<licenses>
 		<license>
@@ -117,6 +117,17 @@
 			<email>c.preilowski@tarent.de</email>
 			<organization>tarent GmbH</organization>
 			<organizationUrl>http://www.tarent.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>dgeorg</id>
+			<name>Dominik George</name>
+			<email>d.george@tarent.de</email>
+			<organization>tarent GmbH</organization>
+			<organizationUrl>https://www.tarent.de</organizationUrl>
 			<roles>
 				<role>Developer</role>
 			</roles>
