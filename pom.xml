@@ -166,7 +166,7 @@
 								${project.description}
 							</version_description>
 							<version_copyright>
-								Copyright (c) 2005-2007 tarent GmbH
+								Copyright (c) 2005-2007,2018 tarent GmbH
 							</version_copyright>
 							<Implementation-Vendor>
 								tarent GmbH (www.tarent.de)
