@@ -509,8 +509,9 @@
                                                                 <img title="ich bin eine tolle Überschrift" src="${paths.staticWeb}images/checked_disabled.png" class="invisible invisibleselector"/>
                                                                 <input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
                                                         </td>
+                                                        <input type="hidden" name="${bean.id}-id" value="$bean.id">
                                                         #if($userConfig.guestLfdNr)
-                                                        <td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
+                                                        <td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
                                                                 #if($bean.ishost && $bean.ishost == 1)
                                                                         <em>${placeholderWithTranslation.GENERIC_HOST}</em>
                                                                 #elseif($bean.someorderno)
