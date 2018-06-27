@@ -2,7 +2,7 @@
     <fieldset>
         <div class="table width100 inlineLabel">
             <div class="tableRow">
-                <div class="tableCellMarginBottom"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState == 'true') checked #end> <label for="personListState">&nbsp;${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label></div><br>
+                <div class="tableCellMarginBottom"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState == 'true') checked #end> <label for="personListState">${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label></div><br>
                 <div class="tableCellMarginBottom"><input type="checkbox" name="personInternalId" id="personInternalId" value="true" #if($userConfig.personInternalId == 'true') checked #end> <label for="personInternalId">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</label></div><br>
                 <div class="tableCellMarginBottom"><input type="checkbox" name="personID" id="personID" value="true" #if($userConfig.personID == 'true') checked #end> <label for="personID">${placeholderWithTranslation.GENERIC_ID}</label></div><br>
                 <div class="tableCellMarginBottom"><input type="checkbox" name="personWorkarea" id="personWorkarea" value="true" #if($userConfig.personWorkarea == 'true') checked #end> <label for="personWorkarea">${placeholderWithTranslation.arbeitsshybereich}</label></div><br>

@@ -47,12 +47,7 @@
         ##Values in per cent for table columns width
         #set($column0 = 3)
         #set($column1 = 5)
-        #if ($viewConfig.showInternalId)
-            #set($column2 = 5)
-            #set($column3 = 7)
-        #else
-            #set($column3 = 12)
-        #end
+        #set($column3 = 12)
         #set($column4 = 13)
         #set($column5 = 13)
         #set($column6 = 9)
@@ -69,12 +64,7 @@
         ##Values in per cent for table columns width
         #set($column0 = 3)
         #set($column1 = 5)
-    #if ($viewConfig.showInternalId)
-        #set($column2 = 5)
-        #set($column3 = 7)
-    #else
         #set($column3 = 12)
-    #end
         #set($column4 = 11)
         #set($column5 = 11)
         #set($column6 = 9)
@@ -107,12 +97,7 @@
         ##Values in per cent for table columns width
         #set($column0 = 3)
         #set($column1 = 5)
-    #if ($viewConfig.showInternalId)
-        #set($column2 = 5)
-        #set($column3 = 7)
-    #else
         #set($column3 = 12)
-    #end
         #set($column4 = 13)
         #set($column5 = 13)
         #set($column6 = 9)
@@ -681,7 +666,7 @@ i                                                       ${placeholderWithTransla
 
                         #end
 
-                        #if($action != "replace" && $action != "duplicateSearch" && $action != "taskReferencePerson")
+                        #if($action != "replace" && $action != "taskReferencePerson")
                                 #if($action != "guest" && $action == "host")
                                         <span id="buttonPanel-top" class="textRight" style="margin-left:886px">
                                 #end
@@ -698,10 +683,10 @@ i                                                       ${placeholderWithTransla
                                                             <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
                                                         </div>
                                                     </div>
+                                    #if($action != "duplicateSearch")
                                         <input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.GENERIC_CREATE_PERSON}" title="${placeholderWithTranslation.GENERIC_CREATE_PERSON}" class="mainButton" onclick="window.location.href='CreatePerson';" />
                                         <input type="button" id="button.searchPerson" name="button.searchPerson" value="${placeholderWithTranslation.GENERIC_SEARCH_PERSONS}" title="${placeholderWithTranslation.GENERIC_SEARCH_PERSONS}" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
-                                        #if($grants.mayWrite())
-                                        #end
+                                    #end
                                 #end
                                         </span>
                         #end
@@ -743,9 +728,6 @@ i                                                       ${placeholderWithTransla
                                         ##Set column size
                                         <col width="$column0%" />
                                         <col width="$column1%" />
-                                        #if ($viewConfig.showInternalId)
-                                            <col width="$column2%" />
-                                        #end
 
                                         <col width="$column3%" />
                                         <col width="$column4%" />

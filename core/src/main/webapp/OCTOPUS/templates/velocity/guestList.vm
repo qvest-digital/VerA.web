@@ -8,9 +8,6 @@
 ##Values in per cent for table columns width
 #set($column0 = 3)
 #set($column1 = 8)
-#if ($viewConfig.showInternalId)
-        #set($column2 = 8)
-#end
 #set($column3 = 4)
 #set($column4 = 20)
 #set($column5 = 20)
@@ -367,7 +364,6 @@
                                                 ##Set column size
                                                 <col width="$column0%" />
                                                 <col width="$column1%" />
-                                                #if ($viewConfig.showInternalId) <col width="$column2%" /> #end
                                                 <col width="$column3%" />
                                                 <col width="$column4%" />
                                                 <col width="$column5%" />

@@ -277,6 +277,7 @@ public class UserConfigWorker {
             String type = octopusContext.getRequestObject().getTask();
             switch (type) {
                 case "SearchPerson":
+                case "PersonDuplicateSearch":
                     if (key.contains("person")) {
                         setUserSetting(database, userId, userConfig, key, Boolean.toString(value));
                     }

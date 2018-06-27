@@ -295,6 +295,7 @@
 			<action name="saveList" worker="PersonDuplicateSearchWorker"/>
 			<action name="showList" worker="PersonDuplicateSearchWorker"/>
 			<action name="exportFormat" worker="PersonExportWorker"/>
+			<action name="save" worker="UserConfigWorker"/>
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="personList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
