@@ -40,6 +40,33 @@
 
             <input type="hidden" name="saveconfig" value="changeLogRetentionPolicy">
 
+            <input type="hidden" name="saveconfig" value="personListState">
+            <input type="hidden" name="saveconfig" value="personInternalId">
+            <input type="hidden" name="saveconfig" value="personID">
+            <input type="hidden" name="saveconfig" value="personWorkarea">
+            <input type="hidden" name="saveconfig" value="personFirstname">
+            <input type="hidden" name="saveconfig" value="personCategory">
+            <input type="hidden" name="saveconfig" value="personLastname">
+            <input type="hidden" name="saveconfig" value="personFunction">
+            <input type="hidden" name="saveconfig" value="personCompany">
+            <input type="hidden" name="saveconfig" value="personStreet">
+            <input type="hidden" name="saveconfig" value="personPostCode">
+            <input type="hidden" name="saveconfig" value="personCity">
+
+            <input type="hidden" name="saveconfig" value="guestListFunction">
+            <input type="hidden" name="saveconfig" value="guestInternalId">
+            <input type="hidden" name="saveconfig" value="guestListCity">
+            <input type="hidden" name="saveconfig" value="guestListPhone">
+            <input type="hidden" name="saveconfig" value="guestLfdNr">
+            <input type="hidden" name="saveconfig" value="guestReserve">
+            <input type="hidden" name="saveconfig" value="guestCompany">
+            <input type="hidden" name="saveconfig" value="guestFirstname">
+            <input type="hidden" name="saveconfig" value="guestLastname">
+            <input type="hidden" name="saveconfig" value="guestEmail">
+            <input type="hidden" name="saveconfig" value="guestMainPerson">
+            <input type="hidden" name="saveconfig" value="guestPartner">
+
+
             #if(!$config.personTab || $config.personTab == "1")
                 #set($personTab1 = true)#set($personTab2 = false)
             #else
@@ -228,7 +255,54 @@
                         </tr>
                 </table>
             </div>
+            <h3>${placeholderWithTranslation.GENERIC_VIEW_CONFIG}</h3>
+            <div class="contentBoxColored grayBorder marginBottom20">
 
+                <div style="width: 55%; float: left; max-width: 510px;">
+                    <h3>${placeholderWithTranslation.GENERIC_LIST_OF_PERSONS}</h3>
+                    <fieldset>
+                        <div class="table width100 inlineLabel">
+                            <div class="tableRow">
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personListState" id="personListState" value="true" #if($config.personListState == 'true') checked #end> <label for="personListState">&nbsp;${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personInternalId" id="personInternalId" value="true" #if($config.personInternalId == 'true') checked #end> <label for="personInternalId">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personID" id="personID" value="true" #if($config.personID == 'true') checked #end> <label for="personID">${placeholderWithTranslation.GENERIC_ID}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personWorkarea" id="personWorkarea" value="true" #if($config.personWorkarea == 'true') checked #end> <label for="personWorkarea">${placeholderWithTranslation.arbeitsshybereich}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personFirstname" id="personFirstname" value="true" #if($config.personFirstname == 'true') checked #end> <label for="personFirstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personCategory" id="personCategory" value="true" #if($config.personCategory == 'true') checked #end> <label for="personCategory">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personLastname" id="personLastname" value="true" #if($config.personLastname == 'true') checked #end> <label for="personLastname">${placeholderWithTranslation.GENERIC_LASTNAME}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personFunction" id="personFunction" value="true" #if($config.personFunction == 'true') checked #end> <label for="personFunction">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personCompany" id="personCompany" value="true" #if($config.personCompany == 'true') checked #end> <label for="personCompany">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personStreet" id="personStreet" value="true" #if($config.personStreet == 'true') checked #end> <label for="personStreet">${placeholderWithTranslation.GENERIC_STREET}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personPostCode" id="personPostCode" value="true" #if($config.personPostCode == 'true') checked #end> <label for="personPostCode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personCity" id="personCity" value="true" #if($config.personCity == 'true') checked #end> <label for="personCity">${placeholderWithTranslation.GENERIC_CITY}</label></div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+                <div style="width:43%" class="floatRight">
+                    <h3>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</h3>
+                    <fieldset>
+                        <div class="table width100 inlineLabel">
+                            <div class="tableRow">
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestListFunction" id="guestListFunction" value="true" #if($config.guestListFunction == 'true') checked #end> <label for="guestListFunction">&nbsp;${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestInternalId" id="guestInternalId" value="true" #if($config.guestInternalId == 'true') checked #end> <label for="guestListFunction">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestListCity" id="guestListCity" value="true" #if($config.guestListCity == 'true') checked #end> <label for="guestListCity">&nbsp;${placeholderWithTranslation.GENERIC_POSTNUMBER_AND_CITY}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestListPhone" id="guestListPhone" value="true" #if($config.guestListPhone == 'true') checked #end> <label for="guestListPhone">&nbsp;${placeholderWithTranslation.GENERIC_TELEFON}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestLfdNr" id="guestLfdNr" value="true" #if($config.guestLfdNr == 'true') checked #end> <label for="guestLfdNr">${placeholderWithTranslation.lfdnr}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestReserve" id="guestReserve" value="true" #if($config.guestReserve == 'true') checked #end> <label for="guestReserve">${placeholderWithTranslation.GUEST_LIST_RESERVE}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestCompany" id="guestCompany" value="true" #if($config.guestCompany == 'true') checked #end> <label for="guestCompany">${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestFirstname" id="guestFirstname" value="true" #if($config.guestFirstname == 'true') checked #end> <label for="guestFirstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestLastname" id="guestLastname" value="true" #if($config.guestLastname == 'true') checked #end> <label for="guestLastname">${placeholderWithTranslation.GENERIC_NAME}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestEmail" id="guestEmail" value="true" #if($config.guestEmail == 'true') checked #end> <label for="guestEmail">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestMainPerson" id="guestMainPerson" value="true" #if($config.guestMainPerson == 'true') checked #end> <label for="guestMainPerson">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="guestPartner" id="guestPartner" value="true" #if($config.guestPartner == 'true') checked #end> <label for="guestPartner">${placeholderWithTranslation.GENERIC_PARTNER}</label></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="clear"></div>
+            </div>
             #if($grants.isAdmin())
             <div id="buttonPanel-bottom" class="textRight ">
 

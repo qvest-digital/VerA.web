@@ -379,6 +379,7 @@ GENERIC_MAILING_ADDRESS_OTHERS=Address (others)
 GENERIC_LABELLING_LATIN=Charset latin
 GENERIC_LABELLING_ALTERNATIVE=Charset alternative
 GENERIC_ADDRESS_ADDITIONAL=Addition to address
+GENERIC_VIEW_CONFIG=View configuration
 
 # ADMINISTRATION/REPORTS
 GENERIC_REPORTS=Reports
@@ -1370,6 +1371,7 @@ verawebdetailansicht=VerA.web :: Details
 datensatzbearbeiten=edit dataset
 zuruecksetzen=reset
 datensatzloeschen=remove dataset
+PERSON_PART_SEARCH_HINT=Results are also automatically returned in which your input appears as part of a word.
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen= For searching purposes you can use so-called placeholders: * is used to replace more than one character and ? for exactly one character
 undamtsbezeichnungfunktion=and employment title/function
 HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, work areas

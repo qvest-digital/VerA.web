@@ -379,6 +379,7 @@ GENERIC_MAILING_ADDRESS_OTHERS=Otras direcciones
 GENERIC_LABELLING_LATIN=Conjunto de caracteres latinos
 GENERIC_LABELLING_ALTERNATIVE=Conjunto de caracteres alternativo
 GENERIC_ADDRESS_ADDITIONAL=Direcci\u00F3n adicional
+GENERIC_VIEW_CONFIG=Configuraci\u00F3n de la vista
 
 # ADMINISTRATION/REPORTS
 GENERIC_REPORTS=Res\u00FAmenes
@@ -1372,6 +1373,7 @@ verawebdetailansicht=VerA.web :: Vista detalle
 datensatzbearbeiten=Editar registro
 zuruecksetzen=Restaurar
 datensatzloeschen=Eliminar registro
+PERSON_PART_SEARCH_HINT=Se devuelven tambi\u00E9n autom\u00E1ticamente los resulatados, que contienen una parte de la palabra que usted ha introducido.
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=En su b\u00FAsqueda, podr\u00E1 utilizar comodines, el asterisco (*) servir\u00E1 para b\u00FAsquedas globales y el s\u00EDmbolo de interrogaci\u00F3n (?) para b\u00FAsquedas individuales
 undamtsbezeichnungfunktion=y t\u00EDtulo/funci\u00F3n
 HINT_SEARCH_WHERE=La b\u00FAsqueda se basa en nombres, apellidos, localizaci\u00F3n, c\u00F3digo postal, calle, empresa/instituci\u00F3n, tel\u00E9fono, fax, m\u00F3vil, e-mail, observaciones, categor\u00EDas y \u00E1reas de trabajo

@@ -68,11 +68,10 @@ package de.tarent.aa.veraweb.worker;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.PersonCategorie;
-import de.tarent.aa.veraweb.beans.PersonSearch;
+import de.tarent.aa.veraweb.beans.*;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.helper.ResultMap;
@@ -538,8 +537,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
          * modified to support workarea display in the search result list as per
          * change request for version 1.2.0 cklein 2008-02-12
          */
-        final String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
-        if (searchFiled == null) {
+        final String searchField = octopusContext.getRequestObject().getParamAsString("searchField");
+        if (searchField == null) {
             select.join("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
         }
 
@@ -575,7 +574,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         select.whereAnd(getPersonListFilter(octopusContext, true));
 
         select.setDistinct(true);
-        final String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
+        final String searchField = octopusContext.getRequestObject().getParamAsString("searchField");
 
         if (personSearch.listorder == null) {
             octopusContext.getContentObject().setField("personSearchField", "lastname_a_e1");
@@ -590,10 +589,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         extendSelectByMultipleCategorySearch(octopusContext, personSearch, select);
         if (personSearch.categorie2 != null) {
             select.join("veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk");
-        } else if (searchFiled != null) {
+        } else if (searchField != null) {
             select.joinOuter("veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk");
         }
-        if (searchFiled != null) {
+        if (searchField != null) {
             select.joinOuter("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
             select.joinOuter("veraweb.tcategorie", "tcategorie.pk", "cat2.fk_categorie");
         }
@@ -936,11 +935,14 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     protected Clause getPersonListFilter(final OctopusContext octopusContext, final boolean status) throws BeanException {
         final WhereList list = new WhereList();
 
-        final String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
-        if (searchFiled == null) {
+        String searchField = octopusContext.getRequestObject().getParamAsString("searchField");
+        if (searchField == null) {
             addPersonListFilter(octopusContext, list);
         } else {
-            addPersonListFilterSimple(searchFiled, list, status);
+            PropertiesReader propertiesReader = new PropertiesReader();
+            SearchConfig searchConfig = new SearchConfig(propertiesReader.getProperties());
+
+            addPersonListFilterSimple(getFilterValue(searchField, searchConfig.personPartSearch), list, status);
         }
 
         final Where orgunitFilter =
@@ -963,6 +965,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     private void addPersonListFilter(final OctopusContext octopusContext, final WhereList list) throws BeanException {
         final PersonSearch personSearch = getSearch(octopusContext);
 
+        PropertiesReader propertiesReader = new PropertiesReader();
+        SearchConfig searchConfig = new SearchConfig(propertiesReader.getProperties());
+        boolean partSearch = searchConfig.personPartSearch;
+
         list.addAnd(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE));
 
         /*
@@ -977,22 +983,22 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             list.addAnd(Expr.equal("cat2.fk_categorie", personSearch.categorie2));
         }
         if (personSearch.city != null && personSearch.city.length() != 0) {
-            list.addAnd(getCityFilter(personSearch));
+            list.addAnd(getCityFilter(getFilterValue(personSearch.city, partSearch)));
         }
         if (personSearch.country != null && personSearch.country.length() != 0) {
-            list.addAnd(getCountryFilter(personSearch));
+            list.addAnd(getCountryFilter(getFilterValue(personSearch.country, partSearch)));
         }
         if (personSearch.company != null && personSearch.company.length() != 0) {
-            list.addAnd(getCompanyFilter(personSearch));
+            list.addAnd(getCompanyFilter(getFilterValue(personSearch.company, partSearch)));
         }
         if (personSearch.importsource != null && personSearch.importsource.length() != 0) {
             list.addAnd(DatabaseHelper.getWhere(personSearch.importsource, new String[] { "importsource" }));
         }
         if (personSearch.firstname != null && personSearch.firstname.length() != 0) {
-            list.addAnd(getFirstnameFilter(personSearch));
+            list.addAnd(getFirstnameFilter(getFilterValue(personSearch.firstname, partSearch)));
         }
         if (personSearch.function != null && personSearch.function.length() != 0) {
-            list.addAnd(getFunctionFilter(personSearch));
+            list.addAnd(getFunctionFilter(getFilterValue(personSearch.function, partSearch)));
         }
         if (personSearch.iscompany != null && personSearch.iscompany.booleanValue()) {
             list.addAnd(Expr.equal("iscompany", PersonConstants.ISCOMPANY_TRUE));
@@ -1000,10 +1006,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             list.addAnd(Expr.equal("iscompany", PersonConstants.ISCOMPANY_FALSE));
         }
         if (personSearch.lastname != null && personSearch.lastname.length() != 0) {
-            list.addAnd(getLastnameFilter(personSearch));
+            list.addAnd(getLastnameFilter(getFilterValue(personSearch.lastname, partSearch)));
         }
         if (personSearch.street != null && personSearch.street.length() != 0) {
-            list.addAnd(getStreetFilter(personSearch));
+            list.addAnd(getStreetFilter(getFilterValue(personSearch.street, partSearch)));
         }
         if (personSearch.validdate != null && personSearch.validtype != null) {
             final Date end = new Date(personSearch.validdate.getTime() + 86400000 - 1000);
@@ -1021,10 +1027,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             }
         }
         if (personSearch.zipcode != null && personSearch.zipcode.length() != 0) {
-            list.addAnd(getZipCodeFilter(personSearch));
+            list.addAnd(getZipCodeFilter(getFilterValue(personSearch.zipcode, partSearch)));
         }
         if (personSearch.state != null && personSearch.state.length() != 0) {
-            list.addAnd(getStateFilter(personSearch));
+            list.addAnd(getStateFilter(getFilterValue(personSearch.state, partSearch)));
         }
         if (personSearch.languages != null && personSearch.languages.length() != 0) {
             final LanguagesFilterFactory factory = new LanguagesFilterFactory();
@@ -1034,68 +1040,71 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             list.addAnd(Expr.in("tperson.pk", new RawClause("(SELECT fk_host FROM veraweb.tevent)")));
         }
         if (personSearch.internal_id != null && personSearch.internal_id.length() != 0) {
-            list.addAnd(getInternalIdFilter(personSearch));
+            list.addAnd(getInternalIdFilter(getFilterValue(personSearch.internal_id, partSearch)));
         }
     }
 
-    private Clause getStateFilter(final PersonSearch personSearch) {
-        final String value = personSearch.state;
+    private String getFilterValue(String filter, boolean partSearch) {
+        return partSearch ? "*"+filter+"*" : filter;
+    }
+
+    private Clause getStateFilter(final String state) {
         final String[] columns =
           { "state_a_e1", "state_a_e2", "state_a_e3", "state_b_e1", "state_b_e2", "state_b_e3", "state_c_e1", "state_c_e2",
             "state_c_e3" };
-        return DatabaseHelper.getWhere(value, columns);
+        return DatabaseHelper.getWhere(state, columns);
     }
 
-    private Clause getInternalIdFilter(PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.internal_id, new String[] { "internal_id" });
+    private Clause getInternalIdFilter(final String internalId) {
+        return DatabaseHelper.getWhere(internalId, new String[] { "internal_id" });
     }
 
-    private Clause getZipCodeFilter(final PersonSearch personSearch) {
+    private Clause getZipCodeFilter(final String zipcode) {
         return DatabaseHelper
-          .getWhere(personSearch.zipcode, new String[] { "zipcode_a_e1", "zipcode_a_e2", "zipcode_a_e3", "zipcode_b_e1",
-            "zipcode_b_e2", "zipcode_b_e3", "zipcode_c_e1", "zipcode_c_e2", "zipcode_c_e3" });
+            .getWhere(zipcode, new String[] { "zipcode_a_e1", "zipcode_a_e2", "zipcode_a_e3", "zipcode_b_e1",
+                "zipcode_b_e2", "zipcode_b_e3", "zipcode_c_e1", "zipcode_c_e2", "zipcode_c_e3" });
     }
 
-    private Clause getStreetFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.street,
-          new String[] { "street_a_e1", "street_a_e2", "street_a_e3", "street_b_e1", "street_b_e2",
-            "street_b_e3", "street_c_e1", "street_c_e2", "street_c_e3" });
+    private Clause getStreetFilter(final String street) {
+        return DatabaseHelper.getWhere(street,
+            new String[] { "street_a_e1", "street_a_e2", "street_a_e3", "street_b_e1", "street_b_e2",
+                "street_b_e3", "street_c_e1", "street_c_e2", "street_c_e3" });
     }
 
-    private Clause getLastnameFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.lastname,
-          new String[] { "lastname_a_e1", "lastname_a_e2", "lastname_a_e3", "lastname_b_e1",
-            "lastname_b_e2", "lastname_b_e3" });
+    private Clause getLastnameFilter(final String lastname) {
+        return DatabaseHelper.getWhere(lastname,
+            new String[] { "lastname_a_e1", "lastname_a_e2", "lastname_a_e3", "lastname_b_e1",
+                "lastname_b_e2", "lastname_b_e3" });
     }
 
-    private Clause getFunctionFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.function,
-          new String[] { "function_a_e1", "function_a_e2", "function_a_e3", "function_b_e1",
-            "function_b_e2", "function_b_e3", "function_c_e1", "function_c_e2", "function_c_e3" });
+    private Clause getFunctionFilter(final String function) {
+        return DatabaseHelper.getWhere(function,
+            new String[] { "function_a_e1", "function_a_e2", "function_a_e3", "function_b_e1",
+                    "function_b_e2", "function_b_e3", "function_c_e1", "function_c_e2", "function_c_e3" });
     }
 
-    private Clause getFirstnameFilter(final PersonSearch personSearch) {
-        return DatabaseHelper.getWhere(personSearch.firstname,
-          new String[] { "firstname_a_e1", "firstname_a_e2", "firstname_a_e3", "firstname_b_e1",
-            "firstname_b_e2", "firstname_b_e3" });
+    private Clause getFirstnameFilter(final String firstname) {
+        return DatabaseHelper.getWhere(firstname,
+            new String[] { "firstname_a_e1", "firstname_a_e2", "firstname_a_e3", "firstname_b_e1",
+                "firstname_b_e2", "firstname_b_e3" });
     }
 
-    private Clause getCompanyFilter(final PersonSearch personSearch) {
+    private Clause getCompanyFilter(final String company) {
         return DatabaseHelper
-          .getWhere(personSearch.company, new String[] { "company_a_e1", "company_a_e2", "company_a_e3", "company_b_e1",
-            "company_b_e2", "company_b_e3", "company_c_e1", "company_c_e2", "company_c_e3" });
+            .getWhere(company, new String[] { "company_a_e1", "company_a_e2", "company_a_e3", "company_b_e1",
+                "company_b_e2", "company_b_e3", "company_c_e1", "company_c_e2", "company_c_e3" });
     }
 
-    private Clause getCountryFilter(final PersonSearch personSearch) {
+    private Clause getCountryFilter(final String country) {
         return DatabaseHelper
-          .getWhere(personSearch.country, new String[] { "country_a_e1", "country_a_e2", "country_a_e3", "country_b_e1",
-            "country_b_e2", "country_b_e3", "country_c_e1", "country_c_e2", "country_c_e3" });
+            .getWhere(country, new String[] { "country_a_e1", "country_a_e2", "country_a_e3", "country_b_e1",
+                "country_b_e2", "country_b_e3", "country_c_e1", "country_c_e2", "country_c_e3" });
     }
 
-    private Clause getCityFilter(final PersonSearch personSearch) {
+    private Clause getCityFilter(final String city) {
         return DatabaseHelper
-          .getWhere(personSearch.city, new String[] { "city_a_e1", "city_a_e2", "city_a_e3", "city_b_e1", "city_b_e2",
-            "city_b_e3", "city_c_e1", "city_c_e2", "city_c_e3" });
+            .getWhere(city, new String[] { "city_a_e1", "city_a_e2", "city_a_e3", "city_b_e1", "city_b_e2",
+                "city_b_e3", "city_c_e1", "city_c_e2", "city_c_e3" });
     }
 
     /**

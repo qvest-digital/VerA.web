@@ -423,11 +423,11 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setPartnerGender(Map<String, Object> allRequestParams, Guest guest, boolean isMainPerson) {
         if (isMainPerson) {
-            if (allRequestParams.get("guest-sex_a") != null && allRequestParams.get("guest-sex_a") != guest.sex_a) {
+            if (allRequestParams.get("guest-sex_a") != null && !allRequestParams.get("guest-sex_a").equals(guest.sex_a)) {
                 guest.sex_a = allRequestParams.get("guest-sex_a").toString();
             }
         } else {
-            if (allRequestParams.get("guest-sex_b") != null && allRequestParams.get("guest-sex_b") != guest.sex_b) {
+            if (allRequestParams.get("guest-sex_b") != null && !allRequestParams.get("guest-sex_b").equals(guest.sex_b)) {
                 guest.sex_b = allRequestParams.get("guest-sex_b").toString();
             }
         }
@@ -436,12 +436,12 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setDomesticStatus(Map<String, Object> allRequestParams, Guest guest, boolean isMainPerson) {
         if (isMainPerson) {
             if (allRequestParams.get("guest-domestic_a") != null &&
-              allRequestParams.get("guest-domestic_a") != guest.domestic_a) {
+              !allRequestParams.get("guest-domestic_a").equals(guest.domestic_a)) {
                 guest.domestic_a = allRequestParams.get("guest-domestic_a").toString();
             }
         } else {
             if (allRequestParams.get("guest-domestic_b") != null &&
-              allRequestParams.get("guest-domestic_b") != guest.domestic_b) {
+              !allRequestParams.get("guest-domestic_b").equals(guest.domestic_b)) {
                 guest.domestic_b = allRequestParams.get("guest-domestic_b").toString();
             }
         }
@@ -450,12 +450,12 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setNoteToHost(Map<String, Object> allRequestParams, Guest guest, boolean isMainPerson) {
         if (isMainPerson) {
             if (allRequestParams.get("guest-notehost_a") != null &&
-              allRequestParams.get("guest-notehost_a") != guest.notehost_a) {
+              !allRequestParams.get("guest-notehost_a").equals(guest.notehost_a)) {
                 guest.notehost_a = allRequestParams.get("guest-notehost_a").toString();
             }
         } else {
             if (allRequestParams.get("guest-notehost_b") != null &&
-              allRequestParams.get("guest-notehost_b") != guest.notehost_b) {
+              !allRequestParams.get("guest-notehost_b").equals(guest.notehost_b)) {
                 guest.notehost_b = allRequestParams.get("guest-notehost_b").toString();
             }
         }
@@ -464,12 +464,12 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setNoteToOrgaTeam(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
             if (allRequestParams.get("guest-noteorga_a") != null &&
-              allRequestParams.get("guest-noteorga_a") != guest.noteorga_a) {
+              !allRequestParams.get("guest-noteorga_a").equals(guest.noteorga_a)) {
                 guest.noteorga_a = allRequestParams.get("guest-noteorga_a").toString();
             }
         } else {
             if (allRequestParams.get("guest-noteorga_b") != null &&
-              allRequestParams.get("guest-noteorga_b") != guest.noteorga_b) {
+              !allRequestParams.get("guest-noteorga_b").equals(guest.noteorga_b)) {
                 guest.noteorga_b = allRequestParams.get("guest-noteorga_b").toString();
             }
         }
@@ -478,12 +478,12 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setPartnerNationality(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
             if (allRequestParams.get("guest-nationality_a") != null &&
-              allRequestParams.get("guest-nationality_a") != guest.nationality_a) {
+              !allRequestParams.get("guest-nationality_a").equals(guest.nationality_a)) {
                 guest.nationality_a = allRequestParams.get("guest-nationality_a").toString();
             }
         } else {
             if (allRequestParams.get("guest-nationality_b") != null &&
-              allRequestParams.get("guest-nationality_b") != guest.nationality_b) {
+              !allRequestParams.get("guest-nationality_b").equals(guest.nationality_b)) {
                 guest.nationality_b = allRequestParams.get("guest-nationality_b").toString();
             }
         }
@@ -492,12 +492,12 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setLanguage(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
             if (allRequestParams.get("guest-language_a") != null &&
-              allRequestParams.get("guest-language_a") != guest.language_a) {
+              !allRequestParams.get("guest-language_a").equals(guest.language_a)) {
                 guest.language_a = allRequestParams.get("guest-language_a").toString();
             }
         } else {
             if (allRequestParams.get("guest-language_b") != null &&
-              allRequestParams.get("guest-language_b") != guest.language_b) {
+              !allRequestParams.get("guest-language_b").equals(guest.language_b)) {
                 guest.language_b = allRequestParams.get("guest-language_b").toString();
             }
         }
@@ -506,13 +506,13 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setSeatNumber(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
             if (allRequestParams.get("guest-seatno_a") != null &&
-              Integer.parseInt(allRequestParams.get("guest-seatno_a").toString()) != guest.seatno_a) {
-                guest.seatno_a = Integer.parseInt(allRequestParams.get("guest-seatno_a").toString());
+              !Integer.valueOf(allRequestParams.get("guest-seatno_a").toString()).equals(guest.seatno_a)) {
+                guest.seatno_a = Integer.valueOf(allRequestParams.get("guest-seatno_a").toString());
             }
         } else {
             if (allRequestParams.get("guest-seatno_b") != null &&
-              Integer.parseInt(allRequestParams.get("guest-seatno_b").toString()) != guest.seatno_b) {
-                guest.seatno_b = Integer.parseInt(allRequestParams.get("guest-seatno_b").toString());
+              !Integer.valueOf(allRequestParams.get("guest-seatno_b").toString()).equals(guest.seatno_b)) {
+                guest.seatno_b = Integer.valueOf(allRequestParams.get("guest-seatno_b").toString());
             }
         }
     }
@@ -520,13 +520,13 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setTableNumber(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
             if (allRequestParams.get("guest-tableno_a") != null &&
-              Integer.parseInt(allRequestParams.get("guest-tableno_a").toString()) != guest.tableno_a) {
-                guest.tableno_a = Integer.parseInt(allRequestParams.get("guest-tableno_a").toString());
+              !Integer.valueOf(allRequestParams.get("guest-tableno_a").toString()).equals(guest.tableno_a)) {
+                guest.tableno_a = Integer.valueOf(allRequestParams.get("guest-tableno_a").toString());
             }
         } else {
             if (allRequestParams.get("guest-tableno_b") != null &&
-              Integer.parseInt(allRequestParams.get("guest-tableno_b").toString()) != guest.tableno_b) {
-                guest.tableno_b = Integer.parseInt(allRequestParams.get("guest-tableno_b").toString());
+              !Integer.valueOf(allRequestParams.get("guest-tableno_b").toString()).equals(guest.tableno_b)) {
+                guest.tableno_b = Integer.valueOf(allRequestParams.get("guest-tableno_b").toString());
             }
         }
     }
@@ -534,13 +534,13 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setInvitationStatus(Map<String, Object> allRequestParams, Guest guest, Boolean isMainPerson) {
         if (isMainPerson) {
             if (allRequestParams.get("guest-invitationstatus_a") != null &&
-              Integer.parseInt(allRequestParams.get("guest-invitationstatus_a").toString()) != guest.invitationstatus_a) {
-                guest.invitationstatus_a = Integer.parseInt(allRequestParams.get("guest-invitationstatus_a").toString());
+              !Integer.valueOf(allRequestParams.get("guest-invitationstatus_a").toString()).equals(guest.invitationstatus_a)) {
+                guest.invitationstatus_a = Integer.valueOf(allRequestParams.get("guest-invitationstatus_a").toString());
             }
         } else {
             if (allRequestParams.get("guest-invitationstatus_b") != null &&
-              Integer.parseInt(allRequestParams.get("guest-invitationstatus_b").toString()) != guest.invitationstatus_b) {
-                guest.invitationstatus_b = Integer.parseInt(allRequestParams.get("guest-invitationstatus_b").toString());
+              !Integer.valueOf(allRequestParams.get("guest-invitationstatus_b").toString()).equals(guest.invitationstatus_b)) {
+                guest.invitationstatus_b = Integer.valueOf(allRequestParams.get("guest-invitationstatus_b").toString());
             }
         }
     }
