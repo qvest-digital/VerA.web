@@ -379,6 +379,7 @@ GENERIC_MAILING_ADDRESS_OTHERS=Otras direcciones
 GENERIC_LABELLING_LATIN=Conjunto de caracteres latinos
 GENERIC_LABELLING_ALTERNATIVE=Conjunto de caracteres alternativo
 GENERIC_ADDRESS_ADDITIONAL=Direcci\u00F3n adicional
+GENERIC_VIEW_CONFIG=Configuraci\u00F3n de la vista
 
 # ADMINISTRATION/REPORTS
 GENERIC_REPORTS=Res\u00FAmenes
