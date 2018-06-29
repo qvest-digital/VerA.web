@@ -7,12 +7,7 @@
 
 ##Values in per cent for table columns width
 #set($column0 = 5)
-#if ($viewConfig.showInternalId)
-        #set($column1 = 7)
-        #set($column6 = 15)
-#else
-        #set($column6 = 20)
-#end
+#set($column6 = 20)
 #set($column2 = 14)
 #set($column3 = 14)
 #set($column4 = 15)
@@ -77,12 +72,10 @@
                 #foreach($bean in $list)
                 <input type="hidden" name="list" value="$bean.id">
                 #end
+
                 <table class="sortable fixed">
                         ##Set column size
                         <col width="$column0%" />
-                #if ($viewConfig.showInternalId)
-                        <col width="$column1%" />
-                #end
                 <col width="$column2%" />
                 <col width="$column3%" />
                 <col width="$column4%" />
@@ -94,7 +87,6 @@
 
                         <tr>
                                 <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
-#if ($viewConfig.showInternalId) <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</th> #end
                                 <th>${placeholderWithTranslation.GENERIC_NAME}</th>
                                 <th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
                                 <th>${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
@@ -107,7 +99,6 @@
                         <tr>
                                 <td class="textCenter"><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
                                 ##additional parameters action cf. issue #2091
-#if ($viewConfig.showInternalId) <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.internal_id)</td> #end
                                 <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.lastname_a_e1)</td>
                                 <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.firstname_a_e1)</td>
                                 <td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.function_a_e1)</td>
@@ -121,7 +112,6 @@
                         <tr>
                                 ##additional parameters action cf. issue #2091
                                 <td class="textCenter" onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                                #if ($viewConfig.showInternalId) <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.internal_id)</td> #end
                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.lastname_a_e1)</td>
                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.firstname_a_e1)</td>
                                 <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.function_a_e1)</td>
