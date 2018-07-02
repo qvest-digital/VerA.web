@@ -1,18 +1,16 @@
-version: '2.3'
+version: '3.2'
 
 services:
 
   veraweb-db:
     image: postgres:9.3
-    mem_limit: 256m
     environment:
       POSTGRES_PASSWORD: veraweb
       POSTGRES_USER: veraweb
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - /docker/veraweb/postgres/psql-schema:/docker-entrypoint-initdb.d:ro
-      - /docker/veraweb/postgres/psql-database:/var/lib/postgresql/data:rw
+      - ./docker/psql-schema:/docker-entrypoint-initdb.d:ro
     ports:
       - 15432:5432
 
