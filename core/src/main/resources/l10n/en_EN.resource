@@ -838,6 +838,14 @@ STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=overall view of events ordered by venue
 statistikerstellen=create statistics
 
 # GAESTEVERWALTUNG DER VERANSTALTUNG
+MAIN_PERSON_STATUS_ACCEPT = Main person-Commitment
+MAIN_PERSON_STATUS_DECLINE = Main person-Declination
+MAIN_PERSON_STATUS_PARTICIPATED = Main person-Participation
+MAIN_PERSON_STATUS_OPEN = Main person-Open
+PARTNER_STATUS_ACCEPT = PARTNER-Commitment
+PARTNER_STATUS_DECLINE = PARTNER-Declination
+PARTNER_STATUS_PARTICIPATED = PARTNER-Participation
+PARTNER_STATUS_OPEN = PARTNER-Open
 gasteverwaltungderveranstaltung=Guest Management of the Event
 maxanzahlgaste=Max Number of guests
 gastedetails=Guest details

@@ -839,6 +839,14 @@ STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=Listado de eventos ordenados por localiza
 statistikerstellen=Generar estad\u00EDsticas
 
 # GAESTEVERWALTUNG DER VERANSTALTUNG
+MAIN_PERSON_STATUS_ACCEPT = Persona principal-Confirmado
+MAIN_PERSON_STATUS_DECLINE = Persona principal-Rechazado
+MAIN_PERSON_STATUS_PARTICIPATED = Persona principal-Participante
+MAIN_PERSON_STATUS_OPEN = Persona principal-Abierto
+PARTNER_STATUS_ACCEPT = Partner-Confirmado
+PARTNER_STATUS_DECLINE = Partner-Rechazado
+PARTNER_STATUS_PARTICIPATED = Partner-Participante
+PARTNER_STATUS_OPEN = Partner-Abierto
 gasteverwaltungderveranstaltung=Gesti\u00F3n de invitados del evento
 maxanzahlgaste=Total de invitados
 gastedetails=Detalles de invitados
