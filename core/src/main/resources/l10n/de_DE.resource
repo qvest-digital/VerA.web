@@ -839,6 +839,14 @@ STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=\u00DCbersicht \u00FCber alle Veranstaltu
 statistikerstellen=Statistik erstellen
 
 # GAESTEVERWALTUNG DER VERANSTALTUNG
+MAIN_PERSON_STATUS_ACCEPT = Hauptperson-Zusage
+MAIN_PERSON_STATUS_DECLINE = Hauptperson-Absage
+MAIN_PERSON_STATUS_PARTICIPATED = Hauptperson-Teilgenommen
+MAIN_PERSON_STATUS_OPEN = Hauptperson-Offen
+PARTNER_STATUS_ACCEPT = Partner-Zusage
+PARTNER_STATUS_DECLINE = Partner-Absage
+PARTNER_STATUS_PARTICIPATED = Partner-Teilgenommen
+PARTNER_STATUS_OPEN = Partner-Offen
 gasteverwaltungderveranstaltung=G\u00E4steverwaltung der Veranstaltung
 maxanzahlgaste=Max. Anzahl G\u00E4ste
 gastedetails=G\u00E4stedetails

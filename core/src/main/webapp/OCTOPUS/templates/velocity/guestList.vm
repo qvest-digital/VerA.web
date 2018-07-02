@@ -234,6 +234,14 @@
                                                         <option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
                                                         <option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
                                                         <option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
+                                                        <option value="4">${placeholderWithTranslation.MAIN_PERSON_STATUS_ACCEPT}</option>
+                                                        <option value="5">${placeholderWithTranslation.MAIN_PERSON_STATUS_DECLINE}</option>
+                                                        <option value="6">${placeholderWithTranslation.MAIN_PERSON_STATUS_PARTICIPATED}</option>
+                                                        <option value="7">${placeholderWithTranslation.MAIN_PERSON_STATUS_OPEN}</option>
+                                                        <option value="8">${placeholderWithTranslation.PARTNER_STATUS_ACCEPT}</option>
+                                                        <option value="9">${placeholderWithTranslation.PARTNER_STATUS_DECLINE}</option>
+                                                        <option value="10">${placeholderWithTranslation.PARTNER_STATUS_PARTICIPATED}</option>
+                                                        <option value="11">${placeholderWithTranslation.PARTNER_STATUS_OPEN}</option>
                                                 </select>
                                                 <input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
                                 </div>
@@ -310,6 +318,24 @@
                                                                 $('#selectNone').val('false');
                                                                 submitFormWithGivenAction('CreateMailinglistFromGuest', $grants.mayWrite());
                                                         }
+                                                        switch(selectValue) {
+                                                            case "4":
+                                                                setInvitationstatus(1, true); break;
+                                                            case "5":
+                                                                setInvitationstatus(2, true); break;
+                                                            case "6":
+                                                                setInvitationstatus(3, true); break;
+                                                            case "7":
+                                                                setInvitationstatus(0, true); break;
+                                                            case "8":
+                                                                setInvitationstatus(1, false); break;
+                                                            case "9":
+                                                                setInvitationstatus(2, false); break;
+                                                            case "10":
+                                                                setInvitationstatus(3, false); break;
+                                                            case "11":
+                                                                setInvitationstatus(0, false); break;
+                                                        }
                                                 } else {
                                                         $(".errormsg").remove();
                                                         $(".successmsg").remove();
@@ -357,6 +383,44 @@
                                                 htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
                                                 document.getElementById('formlist').action = action;
                                                 document.formlist.submit();
+                                }
+
+                                function setInvitationstatus(invitationstatus, mainPerson) {
+                                    var checkBoxes = $('input:checkbox[name$="-select"]:checked');
+                                    if(document.getElementById('select-all').checked) {
+                                        checkBoxes = $('input:checkbox[name$="-select"]');
+                                    }
+                                    if(checkBoxes.length > 0) {
+                                        $(".errormsg").remove();
+                                        $(".successmsg").remove();
+                                        for (var i = 0; i < checkBoxes.length; i++) {
+                                            var beanId = parseInt(checkBoxes[i].name.split("-")[0]);
+                                            var selectedField_a = $('select[name="' + beanId + '-invitationstatus_a"')[0];
+                                            var selectedField_b = $('select[name="' + beanId + '-invitationstatus_b"')[0];
+                                            var modified = false;
+                                            if(selectedField_a != null && mainPerson) {
+                                                var oldValue = selectedField_a.options[selectedField_a.options.selectedIndex].value;
+                                                if(oldValue != invitationstatus) {
+                                                    selectedField_a.options[invitationstatus].selected = true;
+                                                    setModified(beanId);
+                                                }
+                                            }
+                                            if(selectedField_b != null && !mainPerson) {
+                                                var oldValue = selectedField_b.options[selectedField_b.options.selectedIndex].value;
+                                                if(oldValue != invitationstatus) {
+                                                    selectedField_b.options[invitationstatus].selected = true;
+                                                    setModified(beanId);
+                                                }
+                                            }
+                                            checkBoxes[i].checked = false;
+                                        }
+                                        $('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
+                                        document.formlist.submit();
+                                    } else {
+                                        $(".errormsg").remove();
+                                        $(".successmsg").remove();
+                                        showWarning('${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}.');
+                                    }
                                 }
 			//--><!]]></script>
                                 <div id="guestListWrapper">
