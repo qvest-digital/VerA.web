@@ -14,7 +14,7 @@
             <a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">
                 ${placeholderWithTranslation.GENERIC_HOME}
             </a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}
-        </span>
+        </span><
     </div>
 
     <h1>

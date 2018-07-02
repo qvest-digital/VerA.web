@@ -17,16 +17,26 @@
 #set($column9 = 13)
 
 #parse("inc/header.vm")
+#set($basicEventLinkSuffix = '')
+#if($basicEventId && $basicEventId != 'noBasicEvent')
+    #set($basicEventLinkSuffix = "?basicEvent=${basicEventId}")
+#end
 
 <div id="content_container">
     <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/popup.css" media="all" />
     <script src="${paths.staticWeb}js/vera/veraweb-back-to-top.js"></script>
     <script src="${paths.staticWeb}js/vera/veraweb-popup.js"></script>
     <script src="${paths.staticWeb}js/ext/Scroll-to-Top/jquery.gotop.js"></script>
+
         <div id="breadcrumb" class="textRight marginBottom10">
                 <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
         </div>
-        <h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
+        #if ($basicEventId == 'noBasicEvent')
+            <h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
+        #else
+            <h1>${placeholderWithTranslation.GUEST_LIST_ADD_GUEST_FROM_EVENT}: $!message.plain($event.shortname)</h1>
+        #end
+
 
         #if(!$isNewEvent)
                 #set($completeEventHeader = true)
@@ -48,6 +58,11 @@
         #if($saveSuccess)
             <vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
         #end
+
+        #if($duplicateGuest == "isDuplicate")
+            <vera-warn> ${placeholderWithTranslation.GUEST_LIST_DUPLICATE_ERR} </vera-warn>
+        #end
+
 
         ##IMPLEMENTNEWMESSAGEMETHOD
         #if($invited)
@@ -78,6 +93,7 @@
             ${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATED_SAVED}.
                 </vera-success>
         #end
+
         <div id="main_content" class="tabs contentBox marginBottom10 marginTop20 grayBorder" style="border-bottom:0">
 
                 <div id="tabsMain">
@@ -86,18 +102,30 @@
                     <div>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</div>
                                 </li>
                                 #if($list.size() > 0)
-                <li id="gastdetails" class="inactive">
-                    <div>${placeholderWithTranslation.gastedetails}</div>
-                                </li>
-                <li id="export" class="inactive">
-                    <div>${placeholderWithTranslation.GENERIC_EXPORT}</div>
-                                </li>
+                                    <li id="gastdetails" class="inactive">
+                                        <div>${placeholderWithTranslation.gastedetails}</div>
+                                    </li>
+                                    #if($basicEventId == 'noBasicEvent')
+                                        <li id="export" class="inactive">
+                                                <div>${placeholderWithTranslation.GENERIC_EXPORT}</div>
+                                        </li>
+                                    #end
                                 #end
                         </ul>
                 </div>
+                <script type="text/javascript"><!--//--><![CDATA[//><!--
+                $(function () {
+                    $('li#gastdetails').click(function () {
+                        window.location.href = '${paths.staticWeb}do/ShowGuestDetail${basicEventLinkSuffix}';
+                    });
+                    $('li#export').click(function () {
+                        window.location.href = '${paths.staticWeb}do/ShowExportGuest';
+                    });
+                });
+                //--><!]]></script>
 
                 <div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored tabsContent notBold posRel marginBottom40" vera-content="">
-
+                        #if($basicEventId == 'noBasicEvent')
                         <div id="guestSummary" class="table posAb hinweis grayBorder" style="padding-bottom: 5px;">
                                 <div class="tableRow">
                                         <div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_OPEN}:</strong> $!guestlist-sums.offen</div>
@@ -108,7 +136,7 @@
                                         <div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_ON}&nbsp;${placeholderWithTranslation.reserve}:</strong> $!guestlist-sums.reserve</div>
                                 </div>
                         </div>
-
+                        #end
                         <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop25">
                                 <input type="hidden" name="start" value="0">
                                 <input type="hidden" name="limit" value="" />
@@ -117,7 +145,7 @@
                                 <input type="hidden" name="sortList" value="true" />
                                 <input type="hidden" name="search-event" value="$search.event">
                                 <input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder"/>
-
+                                <input type="hidden" name="basicEvent" value="$basicEventId">
                                 <h3 class="marginBottom0">${placeholderWithTranslation.filter}</h3>
 
                                 <div class="table">
@@ -200,12 +228,14 @@
                             <input type="hidden" name="categoryAssigned" value="">
                             <input type="hidden" name="workareaAssignmentAction" value="">
                             <input type="hidden" name="workareaAssignmentId" value="">
+                            <input type="hidden" name="basicEvent" value="$basicEventId">
 
                         #foreach($bean in $list)
                                 <input type="hidden" name="list" value="$bean.id">
                         #end
 
                         <div class="flexContainer marginTop30">
+                                #if ($basicEventId == 'noBasicEvent')
                                 <div style="" class="flexItem inlineInput">
                                         <label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span id="guestsOnPages">
                                                 #if($listparam.count == 1)
@@ -226,7 +256,9 @@
                                                 </span>
                                         </label>
                                 </div>
+                                #end
 
+                                #if ($basicEventId == 'noBasicEvent')
                                 <div class="flexItem inlineInput" style="">
                                         <label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
                                                 <select id="actionSelection" class="autoWidth">
@@ -245,23 +277,31 @@
                                                 </select>
                                                 <input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
                                 </div>
-                                <div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
-                                        #if($grants.mayWrite())
-                                            <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
-                                            <div class="popup" data-popup="popup-1">
-                                                    <div class="popup-inner">
-                                                        <div style="text-align: left;">
-                                                                #parse("inc/userConfigGuestColumns.vm")
-                                                        </div>
-                                                        <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                                #end
+
+                                        <div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
+                                                #if($grants.mayWrite())
+                                                    <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
+                                                    <div class="popup" data-popup="popup-1">
+                                                            <div class="popup-inner">
+                                                                <div style="text-align: left;">
+                                                                        #parse("inc/userConfigGuestColumns.vm")
+                                                                </div>
+                                                                <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                                                            </div>
                                                     </div>
-                                            </div>
-                                            <input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
-                                            <input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
-                                            <input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
-                                        #end
+                                                #if($basicEventId == 'noBasicEvent')
+                                                    <input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+                                                    <input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+                                                    <input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+                                                #else
+                                                    <input type="button" class="mainButton inlineInput autoWidth" name="AddPersonEventBasicEvent" value="${placeholderWithTranslation.GENERIC_ADD_SELECTION}" title="${placeholderWithTranslation.gasthinzufuegen}" onclick="submitFormWithGivenAction('AddPersonEventBasicEvent', $grants.mayWrite());" />
+                                                    <input type="button" class="mainButton inlineInput autoWidth" name="getAll" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventGuestList?id=$event.id&selectNone=true&basicEvent=$basicEventId';" />
+                                                #end
+
+                                                #end
+                                        </div>
                                 </div>
-                        </div>
 
                         ## Handler für selektierte Aktion
 			<script type="text/javascript"><!--//--><![CDATA[//><!--
@@ -437,7 +477,11 @@
                                                 <col width="$column9%" />
                                                 <tr >
                                                         <!-- BEGIN OF COLUMNS TO ORDER -->
-                                                                <th class="textCenter smallCell"></th>
+                                                                <th class="textCenter smallCell">
+                                                                    #if($basicEventId != 'noBasicEvent')
+                                                                       <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
+                                                                    #end
+                                                                 </th>
 
                                                                 #if($userConfig.guestLfdNr == 'true')
                                                                 <th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
@@ -563,7 +607,7 @@
                                                 #set($offset0 = $offset - 1)
 
                                                 <tr id="row-${offset0}">
-                                                        <td>
+                                                        <td class="textCenter smallCell">
                                                                 <input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
                                                                 <input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}">
                                                                 <img title="ich bin eine tolle Überschrift" src="${paths.staticWeb}images/checked_disabled.png" class="invisible invisibleselector"/>
@@ -685,7 +729,7 @@
                                                                 #if($userConfig.guestMainPerson == 'true')
                                                                 <td class="textCenter">
                                                                         #if($bean.invitationtype != 3)
-                                                                                #if($grants.mayWrite())
+                                                                                #if($grants.mayWrite() && $basicEventId == 'noBasicEvent')
                                                                                 <select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
                                                                                         <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
                                                                                         <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
@@ -759,19 +803,19 @@
                                         </table>
                                 </div>
                         <div class="textRight marginTop10 marginBottom20">
-                                #if($grants.mayWrite())
-                                    <input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}'); window.location.href='CalcSerialNumber';" class="mainButton" />
-                                    <input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" class="mainButton" />
-                        <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-                #end
+                            #if($grants.mayWrite() && $basicEventId == 'noBasicEvent')
+                                <input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}'); window.location.href='CalcSerialNumber';" class="mainButton" />
+                                <input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" class="mainButton" />
+                                <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+                            #end
                         </div>
-
-                        <vera-info vera-stay>
-                ${placeholderWithTranslation.GUEST_LIST_HINT_FILTER}.<br>
-                ${placeholderWithTranslation.GUEST_LIST_HINT_EXPORT_GUEST}.
-                <img src="../images/dialog_close.png" id="close-info" style="top:-28px;" onclick="$(this).parent().get(0).remove()" />
-                        </vera-info>
-
+                        #if($basicEventId == 'noBasicEvent')
+                            <vera-info vera-stay>
+                    ${placeholderWithTranslation.GUEST_LIST_HINT_FILTER}.<br>
+                    ${placeholderWithTranslation.GUEST_LIST_HINT_EXPORT_GUEST}.
+                    <img src="../images/dialog_close.png" id="close-info" style="top:-28px;" onclick="$(this).parent().get(0).remove()" />
+                            </vera-info>
+                        #end
                         #if($deletedperson)
                                 <table>
                                         <tr style="height: 20px;">
@@ -800,9 +844,12 @@
                         #end
 
                         </div>
-
                         <div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
+                            #if($basicEventId == 'noBasicEvent')
                                 <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+                            #else
+                                <input type="button" name="cancel" value="${placeholderWithTranslation.zuruck}" class="mainButton" onclick="window.location.href='ShowGuestList?search-event=$!basicEventId';" />
+                            #end
                         </div>
 
                         </form>
@@ -826,15 +873,6 @@
                         showWarning('$!notInvited' + ' ' + '${placeholderWithTranslation.HINT_GUEST_ALREADY_INVITED_PLURAL}');
                 #end
         #end
-
-        $(function () {
-                $('li#gastdetails').click(function () {
-                        window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
-                });
-                $('li#export').click(function () {
-                        window.location.href = '${paths.staticWeb}do/ShowExportGuest';
-                });
-        });
 
         var toggleSelectAll = function() {
                 var guestsTable = $("table.sortable");
