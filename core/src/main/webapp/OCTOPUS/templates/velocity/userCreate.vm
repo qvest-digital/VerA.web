@@ -25,7 +25,7 @@
 
     <h1>${placeholderWithTranslation.neuenbenutzererstellen}</h1>
 
-    <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
+    <form id="formlist" name="formlist" action="AllUserCreate" method="POST">
 
         #if($listerrors && $listerrors.size() > 0)
             <vera-warn>
@@ -38,21 +38,12 @@
         <input type="hidden" name="start" value="">
         <input type="hidden" name="selectNone" value="true">
         <input type="hidden" name="doInsert" value="true">
-        <input type="hidden" name="doUpdate" value="true">
-        <input type="hidden" name="doRemove" value="true">
+        <input type="hidden" name="doRemove" value="false">
+        <input type="hidden" name="doUpdate" value="false">
         <input type="hidden" name="limit" value=""/>
-        #if($order)
-            <input type="hidden" name="order" value="$order">
-        #end
 
         <div id="main_content">
-
-            #foreach($bean in $list)
-                <input type="hidden" name="list" value="$bean.id">
-            #end
-
             <table>
-
                 <tr>
                     <td>
                         ${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}
@@ -67,7 +58,7 @@
                                     #end
                                 </select>
                             #else
-                                <input type="text" name="add-orgunit" value="" onchange="setModified('add')">
+                                <input type="text" name="add-orgunit" value="">
                             #end
                         #else
                             <input type="hidden" name="add-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
@@ -88,7 +79,7 @@
                                 #end
                             </select>
                         #else
-                            <input type="text" name="add-name" value="" onchange="setModified('add')">
+                            <input type="text" name="add-name" value="">
                         #end
                     </td>
                 </tr>
@@ -113,6 +104,8 @@
 
             </table>
             <div class="textRight marginTop10" id="buttonPanel-bottom">
+                <input type="hidden" name="add-id" value="">
+                <input type="hidden" name="add-modified" value="true">
                 <input type="submit" name="save" value="${placeholderWithTranslation.speichern}"
                        title="${placeholderWithTranslation.speichern}" class="mainButton"/>
             </div>
