@@ -37,7 +37,12 @@
                 <input type="button" id="button.newPerson" name="button.newPerson"
                        value="${placeholderWithTranslation.neuenbenutzererstellen}"
                        title="${placeholderWithTranslation.neuenbenutzererstellen}" class="mainButton"
-                       onclick="window.location.href='UserCreate';"/>
+                       #if($domain == 'all')
+                            onclick="window.location.href='AllUserCreate';"
+                       #else
+                            onclick="window.location.href='OUUserCreate';"
+                       #end
+                />
             </span>
 
         #if($listerrors && $listerrors.size() > 0)
@@ -50,7 +55,6 @@
 
         <input type="hidden" name="start" value="">
         <input type="hidden" name="selectNone" value="true">
-        <input type="hidden" name="doInsert" value="true">
         <input type="hidden" name="doUpdate" value="true">
         <input type="hidden" name="doRemove" value="true">
         <input type="hidden" name="limit" value=""/>
