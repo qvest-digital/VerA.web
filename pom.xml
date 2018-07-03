@@ -23,7 +23,7 @@
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<releaseVersion>${project.version}</releaseVersion>
 		<archiver.copyright>Copyright © 2001–2018 tarent solutions GmbH</archiver.copyright>
-		<java.version>1.8</java.version>
+		<javaRelease>8</javaRelease>
 		<servlet.api>3.1.0</servlet.api>
 		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
 		<!-- maven plugins -->
@@ -197,8 +197,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven.compiler.version}</version>
 					<configuration>
-						<source>${java.version}</source>
-						<target>${java.version}</target>
+						<source>1.${javaRelease}</source>
+						<target>1.${javaRelease}</target>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<compilerArgs>
 							<arg>-Xlint</arg>
