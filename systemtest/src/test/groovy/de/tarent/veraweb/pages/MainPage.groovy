@@ -6,15 +6,14 @@ import org.openqa.selenium.By
 
 class MainPage extends Page {
 
-    static url = '/veraweb/do/default'
-
     static at = {
-        driver.currentUrl.startsWith("${browser.baseUrl}${url}")
+        pageTitle.text() == 'Willkommen bei VerA.web'
     }
 
     static content = {
         navigationBar { module NavigationBar }
         container { $('div#container') }
+        pageTitle { container.$('h1')}
         logoutButton { container.find(By.id('menu.logout')) }
     }
 

@@ -1,3 +1,4 @@
+import de.tarent.veraweb.AbstractSystemTest
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeDriverService
 import org.openqa.selenium.chrome.ChromeOptions
@@ -64,5 +65,5 @@ File driverDir() {
     dir.exists()? dir: new File()
 }
 
-baseUrl = "https://localhost"
+baseUrl = AbstractSystemTest.ENDPOINT + AbstractSystemTest.PATH
 reportsDir = 'target/geb-reports'
