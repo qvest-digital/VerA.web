@@ -260,6 +260,7 @@ public class UserConfigWorker {
         Database database = new DatabaseVeraWeb(octopusContext);
         Integer userId = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
         Map userConfig = (Map) octopusContext.contentAsObject("userConfig");
+        boolean configChanged = false;
 
         for (int i = 0; i < PARAMS_STRING.length; i++) {
             String key = PARAMS_STRING[i];
@@ -268,7 +269,7 @@ public class UserConfigWorker {
             if (value == null) {
                 continue;
             }
-            setUserSetting(database, userId, userConfig, key, value);
+            configChanged = setUserSetting(database, userId, userConfig, key, value) || configChanged;
         }
 
         for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
@@ -279,20 +280,22 @@ public class UserConfigWorker {
                 case "SearchPerson":
                 case "PersonDuplicateSearch":
                     if (key.contains("person")) {
-                        setUserSetting(database, userId, userConfig, key, Boolean.toString(value));
+                        configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
                     }
                     break;
                 case "ShowGuestList":
                     if (key.contains("guest")) {
-                        setUserSetting(database, userId, userConfig, key, Boolean.toString(value));
+                        configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
                     }
                     break;
                 case "UserConfig":
-                    setUserSetting(database, userId, userConfig, key, Boolean.toString(value));
+                    configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
                     break;
             }
         }
-        octopusContext.setContent("saveSuccess", true);
+        if (configChanged) {
+            octopusContext.setContent("saveSuccess", true);
+        }
     }
 
     protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key)
@@ -311,20 +314,22 @@ public class UserConfigWorker {
         }
     }
 
-    protected void setUserSetting(Database database, Integer userId, Map userConfig, String key, String value)
+    protected boolean setUserSetting(Database database, Integer userId, Map userConfig, String key, String value)
             throws BeanException, IOException {
         String old = (String) userConfig.get(key);
-        if (value == null) {
+        if (value == null && old != null) {
             removeUserSetting(database, userId, userConfig, key);
-            return;
-        }
-        if (old == null) {
+            return true;
+        } else if (value != null && old == null) {
             insertNewUserConfigEntry(database, userId, key, value);
             userConfig.put(key, value);
+            return true;
         } else if (!value.equals(old)) {
             updateUserConfigEntry(database, userId, key, value);
             userConfig.put(key, value);
+            return true;
         }
+        return false;
     }
 
     private void updateUserConfigEntry(Database database, Integer userId, String key, String value) throws BeanException, IOException {
