@@ -199,6 +199,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven.compiler.version}</version>
 					<configuration>
+						<source>1.${javaRelease}</source>
+						<target>1.${javaRelease}</target>
 						<release>${javaRelease}</release>
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<compilerArgs>
@@ -1109,15 +1111,6 @@
 			</properties>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>${maven.compiler.version}</version>
-						<configuration>
-							<source>1.${javaRelease}</source>
-							<target>1.${javaRelease}</target>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
