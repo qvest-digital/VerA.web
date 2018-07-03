@@ -72,7 +72,7 @@
 		<hk2.version>2.4.0-b34</hk2.version>
 		<itext.version>2.1.7</itext.version>
 		<jackson.version>2.6.7</jackson.version>
-		<jaxb.version>2.2.11</jaxb.version>
+		<jaxb.version>2.3.0</jaxb.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
 		<jersey1.version>1.19.4</jersey1.version>
 		<jersey2.version>2.22.2</jersey2.version>
@@ -1149,9 +1149,6 @@
 			<activation>
 				<jdk>[9,)</jdk>
 			</activation>
-			<properties>
-				<tools.jar>/nonexistent/tools.jar</tools.jar>
-			</properties>
 			<build>
 				<plugins>
 					<plugin>
