@@ -1116,7 +1116,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>${javadoc.maven-plugin.version}</version>
+						<version>${maven.javadoc.version}</version>
 						<configuration>
 							<additionalparam>${doclint.optappend}</additionalparam>
 						</configuration>
@@ -1134,7 +1134,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>${javadoc.maven-plugin.version}</version>
+						<version>${maven.javadoc.version}</version>
 						<configuration>
 							<additionalparam>-html4 ${doclint.optappend}</additionalparam>
 							<javadocExecutable>/usr/bin</javadocExecutable>
