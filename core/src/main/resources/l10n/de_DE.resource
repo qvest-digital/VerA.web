@@ -1686,8 +1686,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00FCberein.
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00FCtzt nicht den erwarteten Zeichensatz (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00FCtzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
 VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
-VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
-VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=Inland: Ja\u200A\u2014\u200AGeschlecht: Weiblich

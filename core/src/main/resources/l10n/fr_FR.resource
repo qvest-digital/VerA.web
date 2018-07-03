@@ -1689,8 +1689,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Votre configuration de la base de donn\u00E9e ne supporte pas let charset (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=La configuration de votre base de donn\u00E9e ne supporte pas les r\u00E8gles attendu pour la comparaison du texte (LC_COLLATE=
 VERIFY_ERROR_XML=Une erreur est survenue, pendant la creation du document test-XML.(
-VERIFY_ERROR_JAVA_ONE=La version de JAVA install\u00E9 (
-VERIFY_ERROR_JAVA_TWO=) est diff\u00E9rente de la version attendu (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=In Country: Yes\u200A\u2014\u200ASex:Female

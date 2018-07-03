@@ -1687,8 +1687,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Your database configuration does not support the expected charset (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Your database configuration does not support the expected rules for text comparison(LC_COLLATE=
 VERIFY_ERROR_XML=An error occured while creating a XML-test document.(
-VERIFY_ERROR_JAVA_ONE=The installed java-version (
-VERIFY_ERROR_JAVA_TWO=) does not match the expected version (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=In Country: Yes\u200A\u2014\u200ASex:Female

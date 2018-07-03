@@ -1689,8 +1689,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Su configuraci\u00F3n actual de base de datos no puede interpretar el conjunto de caracteres (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Su configuraci\u00F3n actual de base de datos no puede interpretar las reglas de comparaci\u00F3n de texto (LC_COLLATE=
 VERIFY_ERROR_XML=Se ha producido un error al generar un documento XML de prueba. (
-VERIFY_ERROR_JAVA_ONE=La versi\u00F3n de Java instalada (
-VERIFY_ERROR_JAVA_TWO=) no se corresponde con la versi\u00F3n esperada (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=En el pa\u00EDs: S\u00ED\u200A\u2014\u200AG\u00E9nero: mujer
