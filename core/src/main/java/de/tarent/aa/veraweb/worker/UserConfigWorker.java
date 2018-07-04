@@ -253,6 +253,11 @@ public class UserConfigWorker {
      * @throws IOException   IOException
      */
     public void save(OctopusContext octopusContext) throws BeanException, IOException {
+        // Bug 5
+        if(octopusContext.requestContains("save-columns")) {
+            saveColumnsConfig(octopusContext);
+            return;
+        }
         if (!octopusContext.requestContains("save")) {
             return;
         }
@@ -272,6 +277,28 @@ public class UserConfigWorker {
             configChanged = setUserSetting(database, userId, userConfig, key, value) || configChanged;
         }
 
+        // Bug 5
+        for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
+            String key = viewConfigKey.key;
+            boolean value = octopusContext.requestAsBoolean(key).booleanValue();
+            String type = octopusContext.getRequestObject().getTask();
+
+            if(type.equals("UserConfig")) {
+                configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
+            }
+        }
+
+        if (configChanged) {
+            octopusContext.setContent("saveSuccess", true);
+        }
+    }
+
+    private void saveColumnsConfig(OctopusContext octopusContext) throws BeanException, IOException {
+        Database database = new DatabaseVeraWeb(octopusContext);
+        Integer userId = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
+        Map userConfig = (Map) octopusContext.contentAsObject("userConfig");
+        boolean configChanged = false;
+
         for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
             String key = viewConfigKey.key;
             boolean value = octopusContext.requestAsBoolean(key).booleanValue();
@@ -287,9 +314,6 @@ public class UserConfigWorker {
                     if (key.contains("guest")) {
                         configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
                     }
-                    break;
-                case "UserConfig":
-                    configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
                     break;
             }
         }

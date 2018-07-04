@@ -23,6 +23,7 @@
     #if($activeMenu == "Verwaltung")
         #else
         <div class="textRight marginTop10" id="buttonPanel-bottom">
-            <input type="submit" class="mainButton" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" name="save" />
+            ## Bug 5
+            <input type="submit" class="mainButton" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" name="save-columns" />
         </div>
     #end
