@@ -29,7 +29,10 @@ com.fasterxml.jackson.module:jackson-module-afterburner 2.6.7 TODO
 com.fasterxml.jackson.module:jackson-module-jaxb-annotations 2.6.7 TODO
 com.fasterxml:classmate 1.3.1 TODO
 com.google.code.findbugs:jsr305 2.0.3 TODO
-com.google.guava:guava 18.0 TODO
+com.google.code.findbugs:jsr305 3.0.2 TODO
+com.google.errorprone:error_prone_annotations 2.1.3 TODO
+com.google.guava:guava 25.1-jre TODO
+com.google.j2objc:j2objc-annotations 1.1 TODO
 com.lowagie:itext 2.1.7 TODO
 com.lowagie:itext 2.1.7 illegal:https://developers.itextpdf.com/question/versions-older-than-5
 com.sun.jersey.contribs:jersey-apache-client4 1.19.4 TODO
@@ -37,6 +40,8 @@ com.sun.jersey:jersey-client 1.19.4 TODO
 com.sun.jersey:jersey-core 1.19.4 TODO
 com.sun.jersey:jersey-server 1.19.4 TODO
 com.sun.jersey:jersey-servlet 1.19.4 TODO
+com.sun.xml.bind:jaxb-core 2.3.0 TODO
+com.sun.xml.bind:jaxb-impl 2.3.0 TODO
 com.thoughtworks.xstream:xstream 1.2.2 TODO
 com.vaadin.external.google:android-json 0.0.20131108.vaadin1 TODO
 commons-beanutils:commons-beanutils 1.6 TODO
@@ -92,6 +97,7 @@ javax.servlet:servlet-api 2.4 TODO
 javax.validation:validation-api 1.1.0.Final TODO
 javax.ws.rs:javax.ws.rs-api 2.0.1 TODO
 javax.ws.rs:jsr311-api 1.1.1 TODO
+javax.xml.bind:jaxb-api 2.3.0 TODO
 jgoodies:forms 1.0.5 TODO
 joda-time:joda-time 2.9 TODO
 junit:junit 3.8.1 TODO
@@ -104,8 +110,8 @@ npm::angular-aria 1.6.10 TODO
 npm::angular-material 1.1.9 TODO
 npm::angular-messages 1.6.10 TODO
 npm::angular-route 1.6.10 TODO
-npm::angular-translate 2.17.1 TODO
-npm::angular-translate-loader-static-files 2.17.1 TODO
+npm::angular-translate 2.18.1 TODO
+npm::angular-translate-loader-static-files 2.18.1 TODO
 npm::angular-ui-bootstrap 1.3.3 TODO
 npm::bulk-require 0.2.1 TODO
 npm::glob 3.2.11 TODO
@@ -113,7 +119,7 @@ npm::inherits 2.0.3 TODO
 npm::jquery-param 0.2.0 TODO
 npm::lru-cache 2.7.3 TODO
 npm::minimatch 0.3.0 TODO
-npm::moment 2.22.1 TODO
+npm::moment 2.22.2 TODO
 npm::ng-file-upload 12.2.13 TODO
 npm::sigmund 1.0.1 TODO
 org.apache.axis:axis-jaxrpc 1.4 TODO
@@ -131,6 +137,8 @@ org.apache.tika:tika-core 1.10 TODO
 org.bouncycastle:bcmail-jdk14 1.38 TODO
 org.bouncycastle:bcprov-jdk14 1.38 TODO
 org.bouncycastle:bctsp-jdk14 1.38 TODO
+org.checkerframework:checker-qual 2.0.0 TODO
+org.codehaus.mojo:animal-sniffer-annotations 1.14 TODO
 org.eclipse.jetty.toolchain.setuid:jetty-setuid-java 1.0.2 TODO
 org.eclipse.jetty:jetty-continuation 9.0.7.v20131107 TODO
 org.eclipse.jetty:jetty-http 9.0.7.v20131107 TODO
@@ -173,7 +181,7 @@ org.mitre.dsmiley.httpproxy:smiley-http-proxy-servlet 1.7 TODO
 org.osiam:connector4java 1.8 TODO
 org.osiam:scim-schema 1.6 TODO
 org.postgresql:postgresql 42.2.1 TODO
-org.projectlombok:lombok 1.14.4 TODO
+org.projectlombok:lombok 1.18.0 TODO
 org.slf4j:jcl-over-slf4j 1.7.12 TODO
 org.slf4j:jul-to-slf4j 1.7.12 TODO
 org.slf4j:log4j-over-slf4j 1.7.12 TODO
