@@ -287,6 +287,10 @@ public abstract class BeanListWorker {
 
         cntx.setContent(OUTPUT_showListParams, param);
         cntx.setContent(OUTPUT_getSelection, getSelection(cntx, count));
+        if (cntx.getTaskName().equals("ShowGuestList")) {
+
+            return getResultListForGuestList(database, select, cntx);
+        }
         return getResultList(database, select);
     }
 
@@ -318,6 +322,10 @@ public abstract class BeanListWorker {
      * @see #getSelect(Database)
      */
     protected List getResultList(Database database, Select select) throws BeanException, IOException {
+        return database.getBeanList(BEANNAME, select);
+    }
+
+    protected List getResultListForGuestList(Database database, Select select, OctopusContext cntx) throws BeanException, IOException {
         return database.getBeanList(BEANNAME, select);
     }
 
