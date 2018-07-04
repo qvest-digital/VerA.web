@@ -144,6 +144,7 @@ GENERIC_USER_PLURAL=Users
 GENERIC_WORKAREA_SINGULAR=Working area
 GENERIC_WORKAREA_PLURAL=Working areas
 GENERIC_SELECT_ALL=Select all
+GENERIC_ADD_SELECTION=Add selection
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=As representative of
@@ -899,6 +900,7 @@ GUEST_LIST_ONLY_PARTICIPATE=participations only
 GUEST_LIST_PERSON_DATA_RELOAD=reload all core data
 GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Search and add people to guest list
+GUEST_LIST_ADD_GUEST_FROM_EVENT=Takeover of guests from event
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=create guest list
@@ -1685,8 +1687,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Your database configuration does not support the expected charset (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Your database configuration does not support the expected rules for text comparison(LC_COLLATE=
 VERIFY_ERROR_XML=An error occured while creating a XML-test document.(
-VERIFY_ERROR_JAVA_ONE=The installed java-version (
-VERIFY_ERROR_JAVA_TWO=) does not match the expected version (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=In Country: Yes\u200A\u2014\u200ASex:Female

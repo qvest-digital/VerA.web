@@ -1124,6 +1124,7 @@
 			<action name="setupSortDirection" worker="GuestListWorker"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker"/>
+			<action name="getBasicEvent" worker="GuestListWorker"/>
 			<status equals="noevent">
 				<doTask name="CreateEvent"/>
 			</status>
@@ -1150,6 +1151,7 @@
 			</status>
 			<action name="getAll" worker="CategorieWorker"/>
 			<action name="showDetail" worker="GuestDetailWorker"/>
+            <action name="getBasicEvent" worker="GuestListWorker"/>
 			<action name="showDelegationFields" worker="EventDelegationWorker"/>
 			<status equals="notfound">
 				<doTask name="ShowGuestList"/>
@@ -1244,6 +1246,16 @@
 			<action name="getSelection" worker="PersonListWorker"/>
 			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
 			<doTask name="SearchPerson"/>
+		</task>
+		<task name="AddPersonEventBasicEvent" access="public" groups="Writer">
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker"/>
+			<action name="getSelection" worker="GuestListWorker"/>
+			<status equals="noevent">
+				<doTask name="CreateEvent"/>
+			</status>
+			<action name="addSelectedGuestsFromEventToEventList" worker="GuestWorker" />
+			<doTask name="ShowGuestList"/>
 		</task>
 		<task name="AddPersonToEventGuestList" access="public" groups="Writer">
 			<description>

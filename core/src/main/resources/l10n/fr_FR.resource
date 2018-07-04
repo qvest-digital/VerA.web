@@ -143,6 +143,7 @@ GENERIC_USER_PLURAL=Utilisateurs de PC
 GENERIC_WORKAREA_SINGULAR=Secteur du travail
 GENERIC_WORKAREA_PLURAL=Secteurs du travail
 GENERIC_SELECT_ALL=S\u00E9lectionner tout
+GENERIC_ADD_SELECTION=Ajuter la s\u00E9lection
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=Suppl\u00E9ance de
@@ -900,6 +901,7 @@ GUEST_LIST_ONLY_PARTICIPATE=seulement la participation
 GUEST_LIST_PERSON_DATA_RELOAD=Recharger tout donn\u00E9es de base
 GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Trouver des gens et l\u2019ajouter \u00E0 la liste des invit\u00E9s
+GUEST_LIST_ADD_GUEST_FROM_EVENT=Prendre invit\u00E9s d\u2019 \u00E9v\u00E9nment
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=Cr\u00E9er une liste d\u2019invit\u00E9s
@@ -1687,8 +1689,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Votre configuration de la base de donn\u00E9e ne supporte pas let charset (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=La configuration de votre base de donn\u00E9e ne supporte pas les r\u00E8gles attendu pour la comparaison du texte (LC_COLLATE=
 VERIFY_ERROR_XML=Une erreur est survenue, pendant la creation du document test-XML.(
-VERIFY_ERROR_JAVA_ONE=La version de JAVA install\u00E9 (
-VERIFY_ERROR_JAVA_TWO=) est diff\u00E9rente de la version attendu (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=In Country: Yes\u200A\u2014\u200ASex:Female

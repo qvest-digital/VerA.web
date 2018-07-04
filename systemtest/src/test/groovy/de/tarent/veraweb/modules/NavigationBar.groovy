@@ -15,7 +15,8 @@ class NavigationBar extends Module {
         // persons
         personsMenu { nav.find('span')[0] }
         personsOverview { nav.find(By.id('menu.overviewPerson')) }
-        personsSearch { nav.find(By.id('menu.searchPerson')) }
+        personsSearch { $('nav#nav').find(By.id('menu.searchPerson')) }
+        personsCreate { nav.find(By.id('menu.newPerson')) }
 
         // events
         eventsMenu { nav.find('span')[1] }
@@ -25,6 +26,18 @@ class NavigationBar extends Module {
 
         // administration
         administrationMenu { nav.find('span')[3] }
+    }
+
+    def toPersonOverview(WebDriver driver) {
+        navigateTo(personsMenu, personsOverview, driver)
+    }
+
+    def toPersonSearch(WebDriver driver) {
+        navigateTo(personsMenu, personsSearch, driver)
+    }
+
+    def toPersonCreation(WebDriver driver) {
+        navigateTo(personsMenu, personsCreate, driver)
     }
 
     def navigateTo(Navigator menu, Navigator menuItem, WebDriver driver) {

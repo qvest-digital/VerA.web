@@ -197,33 +197,33 @@
 
                                                         #if($action == "guest")
 
-                                                                <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-                                                                <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';">$!message.plain($bean.shortname)</td>
+                                                            <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+                                                            <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';">$!message.plain($bean.shortname)</td>
 
                                                                 #if ($bean.begin.Seconds == 30)
-                                                                        <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
+                                                                    <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
                                                                 #else
-                                                                        <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
+                                                                    <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
                                                                 #end
 
                                                                 #if($bean.end)
                                                                         #if ($bean.end.Seconds == 30)
-                                                                                <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE", $bean.end)</td>
+                                                                            <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';" class="textCenter">$!message.date("DATE", $bean.end)</td>
                                                                         #else
-                                                                                <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
+                                                                            <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
                                                                         #end
                                                                 #else
-                                                                        <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter"></td>
+                                                                    <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';" class="textCenter"></td>
                                                                 #end
 
-                                                                <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';">$!message.plain($bean.hostname)</td>
-                                                                <td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';">
-                                                                        #foreach($location in $allLocation)
+                                                            <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';">$!message.plain($bean.hostname)</td>
+                                                            <td onclick="window.location.href='ShowGuestList?search-event=$!{bean.id}&selectNone=true&basicEvent=$event.id';">
+                                                                    #foreach($location in $allLocation)
                                                                                 #if($location.get("id") == $bean.location)
-                                                                                        $!message.plain($location.get("name"))
-                                                                                #end
+                                                                            $!message.plain($location.get("name"))
+                                                                    #end
                                                                         #end
-                                                                </td>
+                                                            </td>
 
                                                         #elseif($action == "addperson")
 

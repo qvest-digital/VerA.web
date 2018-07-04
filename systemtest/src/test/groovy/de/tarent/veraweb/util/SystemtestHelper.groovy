@@ -12,7 +12,6 @@ class SystemtestHelper {
 
     static waitForContainers(String endpoint, String path) {
         HTTPBuilder httpBuilder = new HTTPBuilder(endpoint)
-        httpBuilder.ignoreSSLIssues()
 
         await().pollInterval(500, MILLISECONDS).atMost(2, MINUTES).until {
             isCoreRunning(httpBuilder, endpoint, path)

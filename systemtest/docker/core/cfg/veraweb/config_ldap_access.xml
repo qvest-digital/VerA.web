@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	Octopus config.xml
+
+	LDAP-Access - Authentifizierung für dieses Modul.
+
+	Copy to /etc/veraweb/config_ldap_access.xml and change there.
+	Never commit or ship a changed file, as it contains secrets!
+-->
+<tcModuleConfig>
+	<loginManager>
+		<!-- Login-Benutzername für einen System-Admin ohne LDAP-Rückhalt. -->
+		<param name="systemlogin" value="login"/>
+		<!-- Login-Passwort für einen System-Admin ohne LDAP-Rückhalt. -->
+		<param name="systempassword" value="password"/>
+
+		<!-- Java-Klasse, die als LoginManager für das Modul instanziiert werden soll; hier sollte immer "de.tarent.ldap.LoginManagerLDAPAA" für einen Zugriff auf einen LDAP-Server mit dem AA.schema eingestellt sein. -->
+		<param name="loginManagerClass" value="de.tarent.ldap.LoginManagerLDAPAA" />
+		<!-- der Authentisierungstyp bei LDAP-Zugriffen; er sollte auf "simple" stehen. -->
+		<param name="ldapauth" value="simple" />
+
+		<!-- die URL des LDAP-Servers bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ldap://localhost:389/". -->
+		<param name="ldapurl" value="ldap://veraweb-test-ldap" />
+		<!-- der Benutzer bei LDAP-Zugriffen, die nicht ein einfaches Überprüfen eines Logins darstellen; zum Beispiel "cn=Manager,ou=testav01,dc=aa". -->
+		<param name="ldapuser" value="cn=admin,dc=veraweb,dc=example,dc=org" />
+		<!-- LDAP Passwort falls erforderlich; falls nicht, auskommentiert lassen -->
+		<param name="ldappwd" value="manager" />
+
+		<!-- der Basis-DN bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ou=testav01,dc=aa". -->
+		<param name="ldapbasedn" value="dc=veraweb,dc=example,dc=org" />
+		<!-- der relative DN unter ldapbasedn" mit Authentifizierungsinformationen der AA-Rollen; im Falle der Test-Auslandsvertretung 01 ist es "ou=Users". -->
+		<param name="ldaprelative" value="ou=Users" />
+
+		<!-- die Objektklasse, welche standardmaessig von allen Benutzern implementiert wird -->
+		<param name="ldapuserobjectclass" value="person" />
+		<!-- Ermöglicht rekursive LDAP lookups, gültige Werte sind "true" oder "false"-->
+		<param name="ldaprecursivelookups" value="true" />
+		<!-- der LDAP-Filter, mit dem in den AA-Rollen unter "ldaprelative" nach möglichen Rollen für einen im Anmeldedialog angegebenen Benutzernamen gesucht wird. -->
+		<!-- <param name="aarolefilter" value="(&amp;(objectClass=person)(uid={0}))" /> -->
+	</loginManager>
+</tcModuleConfig>

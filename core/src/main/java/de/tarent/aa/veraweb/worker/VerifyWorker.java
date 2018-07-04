@@ -262,24 +262,4 @@ public class VerifyWorker {
             addError(cntx, languageProvider.getProperty("VERIFY_ERROR_XML") + e.toString() + ")");
         }
     }
-
-    /**
-     * Octopus-Eingabeparameter für die Aktion {@link #verifyJavaVersion(OctopusContext)}
-     */
-    public final static String INPUT_verifyJavaVersion[] = {};
-
-    /**
-     * Testet ob die verwendete Java-Version der spezifizierten entspricht.
-     *
-     * @param cntx OctopusContext
-     */
-    public void verifyJavaVersion(OctopusContext cntx) {
-        if (!System.getProperty("java.version").startsWith("1.4")) {
-            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
-            addError(cntx, languageProvider.getProperty("VERIFY_ERROR_JAVA_ONE") +
-              System.getProperty("java.version") +
-              languageProvider.getProperty("VERIFY_ERROR_JAVA_TWO"));
-        }
-    }
 }

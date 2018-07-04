@@ -144,6 +144,7 @@ GENERIC_USER_PLURAL=Benutzer
 GENERIC_WORKAREA_SINGULAR=Arbeitsbereich
 GENERIC_WORKAREA_PLURAL=Arbeitsbereiche
 GENERIC_SELECT_ALL=Alle markieren
+GENERIC_ADD_SELECTION=Auswahl hinzuf\u00FCgen
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=In Vertretung f\u00FCr
@@ -900,6 +901,7 @@ GUEST_LIST_ONLY_PARTICIPATE=nur Teilnahmen
 GUEST_LIST_PERSON_DATA_RELOAD=Alle Stammdaten neu laden
 GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Personen suchen und zu der G\u00E4steliste hinzuf\u00FCgen
+GUEST_LIST_ADD_GUEST_FROM_EVENT=G\u00E4ste aus Veranstaltung \u00FCbernehmen
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=G\u00E4steliste erstellen
@@ -1684,8 +1686,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00FCberein.
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00FCtzt nicht den erwarteten Zeichensatz (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00FCtzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
 VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
-VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
-VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=Inland: Ja\u200A\u2014\u200AGeschlecht: Weiblich

@@ -16,7 +16,7 @@ class BasicNavigationTest extends AbstractUITest {
     def 'navigate to person overview'() {
 
         when: 'navigate to person overview'
-        navigateTo(navigationBar.personsMenu, navigationBar.personsOverview)
+        mainPage.navigationBar.toPersonOverview(driver)
 
         then:
         at PersonOverviewPage
@@ -25,7 +25,7 @@ class BasicNavigationTest extends AbstractUITest {
     def 'navigate to person search'() {
 
         when: 'navigate to person search'
-        navigateTo(navigationBar.personsMenu, navigationBar.personsSearch)
+        mainPage.navigationBar.toPersonSearch(driver)
 
         then:
         at PersonSearchPage
