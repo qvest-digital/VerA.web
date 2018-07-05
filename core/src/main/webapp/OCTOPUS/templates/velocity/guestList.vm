@@ -333,7 +333,8 @@
                                                                 }, function () { // Nein
                                                                         $(".errormsg").remove();
                                                                         $(".successmsg").remove();
-                                                                        showSuccess('GENERIC_NO_GUESTLIST_DELETED');
+                                                                        ## Bug 1
+                                                                        showSuccess('placeholderWithTranslation.GENERIC_NO_GUESTLIST_DELETED');
                                                                         $('input:checkbox').prop('disabled', false);
 
                                                                 },

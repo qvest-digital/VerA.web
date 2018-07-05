@@ -429,6 +429,16 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 .selectAs("orderno_p", "orderno_b");
     }
 
+    // Bug 4
+    protected List getResultList(Database database, Select select) throws BeanException, IOException {
+        final List allGuests = getAllGuests(database, select);
+        final List<Map> modifiedList = new ArrayList<Map>();
+        for (Object guest : allGuests) {
+            modifiedList.add((Map) guest);
+        }
+        return modifiedList;
+    }
+
     protected List getResultListForGuestList(Database database, Select select, OctopusContext cntx) throws BeanException, IOException {
         final List allGuests = getAllGuests(database, select);
         final List<Map> modifiedList = new ArrayList<Map>();
@@ -438,10 +448,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
         for(int i=0; i < modifiedList.size(); i++) {
             String guestid = modifiedList.get(i).get("id").toString();
-            String eventid = cntx.getRequestObject().getRequestParameters().get("search-event").toString();
+
+            // Bug 3
+            final GuestSearch search = getSearch(cntx);
+            int newevent = search.event;
 
             int newguest = Integer.parseInt(guestid);
-            int newevent = Integer.parseInt(eventid);
 
             GuestDetailWorker guestDetailWorker = new GuestDetailWorker();
             Guest guest = guestDetailWorker.getGuest(cntx, newevent, newguest, null);

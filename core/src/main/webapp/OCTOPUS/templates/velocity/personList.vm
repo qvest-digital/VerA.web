@@ -707,8 +707,8 @@ i                                                       ${placeholderWithTransla
                                                             <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
                                                         </div>
                                                     </div>
-
-                                                <div class="tableCell"><strong>${placeholderWithTranslation.LETTER_MAIN_PERSON}</strong> = ${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}</div>
+                                                ## Bug 2
+                                                <div class="tableCell">&nbsp;<strong>${placeholderWithTranslation.LETTER_MAIN_PERSON}</strong> = ${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}</div>
                                                 <div class="tableCell"><strong>${placeholderWithTranslation.LETTER_PARTNER}</strong> = ${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}</div>
                                                 <div class="tableCell"><strong>${placeholderWithTranslation.LETTER_RESERVE}</strong> = ${placeholderWithTranslation.aufreservesetzen}</div>
                                                 #if ($delegationCanBeUsed)
