@@ -28,12 +28,13 @@
 		<doclint.optappend>-Xdoclint:none</doclint.optappend>
 		<servlet.api>3.1.0</servlet.api>
 		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
+
 		<!-- maven plugins -->
 		<maven.assembly.version>2.5.3</maven.assembly.version>
 		<maven.buildhelper.version>3.0.0</maven.buildhelper.version>
 		<maven.compiler.version>3.7.0</maven.compiler.version>
 		<maven.deploy.version>2.8.1</maven.deploy.version>
-		<maven.deploy.wagon-ssh.version>2.6</maven.deploy.wagon-ssh.version>
+		<maven.deploy.wagon-ssh.version>3.1.0</maven.deploy.wagon-ssh.version>
 		<maven.enforcer.version>1.4.1</maven.enforcer.version>
 		<maven.exec.version>1.4.0</maven.exec.version>
 		<maven.gmavenplus.version>1.5</maven.gmavenplus.version>
@@ -51,49 +52,64 @@
 		<maven.source.version>2.4</maven.source.version>
 		<maven.surefire.version>2.13</maven.surefire.version>
 		<maven.war.version>2.1.1</maven.war.version>
+		<maven.owasp.dependency-check.version>3.2.1</maven.owasp.dependency-check.version>
+		<maven.docker-compose.version>1.0.3</maven.docker-compose.version>
+		<maven.dockerfile.version>1.4.3</maven.dockerfile.version>
+
 		<!-- dependency management -->
+		<activation.version>1.1.1</activation.version>
+		<awaitility.version>3.1.0</awaitility.version>
 		<background-jobs.version>1.18</background-jobs.version>
-		<cglib-nodep.version>3.2.1</cglib-nodep.version>
-		<commons-codec.version>1.6</commons-codec.version>
-		<commons-csv.version>1.2</commons-csv.version>
-		<commons-io.version>2.5</commons-io.version>
-		<commons-lang3.version>3.4</commons-lang3.version>
-		<commons-lang2.version>2.6</commons-lang2.version>
+		<cglib-nodep.version>3.2.7</cglib-nodep.version>
+		<chromedriver.version>2.40</chromedriver.version>
+		<classmate.version>1.4.0</classmate.version>
+		<commons-codec.version>1.11</commons-codec.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
-		<dropwizard.version>0.7.1</dropwizard.version>
+		<commons-csv.version>1.5</commons-csv.version>
+		<commons-io.version>2.6</commons-io.version>
+		<commons-lang2.version>2.6</commons-lang2.version>
+		<commons-lang3.version>3.7</commons-lang3.version>
+		<dropwizard.version>1.3.5</dropwizard.version>
+		<expiringmap.version>0.5.8</expiringmap.version>
 		<extract-tool.version>1.6</extract-tool.version>
 		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
+		<geb.version>2.1</geb.version>
 		<groovy-all.version>2.4.15</groovy-all.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
 		<guava.version>25.1-jre</guava.version>
-		<h2.version>1.4.191</h2.version>
-		<hibernate.version>5.2.13.Final</hibernate.version>
+		<h2.version>1.4.197</h2.version>
 		<hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
-		<hk2.version>2.4.0-b34</hk2.version>
+		<hibernate.version>5.3.1.Final</hibernate.version>
+		<hk2.version>2.5.0-b61</hk2.version>
+		<httpclient.version>4.5.5</httpclient.version>
+		<httpcore.version>4.4.10</httpcore.version>
 		<itext.version>2.1.7</itext.version>
-		<jackson.version>2.6.7</jackson.version>
+		<jackson.version>2.9.6</jackson.version>
+		<javax.el.version>3.0.0</javax.el.version>
+		<javax.mail.version>1.4.7</javax.mail.version>
 		<!-- bump to 2.4.0 as soon as released, https://stackoverflow.com/a/50251510/2171120 for details -->
 		<jaxb.version>2.3.0</jaxb.version>
-		<javax.mail.version>1.4.7</javax.mail.version>
 		<jersey1.version>1.19.4</jersey1.version>
-		<jersey2.version>2.22.2</jersey2.version>
+		<jersey2.version>2.27</jersey2.version>
+		<jodatime.version>2.10</jodatime.version>
 		<json.version>0.0.20131108.vaadin1</json.version>
 		<junit.version>4.12</junit.version>
-		<log4j.version>2.6.2</log4j.version>
+		<log4j.version>2.11.0</log4j.version>
 		<lombok.version>1.18.0</lombok.version>
+		<mimepull.version>1.9.7</mimepull.version>
 		<mockito.version>2.19.0</mockito.version>
 		<osiam.connector4java.version>1.8</osiam.connector4java.version>
-		<postgresql.version>42.2.1</postgresql.version>
-		<slf4j.version>1.7.12</slf4j.version>
-		<spock-core.version>1.1-groovy-2.4</spock-core.version>
-		<spring.version>4.2.6.RELEASE</spring.version>
-		<dockerfile-maven.version>1.4.3</dockerfile-maven.version>
-		<docker-compose-maven-plugin.version>1.0.3</docker-compose-maven-plugin.version>
-		<awaitility.version>3.1.0</awaitility.version>
-		<geb.version>2.1</geb.version>
+		<poi.version>3.17</poi.version>
+		<postgresql.version>42.2.2</postgresql.version>
+		<rs-api.version>2.1</rs-api.version>
 		<selenium.version>3.12.0</selenium.version>
+		<slf4j.version>1.7.25</slf4j.version>
+		<smiley-http-proxy-servlet.version>1.7</smiley-http-proxy-servlet.version>
+		<spock-core.version>1.1-groovy-2.4</spock-core.version>
+		<spring.version>4.3.18.RELEASE</spring.version>
 		<webdriverextensions.version>3.1.3</webdriverextensions.version>
-		<chromedriver.version>2.40</chromedriver.version>
+		<wiremock.version>2.18.0</wiremock.version>
+
 		<docker.registry>veraweb-tools.lan.tarent.de:5000</docker.registry>
 	</properties>
 	<organization>
@@ -562,7 +578,7 @@
 			<dependency>
 				<groupId>net.jodah</groupId>
 				<artifactId>expiringmap</artifactId>
-				<version>0.5.7</version>
+				<version>${expiringmap.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.tartools</groupId>
@@ -673,17 +689,17 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
-				<version>4.5.1</version>
+				<version>${httpclient.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpcore</artifactId>
-				<version>4.4.1</version>
+				<version>${httpcore.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mitre.dsmiley.httpproxy</groupId>
 				<artifactId>smiley-http-proxy-servlet</artifactId>
-				<version>1.7</version>
+				<version>${smiley-http-proxy-servlet.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.lowagie</groupId>
@@ -703,7 +719,7 @@
 			<dependency>
 				<groupId>com.fasterxml</groupId>
 				<artifactId>classmate</artifactId>
-				<version>1.3.1</version>
+				<version>${classmate.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
@@ -758,12 +774,12 @@
 			<dependency>
 				<groupId>javax.activation</groupId>
 				<artifactId>activation</artifactId>
-				<version>1.1</version>
+				<version>${activation.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.glassfish.web</groupId>
+				<groupId>org.glassfish</groupId>
 				<artifactId>javax.el</artifactId>
-				<version>2.2.6</version>
+				<version>${javax.el.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.mail</groupId>
@@ -783,7 +799,7 @@
 			<dependency>
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>javax.ws.rs-api</artifactId>
-				<version>2.0.1</version>
+				<version>${rs-api.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.xml.bind</groupId>
@@ -815,7 +831,7 @@
 			<dependency>
 				<groupId>org.jboss.logging</groupId>
 				<artifactId>jboss-logging</artifactId>
-				<version>3.3.1.Final</version>
+				<version>3.3.2.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>com.sun.jersey.contribs</groupId>
@@ -880,7 +896,7 @@
 			<dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
-				<version>2.9</version>
+				<version>${jodatime.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
@@ -910,7 +926,7 @@
 			<dependency>
 				<groupId>org.jvnet.mimepull</groupId>
 				<artifactId>mimepull</artifactId>
-				<version>1.9.6</version>
+				<version>${mimepull.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mockito</groupId>
@@ -981,7 +997,7 @@
 			<dependency>
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi</artifactId>
-				<version>3.9</version>
+				<version>${poi.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.postgresql</groupId>
@@ -1072,7 +1088,7 @@
 				<groupId>com.github.tomakehurst</groupId>
 				<artifactId>wiremock</artifactId>
 				<classifier>standalone</classifier>
-				<version>1.58</version>
+				<version>${wiremock.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
