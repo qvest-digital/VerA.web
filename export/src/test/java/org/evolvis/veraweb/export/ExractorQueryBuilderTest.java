@@ -68,18 +68,18 @@ package org.evolvis.veraweb.export;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.util.HashMap;
-
+import de.tarent.extract.ExtractorQuery;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import de.tarent.extract.ExtractorQuery;
+import java.util.HashMap;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 public class ExractorQueryBuilderTest {
     @Rule
@@ -106,5 +106,41 @@ public class ExractorQueryBuilderTest {
 
         ExtractorQuery query = queryTemplate.replace(substitutions).build();
         assertEquals("fnarz 42 fnarz bang", query.getSql());
+    }
+
+    @Test
+    public void applingFiltersDontModifyBaseQuerySql() {
+        //given:
+        String basicQueryString = "SELECT * FROM tguest WHERE x=y";
+        when(extractorQuery.getSql()).thenReturn(basicQueryString);
+        ExtractorQueryBuilder queryTemplate = new ExtractorQueryBuilder(extractorQuery);
+        HashMap<String, String> filterSettings = new HashMap<>();
+        filterSettings.put(ValidExportFilter.CATEGORY_ID_FILTER.key, "0");
+        filterSettings.put(ValidExportFilter.INVITATIONSTATUS_FILTER.key, "2");
+
+        //when:
+        ExtractorQuery query = queryTemplate.setFilters(filterSettings).build();
+
+        //then:
+        assertTrue(query.getSql().startsWith(basicQueryString));
+    }
+
+    @Test
+    public void applingFiltersExtendsBaseQuerySql() {
+        //given:
+        String basicQueryString = "SELECT * FROM tguest WHERE x=y";
+        when(extractorQuery.getSql()).thenReturn(basicQueryString);
+        ExtractorQueryBuilder queryTemplate = new ExtractorQueryBuilder(extractorQuery);
+        HashMap<String, String> filterSettings = new HashMap<>();
+        filterSettings.put(ValidExportFilter.CATEGORY_ID_FILTER.key, "0");
+        filterSettings.put(ValidExportFilter.INVITATIONSTATUS_FILTER.key, "2");
+        filterSettings.put("filterStupid", "0");
+        filterSettings.put(ValidExportFilter.SEARCHWORD_FILTER.key, "2; DELETE FROM tconfig");
+
+        //when:
+        ExtractorQuery query = queryTemplate.setFilters(filterSettings).build();
+
+        //then:
+        assertTrue(query.getSql().equals(basicQueryString + " AND g.invitationstatus = 2 AND g.fk_category = 0"));
     }
 }

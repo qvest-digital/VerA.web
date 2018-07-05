@@ -68,8 +68,10 @@ package org.evolvis.veraweb.export;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import de.tarent.extract.ResultSetValueExtractor;
+import org.h2.jdbcx.JdbcDataSource;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -81,13 +83,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.sql.DataSource;
-
-import org.h2.jdbcx.JdbcDataSource;
-import org.junit.Before;
-import org.junit.Test;
-
-import de.tarent.extract.ResultSetValueExtractor;
+import static org.junit.Assert.assertEquals;
 
 public class CsvExporterTest {
 
@@ -131,7 +127,7 @@ public class CsvExporterTest {
     public void test() {
         final Map<String, String> map = new HashMap<String, String>();
         map.put("id", "1");
-        csvExporter.export(map);
+        csvExporter.export(map, new HashMap<>());
         assertEquals("id,firstname,lastname,link\r\n1,Ford,Prefect,http://fnord-west.eu/api?id=1\r\n", writer.toString());
     }
 }
