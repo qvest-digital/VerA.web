@@ -68,18 +68,19 @@ package org.evolvis.veraweb.export;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Properties;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Properties;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
 public class LinkExtractorTest {
 
@@ -124,5 +125,13 @@ public class LinkExtractorTest {
         when(rs.getString(43)).thenReturn("gnaaahahahaha");
         Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
         assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha", extractedValue);
+    }
+
+    @Test
+    public void ifPrefixPropertyIsMissingFallBackPrefixIsUsed() throws SQLException {
+        Properties properties = new Properties();
+        when(rs.getString(43)).thenReturn("gnaaahahahaha");
+        Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
+        assertEquals(LinkExtractor.MISSING_PREFIX_ALERT_FALLBACK + "/gnaaahahahaha", extractedValue);
     }
 }
