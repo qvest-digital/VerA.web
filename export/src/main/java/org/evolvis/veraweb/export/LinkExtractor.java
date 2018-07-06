@@ -68,19 +68,21 @@ package org.evolvis.veraweb.export;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import de.tarent.extract.ResultSetValueExtractor;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import de.tarent.extract.ResultSetValueExtractor;
-
 public class LinkExtractor implements ResultSetValueExtractor {
 
+    public static final String MISSING_PREFIX_ALERT_FALLBACK = "<ONLINE_REGISTRATION_BASE_URL_MISSING>";
     private final String prefix;
 
     public LinkExtractor(Properties properties) {
         final String prefixPropertyName = properties.getProperty("prefixPropertyName", "prefix");
-        prefix = properties.getProperty(prefixPropertyName);
+        String prefixProperty = properties.getProperty(prefixPropertyName);
+        prefix = prefixProperty != null ? prefixProperty : MISSING_PREFIX_ALERT_FALLBACK;
     }
 
     public Object extractValue(ResultSet rs, int col) throws SQLException {
