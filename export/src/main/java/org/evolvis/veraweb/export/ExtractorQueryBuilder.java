@@ -80,7 +80,8 @@ public class ExtractorQueryBuilder {
 
     public static final String OPTIONAL_FIELD_LABEL_PREFIX = "OPTIONAL_FIELD_LABEL_";
     private final ExtractorQuery template;
-    private Map<String, String> substitutions = new HashMap<String, String>();
+    private Map<String, String> substitutions = new HashMap<>();
+    private Map<String, String> filterSettings = new HashMap<>();
 
     public ExtractorQueryBuilder(ExtractorQuery template) {
         this.template = template;
@@ -95,12 +96,30 @@ public class ExtractorQueryBuilder {
         final ExtractorQuery q = new ExtractorQuery();
         q.setMappings(applyMappingsSubstitutions(template.getMappings()));
         q.setProgressInterval(template.getProgressInterval());
-        q.setSql(applySubstitutions(template.getSql()));
+        q.setSql(applyFilterSettings(applySubstitutions(template.getSql())));
         return q;
+    }
+
+    private String applyFilterSettings(String sql) {
+        StringBuilder sqlWithAdditionalFilters = new StringBuilder(sql);
+        for (Map.Entry<String, String> entry : filterSettings.entrySet()) {
+            sqlWithAdditionalFilters
+                    .append(" AND ")
+                    .append(ValidExportFilter.buildDBPathPartial(entry.getKey(), entry.getValue()));
+        }
+        return sqlWithAdditionalFilters.toString();
     }
 
     public ExtractorQueryBuilder replace(Map<String, String> substitutions) {
         this.substitutions.putAll(substitutions);
+        return this;
+    }
+
+    public ExtractorQueryBuilder setFilters(Map<String, String> filterSettings) {
+        filterSettings.entrySet()
+                .stream()
+                .filter(entry -> ValidExportFilter.isValidFilterSetting(entry.getKey(), entry.getValue()))
+                .forEach(entry -> this.filterSettings.put(entry.getKey(), entry.getValue()));
         return this;
     }
 
