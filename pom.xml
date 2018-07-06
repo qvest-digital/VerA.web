@@ -79,7 +79,7 @@
 		<guava.version>25.1-jre</guava.version>
 		<h2.version>1.4.197</h2.version>
 		<hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
-		<hibernate.version>5.3.1.Final</hibernate.version>
+		<hibernate.version>5.3.2.Final</hibernate.version>
 		<hk2.version>2.5.0-b61</hk2.version>
 		<httpclient.version>4.5.5</httpclient.version>
 		<httpcore.version>4.4.10</httpcore.version>
@@ -88,7 +88,8 @@
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
 		<!-- bump to 2.4.0 as soon as released, https://stackoverflow.com/a/50251510/2171120 for details -->
-		<jaxb.version>2.3.0</jaxb.version>
+		<jaxb-api.version>2.3.0</jaxb-api.version>
+		<jaxb.version>2.3.0.1</jaxb.version>
 		<jersey1.version>1.19.4</jersey1.version>
 		<jersey2.version>2.27</jersey2.version>
 		<jodatime.version>2.10</jodatime.version>
@@ -804,7 +805,7 @@
 			<dependency>
 				<groupId>javax.xml.bind</groupId>
 				<artifactId>jaxb-api</artifactId>
-				<version>${jaxb.version}</version>
+				<version>${jaxb-api.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.sun.xml.bind</groupId>
