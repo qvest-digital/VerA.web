@@ -74,9 +74,12 @@ import com.lowagie.text.pdf.AcroFields;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
+import de.tarent.extract.Extractor;
+import de.tarent.extract.ExtractorQuery;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.evolvis.veraweb.common.Placeholder;
+import org.evolvis.veraweb.export.ExtractorQueryBuilder;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
@@ -96,8 +99,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -209,13 +214,15 @@ public class PdfTemplateResource extends FormDataResource {
     @GET
     @Path("/export")
     @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
-    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId)
+    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
+                                @QueryParam("eventId") Integer eventId,
+                                @javax.ws.rs.core.Context UriInfo ui)
       throws IOException, DocumentException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
 
-        final List<Person> people = getPersons(eventId);
+        final List<Person> people = getPersons(eventId, ui);
         if (people.isEmpty()) {
             return Response.status(Status.NO_CONTENT).build();
         }
@@ -425,15 +432,32 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-    private List<Person> getPersons(Integer eventId) {
+    private List<Person> getPersons(Integer eventId, UriInfo ui) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Person.getPeopleByEventId");
+            Query query  = session.getNamedQuery("Person.getPeopleByEventId");
             query.setParameter("eventid", eventId);
 
-            PersonComparator comparator = new PersonComparator();
+            final Properties properties = new Properties();
+            final MultivaluedMap<String, String> params = ui.getQueryParameters();
+
+            if (!params.isEmpty()) {
+                params.keySet().forEach(key -> properties.setProperty(key, params.getFirst(key)));
+
+
+                Map<String, String> filterSettings = new HashMap<>();
+                params.keySet().stream().filter(key -> key.startsWith("filter")).forEach(key -> filterSettings.put(key, params.getFirst(key)));
+
+
+                final ExtractorQuery extractorQuery = new ExtractorQuery();
+                extractorQuery.setSql(query.getQueryString());
+
+                final ExtractorQuery extractoredQuery = new ExtractorQueryBuilder(extractorQuery).setFilters(filterSettings).build();
+                query = session.createQuery(extractoredQuery.getSql());
+            }
             List<Person> personList = (List<Person>) query.list();
 
+            PersonComparator comparator = new PersonComparator();
             Collections.sort(personList, comparator);
             return personList;
         } finally {

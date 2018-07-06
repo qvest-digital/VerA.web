@@ -83,7 +83,9 @@ import spock.lang.Ignore
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
+import javax.ws.rs.core.MultivaluedHashMap
 import javax.ws.rs.core.Response
+import javax.ws.rs.core.UriInfo
 import java.nio.charset.StandardCharsets
 
 /**
@@ -382,9 +384,11 @@ class PdfTemplateResourceTest extends Specification {
             def pdfTemplateId = 1
             def eventId = 1
             query.list() >> new ArrayList()
+            def uriInfo = Mock(UriInfo)
+            uriInfo.getQueryParameters() >> new MultivaluedHashMap<String, String>()
 
         when:
-            def response = resource.generatePdf(pdfTemplateId, eventId)
+            def response = resource.generatePdf(pdfTemplateId, eventId, uriInfo)
 
         then:
             session != null
@@ -396,9 +400,10 @@ class PdfTemplateResourceTest extends Specification {
     void testGeneratePdfNoEventId() {
         given:
             def pdfTemplateId = 1
+            def uriInfo = Mock(UriInfo)
 
         when:
-            def response = resource.generatePdf(pdfTemplateId, null)
+            def response = resource.generatePdf(pdfTemplateId, null, uriInfo)
 
         then:
             assert response.status == Response.Status.BAD_REQUEST.statusCode
@@ -407,9 +412,10 @@ class PdfTemplateResourceTest extends Specification {
     void testGeneratePdfNoTemplateId() {
         given:
             def eventId = 1
+            def uriInfo = Mock(UriInfo)
 
         when:
-            def response = resource.generatePdf(null, eventId)
+            def response = resource.generatePdf(null, eventId, uriInfo)
 
         then:
             assert response.status == Response.Status.BAD_REQUEST.statusCode
