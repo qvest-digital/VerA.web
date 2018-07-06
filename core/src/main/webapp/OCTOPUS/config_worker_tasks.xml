@@ -295,6 +295,7 @@
 			<action name="saveList" worker="PersonDuplicateSearchWorker"/>
 			<action name="showList" worker="PersonDuplicateSearchWorker"/>
 			<action name="exportFormat" worker="PersonExportWorker"/>
+			<action name="save" worker="UserConfigWorker"/>
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="personList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -469,6 +470,7 @@
 			<action name="getSearch" worker="PersonListWorker"/>
 			<action name="showList" worker="PersonListWorker"/>
 			<action name="exportFormat" worker="PersonExportWorker"/>
+			<action name="save" worker="UserConfigWorker"/>
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="personList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -1122,6 +1124,7 @@
 			<action name="setupSortDirection" worker="GuestListWorker"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker"/>
+			<action name="getBasicEvent" worker="GuestListWorker"/>
 			<status equals="noevent">
 				<doTask name="CreateEvent"/>
 			</status>
@@ -1130,6 +1133,7 @@
 			<action name="getJumpOffsets" worker="GuestListWorker"/>
 			<action name="getSums" worker="GuestListWorker"/>
 			<action name="getAllCategories" worker="GuestListWorker"/>
+			<action name="save" worker="UserConfigWorker"/>
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="guestList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -1147,6 +1151,7 @@
 			</status>
 			<action name="getAll" worker="CategorieWorker"/>
 			<action name="showDetail" worker="GuestDetailWorker"/>
+            <action name="getBasicEvent" worker="GuestListWorker"/>
 			<action name="showDelegationFields" worker="EventDelegationWorker"/>
 			<status equals="notfound">
 				<doTask name="ShowGuestList"/>
@@ -1241,6 +1246,16 @@
 			<action name="getSelection" worker="PersonListWorker"/>
 			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
 			<doTask name="SearchPerson"/>
+		</task>
+		<task name="AddPersonEventBasicEvent" access="public" groups="Writer">
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker"/>
+			<action name="getSelection" worker="GuestListWorker"/>
+			<status equals="noevent">
+				<doTask name="CreateEvent"/>
+			</status>
+			<action name="addSelectedGuestsFromEventToEventList" worker="GuestWorker" />
+			<doTask name="ShowGuestList"/>
 		</task>
 		<task name="AddPersonToEventGuestList" access="public" groups="Writer">
 			<description>
@@ -1438,7 +1453,7 @@
 		</task>
 		<task name="popupSelectCompany" access="public" groups="StandardFieldsReader">
 			<description>
-				Zeigt ein Popup zur Auswahl einer Funktion an.
+				Zeigt ein Popup zur Auswahl einer Firma an.
 			</description>
 			<doTask name="Load"/>
 			<action name="showList" worker="CompanyListWorker"/>
@@ -1640,7 +1655,6 @@
 			<doTask name="Load"/>
 			<action name="saveList" worker="UserListWorker"/>
 			<param name="domain" value="unassigned"/>
-			<action name="showAARoleList" worker="UserWorker"/>
 			<param name="domain" value="ou"/>
 			<!-- wird auch von user.vm genutzt -->
 			<param name="order" refvalue="order"/>
@@ -1683,23 +1697,38 @@
 			</response>
 		</task>
         <!-- administration -> benutzer -> neuen benutzer erstellen -->
-        <task name="UserCreate" access="public" groups="Administrator,SystemUser">
+        <task name="AllUserCreate" access="public" groups="Administrator,SystemUser">
             <description>
                 Dieser Task ist zum erstellen neuer Nutzer.
                 Eine Liste wird aus dem LDAP geladen und abgeglichen.
             </description>
             <doTask name="Load"/>
-            <param name="domain" value="unassigned"/>
-            <param name="domain" value="all"/>
-            <action name="showAARoleList" worker="UserWorker"/>
-            <action name="saveList" worker="OrgUnitListWorker"/>
-            <action name="showList" worker="OrgUnitListWorker"/>
-            <action name="getAll" worker="OrgUnitListWorker"/>
-
+			<action name="saveList" worker="UserListWorker"/>
+			<param name="domain" value="unassigned"/>
+			<param name="domain" value="all"/>
+			<param name="order" refvalue="order"/>
+			<action name="showAARoleList" worker="UserWorker"/>
+			<action name="getAll" worker="OrgUnitListWorker"/>
             <response type="velocity" name="userCreate">
                 <param name="ContentType" value="text/html;charset=UTF-8"/>
             </response>
         </task>
+		<task name="OUUserCreate" access="public" groups="Administrator,SystemUser">
+			<description>
+				Dieser Task ist zum erstellen neuer Nutzer.
+				Eine Liste wird aus dem LDAP geladen und abgeglichen.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="UserListWorker"/>
+			<param name="domain" value="unassigned"/>
+			<param name="domain" value="ou"/>
+			<param name="order" refvalue="order"/>
+			<action name="showAARoleList" worker="UserWorker"/>
+			<action name="getAll" worker="OrgUnitListWorker"/>
+			<response type="velocity" name="userCreate">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
 		<task name="OrgunitCleanup" access="public" groups="Administrator,SystemUser">
 			<description>
 				Dieser Task zeigt Mandanten-unabhängige Daten an und

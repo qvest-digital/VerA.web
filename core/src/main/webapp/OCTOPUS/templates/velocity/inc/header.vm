@@ -109,6 +109,15 @@
                                     </a>
                                 </li>
                                                         #end
+
+                                                        #if($viewConfig.showGlobalOpenTab)
+                                                        <li>
+                                                            <a class="buttonLink" target="_blank" href="">
+                                                                <img src="${paths.staticWeb}images/add.png" alt="open new tab" title="${placeholderWithTranslation.HEADER_ELEMENT_NEW_TAB_HINT}" >
+                                                            </a>
+                                                        </li>
+                                                        #end
+
                                                         <li>
                                                             <a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder">
                                                                 <span class="borderBottom">${placeholderWithTranslation.GENERIC_LOGOUT}</span>

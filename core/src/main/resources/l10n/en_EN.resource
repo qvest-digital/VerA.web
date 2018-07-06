@@ -144,6 +144,7 @@ GENERIC_USER_PLURAL=Users
 GENERIC_WORKAREA_SINGULAR=Working area
 GENERIC_WORKAREA_PLURAL=Working areas
 GENERIC_SELECT_ALL=Select all
+GENERIC_ADD_SELECTION=Add selection
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=As representative of
@@ -177,6 +178,7 @@ HEADER_ELEMENT_ONE_RECORD_SINGULAR=one data record
 HEADER_ELEMENT_ONE_NEW_RECORD_SINGULAR=one new data record
 HEADER_ELEMENT_PLURAL=data records
 HEADER_ELEMENT_NEW_PLURAL=new data records
+HEADER_ELEMENT_NEW_TAB_HINT=open current page in new tab
 
 # FIXES
 GENERIC_EDIT=Edit
@@ -378,6 +380,7 @@ GENERIC_MAILING_ADDRESS_OTHERS=Address (others)
 GENERIC_LABELLING_LATIN=Charset latin
 GENERIC_LABELLING_ALTERNATIVE=Charset alternative
 GENERIC_ADDRESS_ADDITIONAL=Addition to address
+GENERIC_VIEW_CONFIG=View configuration
 
 # ADMINISTRATION/REPORTS
 GENERIC_REPORTS=Reports
@@ -836,6 +839,14 @@ STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=overall view of events ordered by venue
 statistikerstellen=create statistics
 
 # GAESTEVERWALTUNG DER VERANSTALTUNG
+MAIN_PERSON_STATUS_ACCEPT = Main person-Commitment
+MAIN_PERSON_STATUS_DECLINE = Main person-Declination
+MAIN_PERSON_STATUS_PARTICIPATED = Main person-Participation
+MAIN_PERSON_STATUS_OPEN = Main person-Open
+PARTNER_STATUS_ACCEPT = PARTNER-Commitment
+PARTNER_STATUS_DECLINE = PARTNER-Declination
+PARTNER_STATUS_PARTICIPATED = PARTNER-Participation
+PARTNER_STATUS_OPEN = PARTNER-Open
 gasteverwaltungderveranstaltung=Guest Management of the Event
 maxanzahlgaste=Max Number of guests
 gastedetails=Guest details
@@ -889,6 +900,7 @@ GUEST_LIST_ONLY_PARTICIPATE=participations only
 GUEST_LIST_PERSON_DATA_RELOAD=reload all core data
 GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Search and add people to guest list
+GUEST_LIST_ADD_GUEST_FROM_EVENT=Takeover of guests from event
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=create guest list
@@ -1133,6 +1145,7 @@ solldiesergastaufplatzgesetztwerden=Should this guest get a seat?
 solldiepartnerinderpartnermiteingeladenwerden=Should the partner be invited?
 aktuellepersonwirklichentfernen=Delete updated person?
 personspeichern=Save person
+mitarbeiteraktualisieren=Update all employees
 zurpersonenliste=To persons List
 zurpersonenuebersicht=To persons summary
 zurueckzurveranstaltung=Back to Event
@@ -1368,6 +1381,7 @@ verawebdetailansicht=VerA.web :: Details
 datensatzbearbeiten=edit dataset
 zuruecksetzen=reset
 datensatzloeschen=remove dataset
+PERSON_PART_SEARCH_HINT=Results are also automatically returned in which your input appears as part of a word.
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen= For searching purposes you can use so-called placeholders: * is used to replace more than one character and ? for exactly one character
 undamtsbezeichnungfunktion=and employment title/function
 HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, work areas
@@ -1673,8 +1687,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Your database configuration does not support the expected charset (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Your database configuration does not support the expected rules for text comparison(LC_COLLATE=
 VERIFY_ERROR_XML=An error occured while creating a XML-test document.(
-VERIFY_ERROR_JAVA_ONE=The installed java-version (
-VERIFY_ERROR_JAVA_TWO=) does not match the expected version (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=In Country: Yes\u200A\u2014\u200ASex:Female

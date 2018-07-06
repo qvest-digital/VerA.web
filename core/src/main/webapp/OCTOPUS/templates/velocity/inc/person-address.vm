@@ -123,7 +123,12 @@
 				<input type="text" id="person-url$!message.plain($ext)" name="person-url$!message.plain($ext)" value="$!message.text($facade.Url)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
-			<div class="tableCell width50"></div>
+			#if ($addressType == "geschaeftlich")
+			<div class="tableCell width50" #if($person.iscompany == "f") style = "display:none" #end id="div-update-employees">
+				<input type="checkbox" id="checkbox-update-employees" name="updateEmployees" value="true"/>
+				${placeholderWithTranslation.mitarbeiteraktualisieren}
+			</div>
+			#end
 
 		</div>
 

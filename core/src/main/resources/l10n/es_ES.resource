@@ -144,6 +144,7 @@ GENERIC_USER_PLURAL=Usuarios
 GENERIC_WORKAREA_SINGULAR=\u00C1rea de trabajo
 GENERIC_WORKAREA_PLURAL=\u00C1reas de trabajo
 GENERIC_SELECT_ALL=Seleccionar todo
+GENERIC_ADD_SELECTION=agregar selección
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=En representaci\u00F3n de
@@ -177,6 +178,7 @@ HEADER_ELEMENT_ONE_RECORD_SINGULAR=un registro
 HEADER_ELEMENT_ONE_NEW_RECORD_SINGULAR=un nuevo registro
 HEADER_ELEMENT_PLURAL=Registros
 HEADER_ELEMENT_NEW_PLURAL=nuevos registros
+HEADER_ELEMENT_NEW_TAB_HINT=abrir p\u00E1gina en nueva pesta\u00F1a
 
 # FIXES
 GENERIC_EDIT=Editar
@@ -378,6 +380,7 @@ GENERIC_MAILING_ADDRESS_OTHERS=Otras direcciones
 GENERIC_LABELLING_LATIN=Conjunto de caracteres latinos
 GENERIC_LABELLING_ALTERNATIVE=Conjunto de caracteres alternativo
 GENERIC_ADDRESS_ADDITIONAL=Direcci\u00F3n adicional
+GENERIC_VIEW_CONFIG=Configuraci\u00F3n de la vista
 
 # ADMINISTRATION/REPORTS
 GENERIC_REPORTS=Res\u00FAmenes
@@ -837,6 +840,14 @@ STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=Listado de eventos ordenados por localiza
 statistikerstellen=Generar estad\u00EDsticas
 
 # GAESTEVERWALTUNG DER VERANSTALTUNG
+MAIN_PERSON_STATUS_ACCEPT = Persona principal-Confirmado
+MAIN_PERSON_STATUS_DECLINE = Persona principal-Rechazado
+MAIN_PERSON_STATUS_PARTICIPATED = Persona principal-Participante
+MAIN_PERSON_STATUS_OPEN = Persona principal-Abierto
+PARTNER_STATUS_ACCEPT = Partner-Confirmado
+PARTNER_STATUS_DECLINE = Partner-Rechazado
+PARTNER_STATUS_PARTICIPATED = Partner-Participante
+PARTNER_STATUS_OPEN = Partner-Abierto
 gasteverwaltungderveranstaltung=Gesti\u00F3n de invitados del evento
 maxanzahlgaste=Total de invitados
 gastedetails=Detalles de invitados
@@ -890,6 +901,7 @@ GUEST_LIST_ONLY_PARTICIPATE=s\u00F3lo participantes
 GUEST_LIST_PERSON_DATA_RELOAD=Recargar todos los datos maestros
 GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Buscar personas y a\u00F1adirlas a la lista de invitados
+GUEST_LIST_ADD_GUEST_FROM_EVENT=Tomar invitados del evento
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=Generar lista de invitados
@@ -1134,6 +1146,7 @@ solldiesergastaufplatzgesetztwerden=\u00BFDebe el invitado actual obtener una pl
 solldiepartnerinderpartnermiteingeladenwerden=\u00BFDebe el partner ser invitado?
 aktuellepersonwirklichentfernen=\u00BFDesea realmente eliminar la persona actual?
 personspeichern=Guardar persona
+mitarbeiteraktualisieren=Actualizar todos los empleados
 zurpersonenliste=Volver a personas
 zurpersonenuebersicht=Lista de personas
 zurueckzurveranstaltung=Volver a eventos
@@ -1370,6 +1383,7 @@ verawebdetailansicht=VerA.web :: Vista detalle
 datensatzbearbeiten=Editar registro
 zuruecksetzen=Restaurar
 datensatzloeschen=Eliminar registro
+PERSON_PART_SEARCH_HINT=Se devuelven tambi\u00E9n autom\u00E1ticamente los resulatados, que contienen una parte de la palabra que usted ha introducido.
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=En su b\u00FAsqueda, podr\u00E1 utilizar comodines, el asterisco (*) servir\u00E1 para b\u00FAsquedas globales y el s\u00EDmbolo de interrogaci\u00F3n (?) para b\u00FAsquedas individuales
 undamtsbezeichnungfunktion=y t\u00EDtulo/funci\u00F3n
 HINT_SEARCH_WHERE=La b\u00FAsqueda se basa en nombres, apellidos, localizaci\u00F3n, c\u00F3digo postal, calle, empresa/instituci\u00F3n, tel\u00E9fono, fax, m\u00F3vil, e-mail, observaciones, categor\u00EDas y \u00E1reas de trabajo
@@ -1675,8 +1689,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Su configuraci\u00F3n actual de base de datos no puede interpretar el conjunto de caracteres (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Su configuraci\u00F3n actual de base de datos no puede interpretar las reglas de comparaci\u00F3n de texto (LC_COLLATE=
 VERIFY_ERROR_XML=Se ha producido un error al generar un documento XML de prueba. (
-VERIFY_ERROR_JAVA_ONE=La versi\u00F3n de Java instalada (
-VERIFY_ERROR_JAVA_TWO=) no se corresponde con la versi\u00F3n esperada (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=En el pa\u00EDs: S\u00ED\u200A\u2014\u200AG\u00E9nero: mujer

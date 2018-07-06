@@ -71,6 +71,7 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.aa.veraweb.beans.UserConfig;
+import de.tarent.aa.veraweb.beans.ViewConfigKey;
 import de.tarent.aa.veraweb.utils.LocaleMessage;
 import de.tarent.aa.veraweb.utils.VworConstants;
 import de.tarent.aa.veraweb.utils.VworUtils;
@@ -98,10 +99,8 @@ import java.util.Map;
  */
 public class UserConfigWorker {
     public static final String PARAMS_STRING[] = {
-      "personTab", "personMemberTab",
-      "personAddresstypeTab", "personLocaleTab" };
-    private static final String PARAMS_BOOLEAN[] = {
-      "guestListFunction", "guestListCity", "guestListPhone", "personListState" };
+            "personTab", "personMemberTab",
+            "personAddresstypeTab", "personLocaleTab"};
 
     /**
      * Octopus-Eingabe-Parameter für {@link #init(OctopusContext)}
@@ -184,9 +183,37 @@ public class UserConfigWorker {
             orgUnit = (OrgUnit) database.getBean("OrgUnit", user.orgunit);
         }
 
+        completeUserViewConfigEntries(database, userId, octopusContext, result);
+
         octopusContext.setContent("orgUnit", orgUnit);
         octopusContext.setSession("userConfig", result);
         return result;
+    }
+
+    /**
+     * Checks view config property entries in user config. Settings of common config will be used for missing entries
+     * in user config and persisted
+     * @param database database
+     * @param userId id of current user
+     * @param octopusContext the context
+     * @param result user
+     * @throws IOException
+     * @throws BeanException
+     */
+    private void completeUserViewConfigEntries(Database database, Integer userId, OctopusContext octopusContext, Map result) throws IOException, BeanException {
+        Map config = (Map) octopusContext.contentAsObject("config");
+        for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
+            if (!result.containsKey(viewConfigKey.key)) {
+                String value;
+                if (config.containsKey(viewConfigKey.key)) {
+                    value = (String) config.get(viewConfigKey.key);
+                } else {
+                    value = viewConfigKey.defaultValue;
+                }
+                insertNewUserConfigEntry(database, userId, viewConfigKey.key, value);
+                result.put(viewConfigKey.key, value);
+            }
+        }
     }
 
     /**
@@ -226,6 +253,11 @@ public class UserConfigWorker {
      * @throws IOException   IOException
      */
     public void save(OctopusContext octopusContext) throws BeanException, IOException {
+        // Bug 5
+        if(octopusContext.requestContains("save-columns")) {
+            saveColumnsConfig(octopusContext);
+            return;
+        }
         if (!octopusContext.requestContains("save")) {
             return;
         }
@@ -233,6 +265,7 @@ public class UserConfigWorker {
         Database database = new DatabaseVeraWeb(octopusContext);
         Integer userId = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
         Map userConfig = (Map) octopusContext.contentAsObject("userConfig");
+        boolean configChanged = false;
 
         for (int i = 0; i < PARAMS_STRING.length; i++) {
             String key = PARAMS_STRING[i];
@@ -241,61 +274,105 @@ public class UserConfigWorker {
             if (value == null) {
                 continue;
             }
-            setUserSetting(database, userId, userConfig, key, value);
+            configChanged = setUserSetting(database, userId, userConfig, key, value) || configChanged;
         }
 
-        for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
-            String key = PARAMS_BOOLEAN[i];
+        // Bug 5
+        for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
+            String key = viewConfigKey.key;
             boolean value = octopusContext.requestAsBoolean(key).booleanValue();
-            if (value) {
-                setUserSetting(database, userId, userConfig, key, "true");
-            } else {
-                removeUserSetting(database, userId, userConfig, key);
+            String type = octopusContext.getRequestObject().getTask();
+
+            if(type.equals("UserConfig")) {
+                configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
             }
         }
 
-        octopusContext.setContent("saveSuccess", true);
+        if (configChanged) {
+            octopusContext.setContent("saveSuccess", true);
+        }
+    }
+
+    private void saveColumnsConfig(OctopusContext octopusContext) throws BeanException, IOException {
+        Database database = new DatabaseVeraWeb(octopusContext);
+        Integer userId = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
+        Map userConfig = (Map) octopusContext.contentAsObject("userConfig");
+        boolean configChanged = false;
+
+        for (ViewConfigKey viewConfigKey : ViewConfigKey.values()) {
+            String key = viewConfigKey.key;
+            boolean value = octopusContext.requestAsBoolean(key).booleanValue();
+            String type = octopusContext.getRequestObject().getTask();
+            switch (type) {
+                case "SearchPerson":
+                case "PersonDuplicateSearch":
+                    if (key.contains("person")) {
+                        configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
+                    }
+                    break;
+                case "ShowGuestList":
+                    if (key.contains("guest")) {
+                        configChanged = setUserSetting(database, userId, userConfig, key, Boolean.toString(value)) || configChanged;
+                    }
+                    break;
+            }
+        }
+        if (configChanged) {
+            octopusContext.setContent("saveSuccess", true);
+        }
     }
 
     protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key)
-      throws BeanException, IOException {
+            throws BeanException, IOException {
         String old = (String) userConfig.get(key);
         if (old != null) {
 
             final TransactionContext transactionContext = database.getTransactionContext();
             transactionContext.execute(database.getDelete("UserConfig").
-              where(Where.and(
-                Expr.equal("fk_user", userId),
-                Expr.equal("name", key))));
+                    where(Where.and(
+                            Expr.equal("fk_user", userId),
+                            Expr.equal("name", key))));
             transactionContext.commit();
 
             userConfig.remove(key);
         }
     }
 
-    protected void setUserSetting(Database database, Integer userId, Map userConfig, String key, String value)
-      throws BeanException, IOException {
+    protected boolean setUserSetting(Database database, Integer userId, Map userConfig, String key, String value)
+            throws BeanException, IOException {
         String old = (String) userConfig.get(key);
-        if (value == null) {
+        if (value == null && old != null) {
             removeUserSetting(database, userId, userConfig, key);
-        } else if (old == null) {
-            UserConfig config = new UserConfig();
-            config.user = userId;
-            config.key = key;
-            config.value = value;
-            database.saveBean(config);
+            return true;
+        } else if (value != null && old == null) {
+            insertNewUserConfigEntry(database, userId, key, value);
             userConfig.put(key, value);
+            return true;
         } else if (!value.equals(old)) {
-
-            final TransactionContext transactionContext = database.getTransactionContext();
-            transactionContext.execute(database.getUpdate("UserConfig").
-              update("value", value).
-              where(Where.and(
-                Expr.equal("fk_user", userId),
-                Expr.equal("name", key))));
-            transactionContext.commit();
-
+            updateUserConfigEntry(database, userId, key, value);
             userConfig.put(key, value);
+            return true;
         }
+        return false;
+    }
+
+    private void updateUserConfigEntry(Database database, Integer userId, String key, String value) throws BeanException, IOException {
+        final TransactionContext transactionContext = database.getTransactionContext();
+        transactionContext.execute(database.getUpdate("UserConfig").
+                update("value", value).
+                where(Where.and(
+                        Expr.equal("fk_user", userId),
+                        Expr.equal("name", key))));
+        transactionContext.commit();
+    }
+
+    private void insertNewUserConfigEntry(Database database, Integer userId, String key, String value) throws BeanException, IOException {
+        final TransactionContext transactionContext = database.getTransactionContext();
+        UserConfig config = new UserConfig();
+        config.user = userId;
+        config.key = key;
+        config.value = value;
+        database.saveBean(config, transactionContext, true);
+        transactionContext.commit();
     }
 }

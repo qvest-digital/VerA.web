@@ -59,12 +59,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -156,11 +151,11 @@ public abstract class BeanListWorker {
     /**
      * Octopus-Eingabe-Parameter für {@link #getSelection(OctopusContext, Integer)}
      */
-    public static final String INPUT_getSelection[] = { "listsize" };
+    public static final String INPUT_getSelection[] = {"listsize"};
     /**
      * Octopus-Eingabe-Parameter für {@link #getSelection(OctopusContext, Integer)}
      */
-    public static final boolean MANDATORY_getSelection[] = { false };
+    public static final boolean MANDATORY_getSelection[] = {false};
     /**
      * Octopus-Ausgabe-Parameter für {@link #getSelection(OctopusContext, Integer)}
      */
@@ -292,6 +287,10 @@ public abstract class BeanListWorker {
 
         cntx.setContent(OUTPUT_showListParams, param);
         cntx.setContent(OUTPUT_getSelection, getSelection(cntx, count));
+        if (cntx.getTaskName().equals("ShowGuestList")) {
+
+            return getResultListForGuestList(database, select, cntx);
+        }
         return getResultList(database, select);
     }
 
@@ -323,6 +322,10 @@ public abstract class BeanListWorker {
      * @see #getSelect(Database)
      */
     protected List getResultList(Database database, Select select) throws BeanException, IOException {
+        return database.getBeanList(BEANNAME, select);
+    }
+
+    protected List getResultListForGuestList(Database database, Select select, OctopusContext cntx) throws BeanException, IOException {
         return database.getBeanList(BEANNAME, select);
     }
 
@@ -375,14 +378,14 @@ public abstract class BeanListWorker {
      * Wird von saveList aufgerufen und soll das übergebene Bean speichern.
      * Ruft in der Standard-Implementierung <code>saveBean(cntx, bean);</code>
      * auf, wenn sowohl das isModified als auch das isCorrect-Flag true ist.<br><br>
-     *
+     * <p>
      * Kann überladen werden falls zusätzliche Sicherheitsabfragen oder
      * sonstige Kontrollen (z.B. existiert bereit) ausgeführt werden sollen.
      *
      * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
-      throws BeanException, IOException {
+            throws BeanException, IOException {
         int count = 0;
         if (bean.isModified() && bean.isCorrect()) {
             saveBean(cntx, bean, context);
@@ -396,7 +399,7 @@ public abstract class BeanListWorker {
      * aktuallisieren. Ruft in der Standard-Implementierung für jedes Bean
      * <code>saveBean(cntx, bean);</code> auf, wenn sowohl das isModified-
      * als auch das isCorrect-Flag true ist.<br><br>
-     *
+     * <p>
      * Kann überladen werden falls zusätzliche Sicherheitsabfragen oder
      * sonstige Kontrollen auf die vollständige Liste ausgeführt werden müssen.
      *
@@ -404,7 +407,7 @@ public abstract class BeanListWorker {
      * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context)
-      throws BeanException, IOException {
+            throws BeanException, IOException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             Bean bean = (Bean) it.next();
@@ -422,7 +425,7 @@ public abstract class BeanListWorker {
      * Wird von saveList aufgerufen und soll die übergebene Liste von Bean-IDs
      * löschen. Ruft in der Standard-Implementierung für jede ID
      * <code>removeBean(cntx, bean);</code> auf.
-     *
+     * <p>
      * Kann überladen werden falls zusätzliche Sicherheitsabfragen und
      * sonstige Kontrollen auf die vollständige Liste ausgeführt werden müssen.
      *
@@ -430,7 +433,7 @@ public abstract class BeanListWorker {
      * @see #removeBean(OctopusContext, Bean, TransactionContext)
      */
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context)
-      throws BeanException, IOException {
+            throws BeanException, IOException {
         int count = 0;
         Bean bean = getRequest(cntx).createBean(BEANNAME);
         for (Iterator it = selection.iterator(); it.hasNext(); ) {
@@ -467,7 +470,7 @@ public abstract class BeanListWorker {
     /**
      * Methode die von abgeleiteten Klassen überschrieben werden kann,
      * um ggf. abhängige Datenbankeinträge ebenfalls zu löschen.<br><br>
-     *
+     * <p>
      * Standardimplemtierung: <code>getDatabase(cntx).removeBean(bean, context);</code>
      */
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
@@ -478,7 +481,7 @@ public abstract class BeanListWorker {
     /**
      * Methode die von abgeleiteten Klassen überschrieben werden kann,
      * um abhängige Datenbankeinträge ebenfalls zu aktuallisieren.<br><br>
-     *
+     * <p>
      * Die Implementierung wurde dahingehend geändert, dass nun ein ExecutionContext
      * übergeben werden muss, in dessen Kontext die Anfrage an die Datenbank gestellt wird.
      * Dies kann z.B. eine Database sein, oder aber ein TransactionContext.
@@ -571,10 +574,10 @@ public abstract class BeanListWorker {
             start = new Integer(0);
         } else {
             pages = (count.intValue() - (count.intValue() % limit.intValue())) / limit.intValue() +
-              (count.intValue() % limit.intValue() == 0 ? 0 : 1);
+                    (count.intValue() % limit.intValue() == 0 ? 0 : 1);
             first = 0;
             last = count.intValue() - (count.intValue() % limit.intValue()) -
-              (count.intValue() != 0 && count.intValue() % limit.intValue() == 0 ? limit.intValue() : 0);
+                    (count.intValue() != 0 && count.intValue() % limit.intValue() == 0 ? limit.intValue() : 0);
             if (start.intValue() > last) {
                 start = new Integer(last);
             }

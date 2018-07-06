@@ -69,6 +69,8 @@ package de.tarent.aa.veraweb.worker;
  */
 
 import de.tarent.aa.veraweb.beans.Duration;
+import de.tarent.aa.veraweb.beans.ViewConfigKey;
+import de.tarent.aa.veraweb.beans.SearchConfig;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.aa.veraweb.beans.ViewConfig;
@@ -84,6 +86,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -103,20 +106,21 @@ import java.util.ResourceBundle;
  */
 public class ConfigWorker extends ListWorkerVeraWeb {
     private static final String defaultSource[] = {
-      "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
-      "LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
-      "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY" };
+            "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
+            "LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
+            "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY"};
     private static final String defaultTarget[] = {
-      "private", "business", "other",
-      "latin", "extra1", "extra2",
-      "suffix1", "suffix2", "changeLogRetentionPolicy" };
+            "private", "business", "other",
+            "latin", "extra1", "extra2",
+            "suffix1", "suffix2", "changeLogRetentionPolicy"};
     private static final ResourceBundle defaultBundle =
-      ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
+            ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
 
     private Map config;
     private boolean loaded = false;
     private final PropertiesReader propertiesReader = new PropertiesReader();
     private final ViewConfig verawebViewConfig = new ViewConfig(propertiesReader.getProperties());
+    private final SearchConfig verawebSearchConfig = new SearchConfig(propertiesReader.getProperties());
 
     final Logger LOGGER = LogManager.getLogger(ConfigWorker.class.getCanonicalName());
 
@@ -195,9 +199,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         }
         cntx.setContent("config", config);
 
-        //FIXME: here is as good as anywhere else, I guess?
         cntx.setContent("url", new URLGenerator(propertiesReader.getProperties()));
         cntx.setContent("viewConfig", verawebViewConfig);
+        cntx.setContent("searchConfig", verawebSearchConfig);
     }
 
     /**
@@ -262,7 +266,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      */
     @SuppressWarnings("unchecked")
     private void saveValue(OctopusContext octopusContext, String key, String value)
-      throws BeanException, IOException, SQLException {
+            throws BeanException, IOException, SQLException {
         // wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
         boolean found = false;
         for (int i = 0; i < defaultTarget.length; i++) {
@@ -290,8 +294,14 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         }
         if (!found) {
             // ist kein default konfigurationseintrag
-            if ("".compareTo(value) == 0) {
-                value = null;
+            if (StringUtils.isEmpty(value)) {
+                if (ViewConfigKey.containsKey(key)) {
+                    value = Boolean.FALSE.toString();
+                } else {
+                    value = null;
+                }
+            }
+            if (value == null) {
                 config.remove(key);
             } else {
                 config.put(key, value);
@@ -307,7 +317,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         final TransactionContext transactionContext = database.getTransactionContext();
         if (value != null && value.length() != 0) {
             Integer count = database.getCount(
-              database.getCount("Config").where(Expr.equal("cname", key))
+                    database.getCount("Config").where(Expr.equal("cname", key))
             );
 
             if (count == 0) {
@@ -321,7 +331,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void deleteConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-      throws BeanException {
+            throws BeanException {
         LOGGER.debug(" -----------------------> BEGIN DELETE CONFIG " + key + "/" + value + " <----------------------- ");
         Delete delete = SQL.Delete(database);
         delete.from("veraweb.tconfig");
@@ -332,7 +342,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-      throws BeanException {
+            throws BeanException {
         LOGGER.debug("-----------------------> BEGIN UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
         Update update = SQL.Update(database);
         update.table("veraweb.tconfig");
@@ -344,7 +354,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void insertConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-      throws BeanException {
+            throws BeanException {
         LOGGER.debug(" -----------------------> BEGIN INSERT CONFIG " + key + "/" + value + " <----------------------- ");
         Insert insert = SQL.Insert(database);
         insert.table("veraweb.tconfig");

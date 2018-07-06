@@ -144,6 +144,7 @@ GENERIC_USER_PLURAL=Benutzer
 GENERIC_WORKAREA_SINGULAR=Arbeitsbereich
 GENERIC_WORKAREA_PLURAL=Arbeitsbereiche
 GENERIC_SELECT_ALL=Alle markieren
+GENERIC_ADD_SELECTION=Auswahl hinzuf\u00FCgen
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=In Vertretung f\u00FCr
@@ -177,6 +178,7 @@ HEADER_ELEMENT_ONE_RECORD_SINGULAR=ein Datensatz
 HEADER_ELEMENT_ONE_NEW_RECORD_SINGULAR=ein neuer Datensatz
 HEADER_ELEMENT_PLURAL=Datens\u00E4tze
 HEADER_ELEMENT_NEW_PLURAL=neue Datens\u00E4tze
+HEADER_ELEMENT_NEW_TAB_HINT=aktuelle Seite in neuem Tab \u00F6ffnen
 
 # FIXES
 GENERIC_EDIT=Bearbeiten
@@ -378,6 +380,7 @@ GENERIC_MAILING_ADDRESS_OTHERS=Anschrift Weitere
 GENERIC_LABELLING_LATIN=Zeichensatz Latein
 GENERIC_LABELLING_ALTERNATIVE=Zeichensatz Alternative
 GENERIC_ADDRESS_ADDITIONAL=Adresszusatz
+GENERIC_VIEW_CONFIG=Ansichtseinstellungen
 
 # ADMINISTRATION/REPORTS
 GENERIC_REPORTS=Reports
@@ -837,6 +840,14 @@ STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=\u00DCbersicht \u00FCber alle Veranstaltu
 statistikerstellen=Statistik erstellen
 
 # GAESTEVERWALTUNG DER VERANSTALTUNG
+MAIN_PERSON_STATUS_ACCEPT = Hauptperson-Zusage
+MAIN_PERSON_STATUS_DECLINE = Hauptperson-Absage
+MAIN_PERSON_STATUS_PARTICIPATED = Hauptperson-Teilgenommen
+MAIN_PERSON_STATUS_OPEN = Hauptperson-Offen
+PARTNER_STATUS_ACCEPT = Partner-Zusage
+PARTNER_STATUS_DECLINE = Partner-Absage
+PARTNER_STATUS_PARTICIPATED = Partner-Teilgenommen
+PARTNER_STATUS_OPEN = Partner-Offen
 gasteverwaltungderveranstaltung=G\u00E4steverwaltung der Veranstaltung
 maxanzahlgaste=Max. Anzahl G\u00E4ste
 gastedetails=G\u00E4stedetails
@@ -890,6 +901,7 @@ GUEST_LIST_ONLY_PARTICIPATE=nur Teilnahmen
 GUEST_LIST_PERSON_DATA_RELOAD=Alle Stammdaten neu laden
 GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Personen suchen und zu der G\u00E4steliste hinzuf\u00FCgen
+GUEST_LIST_ADD_GUEST_FROM_EVENT=G\u00E4ste aus Veranstaltung \u00FCbernehmen
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=G\u00E4steliste erstellen
@@ -1134,6 +1146,7 @@ solldiesergastaufplatzgesetztwerden=Soll dieser Gast auf Platz gesetzt werden?
 solldiepartnerinderpartnermiteingeladenwerden=Soll die Partnerin / der Partner mit eingeladen werden?
 aktuellepersonwirklichentfernen=Aktuelle Person wirklich entfernen?
 personspeichern=Person speichern
+mitarbeiteraktualisieren=Alle Mitarbeiter aktualisieren
 zurpersonenliste=Zur Personenliste
 zurpersonenuebersicht=Zur Personen\u00FCbersicht
 zurueckzurveranstaltung=Zur\u00FCck zur Veranstaltung
@@ -1369,6 +1382,7 @@ verawebdetailansicht=VerA.web :: Detailansicht
 datensatzbearbeiten=Datensatz bearbeiten
 zuruecksetzen=Zur\u00FCcksetzen
 datensatzloeschen=Datensatz l\u00F6schen
+PERSON_PART_SEARCH_HINT=Es werden automatisch auch Ergebnisse zur\u00FCckgeliefert, in denen Ihre Eingabe als Wortteil vorkommt.
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere und das ? f\u00FCr einzelne Zeichen
 undamtsbezeichnungfunktion=und Amtsbezeichnung/Funktion
 HINT_SEARCH_WHERE=Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00DFe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche
@@ -1672,8 +1686,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00FCberein.
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00FCtzt nicht den erwarteten Zeichensatz (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00FCtzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
 VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
-VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
-VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=Inland: Ja\u200A\u2014\u200AGeschlecht: Weiblich

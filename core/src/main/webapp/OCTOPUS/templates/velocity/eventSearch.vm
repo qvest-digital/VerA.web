@@ -89,7 +89,7 @@
 							</div>
 							<div class="tableCell width30">
 								<label for="current">${placeholderWithTranslation.nurinzuunftigenveranstaltungensuchen}</label>
-								<input type="checkbox" id="current" name="current" value="true" checked>
+								<input type="checkbox" id="current" name="current" value="true">
 							</div>
 						</div>
 

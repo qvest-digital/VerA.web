@@ -14,3 +14,30 @@
   FROM THE INTERNETZ⚠ (even pip itself…)
   ‣ ansibel docker plugin is also deprecated…
 • Bacon.js entfernen [VERA-635]
+
+Online-Anmeldung:
+
+vwoa/src/main/java/org/evolvis/veraweb/onlinereg/user/ResetPasswordResource.java:[172,81] ALL in org.osiam.client.oauth.Scope has been deprecated
+
+[!] 66 vulnerabilities found [1752 packages audited]
+    Severity: 10 Low | 41 Moderate | 13 High | 2 Critical
+(npm audit ist im Jenkins-Log)
+
+npm WARN deprecated jade@0.26.3: Jade has been renamed to pug, please install the latest version of pug instead of jade
+npm WARN deprecated jade@0.23.0: Jade has been renamed to pug, please install the latest version of pug instead of jade
+npm WARN deprecated graceful-fs@2.0.3: please upgrade to graceful-fs 4 for compatibility with current and future versions of Node.js
+npm WARN deprecated minimatch@0.2.14: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
+npm WARN deprecated minimatch@0.3.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
+npm WARN deprecated node-uuid@1.4.8: Use uuid module instead
+npm WARN deprecated graceful-fs@3.0.11: please upgrade to graceful-fs 4 for compatibility with current and future versions of Node.js
+npm WARN deprecated minimatch@1.0.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue
+npm WARN deprecated tough-cookie@0.12.1: ReDoS vulnerability parsing Set-Cookie https://nodesecurity.io/advisories/130
+npm WARN deprecated npmconf@2.1.3: this package has been reintegrated into npm and is now out of date with respect to npm
+
+npm WARN prepublish-on-install As of npm@5, `prepublish` scripts are deprecated.
+npm WARN prepublish-on-install Use `prepare` for build steps and `prepublishOnly` for upload-only.
+npm WARN prepublish-on-install See the deprecation note in `npm help scripts` for more information.
+> veraweb-onlineanmeldung@0.0.1 prepublish /var/lib/jenkins/jobs/veraweb-build-install/workspace/vwoa/src/main/webroot-src
+
+npm WARN deprecated bower@1.3.12: ...psst! Your project can stop working at any moment because its dependencies can change. Prevent this by migrating to Yarn: https://bower.io/blog/2017/how-to-migrate-away-from-bower/
+(wir gehen stattdessen besser auf Webjars)

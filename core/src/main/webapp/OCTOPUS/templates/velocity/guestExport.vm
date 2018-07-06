@@ -369,7 +369,8 @@
                             <input type="checkbox" class="checkbox-margin extraFields" value="passwordResetLink"/>${placeholderWithTranslation.CSV_DELEGATION_PW_RESET_LINK}<br>
                         </div>
                     </div>
-                    <input type="hidden" name="guestListShortExport" value="true" />
+
+
                     <input type="submit" name="export" value="${placeholderWithTranslation.exportieren}" title="${placeholderWithTranslation.exportieren}" class="mainButton autoWidth" />
                 </form>
             </div>
@@ -526,7 +527,11 @@ $(function () {
                 filterCategory: filterForm['filterCategory'].value,
                 filterWord: filterForm['filterWord'].value,
                 filterInvStatus: filterForm['filterInvStatus'].value,
-                filterReserve: filterForm['filterReserve'].value
+                filterReserve: filterForm['filterReserve'].value,
+                'oa.path.delegation': '$url.urlForDelegation',
+                'oa.path.media': '$url.urlForMediaRepresentatives',
+                'oa.path.event': '$url.urlForFreeVisitors',
+                'oa.path.passwordReset': '$url.urlForPasswordReset'
             },
             type: 'GET',
             success: function(response, status, xhr) {

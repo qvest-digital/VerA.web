@@ -1,0 +1,68 @@
+version: '3.2'
+
+services:
+
+  veraweb-test-db:
+    image: postgres:9.3
+    environment:
+      POSTGRES_PASSWORD: veraweb
+      POSTGRES_USER: veraweb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./docker/db/psql-schema:/docker-entrypoint-initdb.d:ro
+    ports:
+      - 15432:5432
+
+  veraweb-test-ldap:
+    image: veraweb-tools.lan.tarent.de:5000/veraweb-ldap:latest
+    environment:
+      SLAPD_PASSWORD: manager
+      SLAPD_CONFIG_PASSWORD: cfgmanager
+      SLAPD_DOMAIN: veraweb.example.org
+      SLAPD_ORGANIZATION: 'VerA.web user LDAP container'
+      SLAPD_BOOTSTRAP_DATA_FILES: veraweb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./docker/ldap/bootstrap:/bootstrap/data:ro
+    ports:
+      - 389:389
+
+  veraweb-rest-api:
+    image: veraweb-rest-api-dev:latest
+    environment:
+      JAVA_OPTS: '-Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom'
+      JPDA_ADDRESS: 8000
+      JPDA_TRANSPORT: dt_socket
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./docker/vwor/cfg/veraweb:/etc/veraweb:ro
+      - ./docker/vwor/cfg/context.xml:/usr/local/tomcat/conf/context.xml
+      - ./docker/vwor/cfg/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+    depends_on:
+      - veraweb-test-db
+    ports:
+      - 19080:8080
+      - 19009:8009
+      - 19000:8000
+
+  veraweb-core:
+    image: veraweb-core-dev:latest
+    environment:
+      JAVA_OPTS: '-Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom'
+      JPDA_ADDRESS: 8000
+      JPDA_TRANSPORT: dt_socket
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./docker/core/cfg/veraweb:/etc/veraweb:ro
+    ports:
+      - 18080:8080
+      - 18009:8009
+      - 18000:8000
+    depends_on:
+      - veraweb-test-db
+      - veraweb-test-ldap
+      - veraweb-rest-api

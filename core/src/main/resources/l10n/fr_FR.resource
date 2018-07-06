@@ -143,6 +143,7 @@ GENERIC_USER_PLURAL=Utilisateurs de PC
 GENERIC_WORKAREA_SINGULAR=Secteur du travail
 GENERIC_WORKAREA_PLURAL=Secteurs du travail
 GENERIC_SELECT_ALL=S\u00E9lectionner tout
+GENERIC_ADD_SELECTION=Ajuter la s\u00E9lection
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=Suppl\u00E9ance de
@@ -176,6 +177,7 @@ HEADER_ELEMENT_ONE_RECORD_SINGULAR=un enregistrement
 HEADER_ELEMENT_ONE_NEW_RECORD_SINGULAR=un enregistrement nouvel
 HEADER_ELEMENT_PLURAL=Enregistrements
 HEADER_ELEMENT_NEW_PLURAL=Nouveaux Enregistrements
+HEADER_ELEMENT_NEW_TAB_HINT=ouvrir la page dans un nouvel onglet
 
 # FIXES
 GENERIC_EDIT=Modifier
@@ -375,6 +377,8 @@ GENERIC_MAILING_ADDRESS_OTHERS=Autre Adresse
 GENERIC_LABELLING_LATIN=Jeu de caract\u00E8res latins
 GENERIC_LABELLING_ALTERNATIVE=Jeu de caract\u00E8res alternative
 GENERIC_ADDRESS_ADDITIONAL=Compl\u00E9ment d\u2019adresse
+GENERIC_VIEW_CONFIG=configuration de la vue
+
 
 # ADMINISTRATION/REPORTS
 GENERIC_REPORTS=Rapports
@@ -836,6 +840,14 @@ STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=Vue d\u2019ensemble de tous les \u00E9v\u
 statistikerstellen=Cr\u00E9er Statistiques
 
 # GAESTEVERWALTUNG DER VERANSTALTUNG
+MAIN_PERSON_STATUS_ACCEPT = Personnage principal-R\u00E9ponse positive
+MAIN_PERSON_STATUS_DECLINE = Personnage principal-R\u00E9ponse negative
+MAIN_PERSON_STATUS_PARTICIPATED = Personnage principal-Particip\u00E9
+MAIN_PERSON_STATUS_OPEN = Personnage principal-Ouvert
+PARTNER_STATUS_ACCEPT = Partenaire-R\u00E9ponse positive
+PARTNER_STATUS_DECLINE = Partenaire-R\u00E9ponse negative
+PARTNER_STATUS_PARTICIPATED = Partenaire-Particip\u00E9
+PARTNER_STATUS_OPEN = Partenaire-Ouvert
 gasteverwaltungderveranstaltung=L\u2019administration des clients de l\u2019\u00E9v\u00E9nement
 maxanzahlgaste=Nombre maximum des invit\u00E9s
 gastedetails=Invit\u00E9 D\u00E9tails
@@ -889,6 +901,7 @@ GUEST_LIST_ONLY_PARTICIPATE=seulement la participation
 GUEST_LIST_PERSON_DATA_RELOAD=Recharger tout donn\u00E9es de base
 GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Trouver des gens et l\u2019ajouter \u00E0 la liste des invit\u00E9s
+GUEST_LIST_ADD_GUEST_FROM_EVENT=Prendre invit\u00E9s d\u2019 \u00E9v\u00E9nment
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=Cr\u00E9er une liste d\u2019invit\u00E9s
@@ -1132,6 +1145,7 @@ solldiesergastaufplatzgesetztwerden=Doit \u00EAtre utilis\u00E9 ce guest sur un 
 solldiepartnerinderpartnermiteingeladenwerden=Les partenaires devraient \u00EAtre invit\u00E9s?
 aktuellepersonwirklichentfernen=Supprimer personne actuelle?
 personspeichern=Sauvegarder la personne
+mitarbeiteraktualisieren=Mettre \u00E0 jour tous les employ\u00E9s
 zurpersonenliste=\u00C0 la liste de personne
 zurpersonenuebersicht=Vue d\u2019ensemble des Personnes
 zurueckzurveranstaltung=Retour \u00E0 l\u2019\u00E9v\u00E9nement
@@ -1369,6 +1383,7 @@ verawebdetailansicht=VerA.web :: Vue de d\u00E9tail
 datensatzbearbeiten=Modifier enregistrement
 zuruecksetzen=r\u00E9initialisation
 datensatzloeschen=Supprimer l\u2019enregistrement
+PERSON_PART_SEARCH_HINT=Les r\u00E9sultats contenant une partie de votre donn\u00E9e sont \u00E9galement affich\u00E9s.
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=Vous pouvez utiliser soi-disant wildcards dans la recherche, le * repr\u00E9sente un chiffre, et le ? les caract\u00E8res individuels.
 undamtsbezeichnungfunktion=et titre/fonction
 HINT_SEARCH_WHERE=La recherche s\u2019effectue dans les pr\u00E9nom, nom, ville, code postal, rue, soci\u00E9t\u00E9, t\u00E9l\u00E9phone, fax, e-mail mobile, commentaires, cat\u00E9gories, espaces de travail.
@@ -1674,8 +1689,6 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Votre configuration de la base de donn\u00E9e ne supporte pas let charset (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=La configuration de votre base de donn\u00E9e ne supporte pas les r\u00E8gles attendu pour la comparaison du texte (LC_COLLATE=
 VERIFY_ERROR_XML=Une erreur est survenue, pendant la creation du document test-XML.(
-VERIFY_ERROR_JAVA_ONE=La version de JAVA install\u00E9 (
-VERIFY_ERROR_JAVA_TWO=) est diff\u00E9rente de la version attendu (1.4).
 
 #TO BE DELETED
 inlandjageschlechtweiblich=In Country: Yes\u200A\u2014\u200ASex:Female

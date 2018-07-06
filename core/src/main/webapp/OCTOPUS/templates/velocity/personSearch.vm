@@ -261,7 +261,10 @@
     </div>
     <vera-info>
         <p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
-        ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen} <br/>
+        ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}. <br/>
+        #if($searchConfig.personPartSearch)
+            ${placeholderWithTranslation.PERSON_PART_SEARCH_HINT} <br/>
+        #end
         ${placeholderWithTranslation.HINT_SEARCH_MULTIPLE}
     </vera-info>
 </div>
