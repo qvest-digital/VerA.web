@@ -43,8 +43,8 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{5.2}
-\newcommand{\vwiaversfassungmonat}{Mai}
+\newcommand{\vwiaversfassungnr}{5.3}
+\newcommand{\vwiaversfassungmonat}{Juli}
 \newcommand{\vwiaversfassungjahr}{2018}
 
 % VerA.web Version
@@ -887,11 +887,18 @@ haben, ganz unten auf der Seite die Möglichkeit, ebendieses zu ändern.
 Nach dem Speichern wählen Sie wieder:
 \inlinebild[LAM configuration]{lam-tools}
 
-Nun finden Sie unter \inlinebild[Edit server profiles]{lam-profiles}
-einige weitere Einstellungen. Geben Sie zunächst im dritten Feld
-(Tree suffix) Ihren Base DN ein, und unten bei „List of valid users“
-unterhalb von \inlinebild[Security settings]{lam-security} den DN
-des LDAP-Administrators\Hair\footnote{hier
+Nun wählen Sie \inlinebild[Edit server profiles]{lam-profiles} aus und
+klicken dann \emph{unter} dem Eingabefeld auf „Manage server profiles“.
+Dort können Sie unten unter „Set profile password“ noch, unter Benutzung
+des eben eingestellten neuen Master-Paßwortes, das Login-Paßwort für das
+Standardprofil (Verwaltung des lokalen LDAP-Servers) ändern.
+
+Klicken Sie dann ganz unten auf der Seite „Back to profile login“ und
+loggen sich mit dem gerade gesetzten Paßwort ein. Nehmen Sie auf der
+nun erscheinenden Seite einige Einstellungen vor: Geben Sie zunächst im
+dritten Feld (Tree suffix) Ihren Base DN ein, und unten bei „List of
+valid users“ unterhalb von \inlinebild[Security settings]{lam-security}
+den DN des LDAP-Administrators\Hair\footnote{hier
 \texttt{cn=admin,dc=lan,dc=tarent,dc=de} \dash zu sehen mit
 \texttt{ldapsearch -x} \dash vgl. Kapitel \ref{subsec:setup-lam-slapd}}.
 
