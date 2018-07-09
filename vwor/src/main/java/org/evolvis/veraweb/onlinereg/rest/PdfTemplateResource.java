@@ -74,40 +74,26 @@ import com.lowagie.text.pdf.AcroFields;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
-import de.tarent.extract.Extractor;
-import de.tarent.extract.ExtractorQuery;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.evolvis.veraweb.common.Placeholder;
-import org.evolvis.veraweb.export.ExtractorQueryBuilder;
+import org.evolvis.veraweb.export.ValidExportFilter;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.evolvis.veraweb.onlinereg.utils.PdfTemplateUtilities;
-import org.evolvis.veraweb.onlinereg.utils.PersonComparator;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -435,34 +421,45 @@ public class PdfTemplateResource extends FormDataResource {
     private List<Person> getPersons(Integer eventId, UriInfo ui) {
         final Session session = openSession();
         try {
-            Query query  = session.getNamedQuery("Person.getPeopleByEventId");
+            MultivaluedMap<String, String> params = ui.getQueryParameters();
+
+            Map<String, String> filterSettings = new HashMap<>();
+            params.keySet().stream()
+                    .filter(key -> key.startsWith("filter"))
+                    .filter(key -> ValidExportFilter.isValidFilterSetting(key, params.getFirst(key)))
+                    .forEach(key -> filterSettings.put(key, params.getFirst(key)));
+
+            Query query = session.createQuery(buildQuery(filterSettings));
+
             query.setParameter("eventid", eventId);
 
-            final Properties properties = new Properties();
-            final MultivaluedMap<String, String> params = ui.getQueryParameters();
+            filterSettings.entrySet().forEach(entry -> {
 
-            if (!params.isEmpty()) {
-                params.keySet().forEach(key -> properties.setProperty(key, params.getFirst(key)));
-
-
-                Map<String, String> filterSettings = new HashMap<>();
-                params.keySet().stream().filter(key -> key.startsWith("filter")).forEach(key -> filterSettings.put(key, params.getFirst(key)));
-
-
-                final ExtractorQuery extractorQuery = new ExtractorQuery();
-                extractorQuery.setSql(query.getQueryString());
-
-                final ExtractorQuery extractoredQuery = new ExtractorQueryBuilder(extractorQuery).setFilters(filterSettings).build();
-                query = session.createQuery(extractoredQuery.getSql());
-            }
-            List<Person> personList = (List<Person>) query.list();
-
-            PersonComparator comparator = new PersonComparator();
-            Collections.sort(personList, comparator);
-            return personList;
+                if(ValidExportFilter.SEARCHWORD_FILTER.equals(entry.getKey())) {
+                    query.setParameter(entry.getKey(), entry.getValue());
+                } else {
+                    query.setParameter(entry.getKey(), Integer.valueOf(entry.getValue()));
+                }
+            });
+            return (List<Person>) query.list();
         } finally {
             session.close();
         }
+    }
+
+
+    private String buildQuery(Map<String, String> filterSettings) {
+        String baseQuery = "SELECT p FROM Person p JOIN Guest g ON (p.pk = g.fk_person) WHERE g.fk_event=:eventid";
+
+        StringBuilder sqlWithAdditionalFilters = new StringBuilder(baseQuery);
+
+        for (String key : filterSettings.keySet()) {
+            sqlWithAdditionalFilters
+                    .append(" AND ")
+                    .append(ValidExportFilter.buildDBPathPartial(key,":"+key));
+        }
+        sqlWithAdditionalFilters.append( " ORDER BY p.lastname_a_e1 ASC ");
+        return sqlWithAdditionalFilters.toString();
     }
 
     private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
