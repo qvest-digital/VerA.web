@@ -18,48 +18,48 @@ dn: ou=Users,dc=veraweb,dc=de
 objectClass: organizationalUnit
 ou: Users
 
-# Group, lan.veraweb.de
-dn: ou=Group,dc=veraweb,dc=de
+# Groups, lan.veraweb.de
+dn: ou=Groups,dc=veraweb,dc=de
 objectClass: organizationalUnit
-ou: Group
+ou: Groups
 
-# lesenEingeschraenkt, Group, lan.veraweb.de
-dn: cn=lesenEingeschraenkt,ou=Group,dc=veraweb,dc=de
+# lesenEingeschraenkt, Groups, lan.veraweb.de
+dn: cn=lesenEingeschraenkt,ou=Groups,dc=veraweb,dc=de
 cn: lesenEingeschraenkt
 gidNumber: 20000
 objectClass: top
 objectClass: posixGroup
 
-# lesenUneingeschraenkt, Group, lan.veraweb.de
-dn: cn=lesenUneingeschraenkt,ou=Group,dc=veraweb,dc=de
+# lesenUneingeschraenkt, Groups, lan.veraweb.de
+dn: cn=lesenUneingeschraenkt,ou=Groups,dc=veraweb,dc=de
 cn: lesenUneingeschraenkt
 gidNumber: 20001
 objectClass: top
 objectClass: posixGroup
 
-# lesenUndSchreibenEingeschraenkt, Group, lan.veraweb.de
-dn: cn=lesenUndSchreibenEingeschraenkt,ou=Group,dc=veraweb,dc=de
+# lesenUndSchreibenEingeschraenkt, Groups, lan.veraweb.de
+dn: cn=lesenUndSchreibenEingeschraenkt,ou=Groups,dc=veraweb,dc=de
 cn: lesenUndSchreibenEingeschraenkt
 gidNumber: 20002
 objectClass: top
 objectClass: posixGroup
 
-# lesenUndSchreiben, Group, lan.veraweb.de
-dn: cn=lesenUndSchreiben,ou=Group,dc=veraweb,dc=de
+# lesenUndSchreiben, Groups, lan.veraweb.de
+dn: cn=lesenUndSchreiben,ou=Groups,dc=veraweb,dc=de
 cn: lesenUndSchreiben
 gidNumber: 20003
 objectClass: top
 objectClass: posixGroup
 
-# mandantAdministrieren, Group, lan.veraweb.de
-dn: cn=mandantAdministrieren,ou=Group,dc=veraweb,dc=de
+# mandantAdministrieren, Groups, lan.veraweb.de
+dn: cn=mandantAdministrieren,ou=Groups,dc=veraweb,dc=de
 cn: mandantAdministrieren
 gidNumber: 20004
 objectClass: top
 objectClass: posixGroup
 
-# administrator, Group, lan.veraweb.de
-dn: cn=administrator,ou=Group,dc=veraweb,dc=de
+# administrator, Groups, lan.veraweb.de
+dn: cn=administrator,ou=Groups,dc=veraweb,dc=de
 cn: administrator
 gidNumber: 20005
 objectClass: top
