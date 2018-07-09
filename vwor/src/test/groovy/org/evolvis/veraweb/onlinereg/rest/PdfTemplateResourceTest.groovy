@@ -379,18 +379,49 @@ class PdfTemplateResourceTest extends Specification {
             assert response.context.entity.size() > 1000
     }
 
+    void testQueryBuilder() {
+        given:
+            def eventId = 1
+            def ui = Mock(UriInfo)
+            def map = new MultivaluedHashMap<String, String>()
+            map.add("filterCategoryId","1")
+            map.add("filterWord","wordiword")
+            map.add("filterInvStatus","1")
+            map.add("filterReserve","1")
+            ui.getQueryParameters() >> map
+
+        when:
+            def query = resource.buildQuery(map)
+
+        then:
+            assert query == "SELECT p FROM Person p" +
+                    " JOIN Guest g ON (p.pk = g.fk_person)" +
+                    " WHERE g.fk_event=:eventid" +
+                    " AND g.reserve = :filterReserve" +
+                    " AND g.invitationstatus = :filterInvStatus" +
+                    " AND g.fk_category = :filterCategoryId" +
+                    " AND (p.firstname_a_e1 = :filterWord OR p.lastname_a_e1 = :filterWord)" +
+                    " ORDER BY p.lastname_a_e1 ASC "
+        /*when:
+            def realQuery = session.createQuery(query)
+            println(realQuery)
+        then:
+            assert true*/
+    }
+
     void testGeneratePdfReturnNoContent() {
         given:
             def pdfTemplateId = 1
             def eventId = 1
             query.list() >> new ArrayList()
-            def uriInfo = Mock(UriInfo)
-            uriInfo.getQueryParameters() >> new MultivaluedHashMap<String, String>()
+            def ui = Mock(UriInfo)
+            ui.getQueryParameters() >> new MultivaluedHashMap<String, String>()
 
         when:
-            def response = resource.generatePdf(pdfTemplateId, eventId, uriInfo)
+            def response = resource.generatePdf(pdfTemplateId, eventId, ui)
 
         then:
+            1 * session.createQuery(*_) >> query
             session != null
             1 * session.close()
             assert response.status == Response.Status.NO_CONTENT.statusCode
