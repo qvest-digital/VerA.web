@@ -20,6 +20,7 @@ class NavigationBar extends Module {
 
         // events
         eventsMenu { nav.find('span')[1] }
+        eventsSearch { $('nav#nav').find(By.id('menu.searchEvent')) }
 
         // management
         managementMenu { nav.find('span')[2] }
@@ -38,6 +39,10 @@ class NavigationBar extends Module {
 
     def toPersonCreation(WebDriver driver) {
         navigateTo(personsMenu, personsCreate, driver)
+    }
+
+    def toEventSearch(WebDriver driver) {
+        navigateTo(eventsMenu, eventsSearch, driver)
     }
 
     def navigateTo(Navigator menu, Navigator menuItem, WebDriver driver) {
