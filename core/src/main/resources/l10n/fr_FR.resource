@@ -672,14 +672,13 @@ CSV_FEDERAL_STATE=Etat
 CSV_STATE=Pays
 CSV_FEDERAL_STATE_POBOX=Zip / code postal
 CSV_POBOX=Bo\u00EEte de bureau de poste
-CSV_IBAN=
-CSV_BIC=BIC
 CSV_FON=T\u00E9l\u00E9phone
 CSV_FAX=Fax
 CSV_MOBIL=Mobile
 CSV_MAIL=
 CSV_WWW=www
 
+CSV_CATEGORY_NAME=Cat\u00E9gorie
 CSV_PERSON_CREATE=Personne cr\u00E9\u00E9e
 CSV_PERSON_CREATE_BY=Personne cr\u00E9\u00E9e par
 CSV_PERSON_CHANGED=Personne chang\u00E9e
@@ -687,11 +686,11 @@ CSV_PERSON_CHANGED_BY=Personne chang\u00E9e par
 CSV_PERSON_DELETED=Personne supprim\u00E9e
 CSV_PERSON_DATE_OVER=Date de la personne expir\u00E9e
 CSV_PERSON_SOURCE_IMPORT=Importer une source de personne
-CSV_W_NAME=w nom
+CSV_W_NAME=Zone de travail
 CSV_DELEGATION_LINK=Lien de d\u00E9l\u00E9gation
 CSV_DELEGATION_USER=Utilisateur de d\u00E9l\u00E9gation
 CSV_DELEGATION_PW=Mot de passe
-CSV_DELEGATION_PW_RESET_LINK=R\u00E9initialiser le mot de passe de d\u00E9l\u00E9gation
+CSV_PW_RESET_LINK=R\u00E9initialiser le mot de passe de d\u00E9l\u00E9gation
 
 CSV_OPTIONAL_FIELD=Champ facultatif
 
