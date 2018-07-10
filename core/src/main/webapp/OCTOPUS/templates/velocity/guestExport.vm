@@ -76,6 +76,46 @@
         </div> <!--tabsMain-->
 
         <div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored tabsContent notBold posRel marginBottom40">
+            <form id="guestListFilterExport" name="guestListFilterExport" class="marginTop25" onsubmit="doNothing(); return false;">
+                <h3 class="marginBottom0">${placeholderWithTranslation.filter}</h3>
+
+                <div class="table">
+                    <div class="tableRow">
+                        <div class="tableCell width25">
+                            <label for="search-reserve">${placeholderWithTranslation.platzwahl}</label>
+                            <select name="filterReserve" id="filterReserve">
+                                <option value="">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST}</option>
+                                <option #if($search.reserve && $search.reserve == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST_ON_PLACE}</option>
+                                <option #if($search.reserve && $search.reserve == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST_ON_RESERVE}</option>
+                            </select>
+                        </div>
+                        <div class="tableCell width25">
+                            <label for="search-invitationstatus">${placeholderWithTranslation.GENERIC_STATUS}</label>
+                            <select name="filterInvStatus" id="filterInvStatus">
+                                <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
+                                <option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ONLY_OPEN}</option>
+                                <option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ONLY_ACCEPT}</option>
+                                <option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">${placeholderWithTranslation.GUEST_LIST_ONLY_DECLINED}</option>
+                                <option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">${placeholderWithTranslation.GUEST_LIST_ONLY_PARTICIPATE}</option>
+                            </select>
+                        </div>
+                        <div class="tableCell width25">
+                            <label for="search-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
+                            <select name="filterCategory" id="filterCategory">
+                                <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
+                                #foreach($category in $categories)
+                                    <option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
+                                #end
+                            </select>
+                        </div>
+                        <div class="tableCell width25">
+                            <label for="search-keywords">${placeholderWithTranslation.GENERIC_KEYWORDS}</label>
+                            <input type="text" id="filterWord" name="filterWord" #if($search.keywords) value="${search.keywords}" #end />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <div class="notBold grayBorder contentBox marginBottom20 bgWhite clear">
                 <h3>${placeholderWithTranslation.EXPORT_TITLE_CSV}-${placeholderWithTranslation.GENERIC_EXPORT}</h3>
                 <input type="button" class="check mainButton autoWidth" value="${placeholderWithTranslation.SELECTION_CSV}"/>
@@ -329,7 +369,8 @@
                             <input type="checkbox" class="checkbox-margin extraFields" value="passwordResetLink"/>${placeholderWithTranslation.CSV_DELEGATION_PW_RESET_LINK}<br>
                         </div>
                     </div>
-                    <input type="hidden" name="guestListShortExport" value="true" />
+
+
                     <input type="submit" name="export" value="${placeholderWithTranslation.exportieren}" title="${placeholderWithTranslation.exportieren}" class="mainButton autoWidth" />
                 </form>
             </div>
@@ -361,6 +402,18 @@
     $( document ).ready(function() {
         $('.exportErr').hide();
     });
+
+    function doNothing() {
+        //do nothing
+    };
+
+    function addAttribute(att, form, filterForm) {
+        var input = document.createElement("INPUT");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", att);
+        input.setAttribute("value", filterForm[att].value);
+        form.appendChild(input);
+    };
 
 $(function () {
     $('li#gaesteliste').click(function () {
@@ -448,6 +501,16 @@ $(function () {
         $(this).data('checked', checked);
     });
 
+    $('#PdfGenerateForm').submit(function (e) {
+        var newForm = document.forms['PdfGenerateForm'];
+        var filterForm = document.forms['guestListFilterExport'];
+
+        addAttribute('filterCategory', newForm, filterForm);
+        addAttribute('filterWord', newForm, filterForm);
+        addAttribute('filterInvStatus', newForm, filterForm);
+        addAttribute('filterReserve', newForm, filterForm);
+    });
+
     $('#ExportGuestlistShot').on('submit', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -456,10 +519,19 @@ $(function () {
             return $(el).val();
         }).get();
 
+        var filterForm = document.forms['guestListFilterExport']
         jQuery.ajax({
             url: $("#csv-export").data("csvexport"),
             data: {
-                selectedFields: sel
+                selectedFields: sel,
+                filterCategory: filterForm['filterCategory'].value,
+                filterWord: filterForm['filterWord'].value,
+                filterInvStatus: filterForm['filterInvStatus'].value,
+                filterReserve: filterForm['filterReserve'].value,
+                'oa.path.delegation': '$url.urlForDelegation',
+                'oa.path.media': '$url.urlForMediaRepresentatives',
+                'oa.path.event': '$url.urlForFreeVisitors',
+                'oa.path.passwordReset': '$url.urlForPasswordReset'
             },
             type: 'GET',
             success: function(response, status, xhr) {

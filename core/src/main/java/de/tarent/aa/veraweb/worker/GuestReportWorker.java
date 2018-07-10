@@ -359,8 +359,11 @@ public class GuestReportWorker {
         Event event = (Event) cntx.contentAsObject("event");
         Location location = LocationDetailWorker.getLocation(cntx, event.location);
 
-        if (location == null || location.name == null) {
-            logger.warning("Could not get location name by task: " + cntx.getTaskName());
+        if (location == null) {
+            Location emptyLocation = new Location();
+            emptyLocation.name = "";
+            logger.warning("Could not get location name by task: " + cntx.getTaskName() + "Set location name to default.");
+            return emptyLocation;
         }
         return location;
     }

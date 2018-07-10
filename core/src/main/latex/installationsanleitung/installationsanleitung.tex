@@ -43,8 +43,8 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{5.2}
-\newcommand{\vwiaversfassungmonat}{Mai}
+\newcommand{\vwiaversfassungnr}{5.3}
+\newcommand{\vwiaversfassungmonat}{Juli}
 \newcommand{\vwiaversfassungjahr}{2018}
 
 % VerA.web Version
@@ -887,11 +887,18 @@ haben, ganz unten auf der Seite die Möglichkeit, ebendieses zu ändern.
 Nach dem Speichern wählen Sie wieder:
 \inlinebild[LAM configuration]{lam-tools}
 
-Nun finden Sie unter \inlinebild[Edit server profiles]{lam-profiles}
-einige weitere Einstellungen. Geben Sie zunächst im dritten Feld
-(Tree suffix) Ihren Base DN ein, und unten bei „List of valid users“
-unterhalb von \inlinebild[Security settings]{lam-security} den DN
-des LDAP-Administrators\Hair\footnote{hier
+Nun wählen Sie \inlinebild[Edit server profiles]{lam-profiles} aus und
+klicken dann \emph{unter} dem Eingabefeld auf „Manage server profiles“.
+Dort können Sie unten unter „Set profile password“ noch, unter Benutzung
+des eben eingestellten neuen Master-Paßwortes, das Login-Paßwort für das
+Standardprofil (Verwaltung des lokalen LDAP-Servers) ändern.
+
+Klicken Sie dann ganz unten auf der Seite „Back to profile login“ und
+loggen sich mit dem gerade gesetzten Paßwort ein. Nehmen Sie auf der
+nun erscheinenden Seite einige Einstellungen vor: Geben Sie zunächst im
+dritten Feld (Tree suffix) Ihren Base DN ein, und unten bei „List of
+valid users“ unterhalb von \inlinebild[Security settings]{lam-security}
+den DN des LDAP-Administrators\Hair\footnote{hier
 \texttt{cn=admin,dc=lan,dc=tarent,dc=de} \dash zu sehen mit
 \texttt{ldapsearch -x} \dash vgl. Kapitel \ref{subsec:setup-lam-slapd}}.
 
@@ -905,25 +912,25 @@ anklicken, um die weitere Verwaltung zu vereinfachen. Ändern Sie dann den
 „LDAP suffix“ für \inlinebild[Users]{lam-user} in \texttt{ou=Users} gefolgt
 von einem Komma und Ihrem Base DN (\texttt{ou=Users,dc=lan,dc=tarent,dc=de}
 in unserem Beispiel), und den „LDAP suffix“ für \inlinebild[Groups]{lam-group}
-\strut in \texttt{ou=Group} gefolgt von einem Komma und Ihrem Base DN, also
-z.B: \texttt{ou=Group,dc=lan,dc=tarent,dc=de}\strut
+\strut in \texttt{ou=Groups} gefolgt von einem Komma und Ihrem Base DN, also
+z.B: \texttt{ou=Groups,dc=lan,dc=tarent,dc=de}\strut
 
 \strut Fahren Sie im Registerreiter \inlinebild[Modules]{lam-modules} fort,
 indem Sie wieder sicherstellen, daß nur die Module \texttt{inetOrgPerson},
-\texttt{posixAccount} und \texttt{shadowAccount} (Users) bzw.\strut
+\texttt{posixAccount} und \texttt{shadowAccount} (Users) bzw. \strut
 \texttt{posixGroup} (Groups) aktiv sind\Hair\textsuperscript{\ref{fn:vor9}}.
-Unter \inlinebild[Module settings]{lam-modules} können Sie, falls\strut
+Unter \inlinebild[Module settings]{lam-modules} können Sie, falls \strut
 gewünscht, einzelne Felder aus der Anzeige ausblenden, um die spätere
 Benutzung weiter zu vereinfachen.\strut
 
-Jetzt können Sie mit \inlinebild[Save]{lam-save} speichern. Dann können\strut
-Sie sich auf der nun erscheinenden regulären Loginmaske mit dem Paßwort\strut
-des LDAP-Administrators anmelden. Beim ersten Login erscheint eine\strut
+Jetzt können Sie mit \inlinebild[Save]{lam-save} speichern. Dann können \strut
+Sie sich auf der nun erscheinenden regulären Loginmaske mit dem Paßwort \strut
+des LDAP-Administrators anmelden. Beim ersten Login erscheint eine \strut
 Abfrage „The following suffixes are missing in LDAP. LAM can create them
-for you.“, welche Sie mit „Create“ bestätigen. Jetzt müssen Sie noch\strut
+for you.“, welche Sie mit „Create“ bestätigen. Jetzt müssen Sie noch \strut
 unter \inlinebild[Groups]{lam-group} eine Gruppe erstellen, der später
-alle User standardmäßig zugeordnet werden; klicken Sie hierzu auf\strut
-\inlinebild[New group]{lam-add} und geben als „Group name“ einfach\strut
+alle User standardmäßig zugeordnet werden; klicken Sie hierzu auf \strut
+\inlinebild[New group]{lam-add} und geben als „Group name“ einfach \strut
 „ldapusers“ an und klicken oben links auf \inlinebild[Save]{lam-save}.
 
 Damit ist die Ersteinrichtung des LDAP-Account-Managers abgeschlossen.
