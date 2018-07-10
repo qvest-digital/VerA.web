@@ -75,7 +75,6 @@ import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.jboss.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -103,7 +102,6 @@ public class ExportResource extends AbstractResource {
 
     private InitialContext initContext;
     private static final String CONFIG_FILE_NAME = "config.jsn";
-    private static final String CONFIG_FILE_NAME_GUEST_LIST_SHORT = "configGuestListShort.jsn";
     private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
 
     private Event getEvent(int eventId) {
@@ -121,12 +119,8 @@ public class ExportResource extends AbstractResource {
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId,
                                  @javax.ws.rs.core.Context UriInfo ui,
-                                 @QueryParam("selectedFields[]") List<String> selList,
-                                 @QueryParam("filterCategory") String filterCategory,
-                                 @QueryParam("filterWord") String filterWord,
-                                 @QueryParam("filterInvStatus") String filterInvStatus,
-                                 @QueryParam("filterReserve") String filterReserve)
-      throws NamingException, UnsupportedEncodingException {
+                                 @QueryParam("selectedFields[]") List<String> selList)
+            throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
@@ -139,32 +133,30 @@ public class ExportResource extends AbstractResource {
         properties.setProperty("event.shortname", event.getShortname());
         properties.setProperty("event.begin", String.valueOf(event.getDatebegin().getTime()));
 
-        final InputStream configFileAsStream = getConfigFileAsStream(ui);
+        final MultivaluedMap<String, String> params = ui.getQueryParameters();
+        params.keySet().forEach(key -> properties.setProperty(key, params.getFirst(key)));
+
+        Map<String, String> filterSettings = new HashMap<>();
+        params.keySet().stream().filter(key -> key.startsWith("filter")).forEach(key -> filterSettings.put(key, params.getFirst(key)));
+
+        final InputStream configFileAsStream = getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
         final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
-        final Map<String, String> substitutions = new HashMap<String, String>();
+        final Map<String, String> substitutions = new HashMap<>();
         substitutions.put(CONFIG_PLACEHOLDER, String.valueOf(eventId));
 
         addOptionalFieldsSubstitutions(eventId, substitutions);
 
-        final MultivaluedMap<String, String> params = ui.getQueryParameters();
-        for (String key : params.keySet()) {
-            properties.setProperty(key, params.getFirst(key));
-        }
+        StreamingOutput stream = os -> {
+            final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
+            final CsvExporter csvExporter = new CsvExporter(reader, new KeepOpenWriter(writer), dataSource, properties, selList);
 
-        StreamingOutput stream = new StreamingOutput() {
-            @Override
-            public void write(OutputStream os) throws IOException {
-                final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
-                final CsvExporter csvExporter = new CsvExporter(reader, new KeepOpenWriter(writer), dataSource, properties, selList);
+            csvExporter.export(substitutions, filterSettings);
 
-                csvExporter.export(substitutions);
-
-                writer.flush();
-            }
+            writer.flush();
         };
 
         return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode")
-          .build();
+                .build();
     }
 
     private void addOptionalFieldsSubstitutions(@PathParam("eventId") int eventId, Map<String, String> substitutions) {
@@ -183,11 +175,4 @@ public class ExportResource extends AbstractResource {
         }
     }
 
-    private InputStream getConfigFileAsStream(@javax.ws.rs.core.Context UriInfo ui) {
-        final List<String> guestListShortExportQueryParameter = ui.getQueryParameters().get("guestListShortExport");
-        if (guestListShortExportQueryParameter != null && guestListShortExportQueryParameter.get(0).equals("true")) {
-            return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME_GUEST_LIST_SHORT);
-        }
-        return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
-    }
 }

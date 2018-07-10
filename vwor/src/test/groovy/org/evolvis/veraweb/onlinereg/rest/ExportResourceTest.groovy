@@ -67,6 +67,7 @@
  */
 package org.evolvis.veraweb.onlinereg.rest
 
+import org.evolvis.veraweb.export.ValidExportFilter
 import org.evolvis.veraweb.onlinereg.entities.Event
 import org.evolvis.veraweb.onlinereg.entities.OptionalField
 import org.evolvis.veraweb.onlinereg.utils.VworConstants
@@ -88,7 +89,6 @@ import javax.ws.rs.core.UriInfo
 /**
  * Created by mweier on 26.04.16.
  */
-
 class ExportResourceTest extends Specification {
 
     ServletContext context = Mock(ServletContext)
@@ -96,43 +96,62 @@ class ExportResourceTest extends Specification {
     Session session = Mock(Session)
     Transaction mockTxn = Mock(Transaction)
 
+    UriInfo uriInfo = Mock(UriInfo)
+    Event event = Mock(Event)
+    Query query = Mock(Query)
+    MultivaluedHashMap<String, String> queryParameters = new MultivaluedHashMap<>()
+    OptionalFieldResource optionalFieldResource = Mock(OptionalFieldResource)
+
     private ExportResource exportResource
     private InitialContext initContext = Mock(InitialContext)
     private Context namingContext = Mock(Context)
     private DataSource dataSource = Mock(DataSource)
     private ResourceContext resourceContext = Mock(ResourceContext)
 
-    public void setup() {
+    def setup() {
         exportResource = new ExportResource(initContext: initContext, context: context, resourceContext: resourceContext)
         initContext.lookup("java:comp/env") >> namingContext
         namingContext.lookup("jdbc/vwonlinereg") >> dataSource
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
         session.getTransaction() >> mockTxn
+
+        session.getNamedQuery("Event.getEvent") >> query
+        query.uniqueResult() >> event
+        event.getShortname() >> "Event 1"
+        event.getDatebegin() >> new Date()
+        uriInfo.getQueryParameters() >> new MultivaluedHashMap<String, String>()
+        resourceContext.getResource(OptionalFieldResource.class) >> optionalFieldResource
     }
 
     void testGetGuestList() {
         given:
-            def uriInfo = Mock(UriInfo)
-            def event = Mock(Event)
-            def query = Mock(Query)
-            session.getNamedQuery("Event.getEvent") >> query
-            query.uniqueResult() >> event
-            event.getShortname() >> "Event 1"
-            event.getDatebegin() >> new Date()
-            uriInfo.getQueryParameters() >> new MultivaluedHashMap<String, String>()
-            OptionalFieldResource optionalFieldResource = Mock(OptionalFieldResource)
-            resourceContext.getResource(OptionalFieldResource.class) >> optionalFieldResource
-            optionalFieldResource.getOptionalFields(_) >> [
-                new OptionalField(pk:1, fk_type: 1, fk_event: 1, label: "Hotel")
-            ]
+        optionalFieldResource.getOptionalFields(_) >> [
+                new OptionalField(pk: 1, fk_type: 1, fk_event: 1, label: "Hotel")
+        ]
 
         when:
-        Response response = exportResource.getGuestList(1, uriInfo, [], "", "", "", "")
+        Response response = exportResource.getGuestList(1, uriInfo, [])
 
         then:
-            assert response.status == VworConstants.HTTP_OK
-            session != null
-            1 * session.close()
+        assert response.status == VworConstants.HTTP_OK
+        session != null
+        1 * session.close()
+    }
+
+    def testFilterParamterUsageForExport() {
+        given:
+        queryParameters.put(ValidExportFilter.CATEGORY_ID_FILTER.key, Collections.singletonList('4711'))
+        queryParameters.put(ValidExportFilter.RESERVE_FILTER.key, Collections.singletonList('0815'))
+        optionalFieldResource.getOptionalFields(_) >> []
+
+        when:
+        Response response = exportResource.getGuestList(1, uriInfo, [])
+
+        then:
+        assert response.status == VworConstants.HTTP_OK
+        session != null
+        1 * session.close()
+
     }
 }

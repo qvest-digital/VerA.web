@@ -103,15 +103,17 @@ public class CsvExporter {
         this(reader, writer, source, properties, null);
     }
 
-    public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties, List<String> selectedColumns)
-      throws UnsupportedEncodingException {
+    public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties, List<String> selectedColumns) {
         extractor = new Extractor(new JdbcTemplate(source));
         io = new CsvIo(reader, writer, properties);
         template = new ExtractorQueryBuilder(loadQuery(io, selectedColumns));
     }
 
-    public void export(Map<String, String> substitutions) {
-        final ExtractorQuery query = template.replace(substitutions).build();
+    public void export(Map<String, String> substitutions, Map<String, String> filterSettings) {
+        final ExtractorQuery query =
+                template.replace(substitutions)
+                        .setFilters(filterSettings)
+                        .build();
         extractor.run(io, query);
     }
 
