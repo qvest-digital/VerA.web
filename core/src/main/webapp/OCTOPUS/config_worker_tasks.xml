@@ -1353,7 +1353,8 @@
 			<doTask name="Load"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker"/>
-			<response type="velocity" name="guestExport">
+            <action name="getAllCategories" worker="GuestListWorker"/>
+            <response type="velocity" name="guestExport">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
