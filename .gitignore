@@ -23,9 +23,9 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 release.properties
 release/ckdep.tmp
+systemtest/drivers
 target/
 vwoa/src/main/webroot-src/bower_components/
 vwoa/src/main/webroot-src/dist
 vwoa/src/main/webroot-src/node_modules/
 vwoa/src/main/webroot-src/package-lock.json
-systemtest/drivers
