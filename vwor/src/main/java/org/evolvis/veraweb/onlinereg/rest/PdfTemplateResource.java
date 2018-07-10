@@ -435,7 +435,7 @@ public class PdfTemplateResource extends FormDataResource {
 
             filterSettings.entrySet().forEach(entry -> {
 
-                if(ValidExportFilter.SEARCHWORD_FILTER.equals(entry.getKey())) {
+                if(ValidExportFilter.SEARCHWORD_FILTER.key.equals(entry.getKey())) {
                     query.setParameter(entry.getKey(), entry.getValue());
                 } else {
                     query.setParameter(entry.getKey(), Integer.valueOf(entry.getValue()));

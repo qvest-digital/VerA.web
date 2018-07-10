@@ -124,6 +124,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     public static final String INPUT_getAllCategories[] = {};
 
+    public static final String INPUT_getAllCategoriesWithId[] = {};
+
     private final static String DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT =
             "DELETE FROM toptional_fields_delegation_content WHERE fk_guest IN ({0})";
     private final static MessageFormat DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST =
@@ -727,6 +729,17 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return catnames;
     }
 
+    public void getAllCategoriesWithId(OctopusContext octopusContext) throws BeanException {
+        final ResultList categories = getCategoriesForCurrentOrgunit(octopusContext);
+        final Map<String, Integer> categoryNames = new LinkedHashMap<>();
+        for (Object category : categories) {
+            final String currentCategory = ((ResultMap) category).get("catname").toString();
+            final Integer currentCategoryId = Integer.valueOf(((ResultMap) category).get("pk").toString());
+            categoryNames.put(currentCategory, currentCategoryId);
+        }
+        octopusContext.setContent("categories", categoryNames);
+    }
+
     private ResultList getCategoriesForCurrentOrgunit(OctopusContext octopusContext) throws BeanException {
         final Database database = new DatabaseVeraWeb(octopusContext);
         final Integer eventId = ((Event) octopusContext.contentAsObject("event")).orgunit;
@@ -736,7 +749,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     private Select buildSelectStatement(Database database, Integer eventId) {
         final Select select = SQL.Select(database).from("veraweb.tcategorie");
-        select.select("catname");
+        select.select("catname").select("pk");
         select.setDistinctOn("catname");
         select.whereAnd(Expr.equal("fk_orgunit", eventId));
         return select;
