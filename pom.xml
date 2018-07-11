@@ -58,6 +58,7 @@
 		<activation.version>1.1.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
 		<background-jobs.version>1.18</background-jobs.version>
+		<bytebuddy.version>1.8.12</bytebuddy.version>
 		<cglib-nodep.version>3.2.7</cglib-nodep.version>
 		<chromedriver.version>2.40</chromedriver.version>
 		<classmate.version>1.4.0</classmate.version>
@@ -92,6 +93,7 @@
 		<jersey2.version>2.27</jersey2.version>
 		<jodatime.version>2.10</jodatime.version>
 		<json.version>0.0.20131108.vaadin1</json.version>
+		<jsr305.version>3.0.2</jsr305.version>
 		<junit.version>4.12</junit.version>
 		<log4j.version>2.11.0</log4j.version>
 		<lombok.version>1.18.0</lombok.version>
@@ -539,6 +541,17 @@
 				<version>${json.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy</artifactId>
+				<version>${bytebuddy.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy-agent</artifactId>
+				<version>${bytebuddy.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
 				<groupId>cglib</groupId>
 				<artifactId>cglib-nodep</artifactId>
 				<version>${cglib-nodep.version}</version>
@@ -906,6 +919,11 @@
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
 				<version>${jodatime.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>jsr305</artifactId>
+				<version>${jsr305.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
