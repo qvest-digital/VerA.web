@@ -76,33 +76,24 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.evolvis.veraweb.common.Placeholder;
+import org.evolvis.veraweb.export.ValidExportFilter;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.evolvis.veraweb.onlinereg.utils.PdfTemplateUtilities;
-import org.evolvis.veraweb.onlinereg.utils.PersonComparator;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.ws.rs.core.UriInfo;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -210,13 +201,14 @@ public class PdfTemplateResource extends FormDataResource {
     @Path("/export")
     @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
-                                @QueryParam("eventId") Integer eventId)
+                                @QueryParam("eventId") Integer eventId,
+                                @javax.ws.rs.core.Context UriInfo ui)
       throws IOException, DocumentException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
 
-        final List<Person> people = getPersons(eventId);
+        final List<Person> people = getPersons(eventId, ui);
         if (people.isEmpty()) {
             return Response.status(Status.NO_CONTENT).build();
         }
@@ -426,20 +418,48 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-    private List<Person> getPersons(Integer eventId) {
+    private List<Person> getPersons(Integer eventId, UriInfo ui) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Person.getPeopleByEventId");
+            MultivaluedMap<String, String> params = ui.getQueryParameters();
+
+            Map<String, String> filterSettings = new HashMap<>();
+            params.keySet().stream()
+                    .filter(key -> key.startsWith("filter"))
+                    .filter(key -> ValidExportFilter.isValidFilterSetting(key, params.getFirst(key)))
+                    .forEach(key -> filterSettings.put(key, params.getFirst(key)));
+
+            Query query = session.createQuery(buildQuery(filterSettings));
+
             query.setParameter("eventid", eventId);
 
-            PersonComparator comparator = new PersonComparator();
-            List<Person> personList = (List<Person>) query.list();
+            filterSettings.entrySet().forEach(entry -> {
 
-            Collections.sort(personList, comparator);
-            return personList;
+                if(ValidExportFilter.SEARCHWORD_FILTER.key.equals(entry.getKey())) {
+                    query.setParameter(entry.getKey(), entry.getValue());
+                } else {
+                    query.setParameter(entry.getKey(), Integer.valueOf(entry.getValue()));
+                }
+            });
+            return (List<Person>) query.list();
         } finally {
             session.close();
         }
+    }
+
+
+    private String buildQuery(Map<String, String> filterSettings) {
+        String baseQuery = "SELECT p FROM Person p JOIN Guest g ON (p.pk = g.fk_person) WHERE g.fk_event=:eventid";
+
+        StringBuilder sqlWithAdditionalFilters = new StringBuilder(baseQuery);
+
+        for (String key : filterSettings.keySet()) {
+            sqlWithAdditionalFilters
+                    .append(" AND ")
+                    .append(ValidExportFilter.buildDBPathPartial(key,":"+key));
+        }
+        sqlWithAdditionalFilters.append( " ORDER BY p.lastname_a_e1 ASC ");
+        return sqlWithAdditionalFilters.toString();
     }
 
     private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {

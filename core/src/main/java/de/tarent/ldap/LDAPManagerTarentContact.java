@@ -183,21 +183,21 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Fügt einen einzelnen Kontakt zum LDAP hinzu
      *
-     * @param ldc    der LDAPContact
+     * @param ldapContact    der LDAPContact
      * @param gruppe Kategorie, zu der der Kontakt hinzugefügt werden soll
      * @throws LDAPException   wenn etwas schiefläuft
      * @throws NamingException wenn etwas schiefläuft
      * @see de.tarent.ldap.LDAPContact
      */
-    public void addContact_restricted(LDAPContact ldc, String gruppe) throws LDAPException, NamingException {
+    public void addContact_restricted(LDAPContact ldapContact, String gruppe) throws LDAPException, NamingException {
         if (checkOu(gruppe) == false) {
-            createOU(gruppe, ldc.getUsers());
+            createOU(gruppe, ldapContact.getUsers());
         }
         try {
-            BasicAttributes attrs = ldc.generate_Attributes_restricted(this);
-            lctx.createSubcontext("uid=" + ldc.getUserid() + ",ou=" + gruppe + relative + baseDN, attrs); //NON-NLS-1$
+            BasicAttributes attrs = ldapContact.generateAttributesRestricted(this);
+            lctx.createSubcontext("uid=" + ldapContact.getUserid() + ",ou=" + gruppe + relative + baseDN, attrs); //NON-NLS-1$
         } catch (NoMemberException nme) {
-            logger.warning("Konnte Adresse " + ldc.getUserid() + " nicht exportieren, da kein User hierauf Berechtigungen hat.");
+            logger.warning("Konnte Adresse " + ldapContact.getUserid() + " nicht exportieren, da kein User hierauf Berechtigungen hat.");
         }
     }
 

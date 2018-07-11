@@ -156,7 +156,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>${dockerfile-maven.version}</version>
+                <version>${maven.dockerfile.version}</version>
                 <executions>
                     <!-- Build core docker image -->
                     <execution>
@@ -203,12 +203,19 @@
                         </configuration>
                     </execution>-->
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                        <version>${activation.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <!-- Run containers via docker compose -->
             <plugin>
                 <groupId>com.dkanejs.maven.plugins</groupId>
                 <artifactId>docker-compose-maven-plugin</artifactId>
-                <version>${docker-compose-maven-plugin.version}</version>
+                <version>${maven.docker-compose.version}</version>
                 <executions>
                     <execution>
                         <id>up</id>

@@ -101,10 +101,10 @@
                         </div>
                         <div class="tableCell width25">
                             <label for="search-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
-                            <select name="filterCategory" id="filterCategory">
+                            <select name="filterCategoryId" id="filterCategoryId">
                                 <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
-                                #foreach($category in $categories)
-                                    <option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
+                                #foreach($category in $categories.keySet())
+                                    <option #if($search.category && $search.category == $category) selected#end value="$categories.get($category)">$category</option>
                                 #end
                             </select>
                         </div>
@@ -408,10 +408,14 @@
     };
 
     function addAttribute(att, form, filterForm) {
-        var input = document.createElement("INPUT");
+        var input = document.getElementById("filters"+att)
+        if (input == null) {
+            input = document.createElement("INPUT");
+        }
         input.setAttribute("type", "hidden");
         input.setAttribute("name", att);
         input.setAttribute("value", filterForm[att].value);
+        input.setAttribute("id", "filters"+att)
         form.appendChild(input);
     };
 
@@ -505,7 +509,7 @@ $(function () {
         var newForm = document.forms['PdfGenerateForm'];
         var filterForm = document.forms['guestListFilterExport'];
 
-        addAttribute('filterCategory', newForm, filterForm);
+        addAttribute('filterCategoryId', newForm, filterForm);
         addAttribute('filterWord', newForm, filterForm);
         addAttribute('filterInvStatus', newForm, filterForm);
         addAttribute('filterReserve', newForm, filterForm);
@@ -524,7 +528,7 @@ $(function () {
             url: $("#csv-export").data("csvexport"),
             data: {
                 selectedFields: sel,
-                filterCategory: filterForm['filterCategory'].value,
+                filterCategoryId: filterForm['filterCategoryId'].value,
                 filterWord: filterForm['filterWord'].value,
                 filterInvStatus: filterForm['filterInvStatus'].value,
                 filterReserve: filterForm['filterReserve'].value,
@@ -533,7 +537,7 @@ $(function () {
                 'oa.path.event': '$url.urlForFreeVisitors',
                 'oa.path.passwordReset': '$url.urlForPasswordReset'
             },
-            type: 'GET',
+            type: 'POST',
             success: function(response, status, xhr) {
                 var filename = "";
                 var disposition = xhr.getResponseHeader('Content-Disposition');

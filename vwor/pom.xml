@@ -30,6 +30,10 @@
 			<artifactId>jersey-media-multipart</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
 		</dependency>
@@ -163,6 +167,21 @@
 					<targetTests>
 						<param>org.evolvis.veraweb.onlinereg.*</param>
 					</targetTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>${maven.owasp.dependency-check.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<failBuildOnCVSS>8</failBuildOnCVSS>
 				</configuration>
 			</plugin>
 		</plugins>

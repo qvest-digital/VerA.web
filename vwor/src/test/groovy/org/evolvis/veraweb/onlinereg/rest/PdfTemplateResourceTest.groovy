@@ -83,7 +83,9 @@ import spock.lang.Ignore
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
+import javax.ws.rs.core.MultivaluedHashMap
 import javax.ws.rs.core.Response
+import javax.ws.rs.core.UriInfo
 import java.nio.charset.StandardCharsets
 
 /**
@@ -376,40 +378,70 @@ class PdfTemplateResourceTest extends Specification {
             assert new String(response.context.entity.bytes,0,4).equals("%PDF");
             assert response.context.entity.size() > 1000
     }
-@Ignore //ADDED VERA-684
+
+    void testQueryBuilder() {
+        given:
+            def eventId = 1
+            def ui = Mock(UriInfo)
+            def map = new MultivaluedHashMap<String, String>()
+            map.add("filterCategoryId","1")
+            map.add("filterWord","wordiword")
+            map.add("filterInvStatus","1")
+            map.add("filterReserve","1")
+            ui.getQueryParameters() >> map
+
+        when:
+            def query = resource.buildQuery(map)
+
+        then:
+            assert query == "SELECT p FROM Person p" +
+                    " JOIN Guest g ON (p.pk = g.fk_person)" +
+                    " WHERE g.fk_event=:eventid" +
+                    " AND g.reserve = :filterReserve" +
+                    " AND g.invitationstatus = :filterInvStatus" +
+                    " AND g.fk_category = :filterCategoryId" +
+                    " AND (p.firstname_a_e1 = ':filterWord' OR p.lastname_a_e1 = ':filterWord')" +
+                    " ORDER BY p.lastname_a_e1 ASC "
+    }
+
     void testGeneratePdfReturnNoContent() {
         given:
             def pdfTemplateId = 1
             def eventId = 1
             query.list() >> new ArrayList()
+            def ui = Mock(UriInfo)
+            ui.getQueryParameters() >> new MultivaluedHashMap<String, String>()
 
         when:
-            def response = resource.generatePdf(pdfTemplateId, eventId, "", "", "", "")
+            def response = resource.generatePdf(pdfTemplateId, eventId, ui)
 
         then:
+            1 * session.createQuery(*_) >> query
             session != null
             1 * session.close()
             assert response.status == Response.Status.NO_CONTENT.statusCode
             assert response.context.entity == null
     }
-    @Ignore //ADDED VERA-684
+
     void testGeneratePdfNoEventId() {
         given:
             def pdfTemplateId = 1
+            def uriInfo = Mock(UriInfo)
 
         when:
-            def response = resource.generatePdf(pdfTemplateId, null, "", "", "", "")
+            def response = resource.generatePdf(pdfTemplateId, null, uriInfo)
 
         then:
             assert response.status == Response.Status.BAD_REQUEST.statusCode
     }
-    @Ignore //ADDED VERA-684
+
     void testGeneratePdfNoTemplateId() {
         given:
             def eventId = 1
+            def uriInfo = Mock(UriInfo)
 
         when:
-            def response = resource.generatePdf(null, eventId, "", "", "", "")
+            def response = resource.generatePdf(null, eventId, uriInfo)
 
         then:
             assert response.status == Response.Status.BAD_REQUEST.statusCode
