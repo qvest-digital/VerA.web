@@ -6,8 +6,6 @@
   ‣ to Groovy++ first, to check types
     cf. https://stackoverflow.com/a/5941495/2171120
   ‣ to Java™ via IntelliJ, assuming it can do that
-• ensure MTA is set up on all Docker hosts, on 172.17.0.1
-  cf. commit 2551bbe21b9723ede478f3bc0261a5cebb2f9d1f in env
 • replace ANSI-Bell: it installs stuff into /usr/local with pip
   FROM THE INTERNETZ⚠ (even pip itself…)
   ‣ ansibel docker plugin is also deprecated…
