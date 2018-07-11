@@ -6,6 +6,8 @@ EXPOSE 8009 8080
 RUN mkdir -p /etc/veraweb /var/lib/veraweb && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get --purge dist-upgrade -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        netcat-openbsd && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
