@@ -1,13 +1,11 @@
 • update FROM in all Dockerfiles to latest/secure/Debian/… [VERA-565] [VERA-356] [VERA-357]
 • webjars for dependencies
 • npm-free build even for vwoa [VERA-202]
-• check the DB/transactional changes in vwor for correctness
-• check the Angular 1.6 transition in vwoa for correctness
 • figure out why some tests are Skipped
 • convert all Groovy files (18 here, just 4 in the blue tool)
   ‣ to Groovy++ first, to check types
     cf. https://stackoverflow.com/a/5941495/2171120
-  ‣ to Java™ via IntelliJ
+  ‣ to Java™ via IntelliJ, assuming it can do that
 • ensure MTA is set up on all Docker hosts, on 172.17.0.1
   cf. commit 2551bbe21b9723ede478f3bc0261a5cebb2f9d1f in env
 • replace ANSI-Bell: it installs stuff into /usr/local with pip
