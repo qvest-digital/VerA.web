@@ -1,5 +1,8 @@
 #!/usr/bin/env mksh
+# -*- mode: sh -*-
+
 # needs root on remote system
+# updates all config files that already exist locally
 
 LC_ALL=C; export LC_ALL
 unset LANGUAGE
@@ -8,21 +11,18 @@ set -e
 set -o pipefail
 cd "$(dirname "$0")"
 
-rm -f *.xml *~
-set +e
-print -r -- "cd /var/lib/jenkins/jobs; pax -w -s '!/config!!' -M dist veraweb*/config.xml" | \
-    ssh -l root ci-busyapps.lan.tarent.de mksh | paxtar xvvf -
-set -A errs -- $? "${PIPESTATUS[@]}"
-if [[ ${errs[0]} != 0 ]]; then
-	print -ru2 -- E: pipeline failed with statuses "${errs[@]}"
-	print -ru2 -- N: in this order, '$?', print, ssh, tar
-	rm -f *.xml
-	exit 1
-fi
-set -e
 for x in *.xml; do
-	echo >>"$x"
 	print -nr -- "I: Processing $x…"
+	x=${x%.xml}
+
+	ssh -n -l root ci-busyapps.lan.tarent.de "
+		cat /var/lib/jenkins/jobs/${x@Q}/config.xml
+		echo
+	    " | sed --posix \
+	    -e 's!\([&]\)apos[;]!\1#39;!g' \
+	    -e 's!\([&]\)quot[;]!\1#34;!g' \
+	    >"$x.xml~"
+
 	while IFS= read -r line; do
 		print -r -- "$line"
 		[[ $line = '    <hudson.security.AuthorizationMatrixProperty>' ]] || \
@@ -33,9 +33,7 @@ for x in *.xml; do
 			print -r -- "$line"
 		done | sort -u
 		print -r -- '    </hudson.security.AuthorizationMatrixProperty>'
-	done <"$x" >"$x~"
-	touch -r "$x" "$x~"
-	mv "$x~" "$x"
+	done <"$x.xml~" >"$x.xml"
 	print " done."
 done
 print "I: All done, success."

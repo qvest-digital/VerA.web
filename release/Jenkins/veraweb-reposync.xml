@@ -50,48 +50,48 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>timeout --kill-after=20m 18m sh -c &apos;
+      <command>timeout --kill-after=20m 18m sh -c &#39;
 
 set +ex
-echo &gt;&amp;2 &quot;I: preparing…&quot;
+echo &gt;&amp;2 &#34;I: preparing…&#34;
 rv=0
 git remote remove evolvis 2&gt;/dev/null
-echo &gt;&amp;2 &quot;I: fetching from Evolvis…&quot;
+echo &gt;&amp;2 &#34;I: fetching from Evolvis…&#34;
 if ! git remote add -f evolvis git+ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git; then
-	echo &gt;&amp;2 &quot;E: cannot fetch from evolvis&quot;
+	echo &gt;&amp;2 &#34;E: cannot fetch from evolvis&#34;
 	exit 1
 fi
-echo &gt;&amp;2 &quot;I: merging from Evolvis…&quot;
+echo &gt;&amp;2 &#34;I: merging from Evolvis…&#34;
 if ! git merge --ff-only evolvis/master; then
-	echo &gt;&amp;2 &quot;E: cannot ff-merge evolvis master; resolve manually!&quot;
+	echo &gt;&amp;2 &#34;E: cannot ff-merge evolvis master; resolve manually!&#34;
 	exit 1
 fi
-echo &gt;&amp;2 &quot;I: preparing…&quot;
+echo &gt;&amp;2 &#34;I: preparing…&#34;
 git remote remove gitlab 2&gt;/dev/null
-echo &gt;&amp;2 &quot;I: fetching from Gitlab…&quot;
+echo &gt;&amp;2 &#34;I: fetching from Gitlab…&#34;
 if ! git remote add -f gitlab git@gitlab.tarent.de:veraweb-int/veraweb.git; then
-	echo &gt;&amp;2 &quot;E: cannot fetch from gitlab&quot;
+	echo &gt;&amp;2 &#34;E: cannot fetch from gitlab&#34;
 	exit 1
 fi
-echo &gt;&amp;2 &quot;I: merging from Gitlab…&quot;
+echo &gt;&amp;2 &#34;I: merging from Gitlab…&#34;
 if ! git merge --ff-only gitlab/master; then
-	echo &gt;&amp;2 &quot;E: cannot ff-merge gitlab master, WTF?&quot;
+	echo &gt;&amp;2 &#34;E: cannot ff-merge gitlab master, WTF?&#34;
 	exit 1
 fi
-echo &gt;&amp;2 &quot;I: pushing to Gitlab…&quot;
+echo &gt;&amp;2 &#34;I: pushing to Gitlab…&#34;
 if ! git push gitlab master; then
-	echo &gt;&amp;2 &quot;E: cannot push to gitlab; resolve manually!&quot;
+	echo &gt;&amp;2 &#34;E: cannot push to gitlab; resolve manually!&#34;
 	rv=$(($rv+1))
 fi
-echo &gt;&amp;2 &quot;I: pushing to Evolvis…&quot;
+echo &gt;&amp;2 &#34;I: pushing to Evolvis…&#34;
 if ! git push evolvis master; then
-	echo &gt;&amp;2 &quot;E: cannot push to evolvis; resolve manually!&quot;
+	echo &gt;&amp;2 &#34;E: cannot push to evolvis; resolve manually!&#34;
 	rv=$(($rv+1))
 fi
-echo &gt;&amp;2 &quot;I: all done&quot;
+echo &gt;&amp;2 &#34;I: all done&#34;
 exit $rv
 
-: end of script run under timeout&apos;</command>
+: end of script run under timeout&#39;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

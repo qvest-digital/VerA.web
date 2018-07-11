@@ -4,9 +4,9 @@
   <description>&lt;p&gt;Job to install a Docker tag (release or “latest”) of VerA.web on a stage&lt;/p&gt;&#xd;
 &#xd;
 &lt;p&gt;Jenkins jobs: &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-build-install/&quot;&gt;build install&lt;/a&gt; → &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-docker-build/&quot;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-docker-install/&quot;&gt;install&lt;/a&gt;&lt;/p&gt;</description>
+  href=&#34;/jenkins/job/veraweb-build-install/&#34;&gt;build install&lt;/a&gt; → &lt;a&#xd;
+  href=&#34;/jenkins/job/veraweb-docker-build/&#34;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
+  href=&#34;/jenkins/job/veraweb-docker-install/&#34;&gt;install&lt;/a&gt;&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -47,10 +47,10 @@
           <description>Docker image set for VerA.web to install</description>
           <randomName>choice-parameter-374321305414045</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
-            <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/Docker/show-images.sh&quot;.execute().text
+            <script>versions = &#34;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/Docker/show-images.sh&#34;.execute().text
 
 def list = versions.readLines()
-list &lt;&lt; &quot;latest&quot;
+list &lt;&lt; &#34;latest&#34;
 return list.reverse()</script>
             <fallbackScript></fallbackScript>
           </script>
@@ -93,20 +93,20 @@ return list.reverse()</script>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>PS4=&quot;(ci-busyapps)++ &quot;
+      <command>PS4=&#34;(ci-busyapps)++ &#34;
 set -ex
 
 git repack -d -l
-rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/environment/
+rsync --delete-before -zavPHK &#34;$PWD/&#34; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/environment/
 
-ssh -Al root veraweb-tools.lan.tarent.de &quot;
-	PS4=&apos;(veraweb-tools)+++ &apos;
+ssh -Al root veraweb-tools.lan.tarent.de &#34;
+	PS4=&#39;(veraweb-tools)+++ &#39;
 	set -ex
 	cd /root/jenkins-tmp/environment
-	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./dockerdeploy.sh -d \
-	    &apos;$VWJENKINS_DOCKER_INSTALL_STAGE&apos; \
-	    &apos;$VWJENKINS_DOCKER_TAG_TO_INSTALL&apos;
-    &quot;</command>
+	exec env PS4=&#39;(veraweb-tools)++++ &#39; ./dockerdeploy.sh -d \
+	    &#39;$VWJENKINS_DOCKER_INSTALL_STAGE&#39; \
+	    &#39;$VWJENKINS_DOCKER_TAG_TO_INSTALL&#39;
+    &#34;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

@@ -8,12 +8,12 @@
 &lt;p&gt;Handles Maven release builds and Sonar invocation.&lt;/p&gt;&#xd;
 &#xd;
 &lt;p&gt;Jenkins jobs: &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-build-install/&quot;&gt;build install&lt;/a&gt; → &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-docker-build/&quot;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-docker-install/&quot;&gt;install&lt;/a&gt;&lt;/p&gt;&#xd;
+  href=&#34;/jenkins/job/veraweb-build-install/&#34;&gt;build install&lt;/a&gt; → &lt;a&#xd;
+  href=&#34;/jenkins/job/veraweb-docker-build/&#34;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
+  href=&#34;/jenkins/job/veraweb-docker-install/&#34;&gt;install&lt;/a&gt;&lt;/p&gt;&#xd;
 &#xd;
 &lt;p&gt;Installationsanleitung: &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-build-install/ws/core/target/installationsanleitung.pdf&quot;&gt;hier&lt;/a&gt;&lt;/p&gt;</description>
+  href=&#34;/jenkins/job/veraweb-build-install/ws/core/target/installationsanleitung.pdf&#34;&gt;hier&lt;/a&gt;&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -166,7 +166,7 @@ H/15 * * * *</spec>
       <scmUserEnvVar></scmUserEnvVar>
       <scmPasswordEnvVar></scmPasswordEnvVar>
       <releaseEnvVar>IS_M2RELEASEBUILD</releaseEnvVar>
-      <releaseGoals>-Platex -Prelease -PoA -Dresume=false release:prepare release:perform -DpreparationGoals=&quot;clean install&quot; -e</releaseGoals>
+      <releaseGoals>-Platex -Prelease -PoA -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -e</releaseGoals>
       <dryRunGoals>-Platex -Prelease -PoA -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
       <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
       <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
@@ -177,14 +177,14 @@ H/15 * * * *</spec>
   <prebuilders/>
   <postbuilders>
     <hudson.tasks.Shell>
-      <command>PS4=&quot;(ci-busyapps)++ &quot;
+      <command>PS4=&#34;(ci-busyapps)++ &#34;
 set -ex
 
 # install to stage
-if test x&quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+if test x&#34;$VWJENKINS_PROPER_INSTALL_STAGE&#34; = x&#34;(keine)&#34;; then
 	: not installing to a proper system
 else
-	./upload.sh &quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot;
+	./upload.sh &#34;$VWJENKINS_PROPER_INSTALL_STAGE&#34;
 	: finished installing to a proper system
 fi
 
@@ -202,17 +202,17 @@ rsync --delete-before -zavPHK target/.d/ \
     root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/latest/
 
 # note down whether we release in this build and, if so, what version
-if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
+if test x&#34;$IS_M2RELEASEBUILD&#34; = x&#34;true&#34;; then
 	: trigger Docker build of release, whether or not an
 	: installation of these is requested
-	echo &quot;VWJENKINS_DOCKER_RELEASE_TO_BUILD=$MVN_RELEASE_VERSION&quot; \
+	echo &#34;VWJENKINS_DOCKER_RELEASE_TO_BUILD=$MVN_RELEASE_VERSION&#34; \
 	    &gt;target/jenkins-parm.prop
-elif test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+elif test x&#34;$VWJENKINS_DOCKER_INSTALL_STAGE&#34; = x&#34;(keine)&#34;; then
 	: this blocks the triggering of the Docker jobs
 	rm -f target/jenkins-parm.prop
 else
 	: trigger Docker build + install of :latest
-	echo &apos;VWJENKINS_DOCKER_RELEASE_TO_BUILD=(HEAD)&apos; \
+	echo &#39;VWJENKINS_DOCKER_RELEASE_TO_BUILD=(HEAD)&#39; \
 	    &gt;target/jenkins-parm.prop
 fi</command>
     </hudson.tasks.Shell>

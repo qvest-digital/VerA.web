@@ -7,9 +7,9 @@
 &lt;p&gt;Can also trigger installation on a Docker stage.&lt;/p&gt;&#xd;
 &#xd;
 &lt;p&gt;Jenkins jobs: &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-build-install/&quot;&gt;build install&lt;/a&gt; → &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-docker-build/&quot;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
-  href=&quot;/jenkins/job/veraweb-docker-install/&quot;&gt;install&lt;/a&gt;&lt;/p&gt;</description>
+  href=&#34;/jenkins/job/veraweb-build-install/&#34;&gt;build install&lt;/a&gt; → &lt;a&#xd;
+  href=&#34;/jenkins/job/veraweb-docker-build/&#34;&gt;Docker build&lt;/a&gt; → &lt;a&#xd;
+  href=&#34;/jenkins/job/veraweb-docker-install/&#34;&gt;install&lt;/a&gt;&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -50,10 +50,10 @@
           <description>VerA.web release to create a set of Docker images for</description>
           <randomName>choice-parameter-377931027512486</randomName>
           <script class="org.biouno.unochoice.model.GroovyScript">
-            <script>versions = &quot;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/show-releases.sh&quot;.execute().text
+            <script>versions = &#34;/var/lib/jenkins/jobs/veraweb-build-install/workspace/release/show-releases.sh&#34;.execute().text
 
 def list = versions.readLines()
-list &lt;&lt; &quot;(HEAD)&quot;
+list &lt;&lt; &#34;(HEAD)&#34;
 return list.reverse()</script>
             <fallbackScript></fallbackScript>
           </script>
@@ -76,37 +76,37 @@ return list.reverse()</script>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>PS4=&quot;(ci-busyapps)++ &quot;
+      <command>PS4=&#34;(ci-busyapps)++ &#34;
 set -ex
 
-if test x&quot;$VWJENKINS_DOCKER_RELEASE_TO_BUILD&quot; = x&quot;(HEAD)&quot;; then
+if test x&#34;$VWJENKINS_DOCKER_RELEASE_TO_BUILD&#34; = x&#34;(HEAD)&#34;; then
 	tag=latest
 else
 	tag=$VWJENKINS_DOCKER_RELEASE_TO_BUILD
 fi
 
-ssh -l root veraweb-tools.lan.tarent.de &quot;
-	PS4=&apos;(veraweb-tools)+++ &apos;
+ssh -l root veraweb-tools.lan.tarent.de &#34;
+	PS4=&#39;(veraweb-tools)+++ &#39;
 	set -ex
 	rm -rf /root/jenkins-tmp/docker-build
 	mkdir /root/jenkins-tmp/docker-build
 	cd /root/jenkins-tmp/docker-build
-	if test x&apos;$tag&apos; = x&apos;latest&apos;; then
+	if test x&#39;$tag&#39; = x&#39;latest&#39;; then
 		ln ~/jenkins-tmp/latest/veraweb-parent-*-release.tgz x
 	else
-		wget -O x &apos;https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-parent/$tag/veraweb-parent-$tag-release.tgz&apos;
+		wget -O x &#39;https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-parent/$tag/veraweb-parent-$tag-release.tgz&#39;
 	fi
 	tar -xzf x
 	cd */Docker/
-	exec env PS4=&apos;(veraweb-tools)++++ &apos; ./mkdocker.sh &apos;$tag&apos;
-    &quot;
+	exec env PS4=&#39;(veraweb-tools)++++ &#39; ./mkdocker.sh &#39;$tag&#39;
+    &#34;
 
-if test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+if test x&#34;$VWJENKINS_DOCKER_INSTALL_STAGE&#34; = x&#34;(keine)&#34;; then
 	: this blocks the triggering of the next job
 	rm -f jenkins-parm.prop
 else
 	: trigger Docker install
-	echo &quot;VWJENKINS_DOCKER_TAG_TO_INSTALL=$tag&quot; &gt;jenkins-parm.prop
+	echo &#34;VWJENKINS_DOCKER_TAG_TO_INSTALL=$tag&#34; &gt;jenkins-parm.prop
 fi</command>
     </hudson.tasks.Shell>
   </builders>
