@@ -674,8 +674,6 @@ CSV_FEDERAL_STATE=Bundesland
 CSV_STATE=Land
 CSV_FEDERAL_STATE_POBOX=PLZ/Postfach
 CSV_POBOX=Postfach
-CSV_IBAN=IBAN
-CSV_BIC=BIC
 CSV_FON=Telefon
 CSV_FAX=Fax
 CSV_MOBIL=Mobil
@@ -696,18 +694,19 @@ CSV_HEADLINE_PERSON_GUEST_DATA=Personendaten G\u00E4ste
 CSV_HEADLINE_PERSON_PARTNER=Personendaten Partner
 CSV_HEADLINE_PERSON_H_PARTNER=Personendaten Hauptperson
 
+CSV_CATEGORY_NAME=Kategorie
 CSV_PERSON_CREATE=Person Erstellt
 CSV_PERSON_CREATE_BY=Person erstellt durch
 CSV_PERSON_CHANGED=Person ver\u00E4ndert
 CSV_PERSON_CHANGED_BY=Person ver\u00E4ndert durch
 CSV_PERSON_DELETED=Person gel\u00F6scht
 CSV_PERSON_DATE_OVER=Person Datum abgelaufen
-CSV_PERSON_SOURCE_IMPORT=Person Quelle importieren
-CSV_W_NAME=w Name
-CSV_DELEGATION_LINK=Delegierungs Link
-CSV_DELEGATION_USER=Delegierungs Benutzer
-CSV_DELEGATION_PW=Delegierungs Passwort
-CSV_DELEGATION_PW_RESET_LINK=Delegierungs Passwort zur\u00FCcksetzen Link
+CSV_PERSON_SOURCE_IMPORT=Person Importquelle
+CSV_W_NAME=Arbeitsbereich
+CSV_DELEGATION_LINK=Delegations-Link
+CSV_DELEGATION_USER=Delegations-Benutzer
+CSV_DELEGATION_PW=Delegations-Passwort
+CSV_PW_RESET_LINK=Link zum Zur\u00FCcksetzen des Passworts
 
 CSV_OPTIONAL_FIELD=Optionales Feld
 

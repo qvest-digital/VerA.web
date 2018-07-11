@@ -675,14 +675,13 @@ CSV_FEDERAL_STATE=estadoE
 CSV_STATE=Pa\u00EDs
 CSV_FEDERAL_STATE_POBOX=Zip / c\u00F3digo postal
 CSV_POBOX=Apartado de correos
-CSV_IBAN=IBAN
-CSV_BIC=BIC
 CSV_FON=Tel\u00E9fono
 CSV_FAX=Fax
 CSV_MOBIL=M\u00F3vil
 CSV_MAIL=E-Mail
 CSV_WWW=www
 
+CSV_CATEGORY_NAME=Categor\u00EDa
 CSV_PERSON_CREATE=Persona creada
 CSV_PERSON_CREATE_BY=Persona creada por
 CSV_PERSON_CHANGED=Persona cambiada
@@ -690,11 +689,11 @@ CSV_PERSON_CHANGED_BY=Persona cambiada por
 CSV_PERSON_DELETED=Persona eliminada
 CSV_PERSON_DATE_OVER=Fecha de persona expirada
 CSV_PERSON_SOURCE_IMPORT=Fuente de persona importada
-CSV_W_NAME=w nombre
+CSV_W_NAME=\u00C1rea de trabajo
 CSV_DELEGATION_LINK=Enlace de delegaci\u00F3n
 CSV_DELEGATION_USER=Usuario de Delegaci\u00F3n
 CSV_DELEGATION_PW=Contrase\u00F1a de delegaci\u00F3n
-CSV_DELEGATION_PW_RESET_LINK=Restablecer enlace de contrase\u00F1a de delegaci\u00F3n
+CSV_PW_RESET_LINK=Restablecer enlace de contrase\u00F1a de delegaci\u00F3n
 
 CSV_OPTIONAL_FIELD=Campo opcional
 

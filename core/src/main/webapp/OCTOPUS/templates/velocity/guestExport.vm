@@ -207,8 +207,8 @@
                             <input type="checkbox" class="checkbox-margin geschaeft" value="p_country_a_e1"/>${placeholderWithTranslation.CSV_STATE}<br>
                             <input type="checkbox" class="checkbox-margin geschaeft" value="p_pobox_a_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
                             <input type="checkbox" class="checkbox-margin geschaeft" value="p_poboxzipcode_a_e1"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_suffix1_a_e1"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_suffix2_a_e1"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_suffix1_a_e1"/>$!message.plain($config.suffix1)<br>
+                            <input type="checkbox" class="checkbox-margin geschaeft" value="p_suffix2_a_e1"/>$!message.plain($config.suffix2)<br>
                             <input type="checkbox" class="checkbox-margin geschaeft" value="p_fon_a_e1"/>${placeholderWithTranslation.CSV_FON}<br>
                             <input type="checkbox" class="checkbox-margin geschaeft" value="p_fax_a_e1"/>${placeholderWithTranslation.CSV_FAX}<br>
                             <input type="checkbox" class="checkbox-margin geschaeft" value="p_mobil_a_e1"/>${placeholderWithTranslation.CSV_MOBIL}<br>
@@ -226,8 +226,8 @@
                             <input type="checkbox" class="checkbox-margin priv" value="p_country_b_e1"/>${placeholderWithTranslation.CSV_STATE}<br>
                             <input type="checkbox" class="checkbox-margin priv" value="p_pobox_b_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
                             <input type="checkbox" class="checkbox-margin priv" value="p_poboxzipcode_b_e1"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin priv" value="p_suffix1_b_e1"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin priv" value="p_suffix2_b_e1"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_suffix1_b_e1"/>$!message.plain($config.suffix1)<br>
+                            <input type="checkbox" class="checkbox-margin priv" value="p_suffix2_b_e1"/>$!message.plain($config.suffix2)<br>
                             <input type="checkbox" class="checkbox-margin priv" value="p_fon_b_e1"/>${placeholderWithTranslation.CSV_FON}<br>
                             <input type="checkbox" class="checkbox-margin priv" value="p_fax_b_e1"/>${placeholderWithTranslation.CSV_FAX}<br>
                             <input type="checkbox" class="checkbox-margin priv" value="p_mobil_b_e1"/>${placeholderWithTranslation.CSV_MOBIL}<br>
@@ -252,8 +252,8 @@
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_country_a_e2"/>${placeholderWithTranslation.CSV_STATE}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_pobox_a_e2"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_poboxzipcode_a_e2"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin personHE2" value="p_suffix1_a_e2"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin personHE2" value="p_suffix2_a_e2"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_suffix1_a_e2"/>$!message.plain($config.suffix1)<br>
+                            <input type="checkbox" class="checkbox-margin personHE2" value="p_suffix2_a_e2"/>$!message.plain($config.suffix2)<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_fon_a_e2"/>${placeholderWithTranslation.CSV_FON}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_fax_a_e2"/>${placeholderWithTranslation.CSV_FAX}<br>
                             <input type="checkbox" class="checkbox-margin personHE2" value="p_mobil_a_e2"/>${placeholderWithTranslation.CSV_MOBIL}<br>
@@ -271,8 +271,8 @@
                             <input type="checkbox" class="checkbox-margin personHE3" value="p_country_a_e3"/>${placeholderWithTranslation.CSV_STATE}<br>
                             <input type="checkbox" class="checkbox-margin personHE3" value="p_pobox_a_e3"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
                             <input type="checkbox" class="checkbox-margin personHE3" value="p_poboxzipcode_a_e3"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin personHE3" value="p_suffix1_a_e3"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin personHE3" value="p_suffix2_a_e3"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_suffix1_a_e3"/>$!message.plain($config.suffix1)<br>
+                            <input type="checkbox" class="checkbox-margin personHE3" value="p_suffix2_a_e3"/>$!message.plain($config.suffix2)<br>
                             <input type="checkbox" class="checkbox-margin personHE3" value="p_fon_a_e3"/>${placeholderWithTranslation.CSV_FON}<br>
                             <input type="checkbox" class="checkbox-margin personHE3" value="p_fax_a_e3"/>${placeholderWithTranslation.CSV_FAX}<br>
                             <input type="checkbox" class="checkbox-margin personHE3" value="p_mobil_a_e3"/>${placeholderWithTranslation.CSV_MOBIL}<br>
@@ -294,8 +294,8 @@
                             <input type="checkbox" class="checkbox-margin personBE2" value="p_country_b_e2"/>${placeholderWithTranslation.CSV_STATE}<br>
                             <input type="checkbox" class="checkbox-margin personBE2" value="p_pobox_b_e2"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
                             <input type="checkbox" class="checkbox-margin personBE2" value="p_poboxzipcode_b_e2"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin personBE2" value="p_suffix1_b_e2"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin personBE2" value="p_suffix2_b_e2"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_suffix1_b_e2"/>$!message.plain($config.suffix1)<br>
+                            <input type="checkbox" class="checkbox-margin personBE2" value="p_suffix2_b_e2"/>$!message.plain($config.suffix2)<br>
                             <input type="checkbox" class="checkbox-margin personBE2" value="p_fon_b_e2"/>${placeholderWithTranslation.CSV_FON}<br>
                             <input type="checkbox" class="checkbox-margin personBE2" value="p_mobil_b_e2"/>${placeholderWithTranslation.CSV_MOBIL}<br>
                             <input type="checkbox" class="checkbox-margin personBE2" value="p_mail_b_e2"/>${placeholderWithTranslation.CSV_MAIL}<br>
@@ -312,8 +312,8 @@
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_country_b_e3"/>${placeholderWithTranslation.CSV_STATE}<br>
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_pobox_b_e3"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_poboxzipcode_b_e3"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin personBE3" value="p_suffix1_b_e3"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin personBE3" value="p_suffix2_b_e3"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_suffix1_b_e3"/>$!message.plain($config.suffix1)<br>
+                            <input type="checkbox" class="checkbox-margin personBE3" value="p_suffix2_b_e3"/>$!message.plain($config.suffix2)<br>
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_fon_b_e3"/>${placeholderWithTranslation.CSV_FON}<br>
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_fax_b_e3"/>${placeholderWithTranslation.CSV_FAX}<br>
                             <input type="checkbox" class="checkbox-margin personBE3" value="p_mobil_b_e3"/>${placeholderWithTranslation.CSV_MOBIL}<br>
@@ -331,8 +331,8 @@
                             <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_country_c_e1"/>${placeholderWithTranslation.CSV_STATE}<br>
                             <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_pobox_c_e1"/>${placeholderWithTranslation.CSV_FEDERAL_STATE_POBOX}<br>
                             <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_poboxzipcode_c_e1"/>${placeholderWithTranslation.CSV_POBOX}<br>
-                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_suffix1_c_e1"/>${placeholderWithTranslation.CSV_IBAN}<br>
-                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_suffix2_c_e1"/>${placeholderWithTranslation.CSV_BIC}<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_suffix1_c_e1"/>$!message.plain($config.suffix1)<br>
+                            <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_suffix2_c_e1"/>$!message.plain($config.suffix2)<br>
                             <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_fon_c_e1"/>${placeholderWithTranslation.CSV_FON}<br>
                             <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_fax_c_e1"/>${placeholderWithTranslation.CSV_FAX}<br>
                             <input type="checkbox" class="checkbox-margin anschriftWeitere" value="p_mobil_c_e1"/>${placeholderWithTranslation.CSV_MOBIL}<br>
@@ -355,6 +355,7 @@
                             <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_13"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 13<br>
                             <input type="checkbox" class="checkbox-margin optionFields" value="OPTIONAL_FIELD_LABEL_14"/>${placeholderWithTranslation.CSV_OPTIONAL_FIELD} 14<br>
                             <div style="margin-top: 20px"><strong>${placeholderWithTranslation.CSV_HEADLINE_MORE_FIELDS}</strong><input type="button" class="extraFieldCheck autoWidth mainButtonCheck" value="${placeholderWithTranslation.SELECTION_ONE}"/><br></div>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="c_name"/>${placeholderWithTranslation.CSV_CATEGORY_NAME}<br>
                             <input type="checkbox" class="checkbox-margin extraFields" value="p_created"/>${placeholderWithTranslation.CSV_PERSON_CREATE}<br>
                             <input type="checkbox" class="checkbox-margin extraFields" value="p_createdby"/>${placeholderWithTranslation.CSV_PERSON_CREATE_BY}<br>
                             <input type="checkbox" class="checkbox-margin extraFields" value="p_changed"/>${placeholderWithTranslation.CSV_PERSON_CHANGED}<br>
@@ -366,7 +367,7 @@
                             <input type="checkbox" class="checkbox-margin extraFields" value="delegationLink"/>${placeholderWithTranslation.CSV_DELEGATION_LINK}<br>
                             <input type="checkbox" class="checkbox-margin extraFields" value="delegationUser"/>${placeholderWithTranslation.CSV_DELEGATION_USER}<br>
                             <input type="checkbox" class="checkbox-margin extraFields" value="delegationPassword"/>${placeholderWithTranslation.CSV_DELEGATION_PW}<br>
-                            <input type="checkbox" class="checkbox-margin extraFields" value="passwordResetLink"/>${placeholderWithTranslation.CSV_DELEGATION_PW_RESET_LINK}<br>
+                            <input type="checkbox" class="checkbox-margin extraFields" value="passwordResetLink"/>${placeholderWithTranslation.CSV_PW_RESET_LINK}<br>
                         </div>
                     </div>
 
