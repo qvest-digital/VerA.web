@@ -379,7 +379,6 @@ GENERIC_LABELLING_ALTERNATIVE=Jeu de caract\u00E8res alternative
 GENERIC_ADDRESS_ADDITIONAL=Compl\u00E9ment d\u2019adresse
 GENERIC_VIEW_CONFIG=configuration de la vue
 
-
 # ADMINISTRATION/REPORTS
 GENERIC_REPORTS=Rapports
 MESSAGE_WAITING_MESSAGE_LOG_REPORT=Selon la p\u00E9riode s\u00E9lectionn\u00E9e et le nombre r\u00E9sultant des donn\u00E9es, la g\u00E9n\u00E9ration du rapport peut prendre un certain temps. S\u2019il vous pla\u00EEt avoir un peu de patience.
