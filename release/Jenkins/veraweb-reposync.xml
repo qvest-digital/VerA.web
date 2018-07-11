@@ -14,11 +14,11 @@
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Build:tglase</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
       <permission>hudson.model.Item.Workspace:tglase</permission>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">

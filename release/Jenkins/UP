@@ -1,11 +1,14 @@
 #!/usr/bin/env mksh
-# needs root
+# needs root on remote system
+
+LC_ALL=C; export LC_ALL
+unset LANGUAGE
 
 set -e
 set -o pipefail
 cd "$(dirname "$0")"
 
-rm -f *.xml
+rm -f *.xml *~
 set +e
 print -r -- "cd /var/lib/jenkins/jobs; pax -w -s '!/config!!' -M dist veraweb*/config.xml" | \
     ssh -l root ci-busyapps.lan.tarent.de mksh | paxtar xvvf -
@@ -19,4 +22,20 @@ fi
 set -e
 for x in *.xml; do
 	echo >>"$x"
+	print -nr -- "I: Processing $x…"
+	while IFS= read -r line; do
+		print -r -- "$line"
+		[[ $line = '    <hudson.security.AuthorizationMatrixProperty>' ]] || \
+		    continue
+		while IFS= read -r line; do
+			[[ $line = '    </hudson.security.AuthorizationMatrixProperty>' ]] && \
+			    break
+			print -r -- "$line"
+		done | sort -u
+		print -r -- '    </hudson.security.AuthorizationMatrixProperty>'
+	done <"$x" >"$x~"
+	touch -r "$x" "$x~"
+	mv "$x~" "$x"
+	print " done."
 done
+print "I: All done, success."
