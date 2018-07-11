@@ -84,7 +84,6 @@ import javax.sql.DataSource
 import javax.ws.rs.container.ResourceContext
 import javax.ws.rs.core.MultivaluedHashMap
 import javax.ws.rs.core.Response
-import javax.ws.rs.core.UriInfo
 
 /**
  * Created by mweier on 26.04.16.
@@ -96,10 +95,10 @@ class ExportResourceTest extends Specification {
     Session session = Mock(Session)
     Transaction mockTxn = Mock(Transaction)
 
-    UriInfo uriInfo = Mock(UriInfo)
     Event event = Mock(Event)
     Query query = Mock(Query)
     MultivaluedHashMap<String, String> queryParameters = new MultivaluedHashMap<>()
+    MultivaluedHashMap<String, String> formParameters = new MultivaluedHashMap<>()
     OptionalFieldResource optionalFieldResource = Mock(OptionalFieldResource)
 
     private ExportResource exportResource
@@ -120,7 +119,6 @@ class ExportResourceTest extends Specification {
         query.uniqueResult() >> event
         event.getShortname() >> "Event 1"
         event.getDatebegin() >> new Date()
-        uriInfo.getQueryParameters() >> new MultivaluedHashMap<String, String>()
         resourceContext.getResource(OptionalFieldResource.class) >> optionalFieldResource
     }
 
@@ -131,7 +129,7 @@ class ExportResourceTest extends Specification {
         ]
 
         when:
-        Response response = exportResource.getGuestList(1, uriInfo, [])
+        Response response = exportResource.getGuestList(1, formParameters, [])
 
         then:
         assert response.status == VworConstants.HTTP_OK
@@ -146,7 +144,7 @@ class ExportResourceTest extends Specification {
         optionalFieldResource.getOptionalFields(_) >> []
 
         when:
-        Response response = exportResource.getGuestList(1, uriInfo, [])
+        Response response = exportResource.getGuestList(1, formParameters, [])
 
         then:
         assert response.status == VworConstants.HTTP_OK
