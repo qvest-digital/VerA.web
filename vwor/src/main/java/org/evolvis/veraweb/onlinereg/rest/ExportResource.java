@@ -85,7 +85,6 @@ import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
-import javax.ws.rs.core.UriInfo;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -115,11 +114,11 @@ public class ExportResource extends AbstractResource {
         }
     }
 
-    @GET
+    @POST
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId,
-                                 @javax.ws.rs.core.Context UriInfo ui,
-                                 @QueryParam("selectedFields[]") List<String> selList)
+                                 MultivaluedMap<String, String> params,
+                                 @FormParam("selectedFields[]") List<String> selList)
             throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
@@ -133,7 +132,6 @@ public class ExportResource extends AbstractResource {
         properties.setProperty("event.shortname", event.getShortname());
         properties.setProperty("event.begin", String.valueOf(event.getDatebegin().getTime()));
 
-        final MultivaluedMap<String, String> params = ui.getQueryParameters();
         params.keySet().forEach(key -> properties.setProperty(key, params.getFirst(key)));
 
         Map<String, String> filterSettings = new HashMap<>();

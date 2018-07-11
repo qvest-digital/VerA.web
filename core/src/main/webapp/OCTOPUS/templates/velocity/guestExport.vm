@@ -537,7 +537,7 @@ $(function () {
                 'oa.path.event': '$url.urlForFreeVisitors',
                 'oa.path.passwordReset': '$url.urlForPasswordReset'
             },
-            type: 'GET',
+            type: 'POST',
             success: function(response, status, xhr) {
                 var filename = "";
                 var disposition = xhr.getResponseHeader('Content-Disposition');
