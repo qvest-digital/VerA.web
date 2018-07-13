@@ -5,7 +5,7 @@ import org.springframework.util.StringUtils;
 public enum ValidExportFilter {
 
     CATEGORY_ID_FILTER("filterCategoryId", "[0-9]{1,20}", "g.fk_category = ?"),
-    SEARCHWORD_FILTER("filterWord", "[0-9a-zA-Z]{1,50}", "(p.firstname_a_e1 = '?' OR p.lastname_a_e1 = '?')"),//TODO expand and modify to expected search word filtering
+    SEARCHWORD_FILTER("filterWord", "[0-9a-zA-Z]{1,50}", "(p.firstname_a_e1 = ? OR p.lastname_a_e1 = ?)"),//TODO expand and modify to expected search word filtering
     INVITATIONSTATUS_FILTER("filterInvStatus", "[0-9]", "g.invitationstatus = ?"),
     RESERVE_FILTER("filterReserve", "[0-1]", "g.reserve = ?");
 
