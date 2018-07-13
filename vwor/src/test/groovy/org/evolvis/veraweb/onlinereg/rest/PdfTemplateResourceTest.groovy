@@ -400,7 +400,7 @@ class PdfTemplateResourceTest extends Specification {
                     " AND g.reserve = :filterReserve" +
                     " AND g.invitationstatus = :filterInvStatus" +
                     " AND g.fk_category = :filterCategoryId" +
-                    " AND (p.firstname_a_e1 = ':filterWord' OR p.lastname_a_e1 = ':filterWord')" +
+                    " AND (p.firstname_a_e1 = :filterWord OR p.lastname_a_e1 = :filterWord)" +
                     " ORDER BY p.lastname_a_e1 ASC "
     }
 

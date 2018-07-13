@@ -103,9 +103,13 @@ public class ExtractorQueryBuilder {
     private String applyFilterSettings(String sql) {
         StringBuilder sqlWithAdditionalFilters = new StringBuilder(sql);
         for (Map.Entry<String, String> entry : filterSettings.entrySet()) {
+            String s = ValidExportFilter.buildDBPathPartial(entry.getKey(), entry.getValue());
+            if (entry.getKey().equals(ValidExportFilter.SEARCHWORD_FILTER.key)){
+                s = s.replaceAll(entry.getValue(), "'"+entry.getValue()+"'");
+            }
             sqlWithAdditionalFilters
                     .append(" AND ")
-                    .append(ValidExportFilter.buildDBPathPartial(entry.getKey(), entry.getValue()));
+                    .append(s);
         }
         return sqlWithAdditionalFilters.toString();
     }
