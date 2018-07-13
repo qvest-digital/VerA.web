@@ -337,13 +337,14 @@ public class StatistikWorker {
           from("veraweb.tevent").
           joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
           joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
+          joinLeftOuter("veraweb.tlocation", "tevent.fk_location", "tlocation.pk").
           selectAs("tguest.pk", "subhead").
           selectAs("tguest.fk_person", "person").
           selectAs("tperson.lastname_a_e1", "lastname").
           selectAs("tperson.firstname_a_e1", "firstname").
           selectAs("tperson.function_a_e1", "function").
           selectAs("tevent.shortname", "shortname").
-          selectAs("tevent.fk_location", "location").
+          selectAs("tlocation.locationname", "location").
           selectAs("tevent.datebegin", "datebegin").
           selectAs(zusagen, "zusagen").
           orderBy(Order.asc("tperson.lastname_a_e1").andAsc("tperson.firstname_a_e1").andAsc("tevent.datebegin"));
@@ -367,13 +368,14 @@ public class StatistikWorker {
           from("veraweb.tguest").
           joinLeftOuter("veraweb.tevent", "fk_event", "tevent.pk").
           joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
+          joinLeftOuter("veraweb.tlocation", "tevent.fk_location", "tlocation.pk").
           selectAs("tguest.fk_person", "subhead").
           selectAs("tguest.fk_person", "person").
           selectAs("tperson.lastname_a_e1", "lastname").
           selectAs("tperson.firstname_a_e1", "firstname").
           selectAs("tperson.function_a_e1", "function").
           selectAs("tevent.shortname", "shortname").
-          selectAs("tevent.fk_location", "shortname").
+          selectAs("tlocation.locationname", "location").
           selectAs("tevent.datebegin", "datebegin").
           selectAs("tguest.invitationtype", "invitationtype").
           selectAs("tguest.invitationstatus", "invitationstatus").
@@ -399,7 +401,8 @@ public class StatistikWorker {
           from("veraweb.tevent").
           joinLeftOuter("veraweb.tguest", "tevent.pk", "tguest.fk_event AND tguest.ishost = 1").
           joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk").
-          selectAs("tevent.fk_location", "location").
+          joinLeftOuter("veraweb.tlocation", "tevent.fk_location", "tlocation.pk").
+          selectAs("tlocation.locationname", "location").
           selectAs("tevent.shortname", "shortname").
           selectAs("tperson.lastname_a_e1", "lastname").
           selectAs("tperson.firstname_a_e1", "firstname").
