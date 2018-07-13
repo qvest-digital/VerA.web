@@ -334,7 +334,7 @@
                                                                         $(".errormsg").remove();
                                                                         $(".successmsg").remove();
                                                                         ## Bug 1
-                                                                        showSuccess('placeholderWithTranslation.GENERIC_NO_GUESTLIST_DELETED');
+                                                                        showSuccess('${placeholderWithTranslation.GENERIC_NO_GUESTLIST_DELETED}');
                                                                         $('input:checkbox').prop('disabled', false);
 
                                                                 },
