@@ -112,7 +112,7 @@ public class CsvExporter {
     public void export(Map<String, String> substitutions, Map<String, String> filterSettings) {
         final ExtractorQuery query =
                 template.replace(substitutions)
-                        .setFilters(filterSettings)
+                        .setFilters(filterSettings) //do not change without checking for SQL injection
                         .build();
         extractor.run(io, query);
     }
