@@ -119,6 +119,7 @@ public class ExtractorQueryBuilder {
         return this;
     }
 
+    //do not change without checking for SQL injection
     public ExtractorQueryBuilder setFilters(Map<String, String> filterSettings) {
         filterSettings.entrySet()
                 .stream()
