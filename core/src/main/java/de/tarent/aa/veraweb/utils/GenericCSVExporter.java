@@ -357,7 +357,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
             return super.getCategoriesFromDB();
         }
         // keine Kategorien
-        if (this.categoryId != null && this.categoryId == 0) {
+        if (this.categoryId != null && this.categoryId == -1) {
             return null;
         }
 
