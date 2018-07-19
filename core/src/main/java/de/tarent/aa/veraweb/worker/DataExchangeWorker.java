@@ -311,8 +311,8 @@ public class DataExchangeWorker {
 
                     // Beschränkung auf Kategorie, wenn Benutzer eine ausgewählt hat
                     Integer categoryId = null;
-                    if (EXPORT_FILTER_CATEGORY.equals(filter)) {
-                        // category == 0 bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
+                    if (EXPORT_FILTER_CATEGORY.equals(filter) && category > 0) {
+                        // category == 0 (wird intern zu null) bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
                         categoryId = category;
                     }
 
@@ -325,10 +325,10 @@ public class DataExchangeWorker {
                     // Dann exportieren
                     exporter.startExport();
                     if (EXPORT_FILTER_EVENT.equals(filter)) {
-                        // event == 0 bedeutet: in irgendeiner Veranstaltung, = -1 bedeutet: in keiner Veranstaltung
+                        // event == 0 (wird intern zu null) bedeutet: in irgendeiner Veranstaltung, = -1 bedeutet: in keiner Veranstaltung
                         exportEvent(database, event, exporter, orgUnit);
                     } else if (EXPORT_FILTER_CATEGORY.equals(filter)) {
-                        // category == 0 bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
+                        // category == 0 (wird intern zu null) bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
                         exportCategory(database, category, exporter, orgUnit);
                     } else {
                         // guter Default?
