@@ -201,6 +201,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
         final Map<Integer, Map> result = getUserData(database, personList);
 
+        addCategoriesToPersonList(octopusContext, result);
+
         octopusContext.setContent(OUTPUT_getSelection, getSelection(octopusContext, getCount(octopusContext, database)));
 
         octopusContext.setContent("deleted", octopusContext.getRequestObject().getParamAsInt("deleted"));
@@ -211,6 +213,18 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
         return new ArrayList(result.values());
     }
+
+    private void addCategoriesToPersonList(OctopusContext octopusContext, Map<Integer, Map> result) throws BeanException, IOException {
+        for (Integer key : result.keySet()) {
+            String personId = result.get(key).get("id").toString();
+            int newPersonId = Integer.parseInt(personId);
+
+            GuestListWorker guestListWorker = new GuestListWorker();
+            String personCategory = guestListWorker.getPersonCategoriesList(newPersonId, octopusContext);
+            result.get(key).put("persontCategoryName", personCategory);
+        }
+    }
+
 
     /**
      * Octopus-Eingabe-Parameter für {@link #countRecipients(OctopusContext)}

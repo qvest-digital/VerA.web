@@ -484,6 +484,7 @@
                                                                     #end
                                                                  </th>
 
+
                                                                 #if($userConfig.guestLfdNr == 'true')
                                                                 <th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
                                                                         #if($search.listorder && $search.listorder == "orderno")
@@ -585,6 +586,9 @@
                                                         #if($userConfig.guestListPhone == 'true')
                                                                         <th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
                                                         #end
+                                                        #if($userConfig.guestCategory == 'true')
+                                                            <th style="padding: 10px">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</th>
+                                                        #end
 
                                                 #if($userConfig.guestMainPerson == 'true')
                                                 <th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</span></th>
@@ -615,6 +619,8 @@
                                                                 <input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
                                                         </td>
                                                         <input type="hidden" name="${bean.id}-id" value="$bean.id">
+
+
                                                         #if($userConfig.guestLfdNr == 'true')
                                                         <td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
                                                                 #if($bean.ishost && $bean.ishost == 1)
@@ -726,6 +732,9 @@
                                                                 #if($userConfig.guestListPhone == 'true')
                                                                         <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
                                                                 #end
+                                                            #if($userConfig.guestCategory == 'true')
+                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($!bean.guestDetailCatName)</td>
+                                                            #end
 
                                                                 #if($userConfig.guestMainPerson == 'true')
                                                                 <td class="textCenter">

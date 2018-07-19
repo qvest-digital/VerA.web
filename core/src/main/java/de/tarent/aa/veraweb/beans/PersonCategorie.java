@@ -116,4 +116,53 @@ public class PersonCategorie extends AbstractBean {
             addError(messages.getMessagePersonCategoryNoConnectionPersonCategory());
         }
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getPerson() {
+        return person;
+    }
+
+    public void setPerson(Integer person) {
+        this.person = person;
+    }
+
+    public Integer getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Integer categorie) {
+        this.categorie = categorie;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public Integer getFlags() {
+        return flags;
+    }
+
+    public void setFlags(Integer flags) {
+        this.flags = flags;
+    }
+
 }

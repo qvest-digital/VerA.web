@@ -68,9 +68,7 @@ package de.tarent.aa.veraweb.worker;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.Guest;
-import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.*;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.*;
 import de.tarent.dblayer.engine.DB;
@@ -461,9 +459,65 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             Guest guest = guestDetailWorker.getGuest(cntx, newevent, newguest, null);
 
             modifiedList.get(i).put("personId", guest.person);
+            modifiedList.get(i).put("guestDetailCatName", getPersonCategoriesList(guest.person, cntx));
         }
+
         return modifiedList;
     }
+
+    public String getPersonCategoriesList(Integer personId, OctopusContext octopusContext)
+            throws BeanException, IOException {
+        String catName= "";
+        final Database database = getDatabase(octopusContext);
+        final List<Categorie> categories = database.getBeanList("Categorie",
+                database.getSelect("Categorie").
+                        joinLeftOuter("tperson_categorie", "tcategorie.pk", "tperson_categorie.fk_categorie").
+                        joinLeftOuter("tperson", "tperson_categorie.fk_person", "tperson.pk").
+                        whereAndEq("tperson.pk", personId).
+                        orderBy(null));
+
+        final List<PersonCategorie> categoriesPerson = database.getBeanList("PersonCategorie",
+                database.getSelect("PersonCategorie").
+                        whereAndEq("fk_person", personId).
+                        orderBy(Order.asc("tperson_categorie.fk_person").andAsc("tperson_categorie.rank")));
+
+
+        List<PersonCategorie> newPersonCategorieList = new ArrayList<>();
+        /** Get Categorie fk_id & original rank*/
+        if (categoriesPerson != null) {
+            for (int i=0; i < categoriesPerson.size(); i++) {
+                Integer rank = categoriesPerson.get(i).rank;
+                Integer categorie = categoriesPerson.get(i).categorie;
+                PersonCategorie personCategorie = new PersonCategorie();
+                personCategorie.rank = rank;
+                personCategorie.categorie = categorie;
+                newPersonCategorieList.add(personCategorie);
+            }
+        }
+
+        String rankOneCatId = "";
+
+        for (int i=0; i < newPersonCategorieList.size(); i++) {
+            if (newPersonCategorieList.get(i).rank != null) {
+                rankOneCatId = newPersonCategorieList.get(i).categorie.toString();
+                break;
+            }
+            if(newPersonCategorieList.size() == i+1) {
+                rankOneCatId = newPersonCategorieList.get(0).categorie.toString();
+            }
+        }
+
+        if (!categories.isEmpty()) {
+            for(int i=0; i < categories.size(); i++) {
+                if (categories.get(i).id.toString().equals(rankOneCatId)) {
+                    catName = categories.get(i).name;
+                }
+            }
+        }
+
+        return catName;
+    }
+
 
     private List getAllGuests(Database database, Select select) throws BeanException {
         final ResultList allResults = database.getList(select, database);
