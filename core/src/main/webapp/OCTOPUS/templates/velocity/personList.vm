@@ -44,35 +44,9 @@
         #set($activeMenu = "Personen")
         #set($title = "${placeholderWithTranslation.BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA}")
 
-        ##Values in per cent for table columns width
-        #set($column0 = 3)
-        #set($column1 = 5)
-        #set($column3 = 12)
-        #set($column4 = 13)
-        #set($column5 = 13)
-        #set($column6 = 9)
-        #set($column7 = 14)
-        #set($column8 = 18)
-        #set($column9 = 7)
-        #set($column10 = 13)
-        #set($column11 = 0)
-
 #elseif($action == "duplicateSearch")
         #set($activeMenu = "Personen")
         #set($title = "${placeholderWithTranslation.BROWSER_TITLE_DUPLICATE_SEARCH}")
-
-        ##Values in per cent for table columns width
-        #set($column0 = 3)
-        #set($column1 = 5)
-        #set($column3 = 12)
-        #set($column4 = 11)
-        #set($column5 = 11)
-        #set($column6 = 9)
-        #set($column7 = 14)
-        #set($column8 = 18)
-        #set($column9 = 7)
-        #set($column10 = 13)
-        #set($column11 = 0)
 
 #elseif($action == "taskReferencePerson")
         #set($activeMenu = "Veranstaltungen")
@@ -93,19 +67,6 @@
 
 #else
         #set($activeMenu = "Personen")
-
-        ##Values in per cent for table columns width
-        #set($column0 = 3)
-        #set($column1 = 5)
-        #set($column3 = 12)
-        #set($column4 = 13)
-        #set($column5 = 13)
-        #set($column6 = 9)
-        #set($column7 = 14)
-        #set($column8 = 18)
-        #set($column9 = 7)
-        #set($column10 = 13)
-        #set($column11 = 0)
 
         #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
                 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_DELETE}")
@@ -835,9 +796,21 @@ i                                                       ${placeholderWithTransla
                                                                 #end
                                                         </a></th>
                                                         #end
-                                                        #if($userConfig.personCategory == 'true')
-                                                            <th style="color:#1B1B1B; padding:10px;">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</th>
-                                                        #end
+
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <th><a href="javascript:orderPersonList('personCategory');"
+                                                            #if($search.listorder && $search.listorder == "personCategory")
+                                                               style="color: #000000;"
+                                                            #end
+                                                                >${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
+                                                            #if($search.listorder && $search.listorder == 'personCategory')
+                                                                #showSortArrows($search.sortDirection)
+                                                            #else
+                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                            #end
+                                                            </a></th>
+                                                    #end
+
                                                 </tr>
                                         #elseif($action == "host")
                                                 <tr>
@@ -873,6 +846,20 @@ i                                                       ${placeholderWithTransla
                                             #if($userConfig.personListState == 'true')
                                                 <th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
                                             #end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <th><a href="javascript:orderPersonList('personCategory');"
+                                                            #if($search.listorder && $search.listorder == "personCategory")
+                                                               style="color: #000000;"
+                                                            #end
+                                                                >${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
+                                                            #if($search.listorder && $search.listorder == 'personCategory')
+                                                                #showSortArrows($search.sortDirection)
+                                                            #else
+                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                            #end
+                                                            </a></th>
+                                                    #end
+
                                                 </tr>
                                         #elseif($action == "statistikHost")
                                                 <tr>
@@ -889,7 +876,21 @@ i                                                       ${placeholderWithTransla
                                                                 ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
                                             #if($userConfig.personCity == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}
                                                                 ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
-                                                        #if($userConfig.personListState == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
+                                            #if($userConfig.personListState == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <th><a href="javascript:orderPersonList('personCategory');"
+                                                            #if($search.listorder && $search.listorder == "personCategory")
+                                                               style="color: #000000;"
+                                                            #end
+                                                                >${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
+                                                            #if($search.listorder && $search.listorder == 'personCategory')
+                                                                #showSortArrows($search.sortDirection)
+                                                            #else
+                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                            #end
+                                                            </a></th>
+                                            #end
+
                                                 </tr>
                                         #elseif($action == "statistikGuest")
                                                 <tr>
@@ -907,6 +908,20 @@ i                                                       ${placeholderWithTransla
                                             #if($userConfig.personCity == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}#end
                                                                 ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
                                             #if($userConfig.personListState == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <th><a href="javascript:orderPersonList('personCategory');"
+                                                            #if($search.listorder && $search.listorder == "personCategory")
+                                                               style="color: #000000;"
+                                                            #end
+                                                                >${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
+                                                            #if($search.listorder && $search.listorder == 'personCategory')
+                                                                #showSortArrows($search.sortDirection)
+                                                            #else
+                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                            #end
+                                                            </a></th>
+                                                    #end
+
                                                 </tr>
                                         #elseif($action == "taskReferencePerson")
                                                 <tr>
@@ -1019,6 +1034,20 @@ i                                                       ${placeholderWithTransla
                                                                 #end
                                                         </a></th>
                                                         #end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <th><a href="javascript:orderPersonList('personCategory');"
+                                                            #if($search.listorder && $search.listorder == "personCategory")
+                                                               style="color: #000000;"
+                                                            #end
+                                                                >${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
+                                                            #if($search.listorder && $search.listorder == 'personCategory')
+                                                                #showSortArrows($search.sortDirection)
+                                                            #else
+                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                            #end
+                                                            </a></th>
+                                                    #end
+
                                                 </tr>
                                         #elseif($action == "duplicateSearch")
                                                 ## modified for duplicate search as per change request for version 1.2.0
@@ -1044,7 +1073,21 @@ i                                                       ${placeholderWithTransla
                                             #if($userConfig.personCity == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}
                                                                 ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
                                             #if($userConfig.personListState == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
-                                                </tr>
+                                            #if($userConfig.personCategory == 'true')
+                                                <th><a href="javascript:orderPersonList('personCategory');"
+                                                    #if($search.listorder && $search.listorder == "personCategory")
+                                                       style="color: #000000;"
+                                                    #end
+                                                >${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
+                                                    #if($search.listorder && $search.listorder == 'personCategory')
+                                                        #showSortArrows($search.sortDirection)
+                                                    #else
+                                                        <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                    #end
+                                                </a></th>
+                                            #end
+
+                                            </tr>
                                         #else
                                                 <tr>
                                                         #if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
@@ -1196,6 +1239,9 @@ i                                                       ${placeholderWithTransla
                                                                         #end
                                                         </a></th>
                                                         #end
+                                                        #if($userConfig.personCategory == 'true')
+                                                            <th style="color:#1B1B1B; padding:10px;">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</th>
+                                                        #end
                                                 </tr>
                                         #end
 
@@ -1258,33 +1304,7 @@ i                                                       ${placeholderWithTransla
                                                                     <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.company_a_e1)</td>
                                                                 #end
                                                                 #if($userConfig.personCategory == 'true')
-                                                                <td>
-                                                                        ## 2009-05-13 cklein
-                                                                        ## fixes issue #1531
-                                                                        #set($cats = $personCategorie.getList($bean.id))
-                                                                        #set($size = $cats.size())
-                                                                        #set( $found=0 )
-                                                                        #if( $search.categoriesSelection.size() == 1 )
-                                                                                #foreach( $cat in $cats )
-                                                                                        #if( $search.categoriesSelection.get( 0 ) == $cat.categorie )
-                                                                                                #set( $found=$cat.categorie )
-                                                                                        #end
-                                                                                #end
-                                                                        #end
-                                                                        <select name="$!{bean.id}-category" id="$!{bean.id}-category">
-                                                                                #if( $size == 0 || ( $size > 1 && $search.categoriesSelection.size() > 1 ) || ( $search.categoriesSelection.size() == 1 && $found == 0 ) )
-                                                                                        <option value="" selected>${placeholderWithTranslation.keine}</option>
-                                                                                #else
-                                                                                        <option value="">${placeholderWithTranslation.keine}</option>
-                                                                                #end
-                                                                                #if( $size == 1 )
-                                                                                        #set( $found = $cats.get( 0 ).categorie )
-                                                                                #end
-                                                                                #foreach($cat in $cats)
-                                                                                        <option value="$!cat.categorie" #if($cat.categorie == $found || $size == 1) selected #end>$!message.text($!cat.name)</option>
-                                                                                #end
-                                                                        </select>
-                                                                </td>
+                                                                    <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
                                                                 #end
                                                         </tr>
                                                 #elseif($action == "host")
@@ -1316,6 +1336,9 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personListState == 'true')
                                                         <td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>
                                                     #end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                    #end
                                                         </tr>
                                                 #elseif($action == "statistikHost")
                                                         <tr>
@@ -1346,6 +1369,9 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personListState == 'true')
                                                         <td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>
                                                     #end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <td onclick="window.open('StatistikExport?id=$!{bean.id}');" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                    #end
                                                         </tr>
                                                 #elseif($action == "statistikGuest")
                                                         <tr>
@@ -1358,6 +1384,10 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personPostCode == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.zipcode_a_e1)</td>#end
                                                     #if($userConfig.personCity == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>#end
                                                     #if($userConfig.personListState == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <td onclick="window.open('StatistikExport?id=$!{bean.id}');" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                    #end
+
                                                         </tr>
                                                 #elseif($action == "taskReferencePerson")
                                                         #if($taskId && $taskId != "")
@@ -1376,6 +1406,9 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personPostCode == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.zipcode_a_e1)</td>#end
                                                     #if($userConfig.personCity == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>#end
                                                     #if($userConfig.personListState == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <td onclick="window.location.href='$clickUrl';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                    #end
                                                         </tr>
 
                                                 #elseif($action == "duplicateSearch" )
@@ -1415,6 +1448,9 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personPostCode == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.zipcode_a_e1)</td>#end
                                                     #if($userConfig.personCity == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.city_a_e1)</td>#end
                                                     #if($userConfig.personListState == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.state_a_e1)</td>#end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                    #end
                                                         </tr>
                                                 #else
                                                         <tr>
@@ -1442,12 +1478,15 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personPostCode == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.zipcode_a_e1)</td>#end
                                                     #if($userConfig.personCity == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.city_a_e1)</td>#end
                                                     #if($userConfig.personListState == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.state_a_e1)</td>#end
+                                                    #if($userConfig.personCategory == 'true')
+                                                        <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                    #end
                                                         </tr>
                                                 #end
                                         #end
 
                                         #set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-                                        #tableFooter(11)
+                                        #tableFooter(20)
                                         #parse("inc/list-direct-new.vm")
                                 </table>
                         </div>
