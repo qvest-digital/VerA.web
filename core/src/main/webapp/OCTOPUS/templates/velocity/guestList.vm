@@ -6,15 +6,36 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
 
 ##Values in per cent for table columns width
-#set($column0 = 3)
-#set($column1 = 8)
-#set($column3 = 4)
-#set($column4 = 20)
-#set($column5 = 20)
-#set($column6 = 20)
-#set($column7 = 20)
-#set($column8 = 13)
-#set($column9 = 13)
+## select-field
+#set($column0 = '14px')
+## laufende Nummer
+#set($column1_minwidth = '5%')
+## interne Id
+#set($column2_minwidth = '5%')
+## Reserve (R)
+#set($column3_width = '4%')
+## company
+#set($column4_minwidth = '15%')
+## lastname
+#set($column5_minwidth = '15%')
+## firstname
+#set($column6_minwidth = '15%')
+## email
+#set($column7_minwidth = '15%')
+## function
+#set($column8_minwidth = '10%')
+## postcode/city
+#set($column9_minwidth = '5%')
+## phone
+#set($column10_minwidth = '5%')
+## category
+#set($column11_minwidth = '5%')
+## main person
+#set($column12_minwidth = '70px')
+#set($column12_maxwidth = '13%')
+## partner
+#set($column13_minwidth = '70px')
+#set($column13_maxwidth = '13%')
 
 #parse("inc/header.vm")
 #set($basicEventLinkSuffix = '')
@@ -467,18 +488,10 @@
                                 <div id="guestListWrapper">
                                         <table class="sortable">
                                                 ##Set column size
-                                                <col width="$column0%" />
-                                                <col width="$column1%" />
-                                                <col width="$column3%" />
-                                                <col width="$column4%" />
-                                                <col width="$column5%" />
-                                                <col width="$column6%" />
-                                                <col width="$column7%" />
-                                                <col width="$column8%" />
-                                                <col width="$column9%" />
+
                                                 <tr >
                                                         <!-- BEGIN OF COLUMNS TO ORDER -->
-                                                                <th class="textCenter smallCell">
+                                                                <th class="textCenter smallCell" style="width: $column0">
                                                                     #if($basicEventId != 'noBasicEvent')
                                                                        <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
                                                                     #end
@@ -612,7 +625,7 @@
                                                 #set($offset0 = $offset - 1)
 
                                                 <tr id="row-${offset0}">
-                                                        <td class="textCenter smallCell">
+                                                        <td class="textCenter smallCell" style="width: $column0">
                                                                 <input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
                                                                 <input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}">
                                                                 <img title="ich bin eine tolle Überschrift" src="${paths.staticWeb}images/checked_disabled.png" class="invisible invisibleselector"/>
@@ -622,7 +635,7 @@
 
 
                                                         #if($userConfig.guestLfdNr == 'true')
-                                                        <td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
+                                                        <td style="min-width:$column1_minwidth; max-width: 15%; cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
                                                                 #if($bean.ishost && $bean.ishost == 1)
                                                                         <em>${placeholderWithTranslation.GENERIC_HOST}</em>
                                                                 #elseif($bean.someorderno)
@@ -635,48 +648,61 @@
 
                                                         #if($userConfig.guestInternalId == 'true')
                                                                 #if($bean.internal_id != "")
-                                                                    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">$bean.internal_id</td>
+                                                                    <td  onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">$bean.internal_id</td>
                                                                 #else
-                                                                    <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">&nbsp;</td>
+                                                                    <td style="min-width: $column2_minwidth; max-width: 10%" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">&nbsp;</td>
                                                                 #end
                                                         #end
 
                                                         #if($userConfig.guestReserve == 'true')
                                                                 #if($bean.reserve == 1)
-                                                                        <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
+                                                                        <td style="width: $column3_width" class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
                                                                 #else
-                                                                        <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
+                                                                        <td style="max-width: 3%" class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
                                                                 #end
                                                         #end
 
                                                         #if($userConfig.guestCompany == 'true')
                                                                 #if($bean.company_a_e1 != "")
-                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
+                                                                        <td style="min-width: $column4_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
                                                                 #else
-                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
+                                                                        <td style="min-width: $column4_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
                                                                 #end
                                                         #end
 
                                                         #if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
+                                                                #if($userConfig.guestLastname == 'true')
+                                                                    <td></td>
+                                                                #end
+                                                                #if($userConfig.guestFirstname == 'true')
+                                                                    <td></td>
+                                                                #end
+                                                                #if($userConfig.guestEmail == 'true')
+                                                                    <td></td>
+                                                                #end
                                                                 #if($userConfig.guestListFunction == 'true')
-                                                                        <td></td>
+                                                                    <td></td>
                                                                 #end
 
                                                                 #if($userConfig.guestListCity == 'true')
-                                                                        <td></td>
+                                                                    <td></td>
                                                                 #end
 
                                                                 #if($userConfig.guestListPhone == 'true')
-                                                                        <td></td>
+                                                                    <td></td>
                                                                 #end
+                                                                #if($userConfig.guestCategory == 'true')
                                                                 <td></td>
-                                                                <td></td>
+                                                                #end
+                                                                #if($userConfig.guestMainPerson == 'true')
+                                                                    <td></td>
+                                                                #end
+                                                                #if($userConfig.guestPartner == 'true')
+                                                                    <td></td>
+                                                                #end
                                                         #else
                                                                 #if($userConfig.guestLastname == 'true')
-                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
+                                                                <td style="min-width: $column5_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
                                                                         #if($bean.invitationtype != 3)
                                                                                 #if($bean.showdoctype)
                                                                                         $!message.plain($bean.lastname_a_gd)
@@ -694,7 +720,7 @@
                                                                 #end
 
                                                                 #if($userConfig.guestFirstname == 'true')
-                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
+                                                                <td style="min-width: $column6_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
                                                                         #if($bean.invitationtype != 3)
                                                                                 #if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
                                                                         #else
@@ -704,7 +730,7 @@
                                                                 #end
 
                                                                 #if($userConfig.guestEmail == 'true')
-                                                                <td class="textCenter">
+                                                                <td style="min-width: $column7_minwidth;" class="textCenter">
                                                                         <div class="cutOff">
                                                                                 #if($bean.showdoctype)
                                                                                         #if($bean.mail_a_gd.length() > 0)
@@ -724,20 +750,20 @@
                                                                 #end
 
                                                                 #if($userConfig.guestListFunction == 'true')
-                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
+                                                                        <td style="min-width: $column8_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
                                                                 #end
                                                                 #if($userConfig.guestListCity == 'true')
-                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
+                                                                        <td style="min-width: $column9_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
                                                                 #end
                                                                 #if($userConfig.guestListPhone == 'true')
-                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
+                                                                        <td style="min-width: $column10_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
                                                                 #end
-                                                            #if($userConfig.guestCategory == 'true')
-                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($!bean.guestDetailCatName)</td>
-                                                            #end
+                                                                #if($userConfig.guestCategory == 'true')
+                                                                    <td style="min-width: $column11_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($!bean.guestDetailCatName)</td>
+                                                                #end
 
                                                                 #if($userConfig.guestMainPerson == 'true')
-                                                                <td class="textCenter">
+                                                                <td style="min-width: $column12_minwidth; max-width: $column12_maxwidth;" class="textCenter">
                                                                         #if($bean.invitationtype != 3)
                                                                                 #if($grants.mayWrite() && $basicEventId == 'noBasicEvent')
                                                                                 <select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
@@ -764,7 +790,7 @@
                                                                 #end
 
                                                                 #if($userConfig.guestPartner == 'true')
-                                                                <td class="textCenter">
+                                                                <td style="min-width: $column13_minwidth; max-width: $column13_maxwidth;" class="textCenter">
                                                                         #if($bean.invitationtype != 2)
                                                                                 #if($grants.mayWrite())
                                                                                         <select name="${bean.id}-invitationstatus_b" onchange="setModified('${bean.id}')">
