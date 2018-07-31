@@ -459,62 +459,20 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             Guest guest = guestDetailWorker.getGuest(cntx, newevent, newguest, null);
 
             modifiedList.get(i).put("personId", guest.person);
-            modifiedList.get(i).put("guestDetailCatName", getPersonCategoriesList(guest.person, cntx));
+            modifiedList.get(i).put("guestDetailCatName", getGuestCategory(guest.category, cntx));
         }
 
         return modifiedList;
     }
 
-    public String getPersonCategoriesList(Integer personId, OctopusContext octopusContext)
+    public String getGuestCategory(Integer catId, OctopusContext octopusContext)
             throws BeanException, IOException {
         String catName= "";
         final Database database = getDatabase(octopusContext);
-        final List<Categorie> categories = database.getBeanList("Categorie",
-                database.getSelect("Categorie").
-                        joinLeftOuter("tperson_categorie", "tcategorie.pk", "tperson_categorie.fk_categorie").
-                        joinLeftOuter("tperson", "tperson_categorie.fk_person", "tperson.pk").
-                        whereAndEq("tperson.pk", personId).
-                        orderBy(null));
-
-        final List<PersonCategorie> categoriesPerson = database.getBeanList("PersonCategorie",
-                database.getSelect("PersonCategorie").
-                        whereAndEq("fk_person", personId).
-                        orderBy(Order.asc("tperson_categorie.fk_person").andAsc("tperson_categorie.rank")));
-
-
-        List<PersonCategorie> newPersonCategorieList = new ArrayList<>();
-        /** Get Categorie fk_id & original rank*/
-        if (categoriesPerson != null) {
-            for (int i=0; i < categoriesPerson.size(); i++) {
-                Integer rank = categoriesPerson.get(i).rank;
-                Integer categorie = categoriesPerson.get(i).categorie;
-                PersonCategorie personCategorie = new PersonCategorie();
-                personCategorie.rank = rank;
-                personCategorie.categorie = categorie;
-                newPersonCategorieList.add(personCategorie);
-            }
+        Categorie categorie = (Categorie) database.getBean("Categorie", catId);
+        if (categorie != null) {
+            catName = categorie.name;
         }
-
-        String rankOneCatId = "";
-
-        for (int i=0; i < newPersonCategorieList.size(); i++) {
-            if (newPersonCategorieList.get(i).rank != null) {
-                rankOneCatId = newPersonCategorieList.get(i).categorie.toString();
-                break;
-            }
-            if(newPersonCategorieList.size() == i+1) {
-                rankOneCatId = newPersonCategorieList.get(0).categorie.toString();
-            }
-        }
-
-        if (!categories.isEmpty()) {
-            for(int i=0; i < categories.size(); i++) {
-                if (categories.get(i).id.toString().equals(rankOneCatId)) {
-                    catName = categories.get(i).name;
-                }
-            }
-        }
-
         return catName;
     }
 

@@ -376,10 +376,6 @@ public class GuestDetailWorker extends GuestListWorker {
                         joinLeftOuter("tperson", "tperson_categorie.fk_person", "tperson.pk").
                         whereAndEq("tperson.pk", personId).
                         orderBy(null));
-        GuestListWorker guestListWorker = new GuestListWorker();
-        String personCategoriesList = guestListWorker.getPersonCategoriesList(personId, octopusContext);
-
-        octopusContext.setContent("personCatNameRank", personCategoriesList);
         octopusContext.setContent("personCategories", categories);
     }
 

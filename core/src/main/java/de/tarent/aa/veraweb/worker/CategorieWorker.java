@@ -173,7 +173,7 @@ public class CategorieWorker extends StammdatenWorker {
         }
 
         //        super.getAll(octopusContext);
-        if (cntx.getTaskName().equals("ShowGuestDetail")){
+        if (cntx.getTaskName().equals("ShowGuestDetail") || cntx.getTaskName().equals("ShowGuestList")){
             getAllAvailableEventCategoriesForGuestList(cntx);
         } else {
             getAllAvailableEventCategories(cntx);
