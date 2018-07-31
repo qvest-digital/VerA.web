@@ -6,6 +6,15 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
 #parse("inc/header.vm")
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.chosen-select').chosen({
+            max_shown_results: 10,
+            width: 500
+        });
+    });
+</script>
+
 #set($basicEventLinkSuffix = '')
 #if($basicEventId && $basicEventId != 'noBasicEvent')
     #set($basicEventLinkSuffix = "&basicEvent=${basicEventId}")
@@ -156,9 +165,9 @@
                                 <div class="tableRow">
                                     <div class="tableCell paddingTop10">
                                         <label for="guest-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}:</label>
-                                        <select name="guest-category" id="guest-category" onchange="setModified('categorie')">
+                                        <select class="chosen-select" name="guest-category" id="guest-category" onchange="setModified('categorie')">
                                             <option value="0">${placeholderWithTranslation.GENERIC_NONE}</option>
-                                            #foreach($category in $personCategories)
+                                            #foreach($category in $allCategorie)
                                                 <option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
                                             #end
                                         </select>

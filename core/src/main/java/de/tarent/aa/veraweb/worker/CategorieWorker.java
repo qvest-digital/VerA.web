@@ -173,7 +173,11 @@ public class CategorieWorker extends StammdatenWorker {
         }
 
         //        super.getAll(octopusContext);
-        getAllAvailableEventCategories(cntx);
+        if (cntx.getTaskName().equals("ShowGuestDetail")){
+            getAllAvailableEventCategoriesForGuestList(cntx);
+        } else {
+            getAllAvailableEventCategories(cntx);
+        }
     }
 
     /**
@@ -214,6 +218,24 @@ public class CategorieWorker extends StammdatenWorker {
         }
 
         cntx.setContent("all" + BEANNAME, database.getList(select, database));
+    }
+
+    private void getAllAvailableEventCategoriesForGuestList(OctopusContext cntx) throws BeanException, IOException {
+        final Integer orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
+        final Database database = getDatabase(cntx);
+        final Select select = database.getSelect(BEANNAME);
+        Event event = (Event) cntx.contentAsObject("event");
+        select.whereOr(
+                Where.and(
+                        Where.or(Expr.isNull("fk_event"),
+                                Expr.equal("fk_event", event.id)),
+                        Expr.equal("fk_orgunit", orgunit)));
+        Integer count = cntx.requestAsInteger("count");
+        if (count != null) {
+            cntx.setContent("count", count);
+        }
+        List list = database.getList(select, database);
+        cntx.setContent("all" + BEANNAME, list);
     }
 
     @Override
