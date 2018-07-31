@@ -75,6 +75,7 @@ import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.engine.DB;
@@ -435,16 +436,22 @@ public class GuestWorker {
      * @throws BeanException
      */
     public void addSelectedGuestsFromEventToEventList(OctopusContext cntx, ArrayList selection) throws BeanException {
-        String guestListIds;
         if (selection.size() > 0) {
             //it's crazy but necessary, isn't it?
             String rawSelectionString = selection.toString();
-            guestListIds = rawSelectionString.replace("[", "");
+            String guestListIds = rawSelectionString.replace("[", "");
             guestListIds = guestListIds.replace("]", "");
+            this.processCopyOfGuests(cntx, new MessageFormat[]{COUNT_SELECTED_INVITED_NOT_INVITED_FORMAT, ADD_SELECTED_FROM_EVENT_FORMAT}, guestListIds);
         } else {
-            guestListIds = "";
+            //fehlermeldung
+            List errors = (List) cntx.contentAsObject("listerrors");
+            if (errors == null) {
+                errors = new ArrayList();
+                VerawebMessages verawebMessages = new VerawebMessages(cntx);
+                errors.add(verawebMessages.getPersonMessageField("siemuessenmindestenseinfeldausgewhlthaben"));
+            }
+            cntx.setContent("listerrors", errors);
         }
-        this.processCopyOfGuests(cntx, new MessageFormat[]{COUNT_SELECTED_INVITED_NOT_INVITED_FORMAT, ADD_SELECTED_FROM_EVENT_FORMAT}, guestListIds);
     }
 
     private void processCopyOfGuests(OctopusContext cntx, MessageFormat[] messageFormats, Object... additionalParameters) throws BeanException {
