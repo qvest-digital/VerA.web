@@ -1666,8 +1666,7 @@ STATS_COLUMN_EVENTS=Eventos
 STATS_NOT_INVITED=no invitado
 
 # USER LIST TEXTS
-USER_LIST_WARN_MANDANT_ONE=El usuario a insertar ya se encuentra asignado al mandante
-USER_LIST_WARN_MANDANT_TWO=.
+USER_LIST_WARN_MANDANT=El usuario a insertar ya se encuentra asignado al mandante %s.
 USER_LIST_WARN_ALREADY_USER=El usuario a insertar ya existe en VerA.web.
 USER_LIST_WARN_NO_ID=El usuario a insertar no debe tener ID
 

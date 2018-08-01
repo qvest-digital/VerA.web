@@ -245,9 +245,8 @@ public class UserListWorker extends ListWorkerVeraWeb {
                     if (dupBean != null) {
                         OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
                         if (ou != null) {
-                            errors.add(languageProvider.getProperty("USER_LIST_WARN_MANDANT_ONE") + " " +
-                              ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " " +
-                              languageProvider.getProperty("USER_LIST_WARN_MANDANT_TWO"));
+                            errors.add(String.format(languageProvider.getProperty("USER_LIST_WARN_MANDANT"),
+                              ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString())));
                         } else {
                             errors.add(languageProvider.getProperty("USER_LIST_WARN_ALREADY_USER"));
                         }

@@ -1665,8 +1665,7 @@ STATS_COLUMN_EVENTS=\u00C9v\u00E9nement
 STATS_NOT_INVITED=Pas invit\u00E9
 
 # USER LIST TEXTS
-USER_LIST_WARN_MANDANT_ONE=L\u2019utilisateur \u00E0 ins\u00E9rer est d\u00E9j\u00E0 associer au client
-USER_LIST_WARN_MANDANT_TWO=.
+USER_LIST_WARN_MANDANT=L\u2019utilisateur \u00E0 ins\u00E9rer est d\u00E9j\u00E0 associer au client %s.
 USER_LIST_WARN_ALREADY_USER=L\u2019utilisateur \u00E0 ins\u00E9rer est d\u00E9j\u00E0 associer VerA.web.
 USER_LIST_WARN_NO_ID=L\u2019utilisateur \u00E0 ins\u00E9rer ne devrait pas avoir un num\u00E9ro d\u2019identit\u00E9
 
