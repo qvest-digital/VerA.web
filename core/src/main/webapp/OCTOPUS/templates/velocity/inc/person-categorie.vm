@@ -16,6 +16,14 @@
     }
 //--><!]]></script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.chosen-select').chosen({
+            max_shown_results: 10
+        });
+    });
+</script>
+
 <input type="hidden" name="doInsert" value="true">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
@@ -68,7 +76,7 @@
                 <em>${placeholderWithTranslation.GENERIC_NEW}</em>
             </td>
             <td>
-                <select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>
+                <select class="chosen-select" id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>
                     <option value="">${placeholderWithTranslation.GENERIC_PLEASE_CHOOSE}</option>
                     #foreach($categorie in $allCategorie)
                         <option value="$!categorie.id">$!message.plain($categorie.name)</option>

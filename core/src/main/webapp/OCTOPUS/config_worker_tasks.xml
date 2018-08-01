@@ -1132,7 +1132,7 @@
 			<action name="showList" worker="GuestListWorker"/>
 			<action name="getJumpOffsets" worker="GuestListWorker"/>
 			<action name="getSums" worker="GuestListWorker"/>
-			<action name="getAllCategories" worker="GuestListWorker"/>
+			<action name="getAll" worker="CategorieWorker"/>
 			<action name="save" worker="UserConfigWorker"/>
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="guestList">

@@ -49,6 +49,7 @@
     <script src="${paths.staticWeb}js/vera/veraweb-popup.js"></script>
     <script src="${paths.staticWeb}js/ext/Scroll-to-Top/jquery.gotop.js"></script>
 
+    </script>
         <div id="breadcrumb" class="textRight marginBottom10">
                 <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
         </div>
@@ -193,8 +194,8 @@
                                                         <label for="search-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
                                                         <select name="search-category" id="search-category" onchange="submit();">
                                                                 <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
-                                                                #foreach($category in $categories)
-                                                                        <option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
+                                                                #foreach($category in $allCategorie)
+                                                                        <option #if($search.category && $search.category == $category.name) selected#end value="$category.name">$category.name</option>
                                                                 #end
                                                         </select>
                                                 </div>
