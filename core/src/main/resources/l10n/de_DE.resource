@@ -1663,8 +1663,7 @@ STATS_COLUMN_EVENTS=Veranstaltungen
 STATS_NOT_INVITED=nicht eingeladen
 
 # USER LIST TEXTS
-USER_LIST_WARN_MANDANT_ONE=Einzuf\u00FCgender Benutzer ist bereits dem Mandanten
-USER_LIST_WARN_MANDANT_TWO=zugeordnet.
+USER_LIST_WARN_MANDANT=Einzuf\u00FCgender Benutzer ist bereits dem Mandanten %s zugeordnet.
 USER_LIST_WARN_ALREADY_USER=Einzuf\u00FCgender Benutzer ist bereits VerA.web zugeordnet.
 USER_LIST_WARN_NO_ID=Einzuf\u00FCgender Benutzer darf keine ID haben
 

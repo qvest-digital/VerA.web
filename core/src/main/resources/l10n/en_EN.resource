@@ -1664,8 +1664,7 @@ STATS_COLUMN_EVENTS=Events
 STATS_NOT_INVITED=not invited
 
 # USER LIST TEXTS
-USER_LIST_WARN_MANDANT_ONE=User to be inserted is already assigned to client
-USER_LIST_WARN_MANDANT_TWO=.
+USER_LIST_WARN_MANDANT=User to be inserted is already assigned to client %s.
 USER_LIST_WARN_ALREADY_USER=User to be inserted is already assigned to VerA.web.
 USER_LIST_WARN_NO_ID=User to be inserted must not have an id
 
