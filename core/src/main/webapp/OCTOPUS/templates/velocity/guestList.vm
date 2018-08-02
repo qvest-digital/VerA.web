@@ -7,13 +7,13 @@
 
 ##Values in per cent for table columns width
 ## select-field
-#set($column0 = '14px')
+#set($column0 = '1%')
 ## laufende Nummer
 #set($column1_minwidth = '5%')
 ## interne Id
 #set($column2_minwidth = '5%')
 ## Reserve (R)
-#set($column3_width = '4%')
+#set($column3_width = '1%')
 ## company
 #set($column4_minwidth = '15%')
 ## lastname
@@ -659,7 +659,7 @@
                                                                 #if($bean.reserve == 1)
                                                                         <td style="width: $column3_width" class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
                                                                 #else
-                                                                        <td style="max-width: 3%" class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
+                                                                        <td style="width: $column3_width" class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
                                                                 #end
                                                         #end
 
