@@ -43,12 +43,12 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{5.3}
-\newcommand{\vwiaversfassungmonat}{Juli}
+\newcommand{\vwiaversfassungnr}{5.4}
+\newcommand{\vwiaversfassungmonat}{August}
 \newcommand{\vwiaversfassungjahr}{2018}
 
 % VerA.web Version
-\newcommand{\vwiaverssw}{1.8.61}
+\newcommand{\vwiaverssw}{1.9.0}
 
 % OSIAM-Version
 \newcommand{\vwiaversosiam}{2.5}
@@ -2074,6 +2074,14 @@ Konfigurationsdateien, insbesondere aus \texttt{/etc/veraweb/},
 aber auch der von Apache und Tomcat, größtenteils übernehmen;
 dies muß allerdings als manueller Prozeß geschehen.
 
+Bitte beachten Sie hierbei, daß die in der \emph{aktuellen}
+Version ausgelieferten Konfigurationsdateien als Vorlage zu
+verwenden sind, da sie unter Umständen neue/mehr oder andere
+Einstellungen enthalten als die alten Dateien!
+
+Die Datenbank können Sie beibehalten, müssen nur gemäß Kapitel
+\nameref{subsec:upgrade-core-db} das Schema aktuell halten.
+
 \subsection{Bevor Sie beginnen}\label{subsec:upgrade-core-pre}
 
 Es empfiehlt sich, eine Sicherung von \texttt{/etc/veraweb} und
@@ -2271,12 +2279,13 @@ Gruppen (Rechte) er hat.
 Wählen Sie oben \inlinekasten{Personen} / \inlinekasten{Neue Person}
 und legen Sie eine Testperson an, indem Sie einen Vor- und Nachnamen
 eingeben, auf \inlinekasten{Dublettenprüfung durchführen} und
-\inlinekasten{Person speichern} klicken.
+\inlinekasten{Person speichern} klicken.\strut
 
 Wählen Sie oben \inlinekasten{Veranstaltungen} / \inlinekasten{Neue
 Veranstaltung} und legen Sie eine Testveranstaltung an, indem Sie eine
 Kurzbezeichnung („Testkonferenz“) und einen (in der Zukunft liegenden)
-Beginn eingeben und auf \inlinekasten{Veranstaltung speichern} klicken.
+\strut Beginn eingeben und auf \inlinekasten{Veranstaltung speichern}
+klicken.
 
 Klicken Sie dann rechts auf \inlinekasten{Zur Gästeverwaltung} und auf
 \inlinekasten{Gast hinzufügen}, dann unten auf \inlinekasten{Suchen}
@@ -2291,7 +2300,7 @@ für das Bild auf \inlinekasten{Kontaktfoto hochladen}. Wählen Sie eine
 Datei\Hair\footnote{\label{fn:testpic}z.B. \texttt{testpic.jpg} aus dem
 „files“-Archiv \texttt{veraweb-core-\vwiaverssw{}-files.tgz}} und bestätigen
 Sie, dann klicken Sie ganz unten rechts auf \inlinekasten{Speichern}.
-Danach sollte das Bild beim erneuten Öffnen der Gästedetails für
+\strut Danach sollte das Bild beim erneuten Öffnen der Gästedetails für
 die Hauptperson zu sehen sein\Hair\footnote{falls das Bild nicht
 zu sehen ist funktioniert die \texttt{vwor.war} (REST-API) nicht
 korrekt\Hair\textsuperscript{\ref{fn:tomcatlogs}}}.
@@ -2304,14 +2313,14 @@ setzen und unter „Firma/Institution“ z.B. „Testfirma“ eingeben, unten
 rechts auf \inlinekasten{Dublettenprüfung durchführen} und danach auf
 \inlinekasten{Person speichern} klicken.
 
-Wählen Sie oben \inlinekasten{Veranstaltungen} /
+\strut Wählen Sie oben \inlinekasten{Veranstaltungen} /
 \inlinekasten{Veranstaltungsübersicht}, klicken Sie auf die Zeile mit
 der Testkonferenz, dann rechts auf \inlinekasten{Zur Gästeverwaltung}
-und auf \inlinekasten{Gast hinzufügen}, machen diesmal einen Haken bei
-„Ist Firma“, klicken unten rechts auf \inlinekasten{Suchen} und wählen
-die Testfirma aus, indem Sie den Haken in der Spalte \inlinekasten{D}
-(vierte Spalte) setzen und direkt über der Tabelle auf
-\inlinekasten{Hinzufügen} klicken.
+\strut und auf \inlinekasten{Gast hinzufügen}, machen diesmal einen
+Haken bei „Ist Firma“, klicken unten rechts auf \inlinekasten{Suchen}
+und wählen die Testfirma aus, indem Sie den Haken in der Spalte
+\inlinekasten{D} (vierte Spalte) setzen und direkt über der Tabelle
+auf \inlinekasten{Hinzufügen} klicken.
 
 Wählen Sie nun den Reiter Export und starten dort einen CSV-Export
 durch einen Klick auf \inlinekasten{Gästeliste komplett}.
