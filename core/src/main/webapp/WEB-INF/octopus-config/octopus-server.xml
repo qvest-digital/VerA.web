@@ -3,51 +3,41 @@
 This file is part of VerA.web by tarent, and covered by the same licence.
 -->
 <!DOCTYPE tcConfig SYSTEM "octopus-server.dtd">
-
 <!-- Hauptkonfiguration von tarent:config -->
 <tcConfig>
-
-  <application>
-    <!-- Schaltet die Verwendung der Sessions vom Servlet Container aus.
+	<application>
+		<!-- Schaltet die Verwendung der Sessions vom Servlet Container aus.
           true = Dummy Sessions werden für jeden Aufruf erneut angelegt.
           false = Normale Verwendung der HttpSessions
     -->
-    <param name="omitSessions" value="false"/>
-
-    <!-- Pfadangaben müssen alle relativ zu '/WEB-INF/' Verzeichniss angegeben werden
+		<param name="omitSessions" value="false"/>
+		<!-- Pfadangaben müssen alle relativ zu '/WEB-INF/' Verzeichniss angegeben werden
          und mit einem '/' enden. -->
-    <param name="paths.templateRoot" value="templates/"/>
-    <param name="paths.modules" value="modules/"/>
-
-    <!-- Angabe des Stammverzeichnisses der statischen Ressourcen, absolut bezogen auf den Server, also z.B. / -->
-    <param name="paths.webRoot" value="/"/>
-
-    <param name="defaultResponseType" value="velocity"/>
-    <param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
-
-    <param name="defaultEncoding" value="UTF-8"/>
-    <param name="defaultContentType" value="text/html"/>
-
-	<!-- Velocity-Config (Pfade relativ zu modules Verzeichnis) -->
-	<param name="velocity.log.system.class" value="de.tarent.octopus.response.TcVelocityResponseLogger"/>
-	<param name="velocity.macro.library" value="global.vm"/>
-	<param name="velocity.macro.permissions.allow.inline" value="true"/>
-	<param name="velocity.macro.permissions.allow.inline.to.replace.global" value="true"/>
-	<param name="velocity.macro.permissions.allow.inline.local.scope" value="false"/>
-	<param name="velocity.macro.context.localscope" value="false"/>
-
-    <!-- Angabe eines Default Moduls -->
-
-     <param name="defaultModule" value="veraweb"/>
-     <!-- Module, die automatsich geladen werden sollen. Space-separiert bei mehreren Modulen
+		<param name="paths.templateRoot" value="templates/"/>
+		<param name="paths.modules" value="modules/"/>
+		<!-- Angabe des Stammverzeichnisses der statischen Ressourcen, absolut bezogen auf den Server, also z.B. / -->
+		<param name="paths.webRoot" value="/"/>
+		<param name="defaultResponseType" value="velocity"/>
+		<param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
+		<param name="defaultEncoding" value="UTF-8"/>
+		<param name="defaultContentType" value="text/html"/>
+		<!-- Velocity-Config (Pfade relativ zu modules Verzeichnis) -->
+		<param name="velocity.log.system.class" value="de.tarent.octopus.response.TcVelocityResponseLogger"/>
+		<param name="velocity.macro.library" value="global.vm"/>
+		<param name="velocity.macro.permissions.allow.inline" value="true"/>
+		<param name="velocity.macro.permissions.allow.inline.to.replace.global" value="true"/>
+		<param name="velocity.macro.permissions.allow.inline.local.scope" value="false"/>
+		<param name="velocity.macro.context.localscope" value="false"/>
+		<!-- Angabe eines Default Moduls -->
+		<param name="defaultModule" value="veraweb"/>
+		<!-- Module, die automatsich geladen werden sollen. Space-separiert bei mehreren Modulen
      <param name="preloadModules" value=""/>
      -->
-	 <!-- Optional JMX connector - only use on Java 1.5 and Tomcat 5.5 -->
-     <param name="jmxenabled" value="false"/>
-  </application>
-
-  <loginManager>
-	<!--
+		<!-- Optional JMX connector - only use on Java 1.5 and Tomcat 5.5 -->
+		<param name="jmxenabled" value="false"/>
+	</application>
+	<loginManager>
+		<!--
 		***************************************************************************************************
 		*
 		* Die Authorisierungs-Konfiguration kann jetzt direkt in den Modulen in der Sektion <loginManager> der
@@ -56,9 +46,8 @@ This file is part of VerA.web by tarent, and covered by the same licence.
 		*
 		***************************************************************************************************
 	-->
-
-    <!-- Default Login über xml- User Liste -->
-	<param name="loginManagerClass" value="de.tarent.octopus.security.LoginManagerXML"/>
-    <param name="userFile" value="user.xml"/>
-  </loginManager>
+		<!-- Default Login über xml- User Liste -->
+		<param name="loginManagerClass" value="de.tarent.octopus.security.LoginManagerXML"/>
+		<param name="userFile" value="user.xml"/>
+	</loginManager>
 </tcConfig>

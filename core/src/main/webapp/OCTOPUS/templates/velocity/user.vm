@@ -94,7 +94,6 @@
                     <th>${placeholderWithTranslation.GENERIC_USER_RIGHTS}</th>
                 </tr>
 
-
                 #foreach($bean in $list)
                     <tr>
                         #if(!$bean.role || 5 != $bean.role || $domain == 'all')

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
-
 <!--
 	OCTOPUS config_logging.xml
 
@@ -40,39 +39,32 @@
 			<level value="WARN"/>
 			<appender-ref ref="FileLog"/>
 		</category>
-
 		<category name="SQL" additivity="false">
 			<level value="WARN"/>
 			<appender-ref ref="FileLog"/>
 		</category>
-
 		<category name="ERROR">
 			<level value="ALL"/>
 			<appender-ref ref="ErrorLog"/>
 		</category>
-
 		<category name="de.tarent.dblayer" additivity="false">
 			<level value="WARN"/>
 			<appender-ref ref="FileLog"/>
 		</category>
-
 		<category name="de.tarent.aa.veraweb" additivity="false">
 			<level value="ALL"/>
 			<appender-ref ref="FileLog"/>
 		</category>
-
 		<category name="de.tarent.octopus" additivity="false">
 			<level value="WARN"/>
 			<appender-ref ref="FileLog"/>
 		</category>
-
 		<appender name="Console" class="org.apache.log4j.ConsoleAppender">
 			<param name="Target" value="System.out"/>
 			<layout class="org.apache.log4j.PatternLayout">
 				<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %7level (%thread) [%logger] %msg%n"/>
 			</layout>
 		</appender>
-
 		<appender name="FileLog" class="org.apache.log4j.RollingFileAppender">
 			<param name="MaxFileSize" value="1500KB"/>
 			<param name="MaxBackupIndex" value="8"/>
@@ -81,7 +73,6 @@
 				<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %7level (%thread) [%logger] %msg%n"/>
 			</layout>
 		</appender>
-
 		<appender name="ErrorLog" class="org.apache.log4j.RollingFileAppender">
 			<param name="MaxFileSize" value="5MB"/>
 			<param name="MaxBackupIndex" value="8"/>
@@ -90,12 +81,10 @@
 				<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %7level (%thread) [%logger] %msg%n"/>
 			</layout>
 		</appender>
-
 		<appender name="Socket" class="org.apache.log4j.net.SocketAppender">
 			<param name="RemoteHost" value="localhost"/>
 			<param name="Port" value="4445"/>
 		</appender>
-
 		<root>
 			<priority value="INFO"/>
 		</root>

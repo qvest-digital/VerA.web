@@ -20,7 +20,6 @@
 
     </fieldset>
 
-
     #if($activeMenu == "Verwaltung")
         #else
         <div class="textRight marginTop10" id="buttonPanel-bottom">

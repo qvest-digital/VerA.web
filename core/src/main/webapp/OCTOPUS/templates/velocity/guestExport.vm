@@ -371,7 +371,6 @@
                         </div>
                     </div>
 
-
                     <input type="submit" name="export" value="${placeholderWithTranslation.exportieren}" title="${placeholderWithTranslation.exportieren}" class="mainButton autoWidth" />
                 </form>
             </div>

@@ -103,7 +103,6 @@ import java.util.*;
  * @version $Revision: 1.1 $
  */
 public class GuestListWorker extends ListWorkerVeraWeb {
-
     public static final String INPUT_getSearch[] = {};
 
     public static final String OUTPUT_getSearch = "search";
@@ -475,7 +474,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         }
         return catName;
     }
-
 
     private List getAllGuests(Database database, Select select) throws BeanException {
         final ResultList allResults = database.getList(select, database);

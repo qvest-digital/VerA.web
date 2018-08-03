@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
-
 <!--
 	OCTOPUS config_override.xml
 
@@ -8,7 +7,6 @@
 	as config.xml itself cannot be moved
 -->
 <tcModuleConfig>
-
 	<!-- e.g. you can change this -->
 	<params>
 		<!-- der relative Pfad der Antwort-Templates; "templates/". -->

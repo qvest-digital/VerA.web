@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <document url="./status.xml">
 	<properties>
 		<title>Status</title>
@@ -9,7 +9,6 @@
 				Status: TODO
 			</p>
 		</section>
-
 		<section href="roadmap" name="Development Roadmap">
 			<p>
 				Project Roadmap: TODO

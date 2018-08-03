@@ -59,7 +59,6 @@
             <h1>${placeholderWithTranslation.GUEST_LIST_ADD_GUEST_FROM_EVENT}: $!message.plain($event.shortname)</h1>
         #end
 
-
         #if(!$isNewEvent)
                 #set($completeEventHeader = true)
                 #parse("inc/event-header.vm")
@@ -84,7 +83,6 @@
         #if($duplicateGuest == "isDuplicate")
             <vera-warn> ${placeholderWithTranslation.GUEST_LIST_DUPLICATE_ERR} </vera-warn>
         #end
-
 
         ##IMPLEMENTNEWMESSAGEMETHOD
         #if($invited)
@@ -498,7 +496,6 @@
                                                                     #end
                                                                  </th>
 
-
                                                                 #if($userConfig.guestLfdNr == 'true')
                                                                 <th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
                                                                         #if($search.listorder && $search.listorder == "orderno")
@@ -633,7 +630,6 @@
                                                                 <input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
                                                         </td>
                                                         <input type="hidden" name="${bean.id}-id" value="$bean.id">
-
 
                                                         #if($userConfig.guestLfdNr == 'true')
                                                         <td style="min-width:$column1_minwidth; max-width: 15%; cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">

@@ -3,7 +3,6 @@
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_USER}")
 #set($entity="USER")
 
-
 #parse("inc/header.vm")
 
 <script type="text/javascript">
@@ -14,7 +13,6 @@
         });
     });
 </script>
-
 
 <div id="content_container" style="overflow: visible"#*for chosen menu*#>
 

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <document>
 	<properties>
 		<title>Logging configuration</title>
@@ -63,10 +63,7 @@
 			</p>
 			<p>
 				For more information about this parameters please read the java.util.logging API:
-				<li>
-					<ul><a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/logging/Level.html">java.util.logging.Level (JavaDoc)</a></ul>
-					<ul><a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/logging/FileHandler.html">java.util.logging.FileHandler (JavaDoc)</a></ul>
-				</li>
+				<li><ul><a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/logging/Level.html">java.util.logging.Level (JavaDoc)</a></ul><ul><a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/logging/FileHandler.html">java.util.logging.FileHandler (JavaDoc)</a></ul></li>
 			</p>
 		</section>
 	</body>

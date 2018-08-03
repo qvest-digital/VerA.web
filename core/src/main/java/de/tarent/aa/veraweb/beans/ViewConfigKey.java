@@ -1,7 +1,6 @@
 package de.tarent.aa.veraweb.beans;
 
 public enum ViewConfigKey {
-
     GUESTLIST_FUNCTION("guestListFunction", "false"),
     GUESTLIST_INTERNAL_ID("guestInternalId", "false"),
     GUESTLIST_CITY("guestListCity", "false"),
@@ -33,7 +32,6 @@ public enum ViewConfigKey {
     public final String key;
     public String defaultValue;
 
-
     ViewConfigKey(String key, String defaultValue) {
         this.key = key;
         this.defaultValue = defaultValue;
@@ -47,5 +45,4 @@ public enum ViewConfigKey {
         }
         return false;
     }
-
 }

@@ -391,7 +391,6 @@ public class GuestWorker {
 
     protected static final MessageFormat ADD_FROM_EVENT_FORMAT = new MessageFormat(ADD_FROM_EVENT_PATTERN);
 
-
     public void addEvent(OctopusContext cntx, Integer eventId) throws BeanException, IOException {
         this.processCopyOfGuests(cntx, new MessageFormat[]{COUNT_INVITED_NOT_INVITED_FORMAT, ADD_FROM_EVENT_FORMAT}, new ArrayList());
     }
@@ -426,7 +425,6 @@ public class GuestWorker {
                     ") as notinvited;";
 
     protected static final MessageFormat COUNT_SELECTED_INVITED_NOT_INVITED_FORMAT = new MessageFormat(COUNT_SELECTED_INVITED_NOT_INVITED_PATTERN);
-
 
     public static final String INPUT_addSelectedGuestsFromEventToEventList[] = {"selectionGuest"};
     /**

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
-    <!-- we need to tackle octopus etc. separately -->
-    <suppress>
-        <notes><![CDATA[
+	<!-- we need to tackle octopus etc. separately -->
+	<suppress>
+		<notes><![CDATA[
       file name: commons-fileupload-1.1.jar
       ]]></notes>
-        <gav regex="true">^commons-fileupload:commons-fileupload:.*$</gav>
-        <cpe>cpe:/a:apache:commons_fileupload</cpe>
-    </suppress>
-    <!-- we need to check osiam separately -->
-    <suppress>
-        <notes><![CDATA[
+		<gav regex="true">^commons-fileupload:commons-fileupload:.*$</gav>
+		<cpe>cpe:/a:apache:commons_fileupload</cpe>
+	</suppress>
+	<!-- we need to check osiam separately -->
+	<suppress>
+		<notes><![CDATA[
    file name: tika-core-1.10.jar
    ]]></notes>
-        <gav regex="true">^org\.apache\.tika:tika-core:.*$</gav>
-        <cpe>cpe:/a:apache:tika</cpe>
-    </suppress>
+		<gav regex="true">^org\.apache\.tika:tika-core:.*$</gav>
+		<cpe>cpe:/a:apache:tika</cpe>
+	</suppress>
 </suppressions>

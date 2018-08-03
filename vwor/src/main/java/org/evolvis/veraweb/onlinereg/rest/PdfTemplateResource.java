@@ -447,7 +447,6 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-
     private String buildQuery(Map<String, String> filterSettings) {
         String baseQuery = "SELECT p FROM Person p JOIN Guest g ON (p.pk = g.fk_person) WHERE g.fk_event=:eventid";
 

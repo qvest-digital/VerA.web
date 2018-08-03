@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
-
 <!--
 	Octopus config.xml
 
@@ -52,7 +51,6 @@
 			<value>formatCSVPersdat+Anschrift</value>
 			<value>formatCSVPersdat+Kategorien</value>
 		</param>
-
 		<!-- ************************************************ -->
 		<!-- *** Definition der verfügbaren Exportformate *** -->
 		<!-- ************************************************ -->
@@ -70,7 +68,6 @@
 		     - in "properties" eine Sammlung Format-spezifischer Eigenschaften, insbesondere "remarks":
 			 eine Liste von Bemerkungen, die an der Oberfläche zu dem Format angezeigt werden
 		 -->
-
 		<!-- *** CSV-Formate *** -->
 		<!-- CSV-Formate ex- und importieren CSV-Dateien mit Spaltennamen in der ersten Zeile;
 			 hierzu sind die entsprechenden "format*"-Parameter wie folgt zu befüllen:
@@ -169,62 +166,60 @@
 				</param>
 			</param>
 		</param>
-
 		<param name="formatX-ManageKontakt" type="map">
-			<param name="name" value="X-Manage-CSV" />
-			<param name="description" value="X-Manage Kontakte" />
-			<param name="defaultExtension" value=".csv" />
-			<param name="mimeType" value="text/csv;charset=UTF-8" />
-			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter" />
-			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter" />
+			<param name="name" value="X-Manage-CSV"/>
+			<param name="description" value="X-Manage Kontakte"/>
+			<param name="defaultExtension" value=".csv"/>
+			<param name="mimeType" value="text/csv;charset=UTF-8"/>
+			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
+			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
 			<param name="properties" type="map">
-				<param name="fieldSeparator" value="," />
-				<param name="textQualifier" value="&quot;" />
+				<param name="fieldSeparator" value=","/>
+				<param name="textQualifier" value="&quot;"/>
 				<param name="dateFormat" value="dd.MM.yyyy"/>
 				<param name="exportMapping" type="map">
 					<!-- Hauptperson -->
-					<param name="Nachname" value="{:lastname_a_e1}" />
-					<param name="Vorname" value="{:firstname_a_e1}" />
-					<param name="Anrede" value="{:salutation_a_e1}" />
-					<param name="Sprache" value="{:languages_a_e1}" />
-					<param name="Geburtstag" value="{:birthday_a_e1}" />
-					<param name="Titel" value="{:title_a_e1}" />
-					<param name="Nationalität" value="{:nationality_a_e1}" />
-					<param name="Notizen" value="{:note_a_e1}" />
+					<param name="Nachname" value="{:lastname_a_e1}"/>
+					<param name="Vorname" value="{:firstname_a_e1}"/>
+					<param name="Anrede" value="{:salutation_a_e1}"/>
+					<param name="Sprache" value="{:languages_a_e1}"/>
+					<param name="Geburtstag" value="{:birthday_a_e1}"/>
+					<param name="Titel" value="{:title_a_e1}"/>
+					<param name="Nationalität" value="{:nationality_a_e1}"/>
+					<param name="Notizen" value="{:note_a_e1}"/>
 					<!-- Adresse geschäftlich-->
-					<param name="Firma" value="{:company_a_e1}" />
-					<param name="Position" value="{:function_a_e1}" />
-					<param name="Straße geschäftlich" value="{:street_a_e1}" />
-					<param name="Ort geschäftlich" value="{:city_a_e1}" />
-					<param name="Postleitzahl geschäftlich" value="{:zipcode_a_e1}" />
-					<param name="Bundesland geschäftlich" value="{:state_a_e1}" />
-					<param name="Land geschäftlich" value="{:country_a_e1}" />
-					<param name="Telefon geschäftlich" value="{:fon_a_e1}" />
-					<param name="Mobiltelefon" value="{:mobil_a_e1}" />
-					<param name="Fax geschäftlich" value="{:fax_a_e1}" />
-					<param name="E-Mail-Adresse" value="{:mail_a_e1}" />
-					<param name="Webseite geschäftlich" value="{:url_a_e1}" />
+					<param name="Firma" value="{:company_a_e1}"/>
+					<param name="Position" value="{:function_a_e1}"/>
+					<param name="Straße geschäftlich" value="{:street_a_e1}"/>
+					<param name="Ort geschäftlich" value="{:city_a_e1}"/>
+					<param name="Postleitzahl geschäftlich" value="{:zipcode_a_e1}"/>
+					<param name="Bundesland geschäftlich" value="{:state_a_e1}"/>
+					<param name="Land geschäftlich" value="{:country_a_e1}"/>
+					<param name="Telefon geschäftlich" value="{:fon_a_e1}"/>
+					<param name="Mobiltelefon" value="{:mobil_a_e1}"/>
+					<param name="Fax geschäftlich" value="{:fax_a_e1}"/>
+					<param name="E-Mail-Adresse" value="{:mail_a_e1}"/>
+					<param name="Webseite geschäftlich" value="{:url_a_e1}"/>
 					<!-- Adresse privat-->
-					<param name="Straße privat" value="{:street_b_e1}" />
-					<param name="Ort privat" value="{:city_b_e1}" />
-					<param name="Postleitzahl privat" value="{:zipcode_b_e1}" />
-					<param name="Bundesland privat" value="{:state_b_e1}" />
-					<param name="Land privat" value="{:country_b_e1}" />
-					<param name="Telefon privat" value="{:fon_b_e1}" />
-					<param name="Fax privat" value="{:fax_b_e1}" />
-					<param name="E-Mail 2:Adresse" value="{:mail_b_e1}" />
-					<param name="Webseite privat" value="{:url_b_e1}" />
+					<param name="Straße privat" value="{:street_b_e1}"/>
+					<param name="Ort privat" value="{:city_b_e1}"/>
+					<param name="Postleitzahl privat" value="{:zipcode_b_e1}"/>
+					<param name="Bundesland privat" value="{:state_b_e1}"/>
+					<param name="Land privat" value="{:country_b_e1}"/>
+					<param name="Telefon privat" value="{:fon_b_e1}"/>
+					<param name="Fax privat" value="{:fax_b_e1}"/>
+					<param name="E-Mail 2:Adresse" value="{:mail_b_e1}"/>
+					<param name="Webseite privat" value="{:url_b_e1}"/>
 					<!-- Adresse Lieferung -->
-					<param name="Straße Lieferung" value="{:street_c_e1}" />
-					<param name="Ort Lieferung" value="{:city_c_e1}" />
-					<param name="Postleitzahl Lieferung" value="{:zipcode_c_e1}" />
-					<param name="Bundesland Lieferung" value="{:state_c_e1}" />
-					<param name="Land Lieferung" value="{:country_c_e1}" />
+					<param name="Straße Lieferung" value="{:street_c_e1}"/>
+					<param name="Ort Lieferung" value="{:city_c_e1}"/>
+					<param name="Postleitzahl Lieferung" value="{:zipcode_c_e1}"/>
+					<param name="Bundesland Lieferung" value="{:state_c_e1}"/>
+					<param name="Land Lieferung" value="{:country_c_e1}"/>
 					<!-- "Kategorie" ? -->
 				</param>
 			</param>
 		</param>
-
 		<param name="formatCSVPersdaten+Anschrift" type="map">
 			<param name="name" value="CSVPersdaten+Anschrift"/>
 			<param name="description" value="Comma-Separated-Values"/>
@@ -247,7 +242,6 @@
 				</param>
 			</param>
 		</param>
-
 		<param name="formatCSVPersdat+Anschrift" type="map">
 			<param name="name" value="CSVPersdat+Anschrift"/>
 			<param name="description" value="Comma-Separated-Values"/>
@@ -277,7 +271,6 @@
 				</param>
 			</param>
 		</param>
-
 		<param name="formatCSVPersdat" type="map">
 			<param name="name" value="CSVPersdat"/>
 			<param name="description" value="Comma-Separated-Values"/>
@@ -300,52 +293,52 @@
 				<param name="fieldSeparator" value=";"/>
 				<param name="textQualifier" value="&quot;"/>
 				<param name="exportMapping" type="map">
-				<!--	<param name="*" value="{:*}"/> -->
-					<param name="lastname_a_e1" value="{:lastname_a_e1}" />
-					<param name="lastname_a_e2" value="{:lastname_a_e2}" />
-					<param name="lastname_a_e3" value="{:lastname_a_e3}" />
-					<param name="lastname_b_e1" value="{:lastname_b_e1}" />
-					<param name="lastname_b_e2" value="{:lastname_b_e2}" />
-					<param name="lastname_b_e3" value="{:lastname_b_e3}" />
-					<param name="firstname_a_e1" value="{:firstname_a_e1}" />
-					<param name="firstname_a_e2" value="{:firstname_a_e2}" />
-					<param name="firstname_a_e3" value="{:firstname_a_e3}" />
-					<param name="firstname_b_e1" value="{:firstname_b_e1}" />
-					<param name="firstname_b_e2" value="{:firstname_b_e2}" />
-					<param name="firstname_b_e3" value="{:firstname_b_e3}" />
-					<param name="id" value="{:id}" />
-					<param name="created" value="{:created}" />
-					<param name="createdby" value="{:createdby}" />
-					<param name="changed" value="{:changed}" />
-					<param name="changedby" value="{:changedby}" />
-					<param name="expire" value="{:expire}" />
-					<param name="importsource" value="{:importsource}" />
-					<param name="salutation_a_e1" value="{:salutation_a_e1}" />
-					<param name="salutation_a_e2" value="{:salutation_a_e2}" />
-					<param name="salutation_a_e3" value="{:salutation_a_e3}" />
-					<param name="salutation_b_e1" value="{:salutation_b_e1}" />
-					<param name="salutation_b_e2" value="{:salutation_b_e2}" />
-					<param name="salutation_b_e3" value="{:salutation_b_e3}" />
-					<param name="title_a_e1" value="{:title_a_e1}" />
-					<param name="title_a_e2" value="{:title_a_e2}" />
-					<param name="title_a_e3" value="{:title_a_e3}" />
-					<param name="title_b_e1" value="{:title_b_e1}" />
-					<param name="title_b_e2" value="{:title_b_e2}" />
-					<param name="title_b_e3" value="{:title_b_e3}" />
-					<param name="domestic_a_e1" value="{:domestic_a_e1}" />
-					<param name="domestic_b_e1" value="{:domestic_b_e1}" />
-					<param name="sex_a_e1" value="{:sex_a_e1}" />
-					<param name="sex_b_e1" value="{:sex_b_e1}" />
-					<param name="birthday_a_e1" value="{:birthday_a_e1}" />
+					<!--	<param name="*" value="{:*}"/> -->
+					<param name="lastname_a_e1" value="{:lastname_a_e1}"/>
+					<param name="lastname_a_e2" value="{:lastname_a_e2}"/>
+					<param name="lastname_a_e3" value="{:lastname_a_e3}"/>
+					<param name="lastname_b_e1" value="{:lastname_b_e1}"/>
+					<param name="lastname_b_e2" value="{:lastname_b_e2}"/>
+					<param name="lastname_b_e3" value="{:lastname_b_e3}"/>
+					<param name="firstname_a_e1" value="{:firstname_a_e1}"/>
+					<param name="firstname_a_e2" value="{:firstname_a_e2}"/>
+					<param name="firstname_a_e3" value="{:firstname_a_e3}"/>
+					<param name="firstname_b_e1" value="{:firstname_b_e1}"/>
+					<param name="firstname_b_e2" value="{:firstname_b_e2}"/>
+					<param name="firstname_b_e3" value="{:firstname_b_e3}"/>
+					<param name="id" value="{:id}"/>
+					<param name="created" value="{:created}"/>
+					<param name="createdby" value="{:createdby}"/>
+					<param name="changed" value="{:changed}"/>
+					<param name="changedby" value="{:changedby}"/>
+					<param name="expire" value="{:expire}"/>
+					<param name="importsource" value="{:importsource}"/>
+					<param name="salutation_a_e1" value="{:salutation_a_e1}"/>
+					<param name="salutation_a_e2" value="{:salutation_a_e2}"/>
+					<param name="salutation_a_e3" value="{:salutation_a_e3}"/>
+					<param name="salutation_b_e1" value="{:salutation_b_e1}"/>
+					<param name="salutation_b_e2" value="{:salutation_b_e2}"/>
+					<param name="salutation_b_e3" value="{:salutation_b_e3}"/>
+					<param name="title_a_e1" value="{:title_a_e1}"/>
+					<param name="title_a_e2" value="{:title_a_e2}"/>
+					<param name="title_a_e3" value="{:title_a_e3}"/>
+					<param name="title_b_e1" value="{:title_b_e1}"/>
+					<param name="title_b_e2" value="{:title_b_e2}"/>
+					<param name="title_b_e3" value="{:title_b_e3}"/>
+					<param name="domestic_a_e1" value="{:domestic_a_e1}"/>
+					<param name="domestic_b_e1" value="{:domestic_b_e1}"/>
+					<param name="sex_a_e1" value="{:sex_a_e1}"/>
+					<param name="sex_b_e1" value="{:sex_b_e1}"/>
+					<param name="birthday_a_e1" value="{:birthday_a_e1}"/>
 					<!--
 						modified to include the new birthplace fields
 						cklein
 						2008-02-12
 					-->
-					<param name="birthplace_a_e1" value="{:birthplace_a_e1}" />
-					<param name="birthplace_a_e2" value="{:birthplace_a_e2}" />
-					<param name="birthplace_a_e3" value="{:birthplace_a_e3}" />
-					<param name="birthday_b_e1" value="{:birthday_b_e1}" />
+					<param name="birthplace_a_e1" value="{:birthplace_a_e1}"/>
+					<param name="birthplace_a_e2" value="{:birthplace_a_e2}"/>
+					<param name="birthplace_a_e3" value="{:birthplace_a_e3}"/>
+					<param name="birthday_b_e1" value="{:birthday_b_e1}"/>
 					<!--
 						prepared to include the new partner birthplace fields
 						cklein
@@ -354,22 +347,21 @@
 					<param name="birthplace_b_e2" value="{:birthplace_b_e2}" />
 					<param name="birthplace_b_e3" value="{:birthplace_b_e3}" />
 					-->
-					<param name="diplodate_a_e1" value="{:diplodate_a_e1}" />
-					<param name="languages_a_e1" value="{:languages_a_e1}" />
-					<param name="languages_b_e1" value="{:languages_b_e1}" />
-					<param name="nationality_a_e1" value="{:nationality_a_e1}" />
-					<param name="nationality_b_e1" value="{:nationality_b_e1}" />
-					<param name="noteorga_a_e1" value="{:noteorga_a_e1}" />
-					<param name="noteorga_b_e1" value="{:noteorga_b_e1}" />
-					<param name="iscompany" value="{:iscompany}" />
-					<param name="notehost_a_e1" value="{:notehost_a_e1}" />
-					<param name="notehost_b_e1" value="{:notehost_b_e1}" />
+					<param name="diplodate_a_e1" value="{:diplodate_a_e1}"/>
+					<param name="languages_a_e1" value="{:languages_a_e1}"/>
+					<param name="languages_b_e1" value="{:languages_b_e1}"/>
+					<param name="nationality_a_e1" value="{:nationality_a_e1}"/>
+					<param name="nationality_b_e1" value="{:nationality_b_e1}"/>
+					<param name="noteorga_a_e1" value="{:noteorga_a_e1}"/>
+					<param name="noteorga_b_e1" value="{:noteorga_b_e1}"/>
+					<param name="iscompany" value="{:iscompany}"/>
+					<param name="notehost_a_e1" value="{:notehost_a_e1}"/>
+					<param name="notehost_b_e1" value="{:notehost_b_e1}"/>
 					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
 					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
 				</param>
 			</param>
 		</param>
-
 		<param name="formatCSVPersdat+Kategorien" type="map">
 			<param name="name" value="CSVPersdat+Kategorien"/>
 			<param name="description" value="Comma-Separated-Values"/>

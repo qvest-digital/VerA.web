@@ -2,24 +2,22 @@
 <project name="Struts">
 	<body>
 		<menu name="Overview">
-			<item name="Status" href="status.html" />
-			<item name="Roadmap" href="status.html#roadmap" />
+			<item name="Status" href="status.html"/>
+			<item name="Roadmap" href="status.html#roadmap"/>
 		</menu>
-
 		<menu name="Project Management">
-			<item name="Common" href="resources/pm/" />
-			<item name="Specs" href="resources/specs/" />
-			<item name="Notes" href="resources/notes/" />
-			<item name="Protocols" href="resources/protocols/" />
-			<item name="Tests" href="resources/pm/qm/" />
-			<item name="Templates" href="resources/templates/" />
+			<item name="Common" href="resources/pm/"/>
+			<item name="Specs" href="resources/specs/"/>
+			<item name="Notes" href="resources/notes/"/>
+			<item name="Protocols" href="resources/protocols/"/>
+			<item name="Tests" href="resources/pm/qm/"/>
+			<item name="Templates" href="resources/templates/"/>
 		</menu>
-
 		<menu name="User Documentation">
-			<item name="Logging configuration" href="loggingconfiguration.html" />
-			<item name="Task definition" href="taskdefinition.html" />
-			<item name="Manuals" href="resources/manuals/project/" />
-			<item name="3th Party" href="resources/manuals/third-party/" />
+			<item name="Logging configuration" href="loggingconfiguration.html"/>
+			<item name="Task definition" href="taskdefinition.html"/>
+			<item name="Manuals" href="resources/manuals/project/"/>
+			<item name="3th Party" href="resources/manuals/third-party/"/>
 		</menu>
 	</body>
 </project>

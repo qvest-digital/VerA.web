@@ -67,7 +67,6 @@
             <input type="hidden" name="saveconfig" value="guestMainPerson">
             <input type="hidden" name="saveconfig" value="guestPartner">
 
-
             #if(!$config.personTab || $config.personTab == "1")
                 #set($personTab1 = true)#set($personTab2 = false)
             #else

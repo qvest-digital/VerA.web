@@ -242,7 +242,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                         whereAndEq("fk_person", personId).
                         orderBy(Order.asc("tperson_categorie.fk_person").andAsc("tperson_categorie.rank")));
 
-
         List<PersonCategorie> newPersonCategorieList = new ArrayList<>();
         /** Get Categorie fk_id & original rank*/
         if (categoriesPerson != null) {
@@ -278,8 +277,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
         return catName;
     }
-
-
 
     /**
      * Octopus-Eingabe-Parameter für {@link #countRecipients(OctopusContext)}
@@ -435,7 +432,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
             for (final Object id : selection) {
 
-                // while (iter.hasNext()) {
+                // while (iter.hasNext()) { /*}*/
                 // Integer personId = (Integer) iter.next();
                 final Integer personId = (Integer) id;
                 if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
@@ -835,7 +832,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                       new StatementList(subList))));
                 for (final Object singlePerson : personExpireInFuture) {
                     // for (Iterator it = personExpireInFuture.iterator();
-                    // it.hasNext(); ) {
+                    // it.hasNext(); ) { /*}*/
                     final Person person = (Person) singlePerson;
                     if (getContextAsBoolean(octopusContext, "remove-expire-" + person.id)) {
                         octopusContext.setContent("remove-person", Boolean.TRUE);
