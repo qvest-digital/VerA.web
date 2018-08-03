@@ -748,11 +748,20 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             select = SQL.SelectDistinct(database);
         }
 
-        return select.from("veraweb.tperson").selectAs("tperson.pk", "id").select("internal_id").select("firstname_a_e1").select("lastname_a_e1")
+        return select.from("veraweb.tperson").selectAs("tperson.pk", "id")
+          .select("internal_id")
+          .select("firstname_a_e1")
+          .select("lastname_a_e1")
           .select("firstname_b_e1")
-          .select("lastname_b_e1").select("function_a_e1").select("company_a_e1").select("street_a_e1")
+          .select("mail_a_e1")
+          .select("lastname_b_e1")
+          .select("function_a_e1")
+          .select("company_a_e1")
+          .select("street_a_e1")
           .select("zipcode_a_e1")
-          .select("state_a_e1").select("city_a_e1").select("iscompany");
+          .select("state_a_e1")
+          .select("city_a_e1")
+          .select("iscompany");
     }
 
     @Override

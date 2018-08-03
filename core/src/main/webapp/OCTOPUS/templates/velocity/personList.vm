@@ -767,6 +767,20 @@ i                                                       ${placeholderWithTransla
                                                         </a></th>
                                                         #end
 
+                                                        #if($userConfig.personEmail == 'true')
+                                                            <th title="${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
+                                                                #if($personSearchField == 'mail_a_e1')
+                                                                    #if ($personSearchOrder == 'ASC')
+                                                                        <span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+                                                                    #else
+                                                                        <span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                                                                    #end
+                                                                #else
+                                                                    <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                #end
+                                                            </a></th>
+                                                        #end
+
                                                         #if($userConfig.personFunction == 'true')
                                                         <th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}
 
@@ -824,6 +838,9 @@ i                                                       ${placeholderWithTransla
                                             #if($userConfig.personFirstname == 'true')
                                                 <th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
                                             #end
+                                            #if($userConfig.personEmail == 'true')
+                                                <th title="${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
+                                            #end
                                             #if($userConfig.personFunction == 'true')
                                                 <th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</a></th>
                                             #end
@@ -867,6 +884,7 @@ i                                                       ${placeholderWithTransla
                                             #if($userConfig.personInternalId == 'true')<th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</a></th> #end
                                             #if($userConfig.personLastname == 'true')<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>#end
                                             #if($userConfig.personFirstname == 'true')<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>#end
+                                            #if($userConfig.personEmail == 'true')<th title="${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>#end
                                             #if($userConfig.personFunction == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</a></th>#end
                                             #if($userConfig.personCompany == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
                                                                 ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
@@ -898,6 +916,7 @@ i                                                       ${placeholderWithTransla
                                             #if($userConfig.personInternalId == 'true')<th class="textCenter smallCell"><a href="javascript:orderPersonList('internal_id');">${placeholderWithTranslation.GENERIC_INTERNAL_ID}</a></th> #end
                                             #if($userConfig.personLastname == 'true')<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>#end
                                             #if($userConfig.personFirstname == 'true')<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>#end
+                                            #if($userConfig.personEmail == 'true')<th title="${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>#end
                                             #if($userConfig.personFunction == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</a></th>#end
                                             #if($userConfig.personCompany == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</a></th>#end
                                                                 ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
@@ -952,6 +971,19 @@ i                                                       ${placeholderWithTransla
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                 #end
                                                         </a></th>
+                                            #end
+                                            #if($userConfig.personEmail == 'true')
+                                                <th title="${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
+                                                    #if($personSearchField == 'mail_a_e1')
+                                                        #if ($personSearchOrder == 'ASC')
+                                                            <span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+                                                        #else
+                                                            <span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                                                        #end
+                                                    #else
+                                                        <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                    #end
+                                                    </a></th>
                                             #end
                                             #if($userConfig.personFunction == 'true')
                                                         <th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}
@@ -1063,6 +1095,7 @@ i                                                       ${placeholderWithTransla
                                             #if($userConfig.personWorkarea == 'true')<th title="${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}</a></th>#end
                                             #if($userConfig.personLastname == 'true')<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>#end
                                             #if($userConfig.personFirstname == 'true')<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>#end
+                                            #if($userConfig.personEmail == 'true')<th title="${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>#end
                                             #if($userConfig.personFunction == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</a></th>#end
                                             #if($userConfig.personCompany == 'true')<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
                                                                 ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
@@ -1157,6 +1190,19 @@ i                                                       ${placeholderWithTransla
                                                                                 <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
                                                                         #end
                                                         </a></th>
+                                                #end
+                                                #if($userConfig.personEmail == 'true')
+                                                    <th title="${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
+                                                        #if($personSearchField == 'mail_a_e1')
+                                                            #if ($personSearchOrder == 'ASC')
+                                                                <span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+                                                            #else
+                                                                <span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+                                                            #end
+                                                        #else
+                                                            <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                        #end
+                                                    </a></th>
                                                 #end
                                                 #if($userConfig.personFunction == 'true')
                                                         <th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}
@@ -1297,6 +1343,9 @@ i                                                       ${placeholderWithTransla
                                                                 #if($userConfig.personFirstname == 'true')
                                                                     <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.firstname_a_e1)</td>
                                                                 #end
+                                                                #if($userConfig.personEmail == 'true')
+                                                                    <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.mail_a_e1)</td>
+                                                                #end
                                                                 #if($userConfig.personFunction == 'true')
                                                                     <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.function_a_e1)</td>
                                                                 #end
@@ -1317,6 +1366,9 @@ i                                                       ${placeholderWithTransla
                                                     #end
                                                     #if($userConfig.personFirstname == 'true')
                                                         <td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.firstname_a_e1)</td>
+                                                    #end
+                                                    #if($userConfig.personEmail == 'true')
+                                                        <td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.mail_a_e1)</td>
                                                     #end
                                                     #if($userConfig.personFunction == 'true')
                                                         <td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.function_a_e1)</td>
@@ -1351,6 +1403,9 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personFirstname == 'true')
                                                         <td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>
                                                     #end
+                                                    #if($userConfig.personEmail == 'true')
+                                                        <td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.mail_a_e1)</td>
+                                                    #end
                                                     #if($userConfig.personFunction == 'true')
                                                         <td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>
                                                     #end
@@ -1378,6 +1433,7 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personID == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>#end
                                                     #if($userConfig.personLastname == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.lastname_a_e1)</td>#end
                                                     #if($userConfig.personFirstname == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.firstname_a_e1)</td>#end
+                                                    #if($userConfig.personEmail == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.mail_a_e1)</td>#end
                                                     #if($userConfig.personFunction == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.function_a_e1)</td>#end
                                                     #if($userConfig.personCompany == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.company_a_e1)</td>#end
                                                     #if($userConfig.personStreet == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.street_a_e1)</td>#end
@@ -1400,6 +1456,7 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personID == 'true')<td onclick="window.location.href='$clickUrl';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>#end
                                                     #if($userConfig.personLastname == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.lastname_a_e1)</td>#end
                                                     #if($userConfig.personFirstname == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.firstname_a_e1)</td>#end
+                                                    #if($userConfig.personEmail == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.mail_a_e1)</td>#end
                                                     #if($userConfig.personFunction == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.function_a_e1)</td>#end
                                                     #if($userConfig.personCompany == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.company_a_e1)</td>#end
                                                     #if($userConfig.personStreet == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.street_a_e1)</td>#end
@@ -1442,6 +1499,7 @@ i                                                       ${placeholderWithTransla
 
                                                     #if($userConfig.personLastname == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.lastname_a_e1)</td>#end
                                                     #if($userConfig.personFirstname == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.firstname_a_e1)</td>#end
+                                                    #if($userConfig.personEmail == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.mail_a_e1)</td>#end
                                                     #if($userConfig.personFunction == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.function_a_e1)</td>#end
                                                     #if($userConfig.personCompany == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.company_a_e1)</td>#end
                                                     #if($userConfig.personStreet == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.street_a_e1)</td>#end
@@ -1472,6 +1530,7 @@ i                                                       ${placeholderWithTransla
 
                                                     #if($userConfig.personLastname == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.lastname_a_e1)</td>#end
                                                     #if($userConfig.personFirstname == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.firstname_a_e1)</td>#end
+                                                    #if($userConfig.personEmail == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.mail_a_e1)</td>#end
                                                     #if($userConfig.personFunction == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.function_a_e1)</td>#end
                                                     #if($userConfig.personCompany == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.company_a_e1)</td>#end
                                                     #if($userConfig.personStreet == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.street_a_e1)</td>#end

@@ -7,6 +7,7 @@ INSERT INTO tuser_config (fk_user,name,value) VALUES (1,'personListState','true'
 INSERT INTO tuser_config (fk_user,name,value) VALUES (1,'personID','true');
 INSERT INTO tuser_config (fk_user,name,value) VALUES (1,'personWorkarea','true');
 INSERT INTO tuser_config (fk_user,name,value) VALUES (1,'personFirstname','true');
+INSERT INTO tuser_config (fk_user,name,value) VALUES (1,'personEmail','true');
 INSERT INTO tuser_config (fk_user,name,value) VALUES (1,'personLastname','true');
 INSERT INTO tuser_config (fk_user,name,value) VALUES (1,'personFunction','true');
 INSERT INTO tuser_config (fk_user,name,value) VALUES (1,'personCompany','true');

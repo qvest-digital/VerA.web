@@ -21,6 +21,7 @@ public enum ViewConfigKey {
     PERSONLIST_ID("personID", "true"),
     PERSONLIST_WORKAREA("personWorkarea", "true"),
     PERSONLIST_FIRSTNAME("personFirstname", "true"),
+    PERSONLIST_EMAIL("personEmail", "true"),
     PERSONLIST_CATEGORY("personCategory", "false"),
     PERSONLIST_LASTNAME("personLastname", "true"),
     PERSONLIST_FUNCTION("personFunction", "true"),
