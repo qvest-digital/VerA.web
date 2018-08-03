@@ -70,7 +70,7 @@ import java.util.regex.Pattern;
  * This {@link Clause} represents a collection of {@link Clause Clauses}
  * connected by boolean operators. They are actually given as a number of
  * key to {@link Clause} mappings and a {@link String} containing these
- * keys connected by whitespaces, brackets, '&', '|' or '!'.
+ * keys connected by whitespaces, brackets, '&amp;', '|' or '!'.
  */
 public final class WhereTerm extends SetDbContextImpl implements Clause {
     /**
@@ -182,7 +182,7 @@ public final class WhereTerm extends SetDbContextImpl implements Clause {
      * This method appends a string representation of the clause model
      * for use in SQL statements to the given {@link StringBuffer}.<br>
      * Keys in the term are replaced by {@link String} representations
-     * of the {@link Clause Clauses}, '&', '|' and '!' are replaced by
+     * of the {@link Clause Clauses}, '&amp;', '|' and '!' are replaced by
      * {@link Where#AND " AND "}, {@link Where#OR " OR "} and
      * {@link Where#NOT " NOT "} respectively, and whitespaces and
      * brackets are left in place.

@@ -56,7 +56,7 @@ import org.apache.commons.logging.Log;
 
 /**
  * Simple Tool for time measurement to the logging system.
- * This tool logs to "info" if the SystemProperty <code>enableTimeMeasureTool</code< is set.
+ * This tool logs to "info" if the SystemProperty <code>enableTimeMeasureTool</code> is set.
  * If the SystemProperty is not set, if does not log anyway.
  */
 public class TimeMeasureTool {
