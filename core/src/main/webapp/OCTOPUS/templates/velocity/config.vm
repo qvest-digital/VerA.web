@@ -45,6 +45,7 @@
             <input type="hidden" name="saveconfig" value="personID">
             <input type="hidden" name="saveconfig" value="personWorkarea">
             <input type="hidden" name="saveconfig" value="personFirstname">
+            <input type="hidden" name="saveconfig" value="personEmail">
             <input type="hidden" name="saveconfig" value="personCategory">
             <input type="hidden" name="saveconfig" value="personLastname">
             <input type="hidden" name="saveconfig" value="personFunction">
@@ -268,6 +269,7 @@
                                 <div class="tableCellMarginBottom"><input type="checkbox" name="personID" id="personID" value="true" #if($config.personID == 'true') checked #end> <label for="personID">${placeholderWithTranslation.GENERIC_ID}</label></div><br>
                                 <div class="tableCellMarginBottom"><input type="checkbox" name="personWorkarea" id="personWorkarea" value="true" #if($config.personWorkarea == 'true') checked #end> <label for="personWorkarea">${placeholderWithTranslation.arbeitsshybereich}</label></div><br>
                                 <div class="tableCellMarginBottom"><input type="checkbox" name="personFirstname" id="personFirstname" value="true" #if($config.personFirstname == 'true') checked #end> <label for="personFirstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label></div><br>
+                                <div class="tableCellMarginBottom"><input type="checkbox" name="personEmail" id="personEmail" value="true" #if($config.personEmail == 'true') checked #end> <label for="personEmail">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</label></div><br>
                                 <div class="tableCellMarginBottom"><input type="checkbox" name="personCategory" id="personCategory" value="true" #if($config.personCategory == 'true') checked #end> <label for="personCategory">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label></div><br>
                                 <div class="tableCellMarginBottom"><input type="checkbox" name="personLastname" id="personLastname" value="true" #if($config.personLastname == 'true') checked #end> <label for="personLastname">${placeholderWithTranslation.GENERIC_LASTNAME}</label></div><br>
                                 <div class="tableCellMarginBottom"><input type="checkbox" name="personFunction" id="personFunction" value="true" #if($config.personFunction == 'true') checked #end> <label for="personFunction">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div><br>
