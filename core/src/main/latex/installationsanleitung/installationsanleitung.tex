@@ -677,15 +677,20 @@ minimal.
  Webserver                & Apache 2.2             & Apache 2.4    & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Datenbank                & PostgreSQL 9.1         & aktuelle 9.x  & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
 %XXX TODO: PostgreSQL 10+ testen
- OSIAM (alleine) Arbeitsspeicher   &  960 MiB      & 1536 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- OSIAM (alleine) Festplattengröße  &    2 GB       &    4 GB       &    8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- core (alleine) Arbeitsspeicher    &  512 MiB      & 1024 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- core (alleine) Festplattengröße   &    2 GB       &    8 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- core + OSIAM Arbeitsspeicher      & 1024 MiB      & 2048 MiB      & 4096 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- core + OSIAM Festplattengröße     &    3 GB       &   10 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Online-Anmeldung Arbeitsspeicher  &  512 MiB      &  768 MiB      & 1024 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Online-Anmeldung Festplattengröße &    ½ GB       &    3 GB       &    8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ OSIAM (alleine) RAM  &  960 MiB      & 1536 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ OSIAM (alleine) HDD  &    2 GB       &    4 GB       &    8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ core (alleine) RAM   &  512 MiB      & 1024 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ core (alleine) HDD   &    2 GB       &    8 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ core + OSIAM RAM     & 1024 MiB      & 2048 MiB      & 4096 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ core + OSIAM HDD     &    3 GB       &   10 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Online-Anmeldung RAM &  512 MiB      &  768 MiB      & 1024 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Online-Anmeldung HDD &    ½ GB       &    3 GB       &    8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
 \end{tabular}
+
+{\scriptsize\textbf{Legende:}
+ RAM~=~Größe des Arbeitsspeichers;
+ HDD~=~Festplattengröße
+}
 
 Bitte beachten Sie bei der Dimensionierung der Maschinen und der
 Netzwerkanbindung, daß das Veranstaltungsmanagement (core) nur
@@ -1179,7 +1184,7 @@ Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
 \texttt{/var/log/tomcat8/catalina.out} befinden sich die Logs,
 unter anderem mit Erfolgsmeldungen im Stile von {\ttfamily
 2018-04-05 17:00:44.919    INFO
-(org.apache.catalina.startup.HostConfig deployWAR)
+(org.apache.catalina.startup.HostConfig deployWAR)%
 [org.apache.catalina.startup.HostConfig] Deployment of web application archive
 /var/lib/tomcat8/webapps/osiam-auth-server.war has finished in 47,122 ms}
 (eine separate solche Zeile pro Applikationsarchiv).
@@ -1356,9 +1361,9 @@ java -version
 \end{minipage}
 
 \begin{minipage}{\linewidth}
-Kopieren Sie außerdem die Datei \texttt{postgresql-jdbc4.jar} aus
-dem „files“-Tarball nach \texttt{/var/lib/tomcat8/lib/} (hierbei
-ggfs. bereits existierende überschreiben):
+Kopieren Sie desweiteren nach \texttt{/var/lib/tomcat8/lib/} \dash
+hierbei ggfs. eine bereits existierende überschreibend \dash die
+Datei \texttt{postgresql-jdbc4.jar} aus dem „files“-Tarball:
 
 \begin{lstdump}{JDBC core}
 sudo cp postgresql-jdbc4.jar /var/lib/tomcat8/lib/
@@ -1459,7 +1464,7 @@ core-System) und tragen Sie die Zugangsdaten für die REST-API
 (siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
 
-Bei Verwendung der Online-Anmeldung ersetzen Sie bitte desweiteren
+Bei Verwendung der Online-Anmeldung ersetzen Sie auch die Platzhalter
 \texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-OA} an allen Stellen
 durch die Hostnamen des OSIAM- bzw. des Online-Anmeldungssystems.
 Schließlich tragen Sie für \texttt{osiam.client.secret} denselben
@@ -2349,7 +2354,7 @@ Kurzbezeichnung („Testflohmarkt“) und einen (in der Zukunft liegenden)
 Beginn eingeben, ein Häkchen bei „Offene Veranstaltung“ setzen, und
 auf \inlinekasten{Veranstaltung speichern} klicken.
 
-Öffnen Sie nun die Startseite (\texttt{https://HOSTNAME-OA/vwor-app/})
+Öffnen Sie nun die Haupt‑/Startseite \texttt{https://HOSTNAME-OA/vwor-app/}
 der Online-Anmeldung im Browser. Unter „Veranstaltungen“ sehen Sie
 den Testflohmarkt\Hair\textsuperscript{\ref{fn:inttst-osiam}} und
 einen Button \inlinekasten{Zur Veranstaltung anmelden}, den Sie bitte
@@ -2382,7 +2387,7 @@ gesetzt werden.
 
 \subsubsection{Deaktivierung der Online-Anmeldung für die ganze Installation}
 
-Setzen Sie in der Datei \texttt{/etc/veraweb/config\_vwoa.xml} den
+Setzen Sie in \texttt{/etc/veraweb/config\_vwoa.xml} den
 Parameter \texttt{online-registration.activated} auf \texttt{false}.
 Nach der Deaktivierung verhält sich die VerA.web-Installation wie eine
 Installation ohne Online-Anmeldung.
@@ -2439,8 +2444,9 @@ zur Online-Anmeldung nicht mehr angezeigt.
 Um ein benutzerdefiniertes Impressum für die Online-Anmeldung zu hinterlegen,
 muß die Datei \texttt{/etc/veraweb/vwor.properties} erweitert werden.
 
-Mit den Einträgen \texttt{imprint.}<language\_key>\texttt{.heading.}<sorting\_number>\texttt{=}<heading>
+Mit parametrisierten Einträgen \texttt{imprint.}<language\_key>\texttt{.heading.}<sorting\_number>\texttt{=}<heading>
 und \texttt{imprint.}<language\_key>\texttt{.content.}<sorting\_number>\texttt{=}<content>
+(die Parameter werden im folgenden erläutert)
 lassen sich einzelne Abschnitte zum Impressum hinzufügen.
 
 Um das Impressum mehrsprachig zur Verfügung zu stellen, sollte ein Eintrag je
@@ -2478,13 +2484,12 @@ des Cores enthalten. Individuelle Anpassungen können in
 externen Dateien vorgenommen werden.
 
 Dazu betrachten Sie die ausgelieferten Übersetzungsdateien im Verzeichnis
-\texttt{l10n} des \texttt{veraweb-core-\vwiaverssw{}-files.tgz}-Archives
-an. Die Datei mit den englischen Texten heißt beispielsweise
-\texttt{en\_EN.resource}. Darin suchen Sie den anzupassenden Text,
-z.B. \texttt{MENU\_PERSONS=people}. Der Teil vor dem Gleichheitszeichen
-\texttt{=} entspricht dabei dem Schlüssel, über den die Software den
-Text sucht und der hintere Teil ist der ensprechende anzuzeigende Text,
-jeweils auf immer nur einer Zeile.
+\texttt{l10n} des „files“-Tarballs. Die Datei mit den englischen Texten
+heißt beispielsweise \texttt{en\_EN.resource}. Darin suchen Sie den
+anzupassenden Text, z.B. \texttt{MENU\_PERSONS=people}. Der Teil vor dem
+Gleichheitszeichen \texttt{=} entspricht dabei dem Schlüssel, über den
+die Software den Text sucht, und der hintere Teil ist der ensprechende
+anzuzeigende Text, jeweils auf immer nur einer Zeile.
 
 Die geänderten Übersetzungstexte schreiben Sie in eine Datei mit demselben
 Namen (also z.B. wieder \texttt{en\_EN.resource}) unterhalb des Verzeichnisses
@@ -2529,7 +2534,7 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=vwor/src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
  \item{\href{https://github.com/osiam/osiam/blob/v2.5/docs/detailed-reference-installation.md}{https://github.com/osiam/osiam/blob/v2.5/docs/detailed-reference-installation.md}
-  \dash Detaillierte OSIAM-Referenzinstallationsanleitung}
+  \dash die offizielle detaillierte OSIAM-Referenzinstallationsanleitung}
 \end{itemize}
 
 \subsection{Absicherung}\label{subsec:links-sec}
