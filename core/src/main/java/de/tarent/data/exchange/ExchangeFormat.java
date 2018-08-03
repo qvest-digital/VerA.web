@@ -3,7 +3,7 @@ package de.tarent.data.exchange;
 /*-
  * Veranstaltungsmanagement VerA.web (platform-independent
  * webservice-based event management) is Copyright
- *  © 2014, 2015, 2016, 2017 Атанас Александров (a.alexandrov@tarent.de)
+ *  © 2014, 2015, 2016, 2017, 2018 Атанас Александров (a.alexandrov@tarent.de)
  *  © 2018 Атанас Александров (sirakov@gmail.com)
  *  © 2013 Иванка Александрова (i.alexandrova@tarent.de)
  *  © 2013 Patrick Apel (p.apel@tarent.de)

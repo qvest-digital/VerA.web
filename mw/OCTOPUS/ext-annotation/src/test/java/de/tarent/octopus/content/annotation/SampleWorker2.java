@@ -10,7 +10,9 @@ package de.tarent.octopus.content.annotation;
  *  © 2018 Атанас Александров (sirakov@gmail.com)
  *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
  *  © 2007 David Goemans (d.goemans@tarent.de)
+ *  © 2018 Christian Gorski (c.gorski@tarent.de)
  *  © 2006, 2007, 2010 Hendrik Helwich (h.helwich@tarent.de)
+ *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
  *  © 2005, 2006, 2007 Christoph Jerolimov (c.jerolimov@tarent.de)
  *  © 2018 Timo Kanera (t.kanera@tarent.de)
  *  © 2006 Philipp Kirchner (p.kirchner@tarent.de)
@@ -49,6 +51,7 @@ package de.tarent.octopus.content.annotation;
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 public class SampleWorker2 {
 
 }
