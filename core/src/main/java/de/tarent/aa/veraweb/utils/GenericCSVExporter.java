@@ -213,7 +213,9 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
             Object result = null;
             // Personenstammdatenfelder
             try {
-                if (sourceKey.charAt(0) == ':') {
+                if(sourceKey.equals(":workarea_name")) {
+                    result = getWorkareaName(person.workarea);
+                } else if (sourceKey.charAt(0) == ':') {
                     result = person.get(sourceKey.substring(1));
                 } else if (sourceKey.startsWith("CAT:")) {
                     result = getRank(sourceKey.substring(4));
@@ -262,12 +264,12 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
                 Bean sampleCategory = database.createBean("Categorie");
                 Bean samplePersonCategory = database.createBean("PersonCategorie");
                 Select select = new Select(false).from(database.getProperty(samplePersonCategory, "table")).join(
-                  database.getProperty(sampleCategory, "table"), database.getProperty(sampleCategory, "id"),
-                  database.getProperty(samplePersonCategory, "categorie"))
-                  .selectAs(database.getProperty(sampleCategory, "name"), "name")
-                  .selectAs(database.getProperty(sampleCategory, "rank"), "rankDefault")
-                  .selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
-                  .where(Expr.equal(database.getProperty(samplePersonCategory, "person"), person.id));
+                        database.getProperty(sampleCategory, "table"), database.getProperty(sampleCategory, "id"),
+                        database.getProperty(samplePersonCategory, "categorie"))
+                        .selectAs(database.getProperty(sampleCategory, "name"), "name")
+                        .selectAs(database.getProperty(sampleCategory, "rank"), "rankDefault")
+                        .selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
+                        .where(Expr.equal(database.getProperty(samplePersonCategory, "person"), person.id));
                 final List entries = database.getList(select, database);
                 for (Object currentEntry : entries) {
                     final Map entry = (Map) currentEntry;
@@ -286,6 +288,21 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
                 }
             }
             return ranks.get(categoryName);
+        }
+
+        private String getWorkareaName(int workareaId) throws BeanException {
+            String workareaName = null;
+            if(workareaId != 0) {
+                Select select = new Select(false).from("tworkarea")
+                        .selectAs("name", "name")
+                        .where(Expr.equal("pk", workareaId));
+                final List sqlResult = database.getList(select, database);
+                final Map entry = (Map) sqlResult.get(0);
+                if(entry != null) {
+                    workareaName = entry.get("name").toString();
+                }
+            }
+            return workareaName;
         }
 
         //
