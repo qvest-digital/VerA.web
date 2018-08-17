@@ -6,7 +6,7 @@
 % Copyright © 2014, 2015
 %	Thorsten Glaser <thorsten.glaser@teckids.org>
 % Copyright © 2013, 2014
-%	Dominik George <nik@naturalnet.de>
+%	Dominik George <dominik.george@teckids.org>
 %
 % Provided that these terms and disclaimer and all copyright notices
 % are retained or reproduced in an accompanying document, permission

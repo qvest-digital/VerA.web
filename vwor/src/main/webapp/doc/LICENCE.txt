@@ -201,7 +201,7 @@ property of exljbris Font Foundry.
 
 ┌──┤ The documentation makes use of LᴬTₑΧ code: (MirOS) ├──────────────────┐
 │                                                                          │
-│ Copyright © 2015, 2016, 2017                                             │
+│ Copyright © 2015, 2016, 2018                                             │
 │     Thorsten Glaser <t.glaser@tarent.de>                                 │
 │                                                                          │
 │ Design und Code abgeleitet von dem Stil und der                          │
@@ -211,10 +211,6 @@ property of exljbris Font Foundry.
 │     Thorsten Glaser <thorsten.glaser@teckids.org>                        │
 │ Copyright © 2013, 2014                                                   │
 │     Dominik George <dominik.george@teckids.org>                          │
-│ with contributions by (among others)                                     │
-│     egreg <http://tex.stackexchange.com/users/4427>                      │
-│     Steven B. Segletes <http://tex.stackexchange.com/users/25858>        │
-│     David Carlisle <http://tex.stackexchange.com/users/1090>             │
 │                                                                          │
 │ Provided that these terms and disclaimer and all copyright notices       │
 │ are retained or reproduced in an accompanying document, permission       │

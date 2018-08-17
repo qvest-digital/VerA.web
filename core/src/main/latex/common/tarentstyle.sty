@@ -1,14 +1,12 @@
 % Allgemeine LaTeX-Vorlage für tarent solutions GmbH
-% Copyright © 2015, 2016
+% Copyright © 2015, 2016, 2018
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % abgeleitet von der Vorlage des Teckids e.V.
 % Copyright © 2014, 2015
 %	Thorsten Glaser <thorsten.glaser@teckids.org>
 % Copyright © 2013
-%	Dominik George <nik@naturalnet.de>
-% with contributions by (among others)
-%	Steven B. Segletes <http://tex.stackexchange.com/users/25858>
+%	Dominik George <dominik.george@teckids.org>
 %
 % Provided that these terms and disclaimer and all copyright notices
 % are retained or reproduced in an accompanying document, permission
@@ -84,12 +82,13 @@
  \renewcommand*\pagemark{\leavevmode\usekomafont{pagenumber}\ifnum\ztotpages=1\else\thepage/\ztotpages\fi}
  \fancyhead[LO,RE]{\leavevmode\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
  \fancyhead[RO,LE]{\leavevmode\usekomafont{pageheadfoot}#2}
- \fancyfoot[LO,RE]{\leavevmode\usekomafont{pageheadfoot}{\footnotesize\textcopyright #1 tarent}}
+ \fancyfoot[LO,RE]{\leavevmode\usekomafont{pageheadfoot}{\footnotesize\textcopyright{} #1 tarent}}
  \fancyfoot[C]{\leavevmode\usekomafont{pageheadfoot}\pagemark}
  \fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
 }
 \tarenthdr{\headmark}
 
+% from unicodepoints… and this should really switch to unicodedomino, too
 \makeatletter%
 \newcommand{\renewunicodechar}[2]{%
  \expandafter\let\csname u8:\detokenize{#1}\endcsname\@undefined%
@@ -187,7 +186,6 @@
 \def\lstdumpesc{\@ifnextchar[{\lstdumpesc@two}{\lstdumpesc@one}}
 \def\lstdumpesc@one#1{\lst@WFAppend{#1}#1}
 \def\lstdumpesc@two[#1]#2{\lst@WFAppend{#1}#2}
-\makeatother
 
 \lstset{
 	backgroundcolor=\color{tarentgrau},
@@ -228,6 +226,7 @@
 	commentstyle=\color{ForestGreen},
 	stringstyle=\color{RedOrange},
 }
+\makeatother%
 
 % Use Museo Sans by default
 \renewcommand{\sfdefault}{museo}
