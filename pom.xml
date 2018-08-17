@@ -4,7 +4,7 @@
 	<!-- mvn -B -PoA dependency:tree -Dverbose | less # with VWOA -->
 	<!--
 		Maven profiles:
-		• latex: build the Teχ/LᴬTᴇX documentation
+		• latex: build the Tₑχ/LᴬTᴇΧ documentation
 		• release: extra release checks, etc.
 		• oA: include building the Online-Anmeldung
 	-->
