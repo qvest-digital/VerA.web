@@ -242,24 +242,6 @@
 					<extraRuns>2</extraRuns>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>${maven.owasp.dependency-check.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<failBuildOnCVSS>8</failBuildOnCVSS>
-					<suppressionFiles>
-						<suppressionFile>${project.basedir}/dependency-check-suppressions.xml</suppressionFile>
-					</suppressionFiles>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 </project>
