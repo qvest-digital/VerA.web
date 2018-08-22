@@ -75,10 +75,10 @@ import org.glassfish.jersey.media.multipart.BodyPartEntity
 import org.glassfish.jersey.media.multipart.FormDataBodyPart
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition
 import org.glassfish.jersey.media.multipart.FormDataMultiPart
-import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.Transaction
+import org.hibernate.query.Query
 import spock.lang.Ignore
 import spock.lang.Specification
 
@@ -381,14 +381,11 @@ class PdfTemplateResourceTest extends Specification {
 
     void testQueryBuilder() {
         given:
-            def eventId = 1
-            def ui = Mock(UriInfo)
-            def map = new MultivaluedHashMap<String, String>()
-            map.add("filterCategoryId","1")
-            map.add("filterWord","wordiword")
-            map.add("filterInvStatus","1")
-            map.add("filterReserve","1")
-            ui.getQueryParameters() >> map
+            def map = new HashMap<String, String>()
+            map.put('filterCategoryId','1')
+            map.put('filterWord','wordiword')
+            map.put('filterInvStatus', invStatus)
+            map.put('filterReserve','1')
 
         when:
             def query = resource.buildQuery(map)
@@ -397,11 +394,18 @@ class PdfTemplateResourceTest extends Specification {
             assert query == "SELECT p FROM Person p" +
                     " JOIN Guest g ON (p.pk = g.fk_person)" +
                     " WHERE g.fk_event=:eventid" +
-                    " AND g.reserve = :filterReserve" +
-                    " AND g.invitationstatus = :filterInvStatus" +
+                    " AND g.reserve = :filterReserve AND " +
+                    expectedFilter +
                     " AND g.fk_category = :filterCategoryId" +
                     " AND (p.firstname_a_e1 = :filterWord OR p.lastname_a_e1 = :filterWord)" +
                     " ORDER BY p.lastname_a_e1 ASC "
+
+        where:
+        invStatus | expectedFilter
+        '1'       | '((invitationtype = 1 AND (invitationstatus IS NULL OR invitationstatus=0 OR invitationstatus_p IS NULL OR invitationstatus_p=0)) OR (invitationtype = 2 AND (invitationstatus IS NULL OR invitationstatus=0)) OR (invitationtype = 3 AND (invitationstatus_p IS NULL OR invitationstatus_p=0)))'
+        '2'       | '((invitationtype = 1 AND (invitationstatus = 1 OR invitationstatus_p = 1)) OR (invitationtype = 2 AND invitationstatus = 1) OR (invitationtype = 3 AND invitationstatus_p = 1))'
+        '3'       | '((invitationtype = 1 AND (invitationstatus = 2 OR invitationstatus_p = 2)) OR (invitationtype = 2 AND invitationstatus = 2) OR (invitationtype = 3 AND invitationstatus_p = 2))'
+        '4'       | '((invitationtype = 1 AND (invitationstatus = 3 OR invitationstatus_p = 3)) OR (invitationtype = 2 AND invitationstatus = 3) OR (invitationtype = 3 AND invitationstatus_p = 3))'
     }
 
     void testGeneratePdfReturnNoContent() {

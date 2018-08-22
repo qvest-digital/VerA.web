@@ -81,7 +81,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-public class ExractorQueryBuilderTest {
+public class ExtractorQueryBuilderTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
@@ -109,7 +109,7 @@ public class ExractorQueryBuilderTest {
     }
 
     @Test
-    public void applingFiltersDontModifyBaseQuerySql() {
+    public void applyingFiltersDontModifyBaseQuerySql() {
         //given:
         String basicQueryString = "SELECT * FROM tguest WHERE x=y";
         when(extractorQuery.getSql()).thenReturn(basicQueryString);
@@ -126,7 +126,7 @@ public class ExractorQueryBuilderTest {
     }
 
     @Test
-    public void applingFiltersExtendsBaseQuerySql() {
+    public void applyingFiltersExtendsBaseQuerySql() {
         //given:
         String basicQueryString = "SELECT * FROM tguest WHERE x=y";
         when(extractorQuery.getSql()).thenReturn(basicQueryString);
@@ -141,6 +141,7 @@ public class ExractorQueryBuilderTest {
         ExtractorQuery query = queryTemplate.setFilters(filterSettings).build();
 
         //then:
-        assertTrue(query.getSql().equals(basicQueryString + " AND g.invitationstatus = 2 AND g.fk_category = 0"));
+        String expectedStatusFilter = "((invitationtype = 1 AND (invitationstatus = 1 OR invitationstatus_p = 1)) OR (invitationtype = 2 AND invitationstatus = 1) OR (invitationtype = 3 AND invitationstatus_p = 1))";
+        assertEquals(query.getSql(), basicQueryString + " AND " + expectedStatusFilter + " AND g.fk_category = 0");
     }
 }
