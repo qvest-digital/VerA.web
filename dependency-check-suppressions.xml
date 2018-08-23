@@ -8,6 +8,14 @@
 		<gav regex="true">^commons-fileupload:commons-fileupload:.*$</gav>
 		<cpe>cpe:/a:apache:commons_fileupload</cpe>
 	</suppress>
+	<!-- postgresql admin pack is not used -->
+	<suppress>
+		<notes><![CDATA[
+   file name: postgresql-42.2.4.jar
+   ]]></notes>
+		<gav regex="true">^org\.postgresql:postgresql:.*$</gav>
+		<cve>CVE-2018-1115</cve>
+	</suppress>
 	<!-- we need to check osiam separately -->
 	<suppress>
 		<notes><![CDATA[
