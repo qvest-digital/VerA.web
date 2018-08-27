@@ -415,6 +415,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return SQL.SelectDistinct(database).from("veraweb.tguest")
                 .selectAs("tguest.pk", "id")
                 .selectAs("tguest.fk_person", "personId")
+                .selectAs("tguest.fk_category", "categoryId")
+                .selectAs("tcategorie.catname", "categoryName")
                 .selectAs("tguest.rank", "rank")
                 .select("deleted")
                 .select("delegation")
@@ -428,51 +430,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 .selectAs("orderno_p", "orderno_b");
     }
 
-    // Bug 4
-    protected List getResultList(Database database, Select select) throws BeanException, IOException {
+    protected List getResultList(Database database, Select select) throws BeanException {
         final List allGuests = getAllGuests(database, select);
-        final List<Map> modifiedList = new ArrayList<Map>();
+        final List<Map> modifiedList = new ArrayList<>();
         for (Object guest : allGuests) {
             modifiedList.add((Map) guest);
         }
         return modifiedList;
-    }
-
-    protected List getResultListForGuestList(Database database, Select select, OctopusContext cntx) throws BeanException, IOException {
-        final List allGuests = getAllGuests(database, select);
-        final List<Map> modifiedList = new ArrayList<Map>();
-        for (Object guest : allGuests) {
-            modifiedList.add((Map) guest);
-        }
-
-        for(int i=0; i < modifiedList.size(); i++) {
-            String guestid = modifiedList.get(i).get("id").toString();
-
-            // Bug 3
-            final GuestSearch search = getSearch(cntx);
-            int newevent = search.event;
-
-            int newguest = Integer.parseInt(guestid);
-
-            GuestDetailWorker guestDetailWorker = new GuestDetailWorker();
-            Guest guest = guestDetailWorker.getGuest(cntx, newevent, newguest, null);
-
-            modifiedList.get(i).put("personId", guest.person);
-            modifiedList.get(i).put("guestDetailCatName", getGuestCategory(guest.category, cntx));
-        }
-
-        return modifiedList;
-    }
-
-    public String getGuestCategory(Integer catId, OctopusContext octopusContext)
-            throws BeanException, IOException {
-        String catName= "";
-        final Database database = getDatabase(octopusContext);
-        Categorie categorie = (Categorie) database.getBean("Categorie", catId);
-        if (categorie != null) {
-            catName = categorie.name;
-        }
-        return catName;
     }
 
     private List getAllGuests(Database database, Select select) throws BeanException {
