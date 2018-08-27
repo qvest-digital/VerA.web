@@ -1545,7 +1545,7 @@ i                                                       ${placeholderWithTransla
                                         #end
 
                                         #set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-                                        #tableFooter(20)
+                                        #tableFooter(13)
                                         #parse("inc/list-direct-new.vm")
                                 </table>
                         </div>
