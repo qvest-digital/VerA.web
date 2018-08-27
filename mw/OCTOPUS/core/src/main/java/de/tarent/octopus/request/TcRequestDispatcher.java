@@ -74,7 +74,7 @@ import java.util.Map;
 
 /**
  * Wichtigste Steuerkomponente für den Ablauf und die Abarbeitung einer Anfrage.
- *
+ * <p>
  * Initialisiert das ganze System mit dem Konstructor
  * und arbeitet eine Anfrage mit dispatch() ab.
  *
@@ -126,7 +126,7 @@ public class TcRequestDispatcher /*implements Serializable*/ {
      * @param theSession Sessionobjekt, das die PersonalConfig aufnehmen kann.
      */
     public void dispatch(TcRequest tcRequest, TcResponse tcResponse, TcSession theSession)
-      throws ResponseProcessingException {
+            throws ResponseProcessingException {
 
         String requestID = tcRequest.getRequestID();
 
@@ -137,7 +137,7 @@ public class TcRequestDispatcher /*implements Serializable*/ {
         String task = tcRequest.getTask();
 
         if ((module == null || module.length() == 0)
-          && commonConfig.getDefaultModuleName() != null) {
+                && commonConfig.getDefaultModuleName() != null) {
             module = commonConfig.getDefaultModuleName();
             tcRequest.setModule(module);
         }
@@ -146,7 +146,7 @@ public class TcRequestDispatcher /*implements Serializable*/ {
         if (moduleConfig == null) {
             logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_NO_MODULE", requestID, module));
             throw new ResponseProcessingException(
-              Resources.getInstance().get("REQUESTDISPATCHER_EXC_NO_MODULE", module));
+                    Resources.getInstance().get("REQUESTDISPATCHER_EXC_NO_MODULE", module));
         }
 
         if (task == null || task.length() == 0) {
@@ -155,9 +155,9 @@ public class TcRequestDispatcher /*implements Serializable*/ {
         }
         if (moduleConfig.getTaskList().getTask(task) == null) {
             logger.error(
-              Resources.getInstance().get("REQUESTDISPATCHER_LOG_NO_TASK", requestID, task, module));
+                    Resources.getInstance().get("REQUESTDISPATCHER_LOG_NO_TASK", requestID, task, module));
             throw new ResponseProcessingException(
-              Resources.getInstance().get("REQUESTDISPATCHER_EXC_NO_TASK", task, module));
+                    Resources.getInstance().get("REQUESTDISPATCHER_EXC_NO_TASK", task, module));
         }
 
         tcResponse.setModuleName(module);
@@ -187,29 +187,21 @@ public class TcRequestDispatcher /*implements Serializable*/ {
             Threads.setContextClassLoader(outerLoader);
         } catch (Exception securityException) {
             // Für diese Aktion ist eine andere Berechtigung nötig
-            if (logger.isInfoEnabled()) {
-                logger.info(Resources.getInstance()
-                  .get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task));
-            }
-            if (logger.isInfoEnabled()) {
-                logger.info(Resources.getInstance()
-                    .get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task),
-                  securityException);
-            }
-
+            logger.info(Resources.getInstance()
+                    .get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task));
             if (securityException instanceof TcSecurityException) {
                 sendAuthenticationError(moduleConfig, commonConfig, tcRequest, tcResponse,
-                  (TcSecurityException) securityException);
+                        (TcSecurityException) securityException);
             } else {
+                logger.error(Resources.getInstance()
+                                .get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task),
+                        securityException);
                 sendAuthenticationError(moduleConfig, commonConfig, tcRequest, tcResponse,
-                  new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR,
-                    securityException));
+                        new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR,
+                                securityException));
             }
 
-            if (logger.isInfoEnabled()) {
-                logger.debug("Authentication Error wurde an den Client gesendet. Kehre nun zurück.");
-            }
-
+            logger.debug("Error was send to client.");
             return;
         } finally {
             Threads.setContextClassLoader(outerLoader);
@@ -241,33 +233,33 @@ public class TcRequestDispatcher /*implements Serializable*/ {
             TcResponseDescription responseDescription = taskManager.getCurrentResponseDescription();
             // Sending the response
             responseCreator.sendResponse(moduleConfig,
-              config,
-              tcResponse,
-              content,
-              responseDescription,
-              tcRequest);
+                    config,
+                    tcResponse,
+                    content,
+                    responseDescription,
+                    tcRequest);
         } catch (TcContentProzessException cpe) {
             logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_TASK_ERROR", requestID, task),
-              cpe);
+                    cpe);
             if ("soapFault".equalsIgnoreCase(taskManager.getCurrentOnErrorAction())) {
                 tcResponse.sendError(TcRequest.REQUEST_TYPE_SOAP, requestID, null, cpe);
             } else {
                 sendError(moduleConfig, config, tcResponse, tcRequest,
-                  Resources.getInstance().get("REQUESTDISPATCHER_OUT_TASK_ERROR", task),
-                  cpe);
+                        Resources.getInstance().get("REQUESTDISPATCHER_OUT_TASK_ERROR", task),
+                        cpe);
             }
         } catch (ResponseProcessingException rpe) {
             logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_RESPONSE_ERROR", requestID),
-              rpe);
+                    rpe);
             sendError(moduleConfig, config, tcResponse, tcRequest,
-              Resources.getInstance().get("REQUESTDISPATCHER_OUT_RESPONSE_ERROR"),
-              rpe);
+                    Resources.getInstance().get("REQUESTDISPATCHER_OUT_RESPONSE_ERROR"),
+                    rpe);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_TASK_ERROR", requestID, task),
-              e);
+                    e);
             sendError(moduleConfig, config, tcResponse, tcRequest,
-              Resources.getInstance().get("REQUESTDISPATCHER_OUT_TASK_ERROR", task),
-              e);
+                    Resources.getInstance().get("REQUESTDISPATCHER_OUT_TASK_ERROR", task),
+                    e);
         } finally {
             // run the cleanup hooks; this should never cause an exception
             processCleanupCode(requestID, content);
@@ -299,19 +291,19 @@ public class TcRequestDispatcher /*implements Serializable*/ {
                         iter.remove();
                     } else {
                         logger.error(Resources.getInstance()
-                          .get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_WRONG_TYPE", requestID,
-                            (cleanupObject == null ? null :
-                              cleanupObject.getClass().getName()), cleanupObject));
+                                .get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_WRONG_TYPE", requestID,
+                                        (cleanupObject == null ? null :
+                                                cleanupObject.getClass().getName()), cleanupObject));
                     }
                 } catch (Exception t) {
                     logger.error(Resources.getInstance()
-                      .get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_CLOSE_ERROR", requestID,
-                        cleanupObject), t);
+                            .get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_CLOSE_ERROR", requestID,
+                                    cleanupObject), t);
                 }
             }
         } else if (cleanupObjectList != null) {
             logger.warn(Resources.getInstance().get("REQUESTDISPATCHER_LOG_INVALID_CLEANUPLIST", requestID,
-              cleanupObjectList.getClass().getName()));
+                    cleanupObjectList.getClass().getName()));
         }
     }
 
@@ -320,23 +312,23 @@ public class TcRequestDispatcher /*implements Serializable*/ {
      * schonmal in den Content schieben
      */
     public void putStandardParams(
-      TcModuleConfig moduleConfig,
-      TcConfig config,
-      TcResponse tcResponse,
-      TcRequest request,
-      TcContent theContent) {
+            TcModuleConfig moduleConfig,
+            TcConfig config,
+            TcResponse tcResponse,
+            TcRequest request,
+            TcContent theContent) {
         String standardParamWorker = Resources.getInstance().get("REQUESTDISPATCHER_CLS_PARAM_WORKER");
         try {
 
             TcContentWorker worker = TcContentWorkerFactory.getContentWorker(moduleConfig,
-              standardParamWorker, request.getRequestID());
+                    standardParamWorker, request.getRequestID());
             worker.doAction(config, "putMinimal", request, theContent);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get(
-              "REQUESTDISPATCHER_LOG_PARAM_SET_ERROR",
-              request.getRequestID(),
-              standardParamWorker),
-              e);
+                    "REQUESTDISPATCHER_LOG_PARAM_SET_ERROR",
+                    request.getRequestID(),
+                    standardParamWorker),
+                    e);
         }
     }
 
@@ -350,18 +342,18 @@ public class TcRequestDispatcher /*implements Serializable*/ {
     }
 
     private void sendError(
-      TcModuleConfig moduleConfig,
-      TcConfig config,
-      TcResponse tcResponse,
-      TcRequest request,
-      String message,
-      Exception e)
-      throws ResponseProcessingException {
+            TcModuleConfig moduleConfig,
+            TcConfig config,
+            TcResponse tcResponse,
+            TcRequest request,
+            String message,
+            Exception e)
+            throws ResponseProcessingException {
 
         if (e instanceof de.tarent.octopus.security.TcSecurityException
-          && !TcRequest.isWebType(request.getRequestType())) {
+                && !TcRequest.isWebType(request.getRequestType())) {
             sendAuthenticationError(moduleConfig, config.getCommonConfig(), request, tcResponse,
-              (TcSecurityException) e);
+                    (TcSecurityException) e);
             return;
         }
 
@@ -378,24 +370,24 @@ public class TcRequestDispatcher /*implements Serializable*/ {
         theContent.setField("responseParams", responseParams);
         putStandardParams(moduleConfig, config, tcResponse, request, theContent);
         logger.debug(
-          Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", request.getRequestID(), message),
-          e);
+                Resources.getInstance().get("REQUESTDISPATCHER_LOG_SENDING_ERROR", request.getRequestID(), message),
+                e);
 
         responseCreator.sendResponse(
-          moduleConfig,
-          config,
-          tcResponse,
-          theContent,
-          responseDescription,
-          request);
+                moduleConfig,
+                config,
+                tcResponse,
+                theContent,
+                responseDescription,
+                request);
     }
 
     /**
      * Senden von Informationen zu den Fehlern, die bei der Authentifizierung aufgetreten sind.
      */
     private void sendAuthenticationError(TcModuleConfig moduleConfig, TcCommonConfig config, TcRequest tcRequest,
-      TcResponse tcResponse, TcSecurityException securityException)
-      throws ResponseProcessingException {
+                                         TcResponse tcResponse, TcSecurityException securityException)
+            throws ResponseProcessingException {
 
         //String message = securityException.getMessage();
 
@@ -404,25 +396,25 @@ public class TcRequestDispatcher /*implements Serializable*/ {
         TcConfig cfg = new TcConfig(config, null, tcRequest.getModule());
 
         if (TcRequest.isWebType(tcRequest.getRequestType()) && !"soap".equalsIgnoreCase(
-          cfg.getDefaultResponseType())) {
+                cfg.getDefaultResponseType())) {
             // Web-Type über sendResponse abwickeln.
             sendError(moduleConfig, cfg, tcResponse, tcRequest, securityException.getMessage(),
-              securityException);
+                    securityException);
         } else {
             // Eine SOAP Anfrage bekommt auch eine SOAP Fehlermeldung
             //throw new ResponseProcessingException(message, new TcSOAPException(message));
             if (logger.isDebugEnabled()) {
                 logger.debug(Resources.getInstance()
-                  .get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(),
-                    securityException.getMessage()));
+                        .get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(),
+                                securityException.getMessage()));
             }
             if (logger.isTraceEnabled()) {
                 logger.trace(Resources.getInstance()
-                  .get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(),
-                    securityException.getMessage()), securityException);
+                        .get("REQUESTDISPATCHER_LOG_SENDING_ERROR", tcRequest.getRequestID(),
+                                securityException.getMessage()), securityException);
             }
             tcResponse.sendError(TcRequest.REQUEST_TYPE_SOAP, tcRequest.getRequestID(),
-              securityException.getMessage(), new TcSOAPException(securityException));
+                    securityException.getMessage(), new TcSOAPException(securityException));
             return;
         }
 
