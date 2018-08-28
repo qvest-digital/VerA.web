@@ -86,7 +86,7 @@ function tgtck {
 	(stadtmuenchen)
 		hostbase=veraweb-stadtmuenchen.lan.tarent.de
 		hostoa=
-		tomcat=7
+		tomcat=7 #XXX no longer supported
 		;;
 	(*)
 		set +x
