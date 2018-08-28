@@ -85,6 +85,7 @@ import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
 
+import javax.naming.AuthenticationException;
 import javax.naming.NamingException;
 import java.net.PasswordAuthentication;
 import java.util.ArrayList;
@@ -213,7 +214,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
      */
     @Override
     protected void initLDAPManager() throws LDAPException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
         params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
         params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
@@ -292,6 +293,10 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 fillInUserGroups(commonConfig, aaConfig, tcRequest);
             }
         } catch (TcSecurityException se) {
+            if(se.getCause().getCause() instanceof AuthenticationException) {
+                //After two tries to login, stop doing useless things
+                throw se;
+            }
             if (origAuth != null && ldapManager instanceof LDAPManagerAA) {
                 Collection possibleRoles = null;
                 try {
