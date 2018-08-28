@@ -36,4 +36,5 @@ for x in *.xml; do
 	done <"$x.xml~" >"$x.xml"
 	print " done."
 done
+rm -f *~
 print "I: All done, success."
