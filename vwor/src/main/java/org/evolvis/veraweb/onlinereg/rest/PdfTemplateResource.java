@@ -437,7 +437,7 @@ public class PdfTemplateResource extends FormDataResource {
 
                 if(ValidExportFilter.SEARCHWORD_FILTER.key.equals(entry.getKey())) {
                     query.setParameter(entry.getKey(), entry.getValue());
-                } else {
+                } else if (!ValidExportFilter.INVITATIONSTATUS_FILTER.key.equals(entry.getKey())) {
                     query.setParameter(entry.getKey(), Integer.valueOf(entry.getValue()));
                 }
             });
@@ -452,10 +452,14 @@ public class PdfTemplateResource extends FormDataResource {
 
         StringBuilder sqlWithAdditionalFilters = new StringBuilder(baseQuery);
 
-        for (String key : filterSettings.keySet()) {
-            sqlWithAdditionalFilters
-                    .append(" AND ")
-                    .append(ValidExportFilter.buildDBPathPartial(key,":"+key));
+        for (Map.Entry<String, String> entry: filterSettings.entrySet()) {
+            sqlWithAdditionalFilters.append(" AND ");
+            String filterValue = ValidExportFilter.INVITATIONSTATUS_FILTER.key.equals(entry.getKey())?
+                    entry.getValue(): ":" + entry.getKey();
+            String partial = ValidExportFilter.buildDBPathPartial(entry.getKey(), filterValue);
+            if (partial != null) {
+                sqlWithAdditionalFilters.append(partial);
+            }
         }
         sqlWithAdditionalFilters.append( " ORDER BY p.lastname_a_e1 ASC ");
         return sqlWithAdditionalFilters.toString();

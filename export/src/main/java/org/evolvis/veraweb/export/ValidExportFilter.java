@@ -74,7 +74,7 @@ public enum ValidExportFilter {
 
     CATEGORY_ID_FILTER("filterCategoryId", "[0-9]{1,20}", "g.fk_category = ?"),
     SEARCHWORD_FILTER("filterWord", "[0-9a-zA-Z]{1,50}", "(p.firstname_a_e1 = ? OR p.lastname_a_e1 = ?)"),//TODO expand and modify to expected search word filtering
-    INVITATIONSTATUS_FILTER("filterInvStatus", "[0-9]", "g.invitationstatus = ?"),
+    INVITATIONSTATUS_FILTER("filterInvStatus", "[0-9]", null),
     RESERVE_FILTER("filterReserve", "[0-1]", "g.reserve = ?");
 
     public final String key;
@@ -111,7 +111,62 @@ public enum ValidExportFilter {
     public static String buildDBPathPartial(String key, String value) {
         if (!(StringUtils.isEmpty(key) || StringUtils.isEmpty(value))) {
             ValidExportFilter validExportFilter = valueOfKey(key);
-            return validExportFilter.dbPath.replaceAll("\\?", value);
+            if (validExportFilter.dbPath != null) {
+                return validExportFilter.dbPath.replaceAll("\\?", value);
+            }
+            if (ValidExportFilter.INVITATIONSTATUS_FILTER.equals(validExportFilter))  {
+                return getInvitationStatusFilter(value);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Creates a filter based on the status selected in the UI.
+     *
+     * See also {@link de.tarent.aa.veraweb.beans.GuestSearch#addGuestListFilter(de.tarent.dblayer.sql.clause.WhereList)}
+     *
+     * @param value the value selected in the UI status dropdown
+     * @return the query filter
+     */
+    private static String getInvitationStatusFilter(String value) {
+        if (StringUtils.isEmpty(value)) {
+            return null;
+        }
+        switch (Integer.parseInt(value)) {
+            case 1:
+                // nur Offen
+                return  // Mit Partner
+                        "((invitationtype = 1 AND (invitationstatus IS NULL OR invitationstatus=0 OR " +
+                                "invitationstatus_p IS NULL OR invitationstatus_p=0)) OR " +
+                                // Ohne Partner
+                                "(invitationtype = 2 AND (invitationstatus IS NULL OR invitationstatus=0)) OR " +
+                                // Nur Partner
+                                "(invitationtype = 3 AND (invitationstatus_p IS NULL OR invitationstatus_p=0)))";
+            case 2:
+                // nur Zusagen
+                return  // Mit Partner
+                        "((invitationtype = 1 AND (invitationstatus = 1 OR invitationstatus_p = 1)) OR " +
+                                // Ohne Partner
+                                "(invitationtype = 2 AND invitationstatus = 1) OR " +
+                                // Nur Partner
+                                "(invitationtype = 3 AND invitationstatus_p = 1))";
+            case 3:
+                // nur Absagen
+                return  // Mit Partner
+                        "((invitationtype = 1 AND (invitationstatus = 2 OR invitationstatus_p = 2)) OR " +
+                                // Ohne Partner
+                                "(invitationtype = 2 AND invitationstatus = 2) OR " +
+                                // Nur Partner
+                                "(invitationtype = 3 AND invitationstatus_p = 2))";
+            case 4:
+                // nur Teilnahmen
+                return  // Mit Partner
+                        "((invitationtype = 1 AND (invitationstatus = 3 OR invitationstatus_p = 3)) OR " +
+                                // Ohne Partner
+                                "(invitationtype = 2 AND invitationstatus = 3) OR " +
+                                // Nur Partner
+                                "(invitationtype = 3 AND invitationstatus_p = 3))";
         }
         return null;
     }

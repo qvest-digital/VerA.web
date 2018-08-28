@@ -112,9 +112,9 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
      * ExpiringMap für Login Versuch beschränkung
      */
     private final static Map<UUID, String> LOGIN_ATTEMPT_HISTORY = ExpiringMap.builder()
-      .expiration(1, TimeUnit.MINUTES)
-      .expirationPolicy(ExpirationPolicy.CREATED)
-      .build();
+            .expiration(1, TimeUnit.MINUTES)
+            .expirationPolicy(ExpirationPolicy.CREATED)
+            .build();
 
     /**
      * LDAP-Konnektor
@@ -136,7 +136,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      */
     protected void initPersonalConfig(PersonalConfig pConfig, String userName) throws LDAPException {
-        pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_USER });
+        pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_USER});
     }
 
     /**
@@ -147,16 +147,16 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
      * @see #doLogin(TcCommonConfig, PersonalConfig, TcRequest)
      */
     protected void initLDAPManager() throws LDAPException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put(LDAPManager.KEY_BASE_DN, getConfigurationString(TcEnv.KEY_LDAP_BASE_DN));
         params.put(LDAPManager.KEY_RELATIVE, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
         params.put(LDAPManager.KEY_RELATIVE_USER, getConfigurationString(TcEnv.KEY_LDAP_RELATIVE));
         params.put(LDAPManager.KEY_USER_OBJECT_CLASS, getConfigurationString(LoginManagerLDAPGeneric.KEY_USER_OBJECT_CLASS));
         params.put(LDAPManager.KEY_RECURSIVE_LOOKUPS, getConfigurationString(LoginManagerLDAPGeneric.KEY_RECURSIVE_LOOKUPS));
         ldapManager = LDAPManager.login(
-          LDAPManager.class,
-          getConfigurationString(TcEnv.KEY_LDAP_URL),
-          params
+                LDAPManager.class,
+                getConfigurationString(TcEnv.KEY_LDAP_URL),
+                params
         );
     }
 
@@ -175,7 +175,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
      */
     @Override
     protected void doLogin(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest)
-      throws TcSecurityException {
+            throws TcSecurityException {
         PasswordAuthentication pwdAuth = tcRequest.getPasswordAuthentication();
         if (pwdAuth == null) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR);
@@ -233,13 +233,14 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
     }
 
     private void handleLoginErrors(PasswordAuthentication pwdAuth,
-      PersonalConfig pConfig,
-      boolean repeat,
-      LDAPException e) throws TcSecurityException {
-        LOGGER.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
+                                   PersonalConfig pConfig,
+                                   boolean repeat,
+                                   LDAPException e) throws TcSecurityException {
         if (e.getCause() instanceof AuthenticationException) {
+            LOGGER.info("Authentication failed - invalid credentials for user name '" + pwdAuth.getUserName() + "'");
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR, e);
         }
+        LOGGER.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
         if (repeat) {
             retryLogin(pwdAuth, pConfig);
             return;
@@ -262,7 +263,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
      */
     @Override
     protected void doLogout(TcCommonConfig commonConfig, PersonalConfig pConfig, TcRequest tcRequest) {
-        pConfig.setUserGroups(new String[] { PersonalConfig.GROUP_LOGGED_OUT });
+        pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
         pConfig.userLoggedOut();
     }
 }

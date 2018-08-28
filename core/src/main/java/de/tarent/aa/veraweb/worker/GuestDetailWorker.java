@@ -177,21 +177,27 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    public static final String INPUT_reservationDupCheck[] = {};
+    // Octopus-Aktionen
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #reservationDupCheck(OctopusContext, Database, Guest)}
+     */
+    public static final String INPUT_reservationDupCheck[] = {"database", "guest"};
+
+    public static final String OUTPUT_reservationDupCheck = "reservationDupCheckResult";
 
     /**
      * This method returns list of error messages in the case where duplicate reservation for the guest ("Hauptperson")
      * or its partner (or both) were found in the database table tguest. Duplicate reservation applies if an seat
      * (with empty or 0 table) or table and seat is alreadyreserved by another guest or its partner.
      *
+     * @param octopusContext octupusContext
      * @param database       The {@link Database}
      * @param guest          The {@link Guest}
-     * @param octopusContext octupusContext
      * @return Returns list of error messages in case duplicate reservation were found
      * @throws BeanException beanException
      * @throws IOException   ioException
      */
-    public List<String> reservationDupCheck(final Database database, final Guest guest, final OctopusContext octopusContext)
+    public List<String> reservationDupCheck(final OctopusContext octopusContext, final Database database, final Guest guest)
             throws BeanException, IOException {
         final LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
         final LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
@@ -226,7 +232,7 @@ public class GuestDetailWorker extends GuestListWorker {
             updateGuestAndPartnerImage(allRequestParams, guest);
 
             //Check for duplicate reservation (guest and partner).
-            final List<String> duplicateErrorList = reservationDupCheck(database, guest, octopusContext);
+            final List<String> duplicateErrorList = reservationDupCheck(octopusContext, database, guest);
             //In case duplications were found show the errors and do not proceed with saving
             if (duplicateErrorList != null && !duplicateErrorList.isEmpty()) {
                 octopusContext.setContent("duplicateErrorList", duplicateErrorList);

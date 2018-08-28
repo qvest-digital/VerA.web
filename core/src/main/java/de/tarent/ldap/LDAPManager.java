@@ -68,12 +68,10 @@ package de.tarent.ldap;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import de.tarent.commons.messages.Message;
 import de.tarent.octopus.security.TcSecurityException;
 
-import javax.naming.CommunicationException;
-import javax.naming.Context;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
+import javax.naming.*;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
@@ -157,8 +155,8 @@ public class LDAPManager {
      * @throws LDAPException wenn etwas schiefläuft
      */
     public static LDAPManager login(Class managerClass, String ldapurl, Map params, String username, String passwort,
-      String authType)
-      throws LDAPException {
+                                    String authType)
+            throws LDAPException {
         Hashtable env = createEnvironment(ldapurl); //Hashtable mit Zugriffsdaten
         env.put(Context.SECURITY_AUTHENTICATION, authType);
         env.put(Context.SECURITY_PRINCIPAL, username);
@@ -194,7 +192,7 @@ public class LDAPManager {
             LDAPManager.ldapEnvironment = env;
         } catch (Exception e) {
             throw new LDAPException(
-              "Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verf\u00fcgbar.");
+                    "Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verf\u00fcgbar.");
         }
         return result;
     }
@@ -231,7 +229,7 @@ public class LDAPManager {
         this.relative = surroundWithCommas((String) params.get(KEY_RELATIVE));
         this.relativeUser = surroundWithCommas((String) params.get(KEY_RELATIVE_USER));
         this.defaultUserObjectClass = (String) params.get(LDAPManager.KEY_USER_OBJECT_CLASS);
-        setDefaultObjectClasses(new String[] { this.defaultUserObjectClass });
+        setDefaultObjectClasses(new String[]{this.defaultUserObjectClass});
     }
 
     //
@@ -258,7 +256,7 @@ public class LDAPManager {
      */
     public LDAPManager login(String username, String passwort, String authType) throws LDAPException {
         try {
-            String security_principal = fullUserDN(username, null);
+            String security_principal = createFullUserDN(username);
             Object ldapUrl = lctx.getEnvironment().get(Context.PROVIDER_URL);
             if (ldapUrl == null) {
                 throw new LDAPException("Konnte LDAP-Url nicht ermitteln");
@@ -301,8 +299,8 @@ public class LDAPManager {
             lctx.createSubcontext("ou=" + ou + relative + baseDN, attr); //$NON-NLS-1$
         } catch (NamingException e) {
             throw new LDAPException(Messages.getString("LDAPManager.Konnte_OU_nicht_anlegen_01")
-              + Messages.getString("LDAPManager.78") + ou + relative + baseDN
-              + Messages.getString("LDAPManager.79") + e.getMessage(), e); //$NON-NLS-1$
+                    + Messages.getString("LDAPManager.78") + ou + relative + baseDN
+                    + Messages.getString("LDAPManager.79") + e.getMessage(), e); //$NON-NLS-1$
         }
     }
 
@@ -408,7 +406,7 @@ public class LDAPManager {
                 modifications.add(new ModificationItem(DirContext.ADD_ATTRIBUTE, new BasicAttribute(attribut, wert)));
             } else if (!this.checkAttribute(contact, attribut, wert)) {
                 modifications
-                  .add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute(attribut, wert)));
+                        .add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute(attribut, wert)));
             }
         } else {
             //Wenn nicht mehr vorhanden, checke, ob es im LDAP noch
@@ -482,7 +480,7 @@ public class LDAPManager {
 
     protected void initializeSearchControls(SearchControls cons) {
         int scope = Boolean.parseBoolean((String) params.get(KEY_RECURSIVE_LOOKUPS)) ? SearchControls.SUBTREE_SCOPE :
-          SearchControls.ONELEVEL_SCOPE;
+                SearchControls.ONELEVEL_SCOPE;
         cons.setSearchScope(scope);
     }
 
@@ -518,24 +516,20 @@ public class LDAPManager {
         return attrs;
     }
 
-    public String fullUserDN(String uid) throws LDAPException {
-        return fullUserDN(uid, defaultObjectClasses);
+
+    public String createFullUserDN(String uid) throws AuthenticationException {
+        if(uid.matches("[^,]*")) {
+            return "uid=" + uid + "," + relativeUser.substring(1) + baseDN;
+        } else {
+            throw new AuthenticationException(Messages.getString("LDAP: error code 49 - Invalid Credentials"));
+        }
     }
 
-    public String fullUserDN(String uid, String[] objectClasses) throws LDAPException {
+    public String fullUserDN(String uid) throws LDAPException {
         String dn;
-        Attributes attr = new BasicAttributes();
-        attr.put("uid", uid); //$NON-NLS-1$
-        if (objectClasses != null && objectClasses.length > 0) {
-            Attribute att = new BasicAttribute("objectclass");
-            for (String objectClass : objectClasses) {
-                att.add(objectClass);
-            }
-            attr.put(att);
-        }
         try {
             String name = relativeUser.substring(1) + baseDN;
-            String filter = filterTemplate.format(new Object[] { uid });
+            String filter = filterTemplate.format(new Object[]{uid});
             SearchControls cons = new SearchControls();
             this.initializeSearchControls(cons);
             if (logger.isLoggable(Level.INFO)) {
@@ -627,71 +621,71 @@ public class LDAPManager {
      * in Table 1 of RFC 2045.
      */
     private final char intToBase64[] =
-      {
-        'A',
-        'B',
-        'C',
-        'D',
-        'E',
-        'F',
-        'G',
-        'H',
-        'I',
-        'J',
-        'K',
-        'L',
-        'M',
-        'N',
-        'O',
-        'P',
-        'Q',
-        'R',
-        'S',
-        'T',
-        'U',
-        'V',
-        'W',
-        'X',
-        'Y',
-        'Z',
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z',
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '+',
-        '/' };
+            {
+                    'A',
+                    'B',
+                    'C',
+                    'D',
+                    'E',
+                    'F',
+                    'G',
+                    'H',
+                    'I',
+                    'J',
+                    'K',
+                    'L',
+                    'M',
+                    'N',
+                    'O',
+                    'P',
+                    'Q',
+                    'R',
+                    'S',
+                    'T',
+                    'U',
+                    'V',
+                    'W',
+                    'X',
+                    'Y',
+                    'Z',
+                    'a',
+                    'b',
+                    'c',
+                    'd',
+                    'e',
+                    'f',
+                    'g',
+                    'h',
+                    'i',
+                    'j',
+                    'k',
+                    'l',
+                    'm',
+                    'n',
+                    'o',
+                    'p',
+                    'q',
+                    'r',
+                    's',
+                    't',
+                    'u',
+                    'v',
+                    'w',
+                    'x',
+                    'y',
+                    'z',
+                    '0',
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7',
+                    '8',
+                    '9',
+                    '+',
+                    '/'};
 
     /**
      * This array is a lookup table that translates 6-bit positive integer
@@ -701,71 +695,71 @@ public class LDAPManager {
      * designed for use in environments where "case folding" occurs.
      */
     private final char intToAltBase64[] =
-      {
-        '!',
-        '"',
-        '#',
-        '$',
-        '%',
-        '&',
-        '\'',
-        '(',
-        ')',
-        ',',
-        '-',
-        '.',
-        ':',
-        ';',
-        '<',
-        '>',
-        '@',
-        '[',
-        ']',
-        '^',
-        '`',
-        '_',
-        '{',
-        '|',
-        '}',
-        '~',
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z',
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '+',
-        '?' };
+            {
+                    '!',
+                    '"',
+                    '#',
+                    '$',
+                    '%',
+                    '&',
+                    '\'',
+                    '(',
+                    ')',
+                    ',',
+                    '-',
+                    '.',
+                    ':',
+                    ';',
+                    '<',
+                    '>',
+                    '@',
+                    '[',
+                    ']',
+                    '^',
+                    '`',
+                    '_',
+                    '{',
+                    '|',
+                    '}',
+                    '~',
+                    'a',
+                    'b',
+                    'c',
+                    'd',
+                    'e',
+                    'f',
+                    'g',
+                    'h',
+                    'i',
+                    'j',
+                    'k',
+                    'l',
+                    'm',
+                    'n',
+                    'o',
+                    'p',
+                    'q',
+                    'r',
+                    's',
+                    't',
+                    'u',
+                    'v',
+                    'w',
+                    'x',
+                    'y',
+                    'z',
+                    '0',
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7',
+                    '8',
+                    '9',
+                    '+',
+                    '?'};
 
     /* (non-Javadoc)
      * @see de.tarent.octopus.server.UserManager#getUserParam(java.lang.String, java.lang.String)

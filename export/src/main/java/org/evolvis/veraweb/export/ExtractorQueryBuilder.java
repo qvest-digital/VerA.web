@@ -68,13 +68,13 @@ package org.evolvis.veraweb.export;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import de.tarent.extract.ColumnMapping;
+import de.tarent.extract.ExtractorQuery;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import de.tarent.extract.ColumnMapping;
-import de.tarent.extract.ExtractorQuery;
 
 public class ExtractorQueryBuilder {
 
@@ -103,13 +103,13 @@ public class ExtractorQueryBuilder {
     private String applyFilterSettings(String sql) {
         StringBuilder sqlWithAdditionalFilters = new StringBuilder(sql);
         for (Map.Entry<String, String> entry : filterSettings.entrySet()) {
-            String s = ValidExportFilter.buildDBPathPartial(entry.getKey(), entry.getValue());
-            if (entry.getKey().equals(ValidExportFilter.SEARCHWORD_FILTER.key)){
-                s = s.replaceAll(entry.getValue(), "'"+entry.getValue()+"'");
+            String filter = ValidExportFilter.buildDBPathPartial(entry.getKey(), entry.getValue());
+            if (entry.getKey().equals(ValidExportFilter.SEARCHWORD_FILTER.key)) {
+                filter = filter.replaceAll(entry.getValue(), "'" + entry.getValue() + "'");
             }
             sqlWithAdditionalFilters
                     .append(" AND ")
-                    .append(s);
+                    .append(filter);
         }
         return sqlWithAdditionalFilters.toString();
     }

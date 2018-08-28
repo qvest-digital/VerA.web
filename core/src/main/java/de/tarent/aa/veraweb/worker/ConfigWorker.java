@@ -69,11 +69,11 @@ package de.tarent.aa.veraweb.worker;
  */
 
 import de.tarent.aa.veraweb.beans.Duration;
-import de.tarent.aa.veraweb.beans.ViewConfigKey;
 import de.tarent.aa.veraweb.beans.SearchConfig;
+import de.tarent.aa.veraweb.beans.ViewConfig;
+import de.tarent.aa.veraweb.beans.ViewConfigKey;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
-import de.tarent.aa.veraweb.beans.ViewConfig;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -138,21 +138,23 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     //
     // Octopus-Aktionen
     //
+
     /**
-     * Input-Parameter der Octopus-Aktion {@link #init(OctopusContext)}
+     * Octopus-Eingabeparameter für die Aktion {@link #init(OctopusContext)}
      */
-    static public final String INPUT_init[] = {};
+    public final static String INPUT_init[] = {};
 
     /**
      * Diese Octopus-Aktion initialisiert die Map der Konfig-Einträge dieses
      * Workers aus der Datenbank (mittels der ererbten Aktion
      * {@link de.tarent.octopus.beans.BeanListWorker#getAll(OctopusContext)})
-     * gegebenenfalls ergänzt um einige Muss-Einträge.
+     * gegebenenfalls ergänzt um einige Pflicht-Einträge.
      *
      * @param cntx Octopus-Kontext
+     * @throws BeanException FIXME
+     * @throws IOException   FIXME
      */
-    @SuppressWarnings("unchecked")
-    private void init(OctopusContext cntx) throws BeanException, IOException {
+    public void init(OctopusContext cntx) throws BeanException, IOException {
         // config aus datenbank laden
         Map result = new HashMap();
         getAll(cntx);
