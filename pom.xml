@@ -516,14 +516,12 @@
 							<failBuildOnCVSS>8</failBuildOnCVSS>
 							<skipArtifactType>pom</skipArtifactType>
 							<suppressionFiles>
-								<suppressionFile>./dependency-check-suppressions.xml</suppressionFile>
+								<suppressionFile>release/dependency-check-suppressions.xml</suppressionFile>
 							</suppressionFiles>
 						</configuration>
 					</execution>
 				</executions>
-
 			</plugin>
-
 			<!--
 			<plugin>
 				<inherited>false</inherited>
