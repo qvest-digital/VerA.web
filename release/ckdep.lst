@@ -177,7 +177,7 @@ org.jvnet.mimepull:mimepull 1.9.7 compile TODO
 org.mitre.dsmiley.httpproxy:smiley-http-proxy-servlet 1.7 compile TODO
 org.osiam:connector4java 1.8 compile TODO
 org.osiam:scim-schema 1.6 compile TODO
-org.postgresql:postgresql 42.2.4 provided TODO
+org.postgresql:postgresql 42.2.5 provided TODO
 org.projectlombok:lombok 1.18.0 compile TODO
 org.slf4j:jcl-over-slf4j 1.7.25 compile TODO
 org.slf4j:jul-to-slf4j 1.7.25 compile TODO
