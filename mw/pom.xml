@@ -40,7 +40,7 @@
 			<dependency>
 				<groupId>commons-configuration</groupId>
 				<artifactId>commons-configuration</artifactId>
-				<version>1.1</version>
+				<version>1.10</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-dbcp</groupId>
@@ -102,11 +102,6 @@
 				<groupId>xmlrpc</groupId>
 				<artifactId>xmlrpc</artifactId>
 				<version>1.2-b1</version>
-			</dependency>
-			<dependency>
-				<groupId>com.thoughtworks.xstream</groupId>
-				<artifactId>xstream</artifactId>
-				<version>1.2.2</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
