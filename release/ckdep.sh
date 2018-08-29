@@ -67,7 +67,7 @@ if (( build_vwoa )); then
 		cd ../vwoa/src/main/webroot-src
 		npm list --only prod >&2
 		npm list --only prod --json true 2>/dev/null | jq -r \
-		    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"'
+		    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " compile ok"'
 		node_modules/bower/bin/bower list | tee /dev/stderr | LC_ALL=C.UTF-8 sed --posix -n \
 		    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 compile ok/p'
 	) 2>&1 >>ckdep-vwoa.tmp | sed 's!^![INFO] !' >&2
