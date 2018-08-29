@@ -430,9 +430,21 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
+     * This method adds a case-sensitive comparison expression to the current where list,
+     * connected by an AND operator.
+     * It is the same as .whereAnd(Expr.regex(columnName, value))
+     * This is PostgreSQL-specific.
+     */
+    public Select whereAndRegex(String columnName, Object value) {
+        whereAnd(Expr.regex(columnName, value));
+        return this;
+    }
+
+    /**
      * This method adds a case-insensitive comparison expression to the current where list,
      * connected by an AND operator.
      * It is the same as .whereAnd(Expr.regexI(columnName, value))
+     * This is PostgreSQL-specific.
      */
     public Select whereAndRegexI(String columnName, Object value) {
         whereAnd(Expr.regexI(columnName, value));

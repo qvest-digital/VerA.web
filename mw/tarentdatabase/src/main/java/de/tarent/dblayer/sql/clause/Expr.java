@@ -222,6 +222,7 @@ public class Expr {
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column’s content matches a regular expression, case-sensitively.
+     * This is PostgreSQL-specific.
      */
     static public Where regex(String column, Object value) {
         return new Where(column, value, REGEX);
@@ -230,6 +231,7 @@ public class Expr {
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column’s content does not match a regular expression, case-sensitively.
+     * This is PostgreSQL-specific.
      */
     static public Where notRegex(String column, Object value) {
         return new Where(column, value, NOTREGEX);
@@ -238,6 +240,7 @@ public class Expr {
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column’s content matches a regular expression, case-insensitively.
+     * This is PostgreSQL-specific.
      */
     static public Where regexI(String column, Object value) {
         return new Where(column, value, REGEX_I);
@@ -246,6 +249,7 @@ public class Expr {
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column’s content does not match a regular expression, case-insensitively.
+     * This is PostgreSQL-specific.
      */
     static public Where notRegexI(String column, Object value) {
         return new Where(column, value, NOTREGEX_I);
