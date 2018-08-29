@@ -139,8 +139,9 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      */
     Limit _limitClause;
     /**
-     * A column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to support
-     * a limit,offset workaroud.
+     * A column of the result set, which is unique.
+     * Currently this is only used from the MS-SQL Select implementation
+     * to support a LIMIT,OFFSET workaroud.
      */
     String uniqueColumn;
 
@@ -173,6 +174,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     //
     // public methods
     //
+
     // * columns to select
 
     /**
@@ -268,8 +270,9 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * This methods sets the distinct funtionality for one or more rows.
-     * Attention: This is an DB-dependent feature, known from postgres. Make sure, that the dblayer has implemented a
-     * workaround for your target database system.
+     * Attention: This is an DB-dependent feature, known from PostgreSQL.
+     * Make sure that the database layer has implemented a workaround
+     * for your target database system.
      */
     public Select setDistinctOn(String newValue) {
         setDistinct(true);
@@ -354,7 +357,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
         return this;
     }
 
-    //* Untions
+    //* Unions
 
     /**
      * This Method adds a union-Statement.
@@ -407,7 +410,8 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
-     * This method adds an equals expression to the current where list, connected by an ANT operator.
+     * This method adds an equals expression to the current where list,
+     * connected by an AND operator.
      * It is the same as .whereAnd(Expr.equal(columnName, value))
      */
     public Select whereAndEq(String columnName, Object value) {
@@ -416,7 +420,8 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
-     * This method adds a LIKE expression to the current where list, connected by an ANT operator.
+     * This method adds a LIKE expression to the current where list,
+     * connected by an AND operator.
      * It is the same as .whereAnd(Expr.like(columnName, value))
      */
     public Select whereAndLike(String columnName, Object value) {
@@ -425,7 +430,8 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
-     * This method adds a case-insensitive comparison expression to the current where list, connected by an ANT operator.
+     * This method adds a case-insensitive comparison expression to the current where list,
+     * connected by an AND operator.
      * It is the same as .whereAnd(Expr.regexI(columnName, value))
      */
     public Select whereAndRegexI(String columnName, Object value) {
@@ -449,7 +455,8 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
-     * This method adds a LIKE expression to the current where list, connected by an OR operator.
+     * This method adds a LIKE expression to the current where list,
+     * connected by an OR operator.
      * It is the same as .whereAnd(Expr.like(columnName, value))
      */
     public Select whereOrLike(String columnName, Object value) {
@@ -478,7 +485,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
-     * This method adds an {@link Order} to the existing Orders for the <code>SELECT</code> statement.
+     * This method adds an {@link Order} to the existing orders for the <code>SELECT</code> statement.
      */
     public Select addOrderBy(Order order) {
         if (_orderClause == null || _orderClause.getColumns().size() == 0) {
@@ -528,23 +535,25 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
-     * Returns a column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to
-     * support a limit,offset workaroud.
+     * Returns a column of the result set which is unique.
+     * Currently this is only used from the MS-SQL Select implementation
+     * to support a LIMIT,OFFSET workaroud.
      */
     public String getUniqueColumn() {
         return uniqueColumn;
     }
 
     /**
-     * Sets a column of the result set, which is unique. Currently this is only used from the MSSQL Select implementation to
-     * support a limit,offset workaroud.
+     * Sets a column of the result set which is unique.
+     * Currently this is only used from the MS-SQL Select implementation
+     * to support a LIMIT,OFFSET workaroud.
      */
     public void setUniqueColumn(String newUniqueColumn) {
         this.uniqueColumn = newUniqueColumn;
     }
 
     /**
-     * Returns the order by clause
+     * Returns the ORDER BY clause
      */
     public Order getOrderClause() {
         return _orderClause;
@@ -574,9 +583,10 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * Iterates over the result set and calles the process method for each row.
-     * Afterwards, the result set will be closed. For the iteration, the Result class will be used.
+     * Afterwards, the result set will be closed.
+     * For the iteration, the Result class will be used.
      *
-     * <p>For execution, the previous set DBContext will be used.</p>
+     * For execution, the previous set DBContext will be used.
      *
      * @return the number of iterations
      * @throws IllegalStateException if no DBContext was set.
@@ -590,9 +600,10 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * Iterates over the result set and calles the process method for each row.
-     * Afterwards, the result set will be closed. For the iteration, the Result class will be used.
+     * Afterwards, the result set will be closed.
+     * For the iteration, the Result class will be used.
      *
-     * <p>For execution, the supplied DBContext will be used.</p>
+     * For execution, the supplied DBContext will be used.
      *
      * @return the number of iterations
      */
@@ -622,7 +633,8 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * This method executes the modelled <code>SELECT</code> statement within the
-     * {@link DBContext} of this {@link Select} instance and returns a {@link ResultSet}.<br>
+     * {@link DBContext} of this {@link Select} instance and returns a {@link ResultSet}.
+     *
      * This method actually calls {@link #getResultSet(String)} using the pool name
      * of the {@link DBContext}.
      */
@@ -632,7 +644,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * Returns the first cell of the first row as a string,
-     * or null, if the ResultSet is empty.
+     * or null if the ResultSet is empty.
      */
     public String getFirstCellAsString() throws SQLException {
         return DB.fetchFirstCellAsString(getDBContext(), statementToString());
@@ -640,7 +652,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * Returns the first cell of the first row as a timestamp,
-     * or null, if the ResultSet is empty.
+     * or null if the ResultSet is empty.
      */
     public Timestamp getFirstCellAsTimestamp() throws SQLException {
         return DB.fetchFirstCellAsTimestamp(getDBContext(), statementToString());
@@ -648,16 +660,16 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * Returns the first cell of the first row as a integer,
-     * or null, if the ResultSet is empty.
+     * or null if the ResultSet is empty.
      */
     public Integer getFirstCellAsInteger() throws SQLException {
         return DB.fetchFirstCellAsInteger(getDBContext(), statementToString());
     }
 
     /**
-     * Checks if the resultset is empty.
+     * Checks if the ResultSet is empty.
      *
-     * @return <code>true</code> if the resultset is empty.
+     * @return <code>true</code> if the ResultSet is empty.
      * @throws SQLException
      */
     public boolean isEmpty() throws SQLException {
@@ -707,11 +719,13 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * This method executes the modelled <code>SELECT</code> statement within the
-     * {@link DBContext} of this {@link Select} instance and returns a {@link Result}.<br>
+     * {@link DBContext} of this {@link Select} instance and returns a {@link Result}.
+     *
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.<br>
+     * a PostgresQL DBMS.
+     *
      * This method actually calls {@link #executeSelect(String)} using the pool name
      * of the {@link DBContext}.
      *
@@ -723,7 +737,8 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * This method creates the {@link DBContext} sensitive {@link String} representation
-     * of the modelled SQL {@link Statement}.<br>
+     * of the modelled SQL {@link Statement}.
+     *
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
@@ -816,7 +831,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
-     * Append the limit, offset ant the end of the statement part to the statement.
+     * Append the limit, offset and the end of the statement part to the statement.
      * This is extracted into a method for overidding
      */
     protected void appendLimit(DBContext dbc, StringBuffer sb) {
@@ -940,15 +955,16 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
 
     /**
      * Returns an independent clone of this statement.
-     * <p>Use this method with care: Because of the complex structure of a complete
-     * select statement there may be situations where the both objects reference the same object.
-     * This is the case for the Object-Values in the Clauses Where, Operator and ParamValue.
-     * <br>If for example a select <code>s1</code> has a where clause with a reference to a mutable object as value (e.g. a
-     * String Buffer),
-     * than a clone <code>s2 = s1.clone()</code> will have a reference to same oject. In this example a modification to the
-     * StringBuffer
-     * will modify the where clause of <code>s1</code> as well as <code>s2</code>.
-     * </p>
+     *
+     * Use this method with care: Because of the complex structure of a complete SELECT
+     * statement there may be situations where the both objects reference the same object.
+     * This is the case for the object values in the Clauses Where, Operator and ParamValue.
+     *
+     * If, for example, a select <code>s1</code> has a where clause with a reference to a
+     * mutable object as value (e.g. a String Buffer), then a clone
+     * <code>s2 = s1.clone()</code> will have a reference to same object.
+     * In this example a modification to the StringBuffer will modify the where clause of
+     * <code>s1</code> as well as <code>s2</code>.
      *
      * @see java.lang.Object#clone()
      */
