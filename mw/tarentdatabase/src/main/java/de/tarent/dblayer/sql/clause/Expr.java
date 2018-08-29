@@ -103,9 +103,21 @@ public class Expr {
      */
     final static public String NOTLIKE = " NOT LIKE ";
     /**
+     * the String "<code> ~ </code>"
+     */
+    final static public String REGEX = " ~ ";
+    /**
+     * the String "<code> !~ </code>"
+     */
+    final static public String NOTREGEX = " !~ ";
+    /**
      * the String "<code> ~* </code>"
      */
     final static public String REGEX_I = " ~* ";
+    /**
+     * the String "<code> !~* </code>"
+     */
+    final static public String NOTREGEX_I = " !~* ";
     /**
      * the String "<code> IS NULL</code>"
      */
@@ -209,10 +221,34 @@ public class Expr {
 
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
-     * a column's content matches a regular expression, case-insensitively.
+     * a column’s content matches a regular expression, case-sensitively.
+     */
+    static public Where regex(String column, Object value) {
+        return new Where(column, value, REGEX);
+    }
+
+    /**
+     * This method returns a {@link Where} {@link Clause} testing whether
+     * a column’s content does not match a regular expression, case-sensitively.
+     */
+    static public Where notRegex(String column, Object value) {
+        return new Where(column, value, NOTREGEX);
+    }
+
+    /**
+     * This method returns a {@link Where} {@link Clause} testing whether
+     * a column’s content matches a regular expression, case-insensitively.
      */
     static public Where regexI(String column, Object value) {
         return new Where(column, value, REGEX_I);
+    }
+
+    /**
+     * This method returns a {@link Where} {@link Clause} testing whether
+     * a column’s content does not match a regular expression, case-insensitively.
+     */
+    static public Where notRegexI(String column, Object value) {
+        return new Where(column, value, NOTREGEX_I);
     }
 
     /**
