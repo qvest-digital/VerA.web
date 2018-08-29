@@ -53,14 +53,12 @@ package de.tarent.dblayer.sql.clause;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import de.tarent.dblayer.sql.Statement;
-import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.commons.datahandling.PrimaryKeyList;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.commons.datahandling.PrimaryKeyList;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * This utility class serves as a factory for {@link Where} {@link Clause}
@@ -104,7 +102,9 @@ public class Expr {
      * the String "<code> NOT LIKE </code>"
      */
     final static public String NOTLIKE = " NOT LIKE ";
-    /** the String "<code> ~* </code>" */
+    /**
+     * the String "<code> ~* </code>"
+     */
     final static public String REGEX_I = " ~* ";
     /**
      * the String "<code> IS NULL</code>"
@@ -211,9 +211,9 @@ public class Expr {
      * This method returns a {@link Where} {@link Clause} testing whether
      * a column's content matches a regular expression, case-insensitively.
      */
-	static public Where regexI(String column, Object value) {
-		return new Where(column, value, REGEX_I);
-	}
+    static public Where regexI(String column, Object value) {
+        return new Where(column, value, REGEX_I);
+    }
 
     /**
      * This method returns a {@link Where} {@link Clause} testing whether
