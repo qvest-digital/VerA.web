@@ -91,7 +91,7 @@ if (( build_vwoa )); then
 else
 	print -ru2 -- '[WARNING] NPM not available, assuming c.p. build'
 fi
-[[ -s ckdep-vwoa.lst ]] && cat ckdep-vwoa.lst >>ckdep.tmp
+[[ -s ckdep-vwoa.lst ]] && sed 's/ TO''DO$/ ok/' <ckdep-vwoa.lst >>ckdep.tmp
 # add static dependencies from embedded files, for SecurityWatch
 [[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
 # make compile scope superset provided scope
