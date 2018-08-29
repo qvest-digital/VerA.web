@@ -80,6 +80,13 @@
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
 			<scope>provided</scope>
+			<exclusions>
+				<!-- straighten ckdep.lst output -->
+				<exclusion>
+					<groupId>velocity</groupId>
+					<artifactId>velocity</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>

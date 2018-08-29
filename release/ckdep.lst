@@ -193,7 +193,6 @@ org.springframework:spring-tx 4.3.18.RELEASE compile TODO
 org.yaml:snakeyaml 1.18 compile TODO
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
 velocity:velocity 1.4 compile TODO
-velocity:velocity-dep 1.4 provided TODO
 velocity:velocity-dep 1.4 runtime TODO
 xfire:xfire-jsr181-api 1.0-M1 compile TODO
 xmlrpc:xmlrpc 1.2-b1 compile TODO
