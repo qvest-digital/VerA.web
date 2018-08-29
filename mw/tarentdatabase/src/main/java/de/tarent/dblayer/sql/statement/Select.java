@@ -415,6 +415,24 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
     }
 
     /**
+     * This method adds a LIKE expression to the current where list, connected by an ANT operator.
+     * It is the same as .whereAnd(Expr.like(columnName, value))
+     */
+	public Select whereAndLike(String columnName, Object value) {
+        whereAnd(Expr.like(columnName, value));
+        return this;
+	}
+
+    /**
+     * This method adds a case-insensitive comparison expression to the current where list, connected by an ANT operator.
+     * It is the same as .whereAnd(Expr.regexI(columnName, value))
+     */
+	public Select whereAndRegexI(String columnName, Object value) {
+        whereAnd(Expr.regexI(columnName, value));
+        return this;
+	}
+
+    /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
      * part of the <code>SELECT</code> statement to "(current where clause) OR
      * (additional clause)", or to "additional clause" if the current where clause
@@ -428,6 +446,15 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
         }
         return this;
     }
+
+    /**
+     * This method adds a LIKE expression to the current where list, connected by an OR operator.
+     * It is the same as .whereAnd(Expr.like(columnName, value))
+     */
+	public Select whereOrLike(String columnName, Object value) {
+        whereOr(Expr.like(columnName, value));
+        return this;
+	}
 
     /**
      * This method sets the condition {@link Clause} for the <code>WHERE</code>
