@@ -70,6 +70,11 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 │ with this program; if not, see: http://www.gnu.org/licenses/             │
 └──────────────────────────────────────────────────────────────────────────┘
 
+The WAR files shipped combine some work under GNU AGPLv3-only with other
+work under GNU GPLv3-compatible licences; refer to GPLv3 §13 and AGPLv3 §13
+for the details and below for respective Appropriate Legal Notices, given
+that this file is served inside the UI as such.
+
 ┌──┤ VerA.web-Middleware (MIT, GPLv2+ w. Classpath exception) ├────────────┐
 │                                                                          │
 │ VerA.web-Middleware, newly MIT licenced, is comprised of:                │
