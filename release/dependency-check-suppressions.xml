@@ -23,13 +23,6 @@
 		<cpe>cpe:/a:apache:axis</cpe>
 	</suppress>
 	<!-- we need to tackle octopus etc. separately -->
-	<suppress>
-		<notes><![CDATA[
-      file name: commons-fileupload-1.1.jar
-      ]]></notes>
-		<gav regex="true">^commons-fileupload:commons-fileupload:.*$</gav>
-		<cpe>cpe:/a:apache:commons_fileupload</cpe>
-	</suppress>
 	<!-- postgresql admin pack is not used -->
 	<suppress>
 		<notes><![CDATA[
