@@ -79,9 +79,9 @@
 				<version>1.0.5</version>
 			</dependency>
 			<dependency>
-				<groupId>xfire</groupId>
-				<artifactId>xfire-jsr181-api</artifactId>
-				<version>1.0-M1</version>
+				<groupId>javax.jws</groupId>
+				<artifactId>jsr181-api</artifactId>
+				<version>1.0-MR1</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.jtds</groupId>
