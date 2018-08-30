@@ -65,12 +65,13 @@
 		<!-- response error level "development" or "release" -->
 		<init-param>
 			<param-name>response.errorLevel</param-name>
-			<param-value>development</param-value>
+			<param-value>release</param-value>
 		</init-param>
 		<!-- allowed request types: ANY, WEB, SOAP, XMLRPC or DIRECTCALL -->
+		<!-- there are security issues in axis - so don't allow SOAP unless it is fixed -->
 		<init-param>
 			<param-name>request.allowedTypes</param-name>
-			<param-value>SOAP, WEB</param-value>
+			<param-value>WEB</param-value>
 		</init-param>
 		<load-on-startup>10</load-on-startup>
 	</servlet>
