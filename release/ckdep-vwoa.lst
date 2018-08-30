@@ -53,7 +53,6 @@ io.dropwizard:dropwizard-servlets 0.7.1 compile TODO
 io.dropwizard:dropwizard-util 0.7.1 compile TODO
 io.dropwizard:dropwizard-validation 0.7.1 compile TODO
 javax.activation:activation 1.1.1 compile TODO
-javax.activation:javax.activation-api 1.2.0 compile TODO
 javax.mail:mail 1.4.7 compile TODO
 javax.persistence:javax.persistence-api 2.2 compile TODO
 javax.servlet:javax.servlet-api 3.1.0 compile TODO
