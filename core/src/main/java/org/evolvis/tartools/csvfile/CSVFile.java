@@ -1,119 +1,107 @@
 package org.evolvis.tartools.csvfile;
 
 /*-
- * Veranstaltungsmanagement VerA.web (platform-independent
- * webservice-based event management) is Copyright
- *  © 2018 Атанас Александров (sirakov@gmail.com)
- *  © 2014, 2015, 2016, 2017 Атанас Александров (a.alexandrov@tarent.de)
- *  © 2013 Иванка Александрова (i.alexandrova@tarent.de)
- *  © 2013 Patrick Apel (p.apel@tarent.de)
- *  © 2016 Eugen Auschew (e.auschew@tarent.de)
- *  © 2013 Andrei Boulgakov (a.boulgakov@tarent.de)
- *  © 2013 Valentin But (v.but@tarent.de)
- *  © 2016 Lukas Degener (l.degener@tarent.de)
- *  © 2017 Axel Dirla (a.dirla@tarent.de)
- *  © 2015 Julian Drawe (j.drawe@tarent.de)
- *  © 2014 Dominik George (d.george@tarent.de)
- *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
- *  © 2008 David Goemans (d.goemans@tarent.de)
- *  © 2018 Christian Gorski (c.gorski@tarent.de)
- *  © 2015 Viktor Hamm (v.hamm@tarent.de)
- *  © 2013 Katja Hapke (k.hapke@tarent.de)
- *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
- *  © 2018 Thomas Hensel (t.hensel@tarent.de)
- *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
- *  © 2018 Titian Horvath (t.horvath@tarent.de)
- *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
- *  © 2018 Timo Kanera (t.kanera@tarent.de)
- *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
- *  © 2014 Martin Ley (m.ley@tarent.de)
- *  © 2014, 2015 Max Marche (m.marche@tarent.de)
- *  © 2007 Jan Meyer (jan@evolvis.org)
- *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos (t.glaser@tarent.de)
- *  © 2016 Cristian Molina (c.molina@tarent.de)
- *  © 2018 Yorka Neumann (y.neumann@tarent.de)
- *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
- *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
- *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
- *  © 2016 Jens Oberender (j.oberender@tarent.de)
- *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
- *  © 2009 Martin Pelzer (m.pelzer@tarent.de)
- *  © 2013 Marc Radel (m.radel@tarent.de)
- *  © 2013 Sebastian Reimers (s.reimers@tarent.de)
- *  © 2015 Charbel Saliba (c.saliba@tarent.de)
- *  © 2008, 2009, 2010 Thomas Schmitz (t.schmitz@tarent.de)
- *  © 2013 Volker Schmitz (v.schmitz@tarent.de)
- *  © 2014 Sven Schumann (s.schumann@tarent.de)
- *  © 2014 Sevilay Temiz (s.temiz@tarent.de)
- *  © 2013 Kevin Viola Schmitz (k.schmitz@tarent.de)
- *  © 2015 Stefan Walenda (s.walenda@tarent.de)
- *  © 2015, 2016, 2017 Max Weierstall (m.weierstall@tarent.de)
- *  © 2013 Rebecca Weinz (r.weinz@tarent.de)
- *  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)
- *  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)
- * and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.
+ * The CSVFile tools are a collection of classes to deal with CSV files
+ * (comma-separated values). They have quite a history. This current
+ * edition, developed alongside VerA.web by ⮡ tarent, is published under
+ * the terms of the GNU Lesser or Library General Public License, any
+ * version published by the Free Software Foundation.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * Copyright holders and contributors:
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Copyright © 2016 Атанас Александров (a.alexandrov@tarent.de)
+ * Copyright © 2006 Christoph Jerolimov (jerolimov@gmx.de)
+ * Copyright © 2008 Carsten Klein (c.klein@tarent.de)
+ * Copyright © 2005 Michael Klink (m.klink@tarent.de)
+ * Copyright © 2013, 2015, 2018 mirabilos (t.glaser@tarent.de)
+ * and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.
  *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, see: http://www.gnu.org/licenses/
+ * Copyright © 2005 Fabrizio Fazzino (under GNU LGPL) — also on
+ * http://sourceforge.net/projects/csvfile
+ *
+ * Published as part of Ian’s Java CookBook, 2002 (under 2-clause BSD):
+ *
+ * Copyright (c) Ian F. Darwin, http://www.darwinsys.com/, 1996–2001
+ * Copyright (c) Ben Ballard, ca. 2001
+ * All rights reserved. Software written by Ian F. Darwin and others.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS''
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Java, the Duke mascot, and all variants of Sun's Java "steaming coffee
+ * cup" logo are trademarks of Sun Microsystems. Sun's, and James Gosling's,
+ * pioneering role in inventing and promulgating (and standardizing) the Java
+ * language and environment is gratefully acknowledged.
+ *
+ * The pioneering role of Dennis Ritchie and Bjarne Stroustrup, of AT&T, for
+ * inventing predecessor languages C and C++ is also gratefully acknowledged.
+ *
+ * Copyright (C) 1999 Lucent Technologies
+ * Adapted from a C++ original excerpted from “The Practice of Programming”
+ * by Brian Kernighan and Rob Pike. Included by permission of the <a
+ * href="http://www.informit.com/store/practice-of-programming-9780201615869"
+ * title="http://tpop.awl.com/">Addison-Wesley</a> web site, which says:
+ * <cite>“You may use this code for any purpose, as long as you leave the
+ * copyright notice and book citation attached.”</cite> I have done so.
  */
 
-/* from http://sourceforge.net/projects/csvfile */
-
 /**
- * CSVFile is a class used to handle <a
- * href="http://en.wikipedia.org/wiki/Comma-separated_values">Comma-Separated
- * Values</a> files.
- * <p>
- * It is abstract because it is the base class used for {@link CSVFileReader}
- * and {@link CSVFileWriter} so you should use one of these (or both) according
- * on what you need to do.
- * <p>
+ * CSVFile is a Java™ class used to handle <a
+ * href="https://en.wikipedia.org/wiki/Comma-separated_values">comma-separated
+ * value</a> files. It is an abstract base class for {@link CSVFileReader}
+ * and {@link CSVFileWriter}, so you should use one of these (or both),
+ * according on what you need to do.
+ *
  * The simplest example for using the classes contained in this package is
- * CSVFileExample, that simply converts one CSV file into another one
+ * the following example that simply converts one CSV file into another one
  * that makes use of a different notation for field separator and text
- * qualifier.<br>
- * The example just comprises the following lines:
- * <p>
+ * qualifier. It just comprises the following lines:
  *
  * <pre>
- * import java.util.*;
- * import java.io.*;
+ * package org.evolvis.tartools.csvfile;
+ *
+ * import java.io.IOException;
+ * import java.util.List;
  *
  * public class CSVFileExample {
+ *     public static void main(String[] args) throws IOException {
+ *         CSVFileReader in = new CSVFileReader(&quot;csv_in.txt&quot;, ';', '&quot;');
+ *         CSVFileWriter out = new CSVFileWriter(&quot;csv_out.txt&quot;, ',', '\'');
  *
- * public static void main(String[] args) throws IOException {
- *     CSVFileReader in = new CSVFileReader(&quot;csv_in.txt&quot;, ';', '&quot;');
- *     CSVFileWriter out = new CSVFileWriter(&quot;csv_out.txt&quot;, ',', '\'');
+ *         List fields = in.readFields();
+ *         while (fields != null) {
+ *             out.writeFields(fields);
+ *             fields = in.readFields();
+ *         }
  *
- *     List fields = in.readFields();
- *     while (fields != null) {
- *         out.writeFields(fields);
- *         fields = in.readFields();
+ *         in.close();
+ *         out.close();
  *     }
- *
- *     in.close();
- *     out.close();
- * }}
+ * }
  * </pre>
  *
  * @author Fabrizio Fazzino
- * @version %I%, %G%
  */
 public abstract class CSVFile {
-    //
-    // Member-Variablen
-    //
     /**
      * The default char used as field separator.
      */
@@ -134,10 +122,6 @@ public abstract class CSVFile {
      */
     protected char textQualifier;
 
-    //
-    // Konstruktoren
-    //
-
     /**
      * CSVFile constructor with the default field separator and text qualifier.
      */
@@ -146,12 +130,11 @@ public abstract class CSVFile {
     }
 
     /**
-     * CSVFile constructor with a given field separator and the default text
-     * qualifier.
+     * CSVFile constructor with a given field separator and the default text qualifier.
      *
      * @param sep The field separator to be used; overwrites the default one
      */
-    public CSVFile(char sep) {
+    public CSVFile(final char sep) {
         this(sep, DEFAULT_TEXT_QUALIFIER);
     }
 
@@ -161,21 +144,17 @@ public abstract class CSVFile {
      * @param sep  The field separator to be used; overwrites the default one
      * @param qual The text qualifier to be used; overwrites the default one
      */
-    public CSVFile(char sep, char qual) {
+    public CSVFile(final char sep, final char qual) {
         setFieldSeparator(sep);
         setTextQualifier(qual);
     }
-
-    //
-    // Getter und Setter
-    //
 
     /**
      * Set the current field separator.
      *
      * @param sep The new field separator to be used; overwrites the old one
      */
-    public void setFieldSeparator(char sep) {
+    public void setFieldSeparator(final char sep) {
         fieldSeparator = sep;
     }
 
@@ -184,7 +163,7 @@ public abstract class CSVFile {
      *
      * @param qual The new text qualifier to be used; overwrites the old one
      */
-    public void setTextQualifier(char qual) {
+    public void setTextQualifier(final char qual) {
         textQualifier = qual;
     }
 

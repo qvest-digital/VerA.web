@@ -1,71 +1,67 @@
 package org.evolvis.tartools.csvfile;
 
 /*-
- * Veranstaltungsmanagement VerA.web (platform-independent
- * webservice-based event management) is Copyright
- *  © 2018 Атанас Александров (sirakov@gmail.com)
- *  © 2014, 2015, 2016, 2017 Атанас Александров (a.alexandrov@tarent.de)
- *  © 2013 Иванка Александрова (i.alexandrova@tarent.de)
- *  © 2013 Patrick Apel (p.apel@tarent.de)
- *  © 2016 Eugen Auschew (e.auschew@tarent.de)
- *  © 2013 Andrei Boulgakov (a.boulgakov@tarent.de)
- *  © 2013 Valentin But (v.but@tarent.de)
- *  © 2016 Lukas Degener (l.degener@tarent.de)
- *  © 2017 Axel Dirla (a.dirla@tarent.de)
- *  © 2015 Julian Drawe (j.drawe@tarent.de)
- *  © 2014 Dominik George (d.george@tarent.de)
- *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
- *  © 2008 David Goemans (d.goemans@tarent.de)
- *  © 2018 Christian Gorski (c.gorski@tarent.de)
- *  © 2015 Viktor Hamm (v.hamm@tarent.de)
- *  © 2013 Katja Hapke (k.hapke@tarent.de)
- *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
- *  © 2018 Thomas Hensel (t.hensel@tarent.de)
- *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
- *  © 2018 Titian Horvath (t.horvath@tarent.de)
- *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
- *  © 2018 Timo Kanera (t.kanera@tarent.de)
- *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
- *  © 2014 Martin Ley (m.ley@tarent.de)
- *  © 2014, 2015 Max Marche (m.marche@tarent.de)
- *  © 2007 Jan Meyer (jan@evolvis.org)
- *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos (t.glaser@tarent.de)
- *  © 2016 Cristian Molina (c.molina@tarent.de)
- *  © 2018 Yorka Neumann (y.neumann@tarent.de)
- *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
- *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
- *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
- *  © 2016 Jens Oberender (j.oberender@tarent.de)
- *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
- *  © 2009 Martin Pelzer (m.pelzer@tarent.de)
- *  © 2013 Marc Radel (m.radel@tarent.de)
- *  © 2013 Sebastian Reimers (s.reimers@tarent.de)
- *  © 2015 Charbel Saliba (c.saliba@tarent.de)
- *  © 2008, 2009, 2010 Thomas Schmitz (t.schmitz@tarent.de)
- *  © 2013 Volker Schmitz (v.schmitz@tarent.de)
- *  © 2014 Sven Schumann (s.schumann@tarent.de)
- *  © 2014 Sevilay Temiz (s.temiz@tarent.de)
- *  © 2013 Kevin Viola Schmitz (k.schmitz@tarent.de)
- *  © 2015 Stefan Walenda (s.walenda@tarent.de)
- *  © 2015, 2016, 2017 Max Weierstall (m.weierstall@tarent.de)
- *  © 2013 Rebecca Weinz (r.weinz@tarent.de)
- *  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)
- *  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)
- * and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.
+ * The CSVFile tools are a collection of classes to deal with CSV files
+ * (comma-separated values). They have quite a history. This current
+ * edition, developed alongside VerA.web by ⮡ tarent, is published under
+ * the terms of the GNU Lesser or Library General Public License, any
+ * version published by the Free Software Foundation.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * Copyright holders and contributors:
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Copyright © 2016 Атанас Александров (a.alexandrov@tarent.de)
+ * Copyright © 2006 Christoph Jerolimov (jerolimov@gmx.de)
+ * Copyright © 2008 Carsten Klein (c.klein@tarent.de)
+ * Copyright © 2005 Michael Klink (m.klink@tarent.de)
+ * Copyright © 2013, 2015, 2018 mirabilos (t.glaser@tarent.de)
+ * and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.
  *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, see: http://www.gnu.org/licenses/
+ * Copyright © 2005 Fabrizio Fazzino (under GNU LGPL) — also on
+ * http://sourceforge.net/projects/csvfile
+ *
+ * Published as part of Ian’s Java CookBook, 2002 (under 2-clause BSD):
+ *
+ * Copyright (c) Ian F. Darwin, http://www.darwinsys.com/, 1996–2001
+ * Copyright (c) Ben Ballard, ca. 2001
+ * All rights reserved. Software written by Ian F. Darwin and others.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS''
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Java, the Duke mascot, and all variants of Sun's Java "steaming coffee
+ * cup" logo are trademarks of Sun Microsystems. Sun's, and James Gosling's,
+ * pioneering role in inventing and promulgating (and standardizing) the Java
+ * language and environment is gratefully acknowledged.
+ *
+ * The pioneering role of Dennis Ritchie and Bjarne Stroustrup, of AT&T, for
+ * inventing predecessor languages C and C++ is also gratefully acknowledged.
+ *
+ * Copyright (C) 1999 Lucent Technologies
+ * Adapted from a C++ original excerpted from “The Practice of Programming”
+ * by Brian Kernighan and Rob Pike. Included by permission of the <a
+ * href="http://www.informit.com/store/practice-of-programming-9780201615869"
+ * title="http://tpop.awl.com/">Addison-Wesley</a> web site, which says:
+ * <cite>“You may use this code for any purpose, as long as you leave the
+ * copyright notice and book citation attached.”</cite> I have done so.
  */
 
 import java.io.BufferedWriter;
@@ -76,22 +72,22 @@ import java.io.Writer;
 import java.util.List;
 
 /**
- * CSVFileWriter is a class derived from CSVFile used to format some fields into
- * a new CSV file.
+ * CSVFileWriter is a class derived from {@link CSVFile}
+ * used to format some fields into a new CSV file.
  *
  * @author Fabrizio Fazzino
  */
 public class CSVFileWriter extends CSVFile {
-    //
-    // Konstruktoren
-    //
+    /**
+     * The print writer linked to the CSV file to be written.
+     */
+    private final PrintWriter out;
 
     /**
-     * CSVFileWriter constructor just need the name of the CSV file that will be
-     * written.
+     * CSVFileWriter constructor just need the name of the CSV file that will be written.
      *
      * @param outputFileName The name of the CSV file to be opened for writing
-     * @throws IOException If an error occurs while creating the file
+     * @throws IOException if an error occurs while creating the file
      */
     public CSVFileWriter(String outputFileName) throws IOException {
         this(outputFileName, DEFAULT_FIELD_SEPARATOR);
@@ -102,7 +98,7 @@ public class CSVFileWriter extends CSVFile {
      *
      * @param outputFileName The name of the CSV file to be opened for writing
      * @param sep            The field separator to be used; overwrites the default one
-     * @throws IOException If an error occurs while creating the file
+     * @throws IOException if an error occurs while creating the file
      */
     public CSVFileWriter(String outputFileName, char sep) throws IOException {
         this(outputFileName, sep, DEFAULT_TEXT_QUALIFIER);
@@ -114,7 +110,7 @@ public class CSVFileWriter extends CSVFile {
      * @param outputFileName The name of the CSV file to be opened for writing
      * @param sep            The field separator to be used; overwrites the default one
      * @param qual           The text qualifier to be used; overwrites the default one
-     * @throws IOException If an error occurs while creating the file
+     * @throws IOException if an error occurs while creating the file
      */
     public CSVFileWriter(String outputFileName, char sep, char qual) throws IOException {
         this(new FileWriter(outputFileName), sep, qual);
@@ -132,12 +128,8 @@ public class CSVFileWriter extends CSVFile {
         out = new PrintWriter(new BufferedWriter(writer));
     }
 
-    //
-    // Öffentliche Methoden
-    //
-
     /**
-     * Close the output CSV file.
+     * Closes the output CSV file.
      */
     public void close() {
         out.flush();
@@ -145,7 +137,7 @@ public class CSVFileWriter extends CSVFile {
     }
 
     /**
-     * Join the fields and write them as a new line to the CSV file.
+     * Joins the fields and writes them as a new line to the CSV file.
      *
      * @param fields The list of strings containing the fields
      */
@@ -160,9 +152,6 @@ public class CSVFileWriter extends CSVFile {
         out.println();
     }
 
-    //
-    // geschützte Hilfsmethoden
-    //
     private String prepareField(Object field) {
         String fieldString = (field != null) ? field.toString() : "";
         if (fieldString.indexOf(fieldSeparator) >= 0 ||
@@ -174,12 +163,4 @@ public class CSVFileWriter extends CSVFile {
         }
         return fieldString;
     }
-
-    //
-    // geschützte Membervariablen
-    //
-    /**
-     * The print writer linked to the CSV file to be written.
-     */
-    protected final PrintWriter out;
 }
