@@ -158,6 +158,7 @@ public class Guest {
     private String image_uuid;
     //Standard 0 = not on reserve
     private Integer reserve = 0;
+    private String keywords;
 
     public Integer getPk() {
         return pk;
@@ -269,5 +270,13 @@ public class Guest {
 
     public void setReserve(Integer reserve) {
         this.reserve = reserve;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 }
