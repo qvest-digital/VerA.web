@@ -43,12 +43,12 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{5.4}
-\newcommand{\vwiaversfassungmonat}{August}
+\newcommand{\vwiaversfassungnr}{5.5}
+\newcommand{\vwiaversfassungmonat}{September}
 \newcommand{\vwiaversfassungjahr}{2018}
 
 % VerA.web Version
-\newcommand{\vwiaverssw}{1.9.0}
+\newcommand{\vwiaverssw}{1.9.2}
 
 % OSIAM-Version
 \newcommand{\vwiaversosiam}{2.5}
@@ -1021,7 +1021,7 @@ versehentlich verwendet wird:
 
 \begin{lstdump}{Pakete OSIAM}
 sudo apt-get install curl apache2 postgresql openjdk-8-jre-headless \
-    tomcat8 libtcnative-1 libservlet3.1-java libapache2-mod-jk
+    tomcat8 libtcnative-1 libapache2-mod-jk
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
 java -version
@@ -1030,6 +1030,9 @@ java -version
 # OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~deb9u1-b12)
 # OpenJDK 64-Bit Server VM (build 25.162-b12, mixed mode)
 \end{lstdump}
+
+Stellen Sie unbedingt sicher, daß das \texttt{tomcat8}-Paket mindestens
+in Version \texttt{8.5.14-1+deb9u3} installiert wird.
 \end{minipage}
 
 Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
@@ -1349,7 +1352,7 @@ Installieren Sie einige Pakete und stellen Sie sicher, daß keine
 
 \begin{lstdump}{Pakete core/jessie}
 sudo apt-get install curl apache2 postgresql openjdk-8-jre-headless \
-    tomcat8 libtcnative-1 libservlet3.1-java libapache2-mod-jk
+    tomcat8 libtcnative-1 libapache2-mod-jk
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
 java -version
@@ -1358,6 +1361,9 @@ java -version
 # OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~deb9u1-b12)
 # OpenJDK 64-Bit Server VM (build 25.162-b12, mixed mode)
 \end{lstdump}
+
+Stellen Sie unbedingt sicher, daß das \texttt{tomcat8}-Paket mindestens
+in Version \texttt{8.5.14-1+deb9u3} installiert wird.
 \end{minipage}
 
 \begin{minipage}{\linewidth}
