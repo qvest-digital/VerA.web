@@ -683,9 +683,9 @@ i                                                       ${placeholderWithTransla
                                 <input type="hidden" name="list" value="$bean.id">
                         #end
 
-                        <div id="main_content" style="padding-right: 1px;">
-
-                                <table class="sortable">
+                        <div id="main_content">
+                                <div class="table_border">
+                                <table class="sortable scrollable-table">
                                         ##Set column size
                                         <col width="$column0%" />
                                         <col width="$column1%" />
@@ -1545,9 +1545,11 @@ i                                                       ${placeholderWithTransla
                                         #end
 
                                         #set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-                                        #tableFooter(13)
-                                        #parse("inc/list-direct-new.vm")
+
                                 </table>
+                                </div>
+                            #parse("inc/table-pagination-footer.vm")
+                            #parse("inc/list-direct-new.vm")
                         </div>
 
                 </form>

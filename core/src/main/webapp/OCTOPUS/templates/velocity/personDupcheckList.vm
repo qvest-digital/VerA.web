@@ -72,8 +72,8 @@
                 #foreach($bean in $list)
                 <input type="hidden" name="list" value="$bean.id">
                 #end
-
-                <table class="sortable fixed">
+                <div class="table_border">
+                <table class="sortable fixed scrollable-table">
                         ##Set column size
                         <col width="$column0%" />
                 <col width="$column2%" />
@@ -124,8 +124,9 @@
                         #end
 
                         #set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-                        #tableFooter(9)
                 </table>
+                </div>
+                #parse("inc/table-pagination-footer.vm")
 
                 #set($disableListSelect = true)
                 #if ($listparam.count == 0)

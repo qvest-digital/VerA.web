@@ -58,7 +58,8 @@
                         #end
 
                         <div id="main_content">
-                                <table class="sortable fixed">
+                                <div class="table_border">
+                                <table class="sortable fixed scrollable-table">
                                         ##Set column size
                                         <col width="$column0%" />
                                 <col width="$column1%" />
@@ -141,6 +142,8 @@
                                         </tr>
 
                                 </table>
+                                </div>
+                                #parse("inc/table-pagination-footer.vm")
                         </div>
 
                 #else

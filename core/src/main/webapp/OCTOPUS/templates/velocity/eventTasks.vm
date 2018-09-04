@@ -128,8 +128,8 @@
                                 #end
 
                                 #if ($listparam.count != 0)
-
-                                <table class="marginTop0 notBold fixed">
+                                <div class="table_border">
+                                <table class="marginTop0 notBold fixed scrollable-table">
                                         ##Set column size
                                         <col width="$column0%" />
                                 <col width="$column1%" />
@@ -177,9 +177,10 @@
                                         #end
 
                                         #set($itemName = "${placeholderWithTranslation.GENERIC_TASK_PLURAL}")
-                                        #tableFooter(8)
                                         </tbody>
                                 </table>
+                                </div>
+                                #parse("inc/table-pagination-footer.vm")
 
                                 #else
                                         <vera-info vera-stay>
