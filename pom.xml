@@ -33,7 +33,6 @@
 		<maven.buildhelper.version>3.0.0</maven.buildhelper.version>
 		<maven.compiler.version>3.7.0</maven.compiler.version>
 		<maven.deploy.version>2.8.1</maven.deploy.version>
-		<maven.deploy.wagon-ssh.version>3.1.0</maven.deploy.wagon-ssh.version>
 		<maven.enforcer.version>1.4.1</maven.enforcer.version>
 		<maven.exec.version>1.4.0</maven.exec.version>
 		<maven.gmavenplus.version>1.5</maven.gmavenplus.version>
@@ -228,18 +227,10 @@
 						</compilerArgs>
 					</configuration>
 				</plugin>
-				<!-- required for deployment to maven repo via ssh/sftp with maven 3 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>${maven.deploy.version}</version>
-					<dependencies>
-						<dependency>
-							<groupId>org.apache.maven.wagon</groupId>
-							<artifactId>wagon-ssh</artifactId>
-							<version>${maven.deploy.wagon-ssh.version}</version>
-						</dependency>
-					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
