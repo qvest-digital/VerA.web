@@ -1,35 +1,34 @@
 #if($listparam.count > 0 && $liststarts)
-	<tr class="colspan">
-		<td colspan="99" class="textCenter">${placeholderWithTranslation.GENERIC_PAGING}:
-			<ul class="inline alphabet">
-				<li><a href="javascript:filterList('A');">A</a></li>
-				<li><a href="javascript:filterList('B');">B</a></li>
-				<li><a href="javascript:filterList('C');">C</a></li>
-				<li><a href="javascript:filterList('D');">D</a></li>
-				<li><a href="javascript:filterList('E');">E</a></li>
-				<li><a href="javascript:filterList('F');">F</a></li>
-				<li><a href="javascript:filterList('G');">G</a></li>
-				<li><a href="javascript:filterList('H');">H</a></li>
-				<li><a href="javascript:filterList('I');">I</a></li>
-				<li><a href="javascript:filterList('J');">J</a></li>
-				<li><a href="javascript:filterList('K');">K</a></li>
-				<li><a href="javascript:filterList('L');">L</a></li>
-				<li><a href="javascript:filterList('M');">M</a></li>
-				<li><a href="javascript:filterList('N');">N</a></li>
-				<li><a href="javascript:filterList('O');">O</a></li>
-				<li><a href="javascript:filterList('P');">P</a></li>
-				<li><a href="javascript:filterList('Q');">Q</a></li>
-				<li><a href="javascript:filterList('R');">R</a></li>
-				<li><a href="javascript:filterList('S');">S</a></li>
-				<li><a href="javascript:filterList('T');">T</a></li>
-				<li><a href="javascript:filterList('U');">U</a></li>
-				<li><a href="javascript:filterList('V');">V</a></li>
-				<li><a href="javascript:filterList('W');">W</a></li>
-				<li><a href="javascript:filterList('X');">X</a></li>
-				<li><a href="javascript:filterList('Y');">Y</a></li>
-				<li><a href="javascript:filterList('Z');">Z</a></li>
-				<li style="border-right: none;"><a href="javascript:filterList('');">${placeholderWithTranslation.GENERIC_ALL}</a></li>
-			</ul>
-		</td>
-	</tr>
+	<div style="margin-top: 15px; text-align: center;">
+		${placeholderWithTranslation.GENERIC_PAGING}:
+        <ul class="inline alphabet">
+            <li><a href="javascript:filterList('A');">A</a></li>
+            <li><a href="javascript:filterList('B');">B</a></li>
+            <li><a href="javascript:filterList('C');">C</a></li>
+            <li><a href="javascript:filterList('D');">D</a></li>
+            <li><a href="javascript:filterList('E');">E</a></li>
+            <li><a href="javascript:filterList('F');">F</a></li>
+            <li><a href="javascript:filterList('G');">G</a></li>
+            <li><a href="javascript:filterList('H');">H</a></li>
+            <li><a href="javascript:filterList('I');">I</a></li>
+            <li><a href="javascript:filterList('J');">J</a></li>
+            <li><a href="javascript:filterList('K');">K</a></li>
+            <li><a href="javascript:filterList('L');">L</a></li>
+            <li><a href="javascript:filterList('M');">M</a></li>
+            <li><a href="javascript:filterList('N');">N</a></li>
+            <li><a href="javascript:filterList('O');">O</a></li>
+            <li><a href="javascript:filterList('P');">P</a></li>
+            <li><a href="javascript:filterList('Q');">Q</a></li>
+            <li><a href="javascript:filterList('R');">R</a></li>
+            <li><a href="javascript:filterList('S');">S</a></li>
+            <li><a href="javascript:filterList('T');">T</a></li>
+            <li><a href="javascript:filterList('U');">U</a></li>
+            <li><a href="javascript:filterList('V');">V</a></li>
+            <li><a href="javascript:filterList('W');">W</a></li>
+            <li><a href="javascript:filterList('X');">X</a></li>
+            <li><a href="javascript:filterList('Y');">Y</a></li>
+            <li><a href="javascript:filterList('Z');">Z</a></li>
+            <li style="border-right: none;"><a href="javascript:filterList('');">${placeholderWithTranslation.GENERIC_ALL}</a></li>
+        </ul>
+	</div>
 #end

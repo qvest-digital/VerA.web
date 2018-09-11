@@ -31,7 +31,8 @@
 
 				<div class="contentBoxColored grayBorder">
 					<h2>${placeholderWithTranslation.bittewaehlensieeineamtsbezeichnungfunktionaus}:</h2>
-					<table>
+					<div class="table_border">
+					<table class="scrollable-table">
 						#foreach($bean in $list)
 							<tr>
 								<td onclick="if (returnFunction('${paths.staticWeb}do/', '$bean.id')) closePopup();">
@@ -48,14 +49,15 @@
 						#end
 
 						#set($disableListSelect = true)
-						#if ($listparam.count > 0)
-							#set($itemName = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}")
-							#tableFooter(1)
-							#parse("inc/list-direct-new.vm")
-						#else
-							${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.<br/><br/>
-						#end
 					</table>
+                	</div>
+					#if ($listparam.count > 0)
+						#set($itemName = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}")
+						#parse("inc/table-pagination-footer.vm")
+						#parse("inc/list-direct-new.vm")
+					#else
+						${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.<br/><br/>
+					#end
 
 						<div class="textRight">
 							<input type="button" value="Schlie&szlig;en" onclick="closePopup();"/>

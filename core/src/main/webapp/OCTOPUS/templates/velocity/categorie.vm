@@ -75,8 +75,8 @@
                         <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" class="button" title="${placeholderWithTranslation.markiertekategorienloschen}" onclick="$('#entity').val('CATEGORY'); formlist.action='SaveCategories';return true;">
 
                 </span>
-
-                <table class="fixed">
+                <div class="table_border">
+                <table class="fixed scrollable-table">
                         ##Set column size
                         <col width="$column0%" />
                         <col width="$column1%" />
@@ -196,9 +196,10 @@
                         </tr>
                 #end
                 #set($itemName = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
-                #tableFooter(6)
-                #parse("inc/list-direct-new.vm")
                 </table>
+                </div>
+                #parse("inc/table-pagination-footer.vm")
+                #parse("inc/list-direct-new.vm")
 
                 ## introduced onclick form action change in order to allow all authenticated users to view the categories as per change request for version 1.2.0
                 ## cklein

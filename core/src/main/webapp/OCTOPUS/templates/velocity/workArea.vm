@@ -46,7 +46,8 @@
                         #foreach($bean in $list)
                         <input type="hidden" name="list" value="$bean.id">
                         #end
-                        <table class="fixed">
+                        <div class="table_border">
+                        <table class="fixed scrollable-table">
                                 ##Set column size
                                 <col width="$column0%" />
                                 <col width="$column1%" />
@@ -82,10 +83,11 @@
                         #end
 
                                 #set($itemName = "${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}")
-                                #tableFooter(3)
-                                #parse("inc/list-direct-new.vm")
 
                         </table>
+                        </div>
+                        #parse("inc/table-pagination-footer.vm")
+                        #parse("inc/list-direct-new.vm")
 
                         <div class="textRight marginTop10" id="buttonPanel-bottom">
                                 <input type="submit" id="savebutton" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />

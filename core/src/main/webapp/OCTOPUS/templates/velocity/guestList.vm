@@ -485,7 +485,8 @@
                                 }
 			//--><!]]></script>
                                 <div id="guestListWrapper">
-                                        <table class="sortable">
+                                        <div class="table_border">
+                                        <table class="sortable scrollable-table">
                                                 ##Set column size
 
                                                 <tr >
@@ -821,7 +822,6 @@
                                                 #end
 
                                                 #set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
-                                                #tableFooter(12)
 
                                                 #if($search.listorder && $jumpOffsets)
                                                         #parse("inc/list-direct-even-newer.vm")
@@ -834,6 +834,8 @@
                                                 #end
 
                                         </table>
+                                    </div>
+                                    #parse("inc/table-pagination-footer.vm")
                                 </div>
                         <div class="textRight marginTop10 marginBottom20">
                             #if($grants.mayWrite() && $basicEventId == 'noBasicEvent')

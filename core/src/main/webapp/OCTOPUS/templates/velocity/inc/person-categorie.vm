@@ -49,7 +49,8 @@
 </div>
 
 #if(($list && $list.size() > 0) || $grants.mayWrite())
-    <table class="notBold">
+    <div class="table_border">
+    <table class="notBold scrollable-table">
         <tr>
             #if($list && $list.size() > 0 && $grants.mayWrite())
                 <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end #if(!$grants.mayWrite()) vera-disabled#end/></th>
@@ -124,9 +125,10 @@
         #end
 
         #set($itemName = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
-        #tableFooter(4)
-        #parse("inc/list-direct-new.vm")
     </table>
+    </div>
+    #parse("inc/table-pagination-footer.vm")
+    #parse("inc/list-direct-new.vm")
 
     <vera-info vera-stay>
         ${placeholderWithTranslation.beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse}

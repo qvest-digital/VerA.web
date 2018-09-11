@@ -64,8 +64,8 @@
                         <input type="button" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" onclick="deleteMailinglist();" title="${placeholderWithTranslation.markierteverteilerloschen}">
                 </span>
                 #end
-
-                <table class="marginTop10 fixed">
+                <div class="table_border">
+                <table class="marginTop10 fixed scrollable-table">
                         ##Set column size
                                 <col width="$column0%" />
                         <col width="$column1%" />
@@ -103,10 +103,10 @@
                         #end
 
                         #set($itemName = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
-                                #tableFooter(7)
-                        #parse("inc/list-direct-new.vm")
                 </table>
-
+                </div>
+                #parse("inc/table-pagination-footer.vm")
+                #parse("inc/list-direct-new.vm")
         #else
 
                 <div class="contentBoxColored grayBorder marginBottom20">

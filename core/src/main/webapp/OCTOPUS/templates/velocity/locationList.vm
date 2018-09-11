@@ -76,8 +76,8 @@
 			<input type="button" id="new" name="new" value="${placeholderWithTranslation.GENERIC_ADD_NEW_EVENT_LOCATIONS}" title="${placeholderWithTranslation.GENERIC_ADD_NEW_EVENT_LOCATIONS}" class="mainButton" onclick="window.location.href='CreateLocation';" />
 		</span>
 		#end
-
-		<table class="fixed">
+		<div class="table_border">
+		<table class="fixed scrollable-table">
 
 			##Set column size
 			<col width="$column0%" />
@@ -136,10 +136,10 @@
 			#end
 
 			#set($itemName = "${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}")
-			#tableFooter(14)
-			#parse("inc/list-direct-new.vm")
 		</table>
-
+		</div>
+		#parse("inc/table-pagination-footer.vm")
+		#parse("inc/list-direct-new.vm")
 	</form>
 </div>
 #parse("inc/footer.vm")
