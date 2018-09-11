@@ -9,50 +9,379 @@
 		• oA: include building the Online-Anmeldung
 	-->
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.evolvis.tartools</groupId>
+		<artifactId>maven-parent</artifactId>
+		<version>0.1</version>
+	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
 	<version>1.9.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>VerA.web parent POM</name>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>VerA.web parent POM</description>
+	<url>https://evolvis.org/projects/veraweb/</url>
+	<licenses>
+		<license>
+			<name>GNU General Public License, version 2 or later</name>
+			<url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Атанас Александров</name>
+			<email>sirakov@gmail.com</email>
+		</developer>
+		<developer>
+			<name>Иванка Александрова</name>
+			<email>i.alexandrova@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Patrick Apel</name>
+			<email>p.apel@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>asteban</name>
+			<email>s.mancke@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Eugen Auschew</name>
+			<email>e.auschew@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Andrei Boulgakov</name>
+			<email>a.boulgakov@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Valentin But</name>
+			<email>v.but@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Lukas Degener</name>
+			<email>l.degener@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Axel Dirla</name>
+			<email>a.dirla@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Julian Drawe</name>
+			<email>j.drawe@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Dominik George</name>
+			<email>d.george@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Sascha Girrulat</name>
+			<email>s.girrulat@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>David Goemans</name>
+			<email>d.goemans@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Christian Gorski</name>
+			<email>c.gorski@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Viktor Hamm</name>
+			<email>v.hamm@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Katja Hapke</name>
+			<email>k.hapke@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Hendrik Helwich</name>
+			<email>h.helwich@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Thomas Hensel</name>
+			<email>t.hensel@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Benedict Hoeger</name>
+			<email>b.hoeger@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Titian Horvath</name>
+			<email>t.horvath@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Christoph Jerolimov</name>
+			<email>c.jerolimov@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Timo Kanera</name>
+			<email>t.kanera@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Philipp Kirchner</name>
+			<email>p.kirchner@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Carsten Klein</name>
+			<email>c.klein@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Michael Kleinhenz</name>
+			<email>m.kleinhenz@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Michael Klink</name>
+			<email>m.klink@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Fabian Köster</name>
+			<email>f.koester@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Martin Ley</name>
+			<email>m.ley@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Alex Maier</name>
+			<email>a.maier@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Max Marche</name>
+			<email>m.marche@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jan Meyer</name>
+			<email>jan@evolvis.org</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>mirabilos</name>
+			<email>t.glaser@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Cristian Molina</name>
+			<email>c.molina@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jens Neumaier</name>
+			<email>j.neumaier@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Nils Neumaier</name>
+			<email>n.neumaier@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Yorka Neumann</name>
+			<email>y.neumann@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Michael Nienhaus</name>
+			<email>m.nienhaus@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Claudia Nuessle</name>
+			<email>c.nuessle@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jon Nuñez Alvarez</name>
+			<email>j.nunez-alvarez@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jens Oberender</name>
+			<email>j.oberender@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Miluška Pech</name>
+			<email>m.pech@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Martin Pelzer</name>
+			<email>m.pelzer@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Christian Preilowski</name>
+			<email>c.thiel@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Marc Radel</name>
+			<email>m.radel@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Sebastian Reimers</name>
+			<email>s.reimers@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Charbel Saliba</name>
+			<email>c.saliba@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Kevin Viola Schmitz</name>
+			<email>k.schmitz@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Thomas Schmitz</name>
+			<email>t.schmitz@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Volker Schmitz</name>
+			<email>v.schmitz@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Sven Schumann</name>
+			<email>s.schumann@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Robert Schuster</name>
+			<email>r.schuster@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Sevilay Temiz</name>
+			<email>s.temiz@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Stefan Walenda</name>
+			<email>s.walenda@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Max Weierstall</name>
+			<email>m.weierstall@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Rebecca Weinz</name>
+			<email>r.weinz@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Stefan Weiz</name>
+			<email>s.weiz@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+		<developer>
+			<name>Tim Zimmer</name>
+			<email>t.zimmer@tarent.de</email>
+			<organization>⮡ tarent</organization>
+			<organizationUrl>http://www.tarent.de/</organizationUrl>
+		</developer>
+	</developers>
 	<properties>
 		<!-- general settings -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sonar.sources>src/main</sonar.sources>
-		<sonar.tests>src/test</sonar.tests>
-		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
-		<build.timestamp>${maven.build.timestamp}</build.timestamp>
-		<releaseVersion>${project.version}</releaseVersion>
 		<archiver.copyright>Copyright © 2001–2018 tarent solutions GmbH</archiver.copyright>
-		<javaRelease>8</javaRelease>
 		<!-- not yet: doclint.optappend>-Xdoclint:all -Xdoclint:-missing</doclint.optappend-->
 		<doclint.optappend>-Xdoclint:none</doclint.optappend>
 		<servlet.api>3.1.0</servlet.api>
 		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
 		<!-- maven plugins -->
-		<maven.assembly.version>2.6</maven.assembly.version>
-		<maven.buildhelper.version>3.0.0</maven.buildhelper.version>
-		<maven.compiler.version>3.7.0</maven.compiler.version>
-		<maven.deploy.version>2.8.2</maven.deploy.version>
 		<maven.docker-compose.version>1.0.3</maven.docker-compose.version>
 		<maven.dockerfile.version>1.4.3</maven.dockerfile.version>
-		<maven.enforcer.version>1.4.1</maven.enforcer.version>
-		<maven.exec.version>1.4.0</maven.exec.version>
-		<maven.gmavenplus.version>1.5</maven.gmavenplus.version>
-		<maven.jacoco.version>0.8.1</maven.jacoco.version>
-		<maven.jar.version>2.6</maven.jar.version>
-		<maven.javadoc.version>3.0.1</maven.javadoc.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 		<maven.karma.version>1.8</maven.karma.version>
-		<maven.latex.version>1.4.4</maven.latex.version>
-		<maven.mycila.version>3.0</maven.mycila.version>
 		<maven.owasp.dependency-check.version>3.2.1</maven.owasp.dependency-check.version>
-		<maven.pitest.version>1.0.0</maven.pitest.version>
-		<maven.release.version>2.5.3</maven.release.version>
-		<maven.resources.version>3.0.2</maven.resources.version>
-		<maven.shade.version>3.1.0</maven.shade.version>
-		<maven.source.version>2.4</maven.source.version>
-		<maven.surefire.version>2.19</maven.surefire.version>
-		<maven.war.version>2.6</maven.war.version>
 		<!-- dependency management -->
 		<activation.version>1.1.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
@@ -112,11 +441,6 @@
 		<wiremock.version>2.18.0</wiremock.version>
 		<docker.registry>veraweb-tools.lan.tarent.de:5000</docker.registry>
 	</properties>
-	<organization>
-		<name>tarent solutions GmbH, Germany</name>
-		<url>http://www.tarent.de/</url>
-	</organization>
-	<url>https://evolvis.org/projects/veraweb/</url>
 	<mailingLists>
 		<mailingList>
 			<name>veraweb-commits@lists.evolvis.org</name>
@@ -126,6 +450,7 @@
 		</mailingList>
 	</mailingLists>
 	<scm>
+		<connection>scm:git:https://evolvis.org/anonscm/git/veraweb/veraweb.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
 		<tag>HEAD</tag>
@@ -162,109 +487,19 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>${maven.buildhelper.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<version>${maven.exec.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.gmavenplus</groupId>
-					<artifactId>gmavenplus-plugin</artifactId>
-					<version>${maven.gmavenplus.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>testCompile</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>${maven.jacoco.version}</version>
-				</plugin>
-				<plugin>
 					<groupId>org.mortbay.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
 					<version>${maven.jetty.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>com.github.fracpete</groupId>
-					<artifactId>latex-maven-plugin</artifactId>
-					<version>${maven.latex.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>com.mycila</groupId>
-					<artifactId>license-maven-plugin</artifactId>
-					<version>${maven.mycila.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>${maven.assembly.version}</version>
-					<configuration>
-						<tarLongFileMode>posix</tarLongFileMode>
-					</configuration>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven.compiler.version}</version>
 					<configuration>
-						<source>1.${javaRelease}</source>
-						<target>1.${javaRelease}</target>
-						<release>${javaRelease}</release>
-						<encoding>${project.build.sourceEncoding}</encoding>
 						<compilerArgs>
-							<arg>-Xlint</arg>
 							<!-- for now: -->
 							<arg>-Xlint:-unchecked</arg>
 						</compilerArgs>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>${maven.deploy.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>${maven.enforcer.version}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>${maven.jar.version}</version>
-					<configuration>
-						<archive>
-							<manifest>
-								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-							</manifest>
-							<manifestEntries>
-								<Build-Job>${JOB_NAME}</Build-Job>
-								<Build-Id>${BUILD_ID}</Build-Id>
-								<Build-Number>${BUILD_NUMBER}</Build-Number>
-								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
-								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<version_name>${project.name}</version_name>
-								<version_description>${project.description}</version_description>
-								<version_copyright>${archiver.copyright}</version_copyright>
-								<version_vendor>${project.organization.name}</version_vendor>
-								<version_version>${project.version}</version_version>
-							</manifestEntries>
-						</archive>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${maven.javadoc.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>com.kelveden</groupId>
@@ -274,71 +509,9 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>${maven.release.version}</version>
 					<configuration>
 						<tagNameFormat>@{project.version}</tagNameFormat>
 					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>${maven.resources.version}</version>
-					<configuration>
-						<escapeString>\</escapeString>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>${maven.shade.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>${maven.source.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven.surefire.version}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>${maven.war.version}</version>
-					<configuration>
-						<archive>
-							<manifest>
-								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-							</manifest>
-							<manifestEntries>
-								<Build-Job>${JOB_NAME}</Build-Job>
-								<Build-Id>${BUILD_ID}</Build-Id>
-								<Build-Number>${BUILD_NUMBER}</Build-Number>
-								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
-								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<version_name>${project.name}</version_name>
-								<version_description>${project.description}</version_description>
-								<version_copyright>${archiver.copyright}</version_copyright>
-								<version_vendor>${project.organization.name}</version_vendor>
-								<version_version>${project.version}</version_version>
-							</manifestEntries>
-						</archive>
-						<webResources combine.children="append">
-							<resource>
-								<filtering>true</filtering>
-								<directory>src/main/webapp</directory>
-								<includes>
-									<include>artifact-version</include>
-								</includes>
-							</resource>
-						</webResources>
-						<archiveClasses>true</archiveClasses>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.pitest</groupId>
-					<artifactId>pitest-maven</artifactId>
-					<version>${maven.pitest.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -350,9 +523,6 @@
 				<configuration>
 					<basedir>${project.basedir}</basedir>
 					<header>${project.basedir}/release/LICENCE.hdr</header>
-					<quiet>false</quiet>
-					<failIfMissing>true</failIfMissing>
-					<aggregate>true</aggregate>
 					<includes>
 						<include>**/*.groovy</include>
 						<include>**/*.java</include>
@@ -366,16 +536,6 @@
 						<exclude>**/src/main/js/ext/**</exclude>
 						<exclude>mw/**</exclude>
 					</excludes>
-					<headerDefinitions>
-						<headerDefinition>${project.basedir}/release/myc-javapkg.xml</headerDefinition>
-					</headerDefinitions>
-					<mapping>
-						<java>JavaPackage_style</java>
-					</mapping>
-					<useDefaultExcludes>true</useDefaultExcludes>
-					<useDefaultMapping>true</useDefaultMapping>
-					<encoding>UTF-8</encoding>
-					<strictCheck>true</strictCheck>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -399,69 +559,6 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>DISABLE_FORKED_LIFECYCLE_MSOURCES-13</phase>
-					</execution>
-					<execution>
-						<id>attach-sources-no-fork</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-			</plugin>
-			<!-- JaCoCo: allows code coverage analysis in Sonar -->
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>jacoco-initialize</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${sonar.jacoco.reportPath}</destFile>
-						</configuration>
-					</execution>
-					<execution>
-						<id>jacoco-site</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<dataFile>${sonar.jacoco.reportPath}</dataFile>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<includes>
@@ -472,28 +569,6 @@
 						<include>**/*.groovy</include>
 					</includes>
 				</configuration>
-			</plugin>
-			<plugin>
-				<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<bannedDependencies>
-									<excludes>
-										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
-										<exclude>commons-collections:commons-collections:4.0</exclude>
-									</excludes>
-								</bannedDependencies>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.owasp</groupId>
@@ -1179,44 +1254,9 @@
 		</profile>
 		<profile>
 			<id>jdk8orolder</id>
-			<activation>
-				<jdk>(,9)</jdk>
-			</activation>
 			<properties>
-				<maven.compiler.version>3.5.1</maven.compiler.version>
 				<mockito.version>2.10.0</mockito.version>
 			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>${maven.javadoc.version}</version>
-						<configuration>
-							<additionalOptions>${doclint.optappend}</additionalOptions>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>jdk9ornewer</id>
-			<activation>
-				<jdk>[9,)</jdk>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>${maven.javadoc.version}</version>
-						<configuration>
-							<additionalOptions>-html4 ${doclint.optappend}</additionalOptions>
-							<javadocExecutable>/usr/bin</javadocExecutable>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 	</profiles>
 </project>
