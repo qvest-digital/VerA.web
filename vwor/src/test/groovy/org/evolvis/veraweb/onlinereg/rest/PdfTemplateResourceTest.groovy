@@ -383,7 +383,7 @@ class PdfTemplateResourceTest extends Specification {
         given:
             def map = new HashMap<String, String>()
             map.put('filterCategoryId','1')
-            map.put('filterWord','wordiword')
+            map.put('filterWord', keywords)
             map.put('filterInvStatus', invStatus)
             map.put('filterReserve','1')
 
@@ -397,15 +397,15 @@ class PdfTemplateResourceTest extends Specification {
                     " AND g.reserve = :filterReserve AND " +
                     expectedFilter +
                     " AND g.fk_category = :filterCategoryId" +
-                    " AND (p.firstname_a_e1 = :filterWord OR p.lastname_a_e1 = :filterWord)" +
+                    " AND " + expectedKeywordFilter +
                     " ORDER BY p.lastname_a_e1 ASC "
 
         where:
-        invStatus | expectedFilter
-        '1'       | '((invitationtype = 1 AND (invitationstatus IS NULL OR invitationstatus=0 OR invitationstatus_p IS NULL OR invitationstatus_p=0)) OR (invitationtype = 2 AND (invitationstatus IS NULL OR invitationstatus=0)) OR (invitationtype = 3 AND (invitationstatus_p IS NULL OR invitationstatus_p=0)))'
-        '2'       | '((invitationtype = 1 AND (invitationstatus = 1 OR invitationstatus_p = 1)) OR (invitationtype = 2 AND invitationstatus = 1) OR (invitationtype = 3 AND invitationstatus_p = 1))'
-        '3'       | '((invitationtype = 1 AND (invitationstatus = 2 OR invitationstatus_p = 2)) OR (invitationtype = 2 AND invitationstatus = 2) OR (invitationtype = 3 AND invitationstatus_p = 2))'
-        '4'       | '((invitationtype = 1 AND (invitationstatus = 3 OR invitationstatus_p = 3)) OR (invitationtype = 2 AND invitationstatus = 3) OR (invitationtype = 3 AND invitationstatus_p = 3))'
+        keywords        | invStatus | expectedFilter                                                                                                                                                                                                                                                                                    | expectedKeywordFilter
+        'dude'          | '1'       | '((invitationtype = 1 AND (invitationstatus IS NULL OR invitationstatus=0 OR invitationstatus_p IS NULL OR invitationstatus_p=0)) OR (invitationtype = 2 AND (invitationstatus IS NULL OR invitationstatus=0)) OR (invitationtype = 3 AND (invitationstatus_p IS NULL OR invitationstatus_p=0)))' | "g.keywords LIKE '%dude%'"
+        'my dudeness'   | '2'       | '((invitationtype = 1 AND (invitationstatus = 1 OR invitationstatus_p = 1)) OR (invitationtype = 2 AND invitationstatus = 1) OR (invitationtype = 3 AND invitationstatus_p = 1))'                                                                                                                 | "g.keywords LIKE '%my%' AND g.keywords LIKE '%dudeness%'"
+        'bi ba bu'      | '3'       | '((invitationtype = 1 AND (invitationstatus = 2 OR invitationstatus_p = 2)) OR (invitationtype = 2 AND invitationstatus = 2) OR (invitationtype = 3 AND invitationstatus_p = 2))'                                                                                                                 | "g.keywords LIKE '%bi%' AND g.keywords LIKE '%ba%' AND g.keywords LIKE '%bu%'"
+        'nope'          | '4'       | '((invitationtype = 1 AND (invitationstatus = 3 OR invitationstatus_p = 3)) OR (invitationtype = 2 AND invitationstatus = 3) OR (invitationtype = 3 AND invitationstatus_p = 3))'                                                                                                                 | "g.keywords LIKE '%nope%'"
     }
 
     void testGeneratePdfReturnNoContent() {

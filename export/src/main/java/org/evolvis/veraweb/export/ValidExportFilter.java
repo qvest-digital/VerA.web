@@ -73,7 +73,7 @@ import org.springframework.util.StringUtils;
 public enum ValidExportFilter {
 
     CATEGORY_ID_FILTER("filterCategoryId", "[0-9]{1,20}", "g.fk_category = ?"),
-    SEARCHWORD_FILTER("filterWord", "[0-9a-zA-Z]{1,50}", "(p.firstname_a_e1 = ? OR p.lastname_a_e1 = ?)"),//TODO expand and modify to expected search word filtering
+    SEARCHWORD_FILTER("filterWord", "[0-9a-zA-Z ]{1,50}", null),
     INVITATIONSTATUS_FILTER("filterInvStatus", "[0-9]", null),
     RESERVE_FILTER("filterReserve", "[0-1]", "g.reserve = ?");
 
@@ -117,8 +117,27 @@ public enum ValidExportFilter {
             if (ValidExportFilter.INVITATIONSTATUS_FILTER.equals(validExportFilter))  {
                 return getInvitationStatusFilter(value);
             }
+            if (ValidExportFilter.SEARCHWORD_FILTER.equals(validExportFilter)) {
+                return getKeywordFilter(value);
+            }
         }
         return null;
+    }
+
+    public static String getKeywordFilter(String words){
+        StringBuilder queryPart = new StringBuilder();
+        if (words != null && !words.trim().isEmpty()) {
+            final String[] wordsSplit = words.split("[^\\p{L}\\p{Nd}]+");
+            for (int i = 0; i < wordsSplit.length; i++) {
+                if (isValidFilterSetting(SEARCHWORD_FILTER.key, wordsSplit[i])){
+                    if (i > 0 && i < wordsSplit.length){
+                        queryPart.append(" AND ");
+                    }
+                    queryPart.append("g.keywords LIKE '%").append(wordsSplit[i]).append("%'");
+                }
+            }
+        }
+        return queryPart.toString();
     }
 
     /**
