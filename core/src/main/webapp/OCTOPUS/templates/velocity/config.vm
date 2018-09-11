@@ -173,35 +173,35 @@
                 <table class="marginBottom20">
                         <tr>
                                 <td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_BUSINESS}:</td>
-                                <td><input type="text" name="business" maxlength="300" value="$!message.text($!config.business)" ></td>
+                                <td><input type="text" name="business" maxlength="20" value="$!message.text($!config.business)" ></td>
                         </tr>
                         <tr>
                                 <td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_PRIVATE}:</td>
-                                <td><input type="text" name="private" maxlength="300" value="$!message.text($!config.private)" ></td>
+                                <td><input type="text" name="private" maxlength="20" value="$!message.text($!config.private)" ></td>
                         </tr>
                         <tr>
                                 <td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_OTHERS}:</td>
-                                <td><input type="text" name="other" maxlength="300" value="$!message.text($!config.other)" ></td>
+                                <td><input type="text" name="other" maxlength="20" value="$!message.text($!config.other)" ></td>
                         </tr>
                         <tr>
                                 <td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_LATIN}:</td>
-                                <td><input type="text" name="latin" maxlength="300" value="$!message.text($!config.latin)" ></td>
+                                <td><input type="text" name="latin" maxlength="30" value="$!message.text($!config.latin)" ></td>
                         </tr>
                         <tr>
                                 <td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_ALTERNATIVE} 1:</td>
-                                <td><input type="text" name="extra1" maxlength="300" value="$!message.text($!config.extra1)" ></td>
+                                <td><input type="text" name="extra1" maxlength="30" value="$!message.text($!config.extra1)" ></td>
                         </tr>
                         <tr>
                                 <td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_ALTERNATIVE} 2:</td>
-                                <td><input type="text" name="extra2" maxlength="300" value="$!message.text($!config.extra2)" ></td>
+                                <td><input type="text" name="extra2" maxlength="30" value="$!message.text($!config.extra2)" ></td>
                         </tr>
                         <tr>
                                 <td class="bold width25">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1:</td>
-                                <td><input type="text" name="suffix1" maxlength="300" value="$!message.text($!config.suffix1)" ></td>
+                                <td><input type="text" name="suffix1" maxlength="30" value="$!message.text($!config.suffix1)" ></td>
                         </tr>
                         <tr>
                                 <td class="bold width25">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2:</td>
-                                <td><input type="text" name="suffix2" maxlength="300" value="$!message.text($!config.suffix2)" ></td>
+                                <td><input type="text" name="suffix2" maxlength="30" value="$!message.text($!config.suffix2)" ></td>
                         </tr>
                 </table>
             </div>
@@ -308,10 +308,8 @@
             <div id="buttonPanel-bottom" class="textRight ">
 
                 <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-
             </div>
             #end
-
         </div>
     </div>
 </div>
