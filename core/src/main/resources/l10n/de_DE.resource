@@ -447,6 +447,7 @@ GENERIC_REST_API=REST-API
 INFO_LIC_LIC=Lizenz
 INFO_LIC_INFOS=Nutzungsbedingungen
 INFO_LIC_DOCS=weitere Dokumente
+INFO_LIC_SRC=Quellkode
 INFO_VWOR_MANDATORY=Anmerkung: ein Betrieb ohne die REST-API ist nicht mehr zul\u00E4ssig.
 GENERIC_DATABASE=Datenbank
 GENERIC_GROUPS=Gruppen

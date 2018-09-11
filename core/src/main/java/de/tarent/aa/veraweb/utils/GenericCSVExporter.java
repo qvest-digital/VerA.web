@@ -78,7 +78,7 @@ import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
-import de.tarent.utils.CSVFileWriter;
+import org.evolvis.tartools.csvfile.CSVFileWriter;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb.middleware</groupId>
 		<artifactId>octopus-parent</artifactId>
-		<version>1.9.1-SNAPSHOT</version>
+		<version>1.9.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>octopus-ext-annotation</artifactId>
 	<packaging>jar</packaging>
@@ -24,8 +24,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>xfire</groupId>
-			<artifactId>xfire-jsr181-api</artifactId>
+			<groupId>javax.jws</groupId>
+			<artifactId>jsr181-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

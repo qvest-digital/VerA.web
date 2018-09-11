@@ -155,7 +155,7 @@ H/15 * * * *</spec>
       <branch></branch>
       <language></language>
       <mavenOpts></mavenOpts>
-      <jobAdditionalProperties></jobAdditionalProperties>
+      <jobAdditionalProperties>-Dsonar.projectName=VerA.web</jobAdditionalProperties>
       <settings class="jenkins.mvn.DefaultSettingsProvider"/>
       <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
       <usePrivateRepository>false</usePrivateRepository>

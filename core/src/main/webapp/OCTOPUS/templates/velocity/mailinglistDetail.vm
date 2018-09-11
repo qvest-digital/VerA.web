@@ -70,8 +70,8 @@
 					<input type="button" name="openMailClient" value="${placeholderWithTranslation.emailclientaufrufen}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.emailclientaufrufen}" class="mainButton"/>
 			</span>
 			#end
-
-		<table class="marginBottom10 fixed">
+		<div class="table_border">
+		<table class="marginBottom10 fixed scrollable-table">
 			##Set column size
 				<colgroup>
 					<col width="$column1%" />
@@ -96,9 +96,10 @@
 				#end
 
 				#set($itemName = "${placeholderWithTranslation.GENERIC_ADDRESS_DATA_PLURAL}")
-				#tableFooter(4)
-				#parse("inc/list-direct-new.vm")
 		</table>
+        </div>
+		#parse("inc/table-pagination-footer.vm")
+		#parse("inc/list-direct-new.vm")
 
 		#else
 

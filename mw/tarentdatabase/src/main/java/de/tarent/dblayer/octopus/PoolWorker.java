@@ -9,6 +9,7 @@ package de.tarent.dblayer.octopus;
  * tarent-octopus, Webservice Data Integrator and Application Server
  *  © 2018 Атанас Александров (sirakov@gmail.com)
  *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
+ *  © 2018 Dominik George (d.george@tarent.de)
  *  © 2007 David Goemans (d.goemans@tarent.de)
  *  © 2018 Christian Gorski (c.gorski@tarent.de)
  *  © 2006, 2007, 2010 Hendrik Helwich (h.helwich@tarent.de)

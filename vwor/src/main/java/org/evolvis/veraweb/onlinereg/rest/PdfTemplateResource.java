@@ -68,12 +68,13 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.AcroFields;
-import com.lowagie.text.pdf.PdfCopy;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfStamper;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.PdfCopy;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.evolvis.veraweb.export.ValidExportFilter;

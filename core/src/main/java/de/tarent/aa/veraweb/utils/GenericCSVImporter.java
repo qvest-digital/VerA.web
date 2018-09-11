@@ -76,7 +76,7 @@ import de.tarent.data.exchange.FieldMapping.Entity;
 import de.tarent.data.exchange.MappingException;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
-import de.tarent.utils.CSVFileReader;
+import org.evolvis.tartools.csvfile.CSVFileReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;

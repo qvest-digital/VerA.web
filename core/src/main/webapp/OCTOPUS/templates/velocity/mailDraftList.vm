@@ -35,8 +35,8 @@
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id"/>
         #end
-
-        <table class="fixed">
+        <div class="table_border">
+        <table class="fixed scrollable-table">
                 ##Set column size
                         <col width="$column0%" />
                         <col width="$column1%" />
@@ -58,13 +58,13 @@
                 #end
 
                 #set($itemName = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
-                        #tableFooter(3)
-                #parse("inc/list-direct-new.vm")
             #if ($listparam.count == 0)
                 <tr><td colspan="3">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
             #end
         </table>
-
+        </div>
+        #parse("inc/table-pagination-footer.vm")
+        #parse("inc/list-direct-new.vm")
     </form>
 </div>
 

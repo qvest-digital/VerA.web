@@ -53,12 +53,11 @@
     #else
             <td>${placeholderWithTranslation.net_do}</td>
     #end
-<!--
         </tr><tr>
                 <td class="width10 bold">${placeholderWithTranslation.INFO_LIC_LIC}:</td>
                 <td><a href="${paths.staticWeb}doc/LICENCE.txt">${placeholderWithTranslation.INFO_LIC_INFOS}</a>
-                 (<a href="${paths.staticWeb}doc/">${placeholderWithTranslation.INFO_LIC_DOCS}</a>)</td>
--->
+                 (<a href="${paths.staticWeb}doc/">${placeholderWithTranslation.INFO_LIC_DOCS}</a>),
+                 <a href="${paths.staticWeb}doc/src.tgz">${placeholderWithTranslation.INFO_LIC_SRC}</a></td>
         </tr>
     </table>
     <p>${placeholderWithTranslation.INFO_VWOR_MANDATORY}</p>

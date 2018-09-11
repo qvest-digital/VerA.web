@@ -70,6 +70,11 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 │ with this program; if not, see: http://www.gnu.org/licenses/             │
 └──────────────────────────────────────────────────────────────────────────┘
 
+The WAR files shipped combine some work under GNU AGPLv3-only with other
+work under GNU GPLv3-compatible licences; refer to GPLv3 §13 and AGPLv3 §13
+for the details and below for respective Appropriate Legal Notices, given
+that this file is served inside the UI as such.
+
 ┌──┤ VerA.web-Middleware (MIT, GPLv2+ w. Classpath exception) ├────────────┐
 │                                                                          │
 │ VerA.web-Middleware, newly MIT licenced, is comprised of:                │
@@ -80,6 +85,7 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 │ tarent-octopus, Webservice Data Integrator and Application Server        │
 │  © 2018 Атанас Александров <sirakov@gmail.com>                           │
 │  © 2005, 2006, 2007 asteban <s.mancke@tarent.de>                         │
+│  © 2018 Dominik George <d.george@tarent.de>                              │
 │  © 2007 David Goemans <d.goemans@tarent.de>                              │
 │  © 2018 Christian Gorski <c.gorski@tarent.de>                            │
 │  © 2006, 2007, 2010 Hendrik Helwich <h.helwich@tarent.de>                │
@@ -176,10 +182,10 @@ Summary of individual licences used, including all dependencies:
 • Apache v2
 ⚠ Creative Commons CC-BY-SA 1.0
 • Creative Commons CC-BY 3.0 (unported)
+• GNU AGPLv3-only
 • GNU GPLv2 or later
 • GNU GPLv2 or later with Classpath exception
 • GNU GPLv3 or later
-• GNU LGPLv2.0 (only)
 • GNU LGPLv2.1 or later
 • MirOS
 • MIT
@@ -684,21 +690,70 @@ Several ECMAscript files came into existence in 2007 and lack a licence:
 
 External code found in the Java™ backend part includes:
 
-┌──┤ CSVFile (LGPLv2.0) ├──────────────────────────────────────────────────┐
+┌──┤ CSVFile (LGPL) ├──────────────────────────────────────────────────────┐
 │                                                                          │
-│ Copyright © 1999 Brian Kernighan, Rob Pike (Lucent Technologies)         │
-│ Copyright © Ian F. Darwin                                                │
-│ Copyright © Ben Ballard                                                  │
-│ Copyright © Fabrizio Fazzino                                             │
-│ Copyright © Michael Klink <m.klink@tarent.de>                            │
+│ The CSVFile tools are a collection of classes to deal with CSV files     │
+│ (comma-separated values). They have quite a history. This current        │
+│ edition, developed alongside VerA.web by ⮡ tarent, is published under    │
+│ the terms of the GNU Lesser or Library General Public License, any       │
+│ version published by the Free Software Foundation.                       │
+│ Licensor is tarent solutions GmbH, http://www.tarent.de/                 │
 │                                                                          │
-│ CSVFile is published by Fabrizio Fazzino under the terms of the          │
-│ GNU Library or Lesser General Public License version 2.0 (LGPLv2).       │
-│ It is adapted from a C++ original excerpted from “The Practice of        │
-│ Programming” by Brian Kernighan and Rob Pike, under permission from      │
-│ the Addison-Wesley website <http://tpop.awl.com/> which says:            │
+│ Copyright holders and contributors:                                      │
+│                                                                          │
+│ Copyright © 2016 Атанас Александров (a.alexandrov@tarent.de)             │
+│ Copyright © 2006 Christoph Jerolimov (jerolimov@gmx.de)                  │
+│ Copyright © 2008 Carsten Klein (c.klein@tarent.de)                       │
+│ Copyright © 2005 Michael Klink (m.klink@tarent.de)                       │
+│ Copyright © 2013, 2015, 2018 mirabilos (t.glaser@tarent.de)              │
+│ and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.    │
+│                                                                          │
+│ Copyright © 2005 Fabrizio Fazzino (under GNU LGPL) — also on             │
+│ http://sourceforge.net/projects/csvfile                                  │
+│                                                                          │
+│ Published as part of Ian’s Java CookBook, 2002 (under 2-clause BSD):     │
+│                                                                          │
+│ Copyright (c) Ian F. Darwin, http://www.darwinsys.com/, 1996–2001        │
+│ Copyright (c) Ben Ballard, ca. 2001                                      │
+│ All rights reserved. Software written by Ian F. Darwin and others.       │
+│                                                                          │
+│ Redistribution and use in source and binary forms, with or without       │
+│ modification, are permitted provided that the following conditions       │
+│ are met:                                                                 │
+│ 1. Redistributions of source code must retain the above copyright        │
+│    notice, this list of conditions and the following disclaimer.         │
+│ 2. Redistributions in binary form must reproduce the above copyright     │
+│    notice, this list of conditions and the following disclaimer in the   │
+│    documentation and/or other materials provided with the distribution.  │
+│                                                                          │
+│ THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND   │
+│ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    │
+│ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR       │
+│ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS    │
+│ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR   │
+│ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF     │
+│ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS │
+│ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN  │
+│ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)  │
+│ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF   │
+│ THE POSSIBILITY OF SUCH DAMAGE.                                          │
+│                                                                          │
+│ Java, the Duke mascot, and all variants of Sun's Java "steaming coffee   │
+│ cup" logo are trademarks of Sun Microsystems. Sun's and James Gosling's, │
+│ pioneering role in inventing and promulgating (and standardizing) the    │
+│ Java language and environment is gratefully acknowledged.                │
+│                                                                          │
+│ The pioneering role of Dennis Ritchie and Bjarne Stroustrup, of AT&T,    │
+│ for inventing predecessor languages C and C++ is also gratefully         │
+│ acknowledged.                                                            │
+│                                                                          │
+│ Copyright (C) 1999 Lucent Technologies                                   │
+│ Adapted from a C++ original excerpted from “The Practice of Programming” │
+│ by Brian Kernighan and Rob Pike. Included by permission of the TPOP      │
+│ http://www.informit.com/store/practice-of-programming-9780201615869      │
+│ (old http://tpop.awl.com/ redir) Addison-Wesley web site, which says:    │
 │ “You may use this code for any purpose, as long as you leave the         │
-│ copyright notice and book citation attached.”                            │
+│ copyright notice and book citation attached.” I have done so.            │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ Dropwizard (Apache 2.0) ├─────────────────────────────────────────────┐
@@ -713,6 +768,52 @@ External code found in the Java™ backend part includes:
 └──────────────────────────────────────────────────────────────────────────┘
 
 Further dependencies are:
+
+┌──┤ iText PDF (AGPLv3-only) ├─────────────────────────────────────────────┐
+│                                                                          │
+│ This file is part of the iText (R) project.                              │
+│  Copyright (c) 1998-2017 iText Group NV                                  │
+│ Authors: Bruno Lowagie, et al.                                           │
+│                                                                          │
+│ This program is free software; you can redistribute it and/or modify     │
+│ it under the terms of the GNU Affero General Public License version 3    │
+│ as published by the Free Software Foundation with the addition of the    │
+│ following permission added to Section 15 as permitted in Section 7(a):   │
+│ FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY      │
+│ ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT      │
+│ OF THIRD PARTY RIGHTS                                                    │
+│                                                                          │
+│ This program is distributed in the hope that it will be useful, but      │
+│ WITHOUT ANY WARRANTY; without even the implied warranty of               │
+│ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                     │
+│ See the GNU Affero General Public License for more details.              │
+│ You should have received a copy of the GNU Affero General Public License │
+│ along with this program; if not, see http://www.gnu.org/licenses or      │
+│ write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth   │
+│ Floor, Boston, MA, 02110-1301 USA, or download the license from the      │
+│ following URL: http://itextpdf.com/terms-of-use/                         │
+│                                                                          │
+│ The interactive user interfaces in modified source and object code       │
+│ versions of this program must display Appropriate Legal Notices, as      │
+│ required under Section 5 of the GNU Affero General Public License.       │
+│                                                                          │
+│ In accordance with Section 7(b) of the GNU Affero General Public         │
+│ License, a covered work must retain the producer line in every PDF       │
+│ that is created or manipulated using iText.                              │
+│                                                                          │
+│ You can be released from the requirements of the license by purchasing   │
+│ a commercial license. Buying such a license is mandatory as soon as you  │
+│ develop commercial activities involving the iText software without       │
+│ disclosing the source code of your own applications.                     │
+│ These activities include: offering paid services to customers as an ASP, │
+│ serving PDFs on the fly in a web application, shipping iText with a      │
+│ closed source product.                                                   │
+│                                                                          │
+│ For more information, please contact iText Software Corp. at this        │
+│ address: sales@itextpdf.com                                              │
+└──────────────────────────────────────────────────────────────────────────┘
+
+The file COPYING.AGPL-3.txt contains the complete text of that licence.
 
 …
 

@@ -78,8 +78,8 @@
 		</strong>
 			<input type="submit" name="remove" value="${placeholderWithTranslation.loeschen}" title="${placeholderWithTranslation.markiertevertretungenloeschen}" class="" />
 	</span>
-
-	<table>
+	<div class="table_border">
+	<table class="scrollable-table">
 		<tbody>
 		<tr>
 			<th class="textCenter smallCell">
@@ -218,13 +218,14 @@
 		#end
 
 			#set($itemName = "${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}")
-			#tableFooter(7)
-			#parse("inc/list-direct-new.vm")
 		#if ($listparam.count == 0)
 			<tr><td colspan="5">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
 		#end
 		</tbody>
 	</table>
+	</div>
+	#parse("inc/table-pagination-footer.vm")
+	#parse("inc/list-direct-new.vm")
 
 	<div id="buttonPanel-bottom" class="textRight marginTop10">
 		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />

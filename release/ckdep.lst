@@ -1,205 +1,193 @@
-antlr:antlr 2.7.7 TODO
-axis:axis 1.4 TODO
-axis:axis-wsdl4j 1.5.1 TODO
-bower::bootstrap 3.3.7 TODO
-bower::bootstrapvalidator 0.5.3 TODO
-bower::jquery 3.3.1 TODO
-ch.qos.logback:logback-classic 1.1.2 TODO
-ch.qos.logback:logback-core 1.1.2 TODO
-com.codahale.metrics:metrics-annotation 3.0.2 TODO
-com.codahale.metrics:metrics-core 3.0.2 TODO
-com.codahale.metrics:metrics-healthchecks 3.0.2 TODO
-com.codahale.metrics:metrics-httpclient 3.0.2 TODO
-com.codahale.metrics:metrics-jersey 3.0.2 TODO
-com.codahale.metrics:metrics-jetty9 3.0.2 TODO
-com.codahale.metrics:metrics-json 3.0.2 TODO
-com.codahale.metrics:metrics-jvm 3.0.2 TODO
-com.codahale.metrics:metrics-logback 3.0.2 TODO
-com.codahale.metrics:metrics-servlets 3.0.2 TODO
-com.fasterxml.jackson.core:jackson-annotations 2.9.6 TODO
-com.fasterxml.jackson.core:jackson-core 2.9.6 TODO
-com.fasterxml.jackson.core:jackson-databind 2.9.6 TODO
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml 2.9.6 TODO
-com.fasterxml.jackson.datatype:jackson-datatype-guava 2.9.6 TODO
-com.fasterxml.jackson.datatype:jackson-datatype-joda 2.9.6 TODO
-com.fasterxml.jackson.jaxrs:jackson-jaxrs-base 2.9.6 TODO
-com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider 2.9.6 TODO
-com.fasterxml.jackson.module:jackson-module-afterburner 2.9.6 TODO
-com.fasterxml.jackson.module:jackson-module-jaxb-annotations 2.9.6 TODO
-com.fasterxml:classmate 1.4.0 TODO
-com.google.code.findbugs:jsr305 3.0.2 TODO
-com.google.errorprone:error_prone_annotations 2.1.3 TODO
-com.google.guava:guava 25.1-jre TODO
-com.google.j2objc:j2objc-annotations 1.1 TODO
-com.lowagie:itext 2.1.7 TODO
-com.lowagie:itext 2.1.7 illegal:https://developers.itextpdf.com/question/versions-older-than-5
-com.sun.jersey.contribs:jersey-apache-client4 1.19.4 TODO
-com.sun.jersey:jersey-client 1.19.4 TODO
-com.sun.jersey:jersey-core 1.19.4 TODO
-com.sun.jersey:jersey-server 1.19.4 TODO
-com.sun.jersey:jersey-servlet 1.19.4 TODO
-com.sun.xml.bind:jaxb-core 2.3.0.1 TODO
-com.sun.xml.bind:jaxb-impl 2.3.0.1 TODO
-com.thoughtworks.xstream:xstream 1.2.2 TODO
-com.vaadin.external.google:android-json 0.0.20131108.vaadin1 TODO
-commons-beanutils:commons-beanutils 1.6 TODO
-commons-beanutils:commons-beanutils-bean-collections 1.7.0 TODO
-commons-beanutils:commons-beanutils-core 1.7.0 TODO
-commons-cli:commons-cli 1.2 TODO
-commons-codec:commons-codec 1.11 TODO
-commons-collections:commons-collections 3.2.2 TODO
-commons-configuration:commons-configuration 1.1 TODO
-commons-dbcp:commons-dbcp 1.2.2 TODO
-commons-digester:commons-digester 1.5 TODO
-commons-discovery:commons-discovery 0.2 TODO
-commons-fileupload:commons-fileupload 1.1 TODO
-commons-io:commons-io 2.6 TODO
-commons-lang:commons-lang 2.6 TODO
-commons-logging:commons-logging 1.2 TODO
-commons-pool:commons-pool 1.5.4 TODO
-dom4j:dom4j 1.6.1 TODO
-font::glyphicons-halflings-regular 1.009 TODO
-github::HubSpot/vex 3.0.0 ok
-github::baconjs/bacon.js 0.7.73 ok
-github::bbatliner/vex-dialog 1.0.6 ok
-github::ckeditor/ckeditor-dev 4.6.2 ok
-github::fyneworks/multifile 2.2.2 ok
-github::jquery-form/form 3.51 ok
-github::jquery/jquery 1.10.1 ok
-github::jquery/sizzle 1.10.1 ok
-github::tomsime/Scroll-to-Top 1.0.4 ok
-github::xoxco/jQuery-Tags-Input 1.3.3 ok
-io.dropwizard:dropwizard-assets 0.7.1 TODO
-io.dropwizard:dropwizard-auth 0.7.1 TODO
-io.dropwizard:dropwizard-client 0.7.1 TODO
-io.dropwizard:dropwizard-configuration 0.7.1 TODO
-io.dropwizard:dropwizard-core 0.7.1 TODO
-io.dropwizard:dropwizard-jackson 0.7.1 TODO
-io.dropwizard:dropwizard-jersey 0.7.1 TODO
-io.dropwizard:dropwizard-jetty 0.7.1 TODO
-io.dropwizard:dropwizard-lifecycle 0.7.1 TODO
-io.dropwizard:dropwizard-logging 0.7.1 TODO
-io.dropwizard:dropwizard-metrics 0.7.1 TODO
-io.dropwizard:dropwizard-servlets 0.7.1 TODO
-io.dropwizard:dropwizard-util 0.7.1 TODO
-io.dropwizard:dropwizard-validation 0.7.1 TODO
-javascript::unknown:clipboard 0 FAIL
-javascript::unknown:dhtml 0 FAIL
-javascript::unknown:utils 0 FAIL
-javax.activation:activation 1.1.1 TODO
-javax.activation:javax.activation-api 1.2.0 TODO
-javax.annotation:javax.annotation-api 1.2 TODO
-javax.inject:javax.inject 1 TODO
-javax.mail:mail 1.4.7 TODO
-javax.persistence:javax.persistence-api 2.2 TODO
-javax.servlet:javax.servlet-api 3.1.0 TODO
-javax.servlet:servlet-api 2.4 TODO
-javax.validation:validation-api 1.1.0.Final TODO
-javax.ws.rs:javax.ws.rs-api 2.1 TODO
-javax.ws.rs:jsr311-api 1.1.1 TODO
-javax.xml.bind:jaxb-api 2.3.0 TODO
-jgoodies:forms 1.0.5 TODO
-joda-time:joda-time 2.10 TODO
-junit:junit 3.8.1 TODO
-log4j:log4j 1.2.13 TODO
-net.bytebuddy:byte-buddy 1.8.12 TODO
-net.jodah:expiringmap 0.5.8 TODO
-net.sourceforge.argparse4j:argparse4j 0.4.3 TODO
-npm::angular 1.6.10 TODO
-npm::angular-animate 1.6.10 TODO
-npm::angular-aria 1.6.10 TODO
-npm::angular-material 1.1.10 TODO
-npm::angular-messages 1.6.10 TODO
-npm::angular-route 1.6.10 TODO
-npm::angular-translate 2.18.1 TODO
-npm::angular-translate-loader-static-files 2.18.1 TODO
-npm::angular-ui-bootstrap 1.3.3 TODO
-npm::bulk-require 0.2.1 TODO
-npm::glob 3.2.11 TODO
-npm::inherits 2.0.3 TODO
-npm::jquery-param 0.2.0 TODO
-npm::lru-cache 2.7.3 TODO
-npm::minimatch 0.3.0 TODO
-npm::moment 2.22.2 TODO
-npm::ng-file-upload 12.2.13 TODO
-npm::sigmund 1.0.1 TODO
-org.apache.axis:axis-jaxrpc 1.4 TODO
-org.apache.axis:axis-saaj 1.4 TODO
-org.apache.commons:commons-collections4 4.1 TODO
-org.apache.commons:commons-csv 1.5 TODO
-org.apache.commons:commons-lang3 3.7 TODO
-org.apache.httpcomponents:httpclient 4.5.5 TODO
-org.apache.httpcomponents:httpcore 4.4.10 TODO
-org.apache.logging.log4j:log4j-api 2.11.0 TODO
-org.apache.logging.log4j:log4j-core 2.11.0 TODO
-org.apache.logging.log4j:log4j-jcl 2.11.0 TODO
-org.apache.lucene:lucene-core 2.2.0 TODO
-org.apache.poi:poi 3.17 TODO
-org.apache.tika:tika-core 1.10 TODO
-org.bouncycastle:bcmail-jdk14 1.38 TODO
-org.bouncycastle:bcprov-jdk14 1.38 TODO
-org.bouncycastle:bctsp-jdk14 1.38 TODO
-org.checkerframework:checker-qual 2.0.0 TODO
-org.codehaus.mojo:animal-sniffer-annotations 1.14 TODO
-org.eclipse.jetty.toolchain.setuid:jetty-setuid-java 1.0.2 TODO
-org.eclipse.jetty:jetty-continuation 9.0.7.v20131107 TODO
-org.eclipse.jetty:jetty-http 9.0.7.v20131107 TODO
-org.eclipse.jetty:jetty-io 9.0.7.v20131107 TODO
-org.eclipse.jetty:jetty-security 9.0.7.v20131107 TODO
-org.eclipse.jetty:jetty-server 9.0.7.v20131107 TODO
-org.eclipse.jetty:jetty-servlet 9.0.7.v20131107 TODO
-org.eclipse.jetty:jetty-servlets 9.0.7.v20131107 TODO
-org.eclipse.jetty:jetty-util 9.0.7.v20131107 TODO
-org.evolvis.tartools:background-jobs 1.18 TODO
-org.evolvis.tartools:extract-tool 1.6 TODO
-org.glassfish.hk2.external:aopalliance-repackaged 2.5.0-b61 TODO
-org.glassfish.hk2.external:javax.inject 2.5.0-b61 TODO
-org.glassfish.hk2:hk2-api 2.5.0-b61 TODO
-org.glassfish.hk2:hk2-locator 2.5.0-b61 TODO
-org.glassfish.hk2:hk2-utils 2.5.0-b61 TODO
-org.glassfish.hk2:osgi-resource-locator 1.0.1 TODO
-org.glassfish.jersey.containers:jersey-container-servlet 2.27 TODO
-org.glassfish.jersey.containers:jersey-container-servlet-core 2.27 TODO
-org.glassfish.jersey.core:jersey-client 2.27 TODO
-org.glassfish.jersey.core:jersey-common 2.27 TODO
-org.glassfish.jersey.core:jersey-server 2.27 TODO
-org.glassfish.jersey.ext:jersey-entity-filtering 2.27 TODO
-org.glassfish.jersey.inject:jersey-hk2 2.27 TODO
-org.glassfish.jersey.media:jersey-media-jaxb 2.27 TODO
-org.glassfish.jersey.media:jersey-media-json-jackson 2.27 TODO
-org.glassfish.jersey.media:jersey-media-multipart 2.27 TODO
-org.glassfish:javax.el 3.0.0 TODO
-org.hibernate.common:hibernate-commons-annotations 5.0.4.Final TODO
-org.hibernate:hibernate-core 5.3.2.Final TODO
-org.hibernate:hibernate-validator 5.4.2.Final TODO
-org.hibernate:hibernate-validator-annotation-processor 5.4.2.Final TODO
-org.javassist:javassist 3.22.0-GA TODO
-org.jboss.logging:jboss-logging 3.3.2.Final TODO
-org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec 1.1.1.Final TODO
-org.jboss:jandex 2.0.5.Final TODO
-org.jvnet.mimepull:mimepull 1.9.7 TODO
-org.mitre.dsmiley.httpproxy:smiley-http-proxy-servlet 1.7 TODO
-org.osiam:connector4java 1.8 TODO
-org.osiam:scim-schema 1.6 TODO
-org.postgresql:postgresql 42.2.4 TODO
-org.projectlombok:lombok 1.18.0 TODO
-org.slf4j:jcl-over-slf4j 1.7.25 TODO
-org.slf4j:jul-to-slf4j 1.7.25 TODO
-org.slf4j:log4j-over-slf4j 1.7.25 TODO
-org.slf4j:slf4j-api 1.7.25 TODO
-org.springframework:spring-aop 4.3.18.RELEASE TODO
-org.springframework:spring-beans 4.3.18.RELEASE TODO
-org.springframework:spring-context 4.3.18.RELEASE TODO
-org.springframework:spring-core 4.3.18.RELEASE TODO
-org.springframework:spring-expression 4.3.18.RELEASE TODO
-org.springframework:spring-jdbc 4.3.18.RELEASE TODO
-org.springframework:spring-tx 4.3.18.RELEASE TODO
-org.yaml:snakeyaml 1.18 TODO
-sourceforge::jscalendar 2006-02-11T12:32:59Z ok
-velocity:velocity 1.4 TODO
-velocity:velocity-dep 1.4 TODO
-xerces:xercesImpl 2.2.1 TODO
-xfire:xfire-jsr181-api 1.0-M1 TODO
-xml-apis:xml-apis 1.0.b2 TODO
-xmlrpc:xmlrpc 1.2-b1 TODO
-xpp3:xpp3_min 1.1.3.4.O TODO
+antlr:antlr 2.7.7 compile TODO
+axis:axis 1.4 compile TODO
+axis:axis-wsdl4j 1.5.1 compile TODO
+bower::bootstrap 3.3.7 compile TODO
+bower::bootstrapvalidator 0.5.3 compile TODO
+bower::jquery 3.3.1 compile TODO
+ch.qos.logback:logback-classic 1.1.2 compile TODO
+ch.qos.logback:logback-core 1.1.2 compile TODO
+com.codahale.metrics:metrics-annotation 3.0.2 compile TODO
+com.codahale.metrics:metrics-core 3.0.2 compile TODO
+com.codahale.metrics:metrics-healthchecks 3.0.2 compile TODO
+com.codahale.metrics:metrics-httpclient 3.0.2 compile TODO
+com.codahale.metrics:metrics-jersey 3.0.2 compile TODO
+com.codahale.metrics:metrics-jetty9 3.0.2 compile TODO
+com.codahale.metrics:metrics-json 3.0.2 compile TODO
+com.codahale.metrics:metrics-jvm 3.0.2 compile TODO
+com.codahale.metrics:metrics-logback 3.0.2 compile TODO
+com.codahale.metrics:metrics-servlets 3.0.2 compile TODO
+com.fasterxml.jackson.core:jackson-annotations 2.9.6 compile TODO
+com.fasterxml.jackson.core:jackson-core 2.9.6 compile TODO
+com.fasterxml.jackson.core:jackson-databind 2.9.6 compile TODO
+com.fasterxml.jackson.dataformat:jackson-dataformat-yaml 2.9.6 compile TODO
+com.fasterxml.jackson.datatype:jackson-datatype-guava 2.9.6 compile TODO
+com.fasterxml.jackson.datatype:jackson-datatype-joda 2.9.6 compile TODO
+com.fasterxml.jackson.jaxrs:jackson-jaxrs-base 2.9.6 compile TODO
+com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider 2.9.6 compile TODO
+com.fasterxml.jackson.module:jackson-module-afterburner 2.9.6 compile TODO
+com.fasterxml.jackson.module:jackson-module-jaxb-annotations 2.9.6 compile TODO
+com.fasterxml:classmate 1.4.0 compile TODO
+com.google.code.findbugs:jsr305 3.0.2 compile TODO
+com.google.errorprone:error_prone_annotations 2.1.3 compile TODO
+com.google.guava:guava 25.1-jre compile TODO
+com.google.j2objc:j2objc-annotations 1.1 compile TODO
+com.itextpdf:itextpdf 5.5.13 compile TODO
+com.sun.jersey.contribs:jersey-apache-client4 1.19.4 compile TODO
+com.sun.jersey:jersey-client 1.19.4 compile TODO
+com.sun.jersey:jersey-core 1.19.4 compile TODO
+com.sun.jersey:jersey-server 1.19.4 compile TODO
+com.sun.jersey:jersey-servlet 1.19.4 compile TODO
+com.sun.xml.bind:jaxb-core 2.3.0.1 compile TODO
+com.sun.xml.bind:jaxb-impl 2.3.0.1 compile TODO
+com.vaadin.external.google:android-json 0.0.20131108.vaadin1 compile TODO
+commons-cli:commons-cli 1.2 compile TODO
+commons-codec:commons-codec 1.11 compile TODO
+commons-collections:commons-collections 3.2.2 compile TODO
+commons-configuration:commons-configuration 1.10 provided TODO
+commons-dbcp:commons-dbcp 1.2.2 compile TODO
+commons-discovery:commons-discovery 0.2 compile TODO
+commons-fileupload:commons-fileupload 1.3.3 compile TODO
+commons-io:commons-io 2.6 compile TODO
+commons-lang:commons-lang 2.6 compile TODO
+commons-logging:commons-logging 1.2 compile TODO
+commons-pool:commons-pool 1.5.4 compile TODO
+dom4j:dom4j 1.6.1 compile TODO
+font::glyphicons-halflings-regular 1.009 compile TODO
+github::HubSpot/vex 3.0.0 compile ok
+github::baconjs/bacon.js 0.7.73 compile ok
+github::bbatliner/vex-dialog 1.0.6 compile ok
+github::ckeditor/ckeditor-dev 4.6.2 compile ok
+github::fyneworks/multifile 2.2.2 compile ok
+github::jquery-form/form 3.51 compile ok
+github::jquery/jquery 1.10.1 compile ok
+github::jquery/sizzle 1.10.1 compile ok
+github::tomsime/Scroll-to-Top 1.0.4 compile ok
+github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
+io.dropwizard:dropwizard-assets 0.7.1 compile TODO
+io.dropwizard:dropwizard-auth 0.7.1 compile TODO
+io.dropwizard:dropwizard-client 0.7.1 compile TODO
+io.dropwizard:dropwizard-configuration 0.7.1 compile TODO
+io.dropwizard:dropwizard-core 0.7.1 compile TODO
+io.dropwizard:dropwizard-jackson 0.7.1 compile TODO
+io.dropwizard:dropwizard-jersey 0.7.1 compile TODO
+io.dropwizard:dropwizard-jetty 0.7.1 compile TODO
+io.dropwizard:dropwizard-lifecycle 0.7.1 compile TODO
+io.dropwizard:dropwizard-logging 0.7.1 compile TODO
+io.dropwizard:dropwizard-metrics 0.7.1 compile TODO
+io.dropwizard:dropwizard-servlets 0.7.1 compile TODO
+io.dropwizard:dropwizard-util 0.7.1 compile TODO
+io.dropwizard:dropwizard-validation 0.7.1 compile TODO
+javascript::unknown:clipboard 0 compile FAIL
+javascript::unknown:dhtml 0 compile FAIL
+javascript::unknown:utils 0 compile FAIL
+javax.activation:activation 1.1.1 compile TODO
+javax.activation:javax.activation-api 1.2.0 compile TODO
+javax.annotation:javax.annotation-api 1.2 compile TODO
+javax.inject:javax.inject 1 compile TODO
+javax.jws:jsr181-api 1.0-MR1 compile TODO
+javax.mail:mail 1.4.7 compile TODO
+javax.persistence:javax.persistence-api 2.2 compile TODO
+javax.servlet:javax.servlet-api 3.1.0 compile TODO
+javax.servlet:servlet-api 2.4 provided TODO
+javax.validation:validation-api 1.1.0.Final compile TODO
+javax.ws.rs:javax.ws.rs-api 2.1 compile TODO
+javax.ws.rs:jsr311-api 1.1.1 compile TODO
+javax.xml.bind:jaxb-api 2.3.0 compile TODO
+jgoodies:forms 1.0.5 provided TODO
+joda-time:joda-time 2.10 compile TODO
+junit:junit 3.8.1 compile TODO
+log4j:log4j 1.2.13 compile TODO
+net.bytebuddy:byte-buddy 1.8.12 compile TODO
+net.jodah:expiringmap 0.5.8 compile TODO
+net.sourceforge.argparse4j:argparse4j 0.4.3 compile TODO
+npm::angular 1.6.10 compile TODO
+npm::angular-animate 1.6.10 compile TODO
+npm::angular-aria 1.6.10 compile TODO
+npm::angular-material 1.1.10 compile TODO
+npm::angular-messages 1.6.10 compile TODO
+npm::angular-route 1.6.10 compile TODO
+npm::angular-translate 2.18.1 compile TODO
+npm::angular-translate-loader-static-files 2.18.1 compile TODO
+npm::angular-ui-bootstrap 1.3.3 compile TODO
+npm::bulk-require 0.2.1 compile TODO
+npm::glob 3.2.11 compile TODO
+npm::inherits 2.0.3 compile TODO
+npm::jquery-param 0.2.0 compile TODO
+npm::lru-cache 2.7.3 compile TODO
+npm::minimatch 0.3.0 compile TODO
+npm::moment 2.22.2 compile TODO
+npm::ng-file-upload 12.2.13 compile TODO
+npm::sigmund 1.0.1 compile TODO
+org.apache.axis:axis-jaxrpc 1.4 compile TODO
+org.apache.axis:axis-saaj 1.4 compile TODO
+org.apache.commons:commons-collections4 4.1 compile TODO
+org.apache.commons:commons-csv 1.5 compile TODO
+org.apache.commons:commons-lang3 3.7 compile TODO
+org.apache.httpcomponents:httpclient 4.5.5 compile TODO
+org.apache.httpcomponents:httpcore 4.4.10 compile TODO
+org.apache.logging.log4j:log4j-api 2.11.0 compile TODO
+org.apache.logging.log4j:log4j-core 2.11.0 compile TODO
+org.apache.logging.log4j:log4j-jcl 2.11.0 compile TODO
+org.apache.lucene:lucene-core 2.2.0 provided TODO
+org.apache.poi:poi 3.17 compile TODO
+org.apache.tika:tika-core 1.10 compile TODO
+org.checkerframework:checker-qual 2.0.0 compile TODO
+org.codehaus.mojo:animal-sniffer-annotations 1.14 compile TODO
+org.eclipse.jetty.toolchain.setuid:jetty-setuid-java 1.0.2 compile TODO
+org.eclipse.jetty:jetty-continuation 9.0.7.v20131107 compile TODO
+org.eclipse.jetty:jetty-http 9.0.7.v20131107 compile TODO
+org.eclipse.jetty:jetty-io 9.0.7.v20131107 compile TODO
+org.eclipse.jetty:jetty-security 9.0.7.v20131107 compile TODO
+org.eclipse.jetty:jetty-server 9.0.7.v20131107 compile TODO
+org.eclipse.jetty:jetty-servlet 9.0.7.v20131107 compile TODO
+org.eclipse.jetty:jetty-servlets 9.0.7.v20131107 compile TODO
+org.eclipse.jetty:jetty-util 9.0.7.v20131107 compile TODO
+org.evolvis.tartools:background-jobs 1.18 compile TODO
+org.evolvis.tartools:extract-tool 1.6 compile TODO
+org.glassfish.hk2.external:aopalliance-repackaged 2.5.0-b61 compile TODO
+org.glassfish.hk2.external:javax.inject 2.5.0-b61 compile TODO
+org.glassfish.hk2:hk2-api 2.5.0-b61 compile TODO
+org.glassfish.hk2:hk2-locator 2.5.0-b61 compile TODO
+org.glassfish.hk2:hk2-utils 2.5.0-b61 compile TODO
+org.glassfish.hk2:osgi-resource-locator 1.0.1 compile TODO
+org.glassfish.jersey.containers:jersey-container-servlet 2.27 compile TODO
+org.glassfish.jersey.containers:jersey-container-servlet-core 2.27 compile TODO
+org.glassfish.jersey.core:jersey-client 2.27 compile TODO
+org.glassfish.jersey.core:jersey-common 2.27 compile TODO
+org.glassfish.jersey.core:jersey-server 2.27 compile TODO
+org.glassfish.jersey.ext:jersey-entity-filtering 2.27 compile TODO
+org.glassfish.jersey.inject:jersey-hk2 2.27 compile TODO
+org.glassfish.jersey.media:jersey-media-jaxb 2.27 compile TODO
+org.glassfish.jersey.media:jersey-media-json-jackson 2.27 compile TODO
+org.glassfish.jersey.media:jersey-media-multipart 2.27 compile TODO
+org.glassfish:javax.el 3.0.0 compile TODO
+org.hibernate.common:hibernate-commons-annotations 5.0.4.Final compile TODO
+org.hibernate:hibernate-core 5.3.2.Final compile TODO
+org.hibernate:hibernate-validator 5.4.2.Final compile TODO
+org.hibernate:hibernate-validator-annotation-processor 5.4.2.Final compile TODO
+org.javassist:javassist 3.22.0-GA compile TODO
+org.jboss.logging:jboss-logging 3.3.2.Final compile TODO
+org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec 1.1.1.Final compile TODO
+org.jboss:jandex 2.0.5.Final compile TODO
+org.jvnet.mimepull:mimepull 1.9.7 compile TODO
+org.mitre.dsmiley.httpproxy:smiley-http-proxy-servlet 1.7 compile TODO
+org.osiam:connector4java 1.8 compile TODO
+org.osiam:scim-schema 1.6 compile TODO
+org.postgresql:postgresql 42.2.5 provided TODO
+org.projectlombok:lombok 1.18.0 compile TODO
+org.slf4j:jcl-over-slf4j 1.7.25 compile TODO
+org.slf4j:jul-to-slf4j 1.7.25 compile TODO
+org.slf4j:log4j-over-slf4j 1.7.25 compile TODO
+org.slf4j:slf4j-api 1.7.25 compile TODO
+org.springframework:spring-aop 4.3.18.RELEASE compile TODO
+org.springframework:spring-beans 4.3.18.RELEASE compile TODO
+org.springframework:spring-context 4.3.18.RELEASE compile TODO
+org.springframework:spring-core 4.3.18.RELEASE compile TODO
+org.springframework:spring-expression 4.3.18.RELEASE compile TODO
+org.springframework:spring-jdbc 4.3.18.RELEASE compile TODO
+org.springframework:spring-tx 4.3.18.RELEASE compile TODO
+org.yaml:snakeyaml 1.18 compile TODO
+sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
+velocity:velocity 1.4 compile TODO
+velocity:velocity-dep 1.4 runtime TODO
+xmlrpc:xmlrpc 1.2-b1 compile TODO

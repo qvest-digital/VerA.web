@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb.middleware</groupId>
 		<artifactId>octopus-parent</artifactId>
-		<version>1.9.1-SNAPSHOT</version>
+		<version>1.9.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>octopus-servlet</artifactId>
 	<packaging>jar</packaging>
@@ -39,6 +39,13 @@
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
 			<scope>provided</scope>
+			<exclusions>
+				<!-- straighten ckdep.lst output -->
+				<exclusion>
+					<groupId>velocity</groupId>
+					<artifactId>velocity</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>

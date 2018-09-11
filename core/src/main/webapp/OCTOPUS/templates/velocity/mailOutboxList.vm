@@ -36,8 +36,8 @@
                         <strong>${placeholderWithTranslation.markierteemails}</strong>
                 <input type="submit" name="remove" value="${placeholderWithTranslation.loeschen}" title="${placeholderWithTranslation.markierteemailsloeschen}"/>
             </span>
-
-                <table class="fixed">
+                <div class="table_border">
+                <table class="fixed scrollable-table">
                         ##Set column size
                                 <col width="$column0%" />
                                 <col width="$column1%" />
@@ -77,10 +77,10 @@
                         #end
 
                         #set($itemName = "${placeholderWithTranslation.GENERIC_EMAIL_PLURAL}")
-                                #tableFooter(5)
-                        #parse("inc/list-direct-new.vm")
                 </table>
-
+                </div>
+            #parse("inc/table-pagination-footer.vm")
+            #parse("inc/list-direct-new.vm")
         </div>
     </div>
 

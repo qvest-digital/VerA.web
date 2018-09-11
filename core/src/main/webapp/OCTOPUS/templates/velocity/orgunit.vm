@@ -64,7 +64,8 @@
                 <input type="submit" onclick="return confirm('${placeholderWithTranslation.markiertenmandantenwirklichloschen}?');" title="${placeholderWithTranslation.DELETE_SELECTED_MANDATOR}" name="remove"
                 value="${placeholderWithTranslation.GENERIC_DELETE}" />
             </span>
-            <table class="fixed">
+            <div class="table_border">
+            <table class="fixed scrollable-table">
                 ##Set column size
                                 <col width="$column0%" />
                         <col width="$column1%" />
@@ -94,10 +95,10 @@
                                         #end
 
                                 #set($itemName = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
-                                #tableFooter(3)
-                                #parse("inc/list-direct-new.vm")
             </table>
-
+            </div>
+            #parse("inc/table-pagination-footer.vm")
+            #parse("inc/list-direct-new.vm")
         </div>
                         <span id="buttonPanel-bottom" class="floatRight marginTop10">
                         <!-- Show the save button -->

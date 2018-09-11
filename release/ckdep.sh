@@ -51,7 +51,7 @@ fi
     -e '/:test$/d' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
     -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
-    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
+    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4 ok/p' \
     >ckdep.tmp
 if (( build_vwoa )); then
 	# analyse Maven dependencies
@@ -60,18 +60,23 @@ if (( build_vwoa )); then
 	    -e '/:test$/d' \
 	    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
 	    -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
-	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
+	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4 ok/p' \
 	    >ckdep-vwoa.tmp
 	# analyse NPM and Bower dependencies
 	(
 		cd ../vwoa/src/main/webroot-src
 		npm list --only prod >&2
 		npm list --only prod --json true 2>/dev/null | jq -r \
-		    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"'
+		    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " compile ok"'
 		node_modules/bower/bin/bower list | tee /dev/stderr | LC_ALL=C.UTF-8 sed --posix -n \
-		    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p'
+		    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 compile ok/p'
 	) 2>&1 >>ckdep-vwoa.tmp | sed 's!^![INFO] !' >&2
-	sort -uo ckdep-vwoa.tmp ckdep-vwoa.tmp
+	x=$(sort -u <ckdep-vwoa.tmp)
+	lastline=
+	print -r -- "$x" | while IFS= read -r line; do
+		[[ $line = "$lastline" ]] || print -r -- "$line"
+		lastline=${line/ compile / provided }
+	done >ckdep-vwoa.tmp
 	{
 		comm -13 ckdep-vwoa.lst ckdep-vwoa.tmp | sed 's/ ok$/ TO''DO/'
 		comm -12 ckdep-vwoa.lst ckdep-vwoa.tmp
@@ -86,11 +91,17 @@ if (( build_vwoa )); then
 else
 	print -ru2 -- '[WARNING] NPM not available, assuming c.p. build'
 fi
-[[ -s ckdep-vwoa.lst ]] && cat ckdep-vwoa.lst >>ckdep.tmp
+[[ -s ckdep-vwoa.lst ]] && sed 's/ TO''DO$/ ok/' <ckdep-vwoa.lst >>ckdep.tmp
 # add static dependencies from embedded files, for SecurityWatch
 [[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
+# make compile scope superset provided scope
+x=$(sort -u <ckdep.tmp)
+lastline=
+print -r -- "$x" | while IFS= read -r line; do
+	[[ $line = "$lastline" ]] || print -r -- "$line"
+	lastline=${line/ compile / provided }
+done >ckdep.tmp
 # generate file with changed dependencies set to be a to-do item
-sort -uo ckdep.tmp ckdep.tmp
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
 	comm -12 ckdep.lst ckdep.tmp
@@ -110,6 +121,13 @@ fi
 # check if anything needs to be committed
 if (( abend )); then
 	print -ru2 -- '[ERROR] please commit the changed ckdep*.lst files!'
+	exit 1
+fi
+
+# fail a release build if dependency licence review has a to-do item
+[[ $IS_M2RELEASEBUILD = true ]] && \
+    if grep -e ' TO''DO$' -e ' FA''IL$' ckdep.lst; then
+	print -ru2 -- '[ERROR] licence review incomplete'
 	exit 1
 fi
 
