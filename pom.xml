@@ -1193,7 +1193,7 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>${maven.javadoc.version}</version>
 						<configuration>
-							<additionalparam>${doclint.optappend}</additionalparam>
+							<additionalOptions>${doclint.optappend}</additionalOptions>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -1211,7 +1211,7 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>${maven.javadoc.version}</version>
 						<configuration>
-							<additionalparam>-html4 ${doclint.optappend}</additionalparam>
+							<additionalOptions>-html4 ${doclint.optappend}</additionalOptions>
 							<javadocExecutable>/usr/bin</javadocExecutable>
 						</configuration>
 					</plugin>
