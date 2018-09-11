@@ -33,6 +33,8 @@
 		<maven.buildhelper.version>3.0.0</maven.buildhelper.version>
 		<maven.compiler.version>3.7.0</maven.compiler.version>
 		<maven.deploy.version>2.8.1</maven.deploy.version>
+		<maven.docker-compose.version>1.0.3</maven.docker-compose.version>
+		<maven.dockerfile.version>1.4.3</maven.dockerfile.version>
 		<maven.enforcer.version>1.4.1</maven.enforcer.version>
 		<maven.exec.version>1.4.0</maven.exec.version>
 		<maven.gmavenplus.version>1.5</maven.gmavenplus.version>
@@ -43,6 +45,7 @@
 		<maven.karma.version>1.5</maven.karma.version>
 		<maven.latex.version>1.4.4</maven.latex.version>
 		<maven.mycila.version>3.0</maven.mycila.version>
+		<maven.owasp.dependency-check.version>3.2.1</maven.owasp.dependency-check.version>
 		<maven.pitest.version>1.0.0</maven.pitest.version>
 		<maven.release.version>2.5.3</maven.release.version>
 		<maven.resource.version>3.0.2</maven.resource.version>
@@ -50,9 +53,6 @@
 		<maven.source.version>2.4</maven.source.version>
 		<maven.surefire.version>2.13</maven.surefire.version>
 		<maven.war.version>2.1.1</maven.war.version>
-		<maven.owasp.dependency-check.version>3.2.1</maven.owasp.dependency-check.version>
-		<maven.docker-compose.version>1.0.3</maven.docker-compose.version>
-		<maven.dockerfile.version>1.4.3</maven.dockerfile.version>
 		<!-- dependency management -->
 		<activation.version>1.1.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
