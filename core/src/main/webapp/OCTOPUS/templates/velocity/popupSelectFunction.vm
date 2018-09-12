@@ -24,10 +24,10 @@
 	</head>
 	<body id="popUp">
 		<form id="formlist" name="formlist" action="" method="post">
-        <input type="hidden" name="start" value=""/>
+		<input type="hidden" name="start" value=""/>
 		<input type="hidden" name="limit" value=""/>
-        <input type="hidden" name="selectAll" value="false"/>
-        <input type="hidden" name="selectNone" value="false"/>
+		<input type="hidden" name="selectAll" value="false"/>
+		<input type="hidden" name="selectNone" value="false"/>
 
 				<div class="contentBoxColored grayBorder">
 					<h2>${placeholderWithTranslation.bittewaehlensieeineamtsbezeichnungfunktionaus}:</h2>
@@ -50,7 +50,7 @@
 
 						#set($disableListSelect = true)
 					</table>
-                	</div>
+					</div>
 					#if ($listparam.count > 0)
 						#set($itemName = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}")
 						#parse("inc/table-pagination-footer.vm")

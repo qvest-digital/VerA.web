@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
-
-	<!--default now: SOAP is not an allowed request type-->
+	<!-- false positive -->
 	<suppress>
 		<notes><![CDATA[
-   file name: axis-saaj-1.4.jar
-   ]]></notes>
+			file name: postgresql-42.2.5.jar
+		]]></notes>
+		<gav regex="true">^org\.postgresql:postgresql:.*$</gav>
+		<cve>CVE-2018-1115</cve>
+	</suppress>
+	<!-- default now: SOAP is not an allowed request type -->
+	<suppress>
+		<notes><![CDATA[
+			file name: axis-saaj-1.4.jar
+		]]></notes>
 		<gav regex="true">^org\.apache\.axis:axis-saaj:.*$</gav>
 		<cpe>cpe:/a:apache:axis</cpe>
 	</suppress>
 	<suppress>
 		<notes><![CDATA[
-   file name: axis-1.4.jar
-   ]]></notes>
+			file name: axis-1.4.jar
+		]]></notes>
 		<gav regex="true">^axis:axis:.*$</gav>
 		<cpe>cpe:/a:apache:axis</cpe>
 	</suppress>
 	<suppress>
 		<notes><![CDATA[
-   file name: axis-jaxrpc-1.4.jar
-   ]]></notes>
+			file name: axis-jaxrpc-1.4.jar
+		]]></notes>
 		<gav regex="true">^org\.apache\.axis:axis-jaxrpc:.*$</gav>
 		<cpe>cpe:/a:apache:axis</cpe>
 	</suppress>
-	<!--end of excluded vulnerable SOAP is not an allowed request type-->
-
+	<!-- end of excluded vulnerable SOAP is not an allowed request type -->
 	<!-- dependencies for system tests have not to be considered -->
 	<suppress>
 		<notes><![CDATA[
-   file name: xercesImpl-2.9.1.jar
-   ]]></notes>
+			file name: xercesImpl-2.9.1.jar
+		]]></notes>
 		<gav regex="true">^xerces:xercesImpl:.*$</gav>
 		<cpe>cpe:/a:apache:xerces2_java</cpe>
 	</suppress>
 	<suppress>
 		<notes><![CDATA[
-   file name: commons-beanutils-1.8.0.jar
-   ]]></notes>
+			file name: commons-beanutils-1.8.0.jar
+		]]></notes>
 		<gav regex="true">^commons-beanutils:commons-beanutils:.*$</gav>
 		<cpe>cpe:/a:apache:commons_beanutils</cpe>
 	</suppress>
 	<!-- end of vulnerable system test dependencies -->
-
 	<!-- we need to check osiam separately -->
 	<suppress>
 		<notes><![CDATA[
-   file name: tika-core-1.10.jar
-   ]]></notes>
+			file name: tika-core-1.10.jar
+		]]></notes>
 		<gav regex="true">^org\.apache\.tika:tika-core:.*$</gav>
 		<cpe>cpe:/a:apache:tika</cpe>
 	</suppress>
-
 </suppressions>

@@ -11,12 +11,17 @@
   ‣ ansibel docker plugin is also deprecated…
 • Bacon.js entfernen [VERA-635]
 
+dependency-check report:
+
+logback-core-1.1.2.jar (cpe:/a:logback:logback:1.1.2, ch.qos.logback:logback-core:1.1.2) : CVE-2017-5929
+jetty-util-9.0.7.v20131107.jar (cpe:/a:eclipse:jetty:9.0.7.v20131107, cpe:/a:jetty:jetty:9.0.7.v20131107, org.eclipse.jetty:jetty-util:9.0.7.v20131107) : CVE-2017-7656, CVE-2017-7658, CVE-2017-7657, CVE-2017-9735
+
 Online-Anmeldung:
 
 vwoa/src/main/java/org/evolvis/veraweb/onlinereg/user/ResetPasswordResource.java:[172,81] ALL in org.osiam.client.oauth.Scope has been deprecated
 
-[!] 66 vulnerabilities found [1752 packages audited]
-    Severity: 10 Low | 41 Moderate | 13 High | 2 Critical
+[!] 68 vulnerabilities found [1752 packages audited]
+    Severity: 10 Low | 41 Moderate | 15 High | 2 Critical
 (npm audit ist im Jenkins-Log)
 
 npm WARN deprecated jade@0.26.3: Jade has been renamed to pug, please install the latest version of pug instead of jade
