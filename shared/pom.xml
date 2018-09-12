@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>rest-api-common</artifactId>
 	<packaging>jar</packaging>
-	<name>VerA.web REST API common files</name>
+	<description>VerA.web REST API common files</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate</groupId>

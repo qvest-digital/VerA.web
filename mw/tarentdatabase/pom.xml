@@ -9,7 +9,7 @@
 	<groupId>org.evolvis.veraweb.middleware</groupId>
 	<artifactId>tarent-database</artifactId>
 	<packaging>jar</packaging>
-	<name>tarent-database</name>
+	<name>veraweb-middleware:tarent-database</name>
 	<description>jdbc database library</description>
 	<build>
 		<plugins>

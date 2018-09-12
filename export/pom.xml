@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>veraweb-export</artifactId>
 	<packaging>jar</packaging>
-	<name>VerA.web export module</name>
+	<description>VerA.web export module</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.evolvis.tartools</groupId>

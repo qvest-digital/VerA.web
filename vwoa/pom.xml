@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>online-anmeldung</artifactId>
 	<packaging>jar</packaging>
-	<name>VerA.web Online-Anmeldung frontend</name>
+	<description>VerA.web Online-Anmeldung frontend</description>
 	<properties>
 		<sonar.exclusions>src/main/java/io/dropwizard/client/HttpClientConfiguration.java</sonar.exclusions>
 	</properties>

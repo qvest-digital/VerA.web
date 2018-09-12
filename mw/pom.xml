@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>middleware</artifactId>
 	<packaging>pom</packaging>
-	<name>${project.groupId}:${project.artifactId}</name>
+	<name>org.evolvis.veraweb:middleware (parent)</name>
 	<description>VerA.web embedded middleware</description>
 	<licenses>
 		<license>

@@ -9,7 +9,8 @@
 	<groupId>org.evolvis.veraweb.middleware</groupId>
 	<artifactId>octopus-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>VerA.web embedded OCTOPUS</name>
+	<name>org.evolvis.veraweb:middleware:octopus (parent)</name>
+	<description>VerA.web embedded OCTOPUS</description>
 	<modules>
 		<module>core</module>
 		<module>ext-annotation</module>

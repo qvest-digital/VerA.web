@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>veraweb-core</artifactId>
 	<packaging>war</packaging>
-	<name>VerA.web core module</name>
+	<description>VerA.web core module</description>
 	<properties>
 		<sonar.exclusions>src/main/js/ext/**,src/main/webapp/js/ext/**</sonar.exclusions>
 	</properties>
