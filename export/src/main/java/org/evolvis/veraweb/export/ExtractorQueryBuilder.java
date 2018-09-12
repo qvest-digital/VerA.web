@@ -104,9 +104,6 @@ public class ExtractorQueryBuilder {
         StringBuilder sqlWithAdditionalFilters = new StringBuilder(sql);
         for (Map.Entry<String, String> entry : filterSettings.entrySet()) {
             String filter = ValidExportFilter.buildDBPathPartial(entry.getKey(), entry.getValue());
-            if (entry.getKey().equals(ValidExportFilter.SEARCHWORD_FILTER.key)) {
-                filter = filter.replaceAll(entry.getValue(), "'" + entry.getValue() + "'");
-            }
             sqlWithAdditionalFilters
                     .append(" AND ")
                     .append(filter);
