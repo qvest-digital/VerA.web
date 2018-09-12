@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>1.0</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
@@ -384,6 +384,8 @@
 		<archiver.copyright.lastyear>2018</archiver.copyright.lastyear>
 		<!-- not yet: doclint.optappend>-Xdoclint:all -Xdoclint:-missing</doclint.optappend-->
 		<doclint.optappend>-Xdoclint:none</doclint.optappend>
+		<sonar.sources>src/main</sonar.sources>
+		<sonar.tests>src/test</sonar.tests>
 		<servlet.api>3.1.0</servlet.api>
 		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
 		<!-- maven plugins -->
