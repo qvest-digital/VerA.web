@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>veraweb-parent</artifactId>
-		<version>1.9.2-SNAPSHOT</version>
+		<version>1.9.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>veraweb-systemtest</artifactId>
 	<description>VerA.web systemtest module</description>
@@ -243,14 +243,6 @@
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
-				<version>${maven.gmavenplus.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<!-- Execute tests -->
 			<plugin>
