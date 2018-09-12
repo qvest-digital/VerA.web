@@ -4,7 +4,6 @@
         #set($start = $listparam.start + 1)
         #set($stop = $listparam.start + $list.size())
 
-
         <span class="amount" id="listnavitext">
 				$start - $stop ${placeholderWithTranslation.GENERIC_OF} $listparam.count
             #if(${language} == "de_DE")

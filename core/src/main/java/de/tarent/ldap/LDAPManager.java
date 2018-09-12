@@ -516,7 +516,6 @@ public class LDAPManager {
         return attrs;
     }
 
-
     public String createFullUserDN(String uid) throws AuthenticationException {
         if(uid.matches("[^,]*")) {
             return "uid=" + uid + "," + relativeUser.substring(1) + baseDN;
