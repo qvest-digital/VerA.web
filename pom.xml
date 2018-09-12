@@ -16,7 +16,7 @@
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
-	<version>1.9.2-SNAPSHOT</version>
+	<version>1.8.900</version>
 	<packaging>pom</packaging>
 	<name>org.evolvis.veraweb (parent)</name>
 	<description>VerA.web parent POM</description>
@@ -457,7 +457,7 @@
 		<connection>scm:git:https://evolvis.org/anonscm/git/veraweb/veraweb.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
-		<tag>HEAD</tag>
+		<tag>1.8.900</tag>
 	</scm>
 	<distributionManagement>
 		<repository>
