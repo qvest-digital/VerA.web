@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>0.1</version>
+		<version>0.5.2</version>
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
@@ -369,9 +369,17 @@
 			<organizationUrl>http://www.tarent.de/</organizationUrl>
 		</developer>
 	</developers>
+	<mailingLists>
+		<mailingList>
+			<name>veraweb-commits@lists.evolvis.org</name>
+		</mailingList>
+		<mailingList>
+			<name>veraweb-discuss@lists.evolvis.org</name>
+		</mailingList>
+	</mailingLists>
 	<properties>
 		<!-- general settings -->
-		<archiver.copyright>Copyright © 2001–2018 tarent solutions GmbH</archiver.copyright>
+		<archiver.copyright>Copyright © 2001–2018; Licensor: tarent solutions GmbH</archiver.copyright>
 		<!-- not yet: doclint.optappend>-Xdoclint:all -Xdoclint:-missing</doclint.optappend-->
 		<doclint.optappend>-Xdoclint:none</doclint.optappend>
 		<servlet.api>3.1.0</servlet.api>
@@ -441,14 +449,6 @@
 		<wiremock.version>2.18.0</wiremock.version>
 		<docker.registry>veraweb-tools.lan.tarent.de:5000</docker.registry>
 	</properties>
-	<mailingLists>
-		<mailingList>
-			<name>veraweb-commits@lists.evolvis.org</name>
-		</mailingList>
-		<mailingList>
-			<name>veraweb-discuss@lists.evolvis.org</name>
-		</mailingList>
-	</mailingLists>
 	<scm>
 		<connection>scm:git:https://evolvis.org/anonscm/git/veraweb/veraweb.git</connection>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git</developerConnection>
@@ -467,6 +467,54 @@
 			<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+	<modules>
+		<module>mw</module>
+		<module>shared</module>
+		<module>core</module>
+		<module>export</module>
+		<module>vwor</module>
+	</modules>
+	<profiles>
+		<profile>
+			<id>oA</id>
+			<modules>
+				<module>vwoa</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>systemtest</id>
+			<modules>
+				<module>systemtest</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<inherited>false</inherited>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-toplevel-sources</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>./release/mksrc.sh</executable>
+									<environmentVariables>
+										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
+									</environmentVariables>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
@@ -521,8 +569,6 @@
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<configuration>
-					<basedir>${project.basedir}</basedir>
-					<header>${project.basedir}/release/LICENCE.hdr</header>
 					<includes>
 						<include>**/*.groovy</include>
 						<include>**/*.java</include>
@@ -1205,58 +1251,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<modules>
-		<module>mw</module>
-		<module>shared</module>
-		<module>core</module>
-		<module>export</module>
-		<module>vwor</module>
-	</modules>
-	<profiles>
-		<profile>
-			<id>oA</id>
-			<modules>
-				<module>vwoa</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>systemtest</id>
-			<modules>
-				<module>systemtest</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<inherited>false</inherited>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>generate-toplevel-sources</id>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<executable>./release/mksrc.sh</executable>
-									<environmentVariables>
-										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
-									</environmentVariables>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>jdk8orolder</id>
-			<properties>
-				<mockito.version>2.10.0</mockito.version>
-			</properties>
-		</profile>
-	</profiles>
 </project>
