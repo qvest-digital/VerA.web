@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>0.5.2</version>
+		<version>1.0</version>
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
@@ -31,6 +31,7 @@
 		<developer>
 			<name>Атанас Александров</name>
 			<email>sirakov@gmail.com</email>
+			<organization>(private individual)</organization>
 		</developer>
 		<developer>
 			<name>Иванка Александрова</name>
@@ -379,7 +380,8 @@
 	</mailingLists>
 	<properties>
 		<!-- general settings -->
-		<archiver.copyright>Copyright © 2001–2018; Licensor: tarent solutions GmbH</archiver.copyright>
+		<archiver.copyright.firstyear>2001</archiver.copyright.firstyear>
+		<archiver.copyright.lastyear>2018</archiver.copyright.lastyear>
 		<!-- not yet: doclint.optappend>-Xdoclint:all -Xdoclint:-missing</doclint.optappend-->
 		<doclint.optappend>-Xdoclint:none</doclint.optappend>
 		<servlet.api>3.1.0</servlet.api>
