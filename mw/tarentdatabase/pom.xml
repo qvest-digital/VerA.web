@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>middleware</artifactId>
-		<version>1.8.901</version>
+		<version>1.9.2-SNAPSHOT</version>
 	</parent>
 	<groupId>org.evolvis.veraweb.middleware</groupId>
 	<artifactId>tarent-database</artifactId>
