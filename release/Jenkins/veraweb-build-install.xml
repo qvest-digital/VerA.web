@@ -13,7 +13,9 @@
   href=&#34;/jenkins/job/veraweb-docker-install/&#34;&gt;install&lt;/a&gt;&lt;/p&gt;&#xd;
 &#xd;
 &lt;p&gt;Installationsanleitung: &lt;a&#xd;
-  href=&#34;/jenkins/job/veraweb-build-install/ws/core/target/installationsanleitung.pdf&#34;&gt;hier&lt;/a&gt;&lt;/p&gt;</description>
+  href=&#34;/jenkins/job/veraweb-build-install/ws/core/target/installationsanleitung.pdf&#34;&gt;hier&lt;/a&gt;&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;&lt;a href=&#34;https://repo-bn-01.lan.tarent.de/#browse/search=attributes.maven2.groupId%3Dorg.evolvis.veraweb.ship&#34;&gt;Release-Artefakte in Nexus&lt;/a&gt;&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -214,7 +216,12 @@ else
 	: trigger Docker build + install of :latest
 	echo &#39;VWJENKINS_DOCKER_RELEASE_TO_BUILD=(HEAD)&#39; \
 	    &gt;target/jenkins-parm.prop
-fi</command>
+fi
+
+if test x&#34;$IS_M2RELEASEBUILD&#34; = x&#34;true&#34;; then
+	mksh release/mkship.sh -u
+fi
+</command>
     </hudson.tasks.Shell>
   </postbuilders>
   <runPostStepsIfResult>
