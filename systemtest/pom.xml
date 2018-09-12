@@ -179,27 +179,27 @@
 						</configuration>
 					</execution>
 					<!-- Uncomment to also build httpd docker image -->
-					<!--<execution>
-                        <id>build httpd image</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <contextDirectory>${project.build.directory}/dockerbuild/httpd</contextDirectory>
-                            <repository>${docker.registry}/veraweb-httpd</repository>
-                        </configuration>
-                    </execution>-->
+					<!-- execution>
+						<id>build httpd image</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<contextDirectory>${project.build.directory}/dockerbuild/httpd</contextDirectory>
+							<repository>${docker.registry}/veraweb-httpd</repository>
+						</configuration>
+					</execution -->
 					<!-- Uncomment to also build LDAP docker image -->
-					<!--<execution>
-                        <id>build LDAP image</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <contextDirectory>${project.build.directory}/dockerbuild/ldap</contextDirectory>
-                            <repository>${docker.registry}/veraweb-ldap</repository>
-                        </configuration>
-                    </execution>-->
+					<!-- execution>
+						<id>build LDAP image</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<contextDirectory>${project.build.directory}/dockerbuild/ldap</contextDirectory>
+							<repository>${docker.registry}/veraweb-ldap</repository>
+						</configuration>
+					</execution -->
 				</executions>
 				<dependencies>
 					<dependency>
