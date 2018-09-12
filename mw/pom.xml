@@ -33,18 +33,15 @@
 				<artifactId>license-maven-plugin</artifactId>
 				<configuration>
 					<header>${project.basedir}/LICENCE.hdr</header>
+					<headerDefinitions>
+						<headerDefinition>${project.basedir}/../release/myc-javapkg.xml</headerDefinition>
+					</headerDefinitions>
 					<includes>
 						<include>**/*.java</include>
 					</includes>
 					<excludes>
 						<exclude>**/de/tarent/commons/logging/LogManager.java</exclude>
 					</excludes>
-					<headerDefinitions>
-						<headerDefinition>${project.basedir}/../src/main/ancillary/myc-javapkg.xml</headerDefinition>
-					</headerDefinitions>
-					<mapping>
-						<java>JavaPackage_style</java>
-					</mapping>
 				</configuration>
 			</plugin>
 		</plugins>
