@@ -126,15 +126,13 @@ public enum ValidExportFilter {
 
     public static String getKeywordFilter(String words){
         StringBuilder queryPart = new StringBuilder();
-        if (words != null && !words.trim().isEmpty()) {
+        if (words != null && !words.trim().isEmpty() && isValidFilterSetting(SEARCHWORD_FILTER.key, words)) {
             final String[] wordsSplit = words.split("[^\\p{L}\\p{Nd}]+");
             for (int i = 0; i < wordsSplit.length; i++) {
-                if (isValidFilterSetting(SEARCHWORD_FILTER.key, wordsSplit[i])){
-                    if (i > 0 && i < wordsSplit.length){
-                        queryPart.append(" AND ");
-                    }
-                    queryPart.append("g.keywords LIKE '%").append(wordsSplit[i]).append("%'");
+                if (i > 0 && i < wordsSplit.length){
+                    queryPart.append(" AND ");
                 }
+                queryPart.append("g.keywords LIKE '%").append(wordsSplit[i]).append("%'");
             }
         }
         return queryPart.toString();
