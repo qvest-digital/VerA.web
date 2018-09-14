@@ -65,51 +65,20 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.pages
+package de.tarent.veraweb.modules.event
 
-import de.tarent.veraweb.modules.GuestTableRow
-import geb.Page
-import geb.navigator.EmptyNavigator
+import geb.Module
 
-class GuestListPage extends Page {
-
-    static at = {
-        pageTitle.text().startsWith('Gästeverwaltung der Veranstaltung')
-    }
+class EventTableRow extends Module {
 
     static content = {
-        pageTitle { $('h1') }
-        form { $('form#formlist') }
-
-        table { form.find('table')}
-        tableRows { table.$('tbody > tr').moduleList(GuestTableRow) }
-    }
-
-    def selectRowByName(String name, String firstName) {
-        GuestTableRow row = findRowByName(name, firstName)
-        if (row != null) {
-            row.checkbox.click()
-            return true
-        }
-        return false
-    }
-
-    def clickRowByName(String name, String firstName) {
-        GuestTableRow row = findRowByName(name, firstName)
-        if (row != null) {
-            row.name.click()
-        }
-    }
-
-    def findRowByName(String name, String firstName) {
-        waitFor {
-            table.displayed
-        }
-
-        tableRows.findResult {
-            !EmptyNavigator.isInstance(it.cell) &&
-                    !EmptyNavigator.isInstance(it.name) &&
-                    !EmptyNavigator.isInstance(it.firstName) &&
-                    (it.name.text() == name && it.firstName.text() == firstName)? it : null }
+        cell(required: false) { $("td") }
+        checkbox(required: false) { cell[0].$('input')}
+        id(required: false) {cell[1].text()}
+        name(required: false) {cell[2]}
+        begin(required: false) {cell[3].text()}
+        end(required: false) {cell[4].text()}
+        host(required: false) {cell[5].text()}
+        location(required: false) {cell[6].text()}
     }
 }

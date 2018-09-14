@@ -65,26 +65,21 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.pages
+package de.tarent.veraweb.pages.event
 
+import de.tarent.veraweb.modules.event.EventTable
 import geb.Page
-import org.openqa.selenium.By
 
-class PersonSearchPage extends Page {
-
+class EventSearchResultPage extends Page {
     static at = {
-        pageTitle.text() == 'Personensuche'
+        pageTitle.text() == 'Suchergebnis: Veranstaltung(en)'
     }
 
     static content = {
-        pageTitle { $('h1') }
-        contentContainer { $('#content_container')}
-        searchField { contentContainer.find(By.id('searchfield'))}
-        searchButton { contentContainer.find('input.mainButton.submit')[0]}
-    }
+        pageTitle {$('h1')}
 
-    def searchPerson(String query) {
-        searchField = query
-        searchButton.click()
+        form {$('form#formlist')}
+
+        table {module EventTable}
     }
 }

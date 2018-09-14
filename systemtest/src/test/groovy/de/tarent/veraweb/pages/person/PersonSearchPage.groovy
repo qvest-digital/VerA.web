@@ -65,20 +65,34 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.modules
+package de.tarent.veraweb.pages.person
 
-import geb.Module
+import geb.Page
+import org.openqa.selenium.By
 
-class EventTableRow extends Module {
+class PersonSearchPage extends Page {
+    static at = {
+        pageTitle.text().startsWith("Personensuche")
+    }
 
     static content = {
-        cell(required: false) { $("td") }
-        checkbox(required: false) { cell[0].$('input')}
-        id(required: false) {cell[1].text()}
-        name(required: false) {cell[2]}
-        begin(required: false) {cell[3].text()}
-        end(required: false) {cell[4].text()}
-        host(required: false) {cell[5].text()}
-        location(required: false) {cell[6].text()}
+        pageTitle {$('h1')}
+
+        form {$('form#peopleSearch_form')}
+
+        submitButton {$('input', type: 'submit', name: 'search')}
+
+        firstname {form.find(By.id('firstname'))}
+        lastname {form.find(By.id('lastname'))}
+    }
+
+    def searchPersonByName(String firstnameString, String lastnameString) {
+        firstname = firstnameString
+        lastname = lastnameString
+        search()
+    }
+
+    def search() {
+        submitButton.click()
     }
 }

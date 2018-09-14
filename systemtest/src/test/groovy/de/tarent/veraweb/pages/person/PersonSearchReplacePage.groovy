@@ -65,26 +65,16 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.pages
+package de.tarent.veraweb.pages.person
 
 import geb.Page
-import org.openqa.selenium.By
 
-class EventsSearchPage extends Page {
-
+class PersonSearchReplacePage extends Page {
     static at = {
-        pageTitle.text() == 'Veranstaltungssuche'
+        pageTitle.text() == "Suchen und Ersetzen in Personendaten"
     }
 
     static content = {
-        pageTitle { $('h1') }
-        contentContainer { $('#content_container')}
-        searchFieldShortName { contentContainer.find(By.id('input.shortname'))}
-        searchButton { contentContainer.find(By.id('button.startSearch'))}
-    }
-
-    def searchEvent(String query) {
-        searchFieldShortName = query
-        searchButton.click()
+        pageTitle {$('h1')}
     }
 }
