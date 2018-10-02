@@ -4,6 +4,9 @@
 <div class="contentBoxColored grayBorder" id="eventTop">
         <div class="table width100">
                 <div class="tableRow">
+                        #if($taskNoChangesMade)
+                            <vera-success>${placeholderWithTranslation.NO_CHANGES_WERE_MADE}</vera-success>
+                        #end
                         <div class="tableCell width30 paddingBottom15">
                                 <strong>${placeholderWithTranslation.EVENT_ID}:</strong>
                 $!message.text($event.id)

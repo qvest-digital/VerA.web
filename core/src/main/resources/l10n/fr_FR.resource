@@ -1818,6 +1818,8 @@ CONTACT_PICTURE_WRONG_SIZE=Les dimensions de l\u2019image doivent \u00EAtre exac
 PICTURE_SIZE=taille de l\u2019image
 PIXELS=pixels
 
+NO_CHANGES_WERE_MADE=Vous avez apporté aucune modification.
+
 NO_PARTNER_IN_MASTERDATA=Il n\u2019y a pas de partenaire dans le donn\u00E9e de base.
 
 #GENERAL MESSAGE
