@@ -10,19 +10,24 @@
 	<description>VerA.web systemtest module</description>
 	<dependencies>
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<scope>test</scope>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons-collections.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-			<scope>test</scope>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.awaitility</groupId>
 			<artifactId>awaitility-groovy</artifactId>
 			<version>${awaitility.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -35,11 +40,6 @@
 					<artifactId>commons-collections</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>${commons-collections.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gebish</groupId>
@@ -59,9 +59,9 @@
 			<version>${selenium.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3.version}</version>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -105,6 +105,100 @@
 			</resource>
 		</resources>
 		<plugins>
+			<!-- Run containers via docker compose -->
+			<plugin>
+				<groupId>com.dkanejs.maven.plugins</groupId>
+				<artifactId>docker-compose-maven-plugin</artifactId>
+				<version>${maven.docker-compose.version}</version>
+				<executions>
+					<execution>
+						<id>up</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>up</goal>
+						</goals>
+						<configuration>
+							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
+							<detachedMode>true</detachedMode>
+						</configuration>
+					</execution>
+					<execution>
+						<id>down</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>down</goal>
+						</goals>
+						<configuration>
+							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
+							<removeVolumes>true</removeVolumes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Build docker images -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>${maven.dockerfile.version}</version>
+				<executions>
+					<!-- Build core docker image -->
+					<execution>
+						<id>build core image</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<contextDirectory>${project.build.directory}/dockerbuild/core</contextDirectory>
+							<repository>veraweb-core-dev</repository>
+						</configuration>
+					</execution>
+					<!-- Build REST API docker image -->
+					<execution>
+						<id>build REST API image</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<contextDirectory>${project.build.directory}/dockerbuild/vwor</contextDirectory>
+							<repository>veraweb-rest-api-dev</repository>
+						</configuration>
+					</execution>
+					<!-- Uncomment to also build httpd docker image -->
+					<!--execution>
+						<id>build httpd image</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<contextDirectory>${project.build.directory}/dockerbuild/httpd</contextDirectory>
+							<repository>${docker.registry}/veraweb-httpd</repository>
+						</configuration>
+					</execution-->
+					<!-- Uncomment to also build LDAP docker image -->
+					<!--execution>
+						<id>build LDAP image</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<contextDirectory>${project.build.directory}/dockerbuild/ldap</contextDirectory>
+							<repository>${docker.registry}/veraweb-ldap</repository>
+						</configuration>
+					</execution-->
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>javax.activation</groupId>
+						<artifactId>activation</artifactId>
+						<version>${activation.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<!-- Compile groovy tests -->
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+			</plugin>
 			<!-- Copy JDBC driver to build directory of core docker image -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -149,100 +243,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<!-- Build docker images -->
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>${maven.dockerfile.version}</version>
-				<executions>
-					<!-- Build core docker image -->
-					<execution>
-						<id>build core image</id>
-						<goals>
-							<goal>build</goal>
-						</goals>
-						<configuration>
-							<contextDirectory>${project.build.directory}/dockerbuild/core</contextDirectory>
-							<repository>veraweb-core-dev</repository>
-						</configuration>
-					</execution>
-					<!-- Build REST API docker image -->
-					<execution>
-						<id>build REST API image</id>
-						<goals>
-							<goal>build</goal>
-						</goals>
-						<configuration>
-							<contextDirectory>${project.build.directory}/dockerbuild/vwor</contextDirectory>
-							<repository>veraweb-rest-api-dev</repository>
-						</configuration>
-					</execution>
-					<!-- Uncomment to also build httpd docker image -->
-					<!-- execution>
-						<id>build httpd image</id>
-						<goals>
-							<goal>build</goal>
-						</goals>
-						<configuration>
-							<contextDirectory>${project.build.directory}/dockerbuild/httpd</contextDirectory>
-							<repository>${docker.registry}/veraweb-httpd</repository>
-						</configuration>
-					</execution -->
-					<!-- Uncomment to also build LDAP docker image -->
-					<!-- execution>
-						<id>build LDAP image</id>
-						<goals>
-							<goal>build</goal>
-						</goals>
-						<configuration>
-							<contextDirectory>${project.build.directory}/dockerbuild/ldap</contextDirectory>
-							<repository>${docker.registry}/veraweb-ldap</repository>
-						</configuration>
-					</execution -->
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>javax.activation</groupId>
-						<artifactId>activation</artifactId>
-						<version>${activation.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<!-- Run containers via docker compose -->
-			<plugin>
-				<groupId>com.dkanejs.maven.plugins</groupId>
-				<artifactId>docker-compose-maven-plugin</artifactId>
-				<version>${maven.docker-compose.version}</version>
-				<executions>
-					<execution>
-						<id>up</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>up</goal>
-						</goals>
-						<configuration>
-							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
-							<detachedMode>true</detachedMode>
-						</configuration>
-					</execution>
-					<execution>
-						<id>down</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>down</goal>
-						</goals>
-						<configuration>
-							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
-							<removeVolumes>true</removeVolumes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Compile groovy tests -->
-			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
 			</plugin>
 			<!-- Execute tests -->
 			<plugin>

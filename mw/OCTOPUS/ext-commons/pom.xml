@@ -11,11 +11,12 @@
 	<name>OCTOPUS common extension</name>
 	<description>tarent OCTOPUS application framework, common part</description>
 	<properties>
-		<sonar.tests />
+		<sonar.tests/>
 	</properties>
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
 		</plugins>

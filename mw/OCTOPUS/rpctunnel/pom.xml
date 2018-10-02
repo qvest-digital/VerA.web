@@ -11,7 +11,7 @@
 	<name>OCTOPUS rpctunnel</name>
 	<description>tarent OCTOPUS application framework, rpctunnel part</description>
 	<properties>
-		<sonar.tests />
+		<sonar.tests/>
 	</properties>
 	<dependencies>
 		<dependency>

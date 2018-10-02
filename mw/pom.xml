@@ -28,9 +28,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<inherited>false</inherited>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
+				<inherited>false</inherited>
 				<configuration>
 					<header>${project.basedir}/LICENCE.hdr</header>
 					<headerDefinitions>
@@ -95,8 +95,13 @@
 				<version>1.8.0.7</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.servlet</groupId>
+				<groupId>javax.jws</groupId>
+				<artifactId>jsr181-api</artifactId>
+				<version>1.0-MR1</version>
+			</dependency>
+			<dependency>
 				<!-- renamed for 3.x -->
+				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
 				<version>2.4</version>
 			</dependency>
@@ -106,19 +111,14 @@
 				<version>1.0.5</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.jws</groupId>
-				<artifactId>jsr181-api</artifactId>
-				<version>1.0-MR1</version>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.13</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.jtds</groupId>
 				<artifactId>jtds</artifactId>
 				<version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>1.2.13</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.lucene</groupId>
