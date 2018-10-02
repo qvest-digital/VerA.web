@@ -206,7 +206,7 @@
 				<executions>
 					<execution>
 						<id>copy-jdbc-core</id>
-						<phase>package</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>copy</goal>
 						</goals>
@@ -225,7 +225,7 @@
 					</execution>
 					<execution>
 						<id>copy-jdbc-vwor</id>
-						<phase>package</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>copy</goal>
 						</goals>
