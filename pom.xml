@@ -153,7 +153,6 @@
 		<wiremock.version>2.18.0</wiremock.version>
 		<docker.registry>veraweb-tools.lan.tarent.de:5000</docker.registry>
 		<!-- testing updates scheduled for mvnparent -->
-		<gmavenplus.plugin.version>1.6.1</gmavenplus.plugin.version>
 		<maven.assembly.version>3.1.0</maven.assembly.version>
 		<maven.compiler.version>3.8.0</maven.compiler.version>
 		<maven.eclipse.version>2.10</maven.eclipse.version>
