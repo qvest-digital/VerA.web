@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>veraweb-parent</artifactId>
-		<version>1.9.4-SNAPSHOT</version>
+		<version>1.8.902</version>
 	</parent>
 	<artifactId>veraweb-export</artifactId>
 	<packaging>jar</packaging>
