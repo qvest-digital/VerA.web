@@ -97,7 +97,7 @@
 		<!-- dependency management -->
 		<activation.version>1.1.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
-		<background-jobs.version>1.18</background-jobs.version>
+		<background-jobs.version>1.19</background-jobs.version>
 		<bytebuddy.version>1.8.12</bytebuddy.version>
 		<cglib-nodep.version>3.2.7</cglib-nodep.version>
 		<chromedriver.version>2.40</chromedriver.version>
@@ -111,7 +111,7 @@
 		<!-- last version to work with Jersey 1 -->
 		<dropwizard.version>0.7.1</dropwizard.version>
 		<expiringmap.version>0.5.8</expiringmap.version>
-		<extract-tool.version>1.6</extract-tool.version>
+		<extract-tool.version>1.7</extract-tool.version>
 		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
 		<geb.version>2.1</geb.version>
 		<groovy-all.version>2.4.15</groovy-all.version>
