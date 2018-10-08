@@ -186,7 +186,10 @@
 			</modules>
 		</profile>
 		<profile>
-			<id>systemtest</id>
+			<id>test-only-dependencies</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<modules>
 				<module>systemtest</module>
 			</modules>
