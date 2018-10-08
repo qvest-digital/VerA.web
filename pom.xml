@@ -188,7 +188,9 @@
 		<profile>
 			<id>test-only-dependencies</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>!skip-test-only-dependencies</name>
+				</property>
 			</activation>
 			<modules>
 				<module>systemtest</module>
