@@ -248,6 +248,7 @@
 							</execution>
 						</executions>
 						<configuration>
+							<keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
 							<drivers>
 								<driver>
 									<name>chromedriver</name>
