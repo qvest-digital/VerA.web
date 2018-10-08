@@ -65,97 +65,74 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.modules
+package de.tarent.veraweb
 
-import geb.Module
-import geb.navigator.Navigator
-import org.openqa.selenium.By
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.interactions.Actions
+import de.tarent.veraweb.pages.event.EventEditPage
 
-class NavigationBar extends Module {
+import de.tarent.veraweb.pages.event.EventsSearchPage
+import de.tarent.veraweb.pages.event.EventCreatePage
+import de.tarent.veraweb.pages.event.EventOverviewPage
+import de.tarent.veraweb.pages.event.EventSearchResultPage
 
-    static content = {
-        nav { $('nav#nav')}
-
-        // menus
-        // persons
-        personsMenu { nav.find('span')[0] }
-        personsOverview { nav.find(By.id('menu.overviewPerson')) }
-        personsSearch { nav.find(By.id('menu.searchPerson')) }
-        personsCreate { nav.find(By.id('menu.newPerson')) }
-        personsSearchReplace {nav.find(By.id('menu.searchReplace'))}
-        personsDoublet {nav.find(By.id('menu.searchDuplicate'))}
-        personsExport {nav.find(By.id('menu.exportPerson'))}
-        personsImport {nav.find(By.id('menu.importPerson'))}
-
-        // events
-        eventsMenu { nav.find('span')[1] }
-        eventsOverview {nav.find(By.id('menu.overviewEvent'))}
-        eventsSearch {nav.find(By.id('menu.searchEvent'))}
-        eventsCreate {nav.find(By.id('menu.newEvent'))}
-
-        // management
-        managementMenu { nav.find('span')[2] }
-
-        // administration
-        administrationMenu { nav.find('span')[3] }
+class EventTest extends AbstractUITest {
+    def setup() {
+        loginAsAdmin()
     }
 
-    def toPersonOverview(WebDriver driver) {
-        navigateTo(personsMenu, personsOverview, driver)
+    def cleanup() {
+        logout()
     }
 
-    def toPersonSearch(WebDriver driver) {
-        navigateTo(personsMenu, personsSearch, driver)
+    def 'search for event'() {
+        given:
+        String eventname = 'Sommerfest'
+
+        when: 'navigate to event search'
+        mainPage.navigationBar.toEventSearch(driver)
+
+        then:
+        def eventSearchPage = at EventsSearchPage
+
+        when: 'search event'
+        eventSearchPage.searchEvent(eventname)
+
+        then:
+        EventSearchResultPage eventSearchResultPage = at EventSearchResultPage
+        eventSearchResultPage.table.findRowByName(eventname) != null
     }
 
-    def toPersonCreation(WebDriver driver) {
-        navigateTo(personsMenu, personsCreate, driver)
-    }
+    def 'create new event and delete it afterward'() {
+        given:
+        String eventname = "event-${UUID.randomUUID()}"
 
-    def toPersonSearchReplace(WebDriver driver) {
-        navigateTo(personsMenu, personsSearchReplace, driver)
-    }
+        when: 'navigate to event creation'
+        mainPage.navigationBar.toEventCreation(driver)
 
-    def toPersonDoublet(WebDriver driver) {
-        navigateTo(personsMenu, personsDoublet, driver)
-    }
+        then:
+        EventCreatePage eventCreatPage = at EventCreatePage
 
-    def toPersonExport(WebDriver driver) {
-        navigateTo(personsMenu, personsExport, driver)
-    }
+        when: 'fill event with data'
+        eventCreatPage.form.fillEventData(eventname, 'eventname', 10,
+                10, '24.12.2030', 'note')
+        eventCreatPage.form.saveEvent()
 
-    def toPersonImport(WebDriver driver) {
-        navigateTo(personsMenu, personsImport, driver)
-    }
+        then: 'we see the event edit page with the currently created event'
+        EventEditPage eventEditPage = at EventEditPage
+        eventEditPage.pageTitle.text() == 'Veranstaltung bearbeiten: '+eventname
 
-    def toEventOverview(WebDriver driver) {
-        navigateTo(eventsMenu, eventsOverview, driver)
-    }
+        when: 'we go back to the event overview'
+        eventEditPage.toEventOverview()
 
-    def toEventSearch(WebDriver driver) {
-        navigateTo(eventsMenu, eventsSearch, driver)
-    }
+        then:
+        EventOverviewPage eventOverviewPage = at EventOverviewPage
 
-    def toEventCreation(WebDriver driver) {
-        navigateTo(eventsMenu, eventsCreate, driver)
-    }
+        when:
+        eventOverviewPage.table.selectRowByName(eventname)
+        eventOverviewPage.perfomDeletion()
 
-    def navigateTo(Navigator menu, Navigator menuItem, WebDriver driver) {
-        openMenu(menu, driver)
-        clickMenuItem(menuItem, driver)
-    }
-
-    def openMenu(Navigator menu, WebDriver driver) {
-        Actions actions = new Actions(driver)
-        actions.moveToElement(menu.firstElement())
-        actions.perform()
-    }
-
-    def clickMenuItem(Navigator menuItem, WebDriver driver) {
-        Actions actions = new Actions(driver)
-        actions.click(menuItem.firstElement())
-        actions.perform()
+        then:
+        at EventOverviewPage
+        eventOverviewPage.successMessage() == "Es wurde eine Veranstaltung gelöscht.."
+        eventOverviewPage.table.selectRowByName(eventname) == false
     }
 }

@@ -4,25 +4,30 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>veraweb-parent</artifactId>
-		<version>1.9.3-SNAPSHOT</version>
+		<version>1.9.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>veraweb-systemtest</artifactId>
 	<description>VerA.web systemtest module</description>
 	<dependencies>
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<scope>test</scope>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons-collections.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-			<scope>test</scope>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.awaitility</groupId>
 			<artifactId>awaitility-groovy</artifactId>
 			<version>${awaitility.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -35,11 +40,6 @@
 					<artifactId>commons-collections</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>${commons-collections.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gebish</groupId>
@@ -59,9 +59,9 @@
 			<version>${selenium.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3.version}</version>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -105,47 +105,32 @@
 			</resource>
 		</resources>
 		<plugins>
-			<!-- Copy JDBC driver to build directory of core docker image -->
+			<!-- Run containers via docker compose -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
+				<groupId>com.dkanejs.maven.plugins</groupId>
+				<artifactId>docker-compose-maven-plugin</artifactId>
+				<version>${maven.docker-compose.version}</version>
 				<executions>
 					<execution>
-						<id>copy-jdbc-core</id>
-						<phase>package</phase>
+						<id>up</id>
+						<phase>pre-integration-test</phase>
 						<goals>
-							<goal>copy</goal>
+							<goal>up</goal>
 						</goals>
 						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.postgresql</groupId>
-									<artifactId>postgresql</artifactId>
-									<version>${postgresql.version}</version>
-									<type>jar</type>
-									<outputDirectory>${project.build.directory}/dockerbuild/core</outputDirectory>
-									<destFileName>postgresql-jdbc4.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
+							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
+							<detachedMode>true</detachedMode>
 						</configuration>
 					</execution>
 					<execution>
-						<id>copy-jdbc-vwor</id>
-						<phase>package</phase>
+						<id>down</id>
+						<phase>post-integration-test</phase>
 						<goals>
-							<goal>copy</goal>
+							<goal>down</goal>
 						</goals>
 						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.postgresql</groupId>
-									<artifactId>postgresql</artifactId>
-									<version>${postgresql.version}</version>
-									<type>jar</type>
-									<outputDirectory>${project.build.directory}/dockerbuild/vwor</outputDirectory>
-									<destFileName>postgresql-jdbc4.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
+							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
+							<removeVolumes>true</removeVolumes>
 						</configuration>
 					</execution>
 				</executions>
@@ -179,7 +164,7 @@
 						</configuration>
 					</execution>
 					<!-- Uncomment to also build httpd docker image -->
-					<!-- execution>
+					<!--execution>
 						<id>build httpd image</id>
 						<goals>
 							<goal>build</goal>
@@ -188,9 +173,9 @@
 							<contextDirectory>${project.build.directory}/dockerbuild/httpd</contextDirectory>
 							<repository>${docker.registry}/veraweb-httpd</repository>
 						</configuration>
-					</execution -->
+					</execution-->
 					<!-- Uncomment to also build LDAP docker image -->
-					<!-- execution>
+					<!--execution>
 						<id>build LDAP image</id>
 						<goals>
 							<goal>build</goal>
@@ -199,7 +184,7 @@
 							<contextDirectory>${project.build.directory}/dockerbuild/ldap</contextDirectory>
 							<repository>${docker.registry}/veraweb-ldap</repository>
 						</configuration>
-					</execution -->
+					</execution-->
 				</executions>
 				<dependencies>
 					<dependency>
@@ -209,40 +194,55 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<!-- Run containers via docker compose -->
-			<plugin>
-				<groupId>com.dkanejs.maven.plugins</groupId>
-				<artifactId>docker-compose-maven-plugin</artifactId>
-				<version>${maven.docker-compose.version}</version>
-				<executions>
-					<execution>
-						<id>up</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>up</goal>
-						</goals>
-						<configuration>
-							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
-							<detachedMode>true</detachedMode>
-						</configuration>
-					</execution>
-					<execution>
-						<id>down</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>down</goal>
-						</goals>
-						<configuration>
-							<composeFile>${project.basedir}/docker-compose.yml</composeFile>
-							<removeVolumes>true</removeVolumes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<!-- Compile groovy tests -->
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
+			</plugin>
+			<!-- Copy JDBC driver to build directory of core docker image -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-jdbc-core</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.postgresql</groupId>
+									<artifactId>postgresql</artifactId>
+									<version>${postgresql.version}</version>
+									<type>jar</type>
+									<outputDirectory>${project.build.directory}/dockerbuild/core</outputDirectory>
+									<destFileName>postgresql-jdbc4.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-jdbc-vwor</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.postgresql</groupId>
+									<artifactId>postgresql</artifactId>
+									<version>${postgresql.version}</version>
+									<type>jar</type>
+									<outputDirectory>${project.build.directory}/dockerbuild/vwor</outputDirectory>
+									<destFileName>postgresql-jdbc4.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- Execute tests -->
 			<plugin>

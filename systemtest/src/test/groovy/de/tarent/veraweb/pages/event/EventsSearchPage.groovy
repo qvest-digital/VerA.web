@@ -65,29 +65,26 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.pages
+package de.tarent.veraweb.pages.event
 
-import de.tarent.veraweb.modules.NavigationBar
-import de.tarent.veraweb.modules.PersonForm
 import geb.Page
+import org.openqa.selenium.By
 
-class PersonEditPage extends Page {
+class EventsSearchPage extends Page {
 
     static at = {
-        pageTitle.text().startsWith('Person bearbeiten')
-        waitFor {
-            navigationBar.isDisplayed()
-            personForm.isDisplayed()
-        }
+        pageTitle.text() == 'Veranstaltungssuche'
     }
 
     static content = {
         pageTitle { $('h1') }
-        personForm { module PersonForm }
-        navigationBar { module NavigationBar }
+        contentContainer { $('#content_container')}
+        searchFieldShortName { contentContainer.find(By.id('input.shortname'))}
+        searchButton { contentContainer.find(By.id('button.startSearch'))}
     }
 
-    def deletePerson() {
-        personForm.deletePerson()
+    def searchEvent(String query) {
+        searchFieldShortName = query
+        searchButton.click()
     }
 }

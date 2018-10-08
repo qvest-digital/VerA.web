@@ -14,8 +14,63 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.mitre.dsmiley.httpproxy</groupId>
-			<artifactId>smiley-http-proxy-servlet</artifactId>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.jodah</groupId>
+			<artifactId>expiringmap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.veraweb</groupId>
+			<artifactId>rest-api-common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
@@ -23,19 +78,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-servlet</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-commons</artifactId>
+			<artifactId>octopus-ext-annotation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-beans</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.osiam</groupId>
-			<artifactId>connector4java</artifactId>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>octopus-ext-commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
@@ -47,63 +98,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-annotation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>activation</artifactId>
+			<artifactId>octopus-servlet</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.el</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb</groupId>
-			<artifactId>rest-api-common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -114,26 +113,27 @@
 			<artifactId>hibernate-validator-annotation-processor</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
+			<groupId>org.mitre.dsmiley.httpproxy</groupId>
+			<artifactId>smiley-http-proxy-servlet</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osiam</groupId>
+			<artifactId>connector4java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.jodah</groupId>
-			<artifactId>expiringmap</artifactId>
 		</dependency>
 	</dependencies>
 	<profiles>
@@ -141,18 +141,6 @@
 			<id>latex</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>com.github.fracpete</groupId>
-						<artifactId>latex-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<goals>
-									<goal>latex</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>build-helper-maven-plugin</artifactId>
@@ -176,13 +164,20 @@
 						</executions>
 					</plugin>
 					<plugin>
+						<groupId>com.github.fracpete</groupId>
+						<artifactId>latex-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>latex</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-assembly-plugin</artifactId>
-						<configuration>
-							<descriptors>
-								<descriptor>assembly.xml</descriptor>
-							</descriptors>
-						</configuration>
 						<executions>
 							<execution>
 								<id>dist-assembly</id>
@@ -192,6 +187,11 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
@@ -199,17 +199,10 @@
 	</profiles>
 	<build>
 		<plugins>
+			<!-- Needed to get correct code coverage from java and groovy tests -->
 			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<warName>veraweb</warName>
-					<webappDirectory>
-						${project.build.directory}/veraweb
-					</webappDirectory>
-					<warSourceExcludes>
-						OCTOPUS/customized.xml
-					</warSourceExcludes>
-				</configuration>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -229,17 +222,21 @@
 					<contextPath>/veraweb</contextPath>
 				</configuration>
 			</plugin>
-			<!-- Needed to get correct code coverage from java and groovy tests -->
-			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-			</plugin>
 			<plugin>
 				<groupId>com.github.fracpete</groupId>
 				<artifactId>latex-maven-plugin</artifactId>
 				<configuration>
 					<forceBuild>true</forceBuild>
 					<extraRuns>2</extraRuns>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warName>veraweb</warName>
+					<webappDirectory>${project.build.directory}/veraweb</webappDirectory>
+					<warSourceExcludes>OCTOPUS/customized.xml</warSourceExcludes>
 				</configuration>
 			</plugin>
 		</plugins>

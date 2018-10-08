@@ -65,66 +65,19 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.pages
+package de.tarent.veraweb.pages.event
 
-import de.tarent.veraweb.modules.PersonTableRow
+import de.tarent.veraweb.modules.event.EventCreateForm
 import geb.Page
-import geb.navigator.EmptyNavigator
-import org.openqa.selenium.By
 
-class PersonOverviewPage extends Page {
-
+class EventCreatePage extends Page {
     static at = {
-        pageTitle.text() == 'Personenübersicht'
+        pageTitle.text() == 'Neue Veranstaltung anlegen'
     }
 
     static content = {
-        pageTitle { $('h1') }
-        form { $('form#formlist') }
+        pageTitle {$('h1')}
 
-        table { form.find('table')}
-        tableRows { table.$('tbody > tr').moduleList(PersonTableRow) }
-
-        executeButton { form.find(By.id('button.execute')) }
-        actionSelection { form.find(By.id('actionSelection'))}
-
-        reallyDeleteButton { browser.$('div.msg.errormsg.errormsgButton').$('div.floatRight').$('input')[0]}
-        successMessage { browser.$('div.msg.successmsg').$('span') }
-    }
-
-    def selectRowByLastName(String lastName) {
-        waitFor {
-            table.displayed
-        }
-        PersonTableRow row = tableRows.findResult {
-            !EmptyNavigator.isInstance(it.cell) &&
-                    !EmptyNavigator.isInstance(it.lastName) &&
-                    it.lastName.text() == lastName ? it : null
-        }
-        if (row != null) {
-            row.checkbox.click()
-            return true
-        }
-        return false
-    }
-
-    def performDeletion() {
-        performAction('Löschen')
-        waitFor {
-            reallyDeleteButton.displayed
-        }
-        reallyDeleteButton.click()
-    }
-
-    def performAction(String action) {
-        actionSelection = action
-        executeButton.click()
-    }
-
-    def successMessage() {
-        waitFor {
-            successMessage.displayed
-        }
-        successMessage.text()
+        form {module EventCreateForm}
     }
 }

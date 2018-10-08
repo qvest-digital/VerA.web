@@ -65,30 +65,16 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.pages
+package de.tarent.veraweb.pages.person
 
-import de.tarent.veraweb.modules.NavigationBar
-import de.tarent.veraweb.modules.PersonForm
 import geb.Page
 
-class EventEditPage extends Page {
-
+class PersonExportPage extends Page {
     static at = {
-        pageTitle.text().startsWith('Veranstaltung bearbeiten')
-        waitFor {
-            navigationBar.isDisplayed()
-        }
+        pageTitle.text() == "Export von Personendaten"
     }
 
     static content = {
-        pageTitle { $('h1') }
-        navigationBar { module NavigationBar }
-        contentContainer { $('#content_container')}
-        guestListButton {contentContainer.$('input.mainButton')[0]}
-    }
-
-    def toGuestList() {
-        def button = guestListButton
-        guestListButton.click()
+        pageTitle {$('h1')}
     }
 }
