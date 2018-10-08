@@ -14,7 +14,6 @@
 		<profile>
 			<id>systemtest</id>
 			<build>
-				<testSourceDirectory>src/test/groovy/</testSourceDirectory>
 				<resources>
 					<!-- Copy core Dockerfile -->
 					<resource>
@@ -315,4 +314,7 @@
 			</dependencies>
 		</profile>
 	</profiles>
+	<build>
+		<testSourceDirectory>src/test/groovy/</testSourceDirectory>
+	</build>
 </project>
