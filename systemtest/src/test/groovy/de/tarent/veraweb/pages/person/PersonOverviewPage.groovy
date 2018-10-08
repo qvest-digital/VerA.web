@@ -65,97 +65,66 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.modules
+package de.tarent.veraweb.pages.person
 
-import geb.Module
-import geb.navigator.Navigator
+import de.tarent.veraweb.modules.person.PersonTableRow
+import geb.Page
+import geb.navigator.EmptyNavigator
 import org.openqa.selenium.By
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.interactions.Actions
 
-class NavigationBar extends Module {
+class PersonOverviewPage extends Page {
+
+    static at = {
+        pageTitle.text() == 'Personenübersicht'
+    }
 
     static content = {
-        nav { $('nav#nav')}
+        pageTitle { $('h1') }
+        form { $('form#formlist') }
 
-        // menus
-        // persons
-        personsMenu { nav.find('span')[0] }
-        personsOverview { nav.find(By.id('menu.overviewPerson')) }
-        personsSearch { nav.find(By.id('menu.searchPerson')) }
-        personsCreate { nav.find(By.id('menu.newPerson')) }
-        personsSearchReplace {nav.find(By.id('menu.searchReplace'))}
-        personsDoublet {nav.find(By.id('menu.searchDuplicate'))}
-        personsExport {nav.find(By.id('menu.exportPerson'))}
-        personsImport {nav.find(By.id('menu.importPerson'))}
+        table { form.find('table')}
+        tableRows { table.$('tbody > tr').moduleList(PersonTableRow) }
 
-        // events
-        eventsMenu { nav.find('span')[1] }
-        eventsOverview {nav.find(By.id('menu.overviewEvent'))}
-        eventsSearch {nav.find(By.id('menu.searchEvent'))}
-        eventsCreate {nav.find(By.id('menu.newEvent'))}
+        executeButton { form.find(By.id('button.execute')) }
+        actionSelection { form.find(By.id('actionSelection'))}
 
-        // management
-        managementMenu { nav.find('span')[2] }
-
-        // administration
-        administrationMenu { nav.find('span')[3] }
+        reallyDeleteButton { browser.$('div.msg.errormsg.errormsgButton').$('div.floatRight').$('input')[0]}
+        successMessage { browser.$('div.msg.successmsg').$('span') }
     }
 
-    def toPersonOverview(WebDriver driver) {
-        navigateTo(personsMenu, personsOverview, driver)
+    def selectRowByLastName(String lastName) {
+        waitFor {
+            table.displayed
+        }
+        PersonTableRow row = tableRows.findResult {
+            !EmptyNavigator.isInstance(it.cell) &&
+                    !EmptyNavigator.isInstance(it.lastName) &&
+                    it.lastName.text() == lastName ? it : null
+        }
+        if (row != null) {
+            row.checkbox.click()
+            return true
+        }
+        return false
     }
 
-    def toPersonSearch(WebDriver driver) {
-        navigateTo(personsMenu, personsSearch, driver)
+    def performDeletion() {
+        performAction('Löschen')
+        waitFor {
+            reallyDeleteButton.displayed
+        }
+        reallyDeleteButton.click()
     }
 
-    def toPersonCreation(WebDriver driver) {
-        navigateTo(personsMenu, personsCreate, driver)
+    def performAction(String action) {
+        actionSelection = action
+        executeButton.click()
     }
 
-    def toPersonSearchReplace(WebDriver driver) {
-        navigateTo(personsMenu, personsSearchReplace, driver)
-    }
-
-    def toPersonDoublet(WebDriver driver) {
-        navigateTo(personsMenu, personsDoublet, driver)
-    }
-
-    def toPersonExport(WebDriver driver) {
-        navigateTo(personsMenu, personsExport, driver)
-    }
-
-    def toPersonImport(WebDriver driver) {
-        navigateTo(personsMenu, personsImport, driver)
-    }
-
-    def toEventOverview(WebDriver driver) {
-        navigateTo(eventsMenu, eventsOverview, driver)
-    }
-
-    def toEventSearch(WebDriver driver) {
-        navigateTo(eventsMenu, eventsSearch, driver)
-    }
-
-    def toEventCreation(WebDriver driver) {
-        navigateTo(eventsMenu, eventsCreate, driver)
-    }
-
-    def navigateTo(Navigator menu, Navigator menuItem, WebDriver driver) {
-        openMenu(menu, driver)
-        clickMenuItem(menuItem, driver)
-    }
-
-    def openMenu(Navigator menu, WebDriver driver) {
-        Actions actions = new Actions(driver)
-        actions.moveToElement(menu.firstElement())
-        actions.perform()
-    }
-
-    def clickMenuItem(Navigator menuItem, WebDriver driver) {
-        Actions actions = new Actions(driver)
-        actions.click(menuItem.firstElement())
-        actions.perform()
+    def successMessage() {
+        waitFor {
+            successMessage.displayed
+        }
+        successMessage.text()
     }
 }

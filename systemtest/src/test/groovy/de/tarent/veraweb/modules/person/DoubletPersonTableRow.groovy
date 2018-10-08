@@ -65,37 +65,19 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb
+package de.tarent.veraweb.modules.person
 
-import de.tarent.veraweb.pages.PersonOverviewPage
-import de.tarent.veraweb.pages.PersonSearchPage
+import geb.Module
 
-class SearchPersonTest extends AbstractUITest {
-
-    def setup() {
-        loginAsAdmin()
-    }
-
-    def cleanup() {
-        logout()
-    }
-
-    def 'search for previously created person'() {
-
-        given:
-        def lastName = 'Mustermann'
-
-        when: 'navigate to search page'
-        mainPage.navigationBar.toPersonSearch(driver)
-
-        then:
-        PersonSearchPage searchPage = at PersonSearchPage
-
-        when: 'search for person'
-        searchPage.searchPerson(lastName)
-
-        then:
-        PersonOverviewPage overviewPage = at PersonOverviewPage
-        overviewPage.selectRowByLastName(lastName) == true
+class DoubletPersonTableRow extends Module {
+    static content = {
+        cell(required: false) { $("td") }
+        checkbox(required: false) { cell[0].$('input')}
+        id(required: false) {cell[1].text()}
+        internalId(required: false) {cell[2].text()}
+        date(required: false) {cell[3].text()}
+        workarea(required: false) {cell[4].text()}
+        lastName(required: false) {cell[5]}
+        firstName(required: false) {cell[6].text()}
     }
 }

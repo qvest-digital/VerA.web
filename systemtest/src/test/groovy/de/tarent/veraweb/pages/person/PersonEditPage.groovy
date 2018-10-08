@@ -65,17 +65,20 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.pages
+package de.tarent.veraweb.pages.person
 
 import de.tarent.veraweb.modules.NavigationBar
-import de.tarent.veraweb.modules.PersonForm
+import de.tarent.veraweb.modules.person.PersonForm
 import geb.Page
-import org.openqa.selenium.By
 
-class PersonCreatePage extends Page {
+class PersonEditPage extends Page {
 
     static at = {
-        pageTitle.text() == 'Neue Person anlegen'
+        pageTitle.text().startsWith('Person bearbeiten')
+        waitFor {
+            navigationBar.isDisplayed()
+            personForm.isDisplayed()
+        }
     }
 
     static content = {
@@ -84,20 +87,7 @@ class PersonCreatePage extends Page {
         navigationBar { module NavigationBar }
     }
 
-    def savePerson() {
-        personForm.submit()
-        personForm.submit()
-    }
-
-    def toPrivateAddressData() {
-        personForm.toPrivateAddressData()
-    }
-
-    def toCompanyAddressData() {
-        personForm.toCompanyAddressData()
-    }
-
-    def toPersonData() {
-        personForm.toPersonData()
+    def deletePerson() {
+        personForm.deletePerson()
     }
 }

@@ -65,50 +65,42 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.pages
+package de.tarent.veraweb.pages.event
 
-import de.tarent.veraweb.modules.EventTableRow
+import de.tarent.veraweb.modules.event.EventTable
 import geb.Page
-import geb.navigator.EmptyNavigator
+import org.openqa.selenium.By
 
-class EventListPage extends Page {
-
+class EventOverviewPage extends Page {
     static at = {
-        pageTitle.text() == 'Veranstalungsübersicht' || pageTitle.text() == 'Suchergebnis: Veranstaltung(en)'
+        pageTitle.text() == "Veranstaltungsübersicht"
     }
 
     static content = {
-        pageTitle { $('h1') }
-        form { $('form#formlist') }
+        pageTitle {$('h1')}
 
-        table { form.find('table')}
-        tableRows { table.$('tbody > tr').moduleList(EventTableRow) }
+        form {$('form#formlist')}
+
+        table {module EventTable}
+
+        remove {form.find(By.id('button.remove'))}
+
+        reallyDeleteButton { browser.$('div.msg.errormsg.errormsgButton').$('div.floatRight').$('input')[0]}
+        successMessage { browser.$('div.msg.successmsg').$('span') }
     }
 
-    def selectRowByName(String name) {
-        EventTableRow row = findRowByName(name)
-        if (row != null) {
-            row.checkbox.click()
-            return true
-        }
-        return false
-    }
-
-    def clickRowByName(String name) {
-        EventTableRow row = findRowByName(name)
-        if (row != null) {
-            row.name.click()
-        }
-    }
-
-    def findRowByName(String name) {
+    def perfomDeletion() {
+        remove.click()
         waitFor {
-            table.displayed
+            reallyDeleteButton.displayed
         }
+        reallyDeleteButton.click()
+    }
 
-        tableRows.findResult {
-            !EmptyNavigator.isInstance(it.cell) &&
-                    !EmptyNavigator.isInstance(it.name) &&
-                    it.name.text() == name ? it : null }
+    def successMessage() {
+        waitFor {
+            successMessage.displayed
+        }
+        successMessage.text()
     }
 }

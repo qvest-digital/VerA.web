@@ -65,18 +65,50 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.modules
+package de.tarent.veraweb.pages.guest
 
-import geb.Module
+import de.tarent.veraweb.modules.guest.AddGuestTableRow
+import geb.Page
+import geb.navigator.EmptyNavigator
 
-class PersonTableRow extends Module {
+class AddGuestPage extends Page {
+    static at = {
+        pageTitle.text().startsWith('Gast hinzufügen zu')
+    }
 
     static content = {
-        cell(required: false) { $("td") }
-        checkbox(required: false) { cell[0].$('input')}
-        id(required: false) {cell[1].text()}
-        internalId(required: false) {cell[2].text()}
-        lastName(required: false) {cell[4]}
-        firstName(required: false) {cell[5].text()}
+        pageTitle {$('h1')}
+
+        form {$('form#formlist')}
+
+        table {form.find('table')}
+        tableRows {table.$('tbody > tr').moduleList(AddGuestTableRow)}
+
+        addPersonButton {form.$('input', type: 'button', value: 'Hinzufügen')}
+    }
+
+    def addSelectedPerson() {
+        addPersonButton.click()
+    }
+
+    def selectRowByName(String firstname, String lastname) {
+        AddGuestTableRow row = findRowByName(firstname, lastname)
+        if(row != null) {
+            row.mainPersonCheckbox.click()
+            return true
+        }
+        return false
+    }
+
+    def findRowByName(String name, String firstName) {
+        waitFor {
+            table.displayed
+        }
+
+        tableRows.findResult {
+            !EmptyNavigator.isInstance(it.cell) &&
+                    !EmptyNavigator.isInstance(it.name) &&
+                    !EmptyNavigator.isInstance(it.firstName) &&
+                    (it.name.text() == name && it.firstName.text() == firstName)? it : null }
     }
 }

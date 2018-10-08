@@ -65,97 +65,54 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.modules
+package de.tarent.veraweb
 
-import geb.Module
-import geb.navigator.Navigator
-import org.openqa.selenium.By
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.interactions.Actions
+import de.tarent.veraweb.pages.guest.AddGuestPage
+import de.tarent.veraweb.pages.guest.GuestListPage
+import de.tarent.veraweb.pages.event.EventEditPage
+import de.tarent.veraweb.pages.event.EventOverviewPage
+import de.tarent.veraweb.pages.person.PersonSearchPage
 
-class NavigationBar extends Module {
-
-    static content = {
-        nav { $('nav#nav')}
-
-        // menus
-        // persons
-        personsMenu { nav.find('span')[0] }
-        personsOverview { nav.find(By.id('menu.overviewPerson')) }
-        personsSearch { nav.find(By.id('menu.searchPerson')) }
-        personsCreate { nav.find(By.id('menu.newPerson')) }
-        personsSearchReplace {nav.find(By.id('menu.searchReplace'))}
-        personsDoublet {nav.find(By.id('menu.searchDuplicate'))}
-        personsExport {nav.find(By.id('menu.exportPerson'))}
-        personsImport {nav.find(By.id('menu.importPerson'))}
-
-        // events
-        eventsMenu { nav.find('span')[1] }
-        eventsOverview {nav.find(By.id('menu.overviewEvent'))}
-        eventsSearch {nav.find(By.id('menu.searchEvent'))}
-        eventsCreate {nav.find(By.id('menu.newEvent'))}
-
-        // management
-        managementMenu { nav.find('span')[2] }
-
-        // administration
-        administrationMenu { nav.find('span')[3] }
+class GuestTest extends AbstractUITest {
+    def setup() {
+        loginAsAdmin()
     }
 
-    def toPersonOverview(WebDriver driver) {
-        navigateTo(personsMenu, personsOverview, driver)
+    def cleanup() {
+        logout()
     }
 
-    def toPersonSearch(WebDriver driver) {
-        navigateTo(personsMenu, personsSearch, driver)
-    }
+    def 'add person to event'() {
+        given:
+        mainPage.navigationBar.toEventOverview(driver)
+        EventOverviewPage eventOverviewPage = at EventOverviewPage
+        eventOverviewPage.table.clickRowByName("Sommerfest")
+        EventEditPage eventEditPage = at EventEditPage
 
-    def toPersonCreation(WebDriver driver) {
-        navigateTo(personsMenu, personsCreate, driver)
-    }
+        when:
+        eventEditPage.toGuestList()
 
-    def toPersonSearchReplace(WebDriver driver) {
-        navigateTo(personsMenu, personsSearchReplace, driver)
-    }
+        then:
+        GuestListPage guestListPage = at GuestListPage
 
-    def toPersonDoublet(WebDriver driver) {
-        navigateTo(personsMenu, personsDoublet, driver)
-    }
+        when:
+        guestListPage.addGuest()
 
-    def toPersonExport(WebDriver driver) {
-        navigateTo(personsMenu, personsExport, driver)
-    }
+        then:
+        PersonSearchPage personSearchPage = at PersonSearchPage
 
-    def toPersonImport(WebDriver driver) {
-        navigateTo(personsMenu, personsImport, driver)
-    }
+        when:
+        personSearchPage.searchPersonByName("Max", 'Mustermann')
 
-    def toEventOverview(WebDriver driver) {
-        navigateTo(eventsMenu, eventsOverview, driver)
-    }
+        then:
+        AddGuestPage addGuestPage = at AddGuestPage
 
-    def toEventSearch(WebDriver driver) {
-        navigateTo(eventsMenu, eventsSearch, driver)
-    }
+        when:
+        addGuestPage.selectRowByName('Max', 'Mustermann')
+        addGuestPage.addSelectedPerson()
 
-    def toEventCreation(WebDriver driver) {
-        navigateTo(eventsMenu, eventsCreate, driver)
-    }
-
-    def navigateTo(Navigator menu, Navigator menuItem, WebDriver driver) {
-        openMenu(menu, driver)
-        clickMenuItem(menuItem, driver)
-    }
-
-    def openMenu(Navigator menu, WebDriver driver) {
-        Actions actions = new Actions(driver)
-        actions.moveToElement(menu.firstElement())
-        actions.perform()
-    }
-
-    def clickMenuItem(Navigator menuItem, WebDriver driver) {
-        Actions actions = new Actions(driver)
-        actions.click(menuItem.firstElement())
-        actions.perform()
+        then:
+        GuestListPage guestListPageNew = at GuestListPage
+        guestListPageNew.selectRowByName('Mustermann', 'Max') == true
     }
 }

@@ -65,97 +65,36 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.veraweb.modules
+package de.tarent.veraweb.pages.person
 
-import geb.Module
-import geb.navigator.Navigator
-import org.openqa.selenium.By
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.interactions.Actions
+import de.tarent.veraweb.modules.person.DoubletPersonTableRow
+import geb.Page
+import geb.navigator.EmptyNavigator
 
-class NavigationBar extends Module {
+class DoubletSearchPage extends Page {
+    static at = {
+        pageTitle.text() == "Dublettensuche"
+    }
 
     static content = {
-        nav { $('nav#nav')}
+        pageTitle { $('h1') }
 
-        // menus
-        // persons
-        personsMenu { nav.find('span')[0] }
-        personsOverview { nav.find(By.id('menu.overviewPerson')) }
-        personsSearch { nav.find(By.id('menu.searchPerson')) }
-        personsCreate { nav.find(By.id('menu.newPerson')) }
-        personsSearchReplace {nav.find(By.id('menu.searchReplace'))}
-        personsDoublet {nav.find(By.id('menu.searchDuplicate'))}
-        personsExport {nav.find(By.id('menu.exportPerson'))}
-        personsImport {nav.find(By.id('menu.importPerson'))}
+        form {$('form#formlist')}
 
-        // events
-        eventsMenu { nav.find('span')[1] }
-        eventsOverview {nav.find(By.id('menu.overviewEvent'))}
-        eventsSearch {nav.find(By.id('menu.searchEvent'))}
-        eventsCreate {nav.find(By.id('menu.newEvent'))}
-
-        // management
-        managementMenu { nav.find('span')[2] }
-
-        // administration
-        administrationMenu { nav.find('span')[3] }
+        table {form.find('table')}
+        tableRows { table.$('tbody > tr').moduleList(DoubletPersonTableRow) }
     }
 
-    def toPersonOverview(WebDriver driver) {
-        navigateTo(personsMenu, personsOverview, driver)
-    }
+    def countAllPersonsByLastName(String lastName) {
+        waitFor {
+            table.displayed
+        }
+        List<DoubletPersonTableRow> personList = tableRows.findResults {
+            !EmptyNavigator.isInstance(it.cell) &&
+                    !EmptyNavigator.isInstance(it.lastName) ? it : null
+                    it.lastName.text() == lastName ? it : null
+        }
 
-    def toPersonSearch(WebDriver driver) {
-        navigateTo(personsMenu, personsSearch, driver)
-    }
-
-    def toPersonCreation(WebDriver driver) {
-        navigateTo(personsMenu, personsCreate, driver)
-    }
-
-    def toPersonSearchReplace(WebDriver driver) {
-        navigateTo(personsMenu, personsSearchReplace, driver)
-    }
-
-    def toPersonDoublet(WebDriver driver) {
-        navigateTo(personsMenu, personsDoublet, driver)
-    }
-
-    def toPersonExport(WebDriver driver) {
-        navigateTo(personsMenu, personsExport, driver)
-    }
-
-    def toPersonImport(WebDriver driver) {
-        navigateTo(personsMenu, personsImport, driver)
-    }
-
-    def toEventOverview(WebDriver driver) {
-        navigateTo(eventsMenu, eventsOverview, driver)
-    }
-
-    def toEventSearch(WebDriver driver) {
-        navigateTo(eventsMenu, eventsSearch, driver)
-    }
-
-    def toEventCreation(WebDriver driver) {
-        navigateTo(eventsMenu, eventsCreate, driver)
-    }
-
-    def navigateTo(Navigator menu, Navigator menuItem, WebDriver driver) {
-        openMenu(menu, driver)
-        clickMenuItem(menuItem, driver)
-    }
-
-    def openMenu(Navigator menu, WebDriver driver) {
-        Actions actions = new Actions(driver)
-        actions.moveToElement(menu.firstElement())
-        actions.perform()
-    }
-
-    def clickMenuItem(Navigator menuItem, WebDriver driver) {
-        Actions actions = new Actions(driver)
-        actions.click(menuItem.firstElement())
-        actions.perform()
+        return personList.size()
     }
 }
