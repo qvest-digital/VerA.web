@@ -7,7 +7,7 @@
 		<version>1.9.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>veraweb-systemtest</artifactId>
-	<!--packaging>pom</packaging-->
+	<packaging>pom</packaging>
 	<description>VerA.web systemtest module</description>
 	<!-- does nothing unless -Psystemtest is used -->
 	<profiles>
