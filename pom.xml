@@ -289,6 +289,7 @@
 						</configuration>
 					</execution>
 				</executions>
+				<inherited>false</inherited>
 			</plugin>
 			<!--plugin>
 				<groupId>org.codehaus.mojo</groupId>
