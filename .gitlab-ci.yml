@@ -14,7 +14,7 @@ test:
   except:
     - master@veraweb-int/veraweb
   script:
-    - xvfb-run mvn verify sonar:sonar -Psystemtest -Dsonar.host.url=https://ci-busyapps.lan.tarent.de/sonar/ -Dsonar.analysis.mode=preview -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_BUILD_REF -Dsonar.gitlab.ref_name=$CI_BUILD_REF_NAME
+    - xvfb-run mvn -B -Psystemtest -Dsonar.host.url=https://ci-busyapps.lan.tarent.de/sonar/ -Dsonar.analysis.mode=preview -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_BUILD_REF -Dsonar.gitlab.ref_name=$CI_BUILD_REF_NAME clean verify sonar:sonar
   artifacts:
     paths:
     - core/target/surefire-reports/
@@ -37,7 +37,7 @@ build:
   only:
     - master@veraweb-int/veraweb
   script:
-    - xvfb-run mvn verify -Psystemtest
+    - xvfb-run mvn -B -Psystemtest clean verify
   artifacts:
     paths:
     - core/target/surefire-reports/
