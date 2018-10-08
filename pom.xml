@@ -91,6 +91,7 @@
 		<!-- maven plugins -->
 		<maven.docker-compose.version>1.0.3</maven.docker-compose.version>
 		<maven.dockerfile.version>1.4.3</maven.dockerfile.version>
+		<maven.failsafe.version>2.22.0</maven.failsafe.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 		<maven.karma.version>1.8</maven.karma.version>
 		<maven.owasp.dependency-check.version>3.3.2</maven.owasp.dependency-check.version>
