@@ -77,11 +77,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by Max Marche, m.marche@tarent.de on 26.01.2015
  */
-@Path("/freevisitors")
+@Path(RestPaths.REST_FREEVISITORS)
 @Produces(MediaType.APPLICATION_JSON)
 public class FreeVisitorsResource extends AbstractResource {
 
@@ -91,7 +92,7 @@ public class FreeVisitorsResource extends AbstractResource {
      * @param noLoginRequiredUUID No login required UUD for tguest.login_required_uuid
      * @return The {@link Guest}-ID, otherwise -1
      */
-    @Path("/noLoginRequired/{noLoginRequiredUUID}")
+    @Path(RestPaths.REST_FREEVISITORS_GET_GUEST)
     @GET
     public Integer checkGuestExistsByNoLoginRequiredUUID(@PathParam("noLoginRequiredUUID") String noLoginRequiredUUID) {
         final Session session = openSession();

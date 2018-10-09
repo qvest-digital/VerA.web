@@ -93,9 +93,10 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.evolvis.veraweb.common.RestPaths;
 
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
-@Path("/mailing")
+@Path(RestPaths.REST_MAILING)
 @Consumes({ MediaType.MULTIPART_FORM_DATA })
 public class MailingResource extends FormDataResource {
     private static final Logger LOGGER = Logger.getLogger(MailingResource.class);

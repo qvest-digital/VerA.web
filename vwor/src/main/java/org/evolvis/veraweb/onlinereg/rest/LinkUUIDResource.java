@@ -80,15 +80,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-@Path("/links")
+@Path(RestPaths.REST_LINK)
 @Produces(MediaType.APPLICATION_JSON)
 public class LinkUUIDResource extends AbstractResource {
 
-    @Path("/{uuid}")
+    @Path(RestPaths.REST_LINK_UUID)
     @GET
     public Integer getUserIdByUUID(@PathParam("uuid") String uuid) {
         final Session session = openSession();
@@ -106,7 +107,7 @@ public class LinkUUIDResource extends AbstractResource {
         }
     }
 
-    @Path("/delete")
+    @Path(RestPaths.REST_LINK_DELETE)
     @POST
     public void deleteUUID(@FormParam("personId") Integer personId) {
         final Session session = openSession();
@@ -121,7 +122,7 @@ public class LinkUUIDResource extends AbstractResource {
         }
     }
 
-    @Path("/byPersonId/{personId}")
+    @Path(RestPaths.REST_LINK_GET_BY_ID)
     @GET
     public List<LinkUUID> getLinkUuidsByPersonId(@PathParam("personId") Integer personId) {
         final Session session = openSession();

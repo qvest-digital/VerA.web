@@ -82,11 +82,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Calendar;
 import java.util.Date;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by tzimme on 19.01.16.
  */
-@Path("/osiam/user")
+@Path(RestPaths.REST_OSIAMUSER_ACTIVATION)
 @Produces(MediaType.APPLICATION_JSON)
 public class OsiamUserActivationResource extends AbstractResource {
 
@@ -95,7 +96,7 @@ public class OsiamUserActivationResource extends AbstractResource {
     private EmailResource emailResource;
 
     @POST
-    @Path("/create")
+    @Path(RestPaths.REST_OSIAMUSER_ACTIVATION_CREATE)
     public OsiamUserActivation addOsiamUserActivationEntry(@FormParam("username") String username,
       @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
@@ -114,7 +115,7 @@ public class OsiamUserActivationResource extends AbstractResource {
     }
 
     @POST
-    @Path("/activate")
+    @Path(RestPaths.REST_OSIAMUSER_ACTIVATE)
     public void removeOsiamUserActivationEntry(@FormParam("osiam_user_activation") String activationToken) {
         final Session session = openSession();
         session.beginTransaction();
@@ -129,7 +130,7 @@ public class OsiamUserActivationResource extends AbstractResource {
     }
 
     @GET
-    @Path("/get/activation/{activation_token}")
+    @Path(RestPaths.REST_OSIAMUSER_ACTIVATE_GET)
     public OsiamUserActivation getOsiamUserActivation(@PathParam("activation_token") String activationToken) {
         final Session session = openSession();
         try {
@@ -146,7 +147,7 @@ public class OsiamUserActivationResource extends AbstractResource {
     }
 
     @GET
-    @Path("/get/activation/byusername/{username}")
+    @Path(RestPaths.REST_OSIAMUSER_ACTIVATE_GET_BY_NAME)
     public OsiamUserActivation getOsiamUserActivationByUsername(@PathParam("username") String username) {
         final Session session = openSession();
         try {
@@ -171,7 +172,7 @@ public class OsiamUserActivationResource extends AbstractResource {
     }
 
     @POST
-    @Path("/refresh/activation/data")
+    @Path(RestPaths.REST_OSIAMUSER_ACTIVATE_REFRESH)
     public void refreshActivationdataByUsername(
       @FormParam("email") String email,
       @FormParam("username") String username,

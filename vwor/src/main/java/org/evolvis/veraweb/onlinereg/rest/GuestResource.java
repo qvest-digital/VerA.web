@@ -81,6 +81,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.math.BigInteger;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author mley on 03.08.14.
@@ -88,7 +89,7 @@ import java.math.BigInteger;
  * @author jnunez
  * @author jobere
  */
-@Path("/guest")
+@Path(RestPaths.REST_GUEST)
 @Produces(MediaType.APPLICATION_JSON)
 public class GuestResource extends AbstractResource {
     private static final String PARAM_DELEGATION_UUID = "delegationUUID";
@@ -109,7 +110,7 @@ public class GuestResource extends AbstractResource {
      * @return Guest
      */
     @GET
-    @Path("/{eventId}/{userId}")
+    @Path(RestPaths.REST_GUEST_GET_GUEST)
     public Guest getGuest(@PathParam(PARAM_EVENT_ID) int eventId, @PathParam(PARAM_USER_ID) int userId) {
         final Session session = openSession();
         try {
@@ -131,7 +132,7 @@ public class GuestResource extends AbstractResource {
      * @return Guest
      */
     @GET
-    @Path("/concrete/{eventId}/{userId}")
+    @Path(RestPaths.REST_GUEST_GET_GUEST_ID)
     public Integer getGuestId(@PathParam(PARAM_EVENT_ID) int eventId, @PathParam(PARAM_USER_ID) int userId) {
         final Session session = openSession();
         try {
@@ -152,7 +153,7 @@ public class GuestResource extends AbstractResource {
      * @return image UUID
      */
     @GET
-    @Path("/image/{delegationUUID}/{personId}")
+    @Path(RestPaths.REST_GUEST_GET_IMAGE_UUID)
     public String getGuestImageUUID(@PathParam(PARAM_DELEGATION_UUID) String delegationUUID,
       @PathParam("personId") int userId) {
         final Session session = openSession();
@@ -179,7 +180,7 @@ public class GuestResource extends AbstractResource {
      * @return The guest
      */
     @POST
-    @Path("/{eventId}/{userId}")
+    @Path(RestPaths.REST_GUEST_GET_GUEST_BY_EVENT_USER_ID)
     public Guest saveGuest(@PathParam(PARAM_EVENT_ID) int eventId,
       @PathParam(PARAM_USER_ID) int userId,
       @QueryParam("invitationstatus") int invitationstatus,
@@ -215,7 +216,7 @@ public class GuestResource extends AbstractResource {
      * @param imgUUID UUID of image
      */
     @POST
-    @Path("/update/entity")
+    @Path(RestPaths.REST_GUEST_UPDATE_ENTITY)
     public void updateGuestEntity(@FormParam(PARAM_GUEST_ID) Integer guestId, @FormParam("imgUUID") String imgUUID) {
         final Session session = openSession();
         session.beginTransaction();
@@ -242,7 +243,7 @@ public class GuestResource extends AbstractResource {
      * @param notehost         note text for host
      */
     @POST
-    @Path("/update/{eventId}/{userId}")
+    @Path(RestPaths.REST_GUEST_UPDATE_GUEST)
     public void updateGuest(@PathParam(PARAM_EVENT_ID) int eventId,
       @PathParam(PARAM_USER_ID) int userId,
       @FormParam("invitationstatus") int invitationstatus,
@@ -282,7 +283,7 @@ public class GuestResource extends AbstractResource {
      * @param notehost            note text for host
      */
     @POST
-    @Path("/update/nologin/{noLoginRequiredUUID}")
+    @Path(RestPaths.REST_GUEST_UPDATE_NOLOGIN)
     public void updateGuestWithoutLogin(
       @PathParam(PARAM_NO_LOGIN_REQUIRED_UUID) String noLoginRequiredUUID,
       @FormParam("invitationstatus") int invitationstatus,
@@ -312,7 +313,7 @@ public class GuestResource extends AbstractResource {
      * @return Guest
      */
     @GET
-    @Path("/{uuid}")
+    @Path(RestPaths.REST_GUEST_BY_UUID)
     public Guest findGuestByEventWithDelegationUUID(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
@@ -333,7 +334,7 @@ public class GuestResource extends AbstractResource {
      * @return Guest
      */
     @GET
-    @Path("/delegation/{uuid}/{userId}")
+    @Path(RestPaths.REST_GUEST_FIND_BY_DELEGATION)
     public Guest findGuestByDelegationAndPerson(@PathParam(PARAM_UUID) String uuid, @PathParam(PARAM_USER_ID) int userId) {
         final Session session = openSession();
         try {
@@ -354,7 +355,7 @@ public class GuestResource extends AbstractResource {
      * @return Guest
      */
     @GET
-    @Path("/delegation/{uuid}")
+    @Path(RestPaths.REST_GUEST_FIND_BY_DELEGATION_UUID)
     public Guest findGuestByDelegationUUID(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
@@ -374,7 +375,7 @@ public class GuestResource extends AbstractResource {
      * @return True if exists only one delegation, otherwise false
      */
     @GET
-    @Path("/exist/{uuid}")
+    @Path(RestPaths.REST_GUEST_EXIST_UUID)
     public Boolean existEventIdByDelegation(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
@@ -396,7 +397,7 @@ public class GuestResource extends AbstractResource {
      * @return true if guest count over 0
      */
     @GET
-    @Path("/registered/delegation/{username}/{delegation}")
+    @Path(RestPaths.REST_GUEST_REGISTERED)
     public Boolean isUserRegisteredintoEventByDelegation(@PathParam(PARAM_USERNAME) String username,
       @PathParam(PARAM_DELEGATION) String delegation) {
         final Session session = openSession();
@@ -420,7 +421,7 @@ public class GuestResource extends AbstractResource {
      * @return true if guest count over 0
      */
     @GET
-    @Path("/registered/{username}/{eventId}")
+    @Path(RestPaths.REST_GUEST_REGISTERED_BY_USERNAME_EVENT)
     public Boolean isUserRegisteredintoEvent(@PathParam(PARAM_USERNAME) String username,
       @PathParam(PARAM_EVENT_ID) Integer eventId) {
         return isUserRegistered(username, eventId, "Guest.checkUserRegistration");
@@ -434,7 +435,7 @@ public class GuestResource extends AbstractResource {
      * @return true if guest count over 0
      */
     @GET
-    @Path("/registered/accept/{username}/{eventId}")
+    @Path(RestPaths.REST_GUEST_REGISTERED_ACCEPT)
     public Boolean isUserRegisteredintoEventToAccept(@PathParam(PARAM_USERNAME) String username,
       @PathParam(PARAM_EVENT_ID) Integer eventId) {
         return isUserRegistered(username, eventId, "Guest.checkUserRegistrationToAccept");
@@ -470,7 +471,7 @@ public class GuestResource extends AbstractResource {
      * @return the person id to allow updating
      */
     @GET
-    @Path("/registered/nologin/{noLoginRequiredUUID}/{eventId}")
+    @Path(RestPaths.REST_GUEST_REGISTERED_NOLOGIN)
     public Boolean isUserRegisteredintoEventByUUID(@PathParam(PARAM_NO_LOGIN_REQUIRED_UUID) String noLoginRequiredUUID,
       @PathParam(PARAM_EVENT_ID) Integer eventId) {
         final Session session = openSession();
@@ -506,7 +507,7 @@ public class GuestResource extends AbstractResource {
      * @return Guest
      */
     @POST
-    @Path("/{uuid}/register")
+    @Path(RestPaths.REST_GUEST_ADD_TO_EVENT)
     public Guest addGuestToEvent(@PathParam(PARAM_UUID) String uuid,
       @FormParam(PARAM_EVENT_ID) Integer eventId,
       @FormParam(PARAM_USER_ID) Integer userId,
@@ -553,7 +554,7 @@ public class GuestResource extends AbstractResource {
      * @return Guest
      */
     @POST
-    @Path("/register")
+    @Path(RestPaths.REST_GUEST_REGISTER)
     public Guest addGuestToEvent(
       @FormParam(PARAM_EVENT_ID) Integer eventId,
       @FormParam(PARAM_USER_ID) Integer userId,
@@ -597,7 +598,7 @@ public class GuestResource extends AbstractResource {
      * @return FIXME
      */
     @GET
-    @Path("/isreserve/{eventId}/{username}")
+    @Path(RestPaths.REST_GUEST_ISRESERVE)
     public Boolean isReserve(@PathParam(PARAM_EVENT_ID) final Integer eventId,
       @PathParam(PARAM_USERNAME) final String username) {
 

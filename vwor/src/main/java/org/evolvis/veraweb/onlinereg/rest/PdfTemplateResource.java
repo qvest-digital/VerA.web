@@ -95,11 +95,12 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 import java.io.*;
 import java.util.*;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-@Path("/pdftemplate")
+@Path(RestPaths.REST_PDFTEMPLATE)
 @Produces(MediaType.APPLICATION_JSON)
 public class PdfTemplateResource extends FormDataResource {
     private final String currentExportFileName = "pdfexport-" + new Date().getTime() + ".pdf";
@@ -112,7 +113,7 @@ public class PdfTemplateResource extends FormDataResource {
     private List<SalutationAlternative> alternativeSalutations;
 
     @POST
-    @Path("/edit")
+    @Path(RestPaths.REST_PDFTEMPLATE_EDIT)
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
     public Response editPdfTemplateWithFile(FormDataMultiPart data) {
         Integer id = null;
@@ -145,7 +146,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     @POST
-    @Path("/edit")
+    @Path(RestPaths.REST_PDFTEMPLATE_EDIT)
     public Response editPdfTemplateWithoutFile(@FormParam("pdftemplate-id") Integer id,
       @FormParam("pdftemplate-name") String name,
       @FormParam("pdftemplate-orgunit") Integer mandantId) {
@@ -159,7 +160,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     @POST
-    @Path("/delete")
+    @Path(RestPaths.REST_PDFTEMPLATE_DELETE)
     public Response deletePdfTemplate(@FormParam("templateId[]") List<Integer> idList) {
         if (idList == null || idList.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
@@ -181,7 +182,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     @GET
-    @Path("/list")
+    @Path(RestPaths.REST_PDFTEMPLATE_GET_ALL)
     public Response listPdfTemplates(@QueryParam("mandantid") Integer mandantId) {
         Session session = openSession();
         try {
@@ -198,7 +199,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     @GET
-    @Path("/export")
+    @Path(RestPaths.REST_PDFTEMPLATE_EXPORT)
     @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
                                 @QueryParam("eventId") Integer eventId,

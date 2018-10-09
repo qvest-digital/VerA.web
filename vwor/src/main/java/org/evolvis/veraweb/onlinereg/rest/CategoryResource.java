@@ -77,11 +77,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * This class handles requests about category.
  */
-@Path("/category")
+@Path(RestPaths.REST_CATEGORY)
 @Produces(MediaType.APPLICATION_JSON)
 public class CategoryResource extends AbstractResource {
 
@@ -96,7 +97,7 @@ public class CategoryResource extends AbstractResource {
      * @return The category id
      */
     @GET
-    @Path("/{catname}/{uuid}")
+    @Path(RestPaths.REST_CATEGORY_GET_ID)
     public Integer getCategoryId(@PathParam(CATEGORY_NAME) String catname, @PathParam("uuid") String uuid) {
         final Session session = openSession();
         try {
@@ -120,7 +121,7 @@ public class CategoryResource extends AbstractResource {
      * @return Category ID
      */
     @GET
-    @Path("/identify")
+    @Path(RestPaths.REST_CATEGORY_IDENTIFY)
     public Integer getCategoryIdByCategoryName(@QueryParam(CATEGORY_NAME) String catname) {
         final Session session = openSession();
         try {
@@ -141,7 +142,7 @@ public class CategoryResource extends AbstractResource {
      * @return String catname
      */
     @GET
-    @Path("/catname/{uuid}/{personId}")
+    @Path(RestPaths.REST_CATEGORY_GET_NAME)
     public String getCatnameByPersonIdAndDelegationUUID(@PathParam("uuid") String uuid,
       @PathParam(PERSON_ID) String personId) {
         final Session session = openSession();
@@ -156,7 +157,7 @@ public class CategoryResource extends AbstractResource {
     }
 
     @GET
-    @Path("person/data")
+    @Path(RestPaths.REST_CATEGORY_GET_PERSON_DATA)
     public Integer getCategoryByCatnameAndOrgunit(@QueryParam(CATEGORY_NAME) String categoryName,
       @QueryParam(PERSON_ID) String personId) {
         final Session session = openSession();

@@ -77,11 +77,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-@Path("/email")
+@Path(RestPaths.REST_EMAIL)
 @Produces(MediaType.APPLICATION_JSON)
 public class EmailResource extends AbstractResource {
 
@@ -89,7 +90,7 @@ public class EmailResource extends AbstractResource {
     private MailDispatcher mailDispatcher;
 
     @POST
-    @Path("/confirmation/send")
+    @Path(RestPaths.REST_EMAIL_CONFIRM)
     public void sendEmailVerification(
       @FormParam("email") String email,
       @FormParam("endpoint") String endpoint,

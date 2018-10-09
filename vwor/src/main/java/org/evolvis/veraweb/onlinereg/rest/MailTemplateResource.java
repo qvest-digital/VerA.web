@@ -78,11 +78,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-@Path("/mailtemplate")
+@Path(RestPaths.REST_MAILTEMPLATE)
 @Produces(MediaType.APPLICATION_JSON)
 public class MailTemplateResource extends AbstractResource {
 

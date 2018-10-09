@@ -79,11 +79,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.math.BigInteger;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by mley on 03.08.14.
  */
-@Path("/event")
+@Path(RestPaths.REST_EVENT)
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResource extends AbstractResource {
     private static final String QUERY_FIND_PERSON_ID_BY_USERNAME = "Person.findPersonIdByUsername";
@@ -113,7 +114,7 @@ public class EventResource extends AbstractResource {
      * @param username String
      * @return List of events
      */
-    @Path("/userevents/{username}")
+    @Path(RestPaths.REST_EVENT_GET_USER_EVENTS)
     @GET
     public List<Event> listUsersEvents(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
@@ -138,7 +139,7 @@ public class EventResource extends AbstractResource {
      * @param username String
      * @return Boolean true, if user is registered to at least one event
      */
-    @Path("/userevents/existing/{username}")
+    @Path(RestPaths.REST_EVENT_CHECK_REGISTERED)
     @GET
     public Boolean checkUserRegistrationToEvents(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
@@ -157,7 +158,7 @@ public class EventResource extends AbstractResource {
         }
     }
 
-    @Path("/userid/{username}")
+    @Path(RestPaths.REST_EVENT_GET_PERSON_ID)
     @GET
     public Integer getPersonIdByUsername(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
@@ -183,7 +184,7 @@ public class EventResource extends AbstractResource {
      * @param eventId int
      * @return Event the event
      */
-    @Path("/{eventId}")
+    @Path(RestPaths.REST_EVENT_GET_EVENT)
     @GET
     public Event getEvent(@PathParam(PARAM_EVENT_ID) int eventId) {
         final Session session = openSession();
@@ -203,7 +204,7 @@ public class EventResource extends AbstractResource {
      * @return the checking
      */
     @GET
-    @Path("/exist/{uuid}")
+    @Path(RestPaths.REST_EVENT_EXIST)
     public Boolean existEventIdByDelegation(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
@@ -226,7 +227,7 @@ public class EventResource extends AbstractResource {
      * @return Integer the event id
      */
     @GET
-    @Path("/require/{uuid}")
+    @Path(RestPaths.REST_EVENT_GET_EVENT_ID)
     public Integer getEventIdByUUID(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
@@ -246,7 +247,7 @@ public class EventResource extends AbstractResource {
      * @return Boolean check
      */
     @GET
-    @Path("/isopen/{eventId}")
+    @Path(RestPaths.REST_EVENT_CHECK_OPEN)
     public Boolean isOpenEvent(@PathParam(PARAM_EVENT_ID) Integer eventId) {
         final Session session = openSession();
         try {
@@ -262,13 +263,13 @@ public class EventResource extends AbstractResource {
     }
 
     @GET
-    @Path("/guestlist/status/{eventId}")
+    @Path(RestPaths.REST_EVENT_GUESLIST_STATUS)
     public Boolean isGuestListFull(@PathParam(PARAM_EVENT_ID) Integer eventId) {
         return isListFull(eventId, "Event.checkMaxGuestLimit");
     }
 
     @GET
-    @Path("/reservelist/status/{eventId}")
+    @Path(RestPaths.REST_EVENT_RESERVELIST_STATUS)
     public Boolean isReserveListFull(@PathParam(PARAM_EVENT_ID) Integer eventId) {
         return isListFull(eventId, "Event.checkMaxReserveLimit");
     }
@@ -279,7 +280,7 @@ public class EventResource extends AbstractResource {
      * @param uuid String
      * @return Event the event
      */
-    @Path("/uuid/{uuid}")
+    @Path(RestPaths.REST_EVENT_GET_EVENT_BY_UUID)
     @GET
     public Event getEventByUUId(@PathParam("uuid") String uuid) {
         final Session session = openSession();

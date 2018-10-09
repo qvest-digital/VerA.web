@@ -80,18 +80,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by mweier on 27.12.16.
  */
-@Path("/imprint")
+@Path(RestPaths.REST_IMPRINT)
 @Produces(MediaType.APPLICATION_JSON)
 public class ImprintResource extends AbstractResource {
 
     private VworPropertiesReader vworPropertiesReader;
 
     @GET
-    @Path("/{language}")
+    @Path(RestPaths.REST_IMPRINT_LANGUAGE)
     public Map<String, Imprint> getImprintList(@PathParam("language") String languageKey) {
 
         if (languageKey == null || languageKey.equals("")) {

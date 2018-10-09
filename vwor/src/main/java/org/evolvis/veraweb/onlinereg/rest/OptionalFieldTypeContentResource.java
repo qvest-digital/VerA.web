@@ -78,8 +78,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
-@Path("/typecontent")
+@Path(RestPaths.REST_OPTIONALFIELDS_TYPECONTENT)
 @Produces(MediaType.APPLICATION_JSON)
 public class OptionalFieldTypeContentResource extends AbstractResource {
 
@@ -90,7 +91,7 @@ public class OptionalFieldTypeContentResource extends AbstractResource {
      * @return Content types for a field
      */
     @GET
-    @Path("/{optionalFieldId}")
+    @Path(RestPaths.REST_OPTIONALFIELDS_TYPECONTENT_ID)
     public List<OptionalFieldTypeContent> getTypeContentsByOptionalField(
       @PathParam("optionalFieldId") Integer optionalFieldId) {
         final Session session = openSession();

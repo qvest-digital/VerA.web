@@ -78,16 +78,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-@Path("/optional/fields")
+@Path(RestPaths.REST_OPTIONALFIELDS)
 @Produces(MediaType.APPLICATION_JSON)
 public class OptionalFieldResource extends AbstractResource {
 
     @GET
-    @Path("/list/{eventId}")
+    @Path(RestPaths.REST_OPTIONALFIELDS_GET_ALL)
     public List<OptionalField> getOptionalFields(@PathParam("eventId") Integer eventId) {
         final Session session = openSession();
         try {

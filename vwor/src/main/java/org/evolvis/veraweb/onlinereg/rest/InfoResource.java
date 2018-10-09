@@ -72,11 +72,12 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by mweier on 23.03.16.
  */
-@Path("/info")
+@Path(RestPaths.REST_INFO)
 @Produces(MediaType.TEXT_PLAIN)
 public class InfoResource extends AbstractResource {
 

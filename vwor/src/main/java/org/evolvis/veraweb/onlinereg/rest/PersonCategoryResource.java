@@ -76,16 +76,17 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by Max Marche, m.marche@tarent.de on 22.12.14.
  */
-@Path("/personcategory")
+@Path(RestPaths.REST_PERSONCATEGORY)
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonCategoryResource extends AbstractResource {
 
     @POST
-    @Path("/add")
+    @Path(RestPaths.REST_PERSONCATEGORY_ADD)
     public PersonCategory createPersonCategory(@FormParam("personId") Integer personId,
       @FormParam("categoryId") Integer categoryId) {
 
