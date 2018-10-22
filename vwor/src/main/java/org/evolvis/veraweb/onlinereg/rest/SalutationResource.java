@@ -77,11 +77,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author sweiz, tarent solutions GmbH
  */
-@Path("/salutation")
+@Path(RestPaths.REST_SALUTATION)
 @Produces(MediaType.APPLICATION_JSON)
 public class SalutationResource extends AbstractResource {
 
@@ -91,7 +92,7 @@ public class SalutationResource extends AbstractResource {
      * @return list with all salutations and their attributes
      */
     @GET
-    @Path("/getallsalutations")
+    @Path(RestPaths.REST_SALUTATION_GET_ALL)
     public List<Salutation> getSalutations() {
         final Session session = openSession();
 

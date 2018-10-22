@@ -77,11 +77,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * This class handles requests about functions.
  */
-@Path("/function")
+@Path(RestPaths.REST_FUNCTION)
 @Produces(MediaType.APPLICATION_JSON)
 public class FunctionResource extends AbstractResource {
 
@@ -92,7 +93,7 @@ public class FunctionResource extends AbstractResource {
      * @return all function names of this event
      */
     @GET
-    @Path("/fields/list/function")
+    @Path(RestPaths.REST_FUNCTION_GET_FUNCTION)
     public List<String> getFunctionsByEventId(@PathParam("eventId") int eventId) {
         final Session session = openSession();
         try {

@@ -74,11 +74,12 @@ import org.hibernate.Session;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by mley on 02.09.14.
  */
-@Path("/available")
+@Path(RestPaths.REST_HEALTH_AVAILABLE)
 public class HealthResource extends AbstractResource {
 
     @GET

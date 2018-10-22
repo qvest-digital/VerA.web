@@ -82,13 +82,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Date;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by mley on 01.09.14.
  *
  * @author sweiz - tarent solutions GmbH
  */
-@Path("/person")
+@Path(RestPaths.REST_PERSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource extends AbstractResource {
 
@@ -133,7 +134,7 @@ public class PersonResource extends AbstractResource {
      * @return The newly created person.
      */
     @POST
-    @Path("/delegate")
+    @Path(RestPaths.REST_PERSON_DELEGATE)
     public Person createDelegate(@FormParam("eventId") Integer eventId,
       @FormParam(PARAM_USERNAME) String username,
       @FormParam("firstname") String firstName,
@@ -164,7 +165,7 @@ public class PersonResource extends AbstractResource {
      * @return Person updated person
      */
     @POST
-    @Path("/delegate/update")
+    @Path(RestPaths.REST_PERSON_DELEGATE_UPDATE)
     public Person updateDelegate(@FormParam("firstname") String firstName,
       @FormParam("lastname") String lastname,
       @FormParam("gender") String gender,
@@ -210,7 +211,7 @@ public class PersonResource extends AbstractResource {
      * @return The newly created person.
      */
     @POST
-    @Path("/press")
+    @Path(RestPaths.REST_PERSON_PRESS)
     public Person createPersonPress(@FormParam("eventId") Integer eventId,
       @FormParam(PARAM_USERNAME) String username,
       @FormParam("firstname") String firstName,
@@ -250,7 +251,7 @@ public class PersonResource extends AbstractResource {
      * @param gender       gender of a person
      */
     @POST
-    @Path("/usercoredata/update/")
+    @Path(RestPaths.REST_PERSON_USERCOREDATA_UPDATE)
     public void updatePersonCoreData(@FormParam(PARAM_USERNAME) String username,
       @FormParam("salutation") String salutation,
       @FormParam("fk_salutation") Integer fkSalutation,
@@ -280,7 +281,7 @@ public class PersonResource extends AbstractResource {
      * @return first name and last name in one string separated by a whitespace
      */
     @GET
-    @Path("/userinfo/{username}")
+    @Path(RestPaths.REST_PERSON_USERINFO)
     public String getFirstAndLastName(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
@@ -299,7 +300,7 @@ public class PersonResource extends AbstractResource {
      * @return List with all delegates
      */
     @GET
-    @Path("/{uuid}")
+    @Path(RestPaths.REST_PERSON_UUID)
     public List<Person> getDelegatesByUUID(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
@@ -318,7 +319,7 @@ public class PersonResource extends AbstractResource {
      * @return The company (yes, company is instance of Person)
      */
     @GET
-    @Path("/company/{uuid}")
+    @Path(RestPaths.REST_PERSON_COMPANY)
     public Person getCompanyByUUID(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
@@ -338,7 +339,7 @@ public class PersonResource extends AbstractResource {
      * @return Person
      */
     @GET
-    @Path("/userdata/{username}")
+    @Path(RestPaths.REST_PERSON_USERDATA)
     public Person getPersonByUsername(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
@@ -357,7 +358,7 @@ public class PersonResource extends AbstractResource {
      * @param username String
      * @return Integer Person pk
      */
-    @Path("/userdata/lite/{username}")
+    @Path(RestPaths.REST_PERSON_USERDATA_LITE)
     @GET
     public Integer getUserIdFromUsername(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
@@ -382,7 +383,7 @@ public class PersonResource extends AbstractResource {
      * @param personId Integer
      */
     @POST
-    @Path("/update/orgunit")
+    @Path(RestPaths.REST_PERSON_UPDATE_ORGUNIT)
     public void updatePersonOrgunit(@FormParam("orgunit") Integer orgunit, @FormParam(PARAM_PERSON_ID) Integer personId) {
         final Session session = openSession();
         session.beginTransaction();
@@ -409,7 +410,7 @@ public class PersonResource extends AbstractResource {
      * @return The {@link Person}
      */
     @GET
-    @Path("/list/{personId}")
+    @Path(RestPaths.REST_PERSON_GET_USER)
     public Person getUsernameByUserId(@PathParam(PARAM_PERSON_ID) Integer personId) {
         final Session session = openSession();
 

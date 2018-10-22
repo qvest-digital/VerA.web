@@ -79,18 +79,19 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Max Weierstall, tarent solutions GmbH
  */
-@Path("/forgotLogin")
+@Path(RestPaths.REST_FORGOTLOGIN)
 public class ForgotLoginResource extends AbstractResource {
 
     private MailDispatcher mailDispatcher;
     private EmailConfiguration emailConfiguration;
 
     @POST
-    @Path("/resend/login")
+    @Path(RestPaths.REST_FORGOTLOGIN_RESEND)
     public void resendLogin(@FormParam("mail") String mail, @FormParam("currentLanguageKey") String currentLanguageKey)
       throws MessagingException {
         final Session session = openSession();

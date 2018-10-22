@@ -87,13 +87,14 @@ import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Rest api for delegations and extra fields.
  *
  * @author jnunez
  */
-@Path("/delegation")
+@Path(RestPaths.REST_DELEGATION)
 @Produces(MediaType.APPLICATION_JSON)
 public class DelegationResource extends AbstractResource {
 
@@ -108,7 +109,7 @@ public class DelegationResource extends AbstractResource {
      * @return Fields content
      */
     @GET
-    @Path("/fields/list/{eventId}/{guestId}")
+    @Path(RestPaths.REST_DELEGATION_GET_OPTIONAL_FIELDS)
     public List<OptionalFieldValue> getFieldsFromEvent(@PathParam("eventId") int eventId, @PathParam("guestId") int guestId) {
 
         final Session session = openSession();
@@ -123,7 +124,7 @@ public class DelegationResource extends AbstractResource {
     }
 
     @POST
-    @Path("/remove/fields")
+    @Path(RestPaths.REST_DELEGATION_REMOVE_FIELDS)
     public void removeFieldsForGuest(@FormParam("guestId") Integer guestId, @FormParam("fieldId") Integer fieldId) {
         final Session session = openSession();
         session.beginTransaction();
@@ -147,7 +148,7 @@ public class DelegationResource extends AbstractResource {
      * @return The label id
      */
     @GET
-    @Path("/field/{eventId}")
+    @Path(RestPaths.REST_DELEGATION_GET_LABEL)
     public Integer getLabelIdfromEventAndLabel(@PathParam("eventId") int eventId, @QueryParam("label") String label) {
         final Session session = openSession();
         try {
@@ -170,7 +171,7 @@ public class DelegationResource extends AbstractResource {
      * @return {@link Delegation}
      */
     @POST
-    @Path("/field/save")
+    @Path(RestPaths.REST_DELEGATION_SAVE_FIELD)
     public Delegation saveOptionalField(@FormParam("guestId") Integer guestId, @FormParam("fieldId") Integer fieldId,
       @FormParam("fieldContent") String fieldContent) {
         final Session session = openSession();

@@ -87,11 +87,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
  */
-@Path("fileupload")
+@Path(RestPaths.REST_FILEUPLOAD)
 @Produces(MediaType.APPLICATION_JSON)
 public class FileUploadResource extends AbstractResource {
     private static final Logger LOGGER = Logger.getLogger(FileUploadResource.class);
@@ -108,7 +109,7 @@ public class FileUploadResource extends AbstractResource {
      * @throws IOException FIXME
      */
     @POST
-    @Path("/save")
+    @Path(RestPaths.REST_FILEUPLOAD_SAVE)
     public void saveImageIntoDataSystem(@FormParam("imageStringData") String imageStringData,
       @FormParam("extension") String extension,
       @FormParam("imageUUID") String imgUUID) throws IOException {
@@ -140,7 +141,7 @@ public class FileUploadResource extends AbstractResource {
      * @return Base64 data
      */
     @GET
-    @Path("/download/{imgUUID}")
+    @Path(RestPaths.REST_FILEUPLOAD_DOWNLOAD)
     public String getImageByUUID(@PathParam("imgUUID") String imgUUID) {
         StringBuilder encodedImage = null;
         try {

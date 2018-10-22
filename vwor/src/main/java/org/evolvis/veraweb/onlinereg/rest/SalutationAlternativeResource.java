@@ -84,11 +84,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-@Path("/salutation/alternative")
+@Path(RestPaths.REST_SALUTATION_ALTERNATIVE)
 @Produces(MediaType.APPLICATION_JSON)
 public class SalutationAlternativeResource extends AbstractResource {
 
@@ -100,7 +101,7 @@ public class SalutationAlternativeResource extends AbstractResource {
      * @return list with all salutations and their attributes
      */
     @GET
-    @Path("/list/{pdftemplateId}")
+    @Path(RestPaths.REST_SALUTATION_ALTERNATIVE_GET_ALL)
     public List getSalutations(@PathParam("pdftemplateId") Integer pdftemplateId) {
         final Session session = openSession();
 
@@ -121,7 +122,7 @@ public class SalutationAlternativeResource extends AbstractResource {
      * @return List with salutations
      */
     @GET
-    @Path("/unused/{pdftemplateId}")
+    @Path(RestPaths.REST_SALUTATION_ALTERNATIVE_UNUSED)
     public List getSalutationsWithoutAlternativeContent(@PathParam("pdftemplateId") Integer pdftemplateId) {
         final Session session = openSession();
 
@@ -142,7 +143,7 @@ public class SalutationAlternativeResource extends AbstractResource {
      * @return {@link Response}
      */
     @DELETE
-    @Path("delete/{salutationId}")
+    @Path(RestPaths.REST_SALUTATION_ALTERNATIVE_DELETE)
     public Response deleteAlternativeSalutation(@PathParam("salutationId") Integer salutationId) {
         final Session session = openSession();
         session.beginTransaction();
@@ -170,7 +171,7 @@ public class SalutationAlternativeResource extends AbstractResource {
      * @return {@link Response}
      */
     @POST
-    @Path("/save/{pdftemplateId}/")
+    @Path(RestPaths.REST_SALUTATION_ALTERNATIVE_SAVE)
     public Response saveAlternativeSalutation(@PathParam("pdftemplateId") Integer pdftemplateId,
       @FormParam("salutationId") Integer salutationId,
       @FormParam("content") String content) {

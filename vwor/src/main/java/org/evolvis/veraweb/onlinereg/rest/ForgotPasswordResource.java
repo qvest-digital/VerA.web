@@ -83,11 +83,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.UUID;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-@Path("/forgotPassword")
+@Path(RestPaths.REST_FORGOTPASSWORD)
 @Produces(MediaType.APPLICATION_JSON)
 public class ForgotPasswordResource extends AbstractResource {
 
@@ -95,7 +96,7 @@ public class ForgotPasswordResource extends AbstractResource {
     private EmailConfiguration emailConfiguration;
 
     @POST
-    @Path("/request/reset-password-link")
+    @Path(RestPaths.REST_FORGOTPASSWORD_RESET_LINK)
     public void requestResetPasswordLink(@FormParam("username") String username,
       @FormParam("currentLanguageKey") String currentLanguageKey,
       @FormParam("oaEndpoint") String oaEndpoint) throws MessagingException {

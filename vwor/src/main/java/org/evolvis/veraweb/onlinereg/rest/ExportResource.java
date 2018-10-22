@@ -88,11 +88,12 @@ import javax.ws.rs.core.StreamingOutput;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by mweier on 23.03.16.
  */
-@Path("/export")
+@Path(RestPaths.REST_EXPORT)
 @Produces(VworConstants.TEXT_CSV_CONTENT_TYPE)
 public class ExportResource extends AbstractResource {
 
@@ -115,7 +116,7 @@ public class ExportResource extends AbstractResource {
     }
 
     @POST
-    @Path("/guestList/{eventId}")
+    @Path(RestPaths.REST_EXPORT_GET_GUESTLIST)
     public Response getGuestList(@PathParam("eventId") final int eventId,
                                  MultivaluedMap<String, String> params,
                                  @FormParam("selectedFields[]") List<String> selList)

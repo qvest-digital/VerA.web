@@ -80,16 +80,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.math.BigInteger;
+import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-@Path("/press/activation")
+@Path(RestPaths.REST_MEDIA)
 @Produces(MediaType.APPLICATION_JSON)
 public class MediaRepresentativeActivationResource extends AbstractResource {
 
     @POST
-    @Path("/create")
+    @Path(RestPaths.REST_MEDIA_CREATE)
     public MediaRepresentativeActivation addMediaRepresentativeActivationEntry(
       @FormParam("activationToken") String activationToken,
       @FormParam("email") String email,
@@ -120,7 +121,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     }
 
     @GET
-    @Path("/exists/{encodedAddress}/{eventId}")
+    @Path(RestPaths.REST_MEDIA_EXISTS)
     public Boolean existEventIdByDelegation(@PathParam("encodedAddress") String encodedAddress,
       @PathParam("eventId") String eventId) {
         final Session session = openSession();
@@ -139,7 +140,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     }
 
     @GET
-    @Path("/exists/{mediaRepresentativeActivationToken}")
+    @Path(RestPaths.REST_MEDIA_EXISTS_TOKEN)
     public MediaRepresentativeActivation getMediaRepresentativeActivationByToken(
       @PathParam("mediaRepresentativeActivationToken") String mediaRepresentativeActivationToken) {
 
@@ -154,7 +155,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     }
 
     @POST
-    @Path("/update")
+    @Path(RestPaths.REST_MEDIA_UPDATE)
     public void activatePressUser(@FormParam("email") String email, @FormParam("eventId") Integer eventId) {
 
         final Session session = openSession();
