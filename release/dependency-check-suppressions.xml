@@ -47,4 +47,11 @@
 		<gav regex="true">^org\.apache\.tika:tika-core:.*$</gav>
 		<cpe>cpe:/a:apache:tika</cpe>
 	</suppress>
+	<!-- false positives from postgresql-->
+	<suppress>
+		<notes><![CDATA[
+			file name: postgresql-jdbc4.jar
+		]]></notes>
+		<cpe>cpe:/a:postgresql:postgresql</cpe>
+	</suppress>
 </suppressions>
