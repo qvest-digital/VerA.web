@@ -77,6 +77,7 @@ public enum ViewConfigKey {
     GUESTLIST_RESERVE("guestReserve", "true"),
     GUESTLIST_COMPANY("guestCompany", "true"),
     GUESTLIST_CATEGORY("guestCategory", "false"),
+    GUESTLIST_PERSON_CATEGORY("guestPersonCategory", "true"),
     GUESTLIST_FIRSTNAME("guestFirstname", "true"),
     GUESTLIST_LASTNAME("guestLastname", "true"),
     GUESTLIST_EMAIL("guestEmail", "true"),

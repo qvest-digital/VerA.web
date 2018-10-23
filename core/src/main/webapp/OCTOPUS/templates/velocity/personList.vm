@@ -655,19 +655,7 @@ i                                                       ${placeholderWithTransla
                         #if ($action == "guest")
                                 <div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
                                         <div class="tableRow">
-                                                <a data-popup-open="popup-1" href="#" style="text-decoration: none"><img src=" ${paths.staticWeb}images/columnsConfig.png" alt="bearbeiten" title="bearbeiten" /></a>
 
-                                                    <input type="hidden" name="saveColumns" value="true">
-                                                    <div class="popup" data-popup="popup-1">
-                                                        <div class="popup-inner">
-                                                            <div style="text-align: left;">
-
-                                                                    #parse("inc/userConfigPersonColumns.vm")
-
-                                                            </div>
-                                                            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
-                                                        </div>
-                                                    </div>
                                                 ## Bug 2
                                                 <div class="tableCell">&nbsp;<strong>${placeholderWithTranslation.LETTER_MAIN_PERSON}</strong> = ${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}</div>
                                                 <div class="tableCell"><strong>${placeholderWithTranslation.LETTER_PARTNER}</strong> = ${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}</div>
@@ -816,7 +804,7 @@ i                                                       ${placeholderWithTransla
                                                             #if($search.listorder && $search.listorder == "personCategory")
                                                                style="color: #000000;"
                                                             #end
-                                                                >${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
+                                                                >${placeholderWithTranslation.GENERIC_GUEST_CATEGORY_SINGULAR}
                                                             #if($search.listorder && $search.listorder == 'personCategory')
                                                                 #showSortArrows($search.sortDirection)
                                                             #else
@@ -1353,7 +1341,33 @@ i                                                       ${placeholderWithTransla
                                                                     <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask&person-category=' + document.getElementById('$!{bean.id}-category').value;">$!message.plain($bean.company_a_e1)</td>
                                                                 #end
                                                                 #if($userConfig.personCategory == 'true')
-                                                                    <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                                  <td>
+                                                                  ## 2009-05-13 cklein
+                                                                  ## fixes issue #1531
+                                                                      #set($cats = $personCategorie.getList($bean.id))
+                                                                      #set($size = $cats.size())
+                                                                      #set( $found=0 )
+                                                                      #if( $search.categoriesSelection.size() == 1 )
+                                                                          #foreach( $cat in $cats )
+                                                                              #if( $search.categoriesSelection.get( 0 ) == $cat.categorie )
+                                                                                  #set( $found=$cat.categorie )
+                                                                              #end
+                                                                          #end
+                                                                      #end
+                                                                    <select name="$!{bean.id}-category" id="$!{bean.id}-category">
+                                                                        #if( $size == 0 || ( $size > 1 && $search.categoriesSelection.size() > 1 ) || ( $search.categoriesSelection.size() == 1 && $found == 0 ) )
+                                                                          <option value="" selected>${placeholderWithTranslation.keine}</option>
+                                                                        #else
+                                                                          <option value="">${placeholderWithTranslation.keine}</option>
+                                                                        #end
+                                                                        #if( $size == 1 )
+                                                                            #set( $found = $cats.get( 0 ).categorie )
+                                                                        #end
+                                                                        #foreach($cat in $cats)
+                                                                          <option value="$!cat.categorie" #*#if($cat.categorie == $found || $size == 1) selected #end*#>$!message.text($!cat.name)</option>
+                                                                        #end
+                                                                    </select>
+                                                                  </td>
                                                                 #end
                                                         </tr>
                                                 #elseif($action == "host")
@@ -1389,7 +1403,7 @@ i                                                       ${placeholderWithTransla
                                                         <td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';">$!message.plain($bean.state_a_e1)</td>
                                                     #end
                                                     #if($userConfig.personCategory == 'true')
-                                                        <td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                        <td onclick="window.location.href='SetHostToEventDetail?hostid=$!{bean.id}';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($bean.persontCategoryName)</td>
                                                     #end
                                                         </tr>
                                                 #elseif($action == "statistikHost")
@@ -1425,7 +1439,7 @@ i                                                       ${placeholderWithTransla
                                                         <td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>
                                                     #end
                                                     #if($userConfig.personCategory == 'true')
-                                                        <td onclick="window.open('StatistikExport?id=$!{bean.id}');" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                        <td onclick="window.open('StatistikExport?id=$!{bean.id}');" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($bean.persontCategoryName)</td>
                                                     #end
                                                         </tr>
                                                 #elseif($action == "statistikGuest")
@@ -1441,7 +1455,7 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personCity == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.city_a_e1)</td>#end
                                                     #if($userConfig.personListState == 'true')<td onclick="window.open('StatistikExport?id=$!{bean.id}');">$!message.plain($bean.state_a_e1)</td>#end
                                                     #if($userConfig.personCategory == 'true')
-                                                        <td onclick="window.open('StatistikExport?id=$!{bean.id}');" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                        <td onclick="window.open('StatistikExport?id=$!{bean.id}');" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($bean.persontCategoryName)</td>
                                                     #end
 
                                                         </tr>
@@ -1464,7 +1478,7 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personCity == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.city_a_e1)</td>#end
                                                     #if($userConfig.personListState == 'true')<td onclick="window.location.href='$clickUrl';">$!message.plain($bean.state_a_e1)</td>#end
                                                     #if($userConfig.personCategory == 'true')
-                                                        <td onclick="window.location.href='$clickUrl';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                        <td onclick="window.location.href='$clickUrl';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($bean.persontCategoryName)</td>
                                                     #end
                                                         </tr>
 
@@ -1506,9 +1520,7 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personPostCode == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.zipcode_a_e1)</td>#end
                                                     #if($userConfig.personCity == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.city_a_e1)</td>#end
                                                     #if($userConfig.personListState == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.state_a_e1)</td>#end
-                                                    #if($userConfig.personCategory == 'true')
-                                                        <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
-                                                    #end
+                                                    #if($userConfig.personCategory == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.persontCategoryName)</td>#end
                                                         </tr>
                                                 #else
                                                         <tr>
@@ -1538,7 +1550,7 @@ i                                                       ${placeholderWithTransla
                                                     #if($userConfig.personCity == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.city_a_e1)</td>#end
                                                     #if($userConfig.personListState == 'true')<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.state_a_e1)</td>#end
                                                     #if($userConfig.personCategory == 'true')
-                                                        <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$bean.persontCategoryName</td>
+                                                        <td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($bean.persontCategoryName)</td>
                                                     #end
                                                         </tr>
                                                 #end

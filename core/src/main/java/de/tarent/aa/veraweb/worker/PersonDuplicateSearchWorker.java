@@ -142,7 +142,6 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
         final List resultList = getResultList(database, select);
         final ArrayList<Map> listWithOrdering = getListWithOrdering(convertFromResultListToArrayList(resultList));
 
-        GuestListWorker guestListWorker = new GuestListWorker();
         for (Map map : listWithOrdering){
             String personCategory = getPersonCategoriesList((Integer) map.get("id"), octopusContext);
             map.put("persontCategoryName", personCategory);

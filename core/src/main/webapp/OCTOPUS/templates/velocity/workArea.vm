@@ -7,8 +7,8 @@
 
 ##Values in per cent for table columns width
 #set($column0 = 3)
-#set($column1 = 8)
-#set($column2 = 89)
+#set($column1 = "auto")
+#set($column2 = 90)
 
 #parse("inc/header.vm")
 
