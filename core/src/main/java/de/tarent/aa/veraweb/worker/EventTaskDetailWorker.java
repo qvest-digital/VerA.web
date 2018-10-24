@@ -246,6 +246,7 @@ public class EventTaskDetailWorker {
                 createOrUpdateTask(octopusContext, database, transactionContext, task, existingTask);
             } else {
                 octopusContext.setStatus("notsaved");
+                octopusContext.setContent("taskNoChangesMade", true);
             }
 
             task = getTask(octopusContext, task);

@@ -1818,6 +1818,8 @@ CONTACT_PICTURE_WRONG_SIZE=La foto debe comprender las dimensiones 186x245 pixel
 PICTURE_SIZE=tama\u00F1o de la imagen
 PIXELS=pixels
 
+NO_CHANGES_WERE_MADE=No se han producido cambios.
+
 NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 
 #GENERAL MESSAGE

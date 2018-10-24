@@ -1817,6 +1817,8 @@ CONTACT_PICTURE_WRONG_SIZE=Picture size must be exactly 186x245 pixels.
 PICTURE_SIZE=Picture size
 PIXELS=pixels
 
+NO_CHANGES_WERE_MADE=You have made no changes.
+
 NO_PARTNER_IN_MASTERDATA=No Partner found
 
 #GENERAL MESSAGE
