@@ -1816,7 +1816,7 @@ CONTACT_PICTURE_WRONG_SIZE=Das Bild entspricht nicht der erlaubten Gr\u00F6\u00D
 PICTURE_SIZE=Bildgr\u00F6\u00DFe
 PIXELS=Pixel
 
-NO_CHANGES_WERE_MADE=Sie haben keine Änderungen vorgenommen.
+NO_CHANGES_WERE_MADE=Sie haben keine \u00C4nderungen vorgenommen.
 
 NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 
