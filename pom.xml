@@ -99,7 +99,7 @@
 		<activation.version>1.1.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
 		<background-jobs.version>1.19</background-jobs.version>
-		<bytebuddy.version>1.8.12</bytebuddy.version>
+		<bytebuddy.version>1.9.0</bytebuddy.version>
 		<cglib-nodep.version>3.2.7</cglib-nodep.version>
 		<chromedriver.version>2.40</chromedriver.version>
 		<classmate.version>1.4.0</classmate.version>
