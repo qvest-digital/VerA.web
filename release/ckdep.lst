@@ -142,8 +142,8 @@ org.eclipse.jetty:jetty-server 9.0.7.v20131107 compile TODO
 org.eclipse.jetty:jetty-servlet 9.0.7.v20131107 compile TODO
 org.eclipse.jetty:jetty-servlets 9.0.7.v20131107 compile TODO
 org.eclipse.jetty:jetty-util 9.0.7.v20131107 compile TODO
-org.evolvis.tartools:background-jobs 1.18 compile TODO
-org.evolvis.tartools:extract-tool 1.6 compile TODO
+org.evolvis.tartools:background-jobs 1.20 compile TODO
+org.evolvis.tartools:extract-tool 1.8 compile TODO
 org.glassfish.hk2.external:aopalliance-repackaged 2.5.0-b61 compile TODO
 org.glassfish.hk2.external:javax.inject 2.5.0-b61 compile TODO
 org.glassfish.hk2:hk2-api 2.5.0-b61 compile TODO
