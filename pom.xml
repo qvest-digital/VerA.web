@@ -140,7 +140,7 @@
 		<log4j.version>2.11.0</log4j.version>
 		<lombok.version>1.18.0</lombok.version>
 		<mimepull.version>1.9.7</mimepull.version>
-		<mockito.version>2.23.1</mockito.version>
+		<mockito.version>2.23.0</mockito.version>
 		<osiam.connector4java.version>1.8</osiam.connector4java.version>
 		<poi.version>3.17</poi.version>
 		<postgresql.version>42.2.5</postgresql.version>
