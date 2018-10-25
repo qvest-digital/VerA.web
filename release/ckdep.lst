@@ -97,7 +97,7 @@ jgoodies:forms 1.0.5 provided TODO
 joda-time:joda-time 2.10 compile TODO
 junit:junit 3.8.1 compile TODO
 log4j:log4j 1.2.13 compile TODO
-net.bytebuddy:byte-buddy 1.8.12 compile TODO
+net.bytebuddy:byte-buddy 1.9.0 compile TODO
 net.jodah:expiringmap 0.5.8 compile TODO
 net.sourceforge.argparse4j:argparse4j 0.4.3 compile TODO
 npm::angular 1.6.10 compile TODO
@@ -133,6 +133,7 @@ org.apache.poi:poi 3.17 compile TODO
 org.apache.tika:tika-core 1.10 compile TODO
 org.checkerframework:checker-qual 2.0.0 compile TODO
 org.codehaus.mojo:animal-sniffer-annotations 1.14 compile TODO
+org.eclipse.jetty.orbit:javax.servlet 3.0.0.v201112011016 compile TODO
 org.eclipse.jetty.toolchain.setuid:jetty-setuid-java 1.0.2 compile TODO
 org.eclipse.jetty:jetty-continuation 9.0.7.v20131107 compile TODO
 org.eclipse.jetty:jetty-http 9.0.7.v20131107 compile TODO
