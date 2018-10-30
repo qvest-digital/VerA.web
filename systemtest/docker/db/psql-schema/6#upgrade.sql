@@ -70,7 +70,7 @@
 
 -- Entwicklernotiz: bei Hinzufügen einer neuen Version muß an drei
 -- Stellen was geändert werden:
--- ① vversion in Zeile 92
+-- ① vversion in Zeile 93
 -- ② recht nah am Ende der Datei (vor „-- end“)
 -- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
 
@@ -85,11 +85,12 @@ DECLARE
 	vnewvsn VARCHAR;
 	vint INT4;
 	psqlvsn INTEGER;
+	counter INTEGER;
 
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2017-01-19';
+	vversion := '2018-10-30';
 
 	-- initialisation
 	vint := 0;
@@ -924,6 +925,34 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
+	vnewvsn := '2018-10-30';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+ 		counter := 0;
+
+ 		LOOP
+ 		EXIT WHEN counter = 15;
+			-- 1.9.5 fix optional field not existing export bug
+
+			INSERT INTO toptional_fields (fk_event, label, fk_type)
+			SELECT te.pk, '', null FROM tevent as te
+			WHERE (
+			    SELECT count(optfield.fk_event)<15
+			    FROM toptional_fields as optfield
+			    WHERE optfield.fk_event=te.pk
+			    );
+ 			counter := counter+1;
+
+		END LOOP;
+
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 	-- end
 
 	IF vcurvsn <> vversion THEN
