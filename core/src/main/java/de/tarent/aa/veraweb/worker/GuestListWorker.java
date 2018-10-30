@@ -411,6 +411,37 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return i - (i % getLimit(octopusContext));
     }
 
+    @Override
+    public List showList(final OctopusContext octopusContext) throws BeanException, IOException {
+        List list = super.showList(octopusContext);
+
+        for (Object o : list){
+            Map map = (Map) o;
+            Integer id = (Integer) map.get("personId");
+            String catname = getPersonMainCategorieName(id, octopusContext);
+            map.put("pcatname", catname);
+        }
+
+        return list;
+
+    }
+
+    public String getPersonMainCategorieName(int personId, OctopusContext octopusContext)
+      throws BeanException, IOException {
+        final Database database = getDatabase(octopusContext);
+        String catName = "";
+        final List<Categorie> categories = database.getBeanList("Categorie",
+          database.getSelect("Categorie").select("tperson_categorie.rank")
+            .joinLeftOuter("tperson_categorie", "tperson_categorie.fk_categorie", "tcategorie.pk")
+            .whereAndEq("tperson_categorie.fk_person", personId)
+            .orderBy(Order.asc("tperson_categorie.rank")));
+
+        if (!categories.isEmpty()) {
+            catName = categories.get(0).name;
+        }
+        return catName;
+    }
+
     protected Select getSelect(Database database) throws BeanException, IOException {
         return SQL.SelectDistinct(database).from("veraweb.tguest")
                 .selectAs("tguest.pk", "id")

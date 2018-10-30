@@ -599,7 +599,10 @@
                                                                         <th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
                                                         #end
                                                         #if($userConfig.guestCategory == 'true')
-                                                            <th style="padding: 10px">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</th>
+                                                            <th style="padding: 10px">${placeholderWithTranslation.GENERIC_GUEST_CATEGORY_SINGULAR}</th>
+                                                        #end
+                                                        #if($userConfig.guestPersonCategory == 'true')
+                                                            <th style="padding: 10px">${placeholderWithTranslation.GENERIC_PERSON_CATEGORY_SINGULAR}</th>
                                                         #end
 
                                                 #if($userConfig.guestMainPerson == 'true')
@@ -690,7 +693,10 @@
                                                                     <td></td>
                                                                 #end
                                                                 #if($userConfig.guestCategory == 'true')
-                                                                <td></td>
+                                                                    <td></td>
+                                                                #end
+                                                                #if($userConfig.guestPersonCategory == 'true')
+                                                                    <td></td>
                                                                 #end
                                                                 #if($userConfig.guestMainPerson == 'true')
                                                                     <td></td>
@@ -757,9 +763,11 @@
                                                                         <td style="min-width: $column10_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
                                                                 #end
                                                                 #if($userConfig.guestCategory == 'true')
-                                                                    <td style="min-width: $column11_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}">$!message.plain($!bean.categoryName)</td>
+                                                                    <td style="min-width: $column11_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_GUEST_CATEGORY_SINGULAR}">$!message.plain($!bean.categoryName)</td>
                                                                 #end
-
+                                                                #if($userConfig.guestPersonCategory == 'true')
+                                                                    <td style="min-width: $column11_minwidth;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_PERSON_CATEGORY_SINGULAR}">$!message.plain($!bean.pcatname)</td>
+                                                                #end
                                                                 #if($userConfig.guestMainPerson == 'true')
                                                                 <td style="min-width: $column12_minwidth; max-width: $column12_maxwidth;" class="textCenter">
                                                                         #if($bean.invitationtype != 3)

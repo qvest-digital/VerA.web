@@ -558,10 +558,12 @@ nav a, #nav a {
     border: none;
 }
 
+.scrollable-table tbody tr td {
+    width:1%;
+    white-space:nowrap;
+}
+
 .table_border {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #A0A0A0;
     float: left;
     width: 100%;
     box-sizing: border-box;
