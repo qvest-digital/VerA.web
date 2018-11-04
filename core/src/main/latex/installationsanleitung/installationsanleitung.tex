@@ -43,8 +43,8 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{5.6}
-\newcommand{\vwiaversfassungmonat}{Oktober}
+\newcommand{\vwiaversfassungnr}{6.0}
+\newcommand{\vwiaversfassungmonat}{November}
 \newcommand{\vwiaversfassungjahr}{2018}
 
 % VerA.web Version
@@ -560,9 +560,10 @@ ssh start}, oder stop, oder status.
 In DJB dæmontools werden die Informationen zu Diensten, und manchmal auch
 die Logs und/oder die Programme selber, als Verzeichnisse unterhalb von
 \texttt{/service}\Hair\footnote{in Debian \texttt{/etc/service}, um dem
-Dateisystemhierarchiestandard zu genügen, aber ein Symlink, der von
-\texttt{/service} nach \texttt{/etc/service} zeigt, ist schnell gesetzt
-und Teil unserer Installationsanleitung} abgelegt. So befinden sich die
+Dateisystemhierarchiestandard zu genügen, was aber in Verbindung mit
+\texttt{etckeeper} zu Problemen führt; Abhilfe ist durch Verschieben und
+einem Symlink, der von \texttt{/etc/service} nach \texttt{/service} zeigt,
+Teil unserer Installationsanleitung} abgelegt. So befinden sich die
 Informationen der VerA.web Online-Anmeldung unter \texttt{/service/vwoa/}.
 
 Die Nutzung des Verzeichnisses \texttt{/service} ist ein Standard und
@@ -1859,13 +1860,14 @@ ein und legen Sie zwei Benutzeraccounts an, unter denen die
 Online-Anmeldung und ihr Logging ausgeführt werden können:
 
 \begin{lstdump}{Prereqs OA}
-sudo adduser --system --home /etc/service/vwoa --shell /bin/sh \
+sudo mv /etc/service /service
+sudo ln -sf /service /etc/
+sudo adduser --system --home /service/vwoa --shell /bin/sh \
     --no-create-home --gecos 'VerA.web Online-Anmeldung Microservice' --group \
     --disabled-password --disabled-login vwoa
-sudo adduser --system --home /etc/service/vwoa/log --shell /bin/sh \
+sudo adduser --system --home /service/vwoa/log --shell /bin/sh \
     --no-create-home --gecos 'VerA.web Online-Anmeldung Logging' --group \
     --disabled-password --disabled-login vwoalog
-sudo ln -sf etc/service /service
 \end{lstdump}
 \end{minipage}
 
@@ -2583,9 +2585,9 @@ Die Online-Anmeldung läuft als separater Unix-Nutzer \texttt{vwoa}
 und hält folgende sicherheitsrelevanten Daten vor:\keinumbruch
 
 \begin{itemize}
- \item{\texttt{/etc/service/vwoa/config.jsn}}
+ \item{\texttt{/service/vwoa/config.jsn}}
  \item{in Logdateien unterhalb von \texttt{/var/log/apache2/},
-  \texttt{/var/log/vwoa/} und \texttt{/etc/service/vwoa/log/}}
+  \texttt{/var/log/vwoa/} und \texttt{/service/vwoa/log/}}
 \end{itemize}
 
 OSIAM ist eine „Blackbox“, daher kann keine genaue Aussage hierüber getroffen
@@ -2956,11 +2958,11 @@ org.osiam.auth-server.connector.read-timeout-ms=10000
 org.osiam.auth-server.connector.connect-timeout-ms=5000
 \end{lstdump}
 
-\subsection{/etc/service/vwoa/config.jsn}\label{subsec:refcfg-oa-cfg}
+\subsection{/service/vwoa/config.jsn}\label{subsec:refcfg-oa-cfg}
 
 Betrifft: Online-Anmeldung
 
-\begin{lstdump}{/etc/service/vwoa/config.jsn}
+\begin{lstdump}{/service/vwoa/config.jsn}
 {
   "logging": {
     "appenders": [
