@@ -163,6 +163,32 @@
               <AND>
                 <FIELD>true</FIELD>
                 <FINAL>true</FINAL>
+                <NAME>serialVersionUID</NAME>
+                <STATIC>true</STATIC>
+              </AND>
+            </match>
+            <order>BY_NAME</order>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <FIELD>true</FIELD>
+                <FINAL>true</FINAL>
+                <NAME>[Ll][Oo][Gg](?:[Gg][Ee][Rr])?</NAME>
+                <STATIC>true</STATIC>
+              </AND>
+            </match>
+            <order>BY_NAME</order>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
+              <AND>
+                <FIELD>true</FIELD>
+                <FINAL>true</FINAL>
                 <PUBLIC>true</PUBLIC>
                 <STATIC>true</STATIC>
               </AND>
