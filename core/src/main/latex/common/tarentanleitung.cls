@@ -51,7 +51,7 @@
 \colorbox{tarentrot}{
  \parbox[b][3cm][c]{0.975\linewidth}{
   \centering
-  \color{white}\textbf{\Huge #1}
+  \color{white}\textbf{\Huge\strut #1\strut}
  }
 }
 
