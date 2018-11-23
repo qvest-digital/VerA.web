@@ -76,8 +76,8 @@ import static org.apache.commons.lang3.SystemUtils.*
 
 // configure waiting
 waiting {
-    timeout = 10
-    retryInterval = 0.1
+    timeout = 20
+    retryInterval = 0.3
 }
 
 // enable waiting for page object's at-checks
