@@ -160,18 +160,6 @@
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
 		<tag>HEAD</tag>
 	</scm>
-	<distributionManagement>
-		<repository>
-			<id>tarent-nexus</id>
-			<name>tarent-nexus releases</name>
-			<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>tarent-nexus</id>
-			<name>tarent-nexus snapshots</name>
-			<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 	<modules>
 		<module>mw</module>
 		<module>shared</module>
