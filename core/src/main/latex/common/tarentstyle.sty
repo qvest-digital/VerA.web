@@ -36,11 +36,11 @@
 \RequirePackage{pdf14}
 \RequirePackage{aeguill}
 \RequirePackage[shortcuts]{extdash}
-% (tarent-Logo ist knapp 0.89 cm hoch bei 5¼ cm Breite, x horizontal 0.68 cm)
+% (tarent-Logo ist knapp 1.2 cm hoch bei 5¼ cm Breite, 0.15cm (⅛) Unterlänge)
 % Einstellungen für: (gerade Seiten gespiegelt)
-% Seitenrand oben 1.78 cm, unten 1.5 cm, links 1.9 cm, rechts 1.8 cm
-% Kopfzeile 1.1 cm (Abstand 0.6 cm); Fußzeile 0.6 cm (Abstand 0.6 cm)
-\RequirePackage[paperwidth=21truecm,paperheight=28truecm,includeheadfoot,inner=1.9cm,outer=1.8cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm,marginparsep=2.5mm]{geometry}
+% Seitenrand oben 1.63 cm, unten 1.5 cm, links 1.9 cm, rechts 1.8 cm
+% Kopfzeile 1.25 cm (Abstand 0.6 cm); Fußzeile 0.6 cm (Abstand 0.6 cm)
+\RequirePackage[paperwidth=21truecm,paperheight=28truecm,includeheadfoot,inner=1.9cm,outer=1.8cm,top=1.63cm,bottom=1.5cm,twoside,headheight=1.25cm,headsep=0.9cm,foot=1.2cm,marginparsep=2.5mm]{geometry}
 \savegeometry{tarentstyle}
 \RequirePackage{fancybox}
 \linespread{1.15}
@@ -110,9 +110,22 @@
 \setlength{\parskip}{0.3cm plus 5mm minus 1mm}
 \setlength{\parindent}{0cm}
 
-\newcommand{\tarentlogo}[1][3.5cm]{\includegraphics[width=#1]{tarentlogo}}
-\definecolor{tarentrot}{HTML}{CC0000}
-\definecolor{tarentgrau}{HTML}{EBEBEB}
+\newcommand{\tarentlogo}[1][3.5cm]{%
+ \raisebox{\totalheight/-8}{%
+  \includegraphics[width=#1]{tarentlogo}%
+ }%
+}%
+\newcommand{\tarentlogoH}[1][1.2cm]{%
+ \raisebox{\totalheight/-8}{%
+  \includegraphics[height=#1]{tarentlogo}%
+ }%
+}%
+\newcommand{\tarentlogoinline}{%
+ \settototalheight{\dimen4}{Bg}%
+ \tarentlogoH[\dimen4]%
+}%
+\definecolor{tarentrot}{HTML}{BB242A}%
+\definecolor{tarentgrau}{HTML}{EBEBEB}%
 
 \newcommand\Warning{%
  \makebox[1.4em][c]{%
