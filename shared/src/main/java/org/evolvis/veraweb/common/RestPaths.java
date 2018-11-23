@@ -279,5 +279,3 @@ public class RestPaths {
     public static final String REST_SALUTATION = "/salutation";
     public static final String REST_SALUTATION_GET_ALL = "/getallsalutations";
 }
-
-

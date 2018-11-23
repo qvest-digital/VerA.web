@@ -930,10 +930,10 @@ BEGIN
 		vmsg := 'begin.update(' || vnewvsn || ')';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
- 		counter := 0;
+		counter := 0;
 
- 		LOOP
- 		EXIT WHEN counter = 15;
+		LOOP
+		EXIT WHEN counter = 15;
 			-- 1.9.5 fix optional field not existing export bug
 
 			INSERT INTO toptional_fields (fk_event, label, fk_type)
@@ -943,7 +943,7 @@ BEGIN
 			    FROM toptional_fields as optfield
 			    WHERE optfield.fk_event=te.pk
 			    );
- 			counter := counter+1;
+			counter := counter+1;
 
 		END LOOP;
 
