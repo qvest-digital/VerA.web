@@ -3,7 +3,7 @@
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % abgeleitet von der Vorlage des Teckids e.V.
-% Copyright © 2014, 2015
+% Copyright © 2014, 2015, 2018
 %	Thorsten Glaser <thorsten.glaser@teckids.org>
 % Copyright © 2013
 %	Dominik George <dominik.george@teckids.org>
@@ -125,7 +125,10 @@
  \tarentlogoH[\dimen4]%
 }%
 \definecolor{tarentrot}{HTML}{CC0000}%
-\definecolor{tarentgrau}{HTML}{EBEBEB}%
+
+\definecolor{teckidsSTYlstbackground}{HTML}{E6E6E6}%
+\definecolor{teckidsSTYlstlineno}{HTML}{444444}%
+\definecolor{teckidsSTYlstmargin}{HTML}{707070}%
 
 \newcommand\Warning{%
  \makebox[1.4em][c]{%
@@ -201,7 +204,7 @@
 \def\lstdumpesc@two[#1]#2{\lst@WFAppend{#1}#2}
 
 \lstset{
-	backgroundcolor=\color{tarentgrau},
+	backgroundcolor=\color{teckidsSTYlstbackground},
 	rulecolor=,
 	basicstyle=\ttfamily,
 	upquote=true,
