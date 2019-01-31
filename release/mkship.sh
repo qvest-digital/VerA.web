@@ -80,7 +80,22 @@ cd .. || die cannot cd
 zip -D -X -9 "$vsn.zip" "$vsn/"* || die zip died
 [[ -s $vsn.zip ]] || die zip created empty file
 ls -la -- "$(realpath "$vsn.zip")"
-sha256sum --tag -- "$(realpath "$vsn.zip")"
+
+if stat --help >/dev/null 2>/dev/null; then
+	do_stat() {
+		stat --format=%s "$@"
+	}
+else
+	do_stat() {
+		stat -f %z "$@"
+	}
+fi
+print
+print Prüfsummen:
+print
+sha256sum --tag -- "$vsn.zip"
+print -r -- "SIZE ($vsn.zip)" = $(do_stat "$vsn.zip")
+print
 (( do_upload )) || exit 0
 
 cat >pom.xml <<EOF
