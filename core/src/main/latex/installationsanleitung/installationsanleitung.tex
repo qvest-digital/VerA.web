@@ -1,6 +1,6 @@
 % VerA.web (public) Installationsanleitung
 %
-% Copyright © 2015, 2016, 2017, 2018
+% Copyright © 2015, 2016, 2017, 2018, 2019
 %	Thorsten Glaser <t.glaser@tarent.de>
 % Copyright © 2014, 2015
 %	Thorsten Glaser <thorsten.glaser@teckids.org>
@@ -43,9 +43,9 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{6.0}
-\newcommand{\vwiaversfassungmonat}{November}
-\newcommand{\vwiaversfassungjahr}{2018}
+\newcommand{\vwiaversfassungnr}{6.1}
+\newcommand{\vwiaversfassungmonat}{Februar}
+\newcommand{\vwiaversfassungjahr}{2019}
 
 % VerA.web Version
 \newcommand{\vwiaverssw}{1.9.5}
@@ -1049,7 +1049,7 @@ Legen Sie den Datenbankbenutzer und die Datenbank an:
 \begin{lstdump}{DB erstellen OSIAM}
 # createuser fragt nach einem zu vergebenden Paßwort
 sudo -u postgres createuser -D -P -R -S ong
-sudo -u postgres createdb -E UTF-8 -O ong -T template0 ong
+sudo -u postgres createdb -E UTF-8 -O ong -T template0 -l C.UTF-8 ong
 \end{lstdump}
 
 Falls Sie hierbei ein anderes Paßwort als \texttt{ong} für
@@ -1394,7 +1394,7 @@ Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
 \begin{lstdump}{DB erstellen}
 # createuser fragt nach einem zu vergebenden Paßwort
 sudo -u postgres createuser -D -P -R -S veraweb
-sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
+sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 -l C.UTF-8 veraweb
 \end{lstdump}
 \end{minipage}
 
