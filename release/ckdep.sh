@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016, 2017, 2018
+# Copyright © 2016, 2017, 2018, 2019
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -48,6 +48,7 @@ fi
 # analyse Maven dependencies
 (cd .. && mvn -B -Dskip-test-only-dependencies dependency:list) 2>&1 | \
     tee /dev/stderr | sed -n \
+    -e 's/ -- module .*$//' \
     -e '/:test$/d' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
     -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
