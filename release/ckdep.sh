@@ -58,6 +58,7 @@ if (( build_vwoa )); then
 	# analyse Maven dependencies
 	(cd ../vwoa && mvn -B -Dskip-test-only-dependencies dependency:list) 2>&1 | \
 	    tee /dev/stderr | sed -n \
+	    -e 's/ -- module .*$//' \
 	    -e '/:test$/d' \
 	    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
 	    -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
