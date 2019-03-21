@@ -348,6 +348,13 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
+						<!-- for now… TODO FIXME -->
+						<id>analyse-dependency-management</id>
+						<configuration>
+							<failBuild>false</failBuild>
+						</configuration>
+					</execution>
+					<execution>
 						<id>analyse-dependency-usage</id>
 						<configuration>
 							<failOnWarning>false</failOnWarning>
