@@ -263,7 +263,7 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
-			<plugin>
+			<!--plugin>
 				<groupId>org.owasp</groupId>
 				<artifactId>dependency-check-maven</artifactId>
 				<version>${maven.owasp.dependency-check.version}</version>
@@ -283,7 +283,7 @@
 					</execution>
 				</executions>
 				<inherited>false</inherited>
-			</plugin>
+			</plugin-->
 			<!--plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
