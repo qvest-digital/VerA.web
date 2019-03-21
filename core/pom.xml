@@ -69,6 +69,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.evolvis.tartools</groupId>
+			<artifactId>csvfile</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
 			<artifactId>rest-api-common</artifactId>
 		</dependency>

@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>1.11</version>
+		<version>1.14</version>
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
@@ -109,6 +109,7 @@
 		<commons-io.version>2.6</commons-io.version>
 		<commons-lang2.version>2.6</commons-lang2.version>
 		<commons-lang3.version>3.7</commons-lang3.version>
+		<csvfile.version>0.2</csvfile.version>
 		<!-- last version to work with Jersey 1 -->
 		<dropwizard.version>0.7.1</dropwizard.version>
 		<expiringmap.version>0.5.8</expiringmap.version>
@@ -317,7 +318,6 @@
 					</includes>
 					<excludes>
 						<exclude>**/io/dropwizard/client/HttpClientConfiguration.java</exclude>
-						<exclude>**/src/main/java/org/evolvis/tartools/csvfile/**</exclude>
 						<exclude>**/src/main/js/ext/**</exclude>
 						<exclude>mw/**</exclude>
 					</excludes>
@@ -688,6 +688,11 @@
 				<groupId>org.evolvis.tartools</groupId>
 				<artifactId>background-jobs</artifactId>
 				<version>${background-jobs.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.evolvis.tartools</groupId>
+				<artifactId>csvfile</artifactId>
+				<version>${csvfile.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.tartools</groupId>
