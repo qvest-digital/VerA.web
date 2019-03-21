@@ -269,6 +269,7 @@
 				<version>${maven.owasp.dependency-check.version}</version>
 				<executions>
 					<execution>
+						<id>owasp-check</id>
 						<goals>
 							<goal>aggregate</goal>
 						</goals>
@@ -341,6 +342,22 @@
 						<descriptor>release/assembly.xml</descriptor>
 					</descriptors>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>analyse-dependency-usage</id>
+						<configuration>
+							<failOnWarning>false</failOnWarning>
+							<ignoredUnusedDeclaredDependencies combine.children="append">
+								<ignoredUnusedDeclaredDependency>org.hamcrest:hamcrest-all</ignoredUnusedDeclaredDependency>
+								<ignoredUnusedDeclaredDependency>org.projectlombok:lombok</ignoredUnusedDeclaredDependency>
+							</ignoredUnusedDeclaredDependencies>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
