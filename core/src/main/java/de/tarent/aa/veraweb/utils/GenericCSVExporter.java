@@ -118,7 +118,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
             return;
         }
         Entity entity = new PersonEntity(person);
-        List line = new ArrayList(csvFieldNames.size());
+        List<String> line = new ArrayList<>(csvFieldNames.size());
         for (Object csvFieldName : csvFieldNames) {
             line.add(fieldMapping.resolve(csvFieldName.toString(), entity));
         }
