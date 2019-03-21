@@ -1,5 +1,5 @@
 antlr:antlr 2.7.7 compile TODO
-bower::bootstrap 3.3.7 compile TODO
+bower::bootstrap 3.4.0 compile TODO
 bower::bootstrapvalidator 0.5.3 compile TODO
 bower::jquery 3.3.1 compile TODO
 ch.qos.logback:logback-classic 1.1.2 compile TODO
@@ -65,7 +65,7 @@ net.sourceforge.argparse4j:argparse4j 0.4.3 compile TODO
 npm::angular 1.6.10 compile TODO
 npm::angular-animate 1.6.10 compile TODO
 npm::angular-aria 1.6.10 compile TODO
-npm::angular-material 1.1.10 compile TODO
+npm::angular-material 1.1.12 compile TODO
 npm::angular-messages 1.6.10 compile TODO
 npm::angular-route 1.6.10 compile TODO
 npm::angular-translate 2.18.1 compile TODO
@@ -77,7 +77,7 @@ npm::inherits 2.0.3 compile TODO
 npm::jquery-param 0.2.0 compile TODO
 npm::lru-cache 2.7.3 compile TODO
 npm::minimatch 0.3.0 compile TODO
-npm::moment 2.22.2 compile TODO
+npm::moment 2.24.0 compile TODO
 npm::ng-file-upload 12.2.13 compile TODO
 npm::sigmund 1.0.1 compile TODO
 org.apache.httpcomponents:httpclient 4.5.5 compile TODO
