@@ -377,8 +377,8 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
         final Set result = new HashSet();
         final Bean person = database.createBean("Person");
         for (Object currentField : person.getFields()) {
-            if(personDataFieldsFilter(currentField, new String[] {"workarea", "fk_salutation_a_e1", "fk_salutation_a_e2",
-                    "fk_salutation_a_e3", "fk_salutation_b_e1", "fk_salutation_b_e2", "fk_salutation_b_e3"})) {
+            if (personDataFieldsFilter(currentField, new String[] { "workarea", "fk_salutation_a_e1", "fk_salutation_a_e2",
+              "fk_salutation_a_e3", "fk_salutation_b_e1", "fk_salutation_b_e2", "fk_salutation_b_e3" })) {
                 result.add(PERSON_FIELD_FORMAT.format(new Object[] { currentField }));
             }
         }
@@ -386,8 +386,8 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     }
 
     private boolean personDataFieldsFilter(Object currentField, String[] filter) {
-        for(String value : filter) {
-            if(currentField.toString().equals(value)) {
+        for (String value : filter) {
+            if (currentField.toString().equals(value)) {
                 return false;
             }
         }
