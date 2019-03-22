@@ -109,7 +109,7 @@
 		<commons-io.version>2.6</commons-io.version>
 		<commons-lang2.version>2.6</commons-lang2.version>
 		<commons-lang3.version>3.7</commons-lang3.version>
-		<csvfile.version>0.2</csvfile.version>
+		<csvfile.version>1.0</csvfile.version>
 		<!-- last version to work with Jersey 1 -->
 		<dropwizard.version>0.7.1</dropwizard.version>
 		<expiringmap.version>0.5.8</expiringmap.version>
