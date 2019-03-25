@@ -1276,6 +1276,13 @@ QUnit.test( "jQuery.extend(Object, Object {created with \"defineProperties\"})",
 	assert.equal( accessorObj.nonenumerableProp, undefined, "Verify that non-enumerable getters are ignored" );
 } );
 
+QUnit.test( "jQuery.extend( true, ... ) Object.prototype pollution", function( assert ) {
+	assert.expect( 1 );
+
+	jQuery.extend( true, {}, JSON.parse( "{\"__proto__\": {\"devMode\": true}}" ) );
+	assert.ok( !( "devMode" in {} ), "Object.prototype not polluted" );
+} );
+
 QUnit.test( "jQuery.each(Object,Function)", function( assert ) {
 	assert.expect( 23 );
 
