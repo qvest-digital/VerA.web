@@ -158,6 +158,11 @@ H/15 * * * *</spec>
       <language></language>
       <mavenOpts></mavenOpts>
       <jobAdditionalProperties>-Dsonar.projectName=VerA.web</jobAdditionalProperties>
+      <triggers>
+        <skipScmCause>false</skipScmCause>
+        <skipUpstreamCause>true</skipUpstreamCause>
+        <envVar>IS_M2RELEASEBUILD</envVar>
+      </triggers>
       <settings class="jenkins.mvn.DefaultSettingsProvider"/>
       <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
       <usePrivateRepository>false</usePrivateRepository>
