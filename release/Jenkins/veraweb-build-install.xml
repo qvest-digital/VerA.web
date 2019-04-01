@@ -182,6 +182,10 @@ H/15 * * * *</spec>
       <command>PS4=&#34;(ci-busyapps)++ &#34;
 set -ex
 
+if test x&#34;$IS_M2RELEASEBUILD&#34; = x&#34;true&#34;; then
+	cd target/checkout
+fi
+
 # install to stage
 if test x&#34;$VWJENKINS_PROPER_INSTALL_STAGE&#34; = x&#34;(keine)&#34;; then
 	: not installing to a proper system
@@ -208,7 +212,7 @@ if test x&#34;$IS_M2RELEASEBUILD&#34; = x&#34;true&#34;; then
 	: trigger Docker build of release, whether or not an
 	: installation of these is requested
 	echo &#34;VWJENKINS_DOCKER_RELEASE_TO_BUILD=$MVN_RELEASE_VERSION&#34; \
-	    &gt;target/jenkins-parm.prop
+	    &gt;../../target/jenkins-parm.prop
 elif test x&#34;$VWJENKINS_DOCKER_INSTALL_STAGE&#34; = x&#34;(keine)&#34;; then
 	: this blocks the triggering of the Docker jobs
 	rm -f target/jenkins-parm.prop
@@ -220,8 +224,7 @@ fi
 
 if test x&#34;$IS_M2RELEASEBUILD&#34; = x&#34;true&#34;; then
 	mksh release/mkship.sh -u
-fi
-</command>
+fi</command>
     </hudson.tasks.Shell>
   </postbuilders>
   <runPostStepsIfResult>
