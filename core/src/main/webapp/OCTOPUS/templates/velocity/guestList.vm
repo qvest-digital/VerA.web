@@ -735,21 +735,15 @@
 
                                                                 #if($userConfig.guestEmail == 'true')
                                                                 <td style="min-width: $column7_minwidth;" class="textCenter">
-                                                                        <div class="cutOff">
-                                                                                #if($bean.showdoctype)
-                                                                                        #if($bean.mail_a_gd.length() > 0)
-                                                                                                <a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
-                                                                                        #else
-                                                                                                &nbsp;
-                                                                                        #end
-                                                                                #else
-                                                                                        #if($bean.mail_a_e1.length() > 0)
-                                                                                                <a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
-                                                                                        #else
-                                                                                                &nbsp;
-                                                                                        #end
-                                                                                #end
-                                                                        </div>
+                                                                         #if($bean.showdoctype)
+                                                                                 #if($bean.mail_a_gd.length() > 0)
+                                                                                         <a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+                                                                                 #end
+                                                                         #else
+                                                                                 #if($bean.mail_a_e1.length() > 0)
+                                                                                         <a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>&nbsp;
+                                                                                 #end
+                                                                         #end
                                                                 </td>
                                                                 #end
 
