@@ -23,6 +23,12 @@
     });
 </script>
 
+<style>
+  .chosen-container .chosen-results {
+    max-height:100px;
+  }
+</style>
+
 <input type="hidden" name="doInsert" value="true">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
@@ -49,7 +55,7 @@
 
 #if(($list && $list.size() > 0) || $grants.mayWrite())
     <div class="table_border">
-    <table class="notBold scrollable-table">
+    <table class="notBold">
         <tr>
             #if($list && $list.size() > 0 && $grants.mayWrite())
                 <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end #if(!$grants.mayWrite()) vera-disabled#end/></th>
