@@ -80,6 +80,7 @@ import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.internet.AddressException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -90,9 +91,12 @@ import javax.ws.rs.core.Response.Status;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 import org.evolvis.veraweb.common.RestPaths;
 
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
@@ -103,6 +107,13 @@ public class MailingResource extends FormDataResource {
     public static final String PARAM_MAILINGLIST_ID = "mailinglist-id";
     public static final String PARAM_MAIL_TEXT = "mailtext";
     public static final String PARAM_MAIL_SUBJECT = "mail-subject";
+
+    //http://emailregex.com/
+    private static final Pattern pattern = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)" +
+      "*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:" +
+      "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\" +
+      ".){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:" +
+      "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
 
     private MailDispatcher mailDispatcher;
     private EmailConfiguration emailConfiguration;
@@ -160,14 +171,20 @@ public class MailingResource extends FormDataResource {
 
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
-            try {
-                final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(),
-                  subject, substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
-                sb.append(monitor.toString());
-            } catch (AddressException e) {
-                LOGGER.error("Email-Adress is not valid" + recipient.getAddress(), e);
-                // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
-                // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
+            if (pattern.matcher(recipient.getAddress()).matches()) {
+                try {
+                    final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(),
+                      subject, substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
+                    sb.append(monitor.toString());
+                } catch (AddressException e) {
+                    LOGGER.error("Email-Adress is not valid" + recipient.getAddress(), e);
+                    // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
+                    // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
+                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress() + "\n\n");
+                    thrownAddressException = true;
+                }
+            } else {
+                LOGGER.error("Email-Adress is not valid" + recipient.getAddress());
                 sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress() + "\n\n");
                 thrownAddressException = true;
             }
