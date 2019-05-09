@@ -80,8 +80,10 @@
             <vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
         #end
 
-        #if($duplicateGuest == "isDuplicate")
-            <vera-warn> ${placeholderWithTranslation.GUEST_LIST_DUPLICATE_ERR} </vera-warn>
+        #if($duplicateGuest)
+            #if($duplicateGuest == "isDuplicate")
+                <vera-warn> ${placeholderWithTranslation.GUEST_LIST_DUPLICATE_ERR} </vera-warn>
+            #end
         #end
 
         ##IMPLEMENTNEWMESSAGEMETHOD
@@ -648,7 +650,7 @@
                                                         #end
 
                                                         #if($userConfig.guestInternalId == 'true')
-                                                                #if($bean.internal_id != "")
+                                                                #if($bean.internal_id && $bean.internal_id != "")
                                                                     <td  onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">$bean.internal_id</td>
                                                                 #else
                                                                     <td style="min-width: $column2_minwidth; max-width: 10%" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_INTERNAL_ID}">&nbsp;</td>
@@ -797,7 +799,7 @@
                                                                                                 <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
                                                                                                 <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
                                                                                                 <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
-                                                                                                <option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
+                                                                                                <option #if($bean.invitationstatus_a && $bean.invitationstatus_b && $bean.invitationstatus_b == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
                                                                                         </select>
                                                                                 #else
                                                                                         #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)

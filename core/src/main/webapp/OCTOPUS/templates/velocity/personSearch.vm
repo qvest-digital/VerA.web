@@ -194,7 +194,7 @@
                                                         <select name="categorie2" id="categorie2" >
                                                         <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
                                                         #foreach($categorie in $allCategorie)
-                                                            #if($categorie.flags == 1)
+                                                            #if($categorie.flags && $categorie.flags == 1)
                                                             <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!message.plain($!categorie.name)</option>
                                                             #end
                                                         #end

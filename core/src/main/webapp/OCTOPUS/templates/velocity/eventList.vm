@@ -281,9 +281,11 @@
                                                                 <td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
                                                                 <td width="200px" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">
                                                                         #foreach($location in $allLocation)
+                                                                            #if($bean.location)
                                                                                 #if($location.get("id") == $bean.location)
                                                                                         $!message.plain($location.get("name"))
                                                                                 #end
+                                                                            #end
                                                                         #end
                                                                 </td>
                                                         #end

@@ -8,7 +8,7 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
 #parse("inc/header.vm")
 
-#if($missingorgunit.result == "done")
+#if($missingorgunit && $missingorgunit.result == "done")
 <vera-success>
         ${placeholderWithTranslation.alledatensatzewurdenerfolgreichmandantenzugeordnet}
 </vera-success>
