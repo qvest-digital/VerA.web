@@ -89,8 +89,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -210,7 +212,12 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Das zu verwendende Datumsformat
      */
-    public final SimpleDateFormat dateFormat = new SimpleDateFormat();
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+
+    static {
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
+    }
+
 
     //
     // Schnittstelle DatabaseUtilizer
