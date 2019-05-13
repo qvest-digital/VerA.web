@@ -265,9 +265,36 @@ public class PdfTemplateResource extends FormDataResource {
         finalForm.setFields(fields);
         finalDoc.save(new File(OUTPUT_FILENAME));
         finalDoc.close();
+        deleteOldPdfFiles();
     }
 
-        private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
+    private void deleteOldPdfFiles() {
+        final File directory = new File(FileUtils.getTempDirectoryPath());
+        if (directory.exists()) {
+            deleteFiles(directory);
+        }
+    }
+
+    private void deleteFiles(File directory) {
+        final File[] listFiles = directory.listFiles();
+        if (listFiles != null && listFiles.length > 0) {
+            for (File listFile : listFiles) {
+                if (listFile.lastModified() < PURGE_TIME) {
+                    executeCurrentFileDeletion(listFile);
+                }
+            }
+        }
+    }
+
+    private void executeCurrentFileDeletion(File listFile) {
+        if (!listFile.delete()) {
+            LOGGER.log(Logger.Level.ERROR, "Unable to delete file: " + listFile);
+        }
+    }
+
+
+
+    private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
         if (name == null || name.trim().equals("")) {
             return Response.status(VworConstants.HTTP_PRECONDITION_FAILED).build();
         } else {
