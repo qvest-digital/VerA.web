@@ -167,7 +167,7 @@
                                         <select class="chosen-select" name="guest-category" id="guest-category" onchange="setModified('categorie')">
                                             <option value="0">${placeholderWithTranslation.GENERIC_NONE}</option>
                                             #foreach($category in $allCategorie)
-                                                <option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
+                                                <option value="$category.id" #if($guest.category && $guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
                                             #end
                                         </select>
                                     </div>

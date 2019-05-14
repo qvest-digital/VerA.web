@@ -124,7 +124,7 @@
 			</div>
 
 			#if ($addressType == "geschaeftlich")
-			<div class="tableCell width50" #if($person.iscompany == "f") style = "display:none" #end id="div-update-employees">
+			<div class="tableCell width50" #if($person.iscompany && $person.iscompany == "f") style = "display:none" #end id="div-update-employees">
 				<input type="checkbox" id="checkbox-update-employees" name="updateEmployees" value="true"/>
 				${placeholderWithTranslation.mitarbeiteraktualisieren}
 			</div>

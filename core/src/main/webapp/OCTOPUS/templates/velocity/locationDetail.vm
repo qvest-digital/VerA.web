@@ -25,7 +25,7 @@
 		<input type="hidden" name="location-id" value="$!location.id">
 		<input type="hidden" name="location-orgunit" value="$!location.orgunit">
 
-		#if($location.errors.size() > 0)
+		#if($location.errors && $location.errors.size() > 0)
 		<div style="width: 99%; background-color: #ffffff;">
 		<vera-warn>
 			$!message.plain($location.errors.get(0))<br>

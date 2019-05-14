@@ -149,7 +149,7 @@
 					<select  name="workarea-id" id="workarea-id"  onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end>
 						<option value="">${placeholderWithTranslation.keinarbeitsbereich}</option>
 						#foreach($workArea in $allWorkArea)
-							<option value="$workArea.id" #if($person.workarea == $workArea.id) selected#end>$!message.text($workArea.name)</option>
+							<option value="$workArea.id" #if($person.workarea && $person.workarea == $workArea.id) selected#end>$!message.text($workArea.name)</option>
 						#end
 					</select>
 				#end
