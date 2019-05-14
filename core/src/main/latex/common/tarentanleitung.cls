@@ -1,5 +1,5 @@
 % Dokumentklasse „Anleitung“ für tarent solutions GmbH
-% Copyright © 2015, 2016
+% Copyright © 2015, 2016, 2019
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % abgeleitet von der Dokumentenklasse pubmat des Teckids e.V.
@@ -29,7 +29,7 @@
 \PassOptionsToPackage{paper=21truecm:28truecm}{typearea}
 \RequirePackage{graphicx}
 \RequirePackage{fancyhdr}
-\LoadClass{scrartcl}
+\LoadClass[toc=sectionentrywithdots]{scrartcl}
 \RequirePackage{tarentstyle}
 
 % Name Jahr

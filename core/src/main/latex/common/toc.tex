@@ -1,6 +1,6 @@
 % LaTeX Table of Contents for tarent
 %
-% Copyright © 2015, 2016
+% Copyright © 2015, 2016, 2019
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % Provided that these terms and disclaimer and all copyright notices
@@ -21,11 +21,9 @@
 % include with 「\input{toc.tex}」 after \tarentanleitung{…}…
 
 \addtocontents{toc}{\protect\thispagestyle{fancy}}
-\addtolength{\cftsubsecnumwidth}{0.5em}
-\addtolength{\cftsubsubsecindent}{0.5em}
-% default: 10pt plus 1pt
-\setlength{\cftbeforesecskip}{10pt plus 4pt minus 2pt}
-\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\RedeclareSectionCommand[tocbeforeskip=10pt plus 4pt minus 2pt]{section}
+\RedeclareSectionCommand[tocnumwidth=2.8em]{subsection}
+\RedeclareSectionCommand[tocindent=4.3em]{subsubsection}
 \hypersetup{linkcolor = black}
 \tableofcontents
 \hypersetup{linkcolor = blue}
