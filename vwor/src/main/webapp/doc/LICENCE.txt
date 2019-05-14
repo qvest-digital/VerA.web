@@ -70,10 +70,9 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 │ with this program; if not, see: http://www.gnu.org/licenses/             │
 └──────────────────────────────────────────────────────────────────────────┘
 
-The WAR files shipped combine some work under GNU AGPLv3-only with other
-work under GNU GPLv3-compatible licences; refer to GPLv3 §13 and AGPLv3 §13
-for the details and below for respective Appropriate Legal Notices, given
-that this file is served inside the UI as such.
+The WAR files shipped combine some work under GNU licences; see below for
+respective Appropriate Legal Notices, given that this file is served inside
+the UI as such.
 
 ┌──┤ VerA.web-Middleware (MIT, GPLv2+ w. Classpath exception) ├────────────┐
 │                                                                          │
@@ -182,7 +181,6 @@ Summary of individual licences used, including all dependencies:
 • Apache v2
 ⚠ Creative Commons CC-BY-SA 1.0
 • Creative Commons CC-BY 3.0 (unported)
-• GNU AGPLv3-only
 • GNU GPLv2 or later
 • GNU GPLv2 or later with Classpath exception
 • GNU GPLv3 or later
