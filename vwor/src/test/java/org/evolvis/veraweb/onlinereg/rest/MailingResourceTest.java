@@ -181,7 +181,7 @@ public class MailingResourceTest {
         listFormDataBodyParts.add(formDataBodyPart4);
         listFormDataBodyParts.add(formDataBodyPart5);
         final PersonMailinglist mailinglist = new PersonMailinglist();
-        mailinglist.setAddress("test@test");
+        mailinglist.setAddress("test@test.de");
         mailinglist.setMailinglistId(1);
         mailinglist.setPerson(mock(Person.class));
         mailinglist.setPk(1);
