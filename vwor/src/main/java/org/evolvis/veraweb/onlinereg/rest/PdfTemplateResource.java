@@ -68,14 +68,13 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.AcroFields;
-import com.itextpdf.text.pdf.PdfCopy;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
+import org.apache.pdfbox.pdmodel.interactive.form.PDField;
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.export.ValidExportFilter;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -87,15 +86,29 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
-import java.io.*;
-import java.util.*;
-import org.evolvis.veraweb.common.RestPaths;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -204,7 +217,7 @@ public class PdfTemplateResource extends FormDataResource {
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
                                 @QueryParam("eventId") Integer eventId,
                                 @javax.ws.rs.core.Context UriInfo ui)
-      throws IOException, DocumentException {
+      throws IOException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
@@ -214,45 +227,45 @@ public class PdfTemplateResource extends FormDataResource {
             return Response.status(Status.NO_CONTENT).build();
         }
 
-        final UUID uuid = UUID.randomUUID();
         alternativeSalutations = getAlternativeSalutations(pdfTemplateId);
-        final List<String> filesList = getFileList(people, pdfTemplateId, uuid);
-        mergeFiles(filesList);
+        generateFromTemplate(people, pdfTemplateId, eventId);
 
         final File outputFile = new File(OUTPUT_FILENAME);
         return Response.ok(outputFile)
           .header("Content-Disposition", "attachment;filename=" + currentExportFileName + ";charset=Unicode").build();
     }
 
-    private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
-        if (name == null || name.trim().equals("")) {
-            return Response.status(VworConstants.HTTP_PRECONDITION_FAILED).build();
-        } else {
-            try {
-                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
-                return Response.ok(pdfTemplate).build();
-            } catch (Exception e) {
-                LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
-                return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-            }
-        }
-    }
+    private void generateFromTemplate(List<Person> people, Integer pdfTemplateId, Integer eventId) throws IOException {
+        PDDocument finalDoc = new PDDocument();
+        final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, UUID.randomUUID());
+        File file = new File(tempFileWithPdfTemplateContent);
 
-    private List<String> getFileList(List<Person> people, Integer pdfTemplateId, UUID uuid)
-      throws IOException, DocumentException {
-        deleteOldPdfFiles();
-        final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, uuid);
-        final List<String> filesList = new ArrayList<>();
+        //create new arraylist to cache fields
+        //(fields can only be set afterwards, because no duplicates are allowed)
+        //so we have to rename all of them and fill them afterwards
+        List<PDField> fields = new ArrayList<>();
+        int i = 0;
+
         for (Person person : people) {
-            final String personalOutputFile = writePersonalOutputFile(tempFileWithPdfTemplateContent, person, uuid);
-            filesList.add(personalOutputFile);
+            PDDocument template = PDDocument.load(file);
+            PDDocumentCatalog docCatalog = template.getDocumentCatalog();
+            PDAcroForm acroForm = docCatalog.getAcroForm();
+            final Map<String, String> substitutions = getSubstitutions(person);
+            for (PDField field : acroForm.getFields()) {
+                field.setValue(substitutions.get(field.getPartialName()));
+                field.setPartialName(field.getPartialName() + i);
+                fields.add(field);
+            }
+            finalDoc.addPage(docCatalog.getPages().get(0));
+            i++;
         }
-        deleteTemplateOutputFiles(tempFileWithPdfTemplateContent);
-        return filesList;
-    }
-
-    private void deleteTemplateOutputFiles(String tempFileWithPdfTemplateContent) throws IOException {
-        FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
+        PDAcroForm finalForm = new PDAcroForm(finalDoc);
+        finalForm.setNeedAppearances(true);
+        finalDoc.getDocumentCatalog().setAcroForm(finalForm);
+        finalForm.setFields(fields);
+        finalDoc.save(new File(OUTPUT_FILENAME));
+        finalDoc.close();
+        deleteOldPdfFiles();
     }
 
     private void deleteOldPdfFiles() {
@@ -279,28 +292,22 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-    private void mergeFiles(List<String> filesList) throws DocumentException, IOException {
-        final Document outputFile = new Document();
 
-        final PdfCopy pdfCopy = new PdfCopy(outputFile, new FileOutputStream(OUTPUT_FILENAME));
-        outputFile.open();
-        for (String filename : filesList) {
-            PdfReader pdfReader = new PdfReader(filename);
-            final int numberOfPages = pdfReader.getNumberOfPages();
-            for (int page = 0; page < numberOfPages; ) {
-                pdfCopy.addPage(pdfCopy.getImportedPage(pdfReader, ++page));
+
+    private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
+        if (name == null || name.trim().equals("")) {
+            return Response.status(VworConstants.HTTP_PRECONDITION_FAILED).build();
+        } else {
+            try {
+                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
+                return Response.ok(pdfTemplate).build();
+            } catch (Exception e) {
+                LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
+                return Response.status(Status.INTERNAL_SERVER_ERROR).build();
             }
         }
-
-        deletePersonalOutputFiles(filesList);
-        outputFile.close();
     }
 
-    private void deletePersonalOutputFiles(List<String> filesList) throws IOException {
-        for (String filename : filesList) {
-            FileUtils.forceDelete(new File(filename));
-        }
-    }
 
     private String writePdfContentFromDbToTempFile(Integer pdfTemplateId, UUID uuid) throws IOException {
         final PdfTemplate pdfTemplate = getPdfTemplate(pdfTemplateId);
@@ -317,41 +324,6 @@ public class PdfTemplateResource extends FormDataResource {
         return tempFileForPdfTemplate.toString();
     }
 
-    private String writePersonalOutputFile(String pdfTemplateFilename, Person person, UUID uuid)
-      throws IOException, DocumentException {
-        final PdfReader pdfReader = new PdfReader(pdfTemplateFilename);
-        final String path =
-          FileUtils.getTempDirectoryPath() + File.separator + uuid.toString() + "-personal-pdf-file-" + person.getPk() +
-            "-" +
-            new Date().getTime() + ".pdf";
-        final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
-
-        final Map<String, String> substitutions = getSubstitutions(person);
-        //iterate over all field in "pdfTemplateFilename"
-        final AcroFields acroFields = pdfStamper.getAcroFields();
-        final List<String> tempFieldList = new ArrayList<>();
-        for (Map.Entry<String, ?> fieldInTemplate : ((HashMap<String, ?>) acroFields.getFields()).entrySet()) {
-            acroFields.setField(fieldInTemplate.getKey(), substitutions.get(fieldInTemplate.getKey()));
-            tempFieldList.add(fieldInTemplate.getKey());
-        }
-        renameFields(person.getPk(), acroFields, tempFieldList);
-        pdfStamper.close();
-
-        return path;
-    }
-
-    /**
-     * Rename fields to avoid global changes of the fields.
-     *
-     * @param personId   The personal ID
-     * @param acroFields All fields in the template
-     * @param fieldsList Temp list with fieldnames to avoid ConcurrentModificationException
-     */
-    private void renameFields(Integer personId, AcroFields acroFields, List<String> fieldsList) {
-        for (String fieldName : fieldsList) {
-            acroFields.renameField(fieldName, fieldName + personId);
-        }
-    }
 
     private Map<String, String> getSubstitutions(Person person) {
         final Map<String, String> substitutions;
