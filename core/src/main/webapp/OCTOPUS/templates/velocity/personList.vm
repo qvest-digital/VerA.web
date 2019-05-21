@@ -237,6 +237,8 @@
                                         expired : expired("$!bean.dateexpire"),
                                         firstName: "$!message.plain($bean.firstname_a_e1)",
                                         lastName: "$!message.plain($bean.lastname_a_e1)",
+                                        eventid: "$!message.plain($bean.eventid)",
+                                        eventname: "$!message.plain($bean.eventname)",
                                         ongoingEvent: ongoingEvent("$!bean.eventmaxenddate"),
                                         ongoingTaskEvent: ongoingEvent("$!bean.taskeventmaxenddate")
                                 },
@@ -300,7 +302,7 @@
                         'entfernt:</span><br><ul class="text">';
                 $ .each(ongoingEventPersonIds, function (index, id) {
                     var person = personModel[id];
-                    msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                    msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ') - Event: '+ person.eventname +' (ID: '+person.eventid +')</li>';
                 });
                 msg += '</ul>';
 
@@ -316,6 +318,11 @@
                 });
                 msg += '</ul>';
             }
+
+
+
+
+
             msg +=      '<br><span class="notBold">' + " ${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab} </span><br>"+
                         " ${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} " +
                     " ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>";
