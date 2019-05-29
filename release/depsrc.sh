@@ -35,6 +35,7 @@ fi
 set -e
 set -o pipefail
 cd "$(dirname "$0")/.."
+mkdir -p target
 rm -rf target/dep-srcs
 
 vsn=$(<pom.xml xmlstarlet sel \
