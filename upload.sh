@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2018
+# Copyright © 2018, 2019
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -38,7 +38,6 @@ usage() {
 }
 
 has_vwoa=1
-split_oa=0
 tomcat=8
 tailf=0
 while getopts "fhn" ch; do
@@ -64,16 +63,6 @@ function tgtck {
 	(ohne)
 		hostbase=veraweb-ohne.lan.tarent.de
 		hostoa=
-		;;
-	(mit/ohne)
-		split_oa=1
-		hostbase=veraweb-mit.lan.tarent.de
-		hostoa=veraweb-mit-oa.lan.tarent.de
-		hostohne=veraweb-ohne.lan.tarent.de
-		if (( tailf )); then
-			print -ru2 -- '[WARNING] cannot tail two systems, -f ignored'
-			tailf=0
-		fi
 		;;
 	(po)
 		hostbase=veraweb-po.lan.tarent.de
@@ -107,7 +96,6 @@ if (( has_vwoa )) && [[ ! -s vwoa/target/vw-online-registration.jar ]]; then
 fi
 
 # glue for the following old code
-(( split_oa )) && dontsplitoa=false || dontsplitoa=true
 (( has_vwoa )) || hostoa=
 
 if (( tailf )); then
@@ -124,11 +112,6 @@ ssh root@$hostbase "
 	set -ex
 	(service tomcat$tomcat stop || :)
     "
-$dontsplitoa || ssh root@$hostohne "
-	PS4='(${hostohne%%.*})++++ '
-	set -ex
-	(service tomcat$tomcat stop || :)
-    "
 test -z "$hostoa" || \
     scp vwoa/target/vw-online-registration.jar root@$hostoa:/service/vwoa/
 sleep 5
@@ -138,23 +121,10 @@ ssh root@$hostbase "
 	psql -U veraweb -h 127.0.0.1 veraweb
 	rm -rf /var/lib/tomcat$tomcat/webapps/v*
     " <core/src/main/files/upgrade.sql
-$dontsplitoa || ssh root@$hostohne "
-	PS4='(${hostohne%%.*})++++ '
-	set -ex
-	psql -U veraweb -h 127.0.0.1 veraweb
-	rm -rf /var/lib/tomcat$tomcat/webapps/v*
-    " <core/src/main/files/upgrade.sql
 scp core/target/veraweb.war vwor/target/vwor.war \
     root@$hostbase:/var/lib/tomcat$tomcat/webapps/
-$dontsplitoa || scp core/target/veraweb.war vwor/target/vwor.war \
-    root@$hostohne:/var/lib/tomcat$tomcat/webapps/
 ssh root@$hostbase "
 	PS4='(${hostbase%%.*})++++ '
-	set -ex
-	service tomcat$tomcat start
-    "
-$dontsplitoa || ssh root@$hostohne "
-	PS4='(${hostohne%%.*})++++ '
 	set -ex
 	service tomcat$tomcat start
     "
