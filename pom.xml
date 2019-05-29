@@ -165,6 +165,7 @@
 		<module>core</module>
 		<module>export</module>
 		<module>vwor</module>
+		<module>release</module>
 	</modules>
 	<profiles>
 		<profile>
@@ -271,23 +272,6 @@
 							<suppressionFiles>
 								<suppressionFile>release/dependency-check-suppressions.xml</suppressionFile>
 							</suppressionFiles>
-						</configuration>
-					</execution>
-				</executions>
-				<inherited>false</inherited>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>dep-check</id>
-						<phase>install</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>./release/ckdep.sh</executable>
 						</configuration>
 					</execution>
 				</executions>
