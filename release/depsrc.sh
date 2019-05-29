@@ -45,9 +45,13 @@ exec >target/pom-srcs.xml
 cat <<EOF
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.evolvis.veraweb</groupId>
+	<parent>
+		<groupId>org.evolvis.veraweb</groupId>
+		<artifactId>veraweb-parent</artifactId>
+		<version>$vsn</version>
+		<relativePath>../</relativePath>
+	</parent>
 	<artifactId>release-sources</artifactId>
-	<version>$vsn</version>
 	<packaging>jar</packaging>
 	<dependencyManagement>
 		<dependencies>
