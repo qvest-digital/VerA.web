@@ -189,7 +189,7 @@
 						<executions>
 							<execution>
 								<id>build-depsrcs</id>
-								<phase>compile</phase>
+								<phase>generate-resources</phase>
 								<goals>
 									<goal>exec</goal>
 								</goals>
@@ -202,7 +202,7 @@
 							</execution>
 							<execution>
 								<id>generate-toplevel-sources</id>
-								<phase>generate-resources</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>exec</goal>
 								</goals>
@@ -222,7 +222,7 @@
 						<executions>
 							<execution>
 								<id>dist-assembly-depsrc</id>
-								<phase>package</phase>
+								<phase>compile</phase>
 								<goals>
 									<goal>single</goal>
 								</goals>
