@@ -450,6 +450,7 @@ INFO_LIC_LIC=Lizenz
 INFO_LIC_INFOS=Nutzungsbedingungen
 INFO_LIC_DOCS=weitere Dokumente
 INFO_LIC_SRC=Quellkode
+INFO_LIC_DEP=der Abh\u00E4ngigkeiten
 INFO_VWOR_MANDATORY=Anmerkung: ein Betrieb ohne die REST-API ist nicht mehr zul\u00E4ssig.
 GENERIC_DATABASE=Datenbank
 GENERIC_GROUPS=Gruppen

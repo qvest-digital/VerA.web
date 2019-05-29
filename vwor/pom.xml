@@ -138,6 +138,7 @@
 									<directory>../target/mksrc</directory>
 									<targetPath>doc</targetPath>
 									<includes>
+										<include>deps-src.zip</include>
 										<include>src.tgz</include>
 									</includes>
 								</resource>

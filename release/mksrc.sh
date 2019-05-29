@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016, 2017
+# Copyright © 2016, 2017, 2019
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -72,3 +72,23 @@ tar -cf - --numeric-owner --owner=0 --group=0 --sort=name \
     --no-acls --no-selinux --no-xattrs -b 1 -H ustar src | \
     gzip -n9 >src.tgz
 rm -rf src
+
+# shove dependencies’ sources into place
+rm -f deps-src.zip
+cd ..
+found=0
+for x in veraweb-parent-*-sources-of-dependencies.zip; do
+	[[ -e $x && -f $x && ! -h $x && -s $x ]] || continue
+	if (( found++ )); then
+		print -ru2 -- "[ERROR] multiple depsrcs archives found:"
+		ls -l veraweb-parent-*-sources-of-dependencies.zip | \
+		    sed 's/^/[INFO] /' >&2
+		break
+	fi
+	fn=$x
+done
+if (( found != 1 )); then
+	print -ru2 -- "[ERROR] could not link dependency sources"
+	exit 1
+fi
+ln "$fn" mksrc/deps-src.zip

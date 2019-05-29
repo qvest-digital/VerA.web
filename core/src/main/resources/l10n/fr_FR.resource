@@ -446,6 +446,7 @@ INFO_LIC_LIC=Licence
 INFO_LIC_INFOS=Conditions d\u2019utilisation
 INFO_LIC_DOCS=autres documents
 INFO_LIC_SRC=code source
+INFO_LIC_DEP=des d\u00E9pendances
 INFO_VWOR_MANDATORY=Note: operation without the REST API is no longer permitted.
 GENERIC_DATABASE=Base de donn\u00E9es
 GENERIC_GROUPS=Groupes
