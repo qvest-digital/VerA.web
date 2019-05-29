@@ -31,22 +31,18 @@ cd "$(dirname "$0")"
 
 usage() {
 	set +x
-	print -ru2 -- "[ERROR] usage: $0 [-n] <stage>"
+	print -ru2 -- "[ERROR] usage: $0 [-f] <stage>"
 	print -ru2 -- "[INFO] -f = tail -F the tomcat logs after running, press ^C to abort"
-	print -ru2 -- "[INFO] -n = do not upload Online-Anmeldung"
 	exit ${1:-1}
 }
 
-has_vwoa=1
 tomcat=8
 tailf=0
-while getopts "fhn" ch; do
+while getopts "fh" ch; do
 	case $ch {
 	(f) tailf=1 ;;
 	(+f) tailf=0 ;;
 	(h) usage 0 ;;
-	(n) has_vwoa=0 ;;
-	(+n) has_vwoa=1 ;;
 	(*) usage ;;
 	}
 done
@@ -56,25 +52,17 @@ function tgtck {
 	stage=$1
 
 	case $stage {
-	(mit)
-		hostbase=veraweb-mit.lan.tarent.de
-		hostoa=veraweb-mit-oa.lan.tarent.de
-		;;
 	(ohne)
 		hostbase=veraweb-ohne.lan.tarent.de
-		hostoa=
 		;;
 	(po)
 		hostbase=veraweb-po.lan.tarent.de
-		hostoa=$hostbase
 		;;
 	(thense)
 		hostbase=veraweb-thense.lan.tarent.de
-		hostoa=$hostbase
 		;;
 	(stadtmuenchen)
 		hostbase=veraweb-stadtmuenchen.lan.tarent.de
-		hostoa=
 		;;
 	(*)
 		set +x
@@ -88,23 +76,10 @@ function tgtck {
 }
 tgtck "$1"
 
-[[ -n $hostoa ]] || has_vwoa=0
-
-if (( has_vwoa )) && [[ ! -s vwoa/target/vw-online-registration.jar ]]; then
-	print -ru2 -- '[WARNING] Online-Anmeldung not built, not uploading it'
-	has_vwoa=0
-fi
-
-# glue for the following old code
-(( has_vwoa )) || hostoa=
-
 if (( tailf )); then
 	tcsleep=2
-	oasleep=1
 else
-	tcsleep=5
-	oasleep=5
-	test -n "$hostoa" || tcsleep=10
+	tcsleep=10
 fi
 
 ssh root@$hostbase "
@@ -112,8 +87,6 @@ ssh root@$hostbase "
 	set -ex
 	(service tomcat$tomcat stop || :)
     "
-test -z "$hostoa" || \
-    scp vwoa/target/vw-online-registration.jar root@$hostoa:/service/vwoa/
 sleep 5
 ssh root@$hostbase "
 	PS4='(${hostbase%%.*})++++ '
@@ -129,16 +102,6 @@ ssh root@$hostbase "
 	service tomcat$tomcat start
     "
 sleep $tcsleep
-test -z "$hostoa" || ssh root@$hostoa "
-	PS4='(${hostoa%%.*})++++ '
-	set -ex
-	cd /service/vwoa
-	rm -f vwoa.jar
-	mv vw-online-registration.jar vwoa.jar
-	svc -t /service/vwoa
-	sleep $oasleep
-	svstat /service/vwoa
-    "
 set +x
 if (( tailf )); then
 	trap : INT

@@ -15,6 +15,10 @@
 	<include systempath="/etc/veraweb" file="config_ldap_access.xml"/>
 	<include systempath="/etc/veraweb" file="config_mail_server.xml"/>
 	<include systempath="/etc/veraweb" file="config_worker_tasks.xml"/>
-	<include systempath="/etc/veraweb" file="config_vwoa.xml"/>
 	<include systempath="/etc/veraweb" file="config_override.xml"/>
+	<!-- configuration the user is *not* supposed to override (legacy code glue) -->
+	<params>
+		<param name="online-registration.activated" value="false"/>
+		<param name="mandanten-online-registration.deactivated" value=""/>
+	</params>
 </tcModuleConfig>

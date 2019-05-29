@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<!-- mvn -B dependency:tree -Dverbose | less # quick dependency tree -->
-	<!-- mvn -B -PoA dependency:tree -Dverbose | less # with VWOA -->
 	<!--
 		Maven profiles:
 		• latex: build the Tₑχ/LᴬTᴇΧ documentation
 		• release: extra release checks, etc.
-		• oA: include building the Online-Anmeldung
 	-->
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -169,12 +167,6 @@
 		<module>vwor</module>
 	</modules>
 	<profiles>
-		<profile>
-			<id>oA</id>
-			<modules>
-				<module>vwoa</module>
-			</modules>
-		</profile>
 		<profile>
 			<id>test-only-dependencies</id>
 			<activation>
