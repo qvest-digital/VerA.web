@@ -320,6 +320,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             final Integer personId = (Integer) tmp.get("id");
             final Select eventSelect = SQL.SelectDistinct(database).from("veraweb.tperson").selectAs("tperson.pk", "id")
               .selectAs("tevent.dateend", "eventenddate").selectAs("event2.dateend", "taskeventenddate")
+              .selectAs("tevent.pk", "eventid")
+              .selectAs("tevent.shortname", "eventname")
               .selectAs("tevent.datebegin", "eventbegindate").selectAs("event2.datebegin", "taskeventbegindate")
               .joinOuter("veraweb.tguest", "tguest.fk_person", "tperson.pk")
               .joinOuter("veraweb.tevent", "tevent.pk", "tguest.fk_event")
@@ -348,6 +350,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                         taskEventBeginDate = (Timestamp) val;
                     } else if ("taskeventenddate".equals(key)) {
                         taskEventEndDate = (Timestamp) val;
+                    } else if ("eventid".equals(key) || "eventname".equals(key)){
+                        tmp.put(key, val);
                     }
                 }
             }
