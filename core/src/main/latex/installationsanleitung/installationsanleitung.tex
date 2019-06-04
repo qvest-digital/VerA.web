@@ -474,7 +474,7 @@ Alle Informationen hierzu finden Sie in Kapitel \ref{sec:setup-lam}.
 
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
-Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
+Zum Betrieb von VerA.web empfehlen wir eine eigenständige VM
 mit der stabilen Debian-Version 9 („stretch“) als Betriebssystem.
 Zwar \emph{kann} die Software auch mit einer anderen Debian-basierten
 GNU/Linux-Distribution (z.B. Ubuntu) oder Java/Tomcat-Umgebung (z.B.
@@ -546,7 +546,7 @@ Falls Sie bereits über einen \nameref{subsec:req-ldap} verfügen
 Kapitel \nameref{sec:setup-int} weiter.
 
 Diese Installation wird üblicherweise auf dem Server durchgeführt,
-auf dem Sie später auch VerA.web-core installieren möchten.
+auf dem Sie später auch VerA.web installieren möchten.
 
 \subsection{Installation OpenLDAP-Server}\label{subsec:setup-lam-slapd}
 
@@ -677,7 +677,7 @@ Dialog auf „Ok“ und dann oben links wieder auf \inlinebild[Save]{lam-save}.
 bestehen!
 
 Jetzt erscheint die Meldung „Account was created successfully.“ in einem
-blauen Kasten; damit ist dieser Nutzer angelegt und kann in VerA.web core
+blauen Kasten; damit ist dieser Nutzer angelegt und kann in VerA.web
 freigeschaltet werden, entweder, bei der Erstinstallation, über die
 Datenbank (siehe Kapitel \ref{manual:db-user}), oder, später, über die
 Weboberfläche (siehe Benutzerhandbuch).
@@ -687,12 +687,12 @@ Weboberfläche (siehe Benutzerhandbuch).
 Kopieren Sie bitte zunächst die Datei
 \texttt{veraweb-core-\vwiaverssw{}-files.tgz} sowie die
 Installationsarchive \texttt{veraweb-core-\vwiaverssw{}.war}
-und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
+und \texttt{rest-api-\vwiaverssw{}.war} auf den Server.
 
 \begin{minipage}{\linewidth}
 Benennen Sie die Applikationsdateien in später leicher zu
 verwendende Namen um, entpacken Sie das Zusatzarchiv und
-wechseln Sie in das Unterverzeichnis mit den core-Dateien:
+wechseln Sie in das Unterverzeichnis mit den Extradateien:
 
 \begin{lstdump}{Entpacken}
 mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
@@ -722,7 +722,7 @@ vorab Ihren Sachbearbeitern zukommen lassen können.
 Installieren Sie einige Pakete und stellen Sie sicher, daß keine
 ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
-\begin{lstdump}{Pakete core/stretch}
+\begin{lstdump}{Pakete}
 sudo apt-get install curl apache2 postgresql openjdk-8-jre-headless \
     tomcat8 libtcnative-1 libapache2-mod-jk
 sudo a2dismod mpm_event
@@ -743,7 +743,7 @@ Kopieren Sie desweiteren nach \texttt{/var/lib/tomcat8/lib/} \dash
 hierbei ggfs. eine bereits existierende überschreibend \dash die
 Datei \texttt{postgresql-jdbc4.jar} aus dem „files“-Tarball:
 
-\begin{lstdump}{JDBC core}
+\begin{lstdump}{JDBC}
 sudo cp postgresql-jdbc4.jar /var/lib/tomcat8/lib/
 \end{lstdump}
 \end{minipage}
@@ -836,9 +836,8 @@ SELECT veraweb.serv_build_sequences();
 
 Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
 in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
-\texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
-REST-API erreichbar ist, üblicherweise also den Hostnamen vom
-core-System) und tragen Sie die Zugangsdaten für die REST-API
+\texttt{HOSTNAME} durch den FQDN des Servers, über den VerA.web
+erreichbar ist, und tragen Sie die Zugangsdaten für die REST-API
 (siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
 
@@ -1051,7 +1050,7 @@ Umständen helfen, Tomcat einfach neuzustarten.
 \begin{minipage}{\linewidth}
 Jetzt richten Sie den Webserver ein:
 
-\begin{lstdump}{Apache core}
+\begin{lstdump}{Apache}
 sudo a2enmod jk
 sudo a2enmod ssl
 sudo a2ensite default-ssl
@@ -1063,7 +1062,7 @@ In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
 fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), folgende Zeilen ein:
 
-\begin{lstdump}{AJP workers core}
+\begin{lstdump}{AJP workers}
 JkMount /veraweb* ajp13_worker
 JkMount /vwor* ajp13_worker
 \end{lstdump}
@@ -1073,20 +1072,20 @@ JkMount /vwor* ajp13_worker
 Desweiteren richten wir üblicherweise eine Weiterleitung von der
 Startseite des Servers auf die VerA.web-Anwendung ein, an derselben Stelle:
 
-\begin{lstdump}{redirect core}
-RedirectMatch 301 ^/*$ https://HOSTNAME-CORE/veraweb/
+\begin{lstdump}{redirect}
+RedirectMatch 301 ^/*$ https://HOSTNAME/veraweb/
 \end{lstdump}
 \end{minipage}
 
-Ersetzen Sie wie üblich \texttt{HOSTNAME-CORE} durch den vollen
+Ersetzen Sie wie üblich \texttt{HOSTNAME} durch den vollen
 Hostnamen (mit Domainteil) \dash den sogenannten FQDN \dash des
-core-Systems.
+VerA.web-Systems.
 
 \begin{minipage}{\linewidth}
 Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
 Angaben durch die folgenden:
 
-\begin{lstdump}{SSL core}
+\begin{lstdump}{SSL}
 SSLCertificateFile /etc/ssl/vwserver.cer
 SSLCertificateKeyFile /etc/ssl/private/vwserver.key
 SSLCertificateChainFile /etc/ssl/vwchain.cer
@@ -1111,14 +1110,14 @@ fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), eine Weiterleitung von HTTP auf HTTPS ein:
 
 \begin{lstdump}{redirect http}
-RedirectMatch 301 . https://HOSTNAME-CORE/
+RedirectMatch 301 . https://HOSTNAME/
 \end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\linewidth}
 Nun starten Sie den Webserver neu:
 
-\begin{lstdump}{Apache restart core}
+\begin{lstdump}{Apache restart}
 sudo service apache2 stop
 sudo service apache2 start
 \end{lstdump}
@@ -1212,7 +1211,7 @@ Es empfiehlt sich, eine Sicherung von \texttt{/etc/veraweb} und
 \texttt{/var/lib/tomcat8/webapps} zu erstellen.
 
 \begin{minipage}{\linewidth}
-Bevor Sie mit dem eigentlichen Upgrade des VerA.web-core-Systems beginnen
+Bevor Sie mit dem eigentlichen Upgrade des VerA.web-Systems beginnen
 fahren Sie bitte den dort laufenden Tomcat-Applikationsserver herunter:
 
 \begin{lstdump}{Tomcat undeploy}
@@ -1235,7 +1234,7 @@ und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 \begin{minipage}{\linewidth}
 Benennen Sie die Applikationsdateien in später leicher zu
 verwendende Namen um, entpacken Sie das Zusatzarchiv und
-wechseln Sie in das Unterverzeichnis mit den core-Dateien:
+wechseln Sie in das Unterverzeichnis mit den Extradateien:
 
 \begin{lstdump}{Entpacken}
 mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
@@ -1305,8 +1304,8 @@ ist\Hair\footnote{\label{fn:vworcheck}mit:
 \dash ersetzen Sie in dieser Kommandozeile den Teil \texttt{veraweb:veraweb@}
 durch die in Kapitel \ref{manual:restpw} vergebenen Zugangsdaten für die
 REST-API (im Format {\itshape Benutzername + Doppelpunkt + Paßwort +
-Klammeraffe})}, und, über die Weboberfläche, die Verfügbarkeit von
-VerA.web-core.
+Klammeraffe})}, und, über die Weboberfläche, die Verfügbarkeit der
+eigentlichen VerA.web-Webanwendung.
 
 Damit ist das Upgrade abgeschlossen.
 Sie können nun mit dem Kapitel \nameref{sec:test} fortfahren.
@@ -1375,8 +1374,8 @@ korrekt\Hair\textsuperscript{\ref{fn:tomcatlogs}}}.
 
 Seit Version 1.8.27 ist das Anpassen der Sprachdateien vereinfacht.
 Die Standardübersetzungen sind jetzt fest in der \texttt{war}-Datei
-des Cores enthalten. Individuelle Anpassungen können in
-externen Dateien vorgenommen werden.
+enthalten. Individuelle Anpassungen können in externen Dateien
+vorgenommen werden.
 
 Dazu betrachten Sie die ausgelieferten Übersetzungsdateien im Verzeichnis
 \texttt{l10n} des „files“-Tarballs. Die Datei mit den englischen Texten
@@ -1431,7 +1430,7 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
 
 \subsection{Absicherung}\label{subsec:links-sec}
 
-Auf einer Installation von VerA.web core und REST-API befinden sich
+Auf einer Installation von VerA.web befinden sich
 Paßwörter, personenbezogene oder andere sicherheitsrelevante Daten
 potentiell u.a. an folgenden Stellen:\keinumbruch
 
