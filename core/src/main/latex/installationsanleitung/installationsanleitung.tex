@@ -34,31 +34,25 @@
 % • ~ → \textasciitilde
 % • (nbsp) → ~
 % • (em dash) → \dash
-%-
-% TODO:
-% - Unterkapitel "Securing OSIAM", mit den Berlinern zusammen, nach der Schnellinstallation
 
 \documentclass{tarentanleitung}
 \usepackage{tikz}
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{6.2}
-\newcommand{\vwiaversfassungmonat}{März}
+\newcommand{\vwiaversfassungnr}{7.0}
+\newcommand{\vwiaversfassungmonat}{Juni}
 \newcommand{\vwiaversfassungjahr}{2019}
 
 % VerA.web Version
-\newcommand{\vwiaverssw}{1.9.5}
-
-% OSIAM-Version
-\newcommand{\vwiaversosiam}{2.5}
+\newcommand{\vwiaverssw}{2.0}
 
 \begin{document}
 \tarentanleitung{Installationsanleitung VerA.web}{\vwiaverssw}
  {\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
 
 % uncomment if this is a WIP that should not be published
-%\fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}⚠ Work in Progress, do not use}
+\fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}⚠ Work in Progress, do not use}
 
 \input{toc.tex}
 
@@ -69,17 +63,10 @@ VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
 Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
 unterstützt.
 
-Die „Online-Anmeldung“ ermöglicht es Gästen, sich selbst zu Veranstaltungen
-anzumelden, die für diese Prozedur freigeschaltet sind, sowie zu einer
-Veranstaltung angemeldeten Delegationen, ihre Mitglieder selbst zu melden.
-Die Installation und Nutzung der Online-Anmeldung ist optional.
-
 \subsection{Über diese Anleitung}\label{subsec:aboutmanual}
 
 Dieses Dokument beschreibt, wie das Veranstaltungsmanagement
-VerA.web, optional mit Online-Anmeldung und (falls nötig) dem
-von der Online-Anmeldung benötigte Identitätsmanagementsystem
-OSIAM, durch einen Systemadministrator
+VerA.web durch einen Systemadministrator
 eigenständig installiert werden kann. Hierbei wird eine empfohlene
 Installation beschrieben; ein Betrieb ist auch mit abweichender
 Konfiguration (z.B. ohne Apache) möglich, aber nicht durch dieses
@@ -89,8 +76,8 @@ Diese Anwendung verwendet blau gedruckte Verweise auf andere Kapitel,
 z.B. über den Kapitelnamen (Beispiel: \nameref{subsec:aboutmanual})
 oder über die Kapitelnummer (Beispiel: \ref{subsec:aboutmanual});
 beide Beispiele verweisen auf den aktuellen Abschnitt. Einige Links
-gehen auf externe Ressourcen (z.B. die OSIAM-Dokumentation, die
-tarent-Webseite, das Benutzerhandbuch). Wenn Sie diese Anleitung als
+gehen auf externe Ressourcen (z.B. die \tarent{}-Webseite,
+das Benutzerhandbuch). Wenn Sie diese Anleitung als
 PDF am Computer lesen sind die Links (inklusive der schwarz gedruckten
 Einträge im Inhaltsverzeichnis) folgbar; in der Druckversion schauen
 Sie bitte ggfs. die Seite des Kapitels im Inhaltsverzeichnis nach.
@@ -131,17 +118,8 @@ unverständlicher zu machen. Hierzu gehören:\keinumbruch
   Für jede Maschine ist ein gültiges SSL-Zertifikat vorhanden, das
   alle verwendeten Hostnamen abdeckt.}
  \item{Die PostgreSQL-Datenbank für VerA.web wird auf dem System
-  lokal installiert. (Abweichungen sind trivial möglich.)}
- \item{Die REST-API wird nicht vom VerA.web core getrennt.}
- \item{OSIAM ist entweder vorhanden, oder wird auf einem eigenen
-  System installiert, oder wird (durch diese Anleitung gestützt)
-  auf demselben System wie VerA.web core installiert.}
- \item{Die PostgreSQL-Datenbank für OSIAM ist bzw. wird lokal auf
-  dem System, auf dem OSIAM im Applikationsserver läuft, installiert.}
- \item{Die Online-Anmeldung wird entweder auf einem eigenen System
-  (Regelfall) oder auf demselben System wie VerA.web core betrieben.}
- \item{Alle Komponenten kommunizieren auch untereinander über mit
-  HTTPS gesicherte Verbindungen und durch die Apache-Frontends.}
+  lokal installiert. (Abweichungen sind trivial möglich.)
+  Die REST-API wird nicht vom VerA.web core getrennt.}
 \end{itemize}
 
 \subsection{Konzepte}\label{subsec:concepts}
@@ -154,31 +132,13 @@ dieselbe Datenbank zu.
 \begin{itemize}
  \item{\texttt{veraweb.war}: Die eigentliche Veranstaltungsmanagementsoftware,
   welche später über einen Apache-Webserver von Sachbearbeitern bedient wird.}
- \item{\texttt{vwor.war}: Die sogenannte „REST-API“; eine Funktionssammlung,
-  welche Dienste für sowohl VerA.web als auch die (optionale) Online-Anmeldung
-  bereitstellt.}
+ \item{\texttt{vwor.war}: Ein Hilfsmodul, welches intern angesprochen wird.}
 \end{itemize}
 
 VerA.web authentifiziert Sachbearbeiter über einen \nameref{subsec:req-ldap}.
 Ein LDAP-Server ist Voraussetzung für den Betrieb von VerA.web.
 (Falls Sie keinen LDAP-Server betreiben können Sie anhand dieser Anleitung
-einen schlanken LDAP-Server mit Administrations-Webfrontend installieren.)
-
-Die (optionale) Online-Anmeldung zu VerA.web benutzt OSIAM zur sicheren
-Identitätsverwaltung, daher ist eine funktionierende OSIAM-Installation
-Voraussetzung für den Betrieb der Online-Anmeldung; sollten Sie jedoch
-noch keine OSIAM-Instanz betreiben wird eine für VerA.web taugliche
-Kurzinstallation erläutert.
-OSIAM kann auf einem separaten System oder zusammen mit VerA.web core laufen
-und benötigt eine eigene Datenbank, die aber im selben PostgreSQL-Cluster
-liegen kann (und, bei Installation auf demselben Server, sollte). OSIAM für
-VerA.web ist ein reines „Backend“ ohne Weboberfläche.
-
-Die Online-Anmeldung selber wird üblicherweise auf einem separaten System
-installiert, da auf diese Komponente durch Dritte über das Internet
-zugegriffen werden soll (im Gegensatz zu VerA.web core, auf welchem
-sich nur Ihre Sachbearbeiter einloggen). Sie verfügt über keine eigene
-Datenbank und greift auf OSIAM und die VerA.web REST-API zu.
+einen schlanken LDAP-Server mit Administrations-Webfrontend aufsetzen.)
 
 Es wird grundsätzlich (insbesondere mit Blick auf das BDSG und die EU-DSGVO)
 empfohlen, nur mit der Administration der Systeme betreuten Personen Zugriff
@@ -190,45 +150,6 @@ Diese sprengen jedoch den Rahmen dieses Dokuments.
 
 Im folgenden finden Sie eine grobe Übersicht über die einzelnen oben
 erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
-
-\begin{minipage}{\linewidth}
-\vspace{5mm}
-\begin{tikzpicture}[
-  >=stealth',
-  people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
-  acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
- ]
-
-% \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
-
-  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,75mm) {LDAP};
-  \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung und REST-API};
-  \node[above right,rectangle,fill=yellow!40,minimum width=119mm,minimum height=15mm] (oa) at (3mm,10mm) {VerA.web Online-Anmeldung};
-  \node[above right,rectangle,fill=red!20,minimum width=99mm,minimum height=15mm] (osiam) at (23mm,37mm) {OSIAM};
-
-  \node[people]   (sb)     at (168mm,60mm) {Mitarbeiter};
-  \node[people]   (guests) at (168mm,13mm) {Gäste};
-  \node[acloud]   (inet)   at (130mm,15mm) {};
-
-  \draw[thick,->] (web) -- (ldap);
-  \draw[thick,->] (sb.west) -- (sb-|web.east);
-  \draw[thick,->] (web.south) -- (web|-osiam.north);
-  \draw[thick,->] (guests) -- (inet);
-  \draw[thick,->] (inet) -- (oa);
-  \draw[thick,->] ([xshift=-5cm]oa.north) -- ([xshift=-5cm]oa|-web.south);
-  \draw[thick,->] (oa.north) -- (oa|-osiam.south);
-
-  \node[above right,inner sep=0pt] at (140mm,33mm) {internes Netz};
-  \node[below right,inner sep=0pt] at (140mm,31mm) {extern erreichbar};
-  \draw[dashed]   (0mm,32mm) -- (173mm,32mm);
-
-\end{tikzpicture}
-\end{minipage}
-
-\vspace{10mm}
-
-Falls Sie VerA.web ohne die optionale Online-Anmeldung installieren
-gilt das folgende vereinfachte Diagramm:\keinumbruch
 
 \begin{minipage}{\linewidth}
 \vspace{5mm}
@@ -248,17 +169,11 @@ gilt das folgende vereinfachte Diagramm:\keinumbruch
 \end{tikzpicture}
 \end{minipage}
 
-\vspace{5mm}
-
-Auch im folgenden gilt die jeweils vereinfachte Darstellung,
-die aus Platzgründen nicht jedes Mal neu abgespalten wird.
-
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
 Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
-(Maschinen‑)Benutzernamen und Paßwort gesichert, welche bei den aufrufenden
-Anwendungen (der Veranstaltungsmanagementsoftware und, sofern vorhanden, der
-Online-Anmeldung) hinterlegt wird; die REST-API wird niemals direkt durch
+(Maschinen‑)Benutzernamen und Paßwort gesichert, welche bei der aufrufenden
+Kernanwendung hinterlegt wird; die REST-API wird niemals direkt durch
 einen Menschen bedient. Es wird standardmäßig der Benutzer \texttt{veraweb}
 mit dem Paßwort \texttt{veraweb} verwendet; eine Änderung der Zugangsdaten
 ist \emph{dringend empfohlen}, um die Betriebssicherheit zu gewährleisten;
@@ -266,9 +181,8 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 
 \subsection{Detailübersicht}\label{subsec:intro-overview-coarse}
 
-In der nächsten Graphik werden die zu einer vollen Installation (mit allen
-optionalen Komponenten und deren Abhängigkeiten) von VerA.web gehörenden
-Komponenten mit mehr Detailtiefe aufgeschlüsselt:\keinumbruch
+In der nächsten Graphik werden die zur Installation von VerA.web
+gehörenden Komponenten mit mehr Detailtiefe aufgeschlüsselt:\keinumbruch
 
 \begin{minipage}{\linewidth}
 
@@ -280,64 +194,44 @@ Komponenten mit mehr Detailtiefe aufgeschlüsselt:\keinumbruch
   scrptr/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=black,minimum width=25mm},
   scrptl/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=black,minimum width=25mm},
   people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
-  acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
 % \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
 
-  \fill[yellow!40] (2mm,33mm) -- (121mm,33mm) -- (121mm,48mm) -- (2mm,48mm);
   \fill[green!20] (2mm,50mm) -- (121mm,50mm) -- (121mm,94mm) -- (2mm,94mm);
 
   \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (2mm,96mm) {LDAP};
-  \node[above right,rectangle,fill=red!20,minimum width=169mm,minimum height=15mm] (osiam) at (2mm,10mm) {OSIAM};
 
-  \node[microsvc] (svwoa)  at ( 39mm,36mm) {VerA.web Online-Anmeldung};
   \node[webapp]   (score)  at ( 39mm,82mm) {VerA.web Webanwendung};
   \node[webapp]   (svwor)  at ( 39mm,64mm) {VerA.web REST-API};
   \node[syssvc]   (dbvw)   at (  4mm,53mm) {veraweb DB};
   \node[people]   (admins) at (167mm,99mm) {Admins};
   \node[people]   (sb)     at (167mm,82mm) {Sachbearbeiter};
-  \node[people]   (guests) at (167mm,36mm) {Gäste};
-  \node[acloud]   (inet)   at (129mm,38mm) {};
 
   \draw[thick,->] (admins) -- ([yshift=3mm]ldap);
-  \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]score);
+  \draw[thick,->] ([yshift=-9mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]score);
   \draw[thick,->] ([yshift=3mm]score.west) -| ([xshift=-60mm]ldap);
   \draw[thick,->] (sb) -- (score);
   \draw[thick,->] ([yshift=-3mm]score) -| (dbvw);
-  \draw[thick,->] ([xshift=4mm]score) |- ++(89mm,-8mm) |- ++(-20mm,-48mm) -| ([xshift=6mm]osiam);
   \draw[thick,->] (score.south) -- (score|-svwor.north);
-  \draw[thick,->] (guests) -- (inet);
-  \draw[thick,->] (inet) -- (svwoa);
-  \draw[thick,->] (svwoa) -- (svwor);
   \draw[thick,->] (svwor) -| ([xshift=6mm]dbvw);
-  \draw[thick,->] (svwoa.south) -- (svwoa|-osiam.north);
 
 \end{tikzpicture}
 
-{\footnotesize Zugang für Gäste via DMZ durch das Internet (Wolke);
- Administratoren und Sachbearbeiter via Intranet/VPN}
-
 \end{minipage}
 
-Auch in dieser Abbildung werden LDAP und OSIAM als Blackbox
-dargestellt. Um Verwirrung zu vermeiden muß aber bereits hier
-erwähnt werden, daß sowohl der LDAP-Server als auch OSIAM ihre
-eigene Datenhaltung betreiben \dash die LDAP-Datenbank für slapd
-(der OpenLDAP-Server), und eine separate PostgreSQL-Datenbank
-für OSIAM.
+Auch in dieser Abbildung wird LDAP zur Vereinfachung als Blackbox dargestellt.
 
 \subsection{Apache als Frontend}\label{subsec:intro-apache}
 
 Wir empfehlen üblicherweise, alle Systeme aus Sicherheitsgründen so
 aufzusetzen, daß HTTPS-Verbindungen im Apache Webserver terminiert
 werden und von diesem an die einzelnen Anwendungsserver (über das
-AJP-Protokoll an Tomcat und als HTTP-Proxy an den Microservice der
-Online-Anmeldung) weitergereicht werden. Sämtliche SSL/TLS-Keys, ‑Features
-und weitere sicherheitsrelevante Einstellungen werden im Apache Webserver
-eingerichtet, auch um die Angriffsoberfläche zu reduzieren und besser
-getesteten und weiter verbreiteten Code zu verwenden, und weil die
-Administration der genannten Features in Apache bekannter und erprobter
+AJP-Protokoll an Tomcat) weitergereicht werden. Sämtliche SSL/TLS-Keys,
+‑Features und weitere sicherheitsrelevante Einstellungen werden im
+Apache Webserver eingerichtet, auch um die Angriffsoberfläche zu reduzieren
+und besser getesteten und weiter verbreiteten Code zu verwenden, und weil
+die Administration der genannten Features in Apache bekannter und erprobter
 ist als in den individuellen Anwendungsservern. Sie \emph{können} die
 Dienste auch direkt über HTTP ansprechen oder SSL in Java terminieren,
 dies widerspricht jedoch unserem empfohlenen Setup und kann nicht, z.B.
@@ -372,62 +266,38 @@ Skripte.
   scrptr/.style={above right,rectangle,draw=black,minimum width=25mm},
   scrptl/.style={above left,rectangle,draw=black,minimum width=25mm},
   people/.style={above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
-  acloud/.style={cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
 % \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
 
-  \fill[red!20] (2mm,3mm) -- (171mm,3mm) -- (171mm,39mm) -- (36mm,39mm) -- (36mm,34mm) -- (2mm,34mm);
-  \fill[yellow!40] (36mm,42mm) -- (121mm,42mm) -- (121mm,57mm) -- (36mm,57mm);
-  \fill[green!20] (2mm,35mm) -- (33mm,35mm) -- (33mm,61mm) -- (121mm,61mm) -- (121mm,94mm) -- (2mm,94mm);
+  \fill[green!20] (2mm,40mm) -- (121mm,40mm) -- (121mm,94mm) -- (2mm,94mm);
   \fill[blue!20] (2mm,96mm) -- (121mm,96mm) -- (121mm,111mm) -- (2mm,111mm);
 
   \node[apache]   (alam)   at ( 79mm,99mm) {LDAP Account Mgr};
   \node[apache]   (acore)  at ( 79mm,82mm) {VerA.web-core};
   \node[apache]   (avwor)  at ( 79mm,63mm) {REST-API};
-  \node[apache]   (avwoa)  at ( 79mm,45mm) {Online-Anmeldung};
-  \node[apache]   (aosiam) at ( 79mm,18mm) {OSIAM};
-  \node[microsvc] (svwoa)  at ( 39mm,45mm) {VWOA};
   \node[webapp]   (score)  at ( 39mm,82mm) {core};
   \node[webapp]   (svwor)  at ( 39mm,63mm) {VWOR};
-  \node[webapp]   (sauth)  at ( 39mm,27mm) {auth-server};
-  \node[webapp]   (srsrc)  at ( 39mm, 9mm) {resource-server};
   \node[syssvc]   (ldap)   at (  4mm,99mm) {LDAP-Server};
-  \node[syssvc]   (dbvw)   at (  4mm,52mm) {veraweb DB};
-  \node[syssvc]   (dbong)  at (  4mm,18mm) {ong DB};
+  \node[syssvc]   (dbvw)   at (  4mm,45mm) {veraweb DB};
   \node[sysmta]   (mta)    at ( 14mm,71mm) {MTA};
-  \node[scrptr]   (usql)   at (  4mm,37mm) {upgrade.sql};
-  \node[scrptl]   (riosh)  at (167mm,18mm) {register-into-osiam.sh};
+  \node[scrptr]   (usql)   at ( 39mm,45mm) {upgrade.sql};
   \node[people]   (admins) at (167mm,99mm) {Admins};
   \node[people]   (sb)     at (167mm,82mm) {Sachbearbeiter};
-  \node[people]   (guests) at (167mm,45mm) {Gäste};
-  \node[acloud]   (inet)   at (129mm,47mm) {};
 
   \draw[thick,->] (admins) -- ([yshift=3mm]alam);
   \draw[thick,->] (alam) -- (ldap);
-  \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]acore);
+  \draw[thick,->] ([yshift=-8mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]acore);
   \draw[thick,->] (acore) -- (score);
   \draw[thick,->] ([yshift=5mm]score) -| (ldap);
   \draw[thick,->] (sb) -- (acore);
   \draw[thick,->] (score) -| ([xshift=-7mm]dbvw.north);
   \draw[thick,->] ([yshift=-5mm]score) -| (mta);
   \draw[thick,->] (svwor) -| (mta);
-  \draw[thick,->] ([xshift=4mm]score) |- ++(112mm,-8mm) |- ++(-20mm,-39mm) -| ([xshift=6mm]aosiam);
   \draw[thick,->] (score) |- +(25mm,-11mm) -| (avwor);
-  \draw[thick,->] (guests) -- (inet);
-  \draw[thick,->] (inet) -- (avwoa);
-  \draw[thick,->] (avwoa) -- (svwoa);
-  \draw[thick,->] (svwoa) |- +(25mm,9mm) -| (avwor);
   \draw[thick,->] (avwor) -- (svwor);
-  \draw[thick,->] ([yshift=-4mm]svwor) -| ([xshift=6mm]dbvw);
+  \draw[thick,->] ([yshift=-5mm]svwor) -| ([xshift=6mm]dbvw);
   \draw[thick,->] (usql) -- (dbvw);
-  \draw[thick,<->] ([yshift=3mm]aosiam) -| (sauth);
-  \draw[thick,<->] ([yshift=-3mm]aosiam) -| (srsrc);
-  \draw[thick,->] (sauth) -| (dbong);
-  \draw[thick,->] (srsrc) -| ([xshift=3mm]dbong);
-  \draw[thick,->] (riosh) -- +(0mm,-17mm) -| ([xshift=-3mm]dbong);
-  \draw[thick,->] (riosh) -- (aosiam);
-  \draw[thick,->] (svwoa) |- +(20mm,-10mm) -| (aosiam);
 
 \end{tikzpicture}
 
@@ -435,8 +305,7 @@ Skripte.
 
 \begin{tabu} to \linewidth {rllll}
 \rowfont\bfseries\multicolumn{5}{c}{Legende}\\[0.2cm]
- Erste Spalte: & \tikz \node[thick,rectangle,draw=black] {}; Skript &
-		 \multicolumn{3}{l}{%
+ Erste Spalte: & \multicolumn{4}{l}{%
 			\tikz \node[thick,rectangle,draw=Violet] {};
 			Systemdienst (LDAP, Mailserver,
 			PostgreSQL-Datenbank)}\\
@@ -444,48 +313,26 @@ Zweite Spalte: & \multicolumn{2}{l}{%
 			\tikz \node[thick,rectangle,draw=red] {};
 			Webservice (WAR) in Tomcat} &
 		 \multicolumn{2}{l}{%
-			\tikz \node[thick,rectangle,draw=Orange] {};
-			Microservice (JAR)}\\
+			\tikz \node[thick,rectangle,draw=black] {};
+			Skript (Installation/Upgrade)}\\
 Dritte Spalte: & \multicolumn{4}{l}{%
 			\tikz \node[thick,rectangle,draw=Dandelion] {};
-			 Apache Webserver (SSL, mod\_jk oder mod\_proxy\_http)}\\
+			 Apache Webserver (SSL, mod\_jk)}\\
 Vierte Spalte: & \multicolumn{2}{l}{%
 			\tikz \node[thick,rectangle,draw=CornflowerBlue] {};
 			 Nutzergruppe (per Webbrowser)} &
-		 \multicolumn{2}{l}{%
-			\tikz \node[thick,rectangle,draw=black] {};
-			Skript (Installation/Upgrade)}\\
- Schattierung: & \tikz \node[rectangle,fill=red!30] {}; OSIAM &
-		 \tikz \node[rectangle,fill=yellow!60] {}; Online-Anmeldung &
+		 \multicolumn{2}{l}{}\\
+ Schattierung: & \tikz \node[rectangle,fill=blue!30] {}; LDAP &
 		 \tikz \node[rectangle,fill=green!30] {}; VerA.web core &
-		 \tikz \node[rectangle,fill=blue!30] {}; LDAP\\
-\multicolumn{5}{l}{\footnotesize
-		   Zugang für Gäste via DMZ durch das Internet (Wolke);
-		   Administratoren und Sachbearbeiter via Intranet/VPN}\\
+		 &
+		 \\
 \end{tabu}
 
 \end{minipage}
 
 Die WAR‑ und JAR-Dateien aus der zweiten Spalte finden Sie im
-nächsten Abschnitt als individuelle Einträge (bzw. bei OSIAM
-im entsprechenden Kapitel direkt als Download). Die schwarz
+nächsten Abschnitt als individuelle Einträge. Die schwarz
 umrahmten Skripte befinden sich im \texttt{files}-Tarball.
-
-\subsubsection{Die OSIAM-Distribution}\label{subsubsec:intro-distro-ong}
-
-Falls Sie während des Aufsetzens von VerA.web eine eigene Installation
-von OSIAM einrichten möchten benötigen Sie hierfür auf dem System, auf
-dem OSIAM installiert werden soll, Internetzugang, da die notwendigen
-Installationspakete (vgl. Kapitel \ref{subsubsec:setup-osiam-download} und
-\ref{sec:upgrade-osiam}) „live“ über HTTPS heruntergeladen werden. Nach
-erfolgtem Download der Installationspakete während einer Erstinstallation
-oder eines Upgrades von OSIAM ist dieser Zugriff selbstverständlich nicht
-mehr nötig.
-
-OSIAM ist \emph{nicht} Teil des Veranstaltungsmanagements VerA.web sondern
-eine separate Software, die durch VerA.web lediglich verwendet wird, daher
-ist OSIAM ebensowenig Teil der VerA.web-Distribution wie zum Beispiel ein
-Mailserver oder ein LDAP-Server.
 
 \subsection{Die VerA.web-Distribution}\label{subsec:intro-distro}
 
@@ -496,7 +343,6 @@ VerA.web-Distribution“) von tarent beziehen:\keinumbruch
  \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}}
  \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
  \item{\texttt{rest-api-\vwiaverssw{}.war}}
- \item{\texttt{online-anmeldung-\vwiaverssw{}.jar} (falls gewünscht)}
 \end{itemize}
 
 Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
@@ -529,100 +375,12 @@ involvieren:\keinumbruch
 
 Bei einem Upgrade möchten Sie ggfs. vorher eine Sicherung erstellen.
 
-\subsection{Exkurs: Dienste verwalten mit DJB daemontools}\label{subsec:intro-svc}
-
-Die VerA.web Online-Anmeldung wird als sogenannter Microservice
-ausgeführt, im Gegensatz zu den anderen Komponenten, die als
-Webarchive in einem Java-Applikationsserver laufen. Ein Microservice
-ist hier im wesentlichen ein Java-Archiv (\texttt{*.jar}), das einen
-„\texttt{main}“-Einsprungspunkt hat (ähnlich einem C-Programm) und ab
-da selbständig lauffähig ist und seinen eigenen Server mitbringt. Er
-wird also zum Beispiel von Hand gestartet, indem man einfach dem JRE
-sagt „führ mal diesen Code aus“, und schreibt seine Logs auf die
-Standardausgabe.
-
-Dies paßt natürlich nicht ins Dienstekonzept von normalen Distributionen,
-die für alle Dienste Initskripte mitliefern, mithilfe derer sie gestartet,
-gestoppt, ihr Status geprüft, usw. werden können und im Hintergrund laufen.
-Als Abhilfe nutzen wir die sogenannten dæmontools von DJB (Professor Daniel
-J. Bernstein), die exakt dem Zweck dienen, von Hand gestartete und im
-Vordergrund laufende Prozesse in Dienste zu überführen. Als hilfreichen
-Nebeneffekt starten die dæmontools einen abgestürzten Dienst automatisch neu.
-
-Dies bedingt natürlich neuer Tools. In Debian haben wir Initskripte in
-\texttt{/etc/init.d} \dash zum Beispiel \texttt{/etc/init.d/ssh} \dash
-und in manchen neueren Installationen systemd-Units \dash zum Beispiel
-\texttt{/lib/systemd/system/ssh.service} \dash welche alle Informationen
-enthalten, die einen Dienst ausmachen. Über den Basisnamen, in unserem
-Beispiel \texttt{ssh}, kann man den Dienst steuern: \texttt{sudo service
-ssh start}, oder stop, oder status.
-
-In DJB dæmontools werden die Informationen zu Diensten, und manchmal auch
-die Logs und/oder die Programme selber, als Verzeichnisse unterhalb von
-\texttt{/service}\Hair\footnote{in Debian \texttt{/etc/service}, um dem
-Dateisystemhierarchiestandard zu genügen, was aber in Verbindung mit
-\texttt{etckeeper} zu Problemen führt; Abhilfe ist durch Verschieben und
-einem Symlink, der von \texttt{/etc/service} nach \texttt{/service} zeigt,
-Teil unserer Installationsanleitung} abgelegt. So befinden sich die
-Informationen der VerA.web Online-Anmeldung unter \texttt{/service/vwoa/}.
-
-Die Nutzung des Verzeichnisses \texttt{/service} ist ein Standard und
-Konsens, und nur Dienste, die dort abgelegt werden, werden beim Systemstart
-automatisch gestartet, aber grundsätzlich verwenden die dæmontools immer
-den vollen Pfad, und so könnte man auch andere Verzeichnisse verwenden.
-Aber unser Ziel hier ist ja, ein rebootfestes System einzurichten.
-
-Beginnen wir mit \texttt{sudo svstat /service/vwoa/} \dash dieser Befehl
-zeigt uns an, ob der Service läuft (\texttt{up}) oder nicht (\texttt{down});
-falls er läuft, welche Prozeß-ID (\texttt{pid}) er besitzt (dies ist für
-Sie nicht weiter relevant); wie lange er bereits in diesem Zustand ist,
-und, falls der aktuelle Zustand nicht der Standardzustand\Hair\footnote
-{wenn Sie eine Datei \texttt{/service/vwoa/down} anlegen wird der Dienst
-nicht mehr automatisch gestartet; Sie können ihn dann immer noch manuell
-mit \texttt{svc} starten oder den Standardzustand wieder auf \texttt{up}
-stellen, indem Sie die Datei \texttt{down} entfernen und rebooten} ist,
-ebendies.
-
-Für die eigentliche Verwaltung eines Dienstes gibt es den Befehl
-\texttt{svc}. So wird ein Dienst, der \texttt{down} ist, mit dem Befehl
-\texttt{sudo svc -u /service/vwoa} gestartet (das \texttt{u} steht für
-„\emph{u}p“, also „hochgefahren“).
-
-Wenn der Dienst nicht richtig konfiguriert ist und gar nicht erst hochkommt
-wird er danach trotzdem immer wieder neugestartet; Sie sehen das in der
-Ausgabe von \texttt{svstat} daran, daß der Dienst zwar \texttt{up} ist,
-aber mit einer sehr kleinen Sekundenzahl, die immer wieder auf 0 zurückkehrt.
-
-Sie können einen Dienst, der \texttt{down} ist, auch mit dem Befehl
-\texttt{sudo svc -o /service/vwoa} hochfahren \dash das \texttt{o} steht
-hier für „\emph{o}nce“, also „einmalig“. Der Dienst wird gestartet; wenn
-er läuft bleibt er laufen (bis er sich selber beendet oder abstürzt), und
-wenn er nicht startet ist er danach wieder \texttt{down}. Wenn der Dienst
-sauber läuft können Sie das Feature des automatischen Neustarts durch ein
-einfaches \texttt{sudo svc -u /service/vwoa} auch aktivieren, während er
-durch \texttt{svc -o} gestartet wurde.
-
-Um einen Dienst neuzustarten nutzen Sie \texttt{sudo svc -t /service/vwoa}
-\dash das \texttt{t} steht für „\emph{t}erminate“, also „beenden“. Ein wenig
-seltsam, bis man sich erinnert, daß beendete Dienste automatisch neugestartet
-werden (außer sie wurden mit \texttt{svc -o} gestartet), diese Aktion ist
-also vielmehr ein Stoppen, auf das implizit der automatische Neustart folgt.
-
-Wenn Sie einen Dienst nun wirklich stoppen wollen benutzen Sie den Befehl
-\texttt{sudo svc -d /service/vwoa} \dash \texttt{d} wie „\emph{d}own“, also
-„heruntergefahren“. Beachten Sie aber, daß der Dienst beim nächsten Reboot
-automatisch wieder gestartet wird, solange keine Datei (kann auch leer sein)
-\texttt{/service/vwoa/down} existiert.
-
-\texttt{man svc} zeigt noch einige weitere Optionen, aber die hier erwähnten
-sind die, die ein Systemadministrator im normalen Betrieb benötigt.
-
 \subsection{Exkurs: Wechsel von systemd nach sysvinit}\label{subsec:intro-sysvinit}
 
 Eine Standardinstallation (kein Upgrade) von Debian 8 „jessie“ oder neuer
-benutzt \texttt{systemd} als Init-System. Wir haben unsere Software und
-insbesondere die Integration der Online-Anmeldung jedoch ausschließlich
-mit \texttt{sysvinit}, das Unix-Administratoren vertrauter ist, getestet.
+benutzt \texttt{systemd} als Init-System. Wir haben unsere Software jedoch
+ausschließlich mit \texttt{sysvinit}, das Unix-Administratoren vertrauter
+ist, getestet.
 
 \begin{minipage}{\linewidth}
 Zum Wechsel führen Sie folgenden Befehl aus:
@@ -651,8 +409,7 @@ sudo apt-get purge --auto-remove systemd
 Einer Nutzung von VerA.web unter \texttt{systemd} steht
 nichts Grundsätzliches im Wege; es sprengt lediglich den
 aktuellen Rahmen dieser Anleitung und erschwert die
-Nutzung von daemontools (siehe voriges Kapitel), welches
-zum Aufsetzen der Online-Anmeldung benutzt wird.
+Nutzung von daemontools.
 
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
@@ -660,44 +417,22 @@ In der Angabe für den benötigten Festplattenplatz ist die
 Grundinstallation des Betriebssystems (ohne Auslagerungsdatei)
 einkalkuliert.
 
-Die Systemvoraussetzungen unterscheiden sich je nachdem wie Sie die
-Komponenten auf individuelle VMs verteilen. Im folgenden werden im
-wesentlichen die Werte für zwei verschiedene Szenarien angegeben:
-core und OSIAM auf separaten Systemen (oder keine Online-Anmeldung)
-oder zusammen auf einem System. Die Online-Anmeldung selbst wird
-als separates System geführt; sie kann auch mit dem core-System
-zusammengelegt werden, dies erhöht die Anforderungen an dieses nur
-minimal.
-
-\begin{tabular}{| r || l | l | l |}\hline
+\begin{tabu} to \linewidth {|X[r]||l|l|l|}\hline
                           & Minimum                & empfohlen     & Maximum\\\hline\hline
  Anzahl Prozessoren je VM & 1                      & 1             & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Betriebssystem           & Debian 8 („jessie“)    & 9 („stretch“) & unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+ Betriebssystem           & Debian 8 („jessie“)    & 9 („stretch“) & 9 („stretch“)\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Java™-Laufzeitumgebung   & OpenJDK 8 JRE headless & wie Minimum   & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-nonewer}}\\\hline
  Applikationsserver       & Tomcat 8               & wie Minimum   & Tomcat 8\Hair\textsuperscript{\ref{fn:req-nonewer}}\\\hline
  Webserver                & Apache 2.2             & Apache 2.4    & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Datenbank                & PostgreSQL 9.1         & aktuelle 9.x  & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
 %XXX TODO: PostgreSQL 10+ testen
- OSIAM (alleine) RAM  &  960 MiB      & 1536 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- OSIAM (alleine) HDD  &    2 GB       &    4 GB       &    8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- core (alleine) RAM   &  512 MiB      & 1024 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- core (alleine) HDD   &    2 GB       &    8 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- core + OSIAM RAM     & 1024 MiB      & 2048 MiB      & 4096 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- core + OSIAM HDD     &    3 GB       &   10 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Online-Anmeldung RAM &  512 MiB      &  768 MiB      & 1024 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Online-Anmeldung HDD &    ½ GB       &    3 GB       &    8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
-\end{tabular}
+ Arbeitsspeicher (RAM)    &  512 MiB               & 1024 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Festplattengröße (HDD)   &    2 GB                &    8 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+\end{tabu}
 
-{\scriptsize\textbf{Legende:}
- RAM~=~Größe des Arbeitsspeichers;
- HDD~=~Festplattengröße
-}
-
-Bitte beachten Sie bei der Dimensionierung der Maschinen und der
-Netzwerkanbindung, daß das Veranstaltungsmanagement (core) nur
-durch Ihre Mitarbeiter bedient wird, während die Online-Anmeldung
-üblicherweise offen im Internet steht und entsprechender Last
-ausgesetzt sein \emph{kann}.
+Anmerkung: Debian 10 („buster“) wird mit OpenJDK 11 (nicht getestet)
+und Tomcat 9 (ist \emph{nicht} kompatibel mit VerA.web) ausgeliefert
+und wird daher aktuell von abgeraten.
 
 \hyperfootnotetext{\label{fn:req-tst-notmore}%
  wir haben keine größere Konfiguration getestet; eine praktische
@@ -740,32 +475,28 @@ Alle Informationen hierzu finden Sie in Kapitel \ref{sec:setup-lam}.
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
 Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
-(OSIAM kann auf dem System mitinstalliert werden, wenn es nur für
-VerA.web verwendet wird) mit der stabilen Debian-Version 9 („stretch“)
-als Betriebssystem. Zwar \emph{kann} die Software auch mit einer
-anderen Debian-basierten Distribution (z.B. Ubuntu) oder einer
-anderen Java/Tomcat-Umgebung (z.B. Solaris) betrieben werden,
-allerdings geht diese Installationsanleitung von der empfohlenen
-Systemumgebung aus. Eine graphische Oberfläche auf dem Server wird
-zum Betrieb nicht benötigt.
+mit der stabilen Debian-Version 9 („stretch“) als Betriebssystem.
+Zwar \emph{kann} die Software auch mit einer anderen Debian-basierten
+GNU/Linux-Distribution (z.B. Ubuntu) oder Java/Tomcat-Umgebung (z.B.
+Solaris) betrieben werden, allerdings geht diese Installationsanleitung
+von der empfohlenen Systemumgebung aus. Eine graphische Oberfläche auf
+dem Server wird zum Betrieb nicht benötigt.
 
 Falls Sie abweichende Konfigurationen benutzen müssen Sie ggfs.
-Pfade (z.B. \texttt{/usr/ucb/install} statt einfach \texttt{install}),
+Pfade (z.B. \texttt{/usr/ucb/install} statt \texttt{install}),
 Befehle (z.B. \texttt{zcat … | tar -xf -} statt \texttt{tar -xzf …}),
-u.ä. an die modifizierte Umgebung anpassen.
+u.ä. an die jeweilige Umgebung selbsttätig anpassen.
 
 In dieser Anleitung sowie den Systemvoraussetzungen wird weiterhin
 angenommen, daß der notwendige Datenbankserver (PostgreSQL) auf
 derselben VM wie die interne Veranstaltungs- und Adreßverwaltung läuft;
 falls nicht ändern Sie bitte an den relevanten Stellen den Hostnamen,
 ggfs. Port, und Datenbanknamen in den Konfigurationsdateien.
-Der PostgreSQL-Datenbankserver für OSIAM \emph{muß} hingegen aus Gründen
-der Einfachheit auf demselben System wie der OSIAM-Anwendungsserver laufen.
 
 Desweiteren benötigen Sie den Applikationsserver Tomcat 8 mit einer
 Java™-Laufzeitumgebung (OpenJDK) ab Version 8, ohne GUI (headless JRE),
-sowie den Webserver Apache 2 mit \texttt{mod\_proxy\_http} (nur bei
-Verwendung der optionalen Online-Anmeldung), \texttt{mod\_jk} und SSL.
+sowie den Webserver Apache 2 (in Version 2.2 oder 2.4) mit
+\texttt{mod\_jk} und SSL.
 
 ⚠ \emph{Achtung:} Java™ 7 oder älter sowie Tomcat 7 oder älter werden
 nicht unterstützt und führen während der Installation zu Fehlern!
@@ -777,22 +508,6 @@ Mailserver (z.B. \texttt{postfix} oder \texttt{sendmail} aus Debian)
 installiert sein, der lokale Verbindungen auf Port 25 entgegennimmt
 und die eingehenden Nachrichten, ggfs. über einen als Smarthost
 eingestellten anderen Mailserver, zustellt.
-
-\subsection{Online-Anmeldung}\label{subseq:req-oa}
-
-Zum Betrieb der Online-Anmeldung empfehlen wir ebenfalls eine
-eigenständige VM; sie kann allerdings auch auf demselben System
-wie der VerA.web core eingerichtet werden. Auch hier wird eine
-Installation von Debian 9 „stretch“ ohne graphische Oberfläche
-und mit \texttt{sysvinit} vorausgesetzt.
-
-Die Online-Anmeldung hat relativ bescheidene Voraussetzungen
-und kann bereits mit 512 MiB Arbeitsspeicher und 1½ GB Festplatte
-betrieben werden; die Werte steigen je nach Auslastung entsprechend.
-
-Auch hier benötigen Sie den Apache Webserver und die Java™ 8
-Laufzeitumgebung, allerdings keinen Tomcat-Applikationsserver, da
-die Online-Anmeldung als sogenannter Microservice implementiert wurde.
 
 \subsection{Bevor Sie beginnen}\label{subsec:req-prereq}
 
@@ -816,11 +531,11 @@ sudo chmod 640 /etc/ssl/private/vwserver.key
 \end{lstdump}
 \end{minipage}
 
-Unsere Software wird ausschließlich auf normalen Linux-Systemen ohne
+Unsere Software wird ausschließlich auf normalen GNU/Linux-Systemen ohne
 SELinux getestet. Sollten Sie eine Distribution mit SELinux einsetzen
 müssen Sie SELinux deaktivieren, zum Beispiel kurzzeitig (bis spätestens
-zum nächsten Neustart) mit dem Befehl \texttt{sudo setenforce 0}, oder,
-z.B. auf RHEL und CentOS, permanent, indem Sie in der Konfigurationsdatei
+zum nächsten Neustart) mit dem Befehl \texttt{sudo setenforce 0}, oder
+permanent, indem Sie z.B. auf RHEL und CentOS in der Konfigurationsdatei
 \texttt{/etc/sysconfig/selinux} die Einstellung \texttt{SELINUX=disabled}
 setzen und das System neustarten.
 
@@ -828,7 +543,7 @@ setzen und das System neustarten.
 
 Falls Sie bereits über einen \nameref{subsec:req-ldap} verfügen
 überspringen Sie dieses Kapitel bitte und lesen Sie direkt in
-Kapitel \nameref{sec:setup-osiam} weiter.
+Kapitel \nameref{sec:setup-int} weiter.
 
 Diese Installation wird üblicherweise auf dem Server durchgeführt,
 auf dem Sie später auch VerA.web-core installieren möchten.
@@ -917,7 +632,7 @@ und \inlinebild[Groups]{lam-group} gelistet sind, indem Sie neben ggfs.%
 Voreinstellung} weiteren Einträgen rechts das Lösch-Icon \inlinebild{lam-del}
 anklicken, um die weitere Verwaltung zu vereinfachen. Ändern Sie dann den
 „LDAP suffix“ für \inlinebild[Users]{lam-user} in \texttt{ou=Users} gefolgt
-von einem Komma und Ihrem Base DN (\texttt{ou=Users,dc=lan,dc=tarent,dc=de}
+von einem Komma und Ihrem Base DN (\strut\texttt{ou=Users,dc=lan,dc=tarent,dc=de}
 in unserem Beispiel), und den „LDAP suffix“ für \inlinebild[Groups]{lam-group}
 \strut in \texttt{ou=Groups} gefolgt von einem Komma und Ihrem Base DN, also
 z.B: \texttt{ou=Groups,dc=lan,dc=tarent,dc=de}\strut
@@ -952,365 +667,20 @@ einfach direkt aus. Klicken Sie dann auf \inlinebild[New user]{lam-add}.
 In der folgenden Maske müssen Sie mindestens den „Last Name“ ausfüllen;
 die „Email address“ ist zwar keine Pflicht, aber sinnvoll.
 Klicken Sie dann links auf \inlinebild[Unix]{lam-tux} und tragen im Feld
-„User name“ ein geeignetes Kürzel (⚠ nur Kleinbuchstaben und Zahlen) ein;
+„User name“ ein geeignetes Kürzel ein;
 mit diesem Kürzel kann sich später der Nutzer bei VerA.web anmelden. Nun
 wählen Sie noch \inlinebild[Set password]{lam-key}, tragen das gewünschte
 Paßwort für den neu anzulegenden User (in beide Felder) ein, klicken im
 Dialog auf „Ok“ und dann oben links wieder auf \inlinebild[Save]{lam-save}.
+
+⚠ Das Kürzel darf nur aus Ziffern und (mindestens einem) Kleinbuchstaben
+bestehen!
 
 Jetzt erscheint die Meldung „Account was created successfully.“ in einem
 blauen Kasten; damit ist dieser Nutzer angelegt und kann in VerA.web core
 freigeschaltet werden, entweder, bei der Erstinstallation, über die
 Datenbank (siehe Kapitel \ref{manual:db-user}), oder, später, über die
 Weboberfläche (siehe Benutzerhandbuch).
-
-\section{Installation OSIAM-System}\label{sec:setup-osiam}
-
-Dieser Abschnitt gliedert sich in zwei Teile: die generelle Installation
-von OSIAM, sofern Sie noch keine laufende OSIAM-Installation haben, und
-die Registration der VerA.web Online-Anmeldung beim OSIAM-Server.
-
-Kopieren Sie jedoch bitte zunächst die Datei
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
-auf den OSIAM-Server.
-
-\begin{minipage}{\linewidth}
-Entpacken Sie das \texttt{files}-Archiv und wechseln in das
-Unterverzeichnis mit den OSIAM-Dateien:
-
-\begin{lstdump}{Entpacken OSIAM}
-tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉/osiam
-chmod go-rwx .
-\end{lstdump}
-\end{minipage}
-
-Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
-Unterverzeichnis Ihr aktuelles Arbeitsverzeichnis ist.
-
-Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
-eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
-verweigern während Sie sie bearbeiten, da sie später Paßwörter
-enthalten werden.
-
-\subsection{OSIAM-Server Schnellinstallation}\label{subsec:setup-osiam-fast}
-
-VerA.web benötigt aktuell OSIAM auth-server und resource-server in
-der Version \vwiaversosiam{} und ist \emph{nur} mit dieser Version
-sowie auth-server und resource-server 2.3 aus der OSIAM-Distribution
-2.4 (der in vorherigen Fassungen dieser Anwendung empfohlenen und in
-den Docker-Images noch verwendeten Version) getestet worden.\keinumbruch
-
-\begin{tabu}{@{}l@{ }X@{}}
-⚠ \emph{Achtung:} & Die eingesetzte Version von OSIAM muß \emph{immer} der
-in der jeweiligen Version von VerA.web dokumentierten entsprechen; ältere
-oder neuere Versionen werden nicht notwendigerweise unterstützt bzw. können
-zu Fehlern führen!
-\end{tabu}
-
-Falls Sie bereits eine lauffähige OSIAM-Installation besitzen stellen
-Sie bitte sicher, daß auf die vorhandene Installation über HTTPS
-zugegriffen werden kann; danach können Sie direkt im nächsten Abschnitt
-(\nameref{subsec:setup-osiam-register}) weiterlesen.
-
-\subsubsection{System vorbereiten}\label{subsubsec:setup-osiam-prepare}
-
-\begin{minipage}{\linewidth}
-Sofern Sie noch nicht über eine OSIAM-Installation besitzen, bereiten
-Sie bitte zunächst das System vor, indem Sie einige Pakete installieren
-und sicherstellen, daß keine ältere Java-Version installiert ist bzw.
-versehentlich verwendet wird:
-
-\begin{lstdump}{Pakete OSIAM}
-sudo apt-get install curl apache2 postgresql openjdk-8-jre-headless \
-    tomcat8 libtcnative-1 libapache2-mod-jk
-sudo a2dismod mpm_event
-sudo a2enmod mpm_prefork
-java -version
-### sollte etwa ausgeben:
-# openjdk version "1.8.0_162"
-# OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~deb9u1-b12)
-# OpenJDK 64-Bit Server VM (build 25.162-b12, mixed mode)
-\end{lstdump}
-
-Stellen Sie unbedingt sicher, daß das \texttt{tomcat8}-Paket mindestens
-in Version \texttt{8.5.14-1+deb9u3} installiert wird.
-\end{minipage}
-
-Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
-Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
-der Webserver sowie Hilfsprogramme installiert.
-
-\subsubsection{Datenbank}\label{subsubsec:setup-osiam-db}
-
-\begin{minipage}{\linewidth}
-Legen Sie den Datenbankbenutzer und die Datenbank an:
-
-\begin{lstdump}{DB erstellen OSIAM}
-# createuser fragt nach einem zu vergebenden Paßwort
-sudo -u postgres createuser -D -P -R -S ong
-sudo -u postgres createdb -E UTF-8 -O ong -T template0 -l C.UTF-8 ong
-\end{lstdump}
-
-Falls Sie hierbei ein anderes Paßwort als \texttt{ong} für
-den Datenbanknutzer vergeben müssen Sie jetzt die Angaben
-in den Dateien \texttt{auth-server.properties} und
-\texttt{resource-server.properties} entsprechend anpassen.
-\end{minipage}
-
-Das Datenbankschema wird durch OSIAM selbst automatisch verwaltet.
-
-\subsubsection{Applikationsserver}\label{subsubsec:setup-osiam-tomcat}
-
-\begin{minipage}{\linewidth}
-In den Dateien \texttt{auth-server.properties} und
-\texttt{resource-server.properties} ersetzen Sie bitte an allen
-Stellen \texttt{HOSTNAME-OSIAM} durch den vollen Hostnamen des
-OSIAM-Servers. Danach installieren Sie diese:
-
-\begin{lstdump}{/etc/osiam fuellen}
-sudo mkdir -p /etc/osiam
-sudo chown 0:tomcat8 /etc/osiam
-sudo chmod 2750 /etc/osiam
-sudo install -c -o 0 -g tomcat8 -m 640 *.properties /etc/osiam/
-sudo mkdir -p /etc/osiam/auth-server/templates/web
-\end{lstdump}
-\end{minipage}
-
-Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
-einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
-
-\begin{minipage}{\linewidth}
-Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
-Kodierung von Dateien, Logs und internen Abläufen zu gewährleisten:
-
-\begin{lstdump}{Tomcat Encoding setzen}
-JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Diese (Linux-spezifische) Option spart u.a. beim Starten Zeit,
-indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
-
-\begin{lstdump}{Tomcat /dev/urandom}
-JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Fügen Sie eine der beiden folgenden Zeilen hinzu:
-
-\begin{lstdump}{Tomcat Speicher}
-JAVA_OPTS="${JAVA_OPTS} -Xmx512m"               # bei weniger als 1280 MiB RAM
-JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"     # andernfalls
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
-Zeilen an:
-
-\begin{lstdump}[breaklines=false]{Tomcat Logging}
-java.util.logging.SimpleFormatter.format=%1$tF %1$tT.%1$tL %4$7s (%2$s) [%3$s] %5$s%6$s%n
-org.apache.juli.OneLineFormatter.timeFormat=yyyy-MM-dd HH:mm:ss
-java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
-von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
-(eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
-indem Sie davor \texttt{<!--} und dahinter \texttt{-->} schreiben:
-
-\begin{lstdump}[language=XML]{Tomcat HTTP-Connector}
-<Connector port="8080" protocol="HTTP/1.1"
-           connectionTimeout="20000"
-           URIEncoding="UTF-8"
-           redirectPort="8443" />
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 50 Zeilen weiter):
-
-\begin{lstdump}[language=XML]{Tomcat AJP-Connector orig}
-<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
-\end{lstdump}
-
-Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
-hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
-
-\begin{lstdump}[language=XML]{Tomcat AJP-Connector wanted}
-<Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Suchen Sie bitte in der Datei \texttt{/etc/tomcat8/catalina.properties}
-die Zeile, die mit \texttt{shared.loader=} beginnt, und hängen Sie am
-Ende der Zeile \texttt{,/etc/osiam} an; das könnte dann wie folgt aussehen:
-
-\begin{lstdump}{Tomcat OSIAM shared.loader}
-shared.loader="${catalina.base}/shared/classes","${catalina.base}/shared/*.jar","${catalina.home}/shared/classes","${catalina.home}/shared/*.jar",/etc/osiam
-\end{lstdump}
-\end{minipage}
-
-Nun starten Sie den Anwendungsserver neu, um die geänderten
-Einstellungen wirksam zu machen. Beachten Sie dabei, daß der
-Tomcat-Dienst ggfs. noch einige Sekunden weiterläuft, nachdem
-der Stop-Befehl abgeschickt wurde; im Zweifelsfalle prüfen Sie
-explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
-
-\begin{minipage}{\linewidth}
-\begin{lstdump}{Tomcat restart}
-sudo service tomcat8 stop
-ps ax | grep java               # darf keinesfalls irgendeinen tomcat anzeigen
-sudo service tomcat8 start
-\end{lstdump}
-\end{minipage}
-
-\subsubsection{Download von OSIAM}\label{subsubsec:setup-osiam-download}
-
-\begin{minipage}{\linewidth}
-Jetzt laden Sie die OSIAM-Anwendungen herunter und installieren Sie sie:
-
-\begin{lstdump}{OSIAM herunterladen}
-curl -L --proto-redir -all,https -o osiam-auth-server.war \
-    https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-curl -L --proto-redir -all,https -o osiam-resource-server.war \
-    https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat8/webapps/
-\end{lstdump}
-\end{minipage}
-
-Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
-\texttt{/var/log/tomcat8/catalina.out} befinden sich die Logs,
-unter anderem mit Erfolgsmeldungen im Stile von {\ttfamily
-2018-04-05 17:00:44.919    INFO
-(org.apache.catalina.startup.HostConfig deployWAR)%
-[org.apache.catalina.startup.HostConfig] Deployment of web application archive
-/var/lib/tomcat8/webapps/osiam-auth-server.war has finished in 47,122 ms}
-(eine separate solche Zeile pro Applikationsarchiv).
-
-\subsubsection{Webserver}\label{subsubsec:setup-osiam-apache}
-
-\begin{minipage}{\linewidth}
-Jetzt richten Sie den Webserver ein:
-
-\begin{lstdump}{Apache OSIAM}
-sudo a2enmod jk
-sudo a2enmod ssl
-sudo a2ensite default-ssl
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
-fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
-\texttt{DocumentRoot}), folgende Zeilen ein:
-
-\begin{lstdump}{AJP workers OSIAM}
-JkMount /osiam-auth-server* ajp13_worker
-JkMount /osiam-resource-server* ajp13_worker
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
-Angaben durch die folgenden:
-
-\begin{lstdump}{SSL OSIAM}
-SSLCertificateFile /etc/ssl/vwserver.cer
-SSLCertificateKeyFile /etc/ssl/private/vwserver.key
-SSLCertificateChainFile /etc/ssl/vwchain.cer
-\end{lstdump}
-
-⚠ \emph{Achtung:} Die letzte Zeile ist standardmäßig auskommentiert;
-entfernen Sie beim Anpassen das Kommentarzeichen \texttt{\#}. Falls
-Ihnen Ihre Zertifizierungsstelle keine Zertifikatskette bereitgestellt
-hat lassen Sie die letzte Zeile einfach weg.
-\end{minipage}
-
-Schützen Sie bitte das System, sodaß Zugriffe auf den Server (genauer,
-die Pfade \texttt{/osiam-auth-server} und \texttt{/osiam-resource-server})
-über HTTPS nur vom OSIAM-Server selber, dem core/REST-API-System und der
-Online-Anmeldung möglich sind, z.B. durch Apache-Direktiven oder Firewalling.
-
-\begin{minipage}{\linewidth}
-Nun starten Sie den Webserver neu:
-
-\begin{lstdump}{Apache restart OSIAM}
-sudo service apache2 stop
-sudo service apache2 start
-\end{lstdump}
-\end{minipage}
-
-\subsubsection{Funktionstest}\label{subsubsec:setup-osiam-check}
-
-\begin{minipage}{\linewidth}
-Nach einem erfolgreichen Start können Sie prüfen, ob sich der
-Dienst\Hair\textsuperscript{\ref{fn:osiamsvcchk}} ansprechen läßt:
-
-\begin{lstdump}{OSIAM ansprechen}
-curl https://$(hostname -f)/osiam-resource-server/ServiceProviderConfigs; echo
-\end{lstdump}
-
-Sie sollten hier eine Ausgabe im JSON-Format sehen, die erwähnt,
-daß OAuth 2 verwendet wird.
-\end{minipage}
-
-Im Abschnitt \nameref{sec:links} finden Sie einen Link auf die
-offizielle OSIAM-Installationsanleitung mit weitergehenden
-Informationen, u.a. wie man den Standardzugang ändert.
-
-\subsection{Registrierung von VerA.web mit OSIAM}\label{subsec:setup-osiam-register}
-
-\begin{minipage}{\linewidth}
-Zunächst müssen einige benötigte Hilfsprogramme installiert werden:
-
-\begin{lstdump}{Pakete register-into-osiam}
-sudo apt-get install curl mksh
-\end{lstdump}
-\end{minipage}
-
-In der Datei \texttt{register-veraweb-into-osiam.sh} finden
-Sie nun einige ggfs. zu ändernde Stellen rund um Zeile 30:
-\keinumbruch
-
-\begin{itemize}
- \item{\texttt{dbname}: der Datenbankname von OSIAM}
- \item{\texttt{serverauth}: der OSIAM-Standardzugang,
-  falls nicht geändert}
- \item{\texttt{vwsecret}: das Paßwort, mit dem sich
-  hinterher VerA.web bei OSIAM identifizieren wird}
-\end{itemize}
-
-\begin{minipage}{\linewidth}
-Nun rufen Sie dieses Skript bitte auf:
-
-\begin{lstdump}{register VW into OSIAM}
-sudo mksh register-veraweb-into-osiam.sh
-\end{lstdump}
-\end{minipage}
-
-Das Skript fügt zunächst die VerA.web-spezifischen Daten
-zum SCIM-Schema hinzu (und benötigt daher Datenbankzugriff,
-weshalb die Datenbank für die vereinfachte Installation
-auf demselben Server laufen muß wie OSIAM selbst) und
-registriert danach über die REST-Schnittstelle von OSIAM
-VerA.web als Client.
-
-\begin{minipage}{\linewidth}
-Nach erfolgreichem Abschluß können Sie nun die
-Installationsdateien löschen:
-
-\begin{lstdump}{Aufraeumen OSIAM}
-cd ../..
-rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉*
-\end{lstdump}
-\end{minipage}
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
@@ -1352,16 +722,16 @@ vorab Ihren Sachbearbeitern zukommen lassen können.
 Installieren Sie einige Pakete und stellen Sie sicher, daß keine
 ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
-\begin{lstdump}{Pakete core/jessie}
+\begin{lstdump}{Pakete core/stretch}
 sudo apt-get install curl apache2 postgresql openjdk-8-jre-headless \
     tomcat8 libtcnative-1 libapache2-mod-jk
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
 java -version
 ### sollte etwa ausgeben:
-# openjdk version "1.8.0_162"
-# OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~deb9u1-b12)
-# OpenJDK 64-Bit Server VM (build 25.162-b12, mixed mode)
+# openjdk version "1.8.0_212"
+# OpenJDK Runtime Environment (build 1.8.0_212-8u212-b03-2~deb9u1-b03)
+# OpenJDK 64-Bit Server VM (build 25.212-b03, mixed mode)
 \end{lstdump}
 
 Stellen Sie unbedingt sicher, daß das \texttt{tomcat8}-Paket mindestens
@@ -1420,7 +790,7 @@ lediglich einen Minimalsatz zu laden (\texttt{stammdaten-colours.sql} statt
 Loggen Sie sich zunächst auf der Datenbank ein:
 
 \begin{lstdump}{DB Login}
-psql -U veraweb -h 127.0.0.1 -W veraweb
+psql -h 127.0.0.1 -U veraweb -d veraweb -W
 \end{lstdump}
 \end{minipage}
 
@@ -1472,13 +842,6 @@ core-System) und tragen Sie die Zugangsdaten für die REST-API
 (siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
 
-Bei Verwendung der Online-Anmeldung ersetzen Sie auch die Platzhalter
-\texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-OA} an allen Stellen
-durch die Hostnamen des OSIAM- bzw. des Online-Anmeldungssystems.
-Schließlich tragen Sie für \texttt{osiam.client.secret} denselben
-Wert ein, den Sie bei der \nameref{subsec:setup-osiam-register}
-als \texttt{vwsecret} gesetzt haben.
-
 \begin{minipage}{\linewidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
 Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
@@ -1500,24 +863,14 @@ Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
 \texttt{mail.smtp.from} an; tragen Sie hier eine eMail-Adresse ein,
 die als Standard-Absenderadresse beim Versenden von Verteilernachrichten
-von VerA.web und Bestätigungsnachrichten der Online-Anmeldung verwendet wird.
+von VerA.web verwendet wird.
 
+\begin{minipage}{\linewidth}
 Mit den Parametern \texttt{mail.smtp.from.ID} können für die IDs der einzelnen
 Mandaten spezielle Absenderadressen gesetzt werden. Die Zuordnung der IDs zu
 den Mandanten finden Sie als Benutzer mit Administratorenrechten im Menüpunkt
 Administration → Mandanten; die ID des eigenen zugeordneten Mandanten kann
 im Menüpunkt Verwaltung → Info eingesehen werden.
-
-Für die Online-Anmeldung relevant enthalten die \texttt{subject}‑
-und \texttt{content}-Parameter den Nachrichtenbetreff und -inhalt;
-diese können Sie bei Bedarf anpassen; stellen Sie dabei sicher,
-daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
-Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen nach Unicode kodiert
-werden (z.B. wird \texttt{ä} zu \texttt{\textbackslash{}u00E4}).
-
-\begin{minipage}{\linewidth}
-Auch das Impressum der Online-Anmeldung können Sie hier setzen,
-vgl. Kapitel \ref{sec:imprint-oa}.
 
 \begin{lstdump}{Adresse für einzelne Mandanten setzen}
 # sender address for all emails sent out
@@ -1548,13 +901,6 @@ benutzen zu können. Dies sind insbesondere die folgenden Parameter:\keinumbruch
   innehaben; Standardwert: \texttt{person}}
 \end{itemize}
 
-\subsection{Online-Anmeldung aktivieren}\label{subsec:setup-core-oa}
-
-Falls Sie nicht ohne Online-Anmeldung installieren bearbeiten Sie
-nun die Datei \texttt{config\_vwoa.xml}, indem Sie dort in der
-Einstellung \texttt{online-registration.activated} den \texttt{value}
-auf \texttt{true} setzen.
-
 \subsection{Applikationsserver VerA.web-core und REST-API}\label{subsec:setup-core-tomcat}
 
 \begin{minipage}{\linewidth}
@@ -1572,8 +918,8 @@ sudo install -c -o 0 -g tomcat8 -m 640 *.properties /etc/veraweb/
 \end{minipage}
 
 Im Verzeichnis \texttt{/etc/veraweb/l10n} können Anpassungen an
-den Übersetzungen abgelegt werden. %Das entsprechende Vorgehen wird
-%in \nameref{sec:l10n} beschrieben.
+den Übersetzungen abgelegt werden. Das entsprechende Vorgehen wird
+im Kapitel \nameref{sec:l10n} beschrieben.
 
 Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
 einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
@@ -1682,7 +1028,7 @@ sudo service tomcat8 start
 \end{minipage}
 
 \begin{minipage}{\linewidth}
-Deployen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver:
+Bringen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver aus:
 
 \begin{lstdump}{Tomcat deploy}
 sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat8/webapps/
@@ -1690,14 +1036,12 @@ sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat8/webapps/
 \end{lstdump}
 \end{minipage}
 
-Warten Sie ca. ½ Minute, bis beide Artefakte deployt wurden; in
+Warten Sie ca. ½ Minute, bis beide Artefakte gestartet sind; in
 \texttt{/var/log/tomcat8/catalina.out} befinden sich die Logs,
 unter anderem mit Erfolgsmeldungen im Stile von {\ttfamily
 INFO: Deployment of web application archive
 /var/lib/tomcat8/webapps/veraweb.war has finished in 2,151 ms}
 (eine separate solche Zeile pro Applikationsarchiv).
-Falls OSIAM (oder andere Webanwendungen) auf demselben System
-installiert werden kann der Startvorgang deutlich länger dauern.
 
 Falls Sie an dieser Stelle seltsame Fehler erhalten kann es unter
 Umständen helfen, Tomcat einfach neuzustarten.
@@ -1758,8 +1102,8 @@ Der Zugriff auf den Pfad \texttt{/vwor} wird durch die REST-API bereits
 mit dem Paßwort, das Sie in Kapitel \ref{manual:restpw} vergeben haben,
 abgesichert; schützen Sie ggfs. das gesamte System, z.B. durch Firewalling
 oder Apache-Direktiven, sodaß Zugriffe nur durch das core/REST-API-System
-selber, die Online-Anmeldung, und autorisierte Personen (Administratoren
-und Sachbearbeiter) möglich sind.
+selber und autorisierte Personen (Administratoren und Sachbearbeiter)
+möglich sind.
 
 \begin{minipage}{\linewidth}
 In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default.conf}
@@ -1810,250 +1154,11 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
 \end{minipage}
 
-Wenn Sie ohne Online-Anmeldung installieren ist damit die Installation
-abgeschlossen, und Sie können im Kapitel \nameref{sec:test} fortfahren.
-
-\section{Installation Online-Anmeldung}\label{sec:setup-oa}
-
-\begin{minipage}{\linewidth}
-Kopieren Sie bitte zunächst \texttt{veraweb-core-\vwiaverssw{}-files.tgz}
-und \texttt{online-anmeldung-\vwiaverssw{}.jar}
-auf den Server, auf dem Sie die Online-Anmeldung installieren möchten,
-entpacken Sie diese Datei und wechseln in das Unterverzeichnis mit den
-relevanten Dateien:
-
-\begin{lstdump}{Entpacken OA}
-tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉/oa
-chmod go-rwx ..
-\end{lstdump}
-\end{minipage}
-
-Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
-Unterverzeichnis Ihr aktuelles Arbeitsverzeichnis ist.
-
-Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
-eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
-verweigern während Sie sie bearbeiten, da sie später Paßwörter
-enthalten werden.
-
-\subsection{System vorbereiten}\label{subsec:setup-oa-prep}
-
-\begin{minipage}{\linewidth}
-Installieren Sie nun die benötigten Pakete und stellen Sie sicher, daß keine
-ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
-
-\begin{lstdump}{Pakete OA/jessie}
-sudo apt-get install adduser apache2 daemontools-run openjdk-8-jre-headless
-sudo a2dismod mpm_event
-sudo a2enmod mpm_prefork
-java -version
-### sollte etwa ausgeben:
-# openjdk version "1.8.0_162"
-# OpenJDK Runtime Environment (build 1.8.0_162-8u162-b12-1~deb9u1-b12)
-# OpenJDK 64-Bit Server VM (build 25.162-b12, mixed mode)
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Richten Sie das Standardverzeichnis für die DJB dæmontools
-ein und legen Sie zwei Benutzeraccounts an, unter denen die
-Online-Anmeldung und ihr Logging ausgeführt werden können:
-
-\begin{lstdump}{Prereqs OA}
-sudo mv /etc/service /service
-sudo ln -sf /service /etc/
-sudo adduser --system --home /service/vwoa --shell /bin/sh \
-    --no-create-home --gecos 'VerA.web Online-Anmeldung Microservice' --group \
-    --disabled-password --disabled-login vwoa
-sudo adduser --system --home /service/vwoa/log --shell /bin/sh \
-    --no-create-home --gecos 'VerA.web Online-Anmeldung Logging' --group \
-    --disabled-password --disabled-login vwoalog
-\end{lstdump}
-\end{minipage}
-
-\subsection{Microservice installieren}\label{subsec:setup-oa-svc}
-
-Bearbeiten Sie jetzt die \texttt{config.jsn}, indem Sie wieder
-\texttt{HOSTNAME-OA},
-\texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-REST} durch die
-entsprechenden Hostnamen ersetzen; für \texttt{clientSecret}
-tragen Sie denselben Wert ein, den Sie bei der
-\nameref{subsec:setup-osiam-register} als \texttt{vwsecret}
-gesetzt haben; unterhalb von \texttt{restauth} tragen Sie die
-von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
-\ref{manual:restpw} ein.
-
-\begin{minipage}{\linewidth}
-Nun richten Sie den Dienst für die Online-Anmeldung ein und
-löschen danach die Installationsdateien:
-
-\begin{lstdump}{OA service}
-mv ../../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa.jar
-mkdir log log/main
-mv logrun log/run
-sudo chown -R 0:0 .
-sudo chgrp vwoa config.jsn
-sudo chmod 644 *
-sudo chmod 755 . run log log/run
-sudo chmod 640 config.jsn
-sudo chown vwoalog:adm log/main
-sudo chmod 2750 log/main
-cd ..
-sudo mv oa /service/vwoa
-cd ..
-rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉*
-\end{lstdump}
-\end{minipage}
-
-Danach können Sie mit \texttt{sudo svstat /service/vwoa} festellen,
-daß der Dienst vor wenigen Sekunden gestartet wurde; siehe
-auch die Anleitung in Kapitel \nameref{subsec:intro-svc}.
-Unterhalb von \texttt{/var/log/vwoa/vwoa.log} finden Sie die
-Logdateien der Online-Anmeldung, und unterhalb von
-\texttt{/service/vwoa/log/main/} ihre Statusmeldungen.
-
-\subsection{Webserver}\label{subsec:setup-oa-apache}
-
-\begin{minipage}{\linewidth}
-Jetzt richten Sie den Webserver ein:
-
-\begin{lstdump}{Apache core}
-sudo a2enmod proxy_http
-sudo a2enmod ssl
-sudo a2ensite default-ssl
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
-fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
-\texttt{DocumentRoot}), folgende Zeilen ein:
-
-\begin{lstdump}{AJP workers core}
-ProxyPass /vwor-app/ http://localhost:8081/
-ProxyPassReverse /vwor-app/ http://localhost:8081/
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-Desweiteren richten wir üblicherweise eine Weiterleitung von der
-Startseite des Servers auf die VerA.web Online-Anmeldung ein, an
-derselben Stelle, aber nur, falls sie sich nicht den Server mit
-der Kernanwendung teilt:
-
-\begin{lstdump}{redirect core}
-RedirectMatch 301 ^/*$ https://HOSTNAME-OA/vwor-app/
-\end{lstdump}
-\end{minipage}
-
-Ersetzen Sie wie üblich \texttt{HOSTNAME-OA} durch den vollen
-Hostnamen (mit Domainteil) \dash den sogenannten FQDN \dash der
-Online-Anmeldung.
-
-\begin{minipage}{\linewidth}
-Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
-Angaben durch die folgenden:
-
-\begin{lstdump}{SSL core}
-SSLCertificateFile /etc/ssl/vwserver.cer
-SSLCertificateKeyFile /etc/ssl/private/vwserver.key
-SSLCertificateChainFile /etc/ssl/vwchain.cer
-\end{lstdump}
-
-⚠ \emph{Achtung:} Die letzte Zeile ist standardmäßig auskommentiert;
-entfernen Sie beim Anpassen das Kommentarzeichen \texttt{\#}. Falls
-Ihnen Ihre Zertifizierungsstelle keine Zertifikatskette bereitgestellt
-hat lassen Sie die letzte Zeile einfach weg.
-\end{minipage}
-
-Der Zugriff auf die Online-Anmeldung muß für Ihre Gäste aus dem Internet
-möglich sein, sowohl bei der Delegationsanmeldung als auch insbesondere
-bei der Anmeldung zu offenen Veranstaltungen.
-
-\begin{minipage}{\linewidth}
-In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default.conf}
-fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
-\texttt{DocumentRoot}), eine Weiterleitung von HTTP auf HTTPS ein:
-
-\begin{lstdump}{redirect http}
-RedirectMatch 301 . https://HOSTNAME-OA/
-\end{lstdump}
-\end{minipage}
-
-Falls sich die Online-Anmeldung den Server mit dem core-System teilt ist
-diese Anpassung natürlich hinfällig, da bereits erledigt.
-
-\begin{minipage}{\linewidth}
-Nun starten Sie den Webserver neu:
-
-\begin{lstdump}{Apache restart core}
-sudo service apache2 stop
-sudo service apache2 start
-\end{lstdump}
-\end{minipage}
-
-\subsection{Funktionstest}\label{subsec:setup-oa-check}
-
-Jetzt können Sie \dash z.B. unter der URL
-\texttt{https://veraweb.lan.tarent.de/vwor-app/} \dash mit einem
-Webbrowser testen, ob die Online-Anmeldung verfügbar ist, ansonsten
-prüfen Sie die Logs\Hair\textsuperscript{\ref{fn:vwoalogs}}.
-
-Damit ist die Installation abgeschlossen.
-Sie können nun im Kapitel \nameref{sec:test} fortfahren.
+Damit ist die Installation abgeschlossen, und Sie können
+im Kapitel \nameref{sec:test} fortfahren.
 
 % Seitenumbruch zwischen Installation und Upgrade forçieren
 \newpage
-
-\section{Upgrade OSIAM-System}\label{sec:upgrade-osiam}
-
-VerA.web benötigt aktuell OSIAM auth-server und resource-server in
-der Version \vwiaversosiam{} und ist \emph{nur} mit dieser Version
-sowie auth-server und resource-server 2.3 aus der OSIAM-Distribution
-2.4 (der in vorherigen Fassungen dieser Anwendung empfohlenen und in
-den Docker-Images noch verwendeten Version) getestet worden.\keinumbruch
-
-\begin{tabu}{@{}l@{ }X@{}}
-⚠ \emph{Achtung:} & Die eingesetzte Version von OSIAM muß \emph{immer} der
-in der jeweiligen Version von VerA.web dokumentierten entsprechen; ältere
-oder neuere Versionen werden nicht notwendigerweise unterstützt bzw. können
-zu Fehlern führen!
-\end{tabu}
-
-Dieses Kapitel beschreibt, wie ein für VerA.web installiertes,
-ansonsten minimales, OSIAM auf die neue Version aktualisiert
-werden kann. Falls Sie weitere OSIAM-Komponenten (wie z.B.
-das \texttt{addon-administration}) installiert haben, OSIAM
-anders installiert oder die Installation manuell in einem
-über diese Anleitung hinausgehenden Umfang angepaßt haben
-folgen Sie bitte den offiziellen Anleitungen, die auf der
-Seite \href{http://osiam.org/}{osiam.org} publiziert werden.
-
-\begin{minipage}{\linewidth}
-Für ein Upgrade einer minimalen OSIAM-Installation müssen Sie
-lediglich, während der Tomcat-Anwendungsserver heruntergefahren
-ist, die Webapplikationsarchive durch die neuen Versionen tauschen:
-
-\begin{lstdump}{OSIAM Upgrade}
-sudo service tomcat8 stop
-ps ax | grep java               # darf keinesfalls irgendeinen tomcat anzeigen
-cd /var/lib/tomcat8/webapps
-rm -rf osiam-auth-server osiam-resource-server
-curl -L --proto-redir -all,https -o osiam-auth-server.war \
-    https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-curl -L --proto-redir -all,https -o osiam-resource-server.war \
-    https://github.com/osiam/osiam/releases/download/v〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-cd -
-sudo service tomcat8 start
-\end{lstdump}
-\end{minipage}
-
-Prüfen Sie ggfs. die Logausgaben\Hair\textsuperscript{\ref{fn:tomcatlogs}}
-und Verfügbarkeit\Hair\footnote{\label{fn:osiamcheck}mit:
-\texttt{curl https://\$(hostname -f)/osiam-resource-server/ServiceProviderConfigs; echo}%
-} des OSIAM-Dienstes\Hair\footnote{\label{fn:osiamsvcchk}nur der
-Resource-Server; der Auth-Server bietet aktuell keine einfache Prüfmethode an}.
 
 \section{Upgrade internes VerA.web-System}\label{sec:upgrade-int}
 
@@ -2072,6 +1177,16 @@ die nicht nach dieser oder einer ähnlichen Anleitung installiert
 wurden, kontaktieren Sie bitte unseren Produktvertrieb oder, falls
 Sie bereits einen bestehenden Wartungsvertrag haben, unser Service-
 und Wartungsteam.
+
+\subsection{Upgrade von Versionen vor 2.0}\label{subsec:upgrade-core-before-no-oa}
+
+Die frühere Funktionalität der sogenannten „Online-Anmeldung“ ist
+ersatzlos weggefallen; damit können Sie diese und eine ggfs. eigens
+für VerA.web eingerichtete Instanz von „OSIAM“ entfernen.
+
+Es ist empfehlenswert, die Konfigurationsdateien mit denen im
+aktuellen „files“-Tarball ausgelieferten abzugleichen und alte
+Einträge zu entfernen, um Fehlern und Mißverständnissen zu begegnen.
 
 \subsection{Upgrade von Versionen vor 1.8.61}\label{subsec:upgrade-core-before-monorepo}
 
@@ -2145,7 +1260,7 @@ enthalten werden.
 Loggen Sie sich auf der Datenbank ein und starten Sie das Upgrade-SQL:
 
 \begin{lstdump}{DB-Upgrade}
-psql -U veraweb -h 127.0.0.1 -W veraweb <upgrade.sql
+psql -h 127.0.0.1 -U veraweb -d veraweb -W <upgrade.sql
 \end{lstdump}
 
 Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
@@ -2160,8 +1275,8 @@ Tomcat wieder gestartet hatten fahren Sie ihn bitte (siehe Kapitel
 wieder herunter.
 
 \begin{minipage}{\linewidth}
-Löschen Sie die alten und deployen die neuen Fassungen der
-VerA.web-Kernanwendung und der REST-API und starten den
+Löschen Sie die alten und bringen Sie die neuen Fassungen der
+VerA.web-Kernanwendung und der REST-API aus und starten den
 Tomcat-Applikationsserver wieder:
 
 \begin{lstdump}{Tomcat deploy}
@@ -2193,60 +1308,6 @@ REST-API (im Format {\itshape Benutzername + Doppelpunkt + Paßwort +
 Klammeraffe})}, und, über die Weboberfläche, die Verfügbarkeit von
 VerA.web-core.
 
-\section{Upgrade Online-Anmeldung}\label{sec:upgrade-oa}
-
-Im folgenden wird beschrieben, wie Sie die Installation der
-VerA.web-Online-Anmeldung auf den neuesten Stand bringen.
-Hierbei wird davon ausgegangen, daß diese gemäß dem Abschnitt
-\nameref{sec:setup-oa} der vorliegenden Anleitung, mindestens
-in Version 1.7.4, auf einem Debian-System eingerichtet wurde.
-
-Falls Sie eine ältere Installation der Online-Anmeldung besitzen
-empfehlen wir Ihnen stattdessen eine Neuinstallation, da die
-Installationsmethode seinerzeit noch nicht ausgereift war.
-
-\subsection{Upgrade von Versionen vor 1.8.1}\label{subsec:upgrade-oa-181}
-
-In der mitgelieferten \texttt{config.jsn} befindet sich eine neue
-Zeile \texttt{onlineRegistrationEndpoint}. Ändern Sie dort den Text
-\texttt{HOSTNAME-OA} in den vollen Hostnamen (FQDN) der Online-Anmeldung
-und fügen Sie diese Zeile an der entsprechenden Stelle in Ihrer
-\texttt{/service/vwoa/config.jsn} ein.
-
-\subsection{Softwareaktualisierung}\label{subsec:upgrade-oa-software}
-
-\begin{minipage}{\linewidth}
-Kopieren Sie bitte die Datei \texttt{online-anmeldung-\vwiaverssw{}.jar}
-auf den Server, auf dem die Online-Anmeldung betrieben wird, und führen
-Sie dort folgende Befehle aus:
-
-\begin{lstdump}{Upgrade OA}
-sudo install -c -o 0 -g 0 -m 644 online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar /service/vwoa/vwoa.new
-sudo rm -f /service/vwoa/vwoa.jar
-sudo mv /service/vwoa/vwoa.new /service/vwoa/vwoa.jar
-sudo svc -t /service/vwoa
-rm -f online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar
-\end{lstdump}
-
-Das Löschen und Umbenennen wirkt Fehlermeldungen beim Beenden vor.
-\end{minipage}
-
-Mit dem Befehl \texttt{sudo svstat /service/vwoa} sollten Sie
-danach festellen können, daß der Dienst vor wenigen Sekunden
-neugestartet wurde, aber nicht in eine Endlos-Neustartschleife
-läuft (also die Sekunden weiterhin hochgezählt werden; siehe
-auch Kapitel \ref{subsec:intro-svc}). Prüfen Sie ggfs. die
-Logausgaben\Hair\footnote{\label{fn:vwoalogs}in
-\texttt{/var/log/vwoa/vwoa.log} und ggfs. unterhalb von
-\texttt{/service/vwoa/log/main/}} und die Verfügbarkeit des
-Dienstes über die Weboberfläche.
-
-⚠ \emph{Achtung:} Damit die neue Version der Anwendung auch
-benutzt wird müssen Sie im Webbrowser den Cache leeren; in
-der Regel reicht es, ihn zu beenden und neuzustarten, ggfs.
-auch (z.B. bei Mozilla™ Firefox™) die \inlinekasten{F5}-Taste
-zu drücken.
-
 Damit ist das Upgrade abgeschlossen.
 Sie können nun mit dem Kapitel \nameref{sec:test} fortfahren.
 
@@ -2260,7 +1321,7 @@ an die fachliche Administration des Veranstaltungsmanagements. Er wird
 üblicherweise nur nach Änderungen an der Netzwerkstruktur sowie wenn
 Komponenten hinzugekommen sind oder verändert wurden durchgeführt.
 
-\subsection{VerA.web core und REST-API}
+\vspace{1ex}\hrule height 0.2pt\relax
 
 Öffnen Sie die Startseite des VerA.web Veranstaltungsmanagements mit
 einem Webbrowser\Hair\footnote{falls diese nicht erscheint prüfen Sie
@@ -2275,14 +1336,10 @@ und die Kommunikation zwischen VerA.web und dem LDAP-Server}.
 \hyperfootnotetext{\label{fn:apachelogs}in \texttt{/var/log/apache2/}}%
 
 Wählen Sie oben \inlinekasten{Verwaltung} / \inlinekasten{Info}. Hier
-finden Sie Informationen zur laufenden VerA.web-Version, ob die
-Online-Anmeldung im VerA.web-core installiert und aktiviert wurde,
-ob die REST-API verfügbar ist, und die installierte Version des
-Datenbankschemas, einige Zeichensatz-/Lokalisierungsinformationen sowie
-mit welchem Benutzerzugang Sie eingeloggt sind, %welche eMail-Adresse
-%dieser hat (was für das Versenden von eMails als Absenderadresse
-%verwendet wird), %XXX TODO: stimmt nicht… wofür *ist* die Zeile dort?
-welchem Mandant dieser zugeordnet ist und welche
+finden Sie Informationen zur laufenden VerA.web-Version, ob die REST-API
+verfügbar ist, und die installierte Version des Datenbankschemas, einige
+Zeichensatz-/Lokalisierungsinformationen sowie mit welchem Benutzerzugang
+Sie eingeloggt sind, welchem Mandant dieser zugeordnet ist und welche
 Gruppen (Rechte) er hat.
 
 Wählen Sie oben \inlinekasten{Personen} / \inlinekasten{Neue Person}
@@ -2313,186 +1370,6 @@ Sie, dann klicken Sie ganz unten rechts auf \inlinekasten{Speichern}.
 die Hauptperson zu sehen sein\Hair\footnote{falls das Bild nicht
 zu sehen ist funktioniert die \texttt{vwor.war} (REST-API) nicht
 korrekt\Hair\textsuperscript{\ref{fn:tomcatlogs}}}.
-
-\subsection{Online-Anmeldung mit Delegationsanmeldung}
-
-Wählen Sie oben \inlinekasten{Personen} / \inlinekasten{Neue Person}
-und legen Sie eine Testfirma an, indem Sie einen Haken bei „Ist Firma“
-setzen und unter „Firma/Institution“ z.B. „Testfirma“ eingeben, unten
-rechts auf \inlinekasten{Dublettenprüfung durchführen} und danach auf
-\inlinekasten{Person speichern} klicken.
-
-\strut Wählen Sie oben \inlinekasten{Veranstaltungen} /
-\inlinekasten{Veranstaltungsübersicht}, klicken Sie auf die Zeile mit
-der Testkonferenz, dann rechts auf \inlinekasten{Zur Gästeverwaltung}
-\strut und auf \inlinekasten{Gast hinzufügen}, machen diesmal einen
-Haken bei „Ist Firma“, klicken unten rechts auf \inlinekasten{Suchen}
-und wählen die Testfirma aus, indem Sie den Haken in der Spalte
-\inlinekasten{D} (vierte Spalte) setzen und direkt über der Tabelle
-auf \inlinekasten{Hinzufügen} klicken.
-
-Wählen Sie nun den Reiter Export und starten dort einen CSV-Export
-durch einen Klick auf \inlinekasten{Gästeliste komplett}.
-Speichern Sie die CSV-Datei und öffnen Sie sie mit einer Tabellenkalkulation.
-
-Die CSV-Datei enthält neben den Spaltenüberschriften eine Zeile pro Gast.
-Die Firma sollte als zuletzt hinzugefügter Gast ganz oben stehen.
-Öffnen Sie den Link aus der fünftletzten Spalte
-„delegationLink“ in einem neuen Browser-Tab
-(dieser verweist direkt auf die Online-Anmeldung\Hair\footnote{falls
-diese nicht erscheint prüfen Sie, daß das Apache-Webfrontend läuft und
-Anfragen\Hair\textsuperscript{\ref{fn:apachelogs}} an den Microservice
-durchreicht und dessen Logs\Hair\textsuperscript{\ref{fn:vwoalogs}}})
-und loggen Sie sich dort mit den Daten aus den Spalten „delegationUser“
-und „delegationPassword“ ein\Hair\footnote{\label{fn:inttst-osiam}falls Sie sich
-dort nicht einloggen können oder keine Veranstaltungsdetails sehen
-prüfen Sie, ob OSIAM\Hair\textsuperscript{\ref{fn:tomcatlogs}}, ggfs.
-samt Apache-Frontend\Hair\textsuperscript{\ref{fn:apachelogs}}, korrekt
-eingerichtet ist und die Kommunikation zwischen VerA.web-core und der
-REST-API sowie der Online-Anmeldung und OSIAM funktioniert}. Dann können
-Sie einen Delegierten anmelden, indem Sie Stammdaten (Geschlecht, Name)
-eingeben und ein Kontaktfoto\Hair\textsuperscript{\ref{fn:testpic}}
-hochladen und auf \inlinekasten{Speichern} klicken.
-Unter „Bereits angemeldet:“ sollte nun Ihr Eintrag zu sehen sein.
-
-Klicken Sie dann in der Online-Anmeldung auf \inlinekasten{Abmelden}
-oben rechts.
-
-Zurück in der VerA.web-Hauptanwendung wählen Sie die Testkonferenz
-wieder aus der \inlinekasten{Veranstaltungsübersicht} aus und gehen
-erneut \inlinekasten{Zur Gästeverwaltung}. Der von Ihnen eben angemeldete
-Delegierte taucht nun in der Liste auf; wenn Sie auf die Zeile klicken
-finden Sie im Registerreiter „Hauptperson“ das ausgewählte Kontaktfoto.
-
-\subsection{Online-Anmeldung zu einer offenen Veranstaltung}
-
-Wählen Sie oben \inlinekasten{Veranstaltungen} / \inlinekasten{Neue
-Veranstaltung} und legen Sie eine Testveranstaltung an, indem Sie eine
-Kurzbezeichnung („Testflohmarkt“) und einen (in der Zukunft liegenden)
-Beginn eingeben, ein Häkchen bei „Offene Veranstaltung“ setzen, und
-auf \inlinekasten{Veranstaltung speichern} klicken.
-
-Öffnen Sie nun die Haupt‑/Startseite \texttt{https://HOSTNAME-OA/vwor-app/}
-der Online-Anmeldung im Browser. Unter „Veranstaltungen“ sehen Sie
-den Testflohmarkt\Hair\textsuperscript{\ref{fn:inttst-osiam}} und
-einen Button \inlinekasten{Zur Veranstaltung anmelden}, den Sie bitte
-betätigen. Dann klicken Sie unten auf den Link „Konto erstellen“.
-Geben Sie Daten eines fiktiven Gastes (aber eine gültige eMail-Adresse
-auf die Sie Zugriff haben) ein und bestätigen Sie; daraufhin
-erscheint\Hair\textsuperscript{\ref{fn:inttst-osiam}} eine grüne Box
-„Benutzerdaten wurden gespeichert. Bitte bestätigen Sie ihren Account,
-Sie haben eine E-Mail erhalten.“ und wieder die Loginmaske, auf der
-Sie sich nun mit dem gerade angegebenen Benutzernamen und Paßwort
-anmelden können, sobald Sie den Bestätigungslink in der Ihnen nun
-zugesandten eMail geklickt haben. Nun können Sie einen Vermerk eintragen
-und dem Testflohmarkt \inlinekasten{Verbindlich zusagen}.
-
-Zurück in VerA.web-core gehen Sie \inlinekasten{Zur Gästeverwaltung}
-und finden den gerade angelegten Benutzer in der Gästeliste.
-
-\section{Konfiguration der Online-Anmeldung}\label{sec:conf-oa}
-
-Das Verhalten der Online-Anmeldung lässt sich nach der Installation
-noch weiter anpassen. Die nachfolgenden Abschnitte erläutern die
-Möglichkeiten und beschreiben die Durchführung.
-
-\subsection{Deaktivierung der Online-Anmeldung}\label{sec:deactivate-oa}
-
-Die Online-Anmeldung kann nach einer erfolgreichen Installation
-wieder komplett oder für einzelne Mandanten deaktiviert werden.
-Hierzu müssen zwei Parameter in der Datei \texttt{config\_vwoa.xml}
-gesetzt werden.
-
-\subsubsection{Deaktivierung der Online-Anmeldung für die ganze Installation}
-
-Setzen Sie in \texttt{/etc/veraweb/config\_vwoa.xml} den
-Parameter \texttt{online-registration.activated} auf \texttt{false}.
-Nach der Deaktivierung verhält sich die VerA.web-Installation wie eine
-Installation ohne Online-Anmeldung.
-
-\subsubsection{Deaktivierung der Online-Anmeldung für einzelne Mandanten}
-
-Um die Online-Anmeldung nur für einzelne Mandanten zu deaktivieren,
-werden die IDs dieser Mandanten benötigt. Eine Übersicht über alle
-Mandanten finden Sie als Benutzer mit Administratorenrechten auf der
-Weboberfläche unter dem Menüpunkt \inlinekasten{Administration} /
-\inlinekasten{Mandanten}.
-
-\begin{minipage}{\linewidth}
-Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_vwoa.xml},
-indem Sie die folgenden zwei Parameter anpassen.
-Tragen Sie jedoch anstelle von „MANDANTEN“ die einzelnen IDs der zu
-deaktivierenden Mandanten, als kommagetrennte Liste, ein.
-
-\begin{lstdump}[language=XML,tabsize=2]{OA einzelnd}
-<?xml version="1.0" encoding="utf-8"?>
-<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
-
-<!--
-	OCTOPUS config_vwoa.xml
-
-	disable Online-Anmeldung by default in core
-	blacklist for single mandants by default empty
--->
-<tcModuleConfig>
-	<params>
-		<!-- wird die Online-Anmeldung auch ausgeführt -->
-		<param name="online-registration.activated" value="〈\color{blue}\lstdumpesc{true}〉"/>
-		<param name="mandanten-online-registration.deactivated" value="〈\color{blue}\lstdumpesc{MANDANTEN}〉"/>
-	</params>
-</tcModuleConfig>
-\end{lstdump}
-
-Mögliche Beispielskonfigurationen (nur \emph{eine} Zeile):
-
-\begin{lstdump}[language=XML]{OA Beispiel}
-        <param name="mandanten-online-registration.deactivated" value=""/>
-        <param name="mandanten-online-registration.deactivated" value="3"/>
-        <param name="mandanten-online-registration.deactivated" value="3,4"/>
-        <param name="mandanten-online-registration.deactivated" value="3, 4, 5"/>
-\end{lstdump}
-\end{minipage}
-
-Nach der Deaktivierung der einzelnen Mandanten ist die Online-Anmeldung noch
-aktiv, nur werden bei den Veranstaltungen deaktivierter Mandanten die Links
-zur Online-Anmeldung nicht mehr angezeigt.
-
-\subsection{Setzen des Impressums der Online-Anmeldung}\label{sec:imprint-oa}
-
-Um ein benutzerdefiniertes Impressum für die Online-Anmeldung zu hinterlegen,
-muß die Datei \texttt{/etc/veraweb/vwor.properties} erweitert werden.
-
-Mit parametrisierten Einträgen \texttt{imprint.}<language\_key>\texttt{.heading.}<sorting\_number>\texttt{=}<heading>
-und \texttt{imprint.}<language\_key>\texttt{.content.}<sorting\_number>\texttt{=}<content>
-(die Parameter werden im folgenden erläutert)
-lassen sich einzelne Abschnitte zum Impressum hinzufügen.
-
-Um das Impressum mehrsprachig zur Verfügung zu stellen, sollte ein Eintrag je
-einmal für den Sprachschlüssel (<language\_key>) „\texttt{de\_DE}“ (deutsch)
-und „\texttt{en\_EN}“ (englisch) existieren.
-
-Durch das Nummerieren der Abschnitte kann die vorgesehene Reihenfolge erzeugt werden.
-Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen wie im Beispiel nach Unicode kodiert
-werden (z.B. wird \texttt{ä} zu \texttt{\textbackslash{}u00E4}).
-
-Um nur einen Textblock ohne Überschrift zu generieren kann nur der Eintrag
-für die Inhalt angegeben werden (\texttt{imprint.}<language\_key>\texttt{.content.}<sorting\_number>\texttt{=}<content>)
-
-Sollte es mehrere Einträge ohne Sortiernummer oder mit doppelter Nummer geben,
-ist keine spezielle Reihenfolge gewährleistet. Auch sollten die Nummern mit
-führenden Nullen beginnen, damit sie korrekt sortiert werden.
-
-\begin{minipage}{\linewidth}
-\begin{lstdump}{/etc/veraweb/vwor.properties}
-...
-imprint.de_DE.heading.01=\u00DCberschrift
-imprint.de_DE.content.01=Text des ersten Abschnitts
-imprint.de_DE.heading.02=Titel
-imprint.de_DE.content.02=Text des zweiten Abschnitts
-
-imprint.en_EN.content.00=Just text without headline.
-\end{lstdump}
-\end{minipage}
 
 \section{Anpassung der Sprachdateien}\label{sec:l10n}
 
@@ -2550,15 +1427,13 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
   \\ Angebote von \tarent{} zu Service, Wartung und Hosting}
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=vwor/src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
- \item{\href{https://github.com/osiam/osiam/blob/v2.5/docs/detailed-reference-installation.md}{https://github.com/osiam/osiam/blob/v2.5/docs/detailed-reference-installation.md}
-  \\ die offizielle detaillierte OSIAM-Referenzinstallationsanleitung}
 \end{itemize}
 
 \subsection{Absicherung}\label{subsec:links-sec}
 
 Auf einer Installation von VerA.web core und REST-API befinden sich
 Paßwörter, personenbezogene oder andere sicherheitsrelevante Daten
-u.a. an folgenden Stellen:\keinumbruch
+potentiell u.a. an folgenden Stellen:\keinumbruch
 
 \begin{itemize}
  \item{im LDAP-Verzeichnis}
@@ -2580,27 +1455,6 @@ u.a. an folgenden Stellen:\keinumbruch
 VerA.web core und die REST-API laufen als Webarchive im
 Tomcat-Applikationsserver und somit mit dessen Rechten,
 d.h. als Unix-Nutzer \texttt{tomcat8}.
-
-Die Online-Anmeldung läuft als separater Unix-Nutzer \texttt{vwoa}
-und hält folgende sicherheitsrelevanten Daten vor:\keinumbruch
-
-\begin{itemize}
- \item{\texttt{/service/vwoa/config.jsn}}
- \item{in Logdateien unterhalb von \texttt{/var/log/apache2/},
-  \texttt{/var/log/vwoa/} und \texttt{/service/vwoa/log/}}
-\end{itemize}
-
-OSIAM ist eine „Blackbox“, daher kann keine genaue Aussage hierüber getroffen
-werden, zudem dies versionsabhängig ist; die aktuelle Version von OSIAM läuft
-auch im \texttt{tomcat8}, und bekannte Stellen sind hier:\keinumbruch
-
-\begin{itemize}
- \item{in der PostgreSQL-Datenbank \texttt{ong}}
- \item{\texttt{/etc/osiam/auth-server.properties}}
- \item{\texttt{/etc/osiam/resource-server.properties}}
- \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
-  und \texttt{/var/log/tomcat8/}}
-\end{itemize}
 
 \section{Anhang: Referenzkonfigurationen}\label{sec:refcfg}
 
@@ -2625,9 +1479,6 @@ Kommandozeilenoptionen)!
 
 \subsection{/etc/apache2/sites-enabled/000-default.conf}\label{subsec:refcfg-apache-default}
 
-Diese Datei ist quasi identisch, nur das Ziel der Weiterleitung
-unterscheidet sich, je nach Host. Betrifft: alle
-
 \begin{lstdump}[tabsize=2]{/etc/apache2/sites-enabled/000-default.conf}
 <VirtualHost *:80>
 	# The ServerName directive sets the request scheme, hostname and port that
@@ -2642,7 +1493,7 @@ unterscheidet sich, je nach Host. Betrifft: alle
 	ServerAdmin webmaster@localhost
 	DocumentRoot /var/www/html
 「
-	# Weiterleiten auf core, nur bei separater Online-Anmeldung auf diese
+	# Weiterleiten auf core
 	RedirectMatch 301 . https://veraweb.lan.tarent.de/
 」
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
@@ -2667,10 +1518,6 @@ unterscheidet sich, je nach Host. Betrifft: alle
 
 \subsection{/etc/apache2/sites-enabled/default-ssl.conf}\label{subsec:refcfg-apache-defssl}
 
-Dieser vhost enthält kommentierte Alternativen für den core,
-OSIAM und die Online-Anmeldung. Bitte beachten Sie die
-inline-Kommentare genau! Betrifft: alle
-
 \begin{lstdump}[tabsize=2]{/etc/apache2/sites-enabled/default-ssl.conf}
 <IfModule mod_ssl.c>
 	<VirtualHost _default_:443>
@@ -2678,19 +1525,10 @@ inline-Kommentare genau! Betrifft: alle
 
 		DocumentRoot /var/www/html
 「
-		### OSIAM
-		JkMount /osiam-auth-server* ajp13_worker
-		JkMount /osiam-resource-server* ajp13_worker
-
 		### core
 		JkMount /veraweb* ajp13_worker
 		JkMount /vwor* ajp13_worker
 		RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
-
-		### Online-Anmeldung
-		ProxyPass /vwor-app/ http://localhost:8081/
-		ProxyPassReverse /vwor-app/ http://localhost:8081/
-		RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/vwor-app/
 」
 		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 		# error, crit, alert, emerg.
@@ -2824,9 +1662,6 @@ inline-Kommentare genau! Betrifft: alle
 
 \subsection{/etc/default/tomcat8}\label{subsec:refcfg-tcdef}
 
-Dieses Beispiel ermöglicht es, alles auf einer VM zu betreiben;
-siehe auch inline-Kommentare. Betrifft: OSIAM, core
-
 \begin{lstdump}{/etc/default/tomcat8}
 # Run Tomcat as this user ID. Not setting this or leaving it blank will use the
 # default of tomcat8.
@@ -2880,305 +1715,7 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"
 \end{lstdump}
 
-\subsection{/etc/osiam/auth-server.properties}\label{subsec:refcfg-osiam-auth}
-
-Betrifft: OSIAM
-
-\begin{lstdump}{/etc/osiam/auth-server.properties}
-# Database properties
-org.osiam.auth-server.db.vendor=postgresql
-org.osiam.auth-server.db.driver=org.postgresql.Driver
-org.osiam.auth-server.db.url=jdbc:postgresql://localhost:5432/ong
-org.osiam.auth-server.db.username=ong
-org.osiam.auth-server.db.password=〔ong〕
-
-# JDBC pool properties
-org.osiam.auth-server.db.maximum-pool-size=10
-org.osiam.auth-server.db.connection-timeout-ms=30000
-
-# OSIAM authentication-server configuration
-# Home URL (needed for self reference)
-org.osiam.auth-server.home=https://「veraweb.lan.tarent.de」/osiam-auth-server
-
-# OSIAM resource server configuration
-org.osiam.resource-server.home=https://「veraweb.lan.tarent.de」/osiam-resource-server
-# Maximum number of parallel connections to the resource-server
-org.osiam.resource-server.connector.max-connections=40
-# Timeouts of connections to resource-server in milliseconds
-org.osiam.resource-server.connector.read-timeout-ms=10000
-org.osiam.resource-server.connector.connect-timeout-ms=5000
-
-# ATTENTION: you have to set a random secret for the resource server client!
-# It has to be the same as in the properties file of the resource server!
-org.osiam.resource-server.client.secret=〔random-client-secret〕
-
-# LDAP config for auth server
-org.osiam.auth-server.ldap.enabled=false
-org.osiam.auth-server.ldap.server.url=ldap://localhost:33389/dc=springframework,dc=org
-org.osiam.auth-server.ldap.dn.patterns=uid={0},ou=people
-org.osiam.auth-server.ldap.sync-user-data=true
-org.osiam.auth-server.ldap.mapping=userName:uid\
-,email:mail\
-,name.familyName:sn\
-,name.givenName:givenName\
-,displayName:displayName\
-
-# lock after n login failures (0 = disabled); timeout in seconds
-org.osiam.auth-server.tempLock.count=0
-org.osiam.auth-server.tempLock.timeout=30
-\end{lstdump}
-
-\subsection{/etc/osiam/resource-server.properties}\label{subsec:refcfg-osiam-rsrc}
-
-Betrifft: OSIAM
-
-\begin{lstdump}{/etc/osiam/resource-server.properties}
-# Database properties
-org.osiam.resource-server.db.vendor=postgresql
-org.osiam.resource-server.db.driver=org.postgresql.Driver
-org.osiam.resource-server.db.url=jdbc:postgresql://localhost:5432/ong
-org.osiam.resource-server.db.username=ong
-org.osiam.resource-server.db.password=〔ong〕
-
-# JDBC pool properties
-org.osiam.resource-server.db.maximum-pool-size=10
-org.osiam.resource-server.db.connection-timeout-ms=30000
-
-# Home URL (needed for self reference)
-org.osiam.resource-server.home=https://「veraweb.lan.tarent.de」/osiam-resource-server
-# ATTENTION: you have to set a random secret for the resource server client!
-org.osiam.resource-server.client.secret=〔random-client-secret〕
-
-# OSIAM auth-server configuration
-org.osiam.auth-server.home=https://「veraweb.lan.tarent.de」/osiam-auth-server
-# Maximum number of parallel connections to the auth-server
-org.osiam.auth-server.connector.max-connections=40
-# Timeouts of connections to auth-server in milliseconds
-org.osiam.auth-server.connector.read-timeout-ms=10000
-org.osiam.auth-server.connector.connect-timeout-ms=5000
-\end{lstdump}
-
-\subsection{/service/vwoa/config.jsn}\label{subsec:refcfg-oa-cfg}
-
-Betrifft: Online-Anmeldung
-
-\begin{lstdump}{/service/vwoa/config.jsn}
-{
-  "logging": {
-    "appenders": [
-      {
-        "archivedFileCount": 7,
-        "archivedLogFilenamePattern": "/var/log/vwoa/vwoa.log.%d.gz",
-        "currentLogFilename": "/var/log/vwoa/vwoa.log",
-        "timeZone": "UTC",
-        "type": "file"
-      }
-    ],
-    "level": "INFO",
-    "loggers": {
-      "org.evolvis.veraweb.onlinereg": "DEBUG",
-      "org.hibernate.SQL": "ALL"
-    }
-  },
-  "onlineRegistrationEndpoint": "https://「veraweb.lan.tarent.de」/vwor-app/#/",
-  "osiam": {
-    "clientId": "online-registration",
-    "clientSecret": "〔geheim〕",
-    "endpoint": "https://「veraweb.lan.tarent.de」"
-  },
-  "restauth": {
-    "password": "〔veraweb〕",
-    "username": "「veraweb」"
-  },
-  "server": {
-    "adminContextPath": "/admin",
-    "applicationContextPath": "/",
-    "connector": {
-      "bindHost": "127.0.0.1",
-      "port": 8081,
-      "type": "http"
-    },
-    "requestLog": {
-      "appenders": [
-        {
-          "archive": true,
-          "archivedFileCount": 7,
-          "archivedLogFilenamePattern": "/var/log/vwoa/vwoa.log.%d.gz",
-          "currentLogFilename": "/var/log/vwoa/vwoa.log",
-          "threshold": "ALL",
-          "type": "file"
-        }
-      ],
-      "timeZone": "UTC"
-    },
-    "type": "simple"
-  },
-  "verawebEndpoint": "https://「veraweb.lan.tarent.de」/vwor"
-}
-\end{lstdump}
-
-\subsection{/etc/tomcat8/catalina.properties}\label{subsec:refcfg-tc-prop}
-
-Betrifft: OSIAM
-
-\begin{lstdump}{/etc/tomcat8/catalina.properties}
-# Licensed to the Apache Software Foundation (ASF) under one or more
-# contributor license agreements.  See the NOTICE file distributed with
-# this work for additional information regarding copyright ownership.
-# The ASF licenses this file to You under the Apache License, Version 2.0
-# (the "License"); you may not use this file except in compliance with
-# the License.  You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-#
-# List of comma-separated packages that start with or equal this string
-# will cause a security exception to be thrown when
-# passed to checkPackageAccess unless the
-# corresponding RuntimePermission ("accessClassInPackage."+package) has
-# been granted.
-package.access=sun.,org.apache.catalina.,org.apache.coyote.,org.apache.jasper.,org.apache.tomcat.
-#
-# List of comma-separated packages that start with or equal this string
-# will cause a security exception to be thrown when
-# passed to checkPackageDefinition unless the
-# corresponding RuntimePermission ("defineClassInPackage."+package) has
-# been granted.
-#
-# by default, no packages are restricted for definition, and none of
-# the class loaders supplied with the JDK call checkPackageDefinition.
-#
-package.definition=sun.,java.,org.apache.catalina.,org.apache.coyote.,\
-org.apache.jasper.,org.apache.naming.,org.apache.tomcat.
-
-#
-#
-# List of comma-separated paths defining the contents of the "common"
-# classloader. Prefixes should be used to define what is the repository type.
-# Path may be relative to the CATALINA_HOME or CATALINA_BASE path or absolute.
-# If left as blank,the JVM system loader will be used as Catalina's "common"
-# loader.
-# Examples:
-#     "foo": Add this folder as a class repository
-#     "foo/*.jar": Add all the JARs of the specified folder as class
-#                  repositories
-#     "foo/bar.jar": Add bar.jar as a class repository
-#
-# Note: Values are enclosed in double quotes ("...") in case either the
-#       ${catalina.base} path or the ${catalina.home} path contains a comma.
-#       Because double quotes are used for quoting, the double quote character
-#       may not appear in a path.
-common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar","${catalina.base}/common/classes","${catalina.base}/common/*.jar","${catalina.home}/common/classes","${catalina.home}/common/*.jar"
-
-#
-# List of comma-separated paths defining the contents of the "server"
-# classloader. Prefixes should be used to define what is the repository type.
-# Path may be relative to the CATALINA_HOME or CATALINA_BASE path or absolute.
-# If left as blank, the "common" loader will be used as Catalina's "server"
-# loader.
-# Examples:
-#     "foo": Add this folder as a class repository
-#     "foo/*.jar": Add all the JARs of the specified folder as class
-#                  repositories
-#     "foo/bar.jar": Add bar.jar as a class repository
-#
-# Note: Values may be enclosed in double quotes ("...") in case either the
-#       ${catalina.base} path or the ${catalina.home} path contains a comma.
-#       Because double quotes are used for quoting, the double quote character
-#       may not appear in a path.
-server.loader="${catalina.base}/server/classes","${catalina.base}/server/*.jar","${catalina.home}/server/classes","${catalina.home}/server/*.jar"
-
-#
-# List of comma-separated paths defining the contents of the "shared"
-# classloader. Prefixes should be used to define what is the repository type.
-# Path may be relative to the CATALINA_BASE path or absolute. If left as blank,
-# the "common" loader will be used as Catalina's "shared" loader.
-# Examples:
-#     "foo": Add this folder as a class repository
-#     "foo/*.jar": Add all the JARs of the specified folder as class
-#                  repositories
-#     "foo/bar.jar": Add bar.jar as a class repository
-# Please note that for single jars, e.g. bar.jar, you need the URL form
-# starting with file:.
-#
-# Note: Values may be enclosed in double quotes ("...") in case either the
-#       ${catalina.base} path or the ${catalina.home} path contains a comma.
-#       Because double quotes are used for quoting, the double quote character
-#       may not appear in a path.
-shared.loader="${catalina.base}/shared/classes","${catalina.base}/shared/*.jar","${catalina.home}/shared/classes","${catalina.home}/shared/*.jar"「,/etc/osiam」
-
-# Default list of JAR files that should not be scanned using the JarScanner
-# functionality. This is typically used to scan JARs for configuration
-# information. JARs that do not contain such information may be excluded from
-# the scan to speed up the scanning process. This is the default list. JARs on
-# this list are excluded from all scans. The list must be a comma separated list
-# of JAR file names.
-# The list of JARs to skip may be over-ridden at a Context level for individual
-# scan types by configuring a JarScanner with a nested JarScanFilter.
-# The JARs listed below include:
-# - Tomcat Bootstrap JARs
-# - Tomcat API JARs
-# - Catalina JARs
-# - Jasper JARs
-# - Tomcat JARs
-# - Common non-Tomcat JARs
-# - Test JARs (JUnit, Cobertura and dependencies)
-tomcat.util.scan.StandardJarScanFilter.jarsToSkip=\
-bootstrap.jar,commons-daemon.jar,tomcat-juli.jar,\
-annotations-api.jar,el-api.jar,jsp-api.jar,servlet-api.jar,websocket-api.jar,\
-jaspic-api.jar,\
-catalina.jar,catalina-ant.jar,catalina-ha.jar,catalina-storeconfig.jar,\
-catalina-tribes.jar,\
-jasper.jar,jasper-el.jar,ecj-*.jar,\
-tomcat-api.jar,tomcat-util.jar,tomcat-util-scan.jar,tomcat-coyote.jar,\
-tomcat-dbcp.jar,tomcat-jni.jar,tomcat-websocket.jar,\
-tomcat-i18n-en.jar,tomcat-i18n-es.jar,tomcat-i18n-fr.jar,tomcat-i18n-ja.jar,\
-tomcat-juli-adapters.jar,catalina-jmx-remote.jar,catalina-ws.jar,\
-tomcat-jdbc.jar,\
-tools.jar,\
-commons-beanutils*.jar,commons-codec*.jar,commons-collections*.jar,\
-commons-dbcp*.jar,commons-digester*.jar,commons-fileupload*.jar,\
-commons-httpclient*.jar,commons-io*.jar,commons-lang*.jar,commons-logging*.jar,\
-commons-math*.jar,commons-pool*.jar,\
-jstl.jar,taglibs-standard-spec-*.jar,\
-geronimo-spec-jaxrpc*.jar,wsdl4j*.jar,\
-ant.jar,ant-junit*.jar,aspectj*.jar,jmx.jar,h2*.jar,hibernate*.jar,httpclient*.jar,\
-jmx-tools.jar,jta*.jar,log4j*.jar,mail*.jar,slf4j*.jar,\
-xercesImpl.jar,xmlParserAPIs.jar,xml-apis.jar,\
-junit.jar,junit-*.jar,hamcrest-*.jar,easymock-*.jar,cglib-*.jar,\
-objenesis-*.jar,ant-launcher.jar,\
-cobertura-*.jar,asm-*.jar,dom4j-*.jar,icu4j-*.jar,jaxen-*.jar,jdom-*.jar,\
-jetty-*.jar,oro-*.jar,servlet-api-*.jar,tagsoup-*.jar,xmlParserAPIs-*.jar,\
-xom-*.jar
-
-# Default list of JAR files that should be scanned that overrides the default
-# jarsToSkip list above. This is typically used to include a specific JAR that
-# has been excluded by a broad file name pattern in the jarsToSkip list.
-# The list of JARs to scan may be over-ridden at a Context level for individual
-# scan types by configuring a JarScanner with a nested JarScanFilter.
-tomcat.util.scan.StandardJarScanFilter.jarsToScan=\
-log4j-web*.jar,log4j-taglib*.jar,log4javascript*.jar,slf4j-taglib*.jar
-
-# String cache configuration.
-tomcat.util.buf.StringCache.byte.enabled=true
-#tomcat.util.buf.StringCache.char.enabled=true
-#tomcat.util.buf.StringCache.trainThreshold=500000
-#tomcat.util.buf.StringCache.cacheSize=5000
-
-# Allow for changes to HTTP request validation
-# WARNING: Using this option will expose the server to CVE-2016-6816
-#tomcat.util.http.parser.HttpParser.requestTargetAllow=|
-\end{lstdump}
-
 \subsection{/etc/tomcat8/context.xml}\label{subsec:refcfg-tc-ctx}
-
-Betrifft: core
 
 \begin{lstdump}{/etc/tomcat8/context.xml}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -3217,8 +1754,6 @@ Betrifft: core
 \end{lstdump}
 
 \subsection{/etc/tomcat8/server.xml}\label{subsec:refcfg-tc-server}
-
-Betrifft: OSIAM, core
 
 \begin{lstdump}[basicstyle=\ttfamily\footnotesize]{/etc/tomcat8/server.xml}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -3393,8 +1928,6 @@ Betrifft: OSIAM, core
 
 \subsection{/etc/tomcat8/tomcat-users.xml}\label{subsec:refcfg-tc-users}
 
-Betrifft: core
-
 \begin{lstdump}{/etc/tomcat8/tomcat-users.xml}
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
@@ -3448,8 +1981,6 @@ Betrifft: core
 
 \subsection{/etc/veraweb/config\_ldap\_access.xml}\label{subsec:refcfg-vw-cfgldap}
 
-Betrifft: core
-
 \begin{lstdump}[basicstyle=\ttfamily\footnotesize]{/etc/veraweb/config_ldap_access.xml}
 <?xml version="1.0" encoding="UTF-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
@@ -3498,8 +2029,6 @@ Betrifft: core
 
 \subsection{/etc/veraweb/veraweb.properties}\label{subsec:refcfg-vw-vwprop}
 
-Betrifft: core
-
 \begin{lstdump}{/etc/veraweb/veraweb.properties}
 vwor.endpoint=https://「veraweb.lan.tarent.de」/vwor
 vwor.auth.user=「veraweb」
@@ -3514,24 +2043,9 @@ veraweb.person.part.search=false
 # Es wird ein Button angezeigt, dessen Betaetigung die aktuelle Sicht
 # in einem neuen Tab zeigt (Standard: false)
 veraweb.show.global.opentab.button=false
-
-# Die folgenden Einstellungen sind nur bei Benutzung der
-# Online-Anmeldung relevant; andernfalls ignorieren oder
-# entfernen:
-
-osiam.client.id=online-registration
-osiam.client.secret=〔geheim〕
-osiam.client.redirect_uri=http://localhost/irrelevant
-osiam.server.resource=https://「veraweb.lan.tarent.de」/osiam-resource-server/
-osiam.server.auth=https://「veraweb.lan.tarent.de」/osiam-auth-server/
-veraweb.onlinereg.protocol=https
-veraweb.onlinereg.host=「veraweb.lan.tarent.de」
-veraweb.onlinereg.port=443/vwor-app
 \end{lstdump}
 
 \subsection{/etc/veraweb/vwor.properties}\label{subsec:refcfg-vw-vworprop}
-
-Betrifft: core
 
 \begin{lstdump}{/etc/veraweb/vwor.properties}
 # Encoding ISO-8859-1 necessary for propertyReader
