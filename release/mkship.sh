@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2017, 2018
+# Copyright © 2017, 2018, 2019
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -65,14 +65,12 @@ wget "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/ver
 wget "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$vsn/veraweb-core-$vsn-files.tgz" || die cannot fetch files tarball
 wget "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$vsn/veraweb-core-$vsn.war" || die cannot fetch core war
 wget "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/rest-api/$vsn/rest-api-$vsn.war" || die cannot fetch Rest-API war
-wget "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/online-anmeldung/$vsn/online-anmeldung-$vsn.jar" || die cannot fetch Online-Anmeldung
 
 for f in \
     "veraweb-core-$vsn-installationsanleitung.pdf" \
     "veraweb-core-$vsn-files.tgz" \
     "veraweb-core-$vsn.war" \
     "rest-api-$vsn.war" \
-    "online-anmeldung-$vsn.jar" \
     ; do
 	[[ -s $f ]] || die empty file "'$f'"
 done

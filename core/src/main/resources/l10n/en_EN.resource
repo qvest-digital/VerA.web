@@ -508,7 +508,6 @@ GENERIC_EDIT_PERSON=Edit person
 GENERIC_DOCUMENTED_ON=Documented on
 GENERIC_LAST_EDITED_ON=Last edited on
 GENERIC_PERSONS_ID=people-ID
-GENERIC_OA_USERNAME=Online-registration username
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=There is no preview-field created for this person.
 GENERIC_COPY_PERSON=Copy person
 GENERIC_CREATE_TAG=Create tag
@@ -535,10 +534,6 @@ GENERIC_SEARCH=Search
 GENERIC_VALIDITY_DATE=Validity date
 GENERIC_ADVANCED_SEARCH=Advanced search
 HINT_PLACEHOLDER=Hint: With the Search, you can use placeholders, where the asterisk \u201C*\u201D stands for an arbitrary amount of characters and the question mark \u201C?\u201D for a single character. Fields searched are first and last name, City, Zip code, Street, Company/Institution, telefon, fax, mobile, E-mail, remarks, categories, work areas and employment title/function.
-
-# PERSONEN/NEUE PERSON ANLEGEN
-MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=The login credentials have been created successfully.
-MESSAGE_OSIAM_LOGIN_DATA_EXIST=Login credentials for this person already exist.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=current company
@@ -659,7 +654,6 @@ CSV_NOTE_ORGA_GUEST=Noteorga Guest
 CSV_NOTE_ORGA_PERSON=Noteorga Person
 CSV_ORDER_NR_GUEST=Order no. guest
 CSV_ORDER_NR_PERSON=Order no. person
-CSV_OSIAM_LOGIN=Osiam Login
 CSV_RANK=Rank
 CSV_RESERVE=Reserve
 CSV_SEAT_GUEST=Seat Guest
@@ -1766,7 +1760,6 @@ PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Would you really like to de
 PERSON_HEADER_NO_DOCTYPE_CONFIG=No document type was configured to be shown.
 
 #LAST ADDED
-GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Generate login credentials for the Online-Registration
 GENERIC_COPY_CURRENT_PERSON=Copy current person
 GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Assign current person to an event
 GENERIC_PREVIOUS_PAGE=Previous page

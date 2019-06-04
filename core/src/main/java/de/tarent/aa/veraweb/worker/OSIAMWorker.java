@@ -142,7 +142,7 @@ public class OSIAMWorker {
     }
 
     private boolean checkIfOnlineRegistrationIsAvailable(OctopusContext ctx) {
-        return Boolean.valueOf(ctx.getContextField(VWOR_ACTIVE_PARAM).toString());
+        return false;
     }
 
     /**

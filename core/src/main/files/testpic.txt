@@ -1,6 +1,6 @@
 Dieses Testbild von exakt 186x245 Pixeln Größe dient dem Test
-des Photo-Uploads in VerA.web (core und Online-Anmeldung). Es
-wird unter der freien Lizenz CC-BY 3.0 (unported) verbreitet:
+des Photo-Uploads in VerA.web und wird unter der (freien) Li‐
+zenz CC-BY 3.0 (unported) verbreitet:
 
 	http://creativecommons.org/licenses/by/3.0/
 

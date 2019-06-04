@@ -509,7 +509,6 @@ GENERIC_EDIT_PERSON=Person bearbeiten
 GENERIC_DOCUMENTED_ON=Erfasst am
 GENERIC_LAST_EDITED_ON=Zuletzt ge\u00E4ndert am
 GENERIC_PERSONS_ID=Personen-ID
-GENERIC_OA_USERNAME=Online-Anmeldung Benutzername
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 GENERIC_COPY_PERSON=Person kopieren
 GENERIC_CREATE_TAG=Etikett erzeugen
@@ -536,10 +535,6 @@ GENERIC_SEARCH=Suche
 GENERIC_VALIDITY_DATE=G\u00FCltigkeitsdatum
 GENERIC_ADVANCED_SEARCH=Erweiterte Suche
 HINT_PLACEHOLDER=Hinweis: Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden; das Sternchen \u201E*\u201C steht f\u00FCr mehrere und das Fragezeichen \u201E?\u201C f\u00FCr einzelne Zeichen. Die Suche erfolgt in den Feldern Vorname, Nachname, Ort, PLZ, Stra\u00DFe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche und Amtsbezeichnung/Funktion.
-
-# PERSONEN/NEUE PERSON ANLEGEN
-MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Die Anmeldedaten wurden erfolgreich erzeugt.
-MESSAGE_OSIAM_LOGIN_DATA_EXIST=Anmeldedaten f\u00FCr diese Person sind bereits vorhanden.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Ist Firma
@@ -660,7 +655,6 @@ CSV_NOTE_ORGA_GUEST=Noteorga Gast
 CSV_NOTE_ORGA_PERSON=Noteorga Person
 CSV_ORDER_NR_GUEST=Best.-Nr Gast
 CSV_ORDER_NR_PERSON=Best.-Nr Person
-CSV_OSIAM_LOGIN=Osiam Login
 CSV_RANK=Rang
 CSV_RESERVE=Reservieren
 CSV_SEAT_GUEST=Sitzplatz Gast
@@ -1765,7 +1759,6 @@ PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Soll diese Person wirklich 
 PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
 
 #LAST ADDED
-GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Anmeldedaten f\u00FCr die Online-Anmeldung erzeugen
 GENERIC_COPY_CURRENT_PERSON=Aktuelle Person kopieren
 GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Aktuelle Person einer Veranstaltung zuordnen
 GENERIC_PREVIOUS_PAGE=Vorherige Seite

@@ -539,10 +539,6 @@ GENERIC_ADVANCED_SEARCH=B\u00FAsqueda avanzada
 HINT_PLACEHOLDER=Aviso: Puede utilizar comodines para su b\u00FAsqueda. El asterisco \u00AB*\u00BB se utilizar\u00E1 para representar n\u00FAmeros, as\u00ED como el s\u00EDmbolo de interrogaci\u00F3n \u00AB?\u00BB para caracteres individuales. La b\u00FAsqueda se realizar\u00E1 mediante nombre, apellido, ciudad, c\u00F3digo postal, calle, Empresa/Instituci\u00F3n, tel\u00E9fono, fax, tel\u00E9fono m\u00F3vil, correo electr\u00F3nico, observaciones, categor\u00EDas, \u00E1rea de trabajo y funci\u00F3n/t\u00EDtulo.
 
 # PERSONEN/NEUE PERSON ANLEGEN
-MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Datos de acceso guardados satisfactoriamente.
-MESSAGE_OSIAM_LOGIN_DATA_EXIST=Ya existen datos de acceso para esta persona.
-
-# PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Empresa
 frau=Sra.
 herr=D.
@@ -661,7 +657,6 @@ CSV_NOTE_ORGA_GUEST=Noteorga invitado
 CSV_NOTE_ORGA_PERSON=Persona Noteorga
 CSV_ORDER_NR_GUEST=N\u00FAmero de orden invitado
 CSV_ORDER_NR_PERSON=N\u00FAmero de orden Persona
-CSV_OSIAM_LOGIN=Osiam acceder
 CSV_RANK=Rango
 CSV_RESERVE=Reserva
 CSV_SEAT_GUEST=Asiento de invitado

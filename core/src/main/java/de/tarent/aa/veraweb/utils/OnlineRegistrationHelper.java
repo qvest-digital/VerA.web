@@ -83,15 +83,6 @@ import org.apache.logging.log4j.Logger;
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 public class OnlineRegistrationHelper {
-
-    private static final String VWOR_PARAM = "online-registration.activated";
-    private static final String VWOR_VALUE_TRUE = "true";
-
-    /**
-     * Logger für diese Klasse
-     */
-    private final static Logger logger = LogManager.getLogger(OnlineRegistrationHelper.class);
-
     /**
      * Check for enabled online registration module.
      *
@@ -99,33 +90,10 @@ public class OnlineRegistrationHelper {
      * @return true if online registration is enabled, otherwise false
      */
     public static Boolean isOnlineregActive(final OctopusContext octopusContext) {
-
-        final String active = octopusContext.moduleConfig().getParam(VWOR_PARAM);
-
-        return active != null && VWOR_VALUE_TRUE.equals(active);
+        return false;
     }
 
     public static int[] getDeactivatedMandantsAsArray(final OctopusContext octopusContext) {
-
-        final String list = octopusContext.moduleConfig().getParam(ActionWorker.ONLINEREG_MANDANT_DEACTIVATION);
-
-        if (StringUtils.isBlank(list)) {
             return new int[] { 0 };
-        }
-
-        final String[] sepList = list.split(",");
-
-        final int[] result = new int[sepList.length];
-
-        for (int i = 0; i < result.length; i++) {
-            try {
-                result[i] = Integer.parseInt(sepList[i].trim());
-            } catch (final NumberFormatException ex) {
-                result[i] = 0;
-                logger.error("PARAM \"mandanten-online-registration.deactivated\" in config_vwoa.xml set wrong!", ex);
-            }
-        }
-
-        return result;
     }
 }

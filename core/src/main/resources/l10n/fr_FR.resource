@@ -534,10 +534,6 @@ GENERIC_ADVANCED_SEARCH=Recherche avanc\u00E9e
 HINT_PLACEHOLDER=Remarque: Vous pouvez utiliser soi-disant wildcards dans la recherche, le \u00AB*\u00BB repr\u00E9sente un chiffre, et le \u00AB?\u00BB les caract\u00E8res individuels
 
 # PERSONEN/NEUE PERSON ANLEGEN
-MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Les donn\u00E9es de connexion ont \u00E9t\u00E9 cr\u00E9\u00E9 avec succ\u00E8s.
-MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ\u00E8s.
-
-# PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Est une soci\u00E9t\u00E9
 frau=Madamme
 herr=Monsieur
@@ -657,7 +653,6 @@ CSV_NOTE_ORGA_GUEST=Noteorga invit\u00E9
 CSV_NOTE_ORGA_PERSON=Noteorga personne
 CSV_ORDER_NR_GUEST=Num\u00E9ro de commande
 CSV_ORDER_NR_PERSON=Num\u00E9ro de commande
-CSV_OSIAM_LOGIN=Osiam Se connecter
 CSV_RANK=Rang
 CSV_RESERVE=R\u00E9serve
 CSV_SEAT_GUEST=Invit\u00E9 au si\u00E8ge
