@@ -115,17 +115,7 @@
 									<input type="text" onchange="setModified();" maxlength="50" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
 								</div>
 
-								#if ($online-registration.activated)
-									<div class="tableCell width50 inlineLabel">
-										<label for="event-eventtype">${placeholderWithTranslation.GENERIC_OPEN_EVENT}</label>
-										<!-- DEBUG $event.eventtype -->
-										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
-											#if($event && $event.eventtype != "")
-												checked
-											#end
-										>
-									</div>
-								#end
+
 							</div>
 
 							<div class="tableRow">
@@ -289,30 +279,6 @@
 									<textarea onchange="setModified();" id="event-note" name="event-note" rows="4" #if($grants.mayReadRemarkFields()) >$!message.textarea($event.note)#else class="textdisabled" vera-disabled>#end</textarea>
 								</div>
 							</div>
-							#if($online-registration.activated)
-								<div class="tableRow">
-									<div class="tableCell width50 inlineLabel">
-										<label for="event-login_required">${placeholderWithTranslation.GENERIC_LOGIN_REQUIRED}</label>
-										<!-- DEBUG $event.login_required -->
-										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-login_required" name="event-login_required"
-											#if($event && $event.login_required)
-												checked
-											#end
-										>
-									</div>
-								</div>
-
-								<div class="tableRow">
-									<div class="tableCell width50 inlineLabel">
-										<label for="event-mediarepresentatives">${placeholderWithTranslation.GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE}</label>
-										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
-											#if($event && $event.mediarepresentatives)
-												checked
-											#end
-										>
-									</div>
-								</div>
-							#end
 					</div>
 			</div>
 		</div>
