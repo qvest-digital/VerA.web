@@ -52,7 +52,7 @@
  {\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
 
 % uncomment if this is a WIP that should not be published
-\fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}⚠ Work in Progress, do not use}
+%\fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}⚠ Work in Progress, do not use}
 
 \input{toc.tex}
 
@@ -941,6 +941,9 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
 
+Eventuell möchten Sie auch noch \texttt{-Xms} und \texttt{-Xmx} setzen,
+indem Sie eine äquivalente Zeile einfügen.
+
 \begin{minipage}{\linewidth}
 Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
 Zeilen an:
@@ -959,10 +962,9 @@ von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
 indem Sie davor \texttt{<!--} und dahinter \texttt{-->} schreiben:
 
 \begin{lstdump}[language=XML]{Tomcat HTTP-Connector}
-<Connector port="8080" protocol="HTTP/1.1"
-           connectionTimeout="20000"
-           URIEncoding="UTF-8"
-           redirectPort="8443" />
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
 \end{lstdump}
 \end{minipage}
 
@@ -1038,9 +1040,10 @@ sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat8/webapps/
 Warten Sie ca. ½ Minute, bis beide Artefakte gestartet sind; in
 \texttt{/var/log/tomcat8/catalina.out} befinden sich die Logs,
 unter anderem mit Erfolgsmeldungen im Stile von {\ttfamily
-INFO: Deployment of web application archive
-/var/lib/tomcat8/webapps/veraweb.war has finished in 2,151 ms}
-(eine separate solche Zeile pro Applikationsarchiv).
+2019-06-05 18:45:08.400    INFO (org.apache.catalina.startup.HostConfig
+deployWAR) [org.apache.catalina.startup.HostConfig] Deployment of web
+application archive /var/lib/tomcat8/webapps/veraweb.war has finished
+in 10,979 ms} (eine separate solche Zeile pro Applikationsarchiv).
 
 Falls Sie an dieser Stelle seltsame Fehler erhalten kann es unter
 Umständen helfen, Tomcat einfach neuzustarten.
@@ -1492,7 +1495,6 @@ Kommandozeilenoptionen)!
 	ServerAdmin webmaster@localhost
 	DocumentRoot /var/www/html
 「
-	# Weiterleiten auf core
 	RedirectMatch 301 . https://veraweb.lan.tarent.de/
 」
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
@@ -1524,9 +1526,9 @@ Kommandozeilenoptionen)!
 
 		DocumentRoot /var/www/html
 「
-		### core
 		JkMount /veraweb* ajp13_worker
 		JkMount /vwor* ajp13_worker
+
 		RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
 」
 		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
@@ -1711,7 +1713,6 @@ JAVA_OPTS="-Djava.awt.headless=true -XX:+UseConcMarkSweepGC"
 「
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
-JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"
 \end{lstdump}
 
 \subsection{/etc/tomcat8/context.xml}\label{subsec:refcfg-tc-ctx}
@@ -1746,9 +1747,11 @@ JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"
     <!--
     <Manager pathname="" />
     -->
-「    <Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
+「
+    <Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
      driverClassName="org.postgresql.Driver" username="veraweb" password="〔veraweb〕"
-     url="jdbc:postgresql://localhost:5432/veraweb" maxTotal="8" maxIdle="4" />」
+     url="jdbc:postgresql://localhost:5432/veraweb" maxTotal="8" maxIdle="4" />
+」
 </Context>
 \end{lstdump}
 
@@ -1814,6 +1817,7 @@ JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"
     <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
         maxThreads="150" minSpareThreads="4"/>
     -->
+
 
     <!-- A "Connector" represents an endpoint by which requests are received
          and responses are returned. Documentation at :
@@ -1971,10 +1975,10 @@ JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"
   <user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
   <user username="role1" password="<must-be-changed>" roles="role1"/>
 -->
-
-「  <role rolename="veraweb" />
-  <user roles="veraweb" username="veraweb" password="〔veraweb〕" />」
-
+「
+  <role rolename="veraweb" />
+  <user roles="veraweb" username="veraweb" password="〔veraweb〕" />
+」
 </tomcat-users>
 \end{lstdump}
 
@@ -1983,7 +1987,6 @@ JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"
 \begin{lstdump}[basicstyle=\ttfamily\footnotesize]{/etc/veraweb/config_ldap_access.xml}
 <?xml version="1.0" encoding="UTF-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
-
 <!--
 	Octopus config.xml
 
@@ -1998,28 +2001,24 @@ JAVA_OPTS="${JAVA_OPTS} -Xms512m -Xmx1024m"
 		<param name="systemlogin" value="login"/>
 		<!-- Login-Passwort für einen System-Admin ohne LDAP-Rückhalt. -->
 		<param name="systempassword" value="password"/>
-
 		<!-- Java-Klasse, die als LoginManager für das Modul instanziiert werden soll; hier sollte immer "de.tarent.ldap.LoginManagerLDAPAA" für einen Zugriff auf einen LDAP-Server mit dem AA.schema eingestellt sein. -->
-		<param name="loginManagerClass" value="de.tarent.ldap.LoginManagerLDAPAA" />
+		<param name="loginManagerClass" value="de.tarent.ldap.LoginManagerLDAPAA"/>
 		<!-- der Authentisierungstyp bei LDAP-Zugriffen; er sollte auf "simple" stehen. -->
-		<param name="ldapauth" value="simple" />
-
+		<param name="ldapauth" value="simple"/>
 		<!-- die URL des LDAP-Servers bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ldap://localhost:389/". -->
-		<param name="ldapurl" value="「ldaps://veraweb.lan.tarent.de/」" />
+		<param name="ldapurl" value="「ldaps://veraweb.lan.tarent.de/」"/>
 		<!-- der Benutzer bei LDAP-Zugriffen, die nicht ein einfaches Überprüfen eines Logins darstellen; zum Beispiel "cn=Manager,ou=testav01,dc=aa". -->
-		<param name="ldapuser" value="cn=admin,dc=lan,dc=tarent,dc=de" />
+		<param name="ldapuser" value="cn=admin,dc=lan,dc=tarent,dc=de"/>
 		<!-- LDAP Passwort falls erforderlich; falls nicht, auskommentiert lassen -->
 		<!-- <param name="ldappwd" value="password" /> -->
-
 		<!-- der Basis-DN bei LDAP-Zugriffen; im Falle der Test-Auslandsvertretung 01 ist es "ou=testav01,dc=aa". -->
-		<param name="ldapbasedn" value="「dc=lan,dc=tarent,dc=de」" />
+		<param name="ldapbasedn" value="「dc=lan,dc=tarent,dc=de」"/>
 		<!-- der relative DN unter ldapbasedn" mit Authentifizierungsinformationen der AA-Rollen; im Falle der Test-Auslandsvertretung 01 ist es "ou=Users". -->
-		<param name="ldaprelative" value="「ou=Users」" />
-
+		<param name="ldaprelative" value="ou=Users"/>
 		<!-- die Objektklasse, welche standardmaessig von allen Benutzern implementiert wird -->
-		<param name="ldapuserobjectclass" value="person" />
+		<param name="ldapuserobjectclass" value="person"/>
 		<!-- Ermöglicht rekursive LDAP lookups, gültige Werte sind "true" oder "false"-->
-		<param name="ldaprecursivelookups" value="true" />
+		<param name="ldaprecursivelookups" value="true"/>
 		<!-- der LDAP-Filter, mit dem in den AA-Rollen unter "ldaprelative" nach möglichen Rollen für einen im Anmeldedialog angegebenen Benutzernamen gesucht wird. -->
 		<!-- <param name="aarolefilter" value="(&amp;(objectClass=person)(uid={0}))" /> -->
 	</loginManager>
@@ -2062,10 +2061,6 @@ mail.smtp.security=none
 
 # sender address for all emails sent out
 mail.smtp.from=「noreply@example.com」
-# to use specific addresses for individual organisational units set
-# property mail.smtp.from.{id} like the following two lines are showing
-#mail.smtp.from.1=mandant1@example.edu
-#mail.smtp.from.5=noreply-mandant5@example.com
 \end{lstdump}
 
 \end{document}
