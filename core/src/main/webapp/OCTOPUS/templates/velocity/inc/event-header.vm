@@ -38,23 +38,6 @@
                         </div>
                 </div>
                 <div class="tableRow">
-                        #if($iAmActivated)
-                                <div class="tableCell width30">
-                                        <strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_URL}:</strong> <pre>$!message.textarea($eventUrl)</pre>
-                                </div>
-                        #end
-                </div>
-                <div class="tableRow">
-                        <div class="tableCell width30">
-                                #if($iAmActivated)
-                                        <strong>${placeholderWithTranslation.EVENT_URL_MEDIA_REPRESENTATIVE}:</strong><br/>
-                                        #if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
-                                                $pressevertreterUrl
-                                        #end
-                                #end
-                        </div>
-                </div>
-                <div class="tableRow">
                 <div class="tableCell width30">
                                 <strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_MAX_GUEST}:</strong>
                 $!message.text($event.maxguest)<br/>
