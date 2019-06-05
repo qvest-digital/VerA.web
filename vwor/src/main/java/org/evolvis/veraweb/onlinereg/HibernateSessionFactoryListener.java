@@ -111,7 +111,6 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.OptionalFieldType.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.PdfTemplate.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Person.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.PersonCategory.class);

@@ -77,7 +77,6 @@ import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
 import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
-import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.OptionalFieldSummary;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.Result;
@@ -223,13 +222,6 @@ public class EventDelegationWorker {
         final Event event = getEvent(oc, eventId);
         if (event != null) {
             oc.setContent("event", event);
-        }
-
-        if (OnlineRegistrationHelper.isOnlineregActive(oc)) {
-            final EventURLHandler eventURLHandler = new EventURLHandler();
-            eventURLHandler.setEventUrl(oc, event.hash);
-            final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(oc, event);
-            mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
         }
     }
 

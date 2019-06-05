@@ -30,7 +30,6 @@
 		<worker name="UserWorker" implementation="de.tarent.aa.veraweb.worker.UserWorker" singleton="true" factory="reflected"/>
 		<worker name="UserListWorker" implementation="de.tarent.aa.veraweb.worker.UserListWorker" singleton="true" factory="reflected"/>
 		<worker name="OrgUnitListWorker" implementation="de.tarent.aa.veraweb.worker.OrgUnitListWorker" singleton="true" factory="reflected"/>
-		<worker name="OSIAMWorker" implementation="de.tarent.aa.veraweb.worker.OSIAMWorker" singleton="true" factory="reflected"/>
 		<worker name="LanguageProvider" implementation="de.tarent.aa.veraweb.utils.i18n.LanguageProvider" singleton="true" factory="reflected"/>
 		<!-- Changelog-Worker -->
 		<worker name="ChangeLogMaintenanceWorker" implementation="de.tarent.aa.veraweb.worker.ChangeLogMaintenanceWorker" singleton="true" factory="reflected"/>
@@ -1271,7 +1270,6 @@
 			<action name="getSelection" worker="PersonListWorker"/>
 			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
 			<action name="addGuestList" worker="GuestWorker"/>
-			<action name="createDelegationUsers" worker="OSIAMWorker"/>
 			<action name="clearGuestSelection" worker="PersonGuestListWorker"/>
 			<doTask name="ShowGuestList"/>
 		</task>
@@ -1739,18 +1737,6 @@
 			<action name="getAll" worker="OrgUnitListWorker"/>
 			<action name="cleanupDatabase" worker="OrgUnitListWorker"/>
 			<response type="velocity" name="orgunitCleanup">
-				<param name="ContentType" value="text/html;charset=UTF-8"/>
-			</response>
-		</task>
-		<!-- Creation of OSIAM Credentials -->
-		<task name="CreateOsiamUser" access="public" groups="Writer">
-			<description>
-				This task is able to create OSIAM credential data to
-				the verawebs persons
-			</description>
-			<doTask name="Load"/>
-			<action name="createOsiamUser" worker="PersonDetailWorker"/>
-			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>

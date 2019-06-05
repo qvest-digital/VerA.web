@@ -225,16 +225,6 @@ public class RestPaths {
     public static final String REST_OPTIONALFIELDS_TYPECONTENT_ID = "/{optionalFieldId}";
 
     /**
-     * OsiamUserActivation-Resource
-     */
-    public static final String REST_OSIAMUSER_ACTIVATION = "/osiam/user";
-    public static final String REST_OSIAMUSER_ACTIVATION_CREATE = "/create";
-    public static final String REST_OSIAMUSER_ACTIVATE = "/activate";
-    public static final String REST_OSIAMUSER_ACTIVATE_GET = "/get/activation/{activation_token}";
-    public static final String REST_OSIAMUSER_ACTIVATE_GET_BY_NAME = "/get/activation/byusername/{username}";
-    public static final String REST_OSIAMUSER_ACTIVATE_REFRESH = "/refresh/activation/data";
-
-    /**
      * PdfTemplate-Resource
      */
     public static final String REST_PDFTEMPLATE = "/pdftemplate";

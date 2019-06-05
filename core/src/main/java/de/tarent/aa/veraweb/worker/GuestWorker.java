@@ -100,13 +100,17 @@ import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.postgresql.util.PSQLException;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen für Gäste von
@@ -768,9 +772,6 @@ public class GuestWorker {
             guest.reserve = reserve;
             guest.invitationtype = invitationtype;
 
-            if (person.username != null) {
-                guest.osiam_login = person.username;
-            }
             setGuestInvitationStatus(event, guest);
 
             if (personId != null && categoryId != null) {

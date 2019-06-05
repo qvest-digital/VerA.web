@@ -71,7 +71,6 @@ package de.tarent.aa.veraweb.beans;
 
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
-import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -173,7 +172,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
     public String sex_b;
     public String nationality_b;
     public String domestic_b;
-    public String osiam_login;
     public String image_uuid_p;
 
     public String getImage_uuid() {
