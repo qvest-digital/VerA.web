@@ -188,7 +188,6 @@
                             <input type="checkbox" class="checkbox-margin guestP" value="g_noteorga_p"/>${placeholderWithTranslation.CSV_NOTE_ORGA_PERSON}<br>
                             <input type="checkbox" class="checkbox-margin guestP" value="g_orderno"/>${placeholderWithTranslation.CSV_ORDER_NR_GUEST}<br>
                             <input type="checkbox" class="checkbox-margin guestP" value="g_orderno_p"/>${placeholderWithTranslation.CSV_ORDER_NR_PERSON}<br>
-                            <input type="checkbox" class="checkbox-margin guestP" value="g_osiam_login"/>${placeholderWithTranslation.CSV_OSIAM_LOGIN}<br>
                             <input type="checkbox" class="checkbox-margin guestP" value="g_rank"/>${placeholderWithTranslation.CSV_RANK}<br>
                             <input type="checkbox" class="checkbox-margin guestP" value="g_reserve"/>${placeholderWithTranslation.CSV_RESERVE}<br>
                             <input type="checkbox" class="checkbox-margin guestP" value="g_seatno"/>${placeholderWithTranslation.CSV_SEAT_GUEST}<br>
@@ -531,11 +530,7 @@ $(function () {
                 filterCategoryId: filterForm['filterCategoryId'].value,
                 filterWord: filterForm['filterWord'].value,
                 filterInvStatus: filterForm['filterInvStatus'].value,
-                filterReserve: filterForm['filterReserve'].value,
-                'oa.path.delegation': '$url.urlForDelegation',
-                'oa.path.media': '$url.urlForMediaRepresentatives',
-                'oa.path.event': '$url.urlForFreeVisitors',
-                'oa.path.passwordReset': '$url.urlForPasswordReset'
+                filterReserve: filterForm['filterReserve'].value
             },
             type: 'POST',
             success: function(response, status, xhr) {

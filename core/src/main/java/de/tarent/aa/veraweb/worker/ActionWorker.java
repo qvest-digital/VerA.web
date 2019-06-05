@@ -69,7 +69,6 @@ package de.tarent.aa.veraweb.worker;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -115,27 +114,8 @@ public class ActionWorker {
             action = "";
         }
         cntx.setSession("action", action);
-        loadOnlineRegistrationConfig(cntx);
 
         return action;
     }
 
-    /**
-     * Octopus-Config for Online Registration plattform activation
-     */
-    public static final String ONLINEREG_ACTIVATION = "online-registration.activated";
-    /**
-     * Octopus-Config for Online Registration mandant deactivation
-     */
-    public static final String ONLINEREG_MANDANT_DEACTIVATION = "mandanten-online-registration.deactivated";
-
-    /*
-     * Setting Online Registration Config
-     *
-     * @param octopusContext OctopusContext
-     */
-    private void loadOnlineRegistrationConfig(OctopusContext cntx) {
-        cntx.setContent(ONLINEREG_ACTIVATION, OnlineRegistrationHelper.isOnlineregActive(cntx));
-        cntx.setContent(ONLINEREG_MANDANT_DEACTIVATION, OnlineRegistrationHelper.getDeactivatedMandantsAsArray(cntx));
-    }
 }

@@ -75,7 +75,11 @@ import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
-import de.tarent.aa.veraweb.utils.*;
+import de.tarent.aa.veraweb.utils.AddressHelper;
+import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.PersonNameTrimmer;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.Statement;
@@ -98,14 +102,19 @@ import de.tarent.octopus.server.OctopusContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.evolvis.veraweb.onlinereg.entities.LinkType;
-import org.osiam.client.OsiamConnector;
-import org.osiam.client.oauth.AccessToken;
-import org.osiam.client.oauth.Scope;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * Octopus-Worker der Aktionen zur Detailansicht von Personen bereitstellt, wie
@@ -116,21 +125,6 @@ import java.util.*;
  * @author Stefan Weiz, tarent solutions GmbH
  */
 public class PersonDetailWorker implements PersonConstants {
-
-    /**
-     * Example Property file: client.id=example-client client.secret=secret
-     * client
-     * .redirect_uri=http://osiam-test.lan.tarent.de:8080/addon-administration/
-     * <p/>
-     * osiam.server.resource=http://osiam-test.lan.tarent.de:8080/osiam-resource
-     * -server/
-     * osiam.server.auth=http://osiam-test.lan.tarent.de:8080/osiam-auth-server/
-     */
-    private static final String OSIAM_RESOURCE_SERVER_ENDPOINT = "osiam.server.resource";
-    private static final String OSIAM_AUTH_SERVER_ENDPOINT = "osiam.server.auth";
-    private static final String OSIAM_CLIENT_REDIRECT_URI = "osiam.client.redirect_uri";
-    private static final String OSIAM_CLIENT_SECRET = "osiam.client.secret";
-    private static final String OSIAM_CLIENT_ID = "osiam.client.id";
 
     //
     // Octopus-Aktionen
@@ -1070,7 +1064,6 @@ public class PersonDetailWorker implements PersonConstants {
         deletePersonCategory(personid);
         deletePersonMailingList(personid);
         deletePersonTasks(personid);
-        deleteOsiamUser(octopusContext, username);
         deleteGuest(personid);
     }
 
@@ -1095,110 +1088,6 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion
-     * {@link #createOsiamUser(OctopusContext, Integer)}
-     */
-    public static final String INPUT_createOsiamUser[] = { "personId" };
-    /**
-     * Ausgabe-Parameter der Octopus-Aktion
-     * {@link #createOsiamUser(OctopusContext, Integer)}
-     */
-    public static final String OUTPUT_createOsiamUser = "person";
-    /**
-     * Eingabe-Parameterzwang der Octopus-Aktion
-     * {@link #createOsiamUser(OctopusContext, Integer)}
-     */
-    public static final boolean MANDATORY_createOsiamUser[] = { false };
-
-    /**
-     * Creates an OSIAM user with random username and password.
-     *
-     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
-     * @param personId       person id
-     * @return Person
-     * @throws BeanException BeanException
-     * @throws IOException   IOException
-     */
-    @SuppressWarnings("rawtypes")
-    public Person createOsiamUser(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
-
-        Person person = getPersonById(octopusContext, personId);
-        if (!hasUsername(octopusContext, personId)) {
-
-            final String username = getOsiamUsername(person, octopusContext);
-
-            // Update in tperson
-            person.username = username;
-            this.updateUsernameInVeraweb(person, octopusContext);
-
-            // Saving uuid to generate the reset-password url
-            saveLinkUUID(personId, octopusContext);
-
-            handleOsiamUserErrors(person, username, octopusContext);
-
-            octopusContext.setContent("osiam-user-created", true);
-        } else {
-            octopusContext.setContent("osiam-user-exists", true);
-        }
-
-        return person;
-    }
-
-    private void handleOsiamUserErrors(Person person, final String username, OctopusContext octopusContext) {
-        final Database database = new DatabaseVeraWeb(octopusContext);
-        try {
-            Object object =
-              SQL.Select(database).from("veraweb.tperson").where(Expr.equal("pk", person.id)).add("username", String.class)
-                .getList(database).get(0);
-            if (!username.equals(object)) {
-                throw new RuntimeException("Somehow the username was not persisted?!");
-            }
-            if (SQL.Select(database).from("veraweb.link_uuid").select("pk").where(Expr.equal("personid", person.id))
-              .getList(database).size() != 1) {
-                throw new RuntimeException("Somehow the link was not persisted?!");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private String getOsiamUsername(Person person, OctopusContext octopusContext) {
-        final Database database = new DatabaseVeraWeb(octopusContext);
-        final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator(database);
-
-        return addOsiamUser(person, database, osiamLoginCreator);
-    }
-
-    private String addOsiamUser(Person person, Database database, OsiamLoginCreator osiamLoginCreator) {
-        final OsiamConnector connector = getConnector();
-        final String username = generateOsiamUsername(person, osiamLoginCreator, connector);
-        final String password = osiamLoginCreator.generatePassword();
-
-        createUser(username, password, connector, database);
-        return username;
-    }
-
-    private String generateOsiamUsername(Person person, OsiamLoginCreator osiamLoginCreator, OsiamConnector connector) {
-        if (person.iscompany.equals("t")) {
-            return executeCompanyUsernameGeneration(person, osiamLoginCreator, connector);
-        } else {
-            return executePersonUsernameGeneration(person, osiamLoginCreator, connector);
-        }
-    }
-
-    private String executeCompanyUsernameGeneration(Person person, OsiamLoginCreator osiamLoginCreator,
-      OsiamConnector connector) {
-        final String companyname = person.company_a_e1;
-        return osiamLoginCreator.generateCompanyUsername(companyname, connector);
-    }
-
-    private String executePersonUsernameGeneration(Person person, OsiamLoginCreator osiamLoginCreator, OsiamConnector connector) {
-        final String firstname = person.firstname_a_e1;
-        final String lastname = person.lastname_a_e1;
-        return osiamLoginCreator.generatePersonUsername(firstname, lastname, connector);
-    }
-
-    /**
      * Save new instance LinkUUID to allow having a reset password url
      *
      * @param personId       FIXME
@@ -1215,21 +1104,6 @@ public class PersonDetailWorker implements PersonConstants {
             transactionContext.commit();
         } catch (BeanException e) {
             logger.error("Persisting uuid for link generation failed", e);
-        }
-    }
-
-    /**
-     * Deletes an OSIAM user with the given username.
-     *
-     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
-     * @param username       The username
-     */
-    public void deleteOsiamUser(OctopusContext octopusContext, String username) {
-        if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
-            final OsiamConnector connector = getConnector();
-            final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-            final OsiamLoginRemover osiamLoginRemover = new OsiamLoginRemover(connector);
-            osiamLoginRemover.deleteOsiamUser(accessToken, username);
         }
     }
 
@@ -1263,30 +1137,6 @@ public class PersonDetailWorker implements PersonConstants {
     private Properties getProperties() {
         final PropertiesReader propertiesReader = new PropertiesReader();
         return propertiesReader.getProperties();
-    }
-
-    private void createUser(String username, String password, OsiamConnector connector, Database database) {
-        final AccessToken accessToken = connector.retrieveAccessToken(Scope.ALL);
-        final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator(database);
-
-        osiamLoginCreator.createOsiamUser(accessToken, username, password, connector);
-    }
-
-    /**
-     * Getting OSIAM Connector to execute updates over OSIAM's Database
-     *
-     * @return OsiamConnector the connector
-     */
-    private OsiamConnector getConnector() {
-        final Properties properties = getProperties();
-
-        return new OsiamConnector.Builder()
-          .setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
-          .setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET))
-          .setClientId(properties.getProperty(OSIAM_CLIENT_ID))
-          .setAuthServerEndpoint(properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
-          .setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
-          .build();
     }
 
     /**

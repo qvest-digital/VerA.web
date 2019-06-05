@@ -2,9 +2,6 @@
 
 #if($action == "guest")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
-		#if($iAmActivated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
-		#end
 		#if($person && $person.id)
 			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.GENERIC_APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
 		#end
@@ -14,9 +11,6 @@
 	</div>
 #elseif($action == "host")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
-		#if($iAmActivated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
-		#end
 		#if($person && $person.id)
 			<input type="button" name="set" class="mainButton" value="${placeholderWithTranslation.GENERIC_APPLY}" title="${placeholderWithTranslation.GENERIC_APPLY_PERSON_AS_HOST}" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
 		#end
@@ -32,9 +26,6 @@
 	</div>
 #elseif($action == "event")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
-		#if($iAmActivated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
-		#end
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
 		#end
@@ -46,21 +37,8 @@
 		<input type="button" value="${placeholderWithTranslation.GENERIC_STATISTIC}" class="mainButton" name="statistics"	#if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
 	</div>
 #else
-    #if($osiam-user-created)
-        <vera-success>
-            ${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL}
-        </vera-success>
-    #end
-    #if ($osiam-user-exists)
-        <vera-warn>
-            ${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_EXIST}
-        </vera-warn>
-    #end
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
-			#if($iAmActivated && !$person.username)
-				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
-			#end
 			#if($grants.mayWrite())
 				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="${placeholderWithTranslation.GENERIC_COPY_CURRENT_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
 			#end
@@ -100,12 +78,6 @@
 							<strong>${placeholderWithTranslation.GENERIC_PERSONS_ID}</strong><br />#if($person.id)$!message.text($person.id)#end
 						</div>
 						<div class="tableCell width50">
-							#if($iAmActivated)
-								<strong>${placeholderWithTranslation.GENERIC_OA_USERNAME}</strong><br />
-								#if($person.username)
-									$person.username
-								#end
-							#end
 						</div>
 					</div>
 					<div class="tableRow">
@@ -135,12 +107,5 @@
 		#end
 
 		return guestTabId;
-	}
-
-	// TODO Comments
-	function createOsiamUser() {
-		var form = $('#PersonForm');
-		form.attr('action', '${paths.staticWeb}do/CreateOsiamUser?personId='+$person.id);
-		form.submit();
 	}
 //--><!]]></script>

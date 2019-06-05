@@ -75,9 +75,6 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
-import de.tarent.aa.veraweb.utils.EventURLHandler;
-import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
-import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
@@ -122,8 +119,6 @@ public class EventDetailWorker {
      */
     public static final boolean MANDATORY_showDetail[] = {false, false, false};
 
-    public static final String VWOR_ACTIVE = "online-registration.activated";
-
     /**
      * Diese Octopus-Aktion lädt eine Veranstaltung und legt sie unter dem Schlüssel "event"
      * in den Octopus-Content. Begleitend werden dort zwei Flags unter den Schlüsseln
@@ -147,17 +142,7 @@ public class EventDetailWorker {
         Event event = getEvent(octopusContext, eventId);
 
         if (event != null) {
-
             octopusContext.setContent("event", event);
-            // OR Control
-            if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
-                final MediaRepresentativesUtilities mediaRepresentativesUtilities =
-                        new MediaRepresentativesUtilities(octopusContext, event);
-                mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
-                final EventURLHandler eventURLHandler = new EventURLHandler();
-                eventURLHandler.setEventUrl(octopusContext, event.hash);
-            }
-            //
         }
         octopusContext.setContent("isEntityModified", true);
     }
@@ -268,9 +253,6 @@ public class EventDetailWorker {
             if (!questions.isEmpty()) {
                 octopusContext.setContent("listquestions", questions);
             }
-            if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
-                setEventHash(event, oldEvent);
-            }
 
             /** Veranstaltung speichern */
             event.verify(octopusContext);
@@ -357,15 +339,7 @@ public class EventDetailWorker {
                     event.mediarepresentatives = oldEvent.mediarepresentatives;
                 }
             }
-            Boolean isOnlineregActive = Boolean.valueOf(octopusContext.getContextField(VWOR_ACTIVE).toString());
-            // OR Control
-            if (isOnlineregActive) {
-                final EventURLHandler eventURLHandler = new EventURLHandler();
-                eventURLHandler.setEventUrl(octopusContext, event.hash);
-                final MediaRepresentativesUtilities mediaRepresentativesUtilities =
-                        new MediaRepresentativesUtilities(octopusContext, event);
-                mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
-            }
+
             octopusContext.setContent("event", event);
             octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
             octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
@@ -422,11 +396,7 @@ public class EventDetailWorker {
      * @param cntx  Octopus Context
      */
     private void setEventType(Event event, OctopusContext cntx) {
-        if (event.eventtype != null && event.eventtype.equals("on") && OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-            event.eventtype = "Offene Veranstaltung";
-        } else {
-            event.eventtype = "";
-        }
+        event.eventtype = "";
     }
 
     /**
