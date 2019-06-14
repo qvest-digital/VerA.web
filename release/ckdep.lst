@@ -10,6 +10,7 @@ com.google.code.findbugs:jsr305 3.0.2 compile TODO
 com.google.errorprone:error_prone_annotations 2.1.3 compile TODO
 com.google.guava:guava 25.1-jre compile TODO
 com.google.j2objc:j2objc-annotations 1.1 compile TODO
+com.sun.activation:jakarta.activation 1.2.1 compile TODO
 com.sun.jersey:jersey-client 1.19.4 compile TODO
 com.sun.jersey:jersey-core 1.19.4 compile TODO
 com.sun.jersey:jersey-server 1.19.4 compile TODO
@@ -36,7 +37,6 @@ github::jquery/jquery 1.10.1 compile ok
 github::jquery/sizzle 1.10.1 compile ok
 github::tomsime/Scroll-to-Top 1.0.4 compile ok
 github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
-jakarta.activation:jakarta.activation-api 1.2.1 compile TODO
 jakarta.xml.bind:jakarta.xml.bind-api 2.3.2 compile TODO
 javascript::unknown:clipboard 0 compile FAIL
 javascript::unknown:dhtml 0 compile FAIL
