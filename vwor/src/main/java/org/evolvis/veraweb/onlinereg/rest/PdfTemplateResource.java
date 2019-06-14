@@ -69,6 +69,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -85,7 +86,6 @@ import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.jboss.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -116,11 +116,11 @@ import java.util.UUID;
  */
 @Path(RestPaths.REST_PDFTEMPLATE)
 @Produces(MediaType.APPLICATION_JSON)
+@Log4j2
 public class PdfTemplateResource extends FormDataResource {
     private final String currentExportFileName = "pdfexport-" + new Date().getTime() + ".pdf";
     private final String OUTPUT_FILENAME =
       FileUtils.getTempDirectoryPath() + File.separator + UUID.randomUUID().toString() + "_" + currentExportFileName;
-    private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
     private final Integer DAYS_BACK = 1;
     private static final long MILLISECONDS_PER_DAY = 24L * 60 * 60 * 1000;
     private final long PURGE_TIME = System.currentTimeMillis() - (DAYS_BACK * MILLISECONDS_PER_DAY);
@@ -141,7 +141,7 @@ public class PdfTemplateResource extends FormDataResource {
         final File file;
         try {
             file = saveTempFile(data.getField("files"));
-            LOGGER.log(Logger.Level.DEBUG, file.exists());
+            LOGGER.debug(file.exists());
         } catch (IOException e) {
             LOGGER.error("could not write data to tmp file.", e);
             return Response.status(Status.BAD_REQUEST).build();
@@ -216,8 +216,8 @@ public class PdfTemplateResource extends FormDataResource {
     @Path(RestPaths.REST_PDFTEMPLATE_EXPORT)
     @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
-                                @QueryParam("eventId") Integer eventId,
-                                @javax.ws.rs.core.Context UriInfo ui)
+      @QueryParam("eventId") Integer eventId,
+      @javax.ws.rs.core.Context UriInfo ui)
       throws IOException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
@@ -289,11 +289,9 @@ public class PdfTemplateResource extends FormDataResource {
 
     private void executeCurrentFileDeletion(File listFile) {
         if (!listFile.delete()) {
-            LOGGER.log(Logger.Level.ERROR, "Unable to delete file: " + listFile);
+            LOGGER.error("Unable to delete file: " + listFile);
         }
     }
-
-
 
     private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
         if (name == null || name.trim().equals("")) {
@@ -303,12 +301,11 @@ public class PdfTemplateResource extends FormDataResource {
                 final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
                 return Response.ok(pdfTemplate).build();
             } catch (Exception e) {
-                LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
+                LOGGER.error("Creating pdf template failed.", e);
                 return Response.status(Status.INTERNAL_SERVER_ERROR).build();
             }
         }
     }
-
 
     private String writePdfContentFromDbToTempFile(Integer pdfTemplateId, UUID uuid) throws IOException {
         final PdfTemplate pdfTemplate = getPdfTemplate(pdfTemplateId);
@@ -324,7 +321,6 @@ public class PdfTemplateResource extends FormDataResource {
 
         return tempFileForPdfTemplate.toString();
     }
-
 
     private Map<String, String> getSubstitutions(Person person) {
         final Map<String, String> substitutions;
@@ -399,9 +395,9 @@ public class PdfTemplateResource extends FormDataResource {
 
             Map<String, String> filterSettings = new HashMap<>();
             params.keySet().stream()
-                    .filter(key -> key.startsWith("filter"))
-                    .filter(key -> ValidExportFilter.isValidFilterSetting(key, params.getFirst(key)))
-                    .forEach(key -> filterSettings.put(key, params.getFirst(key)));
+              .filter(key -> key.startsWith("filter"))
+              .filter(key -> ValidExportFilter.isValidFilterSetting(key, params.getFirst(key)))
+              .forEach(key -> filterSettings.put(key, params.getFirst(key)));
 
             Query query = session.createQuery(buildQuery(filterSettings));
 
@@ -409,8 +405,8 @@ public class PdfTemplateResource extends FormDataResource {
 
             filterSettings.entrySet().forEach(entry -> {
 
-                 if (!ValidExportFilter.INVITATIONSTATUS_FILTER.key.equals(entry.getKey()) &&
-                         !ValidExportFilter.SEARCHWORD_FILTER.key.equals(entry.getKey())) {
+                if (!ValidExportFilter.INVITATIONSTATUS_FILTER.key.equals(entry.getKey()) &&
+                  !ValidExportFilter.SEARCHWORD_FILTER.key.equals(entry.getKey())) {
                     query.setParameter(entry.getKey(), Integer.valueOf(entry.getValue()));
                 }
             });
@@ -419,16 +415,17 @@ public class PdfTemplateResource extends FormDataResource {
             session.close();
         }
     }
+
     private String buildQuery(Map<String, String> filterSettings) {
         String baseQuery = "SELECT p FROM Person p JOIN Guest g ON (p.pk = g.fk_person) WHERE g.fk_event=:eventid";
 
         StringBuilder sqlWithAdditionalFilters = new StringBuilder(baseQuery);
 
-        for (Map.Entry<String, String> entry: filterSettings.entrySet()) {
+        for (Map.Entry<String, String> entry : filterSettings.entrySet()) {
             sqlWithAdditionalFilters.append(" AND ");
             String filterValue;
             if (ValidExportFilter.INVITATIONSTATUS_FILTER.key.equals(entry.getKey())
-                    || ValidExportFilter.SEARCHWORD_FILTER.key.equals(entry.getKey())) {
+              || ValidExportFilter.SEARCHWORD_FILTER.key.equals(entry.getKey())) {
                 filterValue = entry.getValue();
             } else {
                 filterValue = ":" + entry.getKey();
@@ -438,7 +435,7 @@ public class PdfTemplateResource extends FormDataResource {
                 sqlWithAdditionalFilters.append(partial);
             }
         }
-        sqlWithAdditionalFilters.append( " ORDER BY p.lastname_a_e1 ASC ");
+        sqlWithAdditionalFilters.append(" ORDER BY p.lastname_a_e1 ASC ");
         return sqlWithAdditionalFilters.toString();
     }
 

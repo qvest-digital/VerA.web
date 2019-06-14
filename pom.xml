@@ -894,11 +894,6 @@
 				<version>${hibernate-validator.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.jboss.logging</groupId>
-				<artifactId>jboss-logging</artifactId>
-				<version>3.3.2.Final</version>
-			</dependency>
-			<dependency>
 				<groupId>org.jvnet.mimepull</groupId>
 				<artifactId>mimepull</artifactId>
 				<version>${mimepull.version}</version>

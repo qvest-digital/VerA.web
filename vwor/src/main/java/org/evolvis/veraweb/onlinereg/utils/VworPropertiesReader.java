@@ -69,7 +69,7 @@ package org.evolvis.veraweb.onlinereg.utils;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import org.jboss.logging.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -78,8 +78,8 @@ import java.util.Properties;
 /**
  * Created by Jon Nuñez, tarent solutions GmbH on 28.09.15.
  */
+@Log4j2
 public class VworPropertiesReader {
-    private static final Logger LOGGER = Logger.getLogger(VworPropertiesReader.class);
     private static final String PROPERTY_FILE = "/etc/veraweb/vwor.properties";
 
     private Properties properties;

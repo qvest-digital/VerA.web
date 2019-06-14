@@ -69,7 +69,7 @@ package org.evolvis.veraweb.onlinereg.mail;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import org.jboss.logging.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import javax.mail.Address;
 import javax.mail.event.ConnectionEvent;
@@ -77,9 +77,8 @@ import javax.mail.event.ConnectionListener;
 import javax.mail.event.TransportEvent;
 import javax.mail.event.TransportListener;
 
+@Log4j2
 public class MailDispatchMonitor implements TransportListener, ConnectionListener {
-
-    private static final Logger LOGGER = Logger.getLogger(MailDispatchMonitor.class);
     private StringBuilder sb = new StringBuilder();
 
     private static String message(TransportEvent e) {

@@ -69,9 +69,10 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.extern.log4j.Log4j2;
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
-import org.jboss.logging.Logger;
 import org.postgresql.util.Base64;
 
 import javax.imageio.ImageIO;
@@ -88,15 +89,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
  */
 @Path(RestPaths.REST_FILEUPLOAD)
 @Produces(MediaType.APPLICATION_JSON)
+@Log4j2
 public class FileUploadResource extends AbstractResource {
-    private static final Logger LOGGER = Logger.getLogger(FileUploadResource.class);
     private static final String FILES_LOCATION = "filesLocation";
 
     private VworPropertiesReader vworPropertiesReader;

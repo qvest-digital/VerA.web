@@ -69,19 +69,17 @@ package org.evolvis.veraweb.onlinereg;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.extern.log4j.Log4j2;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.jboss.logging.Logger;
-import org.evolvis.veraweb.onlinereg.entities.*;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+@Log4j2
 public class HibernateSessionFactoryListener implements ServletContextListener {
-    private static final Logger LOGGER = Logger.getLogger(HibernateSessionFactoryListener.class);
-
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         SessionFactory sessionFactory = (SessionFactory) servletContextEvent.getServletContext().getAttribute("SessionFactory");

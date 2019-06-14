@@ -69,6 +69,8 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.extern.log4j.Log4j2;
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
@@ -78,10 +80,8 @@ import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.jboss.logging.Logger;
 
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.internet.AddressException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -92,19 +92,16 @@ import javax.ws.rs.core.Response.Status;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.evolvis.veraweb.common.RestPaths;
-
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
 @Path(RestPaths.REST_MAILING)
 @Consumes({ MediaType.MULTIPART_FORM_DATA })
+@Log4j2
 public class MailingResource extends FormDataResource {
-    private static final Logger LOGGER = Logger.getLogger(MailingResource.class);
     public static final String PARAM_MAILINGLIST_ID = "mailinglist-id";
     public static final String PARAM_MAIL_TEXT = "mailtext";
     public static final String PARAM_MAIL_SUBJECT = "mail-subject";
