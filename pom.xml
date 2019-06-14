@@ -123,7 +123,7 @@
 		<hk2.version>2.5.0-b61</hk2.version>
 		<httpclient.version>4.5.5</httpclient.version>
 		<httpcore.version>4.4.10</httpcore.version>
-		<pdfbox.version>2.0.13</pdfbox.version>
+		<istack.version>3.0.8</istack.version>
 		<jackson.version>2.9.6</jackson.version>
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
@@ -140,6 +140,7 @@
 		<mimepull.version>1.9.7</mimepull.version>
 		<mockito.version>2.23.0</mockito.version>
 		<osiam.connector4java.version>1.8</osiam.connector4java.version>
+		<pdfbox.version>2.0.13</pdfbox.version>
 		<poi.version>3.17</poi.version>
 		<postgresql.version>42.2.5</postgresql.version>
 		<rs-api.version>2.1</rs-api.version>
@@ -470,6 +471,11 @@
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
 				<version>${h2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.istack</groupId>
+				<artifactId>istack-commons-runtime</artifactId>
+				<version>${istack.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.sun.jersey</groupId>
