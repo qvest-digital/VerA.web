@@ -477,6 +477,12 @@
 				<groupId>com.sun.istack</groupId>
 				<artifactId>istack-commons-runtime</artifactId>
 				<version>${istack.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>jakarta.activation</groupId>
+						<artifactId>jakarta.activation-api</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>com.sun.jersey</groupId>
@@ -605,6 +611,12 @@
 				<groupId>jakarta.xml.bind</groupId>
 				<artifactId>jakarta.xml.bind-api</artifactId>
 				<version>${jaxb-api.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>jakarta.activation</groupId>
+						<artifactId>jakarta.activation-api</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>javax.mail</groupId>
