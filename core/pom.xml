@@ -14,8 +14,24 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.activation</groupId>
+			<artifactId>jakarta.activation</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -24,10 +40,6 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.activation</groupId>
-			<artifactId>jakarta.activation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -54,6 +66,14 @@
 		<dependency>
 			<groupId>net.jodah</groupId>
 			<artifactId>expiringmap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -109,6 +129,14 @@
 			<artifactId>octopus-servlet</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>tarent-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>tarent-database</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.el</artifactId>
 		</dependency>
@@ -142,6 +170,10 @@
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlrpc</groupId>
+			<artifactId>xmlrpc</artifactId>
 		</dependency>
 	</dependencies>
 	<profiles>
