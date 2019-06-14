@@ -13,11 +13,4 @@
 	<properties>
 		<sonar.tests />
 	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
 </project>

@@ -28,10 +28,6 @@
 			<artifactId>axis-wsdl4j</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>commons-discovery</groupId>
-			<artifactId>commons-discovery</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>

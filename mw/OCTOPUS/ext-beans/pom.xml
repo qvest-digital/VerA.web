@@ -20,19 +20,6 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>activation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -40,30 +27,6 @@
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-annotation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-commons</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-cronjobs</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-jmx</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-servlet</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>tarent-commons</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
