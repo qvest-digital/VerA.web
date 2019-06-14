@@ -75,10 +75,10 @@ import org.apache.log4j.Logger;
  */
 public class LogFactory {
     public static Log getLog(Class clazz) {
-        return new Log4JLogger(Logger.getLogger(clazz.getName()));
+        return new Log4JLogger(Logger.getLogger(clazz));
     }
 
     public static Logger getLogger(Class clazz) {
-        return Logger.getLogger(clazz.getName());
+        return Logger.getLogger(clazz);
     }
 }
