@@ -45,6 +45,7 @@
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>ohne</string>
+              <string>mit</string>
               <string>po</string>
               <string>thense</string>
               <string>(keine)</string>

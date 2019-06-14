@@ -55,6 +55,9 @@ function tgtck {
 	(ohne)
 		hostbase=veraweb-ohne.lan.tarent.de
 		;;
+	(mit)
+		hostbase=veraweb-mit.lan.tarent.de
+		;;
 	(po)
 		hostbase=veraweb-po.lan.tarent.de
 		;;
