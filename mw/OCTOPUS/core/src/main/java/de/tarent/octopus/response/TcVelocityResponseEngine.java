@@ -83,6 +83,7 @@ import de.tarent.octopus.server.OctopusContext;
  *
  * @author <a href="mailto:h.helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcVelocityResponseEngine implements TcResponseEngine {
     /**
      * Filename suffix
@@ -114,10 +115,6 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
     private static final String OCTOPUS_RESPONSECONTEXT = "octopusResponseContext";
 
     /**
-     * Logger instance
-     */
-    private Log logger;
-    /**
      * Velocity engine instance
      */
     private VelocityEngine engine;
@@ -130,7 +127,6 @@ public class TcVelocityResponseEngine implements TcResponseEngine {
      * Init this response engine.
      */
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
-        logger = LogFactory.getLog(TcVelocityResponseEngine.class);
         engine = new VelocityEngine();
         try {
             rootPath = new File(commonConfig.getTemplateRootPath(moduleConfig.getName()), "velocity");
