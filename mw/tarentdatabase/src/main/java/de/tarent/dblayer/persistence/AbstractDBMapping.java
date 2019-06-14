@@ -469,7 +469,7 @@ public abstract class AbstractDBMapping implements DBMapping {
     //
 
     /**
-     * {@see DBMapping#getQuery()}
+     * {@link DBMapping#getQuery()}
      */
     public Select getQuery(String statementID) {
         for (Iterator iter = statementList.iterator(); iter.hasNext(); ) {

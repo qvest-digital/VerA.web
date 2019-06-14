@@ -113,7 +113,7 @@ public final class WhereTerm extends SetDbContextImpl implements Clause {
      * using the {@link Clause Clauses} set by key.
      *
      * @param term {@link String} consisting of keys connected by whitespaces,
-     *             brackets, '&', '|' or '!'.
+     *             brackets, '&amp;', '|' or '!'.
      * @see #set(String, Clause)
      */
     public WhereTerm(String term) {

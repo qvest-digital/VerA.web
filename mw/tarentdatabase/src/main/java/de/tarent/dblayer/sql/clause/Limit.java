@@ -61,7 +61,7 @@ import de.tarent.dblayer.engine.SetDbContextImpl;
  * This {@link Clause} represents the <code>LIMIT</code> and
  * <code>OFFSET</code> parts of a <code>SELECT</code> statement.
  *
- * @author Simon Bühler <simon@aktionspotential.de>
+ * @author Simon Bühler (simon@aktionspotential.de)
  */
 public class Limit extends SetDbContextImpl implements Clause {
     //

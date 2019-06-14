@@ -82,7 +82,7 @@ public class PoolWorker {
     /**
      * Opens all the pools provided in the list of pool definitions.
      * For each Map in the pool definition a pool is opened. The keys
-     * of the Map are the same as expected by {@link de.tarent.dblayer.engine.DBPool#Pool(Map)}.
+     * of the Map are the same as expected by {@link de.tarent.dblayer.engine.DBPool}.
      * Additional the map <b>must have</b> a Field <code>poolName</code> with a String-identifier
      * for the pool.
      *

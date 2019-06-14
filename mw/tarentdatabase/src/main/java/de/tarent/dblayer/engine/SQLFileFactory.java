@@ -87,7 +87,7 @@ public class SQLFileFactory {
      * Create a new SQLFileFactory.
      *
      * @param basepath The basepath from which the SQLFiles are loaded.
-     * @param cachable This flag determines if the SQLFiles will be marked as cachable.
+     * @param cacheable This flag determines if the SQLFiles will be marked as cachable.
      */
     public SQLFileFactory(String basepath, boolean cacheable) {
         if (basepath != null) {
@@ -102,7 +102,7 @@ public class SQLFileFactory {
     /**
      * Get a new SQLFile.
      *
-     * @param filename The leaf-filename of the SQL-template.
+     * @param leafname The leaf-filename of the SQL-template.
      * @return An SQLFile with all options set according to this factory.
      */
     public SQLFile newSQLFile(String leafname) {
@@ -148,7 +148,7 @@ public class SQLFileFactory {
     /**
      * Set the flag that determines if the SQLFiles will be marked as cachable.
      *
-     * @param cachable true = only load each file once, false = reload every time
+     * @param cacheable true = only load each file once, false = reload every time
      */
     public void setCachable(boolean cacheable) {
         this.cacheable = cacheable;

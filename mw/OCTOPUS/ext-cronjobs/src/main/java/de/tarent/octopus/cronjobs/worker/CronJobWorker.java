@@ -270,9 +270,6 @@ public class CronJobWorker {
 
     /**
      * This action removes a cronjob from the cronjobqueue
-     *
-     * @param cronjob cronjobmap that specifies the cronjob
-     * @param name    name of the cronjob as String
      */
     public Map removeCronJob(Map inputCronJobMap, String cronJobName) {
         String errMsg = "";
@@ -345,8 +342,8 @@ public class CronJobWorker {
     /**
      * This action activates a cronjob
      *
-     * @param cronjob cronjobmap that specifies the cronjob
-     * @param name    name of the cronjob as String
+     * @param inputCronJobMap cronjobmap that specifies the cronjob
+     * @param cronJobName     name of the cronjob as String
      */
     public Map activateCronJob(Map inputCronJobMap, String cronJobName) {
         String errMsg = "";

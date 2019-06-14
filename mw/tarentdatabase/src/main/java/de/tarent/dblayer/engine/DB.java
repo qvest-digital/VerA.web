@@ -103,7 +103,7 @@ public class DB {
      * Configures a new Pool
      *
      * @param poolname String identifier for the pool
-     * @param info     Property Set for configuring the pool, see {@link de.tarent.dblayer.engine.Pool#Pool(Map)} for details.
+     * @param info     Property Set for configuring the pool, see {@link de.tarent.dblayer.engine.Pool} for details.
      * @throws RuntimeException if an error occures
      */
     static public void openPool(String poolname, Map info) {
@@ -437,7 +437,6 @@ public class DB {
      * Returns the first cell of the first row as an Integer,
      * or null, if the ResultSet is empty.
      *
-     * @param poolname  The database Pool
      * @param statement The Statement
      */
     public static Integer fetchFirstCellAsInteger(DBContext dbx, String statement) throws SQLException {

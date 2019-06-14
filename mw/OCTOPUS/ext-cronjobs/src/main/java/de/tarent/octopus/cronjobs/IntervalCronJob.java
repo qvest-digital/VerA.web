@@ -70,7 +70,6 @@ public class IntervalCronJob extends CronJob {
      * Creates a new CronJob that runs every intervalMinutes.
      *
      * @param intervalMinutes
-     * @param alreadyRunning  responisble for the behaviour of the job if this job is already running
      */
     public IntervalCronJob(Cron cron, int intervalMinutes) {
         super(cron);

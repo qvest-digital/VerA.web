@@ -91,7 +91,7 @@ public class Expr {
      */
     final static public String GREATER = ">";
     /**
-     * the String "<code>&gt=</code>"
+     * the String "<code>&gt;=</code>"
      */
     final static public String GREATEROREQUAL = ">=";
     /**
