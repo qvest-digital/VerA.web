@@ -590,6 +590,11 @@
 				</exclusions>
 			</dependency>
 			<dependency>
+				<groupId>jakarta.xml.bind</groupId>
+				<artifactId>jakarta.xml.bind-api</artifactId>
+				<version>${jaxb-api.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>javax.activation</groupId>
 				<artifactId>activation</artifactId>
 				<version>${activation.version}</version>
@@ -613,11 +618,6 @@
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>javax.ws.rs-api</artifactId>
 				<version>${rs-api.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>jakarta.xml.bind</groupId>
-				<artifactId>jakarta.xml.bind-api</artifactId>
-				<version>${jaxb-api.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>joda-time</groupId>
