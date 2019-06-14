@@ -54,13 +54,19 @@ package de.tarent.dblayer.persistence;
  */
 
 import de.tarent.commons.datahandling.entity.EntityProperty;
-import de.tarent.dblayer.sql.statement.Insert;
-import de.tarent.dblayer.engine.*;
-import de.tarent.dblayer.sql.statement.*;
+import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.sql.ParamValue;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.statement.Delete;
+import de.tarent.dblayer.sql.statement.Insert;
+import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Simple implementation of the AbstractDBMapping interface for configuration in Java.
@@ -469,7 +475,7 @@ public abstract class AbstractDBMapping implements DBMapping {
     //
 
     /**
-     * {@link DBMapping#getQuery()}
+     * {@link DBMapping#getQuery(String)}
      */
     public Select getQuery(String statementID) {
         for (Iterator iter = statementList.iterator(); iter.hasNext(); ) {
