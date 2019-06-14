@@ -76,4 +76,8 @@ public class LogFactory {
     public static Log getLog(Class clazz) {
         return new Log4JLogger(Logger.getLogger(clazz.getName()));
     }
+
+    public static Logger getLogger(Class clazz) {
+        return Logger.getLogger(clazz.getName());
+    }
 }
