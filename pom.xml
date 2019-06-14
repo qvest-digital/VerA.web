@@ -94,7 +94,7 @@
 		<maven.karma.version>1.8</maven.karma.version>
 		<maven.owasp.dependency-check.version>3.3.2</maven.owasp.dependency-check.version>
 		<!-- dependency management -->
-		<activation.version>1.1.1</activation.version>
+		<activation.version>1.2.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
 		<background-jobs.version>1.23</background-jobs.version>
 		<bytebuddy.version>1.9.0</bytebuddy.version>
@@ -595,14 +595,14 @@
 				</exclusions>
 			</dependency>
 			<dependency>
+				<groupId>jakarta.activation</groupId>
+				<artifactId>jakarta.activation-api</artifactId>
+				<version>${activation.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>jakarta.xml.bind</groupId>
 				<artifactId>jakarta.xml.bind-api</artifactId>
 				<version>${jaxb-api.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.activation</groupId>
-				<artifactId>activation</artifactId>
-				<version>${activation.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.mail</groupId>
