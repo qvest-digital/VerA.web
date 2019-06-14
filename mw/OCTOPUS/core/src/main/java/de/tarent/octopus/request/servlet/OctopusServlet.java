@@ -100,7 +100,7 @@ public class OctopusServlet extends HttpServlet {
     private static TcEnv env;
 
     private static TcSOAPEngine soapEngine;
-    private static final Log LOGGER = LogFactory.getLog(OctopusServlet.class);
+    private static final Log logger = LogFactory.getLog(OctopusServlet.class);
 
     // Fehler, der während des Initialisierens auftritt
     private static Exception initError = null;
@@ -164,11 +164,11 @@ public class OctopusServlet extends HttpServlet {
             //Octopus für lokale Connections bekannt machen
             OctopusConnectionFactory.getInstance().setInternalOctopusInstance(octopus);
         } catch (Exception e) {
-            LOGGER.error(Resources.getInstance().get("REQUESTPROXY_LOG_INIT_EXCEPTION"), e);
+            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_INIT_EXCEPTION"), e);
             initError = e;
         }
 
-        LOGGER.trace("TcRequextProxy init");
+        logger.trace("TcRequextProxy init");
     }
 
     /**
@@ -181,7 +181,7 @@ public class OctopusServlet extends HttpServlet {
             try {
                 octopus.deInit();
             } catch (Exception e) {
-                LOGGER.warn(Resources.getInstance().get("REQUESTPROXY_LOG_CLEANUP_EXCEPTION"), e);
+                logger.warn(Resources.getInstance().get("REQUESTPROXY_LOG_CLEANUP_EXCEPTION"), e);
             }
         }
     }
@@ -229,7 +229,7 @@ public class OctopusServlet extends HttpServlet {
             if (params != null) {
                 reqString += '?' + params;
             }
-            LOGGER.info(Resources.getInstance()
+            logger.info(Resources.getInstance()
               .get("REQUESTPROXY_LOG_REQUEST_URI", requestID, request.getRemoteAddr(), reqString));
         }
 
@@ -284,7 +284,7 @@ public class OctopusServlet extends HttpServlet {
 
                 response.setStatus(302);
                 response.setHeader("Location", redirectURI);
-                LOGGER.info(Resources.getInstance()
+                logger.info(Resources.getInstance()
                   .get("REQUESTPROXY_LOG_REDIRECT_REQUEST", requestID, redirectURI));
                 return;
             }
@@ -293,7 +293,7 @@ public class OctopusServlet extends HttpServlet {
             tcSession = new TcServletDummySession();
         }
 
-        LOGGER.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START", requestID));
+        logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START", requestID));
 
         TcResponse tcResponse = null;
         int requestType = TcRequest.REQUEST_TYPE_WEB;
@@ -301,16 +301,16 @@ public class OctopusServlet extends HttpServlet {
             tcResponse = new TcServletResponse(response);
             tcResponse.setSoapEngine(soapEngine);
             tcResponse.setErrorLevel(env.getValueAsString(TcEnv.KEY_RESPONSE_ERROR_LEVEL));
-            LOGGER.trace(
+            logger.trace(
               Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED", requestID));
 
             requestType = HttpHelper.discoverRequestType(request);
-            LOGGER.info(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_TYPE", requestID,
+            logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_TYPE", requestID,
               TcRequest.getRequestTypeName(requestType)));
 
             // test if request type is not allowed
             if (!isRequstTypeAllowed(requestType)) {
-                LOGGER.error(Resources.getInstance().get("REQUESTPROXY_LOG_ILLEGAL_REQUEST_TYPE",
+                logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_ILLEGAL_REQUEST_TYPE",
                   new String[] {
                     requestID,
                     String.valueOf(requestType),
@@ -324,17 +324,17 @@ public class OctopusServlet extends HttpServlet {
             }
 
             if (initError != null) {
-                LOGGER.warn(Resources.getInstance().get("REQUESTPROXY_LOG_INITERROR_STOP", requestID),
+                logger.warn(Resources.getInstance().get("REQUESTPROXY_LOG_INITERROR_STOP", requestID),
                   initError);
                 tcResponse.sendError(requestType, requestID,
                   Resources.getInstance().get("REQUESTPROXY_OUT_INITERROR_STOP"), initError);
                 return;
             }
 
-            LOGGER.trace(Resources.getInstance().get("REQUESTPROXY_LOG_SESSION_OBJECT_CREATED", requestID));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_SESSION_OBJECT_CREATED", requestID));
 
             TcRequest[] octRequests = extractRequests(request, requestType, requestID);
-            LOGGER.trace(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_OBJECT_CREATED", requestID));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_OBJECT_CREATED", requestID));
 
             for (int i = 0; i < octRequests.length; i++) {
                 TcRequest octRequest = octRequests[i];
@@ -361,7 +361,7 @@ public class OctopusServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION", requestID),
+            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION", requestID),
               e);
             if (tcResponse != null) {
                 tcResponse.sendError(requestType, requestID,

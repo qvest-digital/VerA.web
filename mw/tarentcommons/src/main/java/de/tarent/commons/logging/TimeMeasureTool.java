@@ -61,11 +61,10 @@ import org.apache.commons.logging.Log;
  * If the SystemProperty is not set, if does not log anyway.
  */
 public class TimeMeasureTool {
-
     static boolean doLogging = (System.getProperty("enableTimeMeasureTool") != null &&
       !"false".equalsIgnoreCase(System.getProperty("enableTimeMeasureTool")));
 
-    private static final Log defaultLogger = LogFactory.getLog(TimeMeasureTool.class);
+    private static final Log logger = LogFactory.getLog(TimeMeasureTool.class);
     private static final TimeMeasureTool NOP = new TimeMeasureTool();
     Log log;
     String level;
@@ -77,25 +76,25 @@ public class TimeMeasureTool {
      * Construcs a TimeMeasureTool with the default logger
      */
     protected TimeMeasureTool() {
-        this(defaultLogger);
+        this(logger);
     }
 
     /**
      * Construcs a TimeMeasureTool with the supplied logger
      */
-    protected TimeMeasureTool(Log logger) {
+    protected TimeMeasureTool(final Log newLogger) {
         this.start = System.currentTimeMillis();
         this.last = start;
-        this.log = logger;
+        this.log = newLogger;
     }
 
     /**
      * Returns a measurement tool for the supplied logger and level.
      * If the logger should not log on this level, this returns a nop object.
      */
-    public static TimeMeasureTool getMeasureTool(Log logger) {
+    public static TimeMeasureTool getMeasureTool(final Log newLogger) {
         if (doLogging) {
-            return new TimeMeasureTool(logger);
+            return new TimeMeasureTool(newLogger);
         }
         return NOP;
     }

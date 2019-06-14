@@ -79,7 +79,7 @@ import java.util.jar.Manifest;
  * @author Sebastian Mancke (s.mancke@tarent.de) tarent GmbH Bonn
  */
 public class VersionTool {
-    private static final Log log = LogFactory.getLog(VersionTool.class);
+    private static final Log logger = LogFactory.getLog(VersionTool.class);
 
     public static final String PREFIX_PACKAGE = "package:";
     public static final String PREFIX_RESOURCE = "resource:";
@@ -221,7 +221,7 @@ public class VersionTool {
     public void searchInDirectory(String dirname) {
         File f = new File(dirname);
         if (!f.exists() || !f.isDirectory()) {
-            log.warn("directory '" + dirname + "' for version info not found");
+            logger.warn("directory '" + dirname + "' for version info not found");
         }
         File[] files = f.listFiles();
         if (files != null) {
@@ -249,7 +249,7 @@ public class VersionTool {
         String packageName = packageDescriptor.getName();
 
         if (packageDescriptor == null) {
-            log.warn("package '" + packageName + "' for version info not found");
+            logger.warn("package '" + packageName + "' for version info not found");
             return null;
         }
         VersionInfo info = new VersionInfo();
@@ -264,7 +264,7 @@ public class VersionTool {
     public static VersionInfo getInfoFromResourceFile(String resName) {
         InputStream is = VersionTool.class.getResourceAsStream(resName);
         if (is == null) {
-            log.warn("resource '" + resName + "' for version info not found in classpath");
+            logger.warn("resource '" + resName + "' for version info not found in classpath");
             return null;
         }
         try {
@@ -282,7 +282,7 @@ public class VersionTool {
             info.setBuildID(props.getProperty(BuildID));
             return info;
         } catch (IOException ioe) {
-            log.error("cant read '" + resName + "'", ioe);
+            logger.error("cant read '" + resName + "'", ioe);
             return null;
         } finally {
             try {
@@ -297,7 +297,7 @@ public class VersionTool {
     public static VersionInfo getInfoFromJar(String jarPathName) {
         File f = new File(jarPathName);
         if (!f.exists()) {
-            log.warn("file '" + jarPathName + "' for version info not found");
+            logger.warn("file '" + jarPathName + "' for version info not found");
             //            return null;
             // return new VersionInfo instead of null
             return new VersionInfo();
@@ -312,7 +312,7 @@ public class VersionTool {
             }
             return info;
         } catch (IOException ioe) {
-            log.info("cant read '" + jarPathName + "'. probably not running a jar-build");
+            logger.info("cant read '" + jarPathName + "'. probably not running a jar-build");
             //          return new VersionInfo instead of null
             return new VersionInfo();
         } finally {
@@ -328,7 +328,7 @@ public class VersionTool {
     public static VersionInfo getInfoFromDirectory(String dirname) {
         File f = new File(new File(dirname, "META-INF"), "MANIFEST.MF");
         if (!f.exists()) {
-            log.info("file '" + f.getAbsolutePath() + "' for version info not found");
+            logger.info("file '" + f.getAbsolutePath() + "' for version info not found");
             return null;
         }
         FileInputStream fis = null;
@@ -338,7 +338,7 @@ public class VersionTool {
             info.setResourceName("Directory: " + dirname);
             return info;
         } catch (IOException ioe) {
-            log.error("cant read '" + f.getAbsolutePath() + "'", ioe);
+            logger.error("cant read '" + f.getAbsolutePath() + "'", ioe);
             return null;
         } finally {
             try {
