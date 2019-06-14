@@ -127,6 +127,7 @@
 		<jackson.version>2.9.6</jackson.version>
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
+		<javax.persistence.version>2.2</javax.persistence.version>
 		<jaxb-api.version>2.3.2</jaxb-api.version>
 		<jaxb-impl.version>2.3.2</jaxb-impl.version>
 		<jersey1.version>1.19.4</jersey1.version>
@@ -616,6 +617,11 @@
 				</exclusions>
 			</dependency>
 			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>javax.persistence-api</artifactId>
+				<version>${javax.persistence.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${servlet.api}</version>
@@ -981,6 +987,11 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
 				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>xmlrpc</groupId>
+				<artifactId>xmlrpc</artifactId>
+				<version>1.2-b1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

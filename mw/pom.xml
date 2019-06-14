@@ -17,6 +17,7 @@
 		</license>
 	</licenses>
 	<properties>
+		<axis.version>1.4</axis.version>
 		<!-- common but older versions of dependencies -->
 		<junit.version>3.8.1</junit.version>
 	</properties>
@@ -52,7 +53,7 @@
 			<dependency>
 				<groupId>axis</groupId>
 				<artifactId>axis</artifactId>
-				<version>1.4</version>
+				<version>${axis.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>axis</groupId>
@@ -116,6 +117,16 @@
 				<version>1.2</version>
 			</dependency>
 			<dependency>
+				<groupId>org.apache.axis</groupId>
+				<artifactId>axis-jaxrpc</artifactId>
+				<version>${axis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis</groupId>
+				<artifactId>axis-saaj</artifactId>
+				<version>${axis.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.apache.lucene</groupId>
 				<artifactId>lucene-core</artifactId>
 				<version>2.2.0</version>
@@ -124,11 +135,6 @@
 				<groupId>velocity</groupId>
 				<artifactId>velocity</artifactId>
 				<version>1.4</version>
-			</dependency>
-			<dependency>
-				<groupId>xmlrpc</groupId>
-				<artifactId>xmlrpc</artifactId>
-				<version>1.2-b1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
