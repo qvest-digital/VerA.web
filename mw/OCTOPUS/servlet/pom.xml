@@ -11,7 +11,7 @@
 	<name>OCTOPUS servlet</name>
 	<description>tarent OCTOPUS application framework, servlet part</description>
 	<properties>
-		<sonar.tests />
+		<sonar.tests/>
 	</properties>
 	<build>
 		<plugins>
@@ -30,6 +30,18 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>octopus-core</artifactId>
+			<scope>provided</scope>
+			<exclusions>
+				<!-- straighten ckdep.lst output -->
+				<exclusion>
+					<groupId>velocity</groupId>
+					<artifactId>velocity</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>
