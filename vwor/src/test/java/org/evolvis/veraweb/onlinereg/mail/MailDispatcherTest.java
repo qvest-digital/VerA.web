@@ -88,8 +88,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -135,9 +134,9 @@ public class MailDispatcherTest {
         verify(transportMock).sendMessage(message.capture(), receipents.capture());
         verify(transportMock).close();
 
-        assertThat(message.getValue().getSubject(), equalTo(PARAM_SUBJECT));
-        assertThat((String) message.getValue().getContent(), equalTo(PARAM_TEXT));
-        assertThat((receipents.getValue()[0]).toString(), equalTo(PARAM_TO));
+        assertEquals(PARAM_SUBJECT, message.getValue().getSubject());
+        assertEquals(PARAM_TEXT, (String) message.getValue().getContent());
+        assertEquals(PARAM_TO, (receipents.getValue()[0]).toString());
     }
 
     @Test
@@ -158,9 +157,9 @@ public class MailDispatcherTest {
         verify(transportMock).close();
 
         final MimeMultipart content = (MimeMultipart) message.getValue().getContent();
-        assertThat(content.getCount(), equalTo(2));
-        assertThat((String) ((MimeBodyPart) content.getBodyPart(0)).getContent(), equalTo(PARAM_TEXT));
-        assertThat((String) ((MimeBodyPart) content.getBodyPart(1)).getContent(), equalTo(msg));
+        assertEquals(2, content.getCount());
+        assertEquals(PARAM_TEXT, (String) ((MimeBodyPart) content.getBodyPart(0)).getContent());
+        assertEquals(msg, (String) ((MimeBodyPart) content.getBodyPart(1)).getContent());
     }
 
     @Test

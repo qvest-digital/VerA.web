@@ -99,8 +99,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.startsWith;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
@@ -146,7 +145,10 @@ public class MailingResourceTest {
     @Test
     public void getTempFileWithValidPaths() throws IOException {
         for (final String element : PATHS) {
-            assertThat(objectToTest.getTempFile(element).getCanonicalPath(), startsWith(tmpPath + File.separator + element));
+            final String requestedStart = tmpPath + File.separator + element;
+            final String resultToTest = objectToTest.getTempFile(element).getCanonicalPath();
+            assertTrue("Canonical path '" + resultToTest + "' does not start with: " + requestedStart,
+              resultToTest.startsWith(requestedStart));
         }
     }
 
