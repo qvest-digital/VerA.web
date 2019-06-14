@@ -83,10 +83,8 @@ import java.util.Properties;
  * @author Atanas Alexandrov, tarent solutions GmbH
  * @author Max Marche, tarent solutions GmbH
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class PropertiesReader {
-
-    final Logger LOGGER = LogManager.getLogger(PropertiesReader.class);
-
     private static final String PROPERTY_FILE = "/etc/veraweb/veraweb.properties";
 
     public Properties properties;
@@ -115,10 +113,10 @@ public class PropertiesReader {
             inputStream = new FileInputStream(PROPERTY_FILE);
             properties.load(inputStream);
         } catch (FileNotFoundException e) {
-            LOGGER.fatal("Elementary configuration file {} not found!",PROPERTY_FILE);
+            logger.fatal("Elementary configuration file {} not found!",PROPERTY_FILE);
             return properties;
         } catch (IOException e) {
-            LOGGER.fatal("Exception occured while reading properties from elementary configuration file {}!", PROPERTY_FILE, e);
+            logger.fatal("Exception occured while reading properties from elementary configuration file {}!", PROPERTY_FILE, e);
             return properties;
         } finally {
             try {

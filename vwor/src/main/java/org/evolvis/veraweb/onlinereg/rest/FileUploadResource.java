@@ -123,7 +123,7 @@ public class FileUploadResource extends AbstractResource {
         try {
             image = createTempImage(imageStringData);
         } catch (Exception e) {
-            LOGGER.error("Could not create temp image", e);
+            logger.error("Could not create temp image", e);
         }
 
         if (extension.equals(VworConstants.EXTENSION_PNG)) {
@@ -148,7 +148,7 @@ public class FileUploadResource extends AbstractResource {
         try {
             encodedImage = getImage(imgUUID);
         } catch (IOException e) {
-            LOGGER.error("Image not found", e);
+            logger.error("Image not found", e);
             // image not found
             // 1. Delete imageUUID
         }

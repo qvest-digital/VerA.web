@@ -141,9 +141,9 @@ public class PdfTemplateResource extends FormDataResource {
         final File file;
         try {
             file = saveTempFile(data.getField("files"));
-            LOGGER.debug(file.exists());
+            logger.debug(file.exists());
         } catch (IOException e) {
-            LOGGER.error("could not write data to tmp file.", e);
+            logger.error("could not write data to tmp file.", e);
             return Response.status(Status.BAD_REQUEST).build();
         }
 
@@ -151,7 +151,7 @@ public class PdfTemplateResource extends FormDataResource {
         try {
             content = IOUtils.toByteArray(new FileInputStream(file));
         } catch (IOException e) {
-            LOGGER.error("could not read tmp file.", e);
+            logger.error("could not read tmp file.", e);
             return Response.status(Status.BAD_REQUEST).build();
         }
 
@@ -289,7 +289,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private void executeCurrentFileDeletion(File listFile) {
         if (!listFile.delete()) {
-            LOGGER.error("Unable to delete file: " + listFile);
+            logger.error("Unable to delete file: " + listFile);
         }
     }
 
@@ -301,7 +301,7 @@ public class PdfTemplateResource extends FormDataResource {
                 final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
                 return Response.ok(pdfTemplate).build();
             } catch (Exception e) {
-                LOGGER.error("Creating pdf template failed.", e);
+                logger.error("Creating pdf template failed.", e);
                 return Response.status(Status.INTERNAL_SERVER_ERROR).build();
             }
         }

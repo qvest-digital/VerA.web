@@ -96,7 +96,7 @@ public class VworPropertiesReader {
         if (properties != null) {
             return properties.getProperty(key);
         } else {
-            LOGGER.warn("Property " + key + " is null.");
+            logger.warn("Property " + key + " is null.");
         }
         return null;
     }
@@ -109,7 +109,7 @@ public class VworPropertiesReader {
             inputStream = new FileInputStream(PROPERTY_FILE);
             properties.load(inputStream);
         } catch (IOException e) {
-            LOGGER.warn("Could not read properties file", e);
+            logger.warn("Could not read properties file", e);
             return null;
         } finally {
             try {
@@ -117,7 +117,7 @@ public class VworPropertiesReader {
                     inputStream.close();
                 }
             } catch (Exception e) {
-                LOGGER.warn("Could not close stream", e);
+                logger.warn("Could not close stream", e);
             }
         }
 

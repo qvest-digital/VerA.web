@@ -93,6 +93,7 @@ import java.util.TreeMap;
  * @author jnunez Jon Nuñez, tarent solutions GmbH on 09.07.15.
  * @author sweiz
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class LanguageProvider {
     /**
      * Load standard language data (german)
@@ -119,7 +120,6 @@ public class LanguageProvider {
      */
     public static final String STANDARD_LANG_FILE = "/etc/veraweb/l10n/de_DE.resource";
 
-    public static final Logger LOGGER = LogManager.getLogger(LanguageProvider.class.getName());
     // Path of all language files
     private static final String FILE_PATH = "/etc/veraweb/l10n/";
 
@@ -220,16 +220,16 @@ public class LanguageProvider {
             reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(resource), "utf-8");
             properties.load(reader);
         } catch (IOException uniqueLangFileException) {
-            LOGGER.warn(uniqueLangFileException);
-            LOGGER.warn("Could not read default language files!");
+            logger.warn(uniqueLangFileException);
+            logger.warn("Could not read default language files!");
         } finally {
             try {
                 if (reader != null) {
                     reader.close();
                 }
             } catch (Exception closeFileException) {
-                LOGGER.warn(closeFileException);
-                LOGGER.warn("Could not close data!");
+                logger.warn(closeFileException);
+                logger.warn("Could not close data!");
             }
         }
         // next, if override exists in /etc/veraweb/i10n, merge its contents
@@ -239,16 +239,16 @@ public class LanguageProvider {
                 fileReader = new InputStreamReader(new FileInputStream(file), "utf-8");
                 properties.load(fileReader);
             } catch (IOException uniqueLangFileException) {
-                LOGGER.warn(uniqueLangFileException);
-                LOGGER.warn("Could not read language files! - " + file);
+                logger.warn(uniqueLangFileException);
+                logger.warn("Could not read language files! - " + file);
             } finally {
                 try {
                     if (fileReader != null) {
                         fileReader.close();
                     }
                 } catch (Exception closeFileException) {
-                    LOGGER.warn(closeFileException);
-                    LOGGER.warn("Could not close data! - " + file);
+                    logger.warn(closeFileException);
+                    logger.warn("Could not close data! - " + file);
                 }
             }
         }

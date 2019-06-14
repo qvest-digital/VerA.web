@@ -95,9 +95,8 @@ import java.util.logging.Logger;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @author Michael Klink
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class LoginManagerLDAPGeneric extends AbstractLoginManager {
-    protected static final Logger LOGGER = Logger.getLogger(LoginManagerLDAPGeneric.class.getName());
-
     /**
      * Schluessel des Konfigurationseintrags fuer die Objekt Klasse,
      * welche von den in LDAP definierten Benutzern implementiert wird.
@@ -237,7 +236,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
       PersonalConfig pConfig,
       boolean repeat,
       LDAPException e) throws TcSecurityException {
-        LOGGER.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
+        logger.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
         if (e.getCause() instanceof AuthenticationException) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR, e);
         }

@@ -122,7 +122,7 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
     }
 
     private void debug(ConnectionEvent e) {
-        LOGGER.debug(e);
+        logger.debug(e);
     }
 
     private void info(TransportEvent e) {
@@ -130,7 +130,7 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
     }
 
     private void warn(TransportEvent e) {
-        LOGGER.warn(message(e));
+        logger.warn(message(e));
         sb.append(message(e));
     }
 

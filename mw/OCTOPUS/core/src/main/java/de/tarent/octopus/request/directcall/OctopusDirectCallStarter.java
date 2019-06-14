@@ -67,7 +67,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Ermöglicht das einfache Starten des Octopus
@@ -175,21 +179,6 @@ public class OctopusDirectCallStarter implements OctopusStarter {
                 logHandler.setFormatter(new SimpleFormatter());
                 baseLogger.addHandler(logHandler);
                 baseLogger.info(Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING"));
-                String logLevel = env.getValueAsString(TcEnv.KEY_LOGGING_LEVEL);
-                if (logLevel != null && logLevel.length() > 0) {
-                    try {
-                        Level level = Level.parse(logLevel);
-                        baseLogger.config(Resources.getInstance()
-                          .get("REQUESTPROXY_LOG_NEW_LOG_LEVEL", level));
-                        baseLogger.setLevel(level);
-                    } catch (IllegalArgumentException iae) {
-                        baseLogger.log(
-                          Level.WARNING,
-                          Resources.getInstance()
-                            .get("REQUESTPROXY_LOG_INVALID_LOG_LEVEL", logLevel),
-                          iae);
-                    }
-                }
             }
 
             octopus = new Octopus();
@@ -264,7 +253,6 @@ public class OctopusDirectCallStarter implements OctopusStarter {
 
         //env.setValue(TcEnv.KEY_PATHS_ROOT, "." + System.getProperty("file.separator"));
         env.setValue(TcEnv.KEY_PATHS_ROOT, System.getProperty("user.dir") + "/OCTOPUS/");
-        env.setValue(TcEnv.KEY_LOGGING_LEVEL, "CONFIG");
         env.setValue(TcEnv.KEY_PATHS_CONFIG_ROOT, "config/");
         env.setValue(TcEnv.KEY_PATHS_CONFIG_FILE, "config.xml");
         //env.setValue(TcEnv.loggerConfigFile, "logger.conf");

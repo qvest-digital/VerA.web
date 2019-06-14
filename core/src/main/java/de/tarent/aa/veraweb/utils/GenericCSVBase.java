@@ -103,6 +103,7 @@ import java.util.logging.Logger;
  *
  * @author mikel
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Property-Schlüssel für das Export-Mapping der Felder
@@ -169,10 +170,6 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      * Simples 1:1-Mapping don Quell- und Zielspalten
      */
     private final static Map SIMPLE_FIELD_MAPPING = Collections.singletonMap("*", "*");
-    /**
-     * Logger dieser Klasse
-     */
-    private final static Logger LOGGER = Logger.getLogger(GenericCSVBase.class.getName());
 
     /**
      * Die zu nutzende Datenbank
@@ -470,7 +467,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
                 try {
                     dateFormat.applyPattern(property.toString());
                 } catch (IllegalArgumentException iae) {
-                    LOGGER.log(Level.WARNING, "Fehler beim Anwenden des Datumformats " + property, iae);
+                    logger.log(Level.WARNING, "Fehler beim Anwenden des Datumformats " + property, iae);
                 }
             }
         }

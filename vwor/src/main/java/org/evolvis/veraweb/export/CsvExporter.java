@@ -92,9 +92,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import de.tarent.extract.Extractor;
 
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class CsvExporter {
-
-    private static final Logger LOGGER = LogManager.getLogger(Extractor.class);
     private final Extractor extractor;
     private final CsvIo io;
     private final ExtractorQueryBuilder template;
@@ -133,13 +132,13 @@ public class CsvExporter {
             query.setSelectedColumns(selectedColumns);
             return query;
         } catch (JsonParseException e1) {
-            LOGGER.error("Couldn\'t parse json", e1);
+            logger.error("Couldn\'t parse json", e1);
             throw new ExtractorException("Couldn\'t parse json", e1);
         } catch (JsonMappingException e2) {
-            LOGGER.error("Couldn\'t map json", e2);
+            logger.error("Couldn\'t map json", e2);
             throw new ExtractorException("Couldn\'t map json", e2);
         } catch (IOException e3) {
-            LOGGER.error("Could not load configuration", e3);
+            logger.error("Could not load configuration", e3);
             throw new ExtractorException("Could not load configuration", e3);
         }
     }

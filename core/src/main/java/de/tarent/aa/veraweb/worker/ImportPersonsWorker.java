@@ -105,13 +105,8 @@ import java.util.Map;
  * @author hendrik
  * @author mikel
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class ImportPersonsWorker {
-
-    /**
-     * Logger dieser Klasse
-     */
-    public static final Logger LOGGER = LogManager.getLogger(ImportPersonsWorker.class.getName());
-
     //
     // Öffentliche Konstanten
     //

@@ -83,6 +83,7 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
     //
     // LoginManagerLDAPGeneric überschreibungen
@@ -166,7 +167,7 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
               getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION)
             );
         } catch (LDAPException e) {
-            LOGGER.warning(e.getLocalizedMessage());
+            logger.warning(e.getLocalizedMessage());
             return null;
         }
     }

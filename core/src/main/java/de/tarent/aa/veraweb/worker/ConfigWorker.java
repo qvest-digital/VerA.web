@@ -105,6 +105,7 @@ import java.util.ResourceBundle;
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class ConfigWorker extends ListWorkerVeraWeb {
     private static final String defaultSource[] = {
             "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
@@ -122,8 +123,6 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     private final PropertiesReader propertiesReader = new PropertiesReader();
     private final ViewConfig verawebViewConfig = new ViewConfig(propertiesReader.getProperties());
     private final SearchConfig verawebSearchConfig = new SearchConfig(propertiesReader.getProperties());
-
-    final Logger LOGGER = LogManager.getLogger(ConfigWorker.class.getCanonicalName());
 
     //
     // Konstruktoren
@@ -335,37 +334,37 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 
     private void deleteConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
             throws BeanException {
-        LOGGER.debug(" -----------------------> BEGIN DELETE CONFIG " + key + "/" + value + " <----------------------- ");
+        logger.debug(" -----------------------> BEGIN DELETE CONFIG " + key + "/" + value + " <----------------------- ");
         Delete delete = SQL.Delete(database);
         delete.from("veraweb.tconfig");
         delete.where(Expr.equal("cname", key));
         transactionContext.execute(delete);
         transactionContext.commit();
-        LOGGER.debug(" -----------------------> DONE DELETE CONFIG " + key + "/" + value + " <----------------------- ");
+        logger.debug(" -----------------------> DONE DELETE CONFIG " + key + "/" + value + " <----------------------- ");
     }
 
     private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
             throws BeanException {
-        LOGGER.debug("-----------------------> BEGIN UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
+        logger.debug("-----------------------> BEGIN UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
         Update update = SQL.Update(database);
         update.table("veraweb.tconfig");
         update.update("cvalue", value);
         update.where(Expr.equal("cname", key));
         transactionContext.execute(update);
         transactionContext.commit();
-        LOGGER.debug(" -----------------------> DONE UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
+        logger.debug(" -----------------------> DONE UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
     }
 
     private void insertConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
             throws BeanException {
-        LOGGER.debug(" -----------------------> BEGIN INSERT CONFIG " + key + "/" + value + " <----------------------- ");
+        logger.debug(" -----------------------> BEGIN INSERT CONFIG " + key + "/" + value + " <----------------------- ");
         Insert insert = SQL.Insert(database);
         insert.table("veraweb.tconfig");
         insert.insert("cname", key);
         insert.insert("cvalue", value);
         transactionContext.execute(insert);
         transactionContext.commit();
-        LOGGER.debug(" -----------------------> DONE INSERT CONFIG " + key + "/" + value + " <----------------------- ");
+        logger.debug(" -----------------------> DONE INSERT CONFIG " + key + "/" + value + " <----------------------- ");
     }
 
     /**

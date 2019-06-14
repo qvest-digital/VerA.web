@@ -119,11 +119,9 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
      */
     @Override
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
-
         final Map importDuplicatesProperties = (Map) octopusContext.moduleConfig().getParams().get("importDuplicatesProperties");
         if (importDuplicatesProperties == null) {
-            ImportPersonsWorker.LOGGER
-              .warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
+            ImportPersonsWorker.logger.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
         }
         if (octopusContext.sessionAsObject("limit" + BEANNAME) == null) {
             octopusContext.setSession("limit" + BEANNAME, Integer.parseInt((String) importDuplicatesProperties.get("dsCount")));

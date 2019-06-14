@@ -316,10 +316,6 @@ public final class Environment extends Base {
         public final static Key RETRY_AFTER_LOGIN_ERROR = make("retryAfterLoginError");
         public final static Key SLEEP_SECONDS = make("sleepSeconds");
 
-        public final static Key LOG_FILE_NAME = make("logfile.name");
-        public final static Key LOG_FILE_LEVEL = make("logfile.level");
-        public final static Key LOG_FILE_LOGGER = make("logfile.logger");
-
         public final static Key OFFICE_START_COMMAND = make("officeStartCommand");
         public final static Key UNO_CONNECTION_PARAMETER = make("unoConnectionParameter");
         public final static Key ENABLE_AUTO_JOURNALING = make("enableAutoJournaling");

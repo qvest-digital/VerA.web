@@ -84,10 +84,10 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         SessionFactory sessionFactory = (SessionFactory) servletContextEvent.getServletContext().getAttribute("SessionFactory");
         if (sessionFactory != null && !sessionFactory.isClosed()) {
-            LOGGER.info("Closing sessionFactory");
+            logger.info("Closing sessionFactory");
             sessionFactory.close();
         }
-        LOGGER.info("Released Hibernate sessionFactory resource");
+        logger.info("Released Hibernate sessionFactory resource");
     }
 
     @Override
@@ -115,19 +115,19 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.PersonMailinglist.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Salutation.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.SalutationAlternative.class);
-            LOGGER.info("Hibernate Configuration created successfully");
+            logger.info("Hibernate Configuration created successfully");
 
             ServiceRegistry serviceRegistry =
               new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-            LOGGER.info("ServiceRegistry created successfully");
+            logger.info("ServiceRegistry created successfully");
             SessionFactory sessionFactory = configuration
               .buildSessionFactory(serviceRegistry);
-            LOGGER.info("SessionFactory created successfully");
+            logger.info("SessionFactory created successfully");
 
             servletContextEvent.getServletContext().setAttribute("SessionFactory", sessionFactory);
-            LOGGER.info("Hibernate SessionFactory Configured successfully");
+            logger.info("Hibernate SessionFactory Configured successfully");
         } catch (Exception e) {
-            LOGGER.error("Error", e);
+            logger.error("Error", e);
         }
     }
 }

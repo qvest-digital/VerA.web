@@ -129,6 +129,7 @@ import java.util.Set;
  *
  * @author mikel
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class DataExchangeWorker {
     //
     // Konstanten
@@ -198,8 +199,8 @@ public class DataExchangeWorker {
                     String key = o.toString();
                     ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), key, null);
                     if (format != null) {
-                        if (LOGGER.isDebugEnabled()) {
-                            LOGGER.debug("Format " + key + ": " + format);
+                        if (logger.isDebugEnabled()) {
+                            logger.debug("Format " + key + ": " + format);
                         }
                         result.put(key, format);
                     }
@@ -337,20 +338,20 @@ public class DataExchangeWorker {
                     }
                     exporter.endExport();
                 } catch (Throwable t) {
-                    LOGGER.error("Fehler beim Erstellen des Exports aufgetreten.", t);
+                    logger.error("Fehler beim Erstellen des Exports aufgetreten.", t);
                     // This will force a log output.
                     t.printStackTrace(System.out);
                     t.printStackTrace(System.err);
                     try {
                         pos.close();
                     } catch (IOException e) {
-                        LOGGER.error("Fehler beim Schließen", e);
+                        logger.error("Fehler beim Schließen", e);
                     }
                 } finally {
                     try {
                         pos.close();
                     } catch (IOException t) {
-                        LOGGER.error("Fehler beim Schließen", t);
+                        logger.error("Fehler beim Schließen", t);
                     }
                 }
             }
@@ -438,8 +439,8 @@ public class DataExchangeWorker {
                 }
 
                 if (suffix == null || suffix.length() == 0) {
-                    if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug("Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
+                    if (logger.isDebugEnabled()) {
+                        logger.debug("Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
                     }
                 } else if (
                   suffix.equals("ods") ||
@@ -542,7 +543,7 @@ public class DataExchangeWorker {
                         ics = StandardCharsets.UTF_16LE;
                     } else if (!Charset.isSupported("cp1252")) {
                         // default to closest thing to cp1252
-                        LOGGER.error(
+                        logger.error(
                           "JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters " +
                             "will be lost!");
                         ics = StandardCharsets.ISO_8859_1;
@@ -577,7 +578,7 @@ public class DataExchangeWorker {
 
                 return digester.getImportStats();
             } catch (Exception e) {
-                LOGGER.error("Fehler beim Import aufgetreten.", e);
+                logger.error("Fehler beim Import aufgetreten.", e);
                 CharArrayWriter caw = new CharArrayWriter();
                 PrintWriter pw = new PrintWriter(caw);
                 e.printStackTrace(pw);
@@ -1004,9 +1005,4 @@ public class DataExchangeWorker {
         rMap.put("igCount", igCount);
         return rMap;
     }
-
-    //
-    // geschützte Member
-    //
-    private final static Logger LOGGER = LogManager.getLogger(DataExchangeWorker.class);
 }

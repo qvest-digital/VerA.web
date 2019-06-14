@@ -131,10 +131,10 @@ public class MailingResource extends FormDataResource {
         try {
             msg = sendEmails(recipients, subject, text, files);
         } catch (AddressException e) {
-            LOGGER.error("Email-Adress is not valid", e);
+            logger.error("Email-Adress is not valid", e);
             return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
         } catch (final MessagingException e) {
-            LOGGER.error("Sending email failed", e);
+            logger.error("Sending email failed", e);
             return Response.status(Status.BAD_GATEWAY).build();
         } finally {
             removeAttachmentsFromFilesystem(files);
@@ -175,14 +175,14 @@ public class MailingResource extends FormDataResource {
                       subject, substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
                     sb.append(monitor.toString());
                 } catch (AddressException e) {
-                    LOGGER.error("Email-Adress is not valid" + recipient.getAddress(), e);
+                    logger.error("Email-Adress is not valid" + recipient.getAddress(), e);
                     // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
                     // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
                     sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress() + "\n\n");
                     thrownAddressException = true;
                 }
             } else {
-                LOGGER.error("Email-Adress is not valid" + recipient.getAddress());
+                logger.error("Email-Adress is not valid" + recipient.getAddress());
                 sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress() + "\n\n");
                 thrownAddressException = true;
             }
@@ -208,7 +208,7 @@ public class MailingResource extends FormDataResource {
             try {
                 Files.deleteIfExists(file.toPath());
             } catch (final IOException e) {
-                LOGGER.error(new StringBuilder("The file ").append(file.toPath()).append("could not be deleted!"), e);
+                logger.error(new StringBuilder("The file ").append(file.toPath()).append("could not be deleted!"), e);
             }
         }
     }
@@ -224,7 +224,7 @@ public class MailingResource extends FormDataResource {
                     final File destinationFile = saveTempFile(part);
                     files.put(part.getFormDataContentDisposition().getFileName(), destinationFile);
                 } catch (final IOException e) {
-                    LOGGER.error("Could not write data to temp file!", e);
+                    logger.error("Could not write data to temp file!", e);
                     break;
                 }
             }

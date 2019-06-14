@@ -96,6 +96,7 @@ import static org.apache.commons.lang.StringUtils.isBlank;
  *
  * @author philipp
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class LDAPContact {
     private static final String EMPTY_STRING = "";
     private String vorname = EMPTY_STRING;
@@ -123,7 +124,6 @@ public class LDAPContact {
     private Map verteilergruppe = new HashMap();
     private Map allUsers;
     private List users;
-    private static final Logger LOGGER = Logger.getLogger(LDAPContact.class.getName());
     private String privatLand = EMPTY_STRING;
     private String privatOrt = EMPTY_STRING;
     private String privatPLZ = EMPTY_STRING;
@@ -712,7 +712,7 @@ public class LDAPContact {
                 String adduser2 = manager.fullUserDN(adduser); //$NON-NLS-1$
                 users.add(adduser2);
             } catch (LDAPException le) {
-                LOGGER.log(Level.WARNING, "User " + adduser + " existiert im LDAP leider nicht! Bitte bereinigen Sie die User.");
+                logger.log(Level.WARNING, "User " + adduser + " existiert im LDAP leider nicht! Bitte bereinigen Sie die User.");
             }
         }
         if (users.size() == 0) {

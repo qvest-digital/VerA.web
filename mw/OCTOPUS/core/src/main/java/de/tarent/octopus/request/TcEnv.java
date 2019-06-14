@@ -383,15 +383,7 @@ public class TcEnv extends HashMap {
     public final static String KEY_MODULE_CONFIGFILE_LOCATION_PREFIX = "moduleConfig.";
     public final static String KEY_OMIT_SESSIONS = "omitSessions";
     public final static String KEY_OMIT_HTTPAUTH = "omitHttpAuth";
-    public final static String KEY_PATHS_LOGFILE = "paths.logfile";
     public final static String KEY_PATHS_ROOT = "paths.root";
-    public final static String KEY_LOGGING_BASELOGGER = "logging.baseLogger";
-    public final static String KEY_LOGGING_LEVEL = "logging.level";
-    public final static String KEY_LOGGING_PATTERN = "logging.pattern";
-    public final static String KEY_LOGGING_LIMIT = "logging.limit";
-    public final static String KEY_LOGGING_COUNT = "logging.count";
-    public final static String KEY_LOGGING_PORT = "logging.port";
-    public final static String KEY_LOG_SOAP_REQUEST_LEVEL = "logging.soap.request.level";
     public final static String KEY_USE_SOAP_NS_AS_MODULE = "useSOAPNSAsModule"; // default == true
     public final static String KEY_JMX_ENABLED = "jmxenabled"; // default == false
     public final static String KEY_RPCTUNNEL_ENABLED = "rpctunnelenabled"; // default == false
