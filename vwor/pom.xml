@@ -101,10 +101,6 @@
 			<artifactId>rest-api-common</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.evolvis.veraweb</groupId>
-			<artifactId>veraweb-export</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
 		</dependency>
