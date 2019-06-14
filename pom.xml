@@ -144,7 +144,6 @@
 		<postgresql.version>42.2.5</postgresql.version>
 		<rs-api.version>2.1</rs-api.version>
 		<selenium.version>3.12.0</selenium.version>
-		<slf4j.version>1.7.25</slf4j.version>
 		<smiley-http-proxy-servlet.version>1.7</smiley-http-proxy-servlet.version>
 		<spock-core.version>1.1-groovy-2.4</spock-core.version>
 		<spring.version>4.3.18.RELEASE</spring.version>
@@ -918,26 +917,6 @@
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
 				<version>${lombok.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jul-to-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>log4j-over-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.spockframework</groupId>
