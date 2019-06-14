@@ -53,8 +53,6 @@ package de.tarent.octopus.request.servlet;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.request.Octopus;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -71,7 +69,7 @@ import java.net.MalformedURLException;
  * request, or the servlet context is about to be shutdown.
  *
  * It will be used for realize that new octopus modules will be available. So we can implement
- * {@link Octopus#doAutostart(String, TcCommonConfig)} and {@link Octopus#doCleanup(String, TcCommonConfig)}  also if one
+ * Octopus#doAutostart(String, TcCommonConfig) and Octopus#doCleanup(String, TcCommonConfig) also if one
  * module will loaded after the octopus webapplication. (Only in separate installations.)
  *
  * @author Christoph Jerolimov, tarent GmbH
