@@ -53,14 +53,9 @@ package de.tarent.octopus.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.octopus.request.TcEnv;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
-
-import java.io.File;
-import java.util.Date;
 
 /**
  * Log4j1-based simple replacement for the former thing documented below:
@@ -81,27 +76,5 @@ import java.util.Date;
 public class LogFactory {
     public static Log getLog(Class clazz) {
         return new Log4JLogger(Logger.getLogger(clazz.getName()));
-    }
-
-    /**
-     * initialise the logging.
-     */
-    public static void initOctopusLogging(TcEnv env) {
-        String rootPath = env.getValueAsString(TcEnv.KEY_PATHS_ROOT);
-        File f = new File(rootPath, "log4j_properties.xml");
-        if (!f.exists()) {
-            warn("log4j configuration file '" + f.getAbsolutePath() + "' does not exist");
-        } else {
-            DOMConfigurator.configure(f.getAbsolutePath());
-        }
-    }
-
-    public static void deInitOctopusLogging() {
-        org.apache.log4j.LogManager.shutdown();
-    }
-
-    private static void warn(String message) {
-        System.err.println(String.format("%1$tF %1$tT.%1$tL %2$7s (de.tarent.octopus.logging.LogFactory) [OCTOPUS] %3$s",
-          new Date(), "WARNING", message));
     }
 }

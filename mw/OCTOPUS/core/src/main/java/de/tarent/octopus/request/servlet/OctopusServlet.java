@@ -56,7 +56,11 @@ package de.tarent.octopus.request.servlet;
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusConnectionFactory;
 import de.tarent.octopus.logging.LogFactory;
-import de.tarent.octopus.request.*;
+import de.tarent.octopus.request.Octopus;
+import de.tarent.octopus.request.TcEnv;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.request.TcResponse;
+import de.tarent.octopus.request.TcSession;
 import de.tarent.octopus.request.directcall.OctopusDirectCallConnection;
 import de.tarent.octopus.request.internal.OctopusInternalStarter;
 import de.tarent.octopus.resource.Resources;
@@ -128,7 +132,6 @@ public class OctopusServlet extends HttpServlet {
             env = createEnvObject();
 
             System.setProperty(TcEnv.KEY_PATHS_ROOT, env.getValueAsString(TcEnv.KEY_PATHS_ROOT));
-            LogFactory.initOctopusLogging(env);
 
             // set the webappContextPathName, if it was configured in the octopus-server config
             webappContextPathName = env.getValueAsString(TcEnv.KEY_WEBAPP_CONTEXT_PATH_NAME);
@@ -181,7 +184,6 @@ public class OctopusServlet extends HttpServlet {
                 LOGGER.warn(Resources.getInstance().get("REQUESTPROXY_LOG_CLEANUP_EXCEPTION"), e);
             }
         }
-        LogFactory.deInitOctopusLogging();
     }
 
     /**
