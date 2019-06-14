@@ -16,6 +16,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.sun.activation</groupId>
+			<artifactId>jakarta.activation</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.sun.istack</groupId>
 			<artifactId>istack-commons-runtime</artifactId>
 			<scope>test</scope>
@@ -28,10 +32,6 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.activation</groupId>
-			<artifactId>jakarta.activation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>

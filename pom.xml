@@ -474,6 +474,11 @@
 				<version>${h2.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.sun.activation</groupId>
+				<artifactId>jakarta.activation</artifactId>
+				<version>${activation.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.sun.istack</groupId>
 				<artifactId>istack-commons-runtime</artifactId>
 				<version>${istack.version}</version>
@@ -601,11 +606,6 @@
 						<artifactId>javax.el</artifactId>
 					</exclusion>
 				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.activation</groupId>
-				<artifactId>jakarta.activation</artifactId>
-				<version>${activation.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.xml.bind</groupId>
