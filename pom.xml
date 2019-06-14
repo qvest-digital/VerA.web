@@ -163,7 +163,6 @@
 		<module>mw</module>
 		<module>shared</module>
 		<module>core</module>
-		<module>export</module>
 		<module>vwor</module>
 		<module>release</module>
 	</modules>
@@ -760,11 +759,6 @@
 			<dependency>
 				<groupId>org.evolvis.veraweb</groupId>
 				<artifactId>rest-api-common</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.evolvis.veraweb</groupId>
-				<artifactId>veraweb-export</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

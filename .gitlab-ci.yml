@@ -5,7 +5,6 @@
       "name": "reports",
       "paths": [
         "core/target/surefire-reports/",
-        "export/target/surefire-reports/",
         "mw/OCTOPUS/core/target/surefire-reports/",
         "mw/OCTOPUS/ext-beans/target/surefire-reports/",
         "mw/tarentcommons/target/surefire-reports/",
@@ -37,7 +36,6 @@
       "name": "reports",
       "paths": [
         "core/target/surefire-reports/",
-        "export/target/surefire-reports/",
         "mw/OCTOPUS/core/target/surefire-reports/",
         "mw/OCTOPUS/ext-beans/target/surefire-reports/",
         "mw/tarentcommons/target/surefire-reports/",
