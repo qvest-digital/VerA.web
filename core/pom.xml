@@ -207,6 +207,30 @@
 	</profiles>
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>analyse-dependency-usage</id>
+						<configuration>
+							<failOnWarning>false</failOnWarning>
+							<ignoredUnusedDeclaredDependencies combine.children="append">
+								<!-- must be in the classpath -->
+								<ignoredUnusedDeclaredDependency>org.apache.logging.log4j:log4j-core</ignoredUnusedDeclaredDependency>
+								<!-- OCTOPUS extensions -->
+								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-annotation</ignoredUnusedDeclaredDependency>
+								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-commons</ignoredUnusedDeclaredDependency>
+								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-cronjobs</ignoredUnusedDeclaredDependency>
+								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-jmx</ignoredUnusedDeclaredDependency>
+								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-servlet</ignoredUnusedDeclaredDependency>
+								<!-- shipped for tomcat lib dir -->
+								<ignoredUnusedDeclaredDependency>org.postgresql:postgresql</ignoredUnusedDeclaredDependency>
+							</ignoredUnusedDeclaredDependencies>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- Needed to get correct code coverage from java and groovy tests -->
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
