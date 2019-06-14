@@ -369,6 +369,7 @@
 						<configuration>
 							<failOnWarning>false</failOnWarning>
 							<ignoredUnusedDeclaredDependencies combine.children="append">
+								<ignoredUnusedDeclaredDependency>org.evolvis.tartools:maven-parent</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.projectlombok:lombok</ignoredUnusedDeclaredDependency>
 							</ignoredUnusedDeclaredDependencies>
 						</configuration>
@@ -996,6 +997,13 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
+		<dependency>
+			<groupId>org.evolvis.tartools</groupId>
+			<artifactId>maven-parent</artifactId>
+			<version>${org.evolvis.tartools.maven-parent.version}</version>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
