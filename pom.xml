@@ -127,9 +127,8 @@
 		<jackson.version>2.9.6</jackson.version>
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
-		<!-- bump to 2.4.0 as soon as released, https://stackoverflow.com/a/50251510/2171120 for details -->
-		<jaxb-api.version>2.3.0</jaxb-api.version>
-		<jaxb.version>2.3.0.1</jaxb.version>
+		<jaxb-api.version>2.3.2</jaxb-api.version>
+		<jaxb-impl.version>2.3.2</jaxb-impl.version>
 		<jersey1.version>1.19.4</jersey1.version>
 		<jersey2.version>2.27</jersey2.version>
 		<jodatime.version>2.10</jodatime.version>
@@ -509,19 +508,8 @@
 			</dependency>
 			<dependency>
 				<groupId>com.sun.xml.bind</groupId>
-				<artifactId>jaxb-core</artifactId>
-				<version>${jaxb.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>com.sun</groupId>
-						<artifactId>tools</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.xml.bind</groupId>
 				<artifactId>jaxb-impl</artifactId>
-				<version>${jaxb.version}</version>
+				<version>${jaxb-impl.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>com.sun</groupId>
@@ -627,8 +615,8 @@
 				<version>${rs-api.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.xml.bind</groupId>
-				<artifactId>jaxb-api</artifactId>
+				<groupId>jakarta.xml.bind</groupId>
+				<artifactId>jakarta.xml.bind-api</artifactId>
 				<version>${jaxb-api.version}</version>
 			</dependency>
 			<dependency>
