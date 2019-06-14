@@ -119,7 +119,7 @@ public class TcSecurityLDAPManager {
      *                     gesetzt ist, sonst als komplette DN des Users
      * @param appendBaseDN Soll der Base-DN angehängt werden?
      * @param passwort     Passwort
-     * @param authType     Authentifizierungstyp gegenüber dem LDAP (im Moment nur "simple" ausprobiert & supported)
+     * @param authType     Authentifizierungstyp gegenüber dem LDAP (im Moment nur „simple“ ausprobiert und supported)
      * @throws TcSecurityException
      */
     public void login(

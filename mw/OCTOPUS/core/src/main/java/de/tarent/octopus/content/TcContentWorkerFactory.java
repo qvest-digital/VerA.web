@@ -76,14 +76,14 @@ public class TcContentWorkerFactory {
 
     /**
      * Map mit TcContentWorkern. Keys der Map sind die ClassLoader der Module. Values sind wiederum Maps mit
-     * ("workername"=>Instance).
+     * („workername“ ⇒ Instance).
      * Dadurch werden die Worker gepuffert und müssen nicht für jede Anfrage neu erstellt werden.
      */
     protected static Map workers = new HashMap();
 
     /**
-     * Map mit den Speziellen Factorys zur Instanziierung von Workern. Keys der Map sind die ClassLoader der Module. Values
-     * sind wiederum Maps mit ("factoryClassName"=>Instance).
+     * Map mit den Speziellen Factorys zur Instanziierung von Workern. Keys der Map sind die ClassLoader der Module.
+     * Values sind wiederum Maps mit („factoryClassName“ ⇒ Instance).
      */
     protected static Map factorys = new HashMap();
 

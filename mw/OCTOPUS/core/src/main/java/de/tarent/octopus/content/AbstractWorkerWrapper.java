@@ -271,7 +271,7 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
      * Convertiert ein Object.
      * Falls dies fehl schlägt oder der Parameter==null ist wird <code>null</code> zurückgegeben.
      *
-     * TODO: Unterstützung für long => Date
+     * TODO: Unterstützung für long ⇒ Date
      */
     protected Object tryToConvert(Object param, Class targetType) throws TcContentProzessException {
         try {

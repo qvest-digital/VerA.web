@@ -588,9 +588,9 @@ public class TcModuleConfig implements Serializable {
     /**
      * Ersetzt variablen in den Parameterwerten mit Werten.
      * Im Moment wird nur:
-     * ${HOME} => Homeverzeichnis
-     * ${user.home} => Homeverzeichnis
-     * ${module.path} => Modulverzeichnis
+     * ${HOME} ⇒ Homeverzeichnis
+     * ${user.home} ⇒ Homeverzeichnis
+     * ${module.path} ⇒ Modulverzeichnis
      * unterstützt.
      */
     public String substituteVars(String value) {
