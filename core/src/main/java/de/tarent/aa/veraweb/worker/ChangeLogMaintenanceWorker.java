@@ -119,7 +119,7 @@ public class ChangeLogMaintenanceWorker implements Runnable {
     public static final String INPUT_load[] = {};
 
     private Duration getConfiguration() {
-        Duration result = Duration.fromString("P0");
+        Duration result = Duration.fromString("P1Y");
 
         List list = (List) cntx.contentAsObject("allConfig");
         for (Iterator it = list.iterator(); it.hasNext(); ) {
