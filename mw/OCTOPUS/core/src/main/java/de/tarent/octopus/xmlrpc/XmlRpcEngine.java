@@ -74,13 +74,8 @@ import de.tarent.octopus.soap.TcSOAPException;
  *
  * @author mikel
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class XmlRpcEngine {
-
-    /**
-     * Logger für diese Klasse
-     */
-    private static Log logger = LogFactory.getLog(XmlRpcEngine.class);
-
     /**
      * Diese Methode analysiert eine XML-RPC-Anfrage.
      *

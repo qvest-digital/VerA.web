@@ -67,12 +67,11 @@ import de.tarent.dblayer.sql.Statement;
  *
  * @author Wolfgang Klein
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class Result {
     private java.sql.Connection connection;
     private java.sql.Statement statement;
     private java.sql.ResultSet result;
-
-    private static final org.apache.commons.logging.Log logger = LogFactory.getLog(Result.class);
 
     boolean statementIsClosed;
 

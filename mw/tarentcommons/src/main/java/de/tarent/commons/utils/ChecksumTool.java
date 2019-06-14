@@ -69,9 +69,8 @@ import de.tarent.commons.logging.LogFactory;
  *
  * @author Fabian K&ouml;ster (f.koester@tarent.de), tarent GmbH Bonn
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class ChecksumTool {
-    private static Log logger = LogFactory.getLog(ChecksumTool.class);
-
     /**
      * Determines whether the given file and the given checksum are equal
      *

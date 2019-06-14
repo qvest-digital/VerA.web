@@ -73,12 +73,8 @@ import de.tarent.octopus.resource.Resources;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcRawResponseEngine implements TcResponseEngine {
-    /**
-     * Der Logger
-     */
-    private static Log logger = LogFactory.getLog(TcRawResponseEngine.class);
-
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }
 

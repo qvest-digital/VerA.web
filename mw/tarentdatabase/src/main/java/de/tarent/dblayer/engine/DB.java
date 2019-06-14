@@ -90,10 +90,8 @@ import de.tarent.dblayer.sql.statement.Insert;
  * @author Sebastian Mancke, tarent GmbH
  * @author Robert Linden (r.linden@tarent.de)
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class DB {
-
-    private static final org.apache.commons.logging.Log logger = LogFactory.getLog(DB.class);
-
     /**
      * The pools
      */

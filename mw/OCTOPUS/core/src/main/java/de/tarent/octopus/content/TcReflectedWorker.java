@@ -79,6 +79,7 @@ import de.tarent.octopus.request.TcRequest;
  *
  * @author Wolfgang Klein
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 abstract public class TcReflectedWorker implements TcContentWorker {
     // TODO Logging verbessern und evtl. mit Octopus auf Log4J umstellen
     // TODO Initalisieren der Aktions in die init-Funktion verschieben?
@@ -100,8 +101,6 @@ abstract public class TcReflectedWorker implements TcContentWorker {
      * Initalisiert die Aktionen des Workers.
      */
     public TcReflectedWorker() {
-        Log logger = LogFactory.getLog(getClass());
-
         try {
             pre = getClass().getMethod("pre", PREPOST_PARAMETER);
         } catch (SecurityException e) {

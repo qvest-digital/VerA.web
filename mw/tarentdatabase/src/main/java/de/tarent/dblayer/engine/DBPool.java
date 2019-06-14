@@ -82,9 +82,8 @@ import de.tarent.dblayer.resource.Resources;
  * @author Christoph Jerolimov, tarent GmbH
  * @author Sebastian Mancke, tarent GmbH
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class DBPool implements Pool {
-    private static final org.apache.commons.logging.Log logger = LogFactory.getLog(DBPool.class);
-
     private Map info;
     private GenericObjectPool connectionPool;
     private DataSource dataSource;

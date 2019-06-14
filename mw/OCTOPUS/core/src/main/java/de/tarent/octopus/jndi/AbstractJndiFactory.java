@@ -76,9 +76,8 @@ import de.tarent.octopus.logging.LogFactory;
  * Einträge stehen dort in den Dateien <code>octopus.xml</code> und <code>web.xml</code>
  * im Verzeichnis <code>webapp/WEB-INF</code>.
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public abstract class AbstractJndiFactory implements ObjectFactory {
-    protected Log logger = LogFactory.getLog(getClass());
-
     /**
      * Currently only support the apache tomcat (and maby more servlet container?)
      * as JNDI context provider. See

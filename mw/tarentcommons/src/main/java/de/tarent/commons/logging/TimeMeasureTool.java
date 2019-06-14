@@ -60,11 +60,11 @@ import org.apache.commons.logging.Log;
  * This tool logs to "info" if the SystemProperty <code>enableTimeMeasureTool</code> is set.
  * If the SystemProperty is not set, if does not log anyway.
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TimeMeasureTool {
     static boolean doLogging = (System.getProperty("enableTimeMeasureTool") != null &&
       !"false".equalsIgnoreCase(System.getProperty("enableTimeMeasureTool")));
 
-    private static final Log logger = LogFactory.getLog(TimeMeasureTool.class);
     private static final TimeMeasureTool NOP = new TimeMeasureTool();
     Log log;
     String level;

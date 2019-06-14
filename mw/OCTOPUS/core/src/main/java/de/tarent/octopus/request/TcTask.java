@@ -88,6 +88,7 @@ import de.tarent.octopus.util.Xml;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcTask {
     protected TaskNode rootNode;
     protected TcTaskList taskList;
@@ -96,8 +97,6 @@ public class TcTask {
     private TcModuleConfig moduleConfig;
     private TcMessageDefinition contractInput = null;
     private TcMessageDefinition contractOutput = null;
-
-    private static Log logger = LogFactory.getLog(TcTask.class);
 
     //
     // Konstanten

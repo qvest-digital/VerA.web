@@ -69,11 +69,8 @@ import de.tarent.octopus.server.OctopusContext;
  *
  * @author Christoph Jerolimov, tarent GmbH
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class ConnectionWorker {
-    /**
-     * Private logger instance
-     */
-    private static final Log logger = LogFactory.getLog(ConnectionWorker.class);
     /**
      * This define the octopus input/output parameter for connections.
      */

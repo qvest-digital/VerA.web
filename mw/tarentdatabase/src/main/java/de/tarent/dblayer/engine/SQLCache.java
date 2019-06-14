@@ -69,10 +69,8 @@ import de.tarent.commons.logging.LogFactory;
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  * @author Robert Linden (r.linden@tarent.de)
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class SQLCache {
-
-    private static final org.apache.commons.logging.Log logger = LogFactory.getLog(SQLCache.class);
-
     /**
      * This map stores the cached statements. The keys follow
      * the pattern {poolname}fullpathname.

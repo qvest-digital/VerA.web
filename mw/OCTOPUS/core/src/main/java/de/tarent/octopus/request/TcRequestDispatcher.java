@@ -82,10 +82,10 @@ import java.util.Map;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @author Michael Klink, tarent GmbH
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcRequestDispatcher /*implements Serializable*/ {
     //XXX TODO: TcCommonConfig is not serialisable
     private static final long serialVersionUID = -777103062849130446L;
-    private static final Log logger = LogFactory.getLog(TcRequestDispatcher.class);
 
     private static final String DEFAULT_TASK_NAME = "default";
 

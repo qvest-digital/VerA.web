@@ -89,6 +89,7 @@ import de.tarent.octopus.resource.Resources;
  *
  * @author <a href="mailto:c.jerolimov@tarent.de">Christoph Jerolimov</a>, tarent GmbH
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcBinaryResponseEngine implements TcResponseEngine {
     /**
      * Param for a map response, define the response type, see
@@ -152,11 +153,6 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
      * HTTP header content type for unknown content types.
      */
     public static final String HTTP_DETAULT_MIMETYPE = "application/octet-stream";
-
-    /**
-     * java util logger
-     */
-    private Log logger = LogFactory.getLog(TcCommonConfig.class);
 
     /**
      * @see TcResponseEngine#init(TcModuleConfig, TcCommonConfig)

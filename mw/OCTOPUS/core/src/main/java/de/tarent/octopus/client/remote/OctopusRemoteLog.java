@@ -73,9 +73,8 @@ import de.tarent.octopus.logging.LogFactory;
  *
  * @author Philipp Kirchner, tarent GmbH
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class OctopusRemoteLog {
-    private Log logger = LogFactory.getLog(this.getClass());
-
     private String taskName;
     private Date taskStart;
     private Date taskEnd;

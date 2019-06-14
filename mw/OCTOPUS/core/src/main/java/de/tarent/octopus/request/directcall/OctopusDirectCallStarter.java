@@ -79,9 +79,8 @@ import java.util.logging.SimpleFormatter;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class OctopusDirectCallStarter implements OctopusStarter {
-    private static final Log logger = LogFactory.getLog(OctopusStarter.class);
-
     private Octopus octopus = null;
     private TcEnv env = null;
 

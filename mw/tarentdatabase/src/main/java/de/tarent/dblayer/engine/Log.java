@@ -55,10 +55,8 @@ package de.tarent.dblayer.engine;
 
 import de.tarent.commons.logging.LogFactory;
 
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class Log {
-
-    private static final org.apache.commons.logging.Log logger = LogFactory.getLog(Log.class);
-
     public static void logStatement(Object statement) {
         if (logger.isDebugEnabled()) {
             logger.debug(statement + "");

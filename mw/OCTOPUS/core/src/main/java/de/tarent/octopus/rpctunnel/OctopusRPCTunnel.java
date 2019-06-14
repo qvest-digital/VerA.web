@@ -68,14 +68,13 @@ import de.tarent.octopus.request.Octopus;
  *
  * @author hendrik
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class OctopusRPCTunnel {
     private OctopusRPCListener listener = null;
 
     public static final String ROLE_OCTOPUS = "octopus";
 
     private static OctopusRPCTunnel octTunnel = null;
-
-    private static Log logger = LogFactory.getLog(OctopusRPCTunnel.class);
 
     private OctopusRPCTunnel(Octopus octopus, TcCommonConfig commonconfig) throws RPCTunnelUnavailableException {
         try {

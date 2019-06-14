@@ -73,10 +73,10 @@ import de.tarent.dblayer.engine.Pool;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.statement.Insert;
 
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class CopyDBWorker {
     public static final String TABLE_NAME_PATTERN = "t%";
     private static final List ignoreList = new ArrayList();
-    private static Log logger = LogFactory.getLog(CopyDBWorker.class);
 
     /**
      * Param Definition

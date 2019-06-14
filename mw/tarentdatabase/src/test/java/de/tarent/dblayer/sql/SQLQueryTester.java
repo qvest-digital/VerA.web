@@ -85,6 +85,7 @@ import de.tarent.commons.logging.LogFactory;
  *
  * @author Fabian K&ouml;ster (f.koester@tarent.de), tarent GmbH Bonn
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class SQLQueryTester {
     private String sqlQueriesPath = System.getProperty("user.home") + File.separator + "veraweb.log";
     private String confPath = System.getProperty("user.home") + File.separator + "query_tester.conf";
@@ -122,8 +123,6 @@ public class SQLQueryTester {
     private int exceptions;
 
     private List knownMessages;
-
-    private static Log logger = LogFactory.getLog(SQLQueryTester.class);
 
     public final static short LOG_TYPE_VERAWEB = 0;
     public final static short LOG_TYPE_PFJDBC = 1;

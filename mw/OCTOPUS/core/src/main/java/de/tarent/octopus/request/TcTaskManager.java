@@ -74,12 +74,8 @@ import de.tarent.octopus.server.OctopusContext;
  * <b>tarent GmbH</b>
  * @author Michael Klink
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcTaskManager {
-    /**
-     * Der Logger
-     */
-    private static Log logger = LogFactory.getLog(TcTaskManager.class);
-
     /**
      * Strukturierte Liste der Tasks des aktuellen Moduls. Wird erst gesetzt,
      * wenn eine Abarbeitung mit start() gestartet wird.

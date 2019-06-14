@@ -83,16 +83,9 @@ import org.apache.commons.logging.LogFactory;
  * @author Michael Klink, tarent GmbH
  * @author Christoph Jerolimov, tarent GmbH
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class Forward extends HttpServlet {
-    /**
-     * serialVersionUID
-     */
     private static final long serialVersionUID = 3256441417202218291L;
-
-    /**
-     * Logger-Instanz
-     */
-    public final static Log logger = LogFactory.getLog(Forward.class);
 
     /**
      * Servlet-Parameter für den Pfad zum KontextRoot der Ziel Webanwendung

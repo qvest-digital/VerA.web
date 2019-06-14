@@ -79,10 +79,8 @@ import de.tarent.octopus.server.PersonalConfig;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class LoginManagerXML extends AbstractLoginManager {
-
-    private static Log logger = LogFactory.getLog(LoginManagerXML.class);
-
     public static final String KEY_USER_FILE = "userFile";
     public static final String DEFAULT_USER_FILE_NAME = "user.xml";
 

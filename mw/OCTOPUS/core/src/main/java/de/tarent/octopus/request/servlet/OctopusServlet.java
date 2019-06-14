@@ -93,6 +93,7 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class OctopusServlet extends HttpServlet {
     private static final long serialVersionUID = 4282983278380049718L;
 
@@ -100,7 +101,6 @@ public class OctopusServlet extends HttpServlet {
     private static TcEnv env;
 
     private static TcSOAPEngine soapEngine;
-    private static final Log logger = LogFactory.getLog(OctopusServlet.class);
 
     // Fehler, der während des Initialisierens auftritt
     private static Exception initError = null;

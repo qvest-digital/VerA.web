@@ -76,12 +76,8 @@ import de.tarent.octopus.soap.TcSOAPException;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngine {
-    /**
-     * Der Logger
-     */
-    private static Log logger = LogFactory.getLog(TcCommonConfig.class);
-
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }
 

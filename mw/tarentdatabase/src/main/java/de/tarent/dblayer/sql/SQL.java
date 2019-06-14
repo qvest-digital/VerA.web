@@ -79,18 +79,8 @@ import org.apache.commons.logging.Log;
  *
  * @author kleinw
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class SQL {
-    //
-    // non-public members
-    //
-    /**
-     * logger of this class
-     */
-    final static Log logger = LogFactory.getLog(SQL.class);
-    //
-    // public static factory methods
-    //
-
     /**
      * This method returns a non-distinct {@link Select} {@link Statement}
      * fitting the given execution context.

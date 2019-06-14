@@ -67,9 +67,8 @@ import java.util.List;
  *
  * @author Sebastian Mancke
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
-    Log logger = LogFactory.getLog(getClass());
-
     // Feldkonstanten für die Metadaten
     public static final String FIELD_NAME_PREFIX_INPUT = "INPUT_";
     public static final String FIELD_NAME_PREFIX_OUTPUT = "OUTPUT_";

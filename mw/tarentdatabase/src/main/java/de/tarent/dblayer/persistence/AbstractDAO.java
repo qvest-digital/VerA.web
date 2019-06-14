@@ -82,10 +82,8 @@ import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.commons.logging.TimeMeasureTool;
 import de.tarent.commons.utils.Pojo;
 
+import lombok.extern.log4j.Log4j2;@Log4j2
 public abstract class AbstractDAO {
-
-    private static final Log logger = LogFactory.getLog(AbstractDAO.class);
-
     /**
      * the String "<code>desc</code>" for descending orders
      */

@@ -83,6 +83,7 @@ import de.tarent.octopus.logging.LogFactory;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcGenericDataAccessWrapper {
     //
     // geschützte Member
@@ -95,8 +96,6 @@ public class TcGenericDataAccessWrapper {
     protected List resultSetCommands;
     protected int resultSetCache;
     protected Map dirtyDataSections;
-
-    protected static Log logger = LogFactory.getLog(TcGenericDataAccessWrapper.class);
 
     protected static List allDataAccessWrappers = Collections.synchronizedList(new ArrayList());
 

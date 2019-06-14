@@ -86,15 +86,14 @@ import de.tarent.octopus.security.TcSecurityException;
  * @author philipp
  * @deprecated functionality moved into LDAPLib, will be removed as soon as 2005-06-01
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcSecurityLDAPManager {
-
     //Hashtable mit Zugriffsdaten
     private Hashtable env;
     private InitialLdapContext lctx;
     private String baseDN;
     private String relative;
     public boolean login = false;
-    private static Log logger = LogFactory.getLog(TcSecurityLDAPManager.class);
 
     /**
      * Erzeugt einen LDAPManager

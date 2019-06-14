@@ -78,12 +78,8 @@ import de.tarent.dblayer.engine.Pool;
  *
  * @author Christoph Jerolimov, tarent GmbH
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class PoolProxy implements Pool {
-    /**
-     * Logger instance
-     */
-    private static final Log logger = LogFactory.getLog(PoolProxy.class);
-
     /**
      * Delegate instance
      */

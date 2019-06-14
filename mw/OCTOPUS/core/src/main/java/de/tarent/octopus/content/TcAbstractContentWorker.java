@@ -69,8 +69,8 @@ import de.tarent.octopus.request.TcRequest;
  *
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public abstract class TcAbstractContentWorker implements TcContentWorker {
-    private static Log logger = LogFactory.getLog(TcAbstractContentWorker.class);
     private TcCommonConfig commonConfig;
 
     public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)

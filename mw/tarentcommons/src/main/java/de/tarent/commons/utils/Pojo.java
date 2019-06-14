@@ -67,9 +67,8 @@ import java.util.Set;
 /**
  * Util class for dealing with plain old java objects (POJOs)
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class Pojo {
-    private static final Log logger = LogFactory.getLog(Pojo.class);
-
     static Object[] emptyObjectArray = new Object[] {};
 
     private static Map methodCache = new HashMap();

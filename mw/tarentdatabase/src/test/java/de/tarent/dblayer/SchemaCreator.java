@@ -66,10 +66,8 @@ import java.io.*;
 
 import org.apache.commons.logging.Log;
 
+import lombok.extern.log4j.Log4j2;@Log4j2
 public abstract class SchemaCreator {
-
-    public static final Log logger = LogFactory.getLog(SchemaCreator.class);
-
     public static final String CONFIG_FILENAME = "test-connection.properties";
     public static final String TEST_POOL = "test_pool";
 

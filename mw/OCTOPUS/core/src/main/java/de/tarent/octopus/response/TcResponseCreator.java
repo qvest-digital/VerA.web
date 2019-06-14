@@ -95,10 +95,10 @@ import java.util.*;
  * @see TcXsltResponseEngine
  * @see TcSimpleResponseEngine
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcResponseCreator implements Serializable {
     private static final long serialVersionUID = -7351394970690540789L;
 
-    private static final Log logger = LogFactory.getLog(TcResponseCreator.class);
     private HashMap responseEngines;
 
     /**

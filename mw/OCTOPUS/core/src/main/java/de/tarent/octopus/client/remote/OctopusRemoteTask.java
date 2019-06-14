@@ -81,11 +81,9 @@ import org.apache.axis.encoding.TypeMappingRegistry;
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class OctopusRemoteTask implements OctopusTask {
-
     private static final String AXIS_CONFIG = "/axis-config.wsdd";
-
-    Log logger = LogFactory.getLog(OctopusRemoteTask.class);
 
     static Service axisSoapService;
 

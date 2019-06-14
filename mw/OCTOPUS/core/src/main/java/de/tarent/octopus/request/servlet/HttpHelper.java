@@ -92,9 +92,8 @@ import de.tarent.octopus.xmlrpc.XmlRpcEngine;
  *
  * @author mikel
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class HttpHelper {
-    private static Log logger = LogFactory.getLog(HttpHelper.class);
-
     //
     // * HTTP-Content-Types:
     //

@@ -76,10 +76,8 @@ import de.tarent.commons.logging.LogFactory;
  *
  * @author Christoph Jerolimov
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class ResultMap implements Map {
-
-    private static final Log logger = LogFactory.getLog(ResultMap.class);
-
     private final ResultSet resultSet;
     private final List columns;
     private final int size;

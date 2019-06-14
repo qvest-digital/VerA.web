@@ -77,10 +77,8 @@ import de.tarent.octopus.request.internal.OctopusStarter;
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class OctopusConnectionFactory {
-
-    private static Log logger = LogFactory.getLog(OctopusConnectionFactory.class);
-
     public static final String PROPERTY_FILE_NAME_END = "-octopus-connection.properties";
 
     public static final String OCTOPUS_PARAMS_KEY_PREFIX = "octopus.";

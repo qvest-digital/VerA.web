@@ -80,12 +80,8 @@ import de.tarent.octopus.server.Closeable;
  *
  * @author Christoph Jerolimov
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class ResultList implements List, Closeable {
-
-    /**
-     * Logger of this class
-     */
-    private static final Log logger = LogFactory.getLog(ResultList.class);
     /**
      * The {@link ResultSet} operated upon.
      */

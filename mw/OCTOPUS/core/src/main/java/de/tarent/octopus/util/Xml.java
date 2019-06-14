@@ -82,11 +82,8 @@ import org.xml.sax.SAXException;
 
 import de.tarent.octopus.logging.LogFactory;
 
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class Xml {
-    /**
-     * Der Logger
-     */
-    private static Log logger = LogFactory.getLog(Xml.class);
     private static TransformerFactory tFactory = null;
 
     public static Transformer getXSLTTransformer(Source xsltSource) throws TransformerConfigurationException {

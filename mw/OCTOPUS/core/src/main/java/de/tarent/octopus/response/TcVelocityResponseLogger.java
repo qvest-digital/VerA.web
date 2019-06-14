@@ -59,12 +59,8 @@ import org.apache.velocity.runtime.log.LogSystem;
 
 import de.tarent.octopus.logging.LogFactory;
 
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcVelocityResponseLogger implements LogSystem {
-    /**
-     * Der Logger
-     */
-    private static Log logger = LogFactory.getLog(TcVelocityResponseLogger.class);
-
     public TcVelocityResponseLogger() {
         // do Nothing
     }

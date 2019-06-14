@@ -66,9 +66,8 @@ import de.tarent.octopus.logging.LogFactory;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class OctopusExtensionLoader {
-    private static Log logger = LogFactory.getLog(OctopusExtensionLoader.class);
-
     /**
      * Loads, initializes and starts the extension given by classname.
      * On initialization, the given parameter is used.

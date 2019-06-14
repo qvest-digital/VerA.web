@@ -77,12 +77,8 @@ import de.tarent.octopus.xmlrpc.XmlRpcBuffer;
  *
  * @author mikel
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEngine {
-    //
-    // Membervariablen
-    //
-    private static Log logger = LogFactory.getLog(TcXmlrpcResponseEngine.class);
-
     /* (non-Javadoc)
      * @see de.tarent.octopus.response.TcResponseEngine#sendResponse(de.tarent.octopus.config.TcConfig, de.tarent.octopus
      * .request.TcResponse, de.tarent.octopus.content.TcContent, de.tarent.octopus.response.TcResponseDescription, java.lang

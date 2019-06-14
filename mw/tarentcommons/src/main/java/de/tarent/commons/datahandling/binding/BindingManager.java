@@ -80,9 +80,8 @@ import java.util.List;
  * TODO: We need a good error handling mechanism for this class, becase throwing of exceptions does not make sense on code
  * called by gui events.
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class BindingManager implements DataChangedListener {
-    private static final Log logger = LogFactory.getLog(BindingManager.class);
-
     /**
      * The target model for all bindings
      */

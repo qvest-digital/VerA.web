@@ -67,9 +67,8 @@ import java.util.Map;
 /**
  * Diese Klasse liefert dem Octopus notwendige Daten.
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 class ServletModuleLookup implements TcModuleLookup {
-    private static final Log logger = LogFactory.getLog(ServletModuleLookup.class);
-
     /**
      * Octopus servlet context
      */

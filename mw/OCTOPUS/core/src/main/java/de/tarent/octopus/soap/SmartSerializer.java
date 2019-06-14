@@ -70,14 +70,9 @@ import org.xml.sax.Attributes;
 
 import de.tarent.octopus.logging.LogFactory;
 
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class SmartSerializer implements Serializer {
-
-    /**
-     * serialVersionUID
-     */
     private static final long serialVersionUID = 7766326226378057582L;
-
-    private static final Log logger = LogFactory.getLog(SmartSerializer.class);
 
     public void serialize(QName proposedName, Attributes attributes, Object value, SerializationContext context)
       throws IOException {

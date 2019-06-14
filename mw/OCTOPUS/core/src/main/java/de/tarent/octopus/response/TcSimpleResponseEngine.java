@@ -85,9 +85,8 @@ import de.tarent.octopus.util.Xml;
  *
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcSimpleResponseEngine implements TcResponseEngine {
-    private static Log logger = LogFactory.getLog(TcSimpleResponseEngine.class);
-
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }
 

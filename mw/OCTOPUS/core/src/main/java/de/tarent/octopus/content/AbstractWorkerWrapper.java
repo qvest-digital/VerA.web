@@ -78,9 +78,8 @@ import java.util.Map;
  *
  * @author Sebastian Mancke
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public abstract class AbstractWorkerWrapper implements TcContentWorker, DelegatingWorker {
-    private static Log logger = LogFactory.getLog(AbstractWorkerWrapper.class);
-
     /**
      * Worker, an den Aufrufe delegiert werden sollen.
      */

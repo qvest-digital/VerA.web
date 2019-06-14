@@ -77,12 +77,8 @@ import java.util.logging.SocketHandler;
  * @author Christoph Jerolimov, tarent GmbH
  * @author Sascha Brawer (brawer@acm.org)
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class LogManager {
-    /**
-     * Java util logger instance.
-     */
-    private static final Log logger = LogFactory.getLog(LogManager.class);
-
     /**
      * Root logger property name
      */

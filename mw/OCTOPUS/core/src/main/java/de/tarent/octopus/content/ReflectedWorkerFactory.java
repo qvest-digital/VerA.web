@@ -67,9 +67,8 @@ import de.tarent.octopus.server.WorkerCreationException;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @see TcContentWorker
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class ReflectedWorkerFactory implements SpecialWorkerFactory {
-
-    private static Log logger = LogFactory.getLog(ReflectedWorkerFactory.class);
     private static Class[] emptyClassArray = new Class[] {};
     private static Object[] emptyObjectArray = new Object[] {};
 

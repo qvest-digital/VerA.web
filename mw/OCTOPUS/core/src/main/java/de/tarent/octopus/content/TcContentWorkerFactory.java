@@ -71,9 +71,8 @@ import de.tarent.octopus.server.WorkerCreationException;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @see TcContentWorker
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcContentWorkerFactory {
-    private static Log logger = LogFactory.getLog(TcContentWorkerFactory.class);
-
     /**
      * Map mit TcContentWorkern. Keys der Map sind die ClassLoader der Module. Values sind wiederum Maps mit
      * („workername“ ⇒ Instance).

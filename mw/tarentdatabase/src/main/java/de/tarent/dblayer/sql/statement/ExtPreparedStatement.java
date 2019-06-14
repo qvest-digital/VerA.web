@@ -83,9 +83,8 @@ import java.util.Map;
  * This is an holder for an java.sql.PreparedStatement,
  * where the Parameters can be set by String keys.
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class ExtPreparedStatement implements ParamSet {
-    private static final Log logger = LogFactory.getLog(ExtPreparedStatement.class);
-
     String sqlCode;
     // String List of the param names
     List params;

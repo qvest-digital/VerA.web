@@ -78,9 +78,8 @@ import java.util.jar.Manifest;
  *
  * @author Sebastian Mancke (s.mancke@tarent.de) tarent GmbH Bonn
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class VersionTool {
-    private static final Log logger = LogFactory.getLog(VersionTool.class);
-
     public static final String PREFIX_PACKAGE = "package:";
     public static final String PREFIX_RESOURCE = "resource:";
     public static final String PREFIX_JAR = "jar:";

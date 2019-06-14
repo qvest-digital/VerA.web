@@ -83,10 +83,8 @@ import de.tarent.octopus.logging.LogFactory;
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class OctopusRemoteConnection implements OctopusConnection {
-
-    private static Log logger = LogFactory.getLog(OctopusRemoteConnection.class);
-
     public static final String AUTH_TYPE = "authType";
     public static final String AUTH_TYPE_CALL_PARAM = "callParam";
     public static final String AUTH_TYPE_SESSION = "session";

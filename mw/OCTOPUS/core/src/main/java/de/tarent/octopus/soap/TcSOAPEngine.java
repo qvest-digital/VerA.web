@@ -81,10 +81,10 @@ import java.util.zip.GZIPInputStream;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcSOAPEngine implements Serializable {
     private static final long serialVersionUID = 2864111953752691905L;
 
-    private static Log logger = LogFactory.getLog(TcSOAPEngine.class);
     public static final String NAMESPACE_URI = "http://schemas.tarent.de/";
     public static final String NAMESPACE_URI_TC = NAMESPACE_URI + "tccontact";
 

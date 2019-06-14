@@ -66,9 +66,8 @@ import org.apache.commons.logging.Log;
  * Abstract class for object creation and object filling over reflection.
  * It is intended for subclassing, as well as usage out of the box.
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class DefaultEntityFactory implements EntityFactory {
-    private static final Log logger = LogFactory.getLog(DefaultEntityFactory.class);
-
     public static final String PROPERTY_SEPARATOR = ".";
 
     Class instantiationClass;

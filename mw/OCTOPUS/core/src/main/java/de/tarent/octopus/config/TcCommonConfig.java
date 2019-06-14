@@ -93,11 +93,10 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class TcCommonConfig /*implements Serializable*/ {
     //XXX TODO: TcModuleLookup is not serialisable
     private static final long serialVersionUID = -7304052591685293777L;
-
-    private static final Log logger = LogFactory.getLog(TcCommonConfig.class);
 
     /**
      * Autorisierungstyp: beliebiges Akzeptieren

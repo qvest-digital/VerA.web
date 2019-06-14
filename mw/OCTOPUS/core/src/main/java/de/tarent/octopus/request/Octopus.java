@@ -78,6 +78,7 @@ import java.util.*;
  *
  * @author mikel
  */
+import lombok.extern.log4j.Log4j2;@Log4j2
 public class Octopus /*implements Serializable*/ {
     //XXX TODO: TcModuleLookup is not serialisable
     //XXX TODO: OctopusExtension is not serialisable
@@ -89,8 +90,6 @@ public class Octopus /*implements Serializable*/ {
     private TcRequestDispatcher dispatcher;
     private TcModuleLookup moduleLookup;
     private TcCommonConfig commonConfig;
-
-    private static Log logger = LogFactory.getLog(Octopus.class);
 
     public static final String TASKNAME_CLEANUP = "cleanup";
     public static final String TASKNAME_AUTOSTART = "autostart";
