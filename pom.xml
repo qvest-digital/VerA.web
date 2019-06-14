@@ -295,6 +295,7 @@
 				<executions>
 					<execution>
 						<id>owasp-check</id>
+						<phase>install</phase>
 						<goals>
 							<goal>aggregate</goal>
 						</goals>
