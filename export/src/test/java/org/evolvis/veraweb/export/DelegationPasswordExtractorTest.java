@@ -69,15 +69,6 @@ package org.evolvis.veraweb.export;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
-
 import org.evolvis.veraweb.util.DelegationPasswordGenerator;
 import org.junit.Before;
 import org.junit.Rule;
@@ -86,8 +77,22 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-public class DelegationPasswordExtractorTest {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+public class DelegationPasswordExtractorTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
@@ -103,13 +108,12 @@ public class DelegationPasswordExtractorTest {
 
     @Before
     public void setup() {
-
         final Calendar cal = Calendar.getInstance();
         cal.set(1978, 0, 9);
         eventBegin = cal.getTime();
         eventName = "3. Treffen der annynomen Scrum-Leugner";
         companyName = "tarent solutions GmbH";
-        when(generator.generatePassword(anyString(), any(Date.class), anyString())).thenReturn("generated password");
+        lenient().when(generator.generatePassword(anyString(), any(Date.class), anyString())).thenReturn("generated password");
     }
 
     @Test
