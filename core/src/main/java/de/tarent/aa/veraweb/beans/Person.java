@@ -75,7 +75,6 @@ import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
-import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
