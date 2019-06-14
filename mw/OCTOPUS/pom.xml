@@ -15,7 +15,6 @@
 		<module>core</module>
 		<module>ext-annotation</module>
 		<module>ext-beans</module>
-		<module>ext-commons</module>
 		<module>ext-cronjobs</module>
 		<module>ext-jmx</module>
 		<module>rpctunnel</module>

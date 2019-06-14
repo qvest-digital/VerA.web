@@ -114,10 +114,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-commons</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-cronjobs</artifactId>
 		</dependency>
 		<dependency>
@@ -284,7 +280,6 @@
 								<ignoredUnusedDeclaredDependency>org.apache.logging.log4j:log4j-core</ignoredUnusedDeclaredDependency>
 								<!-- OCTOPUS extensions -->
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-annotation</ignoredUnusedDeclaredDependency>
-								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-commons</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-cronjobs</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-jmx</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-servlet</ignoredUnusedDeclaredDependency>

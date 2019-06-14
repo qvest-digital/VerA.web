@@ -788,11 +788,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.veraweb.middleware</groupId>
-				<artifactId>octopus-ext-commons</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.evolvis.veraweb.middleware</groupId>
 				<artifactId>octopus-ext-cronjobs</artifactId>
 				<version>${project.version}</version>
 			</dependency>
