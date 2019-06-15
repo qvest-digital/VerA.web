@@ -53,6 +53,9 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * commons-logging 1.2 Log interface
+ */
 public interface Log {
     void debug(java.lang.Object msg);
 

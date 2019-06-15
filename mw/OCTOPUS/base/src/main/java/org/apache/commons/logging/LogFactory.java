@@ -53,12 +53,37 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+
+/**
+ * Subset of commons-logging 1.2 LogFactory interface
+ *
+ * @author mirabilos (t.glaser@tarent.de)
+ */
+@Log4j2
 public abstract class LogFactory {
     public static Log getLog(java.lang.Class clazz) throws LogConfigurationException {
-        return null;
+        logger.warn("Class {} used with commons-logging 1.2 LogFactory interface",
+          clazz == null ? "(nil)" : clazz.getName(),
+          new LogConfigurationException("dummy exception for generating a stack trace"));
+        try {
+            return new LogImpl(LogManager.getLogger(clazz));
+        } catch (Exception e) {
+            throw new LogConfigurationException("could not get logger for class " +
+              (clazz == null ? "(nil)" : clazz.getName()), e);
+        }
     }
 
     public static Log getLog(java.lang.String clazzName) throws LogConfigurationException {
-        return null;
+        logger.warn("Class name {} used for commons-logging 1.2 LogFactory interface",
+          clazzName == null ? "(nil)" : clazzName,
+          new LogConfigurationException("dummy exception for generating a stack trace"));
+        try {
+            return new LogImpl(LogManager.getLogger(clazzName));
+        } catch (Exception e) {
+            throw new LogConfigurationException("could not get logger for class name " +
+              (clazzName == null ? "(nil)" : clazzName), e);
+        }
     }
 }

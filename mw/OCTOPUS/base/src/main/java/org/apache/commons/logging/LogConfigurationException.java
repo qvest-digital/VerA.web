@@ -53,23 +53,34 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * Helper class for {@link LogFactory}
+ */
 public class LogConfigurationException extends RuntimeException {
     private static final long serialVersionUID = 1571584275865309127L;
-    protected java.lang.Throwable cause;
+    protected Throwable cause;
 
     public LogConfigurationException() {
+        super();
+        cause = null;
     }
 
-    public LogConfigurationException(String msg) {
+    public LogConfigurationException(final String msg) {
+        super(msg);
+        cause = null;
     }
 
-    public LogConfigurationException(Throwable e) {
+    public LogConfigurationException(final Throwable e) {
+        super(e);
+        cause = e;
     }
 
-    public LogConfigurationException(String msg, Throwable e) {
+    public LogConfigurationException(final String msg, final Throwable e) {
+        super(msg, e);
+        cause = e;
     }
 
     public Throwable getCause() {
-        return null;
+        return cause;
     }
 }                                                                                                                
