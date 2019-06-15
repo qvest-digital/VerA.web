@@ -288,6 +288,7 @@
 		</pluginManagement>
 		<plugins>
 			<plugin>
+				<!-- mvn -Ddependency-check.skip … -->
 				<groupId>org.owasp</groupId>
 				<artifactId>dependency-check-maven</artifactId>
 				<version>${maven.owasp.dependency-check.version}</version>
