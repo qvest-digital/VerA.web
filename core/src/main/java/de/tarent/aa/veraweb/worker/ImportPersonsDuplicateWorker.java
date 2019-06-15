@@ -84,6 +84,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -98,21 +99,14 @@ import java.util.StringTokenizer;
  *
  * @author hendrik
  */
+@Log4j2
 public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
-    //
-    // Konstruktoren
-    //
-
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
     public ImportPersonsDuplicateWorker() {
         super("ImportPerson");
     }
-
-    //
-    // Oberklasse BeanListWorker
-    //
 
     /**
      * @see de.tarent.octopus.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)
@@ -121,7 +115,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
         final Map importDuplicatesProperties = (Map) octopusContext.moduleConfig().getParams().get("importDuplicatesProperties");
         if (importDuplicatesProperties == null) {
-            ImportPersonsWorker.logger.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
+            logger.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
         }
         if (octopusContext.sessionAsObject("limit" + BEANNAME) == null) {
             octopusContext.setSession("limit" + BEANNAME, Integer.parseInt((String) importDuplicatesProperties.get("dsCount")));
