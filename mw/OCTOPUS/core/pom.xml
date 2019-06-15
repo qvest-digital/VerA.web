@@ -51,7 +51,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-rpctunnel</artifactId>
+			<artifactId>octopus-base</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

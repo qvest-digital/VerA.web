@@ -6,10 +6,10 @@
 		<artifactId>octopus-parent</artifactId>
 		<version>2.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>octopus-rpctunnel</artifactId>
+	<artifactId>octopus-base</artifactId>
 	<packaging>jar</packaging>
-	<name>OCTOPUS rpctunnel</name>
-	<description>tarent OCTOPUS application framework, rpctunnel part</description>
+	<name>OCTOPUS base prerequisites</name>
+	<description>tarent OCTOPUS application framework, prerequisites</description>
 	<properties>
 		<sonar.tests />
 	</properties>

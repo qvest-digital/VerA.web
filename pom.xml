@@ -769,7 +769,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.veraweb.middleware</groupId>
-				<artifactId>octopus-rpctunnel</artifactId>
+				<artifactId>octopus-base</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

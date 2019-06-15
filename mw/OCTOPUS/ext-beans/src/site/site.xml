@@ -27,7 +27,7 @@
 		${reports}
 
 		<menu name="Links">
-			<item name="RPC tunnel"            href="../octopus-rpctunnel/" />
+			<item name="RPC tunnel"            href="../octopus-base/" />
 			<item name="Octopus core"          href="../octopus-core/" />
 			<item name="Octopus servlet"       href="../octopus-servlet/" />
 			<item name="Octopus commons"       href="../octopus-ext-commons/" />
