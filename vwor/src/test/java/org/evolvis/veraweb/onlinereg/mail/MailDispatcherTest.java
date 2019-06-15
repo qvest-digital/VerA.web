@@ -128,15 +128,15 @@ public class MailDispatcherTest {
           emailConfiguration.getContentType());
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
-        final ArgumentCaptor<Address[]> receipents = ArgumentCaptor.forClass(Address[].class);
+        final ArgumentCaptor<Address[]> recipients = ArgumentCaptor.forClass(Address[].class);
 
         verify(transportMock).connect(PARAM_HOST, PARAM_USER, PARAM_PASS);
-        verify(transportMock).sendMessage(message.capture(), receipents.capture());
+        verify(transportMock).sendMessage(message.capture(), recipients.capture());
         verify(transportMock).close();
 
         assertEquals(PARAM_SUBJECT, message.getValue().getSubject());
         assertEquals(PARAM_TEXT, (String) message.getValue().getContent());
-        assertEquals(PARAM_TO, (receipents.getValue()[0]).toString());
+        assertEquals(PARAM_TO, (recipients.getValue()[0]).toString());
     }
 
     @Test
@@ -150,10 +150,10 @@ public class MailDispatcherTest {
         classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, fileMap, "plain");
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
-        final ArgumentCaptor<Address[]> receipents = ArgumentCaptor.forClass(Address[].class);
+        final ArgumentCaptor<Address[]> recipients = ArgumentCaptor.forClass(Address[].class);
 
         verify(transportMock).connect(PARAM_HOST, PARAM_USER, PARAM_PASS);
-        verify(transportMock).sendMessage(message.capture(), receipents.capture());
+        verify(transportMock).sendMessage(message.capture(), recipients.capture());
         verify(transportMock).close();
 
         final MimeMultipart content = (MimeMultipart) message.getValue().getContent();
@@ -167,10 +167,10 @@ public class MailDispatcherTest {
         classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, null, "plain");
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
-        final ArgumentCaptor<Address[]> receipents = ArgumentCaptor.forClass(Address[].class);
+        final ArgumentCaptor<Address[]> recipients = ArgumentCaptor.forClass(Address[].class);
 
         verify(transportMock).connect(PARAM_HOST, PARAM_USER, PARAM_PASS);
-        verify(transportMock).sendMessage(message.capture(), receipents.capture());
+        verify(transportMock).sendMessage(message.capture(), recipients.capture());
         verify(transportMock).close();
     }
 
@@ -181,10 +181,10 @@ public class MailDispatcherTest {
         classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, emptyFileMap, "plain");
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
-        final ArgumentCaptor<Address[]> receipents = ArgumentCaptor.forClass(Address[].class);
+        final ArgumentCaptor<Address[]> recipients = ArgumentCaptor.forClass(Address[].class);
 
         verify(transportMock).connect(PARAM_HOST, PARAM_USER, PARAM_PASS);
-        verify(transportMock).sendMessage(message.capture(), receipents.capture());
+        verify(transportMock).sendMessage(message.capture(), recipients.capture());
         verify(transportMock).close();
     }
 }

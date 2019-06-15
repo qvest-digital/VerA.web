@@ -111,7 +111,7 @@ public class DelegationPasswordExtractorTest {
         final Calendar cal = Calendar.getInstance();
         cal.set(1978, 0, 9);
         eventBegin = cal.getTime();
-        eventName = "3. Treffen der annynomen Scrum-Leugner";
+        eventName = "3. Treffen der anonymen Scrum-Leugner";
         companyName = "tarent solutions GmbH";
         lenient().when(generator.generatePassword(anyString(), any(Date.class), anyString())).thenReturn("generated password");
     }
