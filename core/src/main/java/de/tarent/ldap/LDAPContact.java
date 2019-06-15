@@ -88,8 +88,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
-
 /**
  * Objekt, welches ungefähr das repräsentiert, was inetOrgPerson im LDAP ist...
  *
@@ -157,7 +155,7 @@ public class LDAPContact {
         setVorname(get(address, "a4"));
         setNachname(get(address, "a5"));
         setArbeitFirma(get(address, "a7"));
-        if ((getArbeitFirma() == null) || isBlank(getArbeitFirma())) {
+        if ((getArbeitFirma() == null) || StringUtils.isBlank(getArbeitFirma())) {
             //PrivatAdresse
             setPrivatStrasse(get(address, "a8") + get(address, "a9"));
             setPrivatPLZ(get(address, "a10"));
@@ -191,11 +189,11 @@ public class LDAPContact {
      *
      */
     private void checkNachName() {
-        if (isBlank(nachname)) {
+        if (StringUtils.isBlank(nachname)) {
             //Nachname leer, versuche Firma
-            if (isBlank(arbeitFirma)) {
+            if (StringUtils.isBlank(arbeitFirma)) {
                 //Firma auch leer, versuche Vorname
-                if (isBlank(vorname)) {
+                if (StringUtils.isBlank(vorname)) {
                     nachname = EMPTY_STRING;
                 } else {
                     nachname = "Vorname: vorname";
@@ -242,7 +240,7 @@ public class LDAPContact {
      */
     public String getNachname() {
         checkNachName();
-        return isBlank(nachname) ? "unbekannt" : nachname;
+        return StringUtils.isBlank(nachname) ? "unbekannt" : nachname;
     }
 
     /**
