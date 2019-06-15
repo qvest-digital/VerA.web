@@ -98,10 +98,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
-			<artifactId>octopus-ext-annotation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-ext-beans</artifactId>
 		</dependency>
 		<dependency>
@@ -265,7 +261,6 @@
 							<failOnWarning>false</failOnWarning>
 							<ignoredUnusedDeclaredDependencies combine.children="append">
 								<!-- OCTOPUS extensions -->
-								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-annotation</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-cronjobs</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-jmx</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-servlet</ignoredUnusedDeclaredDependency>

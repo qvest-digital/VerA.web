@@ -13,7 +13,6 @@
 	<description>VerA.web embedded OCTOPUS</description>
 	<modules>
 		<module>core</module>
-		<module>ext-annotation</module>
 		<module>ext-beans</module>
 		<module>ext-cronjobs</module>
 		<module>ext-jmx</module>

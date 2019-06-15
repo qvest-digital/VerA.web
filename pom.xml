@@ -754,11 +754,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.veraweb.middleware</groupId>
-				<artifactId>octopus-ext-annotation</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.evolvis.veraweb.middleware</groupId>
 				<artifactId>octopus-ext-beans</artifactId>
 				<version>${project.version}</version>
 			</dependency>
