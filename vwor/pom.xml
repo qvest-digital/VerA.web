@@ -93,6 +93,10 @@
 			<artifactId>rest-api-common</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>octopus-base</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
 		</dependency>
