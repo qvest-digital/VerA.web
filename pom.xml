@@ -355,8 +355,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
+					<!-- for now… TODO FIXME -->
 					<execution>
-						<!-- for now… TODO FIXME -->
 						<id>analyse-dependency-management</id>
 						<configuration>
 							<failBuild>false</failBuild>
@@ -749,6 +749,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.veraweb.middleware</groupId>
+				<artifactId>octopus-base</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.evolvis.veraweb.middleware</groupId>
 				<artifactId>octopus-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -765,11 +770,6 @@
 			<dependency>
 				<groupId>org.evolvis.veraweb.middleware</groupId>
 				<artifactId>octopus-ext-jmx</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.evolvis.veraweb.middleware</groupId>
-				<artifactId>octopus-base</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

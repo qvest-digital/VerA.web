@@ -60,17 +60,6 @@
 						<version>${maven.docker-compose.version}</version>
 						<executions>
 							<execution>
-								<id>up</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>up</goal>
-								</goals>
-								<configuration>
-									<composeFile>${project.basedir}/docker-compose.yml</composeFile>
-									<detachedMode>true</detachedMode>
-								</configuration>
-							</execution>
-							<execution>
 								<id>down</id>
 								<phase>post-integration-test</phase>
 								<goals>
@@ -81,6 +70,17 @@
 									<removeVolumes>true</removeVolumes>
 								</configuration>
 							</execution>
+							<execution>
+								<id>up</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>up</goal>
+								</goals>
+								<configuration>
+									<composeFile>${project.basedir}/docker-compose.yml</composeFile>
+									<detachedMode>true</detachedMode>
+								</configuration>
+							</execution>
 						</executions>
 					</plugin>
 					<!-- Build docker images -->
@@ -89,17 +89,17 @@
 						<artifactId>dockerfile-maven-plugin</artifactId>
 						<version>${maven.dockerfile.version}</version>
 						<executions>
-							<!-- Build core docker image -->
-							<execution>
-								<id>build core image</id>
+							<!-- Uncomment to also build LDAP docker image -->
+							<!--execution>
+								<id>build LDAP image</id>
 								<goals>
 									<goal>build</goal>
 								</goals>
 								<configuration>
-									<contextDirectory>${project.build.directory}/dockerbuild/core</contextDirectory>
-									<repository>veraweb-core-dev</repository>
+									<contextDirectory>${project.build.directory}/dockerbuild/ldap</contextDirectory>
+									<repository>${docker.registry}/veraweb-ldap</repository>
 								</configuration>
-							</execution>
+							</execution-->
 							<!-- Build REST API docker image -->
 							<execution>
 								<id>build REST API image</id>
@@ -111,6 +111,17 @@
 									<repository>veraweb-rest-api-dev</repository>
 								</configuration>
 							</execution>
+							<!-- Build core docker image -->
+							<execution>
+								<id>build core image</id>
+								<goals>
+									<goal>build</goal>
+								</goals>
+								<configuration>
+									<contextDirectory>${project.build.directory}/dockerbuild/core</contextDirectory>
+									<repository>veraweb-core-dev</repository>
+								</configuration>
+							</execution>
 							<!-- Uncomment to also build httpd docker image -->
 							<!--execution>
 								<id>build httpd image</id>
@@ -120,17 +131,6 @@
 								<configuration>
 									<contextDirectory>${project.build.directory}/dockerbuild/httpd</contextDirectory>
 									<repository>${docker.registry}/veraweb-httpd</repository>
-								</configuration>
-							</execution-->
-							<!-- Uncomment to also build LDAP docker image -->
-							<!--execution>
-								<id>build LDAP image</id>
-								<goals>
-									<goal>build</goal>
-								</goals>
-								<configuration>
-									<contextDirectory>${project.build.directory}/dockerbuild/ldap</contextDirectory>
-									<repository>${docker.registry}/veraweb-ldap</repository>
 								</configuration>
 							</execution-->
 						</executions>
@@ -248,6 +248,7 @@
 						<version>${webdriverextensions.version}</version>
 						<executions>
 							<execution>
+								<id>install-webdrivers</id>
 								<goals>
 									<goal>install-drivers</goal>
 								</goals>

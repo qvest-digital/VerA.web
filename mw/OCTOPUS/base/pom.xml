@@ -11,6 +11,6 @@
 	<name>OCTOPUS base prerequisites</name>
 	<description>tarent OCTOPUS application framework, prerequisites</description>
 	<properties>
-		<sonar.tests />
+		<sonar.tests/>
 	</properties>
 </project>

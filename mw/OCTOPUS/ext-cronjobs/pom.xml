@@ -11,7 +11,7 @@
 	<name>OCTOPUS cronjob extension</name>
 	<description>tarent OCTOPUS application framework, cronjob extension</description>
 	<properties>
-		<sonar.tests />
+		<sonar.tests/>
 	</properties>
 	<build>
 		<plugins>
