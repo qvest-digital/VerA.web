@@ -67,9 +67,8 @@ public abstract class LogFactory {
 
     private static LogFactory IMPLEMENTATION = null;
 
-    // necessary to make javac generate a synthetic field we’ll need
     @SuppressWarnings("unused")
-    private static Class MYCLASS = LogFactory.class;
+    static Class class$org$apache$commons$logging$LogFactory = LogFactory.class;
 
     /**
      * Returns the singleton actual factory instance.
