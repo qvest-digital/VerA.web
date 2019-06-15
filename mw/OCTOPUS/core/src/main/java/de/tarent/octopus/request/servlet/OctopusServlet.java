@@ -314,7 +314,7 @@ public class OctopusServlet extends HttpServlet {
                     requestID,
                     String.valueOf(requestType),
                     String.valueOf(allowedRequestTypes),
-                  }), null);
+                  }));
                 tcResponse.sendError(requestType,
                   requestID,
                   Resources.getInstance().get("ERROR_MESSAGE_ILLEGAL_REQUEST_TYPE"),
