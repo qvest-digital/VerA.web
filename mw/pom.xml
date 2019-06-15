@@ -40,9 +40,6 @@
 					<includes>
 						<include>**/*.java</include>
 					</includes>
-					<excludes>
-						<exclude>**/de/tarent/commons/logging/LogManager.java</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
