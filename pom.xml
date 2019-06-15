@@ -355,13 +355,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
-					<!-- for now… TODO FIXME -->
-					<execution>
-						<id>analyse-dependency-management</id>
-						<configuration>
-							<failBuild>false</failBuild>
-						</configuration>
-					</execution>
 					<execution>
 						<id>analyse-dependency-usage</id>
 						<configuration>
