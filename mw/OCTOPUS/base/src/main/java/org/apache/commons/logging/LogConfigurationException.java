@@ -56,7 +56,6 @@ package org.apache.commons.logging;
 /**
  * Helper class for {@link LogFactory}
  */
-@SuppressWarnings("WeakerAccess")
 public class LogConfigurationException extends RuntimeException {
     private static final long serialVersionUID = 1571584275865309127L;
 

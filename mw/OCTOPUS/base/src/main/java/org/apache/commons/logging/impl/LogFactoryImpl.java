@@ -1,4 +1,4 @@
-package org.apache.commons.logging;
+package org.apache.commons.logging.impl;
 
 /*-
  * VerA.web-Middleware, newly MIT licenced, is comprised of:
@@ -54,21 +54,25 @@ package org.apache.commons.logging;
  */
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogConfigurationException;
+import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 
 /**
  * Subset of commons-logging 1.2 LogFactory implementation
+ * FQCN hardcoded via constant copying, into its users
  *
  * @author mirabilos (t.glaser@tarent.de)
  */
 @Log4j2
-public class LogBridgeFactory extends LogFactory {
+public class LogFactoryImpl extends LogFactory {
     /**
      * Internal constructor, only accessed by the superclass…
      * except the Axis lookup requires this as public even if
      * it does not even use it.
      */
-    public LogBridgeFactory() {
+    public LogFactoryImpl() {
         logger.debug("instantiating");
     }
 

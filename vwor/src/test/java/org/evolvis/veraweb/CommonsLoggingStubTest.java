@@ -70,9 +70,9 @@ package org.evolvis.veraweb;
  */
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogBridgeFactory;
 import org.apache.commons.logging.LogConfigurationException;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.impl.LogFactoryImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -99,15 +99,13 @@ public class CommonsLoggingStubTest {
         lS.info("meow");
         final Log lI = f.getInstance(org.springframework.jdbc.core.JdbcTemplate.class);
         lI.info("this should not have warned after the meow above");
-        assertEquals(LogBridgeFactory.class.getName(), LogFactory.FACTORY_DEFAULT);
-        assertNotNull(LogFactory.FACTORY_PROPERTIES);
         f.setAttribute(null, f);
         assertNull(f.getAttribute(null));
         assertNotNull(f.getAttributeNames());
         assertEquals(0, f.getAttributeNames().length);
         f.removeAttribute(null);
         f.release();
-        assertNotEquals(f, new LogBridgeFactory());
+        assertNotEquals(f, new LogFactoryImpl());
         assertEquals(f, LogFactory.getFactory());
         LogFactory.release(null);
         LogFactory.releaseAll();

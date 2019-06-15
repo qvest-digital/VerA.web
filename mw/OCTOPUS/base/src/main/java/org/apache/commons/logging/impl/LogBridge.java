@@ -1,4 +1,4 @@
-package org.apache.commons.logging;
+package org.apache.commons.logging.impl;
 
 /*-
  * VerA.web-Middleware, newly MIT licenced, is comprised of:
@@ -53,6 +53,8 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogConfigurationException;
 import org.apache.logging.log4j.Logger;
 
 /**

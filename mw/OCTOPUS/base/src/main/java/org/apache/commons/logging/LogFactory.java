@@ -53,6 +53,9 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import org.apache.commons.logging.impl.LogBridge;
+import org.apache.commons.logging.impl.LogFactoryImpl;
+
 /**
  * Subset of commons-logging 1.2 LogFactory interface
  *
@@ -62,7 +65,7 @@ public abstract class LogFactory {
     /**
      * Empty default constructor, so we can instantiate the subclass.
      */
-    LogFactory() {
+    protected LogFactory() {
     }
 
     private static LogFactory IMPLEMENTATION = null;
@@ -74,7 +77,7 @@ public abstract class LogFactory {
      */
     public static LogFactory getFactory() throws LogConfigurationException {
         if (IMPLEMENTATION == null) {
-            IMPLEMENTATION = new LogBridgeFactory();
+            IMPLEMENTATION = new LogFactoryImpl();
         }
         return IMPLEMENTATION;
     }
@@ -155,13 +158,4 @@ public abstract class LogFactory {
      * In this implementation, does nothing.
      */
     public abstract void setAttribute(final String name, final Object value);
-
-    /**
-     * Used with Apache commons-discovery by Axis
-     */
-    public static final String FACTORY_PROPERTIES = "commons-logging.properties";
-    /**
-     * Name of default implementation
-     */
-    public static final String FACTORY_DEFAULT = "org.apache.commons.logging.LogBridgeFactory";
 }
