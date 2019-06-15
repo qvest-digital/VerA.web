@@ -9,7 +9,6 @@
 	<!-- textuelle Beschreibung des Moduls -->
 	<description>AA - VerA.web</description>
 	<include systempath="/etc/veraweb" file="config_main.xml"/>
-	<include systempath="/etc/veraweb" file="config_logging.xml"/>
 	<include systempath="/etc/veraweb" file="config_import_export.xml"/>
 	<include systempath="/etc/veraweb" file="config_database_pools.xml"/>
 	<include systempath="/etc/veraweb" file="config_ldap_access.xml"/>
