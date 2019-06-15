@@ -65,7 +65,7 @@ import de.tarent.octopus.request.internal.OctopusInternalStarter;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.soap.TcSOAPException;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -92,9 +92,9 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusServlet extends HttpServlet {
-    private static final long serialVersionUID = 4282983278380049718L;
+    private static final long serialVersionUID = 35776100380066984L;
 
     private static Octopus octopus = null;
     private static TcEnv env;
