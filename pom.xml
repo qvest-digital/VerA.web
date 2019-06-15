@@ -105,7 +105,6 @@
 		<commons-collections.version>3.2.2</commons-collections.version>
 		<commons-csv.version>1.5</commons-csv.version>
 		<commons-io.version>2.6</commons-io.version>
-		<commons-lang2.version>2.6</commons-lang2.version>
 		<commons-lang3.version>3.7</commons-lang3.version>
 		<csvfile.version>1.0</csvfile.version>
 		<!-- last version to work with Jersey 1 -->
@@ -549,11 +548,6 @@
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>${commons-io.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-lang</groupId>
-				<artifactId>commons-lang</artifactId>
-				<version>${commons-lang2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>dom4j</groupId>

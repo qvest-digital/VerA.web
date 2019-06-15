@@ -79,7 +79,7 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -578,7 +578,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         } else if (
           (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
             (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)
-          ) {
+        ) {
             addError(messages.getMessageBothNameFieldsAreEmpty());
         } else if (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) {
             addError(messages.getMessageNameFieldEmpty());
@@ -598,9 +598,9 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
      * MUST: if you need to check the script-value of a field JUST ADD IT HERE
      */
     private void solveXSS() {
-        company_a_e1 = StringEscapeUtils.escapeJavaScript(company_a_e1);
-        firstname_a_e1 = StringEscapeUtils.escapeJavaScript(firstname_a_e1);
-        lastname_a_e1 = StringEscapeUtils.escapeJavaScript(lastname_a_e1);
+        company_a_e1 = StringEscapeUtils.escapeEcmaScript(company_a_e1);
+        firstname_a_e1 = StringEscapeUtils.escapeEcmaScript(firstname_a_e1);
+        lastname_a_e1 = StringEscapeUtils.escapeEcmaScript(lastname_a_e1);
     }
 
     /**

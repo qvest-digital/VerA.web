@@ -72,7 +72,7 @@ package de.tarent.aa.veraweb.utils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -154,7 +154,7 @@ public class DateHelper {
             }
         } catch (Exception e) {
             if (errors != null) {
-                input = StringEscapeUtils.escapeHtml(input);
+                input = StringEscapeUtils.escapeHtml4(input);
                 errors.add("'" + input + "' ist keine g\u00fcltige Uhrzeit. Bitte verwenden Sie das Format SS:MM.");
             }
             time.set(Calendar.HOUR_OF_DAY, 0);
@@ -209,7 +209,7 @@ public class DateHelper {
         }
 
         for (String err : found) {
-            String input = StringEscapeUtils.escapeHtml(err.substring(0, err.indexOf(' ')));
+            String input = StringEscapeUtils.escapeHtml4(err.substring(0, err.indexOf(' ')));
 
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
