@@ -53,12 +53,5 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-public abstract class LogFactory {
-    public static Log getLog(java.lang.Class clazz) throws LogConfigurationException {
-        return null;
-    }
-
-    public static Log getLog(java.lang.String clazzName) throws LogConfigurationException {
-        return null;
-    }
+public class LogImpl /*implements Log*/ {
 }
