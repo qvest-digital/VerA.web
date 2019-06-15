@@ -56,30 +56,31 @@ package org.apache.commons.logging;
 /**
  * commons-logging 1.2 Log interface
  */
+@SuppressWarnings("unused")
 public interface Log {
-    void debug(java.lang.Object msg);
+    void debug(Object msg);
 
-    void debug(java.lang.Object msg, java.lang.Throwable e);
+    void debug(Object msg, Throwable e);
 
-    void error(java.lang.Object msg);
+    void error(Object msg);
 
-    void error(java.lang.Object msg, java.lang.Throwable e);
+    void error(Object msg, Throwable e);
 
-    void fatal(java.lang.Object msg);
+    void fatal(Object msg);
 
-    void fatal(java.lang.Object msg, java.lang.Throwable e);
+    void fatal(Object msg, Throwable e);
 
-    void info(java.lang.Object msg);
+    void info(Object msg);
 
-    void info(java.lang.Object msg, java.lang.Throwable e);
+    void info(Object msg, Throwable e);
 
-    void trace(java.lang.Object msg);
+    void trace(Object msg);
 
-    void trace(java.lang.Object msg, java.lang.Throwable e);
+    void trace(Object msg, Throwable e);
 
-    void warn(java.lang.Object msg);
+    void warn(Object msg);
 
-    void warn(java.lang.Object msg, java.lang.Throwable e);
+    void warn(Object msg, Throwable e);
 
     boolean isDebugEnabled();
 

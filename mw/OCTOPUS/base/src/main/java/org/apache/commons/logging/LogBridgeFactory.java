@@ -53,112 +53,91 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
 
 /**
- * commons-logging-compatible wrapper for log4j 2
- * (kinda like log4j-jcl except without requiring
- * commons-logging itself on the classpath)
+ * Subset of commons-logging 1.2 LogFactory implementation
  *
  * @author mirabilos (t.glaser@tarent.de)
  */
-public final class LogImpl implements Log {
-    private final Logger l;
+@Log4j2
+public class LogBridgeFactory extends LogFactory {
+    /**
+     * Internal constructor, only accessed by the superclass.
+     */
+    LogBridgeFactory() {
+        logger.debug("instantiating");
+    }
 
-    LogImpl(final Logger loggerToUse) {
-        if (loggerToUse == null) {
-            throw new LogConfigurationException();
+    @SuppressWarnings("NonAsciiCharacters")
+    private static String[] whitelistedPræficēs = {
+      "org.apache.axis.",
+      "org.springframework."
+    };
+
+    private static boolean doWarn(final Object arg, final String name) {
+        /* always warn for nil class */
+        if (arg == null) {
+            return true;
         }
-        l = loggerToUse;
+        /* do not warn for whitelisted classes */
+        for (String prefix : whitelistedPræficēs) {
+            if (name.startsWith(prefix)) {
+                return false;
+            }
+        }
+        /* otherwise warn */
+        return true;
     }
 
     @Override
-    public void debug(final Object msg) {
-        l.debug(msg);
+    public Log getInstance(final Class clazz) throws LogConfigurationException {
+        final String name = clazz == null ? "(nil)" : clazz.getName();
+        if (doWarn(clazz, name)) {
+            logger.warn("Class {} used with commons-logging 1.2 LogFactory interface", name,
+              new LogConfigurationException("dummy exception for generating a stack trace"));
+        }
+        try {
+            return new LogBridge(LogManager.getLogger(clazz));
+        } catch (Exception e) {
+            throw new LogConfigurationException("could not get logger for class " + name, e);
+        }
     }
 
     @Override
-    public void debug(final Object msg, final Throwable e) {
-        l.debug(msg, e);
+    public Log getInstance(final String clazzName) throws LogConfigurationException {
+        final String name = clazzName == null ? "(nil)" : clazzName;
+        if (doWarn(clazzName, name)) {
+            logger.warn("Class name {} used for commons-logging 1.2 LogFactory interface", name,
+              new LogConfigurationException("dummy exception for generating a stack trace"));
+        }
+        try {
+            return new LogBridge(LogManager.getLogger(clazzName));
+        } catch (Exception e) {
+            throw new LogConfigurationException("could not get logger for class name " + name, e);
+        }
     }
 
     @Override
-    public void error(final Object msg) {
-        l.error(msg);
+    public void release() {
     }
 
     @Override
-    public void error(final Object msg, final Throwable e) {
-        l.error(msg, e);
+    public Object getAttribute(final String name) {
+        return null;
     }
 
     @Override
-    public void fatal(final Object msg) {
-        l.fatal(msg);
+    public String[] getAttributeNames() {
+        return new String[0];
     }
 
     @Override
-    public void fatal(final Object msg, final Throwable e) {
-        l.fatal(msg, e);
+    public void removeAttribute(final String name) {
     }
 
     @Override
-    public void info(final Object msg) {
-        l.info(msg);
-    }
-
-    @Override
-    public void info(final Object msg, final Throwable e) {
-        l.info(msg, e);
-    }
-
-    @Override
-    public void trace(final Object msg) {
-        l.trace(msg);
-    }
-
-    @Override
-    public void trace(final Object msg, final Throwable e) {
-        l.trace(msg, e);
-    }
-
-    @Override
-    public void warn(final Object msg) {
-        l.warn(msg);
-    }
-
-    @Override
-    public void warn(final Object msg, final Throwable e) {
-        l.warn(msg, e);
-    }
-
-    @Override
-    public boolean isDebugEnabled() {
-        return l.isDebugEnabled();
-    }
-
-    @Override
-    public boolean isErrorEnabled() {
-        return l.isErrorEnabled();
-    }
-
-    @Override
-    public boolean isFatalEnabled() {
-        return l.isFatalEnabled();
-    }
-
-    @Override
-    public boolean isInfoEnabled() {
-        return l.isInfoEnabled();
-    }
-
-    @Override
-    public boolean isTraceEnabled() {
-        return l.isTraceEnabled();
-    }
-
-    @Override
-    public boolean isWarnEnabled() {
-        return l.isWarnEnabled();
+    public void setAttribute(final String name, final Object value) {
     }
 }

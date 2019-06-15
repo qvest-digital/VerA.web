@@ -53,35 +53,112 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import org.apache.logging.log4j.Logger;
+
 /**
- * Something of commons-logging 1.2 (stubbed) that Axis needs
+ * commons-logging-compatible wrapper for log4j 2
+ * (kinda like log4j-jcl except without requiring
+ * commons-logging itself on the classpath)
+ *
+ * @author mirabilos (t.glaser@tarent.de)
  */
-public class LogFactoryImpl extends LogFactory {
-    public LogFactoryImpl() {
+public final class LogBridge implements Log {
+    private final Logger l;
+
+    LogBridge(final Logger loggerToUse) {
+        if (loggerToUse == null) {
+            throw new LogConfigurationException();
+        }
+        l = loggerToUse;
     }
 
-    public Log getInstance(final Class clazz) throws LogConfigurationException {
-        return getLog(clazz);
+    @Override
+    public void debug(final Object msg) {
+        l.debug(msg);
     }
 
-    public Log getInstance(final String name) throws LogConfigurationException {
-        return getLog(name);
+    @Override
+    public void debug(final Object msg, final Throwable e) {
+        l.debug(msg, e);
     }
 
-    public void release() {
+    @Override
+    public void error(final Object msg) {
+        l.error(msg);
     }
 
-    public Object getAttribute(final String name) {
-        return null;
+    @Override
+    public void error(final Object msg, final Throwable e) {
+        l.error(msg, e);
     }
 
-    public String[] getAttributeNames() {
-        return new String[0];
+    @Override
+    public void fatal(final Object msg) {
+        l.fatal(msg);
     }
 
-    public void removeAttribute(final String name) {
+    @Override
+    public void fatal(final Object msg, final Throwable e) {
+        l.fatal(msg, e);
     }
 
-    public void setAttribute(final String name, final Object value) {
+    @Override
+    public void info(final Object msg) {
+        l.info(msg);
+    }
+
+    @Override
+    public void info(final Object msg, final Throwable e) {
+        l.info(msg, e);
+    }
+
+    @Override
+    public void trace(final Object msg) {
+        l.trace(msg);
+    }
+
+    @Override
+    public void trace(final Object msg, final Throwable e) {
+        l.trace(msg, e);
+    }
+
+    @Override
+    public void warn(final Object msg) {
+        l.warn(msg);
+    }
+
+    @Override
+    public void warn(final Object msg, final Throwable e) {
+        l.warn(msg, e);
+    }
+
+    @Override
+    public boolean isDebugEnabled() {
+        return l.isDebugEnabled();
+    }
+
+    @Override
+    public boolean isErrorEnabled() {
+        return l.isErrorEnabled();
+    }
+
+    @Override
+    public boolean isFatalEnabled() {
+        return l.isFatalEnabled();
+    }
+
+    @Override
+    public boolean isInfoEnabled() {
+        return l.isInfoEnabled();
+    }
+
+    @Override
+    public boolean isTraceEnabled() {
+        return l.isTraceEnabled();
+    }
+
+    @Override
+    public boolean isWarnEnabled() {
+        return l.isWarnEnabled();
     }
 }

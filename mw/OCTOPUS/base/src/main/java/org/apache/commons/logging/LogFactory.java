@@ -53,80 +53,115 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-
 /**
  * Subset of commons-logging 1.2 LogFactory interface
  *
  * @author mirabilos (t.glaser@tarent.de)
  */
-@SuppressWarnings("WeakerAccess")
-@Log4j2
 public abstract class LogFactory {
-    public static Log getLog(java.lang.Class clazz) throws LogConfigurationException {
-        final String name = clazz == null ? "(nil)" : clazz.getName();
-        if (doWarn(clazz, name)) {
-            logger.warn("Class {} used with commons-logging 1.2 LogFactory interface", name,
-              new LogConfigurationException("dummy exception for generating a stack trace"));
-        }
-        try {
-            return new LogImpl(LogManager.getLogger(clazz));
-        } catch (Exception e) {
-            throw new LogConfigurationException("could not get logger for class " +
-              (clazz == null ? "(nil)" : clazz.getName()), e);
-        }
+    /**
+     * Empty default constructor, so we can instantiate the subclass.
+     */
+    LogFactory() {
     }
 
-    public static Log getLog(java.lang.String clazzName) throws LogConfigurationException {
-        final String name = clazzName == null ? "(nil)" : clazzName;
-        if (doWarn(clazzName, name)) {
-            logger.warn("Class name {} used for commons-logging 1.2 LogFactory interface", name,
-              new LogConfigurationException("dummy exception for generating a stack trace"));
+    private static LogFactory IMPLEMENTATION = null;
+
+    /**
+     * Returns the singleton actual factory instance.
+     *
+     * @return {@link LogFactory}
+     */
+    public static LogFactory getFactory() throws LogConfigurationException {
+        if (IMPLEMENTATION == null) {
+            IMPLEMENTATION = new LogBridgeFactory();
         }
-        try {
-            return new LogImpl(LogManager.getLogger(clazzName));
-        } catch (Exception e) {
-            throw new LogConfigurationException("could not get logger for class name " +
-              (clazzName == null ? "(nil)" : clazzName), e);
-        }
+        return IMPLEMENTATION;
     }
 
-    @SuppressWarnings("NonAsciiCharacters")
-    private static String[] whitelistedPræficēs = {
-      "org.apache.axis.",
-      "org.springframework."
-    };
-
-    private static boolean doWarn(final Object arg, final String name) {
-        /* always warn for nil class */
-        if (arg == null) {
-            return true;
-        }
-        /* do not warn for whitelisted classes */
-        for (String prefix : whitelistedPræficēs) {
-            if (name.startsWith(prefix)) {
-                return false;
-            }
-        }
-        /* otherwise warn */
-        return true;
+    /**
+     * In this implementation, does nothing.
+     */
+    public static void release(@SuppressWarnings("unused") final ClassLoader classLoader) {
     }
 
+    /**
+     * In this implementation, does nothing.
+     */
+    public static void releaseAll() {
+    }
+
+    /**
+     * Returns a logger for the requested class.
+     *
+     * @param clazz {@link Class} to log for
+     * @return {@link Log} instance ({@link LogBridge} to Log4j2)
+     */
+    public static Log getLog(final Class clazz) throws LogConfigurationException {
+        return getFactory().getInstance(clazz);
+    }
+
+    /**
+     * Returns a logger for the requested class name.
+     *
+     * @param clazzName {@link String} name of class to log for
+     * @return {@link Log} instance ({@link LogBridge} to Log4j2)
+     */
+    public static Log getLog(final String clazzName) throws LogConfigurationException {
+        return getFactory().getInstance(clazzName);
+    }
+
+    /**
+     * Returns a logger for the requested class.
+     *
+     * @param clazz {@link Class} to log for
+     * @return {@link Log} instance ({@link LogBridge} to Log4j2)
+     */
     public abstract Log getInstance(final Class clazz) throws LogConfigurationException;
 
-    public abstract Log getInstance(final String name) throws LogConfigurationException;
+    /**
+     * Returns a logger for the requested class name.
+     *
+     * @param clazzName {@link String} name of class to log for
+     * @return {@link Log} instance ({@link LogBridge} to Log4j2)
+     */
+    public abstract Log getInstance(final String clazzName) throws LogConfigurationException;
 
+    /**
+     * In this implementation, does nothing.
+     */
     public abstract void release();
 
-    public abstract Object getAttribute(String name);
+    /**
+     * In this implementation, does nothing.
+     *
+     * @return null
+     */
+    public abstract Object getAttribute(final String name);
 
+    /**
+     * In this implementation, does nothing.
+     *
+     * @return zero-length array
+     */
     public abstract String[] getAttributeNames();
 
-    public abstract void removeAttribute(String name);
+    /**
+     * In this implementation, does nothing.
+     */
+    public abstract void removeAttribute(final String name);
 
-    public abstract void setAttribute(String name, Object value);
+    /**
+     * In this implementation, does nothing.
+     */
+    public abstract void setAttribute(final String name, final Object value);
 
+    /**
+     * Used with Apache commons-discovery by Axis
+     */
     public static final String FACTORY_PROPERTIES = "commons-logging.properties";
-    public static final String FACTORY_DEFAULT = "org.apache.commons.logging.LogFactoryImpl";
+    /**
+     * Name of default implementation
+     */
+    public static final String FACTORY_DEFAULT = "org.apache.commons.logging.LogBridgeFactory";
 }
