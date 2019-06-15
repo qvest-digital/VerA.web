@@ -64,9 +64,11 @@ import org.apache.logging.log4j.LogManager;
 @Log4j2
 public class LogBridgeFactory extends LogFactory {
     /**
-     * Internal constructor, only accessed by the superclass.
+     * Internal constructor, only accessed by the superclass…
+     * except the Axis lookup requires this as public even if
+     * it does not even use it.
      */
-    LogBridgeFactory() {
+    public LogBridgeFactory() {
         logger.debug("instantiating");
     }
 
