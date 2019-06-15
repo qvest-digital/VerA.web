@@ -78,7 +78,6 @@ import de.tarent.dblayer.sql.ParamValue;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.commons.datahandling.PrimaryKeyList;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.commons.logging.TimeMeasureTool;
 import de.tarent.commons.utils.Pojo;
 
 import lombok.extern.log4j.Log4j2;@Log4j2
@@ -659,8 +658,6 @@ public abstract class AbstractDAO {
      */
     protected List getEntityList(DBContext dbc, PreparedStatement ps) throws SQLException {
         ResultSet rs = ps.executeQuery();
-        //tm.step("getEntityList-execute select");
-        TimeMeasureTool tm = TimeMeasureTool.getMeasureTool(logger);
 
         try {
             LookupContext lc = new LookupContextImpl();
@@ -672,9 +669,7 @@ public abstract class AbstractDAO {
                 if (!entityList.contains(entity)) {
                     entityList.add(entity);
                 }
-                tm.step("getEntityList-filling one");
             }
-            tm.total("getEntityList-total");
             return entityList;
         } finally {
             DB.close(rs);

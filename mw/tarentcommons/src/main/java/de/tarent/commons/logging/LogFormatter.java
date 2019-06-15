@@ -100,17 +100,6 @@ public class LogFormatter {
                 writer.println();
             }
 
-            // Threadlogger
-            if (ThreadLogger.isInstanceAvailable()) {
-                ThreadLogger threadLogger = ThreadLogger.getInstance();
-                writer.println("  Available method calls of current threadlogger (" + threadLogger.getThreadId() + "):");
-                writer.println();
-                writer.println(
-                  Tools.iteratorToString(threadLogger.getMethodCalls().iterator(), "    ", true, StringTools.LINE_SEPARATOR,
-                    true));
-                writer.println();
-            }
-
             // Stacktrace
             if (record.getThrown() != null) {
                 writer.println("  Available Stacktrace of this exception:");

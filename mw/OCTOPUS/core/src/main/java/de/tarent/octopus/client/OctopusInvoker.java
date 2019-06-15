@@ -61,9 +61,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-// Depends on
-//import de.tarent.commons.logging.MethodCall;
-//import de.tarent.commons.logging.ThreadLogger;
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusConnectionFactory;
 import de.tarent.octopus.client.OctopusResult;
@@ -140,13 +137,6 @@ public class OctopusInvoker {
      * @return null or octopus result
      */
     public static Object invoke(String module, String task, String keys[], Object values[]) {
-        // MethodCall logging
-        //MethodCall methodCall = ThreadLogger.logMethodCall();
-        //methodCall.addParameter("module", module);
-        //methodCall.addParameter("task", task);
-        //methodCall.addParameter("parameterKeys", parameterKeys);
-        //methodCall.addParameter("parameterValues", parameterValues);
-
         // Verify input parameters.
         List parameterKeys = keys != null ? Arrays.asList(keys) : Collections.EMPTY_LIST;
         List parameterValues = keys != null ? Arrays.asList(values) : Collections.EMPTY_LIST;
