@@ -53,11 +53,6 @@ package de.tarent.octopus.response;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.Iterator;
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
@@ -69,13 +64,17 @@ import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.RPCResponse;
 import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.soap.TcSOAPException;
+import lombok.extern.log4j.Log4j2;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Diese Klasse gibt die ausgewählten Felder eines TcContent Objekte als SOAP Nachricht zurück.
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcSoapResponseEngine implements TcRPCResponseEngine, TcResponseEngine {
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }

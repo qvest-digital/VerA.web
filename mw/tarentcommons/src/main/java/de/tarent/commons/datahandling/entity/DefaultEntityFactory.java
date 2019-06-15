@@ -55,17 +55,19 @@ package de.tarent.commons.datahandling.entity;
 
 import de.tarent.commons.utils.Pojo;
 import de.tarent.commons.utils.StringTools;
+import lombok.extern.log4j.Log4j2;
 
 import java.lang.reflect.Method;
-import java.util.*;
-
-import org.apache.commons.logging.Log;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Abstract class for object creation and object filling over reflection.
  * It is intended for subclassing, as well as usage out of the box.
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class DefaultEntityFactory implements EntityFactory {
     public static final String PROPERTY_SEPARATOR = ".";
 

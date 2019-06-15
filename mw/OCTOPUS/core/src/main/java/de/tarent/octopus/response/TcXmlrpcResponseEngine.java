@@ -53,14 +53,6 @@ package de.tarent.octopus.response;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
@@ -68,6 +60,13 @@ import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.xmlrpc.XmlRpcBuffer;
+import lombok.extern.log4j.Log4j2;
+
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Diese Klasse dient der Ausgabe von XML-RPC-Rückgaben.
@@ -76,7 +75,7 @@ import de.tarent.octopus.xmlrpc.XmlRpcBuffer;
  *
  * @author mikel
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcXmlrpcResponseEngine implements TcRPCResponseEngine, TcResponseEngine {
     /* (non-Javadoc)
      * @see de.tarent.octopus.response.TcResponseEngine#sendResponse(de.tarent.octopus.config.TcConfig, de.tarent.octopus

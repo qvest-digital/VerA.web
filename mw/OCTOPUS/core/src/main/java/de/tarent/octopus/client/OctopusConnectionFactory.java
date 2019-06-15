@@ -53,21 +53,20 @@ package de.tarent.octopus.client;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.client.remote.OctopusRemoteConnection;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.directcall.OctopusDirectCallConnection;
 import de.tarent.octopus.request.directcall.OctopusDirectCallStarter;
 import de.tarent.octopus.request.internal.OctopusInternalStarter;
 import de.tarent.octopus.request.internal.OctopusStarter;
+import lombok.extern.log4j.Log4j2;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Factory zur Lieferung einer Client-Schnittstelle zum Octopus.
@@ -76,7 +75,7 @@ import de.tarent.octopus.request.internal.OctopusStarter;
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusConnectionFactory {
     public static final String PROPERTY_FILE_NAME_END = "-octopus-connection.properties";
 

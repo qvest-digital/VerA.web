@@ -69,8 +69,22 @@ package org.evolvis.veraweb.export;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import de.tarent.extract.ExtractIo;
+import de.tarent.extract.Extractor;
+import de.tarent.extract.ExtractorQuery;
+import de.tarent.extract.utils.ExtractorException;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.sql.DataSource;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
@@ -78,28 +92,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.sql.DataSource;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import de.tarent.extract.ExtractIo;
-import de.tarent.extract.ExtractorQuery;
-import de.tarent.extract.utils.ExtractorException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import de.tarent.extract.Extractor;
-
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class CsvExporter {
     private final Extractor extractor;
     private final CsvIo io;
     private final ExtractorQueryBuilder template;
 
     public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties)
-            throws UnsupportedEncodingException {
+      throws UnsupportedEncodingException {
         this(reader, writer, source, properties, null);
     }
 
@@ -111,9 +111,9 @@ public class CsvExporter {
 
     public void export(Map<String, String> substitutions, Map<String, String> filterSettings) {
         final ExtractorQuery query =
-                template.replace(substitutions)
-                        .setFilters(filterSettings) //do not change without checking for SQL injection
-                        .build();
+          template.replace(substitutions)
+            .setFilters(filterSettings) //do not change without checking for SQL injection
+            .build();
         extractor.run(io, query);
     }
 

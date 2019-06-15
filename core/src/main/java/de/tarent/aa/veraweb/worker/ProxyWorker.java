@@ -83,8 +83,7 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.content.TcContentWorker;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -95,6 +94,7 @@ import java.util.List;
  *
  * @author mikel
  */
+@Log4j2
 public class ProxyWorker {
     //
     // Octopus-Aktionen
@@ -179,9 +179,4 @@ public class ProxyWorker {
         }
         return resultProxy;
     }
-
-    //
-    // geschützte Member
-    //
-    private final static Logger logger = LogManager.getLogger(ProxyWorker.class);
 }

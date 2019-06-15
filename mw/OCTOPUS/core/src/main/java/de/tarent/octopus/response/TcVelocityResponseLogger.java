@@ -53,12 +53,11 @@ package de.tarent.octopus.response;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.log.LogSystem;
 
-
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcVelocityResponseLogger implements LogSystem {
     public TcVelocityResponseLogger() {
         // do Nothing

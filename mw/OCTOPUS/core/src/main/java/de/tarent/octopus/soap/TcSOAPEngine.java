@@ -56,23 +56,39 @@ package de.tarent.octopus.soap;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
-import org.apache.axis.*;
+import lombok.extern.log4j.Log4j2;
+import org.apache.axis.AxisEngine;
+import org.apache.axis.AxisFault;
+import org.apache.axis.ConfigurationException;
+import org.apache.axis.Constants;
+import org.apache.axis.EngineConfiguration;
+import org.apache.axis.Message;
+import org.apache.axis.MessageContext;
 import org.apache.axis.configuration.FileProvider;
 import org.apache.axis.encoding.DefaultSOAPEncodingTypeMappingImpl;
 import org.apache.axis.encoding.TypeMapping;
 import org.apache.axis.encoding.TypeMappingRegistry;
 import org.apache.axis.encoding.ser.SimpleDeserializerFactory;
 import org.apache.axis.encoding.ser.SimpleSerializerFactory;
-import org.apache.axis.message.*;
+import org.apache.axis.message.MessageElement;
+import org.apache.axis.message.RPCElement;
+import org.apache.axis.message.RPCParam;
+import org.apache.axis.message.SOAPEnvelope;
+import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.axis.server.AxisServer;
-import org.apache.commons.logging.Log;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -80,7 +96,7 @@ import java.util.zip.GZIPInputStream;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcSOAPEngine implements Serializable {
     private static final long serialVersionUID = 2864111953752691905L;
 

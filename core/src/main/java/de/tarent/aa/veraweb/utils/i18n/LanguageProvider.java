@@ -74,8 +74,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -93,7 +92,7 @@ import java.util.TreeMap;
  * @author jnunez Jon Nuñez, tarent solutions GmbH on 09.07.15.
  * @author sweiz
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class LanguageProvider {
     /**
      * Load standard language data (german)

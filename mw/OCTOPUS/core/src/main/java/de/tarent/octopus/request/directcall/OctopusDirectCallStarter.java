@@ -60,7 +60,7 @@ import de.tarent.octopus.request.TcSession;
 import de.tarent.octopus.request.internal.OctopusStarter;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.soap.TcSOAPEngine;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.util.HashMap;
@@ -78,7 +78,7 @@ import java.util.logging.SimpleFormatter;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusDirectCallStarter implements OctopusStarter {
     private Octopus octopus = null;
     private TcEnv env = null;

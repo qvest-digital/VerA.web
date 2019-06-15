@@ -53,7 +53,7 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -66,7 +66,7 @@ import java.util.Set;
 /**
  * Util class for dealing with plain old java objects (POJOs)
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class Pojo {
     static Object[] emptyObjectArray = new Object[] {};
 

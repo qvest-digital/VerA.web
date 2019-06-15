@@ -92,8 +92,7 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -115,12 +114,8 @@ import java.util.Map;
  *
  * @author Christoph
  */
+@Log4j2
 public class StatistikWorker {
-    /**
-     * Logger dieser Klasse
-     */
-    private final Logger logger = LogManager.getLogger(getClass());
-
     /**
      * Octopus-Eingabeparameter für die Aktion {@link #getFirstDayInMonth()}
      */

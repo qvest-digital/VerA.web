@@ -57,7 +57,7 @@ import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcModuleLookup;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.resource.Resources;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletContext;
 import java.io.File;
@@ -66,7 +66,7 @@ import java.util.Map;
 /**
  * Diese Klasse liefert dem Octopus notwendige Daten.
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 class ServletModuleLookup implements TcModuleLookup {
     /**
      * Octopus servlet context

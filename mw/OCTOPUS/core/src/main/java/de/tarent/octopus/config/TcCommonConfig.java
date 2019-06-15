@@ -68,7 +68,7 @@ import de.tarent.octopus.server.LoginManager;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.util.DataFormatException;
 import de.tarent.octopus.util.Xml;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -92,7 +92,7 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcCommonConfig /*implements Serializable*/ {
     //XXX TODO: TcModuleLookup is not serialisable
     private static final long serialVersionUID = -7304052591685293777L;

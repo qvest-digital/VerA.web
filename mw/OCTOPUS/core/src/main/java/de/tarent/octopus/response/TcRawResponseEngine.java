@@ -53,12 +53,6 @@ package de.tarent.octopus.response;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
@@ -66,13 +60,18 @@ import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
+import lombok.extern.log4j.Log4j2;
+
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Diese Klasse arbeitet als direkte Ausgabe Engine.
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcRawResponseEngine implements TcResponseEngine {
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }

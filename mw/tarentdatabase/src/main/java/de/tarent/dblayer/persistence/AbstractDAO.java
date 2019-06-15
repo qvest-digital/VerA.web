@@ -54,33 +54,40 @@ package de.tarent.dblayer.persistence;
  */
 
 import de.tarent.commons.datahandling.ListFilter;
-import de.tarent.commons.datahandling.entity.*;
+import de.tarent.commons.datahandling.ListFilterOperator;
+import de.tarent.commons.datahandling.PrimaryKeyList;
+import de.tarent.commons.datahandling.entity.EntityFactory;
+import de.tarent.commons.datahandling.entity.EntityFactoryRegistry;
+import de.tarent.commons.datahandling.entity.LookupContext;
+import de.tarent.commons.datahandling.entity.LookupContextImpl;
+import de.tarent.commons.utils.Pojo;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.InsertKeys;
 import de.tarent.dblayer.persistence.annotations.ForeignKey;
 import de.tarent.dblayer.persistence.annotations.Id;
 import de.tarent.dblayer.persistence.annotations.Reference;
+import de.tarent.dblayer.sql.ParamValue;
+import de.tarent.dblayer.sql.clause.Clause;
+import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.Limit;
+import de.tarent.dblayer.sql.clause.Order;
+import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.ExtPreparedStatement;
 import de.tarent.dblayer.sql.statement.Select;
+import lombok.extern.log4j.Log4j2;
 
 import java.lang.reflect.Method;
-import java.sql.*;
-import java.util.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
-import org.apache.commons.logging.Log;
-
-import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.dblayer.sql.clause.Limit;
-import de.tarent.dblayer.sql.clause.Clause;
-import de.tarent.commons.datahandling.ListFilterOperator;
-import de.tarent.dblayer.sql.ParamValue;
-import de.tarent.dblayer.sql.clause.Order;
-import de.tarent.commons.datahandling.PrimaryKeyList;
-import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.commons.utils.Pojo;
-
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public abstract class AbstractDAO {
     /**
      * the String "<code>desc</code>" for descending orders

@@ -53,10 +53,11 @@ package de.tarent.dblayer.engine;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
 
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class Log {
-//XXX TODO: inline into all users
+    //XXX TODO: inline into all users
     public static void logStatement(Object statement) {
         if (logger.isDebugEnabled()) {
             logger.debug(statement + "");

@@ -53,12 +53,11 @@ package de.tarent.octopus.content;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.config.ContentWorkerDeclaration;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * Instantiiert eine Klasse, die das TcContentWorker-Interface direkt unterstützt.
@@ -66,7 +65,7 @@ import de.tarent.octopus.server.WorkerCreationException;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @see TcContentWorker
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class DirectWorkerFactory implements SpecialWorkerFactory {
     private static Class[] emptyClassArray = new Class[] {};
     private static Object[] emptyObjectArray = new Object[] {};

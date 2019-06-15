@@ -53,19 +53,6 @@ package de.tarent.octopus.response;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.File;
-import java.io.StringReader;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
@@ -74,13 +61,24 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.util.Xml;
+import lombok.extern.log4j.Log4j2;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.StringReader;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Verarbeitung mit XSLT.
  *
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcXsltResponseEngine implements TcResponseEngine {
     private static final String suffix = ".xsl";
     private static final String subdir = "xslt";

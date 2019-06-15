@@ -53,14 +53,13 @@ package de.tarent.octopus.content;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.request.TcRequest;
+import lombok.extern.log4j.Log4j2;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Worker zur bequemeren Bedienung aller Content-Worker. Ruft automatisch über Reflection
@@ -68,7 +67,7 @@ import de.tarent.octopus.request.TcRequest;
  *
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public abstract class TcAbstractContentWorker implements TcContentWorker {
     private TcCommonConfig commonConfig;
 

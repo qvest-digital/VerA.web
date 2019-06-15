@@ -54,7 +54,7 @@ package de.tarent.commons.utils;
  */
 
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -77,7 +77,7 @@ import java.util.jar.Manifest;
  *
  * @author Sebastian Mancke (s.mancke@tarent.de) tarent GmbH Bonn
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class VersionTool {
     public static final String PREFIX_PACKAGE = "package:";
     public static final String PREFIX_RESOURCE = "resource:";

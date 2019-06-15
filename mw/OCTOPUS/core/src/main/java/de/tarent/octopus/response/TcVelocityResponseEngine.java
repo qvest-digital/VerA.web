@@ -53,6 +53,19 @@ package de.tarent.octopus.response;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.content.CookieMap;
+import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.request.TcResponse;
+import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+
 import java.io.File;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
@@ -63,26 +76,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.VelocityContext;
-
-import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.config.TcConfig;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.content.CookieMap;
-import de.tarent.octopus.content.TcContent;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.request.TcResponse;
-import de.tarent.octopus.resource.Resources;
-import de.tarent.octopus.server.OctopusContext;
-
 /**
  * This class merge the octopus content with a velocity script.
  *
  * @author <a href="mailto:h.helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcVelocityResponseEngine implements TcResponseEngine {
     /**
      * Filename suffix

@@ -99,8 +99,7 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.evolvis.veraweb.onlinereg.entities.LinkType;
 
 import java.io.IOException;
@@ -124,8 +123,8 @@ import java.util.UUID;
  * @author Christoph
  * @author Stefan Weiz, tarent solutions GmbH
  */
+@Log4j2
 public class PersonDetailWorker implements PersonConstants {
-
     //
     // Octopus-Aktionen
     //
@@ -154,7 +153,6 @@ public class PersonDetailWorker implements PersonConstants {
     private static final Delete deletePersonTasks = SQL.Delete(database).from("veraweb.ttask");
     private static final Delete deletePersonMailinglist = SQL.Delete(database).from("veraweb.tperson_mailinglist");
     private static final Delete deletePersonCategory = SQL.Delete(database).from("veraweb.tperson_categorie");
-    private static final Logger logger = LogManager.getLogger(PersonDetailWorker.class.getCanonicalName());
 
     /**
      * Diese Octopus Aktion nimmt die übergebene Person oder die Person zu der
@@ -671,7 +669,7 @@ public class PersonDetailWorker implements PersonConstants {
         if (person.isModified() && person.isCorrect()) {
             createOrUpdatePerson(octopusContext, person, database, transactionContext, originalPersonId, personOld);
             if ("t".equals(person.iscompany)
-                    && Boolean.parseBoolean(octopusContext.requestAsString("updateEmployees"))) {
+              && Boolean.parseBoolean(octopusContext.requestAsString("updateEmployees"))) {
                 updateEmployeeCompanyAddress(person, database, transactionContext);
             }
         } else if (person.isModified()) {
@@ -696,12 +694,12 @@ public class PersonDetailWorker implements PersonConstants {
      * Aktualisiert die Firmenadressen aller Mitarbeiter basierend auf den Daten der übergebenen Firma.
      */
     private void updateEmployeeCompanyAddress(Person company, Database database, TransactionContext transactionContext)
-            throws IOException, BeanException {
+      throws IOException, BeanException {
 
         List<Person> employees = database.getBeanList("Person", database.getSelect(company)
-                .where(Where.and(Expr.equal("company_a_e1", company.company_a_e1), Expr.notEqual("pk", company.id))));
+          .where(Where.and(Expr.equal("company_a_e1", company.company_a_e1), Expr.notEqual("pk", company.id))));
 
-        for (Person person: employees) {
+        for (Person person : employees) {
             AddressHelper.copyAddressData(company.getBusinessLatin(), person.getBusinessLatin(), true, true, true, false, true);
             AddressHelper.copyAddressData(company.getBusinessExtra1(), person.getBusinessExtra1(), true, true, true, false, true);
             AddressHelper.copyAddressData(company.getBusinessExtra2(), person.getBusinessExtra2(), true, true, true, false, true);

@@ -53,6 +53,20 @@ package de.tarent.octopus.response;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.request.TcResponse;
+import de.tarent.octopus.util.Xml;
+import lombok.extern.log4j.Log4j2;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXParseException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -64,27 +78,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXParseException;
-
-import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.config.TcConfig;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.content.TcContent;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.request.TcResponse;
-import de.tarent.octopus.util.Xml;
-
 /**
  * Diese Klasse repräsentiert die Anfangs verwendete Template-Engine.
  *
  * @author <a href="mailto:H.Helwich@tarent.de">Hendrik Helwich</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcSimpleResponseEngine implements TcResponseEngine {
     public void init(TcModuleConfig moduleConfig, TcCommonConfig commonConfig) {
     }

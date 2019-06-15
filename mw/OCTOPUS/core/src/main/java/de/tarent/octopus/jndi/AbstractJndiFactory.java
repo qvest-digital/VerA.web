@@ -53,16 +53,14 @@ package de.tarent.octopus.jndi;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.Hashtable;
+import lombok.extern.log4j.Log4j2;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.Name;
 import javax.naming.NamingException;
 import javax.naming.spi.ObjectFactory;
-
-import org.apache.commons.logging.Log;
-
+import java.util.Hashtable;
 
 /**
  * Diese Klasse stellt eine JNDI-{@link ObjectFactory} zum Zugriff auf den aktuellen
@@ -75,7 +73,7 @@ import org.apache.commons.logging.Log;
  * Einträge stehen dort in den Dateien <code>octopus.xml</code> und <code>web.xml</code>
  * im Verzeichnis <code>webapp/WEB-INF</code>.
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public abstract class AbstractJndiFactory implements ObjectFactory {
     /**
      * Currently only support the apache tomcat (and maby more servlet container?)

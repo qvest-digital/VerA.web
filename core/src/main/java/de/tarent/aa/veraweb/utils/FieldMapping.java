@@ -69,8 +69,7 @@ package de.tarent.aa.veraweb.utils;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -89,6 +88,7 @@ import java.util.Set;
  *
  * @author mikel
  */
+@Log4j2
 public class FieldMapping {
     //
     // Konstruktoren
@@ -354,8 +354,4 @@ public class FieldMapping {
      * Zielfeld zu den verfügbaren Quellfeldern, in dem diese führend sind
      */
     private Map sourcePrimeTargets = new HashMap();
-    /**
-     * Logger für diese Klasse
-     */
-    private final static Logger logger = LogManager.getLogger(FieldMapping.class);
 }

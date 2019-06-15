@@ -53,6 +53,12 @@ package de.tarent.octopus.xmlrpc;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.soap.TcSOAPException;
+import lombok.extern.log4j.Log4j2;
+import org.apache.xmlrpc.XmlRpcRequest;
+import org.apache.xmlrpc.XmlRpcRequestProcessor;
+
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -61,19 +67,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.logging.Log;
-import org.apache.xmlrpc.XmlRpcRequest;
-import org.apache.xmlrpc.XmlRpcRequestProcessor;
-
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.soap.TcSOAPException;
-
 /**
  * Diese Klasse dient dem Auslesen von XmlRpc-Anfragen.
  *
  * @author mikel
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class XmlRpcEngine {
     /**
      * Diese Methode analysiert eine XML-RPC-Anfrage.

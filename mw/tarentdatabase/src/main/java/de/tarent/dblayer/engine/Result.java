@@ -53,12 +53,13 @@ package de.tarent.dblayer.engine;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.dblayer.engine.proxy.ResultSetProxyInvocationHandler;
+import de.tarent.dblayer.sql.Statement;
+import lombok.extern.log4j.Log4j2;
+
 import java.lang.reflect.Proxy;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import de.tarent.dblayer.engine.proxy.ResultSetProxyInvocationHandler;
-import de.tarent.dblayer.sql.Statement;
 
 /**
  * Result objects are holder object for a ResultSet  and the corresponding Statement, intended for closing both in one step.
@@ -66,7 +67,7 @@ import de.tarent.dblayer.sql.Statement;
  *
  * @author Wolfgang Klein
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class Result {
     private java.sql.Connection connection;
     private java.sql.Statement statement;

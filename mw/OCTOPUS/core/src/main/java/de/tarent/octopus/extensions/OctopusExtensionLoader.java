@@ -53,8 +53,7 @@ package de.tarent.octopus.extensions;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.commons.logging.Log;
-
+import lombok.extern.log4j.Log4j2;
 
 /**
  * A simple extension loader that relieves the calling code of extensive
@@ -65,7 +64,7 @@ import org.apache.commons.logging.Log;
  *
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusExtensionLoader {
     /**
      * Loads, initializes and starts the extension given by classname.

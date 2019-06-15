@@ -53,6 +53,8 @@ package de.tarent.dblayer.helper;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -65,9 +67,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-
-
 /**
  * This class is a wrapper for {@link ResultSet} instances implementing the {@link Map}
  * interface to access the current result set row. It does NOT provide for any means of
@@ -75,7 +74,7 @@ import org.apache.commons.logging.Log;
  *
  * @author Christoph Jerolimov
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class ResultMap implements Map {
     private final ResultSet resultSet;
     private final List columns;

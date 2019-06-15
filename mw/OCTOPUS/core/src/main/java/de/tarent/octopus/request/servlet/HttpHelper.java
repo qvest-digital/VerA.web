@@ -53,6 +53,23 @@ package de.tarent.octopus.request.servlet;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.request.TcEnv;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.soap.TcSOAPEngine;
+import de.tarent.octopus.soap.TcSOAPException;
+import de.tarent.octopus.xmlrpc.XmlRpcEngine;
+import lombok.extern.log4j.Log4j2;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadBase;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.servlet.ServletRequestContext;
+import org.apache.xmlrpc.Base64;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -66,32 +83,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadBase;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.servlet.ServletRequestContext;
-import org.apache.commons.logging.Log;
-import org.apache.xmlrpc.Base64;
-
-import de.tarent.octopus.request.TcEnv;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.resource.Resources;
-import de.tarent.octopus.soap.TcSOAPEngine;
-import de.tarent.octopus.soap.TcSOAPException;
-import de.tarent.octopus.xmlrpc.XmlRpcEngine;
-
 /**
  * Diese Klasse enthält Hilfsmethoden für die Octopus-spezifische
  * Http-Request-Verarbeitung.
  *
  * @author mikel
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class HttpHelper {
     //
     // * HTTP-Content-Types:

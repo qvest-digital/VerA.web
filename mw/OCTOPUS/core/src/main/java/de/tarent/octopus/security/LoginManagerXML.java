@@ -53,24 +53,22 @@ package de.tarent.octopus.security;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.File;
-import java.net.PasswordAuthentication;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.parsers.SAXParserFactory;
-
-import org.apache.commons.logging.Log;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.server.PersonalConfig;
+import lombok.extern.log4j.Log4j2;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.resource.Resources;
-import de.tarent.octopus.server.PersonalConfig;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.net.PasswordAuthentication;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementierung eines LoginManagers, über eine XML Datei
@@ -78,7 +76,7 @@ import de.tarent.octopus.server.PersonalConfig;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class LoginManagerXML extends AbstractLoginManager {
     public static final String KEY_USER_FILE = "userFile";
     public static final String DEFAULT_USER_FILE_NAME = "user.xml";

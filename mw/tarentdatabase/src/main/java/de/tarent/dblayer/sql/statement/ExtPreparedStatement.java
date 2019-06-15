@@ -63,7 +63,7 @@ import de.tarent.dblayer.sql.ParamValue;
 import de.tarent.dblayer.sql.ParamValueList;
 import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.SyntaxErrorException;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -82,7 +82,7 @@ import java.util.Map;
  * This is an holder for an java.sql.PreparedStatement,
  * where the Parameters can be set by String keys.
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class ExtPreparedStatement implements ParamSet {
     String sqlCode;
     // String List of the param names

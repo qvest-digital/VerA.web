@@ -65,7 +65,7 @@ import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.soap.TcSOAPException;
 import de.tarent.octopus.util.RootCauseException;
 import de.tarent.octopus.util.Xml;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -89,7 +89,7 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcServletResponse implements TcResponse {
     public static final long MILLISECONDS_PER_YEAR = 1000l * 60l * 60l * 24l * 365l;
 

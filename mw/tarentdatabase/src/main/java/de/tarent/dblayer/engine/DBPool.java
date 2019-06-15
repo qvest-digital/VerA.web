@@ -53,25 +53,23 @@ package de.tarent.dblayer.engine;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Map;
-import java.util.WeakHashMap;
-
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
+import de.tarent.dblayer.engine.proxy.ConnectionProxyInvocationHandler;
+import de.tarent.dblayer.resource.Resources;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DataSourceConnectionFactory;
 import org.apache.commons.dbcp.PoolableConnectionFactory;
 import org.apache.commons.dbcp.PoolingDataSource;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
-import de.tarent.dblayer.engine.proxy.ConnectionProxyInvocationHandler;
-import de.tarent.dblayer.resource.Resources;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * This Pool is a Frontend for the Apache dbcp-Pooling Framework.
@@ -81,7 +79,7 @@ import de.tarent.dblayer.resource.Resources;
  * @author Christoph Jerolimov, tarent GmbH
  * @author Sebastian Mancke, tarent GmbH
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class DBPool implements Pool {
     private Map info;
     private GenericObjectPool connectionPool;

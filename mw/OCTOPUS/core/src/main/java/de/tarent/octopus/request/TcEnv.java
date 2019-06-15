@@ -53,7 +53,7 @@ package de.tarent.octopus.request;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -69,7 +69,7 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcEnv extends HashMap {
     private static final long serialVersionUID = 1608152979959890490L;
 

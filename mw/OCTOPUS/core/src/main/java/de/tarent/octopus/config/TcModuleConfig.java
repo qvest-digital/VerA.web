@@ -61,9 +61,14 @@ import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.soap.TcSOAPEngine;
 import de.tarent.octopus.util.DataFormatException;
 import de.tarent.octopus.util.Xml;
+import lombok.extern.log4j.Log4j2;
 import org.apache.axis.encoding.TypeMappingRegistry;
-import org.apache.commons.logging.Log;
-import org.w3c.dom.*;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.wsdl.Definition;
@@ -73,12 +78,23 @@ import javax.wsdl.xml.WSDLWriter;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Beinhaltet die Einstellungen zu eimem Module.
@@ -88,7 +104,7 @@ import java.util.*;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcModuleConfig implements Serializable {
     private static final long serialVersionUID = 4372689619112351749L;
 

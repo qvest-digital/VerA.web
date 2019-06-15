@@ -53,14 +53,13 @@ package de.tarent.dblayer.octopus;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.dblayer.engine.DB;
 import de.tarent.octopus.server.Closeable;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * This is a tarent-octopus worker which can open and close
@@ -68,7 +67,7 @@ import de.tarent.octopus.server.OctopusContext;
  *
  * @author Christoph Jerolimov, tarent GmbH
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class ConnectionWorker {
     /**
      * This define the octopus input/output parameter for connections.

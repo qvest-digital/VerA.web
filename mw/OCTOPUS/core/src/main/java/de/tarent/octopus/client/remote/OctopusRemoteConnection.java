@@ -53,6 +53,15 @@ package de.tarent.octopus.client.remote;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.client.OctopusCallException;
+import de.tarent.octopus.client.OctopusConnection;
+import de.tarent.octopus.client.OctopusConstants;
+import de.tarent.octopus.client.OctopusResult;
+import de.tarent.octopus.client.OctopusTask;
+import de.tarent.octopus.client.UserDataProvider;
+import lombok.extern.log4j.Log4j2;
+
+import javax.xml.rpc.ServiceException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -66,23 +75,12 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.xml.rpc.ServiceException;
-
-import org.apache.commons.logging.Log;
-
-import de.tarent.octopus.client.OctopusCallException;
-import de.tarent.octopus.client.OctopusConnection;
-import de.tarent.octopus.client.OctopusConstants;
-import de.tarent.octopus.client.OctopusResult;
-import de.tarent.octopus.client.OctopusTask;
-import de.tarent.octopus.client.UserDataProvider;
-
 /**
  * Implementierung einer OctopusConnection zu einem entfernt liegenden Octopus.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusRemoteConnection implements OctopusConnection {
     public static final String AUTH_TYPE = "authType";
     public static final String AUTH_TYPE_CALL_PARAM = "callParam";

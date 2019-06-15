@@ -53,10 +53,6 @@ package de.tarent.octopus.request.internal;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcSession;
@@ -65,13 +61,16 @@ import de.tarent.octopus.request.directcall.TcDirectCallException;
 import de.tarent.octopus.request.directcall.TcDirectCallResponse;
 import de.tarent.octopus.request.directcall.TcDirectCallSession;
 import de.tarent.octopus.resource.Resources;
+import lombok.extern.log4j.Log4j2;
+
+import java.util.Map;
 
 /**
  * Kapselt das Ansprechen des Octopus
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusInternalStarter implements OctopusStarter {
     TcSession tcSession;
 

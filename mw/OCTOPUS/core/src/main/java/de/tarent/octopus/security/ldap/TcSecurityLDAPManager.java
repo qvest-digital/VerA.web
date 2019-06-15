@@ -53,13 +53,8 @@ package de.tarent.octopus.security.ldap;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Vector;
+import de.tarent.octopus.security.TcSecurityException;
+import lombok.extern.log4j.Log4j2;
 
 import javax.naming.AuthenticationException;
 import javax.naming.CommunicationException;
@@ -74,10 +69,13 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.ModificationItem;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
-
-import org.apache.commons.logging.Log;
-
-import de.tarent.octopus.security.TcSecurityException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  * Diese Klasse regelt den Zugriff auf eine LDAP-Resource
@@ -85,7 +83,7 @@ import de.tarent.octopus.security.TcSecurityException;
  * @author philipp
  * @deprecated functionality moved into LDAPLib, will be removed as soon as 2005-06-01
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcSecurityLDAPManager {
     //Hashtable mit Zugriffsdaten
     private Hashtable env;

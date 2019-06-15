@@ -53,12 +53,11 @@ package de.tarent.dblayer.debug;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.dblayer.engine.Pool;
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import org.apache.commons.logging.Log;
-
-import de.tarent.dblayer.engine.Pool;
 
 /**
  * <p>
@@ -77,7 +76,7 @@ import de.tarent.dblayer.engine.Pool;
  *
  * @author Christoph Jerolimov, tarent GmbH
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class PoolProxy implements Pool {
     /**
      * Delegate instance

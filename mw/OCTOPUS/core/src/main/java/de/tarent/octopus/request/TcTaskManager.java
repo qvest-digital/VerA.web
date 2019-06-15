@@ -53,11 +53,6 @@ package de.tarent.octopus.request;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
@@ -65,6 +60,10 @@ import de.tarent.octopus.content.TcContentWorker;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.TcResponseDescription;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Diese Klasse verwaltet den Ablauf der Verarbeitung eines Tasks.
@@ -73,7 +72,7 @@ import de.tarent.octopus.server.OctopusContext;
  * <b>tarent GmbH</b>
  * @author Michael Klink
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcTaskManager {
     /**
      * Strukturierte Liste der Tasks des aktuellen Moduls. Wird erst gesetzt,

@@ -53,20 +53,6 @@ package de.tarent.octopus.request;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.logging.Log;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.content.TcContentWorker;
@@ -81,13 +67,26 @@ import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.util.DataFormatException;
 import de.tarent.octopus.util.ParamReference;
 import de.tarent.octopus.util.Xml;
+import lombok.extern.log4j.Log4j2;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Klasse zur Repräsentation eines Task
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcTask {
     protected TaskNode rootNode;
     protected TcTaskList taskList;
@@ -911,7 +910,7 @@ public class TcTask {
               ("soap".equalsIgnoreCase(type)
                 || "rpc".equalsIgnoreCase(type)
                 || "xmlrpc".equalsIgnoreCase(type))
-              ) {
+            ) {
 
                 returnDefinition = new TcMessageDefinition();
                 Map responses = TcResponseCreator.refineOutputFields(paramMap.get("OutputFields"));

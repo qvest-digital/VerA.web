@@ -53,6 +53,8 @@ package de.tarent.octopus.data;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -68,9 +70,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-
-
 /**
  * Zugriffsschicht zur Datenbank.
  * Mit allgemeinen Mehtoden.
@@ -82,7 +81,7 @@ import org.apache.commons.logging.Log;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcGenericDataAccessWrapper {
     //
     // geschützte Member

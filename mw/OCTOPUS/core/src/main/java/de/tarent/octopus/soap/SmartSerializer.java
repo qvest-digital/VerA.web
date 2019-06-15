@@ -53,23 +53,21 @@ package de.tarent.octopus.soap;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+import org.apache.axis.Constants;
+import org.apache.axis.encoding.SerializationContext;
+import org.apache.axis.encoding.Serializer;
+import org.apache.axis.wsdl.fromJava.Types;
+import org.w3c.dom.Element;
+import org.xml.sax.Attributes;
+
+import javax.xml.namespace.QName;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.namespace.QName;
-
-import org.apache.axis.Constants;
-import org.apache.axis.encoding.SerializationContext;
-import org.apache.axis.encoding.Serializer;
-import org.apache.axis.wsdl.fromJava.Types;
-import org.apache.commons.logging.Log;
-import org.w3c.dom.Element;
-import org.xml.sax.Attributes;
-
-
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class SmartSerializer implements Serializer {
     private static final long serialVersionUID = 7766326226378057582L;
 

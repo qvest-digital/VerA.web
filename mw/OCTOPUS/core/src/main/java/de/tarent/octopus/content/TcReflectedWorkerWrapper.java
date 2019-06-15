@@ -54,7 +54,7 @@ package de.tarent.octopus.content;
  */
 
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -66,7 +66,7 @@ import java.util.List;
  *
  * @author Sebastian Mancke
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
     // Feldkonstanten für die Metadaten
     public static final String FIELD_NAME_PREFIX_INPUT = "INPUT_";
@@ -145,9 +145,7 @@ public class TcReflectedWorkerWrapper extends AbstractWorkerWrapper {
                       && TYPE_STRING.equals(fields[i].getType())) {
                         action.outputParam = (String) fields[i].get(workerDelegate);
                     } else if (manNameLower.equals(fNameLower)
-                      && TYPE_BOOLEAN_ARRAY.equals(fields[i].getType()))
-
-                    {
+                      && TYPE_BOOLEAN_ARRAY.equals(fields[i].getType())) {
                         action.mandatoryFlags = (boolean[]) fields[i].get(workerDelegate);
                     }
                 }

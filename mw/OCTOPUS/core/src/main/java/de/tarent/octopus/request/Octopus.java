@@ -53,7 +53,11 @@ package de.tarent.octopus.request;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.octopus.config.*;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcConfigException;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.config.TcModuleLookup;
 import de.tarent.octopus.content.TcAll;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
@@ -66,10 +70,13 @@ import de.tarent.octopus.response.ResponseProcessingException;
 import de.tarent.octopus.rpctunnel.OctopusRPCTunnel;
 import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
-import java.io.Serializable;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Diese Klasse dient als Wrapper für Octopus-Funktionalitäten,
@@ -77,7 +84,7 @@ import java.util.*;
  *
  * @author mikel
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class Octopus /*implements Serializable*/ {
     //XXX TODO: TcModuleLookup is not serialisable
     //XXX TODO: OctopusExtension is not serialisable

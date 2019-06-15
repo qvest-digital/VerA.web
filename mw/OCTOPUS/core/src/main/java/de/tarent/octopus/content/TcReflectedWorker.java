@@ -53,6 +53,11 @@ package de.tarent.octopus.content;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.request.TcRequest;
+import lombok.extern.log4j.Log4j2;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -64,12 +69,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-
-import de.tarent.octopus.config.TcConfig;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.request.TcRequest;
-
 /**
  * Refection Worker
  *
@@ -78,7 +77,7 @@ import de.tarent.octopus.request.TcRequest;
  *
  * @author Wolfgang Klein
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 abstract public class TcReflectedWorker implements TcContentWorker {
     // TODO Logging verbessern und evtl. mit Octopus auf Log4J umstellen
     // TODO Initalisieren der Aktions in die init-Funktion verschieben?

@@ -53,34 +53,38 @@ package de.tarent.octopus.client.remote;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.octopus.client.*;
-
-import java.rmi.RemoteException;
-import java.util.*;
-
-import org.apache.axis.*;
+import de.tarent.octopus.client.OctopusCallException;
+import de.tarent.octopus.client.OctopusConstants;
+import de.tarent.octopus.client.OctopusResult;
+import de.tarent.octopus.client.OctopusTask;
+import lombok.extern.log4j.Log4j2;
+import org.apache.axis.AxisEngine;
+import org.apache.axis.AxisFault;
+import org.apache.axis.ConfigurationException;
+import org.apache.axis.Constants;
+import org.apache.axis.EngineConfiguration;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
-
-import javax.xml.namespace.QName;
-
-import org.apache.axis.encoding.XMLType;
-
-import javax.xml.rpc.*;
-
-import org.apache.commons.logging.Log;
-
-import java.io.InputStream;
-
 import org.apache.axis.configuration.FileProvider;
 import org.apache.axis.encoding.TypeMappingRegistry;
+import org.apache.axis.encoding.XMLType;
+
+import javax.xml.namespace.QName;
+import javax.xml.rpc.ParameterMode;
+import java.io.InputStream;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Aufruf eines Task des Octopus als Client-Server variante.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusRemoteTask implements OctopusTask {
     private static final String AXIS_CONFIG = "/axis-config.wsdd";
 

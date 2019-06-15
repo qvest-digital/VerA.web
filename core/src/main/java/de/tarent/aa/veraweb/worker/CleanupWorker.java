@@ -70,20 +70,17 @@ package de.tarent.aa.veraweb.worker;
  */
 
 import de.tarent.aa.veraweb.beans.Categorie;
-import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
-import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,12 +93,8 @@ import java.util.Map;
  *
  * @author Christoph Jerolimov
  */
+@Log4j2
 public class CleanupWorker {
-    /**
-     * Log4j logger Instanz.
-     */
-    private static final Logger logger = LogManager.getLogger(CleanupWorker.class);
-
     /**
      * Octopus Input-Parameter für {@link #summarizeCategories(OctopusContext)}.
      */

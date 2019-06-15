@@ -53,13 +53,12 @@ package de.tarent.octopus.rpctunnel;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.lang.reflect.Method;
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
-
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.Octopus;
+import lombok.extern.log4j.Log4j2;
+
+import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * Wrapper singleton class for class <code>de.tarent.octopus.rpctunnel.RPCTunnel</code> which
@@ -67,7 +66,7 @@ import de.tarent.octopus.request.Octopus;
  *
  * @author hendrik
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusRPCTunnel {
     private OctopusRPCListener listener = null;
 

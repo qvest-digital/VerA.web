@@ -87,9 +87,8 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -105,18 +104,18 @@ import java.util.ResourceBundle;
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class ConfigWorker extends ListWorkerVeraWeb {
     private static final String defaultSource[] = {
-            "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
-            "LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
-            "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY"};
+      "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
+      "LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
+      "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY" };
     private static final String defaultTarget[] = {
-            "private", "business", "other",
-            "latin", "extra1", "extra2",
-            "suffix1", "suffix2", "changeLogRetentionPolicy"};
+      "private", "business", "other",
+      "latin", "extra1", "extra2",
+      "suffix1", "suffix2", "changeLogRetentionPolicy" };
     private static final ResourceBundle defaultBundle =
-            ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
+      ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
 
     private Map config;
     private boolean loaded = false;
@@ -268,7 +267,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      */
     @SuppressWarnings("unchecked")
     private void saveValue(OctopusContext octopusContext, String key, String value)
-            throws BeanException, IOException, SQLException {
+      throws BeanException, IOException, SQLException {
         // wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
         boolean found = false;
         for (int i = 0; i < defaultTarget.length; i++) {
@@ -319,7 +318,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         final TransactionContext transactionContext = database.getTransactionContext();
         if (value != null && value.length() != 0) {
             Integer count = database.getCount(
-                    database.getCount("Config").where(Expr.equal("cname", key))
+              database.getCount("Config").where(Expr.equal("cname", key))
             );
 
             if (count == 0) {
@@ -333,7 +332,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void deleteConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-            throws BeanException {
+      throws BeanException {
         logger.debug(" -----------------------> BEGIN DELETE CONFIG " + key + "/" + value + " <----------------------- ");
         Delete delete = SQL.Delete(database);
         delete.from("veraweb.tconfig");
@@ -344,7 +343,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-            throws BeanException {
+      throws BeanException {
         logger.debug("-----------------------> BEGIN UPDATE CONFIG " + key + "/" + value + " <----------------------- ");
         Update update = SQL.Update(database);
         update.table("veraweb.tconfig");
@@ -356,7 +355,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     }
 
     private void insertConfigSettings(String key, String value, Database database, TransactionContext transactionContext)
-            throws BeanException {
+      throws BeanException {
         logger.debug(" -----------------------> BEGIN INSERT CONFIG " + key + "/" + value + " <----------------------- ");
         Insert insert = SQL.Insert(database);
         insert.table("veraweb.tconfig");

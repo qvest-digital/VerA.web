@@ -69,8 +69,7 @@ package de.tarent.octopus.custom.beans;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * Diese Klasse stellt Methoden zum Loggen von Profiling-Informationen
@@ -78,6 +77,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @author mikel
  */
+@Log4j2
 public final class ProfileLogger {
     //
     // Konstruktoren
@@ -114,9 +114,4 @@ public final class ProfileLogger {
      * letzter Messpunkt
      */
     long last = 0;
-
-    /**
-     * Logger
-     */
-    Logger logger = LogManager.getLogger(ProfileLogger.class.getName());
 }

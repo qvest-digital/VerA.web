@@ -80,12 +80,15 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Dieser Octopus-Worker stellt die übersichtliste eines Verteilers bereit.
@@ -93,11 +96,8 @@ import java.util.*;
  * @author Hendrik, Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
+@Log4j2
 public class MailinglistDetailWorker extends ListWorkerVeraWeb {
-    /**
-     * Logger dieser Klasse
-     */
-    public static Logger logger = LogManager.getLogger(MailinglistDetailWorker.class.getName());
     private Integer MAX_MAIL_TO_LENGTH = -1;
 
     //

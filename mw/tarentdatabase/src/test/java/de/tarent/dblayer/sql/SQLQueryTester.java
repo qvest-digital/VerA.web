@@ -53,6 +53,8 @@ package de.tarent.dblayer.sql;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -69,9 +71,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-
-
 /**
  * This tool runs a sequence of SQL-Queries defined in an input-file (e.g. a log-file)
  *
@@ -84,7 +83,7 @@ import org.apache.commons.logging.Log;
  *
  * @author Fabian K&ouml;ster (f.koester@tarent.de), tarent GmbH Bonn
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class SQLQueryTester {
     private String sqlQueriesPath = System.getProperty("user.home") + File.separator + "veraweb.log";
     private String confPath = System.getProperty("user.home") + File.separator + "query_tester.conf";
@@ -257,7 +256,7 @@ public class SQLQueryTester {
               && logText.indexOf(" ") != -1
               && (includes.contains("ALL")
               || includes.contains(logText.substring(0, logText.indexOf(" ")).toUpperCase()))
-              ) {
+            ) {
                 if (pFilterSchema) {
                     pSQLQueries.add(filterSchema(logText, pSchema));
                 } else {

@@ -53,6 +53,9 @@ package de.tarent.dblayer.helper;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.server.Closeable;
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -61,10 +64,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-
-import org.apache.commons.logging.Log;
-
-import de.tarent.octopus.server.Closeable;
 
 /**
  * This class is a wrapper for {@link ResultSet} instances implementing the {@link List}
@@ -79,7 +78,7 @@ import de.tarent.octopus.server.Closeable;
  *
  * @author Christoph Jerolimov
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class ResultList implements List, Closeable {
     /**
      * The {@link ResultSet} operated upon.

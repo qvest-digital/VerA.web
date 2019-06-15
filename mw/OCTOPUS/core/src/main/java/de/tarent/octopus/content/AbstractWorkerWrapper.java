@@ -59,7 +59,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.InOutParam;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -77,7 +77,7 @@ import java.util.Map;
  *
  * @author Sebastian Mancke
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public abstract class AbstractWorkerWrapper implements TcContentWorker, DelegatingWorker {
     /**
      * Worker, an den Aufrufe delegiert werden sollen.

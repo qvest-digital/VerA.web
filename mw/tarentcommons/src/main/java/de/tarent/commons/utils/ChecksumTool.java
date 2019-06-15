@@ -53,6 +53,8 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -60,15 +62,12 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.commons.logging.Log;
-
-
 /**
  * This class provides common checksum-methods based on the MD5-Algorithm
  *
  * @author Fabian K&ouml;ster (f.koester@tarent.de), tarent GmbH Bonn
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class ChecksumTool {
     /**
      * Determines whether the given file and the given checksum are equal

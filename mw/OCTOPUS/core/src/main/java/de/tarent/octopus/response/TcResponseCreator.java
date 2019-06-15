@@ -60,10 +60,14 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;
 import de.tarent.octopus.request.directcall.TcDirectCallResponse;
 import de.tarent.octopus.util.ConsistentMap;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * View-Komponente, die die Ausgabe steuert.
@@ -94,7 +98,7 @@ import java.util.*;
  * @see TcXsltResponseEngine
  * @see TcSimpleResponseEngine
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcResponseCreator implements Serializable {
     private static final long serialVersionUID = -7351394970690540789L;
 
@@ -194,6 +198,7 @@ public class TcResponseCreator implements Serializable {
     }
 
     /**
+     *
      */
     public static Map refineOutputFields(Object fieldsObject) {
         if (fieldsObject instanceof Map) {

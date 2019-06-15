@@ -53,6 +53,11 @@ package de.tarent.octopus.client.remote;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+import org.apache.axis.AxisFault;
+import org.apache.axis.Message;
+import org.apache.axis.client.Call;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -61,18 +66,12 @@ import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.axis.AxisFault;
-import org.apache.axis.Message;
-import org.apache.axis.client.Call;
-import org.apache.commons.logging.Log;
-
-
 /**
  * Klasse, die Logs zur Remotekommunikation anlegt...
  *
  * @author Philipp Kirchner, tarent GmbH
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class OctopusRemoteLog {
     private String taskName;
     private Date taskStart;

@@ -86,8 +86,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -103,12 +102,8 @@ import java.util.Map;
 /**
  * Dieser Octopus-Worker dient dem Export von Personendaten.
  */
+@Log4j2
 public class PersonExportWorker extends PersonListWorker {
-    /**
-     * Logger dieser Klasse
-     */
-    private final Logger logger = LogManager.getLogger(getClass());
-
     /**
      * Filtert nach der aktuellen Selektion oder den vom Benutzer eingegeben Filter.
      */

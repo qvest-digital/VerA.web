@@ -76,8 +76,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -94,11 +93,8 @@ import java.util.Map;
  * @version $Revision: 1.1 $
  * @see ChangeLogMaintenanceWorker
  */
+@Log4j2
 public class ChangeLogMaintenanceWorker implements Runnable {
-    /**
-     * Log4J Logger Instanz
-     */
-    private final Logger logger = LogManager.getLogger(ChangeLogMaintenanceWorker.class);
     /**
      * Actual worker thread
      */

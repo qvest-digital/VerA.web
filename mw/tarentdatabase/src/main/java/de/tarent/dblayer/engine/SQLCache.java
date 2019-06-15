@@ -53,13 +53,14 @@ package de.tarent.dblayer.engine;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * The SQLCache loads sql-statements from files and optionaly caches the statements
@@ -68,7 +69,7 @@ import java.util.Map;
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  * @author Robert Linden (r.linden@tarent.de)
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class SQLCache {
     /**
      * This map stores the cached statements. The keys follow

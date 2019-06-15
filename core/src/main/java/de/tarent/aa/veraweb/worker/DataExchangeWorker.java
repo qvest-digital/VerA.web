@@ -98,8 +98,7 @@ import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.BufferedInputStream;
 import java.io.CharArrayWriter;
@@ -129,7 +128,7 @@ import java.util.Set;
  *
  * @author mikel
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class DataExchangeWorker {
     //
     // Konstanten
@@ -314,7 +313,8 @@ public class DataExchangeWorker {
                     // Beschränkung auf Kategorie, wenn Benutzer eine ausgewählt hat
                     Integer categoryId = null;
                     if (EXPORT_FILTER_CATEGORY.equals(filter) && category > 0) {
-                        // category == 0 (wird intern zu null) bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
+                        // category == 0 (wird intern zu null) bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner
+                        // Kategorie
                         categoryId = category;
                     }
 
@@ -327,10 +327,12 @@ public class DataExchangeWorker {
                     // Dann exportieren
                     exporter.startExport();
                     if (EXPORT_FILTER_EVENT.equals(filter)) {
-                        // event == 0 (wird intern zu null) bedeutet: in irgendeiner Veranstaltung, = -1 bedeutet: in keiner Veranstaltung
+                        // event == 0 (wird intern zu null) bedeutet: in irgendeiner Veranstaltung, = -1 bedeutet: in keiner
+                        // Veranstaltung
                         exportEvent(database, event, exporter, orgUnit);
                     } else if (EXPORT_FILTER_CATEGORY.equals(filter)) {
-                        // category == 0 (wird intern zu null) bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
+                        // category == 0 (wird intern zu null) bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner
+                        // Kategorie
                         exportCategory(database, category, exporter, orgUnit);
                     } else {
                         // guter Default?

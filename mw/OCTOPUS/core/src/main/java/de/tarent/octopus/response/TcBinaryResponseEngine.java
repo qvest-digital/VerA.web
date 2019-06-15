@@ -53,6 +53,15 @@ package de.tarent.octopus.response;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.request.TcResponse;
+import de.tarent.octopus.resource.Resources;
+import lombok.extern.log4j.Log4j2;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -66,16 +75,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-
-import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.config.TcConfig;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.content.TcContent;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.request.TcResponse;
-import de.tarent.octopus.resource.Resources;
-
 /**
  * This class return a stream from the filesystem or the octopus context.
  *
@@ -88,7 +87,7 @@ import de.tarent.octopus.resource.Resources;
  *
  * @author <a href="mailto:c.jerolimov@tarent.de">Christoph Jerolimov</a>, tarent GmbH
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class TcBinaryResponseEngine implements TcResponseEngine {
     /**
      * Param for a map response, define the response type, see
