@@ -14,7 +14,6 @@
 			<item name="Templates" href="resources/templates/"/>
 		</menu>
 		<menu name="User Documentation">
-			<item name="Logging configuration" href="loggingconfiguration.html"/>
 			<item name="Task definition" href="taskdefinition.html"/>
 			<item name="Manuals" href="resources/manuals/project/"/>
 			<item name="3th Party" href="resources/manuals/third-party/"/>
