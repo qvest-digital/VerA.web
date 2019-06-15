@@ -70,7 +70,6 @@ import org.apache.commons.dbcp.PoolableConnectionFactory;
 import org.apache.commons.dbcp.PoolingDataSource;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.engine.proxy.ConnectionProxyInvocationHandler;
 import de.tarent.dblayer.resource.Resources;
 

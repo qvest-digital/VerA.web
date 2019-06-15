@@ -62,7 +62,6 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.commons.logging.LogFactory;
 
 /**
  * This class provides common checksum-methods based on the MD5-Algorithm

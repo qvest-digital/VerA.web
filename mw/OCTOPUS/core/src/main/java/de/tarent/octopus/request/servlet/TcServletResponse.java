@@ -55,7 +55,6 @@ package de.tarent.octopus.request.servlet;
 
 import de.tarent.octopus.content.CookieMap;
 import de.tarent.octopus.content.TcContentProzessException;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.request.TcResponse;

@@ -77,7 +77,6 @@ import javax.naming.ldap.InitialLdapContext;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.security.TcSecurityException;
 
 /**

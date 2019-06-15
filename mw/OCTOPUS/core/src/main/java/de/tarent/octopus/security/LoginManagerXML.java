@@ -68,7 +68,6 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.PersonalConfig;

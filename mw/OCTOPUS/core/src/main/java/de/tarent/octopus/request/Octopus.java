@@ -61,7 +61,6 @@ import de.tarent.octopus.extensions.OctopusExtension;
 import de.tarent.octopus.extensions.OctopusExtensionLoader;
 import de.tarent.octopus.jndi.OctopusContextJndiFactory;
 import de.tarent.octopus.jndi.OctopusInstanceJndiFactory;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
 import de.tarent.octopus.rpctunnel.OctopusRPCTunnel;

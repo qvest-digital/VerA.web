@@ -53,7 +53,6 @@ package de.tarent.octopus.request;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.octopus.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
 import java.util.HashMap;

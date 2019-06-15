@@ -53,7 +53,6 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.logging.Log;
 

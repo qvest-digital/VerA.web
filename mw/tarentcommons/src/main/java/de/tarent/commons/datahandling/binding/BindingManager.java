@@ -53,8 +53,7 @@ package de.tarent.commons.datahandling.binding;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.log4j.Log4j2;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ import java.util.List;
  * This impementation was done with two different threads in mind: A background
  * thread for data loading within the model and an AWT/Swing thread for the views.
  * Actions started in consequence of model events are executed in the AWT thread by
- * {@link java.awt.EventQueue#invokeLater(Runnable)}
+ * {@link EventQueue#invokeLater(Runnable)}
  *
  * The controller supports different policies for updating.
  * <ul>
@@ -80,7 +79,7 @@ import java.util.List;
  * TODO: We need a good error handling mechanism for this class, becase throwing of exceptions does not make sense on code
  * called by gui events.
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class BindingManager implements DataChangedListener {
     /**
      * The target model for all bindings

@@ -53,7 +53,6 @@ package de.tarent.dblayer.sql;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.Pool;
 import de.tarent.dblayer.engine.SetDbContext;

@@ -66,7 +66,6 @@ import java.util.ArrayList;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.Pool;

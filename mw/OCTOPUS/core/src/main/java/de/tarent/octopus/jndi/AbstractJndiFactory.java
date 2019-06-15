@@ -63,7 +63,6 @@ import javax.naming.spi.ObjectFactory;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.octopus.logging.LogFactory;
 
 /**
  * Diese Klasse stellt eine JNDI-{@link ObjectFactory} zum Zugriff auf den aktuellen

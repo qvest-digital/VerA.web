@@ -55,7 +55,6 @@ package de.tarent.octopus.request.servlet;
 
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.config.TcModuleLookup;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.resource.Resources;
 import org.apache.commons.logging.Log;

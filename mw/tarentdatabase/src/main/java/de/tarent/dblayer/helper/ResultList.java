@@ -64,7 +64,6 @@ import java.util.NoSuchElementException;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.octopus.server.Closeable;
 
 /**

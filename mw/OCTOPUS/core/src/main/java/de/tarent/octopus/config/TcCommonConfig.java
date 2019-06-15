@@ -56,7 +56,6 @@ package de.tarent.octopus.config;
 import de.tarent.octopus.data.TarDBConnection;
 import de.tarent.octopus.data.TcDataAccessException;
 import de.tarent.octopus.data.TcGenericDataAccessWrapper;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcTaskList;

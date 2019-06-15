@@ -55,7 +55,6 @@ package de.tarent.octopus.request.servlet;
 
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusConnectionFactory;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;

@@ -80,7 +80,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import de.tarent.octopus.logging.LogFactory;
 
 import lombok.extern.log4j.Log4j2;@Log4j2
 public class Xml {

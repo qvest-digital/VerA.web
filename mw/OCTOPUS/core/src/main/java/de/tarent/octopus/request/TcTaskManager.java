@@ -62,7 +62,6 @@ import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.content.TcContentWorker;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.TcResponseDescription;
 import de.tarent.octopus.server.OctopusContext;

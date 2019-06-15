@@ -63,7 +63,6 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.resource.Resources;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SQLStatementException;

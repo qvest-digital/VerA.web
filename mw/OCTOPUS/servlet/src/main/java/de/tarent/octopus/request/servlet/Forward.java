@@ -53,7 +53,7 @@ package de.tarent.octopus.request.servlet;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.IOException;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -61,9 +61,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.IOException;
 
 /**
  * <p>
@@ -83,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Michael Klink, tarent GmbH
  * @author Christoph Jerolimov, tarent GmbH
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class Forward extends HttpServlet {
     private static final long serialVersionUID = 3256441417202218291L;
 

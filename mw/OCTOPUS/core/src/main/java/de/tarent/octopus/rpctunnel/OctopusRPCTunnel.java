@@ -59,7 +59,6 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 
 /**

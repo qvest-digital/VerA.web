@@ -68,7 +68,6 @@ import org.apache.commons.logging.Log;
 import org.w3c.dom.Element;
 import org.xml.sax.Attributes;
 
-import de.tarent.octopus.logging.LogFactory;
 
 import lombok.extern.log4j.Log4j2;@Log4j2
 public class SmartSerializer implements Serializer {

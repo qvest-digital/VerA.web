@@ -67,7 +67,6 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.commons.logging.LogFactory;
 
 /**
  * This class is a wrapper for {@link ResultSet} instances implementing the {@link Map}

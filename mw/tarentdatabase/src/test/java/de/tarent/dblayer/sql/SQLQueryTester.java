@@ -71,7 +71,6 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.commons.logging.LogFactory;
 
 /**
  * This tool runs a sequence of SQL-Queries defined in an input-file (e.g. a log-file)

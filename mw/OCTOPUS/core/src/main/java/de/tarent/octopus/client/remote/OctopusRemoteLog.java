@@ -66,7 +66,6 @@ import org.apache.axis.Message;
 import org.apache.axis.client.Call;
 import org.apache.commons.logging.Log;
 
-import de.tarent.octopus.logging.LogFactory;
 
 /**
  * Klasse, die Logs zur Remotekommunikation anlegt...

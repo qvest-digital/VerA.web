@@ -74,7 +74,6 @@ import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.commons.datahandling.ListFilterOperator;
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.sql.ParamValue;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.commons.datahandling.PrimaryKeyList;

@@ -68,7 +68,6 @@ import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 
 /**

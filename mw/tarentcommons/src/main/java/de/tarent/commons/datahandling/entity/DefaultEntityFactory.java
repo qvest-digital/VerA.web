@@ -53,7 +53,6 @@ package de.tarent.commons.datahandling.entity;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.commons.utils.Pojo;
 import de.tarent.commons.utils.StringTools;
 

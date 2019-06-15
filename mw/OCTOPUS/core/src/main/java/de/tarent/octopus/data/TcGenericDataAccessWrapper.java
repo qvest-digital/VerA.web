@@ -70,7 +70,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.octopus.logging.LogFactory;
 
 /**
  * Zugriffsschicht zur Datenbank.

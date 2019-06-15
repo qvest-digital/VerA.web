@@ -75,7 +75,6 @@ import de.tarent.octopus.content.TcMessageDefinition;
 import de.tarent.octopus.content.TcMessageDefinitionPart;
 import de.tarent.octopus.content.TcOperationDefinition;
 import de.tarent.octopus.content.TcPortDefinition;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.TcResponseCreator;
 import de.tarent.octopus.server.OctopusContext;

@@ -55,7 +55,6 @@ package de.tarent.octopus.extensions;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.octopus.logging.LogFactory;
 
 /**
  * A simple extension loader that relieves the calling code of extensive

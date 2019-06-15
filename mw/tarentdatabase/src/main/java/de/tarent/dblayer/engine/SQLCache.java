@@ -60,7 +60,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.tarent.commons.logging.LogFactory;
 
 /**
  * The SQLCache loads sql-statements from files and optionaly caches the statements

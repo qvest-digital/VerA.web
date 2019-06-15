@@ -56,7 +56,6 @@ package de.tarent.octopus.content;
 import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.config.ContentWorkerDeclaration;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.server.SpecialWorkerFactory;
 import de.tarent.octopus.server.WorkerCreationException;

@@ -68,7 +68,6 @@ import org.apache.axis.encoding.XMLType;
 
 import javax.xml.rpc.*;
 
-import de.tarent.octopus.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
 import java.io.InputStream;

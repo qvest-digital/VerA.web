@@ -55,7 +55,6 @@ package de.tarent.dblayer.sql.statement;
 
 import de.tarent.commons.datahandling.entity.AttributeSource;
 import de.tarent.commons.datahandling.entity.ParamSet;
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.InsertKeys;

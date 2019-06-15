@@ -76,7 +76,6 @@ import de.tarent.octopus.client.OctopusConstants;
 import de.tarent.octopus.client.OctopusResult;
 import de.tarent.octopus.client.OctopusTask;
 import de.tarent.octopus.client.UserDataProvider;
-import de.tarent.octopus.logging.LogFactory;
 
 /**
  * Implementierung einer OctopusConnection zu einem entfernt liegenden Octopus.

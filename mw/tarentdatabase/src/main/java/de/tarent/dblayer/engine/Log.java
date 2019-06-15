@@ -53,7 +53,6 @@ package de.tarent.dblayer.engine;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.commons.logging.LogFactory;
 
 import lombok.extern.log4j.Log4j2;@Log4j2
 public class Log {

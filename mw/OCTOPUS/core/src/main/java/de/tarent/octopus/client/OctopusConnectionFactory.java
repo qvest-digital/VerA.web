@@ -63,7 +63,6 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 
 import de.tarent.octopus.client.remote.OctopusRemoteConnection;
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.directcall.OctopusDirectCallConnection;
 import de.tarent.octopus.request.directcall.OctopusDirectCallStarter;

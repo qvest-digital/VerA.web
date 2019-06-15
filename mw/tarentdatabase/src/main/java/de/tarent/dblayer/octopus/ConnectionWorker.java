@@ -58,7 +58,6 @@ import java.sql.SQLException;
 
 import org.apache.commons.logging.Log;
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.octopus.server.Closeable;
 import de.tarent.octopus.server.OctopusContext;

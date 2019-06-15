@@ -55,7 +55,6 @@ package de.tarent.dblayer;
 
 import java.sql.SQLException;
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.Pool;

@@ -65,7 +65,6 @@ import org.apache.commons.logging.Log;
 import org.apache.xmlrpc.XmlRpcRequest;
 import org.apache.xmlrpc.XmlRpcRequestProcessor;
 
-import de.tarent.octopus.logging.LogFactory;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.soap.TcSOAPException;
 

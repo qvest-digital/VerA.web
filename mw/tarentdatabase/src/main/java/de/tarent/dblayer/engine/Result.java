@@ -57,7 +57,6 @@ import java.lang.reflect.Proxy;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import de.tarent.commons.logging.LogFactory;
 import de.tarent.dblayer.engine.proxy.ResultSetProxyInvocationHandler;
 import de.tarent.dblayer.sql.Statement;
 
