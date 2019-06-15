@@ -53,6 +53,9 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
 /**
  * Subset of commons-logging 1.2 LogFactory interface
  *
@@ -155,6 +158,19 @@ public abstract class LogFactory {
      * In this implementation, does nothing.
      */
     public abstract void setAttribute(final String name, final Object value);
+
+    /**
+     * Dummy to make javac generate a hidden synthetic field we need.
+     */
+    @SuppressWarnings({ "unused", "Convert2Lambda", "unchecked" })
+    private static Object dummyForJavac() {
+        return AccessController.doPrivileged(
+          new PrivilegedAction() {
+              public Object run() {
+                  return null;
+              }
+          });
+    }
 
     /**
      * Used with Apache commons-discovery by Axis
