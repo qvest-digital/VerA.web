@@ -213,7 +213,7 @@ public class DB {
      */
     static public ResultSet getResultSet(DBContext dbx, String sql) throws SQLException {
         try {
-            Log.logStatement(sql);
+            logger.debug(sql);
             return getStatement(dbx).executeQuery(sql);
         } catch (SQLException e) {
             throw new SQLStatementException(e, sql);
@@ -225,7 +225,7 @@ public class DB {
      */
     static public ResultSet getResultSet(String poolname, String sql) throws SQLException {
         try {
-            Log.logStatement(sql);
+            logger.debug(sql);
             return getStatement(poolname).executeQuery(sql);
         } catch (SQLException e) {
             throw new SQLStatementException(e, sql);
@@ -255,7 +255,7 @@ public class DB {
         String sql = "";
         try {
             sql = SQLCache.getSQLFromFile(poolname, sqlfile);
-            Log.logStatement(sql);
+            logger.debug(sql);
             return getStatement(poolname).executeQuery(sql);
         } catch (SQLException ex) {
             throw new SQLStatementException(ex, sql);
@@ -271,7 +271,7 @@ public class DB {
         String sql = "";
         try {
             sql = SQLCache.getSQLFromFile(dbx, sqlfile);
-            Log.logStatement(sql);
+            logger.debug(sql);
             return getStatement(dbx).executeQuery(sql);
         } catch (SQLException ex) {
             throw new SQLStatementException(ex, sql);
@@ -302,7 +302,7 @@ public class DB {
                 logger.trace("Replacing {" + keys[i] + "} with " + (String) subst.get(keys[i]));
             }
         }
-        Log.logStatement(sql);
+        logger.debug(sql);
         try {
             return getStatement(poolname).executeQuery(sql.toString());
         } catch (SQLException ex) {
@@ -334,7 +334,7 @@ public class DB {
                 logger.trace("Replacing {" + keys[i] + "} with " + (String) subst.get(keys[i]));
             }
         }
-        Log.logStatement(sql);
+        logger.debug(sql);
         try {
             return getStatement(dbx).executeQuery(sql.toString());
         } catch (SQLException ex) {
@@ -632,7 +632,7 @@ public class DB {
         InsertKeys result = new InsertKeys();
         Statement statement = null;
         try {
-            Log.logStatement(insert);
+            logger.debug(insert);
             statement = getStatement(dbx);
             statement.executeUpdate(insert);
             result.putAll(returnGeneratedKeys(dbx, statement, insert));
@@ -657,7 +657,7 @@ public class DB {
         int result = 0;
         Statement statement = null;
         try {
-            Log.logStatement(insert);
+            logger.debug(insert);
             statement = getStatement(dbx);
             result = statement.executeUpdate(insert);
         } catch (SQLException e) {
@@ -745,7 +745,7 @@ public class DB {
         Statement statement = null;
         int result = 0;
         try {
-            Log.logStatement(sql);
+            logger.debug(sql);
             statement = getStatement(dbx);
             result = statement.executeUpdate(sql);
         } catch (SQLException e) {
@@ -765,7 +765,7 @@ public class DB {
         Statement statement = null;
         int result = 0;
         try {
-            Log.logStatement(sql);
+            logger.debug(sql);
             statement = getStatement(poolname);
             result = statement.executeUpdate(sql);
         } catch (SQLException e) {
@@ -801,7 +801,7 @@ public class DB {
      */
     public static Result result(DBContext dbx, String sql) throws SQLException {
         try {
-            Log.logStatement(sql);
+            logger.debug(sql);
             return new Result(dbx, sql);
         } catch (SQLException e) {
             throw new SQLStatementException(e, sql);
@@ -815,7 +815,7 @@ public class DB {
      */
     public static Result result(String poolname, String sql) throws SQLException {
         try {
-            Log.logStatement(sql);
+            logger.debug(sql);
             return new Result(poolname, sql);
         } catch (SQLException e) {
             throw new SQLStatementException(e, sql);
