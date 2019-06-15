@@ -68,7 +68,7 @@ public interface Clause extends SetDbContext, Cloneable {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      *
      * @return string representation of the clause model
      * @deprecated use {@link #clauseToString(DBContext)} instead

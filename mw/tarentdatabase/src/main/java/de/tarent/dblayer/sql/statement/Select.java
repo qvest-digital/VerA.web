@@ -688,7 +688,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      *
      * This method actually calls {@link #executeSelect(String)} using the pool name
      * of the {@link DBContext}.
@@ -706,7 +706,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      *
      * @see de.tarent.dblayer.sql.Statement#statementToString()
      */
@@ -866,7 +866,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      *
      * @see java.lang.Object#toString()
      */
@@ -886,7 +886,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      *
      * @return string representation of the clause model
      * @see de.tarent.dblayer.sql.clause.Clause#clauseToString()

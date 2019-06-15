@@ -67,12 +67,12 @@ import de.tarent.dblayer.engine.DBContext;
 public final class Format {
     /**
      * This date format is used by the {@link #defaultFormat(Object)} method
-     * to create a string representation of a date in PostgresQL SQL statements.
+     * to create a string representation of a date in PostgreSQL SQL statements.
      */
     static public final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
-     * This method formats a value for the PostgresQL Database System. It handels Character,
+     * This method formats a value for the PostgreSQL Database System. It handels Character,
      * String, Boolean, Date and Statement, while all other objects are formatted using
      * their respective <code>toString()</code> method.
      *
@@ -83,7 +83,7 @@ public final class Format {
     }
 
     /**
-     * This method formats a value for the PostgresQL Database System. It handels Character,
+     * This method formats a value for the PostgreSQL Database System. It handels Character,
      * String, Boolean, Date and Statement, while all other objects are formatted using
      * their respective <code>toString()</code> method.
      */

@@ -127,7 +127,7 @@ public class GroupBy {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      *
      * @return string representation of the <code>GROUP BY</code> part
      */
@@ -144,7 +144,7 @@ public class GroupBy {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      */
     public void clauseToString(StringBuffer sb) {
         sb.append(GROUPBY);
@@ -161,7 +161,7 @@ public class GroupBy {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      */
     protected void appendClause(StringBuffer sb) {
         for (Iterator it = groupby.iterator(); it.hasNext(); ) {

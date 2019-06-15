@@ -35,19 +35,3 @@ Nach jeder Veränderung der Datenbank von außen sollte daher die mitgelieferten
 serv_build_sequences ausgeführt werden, welche diese Sequenzen korrigiert:
 
   SELECT serv_build_sequences();
-
-== veraweb-schema.sql: Nicht standardkonforme Verwendung von \' in Zeichenkettenkonstante ==
-
-'''Fehler'''
-
-   PostgreSQL 8.2.x quittiert das Absenden des CREATE OR REPLACE FUNCTION serv_verawebschema(int4) ...
-   mit der Fehlermeldung: nicht standardkonforme Verwendung von \' in Zeichenkettenkonstante.
-
-'''Problembehebung'''
-
-   Die Verwendung von \' ist veraltet und führt unter PostgreSQL zu genannter Fehlermeldung.
-   Die Funktion wird jedoch vollständig angelegt und kann ohne weiteres durch SELECT * FROM serv_verawebschema(0);
-   getestet werden bzw. durch SELECT * FROM serv_verawebschema(1); ausgeführt werden.
-   Um die Fehlermeldung abzustellen, muss die Konfiguration von PostgreSQL geändert werden.
-   Dies geschieht über die Konfigurationsdatei /etc/postgresql/8.2/main/postgresql.conf.
-   Suchen Sie dort den Schlüssel "escape_string_warning" und setzen Sie diesen von "on" auf "off".

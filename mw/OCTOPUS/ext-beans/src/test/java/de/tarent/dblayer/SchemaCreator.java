@@ -75,7 +75,7 @@ public class SchemaCreator {
     /**
      * filename (may contain path) of the db layer properties
      */
-    public static final String CONFIG_FILENAME = "test-connection.properties";
+    private static final String CONFIG_FILENAME = "test-connection.properties";
 
     /**
      * name of the test db layer pool
@@ -85,22 +85,17 @@ public class SchemaCreator {
     /**
      * instance of this singleton
      */
-    static SchemaCreator instance;
+    private static SchemaCreator instance;
 
     /**
      * flag: true iff db schema has been set up by this singleton instance
      */
-    boolean isSchemaSetUp = false;
-
-    /**
-     * flag: true iff the test database supports serial fields
-     */
-    boolean supportingSerials = false;
+    private boolean isSchemaSetUp = false;
 
     /**
      * db layer properties
      */
-    final Properties info = new Properties();
+    private final Properties info = new Properties();
 
     //
     // singleton pattern methods
@@ -109,7 +104,7 @@ public class SchemaCreator {
     /**
      * protected constructor to enforce singleton pattern
      */
-    protected SchemaCreator() {
+    private SchemaCreator() {
     }
 
     /**
@@ -129,10 +124,6 @@ public class SchemaCreator {
         return instance;
     }
 
-    //
-    // public methods
-    //
-
     /**
      * This method sets up the tables and data in the test database.
      *
@@ -150,13 +141,10 @@ public class SchemaCreator {
     }
 
     /**
-     * This method initialises the {@link #info db layer properties} and the
-     * {@link #supportingSerials} flag and then opens the test db layer pool.
-     *
-     * @throws SQLException
+     * This method initialises the {@link #info db layer properties}
+     * and then opens the test db layer pool.
      */
-    public void openPool() {
-
+    private void openPool() {
         info.clear();
         try {
             File connectionConfiguration = new File(CONFIG_FILENAME);
@@ -180,21 +168,10 @@ public class SchemaCreator {
                 info.setProperty("poolMinIdle", "1");
                 info.setProperty("poolMaxActive", "10");
             }
-            supportingSerials = !Pool.DB_ORACLE.equals(info.get(Pool.TARGET_DB));
         } catch (Exception e) {
             throw new RuntimeException("Error on loading test database pool configuration", e);
         }
         DB.openPool(TEST_POOL, info);
-    }
-
-    /**
-     * This flag is true iff the test database supports serials and thus especially
-     * whether or not the table "produkt" having a serial primary key exists.
-     *
-     * @return true iff the test database supports serials
-     */
-    public boolean isSupportingSerials() {
-        return supportingSerials;
     }
 
     //
@@ -205,7 +182,7 @@ public class SchemaCreator {
      * This method drops the test tables in the test database. Exceptions are
      * ignored, thus this can also be executed when there are no test tables.
      */
-    protected void dropSchema() {
+    private void dropSchema() {
         try {
             DB.update(TEST_POOL, "DROP TABLE person");
         } catch (SQLException e) {
@@ -229,13 +206,9 @@ public class SchemaCreator {
     }
 
     /**
-     * This method creates the tables "firma", "person" and (if the test
-     * database supports serials) "produkt".
-     *
-     * @throws SQLException
-     * @see #isSupportingSerials()
+     * This method creates the tables "firma", "person" and "produkt".
      */
-    protected void createSchema() throws SQLException {
+    private void createSchema() throws SQLException {
         DB.update(TEST_POOL,
           "CREATE TABLE firma ("
             + " pk_firma integer not null,"
@@ -255,26 +228,20 @@ public class SchemaCreator {
             + " CONSTRAINT firma_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
             + ")");
 
-        if (isSupportingSerials()) {
-            DB.update(TEST_POOL,
-              "CREATE TABLE produkt ("
-                + " pk_produkt serial not null,"
-                + " fk_firma integer,"
-                + " name varchar(50),"
-                + " CONSTRAINT produkt_pkey PRIMARY KEY (pk_produkt),"
-                + " CONSTRAINT produkt_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
-                + ")");
-        }
+        DB.update(TEST_POOL,
+          "CREATE TABLE produkt ("
+            + " pk_produkt serial not null,"
+            + " fk_firma integer,"
+            + " name varchar(50),"
+            + " CONSTRAINT produkt_pkey PRIMARY KEY (pk_produkt),"
+            + " CONSTRAINT produkt_fkey FOREIGN KEY (fk_firma) REFERENCES firma (pk_firma))"
+            + ")");
     }
 
     /**
-     * This method creates entries in the tables "firma", "person" and
-     * (if the test database supports serials) "produkt".
-     *
-     * @throws SQLException
-     * @see #isSupportingSerials()
+     * This method creates entries in the tables "firma", "person" and "produkt".
      */
-    protected void doInserts() {
+    private void doInserts() {
         try {
             DBContext dbc = DB.getDefaultContext(TEST_POOL);
             SQL.Insert(dbc).table("firma")
@@ -327,12 +294,10 @@ public class SchemaCreator {
               .insert("geburtstag", DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMANY).parse("26.11.80"))
               .execute();
 
-            if (isSupportingSerials()) {
-                SQL.Insert(dbc).table("produkt")
-                  .insert("fk_firma", new Integer(2))
-                  .insert("name", "Currywurst-Pommes rot-weiß")
-                  .execute();
-            }
+            SQL.Insert(dbc).table("produkt")
+              .insert("fk_firma", new Integer(2))
+              .insert("name", "Currywurst-Pommes rot-weiß")
+              .execute();
         } catch (Exception e) {
             throw new RuntimeException("Error on reading date strings", e);
         }

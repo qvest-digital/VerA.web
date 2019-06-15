@@ -272,7 +272,7 @@ public class InsertUpdate extends AbstractStatement {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.<br>
+     * a PostgreSQL DBMS.<br>
      * This method actually calls {@link #executeInsert(String)} using the pool name
      * of the {@link DBContext}.
      *
@@ -289,7 +289,7 @@ public class InsertUpdate extends AbstractStatement {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.<br>
+     * a PostgreSQL DBMS.<br>
      * This method actually calls {@link #executeInsert(String)} using the pool name
      * of the {@link DBContext}.
      *

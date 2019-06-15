@@ -114,15 +114,11 @@ public class DBPool implements Pool {
      */
     public void init() {
         try {
-
             // use JDBC2
             if (null != getProperty(USE_OLD_JDBC2) && (new Boolean(getProperty(USE_OLD_JDBC2))).booleanValue()) {
                 useOldJDBC2Connection = true;
                 Class.forName(getProperty(JDBC2_DRIVER_CLASS));
                 jdbc2ConnectionString = getProperty(JDBC2_CONNECTION_STRING);
-                if (jdbc2ConnectionString == null || jdbc2ConnectionString.trim().equals("")) {
-                    jdbc2ConnectionString = getProperty(JDBC2_CONNECITON_STRING);
-                }
             } else if (null != getProperty(USE_JNDI) && (new Boolean(getProperty(USE_JNDI).trim())).booleanValue()) {
                 // configure the JNDI DataSource
                 useJNDI = true;

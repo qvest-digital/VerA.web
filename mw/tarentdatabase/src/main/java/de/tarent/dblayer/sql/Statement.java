@@ -104,7 +104,7 @@ public interface Statement extends SetDbContext, ParamHolder {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise a default db layer context is assumed which for now is
-     * a PostgresQL DBMS.
+     * a PostgreSQL DBMS.
      */
     public String statementToString() throws SyntaxErrorException;
 
@@ -114,7 +114,7 @@ public interface Statement extends SetDbContext, ParamHolder {
      * This method should only be used after setting the {@link DBContext}
      * using the {@link SetDbContext#setDBContext(DBContext)} method.
      * Otherwise an exception is thrown or a default db layer context is assumed
-     * which for now is a PostgresQL DBMS.
+     * which for now is a PostgreSQL DBMS.
      *
      * @throws IllegalStateException if no DBContext is set.
      * @throws SQLException          if an SQL error occures.

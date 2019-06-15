@@ -120,12 +120,11 @@ public class DB {
 
         /* check if the target-db-type is really defined in order to avoid problems on db-specific functions */
         Object dbType = info.get(Pool.TARGET_DB);
-        if (dbType != null) {
-            if (!(dbType.equals(Pool.DB_POSTGRESQL) || dbType.equals(Pool.DB_MSSQL) || dbType.equals(Pool.DB_ORACLE))) {
-                throw new RuntimeException("The target DB-type \"" + dbType + "\" is unknown!");
-            }
-        } else {
+        if (dbType == null) {
             throw new RuntimeException("No target DB-type has been defined!");
+        } else if (!dbType.equals(Pool.DB_POSTGRESQL)) {
+            throw new RuntimeException("The target DB-type \"" + dbType +
+              "\" is not \"" + Pool.DB_POSTGRESQL + "\"!");
         }
 
         pool.init();

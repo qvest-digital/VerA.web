@@ -55,7 +55,6 @@ package de.tarent.dblayer.sql;
 
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.SetDbContext;
-import de.tarent.dblayer.oracle.OracleFormat;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Function;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -89,7 +88,7 @@ public class SQL {
 
     /**
      * This method returns a non-distinct {@link Select} {@link Statement}
-     * fitting the default execution context which currently is a PostgresQL
+     * fitting the default execution context which currently is a PostgreSQL
      * DBMS. You had better use the method based on the db execution context.
      *
      * @deprecated use {@link #Select(DBContext)} instead.
@@ -112,7 +111,7 @@ public class SQL {
 
     /**
      * This method returns a distinct {@link Select} {@link Statement}
-     * fitting the default execution context which currently is a PostgresQL
+     * fitting the default execution context which currently is a PostgreSQL
      * DBMS. You had better use the method based on the db execution context.
      *
      * @deprecated use {@link #SelectDistinct(DBContext)} instead.
@@ -136,7 +135,7 @@ public class SQL {
 
     /**
      * This method returns an {@link Insert} {@link Statement}
-     * fitting the default execution context which currently is a PostgresQL
+     * fitting the default execution context which currently is a PostgreSQL
      * DBMS. You had better use the method based on the db execution context.
      *
      * @deprecated use {@link #Insert(DBContext)} instead.
@@ -160,7 +159,7 @@ public class SQL {
 
     /**
      * This method returns an {@link Update} {@link Statement}
-     * fitting the default execution context which currently is a PostgresQL
+     * fitting the default execution context which currently is a PostgreSQL
      * DBMS. You had better use the method based on the db execution context.
      *
      * @deprecated use {@link #Update(DBContext)} instead.
@@ -184,7 +183,7 @@ public class SQL {
 
     /**
      * This method returns a {@link Delete} {@link Statement}
-     * fitting the default execution context which currently is a PostgresQL
+     * fitting the default execution context which currently is a PostgreSQL
      * DBMS. You had better use the method based on the db execution context.
      *
      * @deprecated use {@link #Delete(DBContext)} instead.
@@ -208,7 +207,7 @@ public class SQL {
 
     /**
      * This method returns an {@link InsertUpdate} {@link Statement}
-     * fitting the default execution context which currently is a PostgresQL
+     * fitting the default execution context which currently is a PostgreSQL
      * DBMS. You had better use the method based on the db execution context.
      *
      * @deprecated use {@link #InsertUpdate(DBContext)} instead.
@@ -232,7 +231,7 @@ public class SQL {
 
     /**
      * This method returns a {@link Sequence} {@link Statement}
-     * fitting the default execution context which currently is a PostgresQL
+     * fitting the default execution context which currently is a PostgreSQL
      * DBMS. You had better use the method based on the db execution context.
      *
      * @deprecated use {@link #Sequence(DBContext)} instead.
@@ -256,7 +255,7 @@ public class SQL {
 
     /**
      * This method returns a {@link WhereList} fitting the default execution
-     * context which currently is a PostgresQL DBMS. You had better use the
+     * context which currently is a PostgreSQL DBMS. You had better use the
      * method based on the db execution context.
      *
      * @deprecated use {@link #WhereList(DBContext)} instead.
@@ -277,7 +276,7 @@ public class SQL {
 
     /**
      * This method returns a {@link Function} fitting the default execution
-     * context which currently is a PostgresQL DBMS. You had better use the
+     * context which currently is a PostgreSQL DBMS. You had better use the
      * method based on the db execution context.
      *
      * @deprecated use {@link #Function(DBContext, String)} instead.
@@ -307,8 +306,8 @@ public class SQL {
      * their {@link DBContext} attribute and then calling their {@link Object#toString()}
      * method.
      *
-     * All remaining classes are formatted using the helper methods of the classes
-     * {@link Format} or {@link OracleFormat} which know explicitely how to handle
+     * All remaining classes are formatted using the helper methods of the class
+     * {@link Format} which knows explicitely how to handle
      * Characters, Strings, Boolean, Date, Statement, and some collection framework
      * classes, while all other Objects are formatted using their respective
      * <code>.toString()</code> method.

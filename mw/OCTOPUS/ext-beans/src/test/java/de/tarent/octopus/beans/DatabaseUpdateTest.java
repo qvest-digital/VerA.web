@@ -187,39 +187,35 @@ public class DatabaseUpdateTest extends TestCase {
             return;
         }
 
-        if (SchemaCreator.getInstance().isSupportingSerials()) {
-            Database database = DatabaseSelectTest.getDatabase();
-            if (database == null) {
-                return;
-            }
-            Product product = createNewProduct();
-            Integer testProductId2 = DatabaseSelectTest.INTEGER_2;
-            Integer testProductId3 = DatabaseSelectTest.INTEGER_3;
-
-            Product productInDB = (Product) database.getBean("Product", testProductId2);
-            assertNull("unexpected product in database", productInDB);
-
-            database.saveBean(product, database, false);
-            product.id = testProductId2;
-
-            productInDB = (Product) database.getBean("Product", testProductId2);
-            assertEquals("wrong new product in database", product, productInDB);
-
-            database.removeBean(product);
-            productInDB = (Product) database.getBean("Product", testProductId2);
-            assertNull("unexpected deleted product in database", productInDB);
-
-            product.id = null;
-            database.saveBean(product);
-            assertEquals("unexpected id for new product", testProductId3, product.id);
-
-            productInDB = (Product) database.getBean("Product", testProductId3);
-            assertEquals("wrong new product in database", product, productInDB);
-
-            database.removeBean(product);
-        } else {
-            logger.info("No insert tests without sequence usage executed as test database does not support serials");
+        Database database = DatabaseSelectTest.getDatabase();
+        if (database == null) {
+            return;
         }
+        Product product = createNewProduct();
+        Integer testProductId2 = DatabaseSelectTest.INTEGER_2;
+        Integer testProductId3 = DatabaseSelectTest.INTEGER_3;
+
+        Product productInDB = (Product) database.getBean("Product", testProductId2);
+        assertNull("unexpected product in database", productInDB);
+
+        database.saveBean(product, database, false);
+        product.id = testProductId2;
+
+        productInDB = (Product) database.getBean("Product", testProductId2);
+        assertEquals("wrong new product in database", product, productInDB);
+
+        database.removeBean(product);
+        productInDB = (Product) database.getBean("Product", testProductId2);
+        assertNull("unexpected deleted product in database", productInDB);
+
+        product.id = null;
+        database.saveBean(product);
+        assertEquals("unexpected id for new product", testProductId3, product.id);
+
+        productInDB = (Product) database.getBean("Product", testProductId3);
+        assertEquals("wrong new product in database", product, productInDB);
+
+        database.removeBean(product);
     }
 
     //
