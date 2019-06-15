@@ -67,9 +67,6 @@ public abstract class LogFactory {
 
     private static LogFactory IMPLEMENTATION = null;
 
-    @SuppressWarnings("unused")
-    static Class class$org$apache$commons$logging$LogFactory = LogFactory.class;
-
     /**
      * Returns the singleton actual factory instance.
      *

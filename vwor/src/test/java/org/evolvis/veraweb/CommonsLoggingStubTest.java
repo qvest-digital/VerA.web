@@ -76,6 +76,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -106,6 +107,8 @@ public class CommonsLoggingStubTest {
         assertEquals(0, f.getAttributeNames().length);
         f.removeAttribute(null);
         f.release();
+        assertNotEquals(f, new LogBridgeFactory());
+        assertEquals(f, LogFactory.getFactory());
         LogFactory.release(null);
         LogFactory.releaseAll();
     }
