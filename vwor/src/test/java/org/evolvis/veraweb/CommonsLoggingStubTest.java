@@ -71,10 +71,12 @@ package org.evolvis.veraweb;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogConfigurationException;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.LogFactoryImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Tests for the commons-logging 1.2 stub from OCTOPUS-base
@@ -93,5 +95,9 @@ public class CommonsLoggingStubTest {
         lC.info("successful log via class", e);
         final Log lS = f.getInstance("miau");
         lS.info("meow");
+        final Log lI = LogFactory.getLog(org.springframework.jdbc.core.JdbcTemplate.class);
+        lI.info("this should not have warned after the meow above");
+        assertEquals(LogFactoryImpl.class.getName(), LogFactory.FACTORY_DEFAULT);
+        assertNotNull(LogFactory.FACTORY_PROPERTIES);
     }
 }
