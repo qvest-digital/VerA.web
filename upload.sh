@@ -97,7 +97,7 @@ ssh root@$hostbase "
 	psql -U veraweb -h 127.0.0.1 veraweb
 	rm -rf /var/lib/tomcat$tomcat/webapps/v*
     " <core/src/main/files/upgrade.sql
-scp core/target/veraweb.war vwor/target/vwor.war \
+rsync -zavP core/target/veraweb.war vwor/target/vwor.war \
     root@$hostbase:/var/lib/tomcat$tomcat/webapps/
 ssh root@$hostbase "
 	PS4='(${hostbase%%.*})++++ '
