@@ -367,6 +367,7 @@
 						<configuration>
 							<failOnWarning>false</failOnWarning>
 							<ignoredUnusedDeclaredDependencies combine.children="append">
+								<ignoredUnusedDeclaredDependency>org.apache.logging.log4j:log4j-core</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.tartools:maven-parent</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.projectlombok:lombok</ignoredUnusedDeclaredDependency>
 							</ignoredUnusedDeclaredDependencies>
@@ -992,6 +993,10 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.evolvis.tartools</groupId>
 			<artifactId>maven-parent</artifactId>

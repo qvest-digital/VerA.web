@@ -80,10 +80,6 @@
 			<artifactId>log4j-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 		</dependency>
@@ -272,8 +268,6 @@
 						<configuration>
 							<failOnWarning>false</failOnWarning>
 							<ignoredUnusedDeclaredDependencies combine.children="append">
-								<!-- must be in the classpath -->
-								<ignoredUnusedDeclaredDependency>org.apache.logging.log4j:log4j-core</ignoredUnusedDeclaredDependency>
 								<!-- OCTOPUS extensions -->
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-annotation</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-cronjobs</ignoredUnusedDeclaredDependency>
