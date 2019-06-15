@@ -61,6 +61,7 @@ import org.apache.logging.log4j.LogManager;
  *
  * @author mirabilos (t.glaser@tarent.de)
  */
+@SuppressWarnings("WeakerAccess")
 @Log4j2
 public abstract class LogFactory {
     public static Log getLog(java.lang.Class clazz) throws LogConfigurationException {
@@ -111,6 +112,20 @@ public abstract class LogFactory {
         /* otherwise warn */
         return true;
     }
+
+    public abstract Log getInstance(final Class clazz) throws LogConfigurationException;
+
+    public abstract Log getInstance(final String name) throws LogConfigurationException;
+
+    public abstract void release();
+
+    public abstract Object getAttribute(String name);
+
+    public abstract String[] getAttributeNames();
+
+    public abstract void removeAttribute(String name);
+
+    public abstract void setAttribute(String name, Object value);
 
     public static final String FACTORY_PROPERTIES = "commons-logging.properties";
     public static final String FACTORY_DEFAULT = "org.apache.commons.logging.LogFactoryImpl";
