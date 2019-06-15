@@ -9,8 +9,4 @@
   FROM THE INTERNETZ⚠ (even pip itself…)
   ‣ ansibel docker plugin is also deprecated…
 • Bacon.js entfernen [VERA-635]
-
-dependency-check report:
-
-logback-core-1.1.2.jar (cpe:/a:logback:logback:1.1.2, ch.qos.logback:logback-core:1.1.2) : CVE-2017-5929
-jetty-util-9.0.7.v20131107.jar (cpe:/a:eclipse:jetty:9.0.7.v20131107, cpe:/a:jetty:jetty:9.0.7.v20131107, org.eclipse.jetty:jetty-util:9.0.7.v20131107) : CVE-2017-7656, CVE-2017-7658, CVE-2017-7657, CVE-2017-9735
+• dependency-check report
