@@ -12,11 +12,11 @@
 	<name>org.evolvis.veraweb:middleware:octopus (parent)</name>
 	<description>VerA.web embedded OCTOPUS</description>
 	<modules>
+		<module>base</module>
 		<module>core</module>
 		<module>ext-beans</module>
 		<module>ext-cronjobs</module>
 		<module>ext-jmx</module>
-		<module>rpctunnel</module>
 		<module>servlet</module>
 	</modules>
 </project>
