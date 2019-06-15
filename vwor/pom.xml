@@ -197,7 +197,6 @@
 								<usedDependency>org.glassfish.jersey.inject:jersey-hk2</usedDependency>
 								<usedDependency>org.glassfish.jersey.media:jersey-media-json-jackson</usedDependency>
 								<!-- for the tests -->
-								<usedDependency>com.h2database:h2</usedDependency>
 								<usedDependency>com.sun.istack:istack-commons-runtime</usedDependency>
 								<usedDependency>com.sun.xml.bind:jaxb-impl</usedDependency>
 							</usedDependencies>
