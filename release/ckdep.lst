@@ -15,7 +15,6 @@ com.sun.jersey:jersey-core 1.19.4 compile TODO
 com.sun.jersey:jersey-server 1.19.4 compile TODO
 commons-cli:commons-cli 1.2 compile TODO
 commons-codec:commons-codec 1.11 compile TODO
-commons-configuration:commons-configuration 1.10 provided TODO
 commons-dbcp:commons-dbcp 1.2.2 compile TODO
 commons-discovery:commons-discovery 0.2 provided TODO
 commons-discovery:commons-discovery 0.2 runtime TODO
