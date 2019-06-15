@@ -72,14 +72,12 @@ package de.tarent.octopus.custom.beans;
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusResult;
 import junit.framework.TestCase;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Diese Testklasse dient dem Profilen des Zeitverhaltens beim Erstellen
@@ -88,9 +86,9 @@ import java.util.logging.Logger;
  *
  * @author mikel
  */
+@Log4j2
 public class ProfileInsertTest extends TestCase {
     private OctopusConnection con;
-    private static Logger baseLogger = null;
     private FileHandler fileLogHandler = null;
 
     public void testProfile() {
@@ -113,10 +111,6 @@ public class ProfileInsertTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        baseLogger = Logger.getLogger("de.tarent");
-        baseLogger.setLevel(Level.ALL);
-        baseLogger.addHandler(new ConsoleHandler());
-        //        con = OctopusConnectionFactory.getInstance().getConnection("test");
     }
 
     @Override

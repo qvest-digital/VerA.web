@@ -67,6 +67,7 @@ import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -85,7 +86,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Konkrete {@link BeanFactory}, die Beans aus einer Datenbank ausliest.
@@ -93,6 +93,7 @@ import java.util.logging.Logger;
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
+@Log4j2
 public abstract class Database extends BeanFactory implements ExecutionContext {
     //
     // Konstanten
@@ -367,7 +368,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         } else {
             // TODO: sensible delete operation even without primary key information
             // This might be done using a WHERE clause including comparisons of all column values.
-            logger.warning("Instance of bean class " + bean.getClass().getName() +
+            logger.warn("Instance of bean class " + bean.getClass().getName() +
               "could not be deleted as it has no primary key property.");
         }
     }
@@ -453,9 +454,9 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
                 public void run() {
                     try {
                         context.close(rs);
-                        logger.log(Level.FINER, "Closing ResultSet for ResultList");
+                        logger.trace("Closing ResultSet for ResultList");
                     } catch (BeanException e) {
-                        logger.log(Level.SEVERE, "Error closing ResultSet of ResultList", e);
+                        logger.fatal("Error closing ResultSet of ResultList", e);
                     }
                 }
             }, rs);
@@ -805,7 +806,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
             return resultSet.getObject(key);
         } catch (SQLException e) {
             if (logger.isLoggable(Level.FINE)) {
-                logger.log(Level.FINE, "Feld " + key + " kann nicht ausgelesen werden.", e);
+                logger.debug("Feld " + key + " kann nicht ausgelesen werden.", e);
             }
             return null;
         }
@@ -951,16 +952,16 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
             column = getProperty(sample, field);
             if (keyFields.contains(field)) {
                 if (column == null || column.length() == 0) {
-                    logger.warning("Schlüsselfeld ohne zugeordnete Tabellenspalte: " + field);
+                    logger.warn("Schlüsselfeld ohne zugeordnete Tabellenspalte: " + field);
                 } else {
                     keyFieldsFound.add(field);
                     where.addAnd(Expr.equal(column, BeanBaseStatement.PLACE_HOLDER));
                 }
             } else if (updateFields.contains(field)) {
                 if (column == null || column.length() == 0) {
-                    logger.warning("Update-Feld ohne zugeordnete Tabellenspalte: " + field);
+                    logger.warn("Update-Feld ohne zugeordnete Tabellenspalte: " + field);
                 } else if (Boolean.valueOf(getPropertyAttribute(sample, field, Database.ATTRIBUTE_READ_ONLY)).booleanValue()) {
-                    logger.warning("Update-Feld ohne zugeordnete Tabellenspalte: " + field);
+                    logger.warn("Update-Feld ohne zugeordnete Tabellenspalte: " + field);
                 } else {
                     fieldsInStatement.add(field);
                     update.update(column, BeanBaseStatement.PLACE_HOLDER);
@@ -995,7 +996,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
                 context.close(resultSet);
             }
         } catch (BeanException e) {
-            logger.log(Level.WARNING, "Fehler beim Schließen eines ResultSets", e);
+            logger.warn("Fehler beim Schließen eines ResultSets", e);
         }
     }
 
@@ -1071,8 +1072,4 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
      * Dient zum Erstellen eines zusammengesetzten Property-Attribute-Schlüssels
      */
     final static MessageFormat propertyAttributeKeyFormat = new MessageFormat("{0}({1})");
-    /**
-     * logger of this class.
-     */
-    final static Logger logger = Logger.getLogger(Database.class.getName());
 }

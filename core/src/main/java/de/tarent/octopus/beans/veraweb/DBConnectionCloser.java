@@ -71,14 +71,13 @@ package de.tarent.octopus.beans.veraweb;
 
 import de.tarent.dblayer.engine.DB;
 import de.tarent.octopus.server.Closeable;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@Log4j2
 public class DBConnectionCloser implements Closeable {
-    private static final Logger logger = Logger.getLogger(DBConnectionCloser.class.getName());
     private Connection con;
 
     protected DBConnectionCloser(Connection con) {
@@ -91,7 +90,7 @@ public class DBConnectionCloser implements Closeable {
                 DB.close(con);
             }
         } catch (SQLException e) {
-            logger.log(Level.WARNING, e.getLocalizedMessage(), e);
+            logger.warn(e.getLocalizedMessage(), e);
         }
     }
 }

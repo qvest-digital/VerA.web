@@ -53,8 +53,9 @@ package de.tarent.commons.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.lang.reflect.Field;
-import java.util.logging.Logger;
 
 /**
  * <p>This class provides convenient methods for setting environment-variables like PATH(Windows)/LD_LIBRARY_PATH(UNIX) or
@@ -70,6 +71,7 @@ import java.util.logging.Logger;
  *
  * @author Fabian K&ouml;ster (f.koester@tarent.de), tarent GmbH Bonn
  */
+@Log4j2
 public abstract class EnvironmentVariableTool {
     /**
      * The java-property-name for the LIBRARY_PATH-Environment-Variable
@@ -79,8 +81,6 @@ public abstract class EnvironmentVariableTool {
      * The java-property-name for the CLASSPATH-Environment-Variable
      */
     public final static String CLASSPATH = "java.class.path";
-
-    private final static Logger logger = Logger.getLogger(EnvironmentVariableTool.class.getName());
 
     // This class cannot be instantiated
     private EnvironmentVariableTool() {
@@ -101,7 +101,7 @@ public abstract class EnvironmentVariableTool {
             // Reset it to null so that whenever "System.loadLibrary" is called, it will be reconstructed with the changed value.
             field.set(clazz, null);
         } catch (Exception pExcp) {
-            logger.warning("Setting sys_paths accessible failed");
+            logger.warn("Setting sys_paths accessible failed");
         }
     }
 

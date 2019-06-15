@@ -69,6 +69,8 @@ package de.tarent.data.exchange;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -79,7 +81,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,6 +89,7 @@ import java.util.regex.Pattern;
  *
  * @author mikel
  */
+@Log4j2
 public class FieldMapping {
     //
     // Konstruktor
@@ -463,7 +465,7 @@ public class FieldMapping {
                 targetPattern = targetPattern.replaceAll("\\*", source);
                 Object former = resolvedMappings.put(targetPattern, buffer.toString());
                 if (former != null) {
-                    logger.warning(
+                    logger.warn(
                       "Ersetze altes Format '" + former + "' für '" + targetPattern + "' durch '" + buffer.toString() +
                         "'.");
                 }
@@ -481,5 +483,4 @@ public class FieldMapping {
     Set availableTargets = null;
     final static Pattern refPattern = Pattern.compile("\\{([^{}]*)\\}");
     final static Integer MINUS_ONE = new Integer(-1);
-    final static Logger logger = Logger.getLogger(FieldMapping.class.getName());
 }

@@ -53,14 +53,17 @@ package de.tarent.octopus.jmx;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.content.TcMessageDefinition;
+import de.tarent.octopus.content.TcMessageDefinitionPart;
+import de.tarent.octopus.request.Octopus;
+import de.tarent.octopus.request.TcRequest;
+import de.tarent.octopus.request.TcTask;
+import de.tarent.octopus.request.TcTaskList;
+import de.tarent.octopus.request.directcall.TcDirectCallResponse;
+import de.tarent.octopus.request.directcall.TcDirectCallSession;
+import de.tarent.octopus.response.ResponseProcessingException;
+import lombok.extern.log4j.Log4j2;
 
 import javax.management.Attribute;
 import javax.management.AttributeList;
@@ -79,18 +82,14 @@ import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 import javax.management.RuntimeOperationsException;
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.content.TcMessageDefinition;
-import de.tarent.octopus.content.TcMessageDefinitionPart;
-import de.tarent.octopus.request.Octopus;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.request.TcTask;
-import de.tarent.octopus.request.TcTaskList;
-import de.tarent.octopus.request.directcall.TcDirectCallResponse;
-import de.tarent.octopus.request.directcall.TcDirectCallSession;
-import de.tarent.octopus.response.ResponseProcessingException;
-
+@Log4j2
 public class OctopusModuleManagement implements DynamicMBean {
     private ObjectName jmxName = null;
     private MBeanInfo octopusMBeanInfo = null;
@@ -99,8 +98,6 @@ public class OctopusModuleManagement implements DynamicMBean {
     private TcCommonConfig octopusConfig = null;
     private Octopus octopus = null;
     private String module = null;
-
-    private static Logger logger = Logger.getLogger(OctopusModuleManagement.class.getName());
 
     public OctopusModuleManagement(Octopus octopus, TcCommonConfig commonconfig, String module)
       throws MalformedObjectNameException, NullPointerException {
@@ -360,7 +357,7 @@ public class OctopusModuleManagement implements DynamicMBean {
         try {
             octopus.dispatch(request, response, new TcDirectCallSession());
         } catch (ResponseProcessingException e) {
-            logger.log(Level.SEVERE, "Error calling Octopus task " + task + " from JMX subsystem.", e);
+            logger.fatal("Error calling Octopus task " + task + " from JMX subsystem.", e);
         }
 
         // catch errors

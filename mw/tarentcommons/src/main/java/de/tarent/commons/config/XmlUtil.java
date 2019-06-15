@@ -53,14 +53,14 @@ package de.tarent.commons.config;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Vector;
-import java.util.logging.Logger;
+import de.tarent.commons.config.ConnectionDefinition.Key;
+import lombok.extern.log4j.Log4j2;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -73,15 +73,13 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import de.tarent.commons.config.ConnectionDefinition.Key;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * This class was once an integral part of the older
@@ -93,9 +91,9 @@ import de.tarent.commons.config.ConnectionDefinition.Key;
  * parse the XML and provide it as Map or other suitable
  * data structures to the user.
  */
+@Log4j2
 public class XmlUtil {
     public final static String ENABLED_ATTRIBUTE = "enabled";
-    public final static Logger logger = Logger.getLogger(XmlUtil.class.getName());
 
     private static DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 
@@ -331,7 +329,7 @@ public class XmlUtil {
      */
     public static String escape(String source) {
         if (source == null || "".equals(source)) {
-            logger.warning("[!] can't escape an empty string");
+            logger.warn("[!] can't escape an empty string");
             return "";
         }
         StringBuffer buffer = new StringBuffer();

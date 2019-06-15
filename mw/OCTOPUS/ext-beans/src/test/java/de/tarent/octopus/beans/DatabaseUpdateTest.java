@@ -53,14 +53,13 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.IOException;
-import java.util.logging.Logger;
-
 import de.tarent.beans.Person;
 import de.tarent.beans.Product;
 import de.tarent.dblayer.SchemaCreator;
-
 import junit.framework.TestCase;
+import lombok.extern.log4j.Log4j2;
+
+import java.io.IOException;
 
 /**
  * This class tests basic bean framework {@link Database} insert, update
@@ -68,15 +67,8 @@ import junit.framework.TestCase;
  *
  * @author Michael Klink
  */
+@Log4j2
 public class DatabaseUpdateTest extends TestCase {
-    //
-    // variables and constants
-    //
-    /**
-     * Logger for this test
-     */
-    public final static Logger logger = Logger.getLogger(DatabaseUpdateTest.class.getName());
-
     /**
      * Integer 5
      */

@@ -53,6 +53,7 @@ package de.tarent.commons.config;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -63,7 +64,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
 /**
@@ -85,9 +85,8 @@ import java.util.prefs.Preferences;
  *
  * @author Robert Schuster
  */
+@Log4j2
 public class ConfigManager {
-    private static Logger logger = Logger.getLogger(ConfigManager.class.getName());
-
     private static ConfigManager instance;
 
     // Configuration files
@@ -210,7 +209,7 @@ public class ConfigManager {
     public void init() throws IllegalStateException {
         String type = System.getProperty(BOOTSTRAP_TYPE);
         if (type == null) {
-            logger.warning("Sytem property " + BOOTSTRAP_TYPE + " is not set. Using default: " + BOOTSTRAP_TYPE_FILE);
+            logger.warn("Sytem property " + BOOTSTRAP_TYPE + " is not set. Using default: " + BOOTSTRAP_TYPE_FILE);
             type = BOOTSTRAP_TYPE_FILE;
         }
 
@@ -219,7 +218,7 @@ public class ConfigManager {
         }
 
         if (variant == null) {
-            logger.warning("System property " + BOOTSTRAP_VARIANT + " is not set. Using default: " + BOOTSTRAP_VARIANT_CONTACT);
+            logger.warn("System property " + BOOTSTRAP_VARIANT + " is not set. Using default: " + BOOTSTRAP_VARIANT_CONTACT);
             variant = BOOTSTRAP_VARIANT_CONTACT;
         }
 
@@ -250,7 +249,7 @@ public class ConfigManager {
             try {
                 loader.storeDocument(Scope.USER, name, doc);
             } catch (DocumentUnavailableException e) {
-                logger.warning("storing of document failed: " + e.docURL);
+                logger.warn("storing of document failed: " + e.docURL);
             }
         }
     }
@@ -298,7 +297,7 @@ public class ConfigManager {
             appearanceConfigAvailable = true;
         } catch (DocumentUnavailableException e) {
             addMissingDocument(e.docURL);  // site-scope appearance config is mandatory
-            logger.warning(
+            logger.warn(
               "appearance configuration at site scope not available: "
                 + e.getReason());
         }
@@ -309,7 +308,7 @@ public class ConfigManager {
             insertElements(Scope.INSTALLATION, doc, rootTag, handler);
         } catch (DocumentUnavailableException e) {
             // installation-scope apprearance config is optional
-            logger.warning(
+            logger.warn(
               "appearance configuration at installation scope not available: "
                 + e.getReason());
 
@@ -329,7 +328,7 @@ public class ConfigManager {
             insertElements(Scope.SITE, doc, rootTag, handler);
         } catch (DocumentUnavailableException e) {
             addMissingDocument(e.docURL);  // site-scope appearance config is mandatory
-            logger.warning(
+            logger.warn(
               "environment configuration at site scope not available: "
                 + e.getReason());
         }
@@ -341,7 +340,7 @@ public class ConfigManager {
         } catch (DocumentUnavailableException e) {
             // installation-scope environment config is optional
             addMissingDocument(e.docURL);
-            logger.warning(
+            logger.warn(
               "environment configuration at installation scope not available: "
                 + e.getReason());
         }
@@ -358,7 +357,7 @@ public class ConfigManager {
             insertElements(Scope.USER, doc, rootTag, handler);
         } catch (DocumentUnavailableException e) {
             // user-scope environment config is optional
-            logger.warning(
+            logger.warn(
               "environment configuration at user scope not available: "
                 + e.getReason());
         }
@@ -376,11 +375,11 @@ public class ConfigManager {
             try {
                 handler.handle(scope, n, n.getNodeName(), attributes);
             } catch (KeyUnavailableException e) {
-                logger.warning("The " + rootTag + " configuration of scope "
+                logger.warn("The " + rootTag + " configuration of scope "
                   + scope + " contains the unknown key: "
                   + e.getKeyLabel());
             } catch (ParseException pe) {
-                logger.warning(pe.getMessage());
+                logger.warn(pe.getMessage());
             }
         }
     }
@@ -404,7 +403,7 @@ public class ConfigManager {
             return loader.getDocument(scope, docName);
         } catch (DocumentUnavailableException e) {
             addMissingDocument(e.docURL);
-            logger.warning("linked document from scope \"" + scope + "\" is not available: " + e.reason);
+            logger.warn("linked document from scope \"" + scope + "\" is not available: " + e.reason);
 
             return null;
         }

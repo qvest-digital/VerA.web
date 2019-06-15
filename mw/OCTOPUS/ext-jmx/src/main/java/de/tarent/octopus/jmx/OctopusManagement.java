@@ -53,20 +53,18 @@ package de.tarent.octopus.jmx;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.extensions.OctopusExtension;
+import de.tarent.octopus.request.Octopus;
+import lombok.extern.log4j.Log4j2;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.extensions.OctopusExtension;
-import de.tarent.octopus.request.Octopus;
-
+@Log4j2
 public class OctopusManagement implements OctopusExtension {
-    private static Logger logger = Logger.getLogger(OctopusManagement.class.getName());
-
     private List<OctopusModuleManagement> modules = new LinkedList<OctopusModuleManagement>();
 
     public OctopusManagement() {
@@ -75,11 +73,11 @@ public class OctopusManagement implements OctopusExtension {
 
     public void initialize(Object params) {
         if (!(params instanceof Map)) {
-            logger.log(Level.SEVERE, "JMX extension parameter is not a map!");
+            logger.fatal("JMX extension parameter is not a map!");
         }
 
         if (!((Map) params).containsKey("octopus") || !((Map) params).containsKey("config")) {
-            logger.log(Level.SEVERE, "JMX extension needs parameter 'octopus' and parameter 'config'");
+            logger.fatal("JMX extension needs parameter 'octopus' and parameter 'config'");
         }
 
         Octopus octopus = (Octopus) ((Map) params).get("octopus");
@@ -89,7 +87,7 @@ public class OctopusManagement implements OctopusExtension {
         try {
             modules.add(new OctopusModuleManagement(octopus, commonconfig, "octopus"));
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error initializing JMX for octopus core.", e);
+            logger.fatal("Error initializing JMX for octopus core.", e);
         }
 
         // initialize module specific MBeans
@@ -100,7 +98,7 @@ public class OctopusManagement implements OctopusExtension {
                 module = (String) iter.next();
                 modules.add(new OctopusModuleManagement(octopus, commonconfig, module));
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Error initializing JMX for module " + module, e);
+                logger.fatal("Error initializing JMX for module " + module, e);
             }
         }
     }
@@ -115,7 +113,7 @@ public class OctopusManagement implements OctopusExtension {
             try {
                 module.start();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Error starting JMX for module " + module.getMBeanInfo().getClassName(), e);
+                logger.fatal("Error starting JMX for module " + module.getMBeanInfo().getClassName(), e);
             }
         }
     }
@@ -129,7 +127,7 @@ public class OctopusManagement implements OctopusExtension {
             try {
                 module.stop();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Error stopping JMX for module " + module.getMBeanInfo().getClassName(), e);
+                logger.fatal("Error stopping JMX for module " + module.getMBeanInfo().getClassName(), e);
             }
         }
     }

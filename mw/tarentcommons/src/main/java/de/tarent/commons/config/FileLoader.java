@@ -53,6 +53,11 @@ package de.tarent.commons.config;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.commons.config.ConfigManager.Scope;
+import de.tarent.commons.utils.SystemInfo;
+import lombok.extern.log4j.Log4j2;
+import org.w3c.dom.Document;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,12 +65,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Logger;
-
-import org.w3c.dom.Document;
-
-import de.tarent.commons.config.ConfigManager.Scope;
-import de.tarent.commons.utils.SystemInfo;
 
 /**
  * {@link ConfigManager.Loader} implementation that reads configuration documents
@@ -86,9 +85,8 @@ import de.tarent.commons.utils.SystemInfo;
  *
  * @author Robert Schuster
  */
+@Log4j2
 class FileLoader extends ConfigManager.Loader {
-    private Logger logger = Logger.getLogger(FileLoader.class.getName());
-
     private static final String BASE = "de.tarent.commons.config.file";
 
     private static final String STYLE = BASE + ".style";
@@ -132,7 +130,7 @@ class FileLoader extends ConfigManager.Loader {
     private void findDirectoriesForGlobalInstall() {
         String globalDir = System.getProperty(DIR, null);
         if (globalDir == null) {
-            logger.warning("Missing system property '" + DIR + "', using a speculative default. Check install and packaging!");
+            logger.warn("Missing system property '" + DIR + "', using a speculative default. Check install and packaging!");
 
             globalDir = (SystemInfo.isWindowsSystem() ? DIR_WINDOWS : DIR_UNIX);
         } else {
@@ -149,7 +147,7 @@ class FileLoader extends ConfigManager.Loader {
     private void findDirectoriesForLocalInstall() {
         String localDir = System.getProperty(DIR, null);
         if (localDir == null) {
-            logger.warning("Missing system property '" + DIR + "', looking files up manually. Check install and packaging!");
+            logger.warn("Missing system property '" + DIR + "', looking files up manually. Check install and packaging!");
 
             // Assuming the application is installed locally (= not loaded via the net)
             // and the installation has a fixed directory layout we can find out the application's
@@ -172,11 +170,11 @@ class FileLoader extends ConfigManager.Loader {
                         localDir = baseInstallDir + File.separator + "config" + File.separator;
                     }
                 } else {
-                    logger.warning("application not locally installed. Cannot load configuration from files.");
+                    logger.warn("application not locally installed. Cannot load configuration from files.");
                     throw new RuntimeException();
                 }
             } catch (URISyntaxException use) {
-                logger.warning("Unable to create URI instance.");
+                logger.warn("Unable to create URI instance.");
                 throw new RuntimeException();
             }
         } else {

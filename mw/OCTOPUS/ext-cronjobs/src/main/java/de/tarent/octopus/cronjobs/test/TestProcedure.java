@@ -53,28 +53,25 @@ package de.tarent.octopus.cronjobs.test;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class TestProcedure implements Runnable {
-
-    private Logger logger = Logger.getLogger(TestProcedure.class.getName());
-
     private String ausgabe;
 
     public void run() {
         for (int i = 0; i < 6; i++) {
             if (Thread.interrupted()) {
-                logger.log(Level.WARNING, "THREAD INTERRUPTED");
+                logger.warn("THREAD INTERRUPTED");
                 break;
             }
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                logger.log(Level.WARNING, "THREAD INTERRUPTED");
+                logger.warn("THREAD INTERRUPTED");
                 break;
             }
-            logger.log(Level.INFO, "TEST " + i + ": " + ausgabe);
+            logger.info("TEST " + i + ": " + ausgabe);
             System.out.println("TEST " + i + ": " + ausgabe);
         }
     }

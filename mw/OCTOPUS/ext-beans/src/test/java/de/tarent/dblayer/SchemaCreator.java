@@ -53,30 +53,25 @@ package de.tarent.dblayer;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.sql.*;
-
-import de.tarent.dblayer.engine.*;
+import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.engine.DBContext;
+import de.tarent.dblayer.engine.Pool;
 import de.tarent.dblayer.sql.SQL;
+import lombok.extern.log4j.Log4j2;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.SQLException;
 import java.text.DateFormat;
-import java.util.*;
-import java.io.*;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import java.util.Locale;
+import java.util.Properties;
 
 /**
  * Creates the initial Schema for the tests.
  * It is organised as a singleton.
  */
+@Log4j2
 public class SchemaCreator {
-    //
-    // variables and constants
-    //
-    /**
-     * Logger of this class
-     */
-    public static final Logger logger = Logger.getLogger(SchemaCreator.class.getName());
-
     /**
      * filename (may contain path) of the db layer properties
      */
@@ -214,21 +209,21 @@ public class SchemaCreator {
         try {
             DB.update(TEST_POOL, "DROP TABLE person");
         } catch (SQLException e) {
-            logger.log(Level.FINE, "Error on dropping table person", e);
+            logger.debug("Error on dropping table person", e);
             // ignore, because table may not exist
         }
 
         try {
             DB.update(TEST_POOL, "DROP TABLE produkt");
         } catch (SQLException e) {
-            logger.log(Level.FINE, "Error on dropping table produkt", e);
+            logger.debug("Error on dropping table produkt", e);
             // ignore, because table may not exist
         }
 
         try {
             DB.update(TEST_POOL, "DROP TABLE firma");
         } catch (SQLException e) {
-            logger.log(Level.FINE, "Error on dropping table firma", e);
+            logger.debug("Error on dropping table firma", e);
             // ignore, because table may not exist
         }
     }

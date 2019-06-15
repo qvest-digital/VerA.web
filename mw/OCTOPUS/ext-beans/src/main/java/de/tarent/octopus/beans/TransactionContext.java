@@ -53,23 +53,23 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Pool;
 import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.statement.Select;
+import lombok.extern.log4j.Log4j2;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Diese Klasse stellt einen Transaktionskontext für Massenoperationen dar.
  *
  * @author mikel
  */
+@Log4j2
 public class TransactionContext implements ExecutionContext {
     //
     // Konstruktor und Finalizer
@@ -126,12 +126,13 @@ public class TransactionContext implements ExecutionContext {
      */
     public void execute(Statement sql) throws BeanException {
         assert sql != null;
-        if (logger.isLoggable(Level.FINE)) {
-            logger.fine("Executing " + sql);
+        if (logger.isDebugEnabled()) {
+            logger.debug("Executing " + sql);
         }
         try {
             ensureValidConnection();
-            connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).execute(sql.statementToString());
+            connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+              ResultSet.CONCUR_READ_ONLY).execute(sql.statementToString());
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
@@ -148,12 +149,13 @@ public class TransactionContext implements ExecutionContext {
      */
     public ResultSet result(Select sql) throws BeanException {
         assert sql != null;
-        if (logger.isLoggable(Level.FINE)) {
-            logger.fine("Executing " + sql);
+        if (logger.isDebugEnabled()) {
+            logger.debug("Executing " + sql);
         }
         try {
             ensureValidConnection();
-            return connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql.statementToString());
+            return connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+              ResultSet.CONCUR_READ_ONLY).executeQuery(sql.statementToString());
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Ausführen eines Transaktion-Statements", e);
         }
@@ -185,7 +187,8 @@ public class TransactionContext implements ExecutionContext {
      */
     public PreparedStatement prepare(Statement statement) throws BeanException {
         try {
-            return connection.prepareStatement(statement.statementToString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            return connection.prepareStatement(statement.statementToString(),
+              ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         } catch (SQLException e) {
             throw new BeanException("Fehler beim Erstellen eines PreparedStatements", e);
         }
@@ -274,7 +277,7 @@ public class TransactionContext implements ExecutionContext {
             try {
                 connection.close();
             } catch (SQLException e1) {
-                logger.log(Level.WARNING, "Fehler beim abschließenden Schließen einer Transaktionsverbindung", e);
+                logger.warn("Fehler beim abschließenden Schließen einer Transaktionsverbindung", e);
             }
             connection = null;
             throw e;
@@ -292,8 +295,4 @@ public class TransactionContext implements ExecutionContext {
      * Die Datenbankverbindung, auf der wir arbeiten; später eventuell nicht mehr eine eigene
      */
     Connection connection = null;
-    /**
-     * Logger dieser Klasse
-     */
-    final static Logger logger = Logger.getLogger("de.tarent.dblayer");
 }

@@ -85,6 +85,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
+import lombok.extern.log4j.Log4j2;
 
 import javax.naming.NamingException;
 import java.net.PasswordAuthentication;
@@ -95,8 +96,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Diese Klasse dient als LoginManager über LDAP im Kontext des Auswärtigen Amts.
@@ -105,6 +104,7 @@ import java.util.logging.Logger;
  *
  * @author mikel
  */
+@Log4j2
 public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements LoginManagerAA {
     //
     // Konstanten
@@ -285,11 +285,11 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                 // bereits korrekt auf die erste vom LDAP gelieferte uid gesetzt sein, also
                 // auf die uid, die auch von getAARoles zur Bearbeitung geliefert wird.
                 if (aaConfig.getRole() == null) {
-                    logger.warning("Rolle nicht aus uid gesetzt, Login wird genutzt.");
+                    logger.warn("Rolle nicht aus uid gesetzt, Login wird genutzt.");
                     aaConfig.setRole(tcRequest.getPasswordAuthentication().getUserName());
                 }
                 aaConfig.setRoles(null);
-                logger.fine("Login unmittelbar: Rolle = " + aaConfig.getRole() + ", Rollen nicht ermittelt");
+                logger.debug("Login unmittelbar: Rolle = " + aaConfig.getRole() + ", Rollen nicht ermittelt");
                 fillInUserGroups(commonConfig, aaConfig, tcRequest);
             }
         } catch (TcSecurityException se) {
@@ -315,25 +315,25 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                             case 0:
                                 aaConfig.setRole(null);
                                 aaConfig.setRoles(null);
-                                logger.fine("Login mittelbar: Login = " + origAuth.getUserName() + ", keine Rolle, keine Rollen");
+                                logger.debug("Login mittelbar: Login = " + origAuth.getUserName() +
+                                  ", keine Rolle, keine Rollen");
                                 break;
                             case 1:
                                 // In doLogin wird initPersonalConfig aufgerufen, und dabei sollte die Rolle
                                 // bereits korrekt auf die erste vom LDAP gelieferte uid gesetzt sein, also
                                 // auf die uid, die auch von getAARoles zur Bearbeitung geliefert wird.
                                 if (aaConfig.getRole() == null) {
-                                    logger.warning("Rolle nicht aus uid gesetzt, Pr\u00fcfrolle wird genutzt.");
+                                    logger.warn("Rolle nicht aus uid gesetzt, Pr\u00fcfrolle wird genutzt.");
                                     aaConfig.setRole(newAuth.getUserName());
                                 }
                                 aaConfig.setRoles(null);
-                                logger.fine(
-                                  "Login mittelbar: Login = " + origAuth.getUserName() + ", Rolle = " + aaConfig.getRole() +
-                                    ", Rollen nicht ermittelt");
+                                logger.debug("Login mittelbar: Login = " + origAuth.getUserName() +
+                                  ", Rolle = " + aaConfig.getRole() + ", Rollen nicht ermittelt");
                                 break;
                             default:
                                 aaConfig.setRole(null);
                                 aaConfig.setRoles(new ArrayList(authorizedRoles));
-                                logger.fine("Login mittelbar: Login = " + origAuth.getUserName() +
+                                logger.debug("Login mittelbar: Login = " + origAuth.getUserName() +
                                   ", Rolle nicht ermittelt, Rollen = " +
                                   aaConfig.getRoles());
                             }
@@ -346,7 +346,7 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             }
             tcRequest.setPasswordAuthentication(origAuth);
             if (pConfig instanceof PersonalConfigAA && isSystemUser(tcRequest.getPasswordAuthentication())) {
-                logger.warning("Login als Superadmin");
+                logger.warn("Login als Superadmin");
                 PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
                 pConfig.setUserEmail("root@localhost");
                 pConfig.setUserGivenName("System");
@@ -436,10 +436,10 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                     result.add(role);
                 }
             } catch (Exception e) {
-                logger.log(Level.WARNING, "Fehler beim Einlesen von Benutzerdaten zu " + role, e);
+                logger.warn("Fehler beim Einlesen von Benutzerdaten zu " + role, e);
             }
         }
-        logger.fine("Autorisierte Rollen: " + result);
+        logger.debug("Autorisierte Rollen: " + result);
         return result;
     }
 
@@ -518,13 +518,13 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
                     groups.add(pConfig.getProxy() != null ? PersonalConfigAA.GROUP_BY_PROXY : PersonalConfigAA.GROUP_IN_PERSON);
                 }
             } catch (Exception e) {
-                logger.log(Level.WARNING, "Fehler beim Einlesen von Benutzerdaten zu " + pConfig.getRole(), e);
+                logger.warn("Fehler beim Einlesen von Benutzerdaten zu " + pConfig.getRole(), e);
             }
             if (groups.size() == 0) {
                 groups.add(PersonalConfigAA.GROUP_UNAUTHORIZED);
             }
             pConfig.setUserGroups((String[]) groups.toArray(new String[groups.size()]));
-            logger.fine("Ermittelte Benutzergruppen: " + groups);
+            logger.debug("Ermittelte Benutzergruppen: " + groups);
         }
     }
 
@@ -569,9 +569,4 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
             return null;
         }
     }
-
-    //
-    // geschützte Member
-    //
-    final static Logger logger = Logger.getLogger(LoginManagerLDAPAA.class.getName());
 }

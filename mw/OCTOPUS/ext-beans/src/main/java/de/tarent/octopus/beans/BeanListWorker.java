@@ -59,11 +59,16 @@ import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.util.*;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Abstrakter Worker der Seitenweise Listen von Datenbankinhalten darstallen
@@ -75,12 +80,8 @@ import java.util.logging.Logger;
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
+@Log4j2
 public abstract class BeanListWorker {
-    /**
-     * logger of this class.
-     */
-    private static final Logger logger = Logger.getLogger(BeanListWorker.class.getName());
-
     /**
      * Name des Beans, das der jeweils abgeleitete Worker verwaltet.
      */
@@ -154,11 +155,11 @@ public abstract class BeanListWorker {
     /**
      * Octopus-Eingabe-Parameter für {@link #getSelection(OctopusContext, Integer)}
      */
-    public static final String INPUT_getSelection[] = {"listsize"};
+    public static final String INPUT_getSelection[] = { "listsize" };
     /**
      * Octopus-Eingabe-Parameter für {@link #getSelection(OctopusContext, Integer)}
      */
-    public static final boolean MANDATORY_getSelection[] = {false};
+    public static final boolean MANDATORY_getSelection[] = { false };
     /**
      * Octopus-Ausgabe-Parameter für {@link #getSelection(OctopusContext, Integer)}
      */
@@ -249,7 +250,7 @@ public abstract class BeanListWorker {
                 idField = "id";
             }
             if (!sample.getFields().contains(idField)) {
-                logger.warning("Schlüsselfeld " + idField + " von " + BEANNAME + " nicht verfügbar.");
+                logger.warn("Schlüsselfeld " + idField + " von " + BEANNAME + " nicht verfügbar.");
                 return;
             }
 
@@ -381,7 +382,7 @@ public abstract class BeanListWorker {
      * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         if (bean.isModified() && bean.isCorrect()) {
             saveBean(cntx, bean, context);
@@ -403,7 +404,7 @@ public abstract class BeanListWorker {
      * @see #saveBean(OctopusContext, Bean, TransactionContext)
      */
     protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             Bean bean = (Bean) it.next();
@@ -429,7 +430,7 @@ public abstract class BeanListWorker {
      * @see #removeBean(OctopusContext, Bean, TransactionContext)
      */
     protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context)
-            throws BeanException, IOException {
+      throws BeanException, IOException {
         int count = 0;
         Bean bean = getRequest(cntx).createBean(BEANNAME);
         for (Iterator it = selection.iterator(); it.hasNext(); ) {
@@ -570,10 +571,10 @@ public abstract class BeanListWorker {
             start = new Integer(0);
         } else {
             pages = (count.intValue() - (count.intValue() % limit.intValue())) / limit.intValue() +
-                    (count.intValue() % limit.intValue() == 0 ? 0 : 1);
+              (count.intValue() % limit.intValue() == 0 ? 0 : 1);
             first = 0;
             last = count.intValue() - (count.intValue() % limit.intValue()) -
-                    (count.intValue() != 0 && count.intValue() % limit.intValue() == 0 ? limit.intValue() : 0);
+              (count.intValue() != 0 && count.intValue() % limit.intValue() == 0 ? limit.intValue() : 0);
             if (start.intValue() > last) {
                 start = new Integer(last);
             }

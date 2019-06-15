@@ -70,12 +70,11 @@ package de.tarent.octopus.exchange;
  */
 
 import de.tarent.data.exchange.ExchangeFormat;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats
@@ -85,6 +84,7 @@ import java.util.logging.Logger;
  *
  * @author mikel
  */
+@Log4j2
 public class ConfiguredExchangeFormat extends ExchangeFormat {
     //
     // Konstruktor
@@ -176,7 +176,7 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
                 setIconUrl(new URL(iconUrlString.toString()));
             }
         } catch (MalformedURLException e) {
-            logger.log(Level.WARNING, "Icon-URL konnte nicht ge-parse-t werden.", e);
+            logger.warn("Icon-URL konnte nicht ge-parse-t werden.", e);
         }
         setExporterClassName(toString(configuration.get(PARAM_EXPORTER_CLASS)));
         setImporterClassName(toString(configuration.get(PARAM_IMPORTER_CLASS)));
@@ -198,12 +198,4 @@ public class ConfiguredExchangeFormat extends ExchangeFormat {
     final static String toString(Object o) {
         return o != null ? o.toString() : null;
     }
-
-    //
-    // geschützte Member
-    //
-    /**
-     * Logger der Klasse
-     */
-    static Logger logger = Logger.getLogger(ConfiguredExchangeFormat.class.getName());
 }

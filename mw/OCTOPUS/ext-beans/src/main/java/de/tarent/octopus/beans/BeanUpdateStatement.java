@@ -53,14 +53,13 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.dblayer.sql.statement.Update;
+import lombok.extern.log4j.Log4j2;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import de.tarent.dblayer.sql.statement.Update;
 
 /**
  * Diese Klasse stellt ein UPDATE-PreparedStatement dar, dass in einem
@@ -69,6 +68,7 @@ import de.tarent.dblayer.sql.statement.Update;
  *
  * @author mikel
  */
+@Log4j2
 class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
     //
     // Konstruktor
@@ -109,8 +109,8 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
                     preparedStatement.setObject(index + 1, value);
                     params.add(value);
                 }
-                if (logger.isLoggable(Level.FINE)) {
-                    logger.fine("PreparedStatement <" + sqlStatement + "> wird mit Parametern " + params + " aufgerufen.");
+                if (logger.isDebugEnabled()) {
+                    logger.debug("PreparedStatement <" + sqlStatement + "> wird mit Parametern " + params + " aufgerufen.");
                 }
                 return preparedStatement.executeUpdate();
             } catch (SQLException se) {
@@ -118,7 +118,7 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
                   "Fehler beim Ausführen des PreparedUpdates <" + sqlStatement + "> mit der Bean <" + bean + ">", se);
             }
         } else {
-            logger.warning("Aufruf ohne Bean nicht erlaubt");
+            logger.warn("Aufruf ohne Bean nicht erlaubt");
         }
         return 0;
     }
@@ -130,9 +130,4 @@ class BeanUpdateStatement extends BeanBaseStatement implements BeanStatement {
      * Hier sind die Felder zu den Platzhaltern im PreparedStatement aufgelistet.
      */
     final List fields;
-
-    /**
-     * logger of this class.
-     */
-    final static Logger logger = Logger.getLogger(BeanUpdateStatement.class.getName());
 }

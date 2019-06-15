@@ -53,6 +53,9 @@ package de.tarent.octopus.cronjobs;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.server.Context;
+import lombok.extern.log4j.Log4j2;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.Thread.State;
@@ -64,10 +67,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import de.tarent.octopus.server.Context;
 
 /**
  * This interface must be implemented when extending the cron system
@@ -77,8 +76,8 @@ import de.tarent.octopus.server.Context;
  * @author Nils Neumaier (n.neumaier@tarent.de)
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  */
+@Log4j2
 public abstract class CronJob implements Runnable {
-    Logger logger = Logger.getLogger(getClass().getName());
     public static final String PROPERTIESMAP_KEY_ALREADYRUNNING = "alreadyrunning";
 
     private static long cronJobCount = 0L;
@@ -224,7 +223,7 @@ public abstract class CronJob implements Runnable {
                     lastTry = new Date();
                     if ((lastTry.getTime() - startDate.getTime()) > maxTimeToWait) {
                         executionThread.interrupt();
-                        logger.log(Level.WARNING, "Waiting time expired. Current instance of " + getName() +
+                        logger.warn("Waiting time expired. Current instance of " + getName() +
                           "will be interrupted and new instance will be started.");
                         break;
                     }
@@ -332,7 +331,7 @@ public abstract class CronJob implements Runnable {
                 Context.clear();
             }
         }
-        logger.log(Level.SEVERE, errorMsg);
+        logger.fatal(errorMsg);
         setErrorMessage(errorMsg);
     }
 
@@ -378,7 +377,7 @@ public abstract class CronJob implements Runnable {
             try {
                 lastRun = formatter.format(getLastRun());
             } catch (Exception e) {
-                logger.log(Level.WARNING, "Error during conversion of Date LastRun to String");
+                logger.warn("Error during conversion of Date LastRun to String");
             }
             if (lastRun != null) {
                 jobMap.put(Cron.CRONJOBMAP_KEY_LASTRUN, lastRun);

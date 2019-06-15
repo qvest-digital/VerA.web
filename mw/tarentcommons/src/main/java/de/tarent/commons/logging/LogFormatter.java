@@ -56,9 +56,6 @@ package de.tarent.commons.logging;
 import java.io.PrintWriter;
 import java.util.logging.LogRecord;
 
-import de.tarent.commons.utils.StringTools;
-import de.tarent.commons.utils.Tools;
-
 public class LogFormatter {
 
     public void format(PrintWriter writer, LogRecord record) {

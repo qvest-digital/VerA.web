@@ -81,6 +81,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,7 +89,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * Dieser Worker stellt entsprechende Funktionen zur Erstellung von
@@ -96,6 +96,7 @@ import java.util.logging.Logger;
  *
  * @author Christoph Jerolimov
  */
+@Log4j2
 public class GuestReportWorker {
     //
     // Octopus-Aktionen
@@ -106,8 +107,6 @@ public class GuestReportWorker {
     public static final String INPUT_createReport[] = {};
     public static final String INPUT_getLocationForReport[] = {};
     public static final String OUTPUT_getLocationForReport = "location";
-
-    private static Logger logger = Logger.getLogger(GuestReportWorker.class.getName());
 
     /**
      * Diese Octopus-Aktion erzeugt Daten für einen Bericht. Hierbei wird auf
@@ -262,49 +261,49 @@ public class GuestReportWorker {
      */
     private Select selectDatabaseFields(Database database) {
         return SQL.Select(database).
-              from("veraweb.tguest").
-              selectAs("tguest.pk", "id").
-              selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").
-              select("reserve").
-              select("lastname_a_e1").
-              select("title_a_e1").
-              select("firstname_a_e1").
-              select("lastname_b_e1").
-              select("title_b_e1").
-              select("firstname_b_e1").
-              select("invitationtype").
-              select("invitationstatus").
-              select("invitationstatus_p").
-              select("orderno").
-              select("orderno_p").
-              select("notehost").
-              select("notehost_p").
-              select("ishost").
-              select("fon_a_e1").
-              select("fon_b_e1").
-              select("fon_c_e1").
-              select("fax_a_e1").
-              select("fax_b_e1").
-              select("fax_c_e1").
-              select("mobil_a_e1").
-              select("mobil_b_e1").
-              select("mobil_c_e1").
-              select("function_a_e1").
-              select("company_a_e1").
-              select("street_a_e1").
-              select("zipcode_a_e1").
-              select("state_a_e1").
-              select("city_a_e1").
-              select("country_a_e1").
-              select("street_b_e1").
-              select("zipcode_b_e1").
-              select("city_b_e1").
-              select("internal_id").
-              select("note_a_e1").
-              select("note_b_e1").
-              selectAs("tcategorie.catname", "category").
-              joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
-              joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
+          from("veraweb.tguest").
+          selectAs("tguest.pk", "id").
+          selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno").
+          select("reserve").
+          select("lastname_a_e1").
+          select("title_a_e1").
+          select("firstname_a_e1").
+          select("lastname_b_e1").
+          select("title_b_e1").
+          select("firstname_b_e1").
+          select("invitationtype").
+          select("invitationstatus").
+          select("invitationstatus_p").
+          select("orderno").
+          select("orderno_p").
+          select("notehost").
+          select("notehost_p").
+          select("ishost").
+          select("fon_a_e1").
+          select("fon_b_e1").
+          select("fon_c_e1").
+          select("fax_a_e1").
+          select("fax_b_e1").
+          select("fax_c_e1").
+          select("mobil_a_e1").
+          select("mobil_b_e1").
+          select("mobil_c_e1").
+          select("function_a_e1").
+          select("company_a_e1").
+          select("street_a_e1").
+          select("zipcode_a_e1").
+          select("state_a_e1").
+          select("city_a_e1").
+          select("country_a_e1").
+          select("street_b_e1").
+          select("zipcode_b_e1").
+          select("city_b_e1").
+          select("internal_id").
+          select("note_a_e1").
+          select("note_b_e1").
+          selectAs("tcategorie.catname", "category").
+          joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk").
+          joinLeftOuter("veraweb.tcategorie", "fk_category", "tcategorie.pk");
     }
 
     /**
@@ -341,17 +340,17 @@ public class GuestReportWorker {
              * 2008-02-21
              */
             order.add("tworkarea.name");
-        } else if(sort.equals("accept")) {
+        } else if (sort.equals("accept")) {
             order.add("tguest.invitationstatus = 0");
             order.add("ASC");
             order.add("tguest.invitationstatus");
-        } else if(sort.equals("decline")) {
+        } else if (sort.equals("decline")) {
             order.add("tguest.invitationstatus = 0");
             order.add("ASC");
             order.add("tguest.invitationstatus = 2");
             order.add("DESC");
             order.add("tguest.invitationstatus");
-        } else if(sort.equals("internal_id")) {
+        } else if (sort.equals("internal_id")) {
             order.add("tperson.internal_id");
         }
     }
@@ -363,7 +362,7 @@ public class GuestReportWorker {
         if (location == null) {
             Location emptyLocation = new Location();
             emptyLocation.name = "";
-            logger.warning("Could not get location name by task: " + cntx.getTaskName() + "Set location name to default.");
+            logger.warn("Could not get location name by task: " + cntx.getTaskName() + "Set location name to default.");
             return emptyLocation;
         }
         return location;

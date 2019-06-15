@@ -54,6 +54,7 @@ package de.tarent.octopus.cronjobs;
  */
 
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -72,8 +73,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This implements a Unix(tm) style cron job system. To submit a job, subclass
@@ -83,6 +82,7 @@ import java.util.logging.Logger;
  * @author Michael Kleinhenz (m.kleinhenz@tarent.de)
  * @author Nils Neumaier (n.neumaier@tarent.de)
  */
+@Log4j2
 public class Cron implements Runnable {
     public static final int EXACT_CRONJOB = 1;
     public static final int INTERVAL_CRONJOB = 2;
@@ -106,7 +106,6 @@ public class Cron implements Runnable {
     private OctopusContext octopusContext;
     private File savePath;
 
-    private static Logger logger = Logger.getLogger(Cron.class.getName());
     private static long cronExportCount = 0L;
 
     /**
@@ -167,7 +166,7 @@ public class Cron implements Runnable {
         //        }
 
         jobs.put(job.getName(), job);
-        logger.log(Level.FINEST, "New Cronjob added to queue: " + job.getName());
+        logger.trace("New Cronjob added to queue: " + job.getName());
 
         return true;
     }
@@ -225,9 +224,9 @@ public class Cron implements Runnable {
             Thread storeThread = new Thread(new CronExporter());
             storeThread.setName("Cron Export Thread #" + (cronExportCount++));
             storeThread.start();
-            logger.log(Level.FINEST, "Cron is storing Backup to " + savePath.getAbsolutePath());
+            logger.trace("Cron is storing Backup to " + savePath.getAbsolutePath());
 
-            logger.log(Level.FINEST, "Cron is checking for Jobs to Start. " + new Date());
+            logger.trace("Cron is checking for Jobs to Start. " + new Date());
 
             List clonedJobs = new ArrayList(jobs.values());
             Iterator iter = clonedJobs.iterator();
@@ -265,13 +264,13 @@ public class Cron implements Runnable {
 
         if (lastRun == null || (currentDate.getTime() - lastRun.getTime()) > intervalMinutes * TIMEBASE) {
             thisJob.setLastRun(currentDate);
-            logger.log(Level.INFO, "Cron starts Interval CronJob " + thisJob.getName() + " at " + currentDate);
+            logger.info("Cron starts Interval CronJob " + thisJob.getName() + " at " + currentDate);
             thisJob.start();
         }
     }
 
     private void runExactCronJob(CronJob job) {
-        logger.log(Level.FINEST, "Cron checks Exact CronJob " + job.getName() + " at " + new Date());
+        logger.trace("Cron checks Exact CronJob " + job.getName() + " at " + new Date());
 
         ExactCronJob thisJob = (ExactCronJob) job;
 
@@ -293,7 +292,7 @@ public class Cron implements Runnable {
 
         // Run it..
         if (run && job.runnable()) {
-            logger.log(Level.INFO, "Cron starts Exact CronJob " + job.getName() + " at " + new Date());
+            logger.info("Cron starts Exact CronJob " + job.getName() + " at " + new Date());
 
             job.setLastRun(currentRunDate);
             job.start();
@@ -466,7 +465,7 @@ public class Cron implements Runnable {
         Map result = null;
         String moduleRootPath = savePath.getAbsolutePath();
         File backupFile = new File(moduleRootPath + System.getProperty("file.separator") + "cronJobs.backup");
-        logger.log(Level.INFO, "Restoring Backup from " + backupFile.getAbsolutePath());
+        logger.info("Restoring Backup from " + backupFile.getAbsolutePath());
 
         if (backupFile.exists()) {
             try {
@@ -486,12 +485,12 @@ public class Cron implements Runnable {
                     try {
                         tmpJob = createCronJobFromCronJobMap(tmpCronJobMap);
                     } catch (Exception e) {
-                        logger.log(Level.WARNING, "An error occured trying to restore an old cron backup.\n" + e.getMessage());
+                        logger.warn("An error occured trying to restore an old cron backup.\n" + e.getMessage());
                         e.printStackTrace();
                     }
 
                     if (tmpJob != null) {
-                        logger.log(Level.INFO,
+                        logger.info(
                           "Restoring Cronjob \"" + tmpJob.getName() + "\": (type = " + tmpJob.getType() + ", procedure = " +
                             tmpJob.getProcedure() + ")");
                         addJob(tmpJob);
@@ -499,14 +498,14 @@ public class Cron implements Runnable {
                 }
 
                 if (getCronJobMaps().size() > 0) {
-                    logger.log(Level.INFO, "Cronjobs restored from backup: " + getCronJobMaps());
+                    logger.info("Cronjobs restored from backup: " + getCronJobMaps());
                 }
             } catch (FileNotFoundException e) {
-                logger.log(Level.SEVERE, "No backup file found to restore old cron.\n" + e.getMessage());
+                logger.fatal("No backup file found to restore old cron.\n" + e.getMessage());
             } catch (IOException e) {
-                logger.log(Level.SEVERE, "Error trying to restore backup of old cron.\n" + e.getMessage());
+                logger.fatal("Error trying to restore backup of old cron.\n" + e.getMessage());
             } catch (ClassNotFoundException e) {
-                logger.log(Level.SEVERE, "Error trying to restore backup of old cron.\n" + e.getMessage());
+                logger.fatal("Error trying to restore backup of old cron.\n" + e.getMessage());
             }
         }
     }
@@ -587,7 +586,7 @@ public class Cron implements Runnable {
             if (intervalTime > 0) {
                 cronJob = new IntervalCronJob(this, intervalTime);
             } else {
-                logger.log(Level.WARNING,
+                logger.warn(
                   "Error trying to create an IntervalCronJob. Entry '" + IntervalCronJob.PROPERTIESMAP_KEY_INTERVAL +
                     "' in properties map has not been set or is lower than one.");
             }
@@ -627,7 +626,7 @@ public class Cron implements Runnable {
                         cronJob.setLastRun(date);
                     }
                 } catch (Exception e) {
-                    logger.log(Level.WARNING,
+                    logger.warn(
                       "Error trying to parse date " + lastRun + ". Lastrun could not be set while saving cronjob.");
                 }
             }

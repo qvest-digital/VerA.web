@@ -85,14 +85,13 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Konkrete {@link BeanFactory}, die Beans aus einer Datenbank im Kontext des
@@ -101,9 +100,8 @@ import java.util.logging.Logger;
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
+@Log4j2
 public class DatabaseVeraWeb extends Database {
-    private static final Logger logger = Logger.getLogger(DatabaseVeraWeb.class.getName());
-
     /**
      * VerA.web-Bean-Package
      */
@@ -288,7 +286,7 @@ public class DatabaseVeraWeb extends Database {
         if (Context.getActive() != null) {
             Context.getActive().addCleanupCode(list);
         } else {
-            logger.log(Level.WARNING, getClass().getName() + " - getList(): No active context set.");
+            logger.warn(getClass().getName() + " - getList(): No active context set.");
         }
         return list;
     }
@@ -307,7 +305,7 @@ public class DatabaseVeraWeb extends Database {
                 defaultConnection = null;
             }
         } catch (SQLException e) {
-            logger.log(Level.WARNING, e.getLocalizedMessage(), e);
+            logger.warn(e.getLocalizedMessage(), e);
         }
     }
 }

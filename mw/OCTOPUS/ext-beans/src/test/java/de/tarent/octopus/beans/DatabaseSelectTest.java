@@ -53,8 +53,17 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.beans.Person;
+import de.tarent.dblayer.SchemaCreator;
+import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.sql.statement.Select;
+import junit.framework.TestCase;
+import lombok.extern.log4j.Log4j2;
+
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,33 +72,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.logging.Logger;
-
-import junit.framework.TestCase;
-import de.tarent.beans.Person;
-import de.tarent.dblayer.SchemaCreator;
-import de.tarent.dblayer.sql.statement.Select;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import de.tarent.dblayer.engine.DB;
 
 /**
  * This class tests basic bean framework {@link Database} selection features.
  *
  * @author Michael Klink
  */
+@Log4j2
 public class DatabaseSelectTest extends TestCase {
-
     protected static Database testDatabase;
-    //
-    // variables and constants
-    //
-    /**
-     * Logger for this test
-     */
-    public final static Logger logger = Logger.getLogger(DatabaseSelectTest.class.getName());
 
     /**
      * db layer pool name of the test database connection
@@ -332,7 +323,7 @@ public class DatabaseSelectTest extends TestCase {
             }
         }
 
-        logger.fine("Person " + person.id + " correct");
+        logger.debug("Person " + person.id + " correct");
     }
 
     static Date getDate(int year, int month, int date) {
@@ -367,7 +358,7 @@ public class DatabaseSelectTest extends TestCase {
             foundIds.add(person.id);
         }
         assertEquals("list does not contain the expected persons", expectedIds, foundIds);
-        logger.fine("list of persons correct");
+        logger.debug("list of persons correct");
     }
 
     /**
@@ -398,6 +389,6 @@ public class DatabaseSelectTest extends TestCase {
             foundIds.add(personId);
         }
         assertEquals("list does not contain the expected person data Maps", expectedIds, foundIds);
-        logger.fine("list of person data Maps correct");
+        logger.debug("list of person data Maps correct");
     }
 }

@@ -59,6 +59,7 @@ import de.tarent.octopus.cronjobs.ExactCronJob;
 import de.tarent.octopus.cronjobs.IntervalCronJob;
 import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
+import lombok.extern.log4j.Log4j2;
 
 import java.lang.Thread.State;
 import java.util.ArrayList;
@@ -67,14 +68,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@Log4j2
 public class CronJobWorker {
     private Cron cronjobQueue;
     private Thread cronThread;
     private static long cronThreadCount = 0L;
-    private static Logger logger = Logger.getLogger(CronJobWorker.class.getName());
 
     final static public String[] INPUT_setCronJob = { "cronjob" };
     final static public boolean[] MANDATORY_setCronJob = { true };
@@ -110,7 +109,7 @@ public class CronJobWorker {
                 return newCronJobMap;
             }
         } catch (Exception e) {
-            logger.log(Level.WARNING, e.getMessage() + "\n\n" + e.getCause());
+            logger.warn(e.getMessage() + "\n\n" + e.getCause());
             e.printStackTrace();
             setError(e.getMessage());
         }
@@ -150,7 +149,7 @@ public class CronJobWorker {
             return cronjobnames.size() > 0 ? cronjobnames : null;
         } catch (Exception e) {
 
-            logger.log(Level.WARNING, e.getMessage());
+            logger.warn(e.getMessage());
             setError(e.getMessage());
             return null;
         }
@@ -184,7 +183,7 @@ public class CronJobWorker {
             return filteredCronJobMaps;
         } catch (Exception e) {
 
-            logger.log(Level.WARNING, e.getMessage());
+            logger.warn(e.getMessage());
             setError(e.getMessage());
             return null;
         }
@@ -229,7 +228,7 @@ public class CronJobWorker {
             errMsg += "\n cronJobName: " + cronJobName;
         } catch (Exception e) {
             setError(e.getMessage() + "\n" + errMsg);
-            logger.log(Level.WARNING, e.getMessage() + "\n" + errMsg);
+            logger.warn(e.getMessage() + "\n" + errMsg);
         }
         return null;
     }
@@ -258,7 +257,7 @@ public class CronJobWorker {
             errMsg += "\n cronJobName: " + cronJobName;
         } catch (Exception e) {
             setError(e.getMessage() + "\n" + errMsg);
-            logger.log(Level.WARNING, e.getMessage() + "\n" + errMsg);
+            logger.warn(e.getMessage() + "\n" + errMsg);
         }
 
         return null;
@@ -278,7 +277,7 @@ public class CronJobWorker {
 
             if (cronJobMap != null && cronjobQueue.removeJob(cronJobMap)) {
                 //inputCronJobMap.put(Cron.CRONJOBMAP_KEY_STATUS, Thread.State.TERMINATED);
-                logger.log(Level.INFO, "Cronjob has been removed from queue: " + cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME));
+                logger.info("Cronjob has been removed from queue: " + cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME));
                 return cronJobMap;
             }
             errMsg =
@@ -288,7 +287,7 @@ public class CronJobWorker {
             errMsg += "\n cronJobName: " + cronJobName;
         } catch (Exception e) {
             setError(e.getMessage() + "\n" + errMsg);
-            logger.log(Level.WARNING, e.getMessage() + "\n" + errMsg);
+            logger.warn(e.getMessage() + "\n" + errMsg);
         }
 
         return null;
@@ -353,7 +352,7 @@ public class CronJobWorker {
 
             if (cronJobMap != null) {
                 if (cronjobQueue.activateCronJob(cronJobMap)) {
-                    logger.log(Level.INFO,
+                    logger.info(
                       "CronJob " + cronJobMap.get(Cron.CRONJOBMAP_KEY_NAME) + "has been activated and will be runnable.");
                 }
                 return cronJobMap;
@@ -366,7 +365,7 @@ public class CronJobWorker {
             errMsg += "\n cronJobName: " + cronJobName;
         } catch (Exception e) {
             setError(e.getMessage() + "\n" + errMsg);
-            logger.log(Level.WARNING, e.getMessage() + "\n" + errMsg);
+            logger.warn(e.getMessage() + "\n" + errMsg);
         }
         return null;
     }
@@ -394,7 +393,7 @@ public class CronJobWorker {
             errMsg += "\n cronJobName: " + cronJobName;
         } catch (Exception e) {
             setError(e.getMessage() + "\n" + errMsg);
-            logger.log(Level.WARNING, e.getMessage() + "\n" + errMsg);
+            logger.warn(e.getMessage() + "\n" + errMsg);
         }
         return null;
     }
@@ -414,7 +413,7 @@ public class CronJobWorker {
             cronThread = new Thread(cronjobQueue);
             cronThread.setName("Cron Managment Thread #" + (cronThreadCount++));
             cronThread.start();
-            logger.log(Level.INFO, "Cron routine started.");
+            logger.info("Cron routine started.");
         }
     }
 
@@ -425,7 +424,7 @@ public class CronJobWorker {
     public void stopCronJobRoutine() {
         if (cronjobQueue != null) {
             cronjobQueue.deactivateCron();
-            logger.log(Level.INFO, "Cron routine stopped.");
+            logger.info("Cron routine stopped.");
         }
     }
 

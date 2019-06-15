@@ -66,11 +66,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Ermöglicht das einfache Starten des Octopus
@@ -83,10 +78,7 @@ public class OctopusDirectCallStarter implements OctopusStarter {
     private Octopus octopus = null;
     private TcEnv env = null;
 
-    private static Logger baseLogger = null;
-
     private File logFile = null;
-    private Handler logHandler = null;
 
     private TcSOAPEngine soapEngine = null;
 
@@ -144,40 +136,11 @@ public class OctopusDirectCallStarter implements OctopusStarter {
      * @param configParams Parameter, die die Konfigurationen überschreiben, darf null sein
      */
     public OctopusDirectCallStarter(Map configParams) {
-        boolean loggerWasNull = false;
         try {
-            // Statische Loggerinstanz erstellen
-            if (baseLogger == null) {
-                loggerWasNull = true;
-                baseLogger = Logger.getLogger("de.tarent");
-                baseLogger.setLevel(Level.ALL);
-
-                baseLogger.getHandlers();
-
-                //Keinen Consolen-Logger wenn der Octopus direkt gestartet wird.
-                baseLogger.setUseParentHandlers(false);
-            }
-
             createEnvObject(configParams);
 
             //TODO: Warum wird das als System Property gesetzt?
             System.setProperty(TcEnv.KEY_PATHS_ROOT, env.getValueAsString(TcEnv.KEY_PATHS_ROOT));
-
-            // Konfigurieren der Logging Api, wenn der
-            // statische looger nicht schon existierte
-            if (loggerWasNull) {
-                File logDir = new File(System.getProperty("user.home") + "/.tarent/octopuslog/");
-                if (!logDir.exists()) {
-                    logDir.mkdirs();
-                }
-                logFile = new File(logDir, "current.log");
-                ////Verzeichnis anlegen, wenn es nicht bereits existiert
-                //(new File(env.getValueAsString(TcEnv.KEY_PATHS_ROOT) + "log")).mkdirs();
-                logHandler = new FileHandler(logFile.getAbsolutePath());
-                logHandler.setFormatter(new SimpleFormatter());
-                baseLogger.addHandler(logHandler);
-                baseLogger.info(Resources.getInstance().get("REQUESTPROXY_LOG_START_LOGGING"));
-            }
 
             octopus = new Octopus();
             octopus.init(env);
@@ -200,20 +163,12 @@ public class OctopusDirectCallStarter implements OctopusStarter {
                 logger.warn(Resources.getInstance().get("REQUESTPROXY_LOG_CLEANUP_EXCEPTION"), e);
             }
         }
-
-        // TODO: Sollte der logHandler wirklich geschlossen werden?
-        // Der baseLogger list ja Statisch und somit in
-        // anderen Instanzen evt. noch aktiv
-        baseLogger.removeHandler(logHandler);
-        logHandler.close();
     }
 
     /**
      * Startet die Abarbeitung einer Anfrage
      */
-    public OctopusDirectCallResult request(Map requestParams)
-      throws TcDirectCallException {
-
+    public OctopusDirectCallResult request(Map requestParams) throws TcDirectCallException {
         logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_PROCESSING_START"));
 
         try {
@@ -253,7 +208,6 @@ public class OctopusDirectCallStarter implements OctopusStarter {
         env.setValue(TcEnv.KEY_PATHS_ROOT, System.getProperty("user.dir") + "/OCTOPUS/");
         env.setValue(TcEnv.KEY_PATHS_CONFIG_ROOT, "config/");
         env.setValue(TcEnv.KEY_PATHS_CONFIG_FILE, "config.xml");
-        //env.setValue(TcEnv.loggerConfigFile, "logger.conf");
         //env.setValue(TcEnv.paths.pageDescriptionRoot, );
         env.setValue(TcEnv.KEY_PATHS_TEMPLATE_ROOT, "templates/");
 

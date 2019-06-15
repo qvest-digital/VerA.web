@@ -79,6 +79,7 @@ import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
+import lombok.extern.log4j.Log4j2;
 import org.evolvis.tartools.csvfile.CSVFileWriter;
 
 import java.io.IOException;
@@ -89,14 +90,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Diese Klasse implementiert einen generischen CSV-Export von VerA.web-Personen.
  *
  * @author mikel
  */
+@Log4j2
 public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     /**
      * Dieser Konstruktor ist leer; dieser wird von {@link ExchangeFormat#getExporterClass()} genutzt.
@@ -225,10 +225,10 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
                 } else if (sourceKey.startsWith("COR:")) {
                     result = getRank(sourceKey.substring(4));
                 } else {
-                    logger.warning("Unbekanntes Quellfeld");
+                    logger.warn("Unbekanntes Quellfeld");
                 }
             } catch (Exception e) {
-                logger.log(Level.WARNING, "Fehler beim Beziehen von Personendaten", e);
+                logger.warn("Fehler beim Beziehen von Personendaten", e);
             }
             if (result instanceof Date) {
                 return dateFormat.format(result);
@@ -337,11 +337,6 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
      * CSV-Ausgabe-Objekt
      */
     CSVFileWriter csvWriter = null;
-
-    /**
-     * Logger dieser Klasse
-     */
-    final static Logger logger = Logger.getLogger(GenericCSVExporter.class.getName());
 
     /*
      * (non-Javadoc)

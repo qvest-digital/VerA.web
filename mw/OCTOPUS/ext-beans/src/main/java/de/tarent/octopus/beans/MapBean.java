@@ -53,6 +53,8 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -64,8 +66,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Abstraktes Bean, das Map implementiert, damit in Velocity
@@ -74,13 +74,13 @@ import java.util.logging.Logger;
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
+@Log4j2
 public class MapBean extends AbstractMap implements Bean {
     //
     // private Member
     //
     private boolean modified;
     private List errors = new ArrayList();
-    private static Logger logger = Logger.getLogger(MapBean.class.getName());
 
     //
     // Konstruktor
@@ -196,7 +196,7 @@ public class MapBean extends AbstractMap implements Bean {
                     value = BeanFactory.transform(value, field.getType());
                     field.set(this, value);
                 } catch (BeanException e) {
-                    logger.log(Level.WARNING, "Fehler beim indirekten Setzen des Inhalts des Felds " + key + " mittels Setter",
+                    logger.warn("Fehler beim indirekten Setzen des Inhalts des Felds " + key + " mittels Setter",
                       e);
                     addError(e.getLocalizedMessage());
                 }
@@ -205,12 +205,12 @@ public class MapBean extends AbstractMap implements Bean {
                     value = BeanFactory.transform(value, setter.getParameterTypes()[0]);
                     setter.invoke(this, new Object[] { value });
                 } catch (BeanException e) {
-                    logger.log(Level.WARNING, "Fehler beim direkten Setzen des Inhalts des Felds " + key, e);
+                    logger.warn("Fehler beim direkten Setzen des Inhalts des Felds " + key, e);
                     addError(e.getLocalizedMessage());
                 }
             }
         } catch (Exception e) {
-            logger.log(Level.WARNING, "Fehler beim Setzen des Inhalts des Felds " + key, e);
+            logger.warn("Fehler beim Setzen des Inhalts des Felds " + key, e);
             throw new BeanException("Fehler beim Setzten des Felds '" + key + "' mit dem Wert '" + value + "'.", e);
         }
     }
@@ -225,7 +225,7 @@ public class MapBean extends AbstractMap implements Bean {
         try {
             return getClass().getField(key).getType();
         } catch (Exception e) {
-            logger.log(Level.WARNING, "Fehler beim Holen der Klasse des Felds " + key, e);
+            logger.warn("Fehler beim Holen der Klasse des Felds " + key, e);
             return null;
         }
     }
@@ -251,9 +251,9 @@ public class MapBean extends AbstractMap implements Bean {
             try {
                 buffer.append(field[i].get(this));
             } catch (IllegalArgumentException e) {
-                logger.log(Level.WARNING, "Fehler beim Lesen des Inhalts des Felds " + field[i].getName(), e);
+                logger.warn("Fehler beim Lesen des Inhalts des Felds " + field[i].getName(), e);
             } catch (IllegalAccessException e) {
-                logger.log(Level.WARNING, "Fehler beim Lesen des Inhalts des Felds " + field[i].getName(), e);
+                logger.warn("Fehler beim Lesen des Inhalts des Felds " + field[i].getName(), e);
             }
             buffer.append(", ");
         }
@@ -298,7 +298,7 @@ public class MapBean extends AbstractMap implements Bean {
         try {
             setField(key.toString(), value);
         } catch (BeanException e) {
-            logger.log(Level.WARNING, "Fehler beim Setzen des Inhalts des Felds " + key, e);
+            logger.warn("Fehler beim Setzen des Inhalts des Felds " + key, e);
         }
         return o;
     }

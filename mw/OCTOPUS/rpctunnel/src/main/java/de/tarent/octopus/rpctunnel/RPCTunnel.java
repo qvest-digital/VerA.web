@@ -53,13 +53,14 @@ package de.tarent.octopus.rpctunnel;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
+@Log4j2
 public class RPCTunnel {
     private static Map listeners;
-    private static Logger logger = Logger.getLogger(RPCTunnel.class.getName());
 
     // Registering default OctopusCallbackListener
     static {

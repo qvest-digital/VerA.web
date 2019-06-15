@@ -77,6 +77,7 @@ import de.tarent.data.exchange.FieldMapping.Entity;
 import de.tarent.data.exchange.MappingException;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
+import lombok.extern.log4j.Log4j2;
 import org.evolvis.tartools.csvfile.CSVFileReader;
 
 import java.io.BufferedReader;
@@ -91,14 +92,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Diese Klasse implementiert einen generischen CSV-Import von VerA.web-Personen.
  *
  * @author mikel
  */
+@Log4j2
 public class GenericCSVImporter extends GenericCSVBase implements Importer {
     private static final int TAB_FIELD_SEPARATOR = 0x09;
     private static final int SEMICOLON_FIELD_SEPARATOR = 0x3B;
@@ -243,11 +243,11 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
                                 targetObject = null;
                             }
                         } catch (NoSuchMethodException e) {
-                            logger.log(Level.WARNING, "Datums-Klasse ohne (long)-Konstruktor", e);
+                            logger.warn("Datums-Klasse ohne (long)-Konstruktor", e);
                         } catch (ParseException e) {
-                            logger.log(Level.WARNING, "Datum nicht parse-bar", e);
+                            logger.warn("Datum nicht parse-bar", e);
                         } catch (Exception e) {
-                            logger.log(Level.WARNING, "Datumsklasse nicht instanziierbar", e);
+                            logger.warn("Datumsklasse nicht instanziierbar", e);
                         }
                     }
                     person.put(targetField.substring(1), targetObject);
@@ -258,7 +258,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
                 } else if (targetField.startsWith("COR:")) {
                     addCategory(targetField.substring(4), targetValue, Categorie.FLAG_DIPLO_CORPS, extras);
                 } else {
-                    logger.warning("Unbekanntes Zielfeld " + targetField);
+                    logger.warn("Unbekanntes Zielfeld " + targetField);
                 }
             }
         }
@@ -388,8 +388,4 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      */
     List headers = null;
     final static Class[] ONE_LONG = new Class[] { Long.TYPE };
-    /**
-     * Logger dieser Klasse
-     */
-    final static Logger logger = Logger.getLogger(GenericCSVImporter.class.getName());
 }

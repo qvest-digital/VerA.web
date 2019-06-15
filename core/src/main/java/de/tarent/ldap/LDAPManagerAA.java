@@ -69,6 +69,8 @@ package de.tarent.ldap;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
@@ -79,13 +81,13 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Diese Klasse
  *
  * @author mikel
  */
+@Log4j2
 public class LDAPManagerAA extends LDAPManager {
     //
     // Konstanten
@@ -152,7 +154,7 @@ public class LDAPManagerAA extends LDAPManager {
         SearchControls cons = new SearchControls();
         this.initializeSearchControls(cons);
         Set roleUids = getPossibleRoles("(objectclass=" + this.defaultUserObjectClass + ")", cons);
-        logger.fine("Alle verfügbaren Rollen: " + roleUids);
+        logger.debug("Alle verfügbaren Rollen: " + roleUids);
         return roleUids;
     }
 
@@ -176,7 +178,7 @@ public class LDAPManagerAA extends LDAPManager {
         SearchControls cons = new SearchControls();
         this.initializeSearchControls(cons);
         Set roleUids = getPossibleRoles(filterTemplate.format(new Object[] { login }), cons);
-        logger.fine("Rollen für " + login + ": " + roleUids);
+        logger.debug("Rollen für " + login + ": " + roleUids);
         return roleUids;
     }
 
@@ -204,13 +206,4 @@ public class LDAPManagerAA extends LDAPManager {
             throw new NamingException("Die Verbindung zum LDAP Server wurde geschlossen.");
         }
     }
-
-    //
-    // Members
-    //
-
-    /**
-     * eigener statischer Logger
-     */
-    private static Logger logger = Logger.getLogger(LDAPManagerAA.class.getName());
 }

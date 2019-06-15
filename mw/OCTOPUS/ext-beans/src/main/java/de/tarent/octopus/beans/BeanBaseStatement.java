@@ -53,12 +53,11 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.sql.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.SyntaxErrorException;
+import lombok.extern.log4j.Log4j2;
+
+import java.sql.PreparedStatement;
 
 /**
  * This class is a base class for {@link BeanStatement} implementations. It holds
@@ -66,6 +65,7 @@ import de.tarent.dblayer.sql.SyntaxErrorException;
  *
  * @author Michael Klink
  */
+@Log4j2
 class BeanBaseStatement {
     //
     // Konstruktor
@@ -83,8 +83,8 @@ class BeanBaseStatement {
         } catch (SyntaxErrorException e) {
             throw new BeanException("Syntax error in SQL statement", e);
         }
-        if (logger.isLoggable(Level.FINE)) {
-            logger.fine("Created PreparedStatement for SQL statament <" + sqlStatement + ">.");
+        if (logger.isDebugEnabled()) {
+            logger.debug("Created PreparedStatement for SQL statament <" + sqlStatement + ">.");
         }
     }
 
@@ -119,9 +119,4 @@ class BeanBaseStatement {
             return "?";
         }
     };
-
-    /**
-     * logger of this class.
-     */
-    final static Logger logger = Logger.getLogger(BeanBaseStatement.class.getName());
 }

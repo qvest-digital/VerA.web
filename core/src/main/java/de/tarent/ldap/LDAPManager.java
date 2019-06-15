@@ -69,10 +69,13 @@ package de.tarent.ldap;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-import de.tarent.commons.messages.Message;
 import de.tarent.octopus.security.TcSecurityException;
+import lombok.extern.log4j.Log4j2;
 
-import javax.naming.*;
+import javax.naming.CommunicationException;
+import javax.naming.Context;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
@@ -89,13 +92,13 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * für Zugriff auf ein LDAP-Verzeichnis
  *
  * @author philipp
  */
+@Log4j2
 public class LDAPManager {
     //
     // Konstanten
@@ -128,7 +131,6 @@ public class LDAPManager {
     protected final Map params;
     protected String relative;
     protected String relativeUser;
-    private static Logger logger = Logger.getLogger(LDAPManager.class.getName());
     private String[] defaultObjectClasses = null;
 
     //
@@ -156,8 +158,8 @@ public class LDAPManager {
      * @throws LDAPException wenn etwas schiefläuft
      */
     public static LDAPManager login(Class managerClass, String ldapurl, Map params, String username, String passwort,
-                                    String authType)
-            throws LDAPException {
+      String authType)
+      throws LDAPException {
         Hashtable env = createEnvironment(ldapurl); //Hashtable mit Zugriffsdaten
         env.put(Context.SECURITY_AUTHENTICATION, authType);
         env.put(Context.SECURITY_PRINCIPAL, username);
@@ -193,7 +195,7 @@ public class LDAPManager {
             LDAPManager.ldapEnvironment = env;
         } catch (Exception e) {
             throw new LDAPException(
-                    "Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verf\u00fcgbar.");
+              "Kann LDAPManager nicht instantiieren, der spezifizierte Konstruktor ist nicht verf\u00fcgbar.");
         }
         return result;
     }
@@ -230,7 +232,7 @@ public class LDAPManager {
         this.relative = surroundWithCommas((String) params.get(KEY_RELATIVE));
         this.relativeUser = surroundWithCommas((String) params.get(KEY_RELATIVE_USER));
         this.defaultUserObjectClass = (String) params.get(LDAPManager.KEY_USER_OBJECT_CLASS);
-        setDefaultObjectClasses(new String[]{this.defaultUserObjectClass});
+        setDefaultObjectClasses(new String[] { this.defaultUserObjectClass });
     }
 
     //
@@ -292,8 +294,8 @@ public class LDAPManager {
                     String adduser2 = fullUserDN(adduser);
                     users.add(adduser2);
                 } catch (LDAPException le) {
-                    logger.log(Level.WARNING, Messages.getString("LDAPManager.76") + adduser
-                            + Messages.getString("LDAPManager.77")); //$NON-NLS-1$
+                    logger.warn(Messages.getString("LDAPManager.76") + adduser
+                      + Messages.getString("LDAPManager.77")); //$NON-NLS-1$
                 }
             }
             attr.put(users);
@@ -538,7 +540,7 @@ public class LDAPManager {
             SearchControls cons = new SearchControls();
             this.initializeSearchControls(cons);
             if (logger.isLoggable(Level.INFO)) {
-                logger.log(Level.INFO, "Search LDAP account in \"" + name + "\" with filter \"" + filter + "\".");
+                logger.info("Search LDAP account in \"" + name + "\" with filter \"" + filter + "\".");
             }
             NamingEnumeration ne = lctx.search(name, filter, cons);
             if (!ne.hasMore()) {
@@ -548,7 +550,7 @@ public class LDAPManager {
             dn = search.getNameInNamespace();
             dn = dn.replace("/", "\\2F");
             if (logger.isLoggable(Level.INFO)) {
-                logger.log(Level.INFO, "Found LDAP DN \"" + dn + "\".");
+                logger.info("Found LDAP DN \"" + dn + "\".");
             }
             if (ne.hasMore()) {
                 throw new LDAPException(Messages.getString("LDAPManager.96")); //$NON-NLS-1$

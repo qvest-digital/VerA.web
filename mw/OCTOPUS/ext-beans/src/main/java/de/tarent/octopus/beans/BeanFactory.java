@@ -53,6 +53,8 @@ package de.tarent.octopus.beans;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -66,7 +68,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Abstract base factory class for {@link Bean} beans implementing
@@ -76,6 +77,7 @@ import java.util.logging.Logger;
  * @author Michael Klink, Alex Steeg, Christoph Jerolimov
  * @version 1.3
  */
+@Log4j2
 public abstract class BeanFactory {
     //
     // construktor
@@ -235,7 +237,7 @@ public abstract class BeanFactory {
             Date date = (Date) transform(value, Date.class);
             return date == null ? null : new Timestamp(date.getTime());
         }
-        logger.warning("can not transform " + value.getClass().getName() + " ('" + value + "') to " + target.getName());
+        logger.warn("can not transform " + value.getClass().getName() + " ('" + value + "') to " + target.getName());
         return null;
     }
 
@@ -409,9 +411,4 @@ public abstract class BeanFactory {
      * English date format
      */
     private static final SimpleDateFormat DATE_FORMAT_EN = new SimpleDateFormat("M-d-y");
-
-    /**
-     * logger of this class.
-     */
-    private static final Logger logger = Logger.getLogger(BeanFactory.class.getName());
 }
