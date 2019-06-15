@@ -74,6 +74,7 @@ import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.server.UserManager;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,7 +84,7 @@ import java.util.Map;
  *
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
     //
     // LoginManagerLDAPGeneric überschreibungen
@@ -167,7 +168,7 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
               getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION)
             );
         } catch (LDAPException e) {
-            logger.warning(e.getLocalizedMessage());
+            logger.warn(e.getLocalizedMessage());
             return null;
         }
     }

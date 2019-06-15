@@ -69,6 +69,7 @@ package de.tarent.ldap;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -86,8 +87,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
 
@@ -96,7 +95,7 @@ import static org.apache.commons.lang.StringUtils.isBlank;
  *
  * @author philipp
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class LDAPContact {
     private static final String EMPTY_STRING = "";
     private String vorname = EMPTY_STRING;
@@ -209,29 +208,29 @@ public class LDAPContact {
 
     public String toString() {
         StringBuffer ruckgabe = new StringBuffer(240)
-                .append("Vorname: " + vorname + "\n")
-                .append("Mittlerer Name: " + mittelname + "\n")
-                .append("Nachname:" + nachname + "\n")
-                .append("Spitzname:" + spitzname + "\n")
-                .append("UserID:" + userid + "\n")
-                .append("Geschäftlich:\n")
-                .append("Firma: " + arbeitFirma + "\n")
-                .append("Abteilung: " + arbeitAbteilung + "\n")
-                .append("Strasse: " + arbeitStrasse + "\n")
-                .append("PLZ/Ort: " + arbeitPLZ + " " + arbeitOrt + "\n")
-                .append("Staat: " + arbeitBundesstaat + "\n")
-                .append("Land: " + arbeitLand + "\n")
-                .append("Job: " + arbeitJob + "\n")
-                .append("EMail: " + arbeitEmail + "\n")
-                .append("Telefon: " + arbeitTelefon + "\n")
-                .append("Fax: " + arbeitFax + "\n")
-                .append("Pager: " + pager + "\n")
-                .append("Handy: " + arbeitHandy + "\n")
-                .append("Privat: \n")
-                .append("Strasse: " + privatStrasse + "\n")
-                .append("Telefon: " + privatTelefon + "\n")
-                .append("\n")
-                .append("Beschreibung: " + beschreibung + "\n");
+          .append("Vorname: " + vorname + "\n")
+          .append("Mittlerer Name: " + mittelname + "\n")
+          .append("Nachname:" + nachname + "\n")
+          .append("Spitzname:" + spitzname + "\n")
+          .append("UserID:" + userid + "\n")
+          .append("Geschäftlich:\n")
+          .append("Firma: " + arbeitFirma + "\n")
+          .append("Abteilung: " + arbeitAbteilung + "\n")
+          .append("Strasse: " + arbeitStrasse + "\n")
+          .append("PLZ/Ort: " + arbeitPLZ + " " + arbeitOrt + "\n")
+          .append("Staat: " + arbeitBundesstaat + "\n")
+          .append("Land: " + arbeitLand + "\n")
+          .append("Job: " + arbeitJob + "\n")
+          .append("EMail: " + arbeitEmail + "\n")
+          .append("Telefon: " + arbeitTelefon + "\n")
+          .append("Fax: " + arbeitFax + "\n")
+          .append("Pager: " + pager + "\n")
+          .append("Handy: " + arbeitHandy + "\n")
+          .append("Privat: \n")
+          .append("Strasse: " + privatStrasse + "\n")
+          .append("Telefon: " + privatTelefon + "\n")
+          .append("\n")
+          .append("Beschreibung: " + beschreibung + "\n");
 
         return ruckgabe.toString();
     }
@@ -712,7 +711,7 @@ public class LDAPContact {
                 String adduser2 = manager.fullUserDN(adduser); //$NON-NLS-1$
                 users.add(adduser2);
             } catch (LDAPException le) {
-                logger.log(Level.WARNING, "User " + adduser + " existiert im LDAP leider nicht! Bitte bereinigen Sie die User.");
+                logger.warn("User " + adduser + " existiert im LDAP leider nicht! Bitte bereinigen Sie die User.");
             }
         }
         if (users.size() == 0) {

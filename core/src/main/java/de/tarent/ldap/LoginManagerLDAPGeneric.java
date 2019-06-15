@@ -75,6 +75,7 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.AbstractLoginManager;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.PersonalConfig;
+import lombok.extern.log4j.Log4j2;
 import net.jodah.expiringmap.ExpirationPolicy;
 import net.jodah.expiringmap.ExpiringMap;
 
@@ -85,8 +86,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Implementierung eines LoginManagers, über LDAP
@@ -95,7 +94,7 @@ import java.util.logging.Logger;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @author Michael Klink
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class LoginManagerLDAPGeneric extends AbstractLoginManager {
     /**
      * Schluessel des Konfigurationseintrags fuer die Objekt Klasse,
@@ -236,7 +235,7 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager {
       PersonalConfig pConfig,
       boolean repeat,
       LDAPException e) throws TcSecurityException {
-        logger.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
+        logger.fatal("Fehler beim LDAP-Zugriff!", e);
         if (e.getCause() instanceof AuthenticationException) {
             throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR, e);
         }

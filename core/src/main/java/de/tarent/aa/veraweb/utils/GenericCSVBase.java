@@ -78,6 +78,7 @@ import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.DatabaseUtilizer;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,8 +95,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Diese Klasse stellt Basisfunktionalitäten für den generischen CSV-Im- und -Export
@@ -103,7 +102,7 @@ import java.util.logging.Logger;
  *
  * @author mikel
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Property-Schlüssel für das Export-Mapping der Felder
@@ -215,7 +214,6 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     static {
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
     }
-
 
     //
     // Schnittstelle DatabaseUtilizer
@@ -467,7 +465,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
                 try {
                     dateFormat.applyPattern(property.toString());
                 } catch (IllegalArgumentException iae) {
-                    logger.log(Level.WARNING, "Fehler beim Anwenden des Datumformats " + property, iae);
+                    logger.warn("Fehler beim Anwenden des Datumformats " + property, iae);
                 }
             }
         }
