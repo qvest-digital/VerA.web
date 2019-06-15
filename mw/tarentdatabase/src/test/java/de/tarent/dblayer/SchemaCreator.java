@@ -53,19 +53,17 @@ package de.tarent.dblayer;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.sql.SQLException;
-
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.Pool;
-import de.tarent.dblayer.sql.SQL;
+import lombok.extern.log4j.Log4j2;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.SQLException;
 import java.util.Properties;
-import java.io.*;
 
-import org.apache.commons.logging.Log;
-
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public abstract class SchemaCreator {
     public static final String CONFIG_FILENAME = "test-connection.properties";
     public static final String TEST_POOL = "test_pool";
@@ -75,31 +73,22 @@ public abstract class SchemaCreator {
     }
 
     private boolean isSchemaSetUp = false;
-    protected DBContext dbx;
+    DBContext dbx;
 
     static SchemaCreator instance;
-    static SchemaCreator instance_ms;
 
     /**
      * Returns a default instance
      */
-    public static SchemaCreator getInstance()
-      throws SQLException {
+    public static SchemaCreator getInstance() {
         if (instance == null) {
             openPool();
-            DBContext dbc = DB.getDefaultContext(TEST_POOL);
-            if (SQL.isPostgres(dbc)) {
-                instance = new SchemaCreatorPostgres();
-            } else if (SQL.isMSSQL(dbc)) {
-                instance = new SchemaCreatorMSSQL();
-            }
+            instance = new SchemaCreatorPostgres();
         }
         return instance;
     }
 
-    public static void openPool()
-      throws SQLException {
-
+    public static void openPool() {
         Properties info = new Properties();
         try {
             File connectionConfiguration = new File(CONFIG_FILENAME);
@@ -132,9 +121,8 @@ public abstract class SchemaCreator {
     /**
      * Set up the tables and data in the test database;
      *
-     * @param force    if force == false, this is only done once in the java-process, so multiple calls with (force == false)
-     *                 have no effect.
-     * @param poolname TODO
+     * @param force if force == false, this is only done once in the java-process, so multiple calls with (force == false)
+     *              have no effect.
      */
     public void setUp(boolean force) throws SQLException {
         if (force || (!isSchemaSetUp)) {

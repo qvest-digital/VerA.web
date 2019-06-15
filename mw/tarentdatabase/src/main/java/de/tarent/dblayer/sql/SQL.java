@@ -54,13 +54,8 @@ package de.tarent.dblayer.sql;
  */
 
 import de.tarent.dblayer.engine.DBContext;
-import de.tarent.dblayer.engine.Pool;
 import de.tarent.dblayer.engine.SetDbContext;
-import de.tarent.dblayer.mssql.MSSQLFormat;
-import de.tarent.dblayer.mssql.MSSQLSelect;
 import de.tarent.dblayer.oracle.OracleFormat;
-import de.tarent.dblayer.oracle.OracleSelect;
-import de.tarent.dblayer.postgres.PostgresProcedure;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Function;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -71,14 +66,14 @@ import de.tarent.dblayer.sql.statement.Procedure;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Sequence;
 import de.tarent.dblayer.sql.statement.Update;
-import org.apache.commons.logging.Log;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * This class serves as a factory for SQL statements and parts thereof.
  *
  * @author kleinw
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class SQL {
     /**
      * This method returns a non-distinct {@link Select} {@link Statement}
@@ -87,14 +82,7 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Select Select(DBContext context) {
-        Select statement = null;
-        if (isOracle(context)) {
-            statement = new OracleSelect(false);
-        } else if (isMSSQL(context)) {
-            statement = new MSSQLSelect(false);
-        } else {
-            statement = new Select(false);
-        }
+        Select statement = new Select(false);
         statement.setDBContext(context);
         return statement;
     }
@@ -117,14 +105,7 @@ public class SQL {
      * @param context db layer execution context.
      */
     static public Select SelectDistinct(DBContext context) {
-        Select statement = null;
-        if (isOracle(context)) {
-            statement = new OracleSelect(true);
-        } else if (isMSSQL(context)) {
-            statement = new MSSQLSelect(true);
-        } else {
-            statement = new Select(true);
-        }
+        Select statement = new Select(true);
         statement.setDBContext(context);
         return statement;
     }
@@ -315,11 +296,7 @@ public class SQL {
      * @return Procedure
      */
     static public Procedure Procedure(DBContext dbx, String name) {
-        if (isPostgres(dbx)) {
-            return new PostgresProcedure(dbx, name);
-        } else {
-            return new Procedure(dbx, name);
-        }
+        return new Procedure(dbx, name);
     }
 
     /**
@@ -349,67 +326,6 @@ public class SQL {
             ((SetDbContext) value).setDBContext(context);
             return value.toString();
         }
-        if (isOracle(context)) {
-            return OracleFormat.format(value);
-        } else if (isMSSQL(context)) {
-            return MSSQLFormat.format(value);
-        } else {
-            return Format.defaultFormat(value);
-        }
-    }
-
-    //
-    // protected helper methods
-    //
-
-    /**
-     * This method decides whether the given {@link DBContext} operates in
-     * an Oracle context or not. A <code>null</code> {@link DBContext} is
-     * considered to represent a default context which currently is a
-     * PostgresQL context.
-     */
-    static public boolean isOracle(DBContext context) {
-        if (context == null) {
-            return false;
-        }
-        if (context.getPool() == null) {
-            logger.warn("DBContext contains no pool.");
-            return false;
-        }
-        return Pool.DB_ORACLE.equals(context.getPool().getTargetDB());
-    }
-
-    /**
-     * This method decides whether the given {@link DBContext} operates in
-     * an Oracle context or not. A <code>null</code> {@link DBContext} is
-     * considered to represent a default context which currently is a
-     * PostgresQL context.
-     */
-    static public boolean isPostgres(DBContext context) {
-        if (context == null) {
-            return true;
-        }
-        if (context.getPool() == null) {
-            logger.warn("DBContext contains no pool.");
-            return true;
-        }
-        return Pool.DB_POSTGRESQL.equals(context.getPool().getTargetDB());
-    }
-
-    /**
-     * This method decides whether the given {@link DBContext} operates in
-     * an MSSQL context or not. A <code>null</code> {@link DBContext} is
-     * considered to represent a default context which currently is a
-     * PostgresQL context.
-     */
-    static public boolean isMSSQL(DBContext context) {
-        if (context == null) {
-            return false;
-        }
-        if (context.getPool() == null) {
-            logger.warn("DBContext contains no pool.");
-            return false;
-        }
-        return Pool.DB_MSSQL.equals(context.getPool().getTargetDB());
+        return Format.defaultFormat(value);
     }
 }

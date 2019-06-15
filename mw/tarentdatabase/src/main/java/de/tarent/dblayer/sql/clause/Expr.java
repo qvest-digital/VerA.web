@@ -53,9 +53,7 @@ package de.tarent.dblayer.sql.clause;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.commons.datahandling.PrimaryKeyList;
 import de.tarent.dblayer.engine.DBContext;
-import de.tarent.dblayer.sql.SQL;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -321,12 +319,7 @@ public class Expr {
             return falseExpression();
         }
 
-        if (SQL.isMSSQL(dbc) && list.size() > 500) {
-            return new Where(new RawClause("(" + column + " IN (SELECT * FROM tarent_database_csvtable('" +
-              PrimaryKeyList.toString(PrimaryKeyList.DELIM, list) + "')))"), null);
-        } else {
-            return in(column, list);
-        }
+        return in(column, list);
     }
 
     /**

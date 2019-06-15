@@ -92,11 +92,7 @@ public class Procedure extends AbstractStatement {
      * @throws SQLException if a problem occurs
      */
     public void executeVoidProcedure(DBContext dbx) throws SQLException {
-        if (SQL.isPostgres(dbx)) {
-            DB.result(dbx, this);
-        } else {
-            DB.update(dbx, this);
-        }
+        DB.result(dbx, this);
     }
 
     /**
@@ -122,9 +118,9 @@ public class Procedure extends AbstractStatement {
      */
     public String statementToString() throws SyntaxErrorException {
         StringBuffer sb = new StringBuffer();
-        //sb.append("execute ");
+        sb.append("SELECT * FROM ");
         sb.append(_name);
-        sb.append(" ");
+        sb.append("(");
         Iterator it = _params.iterator();
         boolean first = true;
         while (it.hasNext()) {
@@ -136,6 +132,7 @@ public class Procedure extends AbstractStatement {
 
             sb.append(SQL.format(getDBContext(), it.next()));
         }
+        sb.append(")");
         return sb.toString();
     }
 

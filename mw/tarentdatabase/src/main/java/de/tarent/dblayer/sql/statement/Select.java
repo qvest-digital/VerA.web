@@ -59,10 +59,8 @@ import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.engine.ResultProcessor;
 import de.tarent.dblayer.engine.ResultSetReader;
 import de.tarent.dblayer.engine.SetDbContext;
-import de.tarent.dblayer.mssql.MSSQLLimit;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.ParamHolder;
-import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SQLStatementException;
 import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.SyntaxErrorException;
@@ -489,11 +487,7 @@ public class Select extends AbstractStatement implements Clause, Cloneable {
      * This method sets the {@link Limit} for the <code>SELECT</code> statement.
      */
     public Select Limit(Limit limit) {
-        if (limit != null && SQL.isMSSQL(getDBContext())) {
-            _limitClause = new MSSQLLimit(limit);
-        } else {
-            _limitClause = limit;
-        }
+        _limitClause = limit;
         return this;
     }
 

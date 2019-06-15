@@ -53,26 +53,23 @@ package de.tarent.dblayer.octopus;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.StringTokenizer;
+import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.engine.DBContext;
+import de.tarent.dblayer.engine.Pool;
+import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.statement.Insert;
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-
-import de.tarent.dblayer.engine.DB;
-import de.tarent.dblayer.engine.DBContext;
-import de.tarent.dblayer.engine.Pool;
-import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.statement.Insert;
-
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class CopyDBWorker {
     public static final String TABLE_NAME_PATTERN = "t%";
     private static final List ignoreList = new ArrayList();
@@ -181,26 +178,8 @@ public class CopyDBWorker {
             // Ziel-Tabelle leeren
             SQL.Delete(context).from(tableName).execute();
 
-            if (SQL.isPostgres(context)) {
-                // Ziel-Tabelle Trigger aus
-                DB.getStatement(context).execute("alter table " + tableName + " disable trigger all");
-            } else if (SQL.isMSSQL(context)) {
-                try {
-                    // die pk Spalte für den Insert freischalten
-                    DB.getStatement(context).execute("SET IDENTITY_INSERT " + tableName + " ON");
-                } catch (Exception e) {
-                    // nicht alle Tabellen haben einen IDENTITY_INSERT. Dann klappt das Statement nicht.
-                    // ist dann aber egal
-                }
-                try {
-                    // TODO noch nicht getestet. Laut doku geht es mit Triggername. Auch mit all?
-                    DB.getStatement(context).execute("alter table " + tableName + " disable trigger all");
-                } catch (Exception e) {
-
-                }
-            } else if (SQL.isOracle(context)) {
-
-            }
+            // Ziel-Tabelle Trigger aus
+            DB.getStatement(context).execute("alter table " + tableName + " disable trigger all");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -214,25 +193,8 @@ public class CopyDBWorker {
      */
     private void afterInsertTable(String tableName, DBContext context) {
         try {
-            if (SQL.isPostgres(context)) {
-                // Ziel-Tabelle Trigger an
-                DB.getStatement(context).execute("alter table " + tableName + " enable trigger all");
-            } else if (SQL.isMSSQL(context)) {
-                try {
-                    DB.getStatement(context).execute("SET IDENTITY_INSERT " + tableName + " OFF");
-                } catch (Exception e) {
-                    // nicht alle Tabellen haben einen IDENTITY_INSERT. Dann klappt das Statement nicht.
-                    // ist dann aber egal
-                }
-                try {
-                    // TODO noch nicht getestet. Laut doku geht es mit Triggername. Auch mit all?
-                    DB.getStatement(context).execute("alter table " + tableName + " enable trigger all");
-                } catch (Exception e) {
-
-                }
-            } else if (SQL.isOracle(context)) {
-
-            }
+            // Ziel-Tabelle Trigger an
+            DB.getStatement(context).execute("alter table " + tableName + " enable trigger all");
         } catch (Exception e) {
             e.printStackTrace();
         }

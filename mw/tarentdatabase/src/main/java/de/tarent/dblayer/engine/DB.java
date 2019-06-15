@@ -53,6 +53,11 @@ package de.tarent.dblayer.engine;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.dblayer.resource.Resources;
+import de.tarent.dblayer.sql.SQLStatementException;
+import de.tarent.dblayer.sql.statement.Insert;
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -62,11 +67,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
-
-import de.tarent.dblayer.resource.Resources;
-import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.SQLStatementException;
-import de.tarent.dblayer.sql.statement.Insert;
 
 /*
  * 2009-10-04 cklein, tarent-database-1.5.4
@@ -89,7 +89,7 @@ import de.tarent.dblayer.sql.statement.Insert;
  * @author Sebastian Mancke, tarent GmbH
  * @author Robert Linden (r.linden@tarent.de)
  */
-import lombok.extern.log4j.Log4j2;@Log4j2
+@Log4j2
 public class DB {
     /**
      * The pools
@@ -205,11 +205,7 @@ public class DB {
      * @throws SQLException
      */
     static public Statement getStatement(DBContext dbx) throws SQLException {
-        if (SQL.isMSSQL(dbx)) {
-            return dbx.getDefaultConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } else {
-            return dbx.getDefaultConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        }
+        return dbx.getDefaultConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
     }
 
     /**
@@ -577,7 +573,7 @@ public class DB {
                 }
             }
             rs.close();
-        } else if (SQL.isPostgres(dbx)) {
+        } else {
             DatabaseMetaData dmd = con.getMetaData();
             int into = insert.indexOf("INTO ", 0) + 5;
             int ende = insert.indexOf(" ", into);
@@ -607,8 +603,6 @@ public class DB {
                 rs2.close();
             }
             rs.close();
-        } else {
-            logger.warn("The DB neither supports 'getGeneratedKeys' nor is an alternative defined");
         }
         return result;
     }
@@ -640,17 +634,7 @@ public class DB {
         try {
             Log.logStatement(insert);
             statement = getStatement(dbx);
-            boolean supportsGetGeneratedKeys = (!SQL.isPostgres(dbx))
-              && statement.getConnection().getMetaData().supportsGetGeneratedKeys();
-            if (!supportsGetGeneratedKeys) {
-                statement.executeUpdate(insert);
-            } else {
-                if (returnKeyColumns != null) {
-                    statement.executeUpdate(insert, returnKeyColumns);
-                } else {
-                    statement.executeUpdate(insert, Statement.RETURN_GENERATED_KEYS);
-                }
-            }
+            statement.executeUpdate(insert);
             result.putAll(returnGeneratedKeys(dbx, statement, insert));
         } catch (SQLException e) {
             throw new SQLStatementException(e, insert);
