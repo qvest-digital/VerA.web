@@ -259,14 +259,14 @@
 						<id>analyse-dependency-usage</id>
 						<configuration>
 							<failOnWarning>false</failOnWarning>
-							<ignoredUnusedDeclaredDependencies combine.children="append">
+							<usedDependencies>
 								<!-- OCTOPUS extensions -->
-								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-cronjobs</ignoredUnusedDeclaredDependency>
-								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-ext-jmx</ignoredUnusedDeclaredDependency>
-								<ignoredUnusedDeclaredDependency>org.evolvis.veraweb.middleware:octopus-servlet</ignoredUnusedDeclaredDependency>
+								<usedDependency>org.evolvis.veraweb.middleware:octopus-ext-cronjobs</usedDependency>
+								<usedDependency>org.evolvis.veraweb.middleware:octopus-ext-jmx</usedDependency>
+								<usedDependency>org.evolvis.veraweb.middleware:octopus-servlet</usedDependency>
 								<!-- shipped for tomcat lib dir -->
-								<ignoredUnusedDeclaredDependency>org.postgresql:postgresql</ignoredUnusedDeclaredDependency>
-							</ignoredUnusedDeclaredDependencies>
+								<usedDependency>org.postgresql:postgresql</usedDependency>
+							</usedDependencies>
 						</configuration>
 					</execution>
 				</executions>

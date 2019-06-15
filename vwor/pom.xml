@@ -190,17 +190,17 @@
 						<id>analyse-dependency-usage</id>
 						<configuration>
 							<failOnWarning>false</failOnWarning>
-							<ignoredUnusedDeclaredDependencies combine.children="append">
+							<usedDependencies>
 								<!-- must be in the classpath -->
-								<ignoredUnusedDeclaredDependency>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider</ignoredUnusedDeclaredDependency>
-								<ignoredUnusedDeclaredDependency>org.glassfish.jersey.containers:jersey-container-servlet</ignoredUnusedDeclaredDependency>
-								<ignoredUnusedDeclaredDependency>org.glassfish.jersey.inject:jersey-hk2</ignoredUnusedDeclaredDependency>
-								<ignoredUnusedDeclaredDependency>org.glassfish.jersey.media:jersey-media-json-jackson</ignoredUnusedDeclaredDependency>
+								<usedDependency>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider</usedDependency>
+								<usedDependency>org.glassfish.jersey.containers:jersey-container-servlet</usedDependency>
+								<usedDependency>org.glassfish.jersey.inject:jersey-hk2</usedDependency>
+								<usedDependency>org.glassfish.jersey.media:jersey-media-json-jackson</usedDependency>
 								<!-- for the tests -->
-								<ignoredUnusedDeclaredDependency>com.h2database:h2</ignoredUnusedDeclaredDependency>
-								<ignoredUnusedDeclaredDependency>com.sun.istack:istack-commons-runtime</ignoredUnusedDeclaredDependency>
-								<ignoredUnusedDeclaredDependency>com.sun.xml.bind:jaxb-impl</ignoredUnusedDeclaredDependency>
-							</ignoredUnusedDeclaredDependencies>
+								<usedDependency>com.h2database:h2</usedDependency>
+								<usedDependency>com.sun.istack:istack-commons-runtime</usedDependency>
+								<usedDependency>com.sun.xml.bind:jaxb-impl</usedDependency>
+							</usedDependencies>
 						</configuration>
 					</execution>
 				</executions>
