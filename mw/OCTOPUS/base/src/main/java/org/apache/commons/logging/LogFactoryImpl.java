@@ -53,64 +53,35 @@ package org.apache.commons.logging;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-
 /**
- * Subset of commons-logging 1.2 LogFactory interface
- *
- * @author mirabilos (t.glaser@tarent.de)
+ * Something of commons-logging 1.2 (stubbed) that Axis needs
  */
-@Log4j2
-public abstract class LogFactory {
-    public static Log getLog(java.lang.Class clazz) throws LogConfigurationException {
-        final String name = clazz == null ? "(nil)" : clazz.getName();
-        if (doWarn(clazz, name)) {
-            logger.warn("Class {} used with commons-logging 1.2 LogFactory interface", name,
-              new LogConfigurationException("dummy exception for generating a stack trace"));
-        }
-        try {
-            return new LogImpl(LogManager.getLogger(clazz));
-        } catch (Exception e) {
-            throw new LogConfigurationException("could not get logger for class " +
-              (clazz == null ? "(nil)" : clazz.getName()), e);
-        }
+public class LogFactoryImpl extends LogFactory {
+    public LogFactoryImpl() {
     }
 
-    public static Log getLog(java.lang.String clazzName) throws LogConfigurationException {
-        final String name = clazzName == null ? "(nil)" : clazzName;
-        if (doWarn(clazzName, name)) {
-            logger.warn("Class name {} used for commons-logging 1.2 LogFactory interface", name,
-              new LogConfigurationException("dummy exception for generating a stack trace"));
-        }
-        try {
-            return new LogImpl(LogManager.getLogger(clazzName));
-        } catch (Exception e) {
-            throw new LogConfigurationException("could not get logger for class name " +
-              (clazzName == null ? "(nil)" : clazzName), e);
-        }
+    public Log getInstance(final Class clazz) throws LogConfigurationException {
+        return getLog(clazz);
     }
 
-    @SuppressWarnings("NonAsciiCharacters")
-    private static String[] whitelistedPræficēs = {
-      "org.springframework."
-    };
-
-    private static boolean doWarn(final Object arg, final String name) {
-        /* always warn for nil class */
-        if (arg == null) {
-            return true;
-        }
-        /* do not warn for whitelisted classes */
-        for (String prefix : whitelistedPræficēs) {
-            if (name.startsWith(prefix)) {
-                return false;
-            }
-        }
-        /* otherwise warn */
-        return true;
+    public Log getInstance(final String name) throws LogConfigurationException {
+        return getLog(name);
     }
 
-    public static final String FACTORY_PROPERTIES = "commons-logging.properties";
-    public static final String FACTORY_DEFAULT = "org.apache.commons.logging.LogFactoryImpl";
+    public void release() {
+    }
+
+    public Object getAttribute(final String name) {
+        return null;
+    }
+
+    public String[] getAttributeNames() {
+        return new String[0];
+    }
+
+    public void removeAttribute(final String name) {
+    }
+
+    public void setAttribute(final String name, final Object value) {
+    }
 }

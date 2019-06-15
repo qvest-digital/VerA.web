@@ -71,7 +71,7 @@ package org.evolvis.veraweb;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogConfigurationException;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.LogFactoryImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -87,10 +87,11 @@ public class CommonsLoggingStubTest {
         final Throwable c = new NullPointerException();
         final Throwable e = new LogConfigurationException(c);
         assertEquals(c, e.getCause());
+        final LogFactoryImpl f = new LogFactoryImpl();
         // meh, inspect those manually
-        final Log lC = LogFactory.getLog(CommonsLoggingStubTest.class);
+        final Log lC = f.getInstance(CommonsLoggingStubTest.class);
         lC.info("successful log via class", e);
-        final Log lS = LogFactory.getLog("miau");
+        final Log lS = f.getInstance("miau");
         lS.info("meow");
     }
 }
