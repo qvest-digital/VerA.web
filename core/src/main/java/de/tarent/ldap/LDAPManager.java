@@ -91,7 +91,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 /**
  * für Zugriff auf ein LDAP-Verzeichnis
@@ -539,7 +538,7 @@ public class LDAPManager {
             String filter = filterTemplate.format(new Object[] { uid });
             SearchControls cons = new SearchControls();
             this.initializeSearchControls(cons);
-            if (logger.isLoggable(Level.INFO)) {
+            if (logger.isInfoEnabled()) {
                 logger.info("Search LDAP account in \"" + name + "\" with filter \"" + filter + "\".");
             }
             NamingEnumeration ne = lctx.search(name, filter, cons);
@@ -549,7 +548,7 @@ public class LDAPManager {
             SearchResult search = (SearchResult) ne.next();
             dn = search.getNameInNamespace();
             dn = dn.replace("/", "\\2F");
-            if (logger.isLoggable(Level.INFO)) {
+            if (logger.isInfoEnabled()) {
                 logger.info("Found LDAP DN \"" + dn + "\".");
             }
             if (ne.hasMore()) {

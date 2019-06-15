@@ -85,7 +85,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.logging.Level;
 
 /**
  * Konkrete {@link BeanFactory}, die Beans aus einer Datenbank ausliest.
@@ -805,7 +804,7 @@ public abstract class Database extends BeanFactory implements ExecutionContext {
         try {
             return resultSet.getObject(key);
         } catch (SQLException e) {
-            if (logger.isLoggable(Level.FINE)) {
+            if (logger.isDebugEnabled()) {
                 logger.debug("Feld " + key + " kann nicht ausgelesen werden.", e);
             }
             return null;
