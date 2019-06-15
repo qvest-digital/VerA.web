@@ -82,8 +82,6 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -140,16 +138,6 @@ public class TcSOAPEngine implements Serializable {
             engine = new AxisServer(engineConfiguration);
         } else {
             logger.info(Resources.getInstance().get("SOAPENGINE_LOG_USING_AXIS_DEFAULT_CONFIGURATION"));
-            @SuppressWarnings("unchecked") org.apache.commons.logging.LogFactory lfa = (org.apache.commons.logging.LogFactory)
-            AccessController.doPrivileged(
-                new PrivilegedAction() {
-                    public Object run() {
-                        return org.apache.commons.discovery.tools.DiscoverSingleton.find(org.apache.commons.logging.LogFactory.class,
-                                       org.apache.commons.logging.LogFactory.FACTORY_PROPERTIES,
-                                       org.apache.commons.logging.LogFactory.FACTORY_DEFAULT);
-                    }
-                });
-            org.apache.axis.components.logger.LogFactory lfb = new org.apache.axis.components.logger.LogFactory();
             engine = new AxisServer();
             registerTypes(engine.getTypeMappingRegistry(), env);
         }
