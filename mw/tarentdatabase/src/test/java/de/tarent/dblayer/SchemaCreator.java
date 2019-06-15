@@ -56,14 +56,12 @@ package de.tarent.dblayer;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.engine.Pool;
-import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.util.Properties;
 
-@Log4j2
 public abstract class SchemaCreator {
     public static final String CONFIG_FILENAME = "test-connection.properties";
     public static final String TEST_POOL = "test_pool";

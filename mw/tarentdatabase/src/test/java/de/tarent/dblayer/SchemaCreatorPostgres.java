@@ -53,21 +53,20 @@ package de.tarent.dblayer;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.dblayer.engine.DB;
+import de.tarent.dblayer.sql.SQL;
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Locale;
 
-import de.tarent.dblayer.engine.DB;
-import de.tarent.dblayer.sql.SQL;
-
 /**
  * Creates the initial Schema for the tests.
  */
+@Log4j2
 public class SchemaCreatorPostgres extends SchemaCreator {
-
-    protected void dropSchema()
-      throws SQLException {
-
+    protected void dropSchema() {
         try {
             DB.update(dbx, "DROP TABLE person");
         } catch (SQLException e) {
@@ -104,8 +103,7 @@ public class SchemaCreatorPostgres extends SchemaCreator {
         }
     }
 
-    protected void createSchema()
-      throws SQLException {
+    protected void createSchema() throws SQLException {
         DB.update(dbx,
           "CREATE TABLE firma ("
             + " pk_firma serial PRIMARY KEY,"
@@ -148,9 +146,7 @@ public class SchemaCreatorPostgres extends SchemaCreator {
             + "ALTER FUNCTION public.unit_test2() OWNER TO postgres;");
     }
 
-    protected void doInserts()
-      throws SQLException {
-
+    protected void doInserts() {
         try {
             SQL.Insert(dbx).table("firma")
               // SERIAL: .insert("pk_firma", new Integer(1))
