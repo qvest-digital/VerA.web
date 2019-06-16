@@ -218,11 +218,6 @@ public class OctopusServlet extends HttpServlet {
             webappContextPathName = request.getContextPath().substring(1);
         }
 
-        if (request.getPathInfo().equals("/veraweb/dtmp")) {
-            org.apache.commons.logging.LogFactory th = org.apache.axis.components.logger.LogFactory.getLogFactory();
-            th.release();
-        }
-
         String requestID = TcRequest.createRequestID();
         {
             String reqString = request.getPathInfo();
