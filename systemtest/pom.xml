@@ -192,6 +192,19 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<!-- selenium stuff uses commons-logging -->
+							<execution>
+								<id>analyse-dependency-management</id>
+								<configuration>
+									<failBuild>false</failBuild>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 					<!-- Execute tests -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
