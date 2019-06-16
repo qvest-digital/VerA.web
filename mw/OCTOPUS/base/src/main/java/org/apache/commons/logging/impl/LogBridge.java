@@ -75,6 +75,16 @@ public final class LogBridge implements Log {
     }
 
     @Override
+    public void trace(final Object msg) {
+        l.trace(msg);
+    }
+
+    @Override
+    public void trace(final Object msg, final Throwable e) {
+        l.trace(msg, e);
+    }
+
+    @Override
     public void debug(final Object msg) {
         l.debug(msg);
     }
@@ -82,6 +92,26 @@ public final class LogBridge implements Log {
     @Override
     public void debug(final Object msg, final Throwable e) {
         l.debug(msg, e);
+    }
+
+    @Override
+    public void info(final Object msg) {
+        l.info(msg);
+    }
+
+    @Override
+    public void info(final Object msg, final Throwable e) {
+        l.info(msg, e);
+    }
+
+    @Override
+    public void warn(final Object msg) {
+        l.warn(msg);
+    }
+
+    @Override
+    public void warn(final Object msg, final Throwable e) {
+        l.warn(msg, e);
     }
 
     @Override
@@ -105,38 +135,23 @@ public final class LogBridge implements Log {
     }
 
     @Override
-    public void info(final Object msg) {
-        l.info(msg);
-    }
-
-    @Override
-    public void info(final Object msg, final Throwable e) {
-        l.info(msg, e);
-    }
-
-    @Override
-    public void trace(final Object msg) {
-        l.trace(msg);
-    }
-
-    @Override
-    public void trace(final Object msg, final Throwable e) {
-        l.trace(msg, e);
-    }
-
-    @Override
-    public void warn(final Object msg) {
-        l.warn(msg);
-    }
-
-    @Override
-    public void warn(final Object msg, final Throwable e) {
-        l.warn(msg, e);
+    public boolean isTraceEnabled() {
+        return l.isTraceEnabled();
     }
 
     @Override
     public boolean isDebugEnabled() {
         return l.isDebugEnabled();
+    }
+
+    @Override
+    public boolean isInfoEnabled() {
+        return l.isInfoEnabled();
+    }
+
+    @Override
+    public boolean isWarnEnabled() {
+        return l.isWarnEnabled();
     }
 
     @Override
@@ -147,20 +162,5 @@ public final class LogBridge implements Log {
     @Override
     public boolean isFatalEnabled() {
         return l.isFatalEnabled();
-    }
-
-    @Override
-    public boolean isInfoEnabled() {
-        return l.isInfoEnabled();
-    }
-
-    @Override
-    public boolean isTraceEnabled() {
-        return l.isTraceEnabled();
-    }
-
-    @Override
-    public boolean isWarnEnabled() {
-        return l.isWarnEnabled();
     }
 }
