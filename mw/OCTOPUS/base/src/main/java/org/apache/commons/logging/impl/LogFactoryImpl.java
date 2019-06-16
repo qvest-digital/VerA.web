@@ -63,6 +63,8 @@ import org.apache.logging.log4j.LogManager;
  * Subset of commons-logging 1.2 LogFactory implementation
  * FQCN hardcoded via constant copying, into its users
  *
+ * Use @Log4j2 for all code; this is for dependencies *only*!
+ *
  * @author mirabilos (t.glaser@tarent.de)
  */
 @Log4j2
@@ -76,6 +78,7 @@ public class LogFactoryImpl extends LogFactory {
         logger.debug("instantiating");
     }
 
+    /* do not even THINK of adding yourselves here or using anything but @Log4j2 */
     @SuppressWarnings("NonAsciiCharacters")
     private static String[] whitelistedPræficēs = {
       "org.apache.axis.",
