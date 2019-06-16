@@ -40,7 +40,7 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{7.0}
+\newcommand{\vwiaversfassungnr}{7.1}
 \newcommand{\vwiaversfassungmonat}{Juni}
 \newcommand{\vwiaversfassungjahr}{2019}
 
@@ -943,6 +943,21 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 
 Eventuell möchten Sie auch noch \texttt{-Xms} und \texttt{-Xmx} setzen,
 indem Sie eine äquivalente Zeile einfügen.
+
+\begin{minipage}{\linewidth}
+Außerdem fügen Sie bitte…
+
+\begin{lstdump}{Tomcat Logs}
+LOGFILE_COMPRESS=0
+\end{lstdump}
+
+…~ein, damit das Logaufräumen nicht der VerA.web-Logkonfiguration
+in die Quere kommt, und setzen \texttt{LOGFILE\_DAYS} auf einen
+hinreichend hohen Wert (sodaß nie Logs, die noch aktiv sind, der
+Anwendung weggezogen werden; Standardwert ist \texttt{14}; wenn
+Sie also mindestens alle 12 Tage die Anwendung benutzen sind Sie
+auch ohne Änderung auf der sicheren Seite).
+\end{minipage}
 
 \begin{minipage}{\linewidth}
 Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
