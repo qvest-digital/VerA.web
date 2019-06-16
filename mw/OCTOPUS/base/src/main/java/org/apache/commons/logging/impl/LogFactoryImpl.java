@@ -125,6 +125,10 @@ public class LogFactoryImpl extends LogFactory {
         }
     }
 
+    /**
+     * In this implementation, does nothing.
+     * We’re not keeping any references to the {@link LogBridge} instances around.
+     */
     @Override
     public void release() {
     }

@@ -83,15 +83,21 @@ public abstract class LogFactory {
     }
 
     /**
-     * In this implementation, does nothing.
+     * Throws away all internal references to any {@link LogFactory} instances
+     * in the specified classloader, after calling {@link #release()} on them.
+     *
+     * In this implementation, identical to {@link #releaseAll()}.
      */
     public static void release(@SuppressWarnings("unused") final ClassLoader classLoader) {
+        releaseAll();
     }
 
     /**
-     * In this implementation, does nothing.
+     * Throws away all internal references to any {@link LogFactory} instances
+     * after calling {@link #release()} (see there) on them.
      */
     public static void releaseAll() {
+        IMPLEMENTATION = null;
     }
 
     /**
@@ -131,7 +137,11 @@ public abstract class LogFactory {
     public abstract Log getInstance(final String clazzName) throws LogConfigurationException;
 
     /**
-     * In this implementation, does nothing.
+     * Throws away all internal references to any {@link Log} instances.
+     *
+     * Some application server implementations handle reload by throwing
+     * the classloader away, so it’s prudent to keep no references to
+     * objects in those alive.
      */
     public abstract void release();
 
