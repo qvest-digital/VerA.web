@@ -86,7 +86,8 @@ public class RestPaths {
      */
     public static final String REST_FILEUPLOAD = "/fileupload";
     public static final String REST_FILEUPLOAD_SAVE = "/save";
-    public static final String REST_FILEUPLOAD_DOWNLOAD = "/download/{imgUUID}";
+    public static final String REST_FILEUPLOAD_DOWNLOAD = "/download";
+    public static final String REST_FILEUPLOAD_DL_IMG = "/{imgUUID}";
 
     /**
      * Info-Resource

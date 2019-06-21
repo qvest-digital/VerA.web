@@ -142,7 +142,7 @@ public class FileUploadResource extends AbstractResource {
      * @return Base64 data
      */
     @GET
-    @Path(RestPaths.REST_FILEUPLOAD_DOWNLOAD)
+    @Path(RestPaths.REST_FILEUPLOAD_DOWNLOAD + RestPaths.REST_FILEUPLOAD_DL_IMG)
     public String getImageByUUID(@PathParam("imgUUID") String imgUUID) {
         StringBuilder encodedImage = null;
         try {
