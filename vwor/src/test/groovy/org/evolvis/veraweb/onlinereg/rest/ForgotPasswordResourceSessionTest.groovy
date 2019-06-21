@@ -72,10 +72,10 @@ import org.evolvis.veraweb.onlinereg.entities.LinkUUID
 import org.evolvis.veraweb.onlinereg.entities.Person
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher
-import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.Transaction
+import org.hibernate.query.Query
 import spock.lang.Specification
 
 import javax.mail.Transport
@@ -97,7 +97,7 @@ class ForgotPasswordResourceSessionTest extends Specification {
     def transport = Mock(Transport)
 
     void setup() {
-        def emailConfiguration = new EmailConfiguration("host", 465, "ssl", "username", "password", "from@tarent.de", "subjectForVerificationEmail", "contentForVerificationEmail", "plaintext", "resetPasswordSubect", "resetPasswordContext", "subjectResendLogin", "contentResendLogin")
+        def emailConfiguration = new EmailConfiguration("host", 465, "ssl", "username", "password", "from@tarent.de", "subjectForVerificationEmail", "contentForVerificationEmail", "resetPasswordSubect", "resetPasswordContext", "subjectResendLogin", "contentResendLogin")
         dispatcher = new MailDispatcher(emailConfiguration)
         dispatcher.setTransport(transport)
         context.getAttribute("SessionFactory") >> sessionFactory
@@ -170,5 +170,4 @@ class ForgotPasswordResourceSessionTest extends Specification {
             session != null
             1 * session.close()
     }
-
 }

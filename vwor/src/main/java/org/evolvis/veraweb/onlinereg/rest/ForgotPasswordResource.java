@@ -69,13 +69,14 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.LinkType;
 import org.evolvis.veraweb.onlinereg.entities.LinkUUID;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.mail.MessagingException;
 import javax.ws.rs.FormParam;
@@ -84,7 +85,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.UUID;
-import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -158,7 +158,7 @@ public class ForgotPasswordResource extends AbstractResource {
         }
         String link = buildLink(oaEndpoint, uuid);
         mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubjectResetPassword(),
-          emailConfiguration.getContentResetPassword(), link, emailConfiguration.getContentType());
+          emailConfiguration.getContentResetPassword(), link);
     }
 
     private String buildLink(String oaEndpoint, String uuid) {

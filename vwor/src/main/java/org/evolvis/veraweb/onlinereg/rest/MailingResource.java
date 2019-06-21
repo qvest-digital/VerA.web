@@ -172,7 +172,7 @@ public class MailingResource extends FormDataResource {
             if (pattern.matcher(recipient.getAddress()).matches()) {
                 try {
                     final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(),
-                      subject, substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
+                      subject, substitutePlaceholders(text, recipient.getPerson()), files);
                     sb.append(monitor.toString());
                 } catch (AddressException e) {
                     logger.error("Email-Adress is not valid" + recipient.getAddress(), e);

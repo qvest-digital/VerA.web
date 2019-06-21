@@ -87,7 +87,6 @@ public class EmailConfiguration {
     private String contentResetPassword;
     private String subjectResendLogin;
     private String contentResendLogin;
-    private String contentType;
     private VworPropertiesReader vworPropertiesReader;
 
     public EmailConfiguration(String currentLanguageKey) {
@@ -102,12 +101,10 @@ public class EmailConfiguration {
       String from,
       String subject,
       String content,
-      String contentType,
       String subjectResetPassword,
       String contentResetPassword,
       String subjectResendLogin,
       String contentResendLogin) {
-
         this.host = host;
         this.port = port;
         this.security = security;
@@ -120,7 +117,6 @@ public class EmailConfiguration {
         this.contentResetPassword = contentResetPassword;
         this.subjectResendLogin = subjectResendLogin;
         this.contentResendLogin = contentResendLogin;
-        this.contentType = contentType;
     }
 
     public EmailConfiguration(String currentLanguageKey, VworPropertiesReader propertiesReader) {
@@ -142,7 +138,6 @@ public class EmailConfiguration {
             this.username = propertiesReader.getProperty("mail.smtp.user");
             this.password = propertiesReader.getProperty("mail.smtp.password");
             this.from = propertiesReader.getProperty("mail.smtp.from");
-            this.contentType = propertiesReader.getProperty("mail.content.type");
             this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
             this.subjectResetPassword = propertiesReader.getProperty("mail.subject_reset_password." + currentLanguageKey);
             this.subjectResendLogin = propertiesReader.getProperty("mail.subject_resend_login." + currentLanguageKey);
@@ -205,10 +200,6 @@ public class EmailConfiguration {
             vworPropertiesReader = new VworPropertiesReader();
         }
         return vworPropertiesReader;
-    }
-
-    public String getContentType() {
-        return contentType;
     }
 
     public String getFrom(int fk_orgunit) {

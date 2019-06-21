@@ -69,18 +69,18 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.mail.MessagingException;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import java.util.List;
-import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Max Weierstall, tarent solutions GmbH
@@ -126,8 +126,7 @@ public class ForgotLoginResource extends AbstractResource {
           toEmail,
           emailConfiguration.getSubjectResendLogin(),
           emailConfiguration.getContentResendLogin(),
-          usernameList,
-          emailConfiguration.getContentType());
+          usernameList);
     }
 
     private String buildLink(List<Person> personList) {

@@ -69,6 +69,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
 
@@ -78,7 +79,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -109,14 +109,12 @@ public class EmailResource extends AbstractResource {
 
     private void executeSendEmail(String email, String endpoint, String activationToken, Boolean isPressUser)
       throws MessagingException {
-
         final String activationLink = getActivationLink(endpoint, activationToken, isPressUser);
         final String from = emailConfiguration.getFrom();
         final String subject = emailConfiguration.getSubject();
         final String content = emailConfiguration.getContent();
-        final String contentType = emailConfiguration.getContentType();
 
-        mailDispatcher.sendVerificationEmail(from, email, subject, content, activationLink, contentType);
+        mailDispatcher.sendVerificationEmail(from, email, subject, content, activationLink);
     }
 
     private String getActivationLink(String endpoint, String activationToken, Boolean isPressUser) {

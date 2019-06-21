@@ -115,8 +115,8 @@ public class MailDispatcherTest {
     public void setUp() throws NoSuchProviderException {
         transportMock = Mockito.mock(Transport.class);
         emailConfiguration = new EmailConfiguration(PARAM_HOST, PARAM_PORT, null, PARAM_USER, PARAM_PASS, "noreply@tarent.de",
-          "Subject mit Umlat ü",
-          "Plain text content mit Umlaut ü", "HTML", "resetPwSubect", "resetPwContent", "subjectResendLogin",
+          "Subject mit Umlaut ü", "Plain text content mit Umlaut ü",
+          "resetPwSubect", "resetPwContent", "subjectResendLogin",
           "contentResendLogin");
         classToTest = new MailDispatcher(emailConfiguration);
         classToTest.setTransport(transportMock);
@@ -124,8 +124,7 @@ public class MailDispatcherTest {
 
     @Test
     public void sendVerificationEmail() throws Exception {
-        classToTest.sendVerificationEmail("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, "http://link.de",
-          emailConfiguration.getContentType());
+        classToTest.sendVerificationEmail("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, "http://link.de");
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Address[]> recipients = ArgumentCaptor.forClass(Address[].class);
@@ -147,7 +146,7 @@ public class MailDispatcherTest {
         Files.write(Paths.get(tmpFile.getAbsolutePath()), msg.getBytes());
         fileMap.put(PARAM_TESTFILE, tmpFile);
 
-        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, fileMap, "plain");
+        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, fileMap);
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Address[]> recipients = ArgumentCaptor.forClass(Address[].class);
@@ -164,7 +163,7 @@ public class MailDispatcherTest {
 
     @Test
     public void sendEmailWithAttachmentsNull() throws Exception {
-        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, null, "plain");
+        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, null);
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Address[]> recipients = ArgumentCaptor.forClass(Address[].class);
@@ -178,7 +177,7 @@ public class MailDispatcherTest {
     public void sendEmailWithAttachmentsNoFiles() throws Exception {
         final Map<String, File> emptyFileMap = new HashMap<String, File>();
 
-        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, emptyFileMap, "plain");
+        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, emptyFileMap);
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Address[]> recipients = ArgumentCaptor.forClass(Address[].class);

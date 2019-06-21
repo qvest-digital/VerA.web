@@ -73,7 +73,7 @@ package org.evolvis.veraweb.onlinereg.utils;
  * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
  */
 public class VworConstants {
-        /**
+    /**
      * File upload extensions
      */
     public static final String EXTENSION_JPG = "jpg";
@@ -83,7 +83,6 @@ public class VworConstants {
      * Content types for email.
      */
     public static final String HTML_CONTENT_TYPE = "text/html; charset=utf-8";
-    public static final String PLAINTEXT_CONTENT_TYPE = "text/plain; charset=utf-8";
 
     /**
      * Content type for the guest list export file.

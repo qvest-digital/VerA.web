@@ -69,6 +69,8 @@ package org.evolvis.veraweb.onlinereg.mail;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -84,15 +86,11 @@ import javax.mail.internet.MailDateFormat;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.swing.text.html.HTML;
 import java.io.File;
 import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-
-import static org.evolvis.veraweb.onlinereg.utils.VworConstants.HTML_CONTENT_TYPE;
-import static org.evolvis.veraweb.onlinereg.utils.VworConstants.PLAINTEXT_CONTENT_TYPE;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -131,28 +129,19 @@ public class MailDispatcher {
     }
 
     public void sendVerificationEmail(final String from, final String to, final String subject, final String text,
-      final String link,
-      final String contentType) throws MessagingException {
+      final String link) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
         final Message message;
-        if (TYPE_HTML.equalsIgnoreCase(contentType)) {
-            message = getMessage(session, from, to, subject, emailContent, HTML_CONTENT_TYPE);
-        } else {
-            message = getMessage(session, from, to, subject, emailContent, PLAINTEXT_CONTENT_TYPE);
-        }
+        message = getMessage(session, from, to, subject, emailContent, VworConstants.HTML_CONTENT_TYPE);
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }
 
-    public MailDispatchMonitor sendEmailWithAttachments(final String from,
-      final String to,
-      final String subject,
-      final String emailContent,
-      final Map<String, File> attachments,
-      String contentType) throws MessagingException {
+    public MailDispatchMonitor sendEmailWithAttachments(final String from, final String to, final String subject,
+      final String emailContent, final Map<String, File> attachments) throws MessagingException {
         final Multipart multipart = new MimeMultipart();
-        final MimeBodyPart messageBodyPart = getMessageBody(emailContent, contentType);
+        final MimeBodyPart messageBodyPart = getMessageBody(emailContent);
         multipart.addBodyPart(messageBodyPart);
         if (attachments != null && !attachments.isEmpty()) {
             for (final Entry<String, File> entry : attachments.entrySet()) {
@@ -173,13 +162,9 @@ public class MailDispatcher {
         return monitor;
     }
 
-    private MimeBodyPart getMessageBody(String emailContent, String contentType) throws MessagingException {
+    private MimeBodyPart getMessageBody(String emailContent) throws MessagingException {
         final MimeBodyPart messageBodyPart = new MimeBodyPart();
-        if (TYPE_HTML.equalsIgnoreCase(contentType)) {
-            messageBodyPart.setContent(emailContent, HTML_CONTENT_TYPE);
-        } else {
-            messageBodyPart.setContent(emailContent, PLAINTEXT_CONTENT_TYPE);
-        }
+        messageBodyPart.setContent(emailContent, VworConstants.HTML_CONTENT_TYPE);
         return messageBodyPart;
     }
 
