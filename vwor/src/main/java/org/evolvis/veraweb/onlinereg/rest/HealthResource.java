@@ -84,9 +84,7 @@ import javax.ws.rs.Path;
 public class HealthResource extends AbstractResource {
     @GET
     public String health() {
-        Session session = openSession();
-        try {
-
+        try (Session session = openSession()) {
             Query q = session.getNamedQuery("Config.find");
             q.setParameter("key", "SCHEMA_VERSION");
             Config c = (Config) q.uniqueResult();
@@ -95,8 +93,6 @@ public class HealthResource extends AbstractResource {
             } else {
                 return "NO SCHEMA_VERSION";
             }
-        } finally {
-            session.close();
         }
     }
 }
