@@ -80,7 +80,6 @@ import static org.junit.Assert.assertEquals;
  * Created by mley on 02.09.14.
  */
 public class HealthResourceTest extends AbstractResourceTest<HealthResource> {
-
     public HealthResourceTest() {
         super(HealthResource.class);
     }

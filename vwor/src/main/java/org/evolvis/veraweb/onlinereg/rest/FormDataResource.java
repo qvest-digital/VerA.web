@@ -84,7 +84,6 @@ import java.nio.file.Paths;
  * Created by eugen on 16.06.16.
  */
 public class FormDataResource extends AbstractResource {
-
     protected String tmpPath = System.getProperty("java.io.tmpdir");
 
     File saveTempFile(final FormDataBodyPart part) throws IOException {

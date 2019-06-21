@@ -69,9 +69,10 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -79,7 +80,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -87,7 +87,6 @@ import org.evolvis.veraweb.common.RestPaths;
 @Path(RestPaths.REST_OPTIONALFIELDS)
 @Produces(MediaType.APPLICATION_JSON)
 public class OptionalFieldResource extends AbstractResource {
-
     @GET
     @Path(RestPaths.REST_OPTIONALFIELDS_GET_ALL)
     public List<OptionalField> getOptionalFields(@PathParam("eventId") Integer eventId) {

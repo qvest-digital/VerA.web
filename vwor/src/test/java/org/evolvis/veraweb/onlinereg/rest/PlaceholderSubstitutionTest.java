@@ -102,7 +102,7 @@ public class PlaceholderSubstitutionTest {
     @Test
     public void testHintFieldPlaceholderSubstition() throws IllegalArgumentException, IllegalAccessException {
         final List<String> words = Arrays.asList("remark", "hintfororga", "hintforhost");
-        final List<String> expectedSubstitutions = Arrays.asList("note_a_e1","noteForOrga", "notehost_a_e1");
+        final List<String> expectedSubstitutions = Arrays.asList("note_a_e1", "noteForOrga", "notehost_a_e1");
         //GIVEN
         Person person = createPerson();
         PlaceholderSubstitution subst = new PlaceholderSubstitution(person);
@@ -133,7 +133,7 @@ public class PlaceholderSubstitutionTest {
             expectedSubstitutes.add(expectedValue + "_a_e1");
         }
 
-        return createExpectedSubstitute(words,expectedSubstitutes);
+        return createExpectedSubstitute(words, expectedSubstitutes);
     }
 
     private String createTemplate(final List<String> words) {
@@ -147,7 +147,7 @@ public class PlaceholderSubstitutionTest {
 
     private String createExpectedSubstitute(final List<String> words, final List<String> expectedSubstitutes) {
         final StringBuilder sb1 = new StringBuilder();
-        for (int i=0;i< words.size(); i++) {
+        for (int i = 0; i < words.size(); i++) {
             sb1.append(words.get(i) + ": '" + expectedSubstitutes.get(i) + "'\n");
         }
         final String template = sb1.toString();

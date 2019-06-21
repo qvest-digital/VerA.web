@@ -69,11 +69,12 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.common.RestPaths;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by mweier on 23.03.16.
@@ -81,7 +82,6 @@ import org.evolvis.veraweb.common.RestPaths;
 @Path(RestPaths.REST_INFO)
 @Produces(MediaType.TEXT_PLAIN)
 public class InfoResource extends AbstractResource {
-
     @GET
     public String getInfo() {
         return getClass().getPackage().getImplementationVersion();

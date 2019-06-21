@@ -80,7 +80,6 @@ import javax.ws.rs.core.Context;
  * Created by mley on 01.09.14.
  */
 public abstract class AbstractResource {
-
     @Context
     @Setter // for testing
     protected ServletContext context;

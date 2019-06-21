@@ -78,7 +78,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PlaceholderSubstitution {
-
     /* TODO:
      * this is a first, naive take at this.
      * We probably want to think this over.

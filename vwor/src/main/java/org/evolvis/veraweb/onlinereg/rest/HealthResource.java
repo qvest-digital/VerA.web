@@ -69,20 +69,19 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.Config;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * Created by mley on 02.09.14.
  */
 @Path(RestPaths.REST_HEALTH_AVAILABLE)
 public class HealthResource extends AbstractResource {
-
     @GET
     public String health() {
         Session session = openSession();

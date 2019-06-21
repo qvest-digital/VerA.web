@@ -69,11 +69,12 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.Salutation;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -85,7 +86,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import org.evolvis.veraweb.common.RestPaths;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -93,7 +93,6 @@ import org.evolvis.veraweb.common.RestPaths;
 @Path(RestPaths.REST_SALUTATION_ALTERNATIVE)
 @Produces(MediaType.APPLICATION_JSON)
 public class SalutationAlternativeResource extends AbstractResource {
-
     private static final int MAX_SALUTATION_LENGTH = 100;
 
     /**

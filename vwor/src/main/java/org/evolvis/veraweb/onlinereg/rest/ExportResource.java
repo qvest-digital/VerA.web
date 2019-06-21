@@ -69,6 +69,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.export.CsvExporter;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
@@ -81,15 +82,28 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.ws.rs.*;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import org.evolvis.veraweb.common.RestPaths;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by mweier on 23.03.16.
@@ -97,7 +111,6 @@ import org.evolvis.veraweb.common.RestPaths;
 @Path(RestPaths.REST_EXPORT)
 @Produces(VworConstants.TEXT_CSV_CONTENT_TYPE)
 public class ExportResource extends AbstractResource {
-
     @javax.ws.rs.core.Context
     ResourceContext resourceContext;
 
@@ -119,9 +132,9 @@ public class ExportResource extends AbstractResource {
     @POST
     @Path(RestPaths.REST_EXPORT_GET_GUESTLIST)
     public Response getGuestList(@PathParam("eventId") final int eventId,
-                                 MultivaluedMap<String, String> params,
-                                 @FormParam("selectedFields[]") List<String> selList)
-            throws NamingException, UnsupportedEncodingException {
+      MultivaluedMap<String, String> params,
+      @FormParam("selectedFields[]") List<String> selList)
+      throws NamingException, UnsupportedEncodingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
@@ -137,7 +150,8 @@ public class ExportResource extends AbstractResource {
         params.keySet().forEach(key -> properties.setProperty(key, params.getFirst(key)));
 
         Map<String, String> filterSettings = new HashMap<>();
-        params.keySet().stream().filter(key -> key.startsWith("filter")).forEach(key -> filterSettings.put(key, params.getFirst(key)));
+        params.keySet().stream().filter(key -> key.startsWith("filter"))
+          .forEach(key -> filterSettings.put(key, params.getFirst(key)));
 
         final InputStream configFileAsStream = getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
         final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
@@ -156,7 +170,7 @@ public class ExportResource extends AbstractResource {
         };
 
         return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode")
-                .build();
+          .build();
     }
 
     private void addOptionalFieldsSubstitutions(@PathParam("eventId") int eventId, Map<String, String> substitutions) {
@@ -174,5 +188,4 @@ public class ExportResource extends AbstractResource {
             }
         }
     }
-
 }

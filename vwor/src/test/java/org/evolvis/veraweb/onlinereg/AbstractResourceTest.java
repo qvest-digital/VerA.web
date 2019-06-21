@@ -87,7 +87,6 @@ import static org.mockito.Mockito.when;
  * Created by mley on 02.09.14.
  */
 public class AbstractResourceTest<T extends AbstractResource> {
-
     public static SessionFactory sessionFactory;
 
     public static ServletContext contextMock;
