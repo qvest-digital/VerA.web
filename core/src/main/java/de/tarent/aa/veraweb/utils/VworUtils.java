@@ -186,13 +186,16 @@ public class VworUtils {
      * @return complete path as string
      * @throws IOException FIXME
      */
-    public String path(Object... path) throws IOException {
-        String r = getVworEndPoint() + BASE_RESOURCE;
+    public String path(String... path) throws IOException {
+        StringBuilder r = new StringBuilder(getVworEndPoint() + BASE_RESOURCE);
 
-        for (Object p : path) {
-            r += "/" + p;
+        for (String p : path) {
+            if (!p.startsWith("/")) {
+                r.append("/");
+            }
+            r.append(p);
         }
 
-        return r;
+        return r.toString();
     }
 }
