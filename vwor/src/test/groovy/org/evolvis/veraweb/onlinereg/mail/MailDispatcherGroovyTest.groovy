@@ -94,10 +94,9 @@ class MailDispatcherGroovyTest extends Specification {
             def subject = "subjectForVerificationEmail"
             def text = "mail contentForVerificationEmail"
             def link = "http://tarent.de/activate"
-            def contentType = "plaintext"
 
         when:
-            dispatcher.sendVerificationEmail(from, to, subject, text, link, contentType)
+            dispatcher.sendVerificationEmail(from, to, subject, text, link)
 
         then:
             1 * transport.connect('host', 'username', 'password')
@@ -110,10 +109,9 @@ class MailDispatcherGroovyTest extends Specification {
             def to = "to@tarent.de"
             def subject = "subjectForVerificationEmail"
             def text = "mail contentForVerificationEmail"
-            def contentType = "plaintext"
 
         when:
-            dispatcher.sendEmailWithAttachments(from, to, subject, text, null, contentType)
+            dispatcher.sendEmailWithAttachments(from, to, subject, text, null)
 
         then:
             1 * transport.connect('host', 'username', 'password')
@@ -128,10 +126,9 @@ class MailDispatcherGroovyTest extends Specification {
             def text = "mail contentForVerificationEmail"
             def attachments = new HashMap<String, File>()
             attachments.put("1", Files.createTempFile(Paths.get("/tmp"), "testfile", ".tmp").toFile())
-            def contentType = "plaintext"
 
         when:
-            dispatcher.sendEmailWithAttachments(from, to, subject, text, attachments, contentType)
+            dispatcher.sendEmailWithAttachments(from, to, subject, text, attachments)
 
         then:
             1 * transport.connect('host', 'username', 'password')

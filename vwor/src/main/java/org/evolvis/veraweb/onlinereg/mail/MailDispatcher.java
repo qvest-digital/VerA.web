@@ -103,7 +103,6 @@ public class MailDispatcher {
 
     private static final String TYPE_SSL = "ssl";
     private static final String TYPE_STARTTLS = "starttls";
-    private static final String TYPE_HTML = "html";
 
     private final MailDateFormat dateFormat = new MailDateFormat();
 
