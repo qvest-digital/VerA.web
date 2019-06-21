@@ -71,6 +71,52 @@ package org.evolvis.veraweb.common;
 
 public class RestPaths {
     /**
+     * Health-Resource
+     */
+    public static final String REST_HEALTH_AVAILABLE = "/available";
+
+    /**
+     * Export-Resource
+     */
+    public static final String REST_EXPORT = "/export";
+    public static final String REST_EXPORT_GET_GUESTLIST = "/guestList/{eventId}";
+
+    /**
+     * Mailing-Resource
+     */
+    public static final String REST_MAILING = "/mailing";
+
+    /**
+     * Mailtemplate-Resource
+     */
+    public static final String REST_MAILTEMPLATE = "/mailtemplate";
+
+    /**
+     * PdfTemplate-Resource
+     */
+    public static final String REST_PDFTEMPLATE = "/pdftemplate";
+    public static final String REST_PDFTEMPLATE_EDIT = "/edit";
+    public static final String REST_PDFTEMPLATE_DELETE = "/delete";
+    public static final String REST_PDFTEMPLATE_GET_ALL = "/list";
+    public static final String REST_PDFTEMPLATE_EXPORT = "/export";
+
+    /**
+     * SalutationResource
+     */
+    public static final String REST_SALUTATION = "/salutation";
+    public static final String REST_SALUTATION_GET_ALL = "/getallsalutations";
+
+    /**
+     * SalutationAlternative-Resource
+     */
+    public static final String REST_SALUTATION_ALTERNATIVE = "/salutation/alternative";
+    public static final String REST_SALUTATION_ALTERNATIVE_GET_ALL = "/list/{pdftemplateId}";
+    public static final String REST_SALUTATION_ALTERNATIVE_UNUSED = "/unused/{pdftemplateId}";
+    public static final String REST_SALUTATION_ALTERNATIVE_DELETE = "delete/{salutationId}";
+    public static final String REST_SALUTATION_ALTERNATIVE_SAVE = "/save/{pdftemplateId}/";
+
+
+    /**
      * Category-Resource
      */
     public static final String REST_CATEGORY = "/category";
@@ -102,12 +148,6 @@ public class RestPaths {
     public static final String REST_EVENT_GUESLIST_STATUS = "/guestlist/status/{eventId}";
     public static final String REST_EVENT_RESERVELIST_STATUS = "/reservelist/status/{eventId}";
     public static final String REST_EVENT_GET_EVENT_BY_UUID = "/uuid/{uuid}";
-
-    /**
-     * Export-Resource
-     */
-    public static final String REST_EXPORT = "/export";
-    public static final String REST_EXPORT_GET_GUESTLIST = "/guestList/{eventId}";
 
     /**
      * FileUpload-Resource
@@ -164,11 +204,6 @@ public class RestPaths {
     public static final String REST_GUEST_ISRESERVE = "/isreserve/{eventId}/{username}";
 
     /**
-     * Health-Resource
-     */
-    public static final String REST_HEALTH_AVAILABLE = "/available";
-
-    /**
      * Info-Resource
      */
     public static final String REST_INFO = "/info";
@@ -180,16 +215,6 @@ public class RestPaths {
     public static final String REST_LINK_UUID = "/{uuid}";
     public static final String REST_LINK_DELETE = "/delete";
     public static final String REST_LINK_GET_BY_ID = "/byPersonId/{personId}";
-
-    /**
-     * Mailing-Resource
-     */
-    public static final String REST_MAILING = "/mailing";
-
-    /**
-     * Mailtemplate-Resource
-     */
-    public static final String REST_MAILTEMPLATE = "/mailtemplate";
 
     /**
      * MediaRepresentativeActivation-Resource
@@ -213,15 +238,6 @@ public class RestPaths {
     public static final String REST_OPTIONALFIELDS_TYPECONTENT_ID = "/{optionalFieldId}";
 
     /**
-     * PdfTemplate-Resource
-     */
-    public static final String REST_PDFTEMPLATE = "/pdftemplate";
-    public static final String REST_PDFTEMPLATE_EDIT = "/edit";
-    public static final String REST_PDFTEMPLATE_DELETE = "/delete";
-    public static final String REST_PDFTEMPLATE_GET_ALL = "/list";
-    public static final String REST_PDFTEMPLATE_EXPORT = "/export";
-
-    /**
      * PersonCategory-Resource
      */
     public static final String REST_PERSONCATEGORY = "/personcategory";
@@ -243,18 +259,4 @@ public class RestPaths {
     public static final String REST_PERSON_UPDATE_ORGUNIT = "/update/orgunit";
     public static final String REST_PERSON_GET_USER = "/list/{personId}";
 
-    /**
-     * SalutationAlternative-Resource
-     */
-    public static final String REST_SALUTATION_ALTERNATIVE = "/salutation/alternative";
-    public static final String REST_SALUTATION_ALTERNATIVE_GET_ALL = "/list/{pdftemplateId}";
-    public static final String REST_SALUTATION_ALTERNATIVE_UNUSED = "/unused/{pdftemplateId}";
-    public static final String REST_SALUTATION_ALTERNATIVE_DELETE = "delete/{salutationId}";
-    public static final String REST_SALUTATION_ALTERNATIVE_SAVE = "/save/{pdftemplateId}/";
-
-    /**
-     * SalutationResource
-     */
-    public static final String REST_SALUTATION = "/salutation";
-    public static final String REST_SALUTATION_GET_ALL = "/getallsalutations";
 }
