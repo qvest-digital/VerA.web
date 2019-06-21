@@ -15,12 +15,12 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Root level="INFO">
-			<appender-ref ref="RollingFile" level="INFO"/>
-			<appender-ref ref="Console" level="INFO"/>
+		<Root level="${env:VERAWEB_LOGLEVEL:-INFO}">
+			<appender-ref ref="RollingFile" level="${env:VERAWEB_LOGLEVEL:-INFO}"/>
+			<appender-ref ref="Console" level="${env:VERAWEB_LOGLEVEL_CONSOLE:-${env:VERAWEB_LOGLEVEL:-INFO}}"/>
 		</Root>
-		<Logger name="org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl" level="INFO" additivity="false">
-			<appender-ref ref="RollingFile" level="INFO"/>
+		<Logger name="org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl" level="${env:VERAWEB_LOGLEVEL:-INFO}" additivity="false">
+			<appender-ref ref="RollingFile" level="${env:VERAWEB_LOGLEVEL:-INFO}"/>
 			<appender-ref ref="Console" level="WARN"/>
 		</Logger>
 	</Loggers>
