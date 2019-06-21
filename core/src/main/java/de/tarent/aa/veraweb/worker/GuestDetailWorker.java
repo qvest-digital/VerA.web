@@ -103,6 +103,7 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
 import lombok.extern.log4j.Log4j2;
+import org.evolvis.veraweb.common.RestPaths;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -313,7 +314,7 @@ public class GuestDetailWorker extends GuestListWorker {
         final TypeReference<String> stringType = new TypeReference<String>() {
         };
         final VworUtils vworUtils = new VworUtils();
-        final String URI = vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
+        final String URI = vworUtils.path(RestPaths.REST_FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
         try {
             return vworUtils.readResource(URI, stringType);
         } catch (UniformInterfaceException e) {
@@ -587,7 +588,7 @@ public class GuestDetailWorker extends GuestListWorker {
         final Client client = Client.create();
         client.addFilter(vworUtils.getAuthorization());
 
-        final WebResource resource = client.resource(vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.SAVE));
+        final WebResource resource = client.resource(vworUtils.path(RestPaths.REST_FILEUPLOAD, RestPaths.REST_FILEUPLOAD_SAVE));
         final Form postBody = new Form();
 
         postBody.add("imageUUID", imageUUID);

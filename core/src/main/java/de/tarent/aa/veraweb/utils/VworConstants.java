@@ -77,6 +77,4 @@ package de.tarent.aa.veraweb.utils;
 public class VworConstants {
     // REST: File Upload mechanism
     public static final String DOWNLOAD = "download";
-    public static final String FILEUPLOAD = "fileupload";
-    public static final String SAVE = "save";
 }

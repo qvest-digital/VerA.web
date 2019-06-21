@@ -84,7 +84,7 @@ public class RestPaths {
     /**
      * FileUpload-Resource
      */
-    public static final String REST_FILEUPLOAD = "fileupload";
+    public static final String REST_FILEUPLOAD = "/fileupload";
     public static final String REST_FILEUPLOAD_SAVE = "/save";
     public static final String REST_FILEUPLOAD_DOWNLOAD = "/download/{imgUUID}";
 
@@ -126,7 +126,6 @@ public class RestPaths {
     public static final String REST_SALUTATION_ALTERNATIVE_UNUSED = "/unused/{pdftemplateId}";
     public static final String REST_SALUTATION_ALTERNATIVE_DELETE = "delete/{salutationId}";
     public static final String REST_SALUTATION_ALTERNATIVE_SAVE = "/save/{pdftemplateId}/";
-
 
     /**
      * Category-Resource
@@ -258,5 +257,4 @@ public class RestPaths {
     public static final String REST_PERSON_USERDATA_LITE = "/userdata/lite/{username}";
     public static final String REST_PERSON_UPDATE_ORGUNIT = "/update/orgunit";
     public static final String REST_PERSON_GET_USER = "/list/{personId}";
-
 }
