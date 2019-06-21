@@ -304,7 +304,7 @@ public class OctopusServlet extends HttpServlet {
               Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED", requestID));
 
             requestType = HttpHelper.discoverRequestType(request);
-            logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_TYPE", requestID,
+            logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_TYPE", requestID,
               TcRequest.getRequestTypeName(requestType)));
 
             // test if request type is not allowed
