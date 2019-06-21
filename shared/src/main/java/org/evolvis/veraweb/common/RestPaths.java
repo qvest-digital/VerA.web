@@ -82,6 +82,11 @@ public class RestPaths {
     public static final String REST_EXPORT_GET_GUESTLIST = "/guestList/{eventId}";
 
     /**
+     * Info-Resource
+     */
+    public static final String REST_INFO = "/info";
+
+    /**
      * Mailing-Resource
      */
     public static final String REST_MAILING = "/mailing";
@@ -202,11 +207,6 @@ public class RestPaths {
     public static final String REST_GUEST_ADD_TO_EVENT = "/{uuid}/register";
     public static final String REST_GUEST_REGISTER = "/register";
     public static final String REST_GUEST_ISRESERVE = "/isreserve/{eventId}/{username}";
-
-    /**
-     * Info-Resource
-     */
-    public static final String REST_INFO = "/info";
 
     /**
      * LINKUUID-Resource
