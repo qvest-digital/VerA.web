@@ -152,6 +152,13 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
+							<!-- selenium stuff uses commons-logging -->
+							<execution>
+								<id>analyse-dependency-management</id>
+								<configuration>
+									<failBuild>false</failBuild>
+								</configuration>
+							</execution>
 							<execution>
 								<id>copy-jdbc-core</id>
 								<phase>process-resources</phase>
@@ -188,19 +195,6 @@
 											<destFileName>postgresql-jdbc4.jar</destFileName>
 										</artifactItem>
 									</artifactItems>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<executions>
-							<!-- selenium stuff uses commons-logging -->
-							<execution>
-								<id>analyse-dependency-management</id>
-								<configuration>
-									<failBuild>false</failBuild>
 								</configuration>
 							</execution>
 						</executions>
