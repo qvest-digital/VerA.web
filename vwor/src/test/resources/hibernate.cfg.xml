@@ -10,24 +10,13 @@
 		<!-- make hibernate find entities in other jar files-->
 		<property name="hibernate.archive.autodetection">class, hbm</property>
 		<!-- mapping with model classes containing annotations -->
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.Category"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.Config"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.Delegation"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.Event"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.Function"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.Guest"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.LinkUUID"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.Location"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.MailTemplate"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.MediaRepresentativeActivation"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalField"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldType"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.PdfTemplate"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.Person"/>
-		<mapping class="org.evolvis.veraweb.onlinereg.entities.PersonCategory"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.PersonMailinglist"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.Salutation"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.SalutationAlternative"/>

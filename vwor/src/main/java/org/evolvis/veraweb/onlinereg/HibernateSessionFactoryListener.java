@@ -95,23 +95,13 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
         try {
             Configuration configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Category.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Config.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Delegation.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Event.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Function.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Guest.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.LinkUUID.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Location.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.MailTemplate.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.MediaRepresentativeActivation.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.OptionalField.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.OptionalFieldType.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.PdfTemplate.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Person.class);
-            configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.PersonCategory.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.PersonMailinglist.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Salutation.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.SalutationAlternative.class);
