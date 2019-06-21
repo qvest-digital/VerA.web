@@ -82,6 +82,7 @@ public class LogFactoryImpl extends LogFactory {
     @SuppressWarnings("NonAsciiCharacters")
     private static String[] whitelistedPræficēs = {
       "org.apache.axis.",
+      "org.apache.http.",
       "org.springframework."
     };
 
