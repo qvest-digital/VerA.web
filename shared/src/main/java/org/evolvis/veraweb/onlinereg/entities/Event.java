@@ -139,7 +139,6 @@ import java.util.Date;
       "AND tevent.maxreserve > 0 ))")
 })
 public class Event {
-
     @Id
     private int pk;
     private String shortname;

@@ -84,7 +84,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tlocation")
 public class Location {
-
     @Id
     private int pk;
 

@@ -92,7 +92,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     query = "SELECT mt FROM MailTemplate mt WHERE pk=:templateId AND fk_orgunit=:mandantId")
 })
 public class MailTemplate {
-
     public static final String GET_MAILTEMPLATE_BY_ID = "MailTemplate.getPdfTemplateByIdAndOrgUnit";
 
     @Id

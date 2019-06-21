@@ -69,6 +69,8 @@ package org.evolvis.veraweb.onlinereg.entities;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -80,8 +82,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import lombok.Data;
 
 @Data
 @XmlRootElement

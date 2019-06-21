@@ -78,7 +78,6 @@ import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.PersonNameTrimmer;
-import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
@@ -100,7 +99,6 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import lombok.extern.log4j.Log4j2;
-import org.evolvis.veraweb.onlinereg.entities.LinkType;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -111,9 +109,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * Octopus-Worker der Aktionen zur Detailansicht von Personen bereitstellt, wie
@@ -1083,67 +1079,6 @@ public class PersonDetailWorker implements PersonConstants {
     private void deletePersonCategory(Integer personid) throws BeanException {
         final Delete currentDeletePersonCategoryStatement = deletePersonCategory.where(Expr.equal("fk_person", personid));
         transactionalContext.execute(currentDeletePersonCategoryStatement);
-    }
-
-    /**
-     * Save new instance LinkUUID to allow having a reset password url
-     *
-     * @param personId       FIXME
-     * @param octopusContext octopusContext
-     * @throws BeanException BeanException
-     * @throws IOException   IOException
-     */
-    private void saveLinkUUID(Integer personId, OctopusContext octopusContext) {
-        final Database database = new DatabaseVeraWeb(octopusContext);
-        final TransactionContext transactionContext = database.getTransactionContext();
-        try {
-            transactionContext.execute(SQL.Insert(database).table("veraweb.link_uuid").insert("uuid", getNewPersonUUID())
-              .insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
-            transactionContext.commit();
-        } catch (BeanException e) {
-            logger.error("Persisting uuid for link generation failed", e);
-        }
-    }
-
-    private void updateUsernameInVeraweb(Person person, OctopusContext octopusContext) {
-        final Database database = new DatabaseVeraWeb(octopusContext);
-        final TransactionContext transactionContext = database.getTransactionContext();
-        try {
-            transactionContext
-              .execute(SQL.Update(database).table("veraweb.tperson").update("username", person.username)
-                .where(Expr.equal("pk", person.id)));
-            transactionContext.commit();
-        } catch (BeanException e) {
-            logger.error("Persisting username failed", e);
-        }
-    }
-
-    private Boolean hasUsername(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
-
-        final Database database = new DatabaseVeraWeb(octopusContext);
-        Integer counter = database.getCount(
-          database.getCount("Person").where(Where.and(Expr.equal("pk", personId), Expr.isNotNull("username"))));
-
-        return (counter == 1);
-    }
-
-    private Person getPersonById(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
-        Database database = new DatabaseVeraWeb(octopusContext);
-        return (Person) database.getBean("Person", personId);
-    }
-
-    private Properties getProperties() {
-        final PropertiesReader propertiesReader = new PropertiesReader();
-        return propertiesReader.getProperties();
-    }
-
-    /**
-     * New hash for persons
-     */
-    private String getNewPersonUUID() {
-        UUID uuid = UUID.randomUUID();
-
-        return uuid.toString();
     }
 
     public void setDatabase(Database database) {

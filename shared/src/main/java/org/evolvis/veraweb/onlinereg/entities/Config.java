@@ -89,7 +89,6 @@ import javax.xml.bind.annotation.XmlRootElement;
   @NamedQuery(name = "Config.find", query = "SELECT c FROM Config c where cname = :key")
 })
 public class Config {
-
     @Id
     private int pk;
     private String cname;

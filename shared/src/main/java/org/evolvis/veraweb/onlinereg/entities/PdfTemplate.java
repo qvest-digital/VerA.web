@@ -72,7 +72,6 @@ package org.evolvis.veraweb.onlinereg.entities;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -81,7 +80,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.sql.Timestamp;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -106,7 +104,6 @@ import java.sql.Timestamp;
     query = "delete from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID)
 })
 public class PdfTemplate {
-
     public static final String GET_PDF_TEMPLATE = "PdfTemplate.getPdfTemplateById";
     public static final String GET_PDF_TEMPLATE_LIST_BY_ORGUNIT = "PdfTemplate.getPdfTemplateListByOrgunit";
     public static final String UPDATE_PDF_TEMPLATE = "PdfTemplate.updatePdfTemplateById";

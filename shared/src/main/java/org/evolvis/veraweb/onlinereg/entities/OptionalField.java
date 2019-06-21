@@ -69,6 +69,8 @@ package org.evolvis.veraweb.onlinereg.entities;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -77,8 +79,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import lombok.Data;
 
 /**
  * @author jnunez
@@ -94,7 +94,6 @@ import lombok.Data;
     query = "select f.pk From OptionalField f where f.fk_event=:eventId and f.label=:label ")
 })
 public class OptionalField {
-
     public static final String OPTIONAL_FIELD_FIND_BY_EVENT_ID = "OptionalField.findByEventId";
     public static final String OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL = "OptionalField.findByEventIdAndLabel";
     @Id

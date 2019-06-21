@@ -71,7 +71,13 @@ package org.evolvis.veraweb.onlinereg.entities;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -91,7 +97,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 
 public class Salutation {
-
     public static final String GET_ALL_SALUTATIONS = "Salutation.getAllSalutations";
     public static final String GET_SALUTATIONS_WITHOUT_ALTERNATIVE_CONTENT = "Salutation.getSalutationsWithoutAlternativeContent";
 
