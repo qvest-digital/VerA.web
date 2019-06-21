@@ -81,50 +81,28 @@ public class EmailConfiguration {
     private String username;
     private String password;
     private String from;
-    private String subject;
-    private String content;
-    private String subjectResetPassword;
-    private String contentResetPassword;
-    private String subjectResendLogin;
-    private String contentResendLogin;
     private VworPropertiesReader vworPropertiesReader;
 
-    public EmailConfiguration(String currentLanguageKey) {
-        readProperties(currentLanguageKey);
+    public EmailConfiguration() {
+        readProperties();
     }
 
-    public EmailConfiguration(String host,
-      Integer port,
-      String security,
-      String username,
-      String password,
-      String from,
-      String subject,
-      String content,
-      String subjectResetPassword,
-      String contentResetPassword,
-      String subjectResendLogin,
-      String contentResendLogin) {
+    public EmailConfiguration(String host, Integer port, String security,
+      String username, String password, String from) {
         this.host = host;
         this.port = port;
         this.security = security;
         this.username = username;
         this.password = password;
         this.from = from;
-        this.subject = subject;
-        this.content = content;
-        this.subjectResetPassword = subjectResetPassword;
-        this.contentResetPassword = contentResetPassword;
-        this.subjectResendLogin = subjectResendLogin;
-        this.contentResendLogin = contentResendLogin;
     }
 
-    public EmailConfiguration(String currentLanguageKey, VworPropertiesReader propertiesReader) {
+    public EmailConfiguration(VworPropertiesReader propertiesReader) {
         vworPropertiesReader = propertiesReader;
-        readProperties(currentLanguageKey);
+        readProperties();
     }
 
-    private void readProperties(String currentLanguageKey) {
+    private void readProperties() {
         final VworPropertiesReader propertiesReader = getVworPropertiesReader();
         if (this.host == null) {
             this.host = propertiesReader.getProperty("mail.smtp.host");
@@ -138,12 +116,6 @@ public class EmailConfiguration {
             this.username = propertiesReader.getProperty("mail.smtp.user");
             this.password = propertiesReader.getProperty("mail.smtp.password");
             this.from = propertiesReader.getProperty("mail.smtp.from");
-            this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
-            this.subjectResetPassword = propertiesReader.getProperty("mail.subject_reset_password." + currentLanguageKey);
-            this.subjectResendLogin = propertiesReader.getProperty("mail.subject_resend_login." + currentLanguageKey);
-            this.content = propertiesReader.getProperty("mail.content." + currentLanguageKey);
-            this.contentResetPassword = propertiesReader.getProperty("mail.content_reset_password." + currentLanguageKey);
-            this.contentResendLogin = propertiesReader.getProperty("mail.content_resend_login." + currentLanguageKey);
         }
     }
 
@@ -169,30 +141,6 @@ public class EmailConfiguration {
 
     public String getFrom() {
         return from;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getSubjectResetPassword() {
-        return subjectResetPassword;
-    }
-
-    public String getContentResetPassword() {
-        return contentResetPassword;
-    }
-
-    public String getSubjectResendLogin() {
-        return subjectResendLogin;
-    }
-
-    public String getContentResendLogin() {
-        return contentResendLogin;
     }
 
     public VworPropertiesReader getVworPropertiesReader() {

@@ -114,10 +114,7 @@ public class MailDispatcherTest {
     @Before
     public void setUp() throws NoSuchProviderException {
         transportMock = Mockito.mock(Transport.class);
-        emailConfiguration = new EmailConfiguration(PARAM_HOST, PARAM_PORT, null, PARAM_USER, PARAM_PASS, "noreply@tarent.de",
-          "Subject mit Umlaut ü", "Plain text content mit Umlaut ü",
-          "resetPwSubect", "resetPwContent", "subjectResendLogin",
-          "contentResendLogin");
+        emailConfiguration = new EmailConfiguration(PARAM_HOST, PARAM_PORT, null, PARAM_USER, PARAM_PASS, "noreply@tarent.de");
         classToTest = new MailDispatcher(emailConfiguration);
         classToTest.setTransport(transportMock);
     }

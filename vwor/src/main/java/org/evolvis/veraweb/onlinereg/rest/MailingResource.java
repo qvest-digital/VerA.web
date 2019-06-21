@@ -159,7 +159,7 @@ public class MailingResource extends FormDataResource {
       final Map<String, File> files) throws MessagingException {
         final StringBuilder sb = new StringBuilder();
         if (emailConfiguration == null) {
-            emailConfiguration = new EmailConfiguration("de_DE");
+            emailConfiguration = new EmailConfiguration();
         }
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher(emailConfiguration);

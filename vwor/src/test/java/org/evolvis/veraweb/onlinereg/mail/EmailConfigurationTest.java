@@ -98,7 +98,7 @@ public class EmailConfigurationTest {
 
     @Test
     public void testReadProperties() throws Exception {
-        new EmailConfiguration("de_DE", propertiesReader);
+        new EmailConfiguration(propertiesReader);
         // THEN
         verify(propertiesReader, atLeast(8)).getProperty(any(String.class));
         verify(propertiesReader, atMost(13)).getProperty(any(String.class));
@@ -110,7 +110,7 @@ public class EmailConfigurationTest {
         when(propertiesReader.getProperty("mail.smtp.port")).thenReturn("25");
 
         // WHEN
-        new EmailConfiguration("de_DE", propertiesReader);
+        new EmailConfiguration(propertiesReader);
 
         // THEN
         verify(propertiesReader, times(13)).getProperty(any(String.class));
