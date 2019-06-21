@@ -75,7 +75,6 @@ package de.tarent.aa.veraweb.utils;
  * Created by Jon Nuñez, tarent solutions GmbH on 02.10.15.
  */
 public class VworConstants {
-
     // REST: service status
     public static final String AVAILABLE = "available";
     public static final String INFO = "info";
@@ -83,6 +82,5 @@ public class VworConstants {
     // REST: File Upload mechanism
     public static final String DOWNLOAD = "download";
     public static final String FILEUPLOAD = "fileupload";
-    public static final String PARTNER = "partner";
     public static final String SAVE = "save";
 }
