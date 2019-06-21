@@ -132,7 +132,7 @@ public class EmailConfiguration {
             if (smtpPort == null) {
                 this.port = 25;
             } else {
-                this.port = new Integer(smtpPort);
+                this.port = Integer.valueOf(smtpPort);
             }
             this.security = propertiesReader.getProperty("mail.smtp.security");
             this.username = propertiesReader.getProperty("mail.smtp.user");
