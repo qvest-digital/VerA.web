@@ -84,7 +84,7 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         SessionFactory sessionFactory = (SessionFactory) servletContextEvent.getServletContext().getAttribute("SessionFactory");
         if (sessionFactory != null && !sessionFactory.isClosed()) {
-            logger.info("Closing sessionFactory");
+            logger.debug("Closing sessionFactory");
             sessionFactory.close();
         }
         logger.info("Released Hibernate sessionFactory resource");
@@ -105,18 +105,18 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.PersonMailinglist.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.Salutation.class);
             configuration.addAnnotatedClass(org.evolvis.veraweb.onlinereg.entities.SalutationAlternative.class);
-            logger.info("Hibernate Configuration created successfully");
+            logger.debug("Hibernate Configuration created successfully");
 
             ServiceRegistry serviceRegistry =
               new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             assert (serviceRegistry != null);
-            logger.info("ServiceRegistry created successfully");
+            logger.debug("ServiceRegistry created successfully");
             SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             assert (sessionFactory != null);
-            logger.info("SessionFactory created successfully");
+            logger.debug("SessionFactory created successfully");
 
             servletContextEvent.getServletContext().setAttribute("SessionFactory", sessionFactory);
-            logger.info("Hibernate SessionFactory Configured successfully");
+            logger.info("Hibernate SessionFactory configured successfully");
         } catch (Exception e) {
             logger.error("Error", e);
         }
