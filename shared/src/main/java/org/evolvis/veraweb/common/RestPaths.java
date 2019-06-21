@@ -89,12 +89,6 @@ public class RestPaths {
     public static final String REST_DELEGATION_SAVE_FIELD = "/field/save";
 
     /**
-     * Email-Resource
-     */
-    public static final String REST_EMAIL = "/email";
-    public static final String REST_EMAIL_CONFIRM = "/confirmation/send";
-
-    /**
      * Event-Resource
      */
     public static final String REST_EVENT = "/event";
