@@ -74,7 +74,6 @@ import de.tarent.octopus.server.UserManager;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public abstract class AbstractLoginManager implements LoginManager {
-
     public static String PREFIX_PERSONAL_CONFIGS = "personalConfig-";
 
     protected Map configuration = new HashMap();

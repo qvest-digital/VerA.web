@@ -64,7 +64,7 @@ import javax.xml.namespace.QName;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke </a>, <b>tarent GmbH </b>
  */
 public class TcSecurityException extends Exception {
-    private static final long serialVersionUID = -5494704136570910471L;
+    private static final long serialVersionUID = 2337052834275279833L;
 
     public static final int ERROR_NO_VALID_SESSION = 1;
     public static final int ERROR_AUTH_ERROR = 2;
@@ -84,11 +84,11 @@ public class TcSecurityException extends Exception {
       new QName(uri, "Server.authentication.serviceFailed")
     };
 
-    int errorCode = 0;
+    private int errorCode = 0;
 
-    String message;
+    private String message;
 
-    String detailMessage;
+    private String detailMessage;
 
     public TcSecurityException(int errorCode) {
         super();
@@ -100,32 +100,25 @@ public class TcSecurityException extends Exception {
         setMessage(message);
     }
 
-    protected String getMessageByErrorCode(int errorCode) {
-        if (errorCode == ERROR_WRONG_GROUP_FOR_TASK) {
+    private String getMessageByErrorCode(int errorCode) {
+        switch (errorCode) {
+        case ERROR_WRONG_GROUP_FOR_TASK:
             return Resources.getInstance().get("SECURITYEXCEPTION_WRONG_GROUP_FOR_TASK");
-        }
-        if (errorCode == ERROR_INCOMPLETE_USER_DATA) {
+        case ERROR_INCOMPLETE_USER_DATA:
             return Resources.getInstance().get("SECURITYEXCEPTION_INCOMPLETE_USER_DATA");
-        }
-        if (errorCode == ERROR_AUTH_ERROR) {
+        case ERROR_AUTH_ERROR:
             return Resources.getInstance().get("SECURITYEXCEPTION_AUTH_ERROR");
-        }
-        if (errorCode == ERROR_NO_VALID_SESSION) {
+        case ERROR_NO_VALID_SESSION:
             return Resources.getInstance().get("SECURITYEXCEPTION_NO_VALID_SESSION");
-        }
-        if (errorCode == ERROR_SERVER_AUTH_ERROR) {
+        case ERROR_SERVER_AUTH_ERROR:
             return Resources.getInstance().get("SECURITYEXCEPTION_SERVER_AUTH_ERROR");
-        }
-        if (errorCode == ERROR_SERVER_USERMANAGEMENT_ERROR) {
+        case ERROR_SERVER_USERMANAGEMENT_ERROR:
             return Resources.getInstance().get("SECURITYEXCEPTION_USERMANAGEMENT_ERROR");
+        default:
+            return "Unknown Errorcode";
         }
-        return "Unknown Errorcode";
     }
 
-    /**
-     * @param string
-     * @param e
-     */
     public TcSecurityException(String string, Throwable e) {
         super(string, e);
     }
@@ -137,7 +130,7 @@ public class TcSecurityException extends Exception {
 
     public TcSecurityException(int errorCode, String detailMessage) {
         this(errorCode);
-        setDetailMessage(detailMessage);
+        this.detailMessage = detailMessage;
     }
 
     public QName getSoapFaultCode() {
@@ -155,17 +148,11 @@ public class TcSecurityException extends Exception {
         this.message = newMessage;
     }
 
-    /**
-     * @return Returns the detailMessage.
-     */
     public String getDetailMessage() {
         return detailMessage;
     }
 
-    /**
-     * @param detailMessage The detailMessage to set.
-     */
-    public void setDetailMessage(String detailMessage) {
-        this.detailMessage = detailMessage;
+    public int getErrorCode() {
+        return errorCode;
     }
 }

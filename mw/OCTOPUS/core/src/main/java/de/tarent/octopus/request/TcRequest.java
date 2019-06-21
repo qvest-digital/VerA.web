@@ -53,14 +53,15 @@ package de.tarent.octopus.request;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.client.OctopusConnection;
+import de.tarent.octopus.client.OctopusTask;
+import de.tarent.octopus.resource.Resources;
+import de.tarent.octopus.security.TcSecurityException;
+
 import java.net.PasswordAuthentication;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-
-import de.tarent.octopus.resource.Resources;
-import de.tarent.octopus.client.OctopusConnection;
-import de.tarent.octopus.client.OctopusTask;
 
 /**
  * Datenkontainer zur Kapselung der Parameter einer Anfrage.
@@ -342,6 +343,9 @@ public class TcRequest {
      * Diese Methode liefert die Passwort-Authentifizierung des Requests. Wenn
      * keine oder <code>null</code> explizit gesetzt wurde, wird versucht, diese
      * aus den Parametern zu gewinnen.
+     *
+     * Wenn nix gefunden werden kann, kann es zu einer
+     * {@link TcSecurityException#ERROR_INCOMPLETE_USER_DATA} kommen.
      *
      * @return Passwort-Authentifizierung des Requests
      */

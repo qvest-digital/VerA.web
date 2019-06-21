@@ -92,7 +92,7 @@ import java.util.Map;
 @Log4j2
 public class TcRequestDispatcher /*implements Serializable*/ {
     //XXX TODO: TcCommonConfig is not serialisable
-    private static final long serialVersionUID = -777103062849130446L;
+    private static final long serialVersionUID = -2331055490991216634L;
 
     private static final String DEFAULT_TASK_NAME = "default";
 
@@ -194,30 +194,27 @@ public class TcRequestDispatcher /*implements Serializable*/ {
             personalConfig.testTaskAccess(commonConfig, tcRequest);
             Threads.setContextClassLoader(outerLoader);
         } catch (Exception securityException) {
-            // Für diese Aktion ist eine andere Berechtigung nötig
-            if (logger.isInfoEnabled()) {
-                logger.info(Resources.getInstance()
-                  .get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task));
-            }
-            if (logger.isInfoEnabled()) {
-                logger.info(Resources.getInstance()
-                    .get("REQUESTDISPATCHER_LOG_SESSION_ERROR", requestID, module, task),
-                  securityException);
-            }
-
+            TcSecurityException tse;
+            boolean isNotLoggedIn = false;
             if (securityException instanceof TcSecurityException) {
-                sendAuthenticationError(moduleConfig, commonConfig, tcRequest, tcResponse,
-                  (TcSecurityException) securityException);
+                tse = (TcSecurityException) securityException;
+                isNotLoggedIn = tse.getErrorCode() == TcSecurityException.ERROR_NO_VALID_SESSION;
             } else {
-                sendAuthenticationError(moduleConfig, commonConfig, tcRequest, tcResponse,
-                  new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR,
-                    securityException));
+                tse = new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, securityException);
             }
 
             if (logger.isInfoEnabled()) {
-                logger.debug("Authentication Error wurde an den Client gesendet. Kehre nun zurück.");
+                final String msg = Resources.getInstance().get("REQUESTDISPATCHER_LOG_SESSION_ERROR",
+                  requestID, module, task);
+                if (isNotLoggedIn) {
+                    logger.info(msg + ": " + tse.getMessage());
+                } else {
+                    logger.info(msg, securityException);
+                }
             }
 
+            sendAuthenticationError(moduleConfig, commonConfig, tcRequest, tcResponse, tse);
+            logger.debug("Authentication Error wurde an den Client gesendet. Kehre nun zurück.");
             return;
         } finally {
             Threads.setContextClassLoader(outerLoader);
