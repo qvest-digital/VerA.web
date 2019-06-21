@@ -83,7 +83,6 @@ import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.aa.veraweb.utils.FileUploadUtils;
 import de.tarent.aa.veraweb.utils.VerawebUtils;
-import de.tarent.aa.veraweb.utils.VworConstants;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -314,7 +313,7 @@ public class GuestDetailWorker extends GuestListWorker {
         final TypeReference<String> stringType = new TypeReference<String>() {
         };
         final VworUtils vworUtils = new VworUtils();
-        final String URI = vworUtils.path(RestPaths.REST_FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
+        final String URI = vworUtils.path(RestPaths.REST_FILEUPLOAD, RestPaths.REST_FILEUPLOAD_DOWNLOAD, imageUUID);
         try {
             return vworUtils.readResource(URI, stringType);
         } catch (UniformInterfaceException e) {
