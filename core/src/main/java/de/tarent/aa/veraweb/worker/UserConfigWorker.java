@@ -74,7 +74,6 @@ import de.tarent.aa.veraweb.beans.User;
 import de.tarent.aa.veraweb.beans.UserConfig;
 import de.tarent.aa.veraweb.beans.ViewConfigKey;
 import de.tarent.aa.veraweb.utils.LocaleMessage;
-import de.tarent.aa.veraweb.utils.VworConstants;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
@@ -144,7 +143,7 @@ public class UserConfigWorker {
             String vworVersion = null;
             if ("OK".equals(vworAvailable)) {
                 try {
-                    vworVersion = vworUtils.readResource(vworUtils.path(VworConstants.INFO));
+                    vworVersion = vworUtils.readResource(vworUtils.path(RestPaths.REST_INFO));
                 } catch (Exception e) {
                     vworVersion = null;
                 }
