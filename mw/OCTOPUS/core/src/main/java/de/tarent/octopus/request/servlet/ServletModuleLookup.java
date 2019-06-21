@@ -156,7 +156,7 @@ class ServletModuleLookup implements TcModuleLookup {
             if (!module.startsWith("/")) {
                 module = "/" + module;
             }
-            logger.info(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_PARAMETERS_NOT_FOUND", module));
+            logger.debug(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_PARAMETERS_NOT_FOUND", module));
             logger.info(Resources.getInstance().get("OCTOPUS_MODULELOOKUP_USE_SOURCE", module,
               TcEnv.VALUE_MODULE_SOURCE_SERVLET_PREFIX + module));
             return getModuleByServletContext(module);
