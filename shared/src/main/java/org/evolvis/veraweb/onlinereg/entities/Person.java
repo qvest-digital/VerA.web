@@ -97,9 +97,7 @@ import java.util.Date;
   @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where p.username like :username"),
   @NamedQuery(name = "Person.findByMail", query = "SELECT p FROM Person p where p.mail_a_e1=:email"),
   @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where p.username like :username"),
-  @NamedQuery(name = "Person.findByPersonId", query = "SELECT p FROM Person p where p.pk=:personId"),
-  @NamedQuery(name = "Person.getPeopleByEventId",
-    query = "SELECT p FROM Person p where p.pk IN (SELECT g.fk_person from Guest g where g.fk_event=:eventid)")
+  @NamedQuery(name = "Person.findByPersonId", query = "SELECT p FROM Person p where p.pk=:personId")
 })
 @NamedNativeQueries(value = {
   @NamedNativeQuery(name = "Person.getDelegatesByUUID",
