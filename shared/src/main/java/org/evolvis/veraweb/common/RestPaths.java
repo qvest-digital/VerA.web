@@ -175,12 +175,6 @@ public class RestPaths {
     public static final String REST_HEALTH_AVAILABLE = "/available";
 
     /**
-     * Imprint-Resource
-     */
-    public static final String REST_IMPRINT = "/imprint";
-    public static final String REST_IMPRINT_LANGUAGE = "/{language}";
-
-    /**
      * Info-Resource
      */
     public static final String REST_INFO = "/info";
