@@ -82,6 +82,13 @@ public class RestPaths {
     public static final String REST_EXPORT_GET_GUESTLIST = "/guestList/{eventId}";
 
     /**
+     * FileUpload-Resource
+     */
+    public static final String REST_FILEUPLOAD = "fileupload";
+    public static final String REST_FILEUPLOAD_SAVE = "/save";
+    public static final String REST_FILEUPLOAD_DOWNLOAD = "/download/{imgUUID}";
+
+    /**
      * Info-Resource
      */
     public static final String REST_INFO = "/info";
@@ -153,13 +160,6 @@ public class RestPaths {
     public static final String REST_EVENT_GUESLIST_STATUS = "/guestlist/status/{eventId}";
     public static final String REST_EVENT_RESERVELIST_STATUS = "/reservelist/status/{eventId}";
     public static final String REST_EVENT_GET_EVENT_BY_UUID = "/uuid/{uuid}";
-
-    /**
-     * FileUpload-Resource
-     */
-    public static final String REST_FILEUPLOAD = "fileupload";
-    public static final String REST_FILEUPLOAD_SAVE = "/save";
-    public static final String REST_FILEUPLOAD_DOWNLOAD = "/download/{imgUUID}";
 
     /**
      * ForgotLogin-Resource
