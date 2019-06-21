@@ -75,8 +75,6 @@ import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.OptionalFieldType;
 import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.aa.veraweb.utils.DateHelper;
-import de.tarent.aa.veraweb.utils.EventURLHandler;
-import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.OptionalFieldSummary;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.Result;

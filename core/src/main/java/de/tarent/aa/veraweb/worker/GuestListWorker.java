@@ -75,8 +75,6 @@ import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
-import de.tarent.aa.veraweb.utils.EventURLHandler;
-import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.dblayer.engine.DB;
@@ -171,8 +169,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
-        final EventURLHandler eventURLHandler = new EventURLHandler();
-        eventURLHandler.setEventUrl(octopusContext, (String) octopusContext.getContextField("event.hash"));
         final String categoryAssignmentAction = octopusContext.requestAsString("categoryAssignmentAction");
 
         // does the user request categories to be assigned or unassigned?
@@ -714,11 +710,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         if (event == null) {
             octopusContext.setStatus("noevent");
         }
-
-        final MediaRepresentativesUtilities mediaRepresentativesUtilities =
-          new MediaRepresentativesUtilities(octopusContext, event);
-        mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
-
         return event;
     }
 

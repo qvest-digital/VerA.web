@@ -74,7 +74,6 @@ import de.tarent.aa.veraweb.beans.SearchConfig;
 import de.tarent.aa.veraweb.beans.ViewConfig;
 import de.tarent.aa.veraweb.beans.ViewConfigKey;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
-import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -200,7 +199,6 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         }
         cntx.setContent("config", config);
 
-        cntx.setContent("url", new URLGenerator(propertiesReader.getProperties()));
         cntx.setContent("viewConfig", verawebViewConfig);
         cntx.setContent("searchConfig", verawebSearchConfig);
     }
