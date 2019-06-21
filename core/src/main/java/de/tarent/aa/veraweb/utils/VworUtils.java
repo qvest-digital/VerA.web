@@ -74,9 +74,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -88,8 +88,8 @@ import java.net.SocketTimeoutException;
  * @author jnunez
  * @author tglase
  */
+@Log4j2
 public class VworUtils {
-
     final private static String BASE_RESOURCE = "/rest";
 
     /**
@@ -109,30 +109,35 @@ public class VworUtils {
 
     /**
      * @return Path of the saved images of the guests
-     * @throws IOException FIXME
      */
-    public String getVworEndPoint() throws IOException {
+    public String getVworEndPoint() {
         PropertiesReader propertiesReader = new PropertiesReader();
         String endpoint = propertiesReader.getProperty("vwor.endpoint");
+        if (endpoint == null) {
+            logger.warn("vwor.endpoint is nil");
+        }
         return endpoint;
     }
 
     public HTTPBasicAuthFilter getAuthorization() {
-        // FIXME We have to uncomment this line and delete the next line to allow HTTPBasicAuth as configurable
         return new HTTPBasicAuthFilter(getVworAuthUsername(), getVworAuthPassword());
     }
 
     private String getVworAuthUsername() {
         PropertiesReader propertiesReader = new PropertiesReader();
         String vworUser = propertiesReader.getProperty("vwor.auth.user");
-
+        if (vworUser == null) {
+            logger.warn("vwor.auth.user is nil");
+        }
         return vworUser;
     }
 
     private String getVworAuthPassword() {
         PropertiesReader propertiesReader = new PropertiesReader();
         String vworPassword = propertiesReader.getProperty("vwor.auth.password");
-
+        if (vworPassword == null) {
+            logger.warn("vwor.auth.password is nil");
+        }
         return vworPassword;
     }
 
@@ -159,9 +164,8 @@ public class VworUtils {
      *
      * @param path URI from VworUtils.path()
      * @return String from the Vwor component
-     * @throws IOException FIXME
      */
-    public String readResource(String path) throws IOException {
+    public String readResource(String path) {
         WebResource resource;
         try {
             resource = client.resource(path);
@@ -174,8 +178,6 @@ public class VworUtils {
             } else {
                 throw che;
             }
-        } catch (UniformInterfaceException uie) {
-            throw uie;
         }
     }
 
@@ -184,9 +186,8 @@ public class VworUtils {
      *
      * @param path path fragments
      * @return complete path as string
-     * @throws IOException FIXME
      */
-    public String path(String... path) throws IOException {
+    public String path(String... path) {
         StringBuilder r = new StringBuilder(getVworEndPoint() + BASE_RESOURCE);
 
         for (String p : path) {
