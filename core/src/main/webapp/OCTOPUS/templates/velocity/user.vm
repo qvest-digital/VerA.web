@@ -33,6 +33,7 @@
 
     <form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
 
+	#if($grants.isAdmin())
             <span id="buttonPanel-top" class="textRight floatRight" style="margin-bottom: 10px;">
                 <input type="button" id="button.newPerson" name="button.newPerson"
                        value="${placeholderWithTranslation.neuenbenutzererstellen}"
@@ -44,6 +45,7 @@
                        #end
                 />
             </span>
+	#end
 
         #if($listerrors && $listerrors.size() > 0)
             <vera-warn>
