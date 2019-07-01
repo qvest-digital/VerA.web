@@ -1322,9 +1322,7 @@
 		</task>
 		<!-- Umsetzung GAESTELISTE EXPORT -->
 		<task name="ShowExportGuest" access="public" groups="StandardFieldsReader">
-			<description>
-                Zeigt die Seiten zum exportieren der Gästeliste.
-            </description>
+			<description>Zeigt die Seiten zum Exportieren der Gästeliste</description>
 			<doTask name="Load"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker"/>
@@ -1654,9 +1652,9 @@
 		<!-- Administration → Benutzer → Neuen Benutzer erstellen -->
 		<task name="AllUserCreate" access="public" groups="Administrator,SystemUser">
 			<description>
-                Dieser Task ist zum erstellen neuer Nutzer.
-                Eine Liste wird aus dem LDAP geladen und abgeglichen.
-            </description>
+				Dieser Task ist zum erstellen neuer Nutzer.
+				Eine Liste wird aus dem LDAP geladen und abgeglichen.
+			</description>
 			<doTask name="Load"/>
 			<action name="saveList" worker="UserListWorker"/>
 			<param name="domain" value="unassigned"/>
