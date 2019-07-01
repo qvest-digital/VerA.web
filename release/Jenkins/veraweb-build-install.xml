@@ -111,7 +111,7 @@ H/15 * * * *</spec>
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>veraweb-parent</artifactId>
   </rootModule>
-  <goals>-Platex -Prelease -Pdstrepo-tarent -e clean install</goals>
+  <goals>-Ddependency-check.skip -Platex -Prelease -Pdstrepo-tarent -e clean install</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <ignoreUpstremChanges>false</ignoreUpstremChanges>
@@ -174,8 +174,8 @@ H/15 * * * *</spec>
       <scmUserEnvVar></scmUserEnvVar>
       <scmPasswordEnvVar></scmPasswordEnvVar>
       <releaseEnvVar>IS_M2RELEASEBUILD</releaseEnvVar>
-      <releaseGoals>-Platex -Prelease -Pdstrepo-tarent -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -e</releaseGoals>
-      <dryRunGoals>-Platex -Prelease -Pdstrepo-tarent -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
+      <releaseGoals>-Ddependency-check.skip -Platex -Prelease -Pdstrepo-tarent -Dresume=false release:prepare release:perform -DpreparationGoals=&#34;clean install&#34; -e</releaseGoals>
+      <dryRunGoals>-Ddependency-check.skip -Platex -Prelease -Pdstrepo-tarent -Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
       <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
       <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
       <selectScmCredentials>false</selectScmCredentials>
