@@ -81,6 +81,7 @@
 		Unclear			Benutzer, deren AA-Rolle nach Login nicht klar ist
 		Unauthorized		Benutzer, deren (gewählte) Rollen nicht autorisiert sind
 		User			Benutzer, deren (gewählte) Rollen autorisiert sind
+		SystemUser		??? (to be documented)
 
 		ByProxy			Benutzer, die als Vertreter angemeldet sind
 		InPerson		Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind
