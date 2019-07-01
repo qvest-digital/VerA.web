@@ -89,7 +89,7 @@
 		RemarkFieldsReader	Benutzer, die die limitierten Bemerkungsfelder lesen dürfen
 		Exporter		Benutzer, die exportieren dürfen
 		Writer			Benutzer, die schreiben dürfen, abhängig von ihrer Leseberechtigung
-		PartialAdmin		Teiladministratoren
+		PartialAdmin		Teiladministratoren (Mandant administrieren)
 		Administrator		Volladministratoren
 	-->
 	<tasks>
