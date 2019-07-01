@@ -78,19 +78,19 @@
 	<!--
 		Verfügbare Benutzergruppen:
 
-		*	"Unclear"				Benutzer, deren AA-Rolle nach Login nicht klar ist
-		*	"Unauthorized"			Benutzer, deren (gewählte) Rollen nicht autorisiert sind
-		*	"User"					Benutzer, deren (gewählte) Rollen autorisiert sind
+		Unclear			Benutzer, deren AA-Rolle nach Login nicht klar ist
+		Unauthorized		Benutzer, deren (gewählte) Rollen nicht autorisiert sind
+		User			Benutzer, deren (gewählte) Rollen autorisiert sind
 
-		*	"ByProxy"				Benutzer, die als Vertreter angemeldet sind
-		*	"InPerson"				Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind
+		ByProxy			Benutzer, die als Vertreter angemeldet sind
+		InPerson		Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind
 
-		*	"StandardFieldsReader"	Benutzer, die die Standardfelder lesen dürfen
-		*	"RemarkFieldsReader"	Benutzer, die die limitierten Bemerkungsfelder lesen dürfen
-		*	"Exporter"				Benutzer, die exportieren dürfen
-		*	"Writer"				Benutzer, die schreiben dürfen, abhängig von ihrer Leseberechtigung
-		*	"PartialAdmin"			Teiladministratoren
-		*	"Administrator"			Volladministratoren
+		StandardFieldsReader	Benutzer, die die Standardfelder lesen dürfen
+		RemarkFieldsReader	Benutzer, die die limitierten Bemerkungsfelder lesen dürfen
+		Exporter		Benutzer, die exportieren dürfen
+		Writer			Benutzer, die schreiben dürfen, abhängig von ihrer Leseberechtigung
+		PartialAdmin		Teiladministratoren
+		Administrator		Volladministratoren
 	-->
 	<tasks>
 		<!-- Automatische Tasks zum Start und Beenden des Modules. -->
