@@ -3,16 +3,16 @@
 <!--
 	Octopus config.xml
 
-	Kontrollflussdefinition
+	Kontrollflußdefinition
 
-	In den folgenden Elementen "contentWorkerDeklaration" und "tasks" werden die
+	In den folgenden Elementen „contentWorkerDeklaration“ und „tasks“ werden die
 	zur Verfügung stehenden Octopus-Worker deklariert und darauf aufbauend die
 	aufrufbaren Octopus-Tasks definiert.
 
 	Diese Daten sollten nicht geändert werden müssen.
 -->
 <tcModuleConfig>
-	<!-- Auflistung aller Worker, die im System existieren mit name=Classenname -->
+	<!-- Auflistung aller Worker, die im System existieren mit name=Klassenname -->
 	<contentWorkerDeklaration>
 		<!-- System-Worker, initalisierung der DB-Schicht, Message-, Action- und Context-Objekte. -->
 		<worker name="PoolWorker" implementation="de.tarent.dblayer.engine.PoolWorker" singleton="true" factory="reflected"/>
@@ -96,7 +96,7 @@
 		<!-- Automatische Tasks zum Start und Beenden des Modules. -->
 		<task name="autostart" access="public">
 			<description>Alle Worker die automatisch ohne einen Request aufgerufen werden sollen.</description>
-			<!--<action name="initLogging" worker="SystemWorker"/>-->
+			<!--action name="initLogging" worker="SystemWorker"/-->
 			<param name="poolDefinitions" refvalue="CONFIG:databasePools"/>
 			<action name="openPools" worker="PoolWorker"/>
 			<action name="init" worker="MessageWorker"/>
@@ -270,11 +270,6 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!--
-		  - change request 2.16 for next release version 1.2.0
-		  - cklein
-		  - 2008-02-14
-		  -->
 		<task name="WorkArea" access="public" groups="Administrator,PartialAdmin">
 			<doTask name="LoadStammdaten"/>
 			<action name="saveList" worker="WorkAreaWorker"/>
@@ -284,11 +279,6 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!--
-		  - change request 2.3 for next release version 1.2.0
-		  - cklein
-		  - 2008-02-27
-		  -->
 		<task name="PersonDuplicateSearch" access="public" groups="User">
 			<doTask name="LoadStammdaten"/>
 			<action name="saveList" worker="PersonDuplicateSearchWorker"/>
@@ -300,11 +290,6 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!--
-		  - change request 2.10.4 for next release version 1.2.0
-		  - cklein
-		  - 2008-02-18
-		  -->
 		<task name="ChangeLogReport" access="public" groups="Administrator">
 			<description>
 				Erlaubt die Konfiguration des in einem zweiten Schritt
@@ -329,14 +314,6 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!-- modified to allow all authorized users to view the categories as per change request for version 1.2.0
-     split the action in two distinct tasks, namely SaveCategories and Categorie, with Categorie taking over
-     the role of displaying and browsing the list of categories and SaveCategories being
-     responsible for actually saving changes to the list. This is in order to allow users who are not administrators
-     to use the Categorie task.
-     cklein
-     2008-02-21
-  -->
 		<task name="Categorie" access="public" groups="Administrator,PartialAdmin,User">
 			<description>
 				Zeigt eine Liste der Kategorien an. Diese Liste ist für Administrator
@@ -352,7 +329,7 @@
 			</response>
 		</task>
 		<task name="SaveCategories" access="public" groups="Administrator,PartialAdmin">
-			<!--User-->
+			<!-- User -->
 			<description>
 				Speicher die Änderungen an den Kategorien.
 			</description>
@@ -806,7 +783,7 @@
 			<doTask name="Load"/>
 			<action name="saveList" worker="ImportPersonsDuplicateWorker"/>
 			<action name="showList" worker="ImportPersonsDuplicateWorker"/>
-			<!--			<action name="editDuplicates" worker="ImportPersonsDuplicateWorker" />-->
+			<!--action name="editDuplicates" worker="ImportPersonsDuplicateWorker" /-->
 			<response type="velocity" name="duplicateList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1471,11 +1448,6 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!--
-		  - modified as per change request 2.6.2 for version 1.2.0
-		  - cklein
-		  - 2008-02-28
-		-->
 		<task name="popupAssignPersonCategory" access="public" groups="StandardFieldsReader">
 			<description>
 				Zeigt ein Popup zur Auswahl einer Kategorie an.
@@ -1488,11 +1460,6 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!--
-		  - modified as per change request 2.6.2 for version 1.2.0
-		  - cklein
-		  - 2008-02-28
-		-->
 		<task name="popupUnassignPersonCategory" access="public" groups="StandardFieldsReader">
 			<description>
 				Zeigt ein Popup zur Auswahl einer Kategorie an.
@@ -1505,11 +1472,6 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!--
-		  - modified as per change request 2.6.3 for version 1.2.0
-		  - cklein
-		  - 2008-02-28
-		-->
 		<task name="popupAssignGuestCategory" access="public" groups="StandardFieldsReader">
 			<description>
 				Zeigt ein Popup zur Auswahl einer Kategorie an.
@@ -1517,25 +1479,20 @@
 			<doTask name="Load"/>
 			<action name="getAll" worker="CategorieWorker"/>
 			<param name="assignmentAction" value="assign"/>
-			<!-- 			<action name="countSelectedGuests" worker="GuestListWorker"/> -->
+			<!--action name="countSelectedGuests" worker="GuestListWorker"/-->
 			<param name="count" refvalue="REQUEST:count"/>
 			<response type="velocity" name="popupSelectGuestCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!--
-		  - modified as per change request 2.6.3 for version 1.2.0
-		  - cklein
-		  - 2008-02-28
-		-->
 		<task name="popupUnassignGuestCategory" access="public" groups="StandardFieldsReader">
 			<description>
 				Zeigt ein Popup zur Auswahl einer Kategorie an.
 			</description>
 			<doTask name="Load"/>
-			<!-- 			<action name="getAll" worker="CategorieWorker"/> -->
+			<!--action name="getAll" worker="CategorieWorker"/-->
 			<param name="assignmentAction" value="unassign"/>
-			<!-- 			<action name="countSelectedGuests" worker="GuestListWorker"/> -->
+			<!--action name="countSelectedGuests" worker="GuestListWorker"/-->
 			<param name="count" refvalue="REQUEST:count"/>
 			<response type="velocity" name="popupSelectGuestCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -1694,7 +1651,7 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-		<!-- administration -> benutzer -> neuen benutzer erstellen -->
+		<!-- Administration → Benutzer → Neuen Benutzer erstellen -->
 		<task name="AllUserCreate" access="public" groups="Administrator,SystemUser">
 			<description>
                 Dieser Task ist zum erstellen neuer Nutzer.
