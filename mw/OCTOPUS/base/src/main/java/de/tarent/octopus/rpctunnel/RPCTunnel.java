@@ -62,9 +62,15 @@ import java.util.Map;
 public class RPCTunnel {
     private static Map listeners;
 
+    /**
+     * Prevent instantiation of this utility class
+     */
+    private RPCTunnel() {
+    }
+
     // Registering default OctopusCallbackListener
     static {
-        //RPCTunnel.registerListener(new OctopusCallbackListener(), DefaultRoles.ROLE_ACTIVEBPEL);
+        //RPCTunnel.registerListener(new OctopusCallbackListener(), DefaultRoles.ROLE_ACTIVEBPEL)
     }
 
     public static boolean registerListener(RPCListener listener, String role) {

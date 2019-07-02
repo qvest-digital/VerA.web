@@ -68,7 +68,7 @@ public abstract class LogFactory {
     protected LogFactory() {
     }
 
-    private static LogFactory IMPLEMENTATION = null;
+    private static LogFactory implementation = null;
 
     /**
      * Returns the singleton actual factory instance.
@@ -76,10 +76,10 @@ public abstract class LogFactory {
      * @return {@link LogFactory}
      */
     public static LogFactory getFactory() throws LogConfigurationException {
-        if (IMPLEMENTATION == null) {
-            IMPLEMENTATION = new LogFactoryImpl();
+        if (implementation == null) {
+            implementation = new LogFactoryImpl();
         }
-        return IMPLEMENTATION;
+        return implementation;
     }
 
     /**
@@ -97,7 +97,7 @@ public abstract class LogFactory {
      * after calling {@link #release()} (see there) on them.
      */
     public static void releaseAll() {
-        IMPLEMENTATION = null;
+        implementation = null;
     }
 
     /**

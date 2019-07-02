@@ -57,9 +57,9 @@ package org.apache.commons.logging;
  * Helper class for {@link LogFactory}
  */
 public class LogConfigurationException extends RuntimeException {
-    private static final long serialVersionUID = 1571584275865309127L;
+    private static final long serialVersionUID = -2697289265806698357L;
 
-    protected Throwable cause;
+    protected final Throwable cause;
 
     public LogConfigurationException() {
         super();
@@ -81,6 +81,7 @@ public class LogConfigurationException extends RuntimeException {
         cause = e;
     }
 
+    @Override
     public Throwable getCause() {
         return cause;
     }

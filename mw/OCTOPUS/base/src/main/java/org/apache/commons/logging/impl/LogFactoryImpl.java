@@ -135,6 +135,7 @@ public class LogFactoryImpl extends LogFactory {
      */
     @Override
     public void release() {
+        // we don’t hold any references
     }
 
     @Override
@@ -149,9 +150,11 @@ public class LogFactoryImpl extends LogFactory {
 
     @Override
     public void removeAttribute(final String name) {
+        // we don’t have any attributes
     }
 
     @Override
     public void setAttribute(final String name, final Object value) {
+        // we don’t have any attributes
     }
 }
