@@ -319,10 +319,6 @@
                 msg += '</ul>';
             }
 
-
-
-
-
             msg +=      '<br><span class="notBold">' + " ${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab} </span><br>"+
                         " ${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} " +
                     " ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>";
