@@ -1,4 +1,3 @@
-
 function isNetscape() {
 	return !!document.layers;
 }

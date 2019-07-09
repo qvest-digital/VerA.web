@@ -95,7 +95,7 @@
 
 -- Entwicklernotiz: bei Hinzufügen einer neuen Version muß an drei
 -- Stellen was geändert werden:
--- ① vversion in Zeile 94
+-- ① vversion in Zeile 118
 -- ② recht nah am Ende der Datei (vor „-- end“)
 -- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
 
