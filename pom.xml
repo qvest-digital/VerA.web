@@ -92,7 +92,7 @@
 		<maven.failsafe.version>2.22.0</maven.failsafe.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 		<maven.karma.version>1.8</maven.karma.version>
-		<maven.owasp.dependency-check.version>3.3.2</maven.owasp.dependency-check.version>
+		<maven.owasp.dependency-check.version>4.0.2</maven.owasp.dependency-check.version>
 		<!-- dependency management -->
 		<activation.version>1.2.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
@@ -118,12 +118,12 @@
 		<guava.version>25.1-jre</guava.version>
 		<h2.version>1.4.197</h2.version>
 		<hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
-		<hibernate.version>5.3.2.Final</hibernate.version>
+		<hibernate.version>5.3.7.Final</hibernate.version>
 		<hk2.version>2.5.0-b61</hk2.version>
 		<httpclient.version>4.5.5</httpclient.version>
 		<httpcore.version>4.4.10</httpcore.version>
 		<istack.version>3.0.8</istack.version>
-		<jackson.version>2.9.6</jackson.version>
+		<jackson.version>2.9.9</jackson.version>
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
 		<javax.persistence.version>2.2</javax.persistence.version>
@@ -146,7 +146,7 @@
 		<selenium.version>3.12.0</selenium.version>
 		<smiley-http-proxy-servlet.version>1.7</smiley-http-proxy-servlet.version>
 		<spock-core.version>1.1-groovy-2.4</spock-core.version>
-		<spring.version>4.3.18.RELEASE</spring.version>
+		<spring.version>4.3.20.RELEASE</spring.version>
 		<webdriverextensions.version>3.1.3</webdriverextensions.version>
 		<wiremock.version>2.18.0</wiremock.version>
 		<docker.registry>veraweb-tools.lan.tarent.de:5000</docker.registry>
@@ -544,8 +544,8 @@
 			</dependency>
 			<dependency>
 				<groupId>dom4j</groupId>
-				<artifactId>dom4j</artifactId>
-				<version>1.6.1</version>
+				<artifactId>org.dom4j</artifactId>
+				<version>2.1.1</version>
 			</dependency>
 			<dependency>
 				<groupId>io.dropwizard</groupId>
