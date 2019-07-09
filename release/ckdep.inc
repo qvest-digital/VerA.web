@@ -8,7 +8,4 @@ github::jquery/jquery 1.10.1 compile ok
 github::jquery/sizzle 1.10.1 compile ok
 github::tomsime/Scroll-to-Top 1.0.4 compile ok
 github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
-javascript::unknown:clipboard 0 compile FAIL
-javascript::unknown:dhtml 0 compile FAIL
-javascript::unknown:utils 0 compile FAIL
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok

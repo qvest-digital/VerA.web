@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="screen" title="${placeholderWithTranslation.auswartigesamtintranetstil}">
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report-print.css" media="print" title="${placeholderWithTranslation.auswartigesamtintranetstil}">
 		## Tabs und Popups
-		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/vera/dhtml-tabs.js"></script>
 		## Browser-Cache deaktivieren
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="cache-control" content="no-cache">

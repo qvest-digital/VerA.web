@@ -8,10 +8,10 @@
 		## Utils
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery/jquery.min.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
-		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/vera/utils.js"></script>
 		## Tabs und Popups
-		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>
-		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/vera/dhtml-tabs.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/vera/dhtml-popup.js"></script>
 		## Calendar
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/calendar.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/calendar-setup.js"></script>

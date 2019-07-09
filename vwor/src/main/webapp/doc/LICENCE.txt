@@ -99,7 +99,6 @@ for respective Appropriate Legal Notices, given that this file is served
 inside the UI as such.
 
 Summary of individual licences used, including all dependencies:
-⚠ (unlicenced)
 • 3-clause BSD
 • Apache v2
 • Creative Commons CC-BY 3.0 (unported)
@@ -298,6 +297,11 @@ veraweb-rest-api/src/test/resources/imageData.txt is the same file.
 │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
 └──────────────────────────────────────────────────────────────────────────┘
 
+Some scripts in the web frontend were written for tarent-activity originally.
+
+The “net licence” of the web frontend is GPLv3+ (due to jQuery-goTop), with
+individual components under MIT, 3-clause BSD, LGPLv2.1+, OFLv1.1 (font).
+
 ┌──┤ Bacon.js (MIT) ├──────────────────────────────────────────────────────┐
 │                                                                          │
 │ Copyright (c) 2014 Juha Paananen                                         │
@@ -483,15 +487,6 @@ veraweb-rest-api/src/test/resources/imageData.txt is the same file.
 │ terms of the GNU Lesser General Public License.                          │
 └──────────────────────────────────────────────────────────────────────────┘
 
-Several ECMAscript files came into existence in 2007 and lack a licence:
-• clipboard.js
-• dhtml-dialogs.js
-• dhtml-popup.js
-• dhtml-tabs.js
-• utils.js
-
-It is likely they were developed as part of VerA.web or its components.
-
 ┌──┤ jQuery & Sizzle (MIT) ├───────────────────────────────────────────────┐
 │                                                                          │
 │ Copyright 2013 jQuery Foundation and other contributors                  │
@@ -524,6 +519,7 @@ It is likely they were developed as part of VerA.web or its components.
 │ Project repository: https://github.com/malsup/form                       │
 │ Dual licensed under the MIT and GPL licenses.                            │
 └──────────────────────────────────────────────────────────────────────────┘
+The current version is LGPLv2.1+/MIT but we use it under MIT.
 
 ┌──┤ jQuery gotop plugin (GPLv3+) ├────────────────────────────────────────┐
 │                                                                          │
