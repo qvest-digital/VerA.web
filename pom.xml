@@ -21,8 +21,8 @@
 	<url>https://evolvis.org/projects/veraweb/</url>
 	<licenses>
 		<license>
-			<name>GNU General Public License, version 2 or later</name>
-			<url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</url>
+			<name>MIT</name>
+			<url>http://opensource.org/licenses/MIT</url>
 		</license>
 	</licenses>
 	<developers>
@@ -328,7 +328,6 @@
 					<excludes>
 						<exclude>**/io/dropwizard/client/HttpClientConfiguration.java</exclude>
 						<exclude>**/src/main/js/ext/**</exclude>
-						<exclude>mw/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

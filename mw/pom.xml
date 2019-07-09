@@ -10,12 +10,6 @@
 	<packaging>pom</packaging>
 	<name>org.evolvis.veraweb:middleware (parent)</name>
 	<description>VerA.web embedded middleware</description>
-	<licenses>
-		<license>
-			<name>MIT</name>
-			<url>http://opensource.org/licenses/MIT</url>
-		</license>
-	</licenses>
 	<properties>
 		<axis.version>1.4</axis.version>
 		<!-- common but older versions of dependencies -->
@@ -26,24 +20,6 @@
 		<module>tarentcommons</module>
 		<module>tarentdatabase</module>
 	</modules>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.mycila</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<inherited>false</inherited>
-				<configuration>
-					<header>${project.basedir}/LICENCE.hdr</header>
-					<headerDefinitions>
-						<headerDefinition>${project.basedir}/../release/myc-javapkg.xml</headerDefinition>
-					</headerDefinitions>
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 	<!-- middleware-only older dependencies -->
 	<dependencyManagement>
 		<dependencies>
