@@ -90,6 +90,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 // loads the list of available pdf templates into the dropdown on the export tab
 
 $(document).ready(function() {
