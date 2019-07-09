@@ -155,18 +155,18 @@ mal VerA.web released version.
 The documentation is set in the Museo Sans font, which is licenced
 property of exljbris Font Foundry.
 
-┌──┤ The documentation makes use of LᴬTₑΧ code: (MirOS) ├──────────────────┐
+┌──┤ The documentation makes use of Tₑχ/LᴬTᴇΧ code: (MirOS) ├──────────────┐
 │                                                                          │
-│ Copyright © 2015, 2016, 2018                                             │
-│     Thorsten Glaser <t.glaser@tarent.de>                                 │
+│ Copyright © 2015, 2016, 2018, 2019                                       │
+│       Thorsten Glaser <t.glaser@tarent.de>                               │
 │                                                                          │
 │ Design und Code abgeleitet von dem Stil und der                          │
 │ Dokumentenklasse pubmat des Teckids e.V.                                 │
 │                                                                          │
-│ Copyright © 2014, 2015                                                   │
-│     Thorsten Glaser <thorsten.glaser@teckids.org>                        │
+│ Copyright © 2014, 2015, 2018                                             │
+│       Thorsten Glaser <thorsten.glaser@teckids.org>                      │
 │ Copyright © 2013, 2014                                                   │
-│     Dominik George <dominik.george@teckids.org>                          │
+│       Dominik George <dominik.george@teckids.org>                        │
 │                                                                          │
 │ Provided that these terms and disclaimer and all copyright notices       │
 │ are retained or reproduced in an accompanying document, permission       │
@@ -201,7 +201,7 @@ Apparently, the PNGs are the source code here.
 │ (the "License"); you may not use this file except in compliance with     │
 │ the License.  You may obtain a copy of the License at                    │
 │                                                                          │
-│     http://www.apache.org/licenses/LICENSE-2.0                           │
+│       http://www.apache.org/licenses/LICENSE-2.0                         │
 │                                                                          │
 │ Unless required by applicable law or agreed to in writing, software      │
 │ distributed under the License is distributed on an "AS IS" BASIS,        │
@@ -274,6 +274,56 @@ Apparently, the PNGs are the source code here.
 │ Das Photo wurde 2002 geschossen und 2008 nachbearbeitet.                 │
 └──────────────────────────────────────────────────────────────────────────┘
 veraweb-rest-api/src/test/resources/imageData.txt is the same file.
+
+┌──┤ Some build and utility scripts (MirOS) ├──────────────────────────────┐
+│                                                                          │
+│ Copyright © 2015, 2016, 2017, 2018, 2019                                 │
+│       mirabilos <t.glaser@tarent.de>                                     │
+│ Copyright (c) 2013                                                       │
+│       mirabilos <m@mirbsd.org>                                           │
+│                                                                          │
+│ Provided that these terms and disclaimer and all copyright notices       │
+│ are retained or reproduced in an accompanying document, permission       │
+│ is granted to deal in this work without restriction, including un‐       │
+│ limited rights to use, publicly perform, distribute, sell, modify,       │
+│ merge, give away, or sublicence.                                         │
+│                                                                          │
+│ This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to       │
+│ the utmost extent permitted by applicable law, neither express nor       │
+│ implied; without malicious intent or gross negligence. In no event       │
+│ may a licensor, author or contributor be held liable for indirect,       │
+│ direct, other damage, loss, or other issues arising in any way out       │
+│ of dealing in the work, even if advised of the possibility of such       │
+│ damage or existence of a defect, except proven that it results out       │
+│ of said person’s immediate fault when using the work as intended.        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ docker-openldap (MIT) ├───────────────────────────────────────────────┐
+│                                                                          │
+│ Copyright (c) 2015, Christian Luginbühl                                  │
+│ Copyright (c) 2015, Dmytro Pishchukhin, KnowHowLab.org                   │
+│ Copyright © 2015 Max Weierstall, tarent solutions GmbH                   │
+│ Copyright © 2015 Thorsten Glaser, tarent solutions GmbH                  │
+│                                                                          │
+│ Permission is hereby granted, free of charge, to any person obtaining a  │
+│ copy of this software and associated documentation files (the            │
+│ "Software"), to deal in the Software without restriction, including      │
+│ without limitation the rights to use, copy, modify, merge, publish,      │
+│ distribute, sublicense, and/or sell copies of the Software, and to       │
+│ permit persons to whom the Software is furnished to do so, subject to    │
+│ the following conditions:                                                │
+│                                                                          │
+│ The above copyright notice and this permission notice shall be included  │
+│ in all copies or substantial portions of the Software.                   │
+│                                                                          │
+│ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  │
+│ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               │
+│ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   │
+│ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY     │
+│ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,     │
+│ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE        │
+│ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
+└──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ Bacon.js (MIT) ├──────────────────────────────────────────────────────┐
 │                                                                          │
@@ -613,29 +663,6 @@ Several ECMAscript files came into existence in 2007 and lack a licence:
 │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,     │
 │ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE        │
 │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
-└──────────────────────────────────────────────────────────────────────────┘
-
-┌──┤ Some build and utility scripts (MirOS) ├──────────────────────────────┐
-│                                                                          │
-│ Copyright © 2015, 2016, 2017, 2018                                       │
-│     mirabilos <t.glaser@tarent.de>                                       │
-│ Copyright (c) 2013                                                       │
-│     mirabilos <m@mirbsd.org>                                             │
-│                                                                          │
-│ Provided that these terms and disclaimer and all copyright notices       │
-│ are retained or reproduced in an accompanying document, permission       │
-│ is granted to deal in this work without restriction, including un‐       │
-│ limited rights to use, publicly perform, distribute, sell, modify,       │
-│ merge, give away, or sublicence.                                         │
-│                                                                          │
-│ This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to       │
-│ the utmost extent permitted by applicable law, neither express nor       │
-│ implied; without malicious intent or gross negligence. In no event       │
-│ may a licensor, author or contributor be held liable for indirect,       │
-│ direct, other damage, loss, or other issues arising in any way out       │
-│ of dealing in the work, even if advised of the possibility of such       │
-│ damage or existence of a defect, except proven that it results out       │
-│ of said person’s immediate fault when using the work as intended.        │
 └──────────────────────────────────────────────────────────────────────────┘
 
 External code found in the Java™ backend part includes:
