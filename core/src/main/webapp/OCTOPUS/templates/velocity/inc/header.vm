@@ -72,95 +72,85 @@
         </head>
         <body>
                 <div id="container" #if($event) class="event" #end>
-                        <header id="header">
-                                <a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
-                                <div id="topNav">
-                        <ul>
-                        <form id="languageSelectForm" class="inline" method="POST">
-                            <li>
-                                <div class="inline" id="languagede"><strong>Sprache:</strong></div>
-                                <div class="inline" id="languageen"><strong>Language:</strong></div>
-                                <div class="inline" id="languagees"><strong>Idioma:</strong></div>
-                                <div class="inline" id="languagefr"><strong>Langue:</strong></div>
-                                        #if ($translatedNames)
-                                                <select id="languageSelector" name="languageSelector" onchange="changeLanguage(this); changeLoginLanguage(this);">
-                                                                                        <option value="de_DE"
-                                                                                                #if(${language} == "de_DE")
-                                                                                                        selected
-                                                                                                #end
-                                                                                            >${translatedNames.get("de_DE")}
-                                            </option>
-                                                                                        <option value="en_EN"
-                                                                                                #if(${language} == "en_EN")
-                                                                                                        selected
-                                                                                                #end
-                                                                                            >${translatedNames.get("en_EN")}
-                                            </option>
-                                                                                        <option value="es_ES"
-                                                                                                #if(${language} == "es_ES")
-                                                                                                        selected
-                                                                                                #end
-                                                                                            >${translatedNames.get("es_ES")}
-                                            </option>
-                                                                                        <option value="fr_FR"
-                                                                                                #if(${language} == "fr_FR")
-                                                                                                        selected
-                                                                                                #end
-                                                                                            >${translatedNames.get("fr_FR")}
-                                            </option>
-                                                                                </select>
-                                                                        #else
-                                                                                <select id="languageSelectorLogin" name="languageSelector" onchange="changeLoginLanguage(this);">
-                                                                                        <option value="de_DE">Deutsch</option>
-                                                                                        <option value="en_EN">English</option>
-                                                                                        <option value="es_ES">Español</option>
-                                                                                        <option value="fr_FR">Français</option>
-                                                </select>
+			<header id="header">
+				<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
+				<div id="topNav">
+				<ul>
+				    <li><form id="languageSelectForm" class="inline" method="POST">
+					<div class="inline" id="languagede"><strong>Sprache:</strong></div>
+					<div class="inline" id="languageen"><strong>Language:</strong></div>
+					<div class="inline" id="languagees"><strong>Idioma:</strong></div>
+					<div class="inline" id="languagefr"><strong>Langue:</strong></div>
+						#if ($translatedNames)
+							<select id="languageSelector" name="languageSelector" onchange="changeLanguage(this); changeLoginLanguage(this);">
+												<option value="de_DE"
+													#if(${language} == "de_DE")
+														selected
+													#end
+												    >${translatedNames.get("de_DE")}
+						    </option>
+												<option value="en_EN"
+													#if(${language} == "en_EN")
+														selected
+													#end
+												    >${translatedNames.get("en_EN")}
+						    </option>
+												<option value="es_ES"
+													#if(${language} == "es_ES")
+														selected
+													#end
+												    >${translatedNames.get("es_ES")}
+						    </option>
+												<option value="fr_FR"
+													#if(${language} == "fr_FR")
+														selected
+													#end
+												    >${translatedNames.get("fr_FR")}
+						    </option>
+											</select>
+										#else
+											<select id="languageSelectorLogin" name="languageSelector" onchange="changeLoginLanguage(this);">
+												<option value="de_DE">Deutsch</option>
+												<option value="en_EN">English</option>
+												<option value="es_ES">Español</option>
+												<option value="fr_FR">Français</option>
+							</select>
 
-                                                                        #end
+										#end
 
-                            </li>
-                        </form>
+				    </form></li>
 
-                                            #if($grants && $grants.isAuthenticated())
-                                                        #if($config.helplink)
-                                                        <li>
-                                    <a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>
-                                        ${placeholderWithTranslation.GENERIC_HELP}
-                                    </a>
-                                </li>
-                                                        #else
-                                                        <li>
-                                    <a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">
-                                        ${placeholderWithTranslation.GENERIC_HELP}
-                                    </a>
-                                </li>
-                                                        #end
+				    #if($grants && $grants.isAuthenticated())
+					#if($config.helplink)
+					<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>
+						${placeholderWithTranslation.GENERIC_HELP}
+					</a></li>
+					#else
+					<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">
+						${placeholderWithTranslation.GENERIC_HELP}
+					</a></li>
+					#end
 
-                                                        #if($viewConfig.showGlobalOpenTab)
-                                                        <li>
-                                                            <a class="buttonLink" target="_blank" href="">
-                                                                <img src="${paths.staticWeb}images/add.png" alt="open new tab" title="${placeholderWithTranslation.HEADER_ELEMENT_NEW_TAB_HINT}" >
-                                                            </a>
-                                                        </li>
-                                                        #end
+					#if($viewConfig.showGlobalOpenTab)
+					<li><a class="buttonLink" target="_blank" href="">
+						<img src="${paths.staticWeb}images/add.png" alt="open new tab" title="${placeholderWithTranslation.HEADER_ELEMENT_NEW_TAB_HINT}" >
+					</a></li>
+					#end
 
-                                                        <li>
-                                                            <a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder">
-                                                                <span class="borderBottom">${placeholderWithTranslation.GENERIC_LOGOUT}</span>
-                                                                <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" />
-                                                            </a>
-                                                        </li>
-                                                #end
-                                        </ul>
-                                </div>
+					<li><a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder">
+						<span class="borderBottom">${placeholderWithTranslation.GENERIC_LOGOUT}</span>
+						<img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" />
+					</a></li>
+				    #end
+				</ul>
+				</div>
 
-                                #if($grants && $grants.isAuthenticated())
-                                        <div id="user">
-                                                <strong>${placeholderWithTranslation.GENERIC_USER}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
-                                        </div>
-                                #end
-                        </header>
+				#if($grants && $grants.isAuthenticated())
+				<div id="user">
+					<strong>${placeholderWithTranslation.GENERIC_USER}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
+				</div>
+				#end
+			</header>
 
                         #parse("inc/menu.vm")
                         #if($elementNameSingular && $elementNameSingular != "" && $elementNamePlural && $elementNamePlural != "" && $elementNameSex && $elementNameSex != "")
