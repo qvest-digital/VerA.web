@@ -1,4 +1,3 @@
-font::glyphicons-halflings-regular 1.009 compile TODO
 github::HubSpot/vex 3.0.0 compile ok
 github::baconjs/bacon.js 0.7.73 compile ok
 github::bbatliner/vex-dialog 1.0.6 compile ok
