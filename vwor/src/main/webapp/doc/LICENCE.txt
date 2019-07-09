@@ -102,7 +102,6 @@ Summary of individual licences used, including all dependencies:
 ⚠ (unlicenced)
 • 3-clause BSD
 • Apache v2
-⚠ Creative Commons CC-BY-SA 1.0
 • Creative Commons CC-BY 3.0 (unported)
 • GNU GPLv2 or later
 • GNU GPLv3 or later
