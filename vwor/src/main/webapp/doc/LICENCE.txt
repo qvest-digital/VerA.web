@@ -269,10 +269,14 @@ veraweb-rest-api/src/test/resources/imageData.txt is the same file.
 
 ┌──┤ docker-openldap (MIT) ├───────────────────────────────────────────────┐
 │                                                                          │
-│ Copyright (c) 2015, Christian Luginbühl                                  │
+│ Copyright (c) 2015, Christian Luginbühl <dinkel@pimprecords.com>         │
 │ Copyright (c) 2015, Dmytro Pishchukhin, KnowHowLab.org                   │
 │ Copyright © 2015 Max Weierstall, tarent solutions GmbH                   │
 │ Copyright © 2015 Thorsten Glaser, tarent solutions GmbH                  │
+│                                                                          │
+│ Contributions by:                                                        │
+│  © 2015 rysiekpl <rysiek@hackerspace.pl>                                 │
+│  © 2015 hong Xu <hong@topbug.net>                                        │
 │                                                                          │
 │ Permission is hereby granted, free of charge, to any person obtaining a  │
 │ copy of this software and associated documentation files (the            │
