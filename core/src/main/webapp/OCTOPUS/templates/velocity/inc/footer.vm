@@ -1,8 +1,10 @@
-<!-- TODO: add back span from commit bb9506ee5237889ac34f10bf42fbf36820b25804 once we actually generate that file -->
 	    <footer id="footer" style="position:relative;"><img
 	     src="${paths.staticWeb}images/tarent_logo.png"
 	     alt="tarent Logo" title="tarent AG"
-	    /></footer>
+	    /><span style="position:absolute; right:1ex; font-size:8px;"><a
+	     style="border:0px; color:#000080;"
+	     href="${paths.staticWeb}doc/lic-info.htm"
+	     rel="jslicense">Lizenzbestimmungen</a></span></footer>
 	</div>
 	</body>
 </html>

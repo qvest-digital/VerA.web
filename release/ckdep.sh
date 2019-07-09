@@ -84,7 +84,7 @@ if (( abend )); then
 	exit 1
 fi
 
-#XXX do not fail, until licence review is initially complete
+#XXX do not fail, until licence review was initially completed
 exit 0
 
 # fail a release build if dependency licence review has a to-do item
