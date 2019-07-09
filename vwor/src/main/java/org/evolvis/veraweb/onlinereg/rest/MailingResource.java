@@ -169,7 +169,7 @@ public class MailingResource extends FormDataResource {
 
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
-            if (pattern.matcher(recipient.getAddress()).matches()) {
+            if (pattern.matcher(recipient.getAddress().toLowerCase()).matches()) {
                 try {
                     final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(),
                       subject, substitutePlaceholders(text, recipient.getPerson()), files);
