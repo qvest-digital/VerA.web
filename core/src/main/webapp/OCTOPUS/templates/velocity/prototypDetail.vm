@@ -86,5 +86,7 @@
 <a href="javascript:if (confirm(' ${placeholderWithTranslation.wollensiediesendatensatzunwiderruflichentfernen} ? ') == true) { window.location.href='remove?id=$!address.getPk()'; }"> ${placeholderWithTranslation.datensatzloeschen} </a>
 #end
 
+<hr /><p><address><a href="/veraweb/doc/lic-info.htm"
+ rel="jslicense">Lizenzbestimmungen</a></address></p>
 </body>
 </html>

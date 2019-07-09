@@ -102,5 +102,8 @@
 			</tr>
 			#end
 		</table>
+
+		<hr /><p><address><a href="/veraweb/doc/lic-info.htm"
+		 rel="jslicense">Lizenzbestimmungen</a></address></p>
 	</body>
 </html>

@@ -229,5 +229,7 @@
         ${placeholderWithTranslation.HINT_POPUP_CATEGORY_SELECTION_ONE} ${count} ${placeholderWithTranslation.HINT_POPUP_CATEGORY_SELECTION_TWO}
 </vera-info>
 
+<hr /><p><address><a href="/veraweb/doc/lic-info.htm"
+ rel="jslicense">Lizenzbestimmungen</a></address></p>
 </body>
 </html>
