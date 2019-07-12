@@ -509,6 +509,82 @@ public class PersonDetailWorker implements PersonConstants {
 
     /**
      * Eingabe-Parameter der Octopus-Aktion
+     * {@link #createExport(OctopusContext)}
+     */
+    public static final String INPUT_createExport[] = {};
+
+    /**
+     * Erstellt ein Personen-Etikett-Label, um damit in einer Textverarbeitung
+     * leicht einen Brief zu erstellen. Die Person wird hierzu im
+     * Octopus-Content unter "person" erwartet,
+     * und das Erzeugnis wird im Octopus-Content unter "personExport" abgelegt.
+     *
+     * @param octopusContext Octopus-Kontext
+     */
+    public void createExport(OctopusContext octopusContext) throws BeanException, IOException {
+        Person person = (Person) octopusContext.contentAsObject("person");
+
+        if (person != null) {
+            String nl = "\n";
+            StringBuilder buffer = new StringBuilder();
+            PersonAddressFacade facade = person.getAddressFacade(null, null);
+
+            // Funktion, Firma und Straße
+            if (facade.getFunction() != null && facade.getFunction().length() != 0) {
+                buffer.append(facade.getFunction()).append(nl);
+            }
+            if (facade.getCompany() != null && facade.getCompany().length() != 0) {
+                buffer.append(facade.getCompany()).append(nl);
+            }
+            if (facade.getStreet() != null && facade.getStreet().length() != 0) {
+                buffer.append(facade.getStreet()).append(nl);
+            }
+
+            // PLZ/Ort
+            if (facade.getZipCode() != null) {
+                buffer.append(facade.getZipCode());
+            }
+            if (!(facade.getZipCode() == null || facade.getZipCode().length() == 0 || facade.getCity() == null ||
+              facade.getCity().length() == 0)) {
+                buffer.append(' ');
+            }
+            if (facade.getCity() != null) {
+                buffer.append(facade.getCity());
+            }
+            buffer.append(nl);
+
+            // PLZ/Postfach
+            if (facade.getPOBoxZipCode() != null) {
+                buffer.append(facade.getPOBoxZipCode());
+            }
+            if (!(facade.getPOBoxZipCode() == null || facade.getPOBoxZipCode().length() == 0 || facade.getPOBox() == null
+              || facade.getPOBox().length() == 0)) {
+                buffer.append(' ');
+            }
+            if (facade.getPOBox() != null) {
+                buffer.append(facade.getPOBox());
+            }
+            buffer.append(nl);
+
+            // Land
+            if (facade.getCountry() != null && facade.getCountry().length() != 0) {
+                buffer.append(facade.getCountry()).append(nl);
+            }
+
+            // Adreßzusatz 1 und 2
+            if (facade.getSuffix1() != null && facade.getSuffix1().length() != 0) {
+                buffer.append(facade.getSuffix1()).append(nl);
+            }
+            if (facade.getSuffix2() != null && facade.getSuffix2().length() != 0) {
+                buffer.append(facade.getSuffix2());
+            }
+
+            octopusContext.setContent("personExport", buffer.toString());
+        }
+    }
+
+    /**
+     * Eingabe-Parameter der Octopus-Aktion
      * {@link #prepareSaveDetail(OctopusContext, Boolean)}
      */
     public static final String INPUT_prepareSaveDetail[] = { "saveperson" };
