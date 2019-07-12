@@ -154,7 +154,7 @@ public class Forward extends HttpServlet {
           getServletContext().getContext(targetContextString);
 
         if (targetContext == null) {
-            throw new ServletException("can not access target context: '" + targetContextString + "'");
+            throw new ServletException("cannot access target context: '" + targetContextString + "'");
         }
 
         if (targetPathString == null) {
