@@ -109,9 +109,9 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
- * Diese Klasse soll Adress-Spezifische entscheidungen, insbesondere
- * Default-Werte zentral halten und aus den unterschiedlichen Klassen
- * (import, dataaccess, ...) in einer sammeln.
+ * Diese Klasse soll adreßpezifische Entscheidungen, insbesondere
+ * Default-Werte, zentral halten und aus den unterschiedlichen
+ * Klassen (import, …) in einer sammeln.
  *
  * @author Christoph
  */
