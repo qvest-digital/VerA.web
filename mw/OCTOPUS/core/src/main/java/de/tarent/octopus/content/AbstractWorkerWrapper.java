@@ -360,11 +360,9 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             logger.warn("Formatfehler beim Konvertieren eines Übergabeparameters (von " +
               ((param != null) ? param.getClass().getName() : "null") + " nach " +
               ((targetType != null) ? targetType.getName() : "null") + ")", e);
-            //Altes Verhalten wird wiederhergestellt, die TcContentProcessException
-            //Macht z.b. im Broker(evtl. alle anderen SBK-Projekte) Probleme
-            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparameters (von "+param
-            // .getClass()+" nach "+targetType.getName()+")", e);
-            return null;
+            throw new TcContentProzessException("Formatfehler beim Konvertieren eines Übergabeparameters (von " +
+              ((param != null) ? param.getClass().getName() : "null") + " nach " +
+              ((targetType != null) ? targetType.getName() : "null") + ")", e);
         }
         throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von " +
           (param != null ? param.getClass().getName() : "null") +
