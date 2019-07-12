@@ -215,7 +215,6 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             }
 
             for (int i = 0; i < actionData.genericArgsCount; i++) {
-
                 // If there is no name for the parameter,
                 // it schould be filled with an null-Value
                 if (null == actionData.inputParams[i]) {
@@ -278,12 +277,17 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             return (octopusContext.getStatus() != null) ?
               octopusContext.getStatus() : TcContentWorker.RESULT_ok;
         } catch (TcContentProzessException e) {
-            // just rethrow
+            logger.error("Request {} top-level task {} action {} {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), actionName, "inner error", e);
             throw e;
         } catch (IllegalArgumentException | IllegalAccessException e) {
+            logger.error("Request {} top-level task {} action {} {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), actionName, "illegal something", e);
             throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
               workerClass.getName() + "#" + actionName + ")", e);
         } catch (InvocationTargetException e) {
+            logger.error("Request {} top-level task {} action {} {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), actionName, "invocation target", e);
             Throwable t = e.getTargetException();
             if (t instanceof TcContentProzessException) {
                 throw (TcContentProzessException) t;
@@ -291,6 +295,10 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                 throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
                   workerClass.getName() + "#" + actionName + ")", t);
             }
+        } catch (Throwable e) {
+            logger.error("Request {} top-level task {} action {} {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), actionName, "other exception", e);
+            throw e;
         }
     }
 
