@@ -438,18 +438,15 @@ public class OctopusServlet extends HttpServlet {
      */
     private TcRequest[] extractRequests(HttpServletRequest request, int requestType, String requestID)
       throws TcSOAPException {
-        TcRequest[] requests = null;
-        if (TcRequest.isWebType(requestType))
-        // Normaler WEB-Request
-        {
+        TcRequest[] requests;
+        if (TcRequest.isWebType(requestType)) {
+            // Normaler WEB-Request
             requests = new TcRequest[] { HttpHelper.readWebRequest(request, requestType, requestID) };
-        } else if (TcRequest.isSoapType(requestType))
-        // SOAP Request
-        {
+        } else if (TcRequest.isSoapType(requestType)) {
+            // SOAP Request
             requests = HttpHelper.readSoapRequests(request, requestType, requestID, soapEngine);
-        } else if (TcRequest.isXmlRpcType(requestType))
-        // XML-RPC Request
-        {
+        } else if (TcRequest.isXmlRpcType(requestType)) {
+            // XML-RPC Request
             requests = HttpHelper.readXmlRpcRequests(request, requestType, requestID);
         } else {
             return null;
