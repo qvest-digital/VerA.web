@@ -362,20 +362,24 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     newSpectialMap.putAll((Map) param);
                     return newSpectialMap;
                 } catch (Exception e) {
-                    logger.error("Fehler beim Konvertieren des Übergabeparameters {} (Map nach {})",
-                      name, targetType.getName(), e);
+                    logger.error("Fehler beim Map-Konvertieren nach {} des Übergabeparameters {} ({})",
+                      targetType.getName(), name, "password".equals(name) ? "<***>" : param, e);
                     throw new TcContentProzessException("Fehler beim Map-Konvertieren des Übergabeparameters " + name, e);
                 }
             }
         } catch (NumberFormatException e) {
-            logger.error("Formarfehler beim Konvertieren des Übergabeparameters {} von {} nach {}",
-              name, ((param != null) ? param.getClass().getName() : "null"),
+            logger.error("Formatfehler beim Konvertieren des Übergabeparameters {} ({}) von {} nach {}",
+              name, "password".equals(name) ? "<***>" : param,
+              ((param != null) ? param.getClass().getName() : "null"),
               ((targetType != null) ? targetType.getName() : "null"), e);
             throw new TcContentProzessException("Formatfehler beim Konvertieren des Übergabeparameters " + name, e);
         }
+        logger.error("Keine Konvertierungsregel für die Umwandlung des Übergabeparameters {} ({}) von {} nach {}",
+          name, "password".equals(name) ? "<***>" : param,
+          ((param != null) ? param.getClass().getName() : "null"),
+          ((targetType != null) ? targetType.getName() : "null"));
         throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung des Übergabeparameters " +
-          name + " von " + (param != null ? param.getClass().getName() : "null") +
-          " nach " + targetType.getName() + " vorhanden.");
+          name + " vorhanden.");
     }
 
     /**
