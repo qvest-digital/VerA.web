@@ -576,7 +576,7 @@ public class TcTask {
     }
 
     /**
-     * Diese Klasse modlliert einen action-Knoten der Task-Beschreibung.
+     * Diese Klasse modelliert einen action-Knoten der Task-Beschreibung.
      */
     protected class ActionNode extends TNode {
         protected String name;
