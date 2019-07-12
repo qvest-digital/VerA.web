@@ -10,3 +10,6 @@
   ‣ ansibel docker plugin is also deprecated…
 • Bacon.js entfernen [VERA-635]
 • dependency-check report
+
+Der Task 'LoadPersonCompany' erwartet eine Eingabe 'company' inkompatibel zum Kontrakt.
+Der Task 'LoadPersonCompany' erwartet entgegen dem Kontrakt eine Eingabe 'companyfield'.
