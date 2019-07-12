@@ -157,7 +157,7 @@ class EventTest extends AbstractUITest {
 
         then:
         at EventOverviewPage
-        eventOverviewPage.successMessage() == "Es wurde eine Veranstaltung gelöscht.."
+        eventOverviewPage.successMessage() == "Es wurde eine Veranstaltung gelöscht."
         eventOverviewPage.table.selectRowByName(eventname) == false
     }
 }

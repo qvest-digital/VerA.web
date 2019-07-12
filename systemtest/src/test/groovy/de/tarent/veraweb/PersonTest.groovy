@@ -163,7 +163,7 @@ class PersonTest extends AbstractUITest {
 
         then:
         at PersonOverviewPage
-        overviewPage.successMessage() == 'Es wurde eine Person gelöscht..'
+        overviewPage.successMessage() == 'Es wurde eine Person gelöscht.'
     }
 
     def 'duplicate search does work'() {
