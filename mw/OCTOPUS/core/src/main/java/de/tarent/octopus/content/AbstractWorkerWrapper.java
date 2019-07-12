@@ -275,25 +275,16 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
 
             return (octopusContext.getStatus() != null) ?
               octopusContext.getStatus() : TcContentWorker.RESULT_ok;
-        } catch (TcContentProzessException e) {
+        } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
             logger.error("Request {} top-level task {} actual task {} action {}: {}",
               tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
-            throw e;
-        } catch (IllegalArgumentException | IllegalAccessException e) {
-            logger.error("Request {} top-level task {} actual task {} action {}: {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
-            throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
-              workerClass.getName() + "#" + actionName + ")", e);
-        } catch (InvocationTargetException e) {
-            logger.error("Request {} top-level task {} actual task {} action {}: {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
-            Throwable t = e.getTargetException();
+            final Throwable t = (e instanceof InvocationTargetException) ?
+              ((InvocationTargetException) e).getTargetException() : e;
             if (t instanceof TcContentProzessException) {
                 throw (TcContentProzessException) t;
-            } else {
-                throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
-                  workerClass.getName() + "#" + actionName + ")", t);
             }
+            throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
+              workerClass.getName() + "#" + actionName + ")", t);
         } catch (Throwable e) {
             logger.error("Request {} top-level task {} actual task {} action {}: {}",
               tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
