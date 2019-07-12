@@ -269,7 +269,7 @@ public class OctopusServlet extends HttpServlet {
                 reqString += '?' + params;
             }
             logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_URI",
-              requestID, request.getRemoteAddr(), reqString));
+              requestID, request.getRemoteAddr(), request.getMethod(), reqString));
         }
 
         TcSession tcSession;
