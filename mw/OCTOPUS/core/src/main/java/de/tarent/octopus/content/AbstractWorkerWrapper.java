@@ -276,10 +276,11 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             return (octopusContext.getStatus() != null) ?
               octopusContext.getStatus() : TcContentWorker.RESULT_ok;
         } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
-            logger.error("Request {} top-level task {} actual task {} action {}: {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
             final Throwable t = (e instanceof InvocationTargetException) ?
               ((InvocationTargetException) e).getTargetException() : e;
+            logger.error("Request {} top-level task {} actual task {} action {}: {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName,
+              t != e ? t.toString() + " ← " + e.toString() : e.toString());
             if (t instanceof TcContentProzessException) {
                 throw (TcContentProzessException) t;
             }
