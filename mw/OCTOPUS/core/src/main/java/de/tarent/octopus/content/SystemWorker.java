@@ -129,10 +129,9 @@ public class SystemWorker implements TcContentWorker {
      * @param tcRequest  Die Anfragedaten
      * @param tcContent  Der Content-Kontainer, in dem die Daten abgelegt werden können.
      * @return String mit einem Statuscode z.B. ok oder error
-     * @see de.tarent.octopus.content.TcContentWorker#doAction(de.tarent.octopus.config.TcConfig, java.lang.String,
-     * de.tarent.octopus.request.TcRequest, de.tarent.octopus.content.TcContent)
+     * @see de.tarent.octopus.content.TcContentWorker#doAction(TcConfig, String, String, TcRequest, TcContent)
      */
-    public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
+    public String doAction(TcConfig tcConfig, String taskName, String actionName, TcRequest tcRequest, TcContent tcContent)
       throws TcContentProzessException {
         // ACTION_RELOAD_MODULE
         if (ACTION_RELOAD_MODULE.equals(actionName)) {

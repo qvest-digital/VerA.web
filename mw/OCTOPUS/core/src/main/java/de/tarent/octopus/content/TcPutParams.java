@@ -120,20 +120,14 @@ public class TcPutParams implements TcContentWorker {
     public void init(TcModuleConfig config) {
     }
 
-    public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
+    public String doAction(TcConfig tcConfig, String taskName, String actionName, TcRequest tcRequest, TcContent tcContent)
       throws TcContentProzessException {
-
-        String returnStatus = RESULT_error;
-
         if ("putMinimal".equals(actionName)) {
-            returnStatus = putMinimal(tcConfig, tcRequest, tcContent);
+            return putMinimal(tcConfig, tcRequest, tcContent);
         } else if ("putAll".equals(actionName)) {
-            returnStatus = putAll(tcConfig, tcRequest, tcContent);
-        } else {
-            throw new TcContentProzessException(
-              "Nicht unterstützte action im Worker 'TcPutParams': " + actionName);
+            return putAll(tcConfig, tcRequest, tcContent);
         }
-        return returnStatus;
+        throw new TcContentProzessException("Nicht unterstützte action im Worker 'TcPutParams': " + actionName);
     }
 
     public String putMinimal(TcConfig tcConfig, TcRequest tcRequest, TcContent tcContent) {

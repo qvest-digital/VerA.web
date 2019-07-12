@@ -372,16 +372,12 @@ public class TcRequestDispatcher /*implements Serializable*/ {
       TcContent theContent) {
         String standardParamWorker = Resources.getInstance().get("REQUESTDISPATCHER_CLS_PARAM_WORKER");
         try {
-
             TcContentWorker worker = TcContentWorkerFactory.getContentWorker(moduleConfig,
               standardParamWorker, request.getRequestID());
-            worker.doAction(config, "putMinimal", request, theContent);
+            worker.doAction(config, "<putStandardParams>", "putMinimal", request, theContent);
         } catch (Exception e) {
-            logger.error(Resources.getInstance().get(
-              "REQUESTDISPATCHER_LOG_PARAM_SET_ERROR",
-              request.getRequestID(),
-              standardParamWorker),
-              e);
+            logger.error(Resources.getInstance().get("REQUESTDISPATCHER_LOG_PARAM_SET_ERROR",
+              request.getRequestID(), standardParamWorker), e);
         }
     }
 

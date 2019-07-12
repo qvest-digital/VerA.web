@@ -606,7 +606,7 @@ public class TcTask {
             try {
                 TcContentWorker workerInstance =
                   TcContentWorkerFactory.getContentWorker(context.moduleConfig(), worker, requestID);
-                String status = workerInstance.doAction(context.getConfigObject(),
+                String status = workerInstance.doAction(context.getConfigObject(), "tbd",
                   name, context.getRequestObject(), context.getContentObject());
                 manager.setStatus(status);
                 logger.debug(Resources.getInstance().get("TASK_LOG_WORKER_CALLED",

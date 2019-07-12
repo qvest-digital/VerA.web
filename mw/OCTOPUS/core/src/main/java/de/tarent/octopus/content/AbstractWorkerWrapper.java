@@ -199,10 +199,9 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
     /**
      * Aufruf einer Action des Workers
      */
-    public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
+    public String doAction(TcConfig tcConfig, String taskName, String actionName, TcRequest tcRequest, TcContent tcContent)
       throws TcContentProzessException {
         try {
-
             ActionData actionData = getActionDataCached(actionName);
 
             Object[] args = new Object[actionData.args.length];

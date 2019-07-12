@@ -225,7 +225,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
      * @return Content-Status
      * @throws TcContentProzessException
      */
-    public final String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
+    public final String doAction(TcConfig tcConfig, String taskName, String actionName, TcRequest tcRequest, TcContent tcContent)
       throws TcContentProzessException {
         try {
             WorkerAction action = getAction(actionName);
