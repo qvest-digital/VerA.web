@@ -180,19 +180,19 @@ public class OctopusServlet extends HttpServlet {
                 types = TcEnv.VALUE_REQUEST_TYPE_ANY;
             }
 
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_ANY) != -1) {
-                allowedRequestTypes = 0xffffffff;
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_ANY)) {
+                allowedRequestTypes = 0xFFFFFFFF;
             }
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_WEB) != -1) {
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_WEB)) {
                 allowedRequestTypes |= TcRequest.REQUEST_TYPE_WEB;
             }
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_SOAP) != -1) {
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_SOAP)) {
                 allowedRequestTypes |= TcRequest.REQUEST_TYPE_SOAP;
             }
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_XMLRPC) != -1) {
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_XMLRPC)) {
                 allowedRequestTypes |= TcRequest.REQUEST_TYPE_XML_RPC;
             }
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_DIRECTCALL) != -1) {
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_DIRECTCALL)) {
                 allowedRequestTypes |= TcRequest.REQUEST_DIRECT_CALL;
             }
 
@@ -200,7 +200,7 @@ public class OctopusServlet extends HttpServlet {
             octopus = new Octopus();
             octopus.init(env);
             octopus.init(new ServletModuleLookup(getServletContext(), this, octopus.getCommonConfig()));
-            //Octopus für lokale Connections bekannt machen
+            // Octopus für lokale Connections bekannt machen
             OctopusConnectionFactory.getInstance().setInternalOctopusInstance(octopus);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_INIT_EXCEPTION"), e);
@@ -268,15 +268,15 @@ public class OctopusServlet extends HttpServlet {
             if (params != null) {
                 reqString += '?' + params;
             }
-            logger.info(Resources.getInstance()
-              .get("REQUESTPROXY_LOG_REQUEST_URI", requestID, request.getRemoteAddr(), reqString));
+            logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_URI",
+              requestID, request.getRemoteAddr(), reqString));
         }
 
         TcSession tcSession;
         if (!env.getValueAsBoolean(TcEnv.KEY_OMIT_SESSIONS)) {
             HttpSession session = request.getSession(true);
 
-            // Anmeldung erzwingen wen task = login
+            // Anmeldung erzwingen wenn task == login
             boolean sessionWasNew = (session == null) || session.isNew();
 
             if ("login".equals(request.getParameter("task"))) {
@@ -307,11 +307,10 @@ public class OctopusServlet extends HttpServlet {
                     }
                 }
 
-                // This relativ (manual) redirect fix a problem in the catalina
+                // This relative (manual) redirect fixes a problem in the catalina
                 // implementation of HttpServletResponse.sendRedirect which
-                // use a wrong ("http://") absolut path for "https:/Immobilien Schulz/" urls.
-                // It also fix a problem with forwarder-servlets which do not
-                // include the orignal request url.
+                // uses a wrong ("http://") absolute path for "https:/Immobilien Schulz/" URLs.
+                // It also fix a problem with forwarder servlets that do not include the orignal request URL.
                 String redirectURI = (String) request.getAttribute("javax.servlet.forward.request_uri");
                 if (redirectURI == null) {
                     redirectURI = request.getRequestURI();
@@ -323,12 +322,13 @@ public class OctopusServlet extends HttpServlet {
 
                 response.setStatus(302);
                 response.setHeader("Location", redirectURI);
-                logger.info(Resources.getInstance()
-                  .get("REQUESTPROXY_LOG_REDIRECT_REQUEST", requestID, redirectURI));
+                logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_REDIRECT_REQUEST",
+                  requestID, redirectURI));
                 return;
             }
             tcSession = new TcServletSession(session);
-        } else {//Servlet Session Ignorieren und Dummy erzeugen
+        } else {
+            // Servlet-Session ignorieren und Dummy erzeugen
             tcSession = new TcServletDummySession();
         }
 
@@ -340,8 +340,7 @@ public class OctopusServlet extends HttpServlet {
             tcResponse = new TcServletResponse(response);
             tcResponse.setSoapEngine(soapEngine);
             tcResponse.setErrorLevel(env.getValueAsString(TcEnv.KEY_RESPONSE_ERROR_LEVEL));
-            logger.trace(
-              Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED", requestID));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED", requestID));
 
             requestType = HttpHelper.discoverRequestType(request);
             logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_TYPE", requestID,
@@ -378,8 +377,7 @@ public class OctopusServlet extends HttpServlet {
             for (int i = 0; i < octRequests.length; i++) {
                 TcRequest octRequest = octRequests[i];
                 String askForCookies = octRequest.getParamAsString(TcRequest.PARAM_ASK_FOR_COOKIES);
-                octRequest.setAskForCookies(
-                  askForCookies == null ? false : askForCookies.equalsIgnoreCase("true"));
+                octRequest.setAskForCookies(askForCookies != null && askForCookies.equalsIgnoreCase("true"));
 
                 octRequest.setParam(TcRequest.PARAM_ENCODED_URL,
                   response.encodeURL(request.getRequestURL().toString()));
@@ -387,21 +385,9 @@ public class OctopusServlet extends HttpServlet {
                 octRequest.setOctopusConnection(createOctopusConnection(octRequest, tcSession));
 
                 octopus.dispatch(octRequest, tcResponse, tcSession);
-
-                // Debug Messages wurden seit Octopus 1.2.0 entfernt: Für Debugging bitte Logging-Api verwenden!
-                if (octRequest.getParameterAsBoolean(TcRequest.PARAM_DEBUG)) {
-                    tcResponse.sendError(requestType,
-                      octRequest.getRequestID(),
-                      Resources.getInstance()
-                        .get("REQUEST_UNKNOWN_REQUEST_PARAM", TcRequest.PARAM_DEBUG,
-                          "Direkte Debug Messages wurden seit Octopus 1.2.0 entfernt: Für Debugging bitte " +
-                            "Logging-Api verwenden!"),
-                      null);
-                }
             }
         } catch (Exception e) {
-            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION", requestID),
-              e);
+            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION", requestID), e);
             if (tcResponse != null) {
                 tcResponse.sendError(requestType, requestID,
                   Resources.getInstance().get("REQUESTPROXY_OUT_PROCESSING_EXCEPTION"), e);
