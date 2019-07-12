@@ -162,14 +162,20 @@ public class Forward extends HttpServlet {
         }
 
         String target = targetPathString + request.getContextPath();
-        if (request.getPathInfo() != null) {
-            target += request.getPathInfo();
+        final String pathInfo = request.getPathInfo();
+        if (pathInfo != null) {
+            target += pathInfo;
+            // so OctopusServlet can find the original pathInfo
+            request.setAttribute("de.tarent.octopus.request.servlet.Forward.pathInfo", pathInfo);
         }
 
         if (logger.isDebugEnabled()) {
             logger.debug("Forwarding URI <" + request.getRequestURI() + "> to <" +
               targetContext.getServletContextName() + target + ">");
         }
+
+        logger.warn("t1: pathInfo {}, from {} to {}",pathInfo,request.getRequestURI(),
+          targetContext.getServletContextName() + target);
 
         RequestDispatcher dispatcher = targetContext.getRequestDispatcher(target);
         dispatcher.forward(request, response);
