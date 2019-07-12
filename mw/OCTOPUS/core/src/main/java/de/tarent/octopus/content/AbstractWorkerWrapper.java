@@ -311,15 +311,15 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             }
 
             if (targetType.equals(Boolean.class) || targetType.equals(Boolean.TYPE)) {
-                return tryScalarConversion(name, param, Boolean.FALSE, Boolean::valueOf);
+                return tryScalarConversion(name, param, targetType, Boolean.FALSE, Boolean::valueOf);
             } else if (targetType.equals(Integer.class) || targetType.equals(Integer.TYPE)) {
-                return tryScalarConversion(name, param, (Integer) 0, Integer::valueOf);
+                return tryScalarConversion(name, param, targetType, (Integer) 0, Integer::valueOf);
             } else if (targetType.equals(Long.class) || targetType.equals(Long.TYPE)) {
-                return tryScalarConversion(name, param, (Long) 0L, Long::valueOf);
+                return tryScalarConversion(name, param, targetType, (Long) 0L, Long::valueOf);
             } else if (targetType.equals(Double.class) || targetType.equals(Double.TYPE)) {
-                return tryScalarConversion(name, param, (Double) 0.0, Double::valueOf);
+                return tryScalarConversion(name, param, targetType, (Double) 0.0, Double::valueOf);
             } else if (targetType.equals(Float.class) || targetType.equals(Float.TYPE)) {
-                return tryScalarConversion(name, param, (Float) 0.0f, Float::valueOf);
+                return tryScalarConversion(name, param, targetType, (Float) 0.0f, Float::valueOf);
             } else if (Collection.class.isAssignableFrom(targetType) && param instanceof Object[]) {
                 return Arrays.asList((Object[]) param);
             } else if (Collection.class.isAssignableFrom(targetType)) {
@@ -328,7 +328,7 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                 }
                 return Collections.singletonList(param);
             } else if (targetType.equals(String.class)) {
-                return tryScalarConversion(name, param, null, String::toString);
+                return tryScalarConversion(name, param, targetType, null, String::toString);
             } else if (param instanceof Map && Map.class.isAssignableFrom(targetType)) {
                 // The Method param is an special Implementation of Map e.g. MapBean
                 // and the Param is a Map. Then we create a BeanMap with the key=>values from the Map
@@ -357,9 +357,30 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
           name + " vorhanden.");
     }
 
-    private Object tryScalarConversion(String name, Object param, Object nilValue, Function<String, Object> cvt) {
+    /**
+     * Converts the value to its scalar destination type, including a check for null,
+     * an optional check for empty input string (unless nilValue is null itself),
+     * and an exception if the input is an array (usually when the name is present
+     * in both QUERY_STRING and via POST data).
+     *
+     * @param name     of the method argument to be converted
+     * @param param    input value
+     * @param dst      target class
+     * @param nilValue value to return if the input is null (or empty, if nilValue ≠ null)
+     * @param cvt      conversion function
+     * @return result of cvt(param.toString()) or nilValue
+     * @throws TcContentProzessException if param is an array
+     */
+    private Object tryScalarConversion(String name, Object param, Class dst, Object nilValue, Function<String, Object> cvt)
+      throws TcContentProzessException {
         if (param == null || (/* some number */ nilValue != null && param.toString().length() == 0)) {
             return nilValue;
+        }
+        if (param.getClass().isArray()) {
+            logger.error("Multiple Werte für skalaren Übergabeparameter {} (Klasse {}[], erwartet {}) gefunden: {}",
+              name, param.getClass().getComponentType().getName(), dst.getName(), "password".equals(name) ? "<***>" : param);
+            throw new TcContentProzessException("Multiple Werte für skalaren Übergabeparameter " + name +
+              " gefunden (vielleicht als Query-Parameter sowie im Formular-POST?)");
         }
         return cvt.apply(param.toString());
     }
