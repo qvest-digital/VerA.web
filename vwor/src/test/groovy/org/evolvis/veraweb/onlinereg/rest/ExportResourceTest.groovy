@@ -162,7 +162,7 @@ class ExportResourceTest extends Specification {
         1 * session.close()
     }
 
-    def testFilterParamterUsageForExport() {
+    def testFilterParameterUsageForExport() {
         given:
         queryParameters.put(ValidExportFilter.CATEGORY_ID_FILTER.key, Collections.singletonList('4711'))
         queryParameters.put(ValidExportFilter.RESERVE_FILTER.key, Collections.singletonList('0815'))

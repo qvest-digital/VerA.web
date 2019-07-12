@@ -415,7 +415,7 @@ public class ListFilterImpl implements ListFilter {
     }
 
     /**
-     * Checks wether all not optional paramters are set
+     * Checks wether all not optional parameters are set
      */
     public boolean isComplete() {
         for (Iterator iter = possibleAndFilterParams.iterator(); iter.hasNext(); ) {

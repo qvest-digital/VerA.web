@@ -364,18 +364,18 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     newSpectialMap.putAll((Map) param);
                     return newSpectialMap;
                 } catch (Exception e) {
-                    logger.warn("Fehler beim Konvertieren eines Übergabeparamters (Map nach " + targetType.getName() + ")", e);
+                    logger.warn("Fehler beim Konvertieren eines Übergabeparameters (Map nach " + targetType.getName() + ")", e);
                     throw new TcContentProzessException(
-                      "Fehler beim Konvertieren eines Übergabeparamters (Map nach " + targetType.getName() + ")", e);
+                      "Fehler beim Konvertieren eines Übergabeparameters (Map nach " + targetType.getName() + ")", e);
                 }
             }
         } catch (NumberFormatException e) {
-            logger.warn("Formatfehler beim Konvertieren eines Übergabeparamters (von " +
+            logger.warn("Formatfehler beim Konvertieren eines Übergabeparameters (von " +
               ((param != null) ? param.getClass().toString() : "null") + " nach " +
               ((targetType != null) ? targetType.getName() : "null") + ")", e);
             //Altes Verhalten wird wiederhergestellt, die TcContentProcessException
             //Macht z.b. im Broker(evtl. alle anderen SBK-Projekte) Probleme
-            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param
+            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparameters (von "+param
             // .getClass()+" nach "+targetType.getName()+")", e);
             return null;
         }
