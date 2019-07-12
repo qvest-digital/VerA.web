@@ -111,6 +111,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Basisklasse für Worker-Wrapper nach dem Template-Method Pattern.
@@ -310,30 +311,15 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             }
 
             if (targetType.equals(Boolean.class) || targetType.equals(Boolean.TYPE)) {
-                if (param == null) {
-                    return Boolean.FALSE;
-                }
-                return Boolean.valueOf(param.toString());
+                return tryScalarConversion(name, param, Boolean.FALSE, Boolean::valueOf);
             } else if (targetType.equals(Integer.class) || targetType.equals(Integer.TYPE)) {
-                if (param == null || param.toString().length() == 0) {
-                    return 0;
-                }
-                return Integer.valueOf(param.toString());
+                return tryScalarConversion(name, param, (Integer) 0, Integer::valueOf);
             } else if (targetType.equals(Long.class) || targetType.equals(Long.TYPE)) {
-                if (param == null || param.toString().length() == 0) {
-                    return 0L;
-                }
-                return Long.valueOf(param.toString());
+                return tryScalarConversion(name, param, (Long) 0L, Long::valueOf);
             } else if (targetType.equals(Double.class) || targetType.equals(Double.TYPE)) {
-                if (param == null || param.toString().length() == 0) {
-                    return (double) 0;
-                }
-                return Double.valueOf(param.toString());
+                return tryScalarConversion(name, param, (Double) 0.0, Double::valueOf);
             } else if (targetType.equals(Float.class) || targetType.equals(Float.TYPE)) {
-                if (param == null || param.toString().length() == 0) {
-                    return (float) 0;
-                }
-                return Float.valueOf(param.toString());
+                return tryScalarConversion(name, param, (Float) 0.0f, Float::valueOf);
             } else if (Collection.class.isAssignableFrom(targetType) && param instanceof Object[]) {
                 return Arrays.asList((Object[]) param);
             } else if (Collection.class.isAssignableFrom(targetType)) {
@@ -342,10 +328,7 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                 }
                 return Collections.singletonList(param);
             } else if (targetType.equals(String.class)) {
-                if (param == null) {
-                    return null;
-                }
-                return param.toString();
+                return tryScalarConversion(name, param, null, String::toString);
             } else if (param instanceof Map && Map.class.isAssignableFrom(targetType)) {
                 // The Method param is an special Implementation of Map e.g. MapBean
                 // and the Param is a Map. Then we create a BeanMap with the key=>values from the Map
@@ -372,6 +355,13 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
           ((targetType != null) ? targetType.getName() : "null"));
         throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung des Übergabeparameters " +
           name + " vorhanden.");
+    }
+
+    private Object tryScalarConversion(String name, Object param, Object nilValue, Function<String, Object> cvt) {
+        if (param == null || (/* some number */ nilValue != null && param.toString().length() == 0)) {
+            return nilValue;
+        }
+        return cvt.apply(param.toString());
     }
 
     /**
