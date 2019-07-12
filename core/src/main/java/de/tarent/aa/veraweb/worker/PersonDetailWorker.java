@@ -529,7 +529,6 @@ public class PersonDetailWorker implements PersonConstants {
         if (saveperson != null && saveperson) {
             octopusContext.setStatus("saveperson");
         }
-        throw new RuntimeException("miau");
     }
 
     public static final String INPUT_verify[] = { "person-nodupcheck" };
