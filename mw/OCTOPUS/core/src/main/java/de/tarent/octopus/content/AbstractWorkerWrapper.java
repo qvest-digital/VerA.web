@@ -278,23 +278,18 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             return (octopusContext.getStatus() != null) ?
               octopusContext.getStatus() : TcContentWorker.RESULT_ok;
         } catch (TcContentProzessException e) {
+            // just rethrow
             throw e;
-        } catch (IllegalArgumentException e) {
-            throw new TcActionInvocationException(
-              "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName + ")",
-              e);
-        } catch (IllegalAccessException e) {
-            throw new TcActionInvocationException(
-              "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName + ")",
-              e);
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
+              workerClass.getName() + "#" + actionName + ")", e);
         } catch (InvocationTargetException e) {
             Throwable t = e.getTargetException();
             if (t instanceof TcContentProzessException) {
                 throw (TcContentProzessException) t;
             } else {
-                throw new TcActionInvocationException(
-                  "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName +
-                    ")", t);
+                throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
+                  workerClass.getName() + "#" + actionName + ")", t);
             }
         }
     }
@@ -305,7 +300,7 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
      *
      * TODO: Unterstützung für long ⇒ Date
      */
-    protected Object tryToConvert(Object param, Class targetType) throws TcContentProzessException {
+    private Object tryToConvert(Object param, Class targetType) throws TcContentProzessException {
         try {
             if (param == null && !targetType.isPrimitive()) {
                 return null;
@@ -318,22 +313,22 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                 return Boolean.valueOf(param.toString());
             } else if (targetType.equals(Integer.class) || targetType.equals(Integer.TYPE)) {
                 if (param == null || param.toString().length() == 0) {
-                    return new Integer(0);
+                    return 0;
                 }
                 return Integer.valueOf(param.toString());
             } else if (targetType.equals(Long.class) || targetType.equals(Long.TYPE)) {
                 if (param == null || param.toString().length() == 0) {
-                    return new Long(0);
+                    return 0L;
                 }
                 return Long.valueOf(param.toString());
             } else if (targetType.equals(Double.class) || targetType.equals(Double.TYPE)) {
                 if (param == null || param.toString().length() == 0) {
-                    return new Double(0);
+                    return (double) 0;
                 }
                 return Double.valueOf(param.toString());
             } else if (targetType.equals(Float.class) || targetType.equals(Float.TYPE)) {
                 if (param == null || param.toString().length() == 0) {
-                    return new Float(0);
+                    return (float) 0;
                 }
                 return Float.valueOf(param.toString());
             } else if (Collection.class.isAssignableFrom(targetType) && param instanceof Object[]) {
@@ -348,19 +343,17 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     return null;
                 }
                 return param.toString();
-            }
-
-            // The Method param is an special Implementation of Map e.g. MapBean
-            // and the Param is a Map. Then we create a BeanMap with the key=>values from the Map
-            else if (param instanceof Map && Map.class.isAssignableFrom(targetType)) {
+            } else if (param instanceof Map && Map.class.isAssignableFrom(targetType)) {
+                // The Method param is an special Implementation of Map e.g. MapBean
+                // and the Param is a Map. Then we create a BeanMap with the key=>values from the Map
                 try {
                     Map newSpectialMap = (Map) targetType.getConstructor(emptyClassArray).newInstance(emptyObjectArray);
                     newSpectialMap.putAll((Map) param);
                     return newSpectialMap;
                 } catch (Exception e) {
                     logger.warn("Fehler beim Konvertieren eines Übergabeparameters (Map nach " + targetType.getName() + ")", e);
-                    throw new TcContentProzessException(
-                      "Fehler beim Konvertieren eines Übergabeparameters (Map nach " + targetType.getName() + ")", e);
+                    throw new TcContentProzessException("Fehler beim Konvertieren eines Übergabeparameters (Map nach " +
+                      targetType.getName() + ")", e);
                 }
             }
         } catch (NumberFormatException e) {
