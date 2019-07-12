@@ -37,7 +37,6 @@ javax.inject:javax.inject 1 compile TODO
 javax.mail:mail 1.4.7 compile TODO
 javax.persistence:javax.persistence-api 2.2 compile TODO
 javax.servlet:javax.servlet-api 3.1.0 provided TODO
-javax.servlet:servlet-api 2.4 provided TODO
 javax.validation:validation-api 1.1.0.Final compile TODO
 javax.ws.rs:javax.ws.rs-api 2.1 compile TODO
 javax.ws.rs:jsr311-api 1.1.1 compile TODO
