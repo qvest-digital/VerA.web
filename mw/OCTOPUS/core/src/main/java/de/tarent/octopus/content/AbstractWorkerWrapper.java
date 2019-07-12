@@ -276,17 +276,17 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             return (octopusContext.getStatus() != null) ?
               octopusContext.getStatus() : TcContentWorker.RESULT_ok;
         } catch (TcContentProzessException e) {
-            logger.error("Request {} top-level task {} actual task {} action {} {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, "inner error", e);
+            logger.error("Request {} top-level task {} actual task {} action {}: {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
             throw e;
         } catch (IllegalArgumentException | IllegalAccessException e) {
-            logger.error("Request {} top-level task {} actual task {} action {} {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, "illegal something", e);
+            logger.error("Request {} top-level task {} actual task {} action {}: {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
             throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
               workerClass.getName() + "#" + actionName + ")", e);
         } catch (InvocationTargetException e) {
-            logger.error("Request {} top-level task {} actual task {} action {} {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, "invocation target", e);
+            logger.error("Request {} top-level task {} actual task {} action {}: {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
             Throwable t = e.getTargetException();
             if (t instanceof TcContentProzessException) {
                 throw (TcContentProzessException) t;
@@ -295,8 +295,8 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                   workerClass.getName() + "#" + actionName + ")", t);
             }
         } catch (Throwable e) {
-            logger.error("Request {} top-level task {} actual task {} action {} {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, "other exception", e);
+            logger.error("Request {} top-level task {} actual task {} action {}: {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
             throw e;
         }
     }
@@ -362,16 +362,16 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     newSpectialMap.putAll((Map) param);
                     return newSpectialMap;
                 } catch (Exception e) {
-                    logger.error("Fehler beim Map-Konvertieren nach {} des Übergabeparameters {} ({})",
-                      targetType.getName(), name, "password".equals(name) ? "<***>" : param, e);
+                    logger.error("Fehler beim Map-Konvertieren nach {} des Übergabeparameters {} ({}): {}",
+                      targetType.getName(), name, "password".equals(name) ? "<***>" : param, e.toString());
                     throw new TcContentProzessException("Fehler beim Map-Konvertieren des Übergabeparameters " + name, e);
                 }
             }
         } catch (NumberFormatException e) {
-            logger.error("Formatfehler beim Konvertieren des Übergabeparameters {} ({}) von {} nach {}",
+            logger.error("Formatfehler beim Konvertieren des Übergabeparameters {} ({}) von {} nach {}: {}",
               name, "password".equals(name) ? "<***>" : param,
               ((param != null) ? param.getClass().getName() : "null"),
-              ((targetType != null) ? targetType.getName() : "null"), e);
+              ((targetType != null) ? targetType.getName() : "null"), e.toString());
             throw new TcContentProzessException("Formatfehler beim Konvertieren des Übergabeparameters " + name, e);
         }
         logger.error("Keine Konvertierungsregel für die Umwandlung des Übergabeparameters {} ({}) von {} nach {}",
