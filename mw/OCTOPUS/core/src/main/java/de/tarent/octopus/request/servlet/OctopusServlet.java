@@ -259,10 +259,11 @@ public class OctopusServlet extends HttpServlet {
         }
 
         String requestID = TcRequest.createRequestID();
-        logger.warn("t2: fwd {} rpI {} qs {} p {}", (String) request.getAttribute("de.tarent.octopus.request.servlet.Forward.pathInfo"),
-          request.getPathInfo(),request.getQueryString(), request.getParameterMap());
+        logger.warn("t2: fwd {} rpI {} qs {} p {}",
+          (String) request.getAttribute("de.tarent.octopus.request.servlet.Forward.requestURI"),
+          request.getPathInfo(), request.getQueryString(), request.getParameterMap());
         {
-            String reqString = (String) request.getAttribute("de.tarent.octopus.request.servlet.Forward.pathInfo");
+            String reqString = (String) request.getAttribute("de.tarent.octopus.request.servlet.Forward.requestURI");
             if (reqString == null) {
                 reqString = request.getPathInfo();
             }
