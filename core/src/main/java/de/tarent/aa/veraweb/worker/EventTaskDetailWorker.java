@@ -115,6 +115,8 @@ import java.io.IOException;
  * Functions needed by webapp to handle event tasks.
  */
 public class EventTaskDetailWorker {
+    private static final String PARAM_TASK = "task";
+    private static final String PARAM_EVENT_ID = "eventId";
 
     private final DatabaseVeraWebFactory databaseVeraWebFactory;
 
@@ -124,30 +126,6 @@ public class EventTaskDetailWorker {
 
     public EventTaskDetailWorker() {
         this(new DatabaseVeraWebFactory());
-    }
-
-    private static final String PARAM_TASK = "task";
-    private static final String PARAM_EVENT_ID = "eventId";
-
-    public static final String[] INPUT_setEventTaskId = { PARAM_EVENT_ID };
-    public static final String OUTPUT_setEventTaskId = PARAM_EVENT_ID;
-
-    /**
-     * Load and return task with the given id.
-     *
-     * @param oc      FIXME
-     * @param eventId FIXME
-     * @param id      FIXME
-     * @return {@link Task}
-     */
-    public Task getTask(OctopusContext oc, String eventId, String id) {
-        oc.setContent(PARAM_EVENT_ID, eventId);
-        if (id == null) {
-            return null;
-        } else {
-            // TODO load and return task with given id
-            return new Task();
-        }
     }
 
     public static final String[] INPUT_loadReferencePerson = { "refPersId" };
@@ -170,6 +148,9 @@ public class EventTaskDetailWorker {
         oc.setContent(PARAM_EVENT_ID, eventId);
         oc.setContent("taskId", taskId);
     }
+
+    public static final String[] INPUT_setEventTaskId = { PARAM_EVENT_ID };
+    public static final String OUTPUT_setEventTaskId = PARAM_EVENT_ID;
 
     /**
      * Assigns the eventId from the task list to a new created task to link
@@ -243,7 +224,6 @@ public class EventTaskDetailWorker {
     public static final boolean MANDATORY_saveDetail[] = { false };
 
     public void saveDetail(final OctopusContext octopusContext, Boolean savetask) throws BeanException, IOException {
-
         savetask = getSaveTaskFlag(octopusContext, savetask);
 
         if (savetask == null || !savetask.booleanValue()) {
