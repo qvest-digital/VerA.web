@@ -29,6 +29,7 @@
  #end
  #macro(printStackTraceAsCause $ex $ct)
   #if($ex && $ex.cause)
+   ## bogus warning (too few arguments to macro. Wanted 2 got 0) in Velocity 1.4: https://issues.apache.org/jira/browse/VELOCITY-71
    #printStackTraceAsCause($ex.cause $ex.stackTrace)
   #end
   #set($ttl=[])
