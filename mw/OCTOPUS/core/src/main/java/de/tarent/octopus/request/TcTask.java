@@ -604,9 +604,9 @@ public class TcTask {
             logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", requestID, "ActionNode",
               "do action action=" + name + " with worker=" + worker));
             try {
-                TcContentWorker workerInstance =
-                  TcContentWorkerFactory.getContentWorker(context.moduleConfig(), worker, requestID);
-                String status = workerInstance.doAction(context.getConfigObject(), "tbd",
+                TcContentWorker workerInstance = TcContentWorkerFactory.getContentWorker(context.moduleConfig(),
+                  worker, requestID);
+                String status = workerInstance.doAction(context.getConfigObject(), rootNode.getName(),
                   name, context.getRequestObject(), context.getContentObject());
                 manager.setStatus(status);
                 logger.debug(Resources.getInstance().get("TASK_LOG_WORKER_CALLED",
