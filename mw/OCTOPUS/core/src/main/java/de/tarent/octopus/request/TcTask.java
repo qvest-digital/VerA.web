@@ -322,10 +322,10 @@ public class TcTask {
                 while (itCons.hasNext()) {
                     TcMessageDefinitionPart conPart = (TcMessageDefinitionPart) itCons.next();
                     TcMessageDefinitionPart outPart = (TcMessageDefinitionPart) taskMap.get(conPart.getName());
-                    if (outPart == null || outPart.isOptional()) {
+                    if (!conPart.isOptional() && (outPart == null || outPart.isOptional())) {
                         errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_OUTPUT",
                           getName(), conPart.getName()));
-                    } else if (!isSubTypeOf(outPart.getPartDataType(), conPart.getPartDataType())) {
+                    } else if (outPart != null && !isSubTypeOf(outPart.getPartDataType(), conPart.getPartDataType())) {
                         errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_INCOMPATIBLE_OUTPUT",
                           getName(), conPart.getName()));
                     }
