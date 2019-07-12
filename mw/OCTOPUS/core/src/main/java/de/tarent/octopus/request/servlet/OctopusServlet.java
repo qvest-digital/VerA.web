@@ -349,11 +349,7 @@ public class OctopusServlet extends HttpServlet {
             // test if request type is not allowed
             if (!isRequstTypeAllowed(requestType)) {
                 logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_ILLEGAL_REQUEST_TYPE",
-                  new String[] {
-                    requestID,
-                    String.valueOf(requestType),
-                    String.valueOf(allowedRequestTypes),
-                  }));
+                  requestID, String.valueOf(requestType), String.valueOf(allowedRequestTypes)));
                 tcResponse.sendError(requestType,
                   requestID,
                   Resources.getInstance().get("ERROR_MESSAGE_ILLEGAL_REQUEST_TYPE"),

@@ -227,11 +227,8 @@ public class TcCommonConfig /*implements Serializable*/ {
             document = Xml.getParsedDocument(filename);
             logger.debug(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_STOP"));
         } catch (SAXParseException se) {
-            logger.error(Resources.getInstance().get(
-              "COMMONCONFIG_LOG_PARSE_SAX_EXCEPTION",
-              new Integer(se.getLineNumber()),
-              new Integer(se.getColumnNumber())),
-              se);
+            logger.error(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_SAX_EXCEPTION",
+              new Integer(se.getLineNumber()), new Integer(se.getColumnNumber())), se);
             throw new TcConfigException(Resources.getInstance().get("COMMONCONFIG_EXC_PARSE_ERROR"), se);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("COMMONCONFIG_LOG_PARSE_ERROR"), e);

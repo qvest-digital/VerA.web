@@ -233,13 +233,12 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     if (paramValue == null && actionData.mandatoryFlags[i]) {
                         throw new TcActionInvocationException(Resources.getInstance()
                           .get("WORKER_WRAPPER_EXC_MISSING_PARAM",
-                            new Object[] {
                               tcRequest.getRequestID(),
                               actionData.inputParams[i],
                               actionData.getArgTargetType(argsPos).getName(),
                               workerClass.getName(),
                               actionName
-                            }));
+                            ));
                     }
                     // type conversion
                     if (!actionData.getArgTargetType(argsPos).isInstance(paramValue)) {

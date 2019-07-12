@@ -573,7 +573,7 @@ public class TcTask {
         }
 
         public String toString() {
-            return Resources.getInstance().get("TASK_STRING_TASKNODE", new Object[] { name, access, description, child });
+            return Resources.getInstance().get("TASK_STRING_TASKNODE", name, access, description, child);
         }
     }
 
@@ -611,9 +611,8 @@ public class TcTask {
                 String status = workerInstance
                   .doAction(context.getConfigObject(), name, context.getRequestObject(), context.getContentObject());
                 manager.setStatus(status);
-                logger.debug(Resources.getInstance()
-                  .get("TASK_LOG_WORKER_CALLED",
-                    new Object[] { requestID, status, name, worker, workerInstance.getVersion() }));
+                logger.debug(Resources.getInstance().get("TASK_LOG_WORKER_CALLED",
+                  requestID, status, name, worker, workerInstance.getVersion()));
             } catch (TcContentProzessException cpe) {
                 throw cpe;
             } catch (Exception e) {
@@ -640,7 +639,7 @@ public class TcTask {
             }
 
             if (moduleConfig.getContentWorkerDeclaration(worker) == null) {
-                out.add(Resources.getInstance().get("TASK_ERROR_WORKER_CLASS_ERROR", new Object[] { name, worker }));
+                out.add(Resources.getInstance().get("TASK_ERROR_WORKER_CLASS_ERROR", name, worker));
             } else {
                 try {
                     TcContentWorker workerObject = TcContentWorkerFactory.getContentWorker(moduleConfig, worker, null);
@@ -649,14 +648,14 @@ public class TcTask {
                     TcPortDefinition port = workerObject.getWorkerDefinition();
                     if (port == null) {
                         out.add(Resources.getInstance().get("TASK_ERROR_WORKER_NO_PORT",
-                          new Object[] { name, worker, workerClassName, workerObject.getVersion() }));
+                          name, worker, workerClassName, workerObject.getVersion()));
                     } else if (port.getOperation(name) == null) {
                         out.add(Resources.getInstance().get("TASK_ERROR_WORKER_NO_ACTION",
-                          new Object[] { name, worker, workerClassName, workerObject.getVersion() }));
+                          name, worker, workerClassName, workerObject.getVersion()));
                     }
                 } catch (Exception e) {
-                    out.add(Resources.getInstance()
-                      .get("TASK_ERROR_WORKER_INSTANTIATION_ERROR", new Object[] { name, worker, workerClassName, e }));
+                    out.add(Resources.getInstance().get("TASK_ERROR_WORKER_INSTANTIATION_ERROR",
+                      name, worker, workerClassName, e));
                 }
             }
             return out;
@@ -690,8 +689,7 @@ public class TcTask {
                         String partType = part.getPartDataType();
                         if (!isSubTypeOf(outPart.getPartDataType(), partType)) {
                             logger.warn(Resources.getInstance().get("TASK_ERROR_INNER_INCOMPATIBILITY",
-                              new Object[] { TcTask.this.getName(), name, part.getName(), partType,
-                                outPart.getPartDataType() }));
+                              TcTask.this.getName(), name, part.getName(), partType, outPart.getPartDataType()));
                         }
                     } else {
                         in.addPart(part);
@@ -747,8 +745,8 @@ public class TcTask {
         }
 
         public String toString() {
-            return Resources.getInstance()
-              .get("TASK_STRING_ACTIONNODE", new Object[] { name, worker, workerClassName, child, next });
+            return Resources.getInstance().get("TASK_STRING_ACTIONNODE",
+              name, worker, workerClassName, child, next);
         }
     }
 
@@ -950,7 +948,7 @@ public class TcTask {
               ("soap".equalsIgnoreCase(type)
                 || "rpc".equalsIgnoreCase(type)
                 || "xmlrpc".equalsIgnoreCase(type))
-            ) {
+              ) {
 
                 returnDefinition = new TcMessageDefinition();
                 Map responses = TcResponseCreator.refineOutputFields(paramMap.get("OutputFields"));

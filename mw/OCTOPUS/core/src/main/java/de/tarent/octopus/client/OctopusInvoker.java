@@ -93,6 +93,8 @@ package de.tarent.octopus.client;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.resource.Resources;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -100,12 +102,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import de.tarent.octopus.client.OctopusConnection;
-import de.tarent.octopus.client.OctopusConnectionFactory;
-import de.tarent.octopus.client.OctopusResult;
-import de.tarent.octopus.client.OctopusTask;
-import de.tarent.octopus.resource.Resources;
 
 /**
  * This static helper class wraps octopus calling mechanismus.

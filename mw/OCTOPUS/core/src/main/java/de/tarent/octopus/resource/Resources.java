@@ -166,67 +166,23 @@ public class Resources {
             try {
                 return bundle.getString(key);
             } catch (MissingResourceException e) {
+                // doesn’t matter
             }
         }
         return (parent != null) ? parent.get(key) : '!' + key + '!';
     }
 
     /**
-     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
-     * ihn als Message, in die die übergebenen Parameter eingesetzt
-     * werden, und gibt die ausgefüllte Message zurück.
+     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert ihn als Message, in die die
+     * übergebenen Parameter eingesetzt werden, und gibt die ausgefüllte Message zurück.
      *
      * @param key    Schlüssel
-     * @param params Parameter
+     * @param params Parameter (varargs)
      * @return ausgefüllte Message
+     * @see MessageFormat#format(String, Object...)
      */
-    public String get(String key, Object[] params) {
+    public String get(String key, Object... params) {
         return MessageFormat.format(get(key), params);
-    }
-
-    /**
-     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
-     * ihn als Message, in die der übergebene Parameter eingesetzt
-     * wird, und gibt die ausgefüllte Message zurück.
-     *
-     * @param key   Schlüssel
-     * @param param Parameter
-     * @return ausgefüllte Message
-     * @see #get(String, Object[])
-     */
-    public String get(String key, Object param) {
-        return get(key, new Object[] { param });
-    }
-
-    /**
-     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
-     * ihn als Message, in die die übergebene Parameter eingesetzt
-     * werden, und gibt die ausgefüllte Message zurück.
-     *
-     * @param key    Schlüssel
-     * @param param1 Parameter
-     * @param param2 Parameter
-     * @return ausgefüllte Message
-     * @see #get(String, Object[])
-     */
-    public String get(String key, Object param1, Object param2) {
-        return get(key, new Object[] { param1, param2 });
-    }
-
-    /**
-     * Diese Methode holt den Wert zu einem Schlüssel, interpretiert
-     * ihn als Message, in die die übergebene Parameter eingesetzt
-     * werden, und gibt die ausgefüllte Message zurück.
-     *
-     * @param key    Schlüssel
-     * @param param1 Parameter
-     * @param param2 Parameter
-     * @param param3 Parameter
-     * @return ausgefüllte Message
-     * @see #get(String, Object[])
-     */
-    public String get(String key, Object param1, Object param2, Object param3) {
-        return get(key, new Object[] { param1, param2, param3 });
     }
 
     /*
