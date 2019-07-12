@@ -276,17 +276,17 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             return (octopusContext.getStatus() != null) ?
               octopusContext.getStatus() : TcContentWorker.RESULT_ok;
         } catch (TcContentProzessException e) {
-            logger.error("Request {} top-level task {} action {} {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), actionName, "inner error", e);
+            logger.error("Request {} top-level task {} actual task {} action {} {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, "inner error", e);
             throw e;
         } catch (IllegalArgumentException | IllegalAccessException e) {
-            logger.error("Request {} top-level task {} action {} {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), actionName, "illegal something", e);
+            logger.error("Request {} top-level task {} actual task {} action {} {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, "illegal something", e);
             throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
               workerClass.getName() + "#" + actionName + ")", e);
         } catch (InvocationTargetException e) {
-            logger.error("Request {} top-level task {} action {} {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), actionName, "invocation target", e);
+            logger.error("Request {} top-level task {} actual task {} action {} {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, "invocation target", e);
             Throwable t = e.getTargetException();
             if (t instanceof TcContentProzessException) {
                 throw (TcContentProzessException) t;
@@ -295,8 +295,8 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                   workerClass.getName() + "#" + actionName + ")", t);
             }
         } catch (Throwable e) {
-            logger.error("Request {} top-level task {} action {} {}",
-              tcRequest.getRequestID(), tcRequest.getTask(), actionName, "other exception", e);
+            logger.error("Request {} top-level task {} actual task {} action {} {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, "other exception", e);
             throw e;
         }
     }
