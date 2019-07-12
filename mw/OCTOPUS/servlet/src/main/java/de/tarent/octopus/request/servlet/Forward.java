@@ -104,26 +104,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * <p>
- * This servlet forward a request to the octopus dispatcher. It use the
- * context-name as the octopus modulenname and the first pathinfo part as
- * taskname.
- * </p>
- * <p>
+ * This servlet forwards a request to the OCTOPUS dispatcher. It uses the
+ * context name as the name of the OCTOPUS module and the first pathinfo
+ * part as name of the task to call.
+ *
  * <strong>Note:</strong> At the moment the target webapplication context will
  * NOT saved in the {@link #init(javax.servlet.ServletConfig)} method, because
- * there is not ensured that the octopus webapplication is already loaded at
- * that moment! (We can change this when our knowledge about all used or
- * certified(?) java enterprise edition servers is growed up. ;-) But this is
- * now not needful, this is not performance critically.)
- * </p>
+ * it is not ensured that the OCTOPUS web application is already loaded at that
+ * point in time! (We can change this when our knowledge about all used or
+ * certified(?) java enterprise edition servers is grown. ;-) But this is
+ * now not necessary, this is not performance-critical.)
  *
  * @author Michael Klink, tarent GmbH
  * @author Christoph Jerolimov, tarent GmbH
  */
 @Log4j2
 public class Forward extends HttpServlet {
-    private static final long serialVersionUID = 3256441417202218291L;
+    private static final long serialVersionUID = -2021193974123270016L;
 
     /**
      * Servlet-Parameter für den Pfad zum KontextRoot der Ziel Webanwendung
@@ -139,18 +136,13 @@ public class Forward extends HttpServlet {
     public final static String DEFAULT_TARGET_PATH = "/octopus";
 
     /**
-     * <p>
-     * This service method redirekt all queries to the octopus.
-     * </p>
-     * <p>
-     * Is redirekt this <code>/&lt;modulename&gt;/do/&lt;taskname&gt;</code>
-     * query to <code>&lt;targetContext&gt;&lt;targetPath&gt;/&lt;modulename&gt;/&lt;taskname&gt;</code>.
-     * </p>
-     * <p>
-     * If the servlet parameter 'targetContext' it not definend it will be use
-     * the current context. And if the servlet parameter 'targetPath' it not
-     * defined it will be use the default <code>/octopus</code>.
-     * </p>
+     * This service method redirects all queries to the OCTOPUS.
+     *
+     * It redirects a <code>/&lt;modulename&gt;/do/&lt;taskname&gt;</code> query to
+     * <code>&lt;targetContext&gt;&lt;targetPath&gt;/&lt;modulename&gt;/&lt;taskname&gt;</code>.
+     *
+     * If the servlet parameter 'targetContext' it not defined it will use the current context.
+     * If the servlet parameter 'targetPath' it not defined it will use the default <code>/octopus</code>.
      *
      * @see HttpServlet#service(HttpServletRequest, HttpServletResponse)
      */
@@ -158,9 +150,8 @@ public class Forward extends HttpServlet {
         String targetContextString = getInitParameter(INIT_PARAM_TARGET_CONTEXT);
         String targetPathString = getInitParameter(INIT_PARAM_TARGET_PATH);
 
-        ServletContext targetContext = (targetContextString == null)
-          ? getServletContext()
-          : getServletContext().getContext(targetContextString);
+        ServletContext targetContext = (targetContextString == null) ? getServletContext() :
+          getServletContext().getContext(targetContextString);
 
         if (targetContext == null) {
             throw new ServletException("can not access target context: '" + targetContextString + "'");
@@ -176,9 +167,8 @@ public class Forward extends HttpServlet {
         }
 
         if (logger.isDebugEnabled()) {
-            logger.debug("Forwarding URI " +
-              "<" + request.getRequestURI() + "> to" +
-              "<" + targetContext.getServletContextName() + target + ">");
+            logger.debug("Forwarding URI <" + request.getRequestURI() + "> to <" +
+              targetContext.getServletContextName() + target + ">");
         }
 
         RequestDispatcher dispatcher = targetContext.getRequestDispatcher(target);

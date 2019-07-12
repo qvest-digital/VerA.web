@@ -46,9 +46,7 @@
 	</servlet>
 	<servlet>
 		<servlet-name>Forwarder</servlet-name>
-		<servlet-class>
-			de.tarent.octopus.request.servlet.Forward
-		</servlet-class>
+		<servlet-class>de.tarent.octopus.request.servlet.Forward</servlet-class>
 		<!-- Parameter zum Weiterleiten an eine OCTOPUS-Instanz:
 		     Wenn der OCTOPUS in der gleichen Webanwendung liegt,
 		     am besten auskommentiert lassen, damit die Defaults
