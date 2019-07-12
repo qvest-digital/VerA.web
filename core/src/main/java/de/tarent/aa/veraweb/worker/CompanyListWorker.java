@@ -188,7 +188,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
     // Octopus-Aktionen
     //
     /**
-     * Octopus-Parameter für die Aktion {@link #copyCompanyData(OctopusContext, Integer, String)}
+     * Octopus-Parameter für die Aktion {@link #copyCompanyData(OctopusContext, String, String)}
      */
     public static final String INPUT_copyCompanyData[] = { "company", "companyfield" };
 
@@ -202,7 +202,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
      * @throws BeanException bean Exception
      * @throws IOException   io Exception
      */
-    public void copyCompanyData(OctopusContext cntx, Integer company, String companyfield) throws BeanException, IOException {
+    public void copyCompanyData(OctopusContext cntx, String company, String companyfield) throws BeanException, IOException {
         cntx.setContent("tab", cntx.requestAsObject("tab"));
         Database database2 = new DatabaseVeraWeb(cntx);
         TransactionContext context = database2.getTransactionContext();

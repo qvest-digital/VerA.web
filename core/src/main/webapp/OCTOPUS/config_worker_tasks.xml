@@ -570,7 +570,7 @@
 				ausgefählt worden ist und zeigt diese ungespeichert wieder an.
 			</description>
 			<contract>
-				<input name="company" type="xsd:string" optional="f" description="ID des Person-Eintrages der als Firma übernommen werden soll."/>
+				<input name="company" type="xsd:string" optional="f" description="ID des Person-Eintrages, der als Firma übernommen werden soll."/>
 			</contract>
 			<doTask name="Load"/>
 			<action name="copyCompanyData" worker="CompanyListWorker"/>
