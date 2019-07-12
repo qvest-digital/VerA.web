@@ -215,7 +215,7 @@
                                         #set($updateTest=${helper.createMessage($entity,"MODIFY","$countUpdate",$placeholderWithTranslation)})
                                 #end
                                 #set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
-                                <vera-success> $generalMessage.
+                                <vera-success>$generalMessage
                                 #if($insertAndUpdate && $insertAndUpdate == "true")
                                         <br/> $updateTest
                                 #end
