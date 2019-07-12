@@ -235,7 +235,7 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     }
                     // type conversion
                     if (!actionData.getArgTargetType(argsPos).isInstance(paramValue)) {
-                        paramValue = tryToConvert(paramValue, actionData.getArgTargetType(argsPos));
+                        paramValue = tryToConvert(actionData.inputParams[i], paramValue, actionData.getArgTargetType(argsPos));
                         if (logger.isTraceEnabled()) {
                             logger.trace("Applying type conversion for param " + actionData.inputParams[i] + " to type " +
                               actionData.getArgTargetType(argsPos));
@@ -302,12 +302,16 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
     }
 
     /**
-     * Convertiert ein Object.
-     * Falls dies fehl schlägt oder der Parameter==null ist wird <code>null</code> zurückgegeben.
+     * Konvertiert ein Objekt in den von der Worker-Methode benötigten Typ.
      *
-     * TODO: Unterstützung für long ⇒ Date
+     * @param name       Name des Methodenparameters, der bearbeitet wird
+     * @param param      Übergebener Wert
+     * @param targetType Zieldatentyp
+     * @return konvertiertes Objekt, oder <code>null</code> bei null param oder manchen Fehlern
+     * @throws TcContentProzessException falls die Konvertierung fehlschlägt oder die Typen nicht passen
+     * @todo Unterstützung für long ⇒ Date
      */
-    private Object tryToConvert(Object param, Class targetType) throws TcContentProzessException {
+    private Object tryToConvert(String name, Object param, Class targetType) throws TcContentProzessException {
         try {
             if (param == null && !targetType.isPrimitive()) {
                 return null;
@@ -358,21 +362,19 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     newSpectialMap.putAll((Map) param);
                     return newSpectialMap;
                 } catch (Exception e) {
-                    logger.warn("Fehler beim Konvertieren eines Übergabeparameters (Map nach " + targetType.getName() + ")", e);
-                    throw new TcContentProzessException("Fehler beim Konvertieren eines Übergabeparameters (Map nach " +
-                      targetType.getName() + ")", e);
+                    logger.error("Fehler beim Konvertieren des Übergabeparameters {} (Map nach {})",
+                      name, targetType.getName(), e);
+                    throw new TcContentProzessException("Fehler beim Map-Konvertieren des Übergabeparameters " + name, e);
                 }
             }
         } catch (NumberFormatException e) {
-            logger.warn("Formatfehler beim Konvertieren eines Übergabeparameters (von " +
-              ((param != null) ? param.getClass().getName() : "null") + " nach " +
-              ((targetType != null) ? targetType.getName() : "null") + ")", e);
-            throw new TcContentProzessException("Formatfehler beim Konvertieren eines Übergabeparameters (von " +
-              ((param != null) ? param.getClass().getName() : "null") + " nach " +
-              ((targetType != null) ? targetType.getName() : "null") + ")", e);
+            logger.error("Formarfehler beim Konvertieren des Übergabeparameters {} von {} nach {}",
+              name, ((param != null) ? param.getClass().getName() : "null"),
+              ((targetType != null) ? targetType.getName() : "null"), e);
+            throw new TcContentProzessException("Formatfehler beim Konvertieren des Übergabeparameters " + name, e);
         }
-        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von " +
-          (param != null ? param.getClass().getName() : "null") +
+        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung des Übergabeparameters " +
+          name + " von " + (param != null ? param.getClass().getName() : "null") +
           " nach " + targetType.getName() + " vorhanden.");
     }
 
