@@ -160,7 +160,7 @@ public class EventTaskDetailWorker {
      * @param eventId FIXME
      * @return eventId
      */
-    public String setEventTaskId(OctopusContext cntx, String eventId) {
+    public Integer setEventTaskId(OctopusContext cntx, Integer eventId) {
         cntx.setContent(PARAM_EVENT_ID, eventId);
         return eventId;
     }
@@ -171,7 +171,7 @@ public class EventTaskDetailWorker {
 
     public Task showDetail(OctopusContext context, Integer eventId, Integer id) throws BeanException, IOException {
         if (eventId != null) {
-            setEventTaskId(context, String.valueOf(eventId));
+            setEventTaskId(context, eventId);
         }
         Task task = getTaskFromDB(context, id);
 
