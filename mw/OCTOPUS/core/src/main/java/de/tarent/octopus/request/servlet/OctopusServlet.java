@@ -324,7 +324,7 @@ public class OctopusServlet extends HttpServlet {
 
                 response.setStatus(302);
                 response.setHeader("Location", redirectURI);
-                logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_REDIRECT_REQUEST",
+                logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REDIRECT_REQUEST",
                   requestID, redirectURI));
                 return;
             }
