@@ -118,7 +118,7 @@ public class Resources {
     private final static Resources instance = new Resources();
 
     /*
-     * Singelton-Zugriff
+     * Singleton-Zugriff
      */
 
     /**

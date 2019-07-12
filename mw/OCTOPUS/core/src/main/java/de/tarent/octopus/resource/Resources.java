@@ -104,7 +104,7 @@ import java.util.ResourceBundle;
  */
 public class Resources {
     /*
-     * Singelton-Zugriff
+     * Singleton-Zugriff
      */
 
     /**
