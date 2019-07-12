@@ -174,9 +174,6 @@ public class Forward extends HttpServlet {
               targetContext.getServletContextName() + target + ">");
         }
 
-        logger.warn("t1: pathInfo {}, from {} to {}", pathInfo, request.getRequestURI(),
-          targetContext.getServletContextName() + target);
-
         RequestDispatcher dispatcher = targetContext.getRequestDispatcher(target);
         dispatcher.forward(request, response);
     }

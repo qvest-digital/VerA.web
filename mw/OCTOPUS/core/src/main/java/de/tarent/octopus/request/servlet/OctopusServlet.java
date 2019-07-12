@@ -242,15 +242,14 @@ public class OctopusServlet extends HttpServlet {
     }
 
     /**
-     * Startet die Abarbeitung einer Anfrage dadurch, daß diese an den die dispatch() Methode des RequestDispatchers
-     * weiter gegeben wird.
+     * Startet die Abarbeitung einer Anfrage dadurch, daß diese an den die dispatch()-Methode
+     * des RequestDispatchers weitergegeben wird.
      *
-     * Dazu werden ein TcRequest Objekt mit createRequestObject(),
-     * ein TcResponse Objekt,
-     * sowie ein TcSession mit der HttpSession initialisiert und an den RequestDispatcher übergeben.
+     * Dazu werden ein TcRequest Objekt mit createRequestObject(), ein TcResponse Objekt
+     * sowie eine TcSession mit der HttpSession initialisiert und an den RequestDispatcher übergeben.
      *
-     * Wenn der Request den Parameter debug=true enthält und Debugging über den DeploymentDescriptor erlaubt wurde,
-     * werden noch Debugausgaben aus gegeben.
+     * Wenn der Request den Parameter debug=true enthält und Debugging über den DeploymentDescriptor
+     * erlaubt wurde werden noch Debugausgaben ausgegeben.
      */
     public void handleTheRequest(HttpServletRequest request, HttpServletResponse response, boolean post)
       throws IOException {
@@ -259,9 +258,6 @@ public class OctopusServlet extends HttpServlet {
         }
 
         String requestID = TcRequest.createRequestID();
-        logger.warn("t2: fwd {} rpI {} qs {} p {}",
-          (String) request.getAttribute("de.tarent.octopus.request.servlet.Forward.requestURI"),
-          request.getPathInfo(), request.getQueryString(), request.getParameterMap());
         {
             String reqString = (String) request.getAttribute("de.tarent.octopus.request.servlet.Forward.requestURI");
             if (reqString == null) {
