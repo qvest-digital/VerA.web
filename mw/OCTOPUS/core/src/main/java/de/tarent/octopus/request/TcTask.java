@@ -296,6 +296,7 @@ public class TcTask {
         if (contractInput != null) {
             Map contractMap = partsListToMap(contractInput.getParts());
             TcMessageDefinition taskInput = rootNode.in(new TcMessageDefinition(), new TcMessageDefinition());
+            logger.info("taskInput for {} is {}", getName(), taskInput == null ? null : taskInput.getParts());
             if (taskInput == null) {
                 errors.add(Resources.getInstance().get("TASK_ERROR_UNKNOWN_TASK_INPUT", getName()));
             } else {
