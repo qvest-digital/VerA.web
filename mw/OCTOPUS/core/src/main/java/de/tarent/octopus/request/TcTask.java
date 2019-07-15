@@ -291,7 +291,7 @@ public class TcTask {
      * @return eine Liste mit Fehlermeldungen bezüglich der Kontrakterfüllung.
      */
     public List getContractErrors() {
-        logger.info("getting contract errors for {}", getName());
+        logger.info("getting contract errors for {}, input {}, output {}", getName(), contractInput, contractOutput);
         List errors = new ArrayList();
         if (contractInput != null) {
             Map contractMap = partsListToMap(contractInput.getParts());
