@@ -562,8 +562,8 @@ public class LDAPManager {
             String filter = filterTemplate.format(new Object[] { uid });
             SearchControls cons = new SearchControls();
             this.initializeSearchControls(cons);
-            if (logger.isInfoEnabled()) {
-                logger.info("Search LDAP account in \"" + name + "\" with filter \"" + filter + "\".");
+            if (logger.isDebugEnabled()) {
+                logger.debug("Search LDAP account in \"" + name + "\" with filter \"" + filter + "\".");
             }
             NamingEnumeration ne = lctx.search(name, filter, cons);
             if (!ne.hasMore()) {
@@ -572,8 +572,8 @@ public class LDAPManager {
             SearchResult search = (SearchResult) ne.next();
             dn = search.getNameInNamespace();
             dn = dn.replace("/", "\\2F");
-            if (logger.isInfoEnabled()) {
-                logger.info("Found LDAP DN \"" + dn + "\".");
+            if (logger.isDebugEnabled()) {
+                logger.debug("Found LDAP DN \"" + dn + "\".");
             }
             if (ne.hasMore()) {
                 throw new LDAPException(Messages.getString("LDAPManager.96")); //$NON-NLS-1$
