@@ -291,6 +291,7 @@ public class TcTask {
      * @return eine Liste mit Fehlermeldungen bezüglich der Kontrakterfüllung.
      */
     public List getContractErrors() {
+        logger.info("getting contract errors for {}", getName());
         List errors = new ArrayList();
         if (contractInput != null) {
             Map contractMap = partsListToMap(contractInput.getParts());
@@ -308,6 +309,9 @@ public class TcTask {
                     } else if (!isSubTypeOf(conPart.getPartDataType(), inPart.getPartDataType())) {
                         errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_INCOMPATIBLE_INPUT",
                           getName(), inPart.getName(), inPart.getPartDataType(), conPart.getPartDataType()));
+                    } else {
+                        logger.info("Task {} part {} compatible type {} with contract type {}",
+                          getName(), inPart.getName(), inPart.getPartDataType(), conPart.getPartDataType());
                     }
                 }
             }
@@ -332,6 +336,7 @@ public class TcTask {
                 }
             }
         }
+        logger.info("done for {}", getName());
         return errors;
     }
 
