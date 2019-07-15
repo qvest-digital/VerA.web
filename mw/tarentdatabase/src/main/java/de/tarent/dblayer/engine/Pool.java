@@ -129,16 +129,6 @@ public interface Pool {
     String JDBC2_CONNECTION_STRING = "JDBC2ConnectionString";
 
     /**
-     * Boolean flag for usage of JNDI in WebSphere Application Server
-     */
-    String USE_JNDI = "useJNDI";
-
-    /**
-     * JNDI name for usage of JNDI in WebSphere Application Server
-     */
-    String JNDI_NAME = "JNDIName";
-
-    /**
      * The database username
      */
     String USER = "user";

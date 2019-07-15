@@ -103,8 +103,6 @@ import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.extensions.OctopusExtension;
 import de.tarent.octopus.extensions.OctopusExtensionLoader;
-import de.tarent.octopus.jndi.OctopusContextJndiFactory;
-import de.tarent.octopus.jndi.OctopusInstanceJndiFactory;
 import de.tarent.octopus.resource.Resources;
 import de.tarent.octopus.response.ResponseProcessingException;
 import de.tarent.octopus.rpctunnel.OctopusRPCTunnel;
@@ -163,9 +161,6 @@ public class Octopus /*implements Serializable*/ {
     public void init(TcEnv env) throws TcConfigException, ClassCastException {
         commonConfig = new TcCommonConfig(env, this);
         dispatcher = new TcRequestDispatcher(commonConfig);
-
-        new OctopusInstanceJndiFactory().bind();
-        new OctopusContextJndiFactory().bind();
     }
 
     /**

@@ -209,7 +209,7 @@ public class LDAPManagerAA extends LDAPManager {
     /**
      * Diese Methode ermittelt die verfügbaren Rollen zu einem Filter.
      *
-     * @param filter JNDI-Suchfilter
+     * @param filter Suchfilter
      * @param cons   SearchControls
      * @return Sammlung möglicher Rollen zu dem Filter
      * @throws NamingException

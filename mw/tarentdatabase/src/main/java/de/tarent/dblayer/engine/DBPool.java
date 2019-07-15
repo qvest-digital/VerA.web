@@ -126,7 +126,6 @@ public class DBPool implements Pool {
     private DataSource dataSource;
 
     boolean useOldJDBC2Connection = false;
-    boolean useJNDI = false;
     String jdbc2ConnectionString = null;
 
     /**
@@ -159,12 +158,6 @@ public class DBPool implements Pool {
                 useOldJDBC2Connection = true;
                 Class.forName(getProperty(JDBC2_DRIVER_CLASS));
                 jdbc2ConnectionString = getProperty(JDBC2_CONNECTION_STRING);
-            } else if (null != getProperty(USE_JNDI) && (new Boolean(getProperty(USE_JNDI).trim())).booleanValue()) {
-                // configure the JNDI DataSource
-                useJNDI = true;
-                InitialContext ctx = new InitialContext();
-                dataSource = (DataSource) ctx.lookup(getProperty(JNDI_NAME));
-                ctx.close();
             } else {
 
                 // configure the JDBC 3 DataSource
@@ -220,13 +213,6 @@ public class DBPool implements Pool {
                 } else {
                     con = DriverManager.getConnection(jdbc2ConnectionString);
                 }
-                result = con;
-            }
-        } else if (useJNDI) {
-            logger.trace("using JNDI dataSource instead of pooling for creation.");
-            result = con;
-            if (result == null || result.isClosed()) {
-                con = dataSource.getConnection();
                 result = con;
             }
         } else {
