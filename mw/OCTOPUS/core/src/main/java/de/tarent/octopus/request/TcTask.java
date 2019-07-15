@@ -304,6 +304,8 @@ public class TcTask {
                     TcMessageDefinitionPart inPart = (TcMessageDefinitionPart) itIns.next();
                     TcMessageDefinitionPart conPart = (TcMessageDefinitionPart) contractMap.get(inPart.getName());
                     if (inPart.isOptional()) {
+                        logger.info("Task {} part {} optional type {} with contract type {}",
+                          getName(), inPart.getName(), inPart.getPartDataType(), conPart.getPartDataType());
                     } else if (conPart == null) {
                         errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_INPUT",
                           getName(), inPart.getName(), inPart.getPartDataType()));
