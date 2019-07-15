@@ -596,7 +596,7 @@
 			</description>
 			<contract>
 				<input name="id" type="xsd:string" optional="f" description="ID der Person"/>
-				<input name="person-nodupcheck" type="xsd:string" optional="t" description="Flag: Kein Dublettenscheck"/>
+				<input name="person-nodupcheck" type="xsd:string" optional="t" description="Flag: Keine Dublettenprüfung"/>
 			</contract>
 			<doTask name="Load"/>
 			<action name="prepareSaveDetail" worker="PersonDetailWorker"/>
