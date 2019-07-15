@@ -142,9 +142,7 @@ public class TcSecurityLDAPManager {
         this.baseDN = baseDN;
         this.relative = cleanup_relative(relative);
         env = new Hashtable();
-        env.put(
-          Context.INITIAL_CONTEXT_FACTORY,
-          "com.sun.jndi.ldap.LdapCtxFactory");
+        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, ldapurl);
     }
 
