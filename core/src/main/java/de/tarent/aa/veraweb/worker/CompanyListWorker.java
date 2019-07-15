@@ -198,7 +198,7 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
      *
      * @param cntx         Octopus-Context
      * @param company      Person-PK der Firma dessen Daten übernommen werden sollen.
-     * @param companyfield Name des HTML-Firmenfeldes zu dem Firmendaten geladen werden sollen.
+     * @param companyfield Name des HTML-Firmenfeldes, zu dem Firmendaten geladen werden sollen.
      * @throws BeanException bean Exception
      * @throws IOException   io Exception
      */

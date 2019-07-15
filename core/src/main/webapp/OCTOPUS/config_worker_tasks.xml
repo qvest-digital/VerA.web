@@ -571,6 +571,7 @@
 			</description>
 			<contract>
 				<input name="company" type="xsd:string" optional="f" description="ID des Person-Eintrages, der als Firma übernommen werden soll."/>
+				<input name="companyfield" type="xsd:string" optional="f" description="Name des HTML-Firmenfeldes, zu dem Firmendaten geladen werden sollen."/>
 			</contract>
 			<doTask name="Load"/>
 			<action name="copyCompanyData" worker="CompanyListWorker"/>
