@@ -114,21 +114,6 @@ public interface Pool {
     String DEBUG_POOL_CLASS = "debugPoolClass";
 
     /**
-     * Boolean flag for usage of JDBC 2 Drivers without connection pooling
-     */
-    String USE_OLD_JDBC2 = "useOldJDBC2";
-
-    /**
-     * JDBC driver class for connections over an old JDBC 2 interface
-     */
-    String JDBC2_DRIVER_CLASS = "JDBC2DriverClass";
-
-    /**
-     * JDBC connection string for connections over an old JDBC 2 interface
-     */
-    String JDBC2_CONNECTION_STRING = "JDBC2ConnectionString";
-
-    /**
      * The database username
      */
     String USER = "user";

@@ -125,9 +125,6 @@ public class DBPool implements Pool {
     private GenericObjectPool connectionPool;
     private DataSource dataSource;
 
-    boolean useOldJDBC2Connection = false;
-    String jdbc2ConnectionString = null;
-
     /**
      * Creates a new Pool.
      * The Pool uses the supplied Propertie Set to choose a DataSource an a Driver.
@@ -153,13 +150,6 @@ public class DBPool implements Pool {
      */
     public void init() {
         try {
-            // use JDBC2
-            if (null != getProperty(USE_OLD_JDBC2) && (new Boolean(getProperty(USE_OLD_JDBC2))).booleanValue()) {
-                useOldJDBC2Connection = true;
-                Class.forName(getProperty(JDBC2_DRIVER_CLASS));
-                jdbc2ConnectionString = getProperty(JDBC2_CONNECTION_STRING);
-            } else {
-
                 // configure the JDBC 3 DataSource
                 Class clazz = Class.forName(getProperty(DATASOURCE_CLASS));
                 DataSource innerDataSource = (DataSource) clazz.newInstance();
@@ -174,8 +164,7 @@ public class DBPool implements Pool {
                 new PoolableConnectionFactory(connectionFactory, connectionPool, null, null, false, true);
 
                 dataSource = new PoolingDataSource(connectionPool);
-                //                ((PoolingDataSource)dataSource).setAccessToUnderlyingConnectionAllowed(true);
-            }
+                //((PoolingDataSource)dataSource).setAccessToUnderlyingConnectionAllowed(true);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("ERROR_INIT_POOL"), e);
             throw new RuntimeException(Resources.getInstance().get("ERROR_INIT_POOL"), e);
@@ -204,18 +193,6 @@ public class DBPool implements Pool {
     public Connection getConnection() throws SQLException {
         Connection result = null;
 
-        if (useOldJDBC2Connection) {
-            logger.trace("using jdbc2ConnectionString instead of pooling for creation.");
-            result = con;
-            if (result == null || result.isClosed()) {
-                if (null != getProperty(USER)) {
-                    con = DriverManager.getConnection(jdbc2ConnectionString, getProperty(USER), getProperty(PASSWORD));
-                } else {
-                    con = DriverManager.getConnection(jdbc2ConnectionString);
-                }
-                result = con;
-            }
-        } else {
             try {
                 result = con;
                 if (result == null || result.isClosed()) {
@@ -225,7 +202,6 @@ public class DBPool implements Pool {
             } catch (Exception e) {
                 throw new SQLException("Unhandled exception.", e);
             }
-        }
 
         logger.trace("Connection requested from pool.");
         return (Connection) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { Connection.class },
