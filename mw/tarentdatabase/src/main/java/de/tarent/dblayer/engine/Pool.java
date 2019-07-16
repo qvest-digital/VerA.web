@@ -104,7 +104,7 @@ import java.sql.SQLException;
  */
 public interface Pool {
     /**
-     * Identifier for the postgresql database
+     * Identifier for the PostgreSQL database
      */
     String DB_POSTGRESQL = "postgres";
 
@@ -117,11 +117,6 @@ public interface Pool {
      * The database username
      */
     String USER = "user";
-
-    /**
-     * The database password
-     */
-    String PASSWORD = "password";
 
     /**
      * The full class name for the db specific data source

@@ -148,21 +148,21 @@ public class DBPool implements Pool {
      */
     public void init() {
         try {
-                // configure the JDBC 3 DataSource
-                Class clazz = Class.forName(getProperty(DATASOURCE_CLASS));
-                DataSource innerDataSource = (DataSource) clazz.newInstance();
-                setDataSourceParameter(innerDataSource, clazz.getMethods());
+            // configure the JDBC 3 DataSource
+            Class clazz = Class.forName(getProperty(DATASOURCE_CLASS));
+            DataSource innerDataSource = (DataSource) clazz.newInstance();
+            setDataSourceParameter(innerDataSource, clazz.getMethods());
 
-                // create and configure the GenericPool
-                connectionPool = new GenericObjectPool(null);
-                configurePool(connectionPool, info);
+            // create and configure the GenericPool
+            connectionPool = new GenericObjectPool(null);
+            configurePool(connectionPool, info);
 
-                // set up the connection pool, autocommit = true by default
-                ConnectionFactory connectionFactory = new DataSourceConnectionFactory(innerDataSource);
-                new PoolableConnectionFactory(connectionFactory, connectionPool, null, null, false, true);
+            // set up the connection pool, autocommit = true by default
+            ConnectionFactory connectionFactory = new DataSourceConnectionFactory(innerDataSource);
+            new PoolableConnectionFactory(connectionFactory, connectionPool, null, null, false, true);
 
-                dataSource = new PoolingDataSource(connectionPool);
-                //((PoolingDataSource)dataSource).setAccessToUnderlyingConnectionAllowed(true);
+            dataSource = new PoolingDataSource(connectionPool);
+            //((PoolingDataSource)dataSource).setAccessToUnderlyingConnectionAllowed(true);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("ERROR_INIT_POOL"), e);
             throw new RuntimeException(Resources.getInstance().get("ERROR_INIT_POOL"), e);
@@ -189,17 +189,17 @@ public class DBPool implements Pool {
      * @see de.tarent.dblayer.engine.Pool#getConnection()
      */
     public Connection getConnection() throws SQLException {
-        Connection result = null;
+        Connection result;
 
-            try {
-                result = con;
-                if (result == null || result.isClosed()) {
-                    result = (Connection) this.dataSource.getConnection();
-                    con = result;
-                }
-            } catch (Exception e) {
-                throw new SQLException("Unhandled exception.", e);
+        try {
+            result = con;
+            if (result == null || result.isClosed()) {
+                result = this.dataSource.getConnection();
+                con = result;
             }
+        } catch (Exception e) {
+            throw new SQLException("Unhandled exception.", e);
+        }
 
         logger.trace("Connection requested from pool.");
         return (Connection) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { Connection.class },
@@ -229,7 +229,7 @@ public class DBPool implements Pool {
     /**
      * Returns the int representation of the value for the key in the map, or the default value, this entry is not in the map
      */
-    int getIntOrDefault(Map map, Object key, int defaultValue) {
+    private int getIntOrDefault(Map map, Object key, int defaultValue) {
         Object value = map.get(key);
         if (value != null) {
             return Integer.parseInt(value.toString());

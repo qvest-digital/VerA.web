@@ -126,7 +126,7 @@ import java.util.Map;
 public class Octopus /*implements Serializable*/ {
     //XXX TODO: TcModuleLookup is not serialisable
     //XXX TODO: OctopusExtension is not serialisable
-    private static final long serialVersionUID = 8501961300295813799L;
+    private static final long serialVersionUID = -5977067121345721936L;
 
     /*
      * geschützte Member-Variablen

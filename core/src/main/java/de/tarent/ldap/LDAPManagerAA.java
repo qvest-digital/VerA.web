@@ -107,16 +107,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Diese Klasse
+ * LDAP-Objektklasse für AA-Rollen
  *
  * @author mikel
  */
 @Log4j2
 public class LDAPManagerAA extends LDAPManager {
-    //
-    // Konstanten
-    //
-    /** LDAP-Objektklasse fuer AA-Rollen */
     /**
      * Parameter-Schluessel fuer den AA-Rollen-Filter
      */

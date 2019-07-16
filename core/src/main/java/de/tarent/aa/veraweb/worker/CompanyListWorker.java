@@ -114,13 +114,10 @@ import de.tarent.octopus.server.OctopusContext;
 import java.io.IOException;
 
 /**
- * <p>
  * Diese Octopus-Worker-Klasse lädt eine Liste von Firmen,
  * diese werden in dem Popup zur Firmen-Auswahl angezeigt.
- * </p>
- * <p>
+ *
  * Details bitte dem {@link de.tarent.octopus.beans.BeanListWorker BeanListWorker} entnehmen.
- * </p>
  *
  * @author Christoph Jerolimov
  */
