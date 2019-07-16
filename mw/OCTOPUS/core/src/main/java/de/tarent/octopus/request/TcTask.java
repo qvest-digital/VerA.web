@@ -382,6 +382,7 @@ public class TcTask {
         private static Map<String, TypeMapValue> typemap = null;
 
         TypeMapValue(final String... types) {
+            logger.info("constructing TypeMapValue {} for types {}", this.name(), types);
             addMapping(this, types);
         }
 
@@ -392,6 +393,7 @@ public class TcTask {
             for (String type : types) {
                 typemap.put(type, that);
             }
+            logger.info("typemap now contains {}", typemap);
         }
 
         /**
