@@ -291,12 +291,10 @@ public class TcTask {
      * @return eine Liste mit Fehlermeldungen bezüglich der Kontrakterfüllung.
      */
     public List getContractErrors() {
-        logger.info("getting contract errors for {}, input {}, output {}", getName(), contractInput, contractOutput);
         List errors = new ArrayList();
         if (contractInput != null) {
             Map contractMap = partsListToMap(contractInput.getParts());
             TcMessageDefinition taskInput = rootNode.in(new TcMessageDefinition(), new TcMessageDefinition());
-            logger.info("taskInput for {} is {}", getName(), taskInput == null ? null : taskInput.getParts());
             if (taskInput == null) {
                 errors.add(Resources.getInstance().get("TASK_ERROR_UNKNOWN_TASK_INPUT", getName()));
             } else {
@@ -304,17 +302,12 @@ public class TcTask {
                     TcMessageDefinitionPart inPart = (TcMessageDefinitionPart) itIns.next();
                     TcMessageDefinitionPart conPart = (TcMessageDefinitionPart) contractMap.get(inPart.getName());
                     if (inPart.isOptional()) {
-                        logger.info("Task {} part {} optional type {} with contract type {}",
-                          getName(), inPart.getName(), inPart.getPartDataType(), conPart == null ? null : conPart.getPartDataType());
                     } else if (conPart == null) {
                         errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_INPUT",
                           getName(), inPart.getName(), inPart.getPartDataType()));
                     } else if (!isSubTypeOf(conPart.getPartDataType(), inPart.getPartDataType())) {
                         errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_INCOMPATIBLE_INPUT",
                           getName(), inPart.getName(), inPart.getPartDataType(), conPart.getPartDataType()));
-                    } else {
-                        logger.info("Task {} part {} compatible type {} with contract type {}",
-                          getName(), inPart.getName(), inPart.getPartDataType(), conPart.getPartDataType());
                     }
                 }
             }
@@ -339,7 +332,6 @@ public class TcTask {
                 }
             }
         }
-        logger.info("done for {}", getName());
         return errors;
     }
 
