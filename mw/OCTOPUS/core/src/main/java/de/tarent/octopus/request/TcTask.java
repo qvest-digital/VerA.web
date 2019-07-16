@@ -379,7 +379,7 @@ public class TcTask {
         // insert more here some day…
         STRING("xsd:string", "java.lang.String");
 
-        private static Map<String, TypeMapValue> typemap = null;
+        private static Map<String, TypeMapValue> typemap;
 
         TypeMapValue(final String... types) {
             logger.info("constructing TypeMapValue {} for types {}", this.name(), types);
