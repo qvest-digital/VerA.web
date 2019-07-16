@@ -379,18 +379,13 @@ public class TcTask {
         // insert more here some day…
         STRING("xsd:string", "java.lang.String");
 
-        private static Map<String, TypeMapValue> typemap;
-
-        TypeMapValue(final String... types) {
-            addMapping(this, types);
+        private static final class Helper {
+            static Map<String, TypeMapValue> typemap = new HashMap<>();
         }
 
-        private static void addMapping(final TypeMapValue that, final String... types) {
-            if (typemap == null) {
-                typemap = new HashMap<>();
-            }
+        TypeMapValue(final String... types) {
             for (String type : types) {
-                typemap.put(type, that);
+                Helper.typemap.put(type, this);
             }
         }
 
@@ -401,7 +396,7 @@ public class TcTask {
          * @return mapping or {@link TypeMapValue#UNKNOWN}
          */
         static TypeMapValue get(final String type) {
-            return typemap.getOrDefault(type, UNKNOWN);
+            return Helper.typemap.getOrDefault(type, UNKNOWN);
         }
     }
 
