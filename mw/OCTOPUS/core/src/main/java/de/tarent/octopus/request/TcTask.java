@@ -374,14 +374,51 @@ public class TcTask {
         return partsMap;
     }
 
+    private enum TypeMapValue {
+        UNKNOWN(),
+        // insert more here some day…
+        STRING("xsd:string", "java.lang.String");
+
+        private static Map<String, TypeMapValue> typemap = null;
+
+        TypeMapValue(final String... types) {
+            addMapping(this, types);
+        }
+
+        private static void addMapping(final TypeMapValue that, final String... types) {
+            if (typemap == null) {
+                typemap = new HashMap<>();
+            }
+            for (String type : types) {
+                typemap.put(type, that);
+            }
+        }
+
+        /**
+         * Retrieves type mapping for specified type string.
+         *
+         * @param type string
+         * @return mapping or {@link TypeMapValue#UNKNOWN}
+         */
+        static TypeMapValue get(final String type) {
+            return typemap.getOrDefault(type, UNKNOWN);
+        }
+    }
+
     /**
      * Diese Methode ermittelt, ob der erste Parameter einen Untertyp des
      * zweiten darstellt.
      */
-    protected boolean isSubTypeOf(String subType, String superType) {
+    private boolean isSubTypeOf(final String subType, final String superType) {
         // TODO: Implementierung des Vergleichs deutlich verbessern
         if (superType == null) {
             return true;
+        }
+        final TypeMapValue sub = TypeMapValue.get(subType);
+        final TypeMapValue sup = TypeMapValue.get(superType);
+        if (sub != TypeMapValue.UNKNOWN && sup != TypeMapValue.UNKNOWN) {
+            // for now; could be better…
+            return sub == sup;
         }
         return superType.equals(subType);
     }
