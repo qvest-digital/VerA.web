@@ -98,7 +98,6 @@ import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.aa.veraweb.utils.FileUploadUtils;
@@ -174,7 +173,6 @@ public class GuestDetailWorker extends GuestListWorker {
     @SuppressWarnings("unchecked")
     public void showDetail(OctopusContext octopusContext, Integer guestid, Integer offset)
       throws BeanException, IOException {
-
         Database database = getDatabase(octopusContext);
 
         Guest guest = getGuest(octopusContext, guestid, offset);
@@ -305,7 +303,6 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void updateGenericData(OctopusContext octopusContext, Database database, Map<String, Object> allRequestParams,
       Guest guest) {
-        setGuestRankType(octopusContext, database, guest);
         setGuestCategory(allRequestParams, guest);
         setGuestReserve(allRequestParams, guest);
         setGuestInvitationType(allRequestParams, guest);
@@ -722,33 +719,6 @@ public class GuestDetailWorker extends GuestListWorker {
             if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == EventConstants.STATUS_REFUSE) {
                 guest.orderno_b = null;
             }
-        }
-    }
-
-    private void setGuestRankType(OctopusContext octopusContext, Database database, Guest guest) {
-        final Map<String, Object> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
-        try {
-            // Der Rang der Kategorie wird aus den Stammdaten der Person gezogen,
-            // wenn Nutzer dies will und wenn kein Rang vorbelegt ist.
-            if (octopusContext.requestAsBoolean("fetchRankFromMasterData").booleanValue() && guest.rank == null) {
-                if (guest.person != null && guest.category != null) {
-                    final Select select = database.getSelect("PersonCategorie").where(
-                      Where.and(Expr.equal("fk_person", guest.person),
-                        Expr.equal("fk_categorie", guest.category)));
-                    select.orderBy(null); //im Bean.property steht ein Verweis auf andere Tabelle!
-
-                    final PersonCategorie perCat = (PersonCategorie) database.getBean("PersonCategorie", select);
-                    if (perCat != null) {
-                        guest.rank = perCat.rank;
-                    }
-                }
-            } else {
-                if (allRequestParams.get("guest-rank") != null && allRequestParams.get("guest-rank") != guest.rank) {
-                    guest.rank = Integer.parseInt(allRequestParams.get("guest-rank").toString());
-                }
-            }
-        } catch (Exception ex) {
-            logger.warn("Kann den Rang der Gast-Kategorie nicht aus dem Personenstamm laden", ex);
         }
     }
 

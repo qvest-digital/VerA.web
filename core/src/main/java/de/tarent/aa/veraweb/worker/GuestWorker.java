@@ -823,14 +823,11 @@ public class GuestWorker {
 
                 if (personCategorie != null) {
                     guest.category = personCategorie.categorie;
-                    guest.rank = personCategorie.rank;
                 } else {
                     guest.category = categoryId;
-                    guest.rank = null;
                 }
             } else {
                 guest.category = null;
-                guest.rank = null;
             }
         }
         guest.domestic_a = person.domestic_a_e1;
