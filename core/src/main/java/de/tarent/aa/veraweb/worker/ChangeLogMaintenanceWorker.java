@@ -118,8 +118,8 @@ public class ChangeLogMaintenanceWorker implements Runnable {
      * Actual worker thread
      */
     protected Thread thread;
-    protected boolean keeprunning = false;
-    protected boolean isworking = false;
+    protected volatile boolean keeprunning = false;
+    protected volatile boolean isworking = false;
     /**
      * Gibt die Wartezeit zwischen zwei Dispatch aufrufen an.
      */
@@ -188,6 +188,9 @@ public class ChangeLogMaintenanceWorker implements Runnable {
      * Stops the background service.
      */
     public void unload() {
+        if (thread == null) {
+            return;
+        }
         logger.debug("Worker wird gestoppt");
         keeprunning = false;
         thread.interrupt();
