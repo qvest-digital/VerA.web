@@ -93,18 +93,18 @@ package de.tarent.octopus.server;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.client.OctopusTask;
+import de.tarent.octopus.config.TcCommonConfig;
+import de.tarent.octopus.config.TcConfig;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.config.TcPersonalConfig;
+import de.tarent.octopus.content.TcContent;
+import de.tarent.octopus.request.TcRequest;
+
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import de.tarent.octopus.config.TcCommonConfig;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.config.TcConfig;
-import de.tarent.octopus.config.TcPersonalConfig;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.content.TcContent;
-import de.tarent.octopus.client.OctopusTask;
 
 /**
  * Kontext, in dem ein Worker im Octopus existiert.
@@ -114,17 +114,16 @@ import de.tarent.octopus.client.OctopusTask;
  * @version 1.0
  */
 public interface OctopusContext {
-
-    public static final String CONTENT_FIELD_PREFIX = "CONTENT:";
-    public static final String REQUEST_FIELD_PREFIX = "REQUEST:";
-    public static final String SESSION_FIELD_PREFIX = "SESSION:";
-    public static final String CONFIG_FIELD_PREFIX = "CONFIG:";
+    String CONTENT_FIELD_PREFIX = "CONTENT:";
+    String REQUEST_FIELD_PREFIX = "REQUEST:";
+    String SESSION_FIELD_PREFIX = "SESSION:";
+    String CONFIG_FIELD_PREFIX = "CONFIG:";
 
     /**
      * Key for a list of objects to clean up after the execution of a task.
      * The objects in this list have be of the type Runnable or Cleanable.
      */
-    public static final String CLEANUP_OBJECT_LIST = "octopus.cleanup.objects";
+    String CLEANUP_OBJECT_LIST = "octopus.cleanup.objects";
 
     /**
      * Liefert den Inhalt eines Feldes aus einem der Contextbereiche Request, Content, Session oder Config
@@ -132,20 +131,20 @@ public interface OctopusContext {
      * REQUEST:username z.B liefert den Parameter username aus dem Request.
      * Kein Prefix bedeutet: Suche in Content, Request, Session
      */
-    public Object getContextField(String contextFieldName);
+    Object getContextField(String contextFieldName);
 
     /**
      * Setzt ein Feld in einem der Contextbereiche Content, Session, abhängig vom Verwendeten Prefix des fieldNames.
      * Ohne Prefix wird das Feld im Content gesetzt.
      * Das Setzen von Feldern im Request und in der Config ist verboten.
      */
-    public void setContextField(String fieldName, Object value);
+    void setContextField(String fieldName, Object value);
 
-    public TcContent getContentObject();
+    TcContent getContentObject();
 
-    public TcConfig getConfigObject();
+    TcConfig getConfigObject();
 
-    public TcRequest getRequestObject();
+    TcRequest getRequestObject();
 
     /**
      * Returns an OctopusTask instance to the supplied task in the current module over the OctopusClient API.
@@ -155,95 +154,95 @@ public interface OctopusContext {
      * @param taskName The name of the target task in this module
      * @return A callable task for the target task in the current module
      */
-    public OctopusTask getTask(String taskName);
+    OctopusTask getTask(String taskName);
 
     /**
      * Adds the supplied object to the List of Cleanup-Objects in the Content.
      * After the processing of the request, the octopus will call the close() method for each of these objects.
      * This will be done even if the request processing will throw an exception.
      */
-    public void addCleanupCode(Closeable closeable);
+    void addCleanupCode(Closeable closeable);
 
     /**
      * Adds the supplied object to the List of Cleanup-Objects in the Content.
      * After the processing of the request, the octopus will call the run() method for each of these objects.
      * This will be done even if the request processing will throw an exception.
      */
-    public void addCleanupCode(Runnable runnable);
+    void addCleanupCode(Runnable runnable);
 
     //===>  C O N T E N T  <===//
 
-    public boolean contentContains(String key);
+    boolean contentContains(String key);
 
-    public Iterator contentKeys();
+    Iterator contentKeys();
 
-    public String contentAsString(String key);
+    String contentAsString(String key);
 
-    public Object contentAsObject(String key);
+    Object contentAsObject(String key);
 
-    public void setContent(String key, Integer value);
+    void setContent(String key, Integer value);
 
-    public void setContent(String key, List value);
+    void setContent(String key, List value);
 
-    public void setContent(String key, Map value);
+    void setContent(String key, Map value);
 
-    public void setContent(String key, String value);
+    void setContent(String key, String value);
 
-    public void setContent(String key, Object value);
+    void setContent(String key, Object value);
 
-    public void setContentError(Exception e);
+    void setContentError(Exception e);
 
-    public void setContentError(String message);
+    void setContentError(String message);
 
-    public void setContentStatus(String status);
+    void setContentStatus(String status);
 
     //===>  R E Q U E S T  <===//
 
-    public int requestType();
+    int requestType();
 
-    public String requestTypeName();
+    String requestTypeName();
 
-    public boolean requestContains(String key);
+    boolean requestContains(String key);
 
-    public Object requestAsObject(String key);
+    Object requestAsObject(String key);
 
-    public String requestAsString(String key);
+    String requestAsString(String key);
 
-    public Integer requestAsInteger(String key);
+    Integer requestAsInteger(String key);
 
-    public Boolean requestAsBoolean(String key);
+    Boolean requestAsBoolean(String key);
 
     //===>  C O N F I G  <===//
 
-    public TcCommonConfig commonConfig();
+    TcCommonConfig commonConfig();
 
-    public TcPersonalConfig personalConfig();
+    TcPersonalConfig personalConfig();
 
-    public TcModuleConfig moduleConfig();
+    TcModuleConfig moduleConfig();
 
-    public File moduleRootPath();
+    File moduleRootPath();
 
-    public String getModuleName();
+    String getModuleName();
 
-    public String getTaskName();
+    String getTaskName();
 
     //===>  S E S S I O N  <===//
 
-    public Object sessionAsObject(String key);
+    Object sessionAsObject(String key);
 
-    public String sessionAsString(String key);
+    String sessionAsString(String key);
 
-    public void setSession(String key, Object value);
+    void setSession(String key, Object value);
 
     //===>  S T A T U S  <===//
 
-    public void setStatus(String status);
+    void setStatus(String status);
 
-    public String getStatus();
+    String getStatus();
 
-    public void setError(Exception e);
+    void setError(Exception e);
 
-    public void setError(String message);
+    void setError(String message);
 
     //===>  C L O N E  <===//
 
@@ -252,7 +251,7 @@ public interface OctopusContext {
      *
      * @see #cloneContext(boolean, boolean)
      */
-    public OctopusContext cloneContext();
+    OctopusContext cloneContext();
 
     /**
      * Return a new octopus context. If the parameter <code>newRequest</code>
@@ -261,10 +260,6 @@ public interface OctopusContext {
      * If the parameter <code>newContent</code> is <code>true</code> a new
      * empty content will be created. Otherwise the current {@link TcContent}
      * will be used.
-     *
-     * @param newRequest
-     * @param newContent
-     * @return ?
      */
-    public OctopusContext cloneContext(boolean newRequest, boolean newContent);
+    OctopusContext cloneContext(boolean newRequest, boolean newContent);
 }
