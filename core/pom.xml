@@ -26,10 +26,6 @@
 			<artifactId>jakarta.activation</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 		</dependency>
@@ -117,6 +113,14 @@
 			<artifactId>javax.el</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
@@ -147,7 +151,6 @@
 			<groupId>xmlrpc</groupId>
 			<artifactId>xmlrpc</artifactId>
 		</dependency>
-
 	</dependencies>
 	<profiles>
 		<profile>
