@@ -81,7 +81,10 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 
 #parse("inc/header.vm")
+<a id="back-to-top"><i class="up"></i></a>
 
+<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/back-to-top.css" media="all" />
+<script src="${paths.staticWeb}js/vera/veraweb-back-to-top.js"></script>
 #if($saveSuccess)
     <vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
 #end
