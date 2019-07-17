@@ -190,29 +190,10 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
     public String domestic_b;
     public String image_uuid_p;
 
-    public String getImage_uuid() {
-        return image_uuid;
-    }
-
-    public void setImage_uuid(String image_uuid) {
-        this.image_uuid = image_uuid;
-    }
-
-    public String getLogin_required_uuid() {
-        return login_required_uuid;
-    }
-
-    public void setLogin_required_uuid(String login_required_uuid) {
-        this.login_required_uuid = login_required_uuid;
-    }
-
-    // UUID to allow registration to events without login
-    public String login_required_uuid;
-
     @Override
-    public void verify() throws BeanException {
+    public void verify() {
         if (ishost == null) {
-            ishost = new Integer(0);
+            ishost = 0;
         }
     }
 
