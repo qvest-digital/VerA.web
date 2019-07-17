@@ -96,14 +96,14 @@ package de.tarent.aa.veraweb.utils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import lombok.extern.log4j.Log4j2;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
 /**
  * Created by csalib on 29.09.15.
@@ -127,8 +127,9 @@ public class VworUtils {
     private Client client;
 
     public VworUtils() {
-        client = Client.create();
-        client.addFilter(getAuthorization());
+        ClientConfig clientConfig = new ClientConfig();
+        clientConfig.register(getAuthorization());
+        client = ClientBuilder.newClient(clientConfig);
     }
 
     /**
@@ -143,8 +144,8 @@ public class VworUtils {
         return endpoint;
     }
 
-    public HTTPBasicAuthFilter getAuthorization() {
-        return new HTTPBasicAuthFilter(getVworAuthUsername(), getVworAuthPassword());
+    public HttpAuthenticationFeature getAuthorization() {
+        return HttpAuthenticationFeature.basic(getVworAuthUsername(), getVworAuthPassword());
     }
 
     private String getVworAuthUsername() {
@@ -190,19 +191,8 @@ public class VworUtils {
      * @return String from the Vwor component
      */
     public String readResource(String path) {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            return resource.get(String.class);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-                resource = client.resource(path);
-                return resource.get(String.class);
-            } else {
-                throw che;
-            }
-        }
+        WebTarget resource = client.target(path);
+        return resource.request().get(String.class);
     }
 
     /**
