@@ -134,7 +134,7 @@ import java.util.Map;
  */
 @Log4j2
 public class OctopusServlet extends HttpServlet {
-    private static final long serialVersionUID = 35776100380066984L;
+    private static final long serialVersionUID = -2227782863951430608L;
 
     private static Octopus octopus = null;
     private static TcEnv env;
