@@ -129,8 +129,8 @@
 		<javax.persistence.version>2.2</javax.persistence.version>
 		<jaxb-api.version>2.3.2</jaxb-api.version>
 		<jaxb-impl.version>2.3.2</jaxb-impl.version>
-		<jersey1.version>1.19.4</jersey1.version>
 		<jersey2.version>2.27</jersey2.version>
+		<jersey2.client.version>2.5.1</jersey2.client.version>
 		<jodatime.version>2.10</jodatime.version>
 		<json.version>0.0.20131108.vaadin1</json.version>
 		<jsr305.version>3.0.2</jsr305.version>

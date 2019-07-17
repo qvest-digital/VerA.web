@@ -94,10 +94,6 @@ package de.tarent.aa.veraweb.worker;
  */
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.representation.Form;
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
@@ -127,7 +123,15 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
 import lombok.extern.log4j.Log4j2;
 import org.evolvis.veraweb.common.RestPaths;
+import org.glassfish.jersey.client.ClientConfig;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -338,15 +342,7 @@ public class GuestDetailWorker extends GuestListWorker {
         };
         final VworUtils vworUtils = new VworUtils();
         final String URI = vworUtils.path(RestPaths.REST_FILEUPLOAD, RestPaths.REST_FILEUPLOAD_DOWNLOAD, imageUUID);
-        try {
-            return vworUtils.readResource(URI, stringType);
-        } catch (UniformInterfaceException e) {
-            int statusCode = e.getResponse().getStatus();
-            if (statusCode == 204) {
-                return null;
-            }
-            return null;
-        }
+        return vworUtils.readResource(URI, stringType);
     }
 
     private void setGuestContentForOctopusContext(OctopusContext octopusContext, Integer freitextfeld)
@@ -608,17 +604,20 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void sendImageToVwor(String extension, String imageData, String imageUUID) throws IOException {
         final VworUtils vworUtils = new VworUtils();
-        final Client client = Client.create();
-        client.addFilter(vworUtils.getAuthorization());
+        final Client client;
+        ClientConfig clientConfig = new ClientConfig();
+        clientConfig.register(vworUtils.getAuthorization());
+        client = ClientBuilder.newClient(clientConfig);
 
-        final WebResource resource = client.resource(vworUtils.path(RestPaths.REST_FILEUPLOAD, RestPaths.REST_FILEUPLOAD_SAVE));
+        WebTarget resource = client.target(vworUtils.path(RestPaths.REST_FILEUPLOAD, RestPaths.REST_FILEUPLOAD_SAVE));
+
         final Form postBody = new Form();
 
-        postBody.add("imageUUID", imageUUID);
-        postBody.add("imageStringData", imageData);
-        postBody.add("extension", extension);
+        postBody.param("imageUUID", imageUUID);
+        postBody.param("imageStringData", imageData);
+        postBody.param("extension", extension);
 
-        resource.post(postBody);
+        resource.request().post(Entity.form(postBody));
     }
 
     private String getBase64Image(Map<String, Object> allRequestParams, String imageKey) {
