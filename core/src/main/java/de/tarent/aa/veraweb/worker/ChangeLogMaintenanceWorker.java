@@ -128,11 +128,6 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 
     protected Duration retentionPolicy;
 
-    /**
-     * Octopus-Eingabe-Parameter für {@link #load(OctopusContext)}
-     */
-    public static final String INPUT_load[] = {};
-
     private Duration getConfiguration() {
         Duration result = Duration.fromString("P1Y");
 
@@ -146,6 +141,11 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 
         return result;
     }
+
+    /**
+     * Octopus-Eingabe-Parameter für {@link #load(OctopusContext)}
+     */
+    public static final String INPUT_load[] = {};
 
     /**
      * Starts the background maintenance service.
