@@ -150,10 +150,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
      */
     public Integer ishost;
     /**
-     * Akkretierungsdatum
-     */
-    public Timestamp diplodate;
-    /**
      * Reserve
      */
     public Boolean reserve;
