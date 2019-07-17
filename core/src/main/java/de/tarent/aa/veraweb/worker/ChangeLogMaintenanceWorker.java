@@ -190,6 +190,7 @@ public class ChangeLogMaintenanceWorker implements Runnable {
     public void unload() {
         logger.debug("Worker wird gestoppt");
         keeprunning = false;
+        thread.interrupt();
     }
 
     /**
