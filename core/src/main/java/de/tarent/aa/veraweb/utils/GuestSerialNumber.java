@@ -93,12 +93,10 @@ package de.tarent.aa.veraweb.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
@@ -223,118 +221,6 @@ public class GuestSerialNumber {
     /**
      * Berechnet die 'Laufende Nummer' einer Gästeliste nach folgendem Schema:
      * <ul>
-     * <li>Sortiert Gäste mit Rang ein.</li>
-     * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
-     * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
-     * </ul>
-     */
-    static public class CalcSerialNumberImpl2 extends CalcSerialNumber {
-        /**
-         * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der späteren Berechnung laufender Gästenummern.
-         *
-         * @param context FIXME
-         * @param event   FIXME
-         */
-        public CalcSerialNumberImpl2(ExecutionContext context, Event event) {
-            super(context, event);
-        }
-
-        /**
-         * Diese Methode berechnet die tatsächlichen laufenden Nummern der
-         * Gäste der im Konstruktor übergebenen Veranstaltung in der ebenda
-         * übergebenen Datenbank nach folgendem Schema:
-         * <ul>
-         * <li>Sortiert Gäste mit Rang ein.</li>
-         * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
-         * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
-         * </ul>
-         */
-        @Override
-        public void calcSerialNumber() throws BeanException, IOException {
-            clearSerialNumber();
-            calcSerialNumberForGuestRank();
-
-            Select select = SQL.Select(executionContext).
-              from("veraweb.tcategorie").
-              selectAs("pk", "id").
-              selectAs("flags", "flag").
-              orderBy(Order.asc("rank").andAsc("catname"));
-            for (Iterator it = executionContext.getDatabase().getList(select, executionContext).iterator(); it.hasNext(); ) {
-                Map map = (Map) it.next();
-                if (((Integer) map.get("flag")).intValue() == Categorie.FLAG_DIPLO_CORPS) {
-                    calcSerialNumberForDiploCorp((Integer) map.get("id"));
-                } else {
-                    calcSerialNumberForCategorie((Integer) map.get("id"));
-                }
-            }
-
-            calcSerialNumberForGuestName();
-        }
-
-        protected void calcSerialNumberForGuestRank() throws BeanException, IOException {
-            WhereList where = getGuestSerialNumberWhere(event);
-            where.addAnd(Expr.isNotNull("tguest.rank"));
-
-            Select select = getSelect();
-            select.where(where);
-            select.orderBy(Order.asc("tguest.rank").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-
-            setSerialNumber(select);
-        }
-
-        protected void calcSerialNumberForGuestName() throws BeanException, IOException {
-            WhereList where = getGuestSerialNumberWhere(event);
-
-            Select select = getSelect();
-            select.where(where);
-            select.orderBy(Order.asc("lastname_a_e1").andAsc("firstname_a_e1"));
-
-            setSerialNumber(select);
-        }
-
-        protected void calcSerialNumberForCategorie(Integer categorieId) throws BeanException, IOException {
-            WhereList where = getGuestSerialNumberWhere(event);
-            where.addAnd(Expr.equal("tperson_categorie.fk_categorie", categorieId));
-
-            Select select = getSelect();
-            select.join("veraweb.tperson_categorie", "tperson_categorie.fk_person", "tguest.fk_person");
-            select.where(where);
-            select.orderBy(Order.asc("tperson_categorie.rank").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-
-            setSerialNumber(select);
-        }
-
-        protected void calcSerialNumberForDiploCorp(Integer categorieId) throws BeanException, IOException {
-            WhereList where = getGuestSerialNumberWhere(event);
-            where.addAnd(Expr.equal("tperson_categorie.fk_categorie", categorieId));
-
-            Select select = getSelect();
-            select.join("veraweb.tperson_categorie", "tperson_categorie.fk_person", "tguest.fk_person");
-            select.where(where);
-            select.orderBy(Order.asc("tperson.diplodate").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-
-            setSerialNumber(select);
-        }
-
-        /**
-         * @param event Event
-         * @return Where-Liste mit Einschränkung auf die übergebene Veranstaltung
-         * und nur nocht nicht einsortierte Gäste.
-         */
-        private WhereList getGuestSerialNumberWhere(Event event) {
-            WhereList where = new WhereList();
-            where.addAnd(Expr.equal("tguest.fk_event", event.id));
-            where.addAnd(Expr.equal("ishost", new Integer(0)));
-            where.addAnd(Expr.isNull("orderno"));
-            where.addAnd(Expr.isNull("orderno_p"));
-            return where;
-        }
-    }
-
-    /**
-     * Berechnet die 'Laufende Nummer' einer Gästeliste nach folgendem Schema:
-     * <ul>
      * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
      * <li>Sortiert Gäste mit Rang ein.</li>
      * <li>Sortiert Gäste nach Akkreditierungsdatum ein.</li>
@@ -392,7 +278,6 @@ public class GuestSerialNumber {
             order.add("tcategorie.rank");
             order.add("tcategorie.catname");
             order.add("tcategorie.pk");
-            order.add("tguest.rank");
             order.add("diplodate");
             order.add("lastname_a_e1");
             order.add("firstname_a_e1");

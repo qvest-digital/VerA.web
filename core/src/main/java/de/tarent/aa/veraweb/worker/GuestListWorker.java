@@ -337,7 +337,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         if (search == null || search.listorder == null) {
             order.add("someorderno");
             order.add("tcategorie.rank");
-            order.add("tguest.rank");
             order.add("lastname_a_e1");
             order.add("firstname_a_e1");
         } else if (search.listorder.equals("orderno")) {

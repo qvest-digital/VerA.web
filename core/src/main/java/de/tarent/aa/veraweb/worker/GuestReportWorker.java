@@ -353,8 +353,6 @@ public class GuestReportWorker {
         } else if (sort.equals("category")) {
             order.add("tcategorie.rank");
             order.add("tcategorie.catname");
-        } else if (sort.equals("rank")) {
-            order.add("tguest.rank");
         } else if (sort.equals("table")) {
             order.add("tguest.tableno");
         } else if (sort.equals("workareaname")) {
