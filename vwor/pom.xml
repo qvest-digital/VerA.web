@@ -198,6 +198,7 @@
 							<usedDependencies>
 								<!-- must be in the classpath -->
 								<usedDependency>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider</usedDependency>
+								<usedDependency>org.apache.logging.log4j:log4j-web</usedDependency>
 								<usedDependency>org.glassfish.jersey.containers:jersey-container-servlet</usedDependency>
 								<usedDependency>org.glassfish.jersey.inject:jersey-hk2</usedDependency>
 								<usedDependency>org.glassfish.jersey.media:jersey-media-json-jackson</usedDependency>
