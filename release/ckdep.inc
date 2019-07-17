@@ -6,6 +6,5 @@ github::fyneworks/multifile 2.2.2 compile ok
 github::jquery-form/form 3.51 compile ok
 github::jquery/jquery 1.10.1 compile ok
 github::jquery/sizzle 1.10.1 compile ok
-github::tomsime/Scroll-to-Top 1.0.4 compile ok
 github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok

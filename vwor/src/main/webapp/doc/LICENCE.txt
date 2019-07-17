@@ -103,7 +103,6 @@ Summary of individual licences used, including all dependencies:
 • Apache v2
 • Creative Commons CC-BY 3.0 (unported)
 • GNU GPLv2 or later
-• GNU GPLv3 or later
 • GNU LGPLv2.1 or later
 • MirOS
 • MIT
@@ -113,10 +112,8 @@ Some dependencies are also marked as being in the Public Domain.
 
 The texts of the bigger licences can be found in separate files in the
 current directory. The complete corresponding source code for VerA.web
-core, to satisfy the conditions imposed by the web frontend part of it
-being GPLv3+ effectively, can be found in src.tgz in this directory in
-the core application via the webbrowser, or in its WAR file, in a for‐
-mal VerA.web released version.
+can be found in src.tgz in this directory in the core application (via
+the webbrowser), or in its WAR file, in a released VerA.web version.
 
 ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
@@ -299,9 +296,6 @@ veraweb-rest-api/src/test/resources/imageData.txt is the same file.
 
 Some scripts in the web frontend were written for tarent-activity originally.
 
-The “net licence” of the web frontend is GPLv3+ (due to jQuery-goTop), with
-individual components under MIT, 3-clause BSD, LGPLv2.1+, OFLv1.1 (font).
-
 ┌──┤ Bacon.js (MIT) ├──────────────────────────────────────────────────────┐
 │                                                                          │
 │ Copyright (c) 2014 Juha Paananen                                         │
@@ -474,6 +468,7 @@ individual components under MIT, 3-clause BSD, LGPLv2.1+, OFLv1.1 (font).
 │ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       │
 │ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
 └──────────────────────────────────────────────────────────────────────────┘
+We use the copylefted part under LGPLv2.1+.
 
 ┌──┤ jscalendar “The DHTML Calendar” (LGPLv2.1+) ├─────────────────────────┐
 │                                                                          │
@@ -520,31 +515,6 @@ individual components under MIT, 3-clause BSD, LGPLv2.1+, OFLv1.1 (font).
 │ Dual licensed under the MIT and GPL licenses.                            │
 └──────────────────────────────────────────────────────────────────────────┘
 The current version is LGPLv2.1+/MIT but we use it under MIT.
-
-┌──┤ jQuery gotop plugin (GPLv3+) ├────────────────────────────────────────┐
-│                                                                          │
-│ jQuery Plugin to show up the button which scroll the page up to top.     │
-│ @author      Tommaso Simeone                                             │
-│ @link https://github.com/tomaggio83/Scroll-to-Top                        │
-│ @version 1.0.4                                                           │
-│                                                                          │
-│ This program is free software: you can redistribute it and/or modify     │
-│ it under the terms of the GNU General Public License as published by     │
-│ the Free Software Foundation, either version 3 of the License, or        │
-│ (at your option) any later version.                                      │
-│                                                                          │
-│ THIS SOFTWARE AND DOCUMENTATION IS PROVIDED "AS IS," AND COPYRIGHT       │
-│ HOLDERS MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED,       │
-│ INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR           │
-│ FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE       │
-│ OR DOCUMENTATION WILL NOT INFRINGE ANY THIRD PARTY PATENTS,              │
-│ COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.COPYRIGHT HOLDERS WILL NOT        │
-│ BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQUENTIAL             │
-│ DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENTATION.         │
-│                                                                          │
-│ You should have received a copy of the GNU General Public License        │
-│ along with this program. If not, see <http://gnu.org/licenses/>.         │
-└──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ jQuery Multiple File Selection Plugin (MIT) ├─────────────────────────┐
 │                                                                          │
