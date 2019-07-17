@@ -36,7 +36,7 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #parse("inc/header.vm")
 
-#if($person && $orgUnit && $person.orgunit != $orgUnit.id)
+#if($person && $orgUnit && $person.orgunit && $person.orgunit != $orgUnit.id)
     <div class="msg errormsg"><span>
         ${placeholderWithTranslation.eswurdenkeinedatengefunden}<br>
     </span></div>
