@@ -10,3 +10,7 @@
   ‣ ansibel docker plugin is also deprecated…
 • Bacon.js entfernen [VERA-635]
 • dependency-check report
+
+dup-check:
+↓ com.sun.activation:jakarta.activation 1.2.1 compile
+↑ javax.activation:javax.activation-api 1.2.0 compile
