@@ -14,3 +14,5 @@
 dup-check:
 ↓ com.sun.activation:jakarta.activation 1.2.1 compile
 ↑ javax.activation:javax.activation-api 1.2.0 compile
+→ jakarta.activation:jakarta.activation-api 1.2.1
+⇒ commit 441a8a2721e205da84cf6c0c0e1c8b0299292dba
