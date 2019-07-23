@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<!-- mvn -B dependency:tree -Dverbose | less # quick dependency tree -->
+	<!-- mvn -B dependency:tree | less # quick dependency tree -->
 	<!--
 		Maven profiles:
 		• latex: build the Tₑχ/LᴬTᴇΧ documentation
@@ -613,6 +613,10 @@
 						<groupId>javax.activation</groupId>
 						<artifactId>activation</artifactId>
 					</exclusion>
+					<exclusion>
+						<groupId>javax.activation</groupId>
+						<artifactId>javax.activation-api</artifactId>
+					</exclusion>
 				</exclusions>
 			</dependency>
 			<dependency>
@@ -857,6 +861,10 @@
 					<exclusion>
 						<groupId>javax.activation</groupId>
 						<artifactId>activation</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.activation</groupId>
+						<artifactId>javax.activation-api</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>
