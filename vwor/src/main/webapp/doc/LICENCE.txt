@@ -103,10 +103,12 @@ Summary of individual licences used, including all dependencies:
 • Apache v1.1
 • Apache v2
 • CDDLv1.0
+• CDDLv1.1
 • CPLv1.0
 • Creative Commons CC-BY 3.0 (unported)
 • EPLv1.0
 • EPLv2.0
+• GNU GPLv2 (only) with Classpath exception
 • GNU GPLv2 or later
 • GNU LGPLv2.1 or later
 • MirOS
@@ -1031,6 +1033,41 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
 └──────────────────────────────────────────────────────────────────────────┘
 
+┌──┤ Glassfish HK2 (EPLv2.0, secondary GPLv2+Classpath; Apache 2) ├────────┐
+│                                                                          │
+│ Copyright (c) 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015,            │
+│     2016, 2017, 2018 Oracle and/or its affiliates.                       │
+│ All rights reserved.                                                     │
+│                                                                          │
+│ This program and the accompanying materials are made available under the │
+│ terms of the Eclipse Public License v. 2.0, which is available at        │
+│ http://www.eclipse.org/legal/epl-2.0.                                    │
+│                                                                          │
+│ This Source Code may also be made available under the following          │
+│ Secondary Licenses when the conditions for such availability set forth   │
+│ in the Eclipse Public License v. 2.0 are satisfied: GNU General Public   │
+│ License, version 2 with the GNU Classpath Exception, which is available  │
+│ at https://www.gnu.org/software/classpath/license.html.                  │
+│                                                                          │
+│ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 │
+│                                                                          │
+│ The embedded repackaged jakarta.inject is additionally:                  │
+│                                                                          │
+│ Copyright (C) 2009 The JSR-330 Expert Group                              │
+│                                                                          │
+│ Licensed under the Apache License, Version 2.0 (the "License");          │
+│ you may not use this file except in compliance with the License.         │
+│ You may obtain a copy of the License at                                  │
+│                                                                          │
+│      http://www.apache.org/licenses/LICENSE-2.0                          │
+│                                                                          │
+│ Unless required by applicable law or agreed to in writing, software      │
+│ distributed under the License is distributed on an "AS IS" BASIS,        │
+│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
+│ See the License for the specific language governing permissions and      │
+│ limitations under the License.                                           │
+└──────────────────────────────────────────────────────────────────────────┘
+
 ┌──┤ Jackson (Apache 2) ├──────────────────────────────────────────────────┐
 │                                                                          │
 │ This copy of Jackson JSON processor streaming parser/generator,          │
@@ -1325,6 +1362,64 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ re-export of encryption software, to see if this is permitted.           │
 └──────────────────────────────────────────────────────────────────────────┘
 
+┌──┤ javax.el (CDDLv1.0 or GPLv2 with Classpath exception) ├───────────────┐
+│                                                                          │
+│ Copyright (c) 1997-2013 Oracle and/or its affiliates.                    │
+│ All rights reserved.                                                     │
+│                                                                          │
+│ The contents of this file are subject to the terms of either the GNU     │
+│ General Public License Version 2 only ("GPL") or the Common Development  │
+│ and Distribution License("CDDL") (collectively, the "License").  You     │
+│ may not use this file except in compliance with the License.  You can    │
+│ obtain a copy of the License at                                          │
+│ https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html                  │
+│ or packager/legal/LICENSE.txt.  See the License for the specific         │
+│ language governing permissions and limitations under the License.        │
+│                                                                          │
+│ When distributing the software, include this License Header Notice in    │
+│ each file and include the License file at packager/legal/LICENSE.txt.    │
+│                                                                          │
+│ GPL Classpath Exception:                                                 │
+│ Oracle designates this particular file as subject to the "Classpath"     │
+│ exception as provided by Oracle in the GPL Version 2 section of the      │
+│ License file that accompanied this code.                                 │
+│                                                                          │
+│ Modifications:                                                           │
+│ If applicable, add the following below the License Header, with the      │
+│ fields enclosed by brackets [] replaced by your own identifying          │
+│ information: "Portions Copyright [year] [name of copyright owner]"       │
+│                                                                          │
+│ Contributor(s):                                                          │
+│ If you wish your version of this file to be governed by only the CDDL or │
+│ only the GPL Version 2, indicate your decision by adding "[Contributor]  │
+│ elects to include this software in this distribution under the [CDDL or  │
+│ GPL Version 2] license." If you don't indicate a single choice of        │
+│ license, a recipient has the option to distribute your version of this   │
+│ file under either the CDDL, the GPL Version 2 or to extend the choice of │
+│ license to its licensees as provided above. However, if you add GPL      │
+│ Version 2 code and therefore, elected the GPL Version 2 license, then    │
+│ the option applies only if the new code is made subject to such option   │
+│ by the copyright holder.                                                 │
+│                                                                          │
+│                                                                          │
+│ This file incorporates work covered by the following copyright and       │
+│ permission notice:                                                       │
+│                                                                          │
+│ Copyright 2004 The Apache Software Foundation                            │
+│                                                                          │
+│ Licensed under the Apache License, Version 2.0 (the "License");          │
+│ you may not use this file except in compliance with the License.         │
+│ You may obtain a copy of the License at                                  │
+│                                                                          │
+│     http://www.apache.org/licenses/LICENSE-2.0                           │
+│                                                                          │
+│ Unless required by applicable law or agreed to in writing, software      │
+│ distributed under the License is distributed on an "AS IS" BASIS,        │
+│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
+│ See the License for the specific language governing permissions and      │
+│ limitations under the License.                                           │
+└──────────────────────────────────────────────────────────────────────────┘
+
 ┌──┤ javax.mail (CDDLv1.0 or GPLv2 with Classpath exception) ├─────────────┐
 │                                                                          │
 │ Copyright (c) 1997-2013 Oracle and/or its affiliates.                    │
@@ -1458,6 +1553,148 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
 │ See the License for the specific language governing permissions and      │
 │ limitations under the License.                                           │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ Jersey (EPLv2.0/sec.GPLv2+Classpath; Ap.2; BSD; CC0; MIT; PD; W3C) ├──┐
+│                                                                          │
+│ # Notice for Jersey                                                      │
+│ This content is produced and maintained by the Eclipse Jersey project.   │
+│                                                                          │
+│ *  Project home: https://projects.eclipse.org/projects/ee4j.jersey       │
+│                                                                          │
+│ # Notice for Jersey Core Common module                                   │
+│ This content is produced and maintained by the Eclipse Jersey project.   │
+│                                                                          │
+│ * https://projects.eclipse.org/projects/ee4j.jersey                      │
+│                                                                          │
+│ # Notice for Jersey Core Server module                                   │
+│ This content is produced and maintained by the Eclipse Jersey project.   │
+│                                                                          │
+│ * https://projects.eclipse.org/projects/ee4j.jersey                      │
+│                                                                          │
+│ ## Trademarks                                                            │
+│ Eclipse Jersey is a trademark of the Eclipse Foundation.                 │
+│                                                                          │
+│ ## Copyright                                                             │
+│                                                                          │
+│ All content is the property of the respective authors or their           │
+│ employers. For more information regarding authorship of content, please  │
+│ consult the listed source code repository logs.                          │
+│                                                                          │
+│ ## Declared Project Licenses                                             │
+│                                                                          │
+│ This program and the accompanying materials are made available under the │
+│ terms of the Eclipse Public License v. 2.0 which is available at         │
+│ http://www.eclipse.org/legal/epl-2.0. This Source Code may also be made  │
+│ available under the following Secondary Licenses when the conditions for │
+│ such availability set forth in the Eclipse Public License v. 2.0 are     │
+│ satisfied: GNU General Public License, version 2 with the GNU Classpath  │
+│ Exception which is available at                                          │
+│ https://www.gnu.org/software/classpath/license.html.                     │
+│                                                                          │
+│ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 │
+│                                                                          │
+│ ## Source Code                                                           │
+│ The project maintains the following source code repositories:            │
+│                                                                          │
+│ * https://github.com/eclipse-ee4j/jersey                                 │
+│                                                                          │
+│ ## Third-party Content                                                   │
+│                                                                          │
+│ Angular JS, v1.6.6                                                       │
+│ * License MIT (http://www.opensource.org/licenses/mit-license.php)       │
+│ * Project: http://angularjs.org                                          │
+│ * Coyright: (c) 2010-2017 Google, Inc.                                   │
+│                                                                          │
+│ aopalliance Version 1                                                    │
+│ * License: all the source code provided by AOP Alliance is Public Domain.│
+│ * Project: http://aopalliance.sourceforge.net                            │
+│ * Copyright: Material in the public domain is not protected by copyright │
+│                                                                          │
+│ Bean Validation API 1.1.0.Final                                          │
+│ * License: Apache License, 2.0                                           │
+│ * Project: http://beanvalidation.org/1.1/                                │
+│ * Copyright: 2009, Red Hat, Inc. and/or its affiliates, and individual   │
+│   contributors by the @authors tag.                                      │
+│                                                                          │
+│ Bootstrap v3.3.7                                                         │
+│ * License: MIT license                                                   │
+│   (https://github.com/twbs/bootstrap/blob/master/LICENSE)                │
+│ * Project: http://getbootstrap.com                                       │
+│ * Copyright: 2011-2016 Twitter, Inc                                      │
+│                                                                          │
+│ CDI API Version 1.1                                                      │
+│ * License: Apache License, 2.0                                           │
+│ * Project: http://www.seamframework.org/Weld                             │
+│ * Copyright 2010, Red Hat, Inc., and                                     │
+│   individual contributors by the @authors tag.                           │
+│                                                                          │
+│ Google Guava Version 18.0                                                │
+│ * License: Apache License, 2.0                                           │
+│ * Copyright (C) 2009 The Guava Authors                                   │
+│                                                                          │
+│ javax.inject Version: 1                                                  │
+│ * License: Apache License, 2.0                                           │
+│ * Copyright (C) 2009 The JSR-330 Expert Group                            │
+│                                                                          │
+│ Javassist Version 3.22.0-CR2                                             │
+│ * License: Apache License, 2.0                                           │
+│ * Project: http://www.javassist.org/                                     │
+│ * Copyright (C) 1999- Shigeru Chiba. All Rights Reserved.                │
+│                                                                          │
+│ Jackson JAX-RS Providers Version 2.8.10                                  │
+│ * License: Apache License, 2.0                                           │
+│ * Project: https://github.com/FasterXML/jackson-jaxrs-providers          │
+│ * Copyright: (c) 2009-2011 FasterXML, LLC.                               │
+│   All rights reserved unless otherwise indicated.                        │
+│                                                                          │
+│ jQuery v1.12.4                                                           │
+│ * License: jquery.org/license (MIT)                                      │
+│ * Project: jquery.org                                                    │
+│ * Copyright: (c) jQuery Foundation                                       │
+│                                                                          │
+│ jQuery Barcode plugin 0.3                                                │
+│ * License: MIT or GPL                                                    │
+│   (http://www.opensource.org/licenses/mit-license.php &                  │
+│   http://www.gnu.org/licenses/gpl.html)                                  │
+│ * Project:  http://www.pasella.it/projects/jQuery/barcode                │
+│   https://github.com/antonellopasella/jquery-barcode                     │
+│ * Copyright: (c) 2009 Antonello Pasella antonello.pasella@gmail.com      │
+│                                                                          │
+│ JSR-166 Extension - JEP 266                                              │
+│ * License: CC0                                                           │
+│ * No copyright                                                           │
+│ * Written by Doug Lea with assistance from members of JCP JSR-166        │
+│   Expert Group and released to the public domain, as explained at        │
+│   http://creativecommons.org/publicdomain/zero/1.0/                      │
+│                                                                          │
+│ KineticJS, v4.7.1                                                        │
+│ * License: MIT license                                                   │
+│   (http://www.opensource.org/licenses/mit-license.php)                   │
+│ * Project: http://www.kineticjs.com,                                     │
+│   https://github.com/ericdrowell/KineticJS                               │
+│ * Copyright: Eric Rowell                                                 │
+│                                                                          │
+│ org.objectweb.asm Version 5.0.4                                          │
+│ * License: Modified BSD (http://asm.objectweb.org/license.html)          │
+│ * Copyright (c) 2000-2011 INRIA, France Telecom. All rights reserved.    │
+│                                                                          │
+│ org.osgi.core version 4.2.0                                              │
+│ * License: Apache License, 2.0                                           │
+│ * Copyright (c) OSGi Alliance (2005, 2008). All Rights Reserved.         │
+│                                                                          │
+│ org.glassfish.jersey.server.internal.monitoring.core                     │
+│ * License: Apache License, 2.0                                           │
+│ * Copyright (c) 2015-2018 Oracle and/or its affiliates.                  │
+│   All rights reserved.                                                   │
+│ * Copyright 2010-2013 Coda Hale and Yammer, Inc.                         │
+│                                                                          │
+│ W3.org documents                                                         │
+│ * License: W3C License                                                   │
+│ * Copyright: Copyright (c) 1994-2001 World Wide Web Consortium,          │
+│   (Massachusetts Institute of Technology, Institut National de           │
+│   Recherche en Informatique et en Automatique, Keio University).         │
+│   All Rights Reserved. http://www.w3.org/Consortium/Legal/               │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ log4j2 (Apache 2) ├───────────────────────────────────────────────────┐
