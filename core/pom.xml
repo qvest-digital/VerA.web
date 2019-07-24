@@ -259,6 +259,8 @@
 								<usedDependency>org.evolvis.veraweb.middleware:octopus-ext-cronjobs</usedDependency>
 								<usedDependency>org.evolvis.veraweb.middleware:octopus-ext-jmx</usedDependency>
 								<usedDependency>org.evolvis.veraweb.middleware:octopus-servlet</usedDependency>
+								<!-- excluded and swapped from another implementation -->
+								<usedDependency>com.sun.activation:jakarta.activation</usedDependency>
 								<!-- must be in the classpath -->
 								<usedDependency>org.apache.logging.log4j:log4j-web</usedDependency>
 								<usedDependency>org.glassfish.jersey.inject:jersey-hk2</usedDependency>
