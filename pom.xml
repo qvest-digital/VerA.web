@@ -695,11 +695,6 @@
 				<version>${hk2.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.glassfish.jersey.bundles.repackaged</groupId>
-				<artifactId>jersey-guava</artifactId>
-				<version>${jersey2.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>org.glassfish.jersey.containers</groupId>
 				<artifactId>jersey-container-servlet</artifactId>
 				<version>${jersey2.version}</version>
@@ -754,7 +749,7 @@
 				<artifactId>hibernate-validator-annotation-processor</artifactId>
 				<version>${hibernate.version}</version>
 			</dependency>
-			<!-- for Hibernats, logs onto Log4j2 backend automatically -->
+			<!-- for Hibernate, logs onto Log4j2 backend automatically -->
 			<dependency>
 				<groupId>org.jboss.logging</groupId>
 				<artifactId>jboss-logging</artifactId>
