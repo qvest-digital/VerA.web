@@ -59,13 +59,13 @@ print -r -- "$x" | while IFS= read -r line; do
 	[[ $line = "$lastp" ]] || [[ $line = "$lastt" ]] || print -r -- "$line"
 	lastp=${line/ compile / provided }
 	lastt=${lastp/ provided / test }
-done >../target/ckdep.all
-fgrep -v ' test ' <../target/ckdep.all >ckdep.tmp
+done >ckdep.tmp
 # generate file with changed dependencies set to be a to-do item
+# except we don’t licence-analyse test-only dependencies
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
 	comm -12 ckdep.lst ckdep.tmp
-} | sort -uo ckdep.tmp
+} | sed 's/ test TO''DO$/ test ok/' | sort -uo ckdep.tmp
 
 # check if the list changed
 if cmp -s ckdep.lst ckdep.tmp && cmp -s ckdep.mvn ckdep.mvn.tmp; then
