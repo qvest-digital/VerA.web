@@ -52,10 +52,10 @@ done <ckdep.tmp | sort -u >ckdep.mvn.tmp
 # add static dependencies from embedded files, for SecurityWatch
 [[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
 # make compile scope superset provided scope, and either superset test scope
-mkdir -p ../target
+x=$(sort -u <ckdep.tmp)
 lastp=
 lastt=
-sort -u <ckdep.tmp | while IFS= read -r line; do
+print -r -- "$x" | while IFS= read -r line; do
 	[[ $line = "$lastp" ]] || [[ $line = "$lastt" ]] || print -r -- "$line"
 	lastp=${line/ compile / provided }
 	lastt=${lastp/ provided / test }
