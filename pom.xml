@@ -79,7 +79,7 @@
 	<properties>
 		<!-- general settings -->
 		<archiver.copyright.firstyear>2001</archiver.copyright.firstyear>
-		<archiver.copyright.lastyear>2018</archiver.copyright.lastyear>
+		<archiver.copyright.lastyear>2019</archiver.copyright.lastyear>
 		<!-- not yet: doclint.optappend>-Xdoclint:all -Xdoclint:-missing</doclint.optappend-->
 		<doclint.optappend>-Xdoclint:none</doclint.optappend>
 		<sonar.sources>src/main</sonar.sources>
