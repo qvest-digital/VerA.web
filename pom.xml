@@ -96,6 +96,8 @@
 		<!-- dependency management -->
 		<activation.version>1.2.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
+		<axis.version>1.4</axis.version>
+		<axis-wsdl4j.version>1.5.1</axis-wsdl4j.version>
 		<background-jobs.version>1.23</background-jobs.version>
 		<bytebuddy.version>1.9.14</bytebuddy.version>
 		<cglib-nodep.version>3.2.12</cglib-nodep.version>
@@ -104,11 +106,13 @@
 		<commons-codec.version>1.12</commons-codec.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
 		<commons-csv.version>1.7</commons-csv.version>
+		<commons-dbcp.version>1.2.2</commons-dbcp.version>
+		<commons-discovery.version>0.2</commons-discovery.version>
+		<commons-fileupload.version>1.3.3</commons-fileupload.version>
 		<commons-io.version>2.6</commons-io.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
+		<commons-pool.version>1.5.4</commons-pool.version>
 		<csvfile.version>1.0</csvfile.version>
-		<!-- last version to work with Jersey 1 -->
-		<dropwizard.version>0.7.1</dropwizard.version>
 		<expiringmap.version>0.5.9</expiringmap.version>
 		<extract-tool.version>1.10</extract-tool.version>
 		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
@@ -148,6 +152,7 @@
 		<smiley-http-proxy-servlet.version>1.7</smiley-http-proxy-servlet.version>
 		<spock-core.version>1.1-groovy-2.4</spock-core.version>
 		<spring.version>4.3.24.RELEASE</spring.version>
+		<velocity.version>1.4</velocity.version>
 		<webdriverextensions.version>3.2.0</webdriverextensions.version>
 		<wiremock.version>2.23.2</wiremock.version>
 		<xmlrpc.version>1.2-b1</xmlrpc.version>
@@ -387,6 +392,22 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>axis</groupId>
+				<artifactId>axis</artifactId>
+				<version>${axis.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>axis</groupId>
+				<artifactId>axis-wsdl4j</artifactId>
+				<version>${axis-wsdl4j.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.fasterxml</groupId>
 				<artifactId>classmate</artifactId>
 				<version>${classmate.version}</version>
@@ -464,9 +485,35 @@
 				<version>${commons-codec.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>${commons-dbcp.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-discovery</groupId>
+				<artifactId>commons-discovery</artifactId>
+				<version>${commons-discovery.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons-fileupload.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>${commons-io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-pool</groupId>
+				<artifactId>commons-pool</artifactId>
+				<version>${commons-pool.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.ws.rs</groupId>
@@ -534,6 +581,16 @@
 				<groupId>net.jodah</groupId>
 				<artifactId>expiringmap</artifactId>
 				<version>${expiringmap.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis</groupId>
+				<artifactId>axis-jaxrpc</artifactId>
+				<version>${axis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis</groupId>
+				<artifactId>axis-saaj</artifactId>
+				<version>${axis.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -825,6 +882,11 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
 				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>${velocity.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xmlrpc</groupId>
