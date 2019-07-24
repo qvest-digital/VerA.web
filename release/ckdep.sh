@@ -42,7 +42,6 @@ fi
 (cd .. && mvn -B -Dskip-test-only-dependencies dependency:list) 2>&1 | \
     tee /dev/stderr | sed -n \
     -e 's/ -- module .*$//' \
-    -e '/:test$/d' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
     -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
     -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4 ok/p' \
@@ -52,13 +51,16 @@ while IFS=' ' read ga v scope rest; do
 done <ckdep.tmp | sort -u >ckdep.mvn.tmp
 # add static dependencies from embedded files, for SecurityWatch
 [[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
-# make compile scope superset provided scope
-x=$(sort -u <ckdep.tmp)
-lastline=
-print -r -- "$x" | while IFS= read -r line; do
-	[[ $line = "$lastline" ]] || print -r -- "$line"
-	lastline=${line/ compile / provided }
-done >ckdep.tmp
+# make compile scope superset provided scope, and either superset test scope
+mkdir -p ../target
+lastp=
+lastt=
+sort -u <ckdep.tmp | while IFS= read -r line; do
+	[[ $line = "$lastp" ]] || [[ $line = "$lastt" ]] || print -r -- "$line"
+	lastp=${line/ compile / provided }
+	lastt=${lastp/ provided / test }
+done >../target/ckdep.all
+fgrep -v ' test ' <../target/ckdep.all >ckdep.tmp
 # generate file with changed dependencies set to be a to-do item
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
