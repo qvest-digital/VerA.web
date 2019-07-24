@@ -127,8 +127,10 @@
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
 		<javax.persistence.version>2.2</javax.persistence.version>
+		<javax.validation.version>1.1.0.Final</javax.validation.version>
 		<jaxb-api.version>2.3.2</jaxb-api.version>
 		<jaxb-impl.version>2.3.2</jaxb-impl.version>
+		<jboss-logging.version>3.3.2.Final</jboss-logging.version>
 		<jersey1.version>1.19.4</jersey1.version>
 		<jersey2.version>2.29</jersey2.version>
 		<jodatime.version>2.10.3</jodatime.version>
@@ -149,6 +151,8 @@
 		<spring.version>4.3.24.RELEASE</spring.version>
 		<webdriverextensions.version>3.2.0</webdriverextensions.version>
 		<wiremock.version>2.23.2</wiremock.version>
+		<xmlrpc.version>1.2-b1</xmlrpc.version>
+		<!-- systemtest -->
 		<docker.registry>veraweb-tools.lan.tarent.de:5000</docker.registry>
 	</properties>
 	<scm>
@@ -509,7 +513,7 @@
 			<dependency>
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
-				<version>1.1.0.Final</version>
+				<version>${javax.validation.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
@@ -754,7 +758,7 @@
 			<dependency>
 				<groupId>org.jboss.logging</groupId>
 				<artifactId>jboss-logging</artifactId>
-				<version>3.3.2.Final</version>
+				<version>${jboss-logging.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.jvnet.mimepull</groupId>
@@ -831,7 +835,7 @@
 			<dependency>
 				<groupId>xmlrpc</groupId>
 				<artifactId>xmlrpc</artifactId>
-				<version>1.2-b1</version>
+				<version>${xmlrpc.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
