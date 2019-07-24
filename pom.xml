@@ -100,7 +100,6 @@
 		<axis-wsdl4j.version>1.5.1</axis-wsdl4j.version>
 		<background-jobs.version>1.23</background-jobs.version>
 		<bytebuddy.version>1.9.14</bytebuddy.version>
-		<cglib-nodep.version>3.2.12</cglib-nodep.version>
 		<chromedriver.version>2.40</chromedriver.version>
 		<classmate.version>1.5.0</classmate.version>
 		<commons-codec.version>1.12</commons-codec.version>
@@ -115,11 +114,9 @@
 		<csvfile.version>1.0</csvfile.version>
 		<expiringmap.version>0.5.9</expiringmap.version>
 		<extract-tool.version>1.10</extract-tool.version>
-		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
 		<geb.version>2.1</geb.version>
 		<groovy-all.version>2.4.15</groovy-all.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
-		<guava.version>28.0-jre</guava.version>
 		<h2.version>1.4.199</h2.version>
 		<hibernate.version>5.4.3.Final</hibernate.version>
 		<hk2.version>2.5.0</hk2.version>
@@ -136,9 +133,6 @@
 		<jaxb-impl.version>2.3.2</jaxb-impl.version>
 		<jboss-logging.version>3.3.2.Final</jboss-logging.version>
 		<jersey.version>2.29</jersey.version>
-		<jodatime.version>2.10.3</jodatime.version>
-		<json.version>0.0.20131108.vaadin1</json.version>
-		<jsr305.version>3.0.2</jsr305.version>
 		<junit.version>4.12</junit.version>
 		<log4j.version>2.12.0</log4j.version>
 		<lombok.version>1.18.8</lombok.version>
@@ -154,7 +148,6 @@
 		<spring.version>4.3.24.RELEASE</spring.version>
 		<velocity.version>1.4</velocity.version>
 		<webdriverextensions.version>3.2.0</webdriverextensions.version>
-		<wiremock.version>2.23.2</wiremock.version>
 		<xmlrpc.version>1.2-b1</xmlrpc.version>
 		<!-- systemtest -->
 		<docker.registry>veraweb-tools.lan.tarent.de:5000</docker.registry>
