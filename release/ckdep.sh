@@ -47,7 +47,7 @@ fi
     -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4 ok/p' \
     >ckdep.tmp
 while IFS=' ' read ga v scope rest; do
-	[[ $scope != compile ]] || print -r -- ${ga/:/ } $v
+	[[ $scope != @(compile|runtime) ]] || print -r -- ${ga/:/ } $v
 done <ckdep.tmp | sort -u >ckdep.mvn.tmp
 # add static dependencies from embedded files, for SecurityWatch
 [[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
