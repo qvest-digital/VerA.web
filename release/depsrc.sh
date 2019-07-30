@@ -93,4 +93,20 @@ mvn -B -f target/pom-srcs.xml \
     -DexcludeTransitive=true -DoutputDirectory="$PWD/target/dep-srcs" \
     -Dclassifier=sources -Dmdep.useRepositoryLayout=true \
     dependency:copy-dependencies
+
+: diff between actual and expected list, ignore failures though
+set +x
+(find target/dep-srcs/ -type f | \
+    fgrep -v -e _remote.repositories -e maven-metadata-local.xml | \
+    while IFS= read -r x; do
+		x=${x#target/dep-srcs/}
+		x=${x%/*}
+		v=${x##*/}
+		x=${x%/*}
+		p=${x##*/}
+		x=${x%/*}
+		print -r -- ${x//'/'/.} $p $v
+done | sort | diff -u - release/ckdep.mvn || :)
+print
+print -r -- "[INFO] release/depsrc.sh finished"
 # leave the rest to the maven-assembly-plugin
