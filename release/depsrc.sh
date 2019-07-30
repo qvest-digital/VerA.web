@@ -38,6 +38,12 @@ cd "$(dirname "$0")/.."
 mkdir -p target
 rm -rf target/dep-srcs*
 
+if [[ ! -d release/depsrc/. ]]; then
+	# look at this script further below for a list of files
+	print -ru2 -- "[ERROR] add release/depsrc/ from deps-src.zip"
+	exit 1
+fi
+
 vsn=$(<pom.xml xmlstarlet sel \
     -N pom=http://maven.apache.org/POM/4.0.0 \
     -T -t -c /pom:project/pom:version)
@@ -94,8 +100,27 @@ mvn -B -f target/pom-srcs.xml \
     -Dclassifier=sources -Dmdep.useRepositoryLayout=true \
     dependency:copy-dependencies
 
-: diff between actual and expected list, ignore failures though
+: diff between actual and expected list
 set +x
+
+function doit {
+	local f=release/depsrc/$1 g=$2 a=$3 v=$4
+
+	if [[ -d target/dep-srcs/$g/$a ]]; then
+		print -ru2 -- "[ERROR] missing dependency sources unexpectedly found"
+		exit 1
+	fi
+	mkdir -p target/dep-srcs/$g/$a
+	mkdir target/dep-srcs/$g/$a/$v
+	cp $f target/dep-srcs/$g/$a/$v/
+}
+
+# this is the list of files
+doit antlr-2.7.7.tar.gz \
+    antlr antlr 2.7.7
+doit xmlrpc-1.2-b1-src.tar.gz \
+    xmlrpc xmlrpc 1.2-b1
+
 set -A exclusions
 set -A inclusions
 # shipped in axis:axis source JAR

@@ -20,6 +20,7 @@
 # of said person’s immediate fault when using the work as intended.
 #-
 # Build-specific tool to create a tarball of the entire source code.
+# We omit the depsrc extras though.
 
 # initialisation
 LC_ALL=C; export LC_ALL
@@ -64,6 +65,9 @@ set -x
 
 # copy git HEAD state
 git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu $tgname/
+
+# omit what will end up in depsrcs anyway
+rm -rf $tgname/release/depsrc
 
 # create src.tgz in target/ to let the maven-war-plugin pick it up
 cd target/mksrc
