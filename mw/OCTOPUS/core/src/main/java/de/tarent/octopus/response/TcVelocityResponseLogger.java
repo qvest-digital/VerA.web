@@ -57,26 +57,29 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.log.LogSystem;
 
-@Log4j2
+@Log4j2(topic = "Velocity")
 public class TcVelocityResponseLogger implements LogSystem {
     public TcVelocityResponseLogger() {
-        // do Nothing
+        // nothing to initialise here
     }
 
     public void init(RuntimeServices rsvc) {
-        // do Nothing
+        // nothing to initialise here
     }
 
     public void logVelocityMessage(int level, String message) {
         switch (level) {
-        case 1:
-            logger.trace(message);
-            break;
-        case 2:
+        case LogSystem.DEBUG_ID:
             logger.debug(message);
             break;
-        case 3:
+        case LogSystem.INFO_ID:
+            logger.info(message);
+            break;
+        case LogSystem.WARN_ID:
             logger.warn(message);
+            break;
+        case LogSystem.ERROR_ID:
+            logger.error(message);
             break;
         default:
             logger.error("[Unknown Level (" + level + ")] " + message);
