@@ -4,14 +4,14 @@
 	<parent>
 		<groupId>org.evolvis.veraweb.middleware</groupId>
 		<artifactId>octopus-parent</artifactId>
-		<version>2.1-SNAPSHOT</version>
+		<version>2.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>octopus-ext-jmx</artifactId>
 	<packaging>jar</packaging>
 	<name>OCTOPUS jmx extension</name>
 	<description>tarent OCTOPUS application framework, jmx part</description>
 	<properties>
-		<sonar.tests/>
+		<sonar.tests />
 	</properties>
 	<build>
 		<plugins>

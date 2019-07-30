@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>veraweb-parent</artifactId>
-		<version>2.1-SNAPSHOT</version>
+		<version>2.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>rest-api</artifactId>
 	<packaging>war</packaging>
@@ -36,18 +36,12 @@
 			<artifactId>jakarta.activation</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.istack</groupId>
-			<artifactId>istack-commons-runtime</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.ws.rs</groupId>
+			<artifactId>jakarta.ws.rs-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -59,10 +53,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -70,6 +60,10 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
@@ -193,12 +187,10 @@
 							<usedDependencies>
 								<!-- must be in the classpath -->
 								<usedDependency>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider</usedDependency>
+								<usedDependency>org.apache.logging.log4j:log4j-web</usedDependency>
 								<usedDependency>org.glassfish.jersey.containers:jersey-container-servlet</usedDependency>
 								<usedDependency>org.glassfish.jersey.inject:jersey-hk2</usedDependency>
 								<usedDependency>org.glassfish.jersey.media:jersey-media-json-jackson</usedDependency>
-								<!-- for the tests -->
-								<usedDependency>com.sun.istack:istack-commons-runtime</usedDependency>
-								<usedDependency>com.sun.xml.bind:jaxb-impl</usedDependency>
 							</usedDependencies>
 						</configuration>
 					</execution>

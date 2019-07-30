@@ -36,7 +36,7 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #parse("inc/header.vm")
 
-#if($person && $orgUnit && $person.orgunit != $orgUnit.id)
+#if($person && $orgUnit && $person.orgunit && $person.orgunit != $orgUnit.id)
     <div class="msg errormsg"><span>
         ${placeholderWithTranslation.eswurdenkeinedatengefunden}<br>
     </span></div>
@@ -511,7 +511,7 @@
 
         function showCategories() {
             if (document.getElementById('modified').value == 'true') {
-                document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.meta.offset}'+getGuestTabId();
+                document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList?offset=${navigation.meta.offset}'+getGuestTabId();
                 document.getElementById('PersonForm').submit();
             } else {
                 window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.meta.offset}'+getGuestTabId();

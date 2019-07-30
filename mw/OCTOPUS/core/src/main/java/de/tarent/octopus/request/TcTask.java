@@ -1,36 +1,76 @@
 package de.tarent.octopus.request;
 
 /*-
- * VerA.web-Middleware, newly MIT licenced, is comprised of:
+ * Veranstaltungsmanagement VerA.web, comprised of…
+ * VerA.web, platform-independent webservice-based event management
  * tarent-commons, a set of common components and solutions
  * tarent-contact, platform-independent webservice-based contact management
  * tarent-database, jdbc database library
  * tarent-doctor, Document Generation Platform
  * tarent-octopus, Webservice Data Integrator and Application Server
+ * … is newly MIT-licenced and Copyright
  *  © 2018 Атанас Александров (sirakov@gmail.com)
+ *  © 2014, 2015, 2016, 2017 Атанас Александров (a.alexandrov@tarent.de)
+ *  © 2013 Иванка Александрова (i.alexandrova@tarent.de)
  *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
- *  © 2018 Dominik George (d.george@tarent.de)
- *  © 2007 David Goemans (d.goemans@tarent.de)
+ *  © 2013 Patrick Apel (p.apel@tarent.de)
+ *  © 2016 Eugen Auschew (e.auschew@tarent.de)
+ *  © 2013 Andrei Boulgakov (a.boulgakov@tarent.de)
+ *  © 2013 Valentin But (v.but@tarent.de)
+ *  © 2016 Lukas Degener (l.degener@tarent.de)
+ *  © 2017 Axel Dirla (a.dirla@tarent.de)
+ *  © 2015 Julian Drawe (j.drawe@tarent.de)
+ *  © 2009 Sven Frommeyer (s.frommeyer@tarent.de)
+ *  © 2014, 2018 Dominik George (d.george@tarent.de)
+ *  © 2013 Martin Gernhardt (m.gernhardt@tarent.de)
+ *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
+ *  © 2007, 2008 David Goemans (d.goemans@tarent.de)
  *  © 2018 Christian Gorski (c.gorski@tarent.de)
- *  © 2006, 2007, 2010 Hendrik Helwich (h.helwich@tarent.de)
- *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
- *  © 2005, 2006, 2007 Christoph Jerolimov (c.jerolimov@tarent.de)
- *  © 2018 Timo Kanera (t.kanera@tarent.de)
+ *  © 2015 Viktor Hamm (v.hamm@tarent.de)
+ *  © 2013 Katja Hapke (k.hapke@tarent.de)
+ *  © 2006, 2007, 2010, 2013 Hendrik Helwich (h.helwich@tarent.de)
+ *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018, 2019 Benedict Hoeger (b.hoeger@tarent.de)
+ *  © 2018, 2019 Titian Horvath (t.horvath@tarent.de)
+ *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
+ *  © 2018, 2019 Timo Kanera (t.kanera@tarent.de)
  *  © 2006 Philipp Kirchner (p.kirchner@tarent.de)
- *  © 2010 Carsten Klein (c.klein@tarent.de)
+ *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
  *  © 2006 Michael Kleinhenz (m.kleinhenz@tarent.de)
  *  © 2006 Michael Klink (m.klink@tarent.de)
  *  © 2007 Fabian Köster (f.koester@tarent.de)
- *  © 2006 Martin Ley (m.ley@tarent.de)
+ *  © 2006, 2014 Martin Ley (m.ley@tarent.de)
  *  © 2007 Alex Maier (a.maier@tarent.de)
- *  © 2007, 2015, 2017, 2018 mirabilos (t.glaser@tarent.de)
+ *  © 2014, 2015 Max Marche (m.marche@tarent.de)
+ *  © 2007 Jan Meyer (jan@evolvis.org)
+ *  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+ *     mirabilos (t.glaser@tarent.de)
+ *  © 2016 Cristian Molina (c.molina@tarent.de)
  *  © 2006, 2007 Jens Neumaier (j.neumaier@tarent.de)
  *  © 2006 Nils Neumaier (n.neumaier@tarent.de)
- *  © 2007, 2008 Martin Pelzer (m.pelzer@tarent.de)
+ *  © 2018 Yorka Neumann (y.neumann@tarent.de)
+ *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
+ *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
+ *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
+ *  © 2016 Jens Oberender (j.oberender@tarent.de)
+ *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
+ *  © 2007, 2008, 2009 Martin Pelzer (m.pelzer@tarent.de)
  *  © 2008, 2009 Christian Preilowski (c.thiel@tarent.de)
- *  © 2006, 2008, 2009 Thomas Schmitz (t.schmitz@tarent.de)
+ *  © 2013 Marc Radel (m.radel@tarent.de)
+ *  © 2013 Sebastian Reimers (s.reimers@tarent.de)
+ *  © 2015 Charbel Saliba (c.saliba@tarent.de)
+ *  © 2006, 2008, 2009, 2010 Thomas Schmitz (t.schmitz@tarent.de)
+ *  © 2013 Volker Schmitz (v.schmitz@tarent.de)
+ *  © 2014 Sven Schumann (s.schumann@tarent.de)
  *  © 2007 Robert Schuster (r.schuster@tarent.de)
- * and older code, Copyright © 2001–2007 ⮡ tarent GmbH and contributors.
+ *  © 2014 Sevilay Temiz (s.temiz@tarent.de)
+ *  © 2013 Kevin Viola Schmitz (k.schmitz@tarent.de)
+ *  © 2008, 2015 Stefan Walenda (s.walenda@tarent.de)
+ *  © 2015, 2016, 2017 Max Weierstall (m.weierstall@tarent.de)
+ *  © 2013 Rebecca Weinz (r.weinz@tarent.de)
+ *  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)
+ *  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)
+ * and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -263,10 +303,11 @@ public class TcTask {
                     TcMessageDefinitionPart conPart = (TcMessageDefinitionPart) contractMap.get(inPart.getName());
                     if (inPart.isOptional()) {
                     } else if (conPart == null) {
-                        errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_INPUT", getName(), inPart.getName()));
+                        errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_INPUT",
+                          getName(), inPart.getName(), inPart.getPartDataType()));
                     } else if (!isSubTypeOf(conPart.getPartDataType(), inPart.getPartDataType())) {
-                        errors.add(Resources.getInstance()
-                          .get("TASK_ERROR_CONTRACT_INCOMPATIBLE_INPUT", getName(), inPart.getName()));
+                        errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_INCOMPATIBLE_INPUT",
+                          getName(), inPart.getName(), inPart.getPartDataType(), conPart.getPartDataType()));
                     }
                 }
             }
@@ -281,12 +322,12 @@ public class TcTask {
                 while (itCons.hasNext()) {
                     TcMessageDefinitionPart conPart = (TcMessageDefinitionPart) itCons.next();
                     TcMessageDefinitionPart outPart = (TcMessageDefinitionPart) taskMap.get(conPart.getName());
-                    if (outPart == null || outPart.isOptional()) {
-                        errors.add(
-                          Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_OUTPUT", getName(), conPart.getName()));
-                    } else if (!isSubTypeOf(outPart.getPartDataType(), conPart.getPartDataType())) {
-                        errors.add(Resources.getInstance()
-                          .get("TASK_ERROR_CONTRACT_INCOMPATIBLE_OUTPUT", getName(), conPart.getName()));
+                    if (!conPart.isOptional() && (outPart == null || outPart.isOptional())) {
+                        errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_MISSES_OUTPUT",
+                          getName(), conPart.getName(), outPart == null ? null : outPart.getPartDataType()));
+                    } else if (outPart != null && !isSubTypeOf(outPart.getPartDataType(), conPart.getPartDataType())) {
+                        errors.add(Resources.getInstance().get("TASK_ERROR_CONTRACT_INCOMPATIBLE_OUTPUT",
+                          getName(), conPart.getName(), outPart.getPartDataType(), conPart.getPartDataType()));
                     }
                 }
             }
@@ -333,19 +374,48 @@ public class TcTask {
         return partsMap;
     }
 
+    private enum TypeMapValue {
+        UNKNOWN(),
+        // insert more here some day…
+        STRING("xsd:string", "java.lang.String");
+
+        private static final class Helper {
+            static Map<String, TypeMapValue> typemap = new HashMap<>();
+        }
+
+        TypeMapValue(final String... types) {
+            for (String type : types) {
+                Helper.typemap.put(type, this);
+            }
+        }
+
+        /**
+         * Retrieves type mapping for specified type string.
+         *
+         * @param type string
+         * @return mapping or {@link TypeMapValue#UNKNOWN}
+         */
+        static TypeMapValue get(final String type) {
+            return Helper.typemap.getOrDefault(type, UNKNOWN);
+        }
+    }
+
     /**
      * Diese Methode ermittelt, ob der erste Parameter einen Untertyp des
      * zweiten darstellt.
      */
-    protected boolean isSubTypeOf(String subType, String superType) {
+    private boolean isSubTypeOf(final String subType, final String superType) {
         // TODO: Implementierung des Vergleichs deutlich verbessern
         if (superType == null) {
             return true;
         }
-        if (superType.equals(subType)) {
-            return true;
+        final TypeMapValue sub = TypeMapValue.get(subType);
+        final TypeMapValue sup = TypeMapValue.get(superType);
+        if (sub != TypeMapValue.UNKNOWN && sup != TypeMapValue.UNKNOWN) {
+            // for now; could be better…
+            return sub == sup;
         }
-        return false;
+        return superType.equals(subType);
     }
 
     protected static String expand(String arg, OctopusContext context) {
@@ -409,8 +479,8 @@ public class TcTask {
          */
         protected void perform(TcTaskManager manager, OctopusContext context)
           throws TcTaskProzessingException, TcContentProzessException {
-            logger.debug(Resources.getInstance()
-              .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), this.getClass().getName()));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE",
+              context.getRequestObject().getRequestID(), this.getClass().getName()));
         }
 
         public TcMessageDefinition out(TcMessageDefinition out) {
@@ -533,12 +603,12 @@ public class TcTask {
         }
 
         public String toString() {
-            return Resources.getInstance().get("TASK_STRING_TASKNODE", new Object[] { name, access, description, child });
+            return Resources.getInstance().get("TASK_STRING_TASKNODE", name, access, description, child);
         }
     }
 
     /**
-     * Diese Klasse modlliert einen action-Knoten der Task-Beschreibung.
+     * Diese Klasse modelliert einen action-Knoten der Task-Beschreibung.
      */
     protected class ActionNode extends TNode {
         protected String name;
@@ -566,14 +636,13 @@ public class TcTask {
             logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE", requestID, "ActionNode",
               "do action action=" + name + " with worker=" + worker));
             try {
-                TcContentWorker workerInstance =
-                  TcContentWorkerFactory.getContentWorker(context.moduleConfig(), worker, requestID);
-                String status = workerInstance
-                  .doAction(context.getConfigObject(), name, context.getRequestObject(), context.getContentObject());
+                TcContentWorker workerInstance = TcContentWorkerFactory.getContentWorker(context.moduleConfig(),
+                  worker, requestID);
+                String status = workerInstance.doAction(context.getConfigObject(), rootNode.getName(),
+                  name, context.getRequestObject(), context.getContentObject());
                 manager.setStatus(status);
-                logger.debug(Resources.getInstance()
-                  .get("TASK_LOG_WORKER_CALLED",
-                    new Object[] { requestID, status, name, worker, workerInstance.getVersion() }));
+                logger.debug(Resources.getInstance().get("TASK_LOG_WORKER_CALLED",
+                  requestID, status, name, worker, workerInstance.getVersion()));
             } catch (TcContentProzessException cpe) {
                 throw cpe;
             } catch (Exception e) {
@@ -600,7 +669,7 @@ public class TcTask {
             }
 
             if (moduleConfig.getContentWorkerDeclaration(worker) == null) {
-                out.add(Resources.getInstance().get("TASK_ERROR_WORKER_CLASS_ERROR", new Object[] { name, worker }));
+                out.add(Resources.getInstance().get("TASK_ERROR_WORKER_CLASS_ERROR", name, worker));
             } else {
                 try {
                     TcContentWorker workerObject = TcContentWorkerFactory.getContentWorker(moduleConfig, worker, null);
@@ -609,14 +678,14 @@ public class TcTask {
                     TcPortDefinition port = workerObject.getWorkerDefinition();
                     if (port == null) {
                         out.add(Resources.getInstance().get("TASK_ERROR_WORKER_NO_PORT",
-                          new Object[] { name, worker, workerClassName, workerObject.getVersion() }));
+                          name, worker, workerClassName, workerObject.getVersion()));
                     } else if (port.getOperation(name) == null) {
                         out.add(Resources.getInstance().get("TASK_ERROR_WORKER_NO_ACTION",
-                          new Object[] { name, worker, workerClassName, workerObject.getVersion() }));
+                          name, worker, workerClassName, workerObject.getVersion()));
                     }
                 } catch (Exception e) {
-                    out.add(Resources.getInstance()
-                      .get("TASK_ERROR_WORKER_INSTANTIATION_ERROR", new Object[] { name, worker, workerClassName, e }));
+                    out.add(Resources.getInstance().get("TASK_ERROR_WORKER_INSTANTIATION_ERROR",
+                      name, worker, workerClassName, e));
                 }
             }
             return out;
@@ -650,8 +719,7 @@ public class TcTask {
                         String partType = part.getPartDataType();
                         if (!isSubTypeOf(outPart.getPartDataType(), partType)) {
                             logger.warn(Resources.getInstance().get("TASK_ERROR_INNER_INCOMPATIBILITY",
-                              new Object[] { TcTask.this.getName(), name, part.getName(), partType,
-                                outPart.getPartDataType() }));
+                              TcTask.this.getName(), name, part.getName(), partType, outPart.getPartDataType()));
                         }
                     } else {
                         in.addPart(part);
@@ -707,8 +775,8 @@ public class TcTask {
         }
 
         public String toString() {
-            return Resources.getInstance()
-              .get("TASK_STRING_ACTIONNODE", new Object[] { name, worker, workerClassName, child, next });
+            return Resources.getInstance().get("TASK_STRING_ACTIONNODE",
+              name, worker, workerClassName, child, next);
         }
     }
 
@@ -875,9 +943,8 @@ public class TcTask {
 
         protected void perform(TcTaskManager manager, OctopusContext context)
           throws TcTaskProzessingException, TcContentProzessException {
-            logger.debug(Resources.getInstance()
-              .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ResponseNode",
-                " type=" + type + " name=" + name));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE",
+              context.getRequestObject().getRequestID(), "ResponseNode", " type=" + type + " name=" + name));
 
             Map mapCopy = new HashMap();
             mapCopy.putAll(paramMap);
@@ -910,7 +977,7 @@ public class TcTask {
               ("soap".equalsIgnoreCase(type)
                 || "rpc".equalsIgnoreCase(type)
                 || "xmlrpc".equalsIgnoreCase(type))
-            ) {
+              ) {
 
                 returnDefinition = new TcMessageDefinition();
                 Map responses = TcResponseCreator.refineOutputFields(paramMap.get("OutputFields"));
@@ -958,9 +1025,8 @@ public class TcTask {
 
         protected void perform(TcTaskManager manager, OctopusContext context)
           throws TcTaskProzessingException, TcContentProzessException {
-            logger.debug(Resources.getInstance()
-              .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "ParamNode",
-                " name=" + name + " value=" + value));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE",
+              context.getRequestObject().getRequestID(), "ParamNode", " name=" + name + " value=" + value));
 
             // TODO: Die Params müssten eigentlich rekursiv durchlaufen werden um alle darinliegenden ParamReference auf
             // auflösen zu können
@@ -968,8 +1034,8 @@ public class TcTask {
             if (value instanceof ParamReference) {
                 resolvedValue = context.getContextField(((ParamReference) value).getRefvalue());
                 if (resolvedValue == null) {
-                    logger.debug(Resources.getInstance()
-                      .get("TASK_LOG_PARAM_RESOLVED_NULL", context.getRequestObject().getRequestID(), name));
+                    logger.debug(Resources.getInstance().get("TASK_LOG_PARAM_RESOLVED_NULL",
+                      context.getRequestObject().getRequestID(), name));
                 }
             }
 
@@ -1157,9 +1223,8 @@ public class TcTask {
 
         protected void perform(TcTaskManager manager, OctopusContext context)
           throws TcTaskProzessingException, TcContentProzessException {
-            logger.debug(Resources.getInstance()
-              .get("TASK_STRING_PERFORMING_NODE", context.getRequestObject().getRequestID(), "OnErrorNode",
-                "set action=" + action));
+            logger.debug(Resources.getInstance().get("TASK_STRING_PERFORMING_NODE",
+              context.getRequestObject().getRequestID(), "OnErrorNode", "set action=" + action));
             manager.setOnErrorAction(action);
         }
 

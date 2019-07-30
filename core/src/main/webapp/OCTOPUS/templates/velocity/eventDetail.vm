@@ -115,7 +115,6 @@
 									<input type="text" onchange="setModified();" maxlength="50" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
 								</div>
 
-
 							</div>
 
 							<div class="tableRow">

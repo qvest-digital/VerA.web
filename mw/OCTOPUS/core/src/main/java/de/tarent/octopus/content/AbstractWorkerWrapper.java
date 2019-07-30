@@ -1,36 +1,76 @@
 package de.tarent.octopus.content;
 
 /*-
- * VerA.web-Middleware, newly MIT licenced, is comprised of:
+ * Veranstaltungsmanagement VerA.web, comprised of…
+ * VerA.web, platform-independent webservice-based event management
  * tarent-commons, a set of common components and solutions
  * tarent-contact, platform-independent webservice-based contact management
  * tarent-database, jdbc database library
  * tarent-doctor, Document Generation Platform
  * tarent-octopus, Webservice Data Integrator and Application Server
+ * … is newly MIT-licenced and Copyright
  *  © 2018 Атанас Александров (sirakov@gmail.com)
+ *  © 2014, 2015, 2016, 2017 Атанас Александров (a.alexandrov@tarent.de)
+ *  © 2013 Иванка Александрова (i.alexandrova@tarent.de)
  *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
- *  © 2018 Dominik George (d.george@tarent.de)
- *  © 2007 David Goemans (d.goemans@tarent.de)
+ *  © 2013 Patrick Apel (p.apel@tarent.de)
+ *  © 2016 Eugen Auschew (e.auschew@tarent.de)
+ *  © 2013 Andrei Boulgakov (a.boulgakov@tarent.de)
+ *  © 2013 Valentin But (v.but@tarent.de)
+ *  © 2016 Lukas Degener (l.degener@tarent.de)
+ *  © 2017 Axel Dirla (a.dirla@tarent.de)
+ *  © 2015 Julian Drawe (j.drawe@tarent.de)
+ *  © 2009 Sven Frommeyer (s.frommeyer@tarent.de)
+ *  © 2014, 2018 Dominik George (d.george@tarent.de)
+ *  © 2013 Martin Gernhardt (m.gernhardt@tarent.de)
+ *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
+ *  © 2007, 2008 David Goemans (d.goemans@tarent.de)
  *  © 2018 Christian Gorski (c.gorski@tarent.de)
- *  © 2006, 2007, 2010 Hendrik Helwich (h.helwich@tarent.de)
- *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
- *  © 2005, 2006, 2007 Christoph Jerolimov (c.jerolimov@tarent.de)
- *  © 2018 Timo Kanera (t.kanera@tarent.de)
+ *  © 2015 Viktor Hamm (v.hamm@tarent.de)
+ *  © 2013 Katja Hapke (k.hapke@tarent.de)
+ *  © 2006, 2007, 2010, 2013 Hendrik Helwich (h.helwich@tarent.de)
+ *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018, 2019 Benedict Hoeger (b.hoeger@tarent.de)
+ *  © 2018, 2019 Titian Horvath (t.horvath@tarent.de)
+ *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
+ *  © 2018, 2019 Timo Kanera (t.kanera@tarent.de)
  *  © 2006 Philipp Kirchner (p.kirchner@tarent.de)
- *  © 2010 Carsten Klein (c.klein@tarent.de)
+ *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
  *  © 2006 Michael Kleinhenz (m.kleinhenz@tarent.de)
  *  © 2006 Michael Klink (m.klink@tarent.de)
  *  © 2007 Fabian Köster (f.koester@tarent.de)
- *  © 2006 Martin Ley (m.ley@tarent.de)
+ *  © 2006, 2014 Martin Ley (m.ley@tarent.de)
  *  © 2007 Alex Maier (a.maier@tarent.de)
- *  © 2007, 2015, 2017, 2018 mirabilos (t.glaser@tarent.de)
+ *  © 2014, 2015 Max Marche (m.marche@tarent.de)
+ *  © 2007 Jan Meyer (jan@evolvis.org)
+ *  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+ *     mirabilos (t.glaser@tarent.de)
+ *  © 2016 Cristian Molina (c.molina@tarent.de)
  *  © 2006, 2007 Jens Neumaier (j.neumaier@tarent.de)
  *  © 2006 Nils Neumaier (n.neumaier@tarent.de)
- *  © 2007, 2008 Martin Pelzer (m.pelzer@tarent.de)
+ *  © 2018 Yorka Neumann (y.neumann@tarent.de)
+ *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
+ *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
+ *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
+ *  © 2016 Jens Oberender (j.oberender@tarent.de)
+ *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
+ *  © 2007, 2008, 2009 Martin Pelzer (m.pelzer@tarent.de)
  *  © 2008, 2009 Christian Preilowski (c.thiel@tarent.de)
- *  © 2006, 2008, 2009 Thomas Schmitz (t.schmitz@tarent.de)
+ *  © 2013 Marc Radel (m.radel@tarent.de)
+ *  © 2013 Sebastian Reimers (s.reimers@tarent.de)
+ *  © 2015 Charbel Saliba (c.saliba@tarent.de)
+ *  © 2006, 2008, 2009, 2010 Thomas Schmitz (t.schmitz@tarent.de)
+ *  © 2013 Volker Schmitz (v.schmitz@tarent.de)
+ *  © 2014 Sven Schumann (s.schumann@tarent.de)
  *  © 2007 Robert Schuster (r.schuster@tarent.de)
- * and older code, Copyright © 2001–2007 ⮡ tarent GmbH and contributors.
+ *  © 2014 Sevilay Temiz (s.temiz@tarent.de)
+ *  © 2013 Kevin Viola Schmitz (k.schmitz@tarent.de)
+ *  © 2008, 2015 Stefan Walenda (s.walenda@tarent.de)
+ *  © 2015, 2016, 2017 Max Weierstall (m.weierstall@tarent.de)
+ *  © 2013 Rebecca Weinz (r.weinz@tarent.de)
+ *  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)
+ *  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)
+ * and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -71,6 +111,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Basisklasse für Worker-Wrapper nach dem Template-Method Pattern.
@@ -159,10 +200,9 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
     /**
      * Aufruf einer Action des Workers
      */
-    public String doAction(TcConfig tcConfig, String actionName, TcRequest tcRequest, TcContent tcContent)
+    public String doAction(TcConfig tcConfig, String taskName, String actionName, TcRequest tcRequest, TcContent tcContent)
       throws TcContentProzessException {
         try {
-
             ActionData actionData = getActionDataCached(actionName);
 
             Object[] args = new Object[actionData.args.length];
@@ -175,7 +215,6 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
             }
 
             for (int i = 0; i < actionData.genericArgsCount; i++) {
-
                 // If there is no name for the parameter,
                 // it schould be filled with an null-Value
                 if (null == actionData.inputParams[i]) {
@@ -191,19 +230,13 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                     }
 
                     if (paramValue == null && actionData.mandatoryFlags[i]) {
-                        throw new TcActionInvocationException(Resources.getInstance()
-                          .get("WORKER_WRAPPER_EXC_MISSING_PARAM",
-                            new Object[] {
-                              tcRequest.getRequestID(),
-                              actionData.inputParams[i],
-                              actionData.getArgTargetType(argsPos).getName(),
-                              workerClass.getName(),
-                              actionName
-                            }));
+                        throw new TcActionInvocationException(Resources.getInstance().get("WORKER_WRAPPER_EXC_MISSING_PARAM",
+                          tcRequest.getRequestID(), actionData.inputParams[i],
+                          actionData.getArgTargetType(argsPos).getName(), workerClass.getName(), actionName));
                     }
                     // type conversion
                     if (!actionData.getArgTargetType(argsPos).isInstance(paramValue)) {
-                        paramValue = tryToConvert(paramValue, actionData.getArgTargetType(argsPos));
+                        paramValue = tryToConvert(actionData.inputParams[i], paramValue, actionData.getArgTargetType(argsPos));
                         if (logger.isTraceEnabled()) {
                             logger.trace("Applying type conversion for param " + actionData.inputParams[i] + " to type " +
                               actionData.getArgTargetType(argsPos));
@@ -243,65 +276,50 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
 
             return (octopusContext.getStatus() != null) ?
               octopusContext.getStatus() : TcContentWorker.RESULT_ok;
-        } catch (TcContentProzessException e) {
-            throw e;
-        } catch (IllegalArgumentException e) {
-            throw new TcActionInvocationException(
-              "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName + ")",
-              e);
-        } catch (IllegalAccessException e) {
-            throw new TcActionInvocationException(
-              "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName + ")",
-              e);
-        } catch (InvocationTargetException e) {
-            Throwable t = e.getTargetException();
+        } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
+            final Throwable t = (e instanceof InvocationTargetException) ?
+              ((InvocationTargetException) e).getTargetException() : e;
+            logger.error("Request {} top-level task {} actual task {} action {}: {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName,
+              t != e ? t.toString() + " ← " + e.toString() : e.toString());
             if (t instanceof TcContentProzessException) {
                 throw (TcContentProzessException) t;
-            } else {
-                throw new TcActionInvocationException(
-                  "Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" + workerClass.getName() + "#" + actionName +
-                    ")", t);
             }
+            throw new TcActionInvocationException("Anfragefehler: Fehler beim Aufruf einer Worker-Action: (" +
+              workerClass.getName() + "#" + actionName + ")", t);
+        } catch (Throwable e) {
+            logger.error("Request {} top-level task {} actual task {} action {}: {}",
+              tcRequest.getRequestID(), tcRequest.getTask(), taskName, actionName, e.toString());
+            throw e;
         }
     }
 
     /**
-     * Convertiert ein Object.
-     * Falls dies fehl schlägt oder der Parameter==null ist wird <code>null</code> zurückgegeben.
+     * Konvertiert ein Objekt in den von der Worker-Methode benötigten Typ.
      *
-     * TODO: Unterstützung für long ⇒ Date
+     * @param name       Name des Methodenparameters, der bearbeitet wird
+     * @param param      Übergebener Wert
+     * @param targetType Zieldatentyp
+     * @return konvertiertes Objekt, oder <code>null</code> bei null param oder manchen Fehlern
+     * @throws TcContentProzessException falls die Konvertierung fehlschlägt oder die Typen nicht passen
+     * @todo Unterstützung für long ⇒ Date
      */
-    protected Object tryToConvert(Object param, Class targetType) throws TcContentProzessException {
+    private Object tryToConvert(String name, Object param, Class targetType) throws TcContentProzessException {
         try {
             if (param == null && !targetType.isPrimitive()) {
                 return null;
             }
 
             if (targetType.equals(Boolean.class) || targetType.equals(Boolean.TYPE)) {
-                if (param == null) {
-                    return Boolean.FALSE;
-                }
-                return Boolean.valueOf(param.toString());
+                return tryScalarConversion(name, param, targetType, Boolean.FALSE, Boolean::valueOf);
             } else if (targetType.equals(Integer.class) || targetType.equals(Integer.TYPE)) {
-                if (param == null || param.toString().length() == 0) {
-                    return new Integer(0);
-                }
-                return Integer.valueOf(param.toString());
+                return tryScalarConversion(name, param, targetType, (Integer) 0, Integer::valueOf);
             } else if (targetType.equals(Long.class) || targetType.equals(Long.TYPE)) {
-                if (param == null || param.toString().length() == 0) {
-                    return new Long(0);
-                }
-                return Long.valueOf(param.toString());
+                return tryScalarConversion(name, param, targetType, (Long) 0L, Long::valueOf);
             } else if (targetType.equals(Double.class) || targetType.equals(Double.TYPE)) {
-                if (param == null || param.toString().length() == 0) {
-                    return new Double(0);
-                }
-                return Double.valueOf(param.toString());
+                return tryScalarConversion(name, param, targetType, (Double) 0.0, Double::valueOf);
             } else if (targetType.equals(Float.class) || targetType.equals(Float.TYPE)) {
-                if (param == null || param.toString().length() == 0) {
-                    return new Float(0);
-                }
-                return Float.valueOf(param.toString());
+                return tryScalarConversion(name, param, targetType, (Float) 0.0f, Float::valueOf);
             } else if (Collection.class.isAssignableFrom(targetType) && param instanceof Object[]) {
                 return Arrays.asList((Object[]) param);
             } else if (Collection.class.isAssignableFrom(targetType)) {
@@ -310,38 +328,61 @@ public abstract class AbstractWorkerWrapper implements TcContentWorker, Delegati
                 }
                 return Collections.singletonList(param);
             } else if (targetType.equals(String.class)) {
-                if (param == null) {
-                    return null;
-                }
-                return param.toString();
-            }
-
-            // The Method param is an special Implementation of Map e.g. MapBean
-            // and the Param is a Map. Then we create a BeanMap with the key=>values from the Map
-            else if (param instanceof Map && Map.class.isAssignableFrom(targetType)) {
+                return tryScalarConversion(name, param, targetType, null, String::toString);
+            } else if (param instanceof Map && Map.class.isAssignableFrom(targetType)) {
+                // The Method param is an special Implementation of Map e.g. MapBean
+                // and the Param is a Map. Then we create a BeanMap with the key=>values from the Map
                 try {
                     Map newSpectialMap = (Map) targetType.getConstructor(emptyClassArray).newInstance(emptyObjectArray);
                     newSpectialMap.putAll((Map) param);
                     return newSpectialMap;
                 } catch (Exception e) {
-                    logger.warn("Fehler beim Konvertieren eines Übergabeparamters (Map nach " + targetType.getName() + ")", e);
-                    throw new TcContentProzessException(
-                      "Fehler beim Konvertieren eines Übergabeparamters (Map nach " + targetType.getName() + ")", e);
+                    logger.error("Fehler beim Map-Konvertieren nach {} des Übergabeparameters {} ({}): {}",
+                      targetType.getName(), name, "password".equals(name) ? "<***>" : param, e.toString());
+                    throw new TcContentProzessException("Fehler beim Map-Konvertieren des Übergabeparameters " + name, e);
                 }
             }
         } catch (NumberFormatException e) {
-            logger.warn("Formatfehler beim Konvertieren eines Übergabeparamters (von " +
-              ((param != null) ? param.getClass().toString() : "null") + " nach " +
-              ((targetType != null) ? targetType.getName() : "null") + ")", e);
-            //Altes Verhalten wird wiederhergestellt, die TcContentProcessException
-            //Macht z.b. im Broker(evtl. alle anderen SBK-Projekte) Probleme
-            //throw new TcContentProzessException("Formatfehler Fehler beim Konvertieren eines Übergabeparamters (von "+param
-            // .getClass()+" nach "+targetType.getName()+")", e);
-            return null;
+            logger.error("Formatfehler beim Konvertieren des Übergabeparameters {} ({}) von {} nach {}: {}",
+              name, "password".equals(name) ? "<***>" : param,
+              ((param != null) ? param.getClass().getName() : "null"),
+              ((targetType != null) ? targetType.getName() : "null"), e.toString());
+            throw new TcContentProzessException("Formatfehler beim Konvertieren des Übergabeparameters " + name, e);
         }
-        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung von " +
-          (param != null ? param.getClass() : null) +
-          " nach " + targetType.getName() + " vorhanden.");
+        logger.error("Keine Konvertierungsregel für die Umwandlung des Übergabeparameters {} ({}) von {} nach {}",
+          name, "password".equals(name) ? "<***>" : param,
+          ((param != null) ? param.getClass().getName() : "null"),
+          ((targetType != null) ? targetType.getName() : "null"));
+        throw new TcContentProzessException("Keine Konvertierungsregel für die Umwandlung des Übergabeparameters " +
+          name + " vorhanden.");
+    }
+
+    /**
+     * Converts the value to its scalar destination type, including a check for null,
+     * an optional check for empty input string (unless nilValue is null itself),
+     * and an exception if the input is an array (usually when the name is present
+     * in both QUERY_STRING and via POST data).
+     *
+     * @param name     of the method argument to be converted
+     * @param param    input value
+     * @param dst      target class
+     * @param nilValue value to return if the input is null (or empty, if nilValue ≠ null)
+     * @param cvt      conversion function
+     * @return result of cvt(param.toString()) or nilValue
+     * @throws TcContentProzessException if param is an array
+     */
+    private Object tryScalarConversion(String name, Object param, Class dst, Object nilValue, Function<String, Object> cvt)
+      throws TcContentProzessException {
+        if (param == null || (/* some number */ nilValue != null && param.toString().length() == 0)) {
+            return nilValue;
+        }
+        if (param.getClass().isArray()) {
+            logger.error("Multiple Werte für skalaren Übergabeparameter {} (Klasse {}[], erwartet {}) gefunden: {}",
+              name, param.getClass().getComponentType().getName(), dst.getName(), "password".equals(name) ? "<***>" : param);
+            throw new TcContentProzessException("Multiple Werte für skalaren Übergabeparameter " + name +
+              " gefunden (vielleicht als Query-Parameter sowie im Formular-POST?)");
+        }
+        return cvt.apply(param.toString());
     }
 
     /**

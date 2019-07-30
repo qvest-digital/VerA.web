@@ -6,16 +6,41 @@
                 <meta http-equiv="expires" content="0">
                 <meta http-equiv="cache-control" content="no-cache">
                 <meta http-equiv="pragma" content="no-cache">
+		<script type="text/javascript">
+     /*
+	@licstart The following is the entire license notice for the
+	    JavaScript code in this file (LibreJS checks by an exact
+	    string match, so don’t change this text):
+
+	Copyright 2019 tarent solutions GmbH and its contributors
+
+	Permission is hereby granted, free of charge, to any person obtaining
+	a copy of this software and associated documentation files (the
+	"Software"), to deal in the Software without restriction, including
+	without limitation the rights to use, copy, modify, merge, publish,
+	distribute, sublicense, and/or sell copies of the Software, and to
+	permit persons to whom the Software is furnished to do so, subject to
+	the following conditions:
+
+	The above copyright notice and this permission notice shall be
+	included in all copies or substantial portions of the Software.
+
+	(see the source code for a full disclaimer and grant of licence)
+
+	Same here — retain this unmodified: @licend The above is the
+	entire license notice for the JavaScript code in this file
+     */
+		</script>
 ##              Utils
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jquery/jquery.min.js"></script>
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
-                <script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
-                <script type="text/javascript" src="${paths.staticWeb}scripts/clipboard.js"></script>
+                <script type="text/javascript" src="${paths.staticWeb}js/vera/utils.js"></script>
+                <script type="text/javascript" src="${paths.staticWeb}js/vera/clipboard.js"></script>
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-multifile/jquery.MultiFile.min.js"></script>
                 ##              Tabs und Popups
-                <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>
-                <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
-                <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-dialogs.js"></script>
+                <script type="text/javascript" src="${paths.staticWeb}js/vera/dhtml-tabs.js"></script>
+                <script type="text/javascript" src="${paths.staticWeb}js/vera/dhtml-popup.js"></script>
+                <script type="text/javascript" src="${paths.staticWeb}js/vera/dhtml-dialogs.js"></script>
                 ##              Calendar (http://www.dynarch.com/projects/calendar/)
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/calendar.js"></script>
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/calendar-setup.js"></script>
@@ -47,95 +72,92 @@
         </head>
         <body>
                 <div id="container" #if($event) class="event" #end>
-                        <header id="header">
-                                <a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
-                                <div id="topNav">
-                        <ul>
-                        <form id="languageSelectForm" class="inline" method="POST">
-                            <li>
-                                <div class="inline" id="languagede"><strong>Sprache:</strong></div>
-                                <div class="inline" id="languageen"><strong>Language:</strong></div>
-                                <div class="inline" id="languagees"><strong>Idioma:</strong></div>
-                                <div class="inline" id="languagefr"><strong>Langue:</strong></div>
-                                        #if ($translatedNames)
-                                                <select id="languageSelector" name="languageSelector" onchange="changeLanguage(this); changeLoginLanguage(this);">
-                                                                                        <option value="de_DE"
-                                                                                                #if(${language} == "de_DE")
-                                                                                                        selected
-                                                                                                #end
-                                                                                            >${translatedNames.get("de_DE")}
-                                            </option>
-                                                                                        <option value="en_EN"
-                                                                                                #if(${language} == "en_EN")
-                                                                                                        selected
-                                                                                                #end
-                                                                                            >${translatedNames.get("en_EN")}
-                                            </option>
-                                                                                        <option value="es_ES"
-                                                                                                #if(${language} == "es_ES")
-                                                                                                        selected
-                                                                                                #end
-                                                                                            >${translatedNames.get("es_ES")}
-                                            </option>
-                                                                                        <option value="fr_FR"
-                                                                                                #if(${language} == "fr_FR")
-                                                                                                        selected
-                                                                                                #end
-                                                                                            >${translatedNames.get("fr_FR")}
-                                            </option>
-                                                                                </select>
-                                                                        #else
-                                                                                <select id="languageSelectorLogin" name="languageSelector" onchange="changeLoginLanguage(this);">
-                                                                                        <option value="de_DE">Deutsch</option>
-                                                                                        <option value="en_EN">English</option>
-                                                                                        <option value="es_ES">Español</option>
-                                                                                        <option value="fr_FR">Français</option>
-                                                </select>
+			<header id="header">
+				<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
+				<div id="topNav">
+				<ul>
+				    <li><form id="languageSelectForm" class="inline" method="POST">
+					<div class="inline" id="languagede"><strong>Sprache:</strong></div>
+					<div class="inline" id="languageen"><strong>Language:</strong></div>
+					<div class="inline" id="languagees"><strong>Idioma:</strong></div>
+					<div class="inline" id="languagefr"><strong>Langue:</strong></div>
+						#if ($translatedNames)
+							<select id="languageSelector" name="languageSelector" onchange="changeLanguage(this); changeLoginLanguage(this);">
+												<option value="de_DE"
+													#if(${language} == "de_DE")
+														selected
+													#end
+												    >${translatedNames.get("de_DE")}
+						    </option>
+												<option value="en_EN"
+													#if(${language} == "en_EN")
+														selected
+													#end
+												    >${translatedNames.get("en_EN")}
+						    </option>
+												<option value="es_ES"
+													#if(${language} == "es_ES")
+														selected
+													#end
+												    >${translatedNames.get("es_ES")}
+						    </option>
+												<option value="fr_FR"
+													#if(${language} == "fr_FR")
+														selected
+													#end
+												    >${translatedNames.get("fr_FR")}
+						    </option>
+											</select>
+										#else
+											<select id="languageSelectorLogin" name="languageSelector" onchange="changeLoginLanguage(this);">
+												<option value="de_DE">Deutsch</option>
+												<option value="en_EN">English</option>
+												<option value="es_ES">Español</option>
+												<option value="fr_FR">Français</option>
+							</select>
 
-                                                                        #end
+										#end
 
-                            </li>
-                        </form>
+				    </form></li>
 
-                                            #if($grants && $grants.isAuthenticated())
-                                                        #if($config.helplink)
-                                                        <li>
-                                    <a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>
-                                        ${placeholderWithTranslation.GENERIC_HELP}
-                                    </a>
-                                </li>
-                                                        #else
-                                                        <li>
-                                    <a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">
-                                        ${placeholderWithTranslation.GENERIC_HELP}
-                                    </a>
-                                </li>
-                                                        #end
+				    #if($grants && $grants.isAuthenticated())
+					#if($config.helplink)
+					<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>
+						${placeholderWithTranslation.GENERIC_HELP}
+					</a></li>
+					#else
+					<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">
+						${placeholderWithTranslation.GENERIC_HELP}
+					</a></li>
+					#end
 
-                                                        #if($viewConfig.showGlobalOpenTab)
-                                                        <li>
-                                                            <a class="buttonLink" target="_blank" href="">
-                                                                <img src="${paths.staticWeb}images/add.png" alt="open new tab" title="${placeholderWithTranslation.HEADER_ELEMENT_NEW_TAB_HINT}" >
-                                                            </a>
-                                                        </li>
-                                                        #end
+					#if($viewConfig.showGlobalOpenTab)
+					<li><a class="buttonLink" target="_blank" href="">
+						<img src="${paths.staticWeb}images/add.png" alt="open new tab" title="${placeholderWithTranslation.HEADER_ELEMENT_NEW_TAB_HINT}" >
+					</a></li>
+					#end
 
-                                                        <li>
-                                                            <a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder">
-                                                                <span class="borderBottom">${placeholderWithTranslation.GENERIC_LOGOUT}</span>
-                                                                <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" />
-                                                            </a>
-                                                        </li>
-                                                #end
-                                        </ul>
-                                </div>
+					<li><a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder">
+						<span class="borderBottom">${placeholderWithTranslation.GENERIC_LOGOUT}</span>
+						<img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" />
+					</a></li>
+				    #end
+				</ul>
 
-                                #if($grants && $grants.isAuthenticated())
-                                        <div id="user">
-                                                <strong>${placeholderWithTranslation.GENERIC_USER}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
-                                        </div>
-                                #end
-                        </header>
+				<div style="text-align:right; padding-right:5px;">
+					<a style="border:0px; color:#000080;"
+					 href="${paths.staticWeb}doc/lic-info.htm"
+					 rel="jslicense">Lizenzbestimmungen</a>
+				</div>
+
+				</div>
+
+				#if($grants && $grants.isAuthenticated())
+				<div id="user">
+					<strong>${placeholderWithTranslation.GENERIC_USER}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
+				</div>
+				#end
+			</header>
 
                         #parse("inc/menu.vm")
                         #if($elementNameSingular && $elementNameSingular != "" && $elementNamePlural && $elementNamePlural != "" && $elementNameSex && $elementNameSex != "")
@@ -193,7 +215,7 @@
                                         #set($updateTest=${helper.createMessage($entity,"MODIFY","$countUpdate",$placeholderWithTranslation)})
                                 #end
                                 #set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
-                                <vera-success> $generalMessage.
+                                <vera-success>$generalMessage
                                 #if($insertAndUpdate && $insertAndUpdate == "true")
                                         <br/> $updateTest
                                 #end

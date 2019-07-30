@@ -1,11 +1,18 @@
 package de.tarent.aa.veraweb.utils;
 
 /*-
- * Veranstaltungsmanagement VerA.web (platform-independent
- * webservice-based event management) is Copyright
+ * Veranstaltungsmanagement VerA.web, comprised of…
+ * VerA.web, platform-independent webservice-based event management
+ * tarent-commons, a set of common components and solutions
+ * tarent-contact, platform-independent webservice-based contact management
+ * tarent-database, jdbc database library
+ * tarent-doctor, Document Generation Platform
+ * tarent-octopus, Webservice Data Integrator and Application Server
+ * … is newly MIT-licenced and Copyright
  *  © 2018 Атанас Александров (sirakov@gmail.com)
  *  © 2014, 2015, 2016, 2017 Атанас Александров (a.alexandrov@tarent.de)
  *  © 2013 Иванка Александрова (i.alexandrova@tarent.de)
+ *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
  *  © 2013 Patrick Apel (p.apel@tarent.de)
  *  © 2016 Eugen Auschew (e.auschew@tarent.de)
  *  © 2013 Andrei Boulgakov (a.boulgakov@tarent.de)
@@ -13,68 +20,83 @@ package de.tarent.aa.veraweb.utils;
  *  © 2016 Lukas Degener (l.degener@tarent.de)
  *  © 2017 Axel Dirla (a.dirla@tarent.de)
  *  © 2015 Julian Drawe (j.drawe@tarent.de)
- *  © 2014 Dominik George (d.george@tarent.de)
+ *  © 2009 Sven Frommeyer (s.frommeyer@tarent.de)
+ *  © 2014, 2018 Dominik George (d.george@tarent.de)
+ *  © 2013 Martin Gernhardt (m.gernhardt@tarent.de)
  *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
- *  © 2008 David Goemans (d.goemans@tarent.de)
+ *  © 2007, 2008 David Goemans (d.goemans@tarent.de)
  *  © 2018 Christian Gorski (c.gorski@tarent.de)
  *  © 2015 Viktor Hamm (v.hamm@tarent.de)
  *  © 2013 Katja Hapke (k.hapke@tarent.de)
- *  © 2013 Hendrik Helwich (h.helwich@tarent.de)
+ *  © 2006, 2007, 2010, 2013 Hendrik Helwich (h.helwich@tarent.de)
  *  © 2018 Thomas Hensel (t.hensel@tarent.de)
  *  © 2018, 2019 Benedict Hoeger (b.hoeger@tarent.de)
  *  © 2018, 2019 Titian Horvath (t.horvath@tarent.de)
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
  *  © 2018, 2019 Timo Kanera (t.kanera@tarent.de)
+ *  © 2006 Philipp Kirchner (p.kirchner@tarent.de)
  *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
- *  © 2014 Martin Ley (m.ley@tarent.de)
+ *  © 2006 Michael Kleinhenz (m.kleinhenz@tarent.de)
+ *  © 2006 Michael Klink (m.klink@tarent.de)
+ *  © 2007 Fabian Köster (f.koester@tarent.de)
+ *  © 2006, 2014 Martin Ley (m.ley@tarent.de)
+ *  © 2007 Alex Maier (a.maier@tarent.de)
  *  © 2014, 2015 Max Marche (m.marche@tarent.de)
  *  © 2007 Jan Meyer (jan@evolvis.org)
- *  © 2013, 2014, 2015, 2016, 2017, 2018, 2019
+ *  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019
  *     mirabilos (t.glaser@tarent.de)
  *  © 2016 Cristian Molina (c.molina@tarent.de)
+ *  © 2006, 2007 Jens Neumaier (j.neumaier@tarent.de)
+ *  © 2006 Nils Neumaier (n.neumaier@tarent.de)
  *  © 2018 Yorka Neumann (y.neumann@tarent.de)
  *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
  *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
  *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
  *  © 2016 Jens Oberender (j.oberender@tarent.de)
  *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
- *  © 2009 Martin Pelzer (m.pelzer@tarent.de)
+ *  © 2007, 2008, 2009 Martin Pelzer (m.pelzer@tarent.de)
+ *  © 2008, 2009 Christian Preilowski (c.thiel@tarent.de)
  *  © 2013 Marc Radel (m.radel@tarent.de)
  *  © 2013 Sebastian Reimers (s.reimers@tarent.de)
  *  © 2015 Charbel Saliba (c.saliba@tarent.de)
- *  © 2008, 2009, 2010 Thomas Schmitz (t.schmitz@tarent.de)
+ *  © 2006, 2008, 2009, 2010 Thomas Schmitz (t.schmitz@tarent.de)
  *  © 2013 Volker Schmitz (v.schmitz@tarent.de)
  *  © 2014 Sven Schumann (s.schumann@tarent.de)
+ *  © 2007 Robert Schuster (r.schuster@tarent.de)
  *  © 2014 Sevilay Temiz (s.temiz@tarent.de)
  *  © 2013 Kevin Viola Schmitz (k.schmitz@tarent.de)
- *  © 2015 Stefan Walenda (s.walenda@tarent.de)
+ *  © 2008, 2015 Stefan Walenda (s.walenda@tarent.de)
  *  © 2015, 2016, 2017 Max Weierstall (m.weierstall@tarent.de)
  *  © 2013 Rebecca Weinz (r.weinz@tarent.de)
  *  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)
  *  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)
- * and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.
+ * and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
  *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, see: http://www.gnu.org/licenses/
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
@@ -199,118 +221,6 @@ public class GuestSerialNumber {
     /**
      * Berechnet die 'Laufende Nummer' einer Gästeliste nach folgendem Schema:
      * <ul>
-     * <li>Sortiert Gäste mit Rang ein.</li>
-     * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
-     * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
-     * </ul>
-     */
-    static public class CalcSerialNumberImpl2 extends CalcSerialNumber {
-        /**
-         * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
-         * Benutzung bei der späteren Berechnung laufender Gästenummern.
-         *
-         * @param context FIXME
-         * @param event   FIXME
-         */
-        public CalcSerialNumberImpl2(ExecutionContext context, Event event) {
-            super(context, event);
-        }
-
-        /**
-         * Diese Methode berechnet die tatsächlichen laufenden Nummern der
-         * Gäste der im Konstruktor übergebenen Veranstaltung in der ebenda
-         * übergebenen Datenbank nach folgendem Schema:
-         * <ul>
-         * <li>Sortiert Gäste mit Rang ein.</li>
-         * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
-         * <li>Sortiert alle anderen anhand ihres Namens ein.</li>
-         * </ul>
-         */
-        @Override
-        public void calcSerialNumber() throws BeanException, IOException {
-            clearSerialNumber();
-            calcSerialNumberForGuestRank();
-
-            Select select = SQL.Select(executionContext).
-              from("veraweb.tcategorie").
-              selectAs("pk", "id").
-              selectAs("flags", "flag").
-              orderBy(Order.asc("rank").andAsc("catname"));
-            for (Iterator it = executionContext.getDatabase().getList(select, executionContext).iterator(); it.hasNext(); ) {
-                Map map = (Map) it.next();
-                if (((Integer) map.get("flag")).intValue() == Categorie.FLAG_DIPLO_CORPS) {
-                    calcSerialNumberForDiploCorp((Integer) map.get("id"));
-                } else {
-                    calcSerialNumberForCategorie((Integer) map.get("id"));
-                }
-            }
-
-            calcSerialNumberForGuestName();
-        }
-
-        protected void calcSerialNumberForGuestRank() throws BeanException, IOException {
-            WhereList where = getGuestSerialNumberWhere(event);
-            where.addAnd(Expr.isNotNull("tguest.rank"));
-
-            Select select = getSelect();
-            select.where(where);
-            select.orderBy(Order.asc("tguest.rank").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-
-            setSerialNumber(select);
-        }
-
-        protected void calcSerialNumberForGuestName() throws BeanException, IOException {
-            WhereList where = getGuestSerialNumberWhere(event);
-
-            Select select = getSelect();
-            select.where(where);
-            select.orderBy(Order.asc("lastname_a_e1").andAsc("firstname_a_e1"));
-
-            setSerialNumber(select);
-        }
-
-        protected void calcSerialNumberForCategorie(Integer categorieId) throws BeanException, IOException {
-            WhereList where = getGuestSerialNumberWhere(event);
-            where.addAnd(Expr.equal("tperson_categorie.fk_categorie", categorieId));
-
-            Select select = getSelect();
-            select.join("veraweb.tperson_categorie", "tperson_categorie.fk_person", "tguest.fk_person");
-            select.where(where);
-            select.orderBy(Order.asc("tperson_categorie.rank").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-
-            setSerialNumber(select);
-        }
-
-        protected void calcSerialNumberForDiploCorp(Integer categorieId) throws BeanException, IOException {
-            WhereList where = getGuestSerialNumberWhere(event);
-            where.addAnd(Expr.equal("tperson_categorie.fk_categorie", categorieId));
-
-            Select select = getSelect();
-            select.join("veraweb.tperson_categorie", "tperson_categorie.fk_person", "tguest.fk_person");
-            select.where(where);
-            select.orderBy(Order.asc("tperson.diplodate").andAsc("lastname_a_e1").andAsc("firstname_a_e1"));
-
-            setSerialNumber(select);
-        }
-
-        /**
-         * @param event Event
-         * @return Where-Liste mit Einschränkung auf die übergebene Veranstaltung
-         * und nur nocht nicht einsortierte Gäste.
-         */
-        private WhereList getGuestSerialNumberWhere(Event event) {
-            WhereList where = new WhereList();
-            where.addAnd(Expr.equal("tguest.fk_event", event.id));
-            where.addAnd(Expr.equal("ishost", new Integer(0)));
-            where.addAnd(Expr.isNull("orderno"));
-            where.addAnd(Expr.isNull("orderno_p"));
-            return where;
-        }
-    }
-
-    /**
-     * Berechnet die 'Laufende Nummer' einer Gästeliste nach folgendem Schema:
-     * <ul>
      * <li>Sortiert Gäste anhand ihrer Kategorie ein.</li>
      * <li>Sortiert Gäste mit Rang ein.</li>
      * <li>Sortiert Gäste nach Akkreditierungsdatum ein.</li>
@@ -368,7 +278,6 @@ public class GuestSerialNumber {
             order.add("tcategorie.rank");
             order.add("tcategorie.catname");
             order.add("tcategorie.pk");
-            order.add("tguest.rank");
             order.add("diplodate");
             order.add("lastname_a_e1");
             order.add("firstname_a_e1");

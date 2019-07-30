@@ -42,12 +42,12 @@
 #if($basicEventId && $basicEventId != 'noBasicEvent')
     #set($basicEventLinkSuffix = "?basicEvent=${basicEventId}")
 #end
-
+<a id="back-to-top"><i class="up"></i></a>
 <div id="content_container">
     <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/popup.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/back-to-top.css" media="all" />
     <script src="${paths.staticWeb}js/vera/veraweb-back-to-top.js"></script>
     <script src="${paths.staticWeb}js/vera/veraweb-popup.js"></script>
-    <script src="${paths.staticWeb}js/ext/Scroll-to-Top/jquery.gotop.js"></script>
 
     </script>
         <div id="breadcrumb" class="textRight marginBottom10">

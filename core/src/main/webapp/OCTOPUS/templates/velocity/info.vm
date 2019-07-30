@@ -46,12 +46,6 @@
     #else
             <td>$userConfig.restApiAvail</td>
     #end
-        </tr><tr>
-                <td class="width10 bold">${placeholderWithTranslation.INFO_LIC_LIC}:</td>
-                <td><a href="${paths.staticWeb}doc/LICENCE.txt">${placeholderWithTranslation.INFO_LIC_INFOS}</a>
-                 (<a href="${paths.staticWeb}doc/">${placeholderWithTranslation.INFO_LIC_DOCS}</a>),
-                 <a href="${paths.staticWeb}doc/src.tgz">${placeholderWithTranslation.INFO_LIC_SRC}</a>,
-                 <a href="${paths.staticWeb}doc/deps-src.zip">${placeholderWithTranslation.INFO_LIC_DEP}</a></td>
         </tr>
     </table>
     <p>${placeholderWithTranslation.INFO_VWOR_MANDATORY}</p>

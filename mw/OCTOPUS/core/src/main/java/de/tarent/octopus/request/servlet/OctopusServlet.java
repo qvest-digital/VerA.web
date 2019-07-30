@@ -1,36 +1,76 @@
 package de.tarent.octopus.request.servlet;
 
 /*-
- * VerA.web-Middleware, newly MIT licenced, is comprised of:
+ * Veranstaltungsmanagement VerA.web, comprised of…
+ * VerA.web, platform-independent webservice-based event management
  * tarent-commons, a set of common components and solutions
  * tarent-contact, platform-independent webservice-based contact management
  * tarent-database, jdbc database library
  * tarent-doctor, Document Generation Platform
  * tarent-octopus, Webservice Data Integrator and Application Server
+ * … is newly MIT-licenced and Copyright
  *  © 2018 Атанас Александров (sirakov@gmail.com)
+ *  © 2014, 2015, 2016, 2017 Атанас Александров (a.alexandrov@tarent.de)
+ *  © 2013 Иванка Александрова (i.alexandrova@tarent.de)
  *  © 2005, 2006, 2007 asteban (s.mancke@tarent.de)
- *  © 2018 Dominik George (d.george@tarent.de)
- *  © 2007 David Goemans (d.goemans@tarent.de)
+ *  © 2013 Patrick Apel (p.apel@tarent.de)
+ *  © 2016 Eugen Auschew (e.auschew@tarent.de)
+ *  © 2013 Andrei Boulgakov (a.boulgakov@tarent.de)
+ *  © 2013 Valentin But (v.but@tarent.de)
+ *  © 2016 Lukas Degener (l.degener@tarent.de)
+ *  © 2017 Axel Dirla (a.dirla@tarent.de)
+ *  © 2015 Julian Drawe (j.drawe@tarent.de)
+ *  © 2009 Sven Frommeyer (s.frommeyer@tarent.de)
+ *  © 2014, 2018 Dominik George (d.george@tarent.de)
+ *  © 2013 Martin Gernhardt (m.gernhardt@tarent.de)
+ *  © 2013 Sascha Girrulat (s.girrulat@tarent.de)
+ *  © 2007, 2008 David Goemans (d.goemans@tarent.de)
  *  © 2018 Christian Gorski (c.gorski@tarent.de)
- *  © 2006, 2007, 2010 Hendrik Helwich (h.helwich@tarent.de)
- *  © 2018 Benedict Hoeger (b.hoeger@tarent.de)
- *  © 2005, 2006, 2007 Christoph Jerolimov (c.jerolimov@tarent.de)
- *  © 2018 Timo Kanera (t.kanera@tarent.de)
+ *  © 2015 Viktor Hamm (v.hamm@tarent.de)
+ *  © 2013 Katja Hapke (k.hapke@tarent.de)
+ *  © 2006, 2007, 2010, 2013 Hendrik Helwich (h.helwich@tarent.de)
+ *  © 2018 Thomas Hensel (t.hensel@tarent.de)
+ *  © 2018, 2019 Benedict Hoeger (b.hoeger@tarent.de)
+ *  © 2018, 2019 Titian Horvath (t.horvath@tarent.de)
+ *  © 2005, 2006, 2007, 2008 Christoph Jerolimov (jerolimov@gmx.de)
+ *  © 2018, 2019 Timo Kanera (t.kanera@tarent.de)
  *  © 2006 Philipp Kirchner (p.kirchner@tarent.de)
- *  © 2010 Carsten Klein (c.klein@tarent.de)
+ *  © 2008, 2009, 2010 Carsten Klein (c.klein@tarent.de)
  *  © 2006 Michael Kleinhenz (m.kleinhenz@tarent.de)
  *  © 2006 Michael Klink (m.klink@tarent.de)
  *  © 2007 Fabian Köster (f.koester@tarent.de)
- *  © 2006 Martin Ley (m.ley@tarent.de)
+ *  © 2006, 2014 Martin Ley (m.ley@tarent.de)
  *  © 2007 Alex Maier (a.maier@tarent.de)
- *  © 2007, 2015, 2017, 2018 mirabilos (t.glaser@tarent.de)
+ *  © 2014, 2015 Max Marche (m.marche@tarent.de)
+ *  © 2007 Jan Meyer (jan@evolvis.org)
+ *  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+ *     mirabilos (t.glaser@tarent.de)
+ *  © 2016 Cristian Molina (c.molina@tarent.de)
  *  © 2006, 2007 Jens Neumaier (j.neumaier@tarent.de)
  *  © 2006 Nils Neumaier (n.neumaier@tarent.de)
- *  © 2007, 2008 Martin Pelzer (m.pelzer@tarent.de)
+ *  © 2018 Yorka Neumann (y.neumann@tarent.de)
+ *  © 2017 Michael Nienhaus (m.nienhaus@tarent.de)
+ *  © 2013 Claudia Nuessle (c.nuessle@tarent.de)
+ *  © 2014, 2015 Jon Nuñez Alvarez (j.nunez-alvarez@tarent.de)
+ *  © 2016 Jens Oberender (j.oberender@tarent.de)
+ *  © 2016, 2017 Miluška Pech (m.pech@tarent.de)
+ *  © 2007, 2008, 2009 Martin Pelzer (m.pelzer@tarent.de)
  *  © 2008, 2009 Christian Preilowski (c.thiel@tarent.de)
- *  © 2006, 2008, 2009 Thomas Schmitz (t.schmitz@tarent.de)
+ *  © 2013 Marc Radel (m.radel@tarent.de)
+ *  © 2013 Sebastian Reimers (s.reimers@tarent.de)
+ *  © 2015 Charbel Saliba (c.saliba@tarent.de)
+ *  © 2006, 2008, 2009, 2010 Thomas Schmitz (t.schmitz@tarent.de)
+ *  © 2013 Volker Schmitz (v.schmitz@tarent.de)
+ *  © 2014 Sven Schumann (s.schumann@tarent.de)
  *  © 2007 Robert Schuster (r.schuster@tarent.de)
- * and older code, Copyright © 2001–2007 ⮡ tarent GmbH and contributors.
+ *  © 2014 Sevilay Temiz (s.temiz@tarent.de)
+ *  © 2013 Kevin Viola Schmitz (k.schmitz@tarent.de)
+ *  © 2008, 2015 Stefan Walenda (s.walenda@tarent.de)
+ *  © 2015, 2016, 2017 Max Weierstall (m.weierstall@tarent.de)
+ *  © 2013 Rebecca Weinz (r.weinz@tarent.de)
+ *  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)
+ *  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)
+ * and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -94,7 +134,7 @@ import java.util.Map;
  */
 @Log4j2
 public class OctopusServlet extends HttpServlet {
-    private static final long serialVersionUID = 35776100380066984L;
+    private static final long serialVersionUID = -2227782863951430608L;
 
     private static Octopus octopus = null;
     private static TcEnv env;
@@ -140,19 +180,19 @@ public class OctopusServlet extends HttpServlet {
                 types = TcEnv.VALUE_REQUEST_TYPE_ANY;
             }
 
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_ANY) != -1) {
-                allowedRequestTypes = 0xffffffff;
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_ANY)) {
+                allowedRequestTypes = 0xFFFFFFFF;
             }
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_WEB) != -1) {
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_WEB)) {
                 allowedRequestTypes |= TcRequest.REQUEST_TYPE_WEB;
             }
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_SOAP) != -1) {
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_SOAP)) {
                 allowedRequestTypes |= TcRequest.REQUEST_TYPE_SOAP;
             }
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_XMLRPC) != -1) {
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_XMLRPC)) {
                 allowedRequestTypes |= TcRequest.REQUEST_TYPE_XML_RPC;
             }
-            if (types.indexOf(TcEnv.VALUE_REQUEST_TYPE_DIRECTCALL) != -1) {
+            if (types.contains(TcEnv.VALUE_REQUEST_TYPE_DIRECTCALL)) {
                 allowedRequestTypes |= TcRequest.REQUEST_DIRECT_CALL;
             }
 
@@ -160,7 +200,7 @@ public class OctopusServlet extends HttpServlet {
             octopus = new Octopus();
             octopus.init(env);
             octopus.init(new ServletModuleLookup(getServletContext(), this, octopus.getCommonConfig()));
-            //Octopus für lokale Connections bekannt machen
+            // Octopus für lokale Connections bekannt machen
             OctopusConnectionFactory.getInstance().setInternalOctopusInstance(octopus);
         } catch (Exception e) {
             logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_INIT_EXCEPTION"), e);
@@ -202,15 +242,14 @@ public class OctopusServlet extends HttpServlet {
     }
 
     /**
-     * Startet die Abarbeitung einer Anfrage dadurch, daß diese an den die dispatch() Methode des RequestDispatchers
-     * weiter gegeben wird.
+     * Startet die Abarbeitung einer Anfrage dadurch, daß diese an den die dispatch()-Methode
+     * des RequestDispatchers weitergegeben wird.
      *
-     * Dazu werden ein TcRequest Objekt mit createRequestObject(),
-     * ein TcResponse Objekt,
-     * sowie ein TcSession mit der HttpSession initialisiert und an den RequestDispatcher übergeben.
+     * Dazu werden ein TcRequest Objekt mit createRequestObject(), ein TcResponse Objekt
+     * sowie eine TcSession mit der HttpSession initialisiert und an den RequestDispatcher übergeben.
      *
-     * Wenn der Request den Parameter debug=true enthält und Debugging über den DeploymentDescriptor erlaubt wurde,
-     * werden noch Debugausgaben aus gegeben.
+     * Wenn der Request den Parameter debug=true enthält und Debugging über den DeploymentDescriptor
+     * erlaubt wurde werden noch Debugausgaben ausgegeben.
      */
     public void handleTheRequest(HttpServletRequest request, HttpServletResponse response, boolean post)
       throws IOException {
@@ -220,7 +259,10 @@ public class OctopusServlet extends HttpServlet {
 
         String requestID = TcRequest.createRequestID();
         {
-            String reqString = request.getPathInfo();
+            String reqString = (String) request.getAttribute("de.tarent.octopus.request.servlet.Forward.requestURI");
+            if (reqString == null) {
+                reqString = request.getPathInfo();
+            }
             if (reqString == null) {
                 reqString = "";
             }
@@ -228,15 +270,15 @@ public class OctopusServlet extends HttpServlet {
             if (params != null) {
                 reqString += '?' + params;
             }
-            logger.info(Resources.getInstance()
-              .get("REQUESTPROXY_LOG_REQUEST_URI", requestID, request.getRemoteAddr(), reqString));
+            logger.info(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_URI",
+              requestID, request.getRemoteAddr(), request.getMethod(), reqString));
         }
 
         TcSession tcSession;
         if (!env.getValueAsBoolean(TcEnv.KEY_OMIT_SESSIONS)) {
             HttpSession session = request.getSession(true);
 
-            // Anmeldung erzwingen wen task = login
+            // Anmeldung erzwingen wenn task == login
             boolean sessionWasNew = (session == null) || session.isNew();
 
             if ("login".equals(request.getParameter("task"))) {
@@ -267,11 +309,10 @@ public class OctopusServlet extends HttpServlet {
                     }
                 }
 
-                // This relativ (manual) redirect fix a problem in the catalina
+                // This relative (manual) redirect fixes a problem in the catalina
                 // implementation of HttpServletResponse.sendRedirect which
-                // use a wrong ("http://") absolut path for "https:/Immobilien Schulz/" urls.
-                // It also fix a problem with forwarder-servlets which do not
-                // include the orignal request url.
+                // uses a wrong ("http://") absolute path for "https:/Immobilien Schulz/" URLs.
+                // It also fix a problem with forwarder servlets that do not include the orignal request URL.
                 String redirectURI = (String) request.getAttribute("javax.servlet.forward.request_uri");
                 if (redirectURI == null) {
                     redirectURI = request.getRequestURI();
@@ -283,12 +324,13 @@ public class OctopusServlet extends HttpServlet {
 
                 response.setStatus(302);
                 response.setHeader("Location", redirectURI);
-                logger.info(Resources.getInstance()
-                  .get("REQUESTPROXY_LOG_REDIRECT_REQUEST", requestID, redirectURI));
+                logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REDIRECT_REQUEST",
+                  requestID, redirectURI));
                 return;
             }
             tcSession = new TcServletSession(session);
-        } else {//Servlet Session Ignorieren und Dummy erzeugen
+        } else {
+            // Servlet-Session ignorieren und Dummy erzeugen
             tcSession = new TcServletDummySession();
         }
 
@@ -300,21 +342,16 @@ public class OctopusServlet extends HttpServlet {
             tcResponse = new TcServletResponse(response);
             tcResponse.setSoapEngine(soapEngine);
             tcResponse.setErrorLevel(env.getValueAsString(TcEnv.KEY_RESPONSE_ERROR_LEVEL));
-            logger.trace(
-              Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED", requestID));
+            logger.trace(Resources.getInstance().get("REQUESTPROXY_LOG_RESPONSE_OBJECT_CREATED", requestID));
 
             requestType = HttpHelper.discoverRequestType(request);
             logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_REQUEST_TYPE", requestID,
               TcRequest.getRequestTypeName(requestType)));
 
             // test if request type is not allowed
-            if (!isRequstTypeAllowed(requestType)) {
+            if (!isRequestTypeAllowed(requestType)) {
                 logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_ILLEGAL_REQUEST_TYPE",
-                  new String[] {
-                    requestID,
-                    String.valueOf(requestType),
-                    String.valueOf(allowedRequestTypes),
-                  }));
+                  requestID, String.valueOf(requestType), String.valueOf(allowedRequestTypes)));
                 tcResponse.sendError(requestType,
                   requestID,
                   Resources.getInstance().get("ERROR_MESSAGE_ILLEGAL_REQUEST_TYPE"),
@@ -338,8 +375,7 @@ public class OctopusServlet extends HttpServlet {
             for (int i = 0; i < octRequests.length; i++) {
                 TcRequest octRequest = octRequests[i];
                 String askForCookies = octRequest.getParamAsString(TcRequest.PARAM_ASK_FOR_COOKIES);
-                octRequest.setAskForCookies(
-                  askForCookies == null ? false : askForCookies.equalsIgnoreCase("true"));
+                octRequest.setAskForCookies(askForCookies != null && askForCookies.equalsIgnoreCase("true"));
 
                 octRequest.setParam(TcRequest.PARAM_ENCODED_URL,
                   response.encodeURL(request.getRequestURL().toString()));
@@ -347,21 +383,9 @@ public class OctopusServlet extends HttpServlet {
                 octRequest.setOctopusConnection(createOctopusConnection(octRequest, tcSession));
 
                 octopus.dispatch(octRequest, tcResponse, tcSession);
-
-                // Debug Messages wurden seit Octopus 1.2.0 entfernt: Für Debugging bitte Logging-Api verwenden!
-                if (octRequest.getParameterAsBoolean(TcRequest.PARAM_DEBUG)) {
-                    tcResponse.sendError(requestType,
-                      octRequest.getRequestID(),
-                      Resources.getInstance()
-                        .get("REQUEST_UNKNOWN_REQUEST_PARAM", TcRequest.PARAM_DEBUG,
-                          "Direkte Debug Messages wurden seit Octopus 1.2.0 entfernt: Für Debugging bitte " +
-                            "Logging-Api verwenden!"),
-                      null);
-                }
             }
         } catch (Exception e) {
-            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION", requestID),
-              e);
+            logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_PROCESSING_EXCEPTION", requestID), e);
             if (tcResponse != null) {
                 tcResponse.sendError(requestType, requestID,
                   Resources.getInstance().get("REQUESTPROXY_OUT_PROCESSING_EXCEPTION"), e);
@@ -372,7 +396,7 @@ public class OctopusServlet extends HttpServlet {
         }
     }
 
-    protected boolean isRequstTypeAllowed(int requestType) {
+    protected boolean isRequestTypeAllowed(int requestType) {
         return (allowedRequestTypes & requestType) == requestType;
     }
 
@@ -398,18 +422,15 @@ public class OctopusServlet extends HttpServlet {
      */
     private TcRequest[] extractRequests(HttpServletRequest request, int requestType, String requestID)
       throws TcSOAPException {
-        TcRequest[] requests = null;
-        if (TcRequest.isWebType(requestType))
-        // Normaler WEB-Request
-        {
+        TcRequest[] requests;
+        if (TcRequest.isWebType(requestType)) {
+            // Normaler WEB-Request
             requests = new TcRequest[] { HttpHelper.readWebRequest(request, requestType, requestID) };
-        } else if (TcRequest.isSoapType(requestType))
-        // SOAP Request
-        {
+        } else if (TcRequest.isSoapType(requestType)) {
+            // SOAP Request
             requests = HttpHelper.readSoapRequests(request, requestType, requestID, soapEngine);
-        } else if (TcRequest.isXmlRpcType(requestType))
-        // XML-RPC Request
-        {
+        } else if (TcRequest.isXmlRpcType(requestType)) {
+            // XML-RPC Request
             requests = HttpHelper.readXmlRpcRequests(request, requestType, requestID);
         } else {
             return null;
