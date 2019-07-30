@@ -39,10 +39,6 @@
 			<groupId>axis</groupId>
 			<artifactId>axis</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>axis</groupId>
-			<artifactId>axis-wsdl4j</artifactId>
-		</dependency>
 		<!-- needed by velocity:velocity -->
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -88,6 +84,10 @@
 		<dependency>
 			<groupId>velocity</groupId>
 			<artifactId>velocity</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>xmlrpc</groupId>

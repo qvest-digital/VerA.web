@@ -391,15 +391,14 @@
 				<version>${axis.version}</version>
 				<exclusions>
 					<exclusion>
+						<groupId>axis</groupId>
+						<artifactId>axis-wsdl4j</artifactId>
+					</exclusion>
+					<exclusion>
 						<groupId>commons-logging</groupId>
 						<artifactId>commons-logging</artifactId>
 					</exclusion>
 				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>axis</groupId>
-				<artifactId>axis-wsdl4j</artifactId>
-				<version>${axis-wsdl4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml</groupId>
@@ -901,6 +900,11 @@
 						<artifactId>velocity-dep</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>wsdl4j</groupId>
+				<artifactId>wsdl4j</artifactId>
+				<version>${axis-wsdl4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>xmlrpc</groupId>
