@@ -1,6 +1,5 @@
 antlr:antlr 2.7.7 compile ok
 axis:axis 1.4 compile ok
-axis:axis-wsdl4j 1.5.1 compile TODO
 com.fasterxml.jackson.core:jackson-annotations 2.9.9 compile ok
 com.fasterxml.jackson.core:jackson-core 2.9.9 compile ok
 com.fasterxml.jackson.core:jackson-databind 2.9.9.1 compile ok
@@ -107,4 +106,5 @@ org.yaml:snakeyaml 1.23 compile ok
 oro:oro 2.0.8 runtime ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
 velocity:velocity 1.4 compile ok
+wsdl4j:wsdl4j 1.5.1 compile TODO
 xmlrpc:xmlrpc 1.2-b1 compile ok
