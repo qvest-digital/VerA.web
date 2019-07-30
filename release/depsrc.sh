@@ -106,7 +106,9 @@ set +x
 		p=${x##*/}
 		x=${x%/*}
 		print -r -- ${x//'/'/.} $p $v
-done | sort | diff -u - release/ckdep.mvn || :)
+done | sort | grep -v \
+    -e '^org\.projectlombok lombok ' | \
+    diff -u - release/ckdep.mvn || :)
 print
 print -r -- "[INFO] release/depsrc.sh finished"
 # leave the rest to the maven-assembly-plugin
