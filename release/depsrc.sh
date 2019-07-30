@@ -36,7 +36,7 @@ set -e
 set -o pipefail
 cd "$(dirname "$0")/.."
 mkdir -p target
-rm -rf target/dep-srcs
+rm -rf target/dep-srcs*
 
 vsn=$(<pom.xml xmlstarlet sel \
     -N pom=http://maven.apache.org/POM/4.0.0 \
@@ -96,7 +96,14 @@ mvn -B -f target/pom-srcs.xml \
 
 : diff between actual and expected list, ignore failures though
 set +x
-(find target/dep-srcs/ -type f | \
+set -A exclusions
+set -A inclusions
+# shipped in axis:axis source JAR
+inclusions+=(-e '^org\.apache\.axis axis-jaxrpc ')
+inclusions+=(-e '^org\.apache\.axis axis-saaj ')
+# not in ckdep.mvn for technical reasons but correct
+exclusions+=(-e '^org\.projectlombok lombok ')
+find target/dep-srcs/ -type f | \
     fgrep -v -e _remote.repositories -e maven-metadata-local.xml | \
     while IFS= read -r x; do
 		x=${x#target/dep-srcs/}
@@ -106,9 +113,9 @@ set +x
 		p=${x##*/}
 		x=${x%/*}
 		print -r -- ${x//'/'/.} $p $v
-done | sort | grep -v \
-    -e '^org\.projectlombok lombok ' | \
-    diff -u - release/ckdep.mvn || :)
+done | sort | grep -v "${exclusions[@]}" >target/dep-srcs.actual
+grep -v "${inclusions[@]}" <release/ckdep.mvn >target/dep-srcs.expected
+(diff -u target/dep-srcs.actual target/dep-srcs.expected || :)
 print
 print -r -- "[INFO] release/depsrc.sh finished"
 # leave the rest to the maven-assembly-plugin
