@@ -51,8 +51,7 @@ if test -n "$(git status --porcelain)"; then
 		# to-date, so we only need to care about the current list
 		if grep -e ' TO''DO$' -e ' FA''IL$' release/ckdep.lst; then
 			echo >&2 "[ERROR] licence review incomplete"
-#XXX do not fail, until licence review was initially completed
-#			exit 1
+			exit 1
 		fi
 
 		exit 0
