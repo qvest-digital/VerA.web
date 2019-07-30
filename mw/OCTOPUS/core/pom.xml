@@ -23,6 +23,9 @@
 							<usedDependencies>
 								<!-- to avoid Axis crash -->
 								<usedDependency>commons-discovery:commons-discovery</usedDependency>
+								<!-- Velocity runtime -->
+								<usedDependency>commons-collections:commons-collections</usedDependency>
+								<usedDependency>oro:oro</usedDependency>
 							</usedDependencies>
 						</configuration>
 					</execution>
