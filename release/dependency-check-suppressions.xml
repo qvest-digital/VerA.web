@@ -23,22 +23,6 @@
 		<cpe>cpe:/a:apache:axis</cpe>
 	</suppress>
 	<!-- end of excluded vulnerable SOAP is not an allowed request type -->
-	<!-- dependencies for system tests have not to be considered -->
-	<suppress>
-		<notes><![CDATA[
-			file name: xercesImpl-2.9.1.jar
-		]]></notes>
-		<gav regex="true">^xerces:xercesImpl:.*$</gav>
-		<cpe>cpe:/a:apache:xerces2_java</cpe>
-	</suppress>
-	<suppress>
-		<notes><![CDATA[
-			file name: commons-beanutils-1.8.0.jar
-		]]></notes>
-		<gav regex="true">^commons-beanutils:commons-beanutils:.*$</gav>
-		<cpe>cpe:/a:apache:commons_beanutils</cpe>
-	</suppress>
-	<!-- end of vulnerable system test dependencies -->
 	<!-- false positives from postgresql-->
 	<suppress>
 		<notes><![CDATA[
