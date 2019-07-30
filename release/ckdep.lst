@@ -106,5 +106,5 @@ org.yaml:snakeyaml 1.23 compile ok
 oro:oro 2.0.8 runtime ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
 velocity:velocity 1.4 compile ok
-wsdl4j:wsdl4j 1.5.1 compile TODO
+wsdl4j:wsdl4j 1.5.1 compile ok
 xmlrpc:xmlrpc 1.2-b1 compile ok

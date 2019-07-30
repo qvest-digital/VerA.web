@@ -824,11 +824,6 @@ External code found in the Java™ backend part includes:
 
 These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 
-┌──┤ Axis’ copy of WSDL4J (CPLv1.0) ├──────────────────────────────────────┐
-│                                                                          │
-│ (c) Copyright IBM Corp 2001, 2002, 2004, 2005                            │
-└──────────────────────────────────────────────────────────────────────────┘
-
 ┌──┤ Background-Jobs (MIT) ├───────────────────────────────────────────────┐
 │                                                                          │
 │ Background-Jobs is Copyright                                             │
@@ -3736,6 +3731,11 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
 │ See the License for the specific language governing permissions and      │
 │ limitations under the License.                                           │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ WSDL4J (CPLv1.0) ├────────────────────────────────────────────────────┐
+│                                                                          │
+│ (c) Copyright IBM Corp 2001, 2002, 2004, 2005                            │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ xmlrpc (Apache 1.1) ├─────────────────────────────────────────────────┐
