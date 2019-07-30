@@ -138,6 +138,7 @@
 		<lombok.version>1.18.8</lombok.version>
 		<mimepull.version>1.9.11</mimepull.version>
 		<mockito.version>3.0.0</mockito.version>
+		<oro.version>2.0.8</oro.version>
 		<pdfbox.version>2.0.16</pdfbox.version>
 		<poi.version>3.17</poi.version>
 		<postgresql.version>42.2.5</postgresql.version>
@@ -884,6 +885,11 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
 				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>oro</groupId>
+				<artifactId>oro</artifactId>
+				<version>${oro.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>velocity</groupId>

@@ -43,6 +43,12 @@
 			<groupId>axis</groupId>
 			<artifactId>axis-wsdl4j</artifactId>
 		</dependency>
+		<!-- needed by velocity:velocity -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>commons-discovery</groupId>
 			<artifactId>commons-discovery</artifactId>
@@ -72,6 +78,12 @@
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-base</artifactId>
+		</dependency>
+		<!-- needed by velocity:velocity -->
+		<dependency>
+			<groupId>oro</groupId>
+			<artifactId>oro</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>velocity</groupId>
