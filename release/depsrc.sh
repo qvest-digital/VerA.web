@@ -140,7 +140,6 @@ find target/dep-srcs/ -type f | \
 		print -r -- ${x//'/'/.} $p $v
 done | sort | grep -v "${exclusions[@]}" >target/dep-srcs.actual
 grep -v "${inclusions[@]}" <release/ckdep.mvn >target/dep-srcs.expected
-(diff -u target/dep-srcs.actual target/dep-srcs.expected || :)
-print
+diff -u target/dep-srcs.actual target/dep-srcs.expected
 print -r -- "[INFO] release/depsrc.sh finished"
 # leave the rest to the maven-assembly-plugin
