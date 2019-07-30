@@ -113,6 +113,9 @@ Summary of individual licences used, including all dependencies:
 • EPLv2.0
 • GNU GPLv2 (only) with Classpath exception
 • GNU GPLv2 or later
+  ‣ icons in the documentation
+  ‣ for dual-licenced LGPLv2.1+ code
+  ‣ in dual-licence with MIT
 • GNU LGPLv2.1 or later
 • MirOS
 • MIT
