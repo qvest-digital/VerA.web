@@ -19,7 +19,6 @@
 					<execution>
 						<id>analyse-dependency-usage</id>
 						<configuration>
-							<failOnWarning>false</failOnWarning>
 							<usedDependencies>
 								<!-- to avoid Axis crash -->
 								<usedDependency>commons-discovery:commons-discovery</usedDependency>

@@ -358,7 +358,6 @@
 					<execution>
 						<id>analyse-dependency-usage</id>
 						<configuration>
-							<failOnWarning>false</failOnWarning>
 							<ignoredUnusedDeclaredDependencies combine.children="append">
 								<ignoredUnusedDeclaredDependency>org.apache.logging.log4j:log4j-core</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.tartools:maven-parent</ignoredUnusedDeclaredDependency>
