@@ -17,5 +17,5 @@ github::sinonjs/lolex 1.1.0 compile TODO
 github::sinonjs/samsam 1.1.3 compile TODO
 github::sinonjs/sinon 1.14.1 compile TODO
 github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
-https::johnresig.com/files/jsdiff.js unversioned TODO
+https::johnresig.com/files/jsdiff.js md5:74197a6d248d807a24791dcc17b3f389 TODO
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
