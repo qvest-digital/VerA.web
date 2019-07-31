@@ -152,4 +152,26 @@ section { background:#f0f; display:block; }
 /* #11971 */
 #foo { background: url(1x1.jpg) right bottom no-repeat; }
 
+/* #14824 */
+#span-14824 { display: block; }
+
 #display { display: list-item !important; }
+
+/* fix get alpha opacity in IE8 */
+.fix-get-alpha-opacity-in-ie8 {
+	opacity: 0.5;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+
+#div-gh-2836 {
+	position: relative;
+	overflow: auto;
+	height: 100px;
+}
+#div-gh-2836 div {
+	position: relative;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+
