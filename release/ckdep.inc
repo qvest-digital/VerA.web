@@ -8,8 +8,8 @@ github::jquery/jquery 1.12.4 compile TODO
 github::jquery/sizzle 2.2.1 compile TODO
 github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
-js::embedded/in/jquery:npo 0.7.8-a compile TODO
-js::embedded/in/jquery:QUnit 1.17.1 compile TODO
-js::embedded/in/jquery:qunit-assert-step unknown compile TODO
-js::embedded/in/jquery:RequireJS 2.1.14 compile TODO
-js::embedded/in/jquery:Sinon.JS 1.14.1 compile TODO
+github::getify/native-promise-only 0.7.8-a compile TODO
+github::qunitjs/qunit 1.17.1 compile TODO
+github::JamesMGreene/qunit-assert-step unknown compile TODO
+github::requirejs/requirejs2.1.14 compile TODO
+github::sinonjs/sinon 1.14.1 compile TODO
