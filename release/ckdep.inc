@@ -10,7 +10,7 @@ github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
 github::getify/native-promise-only 0.7.8-a compile TODO
 github::qunitjs/qunit 1.17.1 compile TODO
-github::JamesMGreene/qunit-assert-step unknown compile TODO
+github::JamesMGreene/qunit-assert-step 1.0.2 compile TODO
 github::requirejs/requirejs2.1.14 compile TODO
 github::sinonjs/sinon 1.14.1 compile TODO
 https::johnresig.com/files/jsdiff.js unversioned TODO
