@@ -92,7 +92,7 @@
 		<maven.failsafe.version>2.22.0</maven.failsafe.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 		<maven.karma.version>1.8</maven.karma.version>
-		<maven.owasp.dependency-check.version>5.1.1</maven.owasp.dependency-check.version>
+		<maven.owasp.dependency-check.version>5.2.0</maven.owasp.dependency-check.version>
 		<!-- dependency management -->
 		<activation.version>1.2.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
