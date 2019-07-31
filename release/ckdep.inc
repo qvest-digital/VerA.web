@@ -14,3 +14,6 @@ github::JamesMGreene/qunit-assert-step 1.0.2 compile TODO
 github::requirejs/requirejs2.1.14 compile TODO
 github::sinonjs/sinon 1.14.1 compile TODO
 https::johnresig.com/files/jsdiff.js unversioned TODO
+github::sinonjs/formatio 1.1.1 compile TODO
+github::sinonjs/lolex 1.1.0 compile TODO
+github::sinonjs/samsam 1.1.3 compile TODO
