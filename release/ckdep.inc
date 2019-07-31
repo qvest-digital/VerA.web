@@ -17,3 +17,5 @@ https::johnresig.com/files/jsdiff.js unversioned TODO
 github::sinonjs/formatio 1.1.1 compile TODO
 github::sinonjs/lolex 1.1.0 compile TODO
 github::sinonjs/samsam 1.1.3 compile TODO
+github::browserify/browser-pack 3.2.0 compile TODO
+github::ForbesLindesay/umd 2.1.0 compile TODO
