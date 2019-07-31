@@ -497,9 +497,9 @@ We use the copylefted part under LGPLv2.1+.
 │ terms of the GNU Lesser General Public License.                          │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ jQuery & Sizzle (MIT) ├───────────────────────────────────────────────┐
+┌──┤ jQuery (MIT) ├────────────────────────────────────────────────────────┐
 │                                                                          │
-│ Copyright 2013 jQuery Foundation and other contributors                  │
+│ Copyright 2005, 2012 jQuery Foundation and other contributors            │
 │ http://jquery.com/                                                       │
 │                                                                          │
 │ Permission is hereby granted, free of charge, to any person obtaining    │

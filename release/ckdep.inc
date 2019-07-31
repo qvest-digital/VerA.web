@@ -1,21 +1,21 @@
+github::ForbesLindesay/umd 2.1.0 compile TODO
 github::HubSpot/vex 3.0.0 compile ok
+github::JamesMGreene/qunit-assert-step 1.0.2 compile TODO
 github::baconjs/bacon.js 0.7.73 compile ok
 github::bbatliner/vex-dialog 1.0.6 compile ok
+github::browserify/browser-pack 3.2.0 compile TODO
 github::ckeditor/ckeditor-dev 4.6.2 compile ok
 github::fyneworks/multifile 2.2.2 compile ok
-github::jquery-form/form 3.51 compile ok
-github::jquery/jquery 1.12.4 compile TODO
-github::jquery/sizzle 2.2.1 compile TODO
-github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
-sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
 github::getify/native-promise-only 0.7.8-a compile TODO
+github::jquery-form/form 3.51 compile ok
+github::jquery/jquery 1.12.4 compile ok
+github::jquery/sizzle 2.2.1 compile TODO
 github::qunitjs/qunit 1.17.1 compile TODO
-github::JamesMGreene/qunit-assert-step 1.0.2 compile TODO
 github::requirejs/requirejs2.1.14 compile TODO
-github::sinonjs/sinon 1.14.1 compile TODO
-https::johnresig.com/files/jsdiff.js unversioned TODO
 github::sinonjs/formatio 1.1.1 compile TODO
 github::sinonjs/lolex 1.1.0 compile TODO
 github::sinonjs/samsam 1.1.3 compile TODO
-github::browserify/browser-pack 3.2.0 compile TODO
-github::ForbesLindesay/umd 2.1.0 compile TODO
+github::sinonjs/sinon 1.14.1 compile TODO
+github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
+https::johnresig.com/files/jsdiff.js unversioned TODO
+sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
