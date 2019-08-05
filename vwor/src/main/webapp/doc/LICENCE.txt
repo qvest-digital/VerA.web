@@ -523,7 +523,7 @@ We use the copylefted part under LGPLv2.1+.
 │ terms of the GNU Lesser General Public License.                          │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ jQuery, QUnit, qunit-assert-step (MIT) ├──────────────────────────────┐
+┌──┤ jQuery, QUnit, qunit-assert-step, sizzle (MIT) ├──────────────────────┐
 │                                                                          │
 │ Copyright 2005, 2012 jQuery Foundation and other contributors            │
 │ http://jquery.com/                                                       │

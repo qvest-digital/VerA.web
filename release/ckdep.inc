@@ -9,7 +9,7 @@ github::fyneworks/multifile 2.2.2 compile ok
 github::getify/native-promise-only 0.7.8-a compile ok
 github::jquery-form/form 3.51 compile ok
 github::jquery/jquery 1.12.4 compile ok
-github::jquery/sizzle 2.2.1 compile TODO
+github::jquery/sizzle 2.2.1 compile ok
 github::qunitjs/qunit 1.17.1 compile ok
 github::requirejs/requirejs2.1.14 compile ok
 github::sinonjs/formatio 1.1.1 compile ok
