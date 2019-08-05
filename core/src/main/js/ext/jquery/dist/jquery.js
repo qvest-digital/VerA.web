@@ -1,5 +1,5 @@
 /*!
- * jQuery JavaScript Library v1.12.4
+ * jQuery JavaScript Library for VerA.web, based on upstream 1.12.4 + patches
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -9,7 +9,7 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-05-20T17:17Z
+ * Date: 2019-08-05T15:46Z
  */
 
 (function( global, factory ) {
@@ -209,8 +209,9 @@ jQuery.extend = jQuery.fn.extend = function() {
 				src = target[ name ];
 				copy = options[ name ];
 
+				// Prevent Object.prototype pollution
 				// Prevent never-ending loop
-				if ( target === copy ) {
+				if ( name === "__proto__" || target === copy ) {
 					continue;
 				}
 
@@ -10358,6 +10359,13 @@ function createActiveXHR() {
 
 
 
+// Prevent auto-execution of scripts when no explicit dataType was provided (See gh-2432)
+jQuery.ajaxPrefilter( function( s ) {
+	if ( s.crossDomain ) {
+		s.contents.script = false;
+	}
+} );
+
 // Install script dataType
 jQuery.ajaxSetup( {
 	accepts: {
@@ -11003,6 +11011,5 @@ jQuery.noConflict = function( deep ) {
 if ( !noGlobal ) {
 	window.jQuery = window.$ = jQuery;
 }
-
 return jQuery;
 }));
