@@ -566,6 +566,16 @@ We use the copylefted part under LGPLv2.1+.
 └──────────────────────────────────────────────────────────────────────────┘
 The current version is LGPLv2.1+/MIT but we use it under MIT.
 
+┌──┤ jQuery Metadata plugin (MIT or GPL) ├─────────────────────────────────┐
+│                                                                          │
+│ Copyright (c) 2006 John Resig, Yehuda Katz,                              │
+│                    Jörn Zaefferer, Paul McLanahan                        │
+│                                                                          │
+│ Dual licensed under the MIT and GPL licenses:                            │
+│   http://www.opensource.org/licenses/mit-license.php                     │
+│   http://www.gnu.org/licenses/gpl.html                                   │
+└──────────────────────────────────────────────────────────────────────────┘
+
 ┌──┤ jQuery Multiple File Selection Plugin (MIT) ├─────────────────────────┐
 │                                                                          │
 │ Copyright © 2008, 2014 http://www.fyneworks.com/                         │

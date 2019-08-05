@@ -29,6 +29,7 @@ github::browserify/browser-pack 3.2.0 compile ok
 github::ckeditor/ckeditor-dev 4.6.2 compile ok
 github::fyneworks/multifile 2.2.2 compile ok
 github::getify/native-promise-only 0.7.8-a compile ok
+github::jquery-archive/jquery-metadata e5a9e4315675bf4d68716872ca754e858088f8ab ok
 github::jquery-form/form 3.51 compile ok
 github::jquery/jquery 1.12.4 compile ok
 github::jquery/sizzle 2.2.1 compile ok
