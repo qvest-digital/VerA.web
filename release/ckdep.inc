@@ -19,3 +19,4 @@ github::sinonjs/sinon 1.14.1 compile ok
 github::xoxco/jQuery-Tags-Input 1.3.3 compile ok
 https::johnresig.com/files/jsdiff.js md5:74197a6d248d807a24791dcc17b3f389 ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
+github::jquery-archive/jquery-metadata e5a9e4315675bf4d68716872ca754e858088f8ab TODO
