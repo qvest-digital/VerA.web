@@ -1,5 +1,5 @@
 /*!
- * jQuery JavaScript Library v@VERSION
+ * jQuery JavaScript Library for VerA.web, based on upstream @VERSION + patches
  * http://jquery.com/
  *
  * Includes Sizzle.js
