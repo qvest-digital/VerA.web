@@ -11,7 +11,7 @@ github::jquery-form/form 3.51 compile ok
 github::jquery/jquery 1.12.4 compile ok
 github::jquery/sizzle 2.2.1 compile TODO
 github::qunitjs/qunit 1.17.1 compile ok
-github::requirejs/requirejs2.1.14 compile TODO
+github::requirejs/requirejs2.1.14 compile ok
 github::sinonjs/formatio 1.1.1 compile ok
 github::sinonjs/lolex 1.1.0 compile ok
 github::sinonjs/samsam 1.1.3 compile ok
