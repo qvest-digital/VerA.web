@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
-	<!-- default now: SOAP is not an allowed request type -->
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
 	<suppress>
-		<notes><![CDATA[
-			file name: axis-saaj-1.4.jar
-		]]></notes>
-		<gav regex="true">^org\.apache\.axis:axis-saaj:.*$</gav>
+		<notes>SOAP is not an allowed request type, code never hit</notes>
+		<packageUrl regex="true">^pkg:maven/axis/axis@1\.4$</packageUrl>
+		<cpe>cpe:/a:apache:axis</cpe>
+		<vulnerabilityName regex="true">.*</vulnerabilityName>
+	</suppress>
+	<suppress>
+		<notes>part of Axis (see above), never hit</notes>
+		<packageUrl regex="true">^pkg:maven/org\.apache\.axis/axis-jaxrpc@1\.4$</packageUrl>
 		<cpe>cpe:/a:apache:axis</cpe>
 	</suppress>
 	<suppress>
-		<notes><![CDATA[
-			file name: axis-1.4.jar
-		]]></notes>
-		<gav regex="true">^axis:axis:.*$</gav>
+		<notes>part of Axis (see above), never hit</notes>
+		<packageUrl regex="true">^pkg:maven/org\.apache\.axis/axis-saaj@1\.4$</packageUrl>
 		<cpe>cpe:/a:apache:axis</cpe>
-	</suppress>
-	<suppress>
-		<notes><![CDATA[
-			file name: axis-jaxrpc-1.4.jar
-		]]></notes>
-		<gav regex="true">^org\.apache\.axis:axis-jaxrpc:.*$</gav>
-		<cpe>cpe:/a:apache:axis</cpe>
-	</suppress>
-	<!-- end of excluded vulnerable SOAP is not an allowed request type -->
-	<!-- false positives from postgresql-->
-	<suppress>
-		<notes><![CDATA[
-			file name: postgresql-jdbc4.jar
-		]]></notes>
-		<cpe>cpe:/a:postgresql:postgresql</cpe>
 	</suppress>
 </suppressions>
