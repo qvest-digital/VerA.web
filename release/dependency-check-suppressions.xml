@@ -16,4 +16,12 @@
 		<packageUrl regex="true">^pkg:maven/org\.apache\.axis/axis-saaj@1\.4$</packageUrl>
 		<cpe>cpe:/a:apache:axis</cpe>
 	</suppress>
+	<suppress>
+		<notes>fix backported to 1.12.x, later reverted, which we revert locally</notes>
+		<cve>CVE-2015-9251</cve>
+	</suppress>
+	<suppress>
+		<notes>fix locally backported</notes>
+		<cve>CVE-2019-11358</cve>
+	</suppress>
 </suppressions>

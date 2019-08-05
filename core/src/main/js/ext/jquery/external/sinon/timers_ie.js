@@ -1,0 +1,1 @@
+lib/sinon/util/timers_ie.js
