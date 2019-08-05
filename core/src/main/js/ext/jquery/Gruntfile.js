@@ -13,7 +13,7 @@ module.exports = function( grunt ) {
 
 	var fs = require( "fs" ),
 		stripJSONComments = require( "strip-json-comments" ),
-		gzip = require( "gzip-js" ),
+		//gzip = require( "gzip-js" ),
 		srcHintOptions = readOptionalJSON( "src/.jshintrc" ),
 		newNode = !/^v0/.test( process.version ),
 
@@ -171,10 +171,10 @@ module.exports = function( grunt ) {
 					sourceMap: true,
 					sourceMapName: "dist/jquery.min.map",
 					report: "min",
-					beautify: {
-						"ascii_only": true
-					},
-					banner: "/*! jQuery v<%= pkg.version %> | " +
+					//beautify: {
+					//	"ascii_only": true
+					//},
+					banner: "/*! jQuery for VerA.web (based on upstream <%= pkg.version %> with patches) | " +
 						"(c) jQuery Foundation | jquery.org/license */",
 					compress: {
 						"hoist_funs": false,
@@ -187,7 +187,7 @@ module.exports = function( grunt ) {
 	} );
 
 	// Load grunt tasks from NPM packages
-	require( "load-grunt-tasks" )( grunt );
+	//require( "load-grunt-tasks" )( grunt );
 
 	// Integrate jQuery specific tasks
 	grunt.loadTasks( "build/tasks" );
