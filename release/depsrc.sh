@@ -123,11 +123,13 @@ doit xmlrpc-1.2-b1-src.tar.gz \
 
 set -A exclusions
 set -A inclusions
+#inclusions+=(-e '^# dummy, only needed if this array is empty otherwise$')
 # shipped in axis:axis source JAR
 inclusions+=(-e '^org\.apache\.axis axis-jaxrpc ')
 inclusions+=(-e '^org\.apache\.axis axis-saaj ')
 # not in ckdep.mvn for technical reasons but correct
 exclusions+=(-e '^org\.projectlombok lombok ')
+#exclusions+=(-e '^# dummy$')
 find target/dep-srcs/ -type f | \
     fgrep -v -e _remote.repositories -e maven-metadata-local.xml | \
     while IFS= read -r x; do
