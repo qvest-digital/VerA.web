@@ -104,7 +104,7 @@ mvn -B -f target/pom-srcs.xml \
 set +x
 
 function doit {
-	local f=release/depsrc/$1 g=$2 a=$3 v=$4
+	local f=release/depsrc/$1 g=${2//./'/'} a=$3 v=$4
 
 	if [[ -d target/dep-srcs/$g/$a ]]; then
 		print -ru2 -- "[ERROR] missing dependency sources unexpectedly found"
