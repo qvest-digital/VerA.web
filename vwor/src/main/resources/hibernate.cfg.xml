@@ -16,6 +16,7 @@
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalField"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.PdfTemplate"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.Person"/>
+		<mapping class="org.evolvis.veraweb.onlinereg.entities.Guest"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.PersonMailinglist"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.Salutation"/>
 		<mapping class="org.evolvis.veraweb.onlinereg.entities.SalutationAlternative"/>
