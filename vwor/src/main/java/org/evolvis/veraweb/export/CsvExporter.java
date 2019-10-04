@@ -99,7 +99,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import de.tarent.extract.ExtractIo;
 import de.tarent.extract.Extractor;
 import de.tarent.extract.ExtractorQuery;
@@ -142,7 +141,7 @@ public class CsvExporter {
     }
 
     private ObjectMapper mapper() {
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.configure(MapperFeature.AUTO_DETECT_CREATORS, true);
         mapper.configure(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS, true);
