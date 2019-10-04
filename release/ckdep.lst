@@ -104,7 +104,7 @@ org.jvnet.staxex:stax-ex 1.8.1 compile ok
 org.mitre.dsmiley.httpproxy:smiley-http-proxy-servlet 1.7 compile ok
 org.mockito:mockito-core 3.0.0 test ok
 org.objenesis:objenesis 2.6 test ok
-org.postgresql:postgresql 42.2.5 provided ok
+org.postgresql:postgresql 42.2.8 provided TODO
 org.projectlombok:lombok 1.18.8 provided ok
 org.spockframework:spock-core 1.1-groovy-2.4 test ok
 org.springframework:spring-aop 4.3.24.RELEASE compile ok
