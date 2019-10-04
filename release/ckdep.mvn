@@ -4,7 +4,7 @@ com.fasterxml classmate 1.5.0
 com.fasterxml.jackson.core jackson-annotations 2.10.0
 com.fasterxml.jackson.core jackson-core 2.10.0
 com.fasterxml.jackson.core jackson-databind 2.10.0
-com.fasterxml.jackson.dataformat jackson-dataformat-yaml 2.10.0
+com.fasterxml.jackson.dataformat jackson-dataformat-yaml 2.5.1
 com.fasterxml.jackson.jaxrs jackson-jaxrs-base 2.10.0
 com.fasterxml.jackson.jaxrs jackson-jaxrs-json-provider 2.10.0
 com.fasterxml.jackson.module jackson-module-jaxb-annotations 2.10.0
@@ -81,7 +81,7 @@ org.springframework spring-core 4.3.24.RELEASE
 org.springframework spring-expression 4.3.24.RELEASE
 org.springframework spring-jdbc 4.3.24.RELEASE
 org.springframework spring-tx 4.3.24.RELEASE
-org.yaml snakeyaml 1.24
+org.yaml snakeyaml 1.12
 oro oro 2.0.8
 velocity velocity 1.4
 wsdl4j wsdl4j 1.5.1
