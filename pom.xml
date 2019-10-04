@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>1.17-SNAPSHOT</version>
+		<version>1.17</version>
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
@@ -113,7 +113,7 @@
 		<commons-pool.version>1.5.4</commons-pool.version>
 		<csvfile.version>1.0</csvfile.version>
 		<expiringmap.version>0.5.9</expiringmap.version>
-		<extract-tool.version>1.10</extract-tool.version>
+		<extract-tool.version>1.11</extract-tool.version>
 		<geb.version>2.1</geb.version>
 		<groovy-all.version>2.4.15</groovy-all.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
@@ -660,6 +660,12 @@
 				<groupId>org.evolvis.tartools</groupId>
 				<artifactId>extract-tool</artifactId>
 				<version>${extract-tool.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>com.fasterxml.jackson.dataformat</groupId>
+						<artifactId>jackson-dataformat-yaml</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.veraweb</groupId>
