@@ -3,7 +3,6 @@ axis:axis 1.4 compile ok
 com.fasterxml.jackson.core:jackson-annotations 2.10.0 compile TODO
 com.fasterxml.jackson.core:jackson-core 2.10.0 compile TODO
 com.fasterxml.jackson.core:jackson-databind 2.10.0 compile TODO
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml 2.5.1 compile TODO
 com.fasterxml.jackson.jaxrs:jackson-jaxrs-base 2.10.0 compile TODO
 com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider 2.10.0 compile TODO
 com.fasterxml.jackson.module:jackson-module-jaxb-annotations 2.10.0 compile TODO
@@ -70,7 +69,7 @@ org.codehaus.groovy:groovy-all 2.4.15 test ok
 org.dom4j:dom4j 2.1.1 compile ok
 org.evolvis.tartools:background-jobs 1.23 compile ok
 org.evolvis.tartools:csvfile 1.0 compile ok
-org.evolvis.tartools:extract-tool 1.10 compile ok
+org.evolvis.tartools:extract-tool 1.11 compile TODO
 org.glassfish.hk2.external:aopalliance-repackaged 2.5.0 compile ok
 org.glassfish.hk2.external:jakarta.inject 2.5.0 compile ok
 org.glassfish.hk2:hk2-api 2.5.0 compile ok
@@ -114,7 +113,6 @@ org.springframework:spring-core 4.3.24.RELEASE compile ok
 org.springframework:spring-expression 4.3.24.RELEASE compile ok
 org.springframework:spring-jdbc 4.3.24.RELEASE compile ok
 org.springframework:spring-tx 4.3.24.RELEASE compile ok
-org.yaml:snakeyaml 1.12 compile TODO
 oro:oro 2.0.8 runtime ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
 velocity:velocity 1.4 compile ok
