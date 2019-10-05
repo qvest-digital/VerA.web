@@ -1206,7 +1206,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │                                                                          │
 │ Extract-Tool is Copyright                                                │
 │  © 2015, 2016, 2018 Lukas Degener (l.degener@tarent.de)                  │
-│  © 2018 mirabilos (t.glaser@tarent.de)                                   │
+│  © 2018, 2019 mirabilos (t.glaser@tarent.de)                             │
 │  © 2015 Jens Oberender (j.oberender@tarent.de)                           │
 │ Licensor is tarent solutions GmbH, http://www.tarent.de/                 │
 │                                                                          │
@@ -1968,7 +1968,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 ┌──┤ Jackson (Apache 2) ├──────────────────────────────────────────────────┐
 │                                                                          │
 │ This copy of Jackson JSON processor streaming parser/generator,          │
-│ annotations and databind module are licensed under the                   │
+│ annotations, databind and jaxb-annotations module are licensed under the │
 │ Apache (Software) License, version 2.0 ("the License").                  │
 │ See the License for details about distribution rights, and the           │
 │ specific rights regarding derivate works.                                │
@@ -1989,7 +1989,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │                                                                          │
 │ ## Licensing                                                             │
 │                                                                          │
-│ Jackson core and extension components may licensed under different       │
+│ Jackson core and extension components may be licensed under different    │
 │ licenses. To find the details that apply to this artifact see the        │
 │ accompanying LICENSE file. For more information, including possible      │
 │ other licensing options, contact FasterXML.com (http://fasterxml.com).   │
