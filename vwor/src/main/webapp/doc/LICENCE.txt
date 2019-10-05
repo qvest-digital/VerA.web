@@ -1968,7 +1968,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 ┌──┤ Jackson (Apache 2) ├──────────────────────────────────────────────────┐
 │                                                                          │
 │ This copy of Jackson JSON processor streaming parser/generator,          │
-│ YAML, annotations and databind module are licensed under the             │
+│ annotations and databind module are licensed under the                   │
 │ Apache (Software) License, version 2.0 ("the License").                  │
 │ See the License for details about distribution rights, and the           │
 │ specific rights regarding derivate works.                                │
@@ -3504,40 +3504,6 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
 │ See the License for the specific language governing permissions and      │
 │ limitations under the License.                                           │
-└──────────────────────────────────────────────────────────────────────────┘
-
-┌──┤ SnakeYAML (Apache 2, parts dual-licenced BSD/LGPL/EPLv1.0) ├──────────┐
-│                                                                          │
-│ Copyright (c) 2008, http://www.snakeyaml.org                             │
-│ Copyright (c) 2008 Google Inc.                                           │
-│                                                                          │
-│ Licensed under the Apache License, Version 2.0 (the "License");          │
-│ you may not use this file except in compliance with the License.         │
-│ You may obtain a copy of the License at                                  │
-│                                                                          │
-│       http://www.apache.org/licenses/LICENSE-2.0                         │
-│                                                                          │
-│ Unless required by applicable law or agreed to in writing, software      │
-│ distributed under the License is distributed on an "AS IS" BASIS,        │
-│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
-│ See the License for the specific language governing permissions and      │
-│ limitations under the License.                                           │
-│                                                                          │
-│ Copyright 2003-2010 Christian d'Heureuse,                                │
-│ Inventec Informatik AG, Zurich, Switzerland                              │
-│ www.source-code.biz, www.inventec.ch/chdh                                │
-│                                                                          │
-│ This module is multi-licensed and may be used under the terms            │
-│ of any of the following licenses:                                        │
-│                                                                          │
-│  EPL, Eclipse Public License, V1.0 or later                              │
-│  LGPL, GNU Lesser General Public License, V2.1 or later                  │
-│  GPL, GNU General Public License, V2 or later                            │
-│  AL, Apache License, V2.0 or later                                       │
-│  BSD, BSD License, http://www.opensource.org/licenses/bsd-license.php    │
-│                                                                          │
-│ Please contact the author if you need another license.                   │
-│ This module is provided "as is", without warranties of any kind.         │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ (part of Spring) ASM (3-clause BSD) ├─────────────────────────────────┐
