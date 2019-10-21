@@ -41,7 +41,7 @@ org.apache.pdfbox pdfbox 2.0.16
 org.apache.poi poi 3.17
 org.dom4j dom4j 2.1.1
 org.evolvis.tartools background-jobs 1.23
-org.evolvis.tartools csvfile 1.0
+org.evolvis.tartools csvfile 2.0
 org.evolvis.tartools extract-tool 1.11
 org.glassfish javax.el 3.0.0
 org.glassfish.hk2 hk2-api 2.5.0
