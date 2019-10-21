@@ -22,13 +22,32 @@
 # Script to check dependencies
 
 # initialisation
-LC_ALL=C; export LC_ALL
+export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
 set -e
 set -o pipefail
 cd "$(dirname "$0")"
 
+x=$(sed --posix 's/u\+/x/g' <<<'fubar fuu' 2>&1) && alias 'sed=sed --posix'
+x=$(sed -e 's/u\+/x/g' -e 's/u/X/' <<<'fubar fuu' 2>&1)
+case $?:$x {
+(0:fXbar\ fuu) ;;
+(*)
+	print -ru2 -- '[ERROR] your sed is not POSIX compliant'
+	exit 1 ;;
+}
+
+# get project metadata
+<../pom.xml xmlstarlet sel \
+    -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
+    -c /pom:project/pom:groupId -n \
+    -c /pom:project/pom:artifactId -n \
+    -c /pom:project/pom:version -n \
+    |&
+IFS= read -pr pgID
+IFS= read -pr paID
+IFS= read -pr pVSN
 # check old file is sorted
 sort -uo ckdep.tmp ckdep.lst
 if cmp -s ckdep.lst ckdep.tmp; then
@@ -39,7 +58,7 @@ else
 	abend=1
 fi
 # analyse Maven dependencies
-(cd .. && mvn -B -Dskip-test-only-dependencies dependency:list) 2>&1 | \
+(cd .. && mvn -B dependency:list) 2>&1 | \
     tee /dev/stderr | sed -n \
     -e 's/ -- module .*$//' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \

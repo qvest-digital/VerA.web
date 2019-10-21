@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016, 2017, 2019
+# Copyright © 2016, 2017, 2018, 2019
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -23,38 +23,67 @@
 # We omit the depsrc extras though.
 
 # initialisation
-LC_ALL=C; export LC_ALL
+export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
 # check that we’re really run from mvn
-if test -z "$MKSRC_RUN_FROM_MAVEN"; then
-	echo >&2 "[ERROR] do not call me directly, I am only used by Maven"
+if [[ -z $MKSRC_RUN_FROM_MAVEN ]]; then
+	print -ru2 -- "[ERROR] do not call me directly, I am only used by Maven"
 	export -p
 	exit 1
 fi
 # initialisation
+unset GZIP
 set -e
 set -o pipefail
 cd "$(dirname "$0")/.."
-tgname=target/mksrc/src
-rm -rf $tgname
-mkdir -p $tgname
+if [[ -e failed ]]; then
+	print -ru2 -- "[ERROR] do not build from incomplete/dirty tree"
+	print -ru2 -- "[INFO] a previous mksrc failed and you used its result"
+	exit 1
+fi
+# get project metadata
+<pom.xml xmlstarlet sel \
+    -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
+    -c /pom:project/pom:groupId -n \
+    -c /pom:project/pom:artifactId -n \
+    -c /pom:project/pom:version -n \
+    |&
+IFS= read -pr pgID
+IFS= read -pr paID
+IFS= read -pr pVSN
+# create base directory
+tbname=target/mksrc
+tzname=$paID-$pVSN-source
+tgname=$tbname/$tzname
+rm -rf "$tgname"
+mkdir -p "$tgname"
+
+# performing a release?
+if [[ $IS_M2RELEASEBUILD = true ]]; then
+	# fail the build if dependency licence review has a to-do item:
+	# release/ckdep.sh will fail the build when the list
+	# was not up-to-date, so we check only the current list
+	if grep -e ' TO''DO$' -e ' FA''IL$' release/ckdep.lst; then
+		print -ru2 -- "[ERROR] licence review incomplete"
+		exit 1
+	fi
+fi
 
 # check for source cleanliness
-if test -n "$(git status --porcelain)"; then
-	echo >&2 "[ERROR] source tree not clean"
-	if test x"$IS_M2RELEASEBUILD" = x"true"; then
-		:>$tgname/failed
-		echo >&2 "[WARNING] maven-release-plugin prepare, continuing anyway"
-
-		# fail the build if dependency licence review has a to-do item
-		# release/ckdep.sh will fail the build if the list was not up-
-		# to-date, so we only need to care about the current list
-		if grep -e ' TO''DO$' -e ' FA''IL$' release/ckdep.lst; then
-			echo >&2 "[ERROR] licence review incomplete"
-			exit 1
-		fi
-
+x=$(git status --porcelain)
+if [[ -n $x ]]; then
+	print -ru2 -- "[ERROR] source tree not clean"
+	print -ru2 -- "[INFO] git status output follows:"
+	print -r -- "$x" | sed 's/^/[INFO]   /' >&2
+	if [[ $IS_M2RELEASEBUILD = true ]]; then
+		:>"$tgname"/failed
+		:>"$tbname"/failed
+		print -ru2 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
+		cd "$tbname"
+		paxtar -M dist -cf - "$tzname"/f* | gzip -n9 >"../$tzname.tgz"
+		rm -f ../src.tgz
+		ln "../$tzname.tgz" ../src.tgz
 		exit 0
 	fi
 	exit 1
@@ -64,17 +93,21 @@ fi
 set -x
 
 # copy git HEAD state
-git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu $tgname/
+git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0du "$tgname/"
+ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
+    --date=format-local:%Y%m%d%H%M.%S)
 
 # omit what will end up in depsrcs anyway
-rm -rf $tgname/release/depsrc
+rm -rf "$tgname/release/depsrc"
 
-# create src.tgz in target/ to let the maven-war-plugin pick it up
-cd target/mksrc
-tar -cf - --numeric-owner --owner=0 --group=0 --sort=name \
-    --no-acls --no-selinux --no-xattrs -b 1 -H ustar src | \
-    gzip -n9 >src.tgz
-rm -rf src
+# create source tarball
+cd "$tbname"
+find "$tzname" -print0 | TZ=UTC xargs -0r touch -h -t "$ts" --
+find "$tzname" \( -type f -o -type l \) -print0 | sort -z | \
+    paxcpio -oC512 -0 -Hustar -Mdist | gzip -n9 >"../$tzname.tgz"
+rm -rf "$tzname"  # to save space
+rm -f ../src.tgz
+ln "../$tzname.tgz" ../src.tgz
 
 # shove dependencies’ sources into place
 rm -f deps-src.zip

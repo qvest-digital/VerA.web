@@ -19,15 +19,17 @@
 # damage or existence of a defect, except proven that it results out
 # of said person’s immediate fault when using the work as intended.
 #-
-# Build tarball containing source JARs of dependencies.
+# Build tarball containing source JARs of dependencies. Assume those
+# without suitable source in Maven Central have distfiles copied and
+# placed under release/depsrc/ as courtesy copy.
 
 # initialisation
-LC_ALL=C; export LC_ALL
+export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
 # check that we’re really run from mvn
-if test -z "$DEPSRC_RUN_FROM_MAVEN"; then
-	echo >&2 "[ERROR] do not call me directly, I am only used by Maven"
+if [[ -z $DEPSRC_RUN_FROM_MAVEN ]]; then
+	print -ru2 -- "[ERROR] do not call me directly, I am only used by Maven"
 	export -p
 	exit 1
 fi
@@ -44,18 +46,25 @@ if [[ ! -d release/depsrc/. ]]; then
 	exit 1
 fi
 
-vsn=$(<pom.xml xmlstarlet sel \
-    -N pom=http://maven.apache.org/POM/4.0.0 \
-    -T -t -c /pom:project/pom:version)
+# get project metadata
+<pom.xml xmlstarlet sel \
+    -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
+    -c /pom:project/pom:groupId -n \
+    -c /pom:project/pom:artifactId -n \
+    -c /pom:project/pom:version -n \
+    |&
+IFS= read -pr pgID
+IFS= read -pr paID
+IFS= read -pr pVSN
 
 exec >target/pom-srcs.xml
 cat <<EOF
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.evolvis.veraweb</groupId>
-		<artifactId>veraweb-parent</artifactId>
-		<version>$vsn</version>
+		<groupId>$pgID</groupId>
+		<artifactId>$paID</artifactId>
+		<version>$pVSN</version>
 		<relativePath>../</relativePath>
 	</parent>
 	<artifactId>release-sources</artifactId>
@@ -79,6 +88,10 @@ cat <<\EOF
 EOF
 while read g a v; do
 	# here: exclude webjars without meaningful sources
+	#if [[ $g = org.webjars.@(bower|bowergithub|npm)?(.*) ]]; then
+	#	# comment here on where to find the source
+	#	continue
+	#fi
 	cat <<EOF
 		<dependency>
 			<groupId>$g</groupId>
@@ -121,6 +134,14 @@ doit antlr-2.7.7.tar.gz \
 doit xmlrpc-1.2-b1-src.tar.gz \
     xmlrpc xmlrpc 1.2-b1
 
+set_e_grep() (
+	set +e
+	grep "$@"
+	rv=$?
+	(( rv == 1 )) && rv=0  # no match ≠ error
+	exit $rv
+)
+
 set -A exclusions
 set -A inclusions
 #inclusions+=(-e '^# dummy, only needed if this array is empty otherwise$')
@@ -131,7 +152,7 @@ inclusions+=(-e '^org\.apache\.axis axis-saaj ')
 exclusions+=(-e '^org\.projectlombok lombok ')
 #exclusions+=(-e '^# dummy$')
 find target/dep-srcs/ -type f | \
-    fgrep -v -e _remote.repositories -e maven-metadata-local.xml | \
+    set_e_grep -F -v -e _remote.repositories -e maven-metadata-local.xml | \
     while IFS= read -r x; do
 		x=${x#target/dep-srcs/}
 		x=${x%/*}
@@ -140,8 +161,9 @@ find target/dep-srcs/ -type f | \
 		p=${x##*/}
 		x=${x%/*}
 		print -r -- ${x//'/'/.} $p $v
-done | sort | grep -v "${exclusions[@]}" >target/dep-srcs.actual
-grep -v "${inclusions[@]}" <release/ckdep.mvn >target/dep-srcs.expected
+done | sort | set_e_grep -v "${exclusions[@]}" >target/dep-srcs.actual
+set_e_grep -v "${inclusions[@]}" <release/ckdep.mvn \
+    >target/dep-srcs.expected
 diff -u target/dep-srcs.actual target/dep-srcs.expected
 print -r -- "[INFO] release/depsrc.sh finished"
 # leave the rest to the maven-assembly-plugin
