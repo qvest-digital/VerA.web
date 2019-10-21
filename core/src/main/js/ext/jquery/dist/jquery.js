@@ -1,6 +1,8 @@
 /*!
- * jQuery JavaScript Library for VerA.web, based on upstream 1.12.4 + patches
+ * jQuery JavaScript Library v1.12.4
  * http://jquery.com/
+ *
+ * For VerA.web by ⮡ tarent (patched to fix some CVEs)
  *
  * Includes Sizzle.js
  * http://sizzlejs.com/
@@ -9,7 +11,7 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2019-08-05T15:46Z
+ * Date: 2019-10-21T16:25Z
  */
 
 (function( global, factory ) {
