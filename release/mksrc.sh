@@ -82,8 +82,8 @@ if [[ -n $x ]]; then
 		print -ru2 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
 		cd "$tbname"
 		paxtar -M dist -cf - "$tzname"/f* | gzip -n9 >"../$tzname.tgz"
-		rm -f ../src.tgz
-		ln "../$tzname.tgz" ../src.tgz
+		rm -f src.tgz
+		ln "../$tzname.tgz" src.tgz
 		exit 0
 	fi
 	exit 1
@@ -106,8 +106,8 @@ find "$tzname" -print0 | TZ=UTC xargs -0r touch -h -t "$ts" --
 find "$tzname" \( -type f -o -type l \) -print0 | sort -z | \
     paxcpio -oC512 -0 -Hustar -Mdist | gzip -n9 >"../$tzname.tgz"
 rm -rf "$tzname"  # to save space
-rm -f ../src.tgz
-ln "../$tzname.tgz" ../src.tgz
+rm -f src.tgz
+ln "../$tzname.tgz" src.tgz
 
 # shove dependencies’ sources into place
 rm -f deps-src.zip
