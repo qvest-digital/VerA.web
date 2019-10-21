@@ -1091,21 +1091,26 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ The CSVFile tools are a collection of classes to deal with CSV files     │
 │ (comma-separated values). They have quite a history. This edition is     │
 │ developed by ⮡ tarent and published under the terms and conditions of    │
-│ the GNU Lesser or Library General Public License, any version, as        │
-│ published by the Free Software Foundation.                               │
+│ the GNU LGPL (Lesser or Library General Public License), any version,    │
+│ as published by the Free Software Foundation. Some individual files      │
+│ are available as well under more liberal terms as documented below.      │
+│                                                                          │
+│ COPYING in this directory has the full LGPL licence terms and text.      │
+│                                                                          │
 │ Licensor is tarent solutions GmbH, http://www.tarent.de/                 │
 │                                                                          │
 │ Copyright holders and contributors:                                      │
 │                                                                          │
-│ Copyright © 2018 mirabilos (t.glaser@tarent.de)                          │
-│ Licensor is tarent solutions GmbH, http://www.tarent.de/                 │
+│ *** CSVFile, CSVFileReader, CSVFileWriter, CSVFile10Writer ***           │
+│                                                                          │
+│ Copyright © 2018, 2019 mirabilos <t.glaser@tarent.de>                    │
 │                                                                          │
 │ Formerly developed as part of VerA.web:                                  │
-│ Copyright © 2016 Атанас Александров (a.alexandrov@tarent.de)             │
-│ Copyright © 2006 Christoph Jerolimov (jerolimov@gmx.de)                  │
-│ Copyright © 2008 Carsten Klein (c.klein@tarent.de)                       │
-│ Copyright © 2005 Michael Klink (m.klink@tarent.de)                       │
-│ Copyright © 2013, 2015, 2018 mirabilos (t.glaser@tarent.de)              │
+│ Copyright © 2016 Атанас Александров <a.alexandrov@tarent.de>             │
+│ Copyright © 2006 Christoph Jerolimov <jerolimov@gmx.de>                  │
+│ Copyright © 2008 Carsten Klein <c.klein@tarent.de>                       │
+│ Copyright © 2005 Michael Klink <m.klink@tarent.de>                       │
+│ Copyright © 2013, 2015, 2018 mirabilos <t.glaser@tarent.de>              │
 │ and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.    │
 │                                                                          │
 │ Copyright © 2005 Fabrizio Fazzino (under GNU LGPL) — also on             │
@@ -1126,10 +1131,10 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │    notice, this list of conditions and the following disclaimer in the   │
 │    documentation and/or other materials provided with the distribution.  │
 │                                                                          │
-│ THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND   │
+│ THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS “AS IS” AND     │
 │ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    │
 │ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR       │
-│ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS    │
+│ PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS     │
 │ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR   │
 │ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF     │
 │ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS │
@@ -1138,9 +1143,9 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF   │
 │ THE POSSIBILITY OF SUCH DAMAGE.                                          │
 │                                                                          │
-│ Java, the Duke mascot, and all variants of Sun's Java "steaming coffee   │
-│ cup" logo are trademarks of Sun Microsystems. Sun's and James Gosling's  │
-│ pioneering role in inventing and promulgating (and standardizing) the    │
+│ Java, the Duke mascot, and all variants of Sun’s Java “steaming coffee   │
+│ cup” logo are trademarks of Sun Microsystems. Sun’s and James Gosling’s  │
+│ pioneering role in inventing and promulgating (and standardising) the    │
 │ Java language and environment is gratefully acknowledged.                │
 │                                                                          │
 │ The pioneering role of Dennis Ritchie and Bjarne Stroustrup, of AT&T,    │
@@ -1151,9 +1156,31 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ Adapted from a C++ original excerpted from “The Practice of Programming” │
 │ by Brian Kernighan and Rob Pike. Included by permission of the TPOP      │
 │ http://www.informit.com/store/practice-of-programming-9780201615869      │
-│ (old http://tpop.awl.com/ redir) Addison-Wesley web site, which says:    │
+│ (at http://tpop.awl.com/ formerly) Addison-Wesley web site, which says:  │
 │ <cite>“You may use this code for any purpose, as long as you leave the   │
 │ copyright notice and book citation attached.”</cite> I have done so.     │
+│                                                                          │
+│ *** SSVFileReader, SSVFileWriter, the build scripts and test cases ***   │
+│                                                                          │
+│ Copyright © 2016, 2017, 2018, 2019                                       │
+│ 	mirabilos <t.glaser@tarent.de>                                     │
+│ Copyright © 2015, 2017, 2019                                             │
+│ 	mirabilos <mirabilos@evolvis.org>                                  │
+│                                                                          │
+│ Provided that these terms and disclaimer and all copyright notices       │
+│ are retained or reproduced in an accompanying document, permission       │
+│ is granted to deal in this work without restriction, including un‐       │
+│ limited rights to use, publicly perform, distribute, sell, modify,       │
+│ merge, give away, or sublicence.                                         │
+│                                                                          │
+│ This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to       │
+│ the utmost extent permitted by applicable law, neither express nor       │
+│ implied; without malicious intent or gross negligence. In no event       │
+│ may a licensor, author or contributor be held liable for indirect,       │
+│ direct, other damage, loss, or other issues arising in any way out       │
+│ of dealing in the work, even if advised of the possibility of such       │
+│ damage or existence of a defect, except proven that it results out       │
+│ of said person’s immediate fault when using the work as intended.        │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ dom4j (3-clause BSD-ish) ├────────────────────────────────────────────┐
