@@ -29,10 +29,10 @@
 \RequirePackage{accsupp}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[british,german,shorthands=off,safe=none,math=normal,main=german,headfoot=german,hyphenmap=other*]{babel}%
-\RequirePackage{color}
 \RequirePackage[usenames,dvipsnames]{xcolor}
-\RequirePackage[LY1,TS1,T1]{fontenc}
-\RequirePackage{textcomp}
+\RequirePackage[TS1,LGR,OT2,T2B,T2C,X2,T1]{fontenc}%
+\RequirePackage{unicodedomino}%
+\RequirePackage{unicodepoints}%
 \RequirePackage{pdf14}
 \RequirePackage{aeguill}
 \RequirePackage[shortcuts]{extdash}
@@ -47,8 +47,6 @@
 \RequirePackage{pxfonts}
 \renewcommand{\familydefault}{\sfdefault}
 \RequirePackage[varqu,varl]{inconsolata}
-\usepackage{newunicodechar}
-\usepackage{wasysym}
 \usepackage{longtable}
 \usepackage{tabu}
 \usepackage{multirow}
@@ -62,7 +60,7 @@
 \usepackage{ifthen}
 \usepackage{scalerel}
 \usepackage[noadjust]{marginnote}
-\RequirePackage[pdftex]{hyperref}
+\RequirePackage[pdftex,unicode]{hyperref}%
 \hypersetup{
 	colorlinks = true,
 	linkcolor = blue,
@@ -85,20 +83,6 @@
  \fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
 }
 \tarenthdr{\headmark}
-
-% from unicodepoints… and this should really switch to unicodedomino, too
-\makeatletter%
-\newcommand{\renewunicodechar}[2]{%
- \expandafter\let\csname u8:\detokenize{#1}\endcsname\@undefined%
- \newunicodechar{#1}{#2}%
-}%
-\makeatother%
-
-% missing ones, from unicodepoints by mirabilos
-\renewunicodechar{←}{$\leftarrow$}%
-\renewunicodechar{↑}{$\uparrow$}%
-\renewunicodechar{→}{$\rightarrow$}%
-\renewunicodechar{↓}{$\downarrow$}%
 
 % Hurenkinder und Schusterjungen
 \clubpenalty10000
@@ -133,14 +117,6 @@
 \definecolor{teckidsSTYlstbackground}{HTML}{E6E6E6}%
 \definecolor{teckidsSTYlstlineno}{HTML}{444444}%
 \definecolor{teckidsSTYlstmargin}{HTML}{707070}%
-
-\newcommand\Warning{%
- \makebox[1.4em][c]{%
- \makebox[0pt][c]{\raisebox{.15em}{\footnotesize!}}%
- \makebox[0pt][c]{\color{red}\huge$\bigtriangleup$}}}%
-\newunicodechar{⚠}{\Warning}
-
-\renewunicodechar{‑}{{\fontencoding{T1}\selectfont\symbol{'177}}\nolinebreak\hspace{0pt}}
 
 \newcommand{\ankreuzen}{Bitte zum Beispiel so → \CheckedBox\hspace{0.05cm} ← ankreuzen!}
 \newcommand{\ankreuzkaestchen}{\Square\hspace{0.1cm}}
