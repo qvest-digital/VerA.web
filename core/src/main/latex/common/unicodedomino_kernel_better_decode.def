@@ -1,0 +1,159 @@
+% -*- mode: tex -*-
+%-
+% See unicodedomino.sty for copyright and licence terms. Furthermore
+% this file is dual-licenced under the LPPL version 1.3c or later.
+%-
+% Fix check for illegal sequences to fail overlong encoded sequences
+% as well as codepoints outside of the UCS range [0;10FFFF]; improve
+% UTF-8 decoding with fixed-up check code and a safer UTF-8 decoder.
+% This is https://github.com/latex3/latex2e/pull/83 (rejected).
+
+% new check for illegal sequences
+\gdef\UTFviii@checkseq#1:#2#3\empty{%
+ \ifnum`#2<"80 %
+  \ifx\empty#3\empty%
+  \else%
+   1%
+  \fi%
+ \else%
+  \ifnum`#2<"C2 %
+   1%
+  \else%
+   \ifnum`#2<"E0 %
+    % one "80‥"BF
+    \UTFviii@check@one#3\empty%
+   \else%
+    \ifnum`#2<"E1 %
+     % "A0‥"BF + one "80‥"BF
+     \UTFviii@check@two"A0.#3\empty%
+    \else%
+     \ifnum`#2<"F0 %
+      % two "80‥"BF
+      \UTFviii@check@two"80.#3\empty%
+     \else%
+      \ifnum`#2<"F1 %
+       % "90‥"BF + two "80‥"BF
+       \UTFviii@check@three"90."BF.#3\empty%
+      \else%
+       \ifnum`#2<"F4 %
+        % three "80‥"BF
+        \UTFviii@check@three"80."BF.#3\empty%
+       \else%
+        \ifnum`#2<"F5 %
+         % "80‥"8F + two "80‥"BF
+         \UTFviii@check@three"80."8F.#3\empty%
+        \else%
+         1%
+        \fi%
+       \fi%
+      \fi%
+     \fi%
+    \fi%
+   \fi%
+  \fi%
+ \fi%
+}%
+
+% check last trail octet in the range "80‥"BF
+\gdef\UTFviii@check@one#1#2\empty{%
+ \ifx\empty#2\empty%
+  \ifnum`#1<"80 %
+   1%
+  \else%
+   \ifnum`#1>"BF %
+    1%
+   \fi%
+  \fi%
+ \else%
+  1%
+ \fi%
+}%
+
+% check second-to-last trail octet in the range #1‥"BF
+\gdef\UTFviii@check@two#1.#2#3\empty{%
+ \ifx\empty#3\empty%
+  1%
+ \else%
+  \ifnum`#2<#1 %
+   1%
+  \else%
+   \ifnum`#2>"BF %
+    1%
+   \else%
+    \UTFviii@check@one#3\empty%
+   \fi%
+  \fi%
+ \fi%
+}%
+
+% check third-to-last trail octet in the range #1‥#2
+\gdef\UTFviii@check@three#1.#2.#3#4\empty{%
+ \ifx\empty#4\empty%
+  1%
+ \else%
+  \ifnum`#3<#1 %
+   1%
+  \else%
+   \ifnum`#3>#2 %
+    1%
+   \else%
+    \UTFviii@check@two"80.#4\empty%
+   \fi%
+  \fi%
+ \fi%
+}%
+
+% changed calling API for \UTFviii@checkseq (empty+relax)
+\def\UTFviii@defined#1{%
+ \ifx#1\relax%
+  \if\relax\expandafter\UTFviii@checkseq\string#1\empty\relax%
+   \UTFviii@undefined@err{#1}% from v1.2a 2018/03/24
+   % not needed in unicodedomino_compat.def though because the
+   % \UTFviii@defined macro is reimplemented by unicodedomino.sty
+  \else%
+   \PackageError{inputenc}{Invalid UTF-8 byte sequence}%
+    \UTFviii@invalid@help
+  \fi%
+ \else%
+  \expandafter#1%
+ \fi%
+}%
+
+% decode octets to codepoint number, safer
+\gdef\decode@UTFviii#1\relax{%
+ \the\numexpr(\UTFviii@decode0:#1\relax)%
+}%
+
+% safer decode, returns "1FFFFF for illegal sequences
+\gdef\UTFviii@decode#1\relax{%
+ \if\relax\expandafter\UTFviii@checkseq\string#1\empty\relax%
+  \UTFviii@dec@lead#1\relax%
+ \else%
+  2097151%
+ \fi%
+}%
+
+% decode lead octet
+\gdef\UTFviii@dec@lead#1:#2#3\relax{%
+ % we know #2 is in "00‥"7F, "C2‥"F4
+ \ifnum`#2<"80 %
+  `#2%
+ \else%
+  \ifnum`#2<"E0 %
+   (`#2-"C0%
+  \else%
+   \ifnum`#2<"F0 %
+    ((`#2-"E0%
+   \else%
+    (((`#2-"F0%
+   \fi%
+  \fi%
+  \UTFviii@dec@trail#3\relax%
+ \fi%
+}%
+
+% decode trail octets recursively
+\gdef\UTFviii@dec@trail#1#2\relax{%
+ )*64+(`#1-"80)%
+ \ifx\relax#2\else\UTFviii@dec@trail#2\relax\fi%
+}%
