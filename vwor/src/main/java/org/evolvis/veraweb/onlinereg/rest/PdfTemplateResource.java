@@ -297,26 +297,21 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private void deleteOldPdfFiles() {
-        final String tmpdir = FileUtils.getTempDirectoryPath();
-        if ("/tmp".equals(tmpdir) || "/var/tmp".equals(tmpdir)) {
-            return;
-        }
-        final File directory = new File(tmpdir);
+        final File directory = new File(FileUtils.getTempDirectoryPath());
         if (directory.exists()) {
-            deleteFiles(directory);
-        }
-    }
-
-    private void deleteFiles(File directory) {
-        final File[] listFiles = directory.listFiles();
-        if (listFiles != null && listFiles.length > 0) {
-            for (File listFile : listFiles) {
-                deleteFile(listFile);
+            final File[] listFiles = directory.listFiles();
+            if (listFiles != null && listFiles.length > 0) {
+                for (File listFile : listFiles) {
+                    deleteOldPdfFile(listFile);
+                }
             }
         }
     }
 
-    private void deleteFile(final File listFile) {
+    private void deleteOldPdfFile(final File listFile) {
+        if (!listFile.getName().startsWith(TMPFILE_PFX)) {
+            return;
+        }
         if (listFile.lastModified() < PURGE_TIME) {
             if (!listFile.delete()) {
                 logger.error("Unable to delete file: " + listFile);
