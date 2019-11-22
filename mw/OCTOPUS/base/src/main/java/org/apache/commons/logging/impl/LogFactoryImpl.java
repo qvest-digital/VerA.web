@@ -124,6 +124,7 @@ public class LogFactoryImpl extends LogFactory {
       "org.apache.axis.",
       "org.apache.commons.discovery.",
       "org.apache.http.",
+      "org.apache.pdfbox.",
       "org.springframework."
     };
 
