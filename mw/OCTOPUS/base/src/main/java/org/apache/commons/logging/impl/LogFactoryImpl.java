@@ -123,6 +123,7 @@ public class LogFactoryImpl extends LogFactory {
     private static String[] whitelistedPræficēs = {
       "org.apache.axis.",
       "org.apache.commons.discovery.",
+      "org.apache.fontbox.",
       "org.apache.http.",
       "org.apache.pdfbox.",
       "org.springframework."
