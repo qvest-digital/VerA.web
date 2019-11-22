@@ -214,7 +214,7 @@ public class FileUploadResource extends AbstractResource {
 
         final BufferedImage image = ImageIO.read(file);
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpg", byteArrayOutputStream);
+        ImageIO.write(image, VworConstants.EXTENSION_JPG, byteArrayOutputStream);
         final byte[] imageBytes = byteArrayOutputStream.toByteArray();
         final String imageString = Base64.getEncoder().encodeToString(imageBytes);
         final StringBuilder encodedImage = new StringBuilder("data:image/jpg;base64,").append(imageString);
