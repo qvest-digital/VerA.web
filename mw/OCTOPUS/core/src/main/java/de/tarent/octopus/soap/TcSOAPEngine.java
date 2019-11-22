@@ -177,7 +177,7 @@ public class TcSOAPEngine implements Serializable {
             };
             engine = new AxisServer(engineConfiguration);
         } else {
-            logger.info(Resources.getInstance().get("SOAPENGINE_LOG_USING_AXIS_DEFAULT_CONFIGURATION"));
+            logger.debug(Resources.getInstance().get("SOAPENGINE_LOG_USING_AXIS_DEFAULT_CONFIGURATION"));
             engine = new AxisServer();
             registerTypes(engine.getTypeMappingRegistry(), env);
         }

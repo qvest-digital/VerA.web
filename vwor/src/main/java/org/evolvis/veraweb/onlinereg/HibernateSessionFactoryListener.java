@@ -141,7 +141,7 @@ public class HibernateSessionFactoryListener implements ServletContextListener {
             logger.debug("SessionFactory created successfully");
 
             servletContextEvent.getServletContext().setAttribute("SessionFactory", sessionFactory);
-            logger.info("Hibernate SessionFactory configured successfully");
+            logger.debug("Hibernate SessionFactory configured successfully");
         } catch (Exception e) {
             logger.error("Error", e);
         }

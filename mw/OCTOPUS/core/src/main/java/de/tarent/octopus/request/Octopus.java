@@ -188,7 +188,7 @@ public class Octopus /*implements Serializable*/ {
             jmxManagementServer = OctopusExtensionLoader.load("de.tarent.octopus.jmx.OctopusManagement",
               params);
         } else {
-            logger.info("Optional JMX subsystem is disabled.");
+            logger.debug("Optional JMX subsystem is disabled.");
         }
 
         // Initalizing the optional rpc tunnel subsystem
@@ -198,7 +198,7 @@ public class Octopus /*implements Serializable*/ {
 
             OctopusRPCTunnel.createInstance(this, commonConfig);
         } else {
-            logger.info("Optional RPC-tunnel is disabled.");
+            logger.debug("Optional RPC-tunnel is disabled.");
         }
     }
 
