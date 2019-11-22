@@ -308,16 +308,16 @@ public class PdfTemplateResource extends FormDataResource {
         final File[] listFiles = directory.listFiles();
         if (listFiles != null && listFiles.length > 0) {
             for (File listFile : listFiles) {
-                if (listFile.lastModified() < PURGE_TIME) {
-                    executeCurrentFileDeletion(listFile);
-                }
+                deleteFile(listFile);
             }
         }
     }
 
-    private void executeCurrentFileDeletion(File listFile) {
-        if (!listFile.delete()) {
-            logger.error("Unable to delete file: " + listFile);
+    private void deleteFile(final File listFile) {
+        if (listFile.lastModified() < PURGE_TIME) {
+            if (!listFile.delete()) {
+                logger.error("Unable to delete file: " + listFile);
+            }
         }
     }
 
