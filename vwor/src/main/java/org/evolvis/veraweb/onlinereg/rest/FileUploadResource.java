@@ -103,7 +103,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
-import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 import javax.ws.rs.FormParam;
@@ -172,9 +171,8 @@ public class FileUploadResource extends AbstractResource {
             try (ImageOutputStream output = ImageIO.createImageOutputStream(fileToStore)) {
                 ImageWriter writer = ImageIO.getImageWritersByFormatName(VworConstants.EXTENSION_JPG).next();
                 try {
-                    JPEGImageWriteParam param = new JPEGImageWriteParam(null);
-                    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                    param.setCompressionQuality(1.0f);
+                    ImageWriteParam param = writer.getDefaultWriteParam();
+                    param.setCompressionMode(ImageWriteParam.MODE_COPY_FROM_METADATA);
                     writer.setOutput(output);
                     writer.write(null, image, param);
                 } finally {
