@@ -92,7 +92,7 @@
 		<maven.failsafe.version>2.22.0</maven.failsafe.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 		<maven.karma.version>1.8</maven.karma.version>
-		<maven.owasp.dependency-check.version>5.2.2</maven.owasp.dependency-check.version>
+		<maven.owasp.dependency-check.version>5.2.4</maven.owasp.dependency-check.version>
 		<!-- dependency management -->
 		<activation.version>1.2.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
@@ -115,7 +115,7 @@
 		<expiringmap.version>0.5.9</expiringmap.version>
 		<extract-tool.version>1.11</extract-tool.version>
 		<geb.version>2.1</geb.version>
-		<groovy-all.version>2.4.15</groovy-all.version>
+		<groovy-all.version>2.4.17</groovy-all.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
 		<h2.version>1.4.200</h2.version>
 		<hibernate.core.version>5.4.9.Final</hibernate.core.version>
@@ -142,7 +142,7 @@
 		<pdfbox.version>2.0.17</pdfbox.version>
 		<poi.version>4.1.1</poi.version>
 		<postgresql.version>42.2.8</postgresql.version>
-		<rs-api.version>2.1.5</rs-api.version>
+		<rs-api.version>2.1.6</rs-api.version>
 		<selenium.version>3.12.0</selenium.version>
 		<smiley-http-proxy-servlet.version>1.7</smiley-http-proxy-servlet.version>
 		<spock-core.version>1.1-groovy-2.4</spock-core.version>
