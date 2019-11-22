@@ -95,6 +95,7 @@ package org.evolvis.veraweb.onlinereg.rest
 import org.apache.commons.io.output.ByteArrayOutputStream
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate
 import org.evolvis.veraweb.onlinereg.entities.Person
+import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative
 import org.evolvis.veraweb.onlinereg.utils.VworConstants
 import org.glassfish.jersey.media.multipart.BodyPartEntity
 import org.glassfish.jersey.media.multipart.FormDataBodyPart
@@ -104,7 +105,6 @@ import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.Transaction
 import org.hibernate.query.Query
-import spock.lang.Ignore
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
@@ -117,7 +117,6 @@ import java.nio.charset.StandardCharsets
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 class PdfTemplateResourceTest extends Specification {
-
     def resource
     def multipart = Mock(FormDataMultiPart)
 
@@ -135,11 +134,16 @@ class PdfTemplateResourceTest extends Specification {
 
     Query query = Mock(Query)
 
+    Query querysal = Mock(Query)
+
     def setup() {
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
+        session.getNamedQuery(SalutationAlternative.GET_SALUTATION_ALTERNATIVE_BY_PDF_ID) >> querysal
         session.getNamedQuery(_) >> query
         session.getTransaction() >> mockTxn
+
+        querysal.list() >> new ArrayList()
 
         multipart.getField("files") >> bodypart_file
         bodypart_file.getFormDataContentDisposition() >> content_disposition
@@ -386,21 +390,24 @@ class PdfTemplateResourceTest extends Specification {
     }
 
     //EXPORT================================================================================================================
-    @Ignore
-    //FIXME
     void testGeneratePdf() {
         given:
             def pdfTemplateId = 1
             def eventId = 1
+            def ui = Mock(UriInfo)
+            ui.getQueryParameters() >> new MultivaluedHashMap<String, String>()
             query.list() >> [new Person(pk: 1), new Person(pk: 2), new Person(pk: 3)]
             query.uniqueResult() >> new PdfTemplate(pk: 1, name: "Tischkarte", content: convertPdfToByteArray())
 
         when:
-            def response = resource.generatePdf(pdfTemplateId, eventId)
+            def response = resource.generatePdf(pdfTemplateId, eventId, ui)
 
         then:
+            1 * session.createQuery(*_) >> query
             session != null
-            2 * session.close()
+            3 * session.close()
+            2 * query.setParameter(_, _)
+            1 * querysal.setParameter(_, _)
             assert response.status == Response.Status.OK.statusCode
             assert new String(response.context.entity.bytes, 0, 4).equals("%PDF");
             assert response.context.entity.size() > 1000
