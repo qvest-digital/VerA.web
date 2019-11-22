@@ -118,7 +118,8 @@
 		<groovy-all.version>2.4.15</groovy-all.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
 		<h2.version>1.4.200</h2.version>
-		<hibernate.version>5.4.3.Final</hibernate.version>
+		<hibernate.core.version>5.4.9.Final</hibernate.core.version>
+		<hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
 		<hk2.version>2.6.1</hk2.version>
 		<httpclient.version>4.5.10</httpclient.version>
 		<httpcore.version>4.4.12</httpcore.version>
@@ -781,7 +782,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.version}</version>
+				<version>${hibernate.core.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>javax.activation</groupId>
@@ -800,7 +801,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>${hibernate.version}</version>
+				<version>${hibernate.validator.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>javax.validation</groupId>
@@ -811,7 +812,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator-annotation-processor</artifactId>
-				<version>${hibernate.version}</version>
+				<version>${hibernate.validator.version}</version>
 			</dependency>
 			<!-- for Hibernate, logs onto Log4j2 backend automatically -->
 			<dependency>
