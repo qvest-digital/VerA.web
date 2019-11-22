@@ -110,10 +110,10 @@ public class TcVelocityResponseLogger implements LogSystem {
     public void logVelocityMessage(int level, String message) {
         switch (level) {
         case LogSystem.DEBUG_ID:
-            logger.debug(message);
+            logger.trace(message);
             break;
         case LogSystem.INFO_ID:
-            logger.info(message);
+            logger.debug(message);
             break;
         case LogSystem.WARN_ID:
             logger.warn(message);
