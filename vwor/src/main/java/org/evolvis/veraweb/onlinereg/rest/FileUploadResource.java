@@ -138,16 +138,16 @@ public class FileUploadResource extends AbstractResource {
     public void saveImageIntoDataSystem(@FormParam("imageStringData") String imageStringData,
       @FormParam("extension") String extension,
       @FormParam("imageUUID") String imgUUID) throws IOException {
-
-        if (vworPropertiesReader == null) {
-            vworPropertiesReader = new VworPropertiesReader();
-        }
         final String filesLocation = getFilesLocation();
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             image = createTempImage(imageStringData);
         } catch (Exception e) {
             logger.error("Could not create temp image", e);
+            image = null;
+        }
+        if (image == null) {
+            throw new IOException("no image"); //FIXME
         }
 
         if (extension.equals(VworConstants.EXTENSION_PNG)) {
@@ -183,6 +183,9 @@ public class FileUploadResource extends AbstractResource {
     }
 
     private String getFilesLocation() {
+        if (vworPropertiesReader == null) {
+            vworPropertiesReader = new VworPropertiesReader();
+        }
         final String filesLocation;
         if (vworPropertiesReader.getProperty(FILES_LOCATION) != null) {
             filesLocation = vworPropertiesReader.getProperty(FILES_LOCATION);
@@ -220,17 +223,10 @@ public class FileUploadResource extends AbstractResource {
     }
 
     private File getFile(String imgUUID) {
-        final VworPropertiesReader propertiesReader = new VworPropertiesReader();
-        final String filesLocation = propertiesReader.getProperty(FILES_LOCATION);
-        return new File(filesLocation + generateImageName(imgUUID));
+        return new File(getFilesLocation() + generateImageName(imgUUID));
     }
 
-    public String generateImageName(String imgUUID) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(imgUUID);
-        sb.append(".");
-        sb.append(VworConstants.EXTENSION_JPG);
-
-        return sb.toString();
+    private String generateImageName(String imgUUID) {
+        return imgUUID + "." + VworConstants.EXTENSION_JPG;
     }
 }
