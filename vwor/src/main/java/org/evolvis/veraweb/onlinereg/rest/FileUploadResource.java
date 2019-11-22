@@ -98,7 +98,13 @@ import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -138,25 +144,43 @@ public class FileUploadResource extends AbstractResource {
     public void saveImageIntoDataSystem(@FormParam("imageStringData") String imageStringData,
       @FormParam("extension") String extension,
       @FormParam("imageUUID") String imgUUID) throws IOException {
-        final String filesLocation = getFilesLocation();
-        BufferedImage image;
-        try {
-            image = createTempImage(imageStringData);
-        } catch (Exception e) {
-            logger.error("Could not create temp image", e);
-            image = null;
-        }
-        if (image == null) {
-            throw new IOException("no image"); //FIXME
-        }
+        final File fileToStore = getFile(imgUUID);
+        final byte[] imageBytes = Base64.getMimeDecoder().decode(imageStringData);
+        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
 
-        if (extension.equals(VworConstants.EXTENSION_PNG)) {
-            image = convertTempImageToJpg(image);
-        }
+        if (!extension.equals(VworConstants.EXTENSION_JPG)) {
+            BufferedImage pngImage = ImageIO.read(byteArrayInputStream);
+            final BufferedImage jpgImage = new BufferedImage(pngImage.getWidth(), pngImage.getHeight(),
+              BufferedImage.TYPE_INT_RGB);
+            jpgImage.createGraphics().drawImage(pngImage, 0, 0, Color.WHITE, null);
+            ImageIO.write(jpgImage, VworConstants.EXTENSION_JPG, fileToStore);
+        } else {
+            IIOImage image;
 
-        final String imageName = generateImageName(imgUUID);
-        final File fileToStore = new File(filesLocation + imageName);
-        ImageIO.write(image, VworConstants.EXTENSION_JPG, fileToStore);
+            try (ImageInputStream input = ImageIO.createImageInputStream(byteArrayInputStream)) {
+                ImageReader reader = ImageIO.getImageReaders(input).next();
+                try {
+                    reader.setInput(input);
+                    image = reader.readAll(0, null);
+                } finally {
+                    // Dispose reader in finally block to avoid memory leaks
+                    reader.dispose();
+                }
+            }
+
+            try (ImageOutputStream output = ImageIO.createImageOutputStream(fileToStore)) {
+                ImageWriter writer = ImageIO.getImageWritersByFormatName(VworConstants.EXTENSION_JPG).next();
+                try {
+                    ImageWriteParam param = writer.getDefaultWriteParam();
+                    param.setCompressionMode(ImageWriteParam.MODE_COPY_FROM_METADATA);
+                    writer.setOutput(output);
+                    writer.write(null, image, param);
+                } finally {
+                    writer.dispose();
+                }
+            }
+        }
+        byteArrayInputStream.close();
     }
 
     /**
@@ -179,7 +203,7 @@ public class FileUploadResource extends AbstractResource {
         return encodedImage;
     }
 
-    private String getFilesLocation() {
+    private File getFile(String imgUUID) {
         if (vworPropertiesReader == null) {
             vworPropertiesReader = new VworPropertiesReader();
         }
@@ -189,28 +213,6 @@ public class FileUploadResource extends AbstractResource {
         } else {
             filesLocation = "/tmp/";
         }
-        return filesLocation;
-    }
-
-    private BufferedImage createTempImage(String imageStringData) throws IOException {
-        byte[] imageBytes = Base64.getMimeDecoder().decode(imageStringData);
-        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
-        BufferedImage image = ImageIO.read(byteArrayInputStream);
-        byteArrayInputStream.close();
-        return image;
-    }
-
-    private BufferedImage convertTempImageToJpg(BufferedImage pngImage) {
-        final BufferedImage jpgImage = new BufferedImage(pngImage.getWidth(), pngImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        jpgImage.createGraphics().drawImage(pngImage, 0, 0, Color.WHITE, null);
-        return jpgImage;
-    }
-
-    private File getFile(String imgUUID) {
-        return new File(getFilesLocation() + generateImageName(imgUUID));
-    }
-
-    private String generateImageName(String imgUUID) {
-        return imgUUID + "." + VworConstants.EXTENSION_JPG;
+        return new File(filesLocation + imgUUID + "." + VworConstants.EXTENSION_JPG);
     }
 }
