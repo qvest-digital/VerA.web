@@ -253,7 +253,8 @@ Apparently, the PNGs are the source code here.
 │                                                                          │
 │ Das Photo wurde 2002 geschossen und 2008 nachbearbeitet.                 │
 └──────────────────────────────────────────────────────────────────────────┘
-veraweb-rest-api/src/test/resources/imageData.txt is the same file.
+vwor/src/test/resources/imageData.txt is the same file, except after
+recompression by javax.imageio.ImageIO… ☹
 
 ┌──┤ Some build and utility scripts (MirOS) ├──────────────────────────────┐
 │                                                                          │
