@@ -47,7 +47,6 @@ jakarta.xml.bind:jakarta.xml.bind-api 2.3.2 compile ok
 javax.mail:mail 1.4.7 compile ok
 javax.persistence:javax.persistence-api 2.2 compile ok
 javax.servlet:javax.servlet-api 3.1.0 provided ok
-javax.validation:validation-api 1.1.0.Final compile ok
 junit:junit 3.8.1 test ok
 junit:junit 4.12 test ok
 net.bytebuddy:byte-buddy 1.10.3 compile TODO

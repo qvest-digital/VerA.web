@@ -24,7 +24,6 @@ jakarta.ws.rs jakarta.ws.rs-api 2.1.5
 jakarta.xml.bind jakarta.xml.bind-api 2.3.2
 javax.mail mail 1.4.7
 javax.persistence javax.persistence-api 2.2
-javax.validation validation-api 1.1.0.Final
 net.bytebuddy byte-buddy 1.10.3
 net.jodah expiringmap 0.5.9
 org.apache.axis axis-jaxrpc 1.4
