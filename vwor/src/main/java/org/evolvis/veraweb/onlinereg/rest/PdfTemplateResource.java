@@ -294,7 +294,11 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private void deleteOldPdfFiles() {
-        final File directory = new File(FileUtils.getTempDirectoryPath());
+        final String tmpdir = FileUtils.getTempDirectoryPath();
+        if ("/tmp".equals(tmpdir) || "/var/tmp".equals(tmpdir)) {
+            return;
+        }
+        final File directory = new File(tmpdir);
         if (directory.exists()) {
             deleteFiles(directory);
         }
