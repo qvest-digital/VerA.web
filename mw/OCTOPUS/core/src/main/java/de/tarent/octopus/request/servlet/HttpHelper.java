@@ -106,7 +106,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
-import org.apache.xmlrpc.Base64;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -116,6 +115,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.PasswordAuthentication;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -558,7 +558,7 @@ public class HttpHelper {
         String authorization = request.getHeader("authorization");
         if (authorization != null && authorization.startsWith("Basic ")) {
             authorization = authorization.substring("Basic ".length());
-            authorization = new String(Base64.decode(authorization.getBytes()));
+            authorization = new String(Base64.getMimeDecoder().decode(authorization.getBytes()));
             String[] authParts = authorization.split("[:]", 2);
             if (authParts.length == 2) {
                 logger.debug("Authorisierung aus Header übernommen: " + Arrays.asList(authParts));

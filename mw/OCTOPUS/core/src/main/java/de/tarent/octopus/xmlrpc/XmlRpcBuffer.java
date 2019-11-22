@@ -98,14 +98,13 @@ import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.apache.xmlrpc.Base64;
 
 import de.tarent.octopus.util.Xml;
 
@@ -184,7 +183,7 @@ public class XmlRpcBuffer {
         } else if (object instanceof Date) {
             appendDataElement("dateTime.iso8601", dateFormatter.format((Date) object));
         } else if (object instanceof byte[]) {
-            appendDataElement("base64", new String(Base64.encode((byte[]) object)));
+            appendDataElement("base64", Base64.getEncoder().encodeToString((byte[]) object));
         } else if (object instanceof Object[]) {
             appendDataElement(Arrays.asList((Object[]) object));
         } else if (object instanceof Collection) {

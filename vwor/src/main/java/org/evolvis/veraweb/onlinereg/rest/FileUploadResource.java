@@ -97,7 +97,6 @@ import lombok.extern.log4j.Log4j2;
 import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
-import org.postgresql.util.Base64;
 
 import javax.imageio.ImageIO;
 import javax.ws.rs.FormParam;
@@ -113,6 +112,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 
 /**
  * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
@@ -193,7 +193,7 @@ public class FileUploadResource extends AbstractResource {
     }
 
     private BufferedImage createTempImage(String imageStringData) throws IOException {
-        byte[] imageBytes = Base64.decode(imageStringData);
+        byte[] imageBytes = Base64.getMimeDecoder().decode(imageStringData);
         final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
         BufferedImage image = ImageIO.read(byteArrayInputStream);
         byteArrayInputStream.close();
@@ -213,7 +213,7 @@ public class FileUploadResource extends AbstractResource {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", byteArrayOutputStream);
         final byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        final String imageString = Base64.encodeBytes(imageBytes);
+        final String imageString = Base64.getEncoder().encodeToString(imageBytes);
         final StringBuilder encodedImage = new StringBuilder("data:image/jpg;base64,").append(imageString);
         byteArrayOutputStream.close();
         return encodedImage;
