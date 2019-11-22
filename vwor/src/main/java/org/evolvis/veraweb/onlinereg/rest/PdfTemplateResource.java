@@ -128,7 +128,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -253,16 +252,15 @@ public class PdfTemplateResource extends FormDataResource {
         }
 
         alternativeSalutations = getAlternativeSalutations(pdfTemplateId);
-        AbstractMap.Entry<String, File> res = generateFromTemplate(people, pdfTemplateId, eventId);
-        return Response.ok(res.getValue()).header("Content-Disposition",
-          "attachment;filename=" + res.getKey() + ";charset=Unicode").build();
+        final String basename = TMPFILE_PFX + new Date().getTime();
+        final File dstfile = File.createTempFile(basename + "." + UUID.randomUUID().toString() + ".", TMPFILE_EXT);
+        generateFromTemplate(dstfile, people, pdfTemplateId);
+        return Response.ok(dstfile).header("Content-Disposition", /* WTF‽ Unicode? A binary PDF? */
+          "attachment;filename=" + basename + TMPFILE_EXT + ";charset=Unicode").build();
     }
 
-    private AbstractMap.Entry<String, File> generateFromTemplate(List<Person> people, Integer pdfTemplateId, Integer eventId)
+    private void generateFromTemplate(final File dstfile, final List<Person> people, final Integer pdfTemplateId)
       throws IOException {
-        final String basename = TMPFILE_PFX + new Date().getTime();
-        AbstractMap.Entry<String, File> rv = new AbstractMap.SimpleEntry<>(basename + TMPFILE_EXT,
-          File.createTempFile(basename + "." + UUID.randomUUID().toString() + ".", TMPFILE_EXT));
         PDDocument finalDoc = new PDDocument();
         final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, UUID.randomUUID());
         File file = new File(tempFileWithPdfTemplateContent);
@@ -290,10 +288,9 @@ public class PdfTemplateResource extends FormDataResource {
         finalForm.setNeedAppearances(true);
         finalDoc.getDocumentCatalog().setAcroForm(finalForm);
         finalForm.setFields(fields);
-        finalDoc.save(rv.getValue());
+        finalDoc.save(dstfile);
         finalDoc.close();
         deleteOldPdfFiles();
-        return rv;
     }
 
     private void deleteOldPdfFiles() {
