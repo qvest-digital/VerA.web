@@ -109,9 +109,9 @@ import javax.ws.rs.core.MediaType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Base64;
 
 /**
@@ -126,7 +126,7 @@ public class FileUploadResource extends AbstractResource {
     private VworPropertiesReader vworPropertiesReader;
 
     /**
-     * Storing incomming image into file system.
+     * Storing incoming image into file system.
      *
      * @param imageStringData Image as String
      * @param extension       Png or jpg
@@ -168,18 +168,15 @@ public class FileUploadResource extends AbstractResource {
     @GET
     @Path(RestPaths.REST_FILEUPLOAD_DOWNLOAD + RestPaths.REST_FILEUPLOAD_DL_IMG)
     public String getImageByUUID(@PathParam("imgUUID") String imgUUID) {
-        StringBuilder encodedImage = null;
+        String encodedImage;
         try {
-            encodedImage = getImage(imgUUID);
+            final byte[] imageBytes = Files.readAllBytes(getFile(imgUUID).toPath());
+            encodedImage = "data:image/jpg;base64," + Base64.getEncoder().encodeToString(imageBytes);
         } catch (IOException e) {
             logger.error("Image not found", e);
-            // image not found
-            // 1. Delete imageUUID
+            encodedImage = null;
         }
-        if (encodedImage != null) {
-            return encodedImage.toString();
-        }
-        return null;
+        return encodedImage;
     }
 
     private String getFilesLocation() {
@@ -207,19 +204,6 @@ public class FileUploadResource extends AbstractResource {
         final BufferedImage jpgImage = new BufferedImage(pngImage.getWidth(), pngImage.getHeight(), BufferedImage.TYPE_INT_RGB);
         jpgImage.createGraphics().drawImage(pngImage, 0, 0, Color.WHITE, null);
         return jpgImage;
-    }
-
-    private StringBuilder getImage(String imgUUID) throws IOException {
-        final File file = getFile(imgUUID);
-
-        final BufferedImage image = ImageIO.read(file);
-        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, VworConstants.EXTENSION_JPG, byteArrayOutputStream);
-        final byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        final String imageString = Base64.getEncoder().encodeToString(imageBytes);
-        final StringBuilder encodedImage = new StringBuilder("data:image/jpg;base64,").append(imageString);
-        byteArrayOutputStream.close();
-        return encodedImage;
     }
 
     private File getFile(String imgUUID) {
