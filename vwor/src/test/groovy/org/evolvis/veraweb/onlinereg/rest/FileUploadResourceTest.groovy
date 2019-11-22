@@ -114,6 +114,9 @@ class FileUploadResourceTest extends Specification {
 
         then:
             1 * propertiesReaderMock.getProperty("filesLocation")
+
+        cleanup:
+            new File("/tmp/09c3fdaf-8599-466c-b77e-435720528dcf.jpg").delete()
     }
 
     @Ignore('lossy image copy breaks string comparison; needs to fix in both save and get image')
@@ -129,5 +132,8 @@ class FileUploadResourceTest extends Specification {
         then:
             1 * propertiesReaderMock.getProperty("filesLocation")
             assert image == "data:image/jpg;base64," + IMAGE_DATA_STRING
+
+        cleanup:
+            new File("/tmp/19c3fdaf-8599-466c-b77e-435720528dcf.jpg").delete()
     }
 }
