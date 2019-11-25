@@ -40,8 +40,8 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{7.4}
-\newcommand{\vwiaversfassungmonat}{Juli}
+\newcommand{\vwiaversfassungnr}{7.5}
+\newcommand{\vwiaversfassungmonat}{November}
 \newcommand{\vwiaversfassungjahr}{2019}
 
 % VerA.web Version
@@ -728,13 +728,14 @@ sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
 java -version
 ### sollte etwa ausgeben:
-# openjdk version "1.8.0_212"
-# OpenJDK Runtime Environment (build 1.8.0_212-8u212-b03-2~deb9u1-b03)
-# OpenJDK 64-Bit Server VM (build 25.212-b03, mixed mode)
+# openjdk version "1.8.0_232"
+# OpenJDK Runtime Environment (build 1.8.0_232-8u232-b09-1~deb9u1-b09)
+# OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
 \end{lstdump}
 
 Stellen Sie unbedingt sicher, daß das \texttt{tomcat8}-Paket mindestens
-in Version \texttt{8.5.14-1+deb9u3} installiert wird.
+in Version \texttt{8.5.14-1+deb9u3} (aus Debian \texttt{stretch-security})
+installiert wird.
 \end{minipage}
 
 \begin{minipage}{\linewidth}
