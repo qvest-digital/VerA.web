@@ -272,17 +272,16 @@ public class PdfTemplateResource extends FormDataResource {
             int i = 0;
 
             for (Person person : people) {
-                try (PDDocument template = PDDocument.load(file)) {
-                    PDDocumentCatalog docCatalog = template.getDocumentCatalog();
-                    PDAcroForm acroForm = docCatalog.getAcroForm();
-                    final Map<String, String> substitutions = getSubstitutions(person);
-                    for (PDField field : acroForm.getFields()) {
-                        field.setValue(substitutions.get(field.getPartialName()));
-                        field.setPartialName(field.getPartialName() + i);
-                        fields.add(field);
-                    }
-                    finalDoc.addPage(finalDoc.importPage(docCatalog.getPages().get(0)));
+                PDDocument template = PDDocument.load(file);
+                PDDocumentCatalog docCatalog = template.getDocumentCatalog();
+                PDAcroForm acroForm = docCatalog.getAcroForm();
+                final Map<String, String> substitutions = getSubstitutions(person);
+                for (PDField field : acroForm.getFields()) {
+                    field.setValue(substitutions.get(field.getPartialName()));
+                    field.setPartialName(field.getPartialName() + i);
+                    fields.add(field);
                 }
+                finalDoc.addPage(docCatalog.getPages().get(0));
                 i++;
             }
             PDAcroForm finalForm = new PDAcroForm(finalDoc);
