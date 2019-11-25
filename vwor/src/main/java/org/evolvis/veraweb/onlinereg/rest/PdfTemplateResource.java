@@ -274,6 +274,7 @@ public class PdfTemplateResource extends FormDataResource {
             List<PDField> fields = new ArrayList<>();
             int i = 0;
 
+            //XXX adding the entire template for each person makes the output huge
             for (Person person : people) {
                 PDDocument template = PDDocument.load(file);
                 toClose.add(template);
