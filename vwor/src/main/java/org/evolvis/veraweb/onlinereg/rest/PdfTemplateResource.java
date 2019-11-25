@@ -263,7 +263,8 @@ public class PdfTemplateResource extends FormDataResource {
       throws IOException {
         final List<PDDocument> toClose = new ArrayList<>();
         try {
-            PDDocument finalDoc = new PDDocument();
+            @SuppressWarnings("squid:S2093") // autoclosed manually, Sonar cannot know
+              PDDocument finalDoc = new PDDocument();
             toClose.add(finalDoc);
             final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, UUID.randomUUID());
             File file = new File(tempFileWithPdfTemplateContent);
