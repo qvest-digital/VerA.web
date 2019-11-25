@@ -486,15 +486,16 @@ class PdfTemplateResourceTest extends Specification {
     }
 
     //HELPER================================================================================================================
-    private byte[] convertPdfToByteArray() throws IOException {
-        final InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("itext-template.pdf");
-        byte[] buffer = new byte[8192];
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    private static byte[] convertPdfToByteArray() throws IOException {
+        def file = new File('src/test/resources/itext-template.pdf')
+        final InputStream resourceAsStream = new FileInputStream(file)
+        byte[] buffer = new byte[8192]
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
 
-        int bytesRead;
+        int bytesRead
         while ((bytesRead = resourceAsStream.read(buffer)) != -1) {
-            baos.write(buffer, 0, bytesRead);
+            baos.write(buffer, 0, bytesRead)
         }
-        return baos.toByteArray();
+        return baos.toByteArray()
     }
 }
