@@ -93,6 +93,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import de.tarent.octopus.base.AutoclosableList;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -241,7 +242,7 @@ public class PdfTemplateResource extends FormDataResource {
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
       @QueryParam("eventId") Integer eventId,
       @javax.ws.rs.core.Context UriInfo ui)
-      throws IOException {
+      throws Exception {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
@@ -260,12 +261,9 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private void generateFromTemplate(final File dstfile, final List<Person> people, final Integer pdfTemplateId)
-      throws IOException {
-        final List<PDDocument> toClose = new ArrayList<>();
-        try {
-            @SuppressWarnings("squid:S2093") // autoclosed manually, Sonar cannot know
-              PDDocument finalDoc = new PDDocument();
-            toClose.add(finalDoc);
+      throws Exception {
+        try (final AutoclosableList toClose = new AutoclosableList()) {
+            PDDocument finalDoc = toClose.record(new PDDocument());
             final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, UUID.randomUUID());
             File file = new File(tempFileWithPdfTemplateContent);
 
@@ -277,8 +275,7 @@ public class PdfTemplateResource extends FormDataResource {
 
             //XXX adding the entire template for each person makes the output huge
             for (Person person : people) {
-                PDDocument template = PDDocument.load(file);
-                toClose.add(template);
+                PDDocument template = toClose.record(PDDocument.load(file));
                 PDDocumentCatalog docCatalog = template.getDocumentCatalog();
                 PDAcroForm acroForm = docCatalog.getAcroForm();
                 final Map<String, String> substitutions = getSubstitutions(person);
@@ -295,15 +292,8 @@ public class PdfTemplateResource extends FormDataResource {
             finalDoc.getDocumentCatalog().setAcroForm(finalForm);
             finalForm.setFields(fields);
             finalDoc.save(dstfile);
-            finalDoc.close();
-            deleteOldPdfFiles();
-        } finally {
-            for (PDDocument doc : toClose) {
-                if (doc != null) {
-                    doc.close();
-                }
-            }
         }
+        deleteOldPdfFiles();
     }
 
     private void deleteOldPdfFiles() {
