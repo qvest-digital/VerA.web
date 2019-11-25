@@ -422,15 +422,15 @@ einkalkuliert.
  Anzahl Prozessoren je VM & 1                      & 1             & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
  Betriebssystem           & Debian 8 („jessie“)    & 9 („stretch“) & 9 („stretch“)\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Java™-Laufzeitumgebung   & OpenJDK 8 JRE headless & wie Minimum   & OpenJDK 11\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Applikationsserver       & Tomcat 8               & wie Minimum   & Tomcat 8\Hair\textsuperscript{\ref{fn:req-nonewer}}\\\hline
+ Applikationsserver       & Tomcat 8               & wie Minimum   & \emph{Tomcat 8}\Hair\textsuperscript{\ref{fn:req-nonewer}}\\\hline
  Webserver                & Apache 2.2             & Apache 2.4    & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Datenbank                & PostgreSQL 9.1         & aktuelle      & PostgreSQL 11\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Arbeitsspeicher (RAM)    &  512 MiB               & 1024 MiB      & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
  Festplattengröße (HDD)   &    2 GB                &    8 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
 \end{tabu}
 
-Anmerkung: Debian 10 („buster“) wird mit OpenJDK 11 (nur unvollständig
-angetestet) und Tomcat 9 (ist \emph{nicht} kompatibel mit VerA.web)
+Anmerkung: Debian 10 („buster“) wird mit OpenJDK~11 (nur unvollständig
+angetestet) und Tomcat~9 (ist \emph{nicht} kompatibel mit VerA.web)
 ausgeliefert und wird daher aktuell von abgeraten.
 
 \hyperfootnotetext{\label{fn:req-tst-notmore}%
@@ -1446,7 +1446,8 @@ bzw. \texttt{catalina.out}.
 
 Im „files“-Tarball finden Sie ein Bild \texttt{testpic.jpg} in den für die
 Gästeverwaltung (Kontaktphoto) korrekten Maßen sowie ein demonstratives
-\texttt{example-template.pdf} zum Test der Funktionalität PDF-Vorlage.
+\texttt{example-template.pdf} (bleibt Eigentum der \tarent{}) zum Test der
+Funktionalität PDF-Vorlage.
 
 \subsection{Weblinks}\label{subsec:links-web}
 
@@ -1456,8 +1457,8 @@ Gästeverwaltung (Kontaktphoto) korrekten Maßen sowie ein demonstratives
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=vwor/src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
  \item{die in der Anwendung selbst oben rechts verlinkten
-  \emph{Lizenzbestimmungen}, inklusive Quellkode der Anwendung
-  und aller gebündelten Abhängigkeiten}
+  \emph{Lizenzbestimmungen},\\ inklusive Quellkode der
+  Anwendung und aller gebündelten Abhängigkeiten}
 \end{itemize}
 
 \subsection{Absicherung}\label{subsec:links-sec}
