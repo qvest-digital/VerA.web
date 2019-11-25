@@ -18,7 +18,7 @@ commons-dbcp:commons-dbcp 1.4 compile TODO
 commons-discovery:commons-discovery 0.5 compile TODO
 commons-fileupload:commons-fileupload 1.4 compile TODO
 commons-io:commons-io 2.6 compile ok
-commons-pool:commons-pool 1.5.7 compile TODO
+commons-pool:commons-pool 1.6 compile TODO
 github::ForbesLindesay/umd 2.1.0 compile ok
 github::HubSpot/vex 3.0.0 compile ok
 github::JamesMGreene/qunit-assert-step 1.0.2 compile ok

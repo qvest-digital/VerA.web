@@ -261,36 +261,47 @@ public class PdfTemplateResource extends FormDataResource {
 
     private void generateFromTemplate(final File dstfile, final List<Person> people, final Integer pdfTemplateId)
       throws IOException {
-        PDDocument finalDoc = new PDDocument();
-        final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, UUID.randomUUID());
-        File file = new File(tempFileWithPdfTemplateContent);
+        final List<PDDocument> toClose = new ArrayList<>();
+        try {
+            PDDocument finalDoc = new PDDocument();
+            toClose.add(finalDoc);
+            final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, UUID.randomUUID());
+            File file = new File(tempFileWithPdfTemplateContent);
 
-        //create new arraylist to cache fields
-        //(fields can only be set afterwards, because no duplicates are allowed)
-        //so we have to rename all of them and fill them afterwards
-        List<PDField> fields = new ArrayList<>();
-        int i = 0;
+            //create new arraylist to cache fields
+            //(fields can only be set afterwards, because no duplicates are allowed)
+            //so we have to rename all of them and fill them afterwards
+            List<PDField> fields = new ArrayList<>();
+            int i = 0;
 
-        for (Person person : people) {
-            PDDocument template = PDDocument.load(file);
-            PDDocumentCatalog docCatalog = template.getDocumentCatalog();
-            PDAcroForm acroForm = docCatalog.getAcroForm();
-            final Map<String, String> substitutions = getSubstitutions(person);
-            for (PDField field : acroForm.getFields()) {
-                field.setValue(substitutions.get(field.getPartialName()));
-                field.setPartialName(field.getPartialName() + i);
-                fields.add(field);
+            for (Person person : people) {
+                PDDocument template = PDDocument.load(file);
+                toClose.add(template);
+                PDDocumentCatalog docCatalog = template.getDocumentCatalog();
+                PDAcroForm acroForm = docCatalog.getAcroForm();
+                final Map<String, String> substitutions = getSubstitutions(person);
+                for (PDField field : acroForm.getFields()) {
+                    field.setValue(substitutions.get(field.getPartialName()));
+                    field.setPartialName(field.getPartialName() + i);
+                    fields.add(field);
+                }
+                finalDoc.addPage(docCatalog.getPages().get(0));
+                i++;
             }
-            finalDoc.addPage(docCatalog.getPages().get(0));
-            i++;
+            PDAcroForm finalForm = new PDAcroForm(finalDoc);
+            finalForm.setNeedAppearances(true);
+            finalDoc.getDocumentCatalog().setAcroForm(finalForm);
+            finalForm.setFields(fields);
+            finalDoc.save(dstfile);
+            finalDoc.close();
+            deleteOldPdfFiles();
+        } finally {
+            for (PDDocument doc : toClose) {
+                if (doc != null) {
+                    doc.close();
+                }
+            }
         }
-        PDAcroForm finalForm = new PDAcroForm(finalDoc);
-        finalForm.setNeedAppearances(true);
-        finalDoc.getDocumentCatalog().setAcroForm(finalForm);
-        finalForm.setFields(fields);
-        finalDoc.save(dstfile);
-        finalDoc.close();
-        deleteOldPdfFiles();
     }
 
     private void deleteOldPdfFiles() {
