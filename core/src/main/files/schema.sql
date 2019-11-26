@@ -44,7 +44,7 @@ BEGIN
 		GRANT ALL ON SCHEMA veraweb TO veraweb WITH GRANT OPTION;
 		COMMENT ON SCHEMA veraweb IS 'The veraweb namespace.
 
-		veraweb, platform independent webservice-based event management (Veranstaltungsmanagment VerA.web), is Copyright © tarent solutions GmbH; see doc/LICENCE.txt for details
+		veraweb, platform independent webservice-based event management (Veranstaltungsmanagment VerA.web), is Copyright © tarent solutions GmbH; see https://veraweb.example.com/veraweb/doc/lic-info.htm for details
 		';
 	END IF;
 
