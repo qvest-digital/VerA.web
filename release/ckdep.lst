@@ -49,7 +49,7 @@ javax.persistence:javax.persistence-api 2.2 compile ok
 javax.servlet:javax.servlet-api 3.1.0 provided ok
 junit:junit 3.8.1 test ok
 junit:junit 4.12 test ok
-net.bytebuddy:byte-buddy 1.10.3 compile ok
+net.bytebuddy:byte-buddy 1.10.3 compile TODO
 net.bytebuddy:byte-buddy-agent 1.10.3 test ok
 net.jodah:expiringmap 0.5.9 compile ok
 org.apache.axis:axis-jaxrpc 1.4 compile ok
