@@ -156,7 +156,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
      * Our implementation throws one of these, and you can check it to
      * avoid logging the causes twice (we already log them).
      */
-    static abstract class ClosingException extends Exception {
+    abstract static class ClosingException extends Exception {
         /**
          * Constructs a new exception.
          *
@@ -173,7 +173,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
      * The exception thrown from the element’s {@code close} was already logged,
      * it’s also provided as cause for convenience.
      */
-    static public class SingleClosingException extends ClosingException {
+    public static class SingleClosingException extends ClosingException {
         SingleClosingException(Throwable t) {
             super("single exception closing an AutoclosableList", t);
         }
@@ -183,7 +183,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
      * Exception thrown during {@link #close()} when only multiple elements’ threw.
      * The exception thrown from the element’s {@code close} was already logged.
      */
-    static public class MultipleClosingException extends ClosingException {
+    public static class MultipleClosingException extends ClosingException {
         MultipleClosingException() {
             super("multiple exceptions closing an AutoclosableList", null);
         }
