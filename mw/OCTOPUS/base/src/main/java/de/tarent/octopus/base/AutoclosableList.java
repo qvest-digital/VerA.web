@@ -93,6 +93,7 @@ package de.tarent.octopus.base;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.EqualsAndHashCode;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author mirabilos (t.glaser@tarent.de)
  */
 @Log4j2
+@EqualsAndHashCode(callSuper = true)
 public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCloseable {
     private static final AtomicInteger counter = new AtomicInteger(0);
     private final Integer id;
