@@ -230,7 +230,12 @@
 		$(document).ready(function(){
 
 			var octopusLanguage = "${language}";
+			var previousLanguage = "";
+#if($octopusRequest.loginlanguage)
+## this is almost never set, Jon, what do you mean with it?
+## there is an octopusRequest.locale but I doubt that is the right thing here
 			var previousLanguage = "${octopusRequest.loginlanguage}";
+#end
 			if (octopusLanguage == "en_EN" || octopusLanguage == "es_ES" || octopusLanguage == "de_DE" || octopusLanguage == "fr_FR") {
 				previousLanguage = octopusLanguage;
 			}
