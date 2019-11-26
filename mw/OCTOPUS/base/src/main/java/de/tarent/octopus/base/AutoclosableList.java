@@ -123,7 +123,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
     /**
      * Logs when this list is finalised and checks it’s empty.
      */
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({ "squid:CallToDeprecatedMethod", "deprecation", "squid:ObjectFinalizeOverridenCheck" })
     @Override
     protected void finalize() throws Throwable {
         try {
