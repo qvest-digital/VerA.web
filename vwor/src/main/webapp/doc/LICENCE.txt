@@ -848,83 +848,314 @@ External code found in the Java™ backend part includes:
 │ parrt@antlr.org                                                          │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ Apache Commons-Discovery (Apache 1.1) ├───────────────────────────────┐
+┌──┤ Apache commons-math (Apache 2; 2-, 3-, 4-clause BSD) ├────────────────┐
 │                                                                          │
-│ The Apache Software License, Version 1.1                                 │
+│ Apache Commons Math                                                      │
+│ Copyright 2001-2016 The Apache Software Foundation                       │
 │                                                                          │
-│ Copyright (c) 1999-2001 The Apache Software Foundation.  All rights      │
-│ reserved.                                                                │
+│ This product includes software developed at                              │
+│ The Apache Software Foundation (http://www.apache.org/).                 │
+│                                                                          │
+│ This product includes software developed for Orekit by                   │
+│ CS Systèmes d'Information (http://www.c-s.fr/)                           │
+│ Copyright 2010-2012 CS Systèmes d'Information                            │
+│                                                                          │
+│ Apache Commons Math includes the following code provided to the ASF      │
+│ under the Apache License 2.0:                                            │
+│                                                                          │
+│  - The inverse error function implementation in the Erf class is based   │
+│    on CUDA code developed by Mike Giles, Oxford-Man Institute of         │
+│    Quantitative Finance, and published in GPU Computing Gems, volume 2,  │
+│    2010 (grant received on March 23th 2013)                              │
+│  - The LinearConstraint, LinearObjectiveFunction, LinearOptimizer,       │
+│    RelationShip, SimplexSolver and SimplexTableau classes in package     │
+│    org.apache.commons.math3.optimization.linear include software         │
+│    developed by Benjamin McCann (http://www.benmccann.com) and           │
+│    distributed with the following copyright: Copyright 2009 Google Inc.  │
+│    (grant received on March 16th 2009)                                   │
+│  - "org.apache.commons.math3.exception.util.LocalizedFormatsTest" which  │
+│    is an adapted version of "OrekitMessagesTest" test class for the      │
+│    Orekit library                                                        │
+│  - "org.apache.commons.math3.analysis.interpolation.HermiteInterpolator" │
+│    has been imported from the Orekit space flight dynamics library.      │
+│                                                                          │
+│ ======================================================================== │
+│                                                                          │
+│ APACHE COMMONS MATH DERIVATIVE WORKS:                                    │
+│                                                                          │
+│ The Apache commons-math library includes a number of subcomponents       │
+│ whose implementation is derived from original sources written            │
+│ in C or Fortran.  License terms of the original sources                  │
+│ are reproduced below.                                                    │
+│                                                                          │
+│ ======================================================================== │
+│ For the lmder, lmpar and qrsolv Fortran routine from minpack and         │
+│ translated in the LevenbergMarquardtOptimizer class in package           │
+│ org.apache.commons.math3.optimization.general Original source copyright  │
+│ and license statement:                                                   │
+│                                                                          │
+│ Minpack Copyright Notice (1999) University of Chicago.                   │
+│ All rights reserved                                                      │
+│                                                                          │
+│ Redistribution and use in source and binary forms, with or               │
+│ without modification, are permitted provided that the                    │
+│ following conditions are met:                                            │
+│                                                                          │
+│ 1. Redistributions of source code must retain the above                  │
+│ copyright notice, this list of conditions and the following              │
+│ disclaimer.                                                              │
+│                                                                          │
+│ 2. Redistributions in binary form must reproduce the above               │
+│ copyright notice, this list of conditions and the following              │
+│ disclaimer in the documentation and/or other materials                   │
+│ provided with the distribution.                                          │
+│                                                                          │
+│ 3. The end-user documentation included with the                          │
+│ redistribution, if any, must include the following                       │
+│ acknowledgment:                                                          │
+│                                                                          │
+│    "This product includes software developed by the                      │
+│    University of Chicago, as Operator of Argonne National                │
+│    Laboratory.                                                           │
+│                                                                          │
+│ Alternately, this acknowledgment may appear in the software              │
+│ itself, if and wherever such third-party acknowledgments                 │
+│ normally appear.                                                         │
+│                                                                          │
+│ 4. WARRANTY DISCLAIMER. THE SOFTWARE IS SUPPLIED "AS IS"                 │
+│ WITHOUT WARRANTY OF ANY KIND. THE COPYRIGHT HOLDER, THE                  │
+│ UNITED STATES, THE UNITED STATES DEPARTMENT OF ENERGY, AND               │
+│ THEIR EMPLOYEES: (1) DISCLAIM ANY WARRANTIES, EXPRESS OR                 │
+│ IMPLIED, INCLUDING BUT NOT LIMITED TO ANY IMPLIED WARRANTIES             │
+│ OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE              │
+│ OR NON-INFRINGEMENT, (2) DO NOT ASSUME ANY LEGAL LIABILITY               │
+│ OR RESPONSIBILITY FOR THE ACCURACY, COMPLETENESS, OR                     │
+│ USEFULNESS OF THE SOFTWARE, (3) DO NOT REPRESENT THAT USE OF             │
+│ THE SOFTWARE WOULD NOT INFRINGE PRIVATELY OWNED RIGHTS, (4)              │
+│ DO NOT WARRANT THAT THE SOFTWARE WILL FUNCTION                           │
+│ UNINTERRUPTED, THAT IT IS ERROR-FREE OR THAT ANY ERRORS WILL             │
+│ BE CORRECTED.                                                            │
+│                                                                          │
+│ 5. LIMITATION OF LIABILITY. IN NO EVENT WILL THE COPYRIGHT               │
+│ HOLDER, THE UNITED STATES, THE UNITED STATES DEPARTMENT OF               │
+│ ENERGY, OR THEIR EMPLOYEES: BE LIABLE FOR ANY INDIRECT,                  │
+│ INCIDENTAL, CONSEQUENTIAL, SPECIAL OR PUNITIVE DAMAGES OF                │
+│ ANY KIND OR NATURE, INCLUDING BUT NOT LIMITED TO LOSS OF                 │
+│ PROFITS OR LOSS OF DATA, FOR ANY REASON WHATSOEVER, WHETHER              │
+│ SUCH LIABILITY IS ASSERTED ON THE BASIS OF CONTRACT, TORT                │
+│ (INCLUDING NEGLIGENCE OR STRICT LIABILITY), OR OTHERWISE,                │
+│ EVEN IF ANY OF SAID PARTIES HAS BEEN WARNED OF THE                       │
+│ POSSIBILITY OF SUCH LOSS OR DAMAGES.                                     │
+│ ======================================================================== │
+│                                                                          │
+│ Copyright and license statement for the odex Fortran routine developed   │
+│ by E. Hairer and G. Wanner and translated in                             │
+│ GraggBulirschStoerIntegrator class in package                            │
+│ org.apache.commons.math3.ode.nonstiff:                                   │
+│                                                                          │
+│ Copyright (c) 2004, Ernst Hairer                                         │
 │                                                                          │
 │ Redistribution and use in source and binary forms, with or without       │
-│ modification, are permitted provided that the following conditions       │
-│ are met:                                                                 │
+│ modification, are permitted provided that the following conditions are   │
+│ met:                                                                     │
 │                                                                          │
-│ 1. Redistributions of source code must retain the above copyright        │
-│    notice, this list of conditions and the following disclaimer.         │
+│ - Redistributions of source code must retain the above copyright         │
+│ notice, this list of conditions and the following disclaimer.            │
 │                                                                          │
-│ 2. Redistributions in binary form must reproduce the above copyright     │
-│    notice, this list of conditions and the following disclaimer in       │
-│    the documentation and/or other materials provided with the            │
-│    distribution.                                                         │
+│ - Redistributions in binary form must reproduce the above copyright      │
+│ notice, this list of conditions and the following disclaimer in the      │
+│ documentation and/or other materials provided with the distribution.     │
 │                                                                          │
-│ 3. The end-user documentation included with the redistribution, if       │
-│    any, must include the following acknowlegement:                       │
-│       "This product includes software developed by the                   │
-│        Apache Software Foundation (http://www.apache.org/)."             │
-│    Alternately, this acknowlegement may appear in the software itself,   │
-│    if and wherever such third-party acknowlegements normally appear.     │
+│ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS  │
+│ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    │
+│ TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          │
+│ PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR      │
+│ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,    │
+│ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,      │
+│ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR       │
+│ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   │
+│ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     │
+│ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       │
+│ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
+│ ======================================================================== │
 │                                                                          │
-│ 4. The names "The Jakarta Project", "Commons", and "Apache Software      │
-│    Foundation" must not be used to endorse or promote products derived   │
-│    from this software without prior written permission. For written      │
-│    permission, please contact apache@apache.org.                         │
+│ Copyright and license statement for the original Mersenne twister C      │
+│ routines translated in MersenneTwister class in package                  │
+│ org.apache.commons.math3.random:                                         │
 │                                                                          │
-│ 5. Products derived from this software may not be called "Apache"        │
-│    nor may "Apache" appear in their names without prior written          │
-│    permission of the Apache Group.                                       │
+│    Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,     │
+│    All rights reserved.                                                  │
 │                                                                          │
-│ THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED         │
-│ WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES        │
-│ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE              │
-│ DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR         │
-│ ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,         │
-│ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT         │
-│ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF         │
-│ USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND      │
-│ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,       │
-│ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT       │
-│ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF       │
-│ SUCH DAMAGE.                                                             │
-│ ====================================================================     │
+│    Redistribution and use in source and binary forms, with or without    │
+│    modification, are permitted provided that the following conditions    │
+│    are met:                                                              │
 │                                                                          │
-│ This software consists of voluntary contributions made by many           │
-│ individuals on behalf of the Apache Software Foundation.  For more       │
-│ information on the Apache Software Foundation, please see                │
-│ <http://www.apache.org/>.                                                │
+│      1. Redistributions of source code must retain the above copyright   │
+│         notice, this list of conditions and the following disclaimer.    │
+│                                                                          │
+│      2. Redistributions in binary form must reproduce the above          │
+│         copyright notice, this list of conditions and the following      │
+│         disclaimer in the documentation and/or other materials provided  │
+│         with the distribution.                                           │
+│                                                                          │
+│      3. The names of its contributors may not be used to endorse or      │
+│         promote products derived from this software without specific     │
+│         prior written permission.                                        │
+│                                                                          │
+│    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS   │
+│    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT     │
+│    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR │
+│    A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT  │
+│    OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, │
+│    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT      │
+│    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, │
+│    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY │
+│    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT   │
+│    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE │
+│    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  │
+│                                                                          │
+│ ======================================================================== │
+│                                                                          │
+│ The initial code for shuffling an array (originally in class             │
+│ "org.apache.commons.math3.random.RandomDataGenerator", now replaced by   │
+│ a method in class "org.apache.commons.math3.util.MathArrays") was        │
+│ inspired from the algorithm description provided in                      │
+│ "Algorithms", by Ian Craw and John Pulham (University of Aberdeen 1999). │
+│ The textbook (containing a proof that the shuffle is uniformly random)   │
+│ is available here:                                                       │
+│   http://citeseerx.ist.psu.edu/viewdoc/\                                 │
+│   download;?doi=10.1.1.173.1898&rep=rep1&type=pdf                        │
+│                                                                          │
+│ ======================================================================== │
+│ License statement for the direction numbers in the resource files for    │
+│ Sobol sequences.                                                         │
+│                                                                          │
+│ ------------------------------------------------------------------------ │
+│ Licence pertaining to sobol.cc and the accompanying sets of direction    │
+│ numbers                                                                  │
+│                                                                          │
+│ ------------------------------------------------------------------------ │
+│ Copyright (c) 2008, Frances Y. Kuo and Stephen Joe                       │
+│ All rights reserved.                                                     │
+│                                                                          │
+│ Redistribution and use in source and binary forms, with or without       │
+│ modification, are permitted provided that the following conditions are   │
+│ met:                                                                     │
+│                                                                          │
+│     * Redistributions of source code must retain the above copyright     │
+│       notice, this list of conditions and the following disclaimer.      │
+│                                                                          │
+│     * Redistributions in binary form must reproduce the above copyright  │
+│       notice, this list of conditions and the following disclaimer in    │
+│       the documentation and/or other materials provided with the         │
+│       distribution.                                                      │
+│                                                                          │
+│     * Neither the names of the copyright holders nor the names of the    │
+│       University of New South Wales and the University of Waikato and    │
+│       its contributors may be used to endorse or promote products        │
+│       derived from this software without specific prior written          │
+│       permission.                                                        │
+│                                                                          │
+│ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY     │
+│ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE        │
+│ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR       │
+│ PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS BE       │
+│ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR      │
+│ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF     │
+│ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS │
+│ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN  │
+│ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)  │
+│ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF   │
+│ THE POSSIBILITY OF SUCH DAMAGE.                                          │
+│ ======================================================================== │
+│                                                                          │
+│ The initial commit of package "org.apache.commons.math3.ml.neuralnet" is │
+│ an adapted version of code developed in the context of the Data          │
+│ Processing and Analysis Consortium (DPAC) of the "Gaia" project of the   │
+│ European Space Agency (ESA).                                             │
+│ ======================================================================== │
+│                                                                          │
+│ The initial commit of the class                                          │
+│ "org.apache.commons.math3.special.BesselJ" is an adapted version of code │
+│ translated from the netlib Fortran program, rjbesl                       │
+│ http://www.netlib.org/specfun/rjbesl by R.J. Cody at Argonne National    │
+│ Laboratory (USA). There is no license or copyright statement included    │
+│ with the original Fortran sources.                                       │
+│ ======================================================================== │
+│                                                                          │
+│ The BracketFinder (package                                               │
+│ org.apache.commons.math3.optimization.univariate) and PowellOptimizer    │
+│ (package org.apache.commons.math3.optimization.general) classes are      │
+│ based on the Python code in module "optimize.py" (version 0.5) developed │
+│ by Travis E. Oliphant for the SciPy library (http://www.scipy.org/)      │
+│ Copyright © 2003-2009 SciPy Developers.                                  │
+│                                                                          │
+│ SciPy license                                                            │
+│ Copyright © 2001, 2002 Enthought, Inc.                                   │
+│ All rights reserved.                                                     │
+│                                                                          │
+│ Copyright © 2003-2013 SciPy Developers.                                  │
+│ All rights reserved.                                                     │
+│                                                                          │
+│ Redistribution and use in source and binary forms, with or without       │
+│ modification, are permitted provided that the following conditions are   │
+│ met:                                                                     │
+│                                                                          │
+│     * Redistributions of source code must retain the above copyright     │
+│       notice, this list of conditions and the following disclaimer.      │
+│                                                                          │
+│     * Redistributions in binary form must reproduce the above copyright  │
+│       notice, this list of conditions and the following disclaimer in    │
+│       the documentation and/or other materials provided with the         │
+│       distribution.                                                      │
+│                                                                          │
+│     * Neither the name of Enthought nor the names of the SciPy           │
+│       Developers may be used to endorse or promote products derived from │
+│       this software without specific prior written permission.           │
+│                                                                          │
+│ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS  │
+│ IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    │
+│ TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          │
+│ PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR      │
+│ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,    │
+│ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,      │
+│ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR       │
+│ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   │
+│ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     │
+│ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       │
+│ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ Commons-{CLI,Codec,Collections*,CSV,DBCP,FileUpload,IO,Lang3,Pool} ├──┐
+┌──┤ various Apache Commons (Apache 2) ├───────────────────────────────────┐
+│                                                                          │
+│ This is for commons-cli, commons-codec, commons-collections,             │
+│ commons-collections4, commons-csv, commons-dbcp, commons-discovery,      │
+│ commons-fileupload, commons-io, commons-lang3, commons-pool.             │
+│ See above for commons-math3.                                             │
 │                                                                          │
 │ Apache Commons CLI                                                       │
 │ Copyright 2001-2009 The Apache Software Foundation                       │
 │                                                                          │
 │ Apache Commons Codec                                                     │
-│ Copyright 2002-2017 The Apache Software Foundation                       │
+│ Copyright 2002-2019 The Apache Software Foundation                       │
 │                                                                          │
 │ Apache Commons Collections                                               │
 │ Copyright 2001-2015 The Apache Software Foundation                       │
 │                                                                          │
 │ Apache Commons Collections4                                              │
-│ Copyright 2001-2015 The Apache Software Foundation                       │
+│ Copyright 2001-2019 The Apache Software Foundation                       │
 │                                                                          │
 │ Apache Commons CSV                                                       │
 │ Copyright 2005-2019 The Apache Software Foundation                       │
 │                                                                          │
-│ Apache Jakarta Commons DBCP                                              │
-│ Copyright 1999-2007 The Apache Software Foundation                       │
+│ Apache Commons DBCP                                                      │
+│ Copyright 2001-2010 The Apache Software Foundation                       │
+│                                                                          │
+│ Apache Commons Discovery                                                 │
+│ Copyright 2002-2011 The Apache Software Foundation                       │
 │                                                                          │
 │ Apache Commons FileUpload                                                │
-│ Copyright 2002-2017 The Apache Software Foundation                       │
+│ Copyright 2002-2018 The Apache Software Foundation                       │
 │                                                                          │
 │ Apache Commons IO                                                        │
 │ Copyright 2002-2017 The Apache Software Foundation                       │
@@ -933,10 +1164,12 @@ External code found in the Java™ backend part includes:
 │ Copyright 2001-2018 The Apache Software Foundation                       │
 │                                                                          │
 │ Apache Commons Pool                                                      │
-│ Copyright 1999-2009 The Apache Software Foundation                       │
+│ Copyright 2001-2012 The Apache Software Foundation                       │
 │                                                                          │
 │ This product includes software developed at                              │
 │ The Apache Software Foundation (http://www.apache.org/).                 │
+│ This product includes software developed at                              │
+│ The Apache Software Foundation (https://www.apache.org/).                │
 │                                                                          │
 │ src/test/org/apache/commons/codec/language/DoubleMetaphoneTest.java      │
 │ contains test data from http://aspell.net/test/orig/batch0.tab.          │
@@ -963,8 +1196,57 @@ External code found in the Java™ backend part includes:
 │ The Apache Software Foundation (http://www.apache.org/).                 │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ ASM, part of ByteBuddy (3-clause BSD) ├───────────────────────────────┐
+┌──┤ ASM 7.0, part of Lombok (3-clause BSD, Apache 2) ├────────────────────┐
 │                                                                          │
+│ ASM: a very small and fast Java bytecode manipulation framework          │
+│ Copyright (c) 2000-2011 INRIA, France Telecom                            │
+│ All rights reserved.                                                     │
+│                                                                          │
+│ Redistribution and use in source and binary forms, with or without       │
+│ modification, are permitted provided that the following conditions       │
+│ are met:                                                                 │
+│ 1. Redistributions of source code must retain the above copyright        │
+│    notice, this list of conditions and the following disclaimer.         │
+│ 2. Redistributions in binary form must reproduce the above copyright     │
+│    notice, this list of conditions and the following disclaimer in the   │
+│    documentation and/or other materials provided with the distribution.  │
+│ 3. Neither the name of the copyright holders nor the names of its        │
+│    contributors may be used to endorse or promote products derived from  │
+│    this software without specific prior written permission.              │
+│                                                                          │
+│ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS  │
+│ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    │
+│ TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          │
+│ PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER │
+│ OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, │
+│ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,      │
+│ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR       │
+│ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   │
+│ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     │
+│ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       │
+│ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
+│                                                                          │
+│ Based on org.cache2k.benchmark.jmh.ForcedGcMemoryProfiler, with the      │
+│ following license:                                                       │
+│                                                                          │
+│ Copyright (C) 2013 - 2017 headissue GmbH, Munich                         │
+│                                                                          │
+│ Licensed under the Apache License, Version 2.0 (the "License");          │
+│ you may not use this file except in compliance with the License.         │
+│ You may obtain a copy of the License at                                  │
+│                                                                          │
+│      http://www.apache.org/licenses/LICENSE-2.0                          │
+│                                                                          │
+│ Unless required by applicable law or agreed to in writing, software      │
+│ distributed under the License is distributed on an "AS IS" BASIS,        │
+│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
+│ See the License for the specific language governing permissions and      │
+│ limitations under the License.                                           │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ ASM 7.2, part of ByteBuddy (3-clause BSD) ├───────────────────────────┐
+│                                                                          │
+│ ASM: a very small and fast Java bytecode manipulation framework          │
 │ Copyright (c) 2000-2011 INRIA, France Telecom                            │
 │ All rights reserved.                                                     │
 │                                                                          │
@@ -1463,9 +1745,9 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 
 ┌──┤ Glassfish HK2 (EPLv2.0, secondary GPLv2+Classpath; Apache 2) ├────────┐
 │                                                                          │
-│ Copyright (c) 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015,            │
-│     2016, 2017, 2018 Oracle and/or its affiliates.                       │
-│ All rights reserved.                                                     │
+│ Copyright (c) 2019 Payara Service Ltd. and/or its affiliates.            │
+│ Copyright (c) 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016,      │
+│     2017, 2018, 2019 Oracle and/or its affiliates. All rights reserved.  │
 │                                                                          │
 │ This program and the accompanying materials are made available under the │
 │ terms of the Eclipse Public License v. 2.0, which is available at        │
@@ -1479,7 +1761,66 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │                                                                          │
 │ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 │
 │                                                                          │
-│ The embedded repackaged jakarta.inject is additionally:                  │
+│ # Notices for Eclipse GlassFish                                          │
+│                                                                          │
+│ This content is produced and maintained by the Eclipse GlassFish         │
+│ project.                                                                 │
+│                                                                          │
+│ * Project home: https://projects.eclipse.org/projects/ee4j.glassfish     │
+│                                                                          │
+│ ## Trademarks                                                            │
+│                                                                          │
+│ Eclipse GlassFish, and GlassFish are trademarks of the Eclipse           │
+│ Foundation.                                                              │
+│                                                                          │
+│ ## Copyright                                                             │
+│                                                                          │
+│ All content is the property of the respective authors or their           │
+│ employers. For more information regarding authorship of content, please  │
+│ consult the listed source code repository logs.                          │
+│                                                                          │
+│ ## Declared Project Licenses                                             │
+│                                                                          │
+│ This program and the accompanying materials are made available under the │
+│ terms of the Eclipse Public License v. 2.0 which is available at         │
+│ http://www.eclipse.org/legal/epl-2.0. This Source Code may also be made  │
+│ available under the following Secondary Licenses when the conditions for │
+│ such availability set forth in the Eclipse Public License v. 2.0 are     │
+│ satisfied: GNU General Public License, version 2 with the GNU Classpath  │
+│ Exception which is available at                                          │
+│ https://www.gnu.org/software/classpath/license.html.                     │
+│                                                                          │
+│ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 │
+│                                                                          │
+│ ## Source Code                                                           │
+│                                                                          │
+│ The project maintains the following source code repositories:            │
+│                                                                          │
+│ * https://github.com/eclipse-ee4j/glassfish-ha-api                       │
+│ * https://github.com/eclipse-ee4j/glassfish-logging-annotation-processor │
+│ * https://github.com/eclipse-ee4j/glassfish-shoal                        │
+│ * https://github.com/eclipse-ee4j/glassfish-cdi-porting-tck              │
+│ * https://github.com/eclipse-ee4j/glassfish-jsftemplating                │
+│ * https://github.com/eclipse-ee4j/glassfish-hk2-extra                    │
+│ * https://github.com/eclipse-ee4j/glassfish-hk2                          │
+│ * https://github.com/eclipse-ee4j/glassfish-fighterfish                  │
+│                                                                          │
+│ ## Third-party Content                                                   │
+│                                                                          │
+│ This project leverages the following third party content.                │
+│                                                                          │
+│ None                                                                     │
+│                                                                          │
+│ ## Cryptography                                                          │
+│                                                                          │
+│ Content may contain encryption software. The country in which you are    │
+│ currently may have restrictions on the import, possession, and use,      │
+│ and/or re-export to another country, of encryption software. BEFORE      │
+│ using any encryption software, please check the country's laws,          │
+│ regulations and policies concerning the import, possession, or use, and  │
+│ re-export of encryption software, to see if this is permitted.           │
+│                                                                          │
+├──┤ The embedded repackaged jakarta.inject is additionally: ├─────────────┤
 │                                                                          │
 │ Copyright (C) 2009 The JSR-330 Expert Group                              │
 │                                                                          │
@@ -2099,17 +2440,16 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 
 ┌──┤ Jakarta Annotation (EPLv2.0, secondary GPLv2+Classpath) ├─────────────┐
 │                                                                          │
-│ # Notices for Eclipse Project for Common Annotations                     │
+│ # Notices for Jakarta Annotations                                        │
 │                                                                          │
-│ This content is produced and maintained by the Eclipse Project for       │
-│ Common Annotations project.                                              │
+│ This content is produced and maintained by the Jakarta Annotations       │
+│ project.                                                                 │
 │                                                                          │
 │  * Project home: https://projects.eclipse.org/projects/ee4j.ca           │
 │                                                                          │
 │ ## Trademarks                                                            │
 │                                                                          │
-│ Eclipse Project for Common Annotations is a trademark of the Eclipse     │
-│ Foundation.                                                              │
+│ Jakarta Annotations is a trademark of the Eclipse Foundation.            │
 │                                                                          │
 │ ## Declared Project Licenses                                             │
 │                                                                          │
@@ -2144,16 +2484,17 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 
 ┌──┤ Jakarta WS RS-API (EPLv2.0, secondary GPLv2+Classpath) ├──────────────┐
 │                                                                          │
-│ # Notices for Eclipse Project for JAX-RS                                 │
+│ # Notices for the Jakarta RESTful Web Services Project                   │
 │                                                                          │
-│ This content is produced and maintained by the Eclipse Project for       │
-│ JAX-RS project.                                                          │
+│ This content is produced and maintained by the **Jakarta RESTful Web     │
+│ Services** project.                                                      │
 │                                                                          │
 │ * Project home: https://projects.eclipse.org/projects/ee4j.jaxrs         │
 │                                                                          │
 │ ## Trademarks                                                            │
 │                                                                          │
-│ Eclipse Project for JAX-RS is a trademark of the Eclipse Foundation.     │
+│ **Jakarta RESTful Web Services** is a trademark of the Eclipse           │
+│ Foundation.                                                              │
 │                                                                          │
 │ ## Copyright                                                             │
 │                                                                          │
@@ -2482,18 +2823,77 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 
 ┌──┤ javax.validation (Apache 2) ├─────────────────────────────────────────┐
 │                                                                          │
-│ Copyright 2009-2013, Red Hat, Inc. and/or its affiliates,                │
-│ and individual contributors by the @authors tag. See the copyright.txt   │
-│ in the distribution for a full listing of individual contributors.       │
+│ Jakarta Bean Validation API                                              │
 │                                                                          │
-│ Licensed under the Apache License, Version 2.0 (the "License"); you may  │
-│ not use this file except in compliance with the License. You may obtain  │
-│ a copy of the License at http://www.apache.org/licenses/LICENSE-2.0      │
-│ Unless required by applicable law or agreed to in writing, software      │
-│ distributed under the License is distributed on an "AS IS" BASIS,        │
-│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
-│ See the License for the specific language governing permissions and      │
-│ limitations under the License.                                           │
+│ License: Apache License, Version 2.0                                     │
+│ See the license.txt file in the root directory or                        │
+│ <http://www.apache.org/licenses/LICENSE-2.0>.                            │
+│                                                                          │
+│ # List of contributors                                                   │
+│                                                                          │
+│ Red Hat Inc.                                                             │
+│ Akira Kawauchi                                                           │
+│ Davide D'Alto                                                            │
+│ Dhanji R. Prasanna                                                       │
+│ Emmanuel Bernard                                                         │
+│ Gavin King                                                               │
+│ Gerhard Petracek                                                         │
+│ Guillaume Smet                                                           │
+│ Gunnar Morling                                                           │
+│ Hardy Ferentschik                                                        │
+│ Hendrik Ebbers                                                           │
+│ Kevin Pollet                                                             │
+│ Sebastian Thomschke                                                      │
+│                                                                          │
+│ # Notices for Eclipse Jakarta Bean Validation                            │
+│                                                                          │
+│ This content is produced and maintained by the Eclipse Jakarta Bean      │
+│ Validation project.                                                      │
+│                                                                          │
+│ * Project home:                                                          │
+│   https://projects.eclipse.org/projects/ee4j.bean-validation             │
+│                                                                          │
+│ ## Trademarks                                                            │
+│                                                                          │
+│  Jakarta Bean Validation is a trademark of the Eclipse Foundation.       │
+│                                                                          │
+│ ## Copyright                                                             │
+│                                                                          │
+│ All content is the property of the respective authors or their           │
+│ employers. For more information regarding authorship of content, please  │
+│ consult the listed source code repository logs.                          │
+│                                                                          │
+│ ## Declared Project Licenses                                             │
+│                                                                          │
+│ This program and the accompanying materials are made available under the │
+│ terms of the Apache License, Version 2.0 which is available at           │
+│ https://www.apache.org/licenses/LICENSE-2.0.                             │
+│                                                                          │
+│ SPDX-License-Identifier: Apache-2.0                                      │
+│                                                                          │
+│ ## Source Code                                                           │
+│                                                                          │
+│ The project maintains the following source code repositories:            │
+│                                                                          │
+│  * [The specification repository]                                        │
+│    (https://github.com/eclipse-ee4j/beanvalidation-spec)                 │
+│  * [The API repository]                                                  │
+│    (https://github.com/eclipse-ee4j/beanvalidation-api)                  │
+│  * [The TCK repository]                                                  │
+│    (https://github.com/eclipse-ee4j/beanvalidation-tck)                  │
+│                                                                          │
+│ ## Third-party Content                                                   │
+│                                                                          │
+│ This project leverages the following third party content.                │
+│                                                                          │
+│ Test dependencies:                                                       │
+│                                                                          │
+│  * [TestNG](https://github.com/cbeust/testng)                            │
+│  - Apache License 2.0                                                    │
+│  * [JCommander](https://github.com/cbeust/jcommander)                    │
+│  - Apache License 2.0                                                    │
+│  * [SnakeYAML](https://bitbucket.org/asomov/snakeyaml/src)               │
+│  - Apache License 2.0                                                    │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ JBoss Jandex (Apache 2) ├─────────────────────────────────────────────┐
@@ -2551,7 +2951,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 
 ┌──┤ JBoss Logging (Apache 2) ├────────────────────────────────────────────┐
 │                                                                          │
-│ Copyright 2010, 2011, 2013, 2017 Red Hat, Inc.                           │
+│ Copyright 2010, 2011, 2013, 2017, 2019 Red Hat, Inc.                     │
 │                                                                          │
 │ Licensed under the Apache License, Version 2.0 (the "License");          │
 │ you may not use this file except in compliance with the License.         │
@@ -2579,6 +2979,11 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ * https://projects.eclipse.org/projects/ee4j.jersey                      │
 │                                                                          │
 │ # Notice for Jersey Core Server module                                   │
+│ This content is produced and maintained by the Eclipse Jersey project.   │
+│                                                                          │
+│ * https://projects.eclipse.org/projects/ee4j.jersey                      │
+│                                                                          │
+│ # Notice for Jersey Json Jackson module                                  │
 │ This content is produced and maintained by the Eclipse Jersey project.   │
 │                                                                          │
 │ * https://projects.eclipse.org/projects/ee4j.jersey                      │
@@ -2618,15 +3023,15 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ * Coyright: (c) 2010-2017 Google, Inc.                                   │
 │                                                                          │
 │ aopalliance Version 1                                                    │
-│ * License: all the source code provided by AOP Alliance is Public Domain.│
+│ * License: all the source code provided by AOP Alliance is Public Domain │
 │ * Project: http://aopalliance.sourceforge.net                            │
 │ * Copyright: Material in the public domain is not protected by copyright │
 │                                                                          │
 │ Bean Validation API 1.1.0.Final                                          │
 │ * License: Apache License, 2.0                                           │
 │ * Project: http://beanvalidation.org/1.1/                                │
-│ * Copyright: 2009, Red Hat, Inc. and/or its affiliates, and individual   │
-│   contributors by the @authors tag.                                      │
+│ * Copyright: 2009, Red Hat, Inc. and/or its affiliates, and              │
+│   individual contributors by the @authors tag.                           │
 │                                                                          │
 │ Bootstrap v3.3.7                                                         │
 │ * License: MIT license                                                   │
@@ -2703,9 +3108,10 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ W3.org documents                                                         │
 │ * License: W3C License                                                   │
 │ * Copyright: Copyright (c) 1994-2001 World Wide Web Consortium,          │
-│   (Massachusetts Institute of Technology, Institut National de           │
-│   Recherche en Informatique et en Automatique, Keio University).         │
-│   All Rights Reserved. http://www.w3.org/Consortium/Legal/               │
+│   (Massachusetts Institute of Technology,                                │
+│   Institut National de Recherche en Informatique et en Automatique,      │
+│   Keio University). All Rights Reserved.                                 │
+│   http://www.w3.org/Consortium/Legal/                                    │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ log4j2 (Apache 2) ├───────────────────────────────────────────────────┐
@@ -2726,9 +3132,10 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ Copyright 2005-2006 Tim Fennell                                          │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ Lombok (MIT) ├────────────────────────────────────────────────────────┐
+┌──┤ Lombok (MIT, Apache 2, 3-clause BSD) ├────────────────────────────────┐
 │                                                                          │
-│ Copyright (C) 2009-2015 The Project Lombok Authors.                      │
+│ Copyright (C) 2009-2020 The Project Lombok Authors.                      │
+│  • Adam Juraszek <juriad@gmail.com>                                      │
 │  • Bulgakov Alexander <buls@yandex.ru>                                   │
 │  • Christian Nüssgens <christian@nuessgens.com>                          │
 │  • Christian Sterzl <christian.sterzl@gmail.com>                         │
@@ -2737,12 +3144,15 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │  • Dawid Rusin <dawidrusin90@gmail.com>                                  │
 │  • Emil Lundberg <emil@yubico.com>                                       │
 │  • Enrique da Costa Cambio <enrique.dacostacambio@gmail.com>             │
+│  • Jacob Middag <jacob@gaddim.nl>                                        │
+│  • Jan Matèrne <jhm@apache.org>                                          │
 │  • Jan Rieke <it@janrieke.de>                                            │
 │  • Jappe van der Hel <jappe.vanderhel@gmail.com>                         │
 │  • Kevin Chirls <kchirls@users.noreply.github.com>                       │
 │  • Liu DongMiao <liudongmiao@gmail.com>                                  │
 │  • Luan Nico <luannico27@gmail.com>                                      │
 │  • Maarten Mulders <mthmulders@users.noreply.github.com>                 │
+│  • Mark Haynes <markhaynes.work@gmail.com>                               │
 │  • Mart Hagenaars <marthagenaars@gmail.com>                              │
 │  • Mateusz Matela <mateusz.matela@gmail.com>                             │
 │  • Michiel Verheul <cheelio@gmail.com>                                   │
@@ -2761,6 +3171,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │  • Taiki Sugawara <buzz.taiki@gmail.com>                                 │
 │  • Takuya Murakami <tmurakam@tmurakam.org>                               │
 │  • Thomas Darimont <thomas.darimont@gmail.com>                           │
+│  • Till Brychcy <till.brychcy@mercateo.com>                              │
 │  • Victor Williams Stafusa da Silva <victorwssilva@gmail.com>            │
 │  • Yun Zhi Lin <yun@yunspace.com>                                        │
 │                                                                          │
@@ -2782,6 +3193,35 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,     │
 │ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE        │
 │ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
+│                                                                          │
+│ Lombok contains an interface (likely not copyrightable) from:            │
+│                                                                          │
+│ Copyright 2012-2017 Gunnar Morling (http://www.gunnarmorling.de/)        │
+│ and/or other contributors as indicated by the @authors tag. See the      │
+│ copyright.txt file in the distribution for a full listing of all         │
+│ contributors.                                                            │
+│                                                                          │
+│ Licensed under the Apache License, Version 2.0 (the "License");          │
+│ you may not use this file except in compliance with the License.         │
+│ You may obtain a copy of the License at                                  │
+│                                                                          │
+│     http://www.apache.org/licenses/LICENSE-2.0                           │
+│                                                                          │
+│ Unless required by applicable law or agreed to in writing, software      │
+│ distributed under the License is distributed on an "AS IS" BASIS,        │
+│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
+│ See the License for the specific language governing permissions and      │
+│ limitations under the License.                                           │
+│                                                                          │
+│ Lombok contains an embedded code copy of lombok.patcher from the same    │
+│ authors under the same MIT licence; lombok.patcher contains an embedded  │
+│ code copy of ASM (including asm-commons and asm-tree) 7.0 which is       │
+│ detailed elsewhere in this overview file, under BSD and Apache 2.        │
+│                                                                          │
+│ Lombok contains also an embedded code copy of com.zwitserloot.cmdreader  │
+│ under the same MIT licence from the main(?) author:                      │
+│                                                                          │
+│ Copyright © 2010 Reinier Zwitserloot.                                    │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ mimepull (3-clause BSD) ├─────────────────────────────────────────────┐
@@ -3316,9 +3756,9 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 ┌──┤ Apache POI (Apache 2; 3-clause BSD; EPLv1.0; MIT; PD ├────────────────┐
 │                                                                          │
 │ Apache POI                                                               │
-│ Copyright 2003-2017 The Apache Software Foundation                       │
+│ Copyright 2003-2019 The Apache Software Foundation                       │
 │                                                                          │
-│ This product includes software developed by                              │
+│ This product includes software developed at                              │
 │ The Apache Software Foundation (https://www.apache.org/).                │
 │                                                                          │
 │ This product contains parts that were originally based on software from  │
@@ -3331,9 +3771,6 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ World Wide Web Consortium (Massachusetts Institute of Technology,        │
 │ European Research Consortium for Informatics and Mathematics, Keio       │
 │ University)                                                              │
-│                                                                          │
-│ This product contains the Piccolo XML Parser for Java                    │
-│ (http://piccolo.sourceforge.net/). Copyright 2002 Yuval Oren.            │
 │                                                                          │
 │ This product contains the chunks_parse_cmds.tbl file from the vsdump     │
 │ program. Copyright (C) 2006-2007 Valek Filippov (frob@df.ru)             │
@@ -3516,7 +3953,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ Smiley's HTTP Proxy Servlet (Apache 2) ├──────────────────────────────┐
+┌──┤ dSmiley’s HTTP Proxy Servlet (Apache 2) ├─────────────────────────────┐
 │                                                                          │
 │ Copyright MITRE                                                          │
 │                                                                          │
@@ -3533,10 +3970,25 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ limitations under the License.                                           │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ (part of Spring) ASM (3-clause BSD) ├─────────────────────────────────┐
+┌──┤ Spring Framework (Apache 2) ├─────────────────────────────────────────┐
 │                                                                          │
+│ Copyright 2002-2019 the original author or authors.                      │
+│                                                                          │
+│ Licensed under the Apache License, Version 2.0 (the "License");          │
+│ you may not use this file except in compliance with the License.         │
+│ You may obtain a copy of the License at                                  │
+│                                                                          │
+│      https://www.apache.org/licenses/LICENSE-2.0                         │
+│                                                                          │
+│ Unless required by applicable law or agreed to in writing, software      │
+│ distributed under the License is distributed on an "AS IS" BASIS,        │
+│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
+│ See the License for the specific language governing permissions and      │
+│ limitations under the License.                                           │
+│                                                                          │
+│ Spring Framework core contains an embedded derivative work of ASM 6.0:   │
+│ a very small and fast Java bytecode manipulation framework               │
 │ Copyright (c) 2000-2013 INRIA, France Telecom                            │
-│ Copyright (c) 1999-2009, OW2 Consortium <https://www.ow2.org/>           │
 │ All rights reserved.                                                     │
 │                                                                          │
 │ Redistribution and use in source and binary forms, with or without       │
@@ -3562,18 +4014,62 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     │
 │ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       │
 │ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
-└──────────────────────────────────────────────────────────────────────────┘
-
-┌──┤ Spring Framework (Apache 2) ├─────────────────────────────────────────┐
 │                                                                          │
-│ Copyright 2001-2019 the original author or authors.                      │
-│ Copyright (C) 2010 SpringSource                                          │
+│ Spring Framework core contains an embedded copy of cglib 3.2.6:          │
+│                                                                          │
+│ Copyright 2002,2003,2004,2011 The Apache Software Foundation             │
+│                                                                          │
+│  Licensed under the Apache License, Version 2.0 (the "License");         │
+│ you may not use this file except in compliance with the License.         │
+│ You may obtain a copy of the License at                                  │
+│                                                                          │
+│      http://www.apache.org/licenses/LICENSE-2.0                          │
+│                                                                          │
+│  Unless required by applicable law or agreed to in writing, software     │
+│ distributed under the License is distributed on an "AS IS" BASIS,        │
+│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
+│ See the License for the specific language governing permissions and      │
+│ limitations under the License.                                           │
+│                                                                          │
+│ cglib 3.2.6 is in part a derived work of an older version of             │
+│ ASM: a very small and fast Java bytecode manipulation framework          │
+│ Copyright (c) 2000-2005 INRIA, France Telecom                            │
+│ All rights reserved.                                                     │
+│                                                                          │
+│ Redistribution and use in source and binary forms, with or without       │
+│ modification, are permitted provided that the following conditions       │
+│ are met:                                                                 │
+│ 1. Redistributions of source code must retain the above copyright        │
+│    notice, this list of conditions and the following disclaimer.         │
+│ 2. Redistributions in binary form must reproduce the above copyright     │
+│    notice, this list of conditions and the following disclaimer in the   │
+│    documentation and/or other materials provided with the distribution.  │
+│ 3. Neither the name of the copyright holders nor the names of its        │
+│    contributors may be used to endorse or promote products derived from  │
+│    this software without specific prior written permission.              │
+│                                                                          │
+│ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS  │
+│ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    │
+│ TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          │
+│ PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER │
+│ OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, │
+│ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,      │
+│ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR       │
+│ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   │
+│ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     │
+│ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       │
+│ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
+│                                                                          │
+│ Spring Framework core contains an embedded copy of objenesis 2.6:        │
+│                                                                          │
+│ Copyright (c) 2003-2013, Objenesis Team and all contributors             │
+│ Copyright 2006-2017 the original author or authors.                      │
 │                                                                          │
 │ Licensed under the Apache License, Version 2.0 (the "License");          │
 │ you may not use this file except in compliance with the License.         │
 │ You may obtain a copy of the License at                                  │
 │                                                                          │
-│       http://www.apache.org/licenses/LICENSE-2.0                         │
+│     http://www.apache.org/licenses/LICENSE-2.0                           │
 │                                                                          │
 │ Unless required by applicable law or agreed to in writing, software      │
 │ distributed under the License is distributed on an "AS IS" BASIS,        │
@@ -3583,7 +4079,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 ├──────────────────────────────────────────────────────────────────────────┤
 │ The "NOTICE" text file for Spring Framework contains:                    │
 │                                                                          │
-│ Spring Framework 4.3.24.RELEASE                                          │
+│ Spring Framework 4.3.25.RELEASE                                          │
 │ Copyright (c) 2002-2019 Pivotal, Inc.                                    │
 │                                                                          │
 │ This product is licensed to you under the Apache License, Version 2.0    │
@@ -3593,34 +4089,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ This product may include a number of subcomponents with separate         │
 │ copyright notices and license terms. Your use of the source code for     │
 │ these subcomponents is subject to the terms and conditions of the        │
-│ subcomponent's license, as noted above (ASM) and below:                  │
-│                                                                          │
-│ >>> CGLIB 3.0 (cglib:cglib:3.0):                                         │
-│                                                                          │
-│ Per the LICENSE file in the CGLIB JAR distribution downloaded from       │
-│ https://sourceforge.net/projects/cglib/files/cglib3/3.0/\                │
-│ cglib-3.0.jar/download, CGLIB 3.0 is licensed under the Apache License,  │
-│ version 2.0, the text of which is included above.                        │
-│                                                                          │
-│ ======================================================================== │
-│                                                                          │
-│ To the extent any open source components are licensed under the EPL      │
-│ and/or other similar licenses that require the source code and/or        │
-│ modifications to source code to be made available (as would be noted     │
-│ above), you may obtain a copy of the source code corresponding to the    │
-│ binaries for such open source components and modifications thereto, if   │
-│ any, (the "Source Files"), by downloading the Source Files from          │
-│ https://spring.io/projects, Pivotal's website at                         │
-│ https://network.pivotal.io/open-source, or by sending a request, with    │
-│ your name and address to: Pivotal Software, Inc., 875 Howard Street, 5th │
-│ floor, San Francisco, CA 94103, Attention: General Counsel. All such     │
-│ requests should clearly specify: OPEN SOURCE FILES REQUEST, Attention    │
-│ General Counsel. Pivotal can mail a copy of the Source Files to you on a │
-│ CD or equivalent physical medium.                                        │
-│                                                                          │
-│ This offer to obtain a copy of the Source Files is valid for three years │
-│ from the date you acquired this Software product. Alternatively, the     │
-│ Source Files may accompany the Software.                                 │
+│ subcomponent's license, as noted in the license.txt file.                │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ Extensions to JSR-173 StAX API (3-clause BSD) ├───────────────────────┐

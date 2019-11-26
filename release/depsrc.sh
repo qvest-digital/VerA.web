@@ -92,6 +92,23 @@ while read g a v; do
 	#	# comment here on where to find the source
 	#	continue
 	#fi
+	if [[ $g:$a:$v = net.bytebuddy:byte-buddy:1.10.3 ]]; then
+		# shaded-embedded
+		cat <<-EOF
+			<dependency>
+				<groupId>org.ow2.asm</groupId>
+				<artifactId>asm</artifactId>
+				<version>7.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ow2.asm</groupId>
+				<artifactId>asm-commons</artifactId>
+				<version>7.2</version>
+			</dependency>
+		EOF
+		# sources.jar bogus
+		continue
+	fi
 	cat <<EOF
 		<dependency>
 			<groupId>$g</groupId>
@@ -131,6 +148,8 @@ function doit {
 # this is the list of files
 doit antlr-2.7.7.tar.gz \
     antlr antlr 2.7.7
+doit byte-buddy-1.10.3.cpio.xz \
+    net.bytebuddy byte-buddy 1.10.3
 doit xmlrpc-1.2-b1-src.tar.gz \
     xmlrpc xmlrpc 1.2-b1
 
@@ -150,6 +169,11 @@ inclusions+=(-e '^org\.apache\.axis axis-jaxrpc ')
 inclusions+=(-e '^org\.apache\.axis axis-saaj ')
 # not in ckdep.mvn for technical reasons but correct
 exclusions+=(-e '^org\.projectlombok lombok ')
+# shaded in byte-buddy 1.10.3
+exclusions+=(-e '^org\.ow2\.asm asm 7\.2$')
+exclusions+=(-e '^org\.ow2\.asm asm-analysis 7\.2$')
+exclusions+=(-e '^org\.ow2\.asm asm-commons 7\.2$')
+exclusions+=(-e '^org\.ow2\.asm asm-tree 7\.2$')
 #exclusions+=(-e '^# dummy$')
 find target/dep-srcs/ -type f | \
     set_e_grep -F -v -e _remote.repositories -e maven-metadata-local.xml | \
