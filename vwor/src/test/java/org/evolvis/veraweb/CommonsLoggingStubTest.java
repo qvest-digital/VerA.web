@@ -93,6 +93,7 @@ package org.evolvis.veraweb;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogConfigurationException;
 import org.apache.commons.logging.LogFactory;
@@ -109,20 +110,27 @@ import static org.junit.Assert.assertNull;
  *
  * @author mirabilos (t.glaser@tarent.de)
  */
+@Log4j2(topic = "test-meta")
 public class CommonsLoggingStubTest {
     @Test
     public void test() {
+        logger.info("expect nothing between here and the next “test-meta” log");
         final Throwable c = new StringIndexOutOfBoundsException();
         final Throwable e = new LogConfigurationException(c);
         assertEquals(c, e.getCause());
         final LogFactory f = LogFactory.getFactory();
         // meh, inspect those manually
+        logger.info("expect WARN from LogFactoryImpl about CommonsLoggingStubTest with LogConfigurationException");
         final Log lC = LogFactory.getLog(CommonsLoggingStubTest.class);
+        logger.info("expect INFO from CommonsLoggingStubTest with LogConfigurationException caused by StringIndexOutOfBoundsException");
         lC.info("successful log via class", e);
+        logger.info("expect WARN from LogFactoryImpl about miau with LogConfigurationException");
         final Log lS = LogFactory.getLog("miau");
+        logger.info("expect INFO from miau saying “meow” only");
         lS.info("meow");
         final Log lI = f.getInstance(org.springframework.jdbc.core.JdbcTemplate.class);
         lI.info("this should not have warned after the meow above");
+        logger.info("expect only one INFO from JdbcTemplate after the INFO from miau saying “meow”, nothing else");
         f.setAttribute(null, f);
         assertNull(f.getAttribute(null));
         assertNotNull(f.getAttributeNames());
@@ -133,5 +141,6 @@ public class CommonsLoggingStubTest {
         assertEquals(f, LogFactory.getFactory());
         LogFactory.release(null);
         LogFactory.releaseAll();
+        logger.info("expect nothing between the previous “test-meta” line and this one");
     }
 }
