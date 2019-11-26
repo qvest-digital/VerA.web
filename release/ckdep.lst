@@ -115,10 +115,6 @@ org.springframework:spring-expression 4.3.25.RELEASE compile ok
 org.springframework:spring-jdbc 4.3.25.RELEASE compile ok
 org.springframework:spring-tx 4.3.25.RELEASE compile ok
 oro:oro 2.0.8 runtime ok
-shaded::net.bytebuddy:byte-buddy:1.10.3::org.ow2.asm:asm 7.2 compile ok
-shaded::net.bytebuddy:byte-buddy:1.10.3::org.ow2.asm:asm-analysis 7.2 compile ok
-shaded::net.bytebuddy:byte-buddy:1.10.3::org.ow2.asm:asm-commons 7.2 compile ok
-shaded::net.bytebuddy:byte-buddy:1.10.3::org.ow2.asm:asm-tree 7.2 compile ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z compile ok
 velocity:velocity 1.4 compile ok
 wsdl4j:wsdl4j 1.5.1 compile ok
