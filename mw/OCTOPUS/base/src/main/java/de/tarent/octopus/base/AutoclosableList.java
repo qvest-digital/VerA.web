@@ -156,7 +156,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
      * Our implementation throws one of these, and you can check it to
      * avoid logging the causes twice (we already log them).
      */
-    abstract static class ClosingException extends Exception {
+    public abstract static class ClosingException extends Exception {
         /**
          * Constructs a new exception.
          *
@@ -203,10 +203,10 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
      * Furthermore it reduces problems that could arise when the resource
      * wraps, or is wrapped, by another resource.
      *
-     * @throws Exception if this resource cannot be closed
+     * @throws AutoclosableList.ClosingException if this resource cannot be closed
      */
     @Override
-    public void close() throws Exception {
+    public void close() throws ClosingException {
         int caught = 0;
         Exception cause = null;
         int i = 0;

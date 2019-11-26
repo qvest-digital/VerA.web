@@ -240,9 +240,8 @@ public class PdfTemplateResource extends FormDataResource {
     @Path(RestPaths.REST_PDFTEMPLATE_EXPORT)
     @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
-      @QueryParam("eventId") Integer eventId,
-      @javax.ws.rs.core.Context UriInfo ui)
-      throws Exception {
+      @QueryParam("eventId") Integer eventId, @javax.ws.rs.core.Context UriInfo ui)
+      throws IOException, AutoclosableList.ClosingException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
@@ -261,7 +260,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private void generateFromTemplate(final File dstfile, final List<Person> people, final Integer pdfTemplateId)
-      throws Exception {
+      throws AutoclosableList.ClosingException, IOException {
         try (final AutoclosableList toClose = new AutoclosableList()) {
             PDDocument finalDoc = toClose.record(new PDDocument());
             final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, UUID.randomUUID());
