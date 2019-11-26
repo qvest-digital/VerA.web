@@ -115,7 +115,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
     public AutoclosableList() {
         super();
         id = counter.getAndIncrement();
-        logger.info("{}: new autoclosable list", id);
+        logger.debug("{}: new autoclosable list", id);
     }
 
     /**
@@ -126,7 +126,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
     protected void finalize() throws Throwable {
         try {
             if (this.isEmpty()) {
-                logger.info("{}: finalising", id);
+                logger.debug("{}: finalising", id);
             } else {
                 logger.error("{}: not empty while finalising, {} elements not closed", id,
                   this.size());
@@ -144,7 +144,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
      * @return element (unchanged)
      */
     public <T extends AutoCloseable> T record(T element) {
-        logger.info("{}: adding #{} {}", id, this.size(), element);
+        logger.debug("{}: adding #{} {}", id, this.size(), element);
         this.add(element);
         return element;
     }
@@ -210,7 +210,7 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
         int i = 0;
         for (AutoCloseable element : this) {
             if (element != null) {
-                logger.info("{}: closing #{} {}", id, i, element);
+                logger.debug("{}: closing #{} {}", id, i, element);
                 try {
                     element.close();
                 } catch (Exception e) {
@@ -219,11 +219,11 @@ public class AutoclosableList extends ArrayList<AutoCloseable> implements AutoCl
                     ++caught;
                 }
             } else {
-                logger.info("{}: is null #{}", id, i);
+                logger.debug("{}: is null #{}", id, i);
             }
             ++i;
         }
-        logger.info("{}: emptying", id);
+        logger.debug("{}: emptying", id);
         this.clear();
         if (caught == 1) {
             throw new SingleClosingException(cause);
