@@ -39,7 +39,8 @@ case $?:$x {
 }
 
 # get project metadata
-<../pom.xml xmlstarlet sel \
+pompath=..
+<$pompath/pom.xml xmlstarlet sel \
     -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
     -c /pom:project/pom:groupId -n \
     -c /pom:project/pom:artifactId -n \
