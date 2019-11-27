@@ -57,63 +57,86 @@ IFS= read -pr pgID
 IFS= read -pr paID
 IFS= read -pr pVSN
 
-exec >target/pom-srcs.xml
-cat <<EOF
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>$pgID</groupId>
-		<artifactId>$paID</artifactId>
-		<version>$pVSN</version>
-		<relativePath>../</relativePath>
-	</parent>
-	<artifactId>release-sources</artifactId>
-	<packaging>jar</packaging>
-	<dependencyManagement>
-		<dependencies>
-EOF
-while read g a v; do
-	cat <<EOF
+npoms=0
+function dopom {
+	has=' '
+	exec >target/pom-srcs-$npoms.xml
+	cat <<-EOF
+	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		<modelVersion>4.0.0</modelVersion>
+		<parent>
+			<groupId>$pgID</groupId>
+			<artifactId>$paID</artifactId>
+			<version>$pVSN</version>
+			<relativePath>../</relativePath>
+		</parent>
+		<artifactId>release-sources-$npoms</artifactId>
+		<packaging>jar</packaging>
+		<dependencyManagement>
+			<dependencies>
+	EOF
+	while read g a v; do
+		# check for multiple versions of same artefact
+		if [[ $has = *" $g:$a "* ]]; then
+			print -ru5 -- $g $a $v
+			continue
+		fi
+		has+="$g:$a "
+
+		# <dependencyManagement><dependencies>
+		cat <<-EOF
+				<dependency>
+					<groupId>$g</groupId>
+					<artifactId>$a</artifactId>
+					<version>$v</version>
+				</dependency>
+		EOF
+		# </dependencies></dependencyManagement>
+
+		# here: exclude webjars without meaningful sources
+		#if [[ $g = org.webjars.@(bower|bowergithub|npm)?(.*) ]]; then
+		#	# comment here on where to find the source
+		#	continue
+		#fi
+		# bogus sources jar
+		[[ $g:$a:$v = net.bytebuddy:byte-buddy:1.10.3 ]] && continue
+
+		# <dependencies>
+		cat >&4 <<-EOF
 			<dependency>
 				<groupId>$g</groupId>
 				<artifactId>$a</artifactId>
 				<version>$v</version>
 			</dependency>
-EOF
-done <release/ckdep.mvn
-cat <<\EOF
+		EOF
+		# </dependencies>
+	done <target/pom-srcs.in 4>target/pom-srcs.tmp 5>target/pom-srcs.out
+	cat <<-EOF
+			</dependencies>
+		</dependencyManagement>
+		<dependencies>
+	EOF
+	cat target/pom-srcs.tmp - <<-EOF
 		</dependencies>
-	</dependencyManagement>
-	<dependencies>
-EOF
-while read g a v; do
-	# here: exclude webjars without meaningful sources
-	#if [[ $g = org.webjars.@(bower|bowergithub|npm)?(.*) ]]; then
-	#	# comment here on where to find the source
-	#	continue
-	#fi
-	# bogus sources jar
-	[[ $g:$a:$v = net.bytebuddy:byte-buddy:1.10.3 ]] && continue
-	cat <<EOF
-		<dependency>
-			<groupId>$g</groupId>
-			<artifactId>$a</artifactId>
-			<version>$v</version>
-		</dependency>
-EOF
-done <release/ckdep.mvn
-cat <<\EOF
-	</dependencies>
-</project>
-EOF
-exec >&2
+	</project>
+	EOF
+	exec >&2
+	let ++npoms
+	mv target/pom-srcs.out target/pom-srcs.in
+}
+cat release/ckdep.mvn >target/pom-srcs.in
+while [[ -s target/pom-srcs.in ]]; do
+	dopom
+done
 
 set -x
 mkdir target/dep-srcs
-mvn -B -f target/pom-srcs.xml \
-    -DexcludeTransitive=true -DoutputDirectory="$PWD/target/dep-srcs" \
-    -Dclassifier=sources -Dmdep.useRepositoryLayout=true \
-    dependency:copy-dependencies
+for pom in target/pom-srcs-*.xml; do
+	mvn -B -f $pom \
+	    -DexcludeTransitive=true -DoutputDirectory="$PWD/target/dep-srcs" \
+	    -Dclassifier=sources -Dmdep.useRepositoryLayout=true \
+	    dependency:copy-dependencies
+done
 
 : diff between actual and expected list
 set +x
