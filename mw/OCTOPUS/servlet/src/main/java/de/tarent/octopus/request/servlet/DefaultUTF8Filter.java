@@ -93,13 +93,13 @@ package de.tarent.octopus.request.servlet;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.IOException;
 import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import java.io.IOException;
 
 /**
  * Attaches a default charset of UTF-8 to all requests that do not yet
@@ -117,7 +117,7 @@ public class DefaultUTF8Filter implements Filter {
      * @throws IOException      if an input/output error occurs
      * @throws ServletException if a servlet error occurs
      */
-    //@Override
+    @Override
     public void doFilter(final ServletRequest request,
       final ServletResponse response, final FilterChain chain)
       throws IOException, ServletException {
@@ -130,12 +130,12 @@ public class DefaultUTF8Filter implements Filter {
         chain.doFilter(request, response);
     }
 
-    //@Override
+    @Override
     public void init(FilterConfig config) {
         /* nothing to do here */
     }
 
-    //@Override
+    @Override
     public void destroy() {
         /* nothing to do here */
     }
