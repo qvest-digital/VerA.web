@@ -92,6 +92,8 @@ while read g a v; do
 	#	# comment here on where to find the source
 	#	continue
 	#fi
+	# bogus sources jar
+	[[ $g:$a:$v = net.bytebuddy:byte-buddy:1.10.3 ]] && continue
 	cat <<EOF
 		<dependency>
 			<groupId>$g</groupId>
