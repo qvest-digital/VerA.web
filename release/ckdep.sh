@@ -105,6 +105,7 @@ function dopom {
 		</dependencies>
 	</project>
 	EOF
+	# OWASP to consider: https://github.com/jeremylong/DependencyCheck/issues/2349
 	mvn -B -f ckdep.pom -Dwithout-implicit-dependencies dependency:list 2>&1 | \
 	    tee /dev/stderr | sed -n \
 	    -e 's/ -- module .*$//' \
