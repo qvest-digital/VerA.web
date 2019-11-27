@@ -184,6 +184,8 @@ function depround {
 		(( abend |= 2 ))
 	fi
 	if [[ -s ckdep.pom.tmp ]]; then
+		local recurse
+		set -A recurse
 		doscopes <ckdep.pom.tmp |&
 		while read -p ga v x; do
 			if [[ $x != @(unreleased|"$scope") ]]; then
@@ -193,7 +195,10 @@ function depround {
 			fi
 			print -ru4 -- $ga $v $scope
 			print -ru5 -- inside::$rest::$ga $v embedded ok
-			depround $ga $v $scope
+			recurse+=($ga:$v:$scope)
+		done
+		for x in "${recurse[@]}"; do
+			depround ${x//:/ }
 		done
 	fi
 }
