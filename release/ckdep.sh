@@ -29,6 +29,7 @@ set -e
 set -o pipefail
 cd "$(dirname "$0")"
 saveIFS=$' \t\n'
+print -ru2 -- '[INFO] ckdep.sh starting'
 
 x=$(sed --posix 's/u\+/x/g' <<<'fubar fuu' 2>&1) && alias 'sed=sed --posix'
 x=$(sed -e 's/u\+/x/g' -e 's/u/X/' <<<'fubar fuu' 2>&1)
@@ -149,7 +150,7 @@ if [[ -s ckdep.ins ]]; then
 		fi
 		if [[ -s ckdep.pom.tmp ]]; then
 			sort -u <ckdep.pom.tmp |&
-			while IFS=' ' read -p ga v scope rest; do
+			while IFS=' ' read -p ga v scope x; do
 				if [[ $scope != compile ]]; then
 					print -ru2 -- "[ERROR] unexpected scope: $ga $v $scope"
 					abend=1
@@ -214,4 +215,5 @@ fi
 	exit 1
 fi
 
+print -ru2 -- '[INFO] ckdep.sh finished successfully'
 exit 0
