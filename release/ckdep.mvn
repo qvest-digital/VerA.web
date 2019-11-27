@@ -76,6 +76,7 @@ org.jvnet.mimepull mimepull 1.9.12
 org.jvnet.staxex stax-ex 1.8.1
 org.mitre.dsmiley.httpproxy smiley-http-proxy-servlet 1.8
 org.objenesis objenesis 2.6
+org.ow2.asm asm 6.0
 org.ow2.asm asm 7.2
 org.ow2.asm asm-analysis 7.2
 org.ow2.asm asm-commons 7.2
