@@ -435,6 +435,16 @@
 				</exclusions>
 			</dependency>
 			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
 				<groupId>com.fasterxml</groupId>
 				<artifactId>classmate</artifactId>
 				<version>${classmate.version}</version>
