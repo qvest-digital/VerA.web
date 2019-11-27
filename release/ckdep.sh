@@ -147,6 +147,8 @@ while read first v scope; do
 				(( abend |= 2 ))
 			fi
 			cc_found[i]=x
+			print -ru2 -- "[INFO]" analysing embedded code \
+			    copies found inside ${cc_where[i]}
 			dopom $scope $i ${cc_which[i]}
 			vf=
 		elif [[ -z ${vf+x} ]]; then
