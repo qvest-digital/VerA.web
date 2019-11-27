@@ -61,8 +61,10 @@ if ! cmp -s ckdep.lst ckdep.tmp; then
 fi
 # analyse Maven dependencies
 function domvn {
-	mvn -B "$@" dependency:list 2>&1 | \
-	    tee /dev/stderr | sed -n \
+	mvn -B "$@" dependency:list 2>&1 | scanmvn
+}
+function scanmvn {
+	tee /dev/stderr | sed -n \
 	    -e 's/ -- module .*$//' \
 	    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
 	    -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
@@ -120,12 +122,30 @@ function dopom {
 	# OWASP to consider: https://github.com/jeremylong/DependencyCheck/issues/2349
 	domvn -f ckdep.pom -Dwithout-implicit-dependencies >>ckdep.pom.tmp
 }
+function dodoc {
+	local scope=$1; shift
+	print -ru2 -- "[INFO]" resolving embedded-code-copy-insert-$1
+	shift
+	set -o noglob
+	for gav in "$@"; do
+		IFS=:
+		set -- $gav
+		IFS=$saveIFS
+		print -r -- "[INFO]    $1:$2:jar:$3:$scope"
+	done | scanmvn >>ckdep.pom.tmp
+	set +o noglob
+}
 set -A cc_found
 set -A cc_where
 set -A cc_which
+set -A cc_nomvn
 ncc=0
 [[ ! -s ckdep.ins ]] || while read first rest; do
 	[[ $first != ?('#'*) ]] || continue
+	if [[ $first = '!'* ]]; then
+		cc_nomvn[ncc]=x
+		first=${first#?}
+	fi
 	cc_where[ncc]=$first
 	cc_which[ncc++]=$rest
 done <ckdep.ins
@@ -147,9 +167,15 @@ while read first v scope; do
 				(( abend |= 2 ))
 			fi
 			cc_found[i]=x
-			print -ru2 -- "[INFO]" analysing embedded code \
-			    copies found inside ${cc_where[i]}
-			dopom $scope $i ${cc_which[i]}
+			if [[ -n ${cc_nomvn[i]} ]]; then
+				print -ru2 -- "[INFO]" documentation-only \
+				    dependencies for ${cc_where[i]}
+				dodoc $scope $i ${cc_which[i]}
+			else
+				print -ru2 -- "[INFO]" analysing embedded \
+				    code copies found inside ${cc_where[i]}
+				dopom $scope $i ${cc_which[i]}
+			fi
 			vf=
 		elif [[ -z ${vf+x} ]]; then
 			vf="$rest (wanted ${cc_where[i]})"
