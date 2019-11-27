@@ -11,7 +11,7 @@
 --   Schemas übertragen) darf keine Verbindung zu dieser Datenbank bestehen.
 --   VerA.web sollte dafür heruntergefahren werden. Sollten Verbindungen
 --   anderer Anwendungen weiterhin zu dieser Datenbank bestehen empfielt es
---   sich den Postgres Service neu zu starten (restart).
+--   sich, den PostgreSQL-Server neu zu starten (restart).
 --
 --   Anschließend können sie als superadmin die Datenbank umbennen.
 --   Bitte wechseln sie nach dem umbennen der Datenbank in diese
