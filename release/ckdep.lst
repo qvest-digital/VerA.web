@@ -44,11 +44,11 @@ inside::net.bytebuddy:byte-buddy:1.10.3::org.ow2.asm:asm 7.2 embedded TODO
 inside::net.bytebuddy:byte-buddy:1.10.3::org.ow2.asm:asm-analysis 7.2 embedded TODO
 inside::net.bytebuddy:byte-buddy:1.10.3::org.ow2.asm:asm-commons 7.2 embedded TODO
 inside::net.bytebuddy:byte-buddy:1.10.3::org.ow2.asm:asm-tree 7.2 embedded TODO
+inside::org.projectlombok:lombok.patcher:0.32::org.ow2.asm:asm 7.0 embedded TODO
+inside::org.projectlombok:lombok.patcher:0.32::org.ow2.asm:asm-analysis 7.0 embedded TODO
+inside::org.projectlombok:lombok.patcher:0.32::org.ow2.asm:asm-commons 7.0 embedded TODO
+inside::org.projectlombok:lombok.patcher:0.32::org.ow2.asm:asm-tree 7.0 embedded TODO
 inside::org.projectlombok:lombok:1.18.10::com.zwitserloot:cmdreader 1.2 embedded TODO
-inside::org.projectlombok:lombok:1.18.10::org.ow2.asm:asm 7.0 embedded TODO
-inside::org.projectlombok:lombok:1.18.10::org.ow2.asm:asm-analysis 7.0 embedded TODO
-inside::org.projectlombok:lombok:1.18.10::org.ow2.asm:asm-commons 7.0 embedded TODO
-inside::org.projectlombok:lombok:1.18.10::org.ow2.asm:asm-tree 7.0 embedded TODO
 inside::org.projectlombok:lombok:1.18.10::org.projectlombok:lombok.patcher 0.32 embedded TODO
 inside::org.springframework:spring-core:4.3.25.RELEASE::cglib:cglib 3.2.6 embedded TODO
 inside::org.springframework:spring-core:4.3.25.RELEASE::org.objenesis:objenesis 2.6 embedded TODO
