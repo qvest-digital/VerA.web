@@ -60,18 +60,30 @@ if ! cmp -s ckdep.lst ckdep.tmp; then
 	(( abend |= 1 ))
 fi
 # analyse Maven dependencies
-(cd .. && mvn -B dependency:list) 2>&1 | \
-    tee /dev/stderr | sed -n \
-    -e 's/ -- module .*$//' \
-    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
-    -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
-    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4 ok/p' \
-    >ckdep.tmp
-while IFS=' ' read ga v scope rest; do
-	[[ $scope != @(compile|runtime) ]] || print -r -- ${ga/:/ } $v
-done <ckdep.tmp | sort -u >ckdep.mvn.tmp
+function domvn {
+	mvn -B "$@" dependency:list 2>&1 | \
+	    tee /dev/stderr | sed -n \
+	    -e 's/ -- module .*$//' \
+	    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
+	    -e '/^\[INFO]    org.evolvis.veraweb.middleware:/d' \
+	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4/p'
+}
+function doscopes {
+	local lastgav lastscope ga v scope rest
+
+	sort -u | while read ga v scope rest; do
+		# compile scope supersets provided scope, either supersets test
+		case "$lastgav $lastscope:$scope" {
+		("$ga:$v "compile:provided|"$ga:$v "@(compile|provided):test) ;;
+		(*) print -r -- $ga $v $scope $rest ;;
+		}
+		lastgav=$ga:$v lastscope=$scope
+	done
+}
+(cd .. && domvn) | doscopes | sort -u >ckdep.mvn.tmp
 # deal with embedded copies
 function dopom {
+	local scope=$1; shift
 	cat >ckdep.pom <<-EOF
 	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<modelVersion>4.0.0</modelVersion>
@@ -96,6 +108,7 @@ function dopom {
 				<groupId>$1</groupId>
 				<artifactId>$2</artifactId>
 				<version>$3</version>
+				<scope>$scope</scope>
 			</dependency>
 		EOF
 	done >>ckdep.pom
@@ -105,86 +118,75 @@ function dopom {
 	</project>
 	EOF
 	# OWASP to consider: https://github.com/jeremylong/DependencyCheck/issues/2349
-	mvn -B -f ckdep.pom -Dwithout-implicit-dependencies dependency:list 2>&1 | \
-	    tee /dev/stderr | sed -n \
-	    -e 's/ -- module .*$//' \
-	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4 ok/p' \
-	    >>ckdep.pom.tmp
+	domvn -f ckdep.pom -Dwithout-implicit-dependencies >>ckdep.pom.tmp
 }
-if [[ -s ckdep.ins ]]; then
-	set -A cc_found
-	set -A cc_where
-	set -A cc_which
-	ncc=0
-	while read first rest; do
-		[[ $first = ?('#'*) ]] && continue
-		cc_where[ncc]=$first
-		cc_which[ncc++]=$rest
-	done <ckdep.ins
-	while IFS=' ' read g a v; do
-		first=$g:$a
-		rest=$g:$a:$v
-		unset vf
-		:>ckdep.pom.tmp
-		i=-1
-		while (( ++i < ncc )); do
-			[[ ${cc_where[i]} = "$first":* ]] || continue
-			if [[ ${cc_where[i]} = "$rest" ]]; then
-				# insert embedded dependencies
-				if [[ -n ${cc_found[i]} ]]; then
-					print -ru2 -- "[ERROR]" matched \
-					    ${cc_where[i]} ${cc_which[i]} \
-					    multiple times
-					(( abend |= 2 ))
-				fi
-				cc_found[i]=x
-				dopom $i ${cc_which[i]}
-				vf=
-			elif [[ -z ${vf+x} ]]; then
-				vf="$rest (wanted ${cc_where[i]})"
-			fi
-		done
-		if [[ -n $vf ]]; then
-			print -ru2 -- "[ERROR]" version mismatch: $vf
-			(( abend |= 2 ))
-		fi
-		if [[ -s ckdep.pom.tmp ]]; then
-			sort -u <ckdep.pom.tmp |&
-			while IFS=' ' read -p ga v scope x; do
-				if [[ $scope != compile ]]; then
-					print -ru2 -- "[ERROR]" unexpected \
-					    scope: $ga $v $scope
-					(( abend |= 2 ))
-				fi
-				print -ru4 -- ${ga/:/ } $v
-				print -ru5 -- inside::$rest::$ga $v embedded ok
-			done
-		fi
-	done <ckdep.mvn.tmp 4>ckdep.mvp.tmp 5>>ckdep.tmp
+set -A cc_found
+set -A cc_where
+set -A cc_which
+ncc=0
+[[ ! -s ckdep.ins ]] || while read first rest; do
+	[[ $first != ?('#'*) ]] || continue
+	cc_where[ncc]=$first
+	cc_which[ncc++]=$rest
+done <ckdep.ins
+while read first v scope; do
+	print -ru4 -- $first $v $scope
+	print -ru5 -- $first $v $scope ok
+	rest=$first:$v
+	unset vf
+	:>ckdep.pom.tmp
 	i=-1
 	while (( ++i < ncc )); do
-		if [[ -z ${cc_found[i]} ]]; then
-			print -ru2 -- "[ERROR]" did not match \
-			    ${cc_where[i]} ${cc_which[i]}
-			(( abend |= 2 ))
+		[[ ${cc_where[i]} = "$first":* ]] || continue
+		if [[ ${cc_where[i]} = "$rest" ]]; then
+			# insert embedded dependencies
+			if [[ -n ${cc_found[i]} ]]; then
+				print -ru2 -- "[ERROR]" matched \
+				    ${cc_where[i]} ${cc_which[i]} \
+				    multiple times
+				(( abend |= 2 ))
+			fi
+			cc_found[i]=x
+			dopom $scope $i ${cc_which[i]}
+			vf=
+		elif [[ -z ${vf+x} ]]; then
+			vf="$rest (wanted ${cc_where[i]})"
 		fi
 	done
-	cat ckdep.mvn.tmp >>ckdep.mvp.tmp
-	sort -u <ckdep.mvp.tmp >ckdep.mvn.tmp
-fi
+	if [[ -n $vf ]]; then
+		print -ru2 -- "[ERROR]" version mismatch: $vf
+		(( abend |= 2 ))
+	fi
+	if [[ -s ckdep.pom.tmp ]]; then
+		doscopes <ckdep.pom.tmp |&
+		while read -p ga v x; do
+			if [[ $x != "$scope" ]]; then
+				print -ru2 -- "[ERROR]" unexpected scope \
+				    $ga $v "${x@Q}" for $rest $scope
+				(( abend |= 2 ))
+			fi
+			print -ru4 -- $ga $v $scope
+			print -ru5 -- inside::$rest::$ga $v embedded ok
+		done
+	fi
+done <ckdep.mvn.tmp 4>ckdep.mvp.tmp 5>ckdep.audit.tmp
+i=-1
+while (( ++i < ncc )); do
+	if [[ -z ${cc_found[i]} ]]; then
+		print -ru2 -- "[ERROR]" did not match \
+		    ${cc_where[i]} ${cc_which[i]}
+		(( abend |= 2 ))
+	fi
+done
+# ship source only for some scopes
+doscopes <ckdep.mvp.tmp | while read ga v scope rest; do
+	[[ $scope != @(compile|runtime) ]] || print -r -- ${ga/:/ } $v
+done | sort -u >ckdep.mvn.tmp
 # add static dependencies from embedded files, for SecurityWatch
-[[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
-# make compile scope superset provided scope, and either superset test scope
-x=$(sort -u <ckdep.tmp)
-lastp=
-lastt=
-print -r -- "$x" | while IFS= read -r line; do
-	[[ $line = "$lastp" ]] || [[ $line = "$lastt" ]] || print -r -- "$line"
-	lastp=${line/ compile / provided }
-	lastt=${lastp/ provided / test }
-done >ckdep.tmp
+[[ ! -s ckdep.inc ]] || cat ckdep.inc >>ckdep.audit.tmp
 # generate file with changed dependencies set to be a to-do item
 # except we don’t licence-analyse test-only dependencies
+doscopes <ckdep.audit.tmp | sort -u >ckdep.tmp
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
 	comm -12 ckdep.lst ckdep.tmp
@@ -209,7 +211,7 @@ if (( abend & 1 )); then
 fi
 
 # fail a release build if dependency licence review has a to-do item
-[[ $IS_M2RELEASEBUILD = true ]] && \
+[[ $IS_M2RELEASEBUILD != true ]] || \
     if grep -e ' TO''DO$' -e ' FA''IL$' ckdep.lst; then
 	print -ru2 -- '[ERROR] licence review incomplete'
 	(( abend |= 4 ))
