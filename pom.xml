@@ -332,6 +332,11 @@
 						</goals>
 						<configuration>
 							<failBuildOnCVSS>8</failBuildOnCVSS>
+							<scanSet>
+								<fileSet>
+									<directory>src</directory>
+								</fileSet>
+							</scanSet>
 							<skipArtifactType>pom</skipArtifactType>
 							<suppressionFiles>
 								<suppressionFile>release/dependency-check-suppressions.xml</suppressionFile>
