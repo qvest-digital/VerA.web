@@ -3023,7 +3023,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ * Coyright: (c) 2010-2017 Google, Inc.                                   │
 │                                                                          │
 │ aopalliance Version 1                                                    │
-│ * License: all the source code provided by AOP Alliance is Public Domain │
+│ * License: all the source code provided by AOP Alliance is Public Domain.│
 │ * Project: http://aopalliance.sourceforge.net                            │
 │ * Copyright: Material in the public domain is not protected by copyright │
 │                                                                          │
