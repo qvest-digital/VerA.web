@@ -195,10 +195,10 @@ function depround {
 			fi
 			print -ru4 -- $ga $v $scope
 			print -ru5 -- inside::$rest::$ga $v embedded ok
-			recurse+=($ga:$v:$scope)
+			recurse+=("$ga $v $scope")
 		done
 		for x in "${recurse[@]}"; do
-			depround ${x//:/ }
+			depround $x
 		done
 	fi
 }
