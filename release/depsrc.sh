@@ -132,7 +132,7 @@ done
 set -x
 mkdir target/dep-srcs
 for pom in target/pom-srcs-*.xml; do
-	mvn -B -f $pom \
+	mvn -B -f $pom -Dwithout-implicit-dependencies \
 	    -DexcludeTransitive=true -DoutputDirectory="$PWD/target/dep-srcs" \
 	    -Dclassifier=sources -Dmdep.useRepositoryLayout=true \
 	    dependency:copy-dependencies
@@ -175,9 +175,7 @@ set -A inclusions
 # shipped in axis:axis source JAR
 inclusions+=(-e '^org\.apache\.axis axis-jaxrpc ')
 inclusions+=(-e '^org\.apache\.axis axis-saaj ')
-# not in ckdep.mvn for technical reasons but correct
-exclusions+=(-e '^org\.projectlombok lombok ')
-#exclusions+=(-e '^# dummy$')
+exclusions+=(-e '^# dummy$')
 find target/dep-srcs/ -type f | \
     set_e_grep -F -v -e _remote.repositories -e maven-metadata-local.xml | \
     while IFS= read -r x; do

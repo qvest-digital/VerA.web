@@ -146,4 +146,4 @@ cat >pom.xml <<EOF
 </project>
 EOF
 set -x
-exec mvn -B -Pdstrepo-tarent deploy
+exec mvn -B -Dwithout-implicit-dependencies -Pdstrepo-tarent deploy
