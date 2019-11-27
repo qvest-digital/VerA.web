@@ -4001,6 +4001,11 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ See the License for the specific language governing permissions and      │
 │ limitations under the License.                                           │
 │                                                                          │
+│ The "NOTICE" text file for cglib contains:                               │
+│                                                                          │
+│ This product includes software developed by                              │
+│ The Apache Software Foundation (http://www.apache.org/).                 │
+│                                                                          │
 │ cglib 3.2.6 is in part a derived work of an older version of             │
 │ ASM: a very small and fast Java bytecode manipulation framework          │
 │ Copyright (c) 2000-2005 INRIA, France Telecom                            │
@@ -4046,6 +4051,14 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
 │ See the License for the specific language governing permissions and      │
 │ limitations under the License.                                           │
+│                                                                          │
+│ // ------------------------------------------------------------------    │
+│ // NOTICE file corresponding to the section 4d of The Apache License,    │
+│ // Version 2.0, in this case for Objenesis                               │
+│ // ------------------------------------------------------------------    │
+│                                                                          │
+│ Objenesis                                                                │
+│ Copyright 2006-2017 Joe Walnes, Henri Tremblay, Leonardo Mesquita        │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ The "NOTICE" text file for Spring Framework contains:                    │
 │                                                                          │
