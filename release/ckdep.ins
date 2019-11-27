@@ -3,17 +3,15 @@ net.bytebuddy:byte-buddy:1.10.3 \
 	org.ow2.asm:asm:7.2 \
 	org.ow2.asm:asm-commons:7.2
 
-### Lombok ### scope:provided so we do not ship anything
-
 # shaded into lombok; not in a Maven repo
-##org.projectlombok:lombok:1.18.10 org.projectlombok:lombok.patcher:0.32
+#org.projectlombok:lombok:1.18.10 org.projectlombok:lombok.patcher:0.32
 # really in lombok.patcher
-#org.projectlombok:lombok:1.18.10 \
-#	org.ow2.asm:asm:7.0 \
-#	org.ow2.asm:asm-commons:7.0 \
-#	org.ow2.asm:asm-tree:7.0
+org.projectlombok:lombok:1.18.10 \
+	org.ow2.asm:asm:7.0 \
+	org.ow2.asm:asm-commons:7.0 \
+	org.ow2.asm:asm-tree:7.0
 # shaded into lombok
-#org.projectlombok:lombok:1.18.10 com.zwitserloot:cmdreader:1.2
+org.projectlombok:lombok:1.18.10 com.zwitserloot:cmdreader:1.2
 
 # shaded into Spring core
 org.springframework:spring-core:4.3.25.RELEASE \
