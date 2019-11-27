@@ -5,8 +5,8 @@ net.bytebuddy:byte-buddy:1.10.3 \
 
 # shaded into lombok; not in a Maven repo
 !org.projectlombok:lombok:1.18.10 org.projectlombok:lombok.patcher:0.32
-# really in lombok.patcher
-org.projectlombok:lombok:1.18.10 \
+# shaded into lombok
+org.projectlombok:lombok.patcher:0.32 \
 	org.ow2.asm:asm:7.0 \
 	org.ow2.asm:asm-commons:7.0 \
 	org.ow2.asm:asm-tree:7.0

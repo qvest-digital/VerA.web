@@ -149,10 +149,8 @@ ncc=0
 	cc_where[ncc]=$first
 	cc_which[ncc++]=$rest
 done <ckdep.ins
-while read first v scope; do
-	print -ru4 -- $first $v $scope
-	print -ru5 -- $first $v $scope ok
-	rest=$first:$v
+function depround {
+	local first=$1 v=$2 scope=$3 rest=$1:$2
 	unset vf
 	:>ckdep.pom.tmp
 	i=-1
@@ -186,8 +184,8 @@ while read first v scope; do
 		(( abend |= 2 ))
 	fi
 	if [[ -s ckdep.pom.tmp ]]; then
-		doscopes <ckdep.pom.tmp |&
-		while read -p ga v x; do
+		x=$(doscopes <ckdep.pom.tmp)
+		print -r -- "$x" | while read ga v x; do
 			if [[ $x != @(unreleased|"$scope") ]]; then
 				print -ru2 -- "[ERROR]" unexpected scope \
 				    $ga $v "${x@Q}" for $rest $scope
@@ -195,8 +193,14 @@ while read first v scope; do
 			fi
 			print -ru4 -- $ga $v $scope
 			print -ru5 -- inside::$rest::$ga $v embedded ok
+			depround $ga $v $scope
 		done
 	fi
+}
+while read first v scope; do
+	print -ru4 -- $first $v $scope
+	print -ru5 -- $first $v $scope ok
+	depround $first $v $scope
 done <ckdep.mvn.tmp 4>ckdep.mvp.tmp 5>ckdep.audit.tmp
 i=-1
 while (( ++i < ncc )); do
