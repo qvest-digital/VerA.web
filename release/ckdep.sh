@@ -30,6 +30,7 @@ set -o pipefail
 cd "$(dirname "$0")"
 saveIFS=$' \t\n'
 print -ru2 -- '[INFO] ckdep.sh starting'
+abend=0
 
 x=$(sed --posix 's/u\+/x/g' <<<'fubar fuu' 2>&1) && alias 'sed=sed --posix'
 x=$(sed -e 's/u\+/x/g' -e 's/u/X/' <<<'fubar fuu' 2>&1)
@@ -53,12 +54,10 @@ IFS= read -pr paID
 IFS= read -pr pVSN
 # check old file is sorted
 sort -uo ckdep.tmp ckdep.lst
-if cmp -s ckdep.lst ckdep.tmp; then
-	abend=0
-else
+if ! cmp -s ckdep.lst ckdep.tmp; then
 	print -ru2 -- '[WARNING] list of dependencies was not sorted!'
 	cat ckdep.tmp >ckdep.lst
-	abend=1
+	(( abend |= 1 ))
 fi
 # analyse Maven dependencies
 (cd .. && mvn -B dependency:list) 2>&1 | \
@@ -134,9 +133,9 @@ if [[ -s ckdep.ins ]]; then
 				# insert embedded dependencies
 				if [[ -n ${cc_found[i]} ]]; then
 					print -ru2 -- "[ERROR]" matched \
-					    "${cc_where[i]} ${cc_which[i]}" \
+					    ${cc_where[i]} ${cc_which[i]} \
 					    multiple times
-					abend=1
+					(( abend |= 2 ))
 				fi
 				cc_found[i]=x
 				dopom $i ${cc_which[i]}
@@ -146,15 +145,16 @@ if [[ -s ckdep.ins ]]; then
 			fi
 		done
 		if [[ -n $vf ]]; then
-			print -ru2 -- "[ERROR] version mismatch: $vf"
-			abend=1
+			print -ru2 -- "[ERROR]" version mismatch: $vf
+			(( abend |= 2 ))
 		fi
 		if [[ -s ckdep.pom.tmp ]]; then
 			sort -u <ckdep.pom.tmp |&
 			while IFS=' ' read -p ga v scope x; do
 				if [[ $scope != compile ]]; then
-					print -ru2 -- "[ERROR] unexpected scope: $ga $v $scope"
-					abend=1
+					print -ru2 -- "[ERROR]" unexpected \
+					    scope: $ga $v $scope
+					(( abend |= 2 ))
 				fi
 				print -ru4 -- ${ga/:/ } $v
 				print -ru5 -- inside::$rest::$ga $v embedded ok
@@ -165,8 +165,8 @@ if [[ -s ckdep.ins ]]; then
 	while (( ++i < ncc )); do
 		if [[ -z ${cc_found[i]} ]]; then
 			print -ru2 -- "[ERROR]" did not match \
-			    "${cc_where[i]} ${cc_which[i]}"
-			abend=1
+			    ${cc_where[i]} ${cc_which[i]}
+			(( abend |= 2 ))
 		fi
 	done
 	cat ckdep.mvn.tmp >>ckdep.mvp.tmp
@@ -200,21 +200,20 @@ else
 	mv -f ckdep.tmp ckdep.lst
 	# inform the user
 	print -ru2 -- '[WARNING] list of dependencies changed!'
-	abend=1
+	(( abend |= 1 ))
 fi
 rm -f ckdep.pom ckdep.tmp ckdep.*.tmp
 # check if anything needs to be committed
-if (( abend )); then
+if (( abend & 1 )); then
 	print -ru2 -- '[ERROR] please commit the changed ckdep.{lst,mvn} files!'
-	exit 1
 fi
 
 # fail a release build if dependency licence review has a to-do item
 [[ $IS_M2RELEASEBUILD = true ]] && \
     if grep -e ' TO''DO$' -e ' FA''IL$' ckdep.lst; then
 	print -ru2 -- '[ERROR] licence review incomplete'
-	exit 1
+	(( abend |= 4 ))
 fi
 
-print -ru2 -- '[INFO] ckdep.sh finished successfully'
-exit 0
+print -ru2 -- '[INFO] ckdep.sh finished with errorlevel' $((#abend))
+exit $abend
