@@ -147,7 +147,6 @@
 						<groupId>org.codehaus.gmavenplus</groupId>
 						<artifactId>gmavenplus-plugin</artifactId>
 					</plugin>
-					<!-- Copy JDBC driver to build directory of core docker image -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-dependency-plugin</artifactId>
@@ -157,44 +156,6 @@
 								<id>analyse-dependency-management</id>
 								<configuration>
 									<failBuild>false</failBuild>
-								</configuration>
-							</execution>
-							<execution>
-								<id>copy-jdbc-core</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>copy</goal>
-								</goals>
-								<configuration>
-									<artifactItems>
-										<artifactItem>
-											<groupId>org.postgresql</groupId>
-											<artifactId>postgresql</artifactId>
-											<version>${postgresql.version}</version>
-											<type>jar</type>
-											<outputDirectory>${project.build.directory}/dockerbuild/core</outputDirectory>
-											<destFileName>postgresql-jdbc4.jar</destFileName>
-										</artifactItem>
-									</artifactItems>
-								</configuration>
-							</execution>
-							<execution>
-								<id>copy-jdbc-vwor</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>copy</goal>
-								</goals>
-								<configuration>
-									<artifactItems>
-										<artifactItem>
-											<groupId>org.postgresql</groupId>
-											<artifactId>postgresql</artifactId>
-											<version>${postgresql.version}</version>
-											<type>jar</type>
-											<outputDirectory>${project.build.directory}/dockerbuild/vwor</outputDirectory>
-											<destFileName>postgresql-jdbc4.jar</destFileName>
-										</artifactItem>
-									</artifactItems>
 								</configuration>
 							</execution>
 						</executions>

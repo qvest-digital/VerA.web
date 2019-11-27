@@ -32,10 +32,6 @@ else
 	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$tag/veraweb-core-$tag-files.tgz"
 fi
 
-tar -xzf files.tgz -O $(tar -tzf files.tgz | fgrep postgresql-jdbc4.jar) \
-    >core/postgresql-jdbc4.jar
-ln core/postgresql-jdbc4.jar vwor/
-
 doone core veraweb-core
 doone vwor veraweb-rest-api
 # extra

@@ -137,11 +137,6 @@
 			<artifactId>smiley-http-proxy-servlet</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
 			<scope>test</scope>
@@ -264,8 +259,6 @@
 								<!-- must be in the classpath -->
 								<usedDependency>org.apache.logging.log4j:log4j-web</usedDependency>
 								<usedDependency>org.glassfish.jersey.inject:jersey-hk2</usedDependency>
-								<!-- shipped for tomcat lib dir -->
-								<usedDependency>org.postgresql:postgresql</usedDependency>
 							</usedDependencies>
 						</configuration>
 					</execution>

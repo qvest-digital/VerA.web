@@ -739,12 +739,11 @@ installiert wird.
 \end{minipage}
 
 \begin{minipage}{\linewidth}
-Kopieren Sie desweiteren nach \texttt{/var/lib/tomcat8/lib/} \dash
-hierbei ggfs. eine bereits existierende überschreibend \dash die
-Datei \texttt{postgresql-jdbc4.jar} aus dem „files“-Tarball:
+Installieren Sie die Datenbankanbindung für Java™:
 
 \begin{lstdump}{JDBC}
-sudo cp postgresql-jdbc4.jar /var/lib/tomcat8/lib/
+sudo apt-get install libpostgresql-jdbc-java
+sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat8/lib/
 \end{lstdump}
 \end{minipage}
 
