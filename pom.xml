@@ -179,6 +179,36 @@
 			</modules>
 		</profile>
 		<profile>
+			<id>with-implicit-dependencies</id>
+			<activation>
+				<property>
+					<name>!without-implicit-dependencies</name>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-api</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-core</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.evolvis.tartools</groupId>
+					<artifactId>maven-parent</artifactId>
+					<version>${org.evolvis.tartools.maven-parent.version}</version>
+					<classifier>tests</classifier>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
 			<id>release</id>
 			<build>
 				<plugins>
@@ -920,26 +950,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.evolvis.tartools</groupId>
-			<artifactId>maven-parent</artifactId>
-			<version>${org.evolvis.tartools.maven-parent.version}</version>
-			<classifier>tests</classifier>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
 </project>
