@@ -184,8 +184,8 @@ function depround {
 		(( abend |= 2 ))
 	fi
 	if [[ -s ckdep.pom.tmp ]]; then
-		x=$(doscopes <ckdep.pom.tmp)
-		print -r -- "$x" | while read ga v x; do
+		doscopes <ckdep.pom.tmp |&
+		while read -p ga v x; do
 			if [[ $x != @(unreleased|"$scope") ]]; then
 				print -ru2 -- "[ERROR]" unexpected scope \
 				    $ga $v "${x@Q}" for $rest $scope
