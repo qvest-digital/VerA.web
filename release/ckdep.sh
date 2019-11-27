@@ -117,7 +117,7 @@ if [[ -s ckdep.ins ]]; then
 	set -A cc_which
 	ncc=0
 	while read first rest; do
-		[[ $first = ?('#') ]] && continue
+		[[ $first = ?('#'*) ]] && continue
 		cc_where[ncc]=$first
 		cc_which[ncc++]=$rest
 	done <ckdep.ins
