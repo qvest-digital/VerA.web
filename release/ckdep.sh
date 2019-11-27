@@ -28,6 +28,7 @@ PS4='++ '
 set -e
 set -o pipefail
 cd "$(dirname "$0")"
+saveIFS=$' \t\n'
 
 x=$(sed --posix 's/u\+/x/g' <<<'fubar fuu' 2>&1) && alias 'sed=sed --posix'
 x=$(sed -e 's/u\+/x/g' -e 's/u/X/' <<<'fubar fuu' 2>&1)
@@ -40,7 +41,7 @@ case $?:$x {
 
 # get project metadata
 pompath=..
-<$pompath/pom.xml xmlstarlet sel \
+<"$pompath/pom.xml" xmlstarlet sel \
     -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
     -c /pom:project/pom:groupId -n \
     -c /pom:project/pom:artifactId -n \
@@ -69,6 +70,106 @@ fi
 while IFS=' ' read ga v scope rest; do
 	[[ $scope != @(compile|runtime) ]] || print -r -- ${ga/:/ } $v
 done <ckdep.tmp | sort -u >ckdep.mvn.tmp
+# deal with embedded copies
+function dopom {
+	cat >ckdep.pom <<-EOF
+	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		<modelVersion>4.0.0</modelVersion>
+		<parent>
+			<groupId>$pgID</groupId>
+			<artifactId>$paID</artifactId>
+			<version>$pVSN</version>
+			<relativePath>$pompath/</relativePath>
+		</parent>
+		<artifactId>embedded-code-copy-insert-$1</artifactId>
+		<packaging>jar</packaging>
+		<dependencies>
+	EOF
+	shift
+	set -o noglob
+	for gav in "$@"; do
+		IFS=:
+		set -- $gav
+		IFS=$saveIFS
+		cat <<-EOF
+			<dependency>
+				<groupId>$1</groupId>
+				<artifactId>$2</artifactId>
+				<version>$3</version>
+			</dependency>
+		EOF
+	done >>ckdep.pom
+	set +o noglob
+	cat >>ckdep.pom <<-EOF
+		</dependencies>
+	</project>
+	EOF
+	mvn -B -f ckdep.pom -Dwithout-implicit-dependencies dependency:list 2>&1 | \
+	    tee /dev/stderr | sed -n \
+	    -e 's/ -- module .*$//' \
+	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):\([^:]*\)$/s//\1:\2 \3 \4 ok/p' \
+	    >>ckdep.pom.tmp
+}
+if [[ -s ckdep.ins ]]; then
+	set -A cc_found
+	set -A cc_where
+	set -A cc_which
+	ncc=0
+	while read -r first rest; do
+		[[ $first = ?('#') ]] && continue
+		cc_where[ncc]=$first
+		cc_which[ncc++]=$rest
+	done <ckdep.ins
+	while IFS=' ' read g a v; do
+		first=$g:$a
+		rest=$g:$a:$v
+		unset vf
+		:>ckdep.pom.tmp
+		i=-1
+		while (( ++i < ncc )); do
+			[[ ${cc_where[i]} = "$first":* ]] || continue
+			if [[ ${cc_where[i]} = "$rest" ]]; then
+				# insert embedded dependencies
+				if [[ -n ${cc_found[i]} ]]; then
+					print -ru2 -- "[ERROR]" matched \
+					    "${cc_where[i]} ${cc_which[i]}" \
+					    multiple times
+					abend=1
+				fi
+				cc_found[i]=x
+				dopom $i ${cc_which[i]}
+				vf=
+			elif [[ -z ${vf+x} ]]; then
+				vf="$rest (wanted ${cc_where[i]})"
+			fi
+		done
+		if [[ -n $vf ]]; then
+			print -ru2 -- "[ERROR] version mismatch: $vf"
+			abend=1
+		fi
+		if [[ -s ckdep.pom.tmp ]]; then
+			sort -u <ckdep.pom.tmp |&
+			while IFS=' ' read -p ga v scope rest; do
+				if [[ $scope != compile ]]; then
+					print -ru2 -- "[ERROR] unexpected scope: $ga $v $scope"
+					abend=1
+				fi
+				print -ru4 -- ${ga/:/ } $v
+				print -ru5 -- inside::$rest::$ga $v embedded ok
+			done
+		fi
+	done <ckdep.mvn.tmp 4>ckdep.mvp.tmp 5>>ckdep.tmp
+	i=-1
+	while (( ++i < ncc )); do
+		if [[ -z ${cc_found[i]} ]]; then
+			print -ru2 -- "[ERROR]" did not match \
+			    "${cc_where[i]} ${cc_which[i]}"
+			abend=1
+		fi
+	done
+	cat ckdep.mvn.tmp >>ckdep.mvp.tmp
+	sort -u <ckdep.mvp.tmp >ckdep.mvn.tmp
+fi
 # add static dependencies from embedded files, for SecurityWatch
 [[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
 # make compile scope superset provided scope, and either superset test scope
@@ -99,7 +200,7 @@ else
 	print -ru2 -- '[WARNING] list of dependencies changed!'
 	abend=1
 fi
-rm -f ckdep.tmp ckdep.mvn.tmp
+rm -f ckdep.pom ckdep.tmp ckdep.*.tmp
 # check if anything needs to be committed
 if (( abend )); then
 	print -ru2 -- '[ERROR] please commit the changed ckdep.{lst,mvn} files!'
