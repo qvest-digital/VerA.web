@@ -22,6 +22,13 @@
 # Build tarball containing source JARs of dependencies. Assume those
 # without suitable source in Maven Central have distfiles copied and
 # placed under release/depsrc/ as courtesy copy.
+#
+# Scope is to provide sources of the artefacts we ship, for some li‐
+# cences; we ship what we can, but Maven only makes source JARs pro‐
+# vided by upstreams available, which aren’t CCS, but we cannot help
+# it. Scope is not to provide everything needed to rebuild; we don’t
+# ship scope “provided” things like Lombok (compiler plugin), Tomcat
+# servlet API, PostgreSQL driver (JDBC), or even Tomcat or the JDK.
 
 # initialisation
 export LC_ALL=C
