@@ -124,14 +124,14 @@ function dopom {
 }
 function dodoc {
 	local scope=$1; shift
-	print -ru2 -- "[INFO]" resolving embedded-code-copy-insert-$1
+	print -ru2 -- "[INFO]" resolving embedded-code-copy-insert-$1 for $scope
 	shift
 	set -o noglob
 	for gav in "$@"; do
 		IFS=:
 		set -- $gav
 		IFS=$saveIFS
-		print -r -- "[INFO]    $1:$2:jar:$3:$scope"
+		print -r -- "[INFO]    $1:$2:jar:$3:unreleased"
 	done | scanmvn >>ckdep.pom.tmp
 	set +o noglob
 }
@@ -188,7 +188,7 @@ while read first v scope; do
 	if [[ -s ckdep.pom.tmp ]]; then
 		doscopes <ckdep.pom.tmp |&
 		while read -p ga v x; do
-			if [[ $x != "$scope" ]]; then
+			if [[ $x != @(unreleased|"$scope") ]]; then
 				print -ru2 -- "[ERROR]" unexpected scope \
 				    $ga $v "${x@Q}" for $rest $scope
 				(( abend |= 2 ))
