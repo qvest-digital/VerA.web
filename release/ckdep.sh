@@ -124,7 +124,7 @@ function dopom {
 }
 function dodoc {
 	local scope=$1; shift
-	print -ru2 -- "[INFO]" resolving embedded-code-copy-insert-$1 for $scope
+	print -ru2 -- "[INFO] resolving embedded-code-copy-insert-$1 [$scope]"
 	shift
 	set -o noglob
 	for gav in "$@"; do
