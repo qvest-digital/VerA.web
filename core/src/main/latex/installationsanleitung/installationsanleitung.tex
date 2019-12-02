@@ -40,8 +40,8 @@
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{7.5}
-\newcommand{\vwiaversfassungmonat}{November}
+\newcommand{\vwiaversfassungnr}{7.6}
+\newcommand{\vwiaversfassungmonat}{Dezember}
 \newcommand{\vwiaversfassungjahr}{2019}
 
 % VerA.web Version
@@ -107,7 +107,7 @@ unverständlicher zu machen. Hierzu gehören:\keinumbruch
 \begin{itemize}
  \item{Die Installation wird auf nicht anderweitig verwendeten,
   sauberen oder frisch installierten (virtuellen) Maschinen durchgeführt.}
- \item{Als Betriebssystem wird Debian 9 „stretch“ eingesetzt; an den
+ \item{Als Betriebssystem wird Debian~9 „stretch“ eingesetzt; an den
   Stellen, wo Konfigurationsdateien angepaßt werden müssen, werden die
   Debian-Standardwerte als Grundlage vorausgesetzt. \texttt{sudo} ist
   installiert und eingerichtet.}
@@ -377,7 +377,7 @@ Bei einem Upgrade möchten Sie ggfs. vorher eine Sicherung erstellen.
 
 \subsection{Exkurs: Wechsel von systemd nach sysvinit}\label{subsec:intro-sysvinit}
 
-Eine Standardinstallation (kein Upgrade) von Debian 8 „jessie“ oder neuer
+Eine Standardinstallation (kein Upgrade) von Debian~8 „jessie“ oder neuer
 benutzt \texttt{systemd} als Init-System. Wir haben unsere Software jedoch
 ausschließlich mit \texttt{sysvinit}, das Unix-Administratoren vertrauter
 ist, getestet.
@@ -429,9 +429,10 @@ einkalkuliert.
  Festplattengröße (HDD)   &    2 GB                &    8 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
 \end{tabu}
 
-Anmerkung: Debian 10 („buster“) wird mit OpenJDK~11 (nur unvollständig
+Anmerkung: Debian~10 („buster“) wird mit OpenJDK~11 (nur unvollständig
 angetestet) und Tomcat~9 (ist \emph{nicht} kompatibel mit VerA.web)
-ausgeliefert und wird daher aktuell von abgeraten.
+ausgeliefert und wird daher aktuell von abgeraten; einer Nutzung von
+\texttt{buster} mit Tomcat~8 steht jedoch grundsätzlich nichts entgegen.
 
 \hyperfootnotetext{\label{fn:req-tst-notmore}%
  wir haben keine größere Konfiguration getestet; eine praktische
@@ -474,7 +475,7 @@ Alle Informationen hierzu finden Sie in Kapitel \ref{sec:setup-lam}.
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
 Zum Betrieb von VerA.web empfehlen wir eine eigenständige VM
-mit der stabilen Debian-Version 9 („stretch“) als Betriebssystem.
+mit der stabilen Debian-Version 9~(„stretch“) als Betriebssystem.
 Zwar \emph{kann} die Software auch mit einer anderen Debian-basierten
 GNU/Linux-Distribution (z.B. Ubuntu) oder Java/Tomcat-Umgebung (z.B.
 Solaris) betrieben werden, allerdings geht diese Installationsanleitung
@@ -492,13 +493,14 @@ derselben VM wie die interne Veranstaltungs- und Adreßverwaltung läuft;
 falls nicht ändern Sie bitte an den relevanten Stellen den Hostnamen,
 ggfs. Port, und Datenbanknamen in den Konfigurationsdateien.
 
-Desweiteren benötigen Sie den Applikationsserver Tomcat 8 mit einer
-Java™-Laufzeitumgebung (OpenJDK) ab Version 8, ohne GUI (headless JRE),
-sowie den Webserver Apache 2 (in Version 2.2 oder 2.4) mit
+Desweiteren benötigen Sie den Applikationsserver Tomcat~8 mit einer
+Java™-Laufzeitumgebung (OpenJDK) ab Version~8, ohne GUI (headless JRE),
+sowie den Webserver Apache~2 (in Version 2.2 oder 2.4) mit
 \texttt{mod\_jk} und SSL.
 
-⚠ \emph{Achtung:} Java™ 7 oder älter sowie Tomcat 7 oder älter werden
+⚠ \emph{Achtung:} Java™~7 oder älter sowie Tomcat~7 oder älter werden
 nicht unterstützt und führen während der Installation zu Fehlern!
+Tomcat~9 oder neuer funktionieren aktuell ebenfalls nicht.
 
 \subsubsection{Mailserver (MTA)}\label{subsubsec:req-core-mta}
 
@@ -627,7 +629,7 @@ den DN des LDAP-Administrators\Hair\footnote{hier
 oben den Registerreiter \inlinebild[Account types]{lam-gear} aus. Stellen
 Sie sicher, daß unter „Active account types“ nur \inlinebild[Users]{lam-user}
 und \inlinebild[Groups]{lam-group} gelistet sind, indem Sie neben ggfs.%
-\Hair\footnote{\label{fn:vor9}in Debian 9 „stretch“ entspricht dies der
+\Hair\footnote{\label{fn:vor9}in Debian 9~„stretch“ entspricht dies der
 Voreinstellung} weiteren Einträgen rechts das Lösch-Icon \inlinebild{lam-del}
 anklicken, um die weitere Verwaltung zu vereinfachen. Ändern Sie dann den
 „LDAP suffix“ für \inlinebild[Users]{lam-user} in \texttt{ou=Users} gefolgt
@@ -735,7 +737,7 @@ java -version
 
 Stellen Sie unbedingt sicher, daß das \texttt{tomcat8}-Paket mindestens
 in Version \texttt{8.5.14-1+deb9u3} (aus Debian \texttt{stretch-security})
-installiert wird.
+installiert wird (der Vorversion fehlte eine Abhängigkeit).
 \end{minipage}
 
 \begin{minipage}{\linewidth}
@@ -1206,7 +1208,7 @@ Einträge zu entfernen, um Fehlern und Mißverständnissen zu begegnen.
 
 \subsection{Upgrade von Versionen vor 1.8.61}\label{subsec:upgrade-core-before-monorepo}
 
-Aufgrund der Umstellung auf Debian 9 „stretch“, Tomcat 8, usw.
+Aufgrund der Umstellung auf Debian 9~„stretch“, Tomcat~8, usw.
 führen Sie bitte in diesem Fall eine Neuinstallation gemäß dem
 Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung
 durch. Hierbei können Sie die Änderungen der bestehenden
@@ -1451,7 +1453,7 @@ Funktionalität PDF-Vorlage.
 \subsection{Weblinks}\label{subsec:links-web}
 
 \begin{itemize}
- \item{\href{https://www.tarent.de/service/service-und-wartung/}{https://www.tarent.de/service/service-und-wartung/}
+ \item{\href{https://www.tarent.de/services/service-und-wartung/}{https://www.tarent.de/services/service-und-wartung/}
   \\ Angebote von \tarent{} zu Service, Wartung und Hosting}
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=vwor/src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
@@ -1490,7 +1492,7 @@ d.h. als Unix-Nutzer \texttt{tomcat8}.
 \section{Anhang: Referenzkonfigurationen}\label{sec:refcfg}
 
 In diesem Kapitel finden Sie Beispiele für Konfigurationsdateien
-auf einer Testinstallation von VerA.web auf Debian 9 „stretch“.
+auf einer Testinstallation von VerA.web auf Debian 9~„stretch“.
 Hierbei wurden an allen Stellen die Standardpaßwörter gewählt;
 diese Beispiele sind strikt als nicht-normative Dokumentation
 zu verstehen.
