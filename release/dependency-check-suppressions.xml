@@ -24,4 +24,9 @@
 		<notes>fix locally backported</notes>
 		<cve>CVE-2019-11358</cve>
 	</suppress>
+	<suppress>
+		<notes>does not affect jQuery below 2.2.0</notes>
+		<packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
+		<vulnerabilityName>Regex in its jQuery.htmlPrefilter  sometimes may introduce XSS</vulnerabilityName>
+	</suppress>
 </suppressions>
