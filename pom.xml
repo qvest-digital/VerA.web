@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>1.20</version>
+		<version>1.21</version>
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
@@ -92,7 +92,7 @@
 		<maven.failsafe.version>2.22.0</maven.failsafe.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 		<maven.karma.version>1.8</maven.karma.version>
-		<maven.owasp.dependency-check.version>5.2.4</maven.owasp.dependency-check.version>
+		<maven.owasp.dependency-check.version>5.3.2</maven.owasp.dependency-check.version>
 		<!-- dependency management -->
 		<activation.version>1.2.1</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
@@ -111,9 +111,9 @@
 		<commons-io.version>2.6</commons-io.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
 		<commons-pool.version>1.6</commons-pool.version>
-		<csvfile.version>2.0</csvfile.version>
+		<csvfile.version>2.1</csvfile.version>
 		<expiringmap.version>0.5.9</expiringmap.version>
-		<extract-tool.version>1.11</extract-tool.version>
+		<extract-tool.version>1.12</extract-tool.version>
 		<geb.version>2.1</geb.version>
 		<groovy-all.version>2.4.17</groovy-all.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
