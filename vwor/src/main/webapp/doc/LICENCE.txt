@@ -44,7 +44,7 @@ Im folgenden finden Sie die Lizenzbedingungen für VerA.web von ⮡ tarent.
 │  © 2007 Alex Maier (a.maier@tarent.de)                                   │
 │  © 2014, 2015 Max Marche (m.marche@tarent.de)                            │
 │  © 2007 Jan Meyer (jan@evolvis.org)                                      │
-│  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019                        │
+│  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020                  │
 │     mirabilos (t.glaser@tarent.de)                                       │
 │  © 2016 Cristian Molina (c.molina@tarent.de)                             │
 │  © 2006, 2007 Jens Neumaier (j.neumaier@tarent.de)                       │
@@ -132,8 +132,9 @@ the webbrowser), or in its WAR file, in a released VerA.web version.
 
 ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
-The documentation is set in the Museo Sans font, which is licenced
-property of exljbris Font Foundry.
+The documentation is set in the Museo Sans font, property of
+exljbris Font Foundry, and licenced to tarent. Usage other
+than to read the documentation set in it is not licenced.
 
 ┌──┤ The documentation makes use of Tₑχ/LᴬTᴇΧ code: (MirOS) ├──────────────┐
 │                                                                          │
@@ -259,7 +260,7 @@ vwor/src/test/resources/imageData.txt is the same file.
 │                                                                          │
 │ Copyright © 2015, 2016, 2017, 2018, 2019                                 │
 │       mirabilos <t.glaser@tarent.de>                                     │
-│ Copyright (c) 2013                                                       │
+│ Copyright © 2013, 2020                                                   │
 │       mirabilos <m@mirbsd.org>                                           │
 │                                                                          │
 │ Provided that these terms and disclaimer and all copyright notices       │

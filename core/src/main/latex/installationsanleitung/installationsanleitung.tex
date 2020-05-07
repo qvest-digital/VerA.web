@@ -1,6 +1,6 @@
-% VerA.web (public) Installationsanleitung
+% VerA.web-Installationsanleitung
 %
-% Copyright © 2015, 2016, 2017, 2018, 2019
+% Copyright © 2015, 2016, 2017, 2018, 2019, 2020
 %	Thorsten Glaser <t.glaser@tarent.de>
 % Copyright © 2014, 2015
 %	Thorsten Glaser <thorsten.glaser@teckids.org>
@@ -38,14 +38,15 @@
 \documentclass{tarentanleitung}
 \usepackage{tikz}
 \usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
+\lstset{moredelim=[is][\color{RoyalPurple}]{【}{】}}%
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{7.6}
-\newcommand{\vwiaversfassungmonat}{Dezember}
-\newcommand{\vwiaversfassungjahr}{2019}
+\newcommand{\vwiaversfassungnr}{7.7}
+\newcommand{\vwiaversfassungmonat}{May}
+\newcommand{\vwiaversfassungjahr}{2020}
 
 % VerA.web Version
-\newcommand{\vwiaverssw}{2.2}
+\newcommand{\vwiaverssw}{2.3}
 
 \begin{document}
 \tarentanleitung{Installationsanleitung VerA.web}{\vwiaverssw}
@@ -765,14 +766,17 @@ Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
 \begin{lstdump}{DB erstellen}
 # createuser fragt nach einem zu vergebenden Paßwort
 sudo -u postgres createuser -D -P -R -S veraweb
+##                  【anzulegenderBenutzer^^^^^^^】
 sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 -l C.UTF-8 veraweb
+##                            【Besitzer^^^^^^^】     【anzulegendeDatenbank^^^^^^^】
 \end{lstdump}
 \end{minipage}
 
 Falls Sie eine Datenbank auf einem anderen Server verwenden, lassen
 Sie den dortigen DBA bitte folgendes anlegen: eine Rolle mit
 Login-Berechtigung (hier: Benutzer „veraweb“, Paßwort „veraweb“)
-und eine Datenbank (hier: Name „veraweb“) in der Kodierung UTF-8,
+und eine Datenbank (hier: Name „veraweb“) in der Kodierung UTF-8
+sowie einer neutralen Locale (zumindest \texttt{lc\_collate=C}),
 die der o.a. Rolle gehört.
 
 Falls Sie als Datenbankpaßwort \emph{nicht} \texttt{veraweb} benutzen oder
@@ -1457,6 +1461,8 @@ Funktionalität PDF-Vorlage.
   \\ Angebote von \tarent{} zu Service, Wartung und Hosting}
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=vwor/src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
+ \item{das Open-Source-Projekt zu VerA.web:
+  \href{https://evolvis.org/projects/veraweb/}{https://evolvis.org/projects/veraweb/}}
  \item{die in der Anwendung selbst oben rechts verlinkten
   \emph{Lizenzbestimmungen},\\ inklusive Quellkode der
   Anwendung und aller gebündelten Abhängigkeiten}
