@@ -91,7 +91,6 @@
 		<maven.dockerfile.version>1.4.13</maven.dockerfile.version>
 		<maven.failsafe.version>2.22.0</maven.failsafe.version>
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
-		<maven.karma.version>1.8</maven.karma.version>
 		<maven.owasp.dependency-check.version>5.3.2</maven.owasp.dependency-check.version>
 		<!-- dependency management -->
 		<activation.version>1.2.1</activation.version>
@@ -302,11 +301,6 @@
 							<arg>-Xlint:-unchecked</arg>
 						</compilerArgs>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>com.kelveden</groupId>
-					<artifactId>maven-karma-plugin</artifactId>
-					<version>${maven.karma.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
