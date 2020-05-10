@@ -98,7 +98,7 @@ ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
     --date=format-local:%Y%m%d%H%M.%S)
 
 # omit what will end up in depsrcs anyway
-rm -rf "$tgname/release/depsrc"
+#rm -rf "$tgname/release/depsrc"
 
 # create source tarball
 cd "$tbname"
