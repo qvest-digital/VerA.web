@@ -10,8 +10,8 @@
 			<directory>release</directory>
 			<outputDirectory/>
 			<excludes>
-				<exclude>Jenkins</exclude>
-				<exclude>depsrc</exclude>
+				<exclude>Jenkins/**</exclude>
+				<exclude>depsrc/**</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>

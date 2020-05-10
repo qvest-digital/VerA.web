@@ -12,6 +12,9 @@
 		<fileSet>
 			<directory>src/main/resources/l10n</directory>
 			<outputDirectory>l10n</outputDirectory>
+			<excludes>
+				<exclude>generate_GM/**</exclude>
+			</excludes>
 		</fileSet>
 	</fileSets>
 	<files>
