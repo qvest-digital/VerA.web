@@ -1600,6 +1600,13 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ General Public License for more details.                                 │
 └──────────────────────────────────────────────────────────────────────────┘
 
+┌──┤ Hibernate Validator annotation processor (Apache 2) ├─────────────────┐
+│                                                                          │
+│ Copyright © Guillaume Smet, Gunnar Morling, Hardy Ferentschik,           │
+│ Kevin Pollet <kevin.pollet@serli.com> (C) 2011 SERLI,                    │
+│ Khalid Alqinyah, Marko Bekhta, Nicola Ferraro                            │
+└──────────────────────────────────────────────────────────────────────────┘
+
 ┌──┤ Sun istack (3-clause BSD) ├───────────────────────────────────────────┐
 │                                                                          │
 │ Copyright (c) 2017 Oracle and/or its affiliates. All rights reserved.    │
