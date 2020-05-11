@@ -12,7 +12,7 @@
 	<description>VerA.web embedded middleware</description>
 	<properties>
 		<!-- common but older versions of dependencies -->
-		<junit.version>3.8.1</junit.version>
+		<junit.version>3.8.2</junit.version>
 	</properties>
 	<modules>
 		<module>OCTOPUS</module>
