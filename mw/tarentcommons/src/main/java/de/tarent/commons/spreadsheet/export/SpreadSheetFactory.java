@@ -100,7 +100,6 @@ import de.tarent.commons.spreadsheet.export.ods.ODSContent;
 import de.tarent.commons.spreadsheet.export.ods.ODSDocument;
 import de.tarent.commons.spreadsheet.export.sxc.SXCContent;
 import de.tarent.commons.spreadsheet.export.sxc.SXCDocument;
-import de.tarent.commons.spreadsheet.export.xls.XLSSpreadSheet;
 
 /**
  * Hilfsklasse für SpreadSheets.
@@ -134,10 +133,6 @@ public class SpreadSheetFactory {
      */
     public static final String TYPE_ODS_CONTENT = "ods-content";
     /**
-     * Gibt eine SpreadSheet-Instanz zurück, welches ein Excel XLS-Dokument erzeugen kann.
-     */
-    public static final String TYPE_XLS_DOCUMENT = "xls";
-    /**
      * Gibt die standard SpreadSheet-Instanz, aktuell: {@link #TYPE_ODS_DOCUMENT}
      */
     public static final String TYPE_DEFAULT = TYPE_ODS_DOCUMENT;
@@ -160,8 +155,6 @@ public class SpreadSheetFactory {
             return new ODSContent();
         } else if (TYPE_ODS_DOCUMENT.equals(type)) {
             return new ODSDocument();
-        } else if (TYPE_XLS_DOCUMENT.equals(type)) {
-            return new XLSSpreadSheet();
         } else {
             return getSpreadSheet(TYPE_DEFAULT);
         }

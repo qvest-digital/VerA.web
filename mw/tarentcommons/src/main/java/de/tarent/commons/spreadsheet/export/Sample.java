@@ -118,7 +118,6 @@ public class Sample {
             testXML(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_ODS_CONTENT));
             testFile(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_SXC_DOCUMENT));
             testFile(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_ODS_DOCUMENT));
-            testFile(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_XLS_DOCUMENT));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -139,7 +139,6 @@
 		<mockito.version>3.3.3</mockito.version>
 		<oro.version>2.0.8</oro.version>
 		<pdfbox.version>2.0.19</pdfbox.version>
-		<poi.version>4.1.2</poi.version>
 		<postgresql.version>42.2.12</postgresql.version>
 		<rs-api.version>2.1.6</rs-api.version>
 		<selenium.version>3.141.59</selenium.version>
@@ -672,11 +671,6 @@
 						<artifactId>commons-logging</artifactId>
 					</exclusion>
 				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.poi</groupId>
-				<artifactId>poi</artifactId>
-				<version>${poi.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.codehaus.groovy</groupId>
