@@ -163,8 +163,8 @@ function doit {
 # this is the list of files
 doit antlr-2.7.7.tar.gz \
     antlr antlr 2.7.7
-doit byte-buddy-1.10.3.cpio.xz \
-    net.bytebuddy byte-buddy 1.10.3
+#doit byte-buddy-1.10.3.cpio.xz \
+#    net.bytebuddy byte-buddy 1.10.3
 doit xmlrpc-1.2-b1-src.tar.gz \
     xmlrpc xmlrpc 1.2-b1
 
