@@ -93,7 +93,7 @@
 		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
 		<maven.owasp.dependency-check.version>5.3.2</maven.owasp.dependency-check.version>
 		<!-- dependency management -->
-		<activation.version>1.2.1</activation.version>
+		<activation.version>1.2.2</activation.version>
 		<awaitility.version>3.1.0</awaitility.version>
 		<axis.version>1.4</axis.version>
 		<axis-wsdl4j.version>1.5.1</axis-wsdl4j.version>
