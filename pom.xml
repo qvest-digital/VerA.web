@@ -200,6 +200,12 @@
 					<scope>test</scope>
 				</dependency>
 				<dependency>
+					<groupId>org.hibernate.validator</groupId>
+					<artifactId>hibernate-validator-annotation-processor</artifactId>
+					<version>${hibernate.validator.version}</version>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
 					<groupId>org.projectlombok</groupId>
 					<artifactId>lombok</artifactId>
 					<scope>provided</scope>
@@ -299,13 +305,6 @@
 							<!-- for now: -->
 							<arg>-Xlint:-unchecked</arg>
 						</compilerArgs>
-						<annotationProcessorPaths>
-							<path>
-								<groupId>org.hibernate.validator</groupId>
-								<artifactId>hibernate-validator-annotation-processor</artifactId>
-								<version>${hibernate.validator.version}</version>
-							</path>
-						</annotationProcessorPaths>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -394,8 +393,10 @@
 						<id>analyse-dependency-usage</id>
 						<configuration>
 							<ignoredUnusedDeclaredDependencies combine.children="append">
+								<!-- with-implicit-dependencies profile -->
 								<ignoredUnusedDeclaredDependency>org.apache.logging.log4j:log4j-core</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.evolvis.tartools:maven-parent</ignoredUnusedDeclaredDependency>
+								<ignoredUnusedDeclaredDependency>org.hibernate.validator:hibernate-validator-annotation-processor</ignoredUnusedDeclaredDependency>
 								<ignoredUnusedDeclaredDependency>org.projectlombok:lombok</ignoredUnusedDeclaredDependency>
 							</ignoredUnusedDeclaredDependencies>
 						</configuration>
