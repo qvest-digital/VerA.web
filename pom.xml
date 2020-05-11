@@ -124,7 +124,7 @@
 		<httpcore.version>4.4.13</httpcore.version>
 		<istack.version>3.0.11</istack.version>
 		<jackson.version>2.11.0</jackson.version>
-		<javassist.version>3.25.0-GA</javassist.version>
+		<javassist.version>3.27.0-GA</javassist.version>
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.6.2</javax.mail.version>
 		<javax.persistence.version>2.2</javax.persistence.version>
