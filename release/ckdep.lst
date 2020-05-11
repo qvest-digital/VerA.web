@@ -11,6 +11,7 @@ com.h2database:h2 1.4.200 test ok
 com.sun.activation:jakarta.activation 1.2.2 compile TODO
 com.sun.activation:jakarta.activation 1.2.2 runtime TODO
 com.sun.istack:istack-commons-runtime 3.0.11 compile TODO
+com.sun.mail:javax.mail 1.6.2 compile TODO
 com.zaxxer:SparseBitSet 1.2 compile TODO
 commons-cli:commons-cli 1.2 compile ok
 commons-codec:commons-codec 1.14 compile TODO
@@ -45,7 +46,6 @@ jakarta.annotation:jakarta.annotation-api 1.3.5 compile ok
 jakarta.validation:jakarta.validation-api 2.0.2 compile ok
 jakarta.ws.rs:jakarta.ws.rs-api 2.1.6 compile ok
 jakarta.xml.bind:jakarta.xml.bind-api 2.3.3 compile TODO
-javax.mail:javax.mail-api 1.6.2 compile TODO
 javax.persistence:javax.persistence-api 2.2 compile ok
 javax.servlet:javax.servlet-api 3.1.0 provided ok
 junit:junit 3.8.2 test ok
