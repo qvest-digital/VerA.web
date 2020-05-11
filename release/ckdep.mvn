@@ -22,7 +22,7 @@ jakarta.annotation jakarta.annotation-api 1.3.5
 jakarta.validation jakarta.validation-api 2.0.2
 jakarta.ws.rs jakarta.ws.rs-api 2.1.6
 jakarta.xml.bind jakarta.xml.bind-api 2.3.3
-javax.mail mail 1.4.7
+javax.mail javax.mail-api 1.6.2
 javax.persistence javax.persistence-api 2.2
 net.bytebuddy byte-buddy 1.10.10
 net.jodah expiringmap 0.5.9
