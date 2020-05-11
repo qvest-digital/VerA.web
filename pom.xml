@@ -301,6 +301,13 @@
 							<!-- for now: -->
 							<arg>-Xlint:-unchecked</arg>
 						</compilerArgs>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.hibernate.validator</groupId>
+								<artifactId>hibernate-validator-annotation-processor</artifactId>
+								<version>${hibernate.validator.version}</version>
+							</path>
+						</annotationProcessorPaths>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -827,22 +834,6 @@
 						<artifactId>jaxb-api</artifactId>
 					</exclusion>
 				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate.validator</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>${hibernate.validator.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>javax.validation</groupId>
-						<artifactId>validation-api</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate.validator</groupId>
-				<artifactId>hibernate-validator-annotation-processor</artifactId>
-				<version>${hibernate.validator.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.javassist</groupId>
