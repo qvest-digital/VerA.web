@@ -232,7 +232,6 @@
 					<execution>
 						<id>analyse-dependency-usage</id>
 						<configuration>
-							<failOnWarning>false</failOnWarning>
 							<usedDependencies>
 								<!-- OCTOPUS extensions -->
 								<usedDependency>org.evolvis.veraweb.middleware:octopus-ext-cronjobs</usedDependency>
