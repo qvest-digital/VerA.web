@@ -43,7 +43,7 @@ package de.tarent.veraweb.proxy;
  *  © 2007 Alex Maier (a.maier@tarent.de)
  *  © 2014, 2015 Max Marche (m.marche@tarent.de)
  *  © 2007 Jan Meyer (jan@evolvis.org)
- *  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+ *  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020
  *     mirabilos (t.glaser@tarent.de)
  *  © 2016 Cristian Molina (c.molina@tarent.de)
  *  © 2006, 2007 Jens Neumaier (j.neumaier@tarent.de)
@@ -106,7 +106,6 @@ import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.params.HttpParams;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -116,7 +115,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
-    private static final long serialVersionUID = -7334393942401621163L;
+    private static final long serialVersionUID = 432869367913890122L;
 
     private static final String PERSONAL_CONFIG_VERAWEB = "personalConfig-veraweb";
     private static final String VWOR_AUTH_PASSWORD = "vwor.auth.password";
@@ -140,10 +139,11 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
         implicitProperties.setProperty(P_USER, verawebProperties.getProperty(VWOR_AUTH_USER));
         implicitProperties.setProperty(P_PASSWORD, verawebProperties.getProperty(VWOR_AUTH_PASSWORD));
         implicitProperties.setProperty(P_REQUIRED_GROUP, PersonalConfig.GROUP_ADMINISTRATOR);
-        super.init();
 
         // Authorization headers must not be copied from the original request!
         hopByHopHeaders.addHeader(new BasicHeader("Authorization", null));
+
+        super.init();
     }
 
     @Override
@@ -157,6 +157,7 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
         if (configParam != null) {
             return configParam;
         }
+
         if (implicitProperties.containsKey(key0)) {
             return implicitProperties.getProperty(key0);
         }
@@ -164,16 +165,25 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    protected HttpClient createHttpClient(final HttpParams hcParams) {
-        final HttpRequestInterceptor itcp = (request, context) -> {
+    protected HttpClient createHttpClient() {
+        // this is what super.createHttpClient() does
+        final HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+        clientBuilder.setDefaultRequestConfig(buildRequestConfig());
+        clientBuilder.setDefaultSocketConfig(buildSocketConfig());
+        clientBuilder.setMaxConnTotal(maxConnections);
+        if (useSystemProperties) {
+            clientBuilder.useSystemProperties();
+        }
+
+        // overrides
+        clientBuilder.disableAutomaticRetries();
+        clientBuilder.addInterceptorLast((HttpRequestInterceptor) (request, context) -> {
             if (request instanceof HttpEntityEnclosingRequest) {
                 final HttpEntityEnclosingRequest eeRequest = (HttpEntityEnclosingRequest) request;
                 eeRequest.setEntity(new BufferedHttpEntity(eeRequest.getEntity()));
             }
-        };
-        final HttpClientBuilder builder =
-          HttpClientBuilder.create().disableAutomaticRetries().addInterceptorLast(itcp).disableRedirectHandling();
+        });
+        clientBuilder.disableRedirectHandling();
 
         final String username = getConfigParam(P_USER);
         final String password = getConfigParam(P_PASSWORD);
@@ -181,13 +191,15 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
             final Credentials credentials = new UsernamePasswordCredentials(username, password);
             final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
             credentialsProvider.setCredentials(AuthScope.ANY, credentials);
-            builder.setDefaultCredentialsProvider(credentialsProvider);
+            clientBuilder.setDefaultCredentialsProvider(credentialsProvider);
         }
-        return builder.build();
+
+        return clientBuilder.build();
     }
 
     @Override
-    protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(final HttpServletRequest req, final HttpServletResponse resp)
+      throws ServletException, IOException {
         if (hasGroup(req.getSession(), getConfigParam(P_REQUIRED_GROUP))) {
             super.service(req, resp);
         } else {

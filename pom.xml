@@ -143,7 +143,7 @@
 		<postgresql.version>42.2.12</postgresql.version>
 		<rs-api.version>2.1.6</rs-api.version>
 		<selenium.version>3.141.59</selenium.version>
-		<smiley-http-proxy-servlet.version>1.8</smiley-http-proxy-servlet.version>
+		<smiley-http-proxy-servlet.version>1.11</smiley-http-proxy-servlet.version>
 		<spock-core.version>1.3-groovy-2.5</spock-core.version>
 		<spring.version>4.3.27.RELEASE</spring.version>
 		<velocity.version>1.4</velocity.version>
