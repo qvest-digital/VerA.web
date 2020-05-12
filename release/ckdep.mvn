@@ -11,7 +11,6 @@ com.fasterxml.jackson.module jackson-module-jaxb-annotations 2.10.1
 com.sun.activation jakarta.activation 1.2.1
 com.sun.istack istack-commons-runtime 3.0.10
 com.sun.xml.fastinfoset FastInfoset 1.2.16
-com.zwitserloot cmdreader 1.2
 commons-cli commons-cli 1.2
 commons-codec commons-codec 1.13
 commons-collections commons-collections 3.2.2
