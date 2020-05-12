@@ -250,6 +250,7 @@
 								<!-- must be in the classpath -->
 								<usedDependency>org.apache.logging.log4j:log4j-web</usedDependency>
 								<usedDependency>org.glassfish.jersey.inject:jersey-hk2</usedDependency>
+								<usedDependency>org.glassfish:javax.el</usedDependency>
 								<usedDependency>org.hibernate.validator:hibernate-validator</usedDependency>
 							</usedDependencies>
 						</configuration>
