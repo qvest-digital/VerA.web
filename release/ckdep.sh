@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016, 2017, 2018, 2019
+# Copyright © 2016, 2017, 2018, 2019, 2020
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -193,7 +193,7 @@ function depround {
 				    $ga $v "${x@Q}" for $rest $scope
 				(( abend |= 2 ))
 			fi
-			print -ru4 -- $ga $v $scope
+			[[ $x = unreleased ]] || print -ru4 -- $ga $v $scope
 			print -ru5 -- inside::$rest::$ga $v embedded ok
 			recurse+=("$ga $v $scope")
 		done
