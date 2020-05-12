@@ -122,7 +122,20 @@ function dopom {
 	# OWASP to consider: https://github.com/jeremylong/DependencyCheck/issues/2349
 	domvn -f ckdep.pom -Dwithout-implicit-dependencies >>ckdep.pom.tmp
 }
-function dodoc {
+function dodoc_! {
+	local scope=$1; shift
+	print -ru2 -- "[INFO] resolving embedded-code-copy-document-$1 [$scope]"
+	shift
+	set -o noglob
+	for gav in "$@"; do
+		IFS=:
+		set -- $gav
+		IFS=$saveIFS
+		print -r -- "[INFO]    $1:$2:jar:$3:doc-only"
+	done | scanmvn >>ckdep.pom.tmp
+	set +o noglob
+}
+function dodoc_+ {
 	local scope=$1; shift
 	print -ru2 -- "[INFO] resolving embedded-code-copy-insert-$1 [$scope]"
 	shift
@@ -142,8 +155,8 @@ set -A cc_nomvn
 ncc=0
 [[ ! -s ckdep.ins ]] || while read first rest; do
 	[[ $first != ?('#'*) ]] || continue
-	if [[ $first = '!'* ]]; then
-		cc_nomvn[ncc]=x
+	if [[ $first = [+!]* ]]; then
+		cc_nomvn[ncc]=${first::1}
 		first=${first#?}
 	fi
 	cc_where[ncc]=$first
@@ -168,7 +181,7 @@ function depround {
 			if [[ -n ${cc_nomvn[i]} ]]; then
 				print -ru2 -- "[INFO]" documentation-only \
 				    dependencies for ${cc_where[i]}
-				dodoc $scope $i ${cc_which[i]}
+				dodoc_"${cc_nomvn[i]}" $scope $i ${cc_which[i]}
 			else
 				print -ru2 -- "[INFO]" analysing embedded \
 				    code copies found inside ${cc_where[i]}
@@ -188,12 +201,12 @@ function depround {
 		set -A recurse
 		doscopes <ckdep.pom.tmp |&
 		while read -p ga v x; do
-			if [[ $x != @(unreleased|"$scope") ]]; then
+			if [[ $x != @(doc-only|unreleased|"$scope") ]]; then
 				print -ru2 -- "[ERROR]" unexpected scope \
 				    $ga $v "${x@Q}" for $rest $scope
 				(( abend |= 2 ))
 			fi
-			[[ $x = unreleased ]] || print -ru4 -- $ga $v $scope
+			[[ $x = doc-only ]] || print -ru4 -- $ga $v $scope
 			print -ru5 -- inside::$rest::$ga $v embedded ok
 			recurse+=("$ga $v $scope")
 		done
