@@ -117,6 +117,10 @@
 			<artifactId>jersey-hk2</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.mitre.dsmiley.httpproxy</groupId>
 			<artifactId>smiley-http-proxy-servlet</artifactId>
 		</dependency>
@@ -242,6 +246,7 @@
 								<!-- must be in the classpath -->
 								<usedDependency>org.apache.logging.log4j:log4j-web</usedDependency>
 								<usedDependency>org.glassfish.jersey.inject:jersey-hk2</usedDependency>
+								<usedDependency>org.hibernate.validator:hibernate-validator</usedDependency>
 							</usedDependencies>
 						</configuration>
 					</execution>

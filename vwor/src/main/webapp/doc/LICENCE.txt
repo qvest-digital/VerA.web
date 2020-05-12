@@ -1600,11 +1600,43 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ General Public License for more details.                                 │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ Hibernate Validator annotation processor (Apache 2) ├─────────────────┐
+┌──┤ Hibernate Validator (Apache 2) ├──────────────────────────────────────┐
 │                                                                          │
-│ Copyright © Guillaume Smet, Gunnar Morling, Hardy Ferentschik,           │
-│ Kevin Pollet <kevin.pollet@serli.com> (C) 2011 SERLI,                    │
-│ Khalid Alqinyah, Marko Bekhta, Nicola Ferraro                            │
+│ Copyright © Adam Stawicki; Ahmed Al Hafoudh; Alaa Nassef;                │
+│ Andrey Derevyanko; Andrey Rodionov; Asutosh Pandya; Benson Margulies;    │
+│ Brent Douglas; Carlo de Wolf <cdewolf@redhat.com>; Carlos Vara;          │
+│ Chris Beckey <cbeckey@paypal.com>; Christian Ivan; Dag Hovland;          │
+│ Damir Alibegovic; Dario Seidl; Davide D'Alto; Davide Marchignoli;        │
+│ Denis Tiago; Doug Lea; Efthymis Sarbanis; Emmanuel Bernard; Federico;    │
+│ Federico Mancini; Gavin King; George Gastaldi; Gerhard Petracek;         │
+│ Guillaume Husta; Guillaume Smet; Gunnar Morling; Hardy Ferentschik;      │
+│ Henno Vermeulen; Hillmer Chona; Jan-Willem Willebrands; Jason T. Greene; │
+│ Jesper Preuss; Jiri Bilek; Julien Furgerot; Julien May; Juraci Krohling; │
+│ Justin Nauman; Kathryn Killebrew; Kazuki Shimizu;                        │
+│ Kevin Pollet <kevin.pollet@serli.com> (C) 2011, 2012 SERLI;              │
+│ Khalid Alqinyah; Lee KyoungIl; Leonardo Loch Zanivan; Lucas Pouzac;      │
+│ Lukas Niemeier; Mark Hobson; Marko Bekhta; Matthias Kurz; Mert Çalişkan; │
+│ Michal Fotyga; Nicola Ferraro; Nicolas François; Paolo Perrotta;         │
+│ Pete Muir; Rob Dickinson; Sanne Grinovero; Sebastian Bayerl;             │
+│ Shahram Goodarzi; Shane Bryzak; Shelly McGowan; Sjaak Derksen;           │
+│ Steve Ebersole; Steven Walters; Strong Liu; Tadhg Pearson; Takashi Aoe;  │
+│ Tomaz Cerar; Tommy Johansen; Toni Menzel <toni@rebaze.com>;              │
+│ Victor Rezende dos Santos; Willi Schönborn; Xavier Sosnovsky;            │
+│ Yanming Zhou; Yoann Rodière                                              │
+│                                                                          │
+│ Copyright 2009 IIZUKA Software Technologies Ltd                          │
+│                                                                          │
+│ Licensed under the Apache License, Version 2.0 (the "License");          │
+│ you may not use this file except in compliance with the License.         │
+│ You may obtain a copy of the License at                                  │
+│                                                                          │
+│     http://www.apache.org/licenses/LICENSE-2.0                           │
+│                                                                          │
+│ Unless required by applicable law or agreed to in writing, software      │
+│ distributed under the License is distributed on an "AS IS" BASIS,        │
+│ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. │
+│ See the License for the specific language governing permissions and      │
+│ limitations under the License.                                           │
 └──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ Sun istack (3-clause BSD) ├───────────────────────────────────────────┐
