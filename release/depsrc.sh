@@ -1,7 +1,7 @@
 #!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2018, 2019
+# Copyright © 2018, 2019, 2020
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -21,7 +21,7 @@
 #-
 # Build tarball containing source JARs of dependencies. Assume those
 # without suitable source in Maven Central have distfiles copied and
-# placed under release/depsrc/ as courtesy copy.
+# placed under $depsrcpath/ as courtesy copy.
 #
 # Scope is to provide sources of the artefacts we ship, for some li‐
 # cences; we ship what we can, but Maven only makes source JARs pro‐
@@ -34,24 +34,39 @@
 export LC_ALL=C
 unset LANGUAGE
 PS4='++ '
-# check that we’re really run from mvn
-if [[ -z $DEPSRC_RUN_FROM_MAVEN ]]; then
-	print -ru2 -- "[ERROR] do not call me directly, I am only used by Maven"
-	export -p
-	exit 1
-fi
-# initialisation
 set -e
 set -o pipefail
-cd "$(dirname "$0")/.."
+parentpompath=..
+depsrcpath=release/depsrc
+
+errmsg() (
+	print -ru2 -- "[ERROR] $1"
+	shift
+	IFS=$'\n'
+	set -o noglob
+	set -- $*
+	for x in "$@"; do
+		print -ru2 -- "[INFO] $x"
+	done
+)
+function die {
+	errmsg "$@"
+	exit 1
+}
+
+# check that we’re really run from mvn
+[[ -n $DEPSRC_RUN_FROM_MAVEN ]] || die \
+    'do not call me directly, I am only used by Maven' \
+    "$(export -p)"
+# initialisation
+cd "$(dirname "$0")"
+ancillarypath=$PWD
+cd "$parentpompath"
 mkdir -p target
 rm -rf target/dep-srcs*
 
-if [[ ! -d release/depsrc/. ]]; then
-	# look at this script further below for a list of files
-	print -ru2 -- "[ERROR] add release/depsrc/ from deps-src.zip"
-	exit 1
-fi
+# look at this script further below for a list of files
+[[ -d $depsrcpath/. ]] || die "add $depsrcpath/ from deps-src.zip"
 
 # get project metadata
 <pom.xml xmlstarlet sel \
@@ -75,7 +90,7 @@ function dopom {
 			<groupId>$pgID</groupId>
 			<artifactId>$paID</artifactId>
 			<version>$pVSN</version>
-			<relativePath>../</relativePath>
+			<relativePath>$parentpompath/</relativePath>
 		</parent>
 		<artifactId>release-sources-$npoms</artifactId>
 		<packaging>jar</packaging>
@@ -129,7 +144,7 @@ function dopom {
 	let ++npoms
 	mv target/pom-srcs.out target/pom-srcs.in
 }
-cat release/ckdep.mvn >target/pom-srcs.in
+cat "$ancillarypath"/ckdep.mvn >target/pom-srcs.in
 while [[ -s target/pom-srcs.in ]]; do
 	dopom
 done
@@ -147,12 +162,10 @@ done
 set +x
 
 function doit {
-	local f=release/depsrc/$1 g=${2//./'/'} a=$3 v=$4
+	local f=$depsrcpath/$1 g=${2//./'/'} a=$3 v=$4
 
-	if [[ -d target/dep-srcs/$g/$a ]]; then
-		print -ru2 -- "[ERROR] missing dependency sources unexpectedly found"
-		exit 1
-	fi
+	[[ ! -d target/dep-srcs/$g/$a ]] || die \
+	    'missing dependency sources unexpectedly found'
 	mkdir -p target/dep-srcs/$g/$a
 	mkdir target/dep-srcs/$g/$a/$v
 	cp $f target/dep-srcs/$g/$a/$v/
@@ -190,8 +203,8 @@ find target/dep-srcs/ -type f | \
 		x=${x%/*}
 		print -r -- ${x//'/'/.} $p $v
 done | sort | set_e_grep -v "${exclusions[@]}" >target/dep-srcs.actual
-set_e_grep -v "${inclusions[@]}" <release/ckdep.mvn \
+set_e_grep -v "${inclusions[@]}" <"$ancillarypath"/ckdep.mvn \
     >target/dep-srcs.expected
 diff -u target/dep-srcs.actual target/dep-srcs.expected
-print -r -- "[INFO] release/depsrc.sh finished"
+print -r -- "[INFO] depsrc.sh finished"
 # leave the rest to the maven-assembly-plugin

@@ -20,7 +20,6 @@
 # of said person’s immediate fault when using the work as intended.
 #-
 # Build-specific tool to create a tarball of the entire source code.
-# We omit the depsrc extras though.
 
 # initialisation
 export LC_ALL=C
@@ -29,6 +28,7 @@ PS4='++ '
 unset GZIP
 set -e
 set -o pipefail
+parentpompath=..
 
 errmsg() (
 	print -ru2 -- "[ERROR] $1"
@@ -50,7 +50,7 @@ function die {
     'do not call me directly, I am only used by Maven' \
     "$(export -p)"
 # initialisation
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/$parentpompath"
 [[ ! -e failed ]] || die \
     'do not build from incomplete/dirty tree' \
     'a previous mksrc failed and you used its result'
@@ -123,18 +123,14 @@ ln "../$tzname.tgz" src.tgz
 rm -f deps-src.zip
 cd ..
 found=0
-for x in veraweb-parent-*-sources-of-dependencies.zip; do
+for x in *-sources-of-dependencies.zip; do
 	[[ -e $x && -f $x && ! -h $x && -s $x ]] || continue
 	if (( found++ )); then
-		print -ru2 -- "[ERROR] multiple depsrcs archives found:"
-		ls -l veraweb-parent-*-sources-of-dependencies.zip | \
-		    sed 's/^/[INFO] /' >&2
+		errmsg 'multiple depsrcs archives found:' \
+		    "$(ls -l *-sources-of-dependencies.zip)"
 		break
 	fi
 	fn=$x
 done
-if (( found != 1 )); then
-	print -ru2 -- "[ERROR] could not link dependency sources"
-	exit 1
-fi
+(( found == 1 )) || die 'could not link dependency sources'
 ln "$fn" mksrc/deps-src.zip

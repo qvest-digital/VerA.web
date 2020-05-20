@@ -27,6 +27,7 @@ unset LANGUAGE
 PS4='++ '
 set -e
 set -o pipefail
+parentpompath=..
 cd "$(dirname "$0")"
 saveIFS=$' \t\n'
 print -ru2 -- '[INFO] ckdep.sh starting'
@@ -42,8 +43,7 @@ case $?:$x {
 }
 
 # get project metadata
-pompath=..
-<"$pompath/pom.xml" xmlstarlet sel \
+<"$parentpompath/pom.xml" xmlstarlet sel \
     -N pom=http://maven.apache.org/POM/4.0.0 -T -t \
     -c /pom:project/pom:groupId -n \
     -c /pom:project/pom:artifactId -n \
@@ -82,7 +82,7 @@ function doscopes {
 		lastgav=$ga:$v lastscope=$scope
 	done
 }
-(cd .. && domvn) | doscopes | sort -u >ckdep.mvn.tmp
+(cd "$parentpompath" && domvn) | doscopes | sort -u >ckdep.mvn.tmp
 # deal with embedded copies
 function dopom {
 	local scope=$1; shift
@@ -93,7 +93,7 @@ function dopom {
 			<groupId>$pgID</groupId>
 			<artifactId>$paID</artifactId>
 			<version>$pVSN</version>
-			<relativePath>$pompath/</relativePath>
+			<relativePath>$parentpompath/</relativePath>
 		</parent>
 		<artifactId>embedded-code-copy-insert-$1</artifactId>
 		<packaging>jar</packaging>
