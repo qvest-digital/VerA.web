@@ -28,6 +28,7 @@ PS4='++ '
 set -e
 set -o pipefail
 parentpompath=..
+mvnprofiles=''
 cd "$(dirname "$0")"
 saveIFS=$' \t\n'
 print -ru2 -- '[INFO] ckdep.sh starting'
@@ -82,7 +83,7 @@ function doscopes {
 		lastgav=$ga:$v lastscope=$scope
 	done
 }
-(cd "$parentpompath" && domvn) | doscopes | sort -u >ckdep.mvn.tmp
+(cd "$parentpompath" && domvn $mvnprofiles) | doscopes | sort -u >ckdep.mvn.tmp
 # deal with embedded copies
 function dopom {
 	local scope=$1; shift
