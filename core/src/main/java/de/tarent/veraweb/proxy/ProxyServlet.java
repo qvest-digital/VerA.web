@@ -70,7 +70,7 @@ package de.tarent.veraweb.proxy;
  *  © 2013 Rebecca Weinz (r.weinz@tarent.de)
  *  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)
  *  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)
- * and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.
+ * and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

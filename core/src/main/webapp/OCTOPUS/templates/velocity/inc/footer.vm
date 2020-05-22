@@ -1,6 +1,6 @@
 	    <footer id="footer" style="position:relative;"><img
 	     src="${paths.staticWeb}images/tarent_logo.png"
-	     alt="tarent Logo" title="⮡ tarent"
+	     alt="tarent Logo" title="⮡ tarent"
 	    /></footer>
 	</div>
 	</body>

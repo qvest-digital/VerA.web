@@ -1,4 +1,4 @@
-Im folgenden finden Sie die Lizenzbedingungen für VerA.web von ⮡ tarent.
+Im folgenden finden Sie die Lizenzbedingungen für VerA.web von ⮡ tarent.
 
 ┌──┤ VerA.web (MIT) ├──────────────────────────────────────────────────────┐
 │                                                                          │
@@ -71,7 +71,7 @@ Im folgenden finden Sie die Lizenzbedingungen für VerA.web von ⮡ tarent.
 │  © 2013 Rebecca Weinz (r.weinz@tarent.de)                                │
 │  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)                             │
 │  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)                            │
-│ and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.    │
+│ and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.    │
 │ Licensor is tarent solutions GmbH, http://www.tarent.de/                 │
 │                                                                          │
 │ Permission is hereby granted, free of charge, to any person obtaining a  │
@@ -1041,7 +1041,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │                                                                          │
 │ The CSVFile tools are a collection of classes to deal with CSV files     │
 │ (comma-separated values). They have quite a history. This edition is     │
-│ developed by ⮡ tarent and published under the terms and conditions of    │
+│ developed by ⮡ tarent and published under the terms and conditions of    │
 │ the GNU LGPL (Lesser or Library General Public License), any version,    │
 │ as published by the Free Software Foundation. Some individual files      │
 │ are available as well under more liberal terms as documented below.      │
@@ -1062,7 +1062,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ Copyright © 2008 Carsten Klein <c.klein@tarent.de>                       │
 │ Copyright © 2005 Michael Klink <m.klink@tarent.de>                       │
 │ Copyright © 2013, 2015, 2018 mirabilos <t.glaser@tarent.de>              │
-│ and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.    │
+│ and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.    │
 │                                                                          │
 │ Copyright © 2005 Fabrizio Fazzino (under GNU LGPL) — also on             │
 │ http://sourceforge.net/projects/csvfile                                  │
