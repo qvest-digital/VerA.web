@@ -988,6 +988,16 @@ indem Sie davor \texttt{<!--} und dahinter \texttt{-->} schreiben:
 \end{lstdump}
 \end{minipage}
 
+Der folgende Abschnitt ist abhängig von Ihrer Tomcat-Version. Falls Sie
+mindestens\label{manual:tcajpcve} Tomcat 7.0.100, 8.0.14-1+deb8u17, 8.5.51,
+9.0.31 oder später einsetzen müssen Sie im folgenden \emph{beide} Attribute
+hinzufügen, da sonst der Applikationsserver mit einer Fehlermeldung ähnlich
+„\texttt{java.lang.IllegalArgumentException: The AJP Connector is configured
+with secretRequired="true" but the secret attribute is either null or "".
+This combination is not valid.}“ nicht vollständig starten wird. Bei einer
+älteren Version existiert das Attribut \texttt{secretRequired} nicht; lassen
+Sie es dort einfach weg.
+
 \begin{minipage}{\linewidth}
 Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 50 Zeilen weiter):
 
@@ -995,11 +1005,11 @@ Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 50 Zeilen weiter):
 <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 \end{lstdump}
 
-Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
+Entfernen Sie hier die Kommentarzeichen und fügen Sie zwei weiteres Attribute
 hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 
 \begin{lstdump}[language=XML]{Tomcat AJP-Connector wanted}
-<Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+<Connector address="127.0.0.1" secretRequired="false" port="8009" protocol="AJP/1.3" redirectPort="8443" />
 \end{lstdump}
 \end{minipage}
 
@@ -1199,6 +1209,14 @@ die nicht nach dieser oder einer ähnlichen Anleitung installiert
 wurden, kontaktieren Sie bitte unseren Produktvertrieb oder, falls
 Sie bereits einen bestehenden Wartungsvertrag haben, unser Service-
 und Wartungsteam.
+
+\subsection{Upgrade von Versionen vor 2.3}\label{subsec:upgrade-core-before-tcajpcve}
+
+Es sind mittlerweile Sicherheitsupdates für den Applikationsserver
+Tomcat erschienen, die beim Start eine Fehlermeldung loggen und nicht
+vollständig starten. Bitte sehen Sie in Kapitel \ref{manual:tcajpcve},
+Listing 25, wie Sie Ihre \texttt{server.xml} anpassen, um auch mit
+einer aktuellen Tomcat-Version den Betrieb wiederherzustellen.
 
 \subsection{Upgrade von Versionen vor 2.0}\label{subsec:upgrade-core-before-no-oa}
 
@@ -1911,7 +1929,7 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
     -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->「
-    <Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+    <Connector address="127.0.0.1" secretRequired="false" port="8009" protocol="AJP/1.3" redirectPort="8443" />
 」
 
     <!-- An Engine represents the entry point (within Catalina) that processes
