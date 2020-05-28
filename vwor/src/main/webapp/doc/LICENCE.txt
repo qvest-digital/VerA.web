@@ -2116,7 +2116,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 
 ┌──┤ Javassist (MPLv1.1 or LGPLv2.1+ or Apache 2) ├────────────────────────┐
 │                                                                          │
-│ Copyright (C) 1999- Shigeru Chiba.                                       │
+│ Copyright (C) 1999-2020 Shigeru Chiba.                                   │
 │ Copyright (C) 2004 Bill Burke. All Rights Reserved.                      │
 │                                                                          │
 │ The contents of this file are subject to the Mozilla Public License      │
