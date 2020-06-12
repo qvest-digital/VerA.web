@@ -20,6 +20,7 @@ set -A depexcludes -- \
 #depsrcpath=src/dist/extra-depsrc
 depsrcpath=release/depsrc
 require_depsrcpath_present=1 # or 0
+drop_depsrc_from_mksrc=0 # or 1
 
 # exclusions for dependencyManagement ($g:$a:$v)
 depsrc_exclusions() {
@@ -46,7 +47,7 @@ depsrc_nosrc() {
 	return 1
 }
 
-# add from depsrcpath
+# add from depsrcpath; the first argument is the filename under $depsrcpath
 depsrc_add() {
 	doit antlr-2.7.7.tar.gz \
 	    antlr antlr 2.7.7

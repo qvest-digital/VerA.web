@@ -24,22 +24,23 @@
 # initialisation
 export LC_ALL=C
 unset LANGUAGE
-PS4='++ '
-unset GZIP
 set -e
 set -o pipefail
-parentpompath=..
+unset GZIP
+exec 8>&1 9>&2
 
-errmsg() (
-	print -ru2 -- "[ERROR] $1"
+function errmsg {
+	set -o noglob
+	local x
+
+	print -ru9 -- "$1"
 	shift
 	IFS=$'\n'
-	set -o noglob
 	set -- $*
 	for x in "$@"; do
-		print -ru2 -- "[INFO] $x"
+		print -ru9 -- "| $x"
 	done
-)
+}
 function die {
 	errmsg "$@"
 	exit 1
@@ -51,9 +52,10 @@ function die {
     "$(export -p)"
 # initialisation
 cd "$(dirname "$0")"
-ancdir=$PWD
-cd "./$parentpompath"
-ancdir=${ancdir#"$PWD"/}
+ancillarypath=$PWD
+. ./cksrc.sh
+cd "$parentpompath"
+
 [[ ! -e failed ]] || die \
     'do not build from incomplete/dirty tree' \
     'a previous mksrc failed and you used its result'
@@ -65,9 +67,13 @@ ancdir=${ancdir#"$PWD"/}
     -c /pom:project/pom:artifactId -n \
     -c /pom:project/pom:version -n \
     |&
-IFS= read -pr pgID
-IFS= read -pr paID
-IFS= read -pr pVSN
+e=0
+IFS= read -pr pgID || e=1
+IFS= read -pr paID || e=1
+IFS= read -pr pVSN || e=1
+[[ $e = 0 && -n $pgID && -n $paID && -n $pVSN ]] || die \
+    'could not get project metadata' \
+    "pgID=$pgID" "paID=$paID" "pVSN=$pVSN"
 # create base directory
 tbname=target/mksrc
 tzname=$paID-$pVSN-source
@@ -80,7 +86,7 @@ if [[ $IS_M2RELEASEBUILD = true ]]; then
 	# if the dependency list for licence review still has a to-do or
 	# fail item, fail the build (we can handle the current list sin‐
 	# ce ./ckdep.sh already fails the build for not up-to-date list)
-	if grep -e ' TO''DO$' -e ' FA''IL$' "$ancdir"/ckdep.lst; then
+	if grep -e ' TO''DO$' -e ' FA''IL$' "$ancillarypath"/ckdep.lst; then
 		die 'licence review incomplete'
 	fi
 fi
@@ -92,7 +98,7 @@ if [[ -n $x ]]; then
 	if [[ $IS_M2RELEASEBUILD = true ]]; then
 		:>"$tgname"/failed
 		:>"$tbname"/failed
-		print -ru2 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
+		print -ru8 -- "[WARNING] maven-release-plugin prepare, continuing anyway"
 		cd "$tbname"
 		paxtar -M dist -cf - "$tzname"/f* | gzip -n9 >"../$tzname.tgz"
 		rm -f src.tgz
@@ -102,22 +108,25 @@ if [[ -n $x ]]; then
 	exit 1
 fi
 
-# enable verbosity
-set -x
-
 # copy git HEAD state
+print -ru8 -- "copying source tree"
 git ls-tree -r --name-only -z HEAD | sort -z | paxcpio -p0du "$tgname/"
-ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
-    --date=format-local:%Y%m%d%H%M.%S)
+print -ru8 -- "trimming source tree"
 
-# omit what will end up in depsrcs anyway
-#rm -rf "$tgname/release/depsrc"
+# omit what will anyway end up in depsrcs
+if [[ $drop_depsrc_from_mksrc != 0 ]]; then
+	rm -rf "$tgname/$depsrcpath"
+fi
 
 # create source tarball
+ts=$(TZ=UTC git show --no-patch --pretty=format:%ad \
+    --date=format-local:%Y%m%d%H%M.%S)
 cd "$tbname"
 find "$tzname" -print0 | TZ=UTC xargs -0r touch -h -t "$ts" --
+print -ru8 -- "archiving source"
 find "$tzname" \( -type f -o -type l \) -print0 | sort -z | \
     paxcpio -oC512 -0 -Hustar -Mdist | gzip -n9 >"../$tzname.tgz"
+print -ru8 -- "moving source tarballs into place"
 rm -rf "$tzname"  # to save space
 rm -f src.tgz
 ln "../$tzname.tgz" src.tgz
@@ -137,3 +146,4 @@ for x in *-sources-of-dependencies.zip; do
 done
 (( found == 1 )) || die 'could not link dependency sources'
 ln "$fn" mksrc/deps-src.zip
+print -ru8 -- "mksrc.sh finished successfully"

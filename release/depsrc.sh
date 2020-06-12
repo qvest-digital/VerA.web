@@ -33,22 +33,22 @@
 # initialisation
 export LC_ALL=C
 unset LANGUAGE
-PS4='++ '
 set -e
 set -o pipefail
-parentpompath=..
-depsrcpath=release/depsrc
+exec 8>&1 9>&2
 
-errmsg() (
-	print -ru2 -- "[ERROR] $1"
+function errmsg {
+	set -o noglob
+	local x
+
+	print -ru9 -- "$1"
 	shift
 	IFS=$'\n'
-	set -o noglob
 	set -- $*
 	for x in "$@"; do
-		print -ru2 -- "[INFO] $x"
+		print -ru9 -- "| $x"
 	done
-)
+}
 function die {
 	errmsg "$@"
 	exit 1
@@ -61,12 +61,13 @@ function die {
 # initialisation
 cd "$(dirname "$0")"
 ancillarypath=$PWD
+. ./cksrc.sh
 cd "$parentpompath"
-mkdir -p target
-rm -rf target/dep-srcs*
 
-# look at this script further below for a list of files
-[[ -d $depsrcpath/. ]] || die "add $depsrcpath/ from deps-src.zip"
+# look at depsrc_add() in cksrc.sh to see the files in that directory
+if [[ $require_depsrcpath_present != 0 ]]; then
+	[[ -d $depsrcpath/. ]] || die "add $depsrcpath/ from deps-src.zip"
+fi
 
 # get project metadata
 <pom.xml xmlstarlet sel \
@@ -75,9 +76,16 @@ rm -rf target/dep-srcs*
     -c /pom:project/pom:artifactId -n \
     -c /pom:project/pom:version -n \
     |&
-IFS= read -pr pgID
-IFS= read -pr paID
-IFS= read -pr pVSN
+e=0
+IFS= read -pr pgID || e=1
+IFS= read -pr paID || e=1
+IFS= read -pr pVSN || e=1
+[[ $e = 0 && -n $pgID && -n $paID && -n $pVSN ]] || die \
+    'could not get project metadata' \
+    "pgID=$pgID" "paID=$paID" "pVSN=$pVSN"
+# create base directory
+mkdir -p target
+rm -rf target/dep-srcs*
 
 npoms=0
 function dopom {
@@ -97,7 +105,7 @@ function dopom {
 		<dependencyManagement>
 			<dependencies>
 	EOF
-	while read g a v; do
+	while read -r g a v; do
 		# check for multiple versions of same artefact
 		if [[ $has = *" $g:$a "* ]]; then
 			print -ru5 -- $g $a $v
@@ -105,21 +113,25 @@ function dopom {
 		fi
 		has+="$g:$a "
 
-		# <dependencyManagement><dependencies>
+		# <dependencyManagement>
+		#	<dependencies>
 		cat <<-EOF
 				<dependency>
 					<groupId>$g</groupId>
 					<artifactId>$a</artifactId>
 					<version>$v</version>
+		EOF
+		depsrc_exclusions
+		cat <<-EOF
 				</dependency>
 		EOF
-		# </dependencies></dependencyManagement>
+		#	</dependencies>
+		# </dependencyManagement>
 
-		# here: exclude webjars without meaningful sources
-		#if [[ $g = org.webjars.@(bower|bowergithub|npm)?(.*) ]]; then
-		#	# comment here on where to find the source
-		#	continue
-		#fi
+		if depsrc_nosrc; then
+			# see cksrc.sh for where to get sources
+			continue
+		fi
 
 		# <dependencies>
 		cat >&4 <<-EOF
@@ -140,7 +152,7 @@ function dopom {
 		</dependencies>
 	</project>
 	EOF
-	exec >&2
+	exec >&8
 	let ++npoms
 	mv target/pom-srcs.out target/pom-srcs.in
 }
@@ -149,18 +161,15 @@ while [[ -s target/pom-srcs.in ]]; do
 	dopom
 done
 
-set -x
 mkdir target/dep-srcs
 for pom in target/pom-srcs-*.xml; do
 	[[ -e $pom ]] || break # no dependencies case
+	print -ru8 -- "downloading dependencies #${pom//[!0-9]}"
 	mvn -B -f $pom -Dwithout-implicit-dependencies \
 	    -DexcludeTransitive=true -DoutputDirectory="$PWD/target/dep-srcs" \
 	    -Dclassifier=sources -Dmdep.useRepositoryLayout=true \
 	    dependency:copy-dependencies
 done
-
-: diff between actual and expected list
-set +x
 
 function doit {
 	local f=$depsrcpath/$1 g=${2//./'/'} a=$3 v=$4
@@ -172,11 +181,7 @@ function doit {
 	cp $f target/dep-srcs/$g/$a/$v/
 }
 
-# this is the list of files
-doit antlr-2.7.7.tar.gz \
-    antlr antlr 2.7.7
-doit xmlrpc-1.2-b1-src.tar.gz \
-    xmlrpc xmlrpc 1.2-b1
+depsrc_add
 
 set_e_grep() (
 	set +e
@@ -186,13 +191,6 @@ set_e_grep() (
 	exit $rv
 )
 
-set -A exclusions
-set -A inclusions
-#inclusions+=(-e '^# dummy, only needed if this array is empty otherwise$')
-# shipped in axis:axis source JAR
-inclusions+=(-e '^org\.apache\.axis axis-jaxrpc ')
-inclusions+=(-e '^org\.apache\.axis axis-saaj ')
-exclusions+=(-e '^# dummy$')
 find target/dep-srcs/ -type f | \
     set_e_grep -F -v -e _remote.repositories -e maven-metadata-local.xml | \
     while IFS= read -r x; do
@@ -203,9 +201,10 @@ find target/dep-srcs/ -type f | \
 		p=${x##*/}
 		x=${x%/*}
 		print -r -- ${x//'/'/.} $p $v
-done | sort | set_e_grep -v "${exclusions[@]}" >target/dep-srcs.actual
-set_e_grep -v "${inclusions[@]}" <"$ancillarypath"/ckdep.mvn \
+done | sort | set_e_grep -v "${depsrc_grep_exclusions[@]}" \
+    >target/dep-srcs.actual
+set_e_grep -v "${depsrc_grep_inclusions[@]}" <"$ancillarypath"/ckdep.mvn \
     >target/dep-srcs.expected
-diff -u target/dep-srcs.actual target/dep-srcs.expected
-print -r -- "[INFO] depsrc.sh finished"
+diff -u target/dep-srcs.actual target/dep-srcs.expected >&9
+print -ru8 -- "depsrc.sh finished successfully"
 # leave the rest to the maven-assembly-plugin
