@@ -94,11 +94,11 @@
 		<maven.owasp.dependency-check.version>5.3.2</maven.owasp.dependency-check.version>
 		<!-- dependency management -->
 		<activation.version>1.2.2</activation.version>
-		<awaitility.version>4.0.2</awaitility.version>
+		<awaitility.version>4.0.3</awaitility.version>
 		<axis.version>1.4</axis.version>
 		<axis-wsdl4j.version>1.5.1</axis-wsdl4j.version>
 		<background-jobs.version>1.25</background-jobs.version>
-		<bytebuddy.version>1.10.10</bytebuddy.version>
+		<bytebuddy.version>1.10.11</bytebuddy.version>
 		<chromedriver.version>2.40</chromedriver.version>
 		<classmate.version>1.5.1</classmate.version>
 		<commons-codec.version>1.14</commons-codec.version>
@@ -107,17 +107,17 @@
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<commons-discovery.version>0.5</commons-discovery.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
-		<commons-io.version>2.6</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<commons-lang3.version>3.10</commons-lang3.version>
 		<commons-pool.version>1.6</commons-pool.version>
 		<csvfile.version>2.3</csvfile.version>
 		<expiringmap.version>0.5.9</expiringmap.version>
 		<extract-tool.version>1.14</extract-tool.version>
 		<geb.version>2.3.1</geb.version>
-		<groovy.version>2.5.11</groovy.version>
+		<groovy.version>2.5.12</groovy.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
 		<h2.version>1.4.200</h2.version>
-		<hibernate.core.version>5.4.15.Final</hibernate.core.version>
+		<hibernate.core.version>5.4.17.Final</hibernate.core.version>
 		<hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
 		<hk2.version>2.6.1</hk2.version>
 		<httpclient.version>4.5.12</httpclient.version>
@@ -132,15 +132,15 @@
 		<jaxb-api.version>2.3.3</jaxb-api.version>
 		<jaxb-impl.version>2.3.3</jaxb-impl.version>
 		<jboss-logging.version>3.4.1.Final</jboss-logging.version>
-		<jersey.version>2.30.1</jersey.version>
+		<jersey.version>2.31</jersey.version>
 		<junit.version>4.13</junit.version>
-		<log4j.version>2.13.2</log4j.version>
+		<log4j.version>2.13.3</log4j.version>
 		<lombok.version>1.18.12</lombok.version>
 		<mimepull.version>1.9.13</mimepull.version>
 		<mockito.version>3.3.3</mockito.version>
 		<oro.version>2.0.8</oro.version>
-		<pdfbox.version>2.0.19</pdfbox.version>
-		<postgresql.version>42.2.12</postgresql.version>
+		<pdfbox.version>2.0.20</pdfbox.version>
+		<postgresql.version>42.2.14</postgresql.version>
 		<rs-api.version>2.1.6</rs-api.version>
 		<selenium.version>3.141.59</selenium.version>
 		<smiley-http-proxy-servlet.version>1.11</smiley-http-proxy-servlet.version>
