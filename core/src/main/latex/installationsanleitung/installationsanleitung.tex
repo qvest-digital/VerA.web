@@ -42,7 +42,7 @@
 
 % VerA.web Fassung der Installationsanleitung
 \newcommand{\vwiaversfassungnr}{7.7}
-\newcommand{\vwiaversfassungmonat}{Mai}
+\newcommand{\vwiaversfassungmonat}{Juni}
 \newcommand{\vwiaversfassungjahr}{2020}
 
 % VerA.web Version
@@ -376,42 +376,6 @@ involvieren:\keinumbruch
 
 Bei einem Upgrade möchten Sie ggfs. vorher eine Sicherung erstellen.
 
-\subsection{Exkurs: Wechsel von systemd nach sysvinit}\label{subsec:intro-sysvinit}
-
-Eine Standardinstallation (kein Upgrade) von Debian~8 „jessie“ oder neuer
-benutzt \texttt{systemd} als Init-System. Wir haben unsere Software jedoch
-ausschließlich mit \texttt{sysvinit}, das Unix-Administratoren vertrauter
-ist, getestet.
-
-\begin{minipage}{\linewidth}
-Zum Wechsel führen Sie folgenden Befehl aus:
-
-\begin{lstdump}{sysvinit installieren}
-sudo apt-get install sysvinit-core
-\end{lstdump}
-
-Danach rebooten Sie das System. Prüfen Sie dann, welches \texttt{init} läuft:
-
-\begin{lstdump}{init herausfinden}
-sudo ls -l /proc/1/exe
-\end{lstdump}
-
-Wenn hinter dem „Pfeil“ \texttt{->} in der Ausgabe der Text
-\texttt{/lib/systemd/systemd} steht war der Vorgang nicht
-erfolgreich; bei \texttt{/sbin/init} stimmt alles, und Sie
-können, falls Sie möchten (dies ist nicht zur Benutzung von
-VerA.web notwendig), nun \texttt{systemd} ganz entfernen:
-
-\begin{lstdump}{systemd entfernen}
-sudo apt-get purge --auto-remove systemd
-\end{lstdump}
-\end{minipage}
-
-Einer Nutzung von VerA.web unter \texttt{systemd} steht
-nichts Grundsätzliches im Wege; es sprengt lediglich den
-aktuellen Rahmen dieser Anleitung und erschwert die
-Nutzung von daemontools.
-
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
 In der Angabe für den benötigten Festplattenplatz ist die
@@ -430,11 +394,6 @@ einkalkuliert.
  Festplattengröße (HDD)   &    2 GB                &    8 GB       &   20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
 \end{tabu}
 
-Anmerkung: Debian~10 („buster“) wird mit OpenJDK~11 (nur unvollständig
-angetestet) und Tomcat~9 (ist \emph{nicht} kompatibel mit VerA.web)
-ausgeliefert und wird daher aktuell von abgeraten; einer Nutzung von
-\texttt{buster} mit Tomcat~8 steht jedoch grundsätzlich nichts entgegen.
-
 \hyperfootnotetext{\label{fn:req-tst-notmore}%
  wir haben keine größere Konfiguration getestet; eine praktische
  Obergrenze anzugeben ist jedoch unrealistisch}%
@@ -445,6 +404,11 @@ ausgeliefert und wird daher aktuell von abgeraten; einer Nutzung von
 \hyperfootnotetext{\label{fn:req-notmore}%
  neuere Versionen wurden nicht getestet oder existierten zum
  Testzeitpunkt nicht}%
+
+Anmerkung: Debian~10 („buster“) wird mit OpenJDK~11 (nur unvollständig
+angetestet) und Tomcat~9 (ist \emph{nicht} kompatibel mit VerA.web)
+ausgeliefert und wird daher aktuell von abgeraten; einer Nutzung von
+\texttt{buster} mit Tomcat~8 steht jedoch grundsätzlich nichts entgegen.
 
 \subsection{LDAP-Verzeichnisdienst}\label{subsec:req-ldap}
 
@@ -876,7 +840,7 @@ den Mandanten finden Sie als Benutzer mit Administratorenrechten im Menüpunkt
 Administration → Mandanten; die ID des eigenen zugeordneten Mandanten kann
 im Menüpunkt Verwaltung → Info eingesehen werden.
 
-\begin{lstdump}{Adresse für einzelne Mandanten setzen}
+\begin{lstdump}{Adresse einzelner Mandanten setzen}
 # sender address for all emails sent out
 mail.smtp.from=noreply@example.com
 # to use specific addresses for individual organisational units set
@@ -1215,7 +1179,7 @@ und Wartungsteam.
 Es sind mittlerweile Sicherheitsupdates für den Applikationsserver
 Tomcat erschienen, die beim Start eine Fehlermeldung loggen und nicht
 vollständig starten. Bitte sehen Sie in Kapitel \ref{manual:tcajpcve},
-Listing 25, wie Sie Ihre \texttt{server.xml} anpassen, um auch mit
+Listing 22, wie Sie Ihre \texttt{server.xml} anpassen, um auch mit
 einer aktuellen Tomcat-Version den Betrieb wiederherzustellen.
 
 \subsection{Upgrade von Versionen vor 2.0}\label{subsec:upgrade-core-before-no-oa}
