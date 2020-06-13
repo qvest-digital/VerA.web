@@ -15,7 +15,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
 	<version>2.3-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<name>org.evolvis.veraweb (parent)</name>
 	<description>VerA.web parent POM</description>
 	<url>https://evolvis.org/projects/veraweb/</url>
@@ -158,13 +158,13 @@
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
 		<tag>HEAD</tag>
 	</scm>
-	<!--modules>
+	<modules>
 		<module>mw</module>
 		<module>shared</module>
 		<module>core</module>
 		<module>vwor</module>
 		<module>release</module>
-	</modules-->
+	</modules>
 	<profiles>
 		<profile>
 			<id>test-only-dependencies</id>
@@ -173,9 +173,9 @@
 					<name>!skip-test-only-dependencies</name>
 				</property>
 			</activation>
-			<!--modules>
+			<modules>
 				<module>systemtest</module>
-			</modules-->
+			</modules>
 		</profile>
 		<profile>
 			<id>with-implicit-dependencies</id>
