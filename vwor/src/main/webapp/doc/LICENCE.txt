@@ -3259,7 +3259,7 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ limitations under the License.                                           │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ Spring Framework (Apache 2) ├─────────────────────────────────────────┐
+┌──┤ Spring Framework (Apache 2; 3-clause BSD) ├───────────────────────────┐
 │                                                                          │
 │ Copyright 2002-2020 the original author or authors.                      │
 │                                                                          │
