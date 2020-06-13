@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.evolvis.tartools</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>1.24</version>
+		<version>1.27</version>
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-parent</artifactId>
@@ -97,7 +97,7 @@
 		<awaitility.version>4.0.2</awaitility.version>
 		<axis.version>1.4</axis.version>
 		<axis-wsdl4j.version>1.5.1</axis-wsdl4j.version>
-		<background-jobs.version>1.23</background-jobs.version>
+		<background-jobs.version>1.25</background-jobs.version>
 		<bytebuddy.version>1.10.10</bytebuddy.version>
 		<chromedriver.version>2.40</chromedriver.version>
 		<classmate.version>1.5.1</classmate.version>
@@ -110,9 +110,9 @@
 		<commons-io.version>2.6</commons-io.version>
 		<commons-lang3.version>3.10</commons-lang3.version>
 		<commons-pool.version>1.6</commons-pool.version>
-		<csvfile.version>2.1</csvfile.version>
+		<csvfile.version>2.3</csvfile.version>
 		<expiringmap.version>0.5.9</expiringmap.version>
-		<extract-tool.version>1.12</extract-tool.version>
+		<extract-tool.version>1.14</extract-tool.version>
 		<geb.version>2.3.1</geb.version>
 		<groovy.version>2.5.11</groovy.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>

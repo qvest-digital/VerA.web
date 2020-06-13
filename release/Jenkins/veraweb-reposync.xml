@@ -2,7 +2,7 @@
 <project>
   <actions/>
   <description>Synchronise git repositories’ “master” branch between the&#xd;
-&#x2ba1; tarent-internal gitlab copy and the master on evolvis.org</description>
+&#x2ba1; tarent-internal gitlab copy and the master on evolvis.org</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
