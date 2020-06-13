@@ -11,7 +11,7 @@ com.fasterxml.jackson.module jackson-module-jaxb-annotations 2.11.0
 com.sun.activation jakarta.activation 1.2.2
 com.sun.istack istack-commons-runtime 3.0.11
 com.sun.mail javax.mail 1.6.2
-commons-cli commons-cli 1.2
+commons-cli commons-cli 1.4
 commons-codec commons-codec 1.14
 commons-collections commons-collections 3.2.2
 commons-dbcp commons-dbcp 1.4
