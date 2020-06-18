@@ -104,7 +104,6 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.junit.Before;
 import org.junit.Rule;
@@ -137,6 +136,7 @@ import static org.mockito.Mockito.when;
  * FIXME: Write an integration test with JerseyTest, see
  * https://blog.codecentric.de/en/2012/05/writing-lightweight-rest-integration-tests-with-the-jersey-test-framework/
  */
+@SuppressWarnings("rawtypes")
 @RunWith(MockitoJUnitRunner.class)
 public class MailingResourceTest {
     private static final String[] PATHS = { "ab", "aa\\bb", "aa.bb", "aa..bb" };
@@ -146,8 +146,6 @@ public class MailingResourceTest {
     private static SessionFactory sessionFactory;
     @Mock
     private static Session session;
-    @Mock
-    private static Transaction mockitoTransaction;
 
     private MailingResource objectToTest;
     private String tmpPath;
@@ -177,9 +175,10 @@ public class MailingResourceTest {
     }
 
     @Test
-    public void getTempFileWithInvalidPaths() throws IOException {
+    public void getTempFileWithInvalidPaths() {
         for (final String element : INVALID_PATHS) {
             try {
+                //noinspection ResultOfMethodCallIgnored
                 objectToTest.getTempFile(element).getCanonicalPath();
                 fail("Expected an exception!");
             } catch (final Exception e) {
@@ -189,7 +188,7 @@ public class MailingResourceTest {
     }
 
     @Test
-    public void testUploadFile() throws MessagingException, IOException {
+    public void testUploadFile() throws MessagingException {
         // GIVEN
         prepareSession();
         final MailDispatcher mailDispatcher = mock(MailDispatcher.class);
@@ -212,7 +211,7 @@ public class MailingResourceTest {
         mailinglist.setMailinglistId(1);
         mailinglist.setPerson(mock(Person.class));
         mailinglist.setPk(1);
-        final List ids = new ArrayList();
+        final List<PersonMailinglist> ids = new ArrayList<>();
         ids.add(mailinglist);
         FormDataContentDisposition fdcd1 = mock(FormDataContentDisposition.class);
         FormDataContentDisposition fdcd2 = mock(FormDataContentDisposition.class);
