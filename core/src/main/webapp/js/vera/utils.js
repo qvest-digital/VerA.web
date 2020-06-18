@@ -319,6 +319,11 @@ function onMouseOutList(line) {
 var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
 
 (function () {
+    var displayMsg = function displayMsg(msg) {
+        var h1 = $('h1')[0];
+        $(h1).after(msg);
+        h1.scrollIntoView();
+    };
 
     /**
      * Create a formatted info text HTML div element with the given message text.
@@ -394,7 +399,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
                     $this.replaceWith(info);
                 } else {
                     $this.remove();
-                    $('h1').after(info);
+                    displayMsg(info);
                 }
             });
         };
@@ -417,26 +422,26 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
                 delete activeInfoDialogs[htmlStr];
             });
             $(function () {
-                $('h1').after(info);
+                displayMsg(info);
             });
         };
     }());
 
     showWarning = function (htmlStr) {
         $(function () {
-            $('h1').after(createWarnHtml(htmlStr));
+            displayMsg(createWarnHtml(htmlStr));
         });
     };
 
     showSuccess = function (htmlStr) {
         $(function () {
-            $('h1').after(createSuccessHtml(htmlStr));
+            displayMsg(createSuccessHtml(htmlStr));
         });
     };
 
     showConfirm = function (htmlStr) {
         $(function () {
-            $('h1').after(createConfirmHtml(htmlStr));
+            displayMsg(createConfirmHtml(htmlStr));
         });
     };
 
@@ -466,7 +471,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             msg.append(divBtn);
             activeConfirmDialogs[title] = null;
             $(function () {
-                $('h1').after(msg);
+                displayMsg(msg);
             });
         };
     }());
@@ -498,7 +503,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
              msg.append(divBtn);
              activeConfirmDialogs[title] = null;
              $(function () {
-                 $('h1').after(msg);
+                 displayMsg(msg);
              });
         };
     }());
@@ -530,7 +535,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             msg.append(divBtn);
             activeConfirmDialogs[title] = null;
             $(function () {
-                $('h1').after(msg);
+                displayMsg(msg);
             });
        };
    }());
