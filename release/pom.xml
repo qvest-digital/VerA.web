@@ -22,7 +22,11 @@
 							<goal>exec</goal>
 						</goals>
 						<configuration>
-							<executable>./release/ckdep.sh</executable>
+							<executable>release/ckdep.sh</executable>
+							<environmentVariables>
+								<CKDEP_RUN_FROM_MAVEN>true</CKDEP_RUN_FROM_MAVEN>
+							</environmentVariables>
+							<useMavenLogger>true</useMavenLogger>
 						</configuration>
 					</execution>
 				</executions>

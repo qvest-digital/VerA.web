@@ -228,23 +228,25 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<executable>./release/depsrc.sh</executable>
+									<executable>release/depsrc.sh</executable>
 									<environmentVariables>
 										<DEPSRC_RUN_FROM_MAVEN>true</DEPSRC_RUN_FROM_MAVEN>
 									</environmentVariables>
+									<useMavenLogger>true</useMavenLogger>
 								</configuration>
 							</execution>
 							<execution>
-								<id>generate-toplevel-sources</id>
+								<id>mksrc-run</id>
 								<phase>package</phase>
 								<goals>
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<executable>./release/mksrc.sh</executable>
+									<executable>release/mksrc.sh</executable>
 									<environmentVariables>
 										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
 									</environmentVariables>
+									<useMavenLogger>true</useMavenLogger>
 								</configuration>
 							</execution>
 						</executions>
@@ -495,6 +497,21 @@
 				</exclusions>
 			</dependency>
 			<dependency>
+				<groupId>com.sun.mail</groupId>
+				<artifactId>javax.mail</artifactId>
+				<version>${javax.mail.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.activation</groupId>
+						<artifactId>activation</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.activation</groupId>
+						<artifactId>javax.activation-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>${commons-codec.version}</version>
@@ -553,21 +570,6 @@
 					<exclusion>
 						<groupId>jakarta.activation</groupId>
 						<artifactId>jakarta.activation-api</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.mail</groupId>
-				<artifactId>javax.mail</artifactId>
-				<version>${javax.mail.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>javax.activation</groupId>
-						<artifactId>activation</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>javax.activation</groupId>
-						<artifactId>javax.activation-api</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>
