@@ -93,6 +93,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.evolvis.veraweb.common.RestPaths;
@@ -144,6 +145,12 @@ public class MailingResource extends FormDataResource {
     private MailDispatcher mailDispatcher;
     private EmailConfiguration emailConfiguration;
 
+    @AllArgsConstructor
+    private static final class SendResult {
+        public final boolean success;
+        public final String message;
+    }
+
     @POST
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
     public Response uploadFile(final FormDataMultiPart formData) {
@@ -154,10 +161,10 @@ public class MailingResource extends FormDataResource {
         final List<PersonMailinglist> recipients = getRecipients(mailinglistId);
 
         final Map<String, File> files = getFiles(formData.getFields("files"));
-        final String msg;
+        final SendResult r;
 
         try {
-            msg = sendEmails(recipients, subject, text, files);
+            r = sendEmails(recipients, subject, text, files);
         } catch (AddressException e) {
             logger.error("Email-Adress is not valid", e);
             return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -168,7 +175,7 @@ public class MailingResource extends FormDataResource {
             removeAttachmentsFromFilesystem(files);
         }
 
-        return Response.status(Status.OK).entity(msg).build();
+        return Response.status(r.success ? Status.OK : Status.BAD_REQUEST).entity(r.message).build();
     }
 
     @SuppressWarnings("unchecked")
@@ -178,7 +185,7 @@ public class MailingResource extends FormDataResource {
         }
     }
 
-    private String sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text,
+    private SendResult sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text,
       final Map<String, File> files) throws MessagingException {
         final StringBuilder sb = new StringBuilder();
         if (emailConfiguration == null) {
@@ -214,7 +221,7 @@ public class MailingResource extends FormDataResource {
 
         //XXX TODO: send error mail to each from for each of their failing addresses
 
-        return sb.toString();
+        return new SendResult(true, sb.toString());
     }
 
     private String getFrom(PersonMailinglist recipient) {
