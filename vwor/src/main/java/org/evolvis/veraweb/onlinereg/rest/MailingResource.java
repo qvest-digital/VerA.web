@@ -199,14 +199,14 @@ public class MailingResource extends FormDataResource {
                       subject, substitutePlaceholders(text, recipient.getPerson()), files);
                     sb.append(monitor.toString());
                 } catch (AddressException e) {
-                    logger.error("Email-Adress is not valid" + recipient.getAddress(), e);
+                    logger.error("email address is not valid (uncaught): " + recipient.getAddress(), e);
                     // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
                     // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
                     sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
                     thrownAddressException = true;
                 }
             } else {
-                logger.error("Email-Adress is not valid" + recipient.getAddress());
+                logger.error("email address is not valid (caught): " + recipient.getAddress());
                 sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
                 thrownAddressException = true;
             }
