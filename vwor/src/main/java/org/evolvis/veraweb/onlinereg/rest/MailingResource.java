@@ -193,8 +193,10 @@ public class MailingResource extends FormDataResource {
      */
     private static List<String> getAddresses(final String addresses) {
         final List<String> rv = new ArrayList<>();
-        if (pattern.matcher(StringUtils.strip(addresses)).matches()) {
-            rv.add(addresses);
+        for (final String address : addresses.split("[;,]")) {
+            if (pattern.matcher(StringUtils.strip(address)).matches()) {
+                rv.add(address);
+            }
         }
         return rv;
     }
