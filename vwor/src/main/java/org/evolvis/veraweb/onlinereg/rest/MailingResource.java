@@ -137,7 +137,7 @@ public class MailingResource extends FormDataResource {
         "@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|" +
         "\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}" +
         "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:" +
-        "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
+        "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])",
       Pattern.CASE_INSENSITIVE);
 
     private MailDispatcher mailDispatcher;
@@ -172,13 +172,10 @@ public class MailingResource extends FormDataResource {
 
     @SuppressWarnings("unchecked")
     private List<PersonMailinglist> getRecipients(final int listId) {
-        final Session session = openSession();
-        try {
+        try (Session session = openSession()) {
             final Query query = session.getNamedQuery("PersonMailinglist.findByMailinglist");
             query.setParameter("listId", listId);
             return query.list();
-        } finally {
-            session.close();
         }
     }
 
@@ -205,12 +202,12 @@ public class MailingResource extends FormDataResource {
                     logger.error("Email-Adress is not valid" + recipient.getAddress(), e);
                     // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
                     // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
-                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress() + "\n\n");
+                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
                     thrownAddressException = true;
                 }
             } else {
                 logger.error("Email-Adress is not valid" + recipient.getAddress());
-                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress() + "\n\n");
+                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
                 thrownAddressException = true;
             }
         }
