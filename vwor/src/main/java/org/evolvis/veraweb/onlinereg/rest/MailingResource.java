@@ -218,11 +218,7 @@ public class MailingResource extends FormDataResource {
             }
         }
 
-        if (thrownAddressException) {
-            throw new AddressException(sb.toString());
-        }
-
-        return new SendResult(true, sb.toString());
+        return new SendResult(!thrownAddressException, sb.toString());
     }
 
     private String getFrom(PersonMailinglist recipient) {
