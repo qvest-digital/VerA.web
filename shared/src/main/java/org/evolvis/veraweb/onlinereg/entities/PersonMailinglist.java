@@ -113,7 +113,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tperson_mailinglist")
 @NamedQueries(value = {
   @NamedQuery(name = "PersonMailinglist.findByMailinglist",
-    query = "SELECT p FROM PersonMailinglist p where mailinglistId = :listId"), })
+    query = "SELECT p FROM PersonMailinglist p WHERE p.mailinglistId = :listId"), })
 public class PersonMailinglist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
