@@ -233,6 +233,7 @@ public class MailingResourceTest {
         when(session.getNamedQuery("PersonMailinglist.findByMailinglist")).thenReturn(query);
         when(mailDispatcher.sendEmailWithAttachments(isNull(), any(String.class),
           any(String.class), any(String.class), anyMap())).thenReturn(mailDispatchMonitor);
+        when(query.setParameter(any(String.class), any())).thenReturn(query);
         when(query.list()).thenReturn(ids);
 
         // WHEN
