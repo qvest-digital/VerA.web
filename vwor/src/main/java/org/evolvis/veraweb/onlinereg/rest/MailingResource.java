@@ -117,7 +117,6 @@ import javax.ws.rs.core.Response.Status;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -195,8 +194,6 @@ public class MailingResource extends FormDataResource {
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
 
-        final Map<String, List<String>> errors = new HashMap<>();
-
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
             final String address = StringUtils.strip(recipient.getAddress());
@@ -210,16 +207,12 @@ public class MailingResource extends FormDataResource {
                     // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
                     // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
                     sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(address).append("\n\n");
-                    errors.computeIfAbsent(from, k -> new ArrayList<>()).add(address);
                 }
             } else {
                 logger.error("email address is not valid (caught): " + address);
                 sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(address).append("\n\n");
-                errors.computeIfAbsent(from, k -> new ArrayList<>()).add(address);
             }
         }
-
-        //XXX TODO: send error mail to each from for each of their failing addresses
 
         return new SendResult(true, sb.toString());
     }
