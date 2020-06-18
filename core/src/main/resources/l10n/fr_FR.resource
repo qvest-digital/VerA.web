@@ -1996,7 +1996,7 @@ PDF_GENERATE_LABEL=Exporter des PDF
 LOAD_MAILTEMPLATE_FAILED = Chargement email mod\u00E8le a \u00E9chou\u00E9
 SELECT_MAILTEMPLATE = S\u2019il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le
 
-ADDRESS_ERROR = Votre e-mail a \u00E9t\u00E9 envoy\u00E9 au distributeur. Au moins un adresse e-mail de ce distributeur est \u00E9t\u00E9 incorrectement. Le distributeur n\u2019a pas pu \u00EAtre envoy\u00E9 vers ces adresses e-mail suivantes. S\u2019il vous pla\u00EEt v\u00E9rifier et le cas \u00E9ch\u00E9ant corriger les adresses e-mail suivantes:
+ADDRESS_ERROR = Votre e-mail a \u00E9t\u00E9 envoy\u00E9 au distributeur. Au moins un adresse e-mail de ce distributeur est \u00E9t\u00E9 incorrectement. Le distributeur n\u2019a pas pu \u00EAtre envoy\u00E9 vers ces adresses e-mail suivantes (mais \u00E1 toutes autres). S\u2019il vous pla\u00EEt v\u00E9rifier et le cas \u00E9ch\u00E9ant corriger les adresses e-mail suivantes:
 
 LABELLING_MUST_NOT_BE_EMPTY:Le titre ne doit pas \u00EAtre vide
 

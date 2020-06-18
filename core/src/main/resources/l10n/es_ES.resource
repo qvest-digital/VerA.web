@@ -1996,7 +1996,7 @@ PDF_GENERATE_LABEL=Exportaci\u00F3n a PDF
 LOAD_MAILTEMPLATE_FAILED = Cargando plantilla de correo electr\u00F3nico no
 SELECT_MAILTEMPLATE = Por favor, seleccione la plantilla de correo electr\u00F3nico
 
-ADDRESS_ERROR = Su correo electr\u00F3nico ha sido enviado al distribuidor. Al minimos una direcci\u00F3n de correo electr\u00F3nico de este distribuidor es mal! El distribuidor no podr\u00EDa ser enviado a esta direcci\u00F3n de correo electr\u00F3nico. Por favor, compruebe y si es necesario correcta la siguiente direcci\u00F3n de correo electr\u00F3nico:
+ADDRESS_ERROR = Su correo electr\u00F3nico ha sido enviado al distribuidor. Al minimos una direcci\u00F3n de correo electr\u00F3nico de este distribuidor es mal! El distribuidor no podr\u00EDa ser enviado a esta direcci\u00F3n de correo electr\u00F3nico (pero a todos los otros). Por favor, compruebe y si es necesario correcta la siguiente direcci\u00F3n de correo electr\u00F3nico:
 
 LABELLING_MUST_NOT_BE_EMPTY:El t\u00EDtulo no debe estar vac\u00EDo
 

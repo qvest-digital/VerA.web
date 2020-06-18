@@ -1993,7 +1993,7 @@ PDF_GENERATE_LABEL=PDF-Export
 LOAD_MAILTEMPLATE_FAILED = Loading e-mail template failed
 SELECT_MAILTEMPLATE = Please select e-mail template
 
-ADDRESS_ERROR = E-mails sent successfully. At least one e-mail address contained errors! The distribution was not sent to the following e-mail address(es). Pleas correct the wrong address(es):
+ADDRESS_ERROR = E-mails sent successfully. At least one e-mail address contained errors! The distribution was not sent to the following e-mail address(es) (but to all others). Please correct the wrong address(es):
 
 LABELLING_MUST_NOT_BE_EMPTY:The Titel must not be empty
 

@@ -1992,7 +1992,7 @@ PDF_GENERATE_LABEL=PDF-Export
 LOAD_MAILTEMPLATE_FAILED = Die E-Mail-Vorlage konnte nicht geladen werden
 SELECT_MAILTEMPLATE = Bitte w\u00E4hlen Sie eine E-Mail-Vorlage aus
 
-ADDRESS_ERROR = Die E-Mail wurde an den Verteiler versendet. Mindestens eine E-Mail-Adresse dieses Verteilers ist jedoch fehlerhaft gewesen. Der Verteiler konnte an diese E-Mail-Adresse(n) nicht versendet werden. Bitte kontrollieren und korrigieren Sie die folgenden E-Mail-Adresse(n):
+ADDRESS_ERROR = Die E-Mail wurde an den Verteiler versendet. Mindestens eine E-Mail-Adresse dieses Verteilers ist jedoch fehlerhaft gewesen. Der Verteiler konnte an diese E-Mail-Adresse(n) nicht versendet werden (jedoch an alle anderen Empf\u00E4nger). Bitte kontrollieren und korrigieren Sie die folgenden E-Mail-Adresse(n):
 
 LABELLING_MUST_NOT_BE_EMPTY:Die Bezeichnung darf nicht leer sein
 
