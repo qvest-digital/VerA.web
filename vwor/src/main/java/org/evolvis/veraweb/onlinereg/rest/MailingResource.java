@@ -117,6 +117,7 @@ import javax.ws.rs.core.Response.Status;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -184,6 +185,20 @@ public class MailingResource extends FormDataResource {
         }
     }
 
+    /**
+     * Returns a list of eMail addresses passed
+     *
+     * @param addresses to extract
+     * @return List of String; empty if invalid
+     */
+    private static List<String> getAddresses(final String addresses) {
+        final List<String> rv = new ArrayList<>();
+        if (pattern.matcher(StringUtils.strip(addresses)).matches()) {
+            rv.add(addresses);
+        }
+        return rv;
+    }
+
     private SendResult sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text,
       final Map<String, File> files) throws MessagingException {
         final StringBuilder sb = new StringBuilder();
@@ -198,8 +213,8 @@ public class MailingResource extends FormDataResource {
 
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
-            final String address = StringUtils.strip(recipient.getAddress());
-            if (pattern.matcher(address).matches()) {
+            final List<String> addresses = getAddresses(recipient.getAddress());
+            for (final String address : addresses) {
                 try {
                     final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, address,
                       subject, substitutePlaceholders(text, recipient.getPerson()), files);
@@ -211,9 +226,10 @@ public class MailingResource extends FormDataResource {
                     sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(address).append("\n\n");
                     thrownAddressException = true;
                 }
-            } else {
-                logger.error("email address is not valid (caught): " + address);
-                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(address).append("\n\n");
+            }
+            if (addresses.isEmpty()) {
+                logger.error("email address is not valid (caught): " + recipient.getAddress());
+                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
                 thrownAddressException = true;
             }
         }
