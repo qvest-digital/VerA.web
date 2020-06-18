@@ -193,21 +193,22 @@ public class MailingResource extends FormDataResource {
 
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
-            if (pattern.matcher(recipient.getAddress()).matches()) {
+            final String address = recipient.getAddress();
+            if (pattern.matcher(address).matches()) {
                 try {
-                    final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(),
+                    final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, address,
                       subject, substitutePlaceholders(text, recipient.getPerson()), files);
                     sb.append(monitor.toString());
                 } catch (AddressException e) {
-                    logger.error("email address is not valid (uncaught): " + recipient.getAddress(), e);
+                    logger.error("email address is not valid (uncaught): " + address, e);
                     // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
                     // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
-                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
+                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(address).append("\n\n");
                     thrownAddressException = true;
                 }
             } else {
-                logger.error("email address is not valid (caught): " + recipient.getAddress());
-                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
+                logger.error("email address is not valid (caught): " + address);
+                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(address).append("\n\n");
                 thrownAddressException = true;
             }
         }
