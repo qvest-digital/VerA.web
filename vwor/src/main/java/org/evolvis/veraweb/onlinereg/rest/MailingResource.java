@@ -104,7 +104,6 @@ import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -175,9 +174,7 @@ public class MailingResource extends FormDataResource {
     @SuppressWarnings("unchecked")
     private List<PersonMailinglist> getRecipients(final int listId) {
         try (Session session = openSession()) {
-            final Query query = session.getNamedQuery("PersonMailinglist.findByMailinglist");
-            query.setParameter("listId", listId);
-            return query.list();
+            return session.getNamedQuery("PersonMailinglist.findByMailinglist").setParameter("listId", listId).list();
         }
     }
 
