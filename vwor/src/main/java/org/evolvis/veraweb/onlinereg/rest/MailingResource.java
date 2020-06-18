@@ -94,6 +94,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  */
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
@@ -193,7 +194,7 @@ public class MailingResource extends FormDataResource {
 
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
-            final String address = recipient.getAddress();
+            final String address = StringUtils.strip(recipient.getAddress());
             if (pattern.matcher(address).matches()) {
                 try {
                     final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, address,
