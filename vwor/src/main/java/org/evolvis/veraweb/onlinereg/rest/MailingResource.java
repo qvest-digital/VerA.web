@@ -159,7 +159,7 @@ public class MailingResource extends FormDataResource {
         final int mailinglistId = Integer.parseInt(formData.getField(PARAM_MAILINGLIST_ID).getEntityAs(String.class));
 
         final List<PersonMailinglist> recipients = getRecipients(mailinglistId);
-        logger.info("sending mailing list " + mailinglistId + " to " + recipients.size() + " recipients");
+        logger.info("sending mailing list #" + mailinglistId + " to " + recipients.size() + " recipients");
 
         final Map<String, File> files = getFiles(formData.getFields("files"));
         final SendResult r;
