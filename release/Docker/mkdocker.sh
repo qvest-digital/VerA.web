@@ -32,8 +32,8 @@ else
 	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$tag/veraweb-core-$tag-files.tgz"
 fi
 
-ln -f freexian-archive-keyring.tar.xz httpd/
-ln -f freexian-archive-keyring.tar.xz ldap/
+ln -f freexian-archive-keyring.tar.gz httpd/
+ln -f freexian-archive-keyring.tar.gz ldap/
 
 set -A baseimages -- \
     debian:jessie \

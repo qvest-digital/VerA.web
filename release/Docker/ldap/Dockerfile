@@ -2,10 +2,10 @@ FROM debian:jessie
 
 MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
-COPY freexian-archive-keyring.tar.xz /
+COPY freexian-archive-keyring.tar.gz /
 
 RUN LC_ALL=C; export LC_ALL; unset LANGUAGE; \
-    (cd / && xz -dc freexian-archive-keyring.tar.xz | tar -xf - && \
+    (cd / && tar -xzf freexian-archive-keyring.tar.gz && \
      dpkg -i freexian-archive-keyring/*.deb && \
      rm -r freexian-archive-keyring*) && \
     rm -f /etc/apt/sources.list /etc/apt/sources.list.d/* && \
