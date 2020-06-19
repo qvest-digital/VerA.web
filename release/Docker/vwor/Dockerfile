@@ -16,6 +16,7 @@ RUN LC_ALL=C; export LC_ALL; unset LANGUAGE; \
 	"deb.debian.org/debian/ $r" \
 	"deb.debian.org/debian/ $r-updates" \
 	"deb.debian.org/debian-security/ $s" && \
+    mkdir -p /var/cache/apt/archives && \
     eatmydata apt-get clean && \
     eatmydata apt-get update && \
     DEBIAN_FRONTEND=noninteractive eatmydata apt-get --purge dist-upgrade -y && \

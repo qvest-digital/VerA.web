@@ -8,6 +8,7 @@ RUN LC_ALL=C; export LC_ALL; unset LANGUAGE; \
 	'httpredir.debian.org/debian/ jessie' \
 	'httpredir.debian.org/debian/ jessie-updates' \
 	'httpredir.debian.org/debian-security jessie/updates' && \
+    mkdir -p /var/cache/apt/archives && \
     apt-get clean && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get --purge install --no-install-recommends -y \
