@@ -138,8 +138,12 @@ than to read the documentation set in it is not licenced.
 
 ┌──┤ The documentation makes use of Tₑχ/LᴬTᴇΧ code: (MirOS) ├──────────────┐
 │                                                                          │
-│ Copyright © 2015, 2016, 2018, 2019                                       │
+│ Copyright © 2018, 2020                                                   │
+│       mirabilos <m@mirbsd.org>                                           │
+│ Copyright © 2015, 2016, 2017, 2018, 2019                                 │
 │       Thorsten Glaser <t.glaser@tarent.de>                               │
+│ with contributions via chat by (among others)                            │
+│       David Carlisle <http://tex.stackexchange.com/users/1090>           │
 │                                                                          │
 │ Design und Code abgeleitet von dem Stil und der                          │
 │ Dokumentenklasse pubmat des Teckids e.V.                                 │
