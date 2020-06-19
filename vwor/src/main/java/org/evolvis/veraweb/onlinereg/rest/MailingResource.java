@@ -157,6 +157,7 @@ public class MailingResource extends FormDataResource {
         final String subject = formData.getField(PARAM_MAIL_SUBJECT).getEntityAs(String.class);
         final String text = formData.getField(PARAM_MAIL_TEXT).getEntityAs(String.class);
         final int mailinglistId = Integer.parseInt(formData.getField(PARAM_MAILINGLIST_ID).getEntityAs(String.class));
+        logger.info("sending mailing list " + mailinglistId);
 
         final List<PersonMailinglist> recipients = getRecipients(mailinglistId);
 
@@ -211,12 +212,17 @@ public class MailingResource extends FormDataResource {
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
 
+        final HashMap<String, String> alreadySeen = new HashMap<>();
         boolean thrownAddressException = false;
 
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
             final List<String> addresses = getAddresses(recipient.getAddress());
             for (final String address : addresses) {
+                if (alreadySeen.put(address, address) != null) {
+                    logger.info("skipping duplicate address: " + address);
+                    continue;
+                }
                 try {
                     final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, address,
                       subject, substitutePlaceholders(text, recipient.getPerson()), files);
