@@ -9,7 +9,7 @@ set -A ours
 
 doone() {
 	cd "$1"
-	docker build -t veraweb-tools.lan.tarent.de:5000/"$2" .
+	docker build --no-cache -t veraweb-tools.lan.tarent.de:5000/"$2" .
 	cd -
 	docker push veraweb-tools.lan.tarent.de:5000/"$2"
 	[[ $tag = latest ]] && return 0
