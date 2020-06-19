@@ -32,6 +32,16 @@ else
 	    "https://repo-bn-01.lan.tarent.de/repository/maven-releases/org/evolvis/veraweb/veraweb-core/$tag/veraweb-core-$tag-files.tgz"
 fi
 
+set -A baseimages -- \
+    debian:jessie \
+    tomcat:8
+set -A externals -- \
+    postgres:9.3
+
+for x in "${baseimages[@]}" "${externals[@]}"; do
+	docker pull "$x"
+done
+
 doone core veraweb-core
 doone vwor veraweb-rest-api
 # extra
@@ -40,13 +50,6 @@ doone ldap veraweb-ldap
 
 # release export
 [[ $tag = latest ]] && exit 0
-
-set -A externals -- \
-    postgres:9.3
-
-for x in "${externals[@]}"; do
-	docker pull "$x"
-done
 
 rm -rf "/var/www/html/$tag~"
 mkdir "/var/www/html/$tag~"

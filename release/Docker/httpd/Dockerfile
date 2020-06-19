@@ -2,14 +2,22 @@ FROM debian:jessie
 
 MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get --purge dist-upgrade -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-        apache2 libapache2-mod-jk ldap-account-manager && \
+RUN LC_ALL=C; export LC_ALL; unset LANGUAGE; \
+    rm -f /etc/apt/sources.list /etc/apt/sources.list.d/* && \
+    printf 'deb http://%s main\n' >/etc/apt/sources.list \
+	'httpredir.debian.org/debian/ jessie' \
+	'httpredir.debian.org/debian/ jessie-updates' \
+	'httpredir.debian.org/debian-security jessie/updates' && \
+    apt-get clean && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get --purge install --no-install-recommends -y \
+	eatmydata && \
+    DEBIAN_FRONTEND=noninteractive eatmydata apt-get --purge dist-upgrade -y && \
+    DEBIAN_FRONTEND=noninteractive eatmydata apt-get --purge install --no-install-recommends -y \
+	apache2 libapache2-mod-jk ldap-account-manager && \
     a2enmod jk && a2enmod ssl && a2enmod proxy && a2enmod proxy_http && \
     a2dissite 000-default && a2ensite default-ssl && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    eatmydata apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 443
 
