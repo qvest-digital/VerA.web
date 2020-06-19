@@ -2,12 +2,19 @@ FROM debian:jessie
 
 MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
+COPY freexian-archive-keyring.tar.xz /
+
 RUN LC_ALL=C; export LC_ALL; unset LANGUAGE; \
+    (cd / && xz -dc freexian-archive-keyring.tar.xz | tar -xf - && \
+     dpkg -i freexian-archive-keyring/*.deb && \
+     rm -r freexian-archive-keyring*) && \
     rm -f /etc/apt/sources.list /etc/apt/sources.list.d/* && \
     printf 'deb http://%s main\n' >/etc/apt/sources.list \
 	'httpredir.debian.org/debian/ jessie' \
 	'httpredir.debian.org/debian/ jessie-updates' \
-	'httpredir.debian.org/debian-security jessie/updates' && \
+	'httpredir.debian.org/debian-security jessie/updates' \
+	'deb.freexian.com/extended-lts/ jessie-lts' \
+	'deb.freexian.com/extended-lts/ jessie' && \
     mkdir -p /var/cache/apt/archives && \
     apt-get clean && \
     apt-get update && \
