@@ -43,7 +43,7 @@ package de.tarent.octopus.request;
  *  © 2007 Alex Maier (a.maier@tarent.de)
  *  © 2014, 2015 Max Marche (m.marche@tarent.de)
  *  © 2007 Jan Meyer (jan@evolvis.org)
- *  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019
+ *  © 2007, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020
  *     mirabilos (t.glaser@tarent.de)
  *  © 2016 Cristian Molina (c.molina@tarent.de)
  *  © 2006, 2007 Jens Neumaier (j.neumaier@tarent.de)
@@ -70,7 +70,7 @@ package de.tarent.octopus.request;
  *  © 2013 Rebecca Weinz (r.weinz@tarent.de)
  *  © 2015, 2016 Stefan Weiz (s.weiz@tarent.de)
  *  © 2015, 2016 Tim Zimmer (t.zimmer@tarent.de)
- * and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.
+ * and older code, Copyright © 2001–2008 ⮡ tarent GmbH and contributors.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
  *
  * Permission is hereby granted, free of charge, to any person obtaining a

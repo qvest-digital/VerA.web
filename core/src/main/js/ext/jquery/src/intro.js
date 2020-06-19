@@ -2,7 +2,7 @@
  * jQuery JavaScript Library v@VERSION
  * http://jquery.com/
  *
- * For VerA.web by ⮡ tarent (patched to fix some CVEs)
+ * For VerA.web by ⮡ tarent (patched to fix some CVEs)
  *
  * Includes Sizzle.js
  * http://sizzlejs.com/
