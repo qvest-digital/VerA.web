@@ -157,9 +157,9 @@ public class MailingResource extends FormDataResource {
         final String subject = formData.getField(PARAM_MAIL_SUBJECT).getEntityAs(String.class);
         final String text = formData.getField(PARAM_MAIL_TEXT).getEntityAs(String.class);
         final int mailinglistId = Integer.parseInt(formData.getField(PARAM_MAILINGLIST_ID).getEntityAs(String.class));
-        logger.info("sending mailing list " + mailinglistId);
 
         final List<PersonMailinglist> recipients = getRecipients(mailinglistId);
+        logger.info("sending mailing list " + mailinglistId + " to " + recipients.size() + " recipients");
 
         final Map<String, File> files = getFiles(formData.getFields("files"));
         final SendResult r;
@@ -213,13 +213,19 @@ public class MailingResource extends FormDataResource {
         }
 
         final HashMap<String, String> alreadySeen = new HashMap<>();
-        boolean thrownAddressException = false;
+        int members = 0;
+        int mailboxen = 0;
+        int duplicates = 0;
+        int badAddresses = 0;
 
         for (final PersonMailinglist recipient : recipients) {
+            ++members;
             final String from = getFrom(recipient);
             final List<String> addresses = getAddresses(recipient.getAddress());
             for (final String address : addresses) {
+                ++mailboxen;
                 if (alreadySeen.put(address, address) != null) {
+                    ++duplicates;
                     logger.info("skipping duplicate address: " + address);
                     continue;
                 }
@@ -232,17 +238,21 @@ public class MailingResource extends FormDataResource {
                     // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
                     // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
                     sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(address).append("\n\n");
-                    thrownAddressException = true;
+                    ++badAddresses;
                 }
             }
             if (addresses.isEmpty()) {
                 logger.error("email address is not valid (caught): " + recipient.getAddress());
                 sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
-                thrownAddressException = true;
+                ++badAddresses;
             }
         }
 
-        return new SendResult(!thrownAddressException, sb.toString());
+        logger.info(String.format("mailing list sent to %d recipients " +
+            "(%d addresses, but %d duplicates skipped), not sent to %d bad addresses",
+          members, mailboxen, duplicates, badAddresses));
+
+        return new SendResult(badAddresses == 0, sb.toString());
     }
 
     private String getFrom(PersonMailinglist recipient) {
