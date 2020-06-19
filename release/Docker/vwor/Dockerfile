@@ -31,7 +31,7 @@ RUN LC_ALL=C; export LC_ALL; unset LANGUAGE; \
 	>>/usr/local/tomcat/conf/logging.properties && \
     printf '%s\n' \
 	'/A "Connector" represents/i' \
-	'<Connector secretRequired="false" port="8009" protocol="AJP/1.3" redirectPort="8443" />' \
+	'<Connector address="0.0.0.0" secretRequired="false" port="8009" protocol="AJP/1.3" redirectPort="8443" />' \
 	. w q | ed -s /usr/local/tomcat/conf/server.xml && \
     eatmydata apt-get clean && rm -rf /var/lib/apt/lists/*
 
