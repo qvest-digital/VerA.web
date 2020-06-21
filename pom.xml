@@ -126,7 +126,7 @@
 		<jackson.version>2.11.0</jackson.version>
 		<javassist.version>3.27.0-GA</javassist.version>
 		<javax.el.version>3.0.0</javax.el.version>
-		<javax.mail.version>1.6.2</javax.mail.version>
+		<javax.mail.version>1.6.5</javax.mail.version>
 		<javax.persistence.version>2.2</javax.persistence.version>
 		<javax.validation.version>2.0.2</javax.validation.version>
 		<jaxb-api.version>2.3.3</jaxb-api.version>
@@ -497,8 +497,8 @@
 				</exclusions>
 			</dependency>
 			<dependency>
-				<groupId>com.sun.mail</groupId>
-				<artifactId>javax.mail</artifactId>
+				<groupId>jakarta.mail</groupId>
+				<artifactId>jakarta.mail-api</artifactId>
 				<version>${javax.mail.version}</version>
 				<exclusions>
 					<exclusion>
