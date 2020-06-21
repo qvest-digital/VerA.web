@@ -469,12 +469,6 @@
 				<groupId>com.fasterxml.jackson.module</groupId>
 				<artifactId>jackson-module-jaxb-annotations</artifactId>
 				<version>${jackson.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>jakarta.activation</groupId>
-						<artifactId>jakarta.activation-api</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>com.h2database</groupId>
@@ -482,20 +476,9 @@
 				<version>${h2.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.sun.activation</groupId>
-				<artifactId>jakarta.activation</artifactId>
-				<version>${activation.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>com.sun.istack</groupId>
 				<artifactId>istack-commons-runtime</artifactId>
 				<version>${istack.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>jakarta.activation</groupId>
-						<artifactId>jakarta.activation-api</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>
@@ -539,6 +522,11 @@
 				<version>${commons-pool.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>jakarta.activation</groupId>
+				<artifactId>jakarta.activation-api</artifactId>
+				<version>${activation.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>jakarta.mail</groupId>
 				<artifactId>jakarta.mail-api</artifactId>
 				<version>${javax.mail.version}</version>
@@ -562,12 +550,6 @@
 				<groupId>jakarta.xml.bind</groupId>
 				<artifactId>jakarta.xml.bind-api</artifactId>
 				<version>${jaxb-api.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>jakarta.activation</groupId>
-						<artifactId>jakarta.activation-api</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api for Tomcat 9 -->
 			<dependency>
@@ -764,12 +746,6 @@
 				<groupId>org.glassfish.jaxb</groupId>
 				<artifactId>jaxb-runtime</artifactId>
 				<version>${jaxb-impl.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>jakarta.activation</groupId>
-						<artifactId>jakarta.activation-api</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.containers</groupId>
