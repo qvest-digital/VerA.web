@@ -1118,9 +1118,9 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ *** SSVFileReader, SSVFileWriter, the build scripts and test cases ***   │
 │                                                                          │
 │ Copyright © 2016, 2017, 2018, 2019                                       │
-│ 	mirabilos <t.glaser@tarent.de>                                     │
-│ Copyright © 2015, 2017, 2019                                             │
-│ 	mirabilos <mirabilos@evolvis.org>                                  │
+│       mirabilos <t.glaser@tarent.de>                                     │
+│ Copyright © 2015, 2017, 2019, 2020                                       │
+│       mirabilos <mirabilos@evolvis.org>                                  │
 │                                                                          │
 │ Provided that these terms and disclaimer and all copyright notices       │
 │ are retained or reproduced in an accompanying document, permission       │
@@ -3204,9 +3204,9 @@ These terms also appear to apply to Axis-JAXRPC and Axis-SAAJ.
 │ Liberation Fonts (https://fedorahosted.org/liberation-fonts)             │
 │                                                                          │
 │    Digitized data copyright (c) 2010 Google Corporation                  │
-│ 	   with Reserved Font Arimo, Tinos and Cousine.                    │
+│          with Reserved Font Arimo, Tinos and Cousine.                    │
 │    Copyright (c) 2012 Red Hat, Inc.                                      │
-│       	with Reserved Font Name Liberation.                        │
+│               with Reserved Font Name Liberation.                        │
 │                                                                          │
 │    This Font Software is licensed under the SIL Open Font License,       │
 │    Version 1.1.                                                          │
