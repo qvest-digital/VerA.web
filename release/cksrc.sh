@@ -7,7 +7,7 @@ parentpompath=..	# release/
 
 # Maven profiles to use when ckdep’ing
 #mvnprofiles='-Pbuild-mvnparent'
-mvnprofiles=''
+mvnprofiles='-Platex -Prelease'
 
 # groupId:artifactId vectors to include (from scopes provided, test, etc.)
 # or exclude (from scopes compile/runtime by ckdep, so depsrc has them;
