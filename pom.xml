@@ -84,6 +84,7 @@
 		<doclint.optappend>-Xdoclint:none</doclint.optappend>
 		<sonar.sources>src/main</sonar.sources>
 		<sonar.tests>src/test</sonar.tests>
+		<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api for Tomcat 9 -->
 		<servlet.api>3.1.0</servlet.api>
 		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
 		<!-- maven plugins -->
@@ -127,7 +128,7 @@
 		<javassist.version>3.27.0-GA</javassist.version>
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.6.5</javax.mail.version>
-		<javax.persistence.version>2.2</javax.persistence.version>
+		<javax.persistence.version>2.2.3</javax.persistence.version>
 		<javax.validation.version>2.0.2</javax.validation.version>
 		<jaxb-api.version>2.3.3</jaxb-api.version>
 		<jaxb-impl.version>2.3.3</jaxb-impl.version>
@@ -543,6 +544,11 @@
 				<version>${javax.mail.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>jakarta.persistence</groupId>
+				<artifactId>jakarta.persistence-api</artifactId>
+				<version>${javax.persistence.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>jakarta.validation</groupId>
 				<artifactId>jakarta.validation-api</artifactId>
 				<version>${javax.validation.version}</version>
@@ -563,11 +569,7 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>javax.persistence</groupId>
-				<artifactId>javax.persistence-api</artifactId>
-				<version>${javax.persistence.version}</version>
-			</dependency>
+			<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api for Tomcat 9 -->
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
@@ -811,6 +813,10 @@
 					<exclusion>
 						<groupId>javax.activation</groupId>
 						<artifactId>javax.activation-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.persistence</groupId>
+						<artifactId>javax.persistence-api</artifactId>
 					</exclusion>
 					<exclusion>
 						<groupId>javax.xml.bind</groupId>

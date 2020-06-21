@@ -20,10 +20,10 @@ commons-io commons-io 2.7
 commons-pool commons-pool 1.6
 jakarta.annotation jakarta.annotation-api 1.3.5
 jakarta.mail jakarta.mail-api 1.6.5
+jakarta.persistence jakarta.persistence-api 2.2.3
 jakarta.validation jakarta.validation-api 2.0.2
 jakarta.ws.rs jakarta.ws.rs-api 2.1.6
 jakarta.xml.bind jakarta.xml.bind-api 2.3.3
-javax.persistence javax.persistence-api 2.2
 net.bytebuddy byte-buddy 1.10.11
 net.jodah expiringmap 0.5.9
 org.apache.axis axis-jaxrpc 1.4
