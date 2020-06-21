@@ -104,7 +104,6 @@ import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Transport;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.nio.file.Files;
@@ -129,6 +128,7 @@ public class MailDispatcherTest {
     private static final String PARAM_TESTFILE = "test.txt";
 
     private Transport transportMock;
+    @SuppressWarnings("FieldCanBeLocal")
     private EmailConfiguration emailConfiguration;
     private MailDispatcher classToTest;
 
@@ -155,13 +155,13 @@ public class MailDispatcherTest {
         verify(transportMock).close();
 
         assertEquals(PARAM_SUBJECT, message.getValue().getSubject());
-        assertEquals(PARAM_TEXT, (String) message.getValue().getContent());
+        assertEquals(PARAM_TEXT, message.getValue().getContent());
         assertEquals(PARAM_TO, (recipients.getValue()[0]).toString());
     }
 
     @Test
     public void sendEmailWithAttachments() throws Exception {
-        final Map<String, File> fileMap = new HashMap<String, File>();
+        final Map<String, File> fileMap = new HashMap<>();
         final File tmpFile = testFolder.newFile(PARAM_TESTFILE);
         final String msg = "Test string for file";
         Files.write(Paths.get(tmpFile.getAbsolutePath()), msg.getBytes());
@@ -178,8 +178,8 @@ public class MailDispatcherTest {
 
         final MimeMultipart content = (MimeMultipart) message.getValue().getContent();
         assertEquals(2, content.getCount());
-        assertEquals(PARAM_TEXT, (String) ((MimeBodyPart) content.getBodyPart(0)).getContent());
-        assertEquals(msg, (String) ((MimeBodyPart) content.getBodyPart(1)).getContent());
+        assertEquals(PARAM_TEXT, content.getBodyPart(0).getContent());
+        assertEquals(msg, content.getBodyPart(1).getContent());
     }
 
     @Test
@@ -196,7 +196,7 @@ public class MailDispatcherTest {
 
     @Test
     public void sendEmailWithAttachmentsNoFiles() throws Exception {
-        final Map<String, File> emptyFileMap = new HashMap<String, File>();
+        final Map<String, File> emptyFileMap = new HashMap<>();
 
         classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, emptyFileMap);
 
