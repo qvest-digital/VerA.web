@@ -9,7 +9,6 @@ com.fasterxml.jackson.module:jackson-module-jaxb-annotations 2.11.0 compile TODO
 com.fasterxml:classmate 1.5.1 compile ok
 com.h2database:h2 1.4.200 test ok
 com.sun.activation:jakarta.activation 1.2.2 compile TODO
-com.sun.activation:jakarta.activation 1.2.2 runtime TODO
 com.sun.istack:istack-commons-runtime 3.0.11 compile TODO
 commons-cli:commons-cli 1.4 compile ok
 commons-codec:commons-codec 1.14 compile ok
