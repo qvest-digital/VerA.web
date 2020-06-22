@@ -123,7 +123,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-//FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
 @Path(RestPaths.REST_MAILING)
 @Consumes({ MediaType.MULTIPART_FORM_DATA })
 @Log4j2
@@ -193,6 +192,7 @@ public class MailingResource extends FormDataResource {
      * @return List of String; empty if invalid
      */
     private static List<String> getAddresses(final String addresses) {
+        //XXX TODO: StringUtils.strip() misses U+200B as it’s not Character.isWhitespace()
         final List<String> rv = new ArrayList<>();
         for (final String address : addresses.split("[;,]")) {
             if (pattern.matcher(StringUtils.strip(address)).matches()) {
