@@ -233,7 +233,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Das zu verwendende Datumsformat
      */
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ENGLISH);
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ROOT);
 
     static {
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
