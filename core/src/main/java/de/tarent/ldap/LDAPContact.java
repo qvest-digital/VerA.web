@@ -752,11 +752,11 @@ public class LDAPContact {
         String value;
         String attribut = attribute.item(0).getNodeValue();
         try {
-            getter = getClass().getDeclaredMethod("get" + attribute.item(1).getNodeValue(), null); //$NON-NLS-1$
-            value = (String) getter.invoke(this, null);
+            getter = getClass().getDeclaredMethod("get" + attribute.item(1).getNodeValue()); //$NON-NLS-1$
+            value = (String) getter.invoke(this);
             if (attribute.getLength() > 2) {
-                getter = getClass().getDeclaredMethod("get" + attribute.item(2).getNodeValue(), null); //$NON-NLS-1$
-                value += Messages.getString("LDAPManager.whitespace_01") + getter.invoke(this, null); //$NON-NLS-1$
+                getter = getClass().getDeclaredMethod("get" + attribute.item(2).getNodeValue()); //$NON-NLS-1$
+                value += Messages.getString("LDAPManager.whitespace_01") + getter.invoke(this); //$NON-NLS-1$
             }
         } catch (Exception e) {
             throw new LDAPException(
