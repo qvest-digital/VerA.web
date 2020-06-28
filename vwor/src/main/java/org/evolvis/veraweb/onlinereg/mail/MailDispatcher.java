@@ -161,7 +161,7 @@ public class MailDispatcher {
         transport.close();
     }
 
-    public MailDispatchMonitor sendEmailWithAttachments(final String from, final String to, final String subject,
+    public MailDispatchMonitor sendEmailWithAttachmentsKeepalive(final String from, final String to, final String subject,
       final String emailContent, final Map<String, File> attachments) throws MessagingException {
         final Multipart multipart = new MimeMultipart();
         final MimeBodyPart messageBodyPart = getMessageBody(emailContent);
@@ -181,6 +181,12 @@ public class MailDispatcher {
         transport.addTransportListener(monitor);
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
+        return monitor;
+    }
+
+    public MailDispatchMonitor sendEmailWithAttachments(final String from, final String to, final String subject,
+      final String emailContent, final Map<String, File> attachments) throws MessagingException {
+        final MailDispatchMonitor monitor = sendEmailWithAttachmentsKeepalive(from, to, subject, emailContent, attachments);
         transport.close();
         return monitor;
     }
