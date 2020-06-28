@@ -104,7 +104,6 @@
 		<classmate.version>1.5.1</classmate.version>
 		<commons-codec.version>1.14</commons-codec.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
-		<commons-csv.version>1.8</commons-csv.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<commons-discovery.version>0.5</commons-discovery.version>
 		<commons-fileupload.version>1.4</commons-fileupload.version>
@@ -606,11 +605,6 @@
 				<groupId>org.apache.axis</groupId>
 				<artifactId>axis-saaj</artifactId>
 				<version>${axis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-csv</artifactId>
-				<version>${commons-csv.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
