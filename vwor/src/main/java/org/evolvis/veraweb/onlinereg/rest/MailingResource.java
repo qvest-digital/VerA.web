@@ -95,7 +95,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.StringUtils;
+import lombok.val;
 import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
@@ -117,11 +117,11 @@ import javax.ws.rs.core.Response.Status;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Path(RestPaths.REST_MAILING)
 @Consumes({ MediaType.MULTIPART_FORM_DATA })
@@ -185,21 +185,25 @@ public class MailingResource extends FormDataResource {
         }
     }
 
-    /**
-     * Returns a list of eMail addresses passed
-     *
-     * @param addresses to extract
-     * @return List of String; empty if invalid
-     */
-    private static List<String> getAddresses(final String addresses) {
-        //XXX TODO: StringUtils.strip() misses U+200B as it’s not Character.isWhitespace()
-        final List<String> rv = new ArrayList<>();
-        for (final String address : addresses.split("[;,]")) {
-            if (pattern.matcher(StringUtils.strip(address)).matches()) {
-                rv.add(address);
-            }
+    public static boolean toTrim(final char c) {
+        return Character.isWhitespace(c) ||
+          c == 0x200B || c == 0x200C || c == 0x200D || c == 0x2060 || c == 0xFEFF;
+    }
+
+    public static String trim(final String str) {
+        final StringBuilder sb = new StringBuilder(str);
+        while (sb.length() > 0 && toTrim(sb.charAt(0))) {
+            sb.deleteCharAt(0);
         }
-        return rv;
+        while (sb.length() > 0 && toTrim(sb.charAt(sb.length() - 1))) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
+    }
+
+    public static String tt(final String text) {
+        return String.format("<tt>%s</tt>", text.replace("&", "&amp;").
+          replace("<", "&lt;").replace(">", "&gt;"));
     }
 
     private SendResult sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text,
@@ -217,42 +221,70 @@ public class MailingResource extends FormDataResource {
         int mailboxen = 0;
         int duplicates = 0;
         int badAddresses = 0;
+        int badRecipients = 0;
 
         for (final PersonMailinglist recipient : recipients) {
             ++members;
             final String from = getFrom(recipient);
-            final List<String> addresses = getAddresses(recipient.getAddress());
-            for (final String address : addresses) {
+            final String orgAddresses = trim(recipient.getAddress());
+            val recipientAddresses = org.evolvis.tartools.rfc822.Path.of(orgAddresses);
+            if (recipientAddresses == null) {
+                logger.error("email address parser cannot be instantiated: " + orgAddresses);
+                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(orgAddresses)).append("\n\n");
+                ++badRecipients;
+                continue;
+            }
+            val addresses = recipientAddresses.asAddressList();
+            if (addresses == null) {
+                logger.error("email address cannot be parsed: " + orgAddresses);
+                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(orgAddresses)).append("\n\n");
+                ++badRecipients;
+                continue;
+            }
+            val addrlist = addresses.getAddresses().stream().flatMap(a ->
+              (a.isGroup() ? a.getMailboxen() : Collections.singletonList(a)).stream().
+                map(org.evolvis.tartools.rfc822.Path.Address::getMailbox)).
+              collect(Collectors.toList());
+            if (addrlist.isEmpty()) {
+                logger.error("no email address found: " + orgAddresses);
+                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(orgAddresses)).append("\n\n");
+                ++badRecipients;
+                continue;
+            }
+            for (val addrspec : addrlist) {
                 ++mailboxen;
+                final String address = addrspec.toString();
                 if (alreadySeen.put(address, address) != null) {
                     ++duplicates;
                     logger.info("skipping duplicate address: " + address);
                     continue;
+                }
+                if (!addrspec.isValid()) {
+                    logger.error("email address " + address + " is invalid: " + orgAddresses);
+                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(address)).
+                      append(" of ").append(tt(orgAddresses)).append("\n\n");
+                    ++badAddresses;
                 }
                 try {
                     final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachmentsKeepalive(from,
                       address, subject, substitutePlaceholders(text, recipient.getPerson()), files);
                     sb.append(monitor.toString());
                 } catch (AddressException e) {
-                    logger.error("email address is not valid (uncaught): " + address, e);
+                    logger.error("email address " + address + " was not accepted: " + orgAddresses, e);
                     // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
                     // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
-                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(address).append("\n\n");
+                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(address)).
+                      append(" of ").append(tt(orgAddresses)).append("\n\n");
                     ++badAddresses;
                 }
-            }
-            if (addresses.isEmpty()) {
-                logger.error("email address is not valid (caught): " + recipient.getAddress());
-                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(recipient.getAddress()).append("\n\n");
-                ++badAddresses;
             }
         }
 
         mailDispatcher.getTransport().close();
 
-        logger.info(String.format("mailing list sent to %d recipients " +
-            "(%d addresses, but %d duplicates skipped), not sent to %d bad addresses",
-          members, mailboxen, duplicates, badAddresses));
+        logger.info(String.format("mailing list sent to %d recipients (%d bad skipped), " +
+            "%d addresses (%d duplicates skipped, not sent to %d bad addresses)",
+          members, badRecipients, mailboxen, duplicates, badAddresses));
 
         return new SendResult(badAddresses == 0, sb.toString());
     }
