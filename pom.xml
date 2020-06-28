@@ -99,7 +99,7 @@
 		<axis.version>1.4</axis.version>
 		<axis-wsdl4j.version>1.5.1</axis-wsdl4j.version>
 		<background-jobs.version>1.25</background-jobs.version>
-		<bytebuddy.version>1.10.11</bytebuddy.version>
+		<bytebuddy.version>1.10.12</bytebuddy.version>
 		<chromedriver.version>2.40</chromedriver.version>
 		<classmate.version>1.5.1</classmate.version>
 		<commons-codec.version>1.14</commons-codec.version>
@@ -118,13 +118,13 @@
 		<groovy.version>2.5.12</groovy.version>
 		<groovy-http-builder.version>0.7.2</groovy-http-builder.version>
 		<h2.version>1.4.200</h2.version>
-		<hibernate.core.version>5.4.17.Final</hibernate.core.version>
+		<hibernate.core.version>5.4.18.Final</hibernate.core.version>
 		<hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
 		<hk2.version>2.6.1</hk2.version>
 		<httpclient.version>4.5.12</httpclient.version>
 		<httpcore.version>4.4.13</httpcore.version>
 		<istack.version>3.0.11</istack.version>
-		<jackson.version>2.11.0</jackson.version>
+		<jackson.version>2.11.1</jackson.version>
 		<javassist.version>3.27.0-GA</javassist.version>
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.6.5</javax.mail.version>
