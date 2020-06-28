@@ -100,15 +100,13 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import sun.jvm.hotspot.debugger.AddressException;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -117,6 +115,7 @@ import java.util.Map;
  *
  * @author philipp
  */
+@SuppressWarnings({ "unused", "rawtypes" })
 @Log4j2
 public class LDAPContact {
     private static final String EMPTY_STRING = "";
@@ -158,8 +157,8 @@ public class LDAPContact {
     /**
      * Erzeugt einen neuen LDAPContact mit gegebener Address-Map
      *
-     * @param address FIXME
-     * @param userID  FIXME
+     * @param address die AddressMap
+     * @param userID  die User-ID
      */
     public LDAPContact(Map address, String userID) {
         setContact(address);
@@ -229,32 +228,29 @@ public class LDAPContact {
     }
 
     public String toString() {
-        StringBuffer ruckgabe = new StringBuffer(240)
-          .append("Vorname: " + vorname + "\n")
-          .append("Mittlerer Name: " + mittelname + "\n")
-          .append("Nachname:" + nachname + "\n")
-          .append("Spitzname:" + spitzname + "\n")
-          .append("UserID:" + userid + "\n")
-          .append("Geschäftlich:\n")
-          .append("Firma: " + arbeitFirma + "\n")
-          .append("Abteilung: " + arbeitAbteilung + "\n")
-          .append("Strasse: " + arbeitStrasse + "\n")
-          .append("PLZ/Ort: " + arbeitPLZ + " " + arbeitOrt + "\n")
-          .append("Staat: " + arbeitBundesstaat + "\n")
-          .append("Land: " + arbeitLand + "\n")
-          .append("Job: " + arbeitJob + "\n")
-          .append("EMail: " + arbeitEmail + "\n")
-          .append("Telefon: " + arbeitTelefon + "\n")
-          .append("Fax: " + arbeitFax + "\n")
-          .append("Pager: " + pager + "\n")
-          .append("Handy: " + arbeitHandy + "\n")
-          .append("Privat: \n")
-          .append("Strasse: " + privatStrasse + "\n")
-          .append("Telefon: " + privatTelefon + "\n")
-          .append("\n")
-          .append("Beschreibung: " + beschreibung + "\n");
-
-        return ruckgabe.toString();
+        return "Vorname: " + vorname + "\n" +
+          "Mittlerer Name: " + mittelname + "\n" +
+          "Nachname:" + nachname + "\n" +
+          "Spitzname:" + spitzname + "\n" +
+          "UserID:" + userid + "\n" +
+          "Geschäftlich:\n" +
+          "Firma: " + arbeitFirma + "\n" +
+          "Abteilung: " + arbeitAbteilung + "\n" +
+          "Strasse: " + arbeitStrasse + "\n" +
+          "PLZ/Ort: " + arbeitPLZ + " " + arbeitOrt + "\n" +
+          "Staat: " + arbeitBundesstaat + "\n" +
+          "Land: " + arbeitLand + "\n" +
+          "Job: " + arbeitJob + "\n" +
+          "EMail: " + arbeitEmail + "\n" +
+          "Telefon: " + arbeitTelefon + "\n" +
+          "Fax: " + arbeitFax + "\n" +
+          "Pager: " + pager + "\n" +
+          "Handy: " + arbeitHandy + "\n" +
+          "Privat: \n" +
+          "Strasse: " + privatStrasse + "\n" +
+          "Telefon: " + privatTelefon + "\n" +
+          "\n" +
+          "Beschreibung: " + beschreibung + "\n";
     }
 
     /**
@@ -551,7 +547,7 @@ public class LDAPContact {
     /**
      * Setter für ArbeitAbteilung
      *
-     * @param string FIXME
+     * @param string die Abteilung
      */
     public void setArbeitAbteilung(String string) {
         arbeitAbteilung = string;
@@ -662,7 +658,7 @@ public class LDAPContact {
     }
 
     /**
-     * @param map FIXME
+     * @param map die Map für allUsers
      */
     public void setAllUsers(Map map) {
         this.allUsers = map;
@@ -699,7 +695,7 @@ public class LDAPContact {
      */
     public BasicAttributes generateAttributesRestricted(LDAPManager manager) throws LDAPException {
         BasicAttributes attr = new BasicAttributes();
-        Element mapping = null;
+        Element mapping;
         //Hole XML-Mapping
         try {
             InputStream is = LDAPContact.class.getResourceAsStream("/de/tarent/ldap/resources/mapping.xml");
@@ -721,14 +717,13 @@ public class LDAPContact {
         for (int i = 0; i < childs.getLength(); i++) {
             String attribut = childs.item(i).getAttributes().item(0).getNodeValue();
             String value = getValue(childs.item(i).getAttributes());
-            if ((value != null) && (StringUtils.isNotBlank(value))) { //$NON-NLS-1$
+            if ((StringUtils.isNotBlank(value))) { //$NON-NLS-1$
                 attr.put(attribut, value);
             }
         }
         BasicAttribute users = new BasicAttribute("member"); //$NON-NLS-1$
-        Iterator it = getUsers().iterator();
-        while (it.hasNext()) {
-            String adduser = (String) it.next();
+        for (final Object o : getUsers()) {
+            String adduser = (String) o;
             try {
                 String adduser2 = manager.fullUserDN(adduser); //$NON-NLS-1$
                 users.add(adduser2);
@@ -745,12 +740,12 @@ public class LDAPContact {
     }
 
     /**
-     * Methode, die zu einem gegebenen Attribut die passende Variable aus einem @see LDAPContact ausliest..
+     * Methode, die zu einem gegebenen Attribut die passende Variable
+     * aus einem {@link LDAPContact} ausliest.
      *
      * @param attribute - Attribut, welches den Wert beschreibt
      * @return String mit dem gewünschen Wert
      * @throws LDAPException - wenn etwas schief läuft
-     * @see de.tarent.ldap.LDAPContact
      */
     protected String getValue(NamedNodeMap attribute) throws LDAPException {
         Method getter;
