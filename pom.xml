@@ -99,7 +99,7 @@
 		<axis.version>1.4</axis.version>
 		<axis-wsdl4j.version>1.5.1</axis-wsdl4j.version>
 		<background-jobs.version>1.25</background-jobs.version>
-		<bytebuddy.version>1.10.12</bytebuddy.version>
+		<bytebuddy.version>1.10.13</bytebuddy.version>
 		<chromedriver.version>2.40</chromedriver.version>
 		<classmate.version>1.5.1</classmate.version>
 		<commons-codec.version>1.14</commons-codec.version>
