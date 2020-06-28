@@ -109,7 +109,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
@@ -121,8 +120,7 @@ public class CsvExporter {
     private final CsvIo io;
     private final ExtractorQueryBuilder template;
 
-    public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties)
-      throws UnsupportedEncodingException {
+    public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties) {
         this(reader, writer, source, properties, null);
     }
 
@@ -155,14 +153,14 @@ public class CsvExporter {
             query.setSelectedColumns(selectedColumns);
             return query;
         } catch (JsonParseException e1) {
-            logger.error("Couldn\'t parse json", e1);
-            throw new ExtractorException("Couldn\'t parse json", e1);
+            logger.error("Couldn’t parse JSON", e1);
+            throw new ExtractorException("Couldn’t parse JSON", e1);
         } catch (JsonMappingException e2) {
-            logger.error("Couldn\'t map json", e2);
-            throw new ExtractorException("Couldn\'t map json", e2);
+            logger.error("Couldn’t map JSON", e2);
+            throw new ExtractorException("Couldn’t map JSON", e2);
         } catch (IOException e3) {
-            logger.error("Could not load configuration", e3);
-            throw new ExtractorException("Could not load configuration", e3);
+            logger.error("Couldn’t load configuration", e3);
+            throw new ExtractorException("Couldn’t load configuration", e3);
         }
     }
 }

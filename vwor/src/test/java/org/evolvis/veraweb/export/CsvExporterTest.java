@@ -100,18 +100,19 @@ import org.junit.Test;
 
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class CsvExporterTest {
-
     private CsvExporter csvExporter;
     private Writer writer;
     private JdbcDataSource dataSource;
@@ -119,7 +120,6 @@ public class CsvExporterTest {
     private Properties properties;
 
     public static class MyColumn implements ResultSetValueExtractor {
-
         final private Properties props;
 
         public MyColumn(Properties props) {
@@ -136,13 +136,14 @@ public class CsvExporterTest {
     }
 
     @Before
-    public void setup() throws UnsupportedEncodingException {
+    public void setup() {
         dataSource = new JdbcDataSource();
         dataSource.setURL("jdbc:h2:mem:fnord;INIT=RUNSCRIPT FROM 'classpath:test-schema.sql'");
         dataSource.setUser("sa");
         dataSource.setPassword("sa");
         writer = new StringWriter();
-        reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream("test-query.jsn"), "utf-8");
+        reader = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("test-query.jsn")),
+          StandardCharsets.UTF_8);
         properties = new Properties();
         properties.setProperty("baseUrl", "http://fnord-west.eu/api");
         csvExporter = new CsvExporter(reader, writer, dataSource, properties);
@@ -150,7 +151,7 @@ public class CsvExporterTest {
 
     @Test
     public void test() {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         map.put("id", "1");
         csvExporter.export(map, new HashMap<>());
         assertEquals("id,firstname,lastname,link\r\n1,Ford,Prefect,http://fnord-west.eu/api?id=1\r\n", writer.toString());
