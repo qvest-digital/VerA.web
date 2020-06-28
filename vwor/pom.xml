@@ -178,7 +178,6 @@
 					<execution>
 						<id>analyse-dependency-usage</id>
 						<configuration>
-<failOnWarning>false</failOnWarning>
 							<usedDependencies>
 								<!-- must be in the classpath -->
 								<usedDependency>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider</usedDependency>
