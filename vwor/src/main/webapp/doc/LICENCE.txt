@@ -854,8 +854,8 @@ External code found in the Java™ backend part includes:
 ┌──┤ various Apache Commons (Apache 2) ├───────────────────────────────────┐
 │                                                                          │
 │ This is for commons-cli, commons-codec, commons-collections,             │
-│ commons-csv, commons-dbcp, commons-discovery, commons-fileupload,        │
-│ commons-io, commons-lang3 and commons-pool.                              │
+│ commons-dbcp, commons-discovery, commons-fileupload, commons-io,         │
+│ commons-lang3 and commons-pool.                                          │
 │                                                                          │
 │ Apache Commons CLI                                                       │
 │ Copyright 2001-2017 The Apache Software Foundation                       │
@@ -865,9 +865,6 @@ External code found in the Java™ backend part includes:
 │                                                                          │
 │ Apache Commons Collections                                               │
 │ Copyright 2001-2015 The Apache Software Foundation                       │
-│                                                                          │
-│ Apache Commons CSV                                                       │
-│ Copyright 2005-2019 The Apache Software Foundation                       │
 │                                                                          │
 │ Apache Commons DBCP                                                      │
 │ Copyright 2001-2010 The Apache Software Foundation                       │
