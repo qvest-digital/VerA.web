@@ -230,8 +230,8 @@ public class MailingResource extends FormDataResource {
                     continue;
                 }
                 try {
-                    final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, address,
-                      subject, substitutePlaceholders(text, recipient.getPerson()), files);
+                    final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachmentsKeepalive(from,
+                      address, subject, substitutePlaceholders(text, recipient.getPerson()), files);
                     sb.append(monitor.toString());
                 } catch (AddressException e) {
                     logger.error("email address is not valid (uncaught): " + address, e);
@@ -247,6 +247,8 @@ public class MailingResource extends FormDataResource {
                 ++badAddresses;
             }
         }
+
+        mailDispatcher.getTransport().close();
 
         logger.info(String.format("mailing list sent to %d recipients " +
             "(%d addresses, but %d duplicates skipped), not sent to %d bad addresses",

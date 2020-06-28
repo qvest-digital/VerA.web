@@ -239,4 +239,8 @@ public class MailDispatcher {
     public void setTransport(final Transport transport) {
         this.transport = transport;
     }
+
+    public Transport getTransport() {
+        return transport;
+    }
 }
