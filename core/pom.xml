@@ -26,10 +26,6 @@
 			<artifactId>jakarta.activation</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>jakarta.mail</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>jakarta.validation</groupId>
 			<artifactId>jakarta.validation-api</artifactId>
 		</dependency>
@@ -75,6 +71,10 @@
 		<dependency>
 			<groupId>org.evolvis.tartools</groupId>
 			<artifactId>csvfile</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.tartools</groupId>
+			<artifactId>rfc822</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>

@@ -79,6 +79,10 @@
 			<artifactId>extract-tool</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.evolvis.tartools</groupId>
+			<artifactId>rfc822</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
 			<artifactId>rest-api-common</artifactId>
 		</dependency>

@@ -142,6 +142,7 @@
 		<oro.version>2.0.8</oro.version>
 		<pdfbox.version>2.0.20</pdfbox.version>
 		<postgresql.version>42.2.14</postgresql.version>
+		<rfc822.version>0.1</rfc822.version>
 		<rs-api.version>2.1.6</rs-api.version>
 		<selenium.version>3.141.59</selenium.version>
 		<smiley-http-proxy-servlet.version>1.11</smiley-http-proxy-servlet.version>
@@ -689,6 +690,11 @@
 						<artifactId>jackson-dataformat-yaml</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.evolvis.tartools</groupId>
+				<artifactId>rfc822</artifactId>
+				<version>${rfc822.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.evolvis.veraweb</groupId>
