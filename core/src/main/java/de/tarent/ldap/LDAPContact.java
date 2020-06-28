@@ -95,12 +95,12 @@ package de.tarent.ldap;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.evolvis.tartools.rfc822.Path;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import sun.jvm.hotspot.debugger.AddressException;
 
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
@@ -433,16 +433,10 @@ public class LDAPContact {
      * @param string Email
      */
     public void setArbeitEmail(String string) {
-        try {
-            if (string != null) {
-                InternetAddress address = new InternetAddress(string, true);
-                address.validate();
-                arbeitEmail = address.toString();
-            }
-        } catch (AddressException e) {
-            //Wenn Fehler, setze Mail auf null
-            arbeitEmail = EMPTY_STRING;
-        }
+        final Path parser = Path.of(string);
+        final Path.AddressList address = parser == null ? null : parser.asAddressList();
+        // Wenn Fehler, setze Mail auf null
+        arbeitEmail = address == null ? EMPTY_STRING : address.toString();
     }
 
     /**
@@ -821,16 +815,10 @@ public class LDAPContact {
      * @param privatEmail The privatEmail to set.
      */
     public void setPrivatEmail(String privatEmail) {
-        try {
-            if (privatEmail != null) {
-                InternetAddress address = new InternetAddress(privatEmail);
-                address.validate();
-                this.privatEmail = privatEmail;
-            }
-        } catch (AddressException e) {
-            //Wenn Fehler, setze Mail auf null
-            this.privatEmail = EMPTY_STRING;
-        }
+        final Path parser = Path.of(privatEmail);
+        final Path.AddressList address = parser == null ? null : parser.asAddressList();
+        // Wenn Fehler, setze Mail auf null
+        this.privatEmail = address == null ? EMPTY_STRING : address.toString();
     }
 
     /**
