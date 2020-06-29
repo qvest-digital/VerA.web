@@ -261,8 +261,8 @@ public class MailingResource extends FormDataResource {
                 ++mailboxen;
                 final String address = addrspec.toString();
                 if (alreadySeen.put(address, address) != null) {
-                    ++duplicates;
                     logger.info("skipping duplicate address: " + address);
+                    ++duplicates;
                     continue;
                 }
                 if (!addrspec.isValid()) {
@@ -270,6 +270,7 @@ public class MailingResource extends FormDataResource {
                     sb.append(FRONTEND_ERRMSG_PFX).append(tt(address)).
                       append(" of ").append(tt(orgAddresses)).append("\n\n");
                     ++badAddresses;
+                    continue;
                 }
                 try {
                     final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachmentsKeepalive(from,
