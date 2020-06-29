@@ -128,7 +128,7 @@ class MailDispatchMonitorTest extends Specification {
             def result = monitor.message(transportEvent)
 
         then:
-            assert result == "MESSAGE_NOT_DELIVIERED:\n\n"
+            assert result == "MESSAGE_NOT_DELIVERED:\n\n"
     }
 
     void testMessagePartialyDelivered() {

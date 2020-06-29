@@ -103,7 +103,7 @@ import javax.mail.event.TransportListener;
 
 @Log4j2
 public class MailDispatchMonitor implements TransportListener, ConnectionListener {
-    private StringBuilder sb = new StringBuilder();
+    private final StringBuilder sb = new StringBuilder();
 
     private static String message(TransportEvent e) {
         final StringBuilder sb = new StringBuilder();
@@ -111,14 +111,12 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
         case TransportEvent.MESSAGE_DELIVERED:
             sb.append("MESSAGE_DELIVERED");
             break;
-        case TransportEvent.MESSAGE_NOT_DELIVERED:
-            sb.append("MESSAGE_NOT_DELIVIERED");
-            break;
         case TransportEvent.MESSAGE_PARTIALLY_DELIVERED:
             sb.append("MESSAGE_PARTIALLY_DELIVERED");
             break;
+        case TransportEvent.MESSAGE_NOT_DELIVERED:
         default:
-            sb.append("MESSAGE_NOT_DELIVIERED");
+            sb.append("MESSAGE_NOT_DELIVERED");
             break;
         }
         sb.append(":\n");
