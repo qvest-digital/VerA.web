@@ -215,6 +215,17 @@ public class MailingResource extends FormDataResource {
 
         for (final PersonMailinglist recipient : recipients) {
             ++members;
+            /*
+             * This is rather ineffective. We shoul be able to send just one
+             * eMail for a recipient, instead of one per addr-spec (their
+             * field can contain an addr-list (list of address) which each
+             * can contain an addr-spec or a group-list (list of addr-spec)),
+             * merely skipping the invalid ones in the transport.sendMessage
+             * call, but have the header show the full information, including
+             * display-name for both mailbox and group… but, eh, old code/API,
+             * hard to change on a deadline and I’ll celebrate if this at all
+             * (correctly validating addresses and sending to valid ones) works.
+             */
             final String from = getFrom(recipient);
             final String orgAddresses = trim(recipient.getAddress());
             val recipientAddresses = org.evolvis.tartools.rfc822.Path.of(orgAddresses);
