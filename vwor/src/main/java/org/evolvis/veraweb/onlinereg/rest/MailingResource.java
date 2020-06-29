@@ -131,6 +131,11 @@ public class MailingResource extends FormDataResource {
     public static final String PARAM_MAIL_TEXT = "mailtext";
     public static final String PARAM_MAIL_SUBJECT = "mail-subject";
 
+    // [VERA-382] Der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in
+    // veraweb-core/mailinglistWrite.vm zum Parsen der fehlerhaften
+    // eMail-Adressen verwendet. Bei Änderungen also auch anpassen.
+    private static final String FRONTEND_ERRMSG_PFX = "ADDRESS_SYNTAX_NOT_CORRECT:";
+
     private MailDispatcher mailDispatcher;
     private EmailConfiguration emailConfiguration;
 
@@ -231,14 +236,14 @@ public class MailingResource extends FormDataResource {
             val recipientAddresses = org.evolvis.tartools.rfc822.Path.of(orgAddresses);
             if (recipientAddresses == null) {
                 logger.error("email address parser cannot be instantiated: " + orgAddresses);
-                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(orgAddresses)).append("\n\n");
+                sb.append(FRONTEND_ERRMSG_PFX).append(tt(orgAddresses)).append("\n\n");
                 ++badRecipients;
                 continue;
             }
             val addresses = recipientAddresses.asAddressList();
             if (addresses == null) {
                 logger.error("email address cannot be parsed: " + orgAddresses);
-                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(orgAddresses)).append("\n\n");
+                sb.append(FRONTEND_ERRMSG_PFX).append(tt(orgAddresses)).append("\n\n");
                 ++badRecipients;
                 continue;
             }
@@ -248,7 +253,7 @@ public class MailingResource extends FormDataResource {
               collect(Collectors.toList());
             if (addrlist.isEmpty()) {
                 logger.error("no email address found: " + orgAddresses);
-                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(orgAddresses)).append("\n\n");
+                sb.append(FRONTEND_ERRMSG_PFX).append(tt(orgAddresses)).append("\n\n");
                 ++badRecipients;
                 continue;
             }
@@ -262,7 +267,7 @@ public class MailingResource extends FormDataResource {
                 }
                 if (!addrspec.isValid()) {
                     logger.error("email address " + address + " is invalid: " + orgAddresses);
-                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(address)).
+                    sb.append(FRONTEND_ERRMSG_PFX).append(tt(address)).
                       append(" of ").append(tt(orgAddresses)).append("\n\n");
                     ++badAddresses;
                 }
@@ -272,9 +277,7 @@ public class MailingResource extends FormDataResource {
                     sb.append(monitor.toString());
                 } catch (AddressException e) {
                     logger.error("email address " + address + " was not accepted: " + orgAddresses, e);
-                    // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
-                    // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
-                    sb.append("ADDRESS_SYNTAX_NOT_CORRECT:").append(tt(address)).
+                    sb.append(FRONTEND_ERRMSG_PFX).append(tt(address)).
                       append(" of ").append(tt(orgAddresses)).append("\n\n");
                     ++badAddresses;
                 }
