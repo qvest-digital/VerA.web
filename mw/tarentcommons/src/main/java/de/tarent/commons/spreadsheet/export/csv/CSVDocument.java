@@ -94,14 +94,11 @@ package de.tarent.commons.spreadsheet.export.csv;
  */
 
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
+import lombok.val;
+import org.evolvis.tartools.csvfile.CSVFileWriter;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -131,23 +128,12 @@ public class CSVDocument implements SpreadSheet {
     public void init() {
     }
 
-    public void save(OutputStream outputStream) throws IOException {
-        Writer out = new BufferedWriter(new OutputStreamWriter(outputStream));
-        for (Iterator rowIter = rows.iterator(); rowIter.hasNext(); ) {
-            List row = (List) rowIter.next();
-            for (Iterator cellIter = row.iterator(); cellIter.hasNext(); ) {
-                String cell = (String) cellIter.next();
-                cell = cell.replaceAll("\\\"", "\\\\\"");
-                out.write('"');
-                out.write(cell);
-                out.write('"');
-                if (cellIter.hasNext()) {
-                    out.write(';');
-                }
-            }
-            out.write("\n");
+    public void save(final OutputStream outputStream) {
+        val wr = new CSVFileWriter(outputStream, ';', '"');
+        for (val row : rows) {
+            wr.writeFields((List) row);
         }
-        out.flush();
+        wr.close();
     }
 
     public void openTable(String name, int colCount) {

@@ -11,19 +11,15 @@
 	<packaging>jar</packaging>
 	<name>veraweb-middleware:tarent-commons</name>
 	<description>a set of common components and solutions</description>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.tartools</groupId>
+			<artifactId>csvfile</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
