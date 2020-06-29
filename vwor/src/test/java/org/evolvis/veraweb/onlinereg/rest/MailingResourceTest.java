@@ -114,6 +114,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.mail.MessagingException;
+import javax.mail.Transport;
 import javax.servlet.ServletContext;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -191,6 +192,7 @@ public class MailingResourceTest {
     public void testUploadFile() throws MessagingException {
         // GIVEN
         prepareSession();
+        final Transport transport = mock(Transport.class);
         final MailDispatcher mailDispatcher = mock(MailDispatcher.class);
         objectToTest.setMailDispatcher(mailDispatcher);
         objectToTest.setEmailConfiguration(mock(EmailConfiguration.class));
@@ -207,7 +209,7 @@ public class MailingResourceTest {
         listFormDataBodyParts.add(formDataBodyPart4);
         listFormDataBodyParts.add(formDataBodyPart5);
         final PersonMailinglist mailinglist = new PersonMailinglist();
-        mailinglist.setAddress("test@test.de");
+        mailinglist.setAddress("test@test.de, miau@test.de");
         mailinglist.setMailinglistId(1);
         mailinglist.setPerson(mock(Person.class));
         mailinglist.setPk(1);
@@ -231,8 +233,9 @@ public class MailingResourceTest {
         when(entity1.getInputStream()).thenReturn(new ByteArrayInputStream("file1".getBytes(StandardCharsets.UTF_8)));
         when(entity2.getInputStream()).thenReturn(new ByteArrayInputStream("file2".getBytes(StandardCharsets.UTF_8)));
         when(session.getNamedQuery("PersonMailinglist.findByMailinglist")).thenReturn(query);
-        when(mailDispatcher.sendEmailWithAttachments(isNull(), any(String.class),
+        when(mailDispatcher.sendEmailWithAttachmentsKeepalive(isNull(), any(String.class),
           any(String.class), any(String.class), anyMap())).thenReturn(mailDispatchMonitor);
+        when(mailDispatcher.getTransport()).thenReturn(transport);
         when(query.setParameter(any(String.class), any())).thenReturn(query);
         when(query.list()).thenReturn(ids);
 
@@ -242,8 +245,9 @@ public class MailingResourceTest {
         // THEN
         verify(sessionFactory, times(1)).openSession();
         verify(session, times(1)).close();
-        verify(mailDispatcher, times(1)).sendEmailWithAttachments(isNull(), any(String.class),
-          any(String.class), any(String.class), anyMap());
+        verify(mailDispatcher, times(2)).sendEmailWithAttachmentsKeepalive(isNull(),
+          any(String.class), any(String.class), any(String.class), anyMap());
+        verify(transport, times(1)).close();
     }
 
     private void prepareSession() {
