@@ -93,25 +93,30 @@ package de.tarent.commons.spreadsheet.export.csv;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.*;
-
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class CSVDocument implements SpreadSheet {
     protected Properties properties = new Properties();
 
     List rows;
     List currentRow;
 
-    public void setProperty(String key, String value) throws IOException {
+    public void setProperty(String key, String value) {
         properties.setProperty(key, value);
     }
 
-    public String getProperty(String key) throws IOException {
+    public String getProperty(String key) {
         return properties.getProperty(key);
     }
 
@@ -123,7 +128,7 @@ public class CSVDocument implements SpreadSheet {
         return "csv";
     }
 
-    public void init() throws IOException {
+    public void init() {
     }
 
     public void save(OutputStream outputStream) throws IOException {
