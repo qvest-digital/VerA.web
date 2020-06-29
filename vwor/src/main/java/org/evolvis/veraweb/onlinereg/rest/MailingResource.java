@@ -96,6 +96,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.val;
+import lombok.var;
 import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
@@ -240,7 +241,13 @@ public class MailingResource extends FormDataResource {
                 ++badRecipients;
                 continue;
             }
-            val addresses = recipientAddresses.asAddressList();
+            var addresses = recipientAddresses.asAddressList();
+            if (addresses == null && orgAddresses.indexOf(';') != -1) {
+                val semicolonHack = org.evolvis.tartools.rfc822.Path.of(orgAddresses.replace(';', ','));
+                if (semicolonHack != null) {
+                    addresses = semicolonHack.asMailboxList();
+                }
+            }
             if (addresses == null) {
                 logger.error("email address cannot be parsed: " + orgAddresses);
                 sb.append(FRONTEND_ERRMSG_PFX).append(tt(orgAddresses)).append("\n\n");
@@ -268,7 +275,7 @@ public class MailingResource extends FormDataResource {
                 if (!addrspec.isValid()) {
                     logger.error("email address " + address + " is invalid: " + orgAddresses);
                     sb.append(FRONTEND_ERRMSG_PFX).append(tt(address)).
-                      append(" of ").append(tt(orgAddresses)).append("\n\n");
+                      append(" ⇐ ").append(tt(orgAddresses)).append("\n\n");
                     ++badAddresses;
                     continue;
                 }
@@ -279,7 +286,7 @@ public class MailingResource extends FormDataResource {
                 } catch (AddressException e) {
                     logger.error("email address " + address + " was not accepted: " + orgAddresses, e);
                     sb.append(FRONTEND_ERRMSG_PFX).append(tt(address)).
-                      append(" of ").append(tt(orgAddresses)).append("\n\n");
+                      append(" ⚠ ").append(tt(orgAddresses)).append("\n\n");
                     ++badAddresses;
                 }
             }
