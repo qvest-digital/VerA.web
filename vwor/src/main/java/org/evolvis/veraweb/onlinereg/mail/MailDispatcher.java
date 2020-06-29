@@ -179,7 +179,9 @@ public class MailDispatcher {
         MailDispatchMonitor monitor = new MailDispatchMonitor();
         transport.addConnectionListener(monitor);
         transport.addTransportListener(monitor);
-        transport.connect(host, username, password);
+        if (!transport.isConnected()) {
+            transport.connect(host, username, password);
+        }
         transport.sendMessage(message, message.getAllRecipients());
         return monitor;
     }
