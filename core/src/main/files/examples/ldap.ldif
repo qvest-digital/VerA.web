@@ -76,7 +76,7 @@ objectClass: top
 objectClass: person
 objectClass: posixAccount
 objectClass: shadowAccount
-loginShell: /bin/bash
+loginShell: /bin/mksh
 homeDirectory: /home/lesenEingeschraenkt
 userPassword: veraweb
 
@@ -91,7 +91,7 @@ objectClass: top
 objectClass: person
 objectClass: posixAccount
 objectClass: shadowAccount
-loginShell: /bin/bash
+loginShell: /bin/mksh
 homeDirectory: /home/lesenUneingeschraenkt
 userPassword: veraweb
 
@@ -106,7 +106,7 @@ objectClass: top
 objectClass: person
 objectClass: posixAccount
 objectClass: shadowAccount
-loginShell: /bin/bash
+loginShell: /bin/mksh
 homeDirectory: /home/lesenUndSchreibenEingeschraenkt
 userPassword: veraweb
 
@@ -121,7 +121,7 @@ objectClass: top
 objectClass: person
 objectClass: posixAccount
 objectClass: shadowAccount
-loginShell: /bin/bash
+loginShell: /bin/mksh
 homeDirectory: /home/lesenUndSchreiben
 userPassword: veraweb
 
@@ -136,7 +136,7 @@ objectClass: top
 objectClass: person
 objectClass: posixAccount
 objectClass: shadowAccount
-loginShell: /bin/bash
+loginShell: /bin/mksh
 homeDirectory: /home/mandantAdministrieren
 userPassword: veraweb
 
@@ -151,6 +151,6 @@ objectClass: top
 objectClass: person
 objectClass: posixAccount
 objectClass: shadowAccount
-loginShell: /bin/bash
+loginShell: /bin/mksh
 homeDirectory: /home/administrator
 userPassword: veraweb
