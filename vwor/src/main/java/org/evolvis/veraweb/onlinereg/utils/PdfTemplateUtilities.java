@@ -93,7 +93,6 @@ package org.evolvis.veraweb.onlinereg.utils;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.apache.commons.lang3.StringUtils;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 
 import java.util.ArrayList;
@@ -115,7 +114,6 @@ import java.util.List;
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 public class PdfTemplateUtilities {
-
     private final Person person;
 
     public PdfTemplateUtilities(Person person) {
@@ -138,7 +136,7 @@ public class PdfTemplateUtilities {
             salutationCompleteComponents.add(person.getLastname_a_e1());
         }
 
-        return StringUtils.join(salutationCompleteComponents, " ");
+        return String.join(" ", salutationCompleteComponents);
     }
 
     public String getSalutationCompleteTwo() {
@@ -151,17 +149,16 @@ public class PdfTemplateUtilities {
             salutationCompleteTwo.add(person.getSuffix1_a_e1());
         }
 
-        return StringUtils.join(salutationCompleteTwo, ", ");
+        return String.join(", ", salutationCompleteTwo);
     }
 
     public String getEnvelopeOne() {
-
         final List<String> envelopeOne = new ArrayList<>();
+        final String salutationComplete = getSalutationCompleteOne();
         if (person.getFunction_a_e1() != null && !person.getFunction_a_e1().equals("")) {
             envelopeOne.add(person.getFunction_a_e1());
         }
 
-        final String salutationComplete = getSalutationCompleteOne();
         if (salutationComplete != null && !salutationComplete.equals("")) {
             envelopeOne.add(salutationComplete);
         }
@@ -175,14 +172,14 @@ public class PdfTemplateUtilities {
         }
 
         String zipCodeAndCity = getZipCodeAndCity(person);
-        if (zipCodeAndCity != null && !zipCodeAndCity.equals("")) {
+        if (!zipCodeAndCity.equals("")) {
             envelopeOne.add(zipCodeAndCity);
         }
         if (person.getCountry_a_e1() != null && !person.getCountry_a_e1().equals("")) {
             envelopeOne.add(person.getCountry_a_e1());
         }
 
-        return StringUtils.join(envelopeOne, "\n");
+        return String.join("\n", envelopeOne);
     }
 
     private String getZipCodeAndCity(Person person) {
@@ -193,6 +190,6 @@ public class PdfTemplateUtilities {
         if (person.getCity_a_e1() != null && !person.getCity_a_e1().equals("")) {
             zipCodeAndCity.add(person.getCity_a_e1());
         }
-        return StringUtils.join(zipCodeAndCity, " ");
+        return String.join(" ", zipCodeAndCity);
     }
 }
