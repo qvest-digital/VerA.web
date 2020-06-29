@@ -129,7 +129,7 @@ public class CSVDocument implements SpreadSheet {
     }
 
     public void save(final OutputStream outputStream) {
-        val wr = new CSVFileWriter(outputStream, ';', '"');
+        val wr = new CSVFileWriter(outputStream);
         for (val row : rows) {
             wr.writeFields((List) row);
         }
