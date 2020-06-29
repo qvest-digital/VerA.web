@@ -290,7 +290,7 @@ public class MailingResource extends FormDataResource {
             "%d addresses (%d duplicates skipped, not sent to %d bad addresses)",
           members, badRecipients, mailboxen, duplicates, badAddresses));
 
-        return new SendResult(badAddresses == 0, sb.toString());
+        return new SendResult(badRecipients == 0 && badAddresses == 0, sb.toString());
     }
 
     private String getFrom(PersonMailinglist recipient) {
