@@ -151,12 +151,12 @@
 				$(".errormsg").remove();
 				if (response.status === 400) {
 					var arr = response.responseText.split("\n");
-					var text = V_errorMsgAddress + "<br><br>";
+					var text = "<p>" + V_errorMsgAddress + "</p>";
 					for (i = 0; i < arr.length; i++) {
 						var syntax = arr[i].indexOf("ADDRESS_SYNTAX_NOT_CORRECT:");
 						if (syntax != -1) {
 							var mail = arr[i].indexOf(":");
-							text += arr[i].substring(mail + 1) + "<br>";
+							text += "<p>" + arr[i].substring(mail + 1) + "</p>";
 						}
 					}
 					showWarning(text);
