@@ -95,6 +95,7 @@ package de.tarent.commons.spreadsheet.export.csv;
 
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import lombok.val;
+import org.evolvis.tartools.csvfile.CSVFile;
 import org.evolvis.tartools.csvfile.CSVFileWriter;
 
 import java.io.OutputStream;
@@ -130,6 +131,7 @@ public class CSVDocument implements SpreadSheet {
 
     public void save(final OutputStream outputStream) {
         val wr = new CSVFileWriter(outputStream);
+        wr.setRowSeparator(CSVFile.CRLF);
         for (val row : rows) {
             wr.writeFields((List) row);
         }

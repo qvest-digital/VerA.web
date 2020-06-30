@@ -403,13 +403,16 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     //
     // geschützte Membervariablen
     //
+
     /**
      * CSV-Eingabe-Objekt
      */
     CSVFileReader csvReader = null;
+
     /**
      * Header-Felder
      */
     List headers = null;
+
     final static Class[] ONE_LONG = new Class[] { Long.TYPE };
 }

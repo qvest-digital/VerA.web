@@ -104,6 +104,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import lombok.extern.log4j.Log4j2;
+import org.evolvis.tartools.csvfile.CSVFile;
 import org.evolvis.tartools.csvfile.CSVFileWriter;
 
 import java.io.IOException;
@@ -120,6 +121,7 @@ import java.util.Map;
  *
  * @author mikel
  */
+@SuppressWarnings("rawtypes")
 @Log4j2
 public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     /**
@@ -135,7 +137,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
      * @param person {@link Person}-Bean
      * @see de.tarent.aa.veraweb.utils.Exporter#exportPerson(de.tarent.aa.veraweb.beans.Person)
      */
-    public void exportPerson(Person person) throws BeanException, IOException {
+    public void exportPerson(Person person) {
         assert csvFieldNames != null;
         assert fieldMapping != null;
         assert csvWriter != null;
@@ -183,10 +185,9 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
      * Diese Methode wird zum Ende eines Exports aufgerufen. In ihr kann etwa das bisher gesammelte Dokument
      * festgeschrieben werden.
      *
-     * @throws IOException FIXME
      * @see de.tarent.aa.veraweb.utils.Exporter#endExport()
      */
-    public void endExport() throws IOException {
+    public void endExport() {
         assert csvWriter != null;
         csvWriter.close();
     }
@@ -198,11 +199,12 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     /**
      * Diese Methode initialisiert den internen {@link CSVFileWriter}.
      */
-    void initWriter() throws IOException {
+    void initWriter() {
         assert exchangeFormat != null;
         assert outputStream != null;
         Writer writer = new OutputStreamWriter(outputStream, fileEncoding);
         csvWriter = new CSVFileWriter(writer, fieldSeparator, textQualifier);
+        csvWriter.setRowSeparator(CSVFile.CRLF);
     }
 
     /**
@@ -221,6 +223,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     /**
      * Diese Klasse setzt die {@link Entity}-Facade für {@link Person}-Instanzen um.
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     class PersonEntity implements Entity {
         //
         // Schnittstelle Entity
@@ -357,6 +360,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     //
     // geschützte Membervariablen
     //
+
     /**
      * CSV-Ausgabe-Objekt
      */
