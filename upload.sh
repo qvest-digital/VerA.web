@@ -61,12 +61,6 @@ function tgtck {
 	(po)
 		hostbase=veraweb-po.lan.tarent.de
 		;;
-	(thense)
-		hostbase=veraweb-thense.lan.tarent.de
-		;;
-	(stadtmuenchen)
-		hostbase=veraweb-stadtmuenchen.lan.tarent.de
-		;;
 	(*)
 		set +x
 		local stages=$(typeset -f tgtck | sed -n \
