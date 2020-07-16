@@ -255,7 +255,7 @@ public class PdfTemplateResource extends FormDataResource {
         final String basename = TMPFILE_PFX + new Date().getTime();
         final File dstfile = File.createTempFile(basename + "." + UUID.randomUUID().toString() + ".", TMPFILE_EXT);
         generateFromTemplate(dstfile, people, pdfTemplateId);
-        return Response.ok(dstfile).header("Content-Disposition",
+        return Response.ok(dstfile).header(Constants.HDR_CONT_DISP,
           "attachment; filename=\"" + basename + TMPFILE_EXT + "\"").build();
     }
 
@@ -320,7 +320,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
         if (name == null || name.trim().equals("")) {
-            return Response.status(Constants.HTTP_PRECONDITION_FAILED).build();
+            return Response.status(Status.PRECONDITION_FAILED).build();
         } else {
             try {
                 final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);

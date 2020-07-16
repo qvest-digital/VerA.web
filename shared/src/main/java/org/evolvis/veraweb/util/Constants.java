@@ -103,6 +103,11 @@ public class Constants {
     public static final String EXTENSION_JPG = "jpg";
 
     /**
+     * Headers
+     */
+    public static final String HDR_CONT_DISP = "Content-Disposition";
+
+    /**
      * Content types
      */
     public static final String CONTENT_TYPE_CSV = "text/csv";
@@ -112,8 +117,6 @@ public class Constants {
     /**
      * HTTP status codes
      */
-    public static final Integer HTTP_OK = 200;
-    public static final Integer HTTP_PRECONDITION_FAILED = 414;
     public static final Integer HTTP_POLICY_NOT_FULFILLED = 420;
 
     private Constants() {

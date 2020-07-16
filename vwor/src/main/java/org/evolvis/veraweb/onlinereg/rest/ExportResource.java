@@ -193,7 +193,7 @@ public class ExportResource extends AbstractResource {
             writer.flush();
         };
 
-        return Response.ok(stream).header("Content-Disposition",
+        return Response.ok(stream).header(Constants.HDR_CONT_DISP,
           "attachment; filename=\"" + downloadFilename + "\"").build();
     }
 

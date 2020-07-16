@@ -157,7 +157,7 @@ vex.defaultOptions.className = 'vex-theme-default';
                 $(".successmsg").remove();
                 if (response.status === 420) {
                     showWarning('$errorMsgFile');
-                } else if (response.status === 414) {
+                } else if (response.status === 412) {
                         showWarning('$errorMsgEmpty');
                 } else {
                                         showWarning('$errorMsg');

@@ -189,7 +189,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithFile(multipart);
 
         then:
-        assert result.status == Constants.HTTP_PRECONDITION_FAILED
+        assert result.status == Response.Status.PRECONDITION_FAILED.getStatusCode()
     }
 
     void testCreatePdfTemplateWithFileNameIsNull() {
@@ -202,7 +202,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithFile(multipart);
 
         then:
-        assert result.status == Constants.HTTP_PRECONDITION_FAILED
+        assert result.status == Response.Status.PRECONDITION_FAILED.getStatusCode()
     }
 
     //CREATE W/O============================================================================================================
@@ -261,7 +261,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithFile(multipart);
 
         then:
-        assert result.status == Constants.HTTP_PRECONDITION_FAILED
+        assert result.status == Response.Status.PRECONDITION_FAILED.getStatusCode()
     }
 
     void testEditPdfTemplateWithFileNameIsNull() {
@@ -274,7 +274,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithFile(multipart);
 
         then:
-        assert result.status == Constants.HTTP_PRECONDITION_FAILED
+        assert result.status == Response.Status.PRECONDITION_FAILED.getStatusCode()
     }
 
     //EDIT W/O==============================================================================================================
@@ -303,7 +303,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(1, "", 1);
 
         then:
-        assert result.status == Constants.HTTP_PRECONDITION_FAILED
+        assert result.status == Response.Status.PRECONDITION_FAILED.getStatusCode()
     }
 
     void testEditPdfTemplateWithoutFileNameIsNull() {
@@ -311,7 +311,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(1, null, 1);
 
         then:
-        assert result.status == Constants.HTTP_PRECONDITION_FAILED
+        assert result.status == Response.Status.PRECONDITION_FAILED.getStatusCode()
     }
 
     //DELETE================================================================================================================
