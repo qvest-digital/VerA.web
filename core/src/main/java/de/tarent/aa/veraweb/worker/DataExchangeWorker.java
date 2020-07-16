@@ -123,6 +123,7 @@ import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
 import lombok.extern.log4j.Log4j2;
+import lombok.val;
 
 import java.io.BufferedInputStream;
 import java.io.CharArrayWriter;
@@ -145,6 +146,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Diese Klasse stellt einen Octopus-Worker für den Im- und Export von
@@ -383,8 +385,15 @@ public class DataExchangeWorker {
             }
         }).start();
 
-        return createBinaryResponse(getFilename(cntx, format), format.getMimeType(), pis);
+        val contentType = REMOVE_CHARSET_FROM_CONTENT_TYPE.matcher(format.getMimeType()).replaceAll("") +
+          "; charset=\"" + ocs.name() + "\"";
+
+        return createBinaryResponse(getFilename(cntx, format), contentType, pis);
     }
+
+    private static final Pattern REMOVE_CHARSET_FROM_CONTENT_TYPE = Pattern.compile("\\s*;\\s*charset\\s*=" +
+        "(?:\\s*(?:\"(?:\\\\.|[^\"\\\\])*(?:\"|\\z)|'(?:\\\\.|[^'\\\\])*('|\\Z)|[^\"';]*))*(?=;|\\z)",
+      Pattern.CASE_INSENSITIVE);
 
     /**
      * Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
