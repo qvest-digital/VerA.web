@@ -110,7 +110,7 @@ public class Constants {
     /**
      * Content types
      */
-    public static final String CONTENT_TYPE_CSV = "text/csv";
+    public static final String CONTENT_TYPE_CSV = "text/csv; charset=utf-8";
     public static final String CONTENT_TYPE_HTML = "text/html; charset=utf-8";
     public static final String CONTENT_TYPE_PDF = "application/pdf";
 

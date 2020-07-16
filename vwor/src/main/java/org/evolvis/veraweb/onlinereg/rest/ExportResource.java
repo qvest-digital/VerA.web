@@ -122,6 +122,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -178,14 +179,14 @@ public class ExportResource extends AbstractResource {
           .forEach(key -> filterSettings.put(key, params.getFirst(key)));
 
         final InputStream configFileAsStream = getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
-        final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
+        final Reader reader = new InputStreamReader(configFileAsStream, StandardCharsets.UTF_8);
         final Map<String, String> substitutions = new HashMap<>();
         substitutions.put(CONFIG_PLACEHOLDER, String.valueOf(eventId));
 
         addOptionalFieldsSubstitutions(eventId, substitutions);
 
         StreamingOutput stream = os -> {
-            final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
+            final Writer writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
             final CsvExporter csvExporter = new CsvExporter(reader, new KeepOpenWriter(writer), dataSource, properties, selList);
 
             csvExporter.export(substitutions, filterSettings);
