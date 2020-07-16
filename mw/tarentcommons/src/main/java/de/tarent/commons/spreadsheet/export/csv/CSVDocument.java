@@ -97,6 +97,7 @@ import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import lombok.val;
 import org.evolvis.tartools.csvfile.CSVFile;
 import org.evolvis.tartools.csvfile.CSVFileWriter;
+import org.evolvis.veraweb.Constants;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -119,7 +120,8 @@ public class CSVDocument implements SpreadSheet {
     }
 
     public String getContentType() {
-        return "text/comma-separated-values";
+        // note this includes UTF-8 encoding (see save() below)
+        return Constants.CONTENT_TYPE_CSV;
     }
 
     public String getFileExtension() {
@@ -130,6 +132,7 @@ public class CSVDocument implements SpreadSheet {
     }
 
     public void save(final OutputStream outputStream) {
+        // note wr is created using UTF-8 encoding (see above)
         val wr = new CSVFileWriter(outputStream);
         wr.setRowSeparator(CSVFile.CRLF);
         for (val row : rows) {
