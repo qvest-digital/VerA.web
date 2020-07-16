@@ -93,12 +93,12 @@ package org.evolvis.veraweb.onlinereg.rest;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import org.evolvis.veraweb.Constants;
 import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.export.CsvExporter;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
-import org.evolvis.veraweb.Constants;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -120,7 +120,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -159,7 +158,7 @@ public class ExportResource extends AbstractResource {
     public Response getGuestList(@PathParam("eventId") final int eventId,
       MultivaluedMap<String, String> params,
       @FormParam("selectedFields[]") List<String> selList)
-      throws NamingException, UnsupportedEncodingException {
+      throws NamingException {
         final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
