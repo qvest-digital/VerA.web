@@ -76,9 +76,11 @@
 			 - "importerClass": "de.tarent.aa.veraweb.utils.GenericCSVImporter".
 			 - "properties": folgende spezifische Eigenschaften kennen diese Klassen:
 				- "fieldSeparator": das Spaltentrennzeichen in der CSV-Datei; zum Beispiel ";".
+				  Wird nur beim Import benutzt; Export ist immer ",".
 				- "textQualifier": das Anführungszeichen in der CSV-Datei, mit dem Feldinhalte
 				  eingeschlossen sind, die Spaltentrennzeichen oder Zeilenumbrüche enthalten;
 				  zum Beispiel "&quot;".
+				  Wird nur beim Import benutzt; Export ist immer '"'.
 				- "dateFormat": das Format, in dem Datumsangaben (also Inhalte von Feldern vom
 				  Typ Date, Time, Timestamp etc.) exportiert bzw. bei einem Import erwartet
 				  werden; zum Beispiel "dd.MM.yyyy". Eine ausführliche Beschreibung der

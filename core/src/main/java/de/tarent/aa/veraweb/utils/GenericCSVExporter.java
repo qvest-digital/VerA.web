@@ -109,7 +109,6 @@ import org.evolvis.tartools.csvfile.CSVFileWriter;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -202,8 +201,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     void initWriter() {
         assert exchangeFormat != null;
         assert outputStream != null;
-        Writer writer = new OutputStreamWriter(outputStream, fileEncoding);
-        csvWriter = new CSVFileWriter(writer, fieldSeparator, textQualifier);
+        csvWriter = new CSVFileWriter(new OutputStreamWriter(outputStream, fileEncoding));
         csvWriter.setRowSeparator(CSVFile.CRLF);
     }
 
