@@ -109,6 +109,7 @@ import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
 import junit.framework.TestCase;
+import org.evolvis.veraweb.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -167,7 +168,7 @@ public class GenericCSVExporterTest extends TestCase {
         configuration.put("name", "CSV");
         configuration.put("description", "Comma-Separated-Values");
         configuration.put("defaultExtension", ".csv");
-        configuration.put("mimeType", "text/csv");
+        configuration.put("mimeType", Constants.CONTENT_TYPE_CSV);
         //configuration.put("icon", "");
         configuration.put("exporterClass", "de.tarent.aa.veraweb.utils.GenericCSVExporter");
         configuration.put("importerClass", "de.tarent.aa.veraweb.utils.GenericCSVImporter");
