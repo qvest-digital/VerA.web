@@ -96,7 +96,6 @@ package org.evolvis.veraweb.onlinereg.rest;
 import org.evolvis.veraweb.common.RestPaths;
 import org.evolvis.veraweb.onlinereg.entities.Salutation;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
-import org.evolvis.veraweb.util.Constants;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -203,7 +202,7 @@ public class SalutationAlternativeResource extends AbstractResource {
         if (pdftemplateId == null || salutationId == null || "".equals(content)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else if (content.length() > MAX_SALUTATION_LENGTH) {
-            return Response.status(Constants.HTTP_POLICY_NOT_FULFILLED).build();
+            return Response.status(Response.Status.PRECONDITION_REQUIRED).build();
         }
 
         final Session session = openSession();

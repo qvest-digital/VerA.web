@@ -96,7 +96,6 @@ import org.apache.commons.io.output.ByteArrayOutputStream
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate
 import org.evolvis.veraweb.onlinereg.entities.Person
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative
-import org.evolvis.veraweb.util.Constants
 import org.glassfish.jersey.media.multipart.BodyPartEntity
 import org.glassfish.jersey.media.multipart.FormDataBodyPart
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition
@@ -211,7 +210,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(null, "name", 1);
 
         then:
-        assert result.status == Constants.HTTP_POLICY_NOT_FULFILLED
+        assert result.status == Response.Status.PRECONDITION_REQUIRED.getStatusCode()
     }
 
     void testCreatePdfTemplateWithoutFileEmptyStringName() {
@@ -219,7 +218,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(null, "", 1);
 
         then:
-        assert result.status == Constants.HTTP_POLICY_NOT_FULFILLED
+        assert result.status == Response.Status.PRECONDITION_REQUIRED.getStatusCode()
     }
 
     void testCreatePdfTemplateWithoutFileNameIsNull() {
@@ -227,7 +226,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(null, null, 1);
 
         then:
-        assert result.status == Constants.HTTP_POLICY_NOT_FULFILLED
+        assert result.status == Response.Status.PRECONDITION_REQUIRED.getStatusCode()
     }
 
     //EDIT WITH=============================================================================================================

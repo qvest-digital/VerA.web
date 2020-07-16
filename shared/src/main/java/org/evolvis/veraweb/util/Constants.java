@@ -114,11 +114,6 @@ public class Constants {
     public static final String CONTENT_TYPE_HTML = "text/html; charset=utf-8";
     public static final String CONTENT_TYPE_PDF = "application/pdf";
 
-    /**
-     * HTTP status codes
-     */
-    public static final Integer HTTP_POLICY_NOT_FULFILLED = 420;
-
     private Constants() {
     }
 }

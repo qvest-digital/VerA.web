@@ -191,7 +191,7 @@ public class PdfTemplateResource extends FormDataResource {
         //catch when id is null (create new template) and content is null(which is implicit because of @consumes)
         if (id == null) {
             //create: without content
-            return Response.status(Constants.HTTP_POLICY_NOT_FULFILLED).build();
+            return Response.status(Status.PRECONDITION_REQUIRED).build();
         }
         //update: name
         return editPdfTemplate(id, name, mandantId, null);
