@@ -96,7 +96,7 @@ import org.apache.commons.io.output.ByteArrayOutputStream
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate
 import org.evolvis.veraweb.onlinereg.entities.Person
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative
-import org.evolvis.veraweb.onlinereg.utils.VworConstants
+import org.evolvis.veraweb.util.Constants
 import org.glassfish.jersey.media.multipart.BodyPartEntity
 import org.glassfish.jersey.media.multipart.FormDataBodyPart
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition
@@ -189,7 +189,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithFile(multipart);
 
         then:
-        assert result.status == VworConstants.HTTP_PRECONDITION_FAILED
+        assert result.status == Constants.HTTP_PRECONDITION_FAILED
     }
 
     void testCreatePdfTemplateWithFileNameIsNull() {
@@ -202,7 +202,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithFile(multipart);
 
         then:
-        assert result.status == VworConstants.HTTP_PRECONDITION_FAILED
+        assert result.status == Constants.HTTP_PRECONDITION_FAILED
     }
 
     //CREATE W/O============================================================================================================
@@ -211,7 +211,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(null, "name", 1);
 
         then:
-        assert result.status == VworConstants.HTTP_POLICY_NOT_FULFILLED
+        assert result.status == Constants.HTTP_POLICY_NOT_FULFILLED
     }
 
     void testCreatePdfTemplateWithoutFileEmptyStringName() {
@@ -219,7 +219,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(null, "", 1);
 
         then:
-        assert result.status == VworConstants.HTTP_POLICY_NOT_FULFILLED
+        assert result.status == Constants.HTTP_POLICY_NOT_FULFILLED
     }
 
     void testCreatePdfTemplateWithoutFileNameIsNull() {
@@ -227,7 +227,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(null, null, 1);
 
         then:
-        assert result.status == VworConstants.HTTP_POLICY_NOT_FULFILLED
+        assert result.status == Constants.HTTP_POLICY_NOT_FULFILLED
     }
 
     //EDIT WITH=============================================================================================================
@@ -261,7 +261,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithFile(multipart);
 
         then:
-        assert result.status == VworConstants.HTTP_PRECONDITION_FAILED
+        assert result.status == Constants.HTTP_PRECONDITION_FAILED
     }
 
     void testEditPdfTemplateWithFileNameIsNull() {
@@ -274,7 +274,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithFile(multipart);
 
         then:
-        assert result.status == VworConstants.HTTP_PRECONDITION_FAILED
+        assert result.status == Constants.HTTP_PRECONDITION_FAILED
     }
 
     //EDIT W/O==============================================================================================================
@@ -303,7 +303,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(1, "", 1);
 
         then:
-        assert result.status == VworConstants.HTTP_PRECONDITION_FAILED
+        assert result.status == Constants.HTTP_PRECONDITION_FAILED
     }
 
     void testEditPdfTemplateWithoutFileNameIsNull() {
@@ -311,7 +311,7 @@ class PdfTemplateResourceTest extends Specification {
         def result = resource.editPdfTemplateWithoutFile(1, null, 1);
 
         then:
-        assert result.status == VworConstants.HTTP_PRECONDITION_FAILED
+        assert result.status == Constants.HTTP_PRECONDITION_FAILED
     }
 
     //DELETE================================================================================================================

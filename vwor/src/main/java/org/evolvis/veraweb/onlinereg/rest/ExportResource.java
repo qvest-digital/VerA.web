@@ -98,7 +98,7 @@ import org.evolvis.veraweb.export.CsvExporter;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
-import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import org.evolvis.veraweb.util.Constants;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -133,7 +133,7 @@ import java.util.Properties;
  * Created by mweier on 23.03.16.
  */
 @Path(RestPaths.REST_EXPORT)
-@Produces(VworConstants.TEXT_CSV_CONTENT_TYPE)
+@Produces(Constants.CONTENT_TYPE_CSV)
 public class ExportResource extends AbstractResource {
     @javax.ws.rs.core.Context
     ResourceContext resourceContext;
@@ -193,8 +193,8 @@ public class ExportResource extends AbstractResource {
             writer.flush();
         };
 
-        return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode")
-          .build();
+        return Response.ok(stream).header("Content-Disposition",
+          "attachment; filename=\"" + downloadFilename + "\"").build();
     }
 
     private void addOptionalFieldsSubstitutions(@PathParam("eventId") int eventId, Map<String, String> substitutions) {

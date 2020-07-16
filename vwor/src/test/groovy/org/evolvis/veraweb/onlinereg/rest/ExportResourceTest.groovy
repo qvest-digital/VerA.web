@@ -95,7 +95,7 @@ package org.evolvis.veraweb.onlinereg.rest
 import org.evolvis.veraweb.export.ValidExportFilter
 import org.evolvis.veraweb.onlinereg.entities.Event
 import org.evolvis.veraweb.onlinereg.entities.OptionalField
-import org.evolvis.veraweb.onlinereg.utils.VworConstants
+import org.evolvis.veraweb.util.Constants
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.Transaction
@@ -157,7 +157,7 @@ class ExportResourceTest extends Specification {
         Response response = exportResource.getGuestList(1, formParameters, [])
 
         then:
-        assert response.status == VworConstants.HTTP_OK
+        assert response.status == Constants.HTTP_OK
         session != null
         1 * session.close()
     }
@@ -172,7 +172,7 @@ class ExportResourceTest extends Specification {
         Response response = exportResource.getGuestList(1, formParameters, [])
 
         then:
-        assert response.status == VworConstants.HTTP_OK
+        assert response.status == Constants.HTTP_OK
         session != null
         1 * session.close()
 

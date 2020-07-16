@@ -107,7 +107,7 @@ import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.evolvis.veraweb.onlinereg.utils.PdfTemplateUtilities;
-import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import org.evolvis.veraweb.util.Constants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -152,7 +152,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     @POST
     @Path(RestPaths.REST_PDFTEMPLATE_EDIT)
-    @Consumes({ MediaType.MULTIPART_FORM_DATA })
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response editPdfTemplateWithFile(FormDataMultiPart data) {
         Integer id = null;
         if (!data.getField("pdftemplate-id").getValue().isEmpty()) {
@@ -191,7 +191,7 @@ public class PdfTemplateResource extends FormDataResource {
         //catch when id is null (create new template) and content is null(which is implicit because of @consumes)
         if (id == null) {
             //create: without content
-            return Response.status(VworConstants.HTTP_POLICY_NOT_FULFILLED).build();
+            return Response.status(Constants.HTTP_POLICY_NOT_FULFILLED).build();
         }
         //update: name
         return editPdfTemplate(id, name, mandantId, null);
@@ -238,7 +238,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     @GET
     @Path(RestPaths.REST_PDFTEMPLATE_EXPORT)
-    @Produces({ VworConstants.APPLICATION_PDF_CONTENT_TYPE })
+    @Produces(Constants.CONTENT_TYPE_PDF)
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId,
       @QueryParam("eventId") Integer eventId, @javax.ws.rs.core.Context UriInfo ui)
       throws IOException, AutoclosableList.ClosingException {
@@ -255,8 +255,8 @@ public class PdfTemplateResource extends FormDataResource {
         final String basename = TMPFILE_PFX + new Date().getTime();
         final File dstfile = File.createTempFile(basename + "." + UUID.randomUUID().toString() + ".", TMPFILE_EXT);
         generateFromTemplate(dstfile, people, pdfTemplateId);
-        return Response.ok(dstfile).header("Content-Disposition", /* WTF‽ Unicode? A binary PDF? */
-          "attachment;filename=" + basename + TMPFILE_EXT + ";charset=Unicode").build();
+        return Response.ok(dstfile).header("Content-Disposition",
+          "attachment; filename=\"" + basename + TMPFILE_EXT + "\"").build();
     }
 
     private void generateFromTemplate(final File dstfile, final List<Person> people, final Integer pdfTemplateId)
@@ -320,7 +320,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
         if (name == null || name.trim().equals("")) {
-            return Response.status(VworConstants.HTTP_PRECONDITION_FAILED).build();
+            return Response.status(Constants.HTTP_PRECONDITION_FAILED).build();
         } else {
             try {
                 final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);

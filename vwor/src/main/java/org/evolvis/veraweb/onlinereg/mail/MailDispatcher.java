@@ -93,7 +93,7 @@ package org.evolvis.veraweb.onlinereg.mail;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import org.evolvis.veraweb.util.Constants;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -155,7 +155,7 @@ public class MailDispatcher {
       final String link) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
         final Message message;
-        message = getMessage(session, from, to, subject, emailContent, VworConstants.HTML_CONTENT_TYPE);
+        message = getMessage(session, from, to, subject, emailContent, Constants.CONTENT_TYPE_HTML);
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
@@ -195,7 +195,7 @@ public class MailDispatcher {
 
     private MimeBodyPart getMessageBody(String emailContent) throws MessagingException {
         final MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent(emailContent, VworConstants.HTML_CONTENT_TYPE);
+        messageBodyPart.setContent(emailContent, Constants.CONTENT_TYPE_HTML);
         return messageBodyPart;
     }
 

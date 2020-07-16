@@ -95,7 +95,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import lombok.extern.log4j.Log4j2;
 import org.evolvis.veraweb.common.RestPaths;
-import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import org.evolvis.veraweb.util.Constants;
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
 import javax.imageio.IIOImage;
@@ -148,12 +148,12 @@ public class FileUploadResource extends AbstractResource {
         final byte[] imageBytes = Base64.getMimeDecoder().decode(imageStringData);
         final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
 
-        if (!extension.equals(VworConstants.EXTENSION_JPG)) {
+        if (!extension.equals(Constants.EXTENSION_JPG)) {
             BufferedImage pngImage = ImageIO.read(byteArrayInputStream);
             final BufferedImage jpgImage = new BufferedImage(pngImage.getWidth(), pngImage.getHeight(),
               BufferedImage.TYPE_INT_RGB);
             jpgImage.createGraphics().drawImage(pngImage, 0, 0, Color.WHITE, null);
-            ImageIO.write(jpgImage, VworConstants.EXTENSION_JPG, fileToStore);
+            ImageIO.write(jpgImage, Constants.EXTENSION_JPG, fileToStore);
         } else {
             IIOImage image;
 
@@ -169,7 +169,7 @@ public class FileUploadResource extends AbstractResource {
             }
 
             try (ImageOutputStream output = ImageIO.createImageOutputStream(fileToStore)) {
-                ImageWriter writer = ImageIO.getImageWritersByFormatName(VworConstants.EXTENSION_JPG).next();
+                ImageWriter writer = ImageIO.getImageWritersByFormatName(Constants.EXTENSION_JPG).next();
                 try {
                     ImageWriteParam param = writer.getDefaultWriteParam();
                     param.setCompressionMode(ImageWriteParam.MODE_COPY_FROM_METADATA);
@@ -213,6 +213,6 @@ public class FileUploadResource extends AbstractResource {
         } else {
             filesLocation = "/tmp/";
         }
-        return new File(filesLocation + imgUUID + "." + VworConstants.EXTENSION_JPG);
+        return new File(filesLocation + imgUUID + "." + Constants.EXTENSION_JPG);
     }
 }
