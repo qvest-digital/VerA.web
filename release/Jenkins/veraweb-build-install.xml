@@ -47,9 +47,7 @@
               <string>ohne</string>
               <string>mit</string>
               <string>po</string>
-              <string>thense</string>
               <string>(keine)</string>
-              <string>stadtmuenchen</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
