@@ -82,6 +82,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>octopus-base</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
 		</dependency>
 		<dependency>

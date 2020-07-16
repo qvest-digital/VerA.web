@@ -23,6 +23,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.evolvis.veraweb.middleware</groupId>
+			<artifactId>octopus-base</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.evolvis.veraweb.middleware</groupId>
 			<artifactId>octopus-core</artifactId>
 			<scope>provided</scope>
 			<exclusions>
