@@ -93,7 +93,7 @@ package org.evolvis.veraweb.onlinereg.mail;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import org.evolvis.veraweb.util.Constants;
+import org.evolvis.veraweb.Constants;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;

@@ -98,7 +98,7 @@ import org.evolvis.veraweb.export.CsvExporter;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
-import org.evolvis.veraweb.util.Constants;
+import org.evolvis.veraweb.Constants;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 

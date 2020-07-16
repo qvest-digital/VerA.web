@@ -1,4 +1,4 @@
-package org.evolvis.veraweb.util;
+package org.evolvis.veraweb;
 
 /*-
  * Veranstaltungsmanagement VerA.web, comprised of…

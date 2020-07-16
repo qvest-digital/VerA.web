@@ -95,7 +95,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import lombok.extern.log4j.Log4j2;
 import org.evolvis.veraweb.common.RestPaths;
-import org.evolvis.veraweb.util.Constants;
+import org.evolvis.veraweb.Constants;
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
 import javax.imageio.IIOImage;
