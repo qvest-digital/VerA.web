@@ -133,6 +133,7 @@ the webbrowser), or in its WAR file, in a released VerA.web version.
 
 The installation documentation is set in Teχ and the Museo Sans
 font, property of exljbris Font Foundry, and licenced to tarent.
+Copyright © 2008, 2010 by Jos Buivenga. All rights reserved.
 Usage other than to read the documentation set in it is not licenced.
 
 The installation documentation and user’s manual both also make use
