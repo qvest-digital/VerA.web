@@ -137,8 +137,75 @@ Usage other than to read the documentation set in it is not licenced.
 
 The installation documentation and user’s manual both also make use
 of other fonts under embeddable licence terms (SIL OFL):
-• Fira Sans
-• Inconsolatazi4varl_qu
+
+┌──┤ Fira Sans (OFLv1.1) ├─────────────────────────────────────────────────┐
+│                                                                          │
+│ Fira Sans Regular 004.301 (4.30099)                                      │
+├──────────────────────────────────────────────────────────────────────────┤
+│ Digitized data copyright 2012-2018, The Mozilla Foundation               │
+│ and Telefonica S.A., bBox Type GmbH and Carrois Corporate GbR,           │
+│ with Reserved Font Name "Fira"                                           │
+│                                                                          │
+│ Fira Sans is a trademark of The Mozilla Corporation.                     │
+│                                                                          │
+│ Manufacturer and Designer:                                               │
+│ bBox Type GmbH & Carrois Corporate GbR & Edenspiekermann AG              │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ Inconsolatazi4varl_qu (OFLv1.1) ├─────────────────────────────────────┐
+│                                                                          │
+│ Inconsolata zi4[varl,varqu] Regular 1.100 (1.10001)                      │
+├──────────────────────────────────────────────────────────────────────────┤
+│ The font family “Inconsolata zi4(varl,varqu)”, as published by the       │
+│ MirOS foundry, collectively is covered by Ⓕ The MirOS Licence plus       │
+│ an embedding exception; more applicable terms are further below.         │
+│ ──────────────────────────────────────────────────────────────────       │
+│ Copyright © 2017                                                         │
+│         mirabilos <m@mirbsd.org>                                         │
+│                                                                          │
+│ Provided that these terms and disclaimer and all copyright notices       │
+│ are retained or reproduced in an accompanying document, permission       │
+│ is granted to deal in this work without restriction, including un‐       │
+│ limited rights to use, publicly perform, distribute, sell, modify,       │
+│ merge, give away, or sublicence.                                         │
+│                                                                          │
+│ This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to       │
+│ the utmost extent permitted by applicable law, neither express nor       │
+│ implied; without malicious intent or gross negligence. In no event       │
+│ may a licensor, author or contributor be held liable for indirect,       │
+│ direct, other damage, loss, or other issues arising in any way out       │
+│ of dealing in the work, even if advised of the possibility of such       │
+│ damage or existence of a defect, except proven that it results out       │
+│ of said person’s immediate fault when using the work as intended.        │
+│                                                                          │
+│ When embedding this font into a document, the document is not con‐       │
+│ sidered a derivative; the requirement to reproduce this licence is       │
+│ explicitly waived only for such documents.                               │
+│ ──────────────────────────────────────────────────────────────────       │
+│ This font family was derived from an Inconsolata variant available       │
+│ in the Debian package texlive-fonts-extra (= 2016.20170123-5) made       │
+│ using https://github.com/khaledhosny/deotfy to inline the ss01 and       │
+│ ss03 tables, creating a “varl,varqu” font, removing remaining GSUB       │
+│ entries, correcting some glyphs and glyph mappings and a few bugs.       │
+│ This note shall also serve as FONTLOG as well as “prominent notice       │
+│ stating that I changed the files”.                                       │
+│                                                                          │
+│ The font family “Inconsolatazi4”, from which this is derived, from       │
+│ Tₑχ/LᴬTᴇΧ, is:                                                           │
+│ Copyright © 2013–2016                                                    │
+│         Michael Sharpe <msharpe@ucsd.edu>                                │
+│ It is covered by the same licence as the respective source:              │
+│                                                                          │
+│ The original “Inconsolata” Regular font version 1.013 is:                │
+│ Copyright © 2006–2012                                                    │
+│         Raph Levien <raph.levien@gmail.com>                              │
+│ It is covered by the SIL Open Font License 1.1 (reproduced below).       │
+│ ──────────────────────────────────────────────────────────────────       │
+│ #include "LICENCE-OFLv1.1.txt"                                           │
+│ ──────────────────────────────────────────────────────────────────       │
+│ For the avoidance of doubt, a̲l̲l̲ licences listed in this text apply       │
+│ to the font file reproducing this information.                           │
+└──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ The documentation makes use of Tₑχ/LᴬTᴇΧ code: (MirBSD) ├─────────────┐
 │                                                                          │
