@@ -139,7 +139,6 @@ The installation documentation and user’s manual both also make use
 of other fonts under embeddable licence terms (SIL OFL):
 • Fira Sans
 • Inconsolatazi4varl_qu
-• Noto Sans Symbols
 
 ┌──┤ The documentation makes use of Tₑχ/LᴬTᴇΧ code: (MirBSD) ├─────────────┐
 │                                                                          │
