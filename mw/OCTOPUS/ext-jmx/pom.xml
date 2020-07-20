@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.evolvis.veraweb.middleware</groupId>
 		<artifactId>octopus-parent</artifactId>
-		<version>2.4-SNAPSHOT</version>
+		<version>2.4</version>
 	</parent>
 	<artifactId>octopus-ext-jmx</artifactId>
 	<packaging>jar</packaging>
