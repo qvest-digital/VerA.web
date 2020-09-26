@@ -41,8 +41,8 @@
 \lstset{moredelim=[is][\color{RoyalPurple}]{【}{】}}%
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{7.8}
-\newcommand{\vwiaversfassungmonat}{Juli}
+\newcommand{\vwiaversfassungnr}{7.9}
+\newcommand{\vwiaversfassungmonat}{September}
 \newcommand{\vwiaversfassungjahr}{2020}
 
 % VerA.web Version
@@ -504,6 +504,10 @@ zum nächsten Neustart) mit dem Befehl \texttt{sudo setenforce 0}, oder
 permanent, indem Sie z.B. auf RHEL und CentOS in der Konfigurationsdatei
 \texttt{/etc/sysconfig/selinux} die Einstellung \texttt{SELINUX=disabled}
 setzen und das System neustarten.
+
+Auf Fedora Linux 34 und höher ist die Deaktivierung nicht mehr möglich.
+Fügen Sie \texttt{selinux=0} zur Kernelkommandozeile hinzu:
+\texttt{sudo grubby --update-kernel=ALL --args=selinux=0}
 
 \section{Installation OpenLDAP und LDAP-Account-Manager}\label{sec:setup-lam}
 
