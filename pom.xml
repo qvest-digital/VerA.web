@@ -120,7 +120,7 @@
 		<hibernate.core.version>5.4.18.Final</hibernate.core.version>
 		<hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
 		<hk2.version>2.6.1</hk2.version>
-		<httpclient.version>4.5.12</httpclient.version>
+		<httpclient.version>4.5.13</httpclient.version>
 		<httpcore.version>4.4.13</httpcore.version>
 		<istack.version>3.0.11</istack.version>
 		<jackson.version>2.11.1</jackson.version>
