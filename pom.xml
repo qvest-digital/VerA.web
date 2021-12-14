@@ -134,7 +134,7 @@
 		<jboss-logging.version>3.4.1.Final</jboss-logging.version>
 		<jersey.version>2.31</jersey.version>
 		<junit.version>4.13</junit.version>
-		<log4j.version>2.13.3</log4j.version>
+		<log4j.version>2.16.0</log4j.version>
 		<lombok.version>1.18.12</lombok.version>
 		<mimepull.version>1.9.13</mimepull.version>
 		<mockito.version>3.3.3</mockito.version>
