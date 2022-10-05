@@ -123,7 +123,7 @@
 		<httpclient.version>4.5.12</httpclient.version>
 		<httpcore.version>4.4.13</httpcore.version>
 		<istack.version>3.0.11</istack.version>
-		<jackson.version>2.11.1</jackson.version>
+		<jackson.version>2.12.6.1</jackson.version>
 		<javassist.version>3.27.0-GA</javassist.version>
 		<javax.el.version>3.0.0</javax.el.version>
 		<javax.mail.version>1.6.5</javax.mail.version>
